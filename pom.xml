@@ -94,6 +94,7 @@
           rice-portal/images/,
           rice-portal/jsp/,
           WEB-INF/tags/rice-portal/,
+          WEB-INF/tags/kr/page.tag,
           acknowledgments.jsp,
           favicon.ico,
           index.jsp,
