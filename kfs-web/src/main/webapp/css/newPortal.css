@@ -1,9 +1,9 @@
 body {
-    font-family: Lato;
+    font-family: Lato, sans-serif;
 }
 .navbar-default {
     height: 62px;
-    box-shadow: 0 1px 2px #bbb;
+    box-shadow: 0 1px 2px #5b5b5b;
 }
 .navbar-default .navbar-header {
     padding-left: 70px;
@@ -12,7 +12,7 @@ body {
     height: 62px;
     font-size: 26px;
     line-height: 40px;
-    font-weight: bold;
+    font-weight: 700;
     width: 400px;
     padding: 10px 15px;
 }
@@ -21,12 +21,13 @@ body {
     padding-right: 7px;
 }
 .navbar-default .navbar-brand .institution-name {
-    font-weight: lighter;
+    font-weight: 300;
 }
 
 /* override existing styles */
 #headerarea {
     position: relative;
+    height: 76px;
 }
 
 #view_div {
@@ -92,10 +93,6 @@ nav ul.nav li a {
     color: #fff;
 }
 
-#sidebar .nav li {
-
-}
-
 #sidebar .nav li .nav-wrapper {
     margin-left: 30px;
     padding: 15px 0;
@@ -115,7 +112,11 @@ nav ul.nav li a {
     text-decoration: none;
 }
 
-#sidebar .nav li a span {
+.nav a:link {
+    text-decoration: none;
+}
+
+#sidebar .nav li a span.glyphicon {
     color: #858585;
     padding-right: 10px;
 }
@@ -137,12 +138,9 @@ nav ul.nav li a {
 #menu-toggle {
     position: fixed;
     top: 62px;
-    left: 312px;
+    left: 25%;
     background-color: #5b5b5b;
     padding: 5px;
     color: #D8D8D8;
     z-index: 1000;
-}
-#menu-toggle.closed {
-    left: 0px;
 }

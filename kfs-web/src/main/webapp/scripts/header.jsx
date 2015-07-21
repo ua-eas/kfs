@@ -5,7 +5,7 @@ var Header = React.createClass({
                 <div className="navbar-header">
                     <a className="navbar-brand" href="#">
                         <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/59/POL_Jagiellonian_University_logo.svg/361px-POL_Jagiellonian_University_logo.svg.png" height="40px"/>
-                        <span className="institution-name">Jagiellonian</span> Financials
+                        <span className="institution-name">Jagiellonian</span>Financials
                     </a>
                 </div>
                 <nav className="collapse navbar-collapse">

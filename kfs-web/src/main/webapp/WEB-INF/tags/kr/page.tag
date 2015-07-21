@@ -102,7 +102,7 @@
     </c:otherwise>
   </c:choose>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
 	<link href='css/newPortal.css' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -110,6 +110,7 @@
 	<script src="https://fb.me/react-0.13.3.js"></script>
 	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
 	<script src="scripts/header.jsx" type="text/jsx"></script>
+	<script src="scripts/sidebar.jsx" type="text/jsx"></script>
 </head>
 <c:choose>
 	<c:when test="${lookup}" >
@@ -124,26 +125,31 @@
 		<div id="header" class="navbar navbar-default navbar-fixed-top">
 		</div>
 
-    	<div id="view_div">
-		<kul:backdoor />
+		<div id="wrapper">
+			<div id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+			<div id="sidebar-wrapper" class="col-md-3"></div>
+			<div id="main-wrapper" class="col-md-9 pull-right">
+				<div id="main">
 
-			<c:if
-				test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
-				<div class="lookupcreatenew">
-					${headerMenuBar}
-				</div>
-		</c:if>
-		<c:choose>
-			<c:when test="${!empty alternativeHelp}">
-				<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help"/></h1>
-			</c:when>
-			<c:otherwise>
-				<c:if test="${showDocumentInfo}">
-					<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" altText="document help"/></h1>
-				</c:if>
-			</c:otherwise>
-		</c:choose>
+					<div id="view_div">
+					<kul:backdoor />
 
+						<c:if
+							test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
+							<div class="lookupcreatenew">
+								${headerMenuBar}
+							</div>
+					</c:if>
+					<c:choose>
+						<c:when test="${!empty alternativeHelp}">
+							<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help"/></h1>
+						</c:when>
+						<c:otherwise>
+							<c:if test="${showDocumentInfo}">
+								<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" altText="document help"/></h1>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
     </c:when>
 	<c:otherwise>
 		<c:if test="${not empty KualiForm.anchor}">
@@ -158,12 +164,16 @@
 		<body onload="if ( !restoreScrollPosition() ) { ${anchorScript} }"
 			onKeyPress="return isReturnKeyAllowed('${Constants.DISPATCH_REQUEST_PARAMETER}.' , event);">
 
-			<div id="header" class="navbar navbar-default navbar-fixed-top">
-			</div>
+			<div id="header" class="navbar navbar-default navbar-fixed-top"></div>
 
-			<div id="view_div">
-			<kul:backdoor />
-			${headerMenuBar}
+		<div id="wrapper">
+			<div id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+			<div id="sidebar-wrapper" class="col-md-3"></div>
+			<div id="main-wrapper" class="col-md-9 pull-right">
+				<div id="main">
+					<div id="view_div">
+					<kul:backdoor />
+					${headerMenuBar}
 	</c:otherwise>
 </c:choose>
 
@@ -397,6 +407,9 @@
 </html:form>
 <div id="formComplete"></div>
 </div>
+	</div>
+	</div>
+	</div>
 </body>
 
 </html:html>
