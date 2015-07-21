@@ -35,8 +35,6 @@ body {
 }
 
 #main-wrapper {
-    height: 100%;
-    overflow-y: auto;
     background-color: #E5E5E5;
 }
 
