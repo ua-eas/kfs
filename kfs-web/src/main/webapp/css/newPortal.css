@@ -1,0 +1,148 @@
+body {
+    font-family: Lato;
+}
+.navbar-default {
+    height: 62px;
+    box-shadow: 0 1px 2px #bbb;
+}
+.navbar-default .navbar-header {
+    padding-left: 70px;
+}
+.navbar-default .navbar-brand {
+    height: 62px;
+    font-size: 26px;
+    line-height: 40px;
+    font-weight: bold;
+    width: 400px;
+    padding: 10px 15px;
+}
+.navbar-default .navbar-brand img {
+    float: left;
+    padding-right: 7px;
+}
+.navbar-default .navbar-brand .institution-name {
+    font-weight: lighter;
+}
+
+/* override existing styles */
+#headerarea {
+    position: relative;
+}
+
+#view_div {
+    padding-top: 62px;
+}
+
+#main-wrapper {
+    height: 100%;
+    overflow-y: auto;
+    background-color: #E5E5E5;
+}
+
+nav {
+    background-color: #fff;
+    color: #777;
+}
+
+nav ul.nav li a {
+    line-height: 30px;
+}
+
+#main {
+    padding: 0 15px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+#main .page-header {
+    padding-top: 9px;
+}
+
+#sidebar-wrapper {
+    height: 100%;
+    padding: 50px 0 0px 0;
+    position: fixed;
+    border-right: 1px solid gray;
+    background-color: #5b5b5b;
+    z-index: 900;
+}
+
+#sidebar {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #5b5b5b;
+}
+
+#sidebar .list-group-item {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+.glyphicon {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#sidebar .nav {
+    padding-top: 40px;
+    background-color: #5b5b5b;
+    color: #fff;
+}
+
+#sidebar .nav li {
+
+}
+
+#sidebar .nav li .nav-wrapper {
+    margin-left: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid #6a6a6a;
+}
+
+#sidebar .nav li a {
+    padding: 0;
+    border: none;
+    background-color: inherit;
+    color: #D8D8D8;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.navbar-default a:link {
+    text-decoration: none;
+}
+
+#sidebar .nav li a span {
+    color: #858585;
+    padding-right: 10px;
+}
+#sidebar .nav li .sublinks {
+    padding-top: 20px;
+}
+#sidebar .nav li .sublinks a {
+    padding: 20px;
+    text-transform: none;
+}
+#sidebar .nav li.active {
+    background-color: #505050;
+}
+
+#sidebar .nav li.active .nav-wrapper {
+    border-bottom: none;
+}
+
+#menu-toggle {
+    position: fixed;
+    top: 62px;
+    left: 312px;
+    background-color: #5b5b5b;
+    padding: 5px;
+    color: #D8D8D8;
+    z-index: 1000;
+}
+#menu-toggle.closed {
+    left: 0px;
+}
