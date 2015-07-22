@@ -27,7 +27,6 @@ body {
 /* override existing styles */
 #headerarea {
     position: relative;
-    height: 76px;
 }
 
 #view_div {
@@ -91,6 +90,15 @@ nav ul.nav li a {
     color: #fff;
 }
 
+#sidebar .nav li.active {
+    background-color: #505050;
+}
+
+#sidebar .nav li.active .nav-wrapper {
+    border-bottom: none;
+    background-color: #505050;
+}
+
 #sidebar .nav li .nav-wrapper {
     margin-left: 30px;
     padding: 15px 0;
@@ -118,19 +126,14 @@ nav ul.nav li a {
     color: #858585;
     padding-right: 10px;
 }
+
 #sidebar .nav li .sublinks {
     padding-top: 20px;
 }
+
 #sidebar .nav li .sublinks a {
     padding: 20px;
     text-transform: none;
-}
-#sidebar .nav li.active {
-    background-color: #505050;
-}
-
-#sidebar .nav li.active .nav-wrapper {
-    border-bottom: none;
 }
 
 #menu-toggle {
