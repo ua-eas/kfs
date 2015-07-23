@@ -114,7 +114,7 @@ nav ul.nav li {
 #sidebar .nav li>a,
 #sidebar .nav li>div {
     margin-left: 30px;
-    padding: 15px 0;
+    padding: 20px 0;
 }
 
 .navbar-default a:link {
@@ -131,7 +131,7 @@ nav ul.nav li {
 }
 
 #sidebar .nav li .sublinks {
-    padding-top: 20px;
+    padding-top: 0;
 }
 
 #sidebar .nav li .sublinks a {
