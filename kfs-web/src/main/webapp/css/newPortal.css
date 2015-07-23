@@ -94,19 +94,27 @@ nav ul.nav li {
     color: #fff;
 }
 
-#sidebar .nav li .nav-wrapper {
-    margin-left: 30px;
-    padding: 15px 0;
-    border-bottom: 1px solid #6a6a6a;
+#sidebar .nav li.panel {
+    background-color: #5b5b5b;
+    margin-bottom: 0;
 }
 
 #sidebar .nav li a {
-    padding: 0;
     border: none;
     background-color: inherit;
     color: #D8D8D8;
     text-transform: uppercase;
     font-size: 15px;
+}
+
+#sidebar .nav li>a {
+    border-bottom: 1px solid #6a6a6a;
+}
+
+#sidebar .nav li>a,
+#sidebar .nav li>div {
+    margin-left: 30px;
+    padding: 15px 0;
 }
 
 .navbar-default a:link {
@@ -135,8 +143,8 @@ nav ul.nav li {
     background-color: #505050;
 }
 
-#sidebar .nav li.active .nav-wrapper,
-#sidebar .nav li.before-active .nav-wrapper{
+#sidebar .nav li.active a,
+#sidebar .nav li.before-active a {
     border-bottom: none;
 }
 

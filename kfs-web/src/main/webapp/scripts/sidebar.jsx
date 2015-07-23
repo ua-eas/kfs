@@ -1,5 +1,9 @@
 var Sidebar = React.createClass({
     handleClick: function(event) {
+        $("li.active").removeClass("active")
+        $("li.before-active").removeClass("before-active")
+        $("span.glyphicon-menu-up").toggleClass("glyphicon-menu-down glyphicon-menu-up")
+
         $(event.target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
         var li = $(event.target).closest("li")
         $(li).toggleClass("active")
@@ -25,64 +29,54 @@ var Sidebar = React.createClass({
                 <ul id="accordion" className="nav list-group accordion accordion-group">
                     <li className="first">
                     </li>
-                    <li>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item accordion-toggle" href="#" data-parent="#accordion" data-toggle="collapse" data-target="#orders-menu" onClick={this.handleClick}>
-                                <span>Orders</span>
-                                <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-                            <div id="orders-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Orders Sub A</a>
-                                <a className="list-group-item small">Orders Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#orders-menu" onClick={this.handleClick}>
+                            <span>Orders</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="orders-menu" className="sublinks collapse">
+                            <a className="list-group-item">Orders Sub A</a>
+                            <a className="list-group-item">Orders Sub B</a>
                         </div>
                     </li>
-                    <li className="accordion-group">
-                        <div className="nav-wrapper">
-                            <a className="list-group-item accordion-toggle" href="#" data-parent="#accordion" data-toggle="collapse" data-target="#trips-menu" onClick={this.handleClick}>
-                                <span>Trips</span>
-                                <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-                            <div id="trips-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Trips Sub A</a>
-                                <a className="list-group-item small">Trips Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a className="" href="#" data-parent="#accordion" data-toggle="collapse" data-target="#trips-menu" onClick={this.handleClick}>
+                            <span>Trips</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="trips-menu" className="sublinks collapse">
+                            <a className="list-group-item">Trips Sub A</a>
+                            <a className="list-group-item">Trips Sub B</a>
                         </div>
                     </li>
-                    <li className="accordion-group">
-                        <div className="nav-wrapper">
-                            <a className="list-group-item accordion-toggle" href="#" data-parent="#accordion" data-toggle="collapse" data-target="#accounting-menu" onClick={this.handleClick}>
-                                <span>Accounting</span>
-                                <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-                            <div id="accounting-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Accounting Sub A</a>
-                                <a className="list-group-item small">Accounting Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#accounting-menu" onClick={this.handleClick}>
+                            <span>Accounting</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="accounting-menu" className="sublinks collapse">
+                            <a className="list-group-item">Accounting Sub A</a>
+                            <a className="list-group-item">Accounting Sub B</a>
                         </div>
                     </li>
-                    <li className="accordion-group">
-                        <div className="nav-wrapper">
-                            <a className="list-group-item accordion-toggle" href="#" data-parent="#accordion" data-toggle="collapse" data-target="#chart-menu" onClick={this.handleClick}>
-                                <span>Chart of Accounts</span>
-                                <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-                            <div id="chart-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Chart of Accounts Sub A</a>
-                                <a className="list-group-item small">Chart of Accounts Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#chart-menu" onClick={this.handleClick}>
+                            <span>Chart of Accounts</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="chart-menu" className="sublinks collapse">
+                            <a className="list-group-item">Chart of Accounts Sub A</a>
+                            <a className="list-group-item">Chart of Accounts Sub B</a>
                         </div>
                     </li>
-                    <li className="accordion-group">
-                        <div className="nav-wrapper">
-                            <a className="list-group-item accordion-toggle" href="#" data-parent="#accordion" data-toggle="collapse" data-target="#workflow-menu" onClick={this.handleClick}>
-                                <span>Workflow</span>
-                                <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-                            <div id="workflow-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Workflow Sub A</a>
-                                <a className="list-group-item small">Workflow Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#workflow-menu" onClick={this.handleClick}>
+                            <span>Workflow</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="workflow-menu" className="sublinks collapse">
+                            <a className="list-group-item">Workflow Sub A</a>
+                            <a className="list-group-item">Workflow Sub B</a>
                         </div>
                     </li>
                 </ul>
