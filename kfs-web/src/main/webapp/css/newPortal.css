@@ -46,6 +46,10 @@ nav ul.nav li a {
     line-height: 30px;
 }
 
+nav ul.nav li {
+    list-style: none;
+}
+
 #main {
     padding: 0 15px;
     background-color: #fff;
@@ -58,7 +62,7 @@ nav ul.nav li a {
 
 #sidebar-wrapper {
     height: 100%;
-    padding: 50px 0 0px 0;
+    padding: 62px 0 0px 0;
     position: fixed;
     border-right: 1px solid gray;
     background-color: #5b5b5b;
