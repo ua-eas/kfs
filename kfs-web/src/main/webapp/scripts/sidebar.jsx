@@ -1,13 +1,19 @@
 var Sidebar = React.createClass({
     handleClick: function(event) {
+        var prevActive = $("li.active")
         $("li.active").removeClass("active")
         $("li.before-active").removeClass("before-active")
         $("span.glyphicon-menu-up").toggleClass("glyphicon-menu-down glyphicon-menu-up")
 
-        $(event.target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
-        var li = $(event.target).closest("li")
-        $(li).toggleClass("active")
-        $(li).prev("li").toggleClass("before-active")
+        console.log($(prevActive).children("a"))
+        console.log(event.target)
+        var target = event.target
+        if ($(prevActive).children("a").get(0) != target) {
+            $(target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
+            var li = $(target).closest("li")
+            $(li).toggleClass("active")
+            $(li).prev("li").toggleClass("before-active")
+        }
     },
     toggleSidebar: function() {
         if ($('#sidebar-wrapper').width() > 5) {
