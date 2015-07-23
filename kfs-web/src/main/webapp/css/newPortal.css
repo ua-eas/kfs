@@ -129,7 +129,8 @@ nav ul.nav li a {
     background-color: #505050;
 }
 
-#sidebar .nav li.active .nav-wrapper {
+#sidebar .nav li.active .nav-wrapper,
+#sidebar .nav li.before-active .nav-wrapper{
     border-bottom: none;
 }
 

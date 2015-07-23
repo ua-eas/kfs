@@ -128,7 +128,8 @@
       background-color: #505050;
     }
 
-    #sidebar .nav li.active .nav-wrapper {
+    #sidebar .nav li.active .nav-wrapper,
+    #sidebar .nav li.before-active .nav-wrapper{
       border-bottom: none;
     }
 
@@ -162,13 +163,18 @@
     });
 
     $(".list-group-item").click(function() {
-      var li = $(this).closest("li");
-      if ($(li).hasClass("active")) {
-        $(li).removeClass("active");
-      } else {
-        $(li).addClass("active");
-      }
+      var li = $(this).closest("li")
+      $(li).toggleClass("active")
+      $(li).prev("li").toggleClass("before-active")
     });
+
+    function toggleSidebarArrow(e) {
+      $(e.target).prev('.list-group-item')
+                 .find("span.indicator")
+                 .toggleClass('glyphicon-menu-down glyphicon-menu-up');
+    }
+    $('#accordion').on('hidden.bs.collapse', toggleSidebarArrow);
+    $('#accordion').on('shown.bs.collapse', toggleSidebarArrow);
   })
   </script>
 </head>
@@ -214,12 +220,12 @@
     <div id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
     <div id="sidebar-wrapper" class="col-md-3">
       <div id="sidebar">
-        <ul class="nav list-group">
+        <ul id="accordion" class="nav list-group">
           <li class="first">
           </li>
           <li>
             <div class="nav-wrapper">
-              <a class="list-group-item" href="#" data-toggle="collapse" data-target="#orders-menu">Orders<span class="glyphicon glyphicon-menu-down pull-right"></span></a>
+              <a class="list-group-item accordion-toggle" href="#orders-menu" data-parent="#accordion" data-toggle="collapse" data-target="#orders-menu">Orders<span class="indicator glyphicon glyphicon-menu-down pull-right"></span></a>
               <div id="orders-menu" class="sublinks collapse">
                 <a class="list-group-item small">Orders Sub A</a>
                 <a class="list-group-item small">Orders Sub B</a>
@@ -228,56 +234,56 @@
           </li>
           <li>
             <div class="nav-wrapper">
-            <a class="list-group-item" href="#" data-toggle="collapse" data-target="#trips-menu" >Trips<span class="glyphicon glyphicon-menu-down pull-right"></span></a>
-            <div id="trips-menu" class="sublinks collapse">
-              <a class="list-group-item small">Trips Sub A</a>
-              <a class="list-group-item small">Trips Sub B</a>
-            </div>
-            </div>
-          </li>
-          <li>
-            <div class="nav-wrapper">
-            <a class="list-group-item" href="#" data-toggle="collapse" data-target="#accounting-menu" >Accounting<span class="glyphicon glyphicon-menu-down pull-right"></span></a>
-            <div id="accounting-menu" class="sublinks collapse">
-              <a class="list-group-item small">Accounting Sub A</a>
-              <a class="list-group-item small">Accounting Sub B</a>
-            </div>
+              <a class="list-group-item accordion-toggle" href="#trips-menu" data-parent="#accordion" data-toggle="collapse" data-target="#trips-menu" >Trips<span class="indicator glyphicon glyphicon-menu-down pull-right"></span></a>
+              <div id="trips-menu" class="sublinks collapse">
+                <a class="list-group-item small">Trips Sub A</a>
+                <a class="list-group-item small">Trips Sub B</a>
+              </div>
             </div>
           </li>
           <li>
             <div class="nav-wrapper">
-            <a class="list-group-item" href="#" data-toggle="collapse" data-target="#chart-menu" >Chart of Accounts<span class="glyphicon glyphicon-menu-down pull-right"></span></a>
-            <div id="chart-menu" class="sublinks collapse">
-              <a class="list-group-item small">Chart of Accounts Sub A</a>
-              <a class="list-group-item small">Chart of Accounts Sub B</a>
-            </div>
-            </div>
-          </li>
-          <li>
-            <div class="nav-wrapper">
-            <a class="list-group-item" href="#" data-toggle="collapse" data-target="#workflow-menu" >Workflow<span class="glyphicon glyphicon-menu-down pull-right"></span></a>
-            <div id="workflow-menu" class="sublinks collapse">
-              <a class="list-group-item small">Workflow Sub A</a>
-              <a class="list-group-item small">Workflow Sub B</a>
-            </div>
+              <a class="list-group-item accordion-toggle" href="#accounting-menu" data-parent="#accordion" data-toggle="collapse" data-target="#accounting-menu" >Accounting<span class="indicator glyphicon glyphicon-menu-down pull-right"></span></a>
+              <div id="accounting-menu" class="sublinks collapse">
+                <a class="list-group-item small">Accounting Sub A</a>
+                <a class="list-group-item small">Accounting Sub B</a>
+              </div>
             </div>
           </li>
           <li>
             <div class="nav-wrapper">
-            <a class="list-group-item" href="#" data-toggle="collapse" data-target="#blah-menu" >Blah<span class="glyphicon glyphicon-menu-down pull-right"></span></a>
-            <div id="blah-menu" class="sublinks collapse">
-              <a class="list-group-item small">Blah Sub A</a>
-              <a class="list-group-item small">Blah Sub B</a>
-            </div>
+              <a class="list-group-item accordion-toggle" href="#chart-menu" data-parent="#accordion" data-toggle="collapse" data-target="#chart-menu" >Chart of Accounts<span class="indicator glyphicon glyphicon-menu-down pull-right"></span></a>
+              <div id="chart-menu" class="sublinks collapse">
+                <a class="list-group-item small">Chart of Accounts Sub A</a>
+                <a class="list-group-item small">Chart of Accounts Sub B</a>
+              </div>
             </div>
           </li>
           <li>
             <div class="nav-wrapper">
-            <a class="list-group-item" href="#" data-toggle="collapse" data-target="#foo-menu" >Foo Bar<span class="glyphicon glyphicon-menu-down pull-right"></span></a>
-            <div id="foo-menu" class="sublinks collapse">
-              <a class="list-group-item small">Foo Bar Sub A</a>
-              <a class="list-group-item small">Foo Bar Sub B</a>
+              <a class="list-group-item accordion-toggle" href="#workflow-menu" data-parent="#accordion" data-toggle="collapse" data-target="#workflow-menu" >Workflow<span class="indicator glyphicon glyphicon-menu-down pull-right"></span></a>
+              <div id="workflow-menu" class="sublinks collapse">
+                <a class="list-group-item small">Workflow Sub A</a>
+                <a class="list-group-item small">Workflow Sub B</a>
+              </div>
             </div>
+          </li>
+          <li>
+            <div class="nav-wrapper">
+              <a class="list-group-item accordion-toggle" href="#blah-menu" data-parent="#accordion" data-toggle="collapse" data-target="#blah-menu" >Blah<span class="indicator glyphicon glyphicon-menu-down pull-right"></span></a>
+              <div id="blah-menu" class="sublinks collapse">
+                <a class="list-group-item small">Blah Sub A</a>
+                <a class="list-group-item small">Blah Sub B</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="nav-wrapper">
+              <a class="list-group-item accordion-toggle" href="#foo-menu" data-parent="#accordion" data-toggle="collapse" data-target="#foo-menu" >Foo Bar<span class="indicator glyphicon glyphicon-menu-down pull-right"></span></a>
+              <div id="foo-menu" class="sublinks collapse">
+                <a class="list-group-item small">Foo Bar Sub A</a>
+                <a class="list-group-item small">Foo Bar Sub B</a>
+              </div>
             </div>
           </li>
         </ul>
