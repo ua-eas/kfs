@@ -108,8 +108,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://fb.me/react-0.13.3.js"></script>
 	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-	<script src="scripts/header.jsx" type="text/jsx"></script>
-	<script src="scripts/sidebar.jsx" type="text/jsx"></script>
 </head>
 <c:choose>
 	<c:when test="${lookup}" >
@@ -408,6 +406,10 @@
 	</div>
 	</div>
 	</div>
+
+	<script src="build/header-bundle.js"></script>
+	<script src="build/sidebar-bundle.js"></script>
+
 </body>
 
 </html:html>
