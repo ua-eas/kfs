@@ -106,11 +106,7 @@
 	<link href='css/newPortal.css' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="scripts/newPortal.js"></script>
 	<script src="https://fb.me/react-0.13.3.js"></script>
-	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-	<script src="scripts/header.jsx" type="text/jsx"></script>
-	<script src="scripts/sidebar.jsx" type="text/jsx"></script>
 </head>
 <c:choose>
 	<c:when test="${lookup}" >
@@ -126,7 +122,7 @@
 		</div>
 
 		<div id="wrapper">
-			<div id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+
 			<div id="sidebar-wrapper" class="col-md-3"></div>
 			<div id="main-wrapper" class="col-md-9 pull-right">
 				<div id="main">
@@ -167,7 +163,6 @@
 			<div id="header" class="navbar navbar-default navbar-fixed-top"></div>
 
 		<div id="wrapper">
-			<div id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
 			<div id="sidebar-wrapper" class="col-md-3"></div>
 			<div id="main-wrapper" class="col-md-9 pull-right">
 				<div id="main">
@@ -410,6 +405,9 @@
 	</div>
 	</div>
 	</div>
+
+	<script src="build/bundle.js"></script>
+
 </body>
 
 </html:html>

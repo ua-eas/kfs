@@ -1,112 +1,86 @@
 var Sidebar = React.createClass({
-    getInitialState: function() {
-        return { activeTabs: []};
-    },
-    handleClick: function(name, event) {
-        var activeTabs = this.state.activeTabs
-        var index = activeTabs.indexOf(name)
-        if (index < 0) {
-            activeTabs.push(name)
-        } else {
-            activeTabs.splice(index, 1)
+    handleClick: function(event) {
+        var prevActive = $("li.active")
+        $("li.active").removeClass("active")
+        $("li.before-active").removeClass("before-active")
+        $("span.glyphicon-menu-up").toggleClass("glyphicon-menu-down glyphicon-menu-up")
+
+        var target = event.target
+        if ($(prevActive).children("a").get(0) != target) {
+            $(target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
+            var li = $(target).closest("li")
+            $(li).toggleClass("active")
+            $(li).prev("li").toggleClass("before-active")
         }
-        this.setState({activeTabs: activeTabs})
+    },
+    toggleSidebar: function() {
+        if ($('#sidebar-wrapper').width() > 5) {
+            $('#sidebar-wrapper').animate({'width': '5px'}, {duration: 500, queue: false});
+            $('#sidebar').animate({'display': 'none'}, {duration: 500, queue: false});
+            $('#main-wrapper').animate({'width': '100%'}, {duration: 500, queue: false});
+            $('#menu-toggle').animate({'left': '5px'}, {duration: 500, queue: false});
+        } else {
+            $('#sidebar-wrapper').animate({'width': '25%'}, {duration: 500, queue: false});
+            $('#sidebar').animate({'display': 'block'}, {duration: 500, queue: false});
+            $('#main-wrapper').animate({'width': '75%'}, {duration: 500, queue: false});
+            $('#menu-toggle').animate({'left': '25%'}, {duration: 500, queue: false});
+        }
     },
     render: function() {
         return (
             <div id="sidebar">
-                <ul className="nav list-group">
+                <div id="menu-toggle" onClick={this.toggleSidebar}><span className="glyphicon glyphicon-menu-hamburger"></span></div>
+                <ul id="accordion" className="nav list-group accordion accordion-group">
                     <li className="first">
                     </li>
-                    <li className={(this.state.activeTabs.indexOf("second") < 0) ? "inactive": "active"}>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item" href="#" data-toggle="collapse" data-target="#orders-menu" onClick={this.handleClick.bind(null, "second")}>
-                                <span>Orders</span>
-                                <span className="glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-
-                            <div id="orders-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Orders Sub A</a>
-                                <a className="list-group-item small">Orders Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#orders-menu" onClick={this.handleClick}>
+                            <span>Orders</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="orders-menu" className="sublinks collapse">
+                            <a className="list-group-item">Orders Sub A</a>
+                            <a className="list-group-item">Orders Sub B</a>
                         </div>
                     </li>
-                    <li className={(this.state.activeTabs.indexOf("third") < 0) ? "inactive": "active"}>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item" href="#" data-toggle="collapse" data-target="#trips-menu" onClick={this.handleClick.bind(null, "third")}>
-                                <span>Trips</span>
-                                <span className="glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-
-                            <div id="trips-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Trips Sub A</a>
-                                <a className="list-group-item small">Trips Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#trips-menu" onClick={this.handleClick}>
+                            <span>Trips</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="trips-menu" className="sublinks collapse">
+                            <a className="list-group-item">Trips Sub A</a>
+                            <a className="list-group-item">Trips Sub B</a>
                         </div>
                     </li>
-                    <li className={(this.state.activeTabs.indexOf("fourth") < 0) ? "inactive": "active"}>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item" href="#" data-toggle="collapse" data-target="#accounting-menu" onClick={this.handleClick.bind(null, "fourth")}>
-                                <span>Accounting</span>
-                                <span className="glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-
-                            <div id="accounting-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Accounting Sub A</a>
-                                <a className="list-group-item small">Accounting Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#accounting-menu" onClick={this.handleClick}>
+                            <span>Accounting</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="accounting-menu" className="sublinks collapse">
+                            <a className="list-group-item">Accounting Sub A</a>
+                            <a className="list-group-item">Accounting Sub B</a>
                         </div>
                     </li>
-                    <li className={(this.state.activeTabs.indexOf("fifth") < 0) ? "inactive": "active"}>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item" href="#" data-toggle="collapse" data-target="#chart-menu" onClick={this.handleClick.bind(null, "fifth")}>
-                                <span>Chart of Accounts</span>
-                                <span className="glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-
-                            <div id="chart-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Chart of Accounts Sub A</a>
-                                <a className="list-group-item small">Chart of Accounts Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#chart-menu" onClick={this.handleClick}>
+                            <span>Chart of Accounts</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="chart-menu" className="sublinks collapse">
+                            <a className="list-group-item">Chart of Accounts Sub A</a>
+                            <a className="list-group-item">Chart of Accounts Sub B</a>
                         </div>
                     </li>
-                    <li className={(this.state.activeTabs.indexOf("sixth") < 0) ? "inactive": "active"}>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item" href="#" data-toggle="collapse" data-target="#workflow-menu" onClick={this.handleClick.bind(null, "sixth")}>
-                                <span>Workflow</span>
-                                <span className="glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-
-                            <div id="workflow-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Workflow Sub A</a>
-                                <a className="list-group-item small">Workflow Sub B</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li className={(this.state.activeTabs.indexOf("seventh") < 0) ? "inactive": "active"}>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item" href="#" data-toggle="collapse" data-target="#blah-menu" onClick={this.handleClick.bind(null, "seventh")}>
-                                <span>Blah</span>
-                                <span className="glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-
-                            <div id="blah-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Blah Sub A</a>
-                                <a className="list-group-item small">Blah Sub B</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li className={(this.state.activeTabs.indexOf("eighth") < 0) ? "inactive": "active"}>
-                        <div className="nav-wrapper">
-                            <a className="list-group-item" href="#" data-toggle="collapse" data-target="#foo-menu" onClick={this.handleClick.bind(null, "eighth")}>
-                                <span>Foo Bar</span>
-                                <span className="glyphicon glyphicon-menu-down pull-right"></span>
-                            </a>
-
-                            <div id="foo-menu" className="sublinks collapse">
-                                <a className="list-group-item small">Foo Bar Sub A</a>
-                                <a className="list-group-item small">Foo Bar Sub B</a>
-                            </div>
+                    <li className="panel">
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#workflow-menu" onClick={this.handleClick}>
+                            <span>Workflow</span>
+                            <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                        </a>
+                        <div id="workflow-menu" className="sublinks collapse">
+                            <a className="list-group-item">Workflow Sub A</a>
+                            <a className="list-group-item">Workflow Sub B</a>
                         </div>
                     </li>
                 </ul>
@@ -119,3 +93,5 @@ React.render(
     <Sidebar/>,
     document.getElementById('sidebar-wrapper')
 );
+
+export default Sidebar;

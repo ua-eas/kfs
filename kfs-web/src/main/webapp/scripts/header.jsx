@@ -4,15 +4,15 @@ var Header = React.createClass({
             <div>
                 <div className="navbar-header">
                     <a className="navbar-brand" href="#">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/59/POL_Jagiellonian_University_logo.svg/361px-POL_Jagiellonian_University_logo.svg.png" height="40px"/>
-                        <span className="institution-name">Jagiellonian</span>Financials
+                        <img src="./static/images/monsters-u-logo.jpg" height="40px"/>
+                        <span className="institution-name">Monsters</span>Financials
                     </a>
                 </div>
                 <nav className="collapse navbar-collapse">
                     <ul className="nav navbar-nav pull-right">
                         <li>
                             <a href="#">
-                                <span className="glyphicon glyphicon-ok-sign"></span>Action List</a>
+                                <span className="glyphicon glyphicon-ok-sign"></span>Updated Action List</a>
                         </li>
                         <li>
                             <a href="#">
@@ -45,3 +45,5 @@ React.render(
     <Header/>,
     document.getElementById('header')
 );
+
+export default Header;
