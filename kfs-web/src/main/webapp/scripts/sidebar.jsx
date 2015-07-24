@@ -93,3 +93,5 @@ React.render(
     <Sidebar/>,
     document.getElementById('sidebar-wrapper')
 );
+
+export default Sidebar;

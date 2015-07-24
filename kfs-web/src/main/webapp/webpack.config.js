@@ -1,12 +1,11 @@
 var webpack = require('webpack');
 module.exports = {
-    entry: {
-        header: "./scripts/header.jsx",
-        sidebar: "./scripts/sidebar.jsx"
-    },
+    entry: [
+        "./scripts/app.jsx"
+    ],
     output: {
         path: __dirname + '/build',
-        filename: "[name]-bundle.js"
+        filename: "bundle.js"
     },
     module: {
         loaders: [

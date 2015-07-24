@@ -406,8 +406,7 @@
 	</div>
 	</div>
 
-	<script src="build/header-bundle.js"></script>
-	<script src="build/sidebar-bundle.js"></script>
+	<script src="build/bundle.js"></script>
 
 </body>
 
