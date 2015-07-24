@@ -5,8 +5,6 @@ var Sidebar = React.createClass({
         $("li.before-active").removeClass("before-active")
         $("span.glyphicon-menu-up").toggleClass("glyphicon-menu-down glyphicon-menu-up")
 
-        console.log($(prevActive).children("a"))
-        console.log(event.target)
         var target = event.target
         if ($(prevActive).children("a").get(0) != target) {
             $(target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
@@ -46,7 +44,7 @@ var Sidebar = React.createClass({
                         </div>
                     </li>
                     <li className="panel">
-                        <a className="" href="#" data-parent="#accordion" data-toggle="collapse" data-target="#trips-menu" onClick={this.handleClick}>
+                        <a href="#" data-parent="#accordion" data-toggle="collapse" data-target="#trips-menu" onClick={this.handleClick}>
                             <span>Trips</span>
                             <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
                         </a>
