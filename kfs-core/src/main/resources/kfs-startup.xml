@@ -51,6 +51,7 @@
 	<!-- Import the base Rice setup beans which contain the datasources
 		 and the Rice modules. -->
 	<import resource="classpath:kfs-RiceJTASpringBeans.xml" />
+	<import resource="classpath:kfs-DataSourceSpringBeans.xml"/>
 	<import resource="classpath:kfs-RiceDataSourceSpringBeans.xml" />
 	<import resource="classpath:kfs-RiceSpringBeans.xml" />
 
