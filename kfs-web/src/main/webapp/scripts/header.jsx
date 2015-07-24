@@ -1,37 +1,61 @@
+import CustomLink from './customlink.jsx';
+
 var Header = React.createClass({
+    getInitialState: function() {
+        return {preferences: {}}
+    },
+    componentWillMount: function() {
+        $.ajax({
+            url: "/kfs-dev/core/preferences/institution",
+            dataType: 'json',
+            type: 'GET',
+            success: function(preferences) {
+                this.setState({preferences: preferences});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(status, err.toString());
+            }.bind(this)
+        })
+    },
     render: function() {
+        var prefs = this.state.preferences
+        var menuLinks = []
+        if (prefs.menu) {
+            menuLinks = prefs.menu.map(function (link) {
+                return <li><CustomLink url={link.link} label={link.label}/></li>
+            })
+        }
         return (
             <div>
                 <div className="navbar-header">
                     <a className="navbar-brand" href="#">
-                        <img src="./static/images/monsters-u-logo.jpg" height="40px"/>
-                        <span className="institution-name">Monsters</span>Financials
+                        <img src={prefs.logoUrl} height="40px"/>
+                        <span className="institution-name">{prefs.institutionName}</span>Financials
                     </a>
                 </div>
                 <nav className="collapse navbar-collapse">
                     <ul className="nav navbar-nav pull-right">
                         <li>
-                            <a href="#">
-                                <span className="glyphicon glyphicon-ok-sign"></span>Updated Action List</a>
+                            <a href="#"><span className="glyphicon glyphicon-ok-sign"></span>Updated Action List</a>
                         </li>
                         <li>
-                            <a href="#">
-                                <span className="glyphicon glyphicon-search"></span>Doc Search</a>
+                            <a href="#"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <span className="glyphicon glyphicon-user"></span>Profile</a>
+                        <li className="dropdown">
+                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                                <span className="glyphicon glyphicon-user"></span>Profile
+                            </a>
+                            <ul className="dropdown-menu pull-right">
+                                <li><a href="#">Sign Out</a></li>
+                            </ul>
                         </li>
                         <li className="dropdown">
                             <a href="#" id="nbAcctDD" className="dropdown-toggle" data-toggle="dropdown">
                                 <i className="icon-user"></i>
-                                <span className="glyphicon glyphicon-menu-hamburger"></span>Menu</a>
+                                <span className="glyphicon glyphicon-menu-hamburger"></span>Menu
+                            </a>
                             <ul className="dropdown-menu pull-right">
-                                <li><a href="#">Something Fancy</a></li>
-                                <li><a href="#">Feedback</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Help</a></li>
-                                <li><a href="#">Log Out</a></li>
+                                {menuLinks}
                             </ul>
                         </li>
                     </ul>
