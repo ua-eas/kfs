@@ -20,8 +20,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:p="http://www.springframework.org/schema/p"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	   	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
     <bean id="financialSystemModuleConfiguration" parent="financialSystemModuleConfiguration-parentBean" />
 		
@@ -1258,6 +1261,18 @@
     	<property name="nonProductionNotificationMailingList" value="${nonproduction.notification.mailing.list}" />
     	<property name="realNotificationsEnabled" value="${real.notifications.enabled}" />
 	</bean>
-     
-    <import resource="spring-sys-bus-exports.xml"/>
+
+	<mongo:mongo host="${kfs.datasource.mongo.host}" port="${kfs.datasource.mongo.port}"/>
+	<mongo:db-factory dbname="${kfs.datasource.mongo.dbname}" username="${kfs.datasource.mongo.username}" password="${kfs.datasource.mongo.password}"/>
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongoDbFactory" />
+	</bean>
+
+	<bean id="preferncesService" parent="preferencesService-parentBean"/>
+	<bean id="preferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.PreferencesServiceImpl">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+	</bean>
+
+	<import resource="spring-sys-bus-exports.xml"/>
 </beans>
