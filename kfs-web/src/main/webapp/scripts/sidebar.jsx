@@ -1,11 +1,12 @@
 import CustomLink from './customlink.jsx';
+import KfsUtils from './sys/utils.js';
 
 var Sidebar = React.createClass({
     getInitialState: function() {
         return {preferences: {}}
     },
     componentWillMount: function() {
-        var path = getUrlPathPrefix() + "/core/preferences/institution"
+        var path = KfsUtils.getUrlPathPrefix() + "core/preferences/institution"
 
         $.ajax({
             url: path,

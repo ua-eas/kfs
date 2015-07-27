@@ -1,5 +1,7 @@
 function getUrlPathPrefix() {
-    var path = URL(window.location.href).pathname
-    var pathPrefix = path.match(/^[^\/]+\/\/[^\/]+\/[^\/]+\//);
-    return pathPrefix[1];
+    var path = new URL(window.location.href).pathname
+    var pathPrefix = path.match(/^\/[^\/]+\//);
+    return pathPrefix[0];
 }
+
+module.exports = {getUrlPathPrefix: getUrlPathPrefix}

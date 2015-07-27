@@ -1,7 +1,6 @@
 var webpack = require('webpack');
 module.exports = {
     entry: [
-        "./scripts/sys/utils.js",
         "./scripts/app.jsx"
     ],
     output: {
