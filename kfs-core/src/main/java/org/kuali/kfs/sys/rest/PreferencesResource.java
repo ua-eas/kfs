@@ -1,4 +1,4 @@
-package org.kuali.kfs.rest;
+package org.kuali.kfs.sys.rest;
 
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.PreferencesService;

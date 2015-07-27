@@ -1,4 +1,4 @@
-package org.kuali.kfs.rest;
+package org.kuali.kfs.sys.rest;
 
 import com.sun.jersey.api.container.filter.LoggingFilter;
 

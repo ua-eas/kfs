@@ -5,8 +5,10 @@ var Sidebar = React.createClass({
         return {preferences: {}}
     },
     componentWillMount: function() {
+        var path = getUrlPathPrefix() + "/core/preferences/institution"
+
         $.ajax({
-            url: "/kfs-dev/core/preferences/institution",
+            url: path,
             dataType: 'json',
             type: 'GET',
             success: function(preferences) {
