@@ -1269,8 +1269,13 @@
 		<constructor-arg ref="mongoDbFactory" />
 	</bean>
 
-	<bean id="preferncesService" parent="preferencesService-parentBean"/>
+	<bean id="preferencesService" parent="preferencesService-parentBean"/>
 	<bean id="preferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.PreferencesServiceImpl">
+		<property name="preferencesDao" ref="preferencesDao" />
+	</bean>
+
+	<bean id="preferencesDao" parent="preferencesDao-parentBean"/>
+	<bean id="preferencesDao-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.PreferencesDaoMongo">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 	</bean>
 
