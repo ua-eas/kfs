@@ -55,10 +55,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * @deprecated A krad integrated type service base class will be provided in the future.
+ * A krad integrated type service base class will be provided in the future.
  * This is only used for the legacy {@link DataDictionaryTypeServiceBase}.
  */
-@Deprecated
 public final class DataDictionaryTypeServiceHelper {
 
     private DataDictionaryTypeServiceHelper() {

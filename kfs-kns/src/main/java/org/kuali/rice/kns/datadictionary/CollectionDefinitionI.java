@@ -19,7 +19,6 @@ import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.List;
 
-@Deprecated
 public interface CollectionDefinitionI {
     public String getName();
     public boolean getIncludeAddLine();

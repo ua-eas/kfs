@@ -27,7 +27,6 @@ import java.util.Map;
  * 
  * 
  */
-@Deprecated
 public class StringMap extends LinkedHashMap<String, Object> {
     private static final long serialVersionUID = 7364206011639131063L;
 

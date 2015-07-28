@@ -22,7 +22,6 @@ import java.util.Map;
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public interface DataDictionaryService extends org.kuali.rice.krad.service.DataDictionaryService {
 
     /**

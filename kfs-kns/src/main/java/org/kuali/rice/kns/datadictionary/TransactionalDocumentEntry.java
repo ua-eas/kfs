@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public class TransactionalDocumentEntry extends org.kuali.rice.krad.datadictionary.TransactionalDocumentEntry implements KNSDocumentEntry {
 
     protected Class<? extends PromptBeforeValidation> promptBeforeValidationClass;

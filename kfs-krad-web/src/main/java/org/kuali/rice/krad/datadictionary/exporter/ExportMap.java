@@ -24,7 +24,6 @@ import java.util.Map;
  * 
  * 
  */
-@Deprecated
 public class ExportMap {
     private final String exportKey;
     private final StringMap exportData;

@@ -143,7 +143,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	 * property name of the business object, with the map value as the value to
 	 * search for.
 	 */
-    @Deprecated
 	public BusinessObject getBusinessObject(Map fieldValues) {
 		return (BusinessObject) retrieveDataObject(fieldValues);
 	}
@@ -152,7 +151,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	 * Objects extending KualiInquirableBase must specify the Section objects
 	 * used to display the inquiry result.
 	 */
-	@Deprecated
 	public List<Section> getSections(BusinessObject bo) {
 
 		List<Section> sections = new ArrayList<Section>();
@@ -186,7 +184,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	 *            the property which links to an inquirable
 	 * @return String url to inquiry
 	 */
-	@Deprecated
 	public HtmlData getInquiryUrl(BusinessObject businessObject, String attributeName, boolean forceInquiry) {
 		Properties parameters = new Properties();
 		AnchorHtmlData hRef = new AnchorHtmlData(KRADConstants.EMPTY_STRING, KRADConstants.EMPTY_STRING);
@@ -419,7 +416,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 				UrlFactory.parameterizeUrl(KRADConstants.INQUIRY_ACTION, parameters));
 	}
 
-	@Deprecated
 	protected AnchorHtmlData getHyperLink(Class inquiryClass, Map<String, String> fieldList, String inquiryUrl) {
 		AnchorHtmlData a = new AnchorHtmlData(inquiryUrl, KRADConstants.EMPTY_STRING);
 		a.setTitle(HtmlData.getTitleText(this.createTitleText(inquiryClass), inquiryClass, fieldList));
@@ -433,7 +429,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	 *            - data object class being inquired into
 	 * @return String title prepend text
 	 */
-	@Deprecated
 	protected String createTitleText(Class<?> dataObjectClass) {
 		String titleText = "";
 
@@ -451,14 +446,12 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 		return titleText;
 	}
 
-	@Deprecated
 	public void addAdditionalSections(List columns, BusinessObject bo) {
 	}
 
 	/**
 	 * @see Inquirable#getHtmlMenuBar()
 	 */
-	@Deprecated
 	public String getHtmlMenuBar() {
 		// TODO: replace with inquiry menu bar
 		return getBusinessObjectDictionaryService().getLookupMenuBar(getBusinessObjectClass());
@@ -467,7 +460,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	/**
 	 * @see Inquirable#getTitle()
 	 */
-	@Deprecated
 	public String getTitle() {
 		return getBusinessObjectDictionaryService().getInquiryTitle(getBusinessObjectClass());
 	}
@@ -476,7 +468,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	 * @param businessObjectClass
 	 *            The dataObjectClass to set.
 	 */
-	@Deprecated
 	public void setBusinessObjectClass(Class businessObjectClass) {
 		this.dataObjectClass = businessObjectClass;
 	}
@@ -484,7 +475,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	/**
      * @return Returns the dataObjectClass.
      */
-    @Deprecated
     public Class getBusinessObjectClass() {
         return dataObjectClass;
     }
@@ -492,7 +482,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	/**
 	 * @see Inquirable#getInactiveRecordDisplay()
 	 */
-	@Deprecated
 	public Map<String, Boolean> getInactiveRecordDisplay() {
 		return inactiveRecordDisplay;
 	}
@@ -500,7 +489,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	/**
 	 * @see Inquirable#getShowInactiveRecords(java.lang.String)
 	 */
-	@Deprecated
 	public boolean getShowInactiveRecords(String collectionName) {
 		return InactiveRecordsHidingUtils.getShowInactiveRecords(inactiveRecordDisplay, collectionName);
 	}
@@ -509,7 +497,6 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	 * @see Inquirable#setShowInactiveRecords(java.lang.String,
 	 *      boolean)
 	 */
-	@Deprecated
 	public void setShowInactiveRecords(String collectionName, boolean showInactive) {
 		InactiveRecordsHidingUtils.setShowInactiveRecords(inactiveRecordDisplay, collectionName, showInactive);
 	}

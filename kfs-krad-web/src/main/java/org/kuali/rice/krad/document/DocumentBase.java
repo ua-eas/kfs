@@ -662,7 +662,6 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
      * @deprecated
      * This is not needed with the relationship set up with JPA annotations
      */
-    @Deprecated 
     public void refreshPessimisticLocks() {
         this.pessimisticLocks.clear();
         this.pessimisticLocks = KRADServiceLocatorWeb.getPessimisticLockService().getPessimisticLocksForDocument(this.documentNumber);

@@ -33,7 +33,6 @@ import java.util.List;
  *
  *@author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public interface MaintenanceDocumentDictionaryService {
 
     /**
@@ -151,7 +150,6 @@ public interface MaintenanceDocumentDictionaryService {
      * @param docTypeName
      * @return A List of maintable section objects.
      */
-    @Deprecated
     public List<MaintainableSectionDefinition> getMaintainableSections(String docTypeName);
 
     /**
@@ -170,7 +168,6 @@ public interface MaintenanceDocumentDictionaryService {
      * @return the default if one is available, null otherwise
      *
      */
-    @Deprecated
     public String getFieldDefaultValue(Class boClass, String fieldName);
 
     /**
@@ -208,7 +205,6 @@ public interface MaintenanceDocumentDictionaryService {
      * @param fieldName - the fieldName of the attribute for which the default is desired
      * @return the default if one is available, null otherwise
      */
-    @Deprecated
     public String getCollectionFieldDefaultValue(String docTypeName, String collectionName, String fieldName);
 
     /**
@@ -218,7 +214,6 @@ public interface MaintenanceDocumentDictionaryService {
      * @param collectionName
      * @return
      */
-    @Deprecated
     public Class getCollectionBusinessObjectClass( String docTypeName, String collectionName );
 
     /**
@@ -238,7 +233,6 @@ public interface MaintenanceDocumentDictionaryService {
      * @param fieldName
      * @return The field or <b>null</b> if the item does not exist or is not a field.
      */
-    @Deprecated
     public MaintainableFieldDefinition getMaintainableField( String docTypeName, String fieldName );
 
     /**
@@ -248,7 +242,6 @@ public interface MaintenanceDocumentDictionaryService {
      * @param collectionName
      * @return The collection or <b>null</b> if the item does not exist or is not a collection.
      */
-    @Deprecated
     public MaintainableCollectionDefinition getMaintainableCollection( String docTypeName, String collectionName );
 
     /**
@@ -257,7 +250,6 @@ public interface MaintenanceDocumentDictionaryService {
      * @param docTypeName
      * @return
      */
-    @Deprecated
     public List<MaintainableCollectionDefinition> getMaintainableCollections( String docTypeName );
 
     /**
@@ -276,7 +268,6 @@ public interface MaintenanceDocumentDictionaryService {
      *
      * @param document
      */
-    @Deprecated
     public void validateMaintenanceRequiredFields(MaintenanceDocument document);
 
     /**
@@ -285,14 +276,12 @@ public interface MaintenanceDocumentDictionaryService {
      */
     public void validateMaintainableCollectionsForDuplicateEntries(MaintenanceDocument document);
 
-    @Deprecated
     public void validateMaintainableCollectionsAddLineRequiredFields(MaintenanceDocument document, PersistableBusinessObject businessObject, String collectionName );
 
     /**
      * @param businessObjectClass - business object class for maintenance definition
      * @return Boolean indicating whether translating of codes is configured to true in maintenance definition
      */
-    @Deprecated
     public Boolean translateCodes(Class businessObjectClass);
 
 }

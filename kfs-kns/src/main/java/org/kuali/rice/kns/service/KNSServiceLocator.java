@@ -25,9 +25,8 @@ import org.kuali.rice.kns.question.Question;
  * Service locator for the KRAD Web module
  *
  * @author Kuali Rice Team (rice.collab@kuali.org)
- * @deprecated As of release 2.0
+ * As of release 2.0
  */
-@Deprecated
 public class KNSServiceLocator {
 
     public static final String BUSINESS_OBJECT_AUTHORIZATION_SERVICE = "businessObjectAuthorizationService";

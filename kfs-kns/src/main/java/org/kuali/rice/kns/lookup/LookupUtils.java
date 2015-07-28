@@ -274,7 +274,6 @@ public class LookupUtils {
     /**
      * Sets a fields quickfinder class and field conversions for an attribute.
      */
-    @Deprecated
     public static Field setFieldQuickfinder(BusinessObject businessObject, String collectionName, boolean addLine, int index,
                                             String attributeName, Field field, List displayedFieldNames) {
         boolean noLookup = false;
@@ -291,7 +290,6 @@ public class LookupUtils {
 
     }
 
-    @Deprecated
     public static Field setFieldQuickfinder(BusinessObject businessObject, String collectionName, boolean addLine, int index, String attributeName, Field field, List displayedFieldNames, boolean noLookupField)
     {
          if (businessObject == null) {
@@ -365,7 +363,6 @@ public class LookupUtils {
     /**
      * @see org.kuali.rice.krad.uif.util.LookupInquiryUtils#getBaseLookupUrl()
      */
-    @Deprecated
     public static String getBaseLookupUrl(boolean isMultipleValue) {
         ConfigurationService kualiConfigurationService = KRADServiceLocator.getKualiConfigurationService();
     	if ( isMultipleValue ) {
@@ -391,7 +388,6 @@ public class LookupUtils {
     	}
     }
 
-    @Deprecated
     public static String getBaseInquiryUrl() {
     	if ( BASE_INQUIRY_ACTION_URL == null ) {
 	    	StringBuffer inquiryUrl = new StringBuffer( 
@@ -480,7 +476,6 @@ public class LookupUtils {
 
     private static Map<Class,Map<String,Map>> referencesForForeignKey = new HashMap<Class, Map<String,Map>>();
 
-    @Deprecated
     public static Map getPrimitiveReference(BusinessObject businessObject, String attributeName) {
         Map chosenReferenceByKeySize = new HashMap();
         Map chosenReferenceByFieldName = new HashMap();
@@ -590,7 +585,6 @@ public class LookupUtils {
         return null == bo ? null : bo.getClass();
     }
 
-    @Deprecated
     private static String generateFieldConversions(BusinessObject businessObject, String collectionName, DataObjectRelationship relationship, String propertyPrefix, List displayedFieldNames, String nestedObjectPrefix) {
         String fieldConversions = "";
 
@@ -626,7 +620,6 @@ public class LookupUtils {
         return fieldConversions;
     }
 
-    @Deprecated
     private static String generateLookupParameters(BusinessObject businessObject, String collectionName, DataObjectRelationship relationship, String propertyPrefix, List displayedFieldNames, String nestedObjectPrefix) {
 
         String lookupParameters = "";
@@ -666,8 +659,7 @@ public class LookupUtils {
         return lookupParameters;
     }
 
-    @Deprecated
-    private static String translateToDisplayedField(Class businessObjectClass, String fieldName, List displayedFieldNames) {        
+    private static String translateToDisplayedField(Class businessObjectClass, String fieldName, List displayedFieldNames) {
         if ( getPersistenceStructureService().isPersistable(businessObjectClass) ) {
             Map nestedFkMap = getPersistenceStructureService().getNestedForeignKeyMap(businessObjectClass);
 

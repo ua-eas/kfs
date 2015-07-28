@@ -25,7 +25,6 @@ import java.util.Map;
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public final class KNSGlobalVariables {
 
     private KNSGlobalVariables() {
@@ -51,7 +50,6 @@ public final class KNSGlobalVariables {
     /**
      * @return ArrayList containing messages.
      */
-    @Deprecated
     public static MessageList getMessageList() {
         return messageLists.get();
     }
@@ -61,7 +59,6 @@ public final class KNSGlobalVariables {
      *
      * @param messageList
      */
-    @Deprecated
     public static void setMessageList(MessageList messageList) {
         messageLists.set(messageList);
     }
@@ -69,7 +66,6 @@ public final class KNSGlobalVariables {
     /**
      * @return KualiForm that has been assigned to this thread of execution.
      */
-    @Deprecated
     public static KualiForm getKualiForm() {
         return kualiForms.get();
     }
@@ -97,12 +93,10 @@ public final class KNSGlobalVariables {
      *
      * @param kualiForm
      */
-    @Deprecated
     public static void setKualiForm(KualiForm kualiForm) {
         kualiForms.set(kualiForm);
     }
 
-    @Deprecated
     public static void clear() {
         GlobalVariables.clear();
         messageLists.set(new MessageList());

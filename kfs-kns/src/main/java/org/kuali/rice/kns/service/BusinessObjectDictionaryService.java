@@ -26,7 +26,6 @@ import java.util.List;
 /**
  * This interface defines the API for the interacting with the data dictionary.
  */
-@Deprecated
 public interface BusinessObjectDictionaryService {
 	public <T extends BusinessObject> InquiryPresentationController getInquiryPresentationController(Class<T> businessObjectClass);
 	

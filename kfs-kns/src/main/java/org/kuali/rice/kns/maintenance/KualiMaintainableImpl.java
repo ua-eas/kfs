@@ -75,7 +75,6 @@ import java.util.Set;
 /**
  * Base Maintainable class to hold things common to all maintainables.
  */
-@Deprecated
 public class KualiMaintainableImpl extends MaintainableImpl implements Maintainable {
 	private static final long serialVersionUID = 4814145799502207182L;
 
@@ -756,7 +755,6 @@ public class KualiMaintainableImpl extends MaintainableImpl implements Maintaina
 		}
 	}
 
-	@Deprecated
 	public void processAfterAddLine(String colName, Class colClass) {
 	}
 

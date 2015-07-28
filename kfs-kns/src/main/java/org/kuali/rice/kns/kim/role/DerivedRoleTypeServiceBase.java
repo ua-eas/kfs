@@ -28,9 +28,8 @@ import java.util.Map;
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  *
- * @deprecated A krad integrated type service base class will be provided in the future.
+ * A krad integrated type service base class will be provided in the future.
  */
-@Deprecated
 public class DerivedRoleTypeServiceBase extends RoleTypeServiceBase {
 
 	@Override

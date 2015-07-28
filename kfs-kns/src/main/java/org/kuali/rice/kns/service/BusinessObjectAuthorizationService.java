@@ -32,7 +32,6 @@ import org.kuali.rice.krad.service.DataObjectAuthorizationService;
  * TODO: refactor for general objects
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public interface BusinessObjectAuthorizationService extends DataObjectAuthorizationService {
 	public BusinessObjectRestrictions getLookupResultRestrictions(
 			Object dataObject, Person user);

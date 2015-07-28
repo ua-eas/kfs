@@ -18,7 +18,6 @@ package org.kuali.rice.kns.datadictionary;
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public class BusinessObjectEntry extends org.kuali.rice.krad.datadictionary.BusinessObjectEntry {
 
     protected InquiryDefinition inquiryDefinition;

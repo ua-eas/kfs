@@ -24,7 +24,6 @@ import java.util.Collection;
  * This interface defines methods that a TransactionalDocumentDictionary Service must provide. Defines the API for the interacting
  * with TransactionalDocument-related entries in the data dictionary.
  */
-@Deprecated
 public interface TransactionalDocumentDictionaryService {
     /**
      * Returns whether or not this document's data dictionary file has flagged it to allow document copies.

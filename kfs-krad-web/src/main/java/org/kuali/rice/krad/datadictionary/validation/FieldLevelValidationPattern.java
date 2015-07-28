@@ -25,7 +25,6 @@ import java.util.regex.Pattern;
  * 
  * 
  */
-@Deprecated
 abstract public class FieldLevelValidationPattern extends ValidationPattern {
     protected Pattern regexPattern;
     

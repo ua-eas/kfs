@@ -27,7 +27,6 @@ package org.kuali.rice.kns.datadictionary;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
-@Deprecated
 public class InquirySubSectionHeaderDefinition extends FieldDefinition implements SubSectionHeaderDefinitionI {
     private static final long serialVersionUID = -4979343188029630857L;
 

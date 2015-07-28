@@ -38,7 +38,6 @@ import java.util.Set;
  *
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public class Field implements java.io.Serializable, PropertyRenderingConfigElement {
     private static final long serialVersionUID = 6549897986355019202L;
     public static final int DEFAULT_MAXLENGTH = 30;

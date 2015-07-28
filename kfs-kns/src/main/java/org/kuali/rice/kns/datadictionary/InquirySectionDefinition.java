@@ -38,7 +38,6 @@ import java.util.Map;
  * Contains section-related information for inquiry sections
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process.
  */
-@Deprecated
 public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 1565114894539391362L;
     

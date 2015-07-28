@@ -51,7 +51,6 @@ import java.util.Map;
 
  *
  */
-@Deprecated
 public class MaintainableCollectionDefinition extends MaintainableItemDefinition implements CollectionDefinitionI {
     private static final long serialVersionUID = -5617868782623587053L;
 

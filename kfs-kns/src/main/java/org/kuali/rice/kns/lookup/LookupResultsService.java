@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-@Deprecated
 public interface LookupResultsService extends Serializable {
     /**
      * Persists a list of result row objects into a database.  The lookup results sequence number acts like a key identifying the lookup
