@@ -25,10 +25,9 @@ import org.kuali.rice.krad.datadictionary.exception.ClassValidationException;
 import java.util.Map;
 
 /**
- * @deprecated A krad integrated type service base class will be provided in the future.
+ * A krad integrated type service base class will be provided in the future.
  * This is only used for the legacy {@link DataDictionaryTypeServiceBase}.
  */
-@Deprecated
 public final class KimAttributeDefinition extends AttributeDefinition {
 	private static final long serialVersionUID = 7006569761728813805L;
 

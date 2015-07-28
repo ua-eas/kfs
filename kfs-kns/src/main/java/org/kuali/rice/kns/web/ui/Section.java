@@ -21,7 +21,6 @@ import java.util.List;
 /**
  * This class represents a section (tab) in a maintenance document.
  */
-@Deprecated
 public class Section implements java.io.Serializable {
     private static final long serialVersionUID = 390440643941774650L;
     String sectionTitle;

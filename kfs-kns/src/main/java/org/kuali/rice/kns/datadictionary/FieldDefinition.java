@@ -31,7 +31,6 @@ import org.kuali.rice.krad.valuefinder.ValueFinder;
  *
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process.
  */
-@Deprecated
 public class FieldDefinition extends DataDictionaryDefinitionBase implements FieldDefinitionI {
     private static final long serialVersionUID = -3426603523049661524L;
     

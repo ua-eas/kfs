@@ -32,7 +32,6 @@ import org.kuali.rice.krad.keyvalues.KeyValuesFinder;
  *
  *
  */
-@Deprecated
 public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase implements ControlDefinition {
     private static final long serialVersionUID = 4372435175782501152L;
     

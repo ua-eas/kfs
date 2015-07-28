@@ -25,7 +25,6 @@ import java.io.Serializable;
  * Represents an extra button that may appear on the lookups or bottom of a
  * document page.
  */
-@Deprecated
 public class ExtraButton implements Serializable {
 	private String extraButtonSource = "";
 

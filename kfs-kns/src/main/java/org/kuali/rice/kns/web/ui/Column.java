@@ -29,7 +29,6 @@ import java.util.List;
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public class Column implements java.io.Serializable, PropertyRenderingConfigElement {
     private static final long serialVersionUID = -5916942413570667803L;
     private String columnTitle;

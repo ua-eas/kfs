@@ -36,11 +36,10 @@ import java.util.regex.Pattern;
  * Filters parameters coming in through Struts requests to exclude those that could be damaging to the class loader in
  * response to CVE-2014-0114.
  *
- * @deprecated Patches Struts 1 which is end-of-life and will eventually be removed from Rice.
+ * Patches Struts 1 which is end-of-life and will eventually be removed from Rice.
  *
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public class ParameterFilter implements Filter {
 
     private String excludeParams;

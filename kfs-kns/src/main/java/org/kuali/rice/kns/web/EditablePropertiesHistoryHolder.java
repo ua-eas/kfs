@@ -34,7 +34,6 @@ import java.util.UUID;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
-@Deprecated
 public class EditablePropertiesHistoryHolder implements java.io.Serializable {
 	private Map<String, Set<String>> editablePropertiesMap;
 	private Integer maxLength = null;

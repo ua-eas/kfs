@@ -28,7 +28,6 @@ import java.io.Serializable;
                 will appear on the document.
 
  */
-@Deprecated
 public class HeaderNavigation extends DataDictionaryDefinitionBase implements Serializable {
     private static final long serialVersionUID = 4317341111287854436L;
     

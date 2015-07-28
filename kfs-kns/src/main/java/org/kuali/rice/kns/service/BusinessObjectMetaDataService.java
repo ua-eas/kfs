@@ -163,10 +163,8 @@ public interface BusinessObjectMetaDataService extends DataObjectMetaDataService
 	 * @param attributes
 	 * @return related class
 	 */
-	@Deprecated
 	public DataObjectRelationship getBusinessObjectRelationship(BusinessObject bo, String attributeName);
 
-	@Deprecated
 	public DataObjectRelationship getBusinessObjectRelationship(BusinessObject bo, Class boClass,
 			String attributeName, String attributePrefix, boolean keysOnly);
 
@@ -200,7 +198,6 @@ public interface BusinessObjectMetaDataService extends DataObjectMetaDataService
 	 *            attributeName
 	 * @return Map<String, Class>
 	 */
-	@Deprecated
 	public Map<String, Class> getReferencesForForeignKey(BusinessObject businessObject, String attributeName);
 
 	/**
@@ -212,6 +209,5 @@ public interface BusinessObjectMetaDataService extends DataObjectMetaDataService
 	 * @param targetName
 	 * @return
 	 */
-	@Deprecated
 	public String getForeignKeyFieldName(Class businessObjectClass, String attributeName, String targetName);
 }

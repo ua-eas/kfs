@@ -237,7 +237,6 @@ public interface DictionaryValidationService {
      * @param businessObject - business object to validate
      * @deprecated since 1.1 - use validate(Object.class) instead
      */
-    @Deprecated
     public void validateBusinessObject(BusinessObject businessObject);
 
     /**
@@ -249,7 +248,6 @@ public interface DictionaryValidationService {
      * @param validateRequired - whether to execute required field checks
      * @deprecated since 1.1 - use validate(Object.class) instead
      */
-    @Deprecated
     public void validateBusinessObject(BusinessObject businessObject, boolean validateRequired);
 
     /**

@@ -15,7 +15,6 @@
  */
 package org.kuali.rice.kns.datadictionary;
 
-@Deprecated
 public interface FieldDefinitionI {
     public String getName();
     public boolean isReadOnlyAfterAdd();

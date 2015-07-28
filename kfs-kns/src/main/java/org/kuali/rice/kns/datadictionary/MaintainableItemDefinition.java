@@ -21,7 +21,6 @@ import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
 /**
  * Abstract superclass for all maintainable fields and collections.  Never used directly.
  */
-@Deprecated
 public abstract class MaintainableItemDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 4564613758722159747L;
     

@@ -40,7 +40,6 @@ import java.util.Map;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  * 
  */
-@Deprecated
 public abstract class HtmlData implements Serializable {
 
 	protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(HtmlData.class);

@@ -38,7 +38,6 @@ import java.util.Map;
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public class MaintenanceDocumentEntry extends org.kuali.rice.krad.datadictionary.MaintenanceDocumentEntry implements KNSDocumentEntry {
     protected List<MaintainableSectionDefinition> maintainableSections = new ArrayList<MaintainableSectionDefinition>();
     protected List<String> lockingKeys = new ArrayList<String>();
@@ -182,7 +181,6 @@ public class MaintenanceDocumentEntry extends org.kuali.rice.krad.datadictionary
         return "MaintenanceDocumentEntry for documentType " + getDocumentTypeName();
     }
 
-    @Deprecated
     public String getAdditionalSectionsFile() {
         return additionalSectionsFile;
     }
@@ -193,7 +191,6 @@ public class MaintenanceDocumentEntry extends org.kuali.rice.krad.datadictionary
            after the generation sections but before the notes.
            The location semantics are those of jsp:include.
     */
-    @Deprecated
     public void setAdditionalSectionsFile(String additionalSectionsFile) {
         this.additionalSectionsFile = additionalSectionsFile;
     }
@@ -229,7 +226,6 @@ public class MaintenanceDocumentEntry extends org.kuali.rice.krad.datadictionary
      * The corresponding value for each entry is a maintainableSection ExportMap.
      * See MaintenanceDocumentEntryMapper.java.
      */
-    @Deprecated
     public void setMaintainableSections(List<MaintainableSectionDefinition> maintainableSections) {
         maintainableSectionMap.clear();
         for (MaintainableSectionDefinition maintainableSectionDefinition : maintainableSections) {
@@ -277,12 +273,10 @@ public class MaintenanceDocumentEntry extends org.kuali.rice.krad.datadictionary
         this.allowsRecordDeletion = allowsRecordDeletion;
     }
 
-    @Deprecated
     public boolean isTranslateCodes() {
         return this.translateCodes;
     }
 
-    @Deprecated
     public void setTranslateCodes(boolean translateCodes) {
         this.translateCodes = translateCodes;
     }

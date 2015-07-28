@@ -66,7 +66,6 @@ public class AttributeDefinition extends AttributeDefinitionBase implements Case
 	protected String exclusiveMin;
 	protected String inclusiveMax;
 
-	@Deprecated 
 	protected ValidationPattern validationPattern;
 
 	protected ControlDefinition control;

@@ -21,7 +21,6 @@ import java.util.List;
 /**
  * This class represents a row of fields on the ui.
  */
-@Deprecated
 public class Row implements java.io.Serializable {
 
     private static final long serialVersionUID = 5920833652172097098L;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package org.kuali.rice.kns.datadictionary;
-@Deprecated
+
 public interface SubSectionHeaderDefinitionI {
     public String getName();
 }

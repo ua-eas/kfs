@@ -24,7 +24,6 @@ import java.util.List;
 /**
  * 
  */
-@Deprecated
 public class ResultRow implements Serializable {
     private static final long serialVersionUID = 2880508981008533913L;
     private List<Column> columns;

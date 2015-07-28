@@ -21,7 +21,6 @@ import org.kuali.rice.krad.document.Document;
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public interface DictionaryValidationService extends org.kuali.rice.krad.service.DictionaryValidationService {
 
     /**
@@ -39,7 +38,6 @@ public interface DictionaryValidationService extends org.kuali.rice.krad.service
     @Deprecated
     public void validateDocumentRecursively(Document document, int depth);
 
-    @Deprecated
     public void validateBusinessObjectOnMaintenanceDocument(BusinessObject businessObject, String docTypeName);
 
     /**
@@ -52,7 +50,6 @@ public interface DictionaryValidationService extends org.kuali.rice.krad.service
      * infinite.
      * @deprecated since 1.1
      */
-    @Deprecated
     public void validateBusinessObjectsRecursively(BusinessObject businessObject, int depth);
 
     /**
@@ -64,7 +61,6 @@ public interface DictionaryValidationService extends org.kuali.rice.krad.service
      * @param errorKey - key to place the errors under
      * @deprecated since 1.1
      */
-    @Deprecated
     public void validateAttributeFormat(String entryName, String attributeName, String attributeValue, String errorKey);
 
     /**

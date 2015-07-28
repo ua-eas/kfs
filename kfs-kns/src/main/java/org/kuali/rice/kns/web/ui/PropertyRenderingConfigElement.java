@@ -23,7 +23,6 @@ import org.kuali.rice.core.web.format.Formatter;
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Deprecated
 public interface PropertyRenderingConfigElement {
 
 	/**

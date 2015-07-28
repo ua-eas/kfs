@@ -35,7 +35,6 @@ import java.util.Map;
  * (getCreateNewUrl, getHtmlMenuBar, getTitle, getRows, getExtraButton{Source,Params})
  *
  */
-@Deprecated
 public interface Lookupable extends Serializable {
 
     /**

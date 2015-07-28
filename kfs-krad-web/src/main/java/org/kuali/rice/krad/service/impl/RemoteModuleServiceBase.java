@@ -222,7 +222,6 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         return getRiceBaseLookupUrl();
     }
 
-    @Deprecated
     public String getExternalizableBusinessObjectInquiryUrl(Class inquiryBusinessObjectClass,
             Map<String, String[]> parameters) {
         if (!isExternalizable(inquiryBusinessObjectClass)) {
@@ -248,7 +247,6 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
      * @see org.kuali.rice.krad.service.ModuleService#getExternalizableBusinessObjectLookupUrl(java.lang.Class,
      *      java.util.Map)
      */
-    @Deprecated
     @Override
     public String getExternalizableBusinessObjectLookupUrl(Class inquiryBusinessObjectClass,
             Map<String, String> parameters) {
@@ -431,7 +429,6 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
 
     }
 
-    @Deprecated
     protected Properties getUrlParameters(String businessObjectClassAttribute, Map<String, String[]> parameters) {
         Properties urlParameters = new Properties();
         for (String paramName : parameters.keySet()) {
@@ -445,7 +442,6 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
         return urlParameters;
     }
 
-    @Deprecated
     protected String getInquiryUrl(Class inquiryBusinessObjectClass) {
         String riceBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
                 KRADConstants.KUALI_RICE_URL_KEY);

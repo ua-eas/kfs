@@ -153,7 +153,6 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @deprecated legacy KNS call, replaced by {@link #getExternalizableDataObjectInquiryUrl(Class, java.util.Properties)}
      * in KRAD
      */
-    @Deprecated
     public String getExternalizableBusinessObjectInquiryUrl(Class inquiryBusinessObjectClass,
             Map<String, String[]> parameters);
 
@@ -165,7 +164,6 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @deprecated legacy KNS call, replaced by {@link #getExternalizableDataObjectLookupUrl(Class, java.util.Properties)}
      * in KRAD
      */
-    @Deprecated
     public String getExternalizableBusinessObjectLookupUrl(Class inquiryBusinessObjectClass,
             Map<String, String> parameters);
 

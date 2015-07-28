@@ -22,7 +22,6 @@ import org.kuali.rice.kns.document.MaintenanceDocument;
 import org.kuali.rice.krad.rules.rule.BusinessRule;
 import org.kuali.rice.krad.rules.rule.event.KualiDocumentEventBase;
 
-@Deprecated
 public class KualiAddLineEvent extends KualiDocumentEventBase {
 
     private PersistableBusinessObject bo;

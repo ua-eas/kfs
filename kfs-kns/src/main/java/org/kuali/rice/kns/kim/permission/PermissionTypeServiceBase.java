@@ -26,9 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @deprecated A krad integrated type service base class will be provided in the future.
+ * A krad integrated type service base class will be provided in the future.
  */
-@Deprecated
 public class PermissionTypeServiceBase extends DataDictionaryTypeServiceBase implements PermissionTypeService {
 
 	@Override

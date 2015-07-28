@@ -33,7 +33,6 @@ import java.util.List;
         * title (String)
         * inquiryFields (Map)
  */
-@Deprecated
 public class InquiryDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = -2506403061297774668L;
     

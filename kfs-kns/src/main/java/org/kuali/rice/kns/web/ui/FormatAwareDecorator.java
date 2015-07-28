@@ -25,7 +25,6 @@ import org.kuali.rice.krad.util.KRADConstants;
 import javax.servlet.jsp.PageContext;
 
 /** @see #decorate(Object, PageContext, MediaTypeEnum) */
-@Deprecated
 public class FormatAwareDecorator implements DisplaytagColumnDecorator {
 
     /**

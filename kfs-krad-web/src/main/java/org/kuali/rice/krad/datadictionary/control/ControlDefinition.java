@@ -22,7 +22,6 @@ import org.kuali.rice.krad.datadictionary.DataDictionaryDefinition;
  *
  *
  */
-@Deprecated
 public interface ControlDefinition extends DataDictionaryDefinition {
 
     public boolean isDatePicker();

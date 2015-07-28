@@ -89,7 +89,6 @@ import java.util.regex.Pattern;
                     exact regex patterns.
                     e.g. validationPatternRegex.date for regex used in date validation.
  */
-@Deprecated
 abstract public class ValidationPattern implements Serializable {
 // TODO: UNIT TEST: compile all patterns to test
 

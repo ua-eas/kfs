@@ -28,7 +28,6 @@ import java.util.Map;
 /**
  * Defines basic methods that all maintainable objects must provide
  */
-@Deprecated
 public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainable, SelectiveReferenceRefresher {
 
     public String getDocumentTitle(MaintenanceDocument document);
@@ -36,25 +35,20 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
     /**
      * Returns instance of the business object that is being maintained.
      */
-    @Deprecated
     public PersistableBusinessObject getBusinessObject();
 
     /**
      * Called from a lookup return by the maintenance action.
      */
-    @Deprecated
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document);
 
     /**
      * Sets an instance of a business object to be maintained.
      */
-    @Deprecated
     public void setBusinessObject(PersistableBusinessObject object);
 
-    @Deprecated
     public Class getBoClass();
 
-    @Deprecated
     public void setBoClass(Class boClass);
 
     /**
@@ -62,20 +56,15 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * relevant business object(s). This typically is called only after the
      * maint document has gone through state to final.
      */
-    @Deprecated
     public void saveBusinessObject();
 
-    @Deprecated
     public void addMultipleValueLookupResults(MaintenanceDocument document, String collectionName,
             Collection<PersistableBusinessObject> rawValues, boolean needsBlank, PersistableBusinessObject bo);
 
-    @Deprecated
     public List<String> getDuplicateIdentifierFieldsFromDataDictionary(String docTypeName, String collectionName);
 
-    @Deprecated
     public List<String> getMultiValueIdentifierList(Collection maintCollection, List<String> duplicateIdentifierFields);
 
-    @Deprecated
     public boolean hasBusinessObjectExisted(BusinessObject bo, List<String> existingIdentifierList,
             List<String> duplicateIdentifierFields);
 
@@ -88,7 +77,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      *
      * @param maintenanceDocumentRestrictions
      */
-    @Deprecated
     public void clearBusinessObjectOfRestrictedValues(MaintenanceDocumentRestrictions maintenanceDocumentRestrictions);
 
     public boolean isBoNotesEnabled();
@@ -99,7 +87,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      *
      * @return
      */
-    @Deprecated
     public void prepareBusinessObject(BusinessObject businessObject);
 
     // 3070
@@ -117,14 +104,12 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * record display setting
      * @return true if inactive records should be displayed, false otherwise
      */
-    @Deprecated
     public boolean getShowInactiveRecords(String collectionName);
 
     /**
      * Returns the Map used to control the state of inactive record collection
      * display. Exposed for setting from the maintenance jsp.
      */
-    @Deprecated
     public Map<String, Boolean> getInactiveRecordDisplay();
 
     /**
@@ -136,7 +121,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * @param showInactive - true to display inactive, false to not display inactive
      * records
      */
-    @Deprecated
     public void setShowInactiveRecords(String collectionName, boolean showInactive);
 
     /**
@@ -145,7 +129,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * @param fieldValues
      * @return
      */
-    @Deprecated
     public Map<String, String> populateNewCollectionLines(Map<String, String> fieldValues,
             MaintenanceDocument maintenanceDocument, String methodToCall);
 
@@ -156,7 +139,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * @param collectionName
      * @return
      */
-    @Deprecated
     public PersistableBusinessObject getNewCollectionLine(String collectionName);
 
     /**
@@ -165,7 +147,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      *
      * @param collectionName
      */
-    @Deprecated
     public void addNewLineToCollection(String collectionName);
 
     /**
@@ -176,7 +157,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * @param colClass
      * @param addBO
      */
-    @Deprecated
     public void processBeforeAddLine(String colName, Class colClass, BusinessObject addBO);
 
     /**
@@ -184,7 +164,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      *
      * @param docTypeName
      */
-    @Deprecated
     public void setGenerateDefaultValues(String docTypeName);
 
     /**
@@ -192,7 +171,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      *
      * @param docTypeName
      */
-    @Deprecated
     public void setGenerateBlankRequiredValues(String docTypeName);
 
     /**
@@ -204,7 +182,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * passed in
      * @return
      */
-    @Deprecated
     public List getSections(MaintenanceDocument maintenanceDocument, Maintainable oldMaintainable);
 
     /**
@@ -214,7 +191,6 @@ public interface Maintainable extends org.kuali.rice.krad.maintenance.Maintainab
      * @param maintenanceDocument
      * @return
      */
-    @Deprecated
     public Map populateBusinessObject(Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument,
             String methodToCall);
 
