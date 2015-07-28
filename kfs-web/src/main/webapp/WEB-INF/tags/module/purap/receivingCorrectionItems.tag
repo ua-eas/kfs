@@ -1,3 +1,4 @@
+<%@ tag import="org.kuali.kfs.sys.util.Guid" %>
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    - 
@@ -51,7 +52,7 @@
 			
 			<c:choose>
 				<c:when test="${itemLine.objectId == null}">
-					<c:set var="newObjectId" value="<%= (new org.kuali.rice.kns.util.Guid()).toString()%>" />
+					<c:set var="newObjectId" value="<%= (new Guid()).toString()%>" />
                     <c:set var="tabKey" value="Item-${newObjectId}" />
 			    </c:when>
 			    <c:when test="${itemLine.objectId != null}">
