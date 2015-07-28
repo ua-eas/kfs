@@ -40,5 +40,15 @@
       <artifactId>joda-time-jsptags</artifactId>
       <version>${joda-time.jsptags.version}</version>
     </dependency>
+      <dependency>
+          <groupId>org.kuali.kfs</groupId>
+          <artifactId>kfs-krad-app</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.kuali.kfs</groupId>
+          <artifactId>kfs-krad-web</artifactId>
+          <version>${project.version}</version>
+      </dependency>
   </dependencies>
 </project>
