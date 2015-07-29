@@ -1271,6 +1271,7 @@
 
 	<bean id="preferencesService" parent="preferencesService-parentBean"/>
 	<bean id="preferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.PreferencesServiceImpl">
+		<property name="documentDictionaryService" ref="documentDictionaryService" />
 		<property name="preferencesDao" ref="preferencesDao" />
 	</bean>
 

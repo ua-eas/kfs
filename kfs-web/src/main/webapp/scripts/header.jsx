@@ -39,7 +39,7 @@ var Header = React.createClass({
                 <nav className="collapse navbar-collapse">
                     <ul className="nav navbar-nav pull-right">
                         <li>
-                            <a href="#"><span className="glyphicon glyphicon-ok-sign"></span>Updated Action List</a>
+                            <a href="#"><span className="glyphicon glyphicon-ok-sign"></span>Action List</a>
                         </li>
                         <li>
                             <a href="#"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
