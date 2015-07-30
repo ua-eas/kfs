@@ -1,18 +1,18 @@
 package org.kuali.kfs.sys.service.impl;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.service.PreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.krad.bo.ModuleConfiguration;
 import org.kuali.rice.krad.document.Document;
+import org.kuali.rice.krad.document.TransactionalDocument;
+import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.service.DocumentDictionaryService;
 import org.kuali.rice.krad.service.KualiModuleService;
 import org.kuali.rice.krad.service.ModuleService;
 import org.kuali.rice.krad.util.ObjectUtils;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,14 +89,23 @@ public class PreferencesServiceImpl implements PreferencesService {
     protected Map<String, String> determineLinkInfo(String documentTypeName) {
         final String label = getDocumentDictionaryService().getLabel(documentTypeName);
         final Class<? extends Document> documentClass = (Class<? extends Document>)getDocumentDictionaryService().getDocumentClassByName(documentTypeName);
-        final String link = constructTransactionalDocumentLinkFromClass(documentClass, documentTypeName);
-
+        String link = StringUtils.EMPTY;
+        if (TransactionalDocument.class.isAssignableFrom(documentClass)) {
+            link = constructTransactionalDocumentLinkFromClass(documentClass, documentTypeName);
+        } else if (MaintenanceDocument.class.isAssignableFrom(documentClass)) {
+            link = constructMaintenanceDocumentLinkFromClass(documentTypeName);
+        }
         return constructLinkInfo(label, link);
     }
 
     protected String constructTransactionalDocumentLinkFromClass(Class<? extends Document> documentClass, String documentTypeName) {
         final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
-        return applicationUrl + determineUrlNameForClass(documentClass) + transformClassName(documentClass) + ".do?methodToCall=docHandler&command=initiate&docTypeName="+documentTypeName;
+        return applicationUrl + "/" + determineUrlNameForClass(documentClass) + transformClassName(documentClass) + ".do?methodToCall=docHandler&command=initiate&docTypeName="+documentTypeName;
+    }
+
+    protected String constructMaintenanceDocumentLinkFromClass(String documentTypeName) {
+        final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+        return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + documentDictionaryService.getMaintenanceDataObjectClass(documentTypeName).getName() + "&docFormKey=88888888";
     }
 
     protected String transformClassName(Class<? extends Document> documentClass) {

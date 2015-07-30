@@ -3,11 +3,13 @@ package org.kuali.kfs.sys.service.impl;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.kuali.kfs.fp.businessobject.CreditCardType;
 import org.kuali.kfs.fp.document.ServiceBillingDocument;
 import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.junit.Assert;
+import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
@@ -93,7 +95,7 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_DocumentTypeLinkIsTransformed() {
+    public void testFindInstitutionPreferences_TransactionalDocumentTypeLinkIsTransformed() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
             @Override
@@ -135,7 +137,61 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
 
         Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link")));
+
+        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/financialServiceBilling.do?methodToCall=docHandler&command=initiate&docTypeName=SB", link);
+        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
+    }
+
+    @Test
+    public void testFindInstitutionPreferences_MaintenanceDocumentTypeLinkIsTransformed() {
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
+                ip.put("institutionName", "Monsters");
+
+                Map<String, String> link = new ConcurrentHashMap<>();
+                link.put("documentTypeCode", "CCTY");
+
+                List<Map<String, String>> links = new ArrayList<>();
+                links.add(link);
+
+                Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+                linkGroup.put("label", "Test Menu");
+                linkGroup.put("links", links);
+
+                List<Map<String, Object>> linkGroups = new ArrayList<>();
+                linkGroups.add(linkGroup);
+
+                ip.put("linkGroups", linkGroups);
+
+                return ip;
+            }
+        });
+        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
+        Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
+        Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
+        Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
+
+        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
+
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.CreditCardType&docFormKey=88888888", link);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
     }
 
@@ -144,6 +200,8 @@ public class PreferencesServiceImplTest {
         public String getLabel(String documentTypeName) {
             if (StringUtils.equals(documentTypeName, "SB")) {
                 return "Service Billing";
+            } else if (StringUtils.equals(documentTypeName, "CCTY")) {
+                return "Credit Card Type";
             }
             return null;
         }
@@ -175,8 +233,10 @@ public class PreferencesServiceImplTest {
 
         @Override
         public Class<?> getMaintenanceDataObjectClass(String docTypeName) {
-            return null;
-        }
+            if (StringUtils.equals(docTypeName, "CCTY")) {
+                return CreditCardType.class;
+            }
+            return null;        }
 
         @Override
         public Class<? extends Maintainable> getMaintainableClass(String docTypeName) {
@@ -217,6 +277,8 @@ public class PreferencesServiceImplTest {
         public Class<?> getDocumentClassByName(String documentTypeName) {
             if (StringUtils.equals(documentTypeName, "SB")) {
                 return ServiceBillingDocument.class;
+            } else if (StringUtils.equals(documentTypeName, "CCTY")) {
+                return FinancialSystemMaintenanceDocument.class;
             }
             return null;
         }
@@ -271,7 +333,7 @@ public class PreferencesServiceImplTest {
         @Override
         public String getPropertyValueAsString(String s) {
             if (StringUtils.equals(s, KFSConstants.APPLICATION_URL_KEY)) {
-                return "http://tst.kfs.kuali.org/kfs-tst/";
+                return "http://tst.kfs.kuali.org/kfs-tst";
             }
             return null;
         }
@@ -310,7 +372,7 @@ public class PreferencesServiceImplTest {
 
         @Override
         public ModuleService getResponsibleModuleService(Class boClass) {
-            if (boClass.equals(ServiceBillingDocument.class)) {
+            if (boClass.equals(ServiceBillingDocument.class) || boClass.equals(CreditCardType.class)) {
                 ModuleService fpModule = new ModuleService() {
                     @Override
                     public ModuleConfiguration getModuleConfiguration() {
