@@ -27,6 +27,7 @@ import org.kuali.rice.krad.rules.rule.BusinessRule;
 import org.kuali.rice.krad.service.DocumentDictionaryService;
 import org.kuali.rice.krad.service.KualiModuleService;
 import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.rice.krad.util.KRADConstants;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
@@ -47,9 +48,34 @@ public class PreferencesServiceImplTest {
                 return ip;
             }
         });
+        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
         Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNull("Link Groups should not exist", preferences.get("linkGroups"));
+    }
+
+    @Test
+    public void testFindInstitutionPreferences_HasActionList() {
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
+                ip.put("institutionName", "Monsters");
+                return ip;
+            }
+        });
+        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertTrue("Preferences should always include an action list url", preferences.containsKey("actionListUrl"));
+        Assert.assertEquals("We should know what action list is", "http://tst.kfs.kuali.org/kfs-tst/kew/ActionList.do", preferences.get("actionListUrl"));
     }
 
     @Test
@@ -443,6 +469,8 @@ public class PreferencesServiceImplTest {
         public String getPropertyValueAsString(String s) {
             if (StringUtils.equals(s, KFSConstants.APPLICATION_URL_KEY)) {
                 return "http://tst.kfs.kuali.org/kfs-tst";
+            } else if (StringUtils.equals(s, KRADConstants.WORKFLOW_URL_KEY)) {
+                return "http://tst.kfs.kuali.org/kfs-tst/kew";
             }
             return null;
         }

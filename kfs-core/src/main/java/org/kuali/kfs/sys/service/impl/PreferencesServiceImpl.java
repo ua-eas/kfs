@@ -13,6 +13,7 @@ import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.service.DocumentDictionaryService;
 import org.kuali.rice.krad.service.KualiModuleService;
 import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -49,9 +50,19 @@ public class PreferencesServiceImpl implements PreferencesService {
     public Map<String, Object> findInstitutionPreferences() {
         final Map<String, Object> institutionPreferences = getPreferencesDao().findInstitutionPreferences();
 
+        appendMenuProperties(institutionPreferences);
         transformLinks(institutionPreferences);
         
         return institutionPreferences;
+    }
+
+    protected void appendMenuProperties(Map<String, Object> institutionPreferences) {
+        appendActionListUrl(institutionPreferences);
+    }
+
+    protected void appendActionListUrl(Map<String, Object> institutionPreferences) {
+        final String actionListUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/ActionList.do";
+        institutionPreferences.put("actionListUrl", actionListUrl);
     }
 
     protected void transformLinks(Map<String, Object> institutionPreferences) {
