@@ -1,4 +1,4 @@
-var CustomLink = React.createClass({
+var Link = React.createClass({
     render: function() {
         return (
             <a href={this.props.url} className={this.props.className}>{this.props.label}</a>
@@ -6,4 +6,4 @@ var CustomLink = React.createClass({
     }
 });
 
-export default CustomLink
+export default Link

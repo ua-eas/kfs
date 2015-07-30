@@ -1,4 +1,4 @@
-import CustomLink from './customlink.jsx';
+import Link from './link.jsx';
 import KfsUtils from './sys/utils.js';
 
 var Sidebar = React.createClass({
@@ -74,11 +74,7 @@ var LinkGroup = React.createClass({
         var label = this.props.group.label
         var id = label.toLowerCase().replace(" ", "-")
         var links = this.props.group.links.map(function(link) {
-            if (link.type && link.type === "custom") {
-                return <CustomLink url={link.link} label={link.label} className="list-group-item"/>
-            } else {
-                return <DocLink link={link.link}/>
-            }
+            return <Link url={link.link} label={link.label} className="list-group-item"/>
         })
 
         return (
@@ -94,14 +90,6 @@ var LinkGroup = React.createClass({
         )
     }
 });
-
-var DocLink = React.createClass({
-    render: function() {
-        return (
-            <a href={this.props.url} className="list-group-item">Derive from Doc</a>
-        )
-    }
-})
 
 React.render(
     <Sidebar/>,
