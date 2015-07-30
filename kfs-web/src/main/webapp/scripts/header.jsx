@@ -1,4 +1,4 @@
-import CustomLink from './customlink.jsx';
+import Link from './link.jsx';
 import KfsUtils from './sys/utils.js';
 
 var Header = React.createClass({
@@ -25,7 +25,7 @@ var Header = React.createClass({
         var menuLinks = []
         if (prefs.menu) {
             menuLinks = prefs.menu.map(function (link) {
-                return <li><CustomLink url={link.link} label={link.label}/></li>
+                return <li><Link url={link.link} label={link.label}/></li>
             })
         }
         return (
