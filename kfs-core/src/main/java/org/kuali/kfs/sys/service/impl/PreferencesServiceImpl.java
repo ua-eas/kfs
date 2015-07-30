@@ -78,13 +78,23 @@ public class PreferencesServiceImpl implements PreferencesService {
         return (List<Map<String, String>>)linkGroup.get("links");
     }
 
-    private void transformLink(Map<String, String> link) {
+    protected void transformLink(Map<String, String> link) {
         if (link.containsKey("documentTypeCode")) {
             final String documentTypeName = link.remove("documentTypeCode");
             final Map<String, String> linkInfo = determineLinkInfo(documentTypeName);
             link.put("label", linkInfo.get("label"));
             link.put("link", linkInfo.get("link"));
+        } else if (StringUtils.isNotBlank(link.get("link"))) {
+            link.put("link", fixRelativeLink(link.get("link")));
         }
+    }
+
+    protected String fixRelativeLink(String link) {
+        if (!link.startsWith("http")) {
+            final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+            link = applicationUrl + "/" + link;
+        }
+        return link;
     }
 
     protected Map<String, String> determineLinkInfo(String documentTypeName) {
