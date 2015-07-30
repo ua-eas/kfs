@@ -5,6 +5,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.service.PreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.krad.bo.GlobalBusinessObject;
 import org.kuali.rice.krad.bo.ModuleConfiguration;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.document.TransactionalDocument;
@@ -105,7 +106,11 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     protected String constructMaintenanceDocumentLinkFromClass(String documentTypeName) {
         final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
-        return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + documentDictionaryService.getMaintenanceDataObjectClass(documentTypeName).getName() + "&docFormKey=88888888";
+        final Class<?> businessObjectClass = documentDictionaryService.getMaintenanceDataObjectClass(documentTypeName);
+        if (GlobalBusinessObject.class.isAssignableFrom(businessObjectClass)) {
+            return applicationUrl + "/kr/maintenance.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName();
+        }
+        return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&docFormKey=88888888";
     }
 
     protected String transformClassName(Class<? extends Document> documentClass) {
