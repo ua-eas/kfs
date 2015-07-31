@@ -1,18 +1,9 @@
 import Link from './link.jsx';
 import KfsUtils from './sys/utils.js';
-import URL from 'url'
 
 var Header = React.createClass({
-    getBackdoorIdQueryParameter() {
-        let url = URL.parse(window.location.href, true)
-        let query = url.query
-        if (query.backdoorId) {
-            return "backdoorId="+query.backdoorId
-        }
-        return ""
-    },
     getInitialState() {
-        return {preferences: {}}
+        return {preferences: {}, backdoorIdAppender: new KfsUtils.BackdoorIdAppender()}
     },
     componentWillMount() {
         let path = KfsUtils.getUrlPathPrefix() + "core/preferences/institution"
@@ -33,15 +24,14 @@ var Header = React.createClass({
         let prefs = this.state.preferences
         let menuLinks = []
         if (prefs.menu) {
+            let backdoorIdAppender = this.state.backdoorIdAppender
             menuLinks = prefs.menu.map(function (link) {
-                return <li><Link url={link.link} label={link.label}/></li>
+                let backdoorAppendedLink = backdoorIdAppender.appendBackdoorId(link.link)
+                return <li><Link url={backdoorAppendedLink} label={link.label}/></li>
             })
         }
-        let backdoorIdQueryParam = this.getBackdoorIdQueryParameter()
-        let actionListLink = prefs.actionListUrl
-        if (backdoorIdQueryParam) {
-            actionListLink += "?" + backdoorIdQueryParam
-        }
+
+        let actionListLink = this.state.backdoorIdAppender.appendBackdoorId(prefs.actionListUrl)
 
         return (
             <div>
@@ -54,7 +44,7 @@ var Header = React.createClass({
                 <nav className="collapse navbar-collapse">
                     <ul className="nav navbar-nav pull-right">
                         <li>
-                            <a href={actionListLink}><span className="glyphicon glyphicon-ok-sign"></span>Action List</a>
+                            <a href={actionListLink} target="_blank"><span className="glyphicon glyphicon-ok-sign"></span>Action List</a>
                         </li>
                         <li>
                             <a href="#"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
