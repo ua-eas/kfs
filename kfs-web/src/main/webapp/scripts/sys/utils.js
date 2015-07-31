@@ -13,7 +13,7 @@ class BackdoorIdAppender {
         this.backdoorId = query.backdoorId ? "backdoorId=" + query.backdoorId : ""
     }
     appendBackdoorId(link) {
-        if (this.backdoorId.length > 0) {
+        if (this.backdoorId.length > 0 && link && link.length > 0) {
             let linkUrl = URL.parse(link, false)
             if (linkUrl.query && linkUrl.query.length > 0) {
                 return link + "&" + this.backdoorId
