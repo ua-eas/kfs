@@ -1,7 +1,27 @@
+import URL from 'url'
+
 function getUrlPathPrefix() {
-    var path = new URL(window.location.href).pathname
-    var pathPrefix = path.match(/^\/[^\/]+\//);
+    let path = URL.parse(window.location.href).pathname
+    let pathPrefix = path.match(/^\/[^\/]+\//);
     return pathPrefix[0];
 }
 
-module.exports = {getUrlPathPrefix: getUrlPathPrefix}
+class BackdoorIdAppender {
+    constructor() {
+        let url = URL.parse(window.location.href, true)
+        let query = url.query
+        this.backdoorId = query.backdoorId ? "backdoorId=" + query.backdoorId : ""
+    }
+    appendBackdoorId(link) {
+        if (this.backdoorId.length > 0) {
+            let linkUrl = URL.parse(link, false)
+            if (linkUrl.query && linkUrl.query.length > 0) {
+                return link + "&" + this.backdoorId
+            }
+            return link + "?" + this.backdoorId
+        }
+        return link
+    }
+}
+
+module.exports = {getUrlPathPrefix: getUrlPathPrefix, BackdoorIdAppender: BackdoorIdAppender}
