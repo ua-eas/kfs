@@ -18,7 +18,6 @@
     <frontend-maven-plugin.node.version>v0.12.7</frontend-maven-plugin.node.version>
     <frontend-maven-plugin.npm.version>2.7.6</frontend-maven-plugin.npm.version>
     <jsfrontend.sources>src/main/webapp</jsfrontend.sources>
-    <jsfrontend.web.sources>${project.build.directory}/generated-web-sources/jsfrontend-web-sources</jsfrontend.web.sources>
   </properties>
 
   <pluginRepositories>
