@@ -72,7 +72,7 @@ var Sidebar = React.createClass({
 var LinkGroup = React.createClass({
     render: function() {
         var label = this.props.group.label
-        var id = label.toLowerCase().replace(" ", "-")
+        var id = label.toLowerCase().replace(/\s+/g, "-")
         var links = this.props.group.links.map(function(link) {
             return <Link url={link.link} label={link.label} className="list-group-item"/>
         })
