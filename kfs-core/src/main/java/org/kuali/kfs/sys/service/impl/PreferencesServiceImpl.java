@@ -58,11 +58,17 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     protected void appendMenuProperties(Map<String, Object> institutionPreferences) {
         appendActionListUrl(institutionPreferences);
+        appendDocSearchUrl(institutionPreferences);
     }
 
     protected void appendActionListUrl(Map<String, Object> institutionPreferences) {
         final String actionListUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/ActionList.do";
         institutionPreferences.put("actionListUrl", actionListUrl);
+    }
+
+    protected void appendDocSearchUrl(Map<String, Object> institutionPreferences) {
+        final String docSearchUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true";
+        institutionPreferences.put("docSearchUrl", docSearchUrl);
     }
 
     protected void transformLinks(Map<String, Object> institutionPreferences) {
