@@ -175,7 +175,7 @@ function saveScrollPosition() {
 }
 
 function restoreScrollPosition() {
-    if ( document.forms[0].formKey ) {
+    if ( document.forms.length > 0 && document.forms[0].formKey ) {
     	// KULRICE-8292: Timeout issues across servers (3535) 
     	scrollPositionKey = document.forms[0].formKey.value % 20;
     	
