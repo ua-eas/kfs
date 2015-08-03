@@ -24,5 +24,5 @@
 	<c:out value="${status}"/>
 	<br/>
 	<br/>
-	<li><portal:portalLink displayTitle="true" title="Click here to return to the Batch File lookup" url="kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchFile&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
+	<li><sys:backdoorAwareLink displayTitle="true" title="Click here to return to the Batch File lookup" url="kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchFile&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
 </kul:page>

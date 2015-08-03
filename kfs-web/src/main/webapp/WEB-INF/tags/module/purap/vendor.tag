@@ -109,7 +109,7 @@
                         </c:if>
                     </c:if>
                     <c:if test="${lockB2BEntry or (displayRequisitionFields or displayPurchaseOrderFields) and KualiForm.document.hasB2BVendor}">
-                        &nbsp;&nbsp;<portal:portalLink displayTitle="true" title="Shop Catalogs" url="b2b.do?methodToCall=shopCatalogs" />
+                        &nbsp;&nbsp;<sys:backdoorAwareLink displayTitle="true" title="Shop Catalogs" url="b2b.do?methodToCall=shopCatalogs" />
                     </c:if>
                 </td>
                 <th align=right valign=middle class="bord-l-b" width="25%">

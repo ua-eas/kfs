@@ -372,19 +372,19 @@
 		<!-- Core Action Mappings -->
 		<action path="/portal" name="KualiForm"
 			type="org.kuali.rice.kns.web.struts.action.KualiPortalAction">
-			<forward name="basic" path="/portal.jsp" />
+			<forward name="basic" path="/index.jsp" />
 		</action>
 
 		<action path="/index" name="KualiForm"
 			type="org.kuali.rice.kns.web.struts.action.KualiPortalAction">
-			<forward name="basic" path="/portal.jsp" />
+			<forward name="basic" path="/index.jsp" />
 		</action>
 
 		<action path="/backdoorlogin" name="BackdoorForm" scope="request"
 			parameter="methodToCall" input="/WEB-INF/jsp/backdoor/index.jsp"
 			type="org.kuali.rice.kns.web.struts.action.BackdoorAction">
-			<forward name="basic" path="/portal.jsp" />
-			<forward name="viewPortal" path="/portal.jsp" />
+			<forward name="basic" path="/index.jsp" />
+			<forward name="viewPortal" path="/index.jsp" />
 			<forward name="logout" path="/logout.do" />
 		</action>
 

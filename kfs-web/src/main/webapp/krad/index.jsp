@@ -15,4 +15,4 @@
     limitations under the License.
 
 --%>
-<% response.sendRedirect("../portal.jsp"); %>
+<% response.sendRedirect("../index.jsp"); %>
