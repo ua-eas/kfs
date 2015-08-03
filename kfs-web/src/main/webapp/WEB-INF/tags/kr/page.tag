@@ -122,19 +122,22 @@
 		</div>
 
 		<div id="wrapper">
-
 			<div id="sidebar-wrapper" class="col-md-3"></div>
 			<div id="main-wrapper" class="col-md-9 pull-right">
-				<div id="main">
-
+			<div id="main">
+			<c:choose>
+				<c:when test="${empty htmlFormAction}">
+					<div id="my-favorites"></div>
+				</c:when>
+				<c:otherwise>
 					<div id="view_div">
 					<kul:backdoor />
 
-						<c:if
+					<c:if
 							test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
-							<div class="lookupcreatenew">
+						<div class="lookupcreatenew">
 								${headerMenuBar}
-							</div>
+						</div>
 					</c:if>
 					<c:choose>
 						<c:when test="${!empty alternativeHelp}">
@@ -146,6 +149,8 @@
 							</c:if>
 						</c:otherwise>
 					</c:choose>
+				</c:otherwise>
+			</c:choose>
     </c:when>
 	<c:otherwise>
 		<c:if test="${not empty KualiForm.anchor}">
@@ -166,9 +171,16 @@
 			<div id="sidebar-wrapper" class="col-md-3"></div>
 			<div id="main-wrapper" class="col-md-9 pull-right">
 				<div id="main">
-					<div id="view_div">
-					<kul:backdoor />
-					${headerMenuBar}
+				<c:choose>
+					<c:when test="${empty htmlFormAction}">
+						<div id="my-favorites"></div>
+					</c:when>
+					<c:otherwise>
+						<div id="view_div">
+						<kul:backdoor />
+						${headerMenuBar}
+					</c:otherwise>
+				</c:choose>
 	</c:otherwise>
 </c:choose>
 
@@ -177,6 +189,7 @@
 	<c:set var="encoding" value="multipart/form-data"/>
 </c:if>
 
+<c:if test="${not empty htmlFormAction}">
 <html:form styleId="kualiForm" action="/${htmlFormAction}.do"
 	method="post" enctype="${encoding}"
 	onsubmit="return hasFormAlreadyBeenSubmitted();">
@@ -400,6 +413,7 @@
 <kul:editablePropertiesGuid />
 
 </html:form>
+</c:if>
 <div id="formComplete"></div>
 </div>
 	</div>

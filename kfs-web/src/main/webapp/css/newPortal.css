@@ -29,10 +29,6 @@ body {
     position: relative;
 }
 
-#view_div {
-    padding-top: 62px;
-}
-
 #main-wrapper {
     background-color: #E5E5E5;
 }
@@ -51,7 +47,7 @@ nav ul.nav li {
 }
 
 #main {
-    padding: 0 15px;
+    padding: 62px 15px 0px 15px;
     background-color: #fff;
     border-radius: 4px;
 }
