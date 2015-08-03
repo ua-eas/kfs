@@ -32,6 +32,7 @@ var Header = React.createClass({
         }
 
         let actionListLink = this.state.backdoorIdAppender.appendBackdoorId(prefs.actionListUrl)
+        let docSearchLink = this.state.backdoorIdAppender.appendBackdoorId(prefs.docSearchUrl)
 
         return (
             <div>
@@ -47,7 +48,7 @@ var Header = React.createClass({
                             <a href={actionListLink} target="_blank"><span className="glyphicon glyphicon-ok-sign"></span>Action List</a>
                         </li>
                         <li>
-                            <a href="#"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
+                            <a href={docSearchLink} target="_blank"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
                         </li>
                         <li className="dropdown">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
