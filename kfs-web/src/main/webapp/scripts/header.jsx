@@ -6,7 +6,7 @@ var Header = React.createClass({
         return {preferences: {}, backdoorIdAppender: new KfsUtils.BackdoorIdAppender()}
     },
     componentWillMount() {
-        let path = KfsUtils.getUrlPathPrefix() + "core/preferences/institution"
+        let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
 
         $.ajax({
             url: path,
