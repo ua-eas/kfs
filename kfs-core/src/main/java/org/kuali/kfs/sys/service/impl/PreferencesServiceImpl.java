@@ -81,12 +81,26 @@ public class PreferencesServiceImpl implements PreferencesService {
         for(Map<String, Object> linkGroup : getLinkGroups(institutionPreferences)) {
             transformLinksInLinkGroup(linkGroup);
         }
+
+        for (Map<String, String> menuItem: getMenuItems(institutionPreferences)) {
+            if (StringUtils.isNotBlank(menuItem.get("link"))) {
+                menuItem.put("link", fixRelativeLink(menuItem.get("link")));
+            }
+        }
     }
 
     protected List<Map<String, Object>> getLinkGroups(Map<String, Object> institutionPreferences) {
         final List<Map<String, Object>> linkGroups = (List<Map<String, Object>>)institutionPreferences.get("linkGroups");
         if (!ObjectUtils.isNull(linkGroups)) {
             return linkGroups;
+        }
+        return new ArrayList<>();
+    }
+
+    protected List<Map<String, String>> getMenuItems(Map<String, Object> institutionPreferences) {
+        List<Map<String, String>> menuItems = (List<Map<String, String>>)institutionPreferences.get("menu");
+        if (!ObjectUtils.isNull(menuItems)) {
+            return menuItems;
         }
         return new ArrayList<>();
     }
