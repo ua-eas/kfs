@@ -97,7 +97,7 @@ public class PreferencesServiceImplTest {
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a doc search url", preferences.containsKey("actionListUrl"));
-        Assert.assertEquals("We should know what doc search is", "http://tst.kfs.kuali.org/kfs-tst/kew/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true", preferences.get("docSearchUrl"));
+        Assert.assertEquals("We should know what doc search is", "http://tst.kfs.kuali.org/kfs-tst/kew/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true&returnLocation=http://tst.kfs.kuali.org/kfs-tst/index.jsp", preferences.get("docSearchUrl"));
     }
 
     @Test
@@ -240,7 +240,7 @@ public class PreferencesServiceImplTest {
         String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.CreditCardType&docFormKey=88888888", link);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.CreditCardType&docFormKey=88888888&returnLocation=http://tst.kfs.kuali.org/kfs-tst/index.jsp", link);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
     }
 
