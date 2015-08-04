@@ -7,12 +7,12 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApplicationPath("core")
-public class CoreApplication extends Application {
+@ApplicationPath("sys")
+public class SysApplication extends Application {
     protected Set<Object> singletons = new HashSet<>();
     private Set<Class<?>> clazzes = new HashSet<>();
 
-    public CoreApplication() {
+    public SysApplication() {
         singletons.add(new PreferencesResource());
         clazzes.add(LoggingFilter.class);
     }
