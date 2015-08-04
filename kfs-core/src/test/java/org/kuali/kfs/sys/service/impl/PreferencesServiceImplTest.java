@@ -79,7 +79,7 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_HasLogoutUrl() {
+    public void testFindInstitutionPreferences_HasSignoutUrl() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
             @Override
@@ -96,8 +96,8 @@ public class PreferencesServiceImplTest {
         Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
-        Assert.assertTrue("Preferences should always include a logout url", preferences.containsKey("logoutUrl"));
-        Assert.assertEquals("We should know what the logoutUrl is", "http://tst.kfs.kuali.org/kfs-tst/logout.do", preferences.get("logoutUrl"));
+        Assert.assertTrue("Preferences should always include a signoutUrl", preferences.containsKey("signoutUrl"));
+        Assert.assertEquals("We should know what the signoutUrl is", "http://tst.kfs.kuali.org/kfs-tst/logout.do", preferences.get("signoutUrl"));
     }
 
     @Test

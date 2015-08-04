@@ -59,7 +59,7 @@ public class PreferencesServiceImpl implements PreferencesService {
     protected void appendMenuProperties(Map<String, Object> institutionPreferences) {
         appendActionListUrl(institutionPreferences);
         appendDocSearchUrl(institutionPreferences);
-        appendLogoutUrl(institutionPreferences);
+        appendSignoutUrl(institutionPreferences);
     }
 
     protected void appendActionListUrl(Map<String, Object> institutionPreferences) {
@@ -67,9 +67,9 @@ public class PreferencesServiceImpl implements PreferencesService {
         institutionPreferences.put("actionListUrl", actionListUrl);
     }
 
-    protected void appendLogoutUrl(Map<String, Object> institutionPreferences) {
-        final String logoutUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)+"/logout.do";
-        institutionPreferences.put("logoutUrl", logoutUrl);
+    protected void appendSignoutUrl(Map<String, Object> institutionPreferences) {
+        final String signoutUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)+"/logout.do";
+        institutionPreferences.put("signoutUrl", signoutUrl);
     }
 
     protected void appendDocSearchUrl(Map<String, Object> institutionPreferences) {

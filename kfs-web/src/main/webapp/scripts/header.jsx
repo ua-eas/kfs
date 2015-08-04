@@ -55,7 +55,7 @@ var Header = React.createClass({
                                 <span className="glyphicon glyphicon-user"></span>Profile
                             </a>
                             <ul className="dropdown-menu pull-right">
-                                <li><a href={prefs.logoutUrl}>Sign Out</a></li>
+                                <li><a href={prefs.signoutUrl}>Sign Out</a></li>
                             </ul>
                         </li>
                         <li className="dropdown">
