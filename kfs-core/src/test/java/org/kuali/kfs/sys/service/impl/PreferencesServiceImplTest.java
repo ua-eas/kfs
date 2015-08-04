@@ -79,6 +79,28 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
+    public void testFindInstitutionPreferences_HasLogoutUrl() {
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
+                ip.put("institutionName", "Monsters");
+                return ip;
+            }
+        });
+        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertTrue("Preferences should always include a logout url", preferences.containsKey("logoutUrl"));
+        Assert.assertEquals("We should know what the logoutUrl is", "http://tst.kfs.kuali.org/kfs-tst/logout.do", preferences.get("logoutUrl"));
+    }
+
+    @Test
     public void testFindInstitutionPreferences_HasDocSearch() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
