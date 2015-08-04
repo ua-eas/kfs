@@ -67,7 +67,7 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected void appendDocSearchUrl(Map<String, Object> institutionPreferences) {
-        final String docSearchUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true";
+        final String docSearchUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true&returnLocation=" + getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/index.jsp";
         institutionPreferences.put("docSearchUrl", docSearchUrl);
     }
 
@@ -137,7 +137,7 @@ public class PreferencesServiceImpl implements PreferencesService {
         if (GlobalBusinessObject.class.isAssignableFrom(businessObjectClass)) {
             return applicationUrl + "/kr/maintenance.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName();
         }
-        return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&docFormKey=88888888";
+        return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&docFormKey=88888888&returnLocation=" + applicationUrl + "/index.jsp";
     }
 
     protected String transformClassName(Class<? extends Document> documentClass) {
