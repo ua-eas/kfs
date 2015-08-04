@@ -123,6 +123,87 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
+    public void testFindInstitutionPreferences_HasHelp() {
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
+                ip.put("institutionName", "Monsters");
+
+                List<Map<String, String>> menu = new ArrayList<>();
+                Map<String, String> menuItem = new ConcurrentHashMap<>();
+                menuItem.put("label", "Feedback");
+                menuItem.put("link", "kr/kualiFeedbackReport.do");
+                menu.add(menuItem);
+                menuItem = new ConcurrentHashMap<>();
+                menuItem.put("label", "Help");
+                menuItem.put("link", "static/help/default.htm");
+                menu.add(menuItem);
+
+                ip.put("menu", menu);
+                return ip;
+            }
+        });
+        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertTrue("Preferences should always include a help url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Help")));
+        Assert.assertEquals("We should know what help url is", "http://tst.kfs.kuali.org/kfs-tst/static/help/default.htm", getMenuLinkUrl(preferences, "Help"));
+    }
+
+    private String getMenuLinkUrl(Map<String, Object> preferences, String key) {
+        List<Map<String, String>> menuItems = (List<Map<String, String>>)preferences.get("menu");
+        if (CollectionUtils.isNotEmpty(menuItems)) {
+            for (Map<String, String> menuItem: menuItems) {
+                String label = menuItem.get("label");
+                if (StringUtils.equals(label, key)) {
+                    return menuItem.get("link");
+                }
+            }
+        }
+        return StringUtils.EMPTY;
+    }
+
+    @Test
+    public void testFindInstitutionPreferences_HasFeedback() {
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
+                ip.put("institutionName", "Monsters");
+
+                List<Map<String, String>> menu = new ArrayList<>();
+                Map<String, String> menuItem = new ConcurrentHashMap<>();
+                menuItem.put("label", "Feedback");
+                menuItem.put("link", "kr/kualiFeedbackReport.do");
+                menu.add(menuItem);
+                menuItem = new ConcurrentHashMap<>();
+                menuItem.put("label", "Help");
+                menuItem.put("link", "static/help/default.htm");
+                menu.add(menuItem);
+
+                ip.put("menu", menu);
+                return ip;
+            }
+        });
+        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertTrue("Preferences should always include a feedback url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Feedback")));
+        Assert.assertEquals("We should know what feedback url is", "http://tst.kfs.kuali.org/kfs-tst/kr/kualiFeedbackReport.do", getMenuLinkUrl(preferences, "Feedback"));
+    }
+
+    @Test
     public void testFindInstitutionPreferences_HealthyLinkGroup() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {

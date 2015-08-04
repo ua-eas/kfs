@@ -108,11 +108,11 @@
   "menu": [
     {
       "label": "Feedback",
-      "link": "http://some/feedback/link"
+      "link": "kr/kualiFeedbackReport.do"
     },
     {
       "label": "Help",
-      "link": "http://some/help/link"
+      "link": "static/help/default.htm"
     }
   ]
 }
