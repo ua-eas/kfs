@@ -297,6 +297,59 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
+    public void testFindInstitutionPreferences_MissingDocumentTypeReturnsNoLink() {
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
+                ip.put("institutionName", "Monsters");
+
+                Map<String, String> link = new ConcurrentHashMap<>();
+                link.put("documentTypeCode", "SB");
+
+                Map<String, String> link2 = new ConcurrentHashMap<>();
+                link2.put("documentTypeCode", "ZZZZ");
+
+                Map<String, String> link3 = new ConcurrentHashMap<>();
+                link3.put("documentTypeCode", "CCR");
+
+                List<Map<String, String>> links = new ArrayList<>();
+                links.add(link);
+                links.add(link2);
+                links.add(link3);
+
+                Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+                linkGroup.put("label", "Test Menu");
+                linkGroup.put("links", links);
+
+                List<Map<String, Object>> linkGroups = new ArrayList<>();
+                linkGroups.add(linkGroup);
+
+                ip.put("linkGroups", linkGroups);
+
+                return ip;
+            }
+        });
+        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
+        Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
+        Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
+        Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+        Assert.assertEquals("Link group should only have one link", 1, ((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).size());
+        Assert.assertEquals("The one link should be for Service Billing", "Service Billing", ((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label"));
+    }
+
+    @Test
     public void testFindInstitutionPreferences_MaintenanceDocumentTypeLinkIsTransformed() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {

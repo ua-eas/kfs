@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class PreferencesServiceImpl implements PreferencesService {
 
@@ -106,24 +107,30 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected void transformLinksInLinkGroup(Map<String, Object> linkGroup) {
-        for (Map<String, String> link : getLinks(linkGroup)) {
-            transformLink(link);
-        }
+        List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
+            return transformLink(link);
+        }).filter((Map<String, String> link) -> {
+            return link.containsKey("label") && !StringUtils.isBlank(link.get("label")) && link.containsKey("link") && !StringUtils.isBlank(link.get("link"));
+        }).collect(Collectors.toList());
+        linkGroup.put("links", updatedLinks);
     }
 
     protected List<Map<String, String>> getLinks(Map<String, Object> linkGroup) {
         return (List<Map<String, String>>)linkGroup.get("links");
     }
 
-    protected void transformLink(Map<String, String> link) {
+    protected Map<String, String> transformLink(Map<String, String> link) {
         if (link.containsKey("documentTypeCode")) {
             final String documentTypeName = link.remove("documentTypeCode");
             final Map<String, String> linkInfo = determineLinkInfo(documentTypeName);
-            link.put("label", linkInfo.get("label"));
-            link.put("link", linkInfo.get("link"));
+            return linkInfo;
         } else if (StringUtils.isNotBlank(link.get("link"))) {
-            link.put("link", fixRelativeLink(link.get("link")));
+            Map<String, String> newLink = new ConcurrentHashMap<>();
+            newLink.put("link", fixRelativeLink(link.get("link")));
+            newLink.put("label", link.get("label"));
+            return newLink;
         }
+        return new ConcurrentHashMap<>();
     }
 
     protected String fixRelativeLink(String link) {
@@ -138,10 +145,12 @@ public class PreferencesServiceImpl implements PreferencesService {
         final String label = getDocumentDictionaryService().getLabel(documentTypeName);
         final Class<? extends Document> documentClass = (Class<? extends Document>)getDocumentDictionaryService().getDocumentClassByName(documentTypeName);
         String link = StringUtils.EMPTY;
-        if (TransactionalDocument.class.isAssignableFrom(documentClass)) {
-            link = constructTransactionalDocumentLinkFromClass(documentClass, documentTypeName);
-        } else if (MaintenanceDocument.class.isAssignableFrom(documentClass)) {
-            link = constructMaintenanceDocumentLinkFromClass(documentTypeName);
+        if (!ObjectUtils.isNull(documentClass)) {
+            if (TransactionalDocument.class.isAssignableFrom(documentClass)) {
+                link = constructTransactionalDocumentLinkFromClass(documentClass, documentTypeName);
+            } else if (MaintenanceDocument.class.isAssignableFrom(documentClass)) {
+                link = constructMaintenanceDocumentLinkFromClass(documentTypeName);
+            }
         }
         return constructLinkInfo(label, link);
     }
@@ -179,8 +188,12 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     protected Map<String, String> constructLinkInfo(String label, String link) {
         Map<String, String> linkInfo = new ConcurrentHashMap<>();
-        linkInfo.put("label", label);
-        linkInfo.put("link", link);
+        if (!StringUtils.isBlank(label)) {
+            linkInfo.put("label", label);
+        }
+        if (!StringUtils.isBlank(link)) {
+            linkInfo.put("link", link);
+        }
         return linkInfo;
     }
 
