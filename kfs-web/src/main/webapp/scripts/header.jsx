@@ -27,10 +27,7 @@ var Header = React.createClass({
             let backdoorIdAppender = this.state.backdoorIdAppender
             menuLinks = prefs.menu.map(function (link) {
                 let backdoorAppendedLink = backdoorIdAppender.appendBackdoorId(link.link)
-                var target = ""
-                if (link.label === "Help") {
-                    target = "_blank"
-                }
+                var target = "_blank"
                 return <li><Link url={backdoorAppendedLink} label={link.label} target={target}/></li>
             })
         }
