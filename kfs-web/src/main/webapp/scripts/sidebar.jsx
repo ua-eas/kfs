@@ -80,7 +80,7 @@ var LinkGroup = React.createClass({
 
         return (
             <li className="panel">
-                <a href="#" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(this)}>
+                <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(this)}>
                     <span>{label}</span>
                     <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
                 </a>

@@ -41,7 +41,7 @@ var Header = React.createClass({
         return (
             <div>
                 <div className="navbar-header">
-                    <a className="navbar-brand" href="#">
+                    <a className="navbar-brand" href="#d">
                         <img src={prefs.logoUrl} height="40px"/>
                         <span className="institution-name">{prefs.institutionName}</span>Financials
                     </a>
@@ -55,7 +55,7 @@ var Header = React.createClass({
                             <a href={docSearchLink} target="_blank"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
                         </li>
                         <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                            <a href="#d" className="dropdown-toggle" data-toggle="dropdown">
                                 <span className="glyphicon glyphicon-user"></span>Profile
                             </a>
                             <ul className="dropdown-menu pull-right">
@@ -63,7 +63,7 @@ var Header = React.createClass({
                             </ul>
                         </li>
                         <li className="dropdown">
-                            <a href="#" id="nbAcctDD" className="dropdown-toggle" data-toggle="dropdown">
+                            <a href="#d" id="nbAcctDD" className="dropdown-toggle" data-toggle="dropdown">
                                 <i className="icon-user"></i>
                                 <span className="glyphicon glyphicon-menu-hamburger"></span>Menu
                             </a>
