@@ -25,6 +25,16 @@ body {
     font-weight: 300;
 }
 
+.dropdown.backdoor>a {
+    color: red !important;
+}
+
+.dropdown-menu>li {
+    padding: 3px 20px;
+    line-height: 30px;
+    color: #333;
+}
+
 /* override existing styles */
 #headerarea {
     position: relative;
