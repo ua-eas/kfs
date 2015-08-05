@@ -3,6 +3,7 @@ package org.kuali.kfs.sys.service.impl;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
+import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.PreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.krad.bo.GlobalBusinessObject;
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@NonTransactional
 public class PreferencesServiceImpl implements PreferencesService {
 
     private ConfigurationService configurationService;
