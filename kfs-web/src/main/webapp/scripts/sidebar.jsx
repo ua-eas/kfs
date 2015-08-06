@@ -50,7 +50,6 @@ var Sidebar = React.createClass({
     render() {
         let linkGroups = []
         if (this.state.preferences.linkGroups) {
-            console.log("got some linkgroups")
             let groups = this.state.preferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(<LinkGroup group={groups[i]} backdoorIdAppender={this.state.backdoorIdAppender} handleClick={this.toggleAccordion}/>)
@@ -80,7 +79,7 @@ var LinkGroup = React.createClass({
 
         return (
             <li className="panel">
-                <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(this)}>
+                <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick}>
                     <span>{label}</span>
                     <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
                 </a>
