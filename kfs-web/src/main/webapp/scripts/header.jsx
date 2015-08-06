@@ -27,8 +27,6 @@ var Header = React.createClass({
                 contentType: 'application/json',
                 type: 'GET',
                 success: function(backdoorJson) {
-                    console.log(backdoorJson)
-                    console.log(backdoorJson.backdoorId)
                     this.setState({backdoorId: backdoorJson.backdoorId});
                 }.bind(this),
                 error: function(xhr, status, err) {
@@ -75,10 +73,10 @@ var Header = React.createClass({
         let menuLinks = []
         if (prefs.menu) {
             let backdoorIdAppender = this.state.backdoorIdAppender
-            menuLinks = prefs.menu.map(function (link) {
+            menuLinks = prefs.menu.map(function (link, i) {
                 let backdoorAppendedLink = backdoorIdAppender.appendBackdoorId(link.link)
                 var target = "_blank"
-                return <li><Link url={backdoorAppendedLink} label={link.label} target={target}/></li>
+                return <li key={i}><Link url={backdoorAppendedLink} label={link.label} target={target}/></li>
             })
         }
 

@@ -50,7 +50,6 @@ var Sidebar = React.createClass({
     render() {
         let linkGroups = []
         if (this.state.preferences.linkGroups) {
-            console.log("got some linkgroups")
             let groups = this.state.preferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(<LinkGroup group={groups[i]} backdoorIdAppender={this.state.backdoorIdAppender} handleClick={this.toggleAccordion}/>)
