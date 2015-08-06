@@ -47,7 +47,7 @@ request.setAttribute("test", incident);
 <c:set var="headerTitle"><bean:message key="feedback.header.title" /></c:set>
 
 <c:set var="docTitle" value="Feedback Form" />
-<kul:page showDocumentInfo="false" headerTitle="${headerTitle}"
+<kul:feedbackPage showDocumentInfo="false" headerTitle="${headerTitle}"
     docTitle="${docTitle}" transactionalDocument="false"
     htmlFormAction="kualiFeedbackReport"
     defaultMethodToCall="notify" errorKey="*">
@@ -64,10 +64,10 @@ request.setAttribute("test", incident);
         </tr>
         <tr>
             <td>
-            <div align="left" valign="top"><strong><bean:message key="feedback.documentId.label" /></strong></div>
+                <div align="left"><strong><bean:message key="feedback.documentId.label" /></strong></div>
             </td>
             <td align="left" valign="top">
-            <div align="left"><input type="text" name="documentId" value="${documentId}" /></div>
+                <div align="left"><input type="text" name="documentId" value="${documentId}" /></div>
             </td>
         </tr>
         <tr>
@@ -87,18 +87,20 @@ request.setAttribute("test", incident);
         <tr>
             <td>&nbsp;</td>
             <td align="left">
-            <div><html:image
-                property="methodToCall.submitFeedback"
-                src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_submit.gif"
-                title="Submit" alt="Submit" styleClass="tinybutton" /> <input
-                type="image" name="cancel" value="true" class="tinybutton"
-                src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
-                class="globalbuttons" title="close"
-                alt="Close Without Submitting Incident"></div>
+                <div>
+                    <html:image
+                        property="methodToCall.submitFeedback"
+                        src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_submit.gif"
+                        title="Submit" alt="Submit" styleClass="tinybutton" />
+                    <input
+                        type="image" name="cancel" value="true" class="tinybutton"
+                        src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
+                        title="close" alt="Close Without Submitting Incident"/>
+                </div>
             </td>
         </tr>
     </table>
     </div>
     </div>
     <br />
-</kul:page>
+</kul:feedbackPage>
