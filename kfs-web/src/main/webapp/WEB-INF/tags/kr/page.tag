@@ -121,37 +121,37 @@
 		<div id="header" class="navbar navbar-default navbar-fixed-top">
 		</div>
 
+		<div id="sidebar-bg-wrapper">
 		<div id="wrapper">
-			<div id="row">
-				<div id="sidebar-wrapper" class="col-md-3"></div>
-				<div id="main-wrapper" class="col-md-9 pull-right">
-				<div id="main">
-				<c:choose>
-					<c:when test="${empty htmlFormAction}">
-						<div id="my-favorites"></div>
-					</c:when>
-					<c:otherwise>
-						<div id="view_div">
-						<kul:backdoor />
+			<div id="sidebar-wrapper" class="col-md-3"></div>
+			<div id="main-wrapper" class="col-md-9">
+			<div id="main">
+			<c:choose>
+				<c:when test="${empty htmlFormAction}">
+					<div id="my-favorites"></div>
+				</c:when>
+				<c:otherwise>
+					<div id="view_div">
+					<kul:backdoor />
 
-						<c:if
-								test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
-							<div class="lookupcreatenew">
-									${headerMenuBar}
-							</div>
-						</c:if>
-						<c:choose>
-							<c:when test="${!empty alternativeHelp}">
-								<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help"/></h1>
-							</c:when>
-							<c:otherwise>
-								<c:if test="${showDocumentInfo}">
-									<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" altText="document help"/></h1>
-								</c:if>
-							</c:otherwise>
-						</c:choose>
-					</c:otherwise>
-				</c:choose>
+					<c:if
+							test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
+						<div class="lookupcreatenew">
+								${headerMenuBar}
+						</div>
+					</c:if>
+					<c:choose>
+						<c:when test="${!empty alternativeHelp}">
+							<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help"/></h1>
+						</c:when>
+						<c:otherwise>
+							<c:if test="${showDocumentInfo}">
+								<h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" altText="document help"/></h1>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
     </c:when>
 	<c:otherwise>
 		<c:if test="${not empty KualiForm.anchor}">
@@ -168,21 +168,21 @@
 
 			<div id="header" class="navbar navbar-default navbar-fixed-top"></div>
 
+		<div id="sidebar-bg-wrapper">
 		<div id="wrapper">
-			<div id="row">
-				<div id="sidebar-wrapper" class="col-md-3"></div>
-				<div id="main-wrapper" class="col-md-9 pull-right">
-					<div id="main">
-					<c:choose>
-						<c:when test="${empty htmlFormAction}">
-							<div id="my-favorites"></div>
-						</c:when>
-						<c:otherwise>
-							<div id="view_div">
-							<kul:backdoor />
-							${headerMenuBar}
-						</c:otherwise>
-					</c:choose>
+			<div id="sidebar-wrapper" class="col-md-3"></div>
+			<div id="main-wrapper" class="col-md-9">
+				<div id="main">
+				<c:choose>
+					<c:when test="${empty htmlFormAction}">
+						<div id="my-favorites"></div>
+					</c:when>
+					<c:otherwise>
+						<div id="view_div">
+						<kul:backdoor />
+						${headerMenuBar}
+					</c:otherwise>
+				</c:choose>
 	</c:otherwise>
 </c:choose>
 
@@ -421,8 +421,8 @@
 	</div>
 	</div>
 	</div>
-	<div id="footer"></div>
 	</div>
+	<div id="footer"></div>
 
 	<script src="${pageContext.request.contextPath}/build/bundle.js"></script>
 
