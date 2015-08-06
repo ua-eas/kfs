@@ -3,7 +3,7 @@ import KfsUtils from './sys/utils.js';
 
 var Header = React.createClass({
     getInitialState() {
-        return {preferences: {}, backdoorId: "", backdoorIdAppender: new KfsUtils.BackdoorIdAppender()}
+        return {preferences: {}, backdoorId: "", backdoorIdField: "", backdoorIdAppender: new KfsUtils.BackdoorIdAppender()}
     },
     componentWillMount() {
         let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
@@ -34,6 +34,11 @@ var Header = React.createClass({
                 }.bind(this)
             })
         );
+    },
+    handleBackDoorIdChange(e) {
+        let s = this.state
+        s.backdoorIdField = e.target.value
+        this.setState(s)
     },
     backdoorLogin() {
         let path = KfsUtils.getUrlPathPrefix() + "sys/backdoor/login"
@@ -83,10 +88,12 @@ var Header = React.createClass({
         let actionListLink = this.state.backdoorIdAppender.appendBackdoorId(prefs.actionListUrl)
         let docSearchLink = this.state.backdoorIdAppender.appendBackdoorId(prefs.docSearchUrl)
 
+        let profileIcon = "glyphicon glyphicon-user"
         let backdoorClass = "dropdown"
         let backdoorMessage;
         let profileTitle = "Profile";
         if (this.state.backdoorId && this.state.backdoorId !== '') {
+            profileIcon = "glyphicon glyphicon-king"
             backdoorClass += " backdoor"
             backdoorMessage = <li>Logged in as: {this.state.backdoorId}</li>
             profileTitle = "Logged in as: " + this.state.backdoorId
@@ -109,15 +116,15 @@ var Header = React.createClass({
                         </li>
                         <li className={backdoorClass}>
                             <a href="#d" className="dropdown-toggle" data-toggle="dropdown" title={profileTitle}>
-                                <span className="glyphicon glyphicon-user"></span>Profile
+                                <span className={profileIcon}></span>Profile
                             </a>
                             <ul className="dropdown-menu pull-right">
                                 {backdoorMessage}
                                 <li>
                                     <form>
-                                        <input id="backdoorId" type="text"/>
+                                        <input id="backdoorId" type="text" placeholder="Back Door ID" onChange={this.handleBackDoorIdChange}/>
                                         <div className="btn-group" role="group">
-                                            <button type="button" className="btn btn-default" onClick={this.backdoorLogin}>Login</button>
+                                            <button type="button" className="btn btn-default" onClick={this.backdoorLogin} disabled={ ! this.state.backdoorIdField }>Login</button>
                                             <button type="button" className="btn btn-default" onClick={this.backdoorLogout}>Logout</button>
                                         </div>
                                     </form>
