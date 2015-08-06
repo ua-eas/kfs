@@ -6,9 +6,11 @@ var MyFavorites = React.createClass({
     }
 });
 
-React.render(
-    <MyFavorites/>,
-    document.getElementById('my-favorites')
-);
+if (document.getElementById('my-favorites')) {
+    React.render(
+        <MyFavorites/>,
+        document.getElementById('my-favorites')
+    );
+}
 
 export default MyFavorites;
