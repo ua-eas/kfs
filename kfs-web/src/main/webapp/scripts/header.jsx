@@ -3,7 +3,7 @@ import KfsUtils from './sys/utils.js';
 
 var Header = React.createClass({
     getInitialState() {
-        return {preferences: {}, backdoorId: "", backdoorIdField: "", backdoorIdAppender: new KfsUtils.BackdoorIdAppender()}
+        return {preferences: {}, backdoorId: "", backdoorIdField: ""}
     },
     componentWillMount() {
         let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
@@ -77,16 +77,15 @@ var Header = React.createClass({
         let prefs = this.state.preferences
         let menuLinks = []
         if (prefs.menu) {
-            let backdoorIdAppender = this.state.backdoorIdAppender
             menuLinks = prefs.menu.map(function (link, i) {
-                let backdoorAppendedLink = backdoorIdAppender.appendBackdoorId(link.link)
                 var target = "_blank"
-                return <li key={i}><Link url={backdoorAppendedLink} label={link.label} target={target}/></li>
+                return <li key={i}><Link url={link.link} label={link.label} target={target}/></li>
             })
         }
 
-        let actionListLink = this.state.backdoorIdAppender.appendBackdoorId(prefs.actionListUrl)
-        let docSearchLink = this.state.backdoorIdAppender.appendBackdoorId(prefs.docSearchUrl)
+        let backdoorIdAppender = KfsUtils.buildBackdoorIdAppender(this.state.backdoorId)
+        let actionListLink = backdoorIdAppender(prefs.actionListUrl)
+        let docSearchLink = backdoorIdAppender(prefs.docSearchUrl)
 
         let profileIcon = "glyphicon glyphicon-user"
         let backdoorClass = "dropdown"
