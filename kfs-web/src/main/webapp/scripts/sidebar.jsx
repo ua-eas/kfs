@@ -57,7 +57,7 @@ var Sidebar = React.createClass({
         if (this.state.preferences.linkGroups) {
             let groups = this.state.preferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
-                linkGroups.push(<LinkGroup group={groups[i]} backdoorIdAppender={this.state.backdoorIdAppender} handleClick={this.toggleAccordion}/>)
+                linkGroups.push(<LinkGroup key={i} group={groups[i]} backdoorIdAppender={this.state.backdoorIdAppender} handleClick={this.toggleAccordion}/>)
             }
         }
         return (
@@ -77,9 +77,9 @@ var LinkGroup = React.createClass({
     render() {
         let label = this.props.group.label
         let id = label.toLowerCase().replace(/\s+/g, "-")
-        let links = this.props.group.links.map((link) => {
+        let links = this.props.group.links.map((link, i) => {
             let linkHref = this.props.backdoorIdAppender.appendBackdoorId(link.link)
-            return <Link url={linkHref} label={link.label} className="list-group-item"/>
+            return <Link key={i} url={linkHref} label={link.label} className="list-group-item"/>
         })
 
         return (
