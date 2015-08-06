@@ -92,11 +92,13 @@ var Header = React.createClass({
         let backdoorClass = "dropdown"
         let backdoorMessage;
         let profileTitle = "Profile";
+        let logoutButton;
         if (this.state.backdoorId && this.state.backdoorId !== '') {
             profileIcon = "glyphicon glyphicon-king"
             backdoorClass += " backdoor"
             backdoorMessage = <li>Logged in as: {this.state.backdoorId}</li>
             profileTitle = "Logged in as: " + this.state.backdoorId
+            logoutButton = <button type="button" className="btn btn-default" onClick={this.backdoorLogout}>Logout</button>
         }
         return (
             <div>
@@ -125,7 +127,7 @@ var Header = React.createClass({
                                         <input id="backdoorId" type="text" placeholder="Back Door ID" onChange={this.handleBackDoorIdChange}/>
                                         <div className="btn-group" role="group">
                                             <button type="button" className="btn btn-default" onClick={this.backdoorLogin} disabled={ ! this.state.backdoorIdField }>Login</button>
-                                            <button type="button" className="btn btn-default" onClick={this.backdoorLogout}>Logout</button>
+                                            {logoutButton}
                                         </div>
                                     </form>
                                 </li>
