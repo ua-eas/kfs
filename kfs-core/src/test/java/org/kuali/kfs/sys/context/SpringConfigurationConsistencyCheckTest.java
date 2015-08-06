@@ -225,6 +225,7 @@ public class SpringConfigurationConsistencyCheckTest extends KualiTestBase {
                 Object service = TestUtils.getUnproxiedService(beanName);
                 if ( beanName.endsWith("Dao")
                         && !service.getClass().getName().endsWith( "Proxy" )
+                        && !service.getClass().getName().endsWith( "Mongo" )
                         && !service.getClass().getName().startsWith( "org.kuali.rice" ) ) {
                     if ( !(service instanceof PlatformAwareDao) ) {
                         failingBeanNames.add( " *** FAIL: " + beanName + " does not implement PlatformAwareDao (is " + service.getClass().getName() +  ")\n"  + " : " + beanDef.getResourceDescription() + "\n" );
