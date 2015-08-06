@@ -1,6 +1,6 @@
 body {
     font-family: Lato, sans-serif;
-    background-color: #5b5b5b;
+    background-color: #fff;
 }
 .navbar-default {
     height: 62px;
@@ -25,6 +25,21 @@ body {
     font-weight: 300;
 }
 
+#sidebar-bg-wrapper {
+    float: left;
+    width: 100%;
+    background-color: #5b5b5b;
+    overflow: hidden;
+}
+
+#wrapper {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    position: relative;
+    left: 25%;
+}
+
 /* override existing styles */
 #headerarea {
     position: relative;
@@ -33,8 +48,8 @@ body {
 #main-wrapper {
     background-color: #fff;
     padding-bottom: 20px;
-    display: table-cell;
-    float: none !important;
+    position:relative;
+    right: 25%;
 }
 
 nav {
@@ -60,29 +75,16 @@ nav ul.nav li {
     padding-top: 9px;
 }
 
-#wrapper {
-    width: 100%;
-    display: table;
-}
-
-#row {
-    display: table-row;
-}
-
 #sidebar-wrapper {
-    height: 100%;
     padding: 62px 0 0 0;
-    border-right: 1px solid gray;
-    background-color: #5b5b5b;
     z-index: 100;
-    display: table-cell;
-    float: none !important;
+    background-color: #5b5b5b;
+    border-right: 1px solid gray;
+    position: relative;
+    right: 25%;
 }
 
 #sidebar {
-    /*position: relative;*/
-    /*height: 100%;*/
-    /*overflow-y: auto;*/
     background-color: #5b5b5b;
 }
 
@@ -96,6 +98,14 @@ nav ul.nav li {
 .glyphicon {
     padding-right: 5px;
     padding-left: 5px;
+}
+
+#menu-toggle {
+    cursor: pointer;
+}
+
+#menu-toggle .glyphicon {
+    padding: 0;
 }
 
 #sidebar .nav {
@@ -175,6 +185,7 @@ nav ul.nav li {
     padding-top: 10px;
     border-top: 1px solid #000;
     background-color: #fff;
+    z-index: 200;
 }
 
 .center {

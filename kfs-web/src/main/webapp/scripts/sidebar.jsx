@@ -34,18 +34,23 @@ var Sidebar = React.createClass({
             $(li).prev("li").toggleClass("before-active")
         }
     },
-    toggleSidebar() {
+    toggleSidebar(event) {
         if ($('#sidebar-wrapper').width() > 5) {
+            $('#wrapper').animate({'left': '5px'}, {duration: 500, queue: false});
             $('#sidebar-wrapper').animate({'width': '5px'}, {duration: 500, queue: false});
             $('#sidebar').animate({'display': 'none'}, {duration: 500, queue: false});
-            $('#main-wrapper').animate({'width': '100%'}, {duration: 500, queue: false});
+            $('#main-wrapper').animate({'width': '99%'}, {duration: 500, queue: false});
+            $('#main-wrapper').animate({'right': '5px'}, {duration: 500, queue: false});
             $('#menu-toggle').animate({'left': '5px'}, {duration: 500, queue: false});
         } else {
+            $('#wrapper').animate({'left': '25%'}, {duration: 500, queue: false});
             $('#sidebar-wrapper').animate({'width': '25%'}, {duration: 500, queue: false});
             $('#sidebar').animate({'display': 'block'}, {duration: 500, queue: false});
             $('#main-wrapper').animate({'width': '75%'}, {duration: 500, queue: false});
+            $('#main-wrapper').animate({'right': '25%'}, {duration: 500, queue: false});
             $('#menu-toggle').animate({'left': '25%'}, {duration: 500, queue: false});
         }
+        $('#menu-toggle>span').toggleClass('glyphicon-triangle-left glyphicon-triangle-right')
     },
     render() {
         let linkGroups = []
@@ -58,7 +63,7 @@ var Sidebar = React.createClass({
         }
         return (
             <div id="sidebar">
-                <div id="menu-toggle" onClick={this.toggleSidebar}><span className="glyphicon glyphicon-menu-hamburger"></span></div>
+                <div id="menu-toggle" onClick={this.toggleSidebar}><span className="glyphicon glyphicon-triangle-left"></span></div>
                 <ul id="accordion" className="nav list-group accordion accordion-group">
                     <li className="first">
                     </li>
