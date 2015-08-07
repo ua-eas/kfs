@@ -149,6 +149,11 @@
         <url-pattern>/index.jsp</url-pattern>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>UserLoginFilter</filter-name>
+        <url-pattern>/purap</url-pattern>
+    </filter-mapping>
+
   <filter-mapping>
     <filter-name>UserPreferencesFilter</filter-name>
     <servlet-name>action</servlet-name>

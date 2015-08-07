@@ -752,7 +752,9 @@
 	<bean id="PurchaseOrderParameters-parentBean" class="org.kuali.kfs.module.purap.pdf.PurchaseOrderTransmitParameters" scope="prototype" abstract="true" />
 
     <bean id="myOrdersService" parent="myOrdersService-parentBean"/>
-    <bean id="myOrdersService-parentBean" abstract="true" class="org.kuali.kfs.module.purap.service.impl.MyOrdersServiceImpl"/>
+    <bean id="myOrdersService-parentBean" abstract="true" class="org.kuali.kfs.module.purap.service.impl.MyOrdersServiceImpl">
+        <property name="businessObjectService" ref="businessObjectService"/>
+    </bean>
 
     <!-- validations -->
 	<import resource="document/validation/configuration/PurapValidatorDefinitions.xml" />
