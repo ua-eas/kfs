@@ -253,6 +253,10 @@ nav ul.nav li {
     color: #A2A2A2;
 }
 
+#dashboard .widget table td.status {
+    color: deeppink;
+}
+
 #dashboard .widget table td.status.requested {
     color: #777777;
 }
@@ -267,6 +271,10 @@ nav ul.nav li {
 
 #dashboard .widget table td.status.open {
     color: #BD9C21;
+}
+
+#dashboard .widget button {
+    margin-right: 15px;
 }
 
 .center {

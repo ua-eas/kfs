@@ -1,9 +1,43 @@
+import KfsUtils from './sys/utils.js'
+import moment from 'moment'
+
 var MyOrders = React.createClass({
+    getInitialState() {
+        return {reqs: []}
+    },
+    componentWillMount() {
+        let path = KfsUtils.getUrlPathPrefix() + "purap/myorders"
+
+        $.ajax({
+            url: path,
+            dataType: 'json',
+            type: 'GET',
+            success: function(reqs) {
+                this.setState({reqs: reqs});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(status, err.toString());
+            }.bind(this)
+        })
+    },
     render() {
+        let rows = [];
+        this.state.reqs.map(function(req, i) {
+            let statusClass = "status " + req.workflowDocumentStatusCode.toLowerCase()
+            rows.push(
+                <tr key={i}>
+                    <td>{req.vendorName}</td>
+                    <td>{req.documentDescription}</td>
+                    <td>{moment(req.workflowCreateDate).format('MM/DD/YYYY')}</td>
+                    <td className={statusClass}>{req.workflowDocumentStatusCode}</td>
+                    <td><span className="more glyphicon glyphicon-menu-down"></span></td>
+                </tr>
+            )
+        })
         return (
             <div className="widget">
                 <h2>
-                    <span className="glyphicon glyphicon-euro"></span>
+                    <span className="glyphicon glyphicon-usd"></span>
                     <span>My Orders</span>
                 </h2>
                 <div className="table-container">
@@ -18,36 +52,11 @@ var MyOrders = React.createClass({
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Dell Computers</td>
-                                <td>New computer for John Doe</td>
-                                <td>05/16/2015</td>
-                                <td className="status requested">Requested</td>
-                                <td><span className="more glyphicon glyphicon-menu-down"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Dell Computers</td>
-                                <td>New computer for John Doe</td>
-                                <td>05/16/2015</td>
-                                <td className="status canceled">Canceled</td>
-                                <td><span className="more glyphicon glyphicon-menu-down"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Dell Computers</td>
-                                <td>New computer for John Doe</td>
-                                <td>05/16/2015</td>
-                                <td className="status paid">Paid</td>
-                                <td><span className="more glyphicon glyphicon-menu-down"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Dell Computers</td>
-                                <td>New computer for John Doe</td>
-                                <td>05/16/2015</td>
-                                <td className="status open">Open</td>
-                                <td><span className="more glyphicon glyphicon-menu-down"></span></td>
-                            </tr>
+                            {rows}
                         </tbody>
                     </table>
+                    <button type="button" className="btn btn-default">Shop Catalogs</button>
+                    <button type="button" className="btn btn-default">Create an Order</button>
                 </div>
             </div>
         )
