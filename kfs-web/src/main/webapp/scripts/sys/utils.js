@@ -6,22 +6,42 @@ function getUrlPathPrefix() {
     return pathPrefix[0];
 }
 
-class BackdoorIdAppender {
-    constructor() {
-        let url = URL.parse(window.location.href, true)
-        let query = url.query
-        this.backdoorId = query.backdoorId ? "backdoorId=" + query.backdoorId : ""
-    }
-    appendBackdoorId(link) {
-        if (this.backdoorId.length > 0 && link && link.length > 0) {
-            let linkUrl = URL.parse(link, false)
-            if (linkUrl.query && linkUrl.query.length > 0) {
-                return link + "&" + this.backdoorId
+function reconstructQueryWithBackdoorId(query, backdoorId) {
+    let prefixElements = [];
+    let suffixElements = [];
+
+    Object.keys(query).forEach((key) => {
+        let val = query[key]
+        if (val) {
+            if (val.indexOf("http") >= 0) {
+                suffixElements.push(key + "=" + val)
+            } else {
+                prefixElements.push(key + "=" + val)
             }
-            return link + "?" + this.backdoorId
+        } else {
+            prefixElements.push(key)
+        }
+    });
+    let reconstructedQuery = "?" + (prefixElements.length > 0 ? prefixElements.join("&") + "&" : "") + "backdoorId=" + backdoorId + (suffixElements.length > 0 ? "&"+suffixElements.join("&") : "")
+    return reconstructedQuery
+}
+
+function buildBackdoorIdAppender(backdoorId) {
+    if (!backdoorId || backdoorId.length == 0) {
+        return function(link) {
+            return link;
+        }
+    }
+    return function(link) {
+        if (link && link.length > 0) {
+            let linkUrl = URL.parse(link, true)
+            if (linkUrl.query && Object.keys(linkUrl.query).length > 0) {
+                return linkUrl.protocol + "//" + linkUrl.host + linkUrl.pathname + reconstructQueryWithBackdoorId(linkUrl.query, backdoorId)
+            }
+            return link + "?backdoorId=" + backdoorId
         }
         return link
     }
 }
 
-module.exports = {getUrlPathPrefix: getUrlPathPrefix, BackdoorIdAppender: BackdoorIdAppender}
+module.exports = {getUrlPathPrefix: getUrlPathPrefix, buildBackdoorIdAppender: buildBackdoorIdAppender}

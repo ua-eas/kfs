@@ -3,7 +3,7 @@ import KfsUtils from './sys/utils.js';
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {preferences: {}, backdoorIdAppender: new KfsUtils.BackdoorIdAppender()}
+        return {preferences: {}}
     },
     componentWillMount() {
         let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
@@ -57,7 +57,7 @@ var Sidebar = React.createClass({
         if (this.state.preferences.linkGroups) {
             let groups = this.state.preferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
-                linkGroups.push(<LinkGroup key={i} group={groups[i]} backdoorIdAppender={this.state.backdoorIdAppender} handleClick={this.toggleAccordion}/>)
+                linkGroups.push(<LinkGroup key={i} group={groups[i]} handleClick={this.toggleAccordion}/>)
             }
         }
         return (
@@ -78,8 +78,7 @@ var LinkGroup = React.createClass({
         let label = this.props.group.label
         let id = label.toLowerCase().replace(/\s+/g, "-")
         let links = this.props.group.links.map((link, i) => {
-            let linkHref = this.props.backdoorIdAppender.appendBackdoorId(link.link)
-            return <Link key={i} url={linkHref} label={link.label} className="list-group-item"/>
+            return <Link key={i} url={link.link} label={link.label} className="list-group-item"/>
         })
 
         return (
