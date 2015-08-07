@@ -63,7 +63,7 @@ public class MyOrdersServiceImpl implements MyOrdersService {
     protected List<FinancialSystemDocumentHeader> findLatestRequisitionsForUser(Person user, Integer count) {
         Map<String, Object> fieldValues = new ConcurrentHashMap<>();
         fieldValues.put(KFSPropertyConstants.WORKFLOW_DOCUMENT_TYPE_NAME, PurapConstants.REQUISITION_DOCUMENT_TYPE);
-        fieldValues.put(KFSPropertyConstants.INITIATOR_PRINCIPAL_ID, user.getPrincipalName());
+        fieldValues.put(KFSPropertyConstants.INITIATOR_PRINCIPAL_ID, user.getPrincipalId());
         Collection<FinancialSystemDocumentHeader> headers = getBusinessObjectService().findMatchingOrderBy(FinancialSystemDocumentHeader.class, fieldValues, KFSPropertyConstants.WORKFLOW_CREATE_DATE, false);
         List<FinancialSystemDocumentHeader> limitedHeaders = new ArrayList<>();
         int c = 0;

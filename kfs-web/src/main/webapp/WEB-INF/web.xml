@@ -75,6 +75,10 @@
     <filter-name>DummyLoginFilter</filter-name>
     <servlet-name>batchFileUpload</servlet-name>
   </filter-mapping>
+  <filter-mapping>
+      <filter-name>DummyLoginFilter</filter-name>
+      <url-pattern>/purap/*</url-pattern>
+  </filter-mapping>
 
   <filter>
     <filter-name>HideWebInfFilter</filter-name>
@@ -151,7 +155,7 @@
 
     <filter-mapping>
         <filter-name>UserLoginFilter</filter-name>
-        <url-pattern>/purap</url-pattern>
+        <url-pattern>/purap/*</url-pattern>
     </filter-mapping>
 
   <filter-mapping>
