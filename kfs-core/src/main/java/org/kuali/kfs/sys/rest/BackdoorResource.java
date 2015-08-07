@@ -2,6 +2,7 @@ package org.kuali.kfs.sys.rest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.kim.api.KimConstants;
@@ -43,7 +44,7 @@ public class BackdoorResource {
         if (StringUtils.isBlank(backdoorId)) {
             return Response.status(HttpStatus.BAD_REQUEST.value()).entity("{\"message\":\"BackdoorId was empty\"}").build();
         }
-        UserSession uSession = getUserSession(request);
+        UserSession uSession = WebUtilities.retrieveUserSession(request);
 
         if (uSession == null) {
             return Response.status(HttpStatus.BAD_REQUEST.value()).entity("{\"message\":\"Session was empty\"}").build();
@@ -68,7 +69,7 @@ public class BackdoorResource {
     @GET
     @Path("/logout")
     public Response logout(@Context HttpServletRequest request) {
-        UserSession uSession = getUserSession(request);
+        UserSession uSession = WebUtilities.retrieveUserSession(request);
 
         if (uSession == null) {
             return Response.status(HttpStatus.BAD_REQUEST.value()).entity("{\"message\":\"Session was empty\"}").build();
@@ -80,17 +81,12 @@ public class BackdoorResource {
     @GET
     @Path("/id")
     public Response findBackdoorId(@Context HttpServletRequest request) {
-        UserSession uSession = getUserSession(request);
+        UserSession uSession = WebUtilities.retrieveUserSession(request);
         String backdoorId = "";
         if (uSession != null && uSession.isBackdoorInUse()) {
             backdoorId = uSession.getPrincipalName();
         }
         return Response.ok("{\"backdoorId\": \"" + backdoorId + "\"}").build();
-    }
-
-    public static UserSession getUserSession(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        return (UserSession) session.getAttribute("UserSession");
     }
 
     public boolean isBackdoorAuthorized(UserSession uSession) {

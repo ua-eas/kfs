@@ -21,6 +21,10 @@ package org.kuali.kfs.sys.web;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.krad.UserSession;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * A utility class which holds functions that can be used as JSP functions.
@@ -57,5 +61,10 @@ public class WebUtilities {
      */
     public static boolean matchesPattern(String value, String pattern) {
         return (StringUtils.isBlank(value)) ? false : value.matches(pattern);
+    }
+
+    public static UserSession retrieveUserSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (UserSession) session.getAttribute("UserSession");
     }
 }
