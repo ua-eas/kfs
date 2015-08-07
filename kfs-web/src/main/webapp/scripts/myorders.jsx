@@ -6,7 +6,7 @@ var MyOrders = React.createClass({
                     <span className="glyphicon glyphicon-euro"></span>
                     <span>My Orders</span>
                 </h2>
-                <table className="table">
+                <table>
                     <tbody>
                         <tr>
                             <th>Vendor</th>
