@@ -128,7 +128,7 @@
 			<div id="main">
 			<c:choose>
 				<c:when test="${empty htmlFormAction}">
-					<div id="my-favorites"></div>
+					<div id="dashboard"></div>
 				</c:when>
 				<c:otherwise>
 					<div id="view_div">
@@ -175,7 +175,7 @@
 				<div id="main">
 				<c:choose>
 					<c:when test="${empty htmlFormAction}">
-						<div id="my-favorites"></div>
+						<div id="dashboard"></div>
 					</c:when>
 					<c:otherwise>
 						<div id="view_div">
