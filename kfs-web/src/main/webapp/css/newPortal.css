@@ -132,9 +132,9 @@ nav ul.nav li {
 #sidebar .nav li a {
     border: none;
     background-color: inherit;
-    color: #D8D8D8;
+    color: #FFF;
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 14pt;
 }
 
 #sidebar .nav li>a {
@@ -167,6 +167,7 @@ nav ul.nav li {
 #sidebar .nav li .sublinks a {
     padding: 20px;
     text-transform: none;
+    color: #C1C1C1;
 }
 
 #sidebar .nav li.active {
