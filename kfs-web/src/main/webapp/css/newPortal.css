@@ -203,12 +203,12 @@ nav ul.nav li {
     padding: 60px 20px 20px 20px;
 }
 
-#dashboard .kwidget {
+#dashboard .widget {
     background-color: #fff;
     border-radius: 3px;
 }
 
-#dashboard .kwidget h2 {
+#dashboard .widget h2 {
     background-color: #FBFBFB;
     color: #71838E;
     font-weight: 300;
@@ -219,16 +219,15 @@ nav ul.nav li {
     box-shadow: 0 2px 0 #F3F3F3;
 }
 
-#dashboard .kwidget h2 span.glyphicon {
+#dashboard .widget h2 span.glyphicon {
     font-weight: 700;
 }
 
-#dashboard .kwidget table {
-    margin: 0 20px;
-    width: 100%;
+#dashboard .widget .table-container {
+    padding: 0 20px 20px 20px;
 }
 
-#dashboard .kwidget table th {
+#dashboard .widget table th {
     border-top: none;
     border-bottom: 1px solid #E1E1E1;
     text-transform: uppercase;
@@ -239,34 +238,34 @@ nav ul.nav li {
     padding: 15px 8px 5px 8px;
 }
 
-#dashboard .kwidget table td {
+#dashboard .widget table td {
     color: #555555;
     border-bottom: 1px solid #E1E1E1;
     padding: 5px 8px;
 }
 
-#dashboard .kwidget table tr:last-child {
+#dashboard .widget table tr:last-child {
     padding-bottom: 10px;
 }
 
-#dashboard .kwidget table td span.more {
+#dashboard .widget table td span.more {
     padding-left: 13px;
     color: #A2A2A2;
 }
 
-#dashboard .kwidget table td.status.requested {
+#dashboard .widget table td.status.requested {
     color: #777777;
 }
 
-#dashboard .kwidget table td.status.canceled {
+#dashboard .widget table td.status.canceled {
     color: #C76247;
 }
 
-#dashboard .kwidget table td.status.paid {
+#dashboard .widget table td.status.paid {
     color: #48A073;
 }
 
-#dashboard .kwidget table td.status.open {
+#dashboard .widget table td.status.open {
     color: #BD9C21;
 }
 
