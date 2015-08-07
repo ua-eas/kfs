@@ -15,8 +15,7 @@ public class PurapApplication extends Application {
     private Set<Class<?>> clazzes = new HashSet<>();
 
     public PurapApplication() {
-        singletons.add(new PreferencesResource());
-        singletons.add(new BackdoorResource());
+        singletons.add(new MyOrdersResource());
         clazzes.add(LoggingFilter.class);
     }
 
