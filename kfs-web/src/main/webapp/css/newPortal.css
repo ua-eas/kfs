@@ -89,7 +89,6 @@ nav ul.nav li {
     padding: 62px 0 0 0;
     z-index: 100;
     background-color: #5b5b5b;
-    border-right: 1px solid gray;
     position: relative;
     right: 25%;
 }
@@ -124,6 +123,10 @@ nav ul.nav li {
     color: #fff;
 }
 
+#sidebar .nav li.first {
+    margin-top: 80px;
+}
+
 #sidebar .nav li.panel {
     background-color: #5b5b5b;
     margin-bottom: 0;
@@ -135,6 +138,10 @@ nav ul.nav li {
     color: #FFF;
     text-transform: uppercase;
     font-size: 14pt;
+}
+
+#sidebar .nav li.first>a {
+    border-top: 1px solid #6a6a6a;
 }
 
 #sidebar .nav li>a {
@@ -180,9 +187,7 @@ nav ul.nav li {
 }
 
 #menu-toggle {
-    position: fixed;
-    top: 62px;
-    left: 25%;
+    float:right;
     background-color: #5b5b5b;
     padding: 5px;
     color: #D8D8D8;
