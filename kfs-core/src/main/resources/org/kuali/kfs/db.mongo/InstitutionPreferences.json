@@ -40,7 +40,7 @@
       "links":[
         {"documentTypeCode": "CASM"},
         {"documentTypeCode": "ALOC"},
-        {"label": "Barcode%20Inventory%20Process", "link": "uploadBarcodeInventoryFile.do?methodToCall=start&batchUpload.batchInputTypeName=assetBarcodeInventoryInputFileType"},
+        {"label": "Barcode Inventory Process", "link": "uploadBarcodeInventoryFile.do?methodToCall=start&batchUpload.batchInputTypeName=assetBarcodeInventoryInputFileType"},
         {"documentTypeCode": "PTAG"}
       ]
     },

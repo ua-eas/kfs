@@ -3,7 +3,7 @@ import KfsUtils from './sys/utils.js';
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {preferences: {}}
+        return {preferences: {}, expandedLinkGroup: ""}
     },
     componentWillMount() {
         let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
@@ -20,23 +20,12 @@ var Sidebar = React.createClass({
             }.bind(this)
         })
     },
-    toggleAccordion(event) {
-        let prevActive = $("li.active")
-        $("li.active").removeClass("active")
-        $("li.before-active").removeClass("before-active")
-        $("span.glyphicon-menu-up").toggleClass("glyphicon-menu-down glyphicon-menu-up")
-
-        let target = event.target
-        if ( $(target).is( "span" ) ) {
-            target = $(target).parent()
-        }
-        if ($(prevActive).children("a").get(0) != target) {
-            let li = $(target).parent()
-            if ($(prevActive).get(0) != $(li).get(0)) {
-                $(target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
-                $(li).toggleClass("active")
-            }
-            $(li).prev("li").toggleClass("before-active")
+    toggleAccordion(label) {
+        let curExpandedGroup = this.state.expandedLinkGroup
+        if (curExpandedGroup === label) {
+            this.setState({expandedLinkGroup: ""})
+        } else {
+            this.setState({expandedLinkGroup: label})
         }
     },
     toggleSidebar(event) {
@@ -60,9 +49,16 @@ var Sidebar = React.createClass({
     render() {
         let linkGroups = []
         if (this.state.preferences.linkGroups) {
+            let beforeActive = findLabelBeforeActive(this.state.preferences.linkGroups, this.state.expandedLinkGroup)
             let groups = this.state.preferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
-                linkGroups.push(<LinkGroup key={i} group={groups[i]} handleClick={this.toggleAccordion}/>)
+                linkGroups.push(
+                    <LinkGroup key={i}
+                               group={groups[i]}
+                               handleClick={this.toggleAccordion}
+                               expandedLinkGroup={this.state.expandedLinkGroup}
+                               beforeActive={beforeActive}/>
+                )
             }
         }
         return (
@@ -86,11 +82,23 @@ var LinkGroup = React.createClass({
             return <Link key={i} url={link.link} label={link.label} className="list-group-item"/>
         })
 
+        let panelClassName = "panel"
+        let indicatorClassName = "indicator glyphicon pull-right"
+        if (this.props.expandedLinkGroup === label) {
+            panelClassName += " active"
+            indicatorClassName += " glyphicon-menu-up"
+        } else {
+            if (this.props.beforeActive === label) {
+                panelClassName += " before-active"
+            }
+            indicatorClassName += " glyphicon-menu-down"
+        }
+
         return (
-            <li className="panel">
-                <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick}>
+            <li className={panelClassName}>
+                <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(null, label)}>
                     <span>{label}</span>
-                    <span className="indicator glyphicon glyphicon-menu-down pull-right"></span>
+                    <span className={indicatorClassName}></span>
                 </a>
                 <div id={id + "-menu"} className="sublinks collapse">
                     {links}
@@ -99,6 +107,14 @@ var LinkGroup = React.createClass({
         )
     }
 });
+
+function findLabelBeforeActive(linkGroups, expandedLinkGroup) {
+    for (let i = 0; i < linkGroups.length; i++) {
+        if (linkGroups[i].label === expandedLinkGroup && i > 0) {
+            return linkGroups[i-1].label
+        }
+    }
+}
 
 React.render(
     <Sidebar/>,
