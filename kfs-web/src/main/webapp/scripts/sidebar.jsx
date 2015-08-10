@@ -27,10 +27,15 @@ var Sidebar = React.createClass({
         $("span.glyphicon-menu-up").toggleClass("glyphicon-menu-down glyphicon-menu-up")
 
         let target = event.target
+        if ( $(target).is( "span" ) ) {
+            target = $(target).parent()
+        }
         if ($(prevActive).children("a").get(0) != target) {
-            $(target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
-            let li = $(target).closest("li")
-            $(li).toggleClass("active")
+            let li = $(target).parent()
+            if ($(prevActive).get(0) != $(li).get(0)) {
+                $(target).find("span.indicator").toggleClass('glyphicon-menu-down glyphicon-menu-up')
+                $(li).toggleClass("active")
+            }
             $(li).prev("li").toggleClass("before-active")
         }
     },
