@@ -1,0 +1,39 @@
+#view_div {
+    padding: 20px;
+    background-color: #E5E5E5;
+}
+
+#view_div .headerarea-small {
+    background-color: #FBFBFB;
+
+}
+
+#view_div #kualiForm {
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+
+#lookup th {
+    text-align: right;
+    height: 30px;
+}
+
+#lookup th,
+#lookup td {
+    padding-bottom: 12px;
+}
+
+#lookup label {
+    font-weight: normal;
+    font-size: 15px;
+    color: #777777;
+    padding-right: 12px;
+}
+
+#lookup input[type=text] {
+    height: 30px;
+    width: 270px;
+    border: 1px solid #D6D6D6;
+    border-radius: 4px;
+}
+
