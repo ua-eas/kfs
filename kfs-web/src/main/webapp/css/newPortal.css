@@ -75,9 +75,13 @@ nav ul.nav li {
 }
 
 #main {
-    padding: 0 0 0 0;
+    padding: 0;
     background-color: #fff;
     border-radius: 4px;
+}
+
+#view_div {
+    padding-top: 62px;
 }
 
 #main .page-header {
