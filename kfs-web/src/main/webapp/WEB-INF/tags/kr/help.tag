@@ -61,4 +61,4 @@
     ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getLookupHelpText&amp;lookupBusinessObjectClassName=${lookupBusinessObjectClassName}" tabindex="-1" target="helpWindow" title="[Help]${altText}"></c:when
 >
 </c:choose
-><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.gif" alt="[Help]${altText}" hspace=5 border=0  align="middle"></a>
+><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" alt="[Help]${altText}" hspace=5 border=0  align="middle" class="help"></a>
