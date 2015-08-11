@@ -124,8 +124,8 @@
 
 		<div id="sidebar-bg-wrapper">
 		<div id="wrapper">
-			<div id="sidebar-wrapper" class="col-md-3"></div>
-			<div id="main-wrapper" class="col-md-9">
+			<div id="sidebar-wrapper"></div>
+			<div id="main-wrapper">
 			<div id="main">
 			<c:choose>
 				<c:when test="${empty htmlFormAction}">
@@ -171,8 +171,8 @@
 
 		<div id="sidebar-bg-wrapper">
 		<div id="wrapper">
-			<div id="sidebar-wrapper" class="col-md-3"></div>
-			<div id="main-wrapper" class="col-md-9">
+			<div id="sidebar-wrapper"></div>
+			<div id="main-wrapper">
 				<div id="main">
 				<c:choose>
 					<c:when test="${empty htmlFormAction}">
