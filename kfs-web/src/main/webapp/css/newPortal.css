@@ -22,7 +22,7 @@ body {
     padding-right: 7px;
 }
 .navbar-default .navbar-brand .institution-name {
-    font-weight: 300;
+    font-weight: 200;
 }
 
 .dropdown.backdoor>a {
@@ -44,22 +44,21 @@ body {
 
 #wrapper {
     float: left;
-    width: 100%;
-    background-color: #fff;
+    width: calc(100% - 320px);
+    background-color: #E5E5E5;
     position: relative;
-    left: 25%;
+    left: 320px;
 }
 
-/* override existing styles */
 #headerarea {
     position: relative;
 }
 
 #main-wrapper {
-    background-color: #fff;
-    position:relative;
-    right: 25%;
-    padding: 0 0 20px 0
+    background-color: #E5E5E5;
+    width: 100%;
+    padding: 0 0 20px 0;
+    float: left;
 }
 
 nav {
@@ -76,7 +75,7 @@ nav ul.nav li {
 }
 
 #main {
-    padding: 62px 0 0 0;
+    padding: 0 0 0 0;
     background-color: #fff;
     border-radius: 4px;
 }
@@ -89,8 +88,9 @@ nav ul.nav li {
     padding: 62px 0 0 0;
     z-index: 100;
     background-color: #5b5b5b;
-    position: relative;
-    right: 25%;
+    width: 320px;
+    margin-left: -320px;
+    float: left;
 }
 
 #sidebar {
@@ -137,7 +137,7 @@ nav ul.nav li {
     background-color: inherit;
     color: #FFF;
     text-transform: uppercase;
-    font-size: 14pt;
+    font-size: 14px;
 }
 
 #sidebar .nav li.first>a {

@@ -31,18 +31,21 @@ var Sidebar = React.createClass({
         }
     },
     toggleSidebar() {
+        let windowWidth = $(window).width()
         if ($('#sidebar-wrapper').width() > 25) {
             $('#wrapper').animate({'left': '25px'}, {duration: animationTime, queue: false});
+            $('#wrapper').animate({'width': windowWidth - 25 + 'px'}, {duration: animationTime, queue: false, complete: function() {
+                $('#wrapper').css('width', 'calc(100% - 25px)')
+            }});
             $('#sidebar-wrapper').animate({'width': '25px'}, {duration: animationTime, queue: false});
-            $('#main-wrapper').animate({'width': '98%'}, {duration: animationTime, queue: false});
-            $('#main-wrapper').animate({'right': '25px'}, {duration: animationTime, queue: false});
             $('#menu-toggle').animate({'left': '0'}, {duration: animationTime, queue: false});
             $('#menu-toggle').css('position', 'fixed');
         } else {
-            $('#wrapper').animate({'left': '25%'}, {duration: animationTime, queue: false});
-            $('#sidebar-wrapper').animate({'width': '25%'}, {duration: animationTime, queue: false});
-            $('#main-wrapper').animate({'width': '75%'}, {duration: animationTime, queue: false});
-            $('#main-wrapper').animate({'right': '25%'}, {duration: animationTime, queue: false});
+            $('#wrapper').animate({'left': '320px'}, {duration: animationTime, queue: false});
+            $('#wrapper').animate({'width': windowWidth - 320 + 'px'}, {duration: animationTime, queue: false, complete: function() {
+                $('#wrapper').css('width', 'calc(100% - 320px)')
+            }});
+            $('#sidebar-wrapper').animate({'width': '320px'}, {duration: animationTime, queue: false});
             $('#menu-toggle').css('position', 'inherit');
         }
         $('#menu-toggle>span').toggleClass('glyphicon-menu-left glyphicon-menu-right')
