@@ -3,14 +3,53 @@
     background-color: #E5E5E5;
 }
 
+#view_div .lookupcreatenew {
+    float: right;
+    margin-right: 35px;
+    height: 50px;
+    line-height: 50px;
+}
+
 #view_div .headerarea-small {
     background-color: #FBFBFB;
+    height: 50px;
+    box-shadow: 0px 2px 0px 0px #F3F3F3;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 
+#view_div a img {
+    width: inherit;
+    height: inherit;
+}
+
+#view_div .right {
+    text-align: right;
+}
+
+div.excol {
+    color: #999999;
+    font-size: 14px;
+    margin-right: 35px;
+    padding-top: 8px;
+}
+
+#view_div .headerarea-small h1{
+    margin: 0px;
+    font-weight: 200;
+    font-size: 26px;
+    line-height: 50px;
+    color: #5C6A73;
 }
 
 #view_div #kualiForm {
     background-color: #ffffff;
     border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+#lookup {
+    padding-top: 20px;
 }
 
 #lookup th {
@@ -21,6 +60,14 @@
 #lookup th,
 #lookup td {
     padding-bottom: 12px;
+}
+
+#lookup td.infoline input[type=image] {
+    padding-right: 10px;
+}
+
+#lookup td.infoline img {
+    vertical-align: top;
 }
 
 #lookup label {

@@ -344,7 +344,8 @@ public class LookupForm extends KualiForm {
             // if showMaintenanceLinks is not already true, only show maintenance links if the lookup was called from the portal (or index.html for the generated applications)
             if (!isShowMaintenanceLinks()) {
             	if (StringUtils.contains(getBackLocation(), "/"+ KRADConstants.PORTAL_ACTION)
-            			|| StringUtils.contains(getBackLocation(), "/index.html")) {
+            			|| StringUtils.contains(getBackLocation(), "/index.html")
+                        || StringUtils.contains(getBackLocation(), "/index.jsp")) {
             		showMaintenanceLinks = true;
             	}
             }

@@ -105,7 +105,7 @@
 	
 	<div class="right">
 		<div class="excol">
-		* required field
+		* Required Field
 		</div>
 	</div>
     <div class="msg-excol">
@@ -114,7 +114,6 @@
         <kul:messages/>
 	  </div>
     </div>
-    <br/>
     </c:if>
 
 	<table width="100%">
@@ -124,8 +123,7 @@
 				height="20"></td>
 			<td>
 
-			<div id="lookup" align="center"><br />
-			<br />
+			<div id="lookup" align="center">
 			<table align="center" cellpadding="0" cellspacing="0" class="datatable-100">
 				<c:set var="FormName" value="KualiForm" scope="request" />
 				<c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
@@ -189,20 +187,15 @@
 			</table>
 			</div>
 
-			<br>
-			<br>
-
 			<c:if test="${reqSearchResultsActualSize > reqSearchResultsLimitedSize && reqSearchResultsLimitedSize>0}">
 				<c:out value="${reqSearchResultsActualSize}" /> items found.  Please refine your search criteria to narrow down your search.
             </c:if>
 			<c:if test="${!empty reqSearchResultsActualSize }">
 			    <c:if test="${KualiForm.searchUsingOnlyPrimaryKeyValues}">
 			    	<bean-el:message key="lookup.using.primary.keys" arg0="${KualiForm.primaryKeyFieldLabels}"/>
-			    	<br/><br/>
 			    </c:if>
 			    <c:if test="${empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
     				<bean-el:message key="lookup.no.returnable.rows" />
-    				<br/><br/>
     			</c:if>
 				<display:table class="datatable-100" cellspacing="0"
 				requestURIcontext="false" cellpadding="0" name="${reqSearchResults}"
