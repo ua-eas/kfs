@@ -1,0 +1,109 @@
+#view_div {
+    padding: 20px;
+    background-color: #E5E5E5;
+}
+
+#view_div .lookupcreatenew {
+    float: right;
+    margin-right: 35px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#view_div .headerarea-small {
+    background-color: #FBFBFB;
+    height: 50px;
+    box-shadow: 0px 2px 0px 0px #F3F3F3;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#view_div a img {
+    width: inherit;
+    height: inherit;
+}
+
+#view_div a img.help {
+    width: 13px;
+    height: 13px;
+}
+
+#view_div .right {
+    text-align: right;
+}
+
+div.excol {
+    color: #999999;
+    font-size: 14px;
+    margin-right: 35px;
+    padding-top: 8px;
+}
+
+#view_div .headerarea-small h1{
+    margin: 0px;
+    font-weight: 200;
+    font-size: 26px;
+    line-height: 50px;
+    color: #5C6A73;
+}
+
+#view_div #kualiForm {
+    background-color: #ffffff;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+#lookup {
+    padding-top: 20px;
+}
+
+#lookup th {
+    text-align: right;
+    height: 30px;
+}
+
+#lookup th,
+#lookup td {
+    padding-bottom: 12px;
+}
+
+#lookup input.searchicon {
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+}
+
+#lookup td.infoline input[type=image] {
+    padding-right: 10px;
+}
+
+#lookup td.infoline {
+    border-top: 1px solid #E7E7E7;
+    padding-top: 20px;
+}
+
+#lookup td.infoline img {
+    vertical-align: top;
+}
+
+#lookup label {
+    font-weight: normal;
+    font-size: 15px;
+    color: #777777;
+    padding-right: 12px;
+}
+
+#lookup input[type=text],
+#lookup select {
+    height: 30px;
+    width: 270px;
+    border: 1px solid #D6D6D6;
+    border-radius: 4px;
+    margin-right: 3px;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+}
+
+#lookup input[type=radio]:not(:first-child) {
+    margin-left: 15px;
+}
+

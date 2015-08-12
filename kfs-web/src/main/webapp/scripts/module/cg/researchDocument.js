@@ -415,12 +415,12 @@ function restoreFpt(boName) {
    if (boName=="budgetAgency") {
         addedHtml="<input type=\"text\" name=\"document.budget.federalPassThroughAgencyNumber\" maxlength='5' size='5' tabindex='0' value='' onchange='' onblur=\"onblur_agencyNumber('document.budget.federalPassThroughAgencyNumber','federalPassThroughAgency');addCfp('document.budget.federalPassThroughAgencyNumber')\" id=\"document.budget.federalPassThroughAgencyNumber\" style='' class=''> "+
                  "<input type='image' tabindex='5110' name='methodToCall.performLookup.(!!org.kuali.module.cg.bo.Agency!!).(((agencyNumber:document.budget.federalPassThroughAgencyNumber,fullName:document.budget.federalPassThroughAgency.fullName))).((##)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).anchorGeneral' "+
-                 "src='kr/static/images/searchicon.gif' border='0' class='tinybutton' valign='middle' alt='Search ' title='Search ' /> "+
+                 "src='kr/static/images/searchicon.png' border='0' class='tinybutton' valign='middle' alt='Search ' title='Search ' /> "+
 	              "<div id='document.budget.federalPassThroughAgency.fullName.div' > </div> <div id='myDiv'></div>"
     } else {
         addedHtml="<input type=\"text\" name=\"document.agencyFederalPassThroughNumber\" maxlength='5' size='7' tabindex='0' value='' onchange='' onblur=\"onblur_agencyNumber('document.agencyFederalPassThroughNumber','federalPassThroughAgency');addCfp('document.agencyFederalPassThroughNumber');\" id='document.agencyFederalPassThroughNumber' style='' class=''> "+
             "<input type=\"image\" tabindex=\"1000009\" name=\"methodToCall.performLookup.(!!org.kuali.module.cg.bo.Agency!!).(((agencyNumber:document.agencyFederalPassThroughNumber,fullName:document.federalPassThroughAgency.fullName))).((##)).((<>)).(([static/images/buttonsmall_namelater.gif])).((**)).((^^)).((&&)).((//)).((~~)).anchor1\" "+
-            "src=\"kr/static/images/searchicon.gif\" border=\"0\" class=\"tinybutton\" valign=\"middle\" alt=\"Search \" title=\"Search \" /> "+
+            "src=\"kr/static/images/searchicon.png\" border=\"0\" class=\"tinybutton\" valign=\"middle\" alt=\"Search \" title=\"Search \" /> "+
 			    		"<div id=\"document.federalPassThroughAgency.fullName.div\" > </div> <div id='myDiv'></div>"
     }
     

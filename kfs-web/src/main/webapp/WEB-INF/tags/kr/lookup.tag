@@ -43,11 +43,11 @@
     <c:set var="lookupicon" value="${searchIconOverride}"/>
   </c:when>
   <c:otherwise>
-    <c:set var="lookupicon" value="${ConfigProperties.kr.externalizable.images.url}searchicon.gif"/>
+    <c:set var="lookupicon" value="${ConfigProperties.kr.externalizable.images.url}searchicon.png"/>
   </c:otherwise>
 </c:choose>
 
 <c:set var="epMethodToCallAttribute" value="methodToCall.performLookup.(!!${boClassName}!!).(((${fieldConversions}))).((`${lookupParameters}`)).((<${hideReturnLink}>)).(([${extraButtonSource}])).((*${extraButtonParams}*)).((^${suppressActions}^)).((&${readOnlyFields}&)).((/${referencesToRefresh}/)).((~${autoSearch}~)).(::::;${baseLookupUrl};::::).anchor${anchor}"/>
 ${kfunc:registerEditableProperty(KualiForm, epMethodToCallAttribute)} 
 <input type="image" tabindex="${tabindex}" name="${epMethodToCallAttribute}"
-   src="${lookupicon}" border="0" class="tinybutton" valign="middle" alt="Search ${fieldLabel}" title="Search ${fieldLabel}" />
+   src="${lookupicon}" border="0" class="tinybutton searchicon" valign="middle" alt="Search ${fieldLabel}" title="Search ${fieldLabel}" />
