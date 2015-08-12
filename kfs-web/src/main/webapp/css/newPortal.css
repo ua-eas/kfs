@@ -287,3 +287,30 @@ nav ul.nav li {
 .center {
     text-align: center;
 }
+
+.btn:not(:last-child) {
+    margin-right: 7px;
+}
+
+.create-new {
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.btn {
+    padding: 3px 15px;
+}
+
+.btn-default {
+    background: #FBFBFB linear-gradient(to bottom, #ffffff, #EBEBEB);
+    box-shadow: 0 2px 0 0 #BFBFBF;
+    border: 1px solid #EBEBEB;
+    color: #555555;
+}
+
+.btn-primary {
+    background-color: #5F7D8C;
+    box-shadow: 0 2px 0 0 #445A64;
+    border: 0;
+    padding: 6px 12px;
+}
