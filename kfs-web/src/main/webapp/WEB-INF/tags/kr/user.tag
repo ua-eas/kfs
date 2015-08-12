@@ -38,6 +38,8 @@
               description="boolean indicating if this field is rendered as highlighted (to indicate old/new value change)" %> 
 <%@ attribute name="tabIndex" required="false" description="Tab index to use for next field" %>
 
+<%@ attribute name="hideEmptyCell" required="false" description="whether to hide the empty cell before the user name field" %>
+
 <%-- if the universal user ID field is a key field on this document, lock-down the user ID field --%>
 <c:choose>
   <c:when test="${readOnly}">
@@ -72,7 +74,9 @@
 </c:choose>
 </tr>
 <tr>
-    <td width="50%">&nbsp;</td>
+    <c:if test="${not hideEmptyCell}">
+        <td width="50%">&nbsp;</td>
+    </c:if>
     <td width="50%">
         <c:choose>
             <c:when test="${!empty userNameFieldName}">
