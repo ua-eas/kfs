@@ -140,24 +140,25 @@
 					<td height="30" colspan="${headerColspan}"  class="infoline">
 					
 					<c:if test="${KualiForm.renderSearchButtons}">
-					  <html:image
-						property="methodToCall.search" value="search"
-						src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_search.gif" styleClass="tinybutton"
-						alt="search" title="search" border="0" /> 
-					  <html:image
-						property="methodToCall.clearValues" value="clearValues"
-						src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_clear.gif" styleClass="tinybutton"
-						alt="clear" title="clear" border="0" /> 
+					  <html:button
+						property="methodToCall.search" value="Search"
+						styleClass="tinybutton btn btn-default"
+						alt="Search" title="Search" />
+					  <html:button
+						property="methodToCall.clearValues" value="Clear"
+						styleClass="tinybutton btn btn-default"
+						alt="Clear" title="Clear" />
 					</c:if>	
 					
 					<c:if test="${KualiForm.formKey!=''}">
 						<!-- KULRICE-8092: Enter key won't return values in Parameter Component in IE-->
 						<input name="" type="t" value="" style="display:none"/>
 						
-						<c:if test="${!empty KualiForm.backLocation}"><a
-							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'  title="cancel"><img
-							src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel"
-							border="0" /></a></c:if>
+						<c:if test="${!empty KualiForm.backLocation}">
+							<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'  title="Cancel">
+								<span class="tinybutton btn btn-default" alt="Cancel" title="Cancel">Cancel</span>
+							</a>
+						</c:if>
 					</c:if>
 					
 					<!-- Optional extra buttons -->
