@@ -105,7 +105,6 @@ div.excol {
 #lookup td.infoline.fixed {
     position: fixed;
     bottom: 0;
-    width: 594px;
     height: 65px;
     background-color: rgba(255,255,255,.8);
 }

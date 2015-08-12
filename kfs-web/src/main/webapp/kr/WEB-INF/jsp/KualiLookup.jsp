@@ -323,6 +323,7 @@
 		$(document).ready(function() {
 			// Set initial button state
 			var buttonsLocation = $('td.infoline').offset().top + $('td.infoline').outerHeight()
+			var buttonContainerWidth = $('td.infoline').outerWidth()
 			keepButtonsFixed()
 
 			// Modify button state as we scroll
@@ -339,6 +340,7 @@
 				var windowLocation = $(window).scrollTop() + $(window).height()
 				if (windowLocation < buttonsLocation && !buttonsAreFixed) {
 					$('td.infoline').addClass('fixed')
+					$('td.infoline').css('width', buttonContainerWidth)
 					$('#lookup').addClass('fixedButtons')
 				} else if (windowLocation >= buttonsLocation && buttonsAreFixed) {
 					$('td.infoline').removeClass('fixed')
