@@ -83,6 +83,19 @@ div.excol {
     padding-top: 20px;
 }
 
+#lookup.fixedButtons {
+    padding-top: 20px;
+    padding-bottom: 65px;
+}
+
+#lookup td.infoline.fixed {
+    position: fixed;
+    bottom: 0;
+    width: 594px;
+    height: 65px;
+    background-color: rgba(255,255,255,.8);
+}
+
 #lookup td.infoline img {
     vertical-align: top;
 }

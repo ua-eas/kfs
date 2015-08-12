@@ -316,4 +316,32 @@
 				height="20"></td>
 		</tr>
 	</table>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// Set initial button state
+			var buttonsLocation = $('td.infoline').offset().top + $('td.infoline').outerHeight()
+			keepButtonsFixed()
+
+			// Modify button state as we scroll
+			$(window).scroll(function() {
+				keepButtonsFixed()
+			})
+
+			$(window).resize(function() {
+				keepButtonsFixed()
+			})
+
+			function keepButtonsFixed() {
+				var buttonsAreFixed = $('td.infoline').hasClass('fixed')
+				var windowLocation = $(window).scrollTop() + $(window).height()
+				if (windowLocation < buttonsLocation && !buttonsAreFixed) {
+					$('td.infoline').addClass('fixed')
+					$('#lookup').addClass('fixedButtons')
+				} else if (windowLocation >= buttonsLocation && buttonsAreFixed) {
+					$('td.infoline').removeClass('fixed')
+					$('#lookup').removeClass('fixedButtons')
+				}
+			}
+		})
+	</script>
 </kul:page>
