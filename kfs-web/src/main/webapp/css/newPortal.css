@@ -78,10 +78,7 @@ nav ul.nav li {
     padding: 0;
     background-color: #fff;
     border-radius: 4px;
-}
-
-#view_div {
-    padding-top: 62px;
+    margin-top: 62px;
 }
 
 #main .page-header {
@@ -210,7 +207,7 @@ nav ul.nav li {
 
 #dashboard {
     background-color: #E5E5E5;
-    padding: 60px 20px 20px 20px;
+    padding: 20px;
 }
 
 #dashboard .widget {
@@ -223,7 +220,7 @@ nav ul.nav li {
     color: #71838E;
     font-weight: 300;
     font-size: 22px;
-    margin-bottom: 0;
+    margin: 0;
     padding: 12px 20px;
     border-radius: 3px;
     box-shadow: 0 2px 0 #F3F3F3;
