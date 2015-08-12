@@ -38,6 +38,8 @@
               description="boolean indicating if this field is rendered as highlighted (to indicate old/new value change)" %> 
 <%@ attribute name="tabIndex" required="false" description="Tab index to use for next field" %>
 
+<%@ attribute name="hideEmptyCell" required="false" description="whether to hide the empty cell before the user name field" %>
+
 <%-- if the universal user ID field is a key field on this document, lock-down the user ID field --%>
 <c:choose>
   <c:when test="${readOnly}">
@@ -68,24 +70,30 @@
   </c:when>
   <c:otherwise>
     ${helpLink}
-    <br />
   </c:otherwise>
 </c:choose>
-<c:choose>
-    <c:when test="${!empty userNameFieldName}">
-        <span id="${userNameFieldName}.div">${userName}&nbsp;</span>
-    </c:when>
-    <c:otherwise><%-- guess at the name if the name field is not being rendered --%>
-        <span id='${fn:replace( userIdFieldName, ".principalName", ".name" )}.div'>${userName}&nbsp;</span>
-        <%-- When the user name field is not set, most likely, the name is not passed through
-             (It is also not available to be passed in, since only the Field objects are present
-             for use by rowDisplay.tag.  So, we fire off the needed JS to update the name. --%>
-        <c:if test="${empty userName && !(empty userId)}">
-            <script type="text/javascript">loadUserInfo( "${userIdFieldName}", "", "" );</script>
-        </c:if>
-    </c:otherwise>
-</c:choose>
-  
+</tr>
+<tr>
+    <c:if test="${not hideEmptyCell}">
+        <td width="50%">&nbsp;</td>
+    </c:if>
+    <td width="50%">
+        <c:choose>
+            <c:when test="${!empty userNameFieldName}">
+                <span id="${userNameFieldName}.div">${userName}&nbsp;</span>
+            </c:when>
+            <c:otherwise><%-- guess at the name if the name field is not being rendered --%>
+                <span id='${fn:replace( userIdFieldName, ".principalName", ".name" )}.div'>${userName}&nbsp;</span>
+                <%-- When the user name field is not set, most likely, the name is not passed through
+                     (It is also not available to be passed in, since only the Field objects are present
+                     for use by rowDisplay.tag.  So, we fire off the needed JS to update the name. --%>
+                <c:if test="${empty userName && !(empty userId)}">
+                    <script type="text/javascript">loadUserInfo( "${userIdFieldName}", "", "" );</script>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
+    </td>
+
 <c:if test="${!empty universalIdFieldName}">
   ${kfunc:registerEditableProperty(KualiForm, universalIdFieldName)}
   <input type="hidden" name="${universalIdFieldName}" id="${universalIdFieldName}" value="${universalId}" />
