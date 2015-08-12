@@ -192,7 +192,12 @@
                 <c:set var="onchange" value="setFieldToFocusAndSubmit(this);" />
                 <c:set var="onchangecall" value='onchange="${onchange}"' />
             </c:if>
-          
+
+            <c:if test="${numberOfColumns > 1}">
+                <td>
+                <table>
+                <tr>
+            </c:if>
 
             <%--
                 ###########################################################
@@ -274,6 +279,12 @@
                     <c:if test="${(isInquiry or isLookup)}">
 
                         <th class="grid" style="width:${dataCellWidth}%;">&nbsp;</th>
+
+                        <c:if test="${numberOfColumns > 1}">
+                            </tr>
+                            <tr>
+                        </c:if>
+
                         <td class="grid" style="width:${dataCellWidth}%;">
 
                             <c:out value="${field.fieldLabel}" />&nbsp;
@@ -289,6 +300,11 @@
                     <kul:fieldDefaultLabel isLookup="${isLookup}" isRequired="${field.fieldRequired}"
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
+
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
 
                     <td class="grid" style="width:${dataCellWidth}%;">
 
@@ -322,6 +338,11 @@
                     <kul:fieldDefaultLabel isLookup="${isLookup}" isRequired="${field.fieldRequired}"
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
+
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
 
                     <td class="grid" style="width:${dataCellWidth}%;">
 
@@ -389,6 +410,11 @@
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
 
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
+
                     <td class="grid" style="width:${dataCellWidth}%;">
 
                         <c:choose>
@@ -421,6 +447,11 @@
                     <kul:fieldDefaultLabel isLookup="${isLookup}" isRequired="${field.fieldRequired}"
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%"
                         fieldName="${field.propertyName}" fieldType="${field.fieldType}" fieldLabel="${field.fieldLabel}" />
+
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
 
                     <td class="grid" style="width:${dataCellWidth}%;">
 
@@ -457,6 +488,11 @@
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%"
                         fieldName="${field.propertyName}" fieldType="${field.fieldType}" fieldLabel="${field.fieldLabel}" />
 
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
+
                     <td class="grid" style="width:${dataCellWidth}%;">
 
                         <c:choose>
@@ -488,6 +524,11 @@
                     <kul:fieldDefaultLabel isLookup="${isLookup}" isRequired="${field.fieldRequired}"
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
+
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
 
                     <td class="grid" style="width:${dataCellWidth}%;">
                                             <c:choose>
@@ -522,6 +563,11 @@
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
 
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
+
                     <td class="grid" style="width:${dataCellWidth}%;">
                         <c:choose>
                             <c:when test="${isFieldReadOnly}">
@@ -552,6 +598,11 @@
                     <kul:fieldDefaultLabel isLookup="${isLookup}" isRequired="${field.fieldRequired}"
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%"
                         fieldName="${field.propertyName}" fieldType="${field.fieldType}" fieldLabel="${field.fieldLabel}" />
+
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
 
                     <td class="grid" style="width:${dataCellWidth}%;">
 
@@ -584,6 +635,11 @@
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
 
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
+
                     <td class="grid" style="width:${dataCellWidth}%;">
 
                         <c:choose>
@@ -605,10 +661,19 @@
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
 
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
+
                     <td class="grid" style="width:${dataCellWidth}%;">
                         <c:if test="${!hasErrors}">
                             <kul:checkErrors keyMatch="${field.universalIdAttributeName}" />
                         </c:if>
+                        <c:if test="${numberOfColumns > 1}">
+                            <c:set var="hideEmptyCell" value="true" />
+                        </c:if>
+
                         <kul:user userIdFieldName="${field.propertyName}"
                                   universalIdFieldName="${field.universalIdAttributeName}"
                                   userNameFieldName="${field.personNameAttributeName}"
@@ -624,7 +689,8 @@
                                   onblur="${onblur}"
                                   onchange="${onchange}"
                                   highlight="${addHighlighting && field.highlightField}"
-                                  tabIndex="${tabIndex}">
+                                  tabIndex="${tabIndex}"
+                                  hideEmptyCell="${hideEmptyCell}">
                             <jsp:attribute name="helpLink" trim="true">
                                 <c:if test="${field.fieldLevelHelpEnabled || (!field.fieldLevelHelpDisabled && KualiForm.fieldLevelHelpEnabled)}">
                                 <kul:help
@@ -645,6 +711,10 @@
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
 
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
 
                     <td class="grid" style="width:${dataCellWidth}%;">
                         <c:choose>
@@ -749,6 +819,11 @@
                         isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                         fieldLabel="${field.fieldLabel}" />
 
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
+
                     <td class="grid" style="width:${dataCellWidth}%;">
                         <kul:fieldShowReadOnly field="${field}" addHighlighting="${addHighlighting}" isLookup="${isLookup}" />
 
@@ -763,7 +838,12 @@
                     isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                     fieldLabel="${field.fieldLabel}" />
 
-                  <td class="grid" style="width:${dataCellWidth}%;">
+                    <c:if test="${numberOfColumns > 1}">
+                        </tr>
+                        <tr>
+                    </c:if>
+
+                    <td class="grid" style="width:${dataCellWidth}%;">
 
                     <input type="hidden" name='${field.propertyName}' value='<c:out value="${fieldValue}"/>' />
                     &nbsp;
@@ -807,6 +887,12 @@
                             isReadOnly="true" cellWidth="${dataCellWidth}%"
                             fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                             fieldLabel="${field.fieldLabel}" />
+
+                        <c:if test="${numberOfColumns > 1}">
+                            </tr>
+                            <tr>
+                        </c:if>
+
                         <td class="grid" style="width:${dataCellWidth}%;">
                         <html:image
                             src="${ConfigProperties.externalizable.images.url}${field.imageSrc}"
@@ -821,6 +907,12 @@
                             isReadOnly="true" cellWidth="${dataCellWidth}%"
                             fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                             fieldLabel="" />
+
+                        <c:if test="${numberOfColumns > 1}">
+                            </tr>
+                            <tr>
+                        </c:if>
+
                         <td class="grid" style="width:${dataCellWidth}%;">&nbsp;</td>
                     </c:otherwise>
                 </c:choose>
@@ -836,6 +928,12 @@
                             isReadOnly="true" cellWidth="${dataCellWidth}%"
                             fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                             fieldLabel="${field.fieldLabel}" />
+
+                        <c:if test="${numberOfColumns > 1}">
+                            </tr>
+                            <tr>
+                        </c:if>
+
                         <td class="grid" style="width:${dataCellWidth}%;">
                         <c:if test="${not empty field.propertyValue }" >
                                 <html:link href="${field.propertyValue}" target="${field.target}" styleClass="${field.styleClass}">${field.hrefText}
@@ -849,11 +947,24 @@
                             isReadOnly="true" cellWidth="${dataCellWidth}%"
                             fieldName="${field.propertyName}" fieldType="${field.fieldType}"
                             fieldLabel="" />
+
+                        <c:if test="${numberOfColumns > 1}">
+                            </tr>
+                            <tr>
+                        </c:if>
+
                         <td class="grid" style="width:${dataCellWidth}%;">&nbsp;</td>
                     </c:otherwise>
                 </c:choose>
             </c:when>
             </c:choose>
+
+            <c:if test="${numberOfColumns > 1}">
+                </tr>
+                </table>
+                </td>
+            </c:if>
+
         </c:forEach>
     </tr>
 </c:forEach>
