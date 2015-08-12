@@ -302,8 +302,7 @@ nav ul.nav li {
 }
 
 .btn-default {
-    background-color: #FBFBFB;
-    background-image: linear-gradient(to bottom, #ffffff, #EBEBEB);
+    background: #FBFBFB linear-gradient(to bottom, #ffffff, #EBEBEB);
     box-shadow: 0 2px 0 0 #BFBFBF;
     border: 1px solid #EBEBEB;
     color: #555555;
