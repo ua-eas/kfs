@@ -284,6 +284,10 @@ nav ul.nav li {
     text-align: center;
 }
 
+.heavy {
+    font-weight: 700;
+}
+
 .btn:not(:last-child) {
     margin-right: 7px;
 }

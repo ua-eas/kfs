@@ -6,7 +6,6 @@
 #view_div .lookupcreatenew {
     float: right;
     margin-right: 35px;
-    height: 50px;
     line-height: 50px;
 }
 
@@ -39,18 +38,24 @@ div.excol {
     padding-top: 8px;
 }
 
-#view_div .headerarea-small h1{
+#view_div .headerarea-small h1 {
     margin: 0px;
     font-weight: 200;
     font-size: 26px;
     line-height: 50px;
     color: #5C6A73;
+    float: left;
 }
 
-#view_div #kualiForm {
+#view_div .main-panel {
     background-color: #ffffff;
     border-radius: 3px;
     border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+#view_div .main-panel:not(:first-child) {
+    margin-top: 10px;
 }
 
 #lookup {
@@ -133,5 +138,31 @@ div.excol {
 
 #lookup input[type=radio]:not(:first-child) {
     margin-left: 15px;
+}
+
+.too-many-results {
+    text-align: center;
+    font-size: 15px;
+    color: #555555;
+    padding-top: 14px;
+}
+
+.search-results {
+    overflow-y: scroll;
+}
+
+.search-results .paginator {
+    float: right;
+    line-height: 50px;
+    font-size: 15px;
+    color: #555555;
+}
+
+.search-results .paginator .pagebanner {
+    padding-right: 25px;
+}
+
+.search-results .paginator .pagebanner .results-showing {
+    font-weight: 700;
 }
 
