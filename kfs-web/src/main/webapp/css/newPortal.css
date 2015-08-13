@@ -321,6 +321,10 @@ nav ul.nav li {
     border: none;
 }
 
+.btn-default:active {
+    background-color: #e3e3e3;
+}
+
 .btn-primary {
     background-color: #5F7D8C;
     box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.3);
@@ -328,4 +332,8 @@ nav ul.nav li {
 
 .btn-primary:hover {
     background-color: #658595;
+}
+
+.btn-primary:active {
+    background-color: #567280 !important;
 }
