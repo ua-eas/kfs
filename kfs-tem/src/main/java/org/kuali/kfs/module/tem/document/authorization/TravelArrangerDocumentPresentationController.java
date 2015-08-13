@@ -23,7 +23,7 @@ import java.util.Set;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public class TravelArrangerDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase {
 

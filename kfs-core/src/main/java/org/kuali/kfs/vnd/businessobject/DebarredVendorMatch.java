@@ -20,7 +20,7 @@ package org.kuali.kfs.vnd.businessobject;
 
 import java.util.Date;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class DebarredVendorMatch extends PersistableBusinessObjectBase {
     public static final String VENDOR_TYPE = "vendorHeader.vendorTypeCode";

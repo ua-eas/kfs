@@ -20,7 +20,7 @@ package org.kuali.kfs.sec.identity;
 
 import java.util.Map;
 
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 /**
  * Type service for roles created for security definitions. Each definition has a corresponding role which is granted the definition permissions

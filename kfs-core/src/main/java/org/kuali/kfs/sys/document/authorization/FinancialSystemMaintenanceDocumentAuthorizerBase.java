@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.document.authorization;
 
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentAuthorizerBase;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizerBase;
 
 
 /**

@@ -20,7 +20,7 @@ package org.kuali.kfs.module.tem.businessobject.defaultvalue;
 
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.sys.businessobject.defaultvalue.SequenceValueFinder;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 public class NextAgencyStagingDataIdFinder extends SequenceValueFinder {
     public static final String AGENCY_STAGING_DATA_SEQUENCE_NAME = "TEM_AGENCY_STAGING_ID_SEQ";

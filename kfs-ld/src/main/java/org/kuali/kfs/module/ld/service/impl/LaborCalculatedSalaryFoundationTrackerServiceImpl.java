@@ -29,7 +29,7 @@ import org.kuali.kfs.module.ld.businessobject.LaborCalculatedSalaryFoundationTra
 import org.kuali.kfs.module.ld.dataaccess.LaborCalculatedSalaryFoundationTrackerDao;
 import org.kuali.kfs.module.ld.service.LaborCalculatedSalaryFoundationTrackerService;
 import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.rice.krad.service.LookupService;
+import org.kuali.kfs.krad.service.LookupService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

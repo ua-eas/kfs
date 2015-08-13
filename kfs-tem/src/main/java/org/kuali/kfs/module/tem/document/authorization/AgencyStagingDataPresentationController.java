@@ -22,10 +22,10 @@ import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.kns.service.KNSServiceLocator;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class AgencyStagingDataPresentationController extends MaintenanceDocumentPresentationControllerBase {
 

@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 /**

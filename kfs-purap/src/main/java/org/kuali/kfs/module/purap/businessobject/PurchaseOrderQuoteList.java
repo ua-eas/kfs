@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Purchase Order Quote List Business Object.

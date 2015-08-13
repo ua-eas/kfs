@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * This class creates a new finder for our forms view (creates a drop-down of {@link SubAccount}s) It only pulls {@link SubAccount}s

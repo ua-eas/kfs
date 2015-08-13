@@ -32,10 +32,10 @@ import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Contains assertion related convenience methods for testing (not for production use).

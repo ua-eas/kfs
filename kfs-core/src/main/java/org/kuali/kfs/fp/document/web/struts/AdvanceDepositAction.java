@@ -32,7 +32,7 @@ import org.kuali.kfs.fp.document.validation.impl.AdvanceDepositDocumentRuleUtil;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * This is the action class for the Advance Deposit document.

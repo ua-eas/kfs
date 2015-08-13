@@ -21,7 +21,7 @@ package org.kuali.kfs.module.purap.businessobject;
 import java.util.List;
 
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.bo.Note;
+import org.kuali.kfs.krad.bo.Note;
 
 /**
  * Electronic invoice View Business Object.

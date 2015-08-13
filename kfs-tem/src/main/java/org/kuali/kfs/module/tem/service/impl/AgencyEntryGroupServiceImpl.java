@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 
 public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
     protected DateTimeService dateTimeService;

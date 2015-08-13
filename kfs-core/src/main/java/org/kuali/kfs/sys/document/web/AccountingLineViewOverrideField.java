@@ -30,9 +30,9 @@ import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewOverrideField
 import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 import org.kuali.kfs.sys.document.web.renderers.OverrideFieldRenderer;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.util.FieldUtils;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * An override field to be displayed for a field

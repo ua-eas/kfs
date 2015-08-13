@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.purap.document.validation.event;
 
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Add Purchasing Capital Asset Location Event. 

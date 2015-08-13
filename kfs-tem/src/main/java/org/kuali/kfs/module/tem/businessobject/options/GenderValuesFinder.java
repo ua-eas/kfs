@@ -23,7 +23,7 @@ import java.util.List;
 import org.kuali.kfs.module.tem.service.TemProfileService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 public class GenderValuesFinder extends KeyValuesBase {
     protected volatile TemProfileService temProfileService;

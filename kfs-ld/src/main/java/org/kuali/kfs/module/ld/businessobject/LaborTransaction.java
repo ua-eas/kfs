@@ -25,7 +25,7 @@ import java.sql.Timestamp;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
-import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
 
 /**
  * Labor business object for Labor Transaction

@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.gl.web.struts;
 
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 
 /**
  * ASR-1212: This class is the action form for Trial Balance Reports.

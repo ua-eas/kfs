@@ -22,7 +22,7 @@ import java.util.Collection;
 
 import org.kuali.kfs.fp.businessobject.DisbursementPayee;
 import org.kuali.kfs.fp.businessobject.PaymentReasonCode;
-import org.kuali.rice.kns.util.MessageList;
+import org.kuali.kfs.kns.util.MessageList;
 
 /**
  * define a set of service methods related to payment reason code

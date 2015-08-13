@@ -22,7 +22,7 @@ import java.sql.Date;
 
 import org.apache.ojb.broker.PersistenceBrokerAware;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 
 /**

@@ -23,8 +23,8 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.MessageOfTheDay;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 public class MessageOfTheDayFinder implements ValueFinder {
 //    public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/MessageOfTheDayFinder";

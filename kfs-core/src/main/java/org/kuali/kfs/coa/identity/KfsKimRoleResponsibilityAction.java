@@ -20,7 +20,7 @@ package org.kuali.kfs.coa.identity;
 
 import org.kuali.rice.kim.api.role.RoleResponsibilityActionContract;
 import org.kuali.rice.kim.api.role.RoleResponsibilityContract;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class KfsKimRoleResponsibilityAction extends PersistableBusinessObjectBase implements RoleResponsibilityActionContract {
 

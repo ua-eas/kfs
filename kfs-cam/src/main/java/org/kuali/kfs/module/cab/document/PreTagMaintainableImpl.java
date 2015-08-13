@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.kuali.kfs.module.cab.businessobject.Pretag;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 public class PreTagMaintainableImpl extends FinancialSystemMaintainable {
     @Override

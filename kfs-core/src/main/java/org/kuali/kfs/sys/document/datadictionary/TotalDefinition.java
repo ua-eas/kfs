@@ -22,7 +22,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.document.web.NestedFieldTotaling;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
-import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 
 /**
  * Metadata about something that will be responsible for rendering some total of some accounting line group sometime, or something

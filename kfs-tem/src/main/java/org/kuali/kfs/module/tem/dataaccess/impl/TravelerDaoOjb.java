@@ -31,7 +31,7 @@ import org.kuali.kfs.module.tem.dataaccess.TravelerDao;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.dao.LookupDao;
+import org.kuali.kfs.krad.dao.LookupDao;
 import org.kuali.rice.krad.util.OjbCollectionAware;
 
 /**

@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.springframework.beans.BeanUtils;
 
 /**

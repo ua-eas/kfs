@@ -21,8 +21,8 @@ package org.kuali.kfs.sys.document.service;
 import java.util.Map;
 
 import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.rice.kns.datadictionary.MaintainableFieldDefinition;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * An interface that represents a transformation on a single field; they can be grouped

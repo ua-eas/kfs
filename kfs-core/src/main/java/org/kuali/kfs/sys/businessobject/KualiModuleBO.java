@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class KualiModuleBO extends TransientBusinessObjectBase {
     private String moduleName;

@@ -25,7 +25,7 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.DocumentHeader;
 
 /**
  * A collection of methods needed by anything - document or otherwise - that plans to generate

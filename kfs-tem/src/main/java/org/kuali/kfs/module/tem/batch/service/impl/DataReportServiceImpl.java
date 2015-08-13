@@ -37,7 +37,7 @@ import org.kuali.kfs.sys.MessageBuilder;
 import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ErrorMessage;
 
 public class DataReportServiceImpl implements DataReportService {
     public static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataReportServiceImpl.class);

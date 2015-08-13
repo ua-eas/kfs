@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.kfs.module.tem.businessobject.PrimaryDestination;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 
 
 @SuppressWarnings("deprecation")

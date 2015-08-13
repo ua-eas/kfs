@@ -28,7 +28,7 @@ import org.kuali.kfs.module.ar.document.service.ContractsGrantsCollectionActivit
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 
 /**
  * Collection Activity Document class. This transactional document is used to store events related to customers.

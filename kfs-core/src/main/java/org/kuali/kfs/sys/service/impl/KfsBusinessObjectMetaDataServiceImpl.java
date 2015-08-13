@@ -40,16 +40,16 @@ import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
 import org.kuali.kfs.sys.dataaccess.BusinessObjectMetaDataDao;
 import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.service.BusinessObjectMetaDataService;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.DataObjectRelationship;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.service.LookupService;
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.LookupService;
 
 @NonTransactional
 public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMetaDataService {
@@ -66,7 +66,7 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
     }
 
     protected BusinessObjectComponent getBusinessObjectComponent(Class<?> componentClass) {
-        return new BusinessObjectComponent(KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(componentClass), (org.kuali.rice.kns.datadictionary.BusinessObjectEntry) dataDictionaryService.getDataDictionary().getBusinessObjectEntry(componentClass.getName()));
+        return new BusinessObjectComponent(KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(componentClass), (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) dataDictionaryService.getDataDictionary().getBusinessObjectEntry(componentClass.getName()));
     }
 
     @Override
@@ -105,7 +105,7 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
                 LOG.debug("KfsBusinessObjectMetaDataServiceImpl unable to get type of property: " + functionalFieldDescription.getPropertyName(), e);
             }
         }
-        return new DataMappingFieldDefinition(functionalFieldDescription, (org.kuali.rice.kns.datadictionary.BusinessObjectEntry) businessObjectEntry,
+        return new DataMappingFieldDefinition(functionalFieldDescription, (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) businessObjectEntry,
                 businessObjectEntry.getAttributeDefinition(functionalFieldDescription.getPropertyName()),
                 businessObjectMetaDataDao.getFieldMetaData(businessObjectEntry.getBusinessObjectClass(), functionalFieldDescription.getPropertyName()),
                 propertyType,
@@ -128,7 +128,7 @@ public class KfsBusinessObjectMetaDataServiceImpl implements KfsBusinessObjectMe
         for (BusinessObjectEntry businessObjectEntry : dataDictionaryService.getDataDictionary().getBusinessObjectEntries().values()) {
             if ((StringUtils.isBlank(namespaceCode) || namespaceCode.equals(KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(businessObjectEntry.getBusinessObjectClass())))
                     && ((componentLabelRegex == null) || (StringUtils.isNotBlank(businessObjectEntry.getObjectLabel()) && componentLabelRegex.matcher(businessObjectEntry.getObjectLabel().toUpperCase()).matches()))) {
-                matchingBusinessObjectComponents.put(businessObjectEntry.getBusinessObjectClass(), new BusinessObjectComponent(KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(businessObjectEntry.getBusinessObjectClass()), (org.kuali.rice.kns.datadictionary.BusinessObjectEntry) businessObjectEntry));
+                matchingBusinessObjectComponents.put(businessObjectEntry.getBusinessObjectClass(), new BusinessObjectComponent(KRADServiceLocatorWeb.getKualiModuleService().getNamespaceCode(businessObjectEntry.getBusinessObjectClass()), (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) businessObjectEntry));
             }
         }
         return new ArrayList<BusinessObjectComponent>(matchingBusinessObjectComponents.values());

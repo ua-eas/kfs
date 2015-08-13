@@ -1,6 +1,6 @@
 package org.kuali.kfs.sys.service.impl;
 
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Overriden so that addDataDictionaryLocation passes the application context along....
  */
-public class DataDictionaryServiceImpl extends org.kuali.rice.kns.service.impl.DataDictionaryServiceImpl implements ApplicationContextAware {
+public class DataDictionaryServiceImpl extends org.kuali.kfs.kns.service.impl.DataDictionaryServiceImpl implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @Override

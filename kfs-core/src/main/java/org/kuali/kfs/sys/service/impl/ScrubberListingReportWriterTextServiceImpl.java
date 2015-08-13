@@ -22,7 +22,7 @@ import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.service.DocumentNumberAwareReportWriterService;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class ScrubberListingReportWriterTextServiceImpl extends ReportWriterTextServiceImpl implements DocumentNumberAwareReportWriterService {
     private String documentNumber;

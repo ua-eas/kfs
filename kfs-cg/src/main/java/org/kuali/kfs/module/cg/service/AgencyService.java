@@ -21,7 +21,7 @@ package org.kuali.kfs.module.cg.service;
 import java.util.List;
 
 import org.kuali.kfs.module.cg.businessobject.Agency;
-import org.kuali.rice.krad.bo.Note;
+import org.kuali.kfs.krad.bo.Note;
 
 /**
  * Services for Agency

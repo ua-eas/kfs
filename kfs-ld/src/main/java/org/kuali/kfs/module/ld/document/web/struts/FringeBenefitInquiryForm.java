@@ -20,7 +20,7 @@ package org.kuali.kfs.module.ld.document.web.struts;
 
 import java.util.List;
 
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.module.ld.businessobject.BenefitInquiry;
 
 public class FringeBenefitInquiryForm extends KualiForm {

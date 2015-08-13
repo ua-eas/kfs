@@ -22,8 +22,8 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * This class represents a value finder that returns the currently logged in user's default chart of accounts code.

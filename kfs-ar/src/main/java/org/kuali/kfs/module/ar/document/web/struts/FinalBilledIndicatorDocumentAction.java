@@ -28,8 +28,8 @@ import org.kuali.kfs.module.ar.businessobject.FinalBilledIndicatorEntry;
 import org.kuali.kfs.module.ar.document.FinalBilledIndicatorDocument;
 import org.kuali.kfs.module.ar.document.validation.impl.FinalBilledIndicatorValidation;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 /**
  * Action class for Final Billed Indicator Document.

@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.vnd.document.validation.impl;
 
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 /*
  *

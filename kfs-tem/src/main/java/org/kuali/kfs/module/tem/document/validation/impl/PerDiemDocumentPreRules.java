@@ -21,8 +21,8 @@ package org.kuali.kfs.module.tem.document.validation.impl;
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Business Prerules applicable to Per Diem documents. These PreRules checks that the Per Diem totals match.

@@ -31,9 +31,9 @@ import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.web.format.DateViewDateObjectFormatter;
 import org.kuali.rice.core.web.format.DateViewTimestampObjectFormatter;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Assign Contract Manager Detail Business Object. Defines attributes in Assign Contract Manager tab.

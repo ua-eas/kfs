@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
 
 
 public class VendorCustomerNumberLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {

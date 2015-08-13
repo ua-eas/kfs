@@ -20,7 +20,7 @@ package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValidation;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class ProcurementCardAccountAccessibilityValidation extends AccountingLineAccessibleValidation {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ProcurementCardAccountAccessibilityValidation.class);

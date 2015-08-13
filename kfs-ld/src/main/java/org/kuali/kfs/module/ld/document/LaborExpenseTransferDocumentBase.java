@@ -33,7 +33,7 @@ import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.document.Copyable;
+import org.kuali.kfs.krad.document.Copyable;
 
 /**
  * Labor Base class for Expense Transfer Documents

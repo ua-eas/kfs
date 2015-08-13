@@ -25,17 +25,17 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemDocument;
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
-import org.kuali.rice.kew.engine.RouteContext;
-import org.kuali.rice.kew.engine.RouteHelper;
-import org.kuali.rice.kew.engine.node.SplitNode;
-import org.kuali.rice.kew.engine.node.SplitResult;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.kew.engine.RouteContext;
+import org.kuali.kfs.kew.engine.RouteHelper;
+import org.kuali.kfs.kew.engine.node.SplitNode;
+import org.kuali.kfs.kew.engine.node.SplitResult;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 
 public class SimpleBooleanSplitNode implements SplitNode {
 
     /**
-     * @see org.kuali.rice.kew.engine.node.SimpleNode#process(org.kuali.rice.kew.engine.RouteContext, org.kuali.rice.kew.engine.RouteHelper)
+     * @see org.kuali.kfs.kew.engine.node.SimpleNode#process(org.kuali.kfs.kew.engine.RouteContext, org.kuali.kfs.kew.engine.RouteHelper)
      */
     @Override
     public SplitResult process(RouteContext context, RouteHelper helper) throws Exception {

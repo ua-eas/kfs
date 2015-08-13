@@ -23,7 +23,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.service.SessionDocumentService;
+import org.kuali.kfs.krad.service.SessionDocumentService;
 
 public class PurgeSessionDocumentsStep extends AbstractStep {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurgeSessionDocumentsStep.class);

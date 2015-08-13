@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import org.kuali.rice.kns.rules.PromptBeforeValidationBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 
 public class CorrectionReceivingDocumentPreRules extends PromptBeforeValidationBase {
 
