@@ -140,11 +140,11 @@
 					<td height="30" colspan="${headerColspan}"  class="infoline">
 					
 					<c:if test="${KualiForm.renderSearchButtons}">
-					  <html:button
+					  <html:submit
 						property="methodToCall.search" value="Search"
 						styleClass="tinybutton btn btn-default"
 						alt="Search" title="Search" />
-					  <html:button
+					  <html:submit
 						property="methodToCall.clearValues" value="Clear"
 						styleClass="tinybutton btn btn-default"
 						alt="Clear" title="Clear" />
