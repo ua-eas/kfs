@@ -124,10 +124,6 @@ nav ul.nav li {
     color: #fff;
 }
 
-#sidebar .nav li.first {
-    margin-top: 80px;
-}
-
 #sidebar .nav li.panel {
     background-color: #5b5b5b;
     margin-bottom: 0;
@@ -152,7 +148,7 @@ nav ul.nav li {
 #sidebar .nav li>a,
 #sidebar .nav li>div {
     margin-left: 30px;
-    padding: 20px 0;
+    padding: 13px 0;
 }
 
 .navbar-default a:link {
@@ -165,7 +161,7 @@ nav ul.nav li {
 
 #sidebar .nav li a span.glyphicon {
     color: #858585;
-    padding-right: 10px;
+    padding-right: 25px;
 }
 
 #sidebar .nav li .sublinks {
@@ -173,7 +169,7 @@ nav ul.nav li {
 }
 
 #sidebar .nav li .sublinks a {
-    padding: 20px;
+    padding: 12px 20px;
     text-transform: none;
     color: #C1C1C1;
 }
