@@ -259,7 +259,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
 
         if (canCreateMyProfile) {
             // add in the create mine button
-            url += "<a href=\"" + createMineUrl + "\"><img src=\"" + imageBaseUrl + "tinybutton-createmine.gif\" alt=\"refresh\"></a>&nbsp;";
+            url += "<a title=\"Create My Profile\" href=\"" + createMineUrl + "\"><span class=\"create-new btn btn-primary\"><span class=\"glyphicon glyphicon-plus\"></span>Create My Profile</span></a>";
         }
 
         if (canCreateNewProfile) {
@@ -269,8 +269,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
             parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.START_METHOD);
 
             String personUrl = UrlFactory.parameterizeUrl(KRADConstants.LOOKUP_ACTION, parameters);
-
-            url += "<a href=\"" + personUrl + "\"><img src=\"" + imageBaseUrl + "tinybutton-createnewfromkim.gif\" alt=\"refresh\"></a>";
+            url += "<a title=\"Create New From KIM\" href=\"" + personUrl + "\"><span class=\"create-new btn btn-primary\"><span class=\"glyphicon glyphicon-plus\"></span>Create New From KIM</span></a>";
 
             // create new from customer
             Properties custParameters = new Properties();
@@ -279,7 +278,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
             custParameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.START_METHOD);
 
             String custUrl = UrlFactory.parameterizeUrl(KRADConstants.LOOKUP_ACTION, custParameters);
-            url = url + "&nbsp;<a href=\"" + custUrl + "\"><img src=\"" + imageBaseUrl + "tinybutton-createnewfromcustomer.gif\" alt=\"refresh\"></a>";
+            url = url + "&nbsp;<a title=\"Create New From Customer\" href=\"" + custUrl + "\"><span class=\"create-new btn btn-primary\"><span class=\"glyphicon glyphicon-plus\"></span>Create New From Customer</span></a>";
         }
         url += "</div>";
 
