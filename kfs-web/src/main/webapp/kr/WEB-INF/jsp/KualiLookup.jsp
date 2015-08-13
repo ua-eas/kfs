@@ -38,7 +38,7 @@
     </SCRIPT>
     <script type="text/javascript" src="${pageContext.request.contextPath}/dwr/interface/DocumentTypeService.js"></script>
 
-	<c:if test="${KualiForm.supplementalActionsEnabled==true}" >
+	<c:if test="${KualiForm.supplementalActionsEnabled}" >
 		<div class="lookupcreatenew" title="Supplemental Search Actions">
 				${KualiForm.lookupable.supplementalMenuBar} &nbsp;
 			<c:set var="extraField" value="${KualiForm.lookupable.extraField}"/>
