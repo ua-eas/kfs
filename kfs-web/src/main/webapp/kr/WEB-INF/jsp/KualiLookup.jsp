@@ -38,6 +38,29 @@
     </SCRIPT>
     <script type="text/javascript" src="${pageContext.request.contextPath}/dwr/interface/DocumentTypeService.js"></script>
 
+	<c:if test="${KualiForm.supplementalActionsEnabled}" >
+		<div class="lookupcreatenew" title="Supplemental Search Actions">
+				${KualiForm.lookupable.supplementalMenuBar} &nbsp;
+			<c:set var="extraField" value="${KualiForm.lookupable.extraField}"/>
+			<c:if test="${not empty extraField}">
+				<%--has to be a dropdown script for now--%>
+				<c:if test="${extraField.fieldType eq extraField.DROPDOWN_SCRIPT}">
+
+					${kfunc:registerEditableProperty(KualiForm, extraField.propertyName)}
+					<select id='${extraField.propertyName}' name='${extraField.propertyName}'
+							onchange="${extraField.script}" style="">
+						<kul:fieldSelectValues field="${extraField}"/>
+					</select>
+
+					&nbsp;
+
+					<kul:fieldShowIcons isReadOnly="${true}" field="${extraField}" addHighlighting="${true}" />
+
+				</c:if>
+			</c:if>
+		</div>
+	</c:if>
+
 	<c:if test="${KualiForm.headerBarEnabled}">
 	<div class="headerarea-small" id="headerarea-small">
 		<h1><c:out value="${KualiForm.lookupable.title}" /> <c:choose>
@@ -80,29 +103,7 @@
 		<html-el:hidden name="KualiForm" property="extraButtons[${status.index}].extraButtonSource" />
 		<html-el:hidden name="KualiForm" property="extraButtons[${status.index}].extraButtonParams" />
 	</c:forEach>
-		<c:if test="${KualiForm.supplementalActionsEnabled==true}" >
-		<div class="lookupcreatenew" title="Supplemental Search Actions" style="padding: 3px 30px 3px 300px;">
-			${KualiForm.lookupable.supplementalMenuBar} &nbsp;
-			<c:set var="extraField" value="${KualiForm.lookupable.extraField}"/>
-			<c:if test="${not empty extraField}">
-				<%--has to be a dropdown script for now--%>
-				<c:if test="${extraField.fieldType eq extraField.DROPDOWN_SCRIPT}">
 
-                            	${kfunc:registerEditableProperty(KualiForm, extraField.propertyName)}
-                                <select id='${extraField.propertyName}' name='${extraField.propertyName}'
-                                        onchange="${extraField.script}" style="">
-                                    <kul:fieldSelectValues field="${extraField}"/>
-                                </select>
-
-						&nbsp;
-
-							<kul:fieldShowIcons isReadOnly="${true}" field="${extraField}" addHighlighting="${true}" />
-
-				</c:if>
-			</c:if>
-		</div>
-	</c:if>
-	
 	<div class="right">
 		<div class="excol">
 		* Required Field
@@ -140,11 +141,11 @@
 					<td height="30" colspan="${headerColspan}"  class="infoline">
 					
 					<c:if test="${KualiForm.renderSearchButtons}">
-					  <html:button
+					  <html:submit
 						property="methodToCall.search" value="Search"
 						styleClass="tinybutton btn btn-default"
 						alt="Search" title="Search" />
-					  <html:button
+					  <html:submit
 						property="methodToCall.clearValues" value="Clear"
 						styleClass="tinybutton btn btn-default"
 						alt="Clear" title="Clear" />
