@@ -58,12 +58,12 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.bo.AdHocRoutePerson;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

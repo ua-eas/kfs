@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 /**
  * This class is the Struts form for the Cash Management Status page.

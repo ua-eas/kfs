@@ -38,12 +38,12 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.document.DocumentStatusCategory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.question.ConfirmationQuestion;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Action class for ContractsGrantsInvoiceDocument
@@ -66,7 +66,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * Overridden to recheck the suspension categories when the document is opened
-     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentAction#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
+     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentAction#loadDocument(org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
@@ -194,7 +194,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * Save the document prior to canceling in case the amounts on the General Tab need to be recalculated.
-     * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.kuali.kfs.module.tem.document.TemCorrectionProcessDocument;
 import org.kuali.kfs.module.tem.document.web.struts.TemCorrectionForm;
-import org.kuali.rice.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Column;
 
 public interface TemCorrectionDocumentService {
     public final static String CORRECTION_TYPE_MANUAL = "M";

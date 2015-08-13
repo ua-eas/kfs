@@ -25,7 +25,7 @@ import org.kuali.kfs.gl.businessobject.lookup.BusinessObjectFieldConverter;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 import java.beans.PropertyDescriptor;
 import java.io.IOException;

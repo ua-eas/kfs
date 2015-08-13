@@ -21,8 +21,8 @@ package org.kuali.kfs.module.tem.batch.businessobject;
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.module.tem.businessobject.PerDiemMealIncidentalBreakDown;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class MealBreakDownStrategyForContinental extends DefaultMealBreakDownStrategy {
 

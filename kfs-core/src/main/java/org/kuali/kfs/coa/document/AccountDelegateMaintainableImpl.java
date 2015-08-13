@@ -32,11 +32,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class is a special implementation of Maintainable specifically for Account Delegates. It was created to correctly update the
@@ -48,7 +48,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
     /**
      * This method will reset AccountDelegate's Start Date to the current timestamp on edits and copies
      * 
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterRetrieve()
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterRetrieve()
      */
     @Override
     public void processAfterCopy( MaintenanceDocument document, Map<String,String[]> parameters ) {
@@ -59,7 +59,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
     /**
      * This method will reset AccountDelegate's Start Date to the current timestamp on edits and copies
      * 
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterEdit()
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterEdit()
      */
     @Override
     public void processAfterEdit( MaintenanceDocument document, Map<String,String[]> parameters ) {
@@ -80,7 +80,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
     /**
      * Generates the appropriate maintenance locks for the {@link Delegate}
      * 
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#generateMaintenanceLocks()
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#generateMaintenanceLocks()
      */
     @Override
     public List<MaintenanceLock> generateMaintenanceLocks() {
@@ -213,7 +213,7 @@ public class AccountDelegateMaintainableImpl extends FinancialSystemMaintainable
     /**
      * Overridden so that after account delegate is saved, it updates the proper account delegate role
      * Defers saving to a service to guarantee that the delegate saves in a separate transaction
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
      */
     @Override
     public void saveBusinessObject() {

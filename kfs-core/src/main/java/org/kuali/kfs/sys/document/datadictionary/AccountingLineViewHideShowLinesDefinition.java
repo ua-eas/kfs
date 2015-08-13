@@ -25,8 +25,8 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement;
 import org.kuali.kfs.sys.document.web.HideShowLayoutElement;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
 /**
  * Defines a set of lines of are displayed within a hide/show block

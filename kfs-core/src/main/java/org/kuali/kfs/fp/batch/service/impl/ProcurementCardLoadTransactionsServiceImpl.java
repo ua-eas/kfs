@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
 import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.kfs.sys.service.ReportWriterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * This is the default implementation of the ProcurementCardLoadTransactionsService interface.

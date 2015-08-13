@@ -27,26 +27,26 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.KNSServiceLocator;
-import org.kuali.rice.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.DataObjectAuthorizer;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.DataDictionaryEntryBase;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.document.DocumentAuthorizer;
-import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.bo.DataObjectAuthorizer;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryEntryBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
- * Override of BusinessObjectAuthorizationServiceImpl to allow document authorizers to build qualifiers for checks in {@link #canFullyUnmaskField(org.kuali.rice.kim.api.identity.Person, Class, String, org.kuali.rice.krad.document.Document)}
+ * Override of BusinessObjectAuthorizationServiceImpl to allow document authorizers to build qualifiers for checks in {@link #canFullyUnmaskField(org.kuali.rice.kim.api.identity.Person, Class, String, org.kuali.kfs.krad.document.Document)}
  * The developer of this class apologizes for its tortuous complexity - it was all to get TemProfile to work...
- * and {@link #canPartiallyUnmaskField(org.kuali.rice.kim.api.identity.Person, Class, String, org.kuali.rice.krad.document.Document)}
+ * and {@link #canPartiallyUnmaskField(org.kuali.rice.kim.api.identity.Person, Class, String, org.kuali.kfs.krad.document.Document)}
  */
-public class BusinessObjectAuthorizationServiceImpl extends org.kuali.rice.kns.service.impl.BusinessObjectAuthorizationServiceImpl {
+public class BusinessObjectAuthorizationServiceImpl extends org.kuali.kfs.kns.service.impl.BusinessObjectAuthorizationServiceImpl {
     protected volatile PermissionService permissionServiceForUs;
     protected volatile ConfigurationService kualiConfigurationServiceForUs;
     protected volatile MaintenanceDocumentDictionaryService maintenanceDocumentDictionaryService;
@@ -54,11 +54,11 @@ public class BusinessObjectAuthorizationServiceImpl extends org.kuali.rice.kns.s
 
     /**
      * Overridden to defer to canFullyUnmaskFieldForBusinessObject and canPartiallyUnmaskFieldForBusinessObject
-     * @see org.kuali.rice.kns.service.impl.BusinessObjectAuthorizationServiceImpl#considerBusinessObjectFieldUnmaskAuthorization(java.lang.Object, org.kuali.rice.kim.api.identity.Person, org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions, java.lang.String, org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.kns.service.impl.BusinessObjectAuthorizationServiceImpl#considerBusinessObjectFieldUnmaskAuthorization(java.lang.Object, org.kuali.rice.kim.api.identity.Person, org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions, java.lang.String, org.kuali.kfs.krad.document.Document)
      */
     @Override
     protected void considerBusinessObjectFieldUnmaskAuthorization(Object dataObject, Person user, BusinessObjectRestrictions businessObjectRestrictions, String propertyPrefix, Document document) {
-        final DataDictionaryEntryBase objectEntry = (dataObject instanceof org.kuali.rice.krad.document.Document) ?
+        final DataDictionaryEntryBase objectEntry = (dataObject instanceof Document) ?
                 getDataDictionaryService().getDataDictionary().getDocumentEntry(getDataDictionaryService().getDocumentTypeNameByClass(dataObject.getClass())) :
                 getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(dataObject.getClass().getName());
 
@@ -81,7 +81,7 @@ public class BusinessObjectAuthorizationServiceImpl extends org.kuali.rice.kns.s
 
     /**
      * Defers to canFullyUnmaskFieldForBusinessObject
-     * @see org.kuali.rice.kns.service.impl.BusinessObjectAuthorizationServiceImpl#canFullyUnmaskField(org.kuali.rice.kim.api.identity.Person, java.lang.Class, java.lang.String, org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.kns.service.impl.BusinessObjectAuthorizationServiceImpl#canFullyUnmaskField(org.kuali.rice.kim.api.identity.Person, java.lang.Class, java.lang.String, org.kuali.kfs.krad.document.Document)
      */
     @Override
     public boolean canFullyUnmaskField(Person user, Class<?> dataObjectClass, String fieldName, Document document) {
@@ -90,7 +90,7 @@ public class BusinessObjectAuthorizationServiceImpl extends org.kuali.rice.kns.s
 
     /**
      * Defers to canPartiallyUnmaskFieldForBusinessObject
-     * @see org.kuali.rice.kns.service.impl.BusinessObjectAuthorizationServiceImpl#canPartiallyUnmaskField(org.kuali.rice.kim.api.identity.Person, java.lang.Class, java.lang.String, org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.kns.service.impl.BusinessObjectAuthorizationServiceImpl#canPartiallyUnmaskField(org.kuali.rice.kim.api.identity.Person, java.lang.Class, java.lang.String, org.kuali.kfs.krad.document.Document)
      */
     @Override
     public boolean canPartiallyUnmaskField(Person user, Class<?> dataObjectClass, String fieldName, Document document) {

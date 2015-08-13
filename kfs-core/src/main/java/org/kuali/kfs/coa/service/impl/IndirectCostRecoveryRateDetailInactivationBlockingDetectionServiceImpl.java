@@ -28,9 +28,9 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.datadictionary.InactivationBlockingMetadata;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.service.impl.InactivationBlockingDetectionServiceImpl;
+import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.service.impl.InactivationBlockingDetectionServiceImpl;
 
 public class IndirectCostRecoveryRateDetailInactivationBlockingDetectionServiceImpl extends InactivationBlockingDetectionServiceImpl {
     protected PersistenceService persistenceService;

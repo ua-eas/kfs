@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.service.impl.UniversityDateServiceImpl;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * The unit tests for methods in SalaryExpenseTransferTransactionAgeService. This specifically tests to make sure the correct

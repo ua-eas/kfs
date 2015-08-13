@@ -20,7 +20,7 @@ package org.kuali.kfs.module.bc.businessobject;
 
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class BudgetConstructionRequestImport extends TransientBusinessObjectBase {
     private String fileName;

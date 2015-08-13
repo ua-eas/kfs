@@ -30,7 +30,7 @@ import org.apache.struts.taglib.html.HiddenTag;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.HideShowBlock;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.taglib.html.KNSImageTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
 
 /**
  * Renders a hide show block

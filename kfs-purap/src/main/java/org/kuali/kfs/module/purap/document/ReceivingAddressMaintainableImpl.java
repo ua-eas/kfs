@@ -29,12 +29,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.rice.core.api.encryption.EncryptionService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * ReceivingAddressMaintainableImpl is a special implementation of FinancialSystemMaintainable for ReceivingAddresss. 

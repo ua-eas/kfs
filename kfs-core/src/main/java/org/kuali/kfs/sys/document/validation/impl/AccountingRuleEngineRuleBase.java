@@ -35,15 +35,15 @@ import org.kuali.kfs.sys.document.validation.event.AttributedBlanketApproveDocum
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent;
 import org.kuali.kfs.sys.document.validation.event.AttributedSaveDocumentEvent;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.AdHocRoutePerson;
-import org.kuali.rice.krad.bo.AdHocRouteWorkgroup;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.kns.rules.DocumentRuleBase;
-import org.kuali.rice.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.BlanketApproveDocumentEvent;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.BlanketApproveDocumentEvent;
 
 /**
  * A rule that uses the accounting rule engine to perform rule validations.

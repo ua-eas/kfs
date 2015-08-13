@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 /**
  * 

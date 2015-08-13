@@ -31,8 +31,8 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.BatchStepFileDescriptor;
 import org.kuali.kfs.sys.exception.ParseException;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 
 /**
  * This class allows the batch process semaphore files to be uploaded. Only the .error files are currently configured for uploading.

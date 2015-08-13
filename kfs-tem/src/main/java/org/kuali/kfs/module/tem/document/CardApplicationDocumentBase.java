@@ -28,14 +28,14 @@ import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.bo.AdHocRouteRecipient;
-import org.kuali.rice.krad.dao.DocumentDao;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 public abstract class CardApplicationDocumentBase extends FinancialSystemTransactionalDocumentBase implements CardApplicationDocument {
     protected static Logger LOG = Logger.getLogger(CardApplicationDocumentBase.class);

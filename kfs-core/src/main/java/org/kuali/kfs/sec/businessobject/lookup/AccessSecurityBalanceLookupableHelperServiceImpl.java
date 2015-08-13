@@ -32,33 +32,32 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ld.SegmentedBusinessObject;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
-import org.kuali.kfs.sec.util.SecUtil;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.web.format.BooleanFormatter;
 import org.kuali.rice.core.web.format.CollectionFormatter;
 import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.document.authorization.FieldRestriction;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.LookupableHelperService;
-import org.kuali.rice.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.rice.kns.service.BusinessObjectDictionaryService;
-import org.kuali.rice.kns.service.BusinessObjectMetaDataService;
-import org.kuali.rice.kns.web.comparator.CellComparatorHelper;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.kns.web.ui.Row;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.document.authorization.FieldRestriction;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 /**
@@ -209,7 +208,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
     /**
      * Gets search results and passes to access security service to apply access restrictions
      *
-     * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResults(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.LookupableHelperService#getSearchResults(java.util.Map)
      */
     @Override
     public List getSearchResults(Map<String, String> fieldValues) {
@@ -232,7 +231,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
     /**
      * Gets search results and passes to access security service to apply access restrictions
      *
-     * @see org.kuali.rice.kns.lookup.LookupableHelperService#getSearchResultsUnbounded(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.LookupableHelperService#getSearchResultsUnbounded(java.util.Map)
      */
     @Override
     public List getSearchResultsUnbounded(Map<String, String> fieldValues) {
@@ -284,7 +283,7 @@ public class AccessSecurityBalanceLookupableHelperServiceImpl implements Lookupa
     /**
      * Need to duplicate the logic of performLookup so that getSearchResults will be called on this class and not the nested lookup helper service
      *
-     * @see org.kuali.rice.kns.lookup.LookupableHelperService#performLookup(org.kuali.rice.kns.web.struts.form.LookupForm, java.util.Collection, boolean)
+     * @see org.kuali.kfs.kns.lookup.LookupableHelperService#performLookup(org.kuali.kfs.kns.web.struts.form.LookupForm, java.util.Collection, boolean)
      */
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {

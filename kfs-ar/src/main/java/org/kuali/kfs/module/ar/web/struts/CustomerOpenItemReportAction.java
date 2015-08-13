@@ -35,11 +35,11 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 
 /**

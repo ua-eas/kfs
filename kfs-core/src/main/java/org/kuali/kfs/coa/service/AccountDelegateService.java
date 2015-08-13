@@ -25,7 +25,7 @@ import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.document.AccountDelegateGlobalMaintainableImpl;
 import org.kuali.kfs.coa.document.AccountDelegateMaintainableImpl;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 /**
  * An interface of services to support account delegate logic

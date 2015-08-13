@@ -44,7 +44,7 @@ import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ErrorMessage;
 
 /**
  * Tests for the ContractsGrantsInvoiceBatchCreateDocumentService

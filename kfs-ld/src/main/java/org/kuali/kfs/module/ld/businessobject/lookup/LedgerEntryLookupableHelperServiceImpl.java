@@ -35,12 +35,12 @@ import org.kuali.kfs.module.ld.businessobject.inquiry.PositionDataDetailsInquira
 import org.kuali.kfs.module.ld.service.LaborInquiryOptionsService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
 
 /**
  * The class is the front-end for all Ledger Entry inquiry processing.

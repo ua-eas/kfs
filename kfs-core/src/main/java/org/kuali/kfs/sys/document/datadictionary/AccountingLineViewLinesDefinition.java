@@ -25,8 +25,8 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLines;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
 /**
  * Data dictionary definition for a group of multiple lines to render.  This also renders blocks - though each block will be rendered as a line with an embedded table

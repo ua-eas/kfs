@@ -44,7 +44,7 @@ import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * This class iterates through the files in the enterprise feeder staging directory, which is injected by Spring. Note: this class

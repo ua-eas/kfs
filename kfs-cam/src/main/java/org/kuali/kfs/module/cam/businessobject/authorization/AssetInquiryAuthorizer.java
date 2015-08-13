@@ -22,9 +22,9 @@ import java.util.Map;
 
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.rice.kns.inquiry.InquiryAuthorizerBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * AssetAuthorizer for Asset inquiry

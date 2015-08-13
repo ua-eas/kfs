@@ -23,8 +23,8 @@ import java.sql.Date;
 import org.kuali.kfs.module.ar.businessobject.InvoiceGeneralDetail;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Fixture class for ContractsGrantsInvoiceDocument

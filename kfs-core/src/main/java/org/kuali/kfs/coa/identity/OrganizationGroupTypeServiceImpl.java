@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.kns.kim.group.GroupTypeServiceBase;
+import org.kuali.kfs.kns.kim.group.GroupTypeServiceBase;
 
 public class OrganizationGroupTypeServiceImpl extends GroupTypeServiceBase {
     protected static final String DOCUMENT_TYPE_NAME = "ORG";

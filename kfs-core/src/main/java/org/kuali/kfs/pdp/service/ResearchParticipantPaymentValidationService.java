@@ -21,7 +21,7 @@ package org.kuali.kfs.pdp.service;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.PaymentAccountDetail;
 import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.MessageMap;
 
 public interface ResearchParticipantPaymentValidationService {
 

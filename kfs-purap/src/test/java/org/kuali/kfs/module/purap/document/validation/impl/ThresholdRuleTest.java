@@ -26,10 +26,10 @@ import org.kuali.kfs.module.purap.fixture.ThresholdFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.document.MaintenanceDocumentBase;
-import org.kuali.rice.kns.maintenance.Maintainable;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 @ConfigureContext(session = khuntley)
 public class ThresholdRuleTest extends PurapRuleTestBase {

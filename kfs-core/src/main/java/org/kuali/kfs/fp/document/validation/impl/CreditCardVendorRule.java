@@ -28,8 +28,8 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.businessobject.SubObjectCodeCurrent;
 import org.kuali.kfs.fp.businessobject.CreditCardVendor;
 import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 /**
  * This class represents business rules for the credit card vendor maintenance document

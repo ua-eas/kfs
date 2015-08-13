@@ -19,8 +19,8 @@
 package org.kuali.kfs.coa.document.validation.impl;
 
 import org.kuali.kfs.coa.businessobject.ProjectCode;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 /**
  * This class implements the business rules specific to the {@link ProjectCode} Maintenance Document.
  */

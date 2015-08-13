@@ -20,18 +20,18 @@ package org.kuali.kfs.sys.service.impl;
 
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public class PostProcessorServiceImpl extends org.kuali.rice.krad.service.impl.PostProcessorServiceImpl {
+public class PostProcessorServiceImpl extends org.kuali.kfs.krad.service.impl.PostProcessorServiceImpl {
 
     /**
      * Overrides the baseline method so that the KFS document postprocessor uses
      * the "kfs" user instead of the "kr" user.
      * 
-     * @see org.kuali.rice.krad.service.impl.PostProcessorServiceImpl#establishPostProcessorUserSession()
+     * @see org.kuali.kfs.krad.service.impl.PostProcessorServiceImpl#establishPostProcessorUserSession()
      */
     @Override
     protected UserSession establishPostProcessorUserSession() throws WorkflowException {

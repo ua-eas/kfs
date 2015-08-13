@@ -27,7 +27,7 @@ import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.DocumentService;
 
 public class InvoiceRecurrenceMaintainable extends FinancialSystemMaintainable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InvoiceRecurrenceMaintainable.class);

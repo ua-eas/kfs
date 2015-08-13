@@ -30,7 +30,7 @@ import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.suite.AnnotationTestSuite;
 import org.kuali.kfs.sys.suite.IcrEncumbranceSuite;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * This class tests the renaming step of generated ICR Encumbrance files.

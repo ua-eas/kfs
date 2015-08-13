@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Customer numbers that may have been assigned by the Vendor to various <code>Chart</code> and/or <code>Org</code>.

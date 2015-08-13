@@ -36,7 +36,7 @@ import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.role.RoleMembership.Builder;
 import org.kuali.rice.kim.framework.common.delegate.DelegationTypeService;
 import org.kuali.rice.kim.impl.common.delegate.DelegateMemberBo;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public abstract class OrganizationHierarchyAwareRoleTypeServiceBase extends RoleTypeServiceBase implements DelegationTypeService {
     private static final Logger LOG = Logger.getLogger(OrganizationHierarchyAwareRoleTypeServiceBase.class);

@@ -21,7 +21,7 @@ package org.kuali.kfs.module.cam.businessobject.lookup;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 

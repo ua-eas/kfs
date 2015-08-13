@@ -20,7 +20,7 @@ package org.kuali.kfs.sys.document.authorization;
 
 import java.util.Set;
 
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 /**
  * This class is the custom KFS maintenance document authorizer base class

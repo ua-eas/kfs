@@ -40,24 +40,24 @@ import org.kuali.kfs.module.external.kc.util.KcUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.rice.kns.service.TransactionalDocumentDictionaryService;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.document.DocumentAuthorizer;
-import org.kuali.rice.krad.exception.ValidationException;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.rice.krad.maintenance.MaintenanceDocumentAuthorizerBase;
-import org.kuali.rice.krad.rules.rule.event.BlanketApproveDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.RouteDocumentEvent;
-import org.kuali.rice.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.rules.rule.event.BlanketApproveDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.RouteDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
 

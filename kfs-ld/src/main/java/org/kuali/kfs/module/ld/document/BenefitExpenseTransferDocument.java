@@ -29,7 +29,7 @@ import org.kuali.kfs.module.ld.util.LaborPendingEntryGenerator;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Labor Document class for the Benefit Expense Transfer Document and a base class for the year end benefit expense transfer

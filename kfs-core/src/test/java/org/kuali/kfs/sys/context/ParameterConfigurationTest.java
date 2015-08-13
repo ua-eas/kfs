@@ -33,9 +33,9 @@ import org.kuali.rice.coreservice.api.component.ComponentService;
 import org.kuali.rice.coreservice.impl.component.ComponentBo;
 import org.kuali.rice.coreservice.impl.parameter.ParameterBo;
 import org.kuali.rice.coreservice.web.parameter.ParameterRule;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 
 @ConfigureContext(shouldCommitTransactions=true)
 @AnnotationTestSuite(PreCommitSuite.class)

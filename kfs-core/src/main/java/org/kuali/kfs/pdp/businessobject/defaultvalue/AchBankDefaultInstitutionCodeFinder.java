@@ -19,7 +19,7 @@
 package org.kuali.kfs.pdp.businessobject.defaultvalue;
 
 import org.kuali.kfs.pdp.PdpConstants;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Returns the next ACH Account identifier available.

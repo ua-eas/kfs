@@ -31,8 +31,8 @@ import org.kuali.kfs.sys.document.web.AccountingLineTableRow;
 import org.kuali.kfs.sys.document.web.TableJoining;
 import org.kuali.kfs.sys.document.web.renderers.FieldRenderer;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.rice.kns.datadictionary.MaintainableFieldDefinition;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * Service that helps render accounting lines

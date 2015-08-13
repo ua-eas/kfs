@@ -45,8 +45,8 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.rice.kew.doctype.bo.DocumentType;
-import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.kfs.kew.doctype.bo.DocumentType;
+import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.common.delegate.DelegateMemberContract;
 import org.kuali.rice.kim.api.identity.Person;
@@ -60,10 +60,10 @@ import org.kuali.rice.kim.api.type.KimType;
 import org.kuali.rice.kim.api.type.KimTypeAttribute;
 import org.kuali.rice.kim.framework.group.GroupEbo;
 import org.kuali.rice.kim.framework.role.RoleEbo;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * @author Kuali Rice Team (kuali-rice@googlegroups.com)

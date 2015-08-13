@@ -28,10 +28,10 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validates that an accounting line does not have a capital object object code 

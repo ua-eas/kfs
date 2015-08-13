@@ -23,8 +23,8 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kns.lookup.LookupResultsService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 /**
  * Used for segemented lookup results

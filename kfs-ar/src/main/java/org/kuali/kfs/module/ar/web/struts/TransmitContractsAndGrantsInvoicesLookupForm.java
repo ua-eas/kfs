@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 
 
 /**

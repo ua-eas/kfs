@@ -28,8 +28,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.core.web.format.DateFormatter;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.NoteService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.NoteService;
 /**
  * Payment Request View Business Object.
  */

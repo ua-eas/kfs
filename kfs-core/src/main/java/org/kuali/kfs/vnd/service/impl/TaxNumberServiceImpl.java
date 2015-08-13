@@ -27,8 +27,8 @@ import org.kuali.kfs.vnd.VendorParameterConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.service.TaxNumberService;
 import org.kuali.rice.core.web.format.FormatException;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class TaxNumberServiceImpl implements TaxNumberService {
 

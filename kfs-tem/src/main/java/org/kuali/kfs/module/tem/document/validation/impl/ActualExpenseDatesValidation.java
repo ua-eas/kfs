@@ -29,8 +29,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * validates that the date of the actual expense occurred before either the end date of the document or before the initiation date of the document

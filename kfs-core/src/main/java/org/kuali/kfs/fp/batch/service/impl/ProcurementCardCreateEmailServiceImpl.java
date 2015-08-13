@@ -23,7 +23,7 @@ import java.util.Collection;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.VelocityEmailService;
 import org.kuali.kfs.sys.service.impl.VelocityEmailServiceBase;
-import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

@@ -31,8 +31,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DocumentService;
 
 @ConfigureContext(session = parke)
 public class PurchasingAccountsPayableModuleServiceTest extends KualiTestBase {

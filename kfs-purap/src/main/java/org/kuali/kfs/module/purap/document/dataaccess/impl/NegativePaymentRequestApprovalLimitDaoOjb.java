@@ -29,7 +29,7 @@ import org.kuali.kfs.module.purap.document.dataaccess.NegativePaymentRequestAppr
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

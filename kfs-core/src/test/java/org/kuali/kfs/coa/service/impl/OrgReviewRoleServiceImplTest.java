@@ -35,8 +35,8 @@ import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kim.api.common.delegate.DelegateMember;
 import org.kuali.rice.kim.api.common.delegate.DelegateType;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 @ConfigureContext(session = khuntley)
 public class OrgReviewRoleServiceImplTest extends OrgReviewRoleTestBase {

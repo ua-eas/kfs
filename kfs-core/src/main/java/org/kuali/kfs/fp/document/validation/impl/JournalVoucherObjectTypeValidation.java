@@ -24,7 +24,7 @@ import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
 import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 
 /**
  * Validation which checks at the object type code on a Journal Voucher's accounting line is valid

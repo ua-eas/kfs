@@ -21,7 +21,7 @@ package org.kuali.kfs.module.tem.businessobject.datadictionary;
 
 import java.util.Map;
 
-import org.kuali.rice.kns.datadictionary.FieldDefinition;
+import org.kuali.kfs.kns.datadictionary.FieldDefinition;
 
 /**
  * Contains field-related information for DataDictionary entries.  Used by lookups and inquiries. Maps to

@@ -34,7 +34,7 @@ import org.kuali.kfs.module.ec.service.EffortCertificationDocumentBuildService;
 import org.kuali.kfs.module.ec.util.LedgerBalanceConsolidationHelper;
 import org.kuali.kfs.module.ec.util.PayrollAmountHolder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

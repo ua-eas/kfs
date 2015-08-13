@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.kfs.module.ld.businessobject.LedgerBalanceForEffortCertification;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class LedgerBalanceForEffortCertificationLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 

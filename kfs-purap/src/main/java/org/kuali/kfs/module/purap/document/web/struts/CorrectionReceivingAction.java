@@ -31,7 +31,7 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.document.service.ReceivingService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 
 
 public class CorrectionReceivingAction extends ReceivingBaseAction {

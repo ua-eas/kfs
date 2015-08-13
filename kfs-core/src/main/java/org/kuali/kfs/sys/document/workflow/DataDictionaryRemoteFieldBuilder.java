@@ -37,32 +37,32 @@ import org.kuali.rice.core.api.uif.RemotableRadioButtonGroup;
 import org.kuali.rice.core.api.uif.RemotableSelect;
 import org.kuali.rice.core.api.uif.RemotableTextInput;
 import org.kuali.rice.core.api.uif.RemotableTextarea;
-import org.kuali.rice.kns.datadictionary.control.CheckboxControlDefinition;
-import org.kuali.rice.kns.datadictionary.control.HiddenControlDefinition;
-import org.kuali.rice.kns.datadictionary.control.MultivalueControlDefinitionBase;
-import org.kuali.rice.kns.datadictionary.control.RadioControlDefinition;
-import org.kuali.rice.kns.datadictionary.control.SelectControlDefinition;
-import org.kuali.rice.kns.datadictionary.control.TextControlDefinition;
-import org.kuali.rice.kns.datadictionary.control.TextareaControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.CheckboxControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.HiddenControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.MultivalueControlDefinitionBase;
+import org.kuali.kfs.kns.datadictionary.control.RadioControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.SelectControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.TextControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.TextareaControlDefinition;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.DataObjectRelationship;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.control.ControlDefinition;
-import org.kuali.rice.krad.keyvalues.KeyValuesFinder;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DataObjectMetaDataService;
-import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.KRADServiceLocatorInternal;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.workflow.service.WorkflowAttributePropertyResolutionService;
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DataObjectMetaDataService;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.workflow.service.WorkflowAttributePropertyResolutionService;
 
 //RICE20 This class is a temporary fix to support KNS attribute definitions. Should be deleted when rice2.0 adds support.
 public class DataDictionaryRemoteFieldBuilder {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DataDictionaryRemoteFieldBuilder.class);
 
     /**
-     * @see org.kuali.rice.krad.service.DataDictionaryRemoteFieldService#buildRemotableFieldFromAttributeDefinition(java.lang.String,
+     * @see org.kuali.kfs.krad.service.DataDictionaryRemoteFieldService#buildRemotableFieldFromAttributeDefinition(java.lang.String,
      *      java.lang.String)
      */
     public RemotableAttributeField buildRemotableFieldFromAttributeDefinition(String componentClassName, String attributeName) {

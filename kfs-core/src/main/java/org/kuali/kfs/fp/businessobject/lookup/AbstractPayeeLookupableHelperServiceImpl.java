@@ -37,11 +37,11 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.document.authorization.FieldRestriction;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.document.authorization.FieldRestriction;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 public class AbstractPayeeLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {

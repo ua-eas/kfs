@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import org.kuali.rice.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 
 /**
  * Lookup form for ContractsGrantsAgingOpenInvoices Report.

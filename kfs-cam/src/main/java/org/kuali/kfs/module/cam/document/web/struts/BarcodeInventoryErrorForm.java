@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.kuali.kfs.module.cam.document.BarcodeInventoryErrorDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
-import org.kuali.rice.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 
 /**
  * 

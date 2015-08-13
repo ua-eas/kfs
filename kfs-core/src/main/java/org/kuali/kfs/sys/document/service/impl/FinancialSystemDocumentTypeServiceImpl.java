@@ -27,11 +27,11 @@ import org.kuali.kfs.sys.document.LedgerPostingMaintainable;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.MaintenanceDocumentDictionaryService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Default implementation of the FinancialSystemDocumentTypeService

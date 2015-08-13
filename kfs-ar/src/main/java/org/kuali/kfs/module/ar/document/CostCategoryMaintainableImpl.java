@@ -31,10 +31,10 @@ import org.kuali.kfs.module.ar.businessobject.CostCategoryObjectConsolidation;
 import org.kuali.kfs.module.ar.businessobject.CostCategoryObjectLevel;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Overridden to add informative help message

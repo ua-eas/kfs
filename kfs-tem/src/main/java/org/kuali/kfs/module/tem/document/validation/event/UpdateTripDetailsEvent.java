@@ -19,8 +19,8 @@
 package org.kuali.kfs.module.tem.document.validation.event;
 
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 
 public class UpdateTripDetailsEvent extends AttributedDocumentEventBase implements KualiDocumentEvent {
 

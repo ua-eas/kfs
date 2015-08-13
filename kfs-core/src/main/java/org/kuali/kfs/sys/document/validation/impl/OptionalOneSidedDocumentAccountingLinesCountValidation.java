@@ -24,7 +24,7 @@ import static org.kuali.kfs.sys.KFSKeyConstants.ERROR_DOCUMENT_OPTIONAL_ONE_SIDE
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validation which checks a one-sided accounting document (ie, an accounting document which only uses source accounting lines, not target)

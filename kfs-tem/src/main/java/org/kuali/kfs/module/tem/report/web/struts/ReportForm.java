@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.tem.report.web.struts;
 
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 /**
  * Form class to display document reports and dumps menu

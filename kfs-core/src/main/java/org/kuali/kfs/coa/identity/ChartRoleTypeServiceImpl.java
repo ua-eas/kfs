@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public class ChartRoleTypeServiceImpl extends RoleTypeServiceBase {
     

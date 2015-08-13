@@ -33,7 +33,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
 
 public class StrutsInquisitor<Document,StrutsF,StrutsA> implements Inquisitive<Document,ActionForward> {
     private ActionMapping mapping;

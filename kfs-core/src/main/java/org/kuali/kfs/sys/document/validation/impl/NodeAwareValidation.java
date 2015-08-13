@@ -20,7 +20,7 @@ package org.kuali.kfs.sys.document.validation.impl;
 
 import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Parent of validations which either only run at or skip certain routing nodes at validation

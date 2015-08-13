@@ -21,7 +21,7 @@ package org.kuali.kfs.module.tem.identity;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 @SuppressWarnings("deprecation")
 public class ExecutiveManagerRoleTypeServiceImpl extends RoleTypeServiceBase{

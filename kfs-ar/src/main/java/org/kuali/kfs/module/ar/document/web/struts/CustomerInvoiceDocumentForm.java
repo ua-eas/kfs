@@ -42,10 +42,10 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.rice.kns.web.ui.HeaderField;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class CustomerInvoiceDocumentForm extends KualiAccountingDocumentFormBase {
 

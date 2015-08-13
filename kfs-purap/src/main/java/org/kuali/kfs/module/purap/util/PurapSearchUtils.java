@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.purap.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.DocumentHeader;
 
 public class PurapSearchUtils {
 

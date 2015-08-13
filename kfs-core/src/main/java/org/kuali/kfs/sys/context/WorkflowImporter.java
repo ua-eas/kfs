@@ -31,7 +31,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.impl.config.property.JAXBConfigImpl;
-import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
+import org.kuali.kfs.kew.batch.XmlPollerServiceImpl;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class WorkflowImporter {

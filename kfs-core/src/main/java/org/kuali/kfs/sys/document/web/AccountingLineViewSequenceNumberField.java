@@ -29,7 +29,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.renderers.PersistingTagRenderer;
 import org.kuali.kfs.sys.document.web.renderers.StringRenderer;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * A class to represent the rendering of a sequence number field

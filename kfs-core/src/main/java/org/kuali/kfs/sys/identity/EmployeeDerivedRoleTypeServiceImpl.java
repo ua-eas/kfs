@@ -33,7 +33,7 @@ import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 
 public class EmployeeDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
 

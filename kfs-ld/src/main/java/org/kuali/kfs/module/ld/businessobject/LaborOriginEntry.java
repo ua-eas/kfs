@@ -45,7 +45,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
 
 /**
  * Labor business object for LaborOriginEntry.

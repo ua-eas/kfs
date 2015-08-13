@@ -29,7 +29,7 @@ import org.kuali.kfs.module.bc.document.dataaccess.PayrateExportDao;
 import org.kuali.kfs.module.bc.document.service.PayrateExportService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

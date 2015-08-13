@@ -32,9 +32,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.GENERAL_LEDGER_PENDING_ENTRY_CODE;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.rice.kew.doctype.bo.DocumentType;
-import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.kew.doctype.bo.DocumentType;
+import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Table which holds travel encumbrances waiting for the next fiscal year to be created

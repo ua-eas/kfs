@@ -31,7 +31,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 @Entity
 @Table(name="TEM_PRI_DEST_T")

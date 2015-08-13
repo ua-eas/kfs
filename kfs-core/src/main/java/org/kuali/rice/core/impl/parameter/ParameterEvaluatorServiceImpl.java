@@ -29,7 +29,7 @@ import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.coreservice.api.parameter.EvaluationOperator;
 import org.kuali.rice.coreservice.api.parameter.Parameter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class ParameterEvaluatorServiceImpl implements ParameterEvaluatorService {
 

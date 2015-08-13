@@ -48,7 +48,7 @@ import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.Copyable;
+import org.kuali.kfs.krad.document.Copyable;
 
 /**
  * This is the business object that represents the JournalVoucherDocument in Kuali. This is a transactional document that will

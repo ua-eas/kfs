@@ -24,7 +24,7 @@ import org.kuali.kfs.module.tem.businessobject.CreditCardImportData;
 import org.kuali.kfs.module.tem.businessobject.CreditCardStagingData;
 import org.kuali.kfs.module.tem.businessobject.TemProfileAccount;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
-import org.kuali.rice.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ErrorMessage;
 
 public interface CreditCardDataImportService {
     public boolean importCreditCardData();

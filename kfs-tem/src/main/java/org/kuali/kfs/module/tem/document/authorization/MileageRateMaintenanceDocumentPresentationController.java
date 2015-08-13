@@ -23,9 +23,9 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Prevents certain fields from being changed when editing the business object

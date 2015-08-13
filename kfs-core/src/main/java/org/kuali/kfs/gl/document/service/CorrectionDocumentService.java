@@ -31,7 +31,7 @@ import org.kuali.kfs.gl.document.CorrectionDocumentUtils;
 import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
 import org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata;
 import org.kuali.kfs.sys.batch.InitiateDirectory;
-import org.kuali.rice.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Column;
 
 /**
  * An interface declaring methods needed by the GLCP to function

@@ -28,7 +28,7 @@ import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.document.service.AccountingLineAuthorizationTransformer;
 import org.kuali.kfs.sys.document.web.TableJoining;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Like a regular accounting line rendering transformer, though this  

@@ -23,18 +23,17 @@ import java.util.List;
 
 import org.kuali.kfs.module.ar.businessobject.CollectionActivityType;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.KeyValue; import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
-import org.kuali.rice.krad.service.KeyValuesService;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * Value finder class for Collection Activity Type.
  */
 public class CollectionActivityTypeValuesFinder extends KeyValuesBase {
 
-    /**
-     * @see org.kuali.keyvalues.KeyValuesFinder#getKeyValues()
-     */
+
     @SuppressWarnings("unchecked")
     public List<KeyValue> getKeyValues() {
         List<CollectionActivityType> boList = (List) SpringContext.getBean(KeyValuesService.class).findAll(CollectionActivityType.class);

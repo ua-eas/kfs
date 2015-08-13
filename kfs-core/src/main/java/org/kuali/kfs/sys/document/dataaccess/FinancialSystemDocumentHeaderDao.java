@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.document.dataaccess;
 
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.dao.DocumentHeaderDao;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.dao.DocumentHeaderDao;
 
 /**
  * This class...

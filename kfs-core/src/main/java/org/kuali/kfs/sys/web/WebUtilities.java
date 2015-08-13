@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.web;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.krad.UserSession;
+import org.kuali.kfs.krad.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

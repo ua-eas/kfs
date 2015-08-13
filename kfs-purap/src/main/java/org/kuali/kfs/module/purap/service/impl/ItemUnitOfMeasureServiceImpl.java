@@ -20,7 +20,7 @@ package org.kuali.kfs.module.purap.service.impl;
 
 import org.kuali.kfs.module.purap.service.ItemUnitOfMeasureService;
 import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

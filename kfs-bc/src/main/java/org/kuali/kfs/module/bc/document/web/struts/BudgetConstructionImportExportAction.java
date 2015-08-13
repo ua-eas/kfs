@@ -21,8 +21,8 @@ package org.kuali.kfs.module.bc.document.web.struts;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 
 public class BudgetConstructionImportExportAction extends BudgetExpansionAction {
 
