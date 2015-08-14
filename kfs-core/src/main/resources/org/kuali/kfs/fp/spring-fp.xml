@@ -141,7 +141,7 @@
 			<ref bean="documentService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -195,7 +195,7 @@
 			<ref bean="cashManagementDao" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 	</bean>
 
@@ -229,7 +229,7 @@
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="documentService" ref="documentService" />
     	<property name="workflowDocumentService" ref="workflowDocumentService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="accountingLineRuleUtil" ref="accountingLineRuleHelperService" />
 		<property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService" />
@@ -267,7 +267,7 @@
 			<ref bean="cashDrawerService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
 	</bean>
@@ -341,7 +341,7 @@
 
 	<bean id="cashReceiptCoverSheetService"  parent="cashReceiptCoverSheetService-parentBean"/>
 	<bean id="cashReceiptCoverSheetService-parentBean" class="org.kuali.kfs.fp.document.service.impl.CashReceiptCoverSheetServiceImpl" abstract="true">
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 	</bean>
 
 	<bean id="budgetAdjustmentLaborBenefitsService"  parent="budgetAdjustmentLaborBenefitsService-parentBean"/>

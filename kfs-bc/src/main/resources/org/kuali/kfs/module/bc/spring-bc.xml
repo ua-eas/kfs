@@ -257,7 +257,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 	</bean>
 	
@@ -284,7 +284,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 	</bean>
 
@@ -341,7 +341,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 	</bean>
 
@@ -367,7 +367,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
@@ -397,7 +397,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 		<property name="laborModuleService">
 			<ref bean="laborModuleService" />
@@ -1111,7 +1111,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 	</bean>
 	

@@ -80,7 +80,7 @@
     <bean id="capitalAssetBuilderModuleService"  parent="capitalAssetBuilderModuleService-parentBean"/>
     <bean id="capitalAssetBuilderModuleService-parentBean" class="org.kuali.kfs.module.cab.service.impl.CapitalAssetBuilderModuleServiceImpl" abstract="true">
     	<property name="glLineService" ref="glLineService" />
-    	<property name="dataDictionaryService" ref="dataDictionaryService" />
+    	<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
     	<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
     	<property name="configurationService" ref="configurationService" />
     	<property name="parameterRepositoryService" ref="parameterRepositoryService" />

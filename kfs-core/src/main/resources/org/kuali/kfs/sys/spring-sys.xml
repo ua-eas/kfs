@@ -559,7 +559,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="universityDateService">
 			<ref bean="universityDateService" />
@@ -630,7 +630,7 @@
 	<bean id="kfsBusinessObjectMetaDataService" parent="kfsBusinessObjectMetaDataService-parentBean"/>
 
     <bean id="kfsBusinessObjectMetaDataService-parentBean" class="org.kuali.kfs.sys.service.impl.KfsBusinessObjectMetaDataServiceImpl" abstract="true">
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="businessObjectMetaDataService" ref="businessObjectMetaDataService" />
@@ -677,7 +677,7 @@
 	<bean id="accountingDocumentRuleHelperService" parent="accountingDocumentRuleHelperService-parentBean"/>
     
     <bean id="accountingDocumentRuleHelperService-parentBean" class="org.kuali.kfs.sys.document.service.impl.AccountingDocumentRuleHelperServiceImpl" abstract="true">
-    	<property name="dataDictionaryService"><ref bean="dataDictionaryService" /></property>
+    	<property name="dataDictionaryService"><ref bean="kfs.dataDictionaryService" /></property>
     	<property name="objectTypeService"><ref bean="objectTypeService" /></property>
     </bean>
 	<bean id="debitDeterminerService" parent="debitDeterminerService-parentBean"/>
@@ -689,14 +689,14 @@
 	<bean id="accountingLineRuleHelperService" parent="accountingLineRuleHelperService-parentBean"/>
     
     <bean id="accountingLineRuleHelperService-parentBean" class="org.kuali.kfs.sys.document.service.impl.AccountingLineRuleHelperServiceImpl" abstract="true">
-    	<property name="dataDictionaryService"><ref bean="dataDictionaryService" /></property>
+    	<property name="dataDictionaryService"><ref bean="kfs.dataDictionaryService" /></property>
     	<property name="financialSystemDocumentTypeService" ref="financialSystemDocumentTypeService" />
         <property name="accountService" ref="accountService" />
     </bean>
 	<bean id="financialSystemDocumentTypeService" parent="financialSystemDocumentTypeService-parentBean"/>
     
     <bean id="financialSystemDocumentTypeService-parentBean" class="org.kuali.kfs.sys.document.service.impl.FinancialSystemDocumentTypeServiceImpl" abstract="true">
-  	  <property name="dataDictionaryService" ref="dataDictionaryService" />
+  	  <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
   	  <property name="maintenanceDocumentDictionaryService" ref="maintenanceDocumentDictionaryService" />
   	  <property name="documentTypeService" ref="rice.kew.documentTypeService" />
     </bean>
@@ -716,14 +716,14 @@
     
     <bean id="electronicFundTransferRefreshAction" parent="electronicFundTransferRefreshAction-parentBean" />
     <bean id="electronicFundTransferRefreshAction-parentBean" class="org.kuali.kfs.sys.service.impl.ElectronicFundTransferRefreshActionHelper" abstract="true">
-    	<property name="dataDictonaryService"><ref bean="dataDictionaryService" /></property>
+    	<property name="dataDictonaryService"><ref bean="kfs.dataDictionaryService" /></property>
     	<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
     	<property name="lookupResultsService"><ref bean="lookupResultsService" /></property>
     </bean>
     
     <bean id="electronicFundTransferClaimAction" parent="electronicFundTransferClaimAction-parentBean" />
     <bean id="electronicFundTransferClaimAction-parentBean" class="org.kuali.kfs.sys.service.impl.ElectronicFundTransferClaimActionHelper" abstract="true">
-    	<property name="dataDictonaryService"><ref bean="dataDictionaryService" /></property>
+    	<property name="dataDictonaryService"><ref bean="kfs.dataDictionaryService" /></property>
     	<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
     	<property name="businessObjectService"><ref bean="kfs.businessObjectService" /></property>
     	<property name="documentService" ref="documentService" />
@@ -773,7 +773,7 @@
 	
 	<bean id="accountingLineRenderingService" parent="accountingLineRenderingService-parentBean"/>
     <bean id="accountingLineRenderingService-parentBean" class="org.kuali.kfs.sys.document.service.impl.AccountingLineRenderingServiceImpl" abstract="true">
-    	<property name="dataDictionaryService" ref="dataDictionaryService" />
+    	<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
     	<property name="accountingLineAuthorizationTransformer" ref="accountingLineAuthorizationTransformer" />
     	<property name="fieldTransformations">
     		<list>
@@ -796,7 +796,7 @@
     
      <bean id="bankService-parentBean" class="org.kuali.kfs.sys.service.impl.BankServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" /> 
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="parameterEvaluatorService" ref="parameterEvaluatorService" /> 
 	</bean>
@@ -876,7 +876,7 @@
         <property name="minimumMessageLength" value="10" />
         <property name="messageLabel" value="MESSAGE" />
         <property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 	</bean>
 	<bean id="reportWriterService" parent="reportWriterService-parentBean"/>
