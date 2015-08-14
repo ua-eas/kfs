@@ -62,7 +62,7 @@
 	<!-- The parameter evaluator framework is no longer part of Rice, so we 
 		 need to define it locally. -->
 	<bean id="parameterEvaluatorService" class="org.kuali.rice.core.impl.parameter.ParameterEvaluatorServiceImpl">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 	</bean>
 
 </beans>

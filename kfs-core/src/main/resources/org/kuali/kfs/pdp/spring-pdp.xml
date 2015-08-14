@@ -322,7 +322,7 @@
 	
 	<bean id="pdpInactivatePayeeAchAccountsService" parent="pdpInactivatePayeeAchAccountsService-parentBean" />
 	<bean id="pdpInactivatePayeeAchAccountsService-parentBean" class="org.kuali.kfs.pdp.batch.service.impl.InactivatePayeeAchAccountsServiceImpl" abstract="true">
-    	<property name="businessObjectService" ref="businessObjectService"/>
+    	<property name="businessObjectService" ref="kfs.businessObjectService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
     	<property name="identityManagementService" ref="kimIdentityManagementService"/>
     	<property name="personService" ref="personService"/>    	
@@ -374,7 +374,7 @@
     <bean id="pdpExtractPaymentService-parentBean" abstract="true"  parent="PdpExtractPaymentService-parentBean"/>
     
     <bean id="PdpExtractPaymentService-parentBean" abstract="true" class="org.kuali.kfs.pdp.batch.service.impl.ExtractPaymentServiceImpl">
-		<property name="parameterService" ref="parameterService"/>
+		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="directoryName" value="${staging.directory}/pdp/paymentExtract"/>
 		<property name="paymentGroupService" ref="pdpPaymentGroupService"/>
 		<property name="paymentDetailService" ref="pdpPaymentDetailService"/>
@@ -382,7 +382,7 @@
 		<property name="dateTimeService" ref="dateTimeService"/>
 		<property name="paymentGroupHistoryDao" ref="pdpPaymentGroupHistoryDao"/>
 		<property name="paymentFileEmailService" ref="pdpEmailService"/>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="configurationService" ref="kualiConfigurationService"/>
 		<property name="countryService" ref="countryService"/>		
         <property name="dataDictionaryService" ref="dataDictionaryService"/>		
@@ -402,25 +402,25 @@
     <bean id="pdpAchBankService" parent="pdpAchBankService-parentBean"/>
 
 	<bean id="pdpAchBankService-parentBean" class="org.kuali.kfs.pdp.service.impl.AchBankServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		
 	</bean>
     <bean id="pdpAchService" parent="pdpAchService-parentBean"/>
 
 	<bean id="pdpAchService-parentBean" class="org.kuali.kfs.pdp.service.impl.AchServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 	</bean>
     <bean id="pdpBatchMaintenanceService" parent="pdpBatchMaintenanceService-parentBean"/>
 
 	<bean id="pdpBatchMaintenanceService-parentBean" class="org.kuali.kfs.pdp.service.impl.BatchMaintenanceServiceImpl" abstract="true">
 		<property name="batchMaintenanceDao" ref="pdpBatchMaintenanceDao"/>
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 		<property name="paymentGroupService" ref="pdpPaymentGroupService"/>
 	</bean>
     <bean id="pdpCustomerProfileService" parent="pdpCustomerProfileService-parentBean"/>
 
 	<bean id="pdpCustomerProfileService-parentBean" class="org.kuali.kfs.pdp.service.impl.CustomerProfileServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
     <bean id="pdpFormatService" parent="pdpFormatService-parentBean"/>
 
@@ -430,10 +430,10 @@
 		<property name="processDao" ref="pdpProcessDao"/>
 		<property name="achService" ref="pdpAchService"/>
 		<property name="glPendingTransactionService" ref="pdpGlPendingTransactionService"/>
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="formatPaymentDao" ref="pdpFormatPaymentDao"/>
 		<property name="schedulerService" ref="schedulerService"/>
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 		<property name="paymentGroupService" ref="pdpPaymentGroupService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
 		<property name="extractPaymentService" ref="pdpExtractPaymentService" />
@@ -445,10 +445,10 @@
 		<property name="accountingPeriodService" ref="accountingPeriodService"/>
 		<property name="configurationService" ref="kualiConfigurationService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="bankService" ref="bankService"/>
         <property name="dataDictionaryService" ref="dataDictionaryService"/>
-		<property name="parameterService" ref="parameterService"/>		
+		<property name="parameterService" ref="kfs.parameterService"/>
         <property name="researchParticipantPaymentValidationService" ref="researchParticipantPaymentValidationService"/>		
 		<property name="pdpUtilService" ref="pdpUtilService"/>
 	</bean>
@@ -461,16 +461,16 @@
 
 	<bean id="pdpPaymentDetailService-parentBean" class="org.kuali.kfs.pdp.service.impl.PaymentDetailServiceImpl" abstract="true">
 		<property name="paymentDetailDao" ref="pdpPaymentDetailDao"/>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
     <bean id="paymentFileService" parent="paymentFileService-parentBean"/>
 
 	<bean id="paymentFileService-parentBean" class="org.kuali.kfs.pdp.service.impl.PaymentFileServiceImpl" abstract="true">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
 		<property name="batchInputFileService" ref="batchInputFileService"/>
 		<property name="paymentFileValidationService" ref="paymentFileValidationService" />
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="paymentFileEmailService" ref="pdpEmailService"/>
 		<property name="configurationService" ref="kualiConfigurationService" />
@@ -479,7 +479,7 @@
     <bean id="pdpEmailService" parent="pdpEmailService-parentBean"/>
 	
 	<bean id="pdpEmailService-parentBean" class="org.kuali.kfs.pdp.service.impl.PdpEmailServiceImpl" abstract="true">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
 		<property name="mailService" ref="mailService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService"/>
@@ -491,14 +491,14 @@
     <bean id="paymentFileValidationService-parentBean" class="org.kuali.kfs.pdp.service.impl.PaymentFileValidationServiceImpl" abstract="true">
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
 		<property name="paymentFileLoadDao" ref="pdpPaymentFileLoadDao" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="configurationService" ref="kualiConfigurationService"/>
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="accountService" ref="accountService" />
 		<property name="subAccountService" ref="subAccountService"/>
 		<property name="objectCodeService" ref="objectCodeService" />
 		<property name="subObjectCodeService" ref="subObjectCodeService"/>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="bankService" ref="bankService" />
 		<property name="originationCodeService" ref="originationCodeService" />
 		<property name="documentTypeService" ref="rice.kew.documentTypeService" />
@@ -533,9 +533,9 @@
 
 	<bean id="pdpPaymentGroupService-parentBean" class="org.kuali.kfs.pdp.service.impl.PaymentGroupServiceImpl" abstract="true">
 		<property name="paymentGroupDao" ref="pdpPaymentGroupDao"/>
-		<property name="parameterService" ref="parameterService"/>
+		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="dataDictionaryService" ref="dataDictionaryService"/>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
     <bean id="pdpPaymentMaintenanceService" parent="pdpPaymentMaintenanceService-parentBean"/>
 
@@ -544,9 +544,9 @@
 		<property name="paymentDetailDao" ref="pdpPaymentDetailDao"/>
 		<property name="glPendingTransactionService" ref="pdpGlPendingTransactionService"/>
 		<property name="mailService" ref="mailService"/>
-		<property name="parameterService" ref="parameterService"/>
+		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="bankService" ref="bankService"/>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="paymentGroupService" ref="pdpPaymentGroupService" />
 		<property name="emailService" ref="pdpEmailService"/>
 		<property name="pdpAuthorizationService" ref="pdpAuthorizationService" />
@@ -557,7 +557,7 @@
 		<property name="pdpEmailService" ref="pdpEmailService"/>
 		<property name="paymentGroupService" ref="pdpPaymentGroupService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 	</bean>
     <bean id="processPdpCancelPaidService" parent="processPdpCancelPaidService-parentBean"/>
 	
@@ -572,7 +572,7 @@
 			<ref bean="purchasingAccountsPayableModuleService"/>
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService"/>
+			<ref bean="kfs.parameterService"/>
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService"/>
@@ -764,8 +764,8 @@
 	</bean>	
 	<bean id="researchParticipantPaymentValidationService" parent="researchParticipantPaymentValidationService-parentBean" />
     <bean id="researchParticipantPaymentValidationService-parentBean" class="org.kuali.kfs.pdp.service.impl.ResearchParticipantPaymentValidationServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 	</bean>	
 	
 	<import resource="spring-pdp-bus-exports.xml"/>

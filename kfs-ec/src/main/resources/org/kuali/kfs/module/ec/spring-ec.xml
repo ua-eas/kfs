@@ -140,7 +140,7 @@
 	<bean id="effortCertificationExtractService"  parent="effortCertificationExtractService-parentBean"/>
 	<bean id="effortCertificationExtractService-parentBean" class="org.kuali.kfs.module.ec.batch.service.impl.EffortCertificationExtractServiceImpl" abstract="true" >
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="optionsService">
 			<ref bean="optionsService" />
@@ -173,7 +173,7 @@
 	<bean id="effortCertificationCreateService"  parent="effortCertificationCreateService-parentBean"/>
 	<bean id="effortCertificationCreateService-parentBean" class="org.kuali.kfs.module.ec.batch.service.impl.EffortCertificationCreateServiceImpl" abstract="true" >
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="effortCertificationDocumentService">
 			<ref bean="effortCertificationDocumentService" />
@@ -183,7 +183,7 @@
 	<bean id="effortCertificationReportDefinitionService"  parent="effortCertificationReportDefinitionService-parentBean"/>
 	<bean id="effortCertificationReportDefinitionService-parentBean" class="org.kuali.kfs.module.ec.service.impl.EffortCertificationReportDefinitionServiceImpl" abstract="true" >
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>					
 	</bean>	
 	
@@ -219,7 +219,7 @@
 			<ref bean="effortCertificationDetailBuildService" />
 		</property>	
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>					
 	</bean>
 			
@@ -241,7 +241,7 @@
 			<ref bean="documentService" />
 		</property>	
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>	
 	 	
@@ -330,7 +330,7 @@
 	<bean id="effortLedgerBalanceLookupableHelperService"  parent="effortLedgerBalanceLookupableHelperService-parentBean" singleton="false"/>
 	<bean id="effortLedgerBalanceLookupableHelperService-parentBean" class="org.kuali.kfs.module.ec.businessobject.lookup.EffortLedgerBalanceLookupableHelperServiceImpl"  abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="kualiModuleService">
 			<ref bean="kualiModuleService" />

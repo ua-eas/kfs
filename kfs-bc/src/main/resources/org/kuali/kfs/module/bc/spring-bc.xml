@@ -109,13 +109,13 @@
 			<ref bean="benefitsCalculationService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="kualiModuleService">
 			<ref bean="kualiModuleService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="budgetParameterService">
 			<ref bean="budgetParameterService" />
@@ -140,7 +140,7 @@
 			<ref bean="budgetConstructionOrganizationReportsService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="budgetConstructionDao">
 			<ref bean="budgetConstructionDao" />
@@ -197,7 +197,7 @@
 	<bean id="salarySettingService"  parent="salarySettingService-parentBean"/>
 	<bean id="salarySettingService-parentBean" class="org.kuali.kfs.module.bc.document.service.impl.SalarySettingServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
@@ -315,7 +315,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -403,7 +403,7 @@
 			<ref bean="laborModuleService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -454,7 +454,7 @@
 			<ref bean="budgetReportsControlListDao" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
         <property name="persistenceServiceOjb">
             <ref bean="persistenceServiceOjb" />
@@ -533,7 +533,7 @@
 		<ref bean="kualiConfigurationService" />
     </property>
     <property name="businessObjectService">
-		<ref bean="businessObjectService" />
+		<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
         <ref bean="persistenceServiceOjb" />
@@ -610,7 +610,7 @@
 		<ref bean="kualiConfigurationService" />
     </property>
     <property name="businessObjectService">
-    	<ref bean="businessObjectService" />
+    	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
         <ref bean="persistenceServiceOjb" />
@@ -632,7 +632,7 @@
 		<ref bean="kualiConfigurationService" />
     </property>
     <property name="businessObjectService">
-    	<ref bean="businessObjectService" />
+    	<ref bean="kfs.businessObjectService" />
     </property>
     </bean>
     
@@ -651,7 +651,7 @@
 		<ref bean="kualiConfigurationService" />
     </property>
     <property name="businessObjectService">
-    	<ref bean="businessObjectService" />
+    	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
         <ref bean="persistenceServiceOjb" />
@@ -670,7 +670,7 @@
 		<ref bean="kualiConfigurationService" />
     </property>
     <property name="businessObjectService">
-    	<ref bean="businessObjectService" />
+    	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
         <ref bean="persistenceServiceOjb" />
@@ -689,7 +689,7 @@
 		<ref bean="kualiConfigurationService" />
     </property>
     <property name="businessObjectService">
-    	<ref bean="businessObjectService" />
+    	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
         <ref bean="persistenceServiceOjb" />
@@ -702,7 +702,7 @@
 		<ref bean="budgetConstructionOrganizationReportsService" />
 	</property>
 	<property name="businessObjectService">
-		<ref bean="businessObjectService" />
+		<ref bean="kfs.businessObjectService" />
 		</property>
     <property name="persistenceServiceOjb">
         <ref bean="persistenceServiceOjb" />
@@ -862,7 +862,7 @@
          <ref bean="persistenceStructureService"/>
         </property>
         <property name="businessObjectService">
-         <ref bean="businessObjectService"/>
+         <ref bean="kfs.businessObjectService"/>
         </property>   
     </bean>
     	
@@ -916,7 +916,7 @@
 	<bean id="budgetRequestImportService"  parent="budgetRequestImportService-parentBean"/>
 	<bean id="budgetRequestImportService-parentBean" class="org.kuali.kfs.module.bc.document.service.impl.BudgetRequestImportServiceImpl"  abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>	
 		<property name="documentHelperService">
 			<ref bean="documentHelperService" />
@@ -946,7 +946,7 @@
 			<ref bean="documentService" />
 		</property>	
         <property name="parameterService">
-            <ref bean="parameterService" />
+            <ref bean="kfs.parameterService" />
         </property> 
         <property name="persistenceServiceOjb">
             <ref bean="persistenceServiceOjb" />
@@ -959,7 +959,7 @@
 	<bean id="budgetPayrateImportService"  parent="budgetPayrateImportService-parentBean"/>
 	<bean id="budgetPayrateImportService-parentBean" class="org.kuali.kfs.module.bc.document.service.impl.PayrateImportServiceImpl"  abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>	
 		<property name="lockService">
 			<ref bean="lockService" />
@@ -984,7 +984,7 @@
     <bean id="budgetPayrateExportService"  parent="budgetPayrateExportService-parentBean"/>
     <bean id="budgetPayrateExportService-parentBean" class="org.kuali.kfs.module.bc.document.service.impl.PayrateExportServiceImpl"  abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>	
 		<property name="payrateExportDao">
 			<ref bean="payrateExportDao" />
@@ -997,7 +997,7 @@
     <bean id="reportDumpService"  parent="reportDumpService-parentBean"/>
     <bean id="reportDumpService-parentBean" class="org.kuali.kfs.module.bc.document.service.impl.ReportExportServiceImpl"  abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>	
 		<property name="reportDumpDao">
 			<ref bean="reportDumpDao" />
@@ -1022,21 +1022,21 @@
     <bean id="budgetConstructionDurationService"  parent="budgetConstructionDurationService-parentBean"/>
     <bean id="budgetConstructionDurationService-parentBean" class="org.kuali.kfs.module.bc.service.impl.BudgetConstructionDurationServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property> 
     </bean>
     
     <bean id="budgetConstructionAppointmentFundingReasonCodeService"  parent="budgetConstructionAppointmentFundingReasonCodeService-parentBean"/>
     <bean id="budgetConstructionAppointmentFundingReasonCodeService-parentBean" class="org.kuali.kfs.module.bc.service.impl.BudgetConstructionAppointmentFundingReasonCodeServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property> 
     </bean>    
 
     <bean id="budgetConstructionIntendedIncumbentService"  parent="budgetConstructionIntendedIncumbentService-parentBean"/>
     <bean id="budgetConstructionIntendedIncumbentService-parentBean" class="org.kuali.kfs.module.bc.service.impl.BudgetConstructionIntendedIncumbentServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property> 
 		<property name="humanResourcesPayrollService">
 			<ref bean="humanResourcesPayrollService" />
@@ -1046,7 +1046,7 @@
     <bean id="budgetConstructionPositionService"  parent="budgetConstructionPositionService-parentBean"/>
     <bean id="budgetConstructionPositionService-parentBean" class="org.kuali.kfs.module.bc.service.impl.BudgetConstructionPositionServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property> 
 		<property name="humanResourcesPayrollService">
 			<ref bean="humanResourcesPayrollService" />
@@ -1059,7 +1059,7 @@
     <bean id="budgetConstructionAdministrativePostService"  parent="budgetConstructionAdministrativePostService-parentBean"/>
     <bean id="budgetConstructionAdministrativePostService-parentBean" class="org.kuali.kfs.module.bc.service.impl.BudgetConstructionAdministrativePostServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property> 
     </bean> 
     

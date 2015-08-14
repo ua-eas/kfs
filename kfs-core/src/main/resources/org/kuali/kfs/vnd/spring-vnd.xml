@@ -80,7 +80,7 @@
    
     <bean id="vendorService-parentBean" class="org.kuali.kfs.vnd.document.service.impl.VendorServiceImpl" abstract="true">
         <property name="vendorDao" ref="vendorDao"/>
-        <property name="businessObjectService" ref="businessObjectService"/>
+        <property name="businessObjectService" ref="kfs.businessObjectService"/>
         <property name="documentService" ref="documentService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="noteService" ref="noteService"/>
@@ -89,14 +89,14 @@
 
     <bean id="phoneNumberService-parentBean" class="org.kuali.kfs.vnd.service.impl.PhoneNumberServiceImpl" abstract="true">
         <property name="parameterService">
-            <ref bean="parameterService"/>
+            <ref bean="kfs.parameterService"/>
         </property>
     </bean>
     <bean id="taxNumberService" parent="taxNumberService-parentBean"/>
     
     <bean id="taxNumberService-parentBean" class="org.kuali.kfs.vnd.service.impl.TaxNumberServiceImpl" abstract="true">
         <property name="parameterService">
-            <ref bean="parameterService"/>
+            <ref bean="kfs.parameterService"/>
         </property>
     </bean>
     <bean id="vendorLookupableHelperService" parent="vendorLookupableHelperService-parentBean" scope="prototype" />
@@ -124,7 +124,7 @@
             <ref bean="vendorService" />
         </property>
         <property name="parameterService">
-            <ref bean="parameterService" />
+            <ref bean="kfs.parameterService" />
         </property>
     </bean>
     <bean id="vendorContactLookupableHelperService" parent="vendorContactLookupableHelperService-parentBean" scope="prototype" />
@@ -277,7 +277,7 @@
 
     <bean id="commodityCodeService-parentBean" class="org.kuali.kfs.vnd.service.impl.CommodityCodeServiceImpl" abstract="true">
          <property name="businessObjectService">
-            <ref bean="businessObjectService" />
+            <ref bean="kfs.businessObjectService" />
         </property> 
         <property name="commodityCodeDao">
             <ref bean="commodityCodeDao" />
@@ -303,7 +303,7 @@
 			<ref bean="batchInputFileService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="batchInputFileType">
 			<ref bean="vendorExcludeInputFileType" />

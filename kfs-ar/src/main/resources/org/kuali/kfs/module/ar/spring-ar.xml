@@ -131,7 +131,7 @@
 			<ref bean="accountsReceivableDocumentHeaderService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="customerAddressService">
 			<ref bean="customerAddressService" />
@@ -167,7 +167,7 @@
 			<ref bean="kualiModuleService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="systemInformationService">
 			<ref bean="systemInformationService" />
@@ -177,7 +177,7 @@
   <bean id="accountsReceivableModuleBillingService" parent="accountsReceivableModuleBillingService-parentBean"/>
   <bean id="accountsReceivableModuleBillingService-parentBean" class="org.kuali.kfs.module.ar.service.impl.AccountsReceivableModuleBillingServiceImpl" abstract="true">
     <property name="businessObjectService">
-      <ref bean="businessObjectService" />
+      <ref bean="kfs.businessObjectService" />
     </property>
     <property name="contractsGrantsInvoiceDocumentService">
       <ref bean="contractsGrantsInvoiceDocumentService" />
@@ -189,7 +189,7 @@
       <ref bean="kualiModuleService" />
     </property>
     <property name="parameterService">
-      <ref bean="parameterService" />
+      <ref bean="kfs.parameterService" />
     </property>
   </bean>
 
@@ -270,7 +270,7 @@
 			<ref bean="awardAccountObjectCodeTotalBilledDao" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
@@ -306,7 +306,7 @@
 			<ref bean="kualiModuleService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="verifyBillingFrequencyService">
 			<ref bean="verifyBillingFrequencyService" />
@@ -345,10 +345,10 @@
 	<bean id="arEmailService" parent = "arEmailService-parentBean" />
 	<bean id="arEmailService-parentBean" class="org.kuali.kfs.module.ar.service.impl.AREmailServiceImpl" abstract="true">
 		<property name="mailService" ref="attachmentMailService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="kualiConfigurationService" ref="kualiConfigurationService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="documentService" ref="documentService" />
 		<property name="noteService" ref="noteService" />
 		<property name="kualiModuleService">
@@ -392,7 +392,7 @@
 
 	<bean id="contractsGrantsBillingUtilityService" parent="contractsGrantsBillingUtilityService-parentBean" />
 	<bean id="contractsGrantsBillingUtilityService-parentBean" class="org.kuali.kfs.module.ar.service.impl.ContractsGrantsBillingUtilityServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 	</bean>
 
 	<bean id="contractsGrantsInvoiceDocumentService" parent="contractsGrantsInvoiceDocumentService-parentBean" />
@@ -407,7 +407,7 @@
 			<ref bean="attachmentService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService"/>
+			<ref bean="kfs.businessObjectService"/>
 		</property>
 		<property name="configurationService">
 			<ref bean="configurationService" />
@@ -455,7 +455,7 @@
 			<ref bean="personService"/>
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService"/>
+			<ref bean="kfs.parameterService"/>
 		</property>
 		<property name="permissionService">
 			<ref bean="permissionService"/>
@@ -586,7 +586,7 @@
 			<ref bean="universityDateService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="accountingPeriodService">
 			<ref bean="accountingPeriodService" />
@@ -636,7 +636,7 @@
 			<ref bean="personService"/>
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService"/>
+			<ref bean="kfs.parameterService"/>
 		</property>
 	</bean>
 
@@ -675,10 +675,10 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService"/>
+			<ref bean="kfs.parameterService"/>
 		</property>
 		<property name="milestoneDao">
 			<ref bean="milestoneDao"/>
@@ -712,7 +712,7 @@
 			<ref bean="kualiModuleService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="paymentApplicationDocumentService">
 			<ref bean="paymentApplicationDocumentService" />
@@ -763,7 +763,7 @@
 			<ref bean="accountsReceivableModuleBillingService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -841,10 +841,10 @@
 			<ref bean="personService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="configService">
 			<ref bean="kualiConfigurationService" />
@@ -1070,7 +1070,7 @@
 			<ref bean="contractsGrantsInvoiceDocumentService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="personService">
 			<ref bean="personService" />
@@ -1149,7 +1149,7 @@
 	<bean id="systemInformationService"  parent="systemInformationService-parentBean"/>
 	<bean id="systemInformationService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.SystemInformationServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="universityDateService">
 			<ref bean="universityDateService" />
@@ -1186,7 +1186,7 @@
 			<value>${reports.directory}</value>
 		</property>
 		<property name="boService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="customerService">
 			<ref bean="customerService"/>	
@@ -1204,7 +1204,7 @@
 			<ref bean="accountsReceivableTaxService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -1216,7 +1216,7 @@
 			<ref bean="invoicePaidAppliedService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="taxService">
 			<ref bean="taxService" />
@@ -1229,7 +1229,7 @@
 	<bean id="nonAppliedHoldingService"  parent="nonAppliedHoldingService-parentBean"/>
 	<bean id="nonAppliedHoldingService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.NonAppliedHoldingServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="nonAppliedHoldingDao">
 			<ref bean="nonAppliedHoldingDao" />
@@ -1245,7 +1245,7 @@
 			<ref bean="universityDateService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -1273,14 +1273,14 @@
 			<ref bean="universityDateService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
 	<bean id="accountsReceivableDocumentHeaderService"  parent="accountsReceivableDocumentHeaderService-parentBean"/>
 	<bean id="accountsReceivableDocumentHeaderService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.AccountsReceivableDocumentHeaderServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="financialSystemUserService">
 			<ref bean="financialSystemUserService" />
@@ -1302,7 +1302,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -1312,7 +1312,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="customerInvoiceDocumentService">
 			<ref bean="customerInvoiceDocumentService" />
@@ -1335,7 +1335,7 @@
 			<ref bean="noteService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 	
@@ -1345,7 +1345,7 @@
 			<ref bean="accountsReceivableDocumentHeaderService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="configurationService">
 			<ref bean="configurationService" />
@@ -1395,10 +1395,10 @@
 			<ref bean="accountsReceivableDocumentHeaderService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="universityDateService">
 			<ref bean="universityDateService" />
@@ -1435,7 +1435,7 @@
 			<ref bean="generalLedgerPendingEntryService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService"/>
+			<ref bean="kfs.parameterService"/>
 		</property>
 	</bean>
 
@@ -1443,14 +1443,14 @@
 	<bean id="nonInvoicedDistributionService"  parent="nonInvoicedDistributionService-parentBean"/>
 	<bean id="nonInvoicedDistributionService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.NonInvoicedDistributionServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService"/>
+			<ref bean="kfs.businessObjectService"/>
 		</property>
 	</bean>
 
     <bean id="customerAddressService"  parent="customerAddressService-parentBean"/>
     <bean id="customerAddressService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.CustomerAddressServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="sequenceAccessorService">
 			<ref bean="sequenceAccessorService" />
@@ -1463,7 +1463,7 @@
 	<bean id="paymentApplicationDocumentService"  parent="paymentApplicationDocumentService-parentBean"/>
 	<bean id="paymentApplicationDocumentService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.PaymentApplicationDocumentServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="nonAppliedHoldingService">
 			<ref bean="nonAppliedHoldingService" />
@@ -1490,7 +1490,7 @@
 			<ref bean="customerAddressService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="personService">
 			<ref bean="personService" />
@@ -1513,7 +1513,7 @@
 			<ref bean="dateTimeService" />
 		</property>
         <property name="businessObjectService">
-            <ref bean="businessObjectService" />
+            <ref bean="kfs.businessObjectService" />
         </property>
    		<property name="documentTypeService" ref="rice.kew.documentTypeService" />
 		<property name="invoicePaidAppliedService">
@@ -1533,7 +1533,7 @@
 			<ref bean="documentService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="glpeService" ref="generalLedgerPendingEntryService" />
 		<property name="optionsService">
@@ -1583,13 +1583,13 @@
 			<ref bean="lockboxInputFileType" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="reportsDirectory">
 			<value>${reports.directory}</value>
 		</property>
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="mailService" ref="mailService" />
 	</bean>
 
@@ -1750,7 +1750,7 @@
 			<ref bean="documentService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="orgService">
 			<ref bean="organizationService" />
@@ -1759,7 +1759,7 @@
 			<ref bean="systemInformationService" />
 		</property>
 		<property name="boService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
     <property name="batchInputFileTypes">
       <list>
@@ -1868,7 +1868,7 @@
 
 	<bean id="customerInvoiceDocumentBatchStep" class="org.kuali.kfs.module.ar.batch.CustomerInvoiceDocumentBatchStep" parent="step">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="customerAddressService">
 			<ref bean="customerAddressService" />
@@ -1921,7 +1921,7 @@
 			<ref bean="reportGenerationService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="customerCreditMemoReportInfo">
 			<ref bean="customerCreditMemoReportInfo" />
@@ -1969,7 +1969,7 @@
 			<ref bean="reportGenerationService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="customerInvoiceReportInfo">
 			<ref bean="customerInvoiceReportInfo" />
@@ -2067,10 +2067,10 @@
 			<ref bean="customerAddressService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
         <property name="universityDateService">
 			<ref bean="universityDateService" />
@@ -2181,7 +2181,7 @@
 			<ref bean="customerInvoiceDocumentService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />			
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="documentService">
 			<ref bean="documentService" />
@@ -2200,10 +2200,10 @@
 	<bean id="accountsReceivableTaxService"  parent="accountsReceivableTaxService-parentBean"/>
 	<bean id="accountsReceivableTaxService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.AccountsReceivableTaxServiceImpl" abstract="true">
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="customerAddressService">
 			<ref bean="customerAddressService" />
@@ -2213,10 +2213,10 @@
 	<bean id="invoiceRecurrenceDocumentService"  parent="invoiceRecurrenceDocumentService-parentBean"/>
 	<bean id="invoiceRecurrenceDocumentService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.InvoiceRecurrenceDocumentServiceImpl" abstract="true">
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="customerAddressService">
 			<ref bean="customerAddressService" />
@@ -2232,7 +2232,7 @@
     <bean id="accountsReceivableOrganizationDerivedRoleTypeService"  parent="accountsReceivableOrganizationDerivedRoleTypeService-parentBean"/>
     <bean id="accountsReceivableOrganizationDerivedRoleTypeService-parentBean" class="org.kuali.kfs.module.ar.identity.AccountsReceivableOrganizationDerivedRoleTypeServiceImpl" abstract="true">
       	<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="financialSystemUserService">
 			<ref bean="financialSystemUserService" />
@@ -2270,7 +2270,7 @@
 	<bean id="collectionActivityReportService" parent="collectionActivityReportService-parentBean" />
 	<bean id="collectionActivityReportService-parentBean" class="org.kuali.kfs.module.ar.report.service.impl.CollectionActivityReportServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="contractsAndGrantsModuleBillingService">
 			<ref bean="contractsAndGrantsModuleBillingService" />
@@ -2321,10 +2321,10 @@
 	
 	<bean id="customerNotificationService" parent="customerNotificationService-parentBean" />
 	<bean id="customerNotificationService-parentBean" abstract="true" class="org.kuali.kfs.module.ar.batch.service.impl.CustomerNotificationServiceImpl">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="customerInvoiceDocumentService" ref="customerInvoiceDocumentService" />
 		<property name="kfsNotificationService" ref="kfsNotificationService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 
 		<property name="agingReportTemplate" value="org/kuali/kfs/module/ar/report/email/agingReportTemplate.vm" />		
@@ -2432,7 +2432,7 @@
 	<bean id="dunningLetterService" parent="dunningLetterService-parentBean" />
 	<bean id="dunningLetterService-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.DunningLetterServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="contractsGrantsBillingUtilityService">
 			<ref bean="contractsGrantsBillingUtilityService" />
@@ -2456,7 +2456,7 @@
 			<ref bean="noteService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 	</bean>
 	
@@ -2565,25 +2565,25 @@
 	
 	<bean id="predeterminedBillingScheduleMaintenanceService" parent="predeterminedBillingScheduleMaintenanceService-parentBean"/>
 	<bean id="predeterminedBillingScheduleMaintenanceService-parentBean" abstract="true" class="org.kuali.kfs.module.ar.document.service.impl.PredeterminedBillingScheduleMaintenanceServiceImpl">
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 	    <property name="contractsGrantsInvoiceDocumentService" ref="contractsGrantsInvoiceDocumentService"/>
 	</bean>
 	
 	<bean id="milestoneScheduleMaintenanceService" parent="milestoneScheduleMaintenanceService-parentBean"/>
 	<bean id="milestoneScheduleMaintenanceService-parentBean" abstract="true" class="org.kuali.kfs.module.ar.document.service.impl.MilestoneScheduleMaintenanceServiceImpl">
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 	    <property name="contractsGrantsInvoiceDocumentService" ref="contractsGrantsInvoiceDocumentService"/>
 	</bean>
 	
 	<bean id="contractsGrantsBillingAwardVerificationService" parent="contractsGrantsBillingAwardVerificationService-parentBean"/>
 	<bean id="contractsGrantsBillingAwardVerificationService-parentBean" abstract="true" class="org.kuali.kfs.module.ar.document.service.impl.ContractsGrantsBillingAwardVerificationServiceImpl">
 		<property name="accountingPeriodService" ref="accountingPeriodService"/>
-	    <property name="businessObjectService" ref="businessObjectService"/>
+	    <property name="businessObjectService" ref="kfs.businessObjectService"/>
 	    <property name="customerService" ref="customerService"/>
 	    <property name="contractsGrantsInvoiceDocumentService" ref="contractsGrantsInvoiceDocumentService"/>
 	    <property name="financialSystemDocumentService" ref="financialSystemDocumentService"/>
 	    <property name="kualiModuleService" ref="kualiModuleService"/>
-	    <property name="parameterService" ref="parameterService"/>
+	    <property name="parameterService" ref="kfs.parameterService"/>
 	    <property name="verifyBillingFrequencyService" ref="verifyBillingFrequencyService"/>
 	    <property name="universityDateService" ref="universityDateService"/>
 	    <property name="optionsService" ref="optionsService" />
@@ -2595,7 +2595,7 @@
 	<bean id="costCategoryService" parent="costCategoryService-parentBean"/>
 	<bean id="costCategoryService-parentBean" abstract="true" class="org.kuali.kfs.module.ar.service.impl.CostCategoryServiceImpl">
 		<property name="costCategoryDao" ref="costCategoryDao"/>
-		<property name="businessObjectService" ref="businessObjectService"/>
+		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 	</bean>
 	
 	<import resource="document/validation/configuration/AccountsReceivableValidators.xml" />

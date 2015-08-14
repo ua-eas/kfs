@@ -186,7 +186,7 @@
 			<ref bean="sequenceAccessorService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="lookupResultsService">
 			<ref bean="lookupResultsService" />
@@ -206,7 +206,7 @@
 			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="businessObjectDictionaryService">
 			<ref bean="businessObjectDictionaryService" />
