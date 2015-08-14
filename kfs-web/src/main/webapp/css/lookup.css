@@ -147,7 +147,8 @@ div.excol {
     padding-top: 14px;
 }
 
-.search-results {
+.search-results table {
+    display: block;
     overflow-y: scroll;
 }
 
@@ -166,3 +167,61 @@ div.excol {
     font-weight: 700;
 }
 
+.paginator .pagelinks a {
+    color: #555555;
+    text-decoration: none;
+}
+
+.paginator .pagelinks span {
+    padding: 4px;
+}
+
+.paginator .pagelinks span.btn {
+    padding: 2px 12px 2px 12px;
+}
+
+.paginator .pagelinks span.btn>a {
+    border-bottom: none;
+}
+
+.paginator .pagelinks span>a {
+    border-bottom: 1px #979797 dotted;
+}
+
+.datatable-100 td.infocell {
+    color: #555555;
+}
+
+.datatable-100 td.infocell a {
+    color: #555555;
+    text-decoration: underline;
+}
+
+.datatable-100 thead th a {
+    color: #333333;
+}
+
+#row th,
+#row td {
+    border-top: 1px solid #E1E1E1;
+    border-left: 1px solid #E1E1E1;
+    padding: 4px;
+    font-size: 13px;
+}
+
+#row th:first-child,
+#row td:first-child {
+    border-left: none;
+}
+
+#row tr:last-child td {
+    border-bottom: 1px solid #E1E1E1;
+}
+
+tr.even {
+    background-color: rgba(202,202,202,0.2);
+}
+
+.exportlinks {
+    font-size: 15px;
+}
