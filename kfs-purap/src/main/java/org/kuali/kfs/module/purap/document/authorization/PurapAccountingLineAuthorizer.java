@@ -44,10 +44,10 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocu
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.datadictionary.TransactionalDocumentEntry;
+import org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
 import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.DocumentPresentationController;
+import org.kuali.kfs.krad.document.DocumentPresentationController;
 
 /**
  * Authorizer which deals with financial processing document issues, specifically sales tax lines on documents

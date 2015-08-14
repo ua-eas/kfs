@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.kuali.kfs.module.tem.document.authorization.TemProfileAuthorizerAssistant;
-import org.kuali.rice.kns.inquiry.InquiryAuthorizer;
+import org.kuali.kfs.kns.inquiry.InquiryAuthorizer;
 
 public class TemProfileInquiryAuthorizer extends TemProfileAuthorizerAssistant implements InquiryAuthorizer {
     /**

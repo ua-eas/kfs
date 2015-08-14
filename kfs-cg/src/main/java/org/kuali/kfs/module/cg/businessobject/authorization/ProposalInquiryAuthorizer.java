@@ -21,12 +21,12 @@ package org.kuali.kfs.module.cg.businessobject.authorization;
 import java.util.Set;
 
 import org.kuali.kfs.module.cg.CGPropertyConstants;
-import org.kuali.rice.kns.inquiry.InquiryAuthorizerBase;
+import org.kuali.kfs.kns.inquiry.InquiryAuthorizerBase;
 
 public class ProposalInquiryAuthorizer extends InquiryAuthorizerBase{
 
     /**
-     * @see org.kuali.rice.kns.inquiry.InquiryAuthorizerBase#getSecurePotentiallyHiddenSectionIds()
+     * @see org.kuali.kfs.kns.inquiry.InquiryAuthorizerBase#getSecurePotentiallyHiddenSectionIds()
      */
     @Override
     public Set<String> getSecurePotentiallyHiddenSectionIds() {

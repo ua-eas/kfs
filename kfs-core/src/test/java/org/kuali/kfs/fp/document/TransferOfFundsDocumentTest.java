@@ -39,9 +39,9 @@ import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.kfs.sys.monitor.ChangeMonitor;
-import org.kuali.rice.kew.actions.BlanketApproveAction;
+import org.kuali.kfs.kew.actions.BlanketApproveAction;
 import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentService;
 

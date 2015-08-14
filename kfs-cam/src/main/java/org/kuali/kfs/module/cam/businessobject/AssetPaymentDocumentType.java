@@ -110,7 +110,7 @@ public class AssetPaymentDocumentType extends PersistableBusinessObjectBase impl
             if ( StringUtils.isNotBlank(expenditureFinancialDocumentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(expenditureFinancialDocumentTypeCode);
                 if ( docType != null ) {
-                    financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
+                    financialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }

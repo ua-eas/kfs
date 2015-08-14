@@ -61,14 +61,14 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.rice.kns.web.ui.HeaderField;
+import org.kuali.kfs.kns.web.ui.HeaderField;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.exception.InfrastructureException;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.rice.krad.uif.field.LinkField;
-import org.kuali.rice.krad.util.NoteType;
+import org.kuali.kfs.krad.uif.field.LinkField;
+import org.kuali.kfs.krad.util.NoteType;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**

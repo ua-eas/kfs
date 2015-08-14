@@ -59,6 +59,7 @@ import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ExternalPurApItem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabKeyConstants;
 import org.kuali.kfs.module.cab.CabParameterConstants;
@@ -801,7 +802,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
-                org.kuali.rice.krad.datadictionary.BusinessObjectEntry boe = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(offendingClass.getSimpleName());
+                BusinessObjectEntry boe = (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry)dataDictionaryService.getDataDictionary().getBusinessObjectEntry(offendingClass.getSimpleName());
                 List<AttributeDefinition> offendingAttributes = boe.getAttributes();
                 AttributeDefinition offendingAttribute = offendingAttributes.get(0);
                 String fieldName = dataDictionaryService.getAttributeShortLabel(offendingClass, offendingAttribute.getName());

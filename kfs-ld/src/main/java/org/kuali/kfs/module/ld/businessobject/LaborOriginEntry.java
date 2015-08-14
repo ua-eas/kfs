@@ -693,7 +693,7 @@ public class LaborOriginEntry extends OriginEntryFull implements OriginEntryInfo
             if ( StringUtils.isNotBlank(referenceFinancialDocumentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(referenceFinancialDocumentTypeCode);
                 if ( docType != null ) {
-                    referenceFinancialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
+                    referenceFinancialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }

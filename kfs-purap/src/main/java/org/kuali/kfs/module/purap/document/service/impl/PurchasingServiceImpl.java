@@ -49,7 +49,7 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.service.impl.PersistenceServiceStructureImplBase;
+import org.kuali.kfs.krad.service.impl.PersistenceServiceStructureImplBase;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;

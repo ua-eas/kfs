@@ -20,8 +20,8 @@ package org.kuali.kfs.module.tem.document.web.struts;
 
 import static org.kuali.kfs.module.purap.SingleConfirmationQuestion.OK;
 import static org.kuali.kfs.sys.KFSConstants.QUESTION_CLICKED_BUTTON;
-import static org.kuali.rice.kns.question.ConfirmationQuestion.NO;
-import static org.kuali.rice.krad.util.ObjectUtils.isNull;
+import static org.kuali.kfs.kns.question.ConfirmationQuestion.NO;
+import static org.kuali.kfs.krad.util.ObjectUtils.isNull;
 
 import java.lang.reflect.Method;
 

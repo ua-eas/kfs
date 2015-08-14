@@ -120,9 +120,10 @@ public class TemProfileAddressLookupableHelperServiceImpl extends KualiLookupabl
             List<EntityAddressBo> addresses = (List<EntityAddressBo>) getLookupService().findCollectionBySearchHelper(EntityAddressBo.class, kimFieldsForLookup, false);
 
         	for (EntityAddressBo address : addresses) {
-        		TemProfileAddress temAddress = getTravelerService().convertToTemProfileAddressFromKimAddress(address);
-        		temAddress.setPrincipalId(fieldValues.get(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID));
-                searchResults.add(temAddress);
+				//TODO: Spaghetti fix
+//        		TemProfileAddress temAddress = getTravelerService().convertToTemProfileAddressFromKimAddress(address);
+//        		temAddress.setPrincipalId(fieldValues.get(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID));
+//                searchResults.add(temAddress);
             }
         }
 

@@ -40,9 +40,9 @@ import org.kuali.kfs.sys.suite.AnnotationTestSuite;
 import org.kuali.kfs.sys.suite.PreCommitSuite;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.kns.datadictionary.InquiryDefinition;
+import org.kuali.kfs.kns.datadictionary.InquiryDefinition;
 import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
-import org.kuali.rice.kns.datadictionary.LookupDefinition;
+import org.kuali.kfs.kns.datadictionary.LookupDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
@@ -146,7 +146,7 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
         List<Class<?>> notImplementInactivatableList = new ArrayList<Class<?>>();
         List<Class<?>> defaultValueWrongList = new ArrayList<Class<?>>();
 
-        for(org.kuali.rice.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry:dataDictionary.getBusinessObjectEntries().values()){
+        for(org.kuali.kfs.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry:dataDictionary.getBusinessObjectEntries().values()){
             BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) kradBusinessObjectEntry;
             if ( !businessObjectEntry.getBusinessObjectClass().getName().startsWith(RICE_PACKAGE_NAME_PREFIX)
                     && !INACTIVATEABLE_LOOKUP_IGNORE_CLASSES.contains(businessObjectEntry.getBusinessObjectClass().getName())
@@ -206,7 +206,7 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
 
     public void testAllBusinessObjectsHaveObjectLabel() throws Exception {
         List<Class<?>> noObjectLabelClassList = new ArrayList<Class<?>>();
-        for(org.kuali.rice.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry:dataDictionary.getBusinessObjectEntries().values()){
+        for(org.kuali.kfs.krad.datadictionary.BusinessObjectEntry kradBusinessObjectEntry:dataDictionary.getBusinessObjectEntries().values()){
             BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) kradBusinessObjectEntry;
             if (StringUtils.isBlank(businessObjectEntry.getObjectLabel())) {
                 noObjectLabelClassList.add(businessObjectEntry.getBusinessObjectClass());

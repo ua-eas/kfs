@@ -31,7 +31,7 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.impl.parameter.ParameterServiceImpl;
+import org.kuali.kfs.coreservice.impl.parameter.ParameterServiceImpl;
 
 public class RetirementInfoServiceTest extends KualiTestBase {
     private RetirementInfoServiceImpl retirementInfoService;

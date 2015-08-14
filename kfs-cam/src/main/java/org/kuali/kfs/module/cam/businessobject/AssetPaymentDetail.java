@@ -226,7 +226,7 @@ public class AssetPaymentDetail extends SourceAccountingLine {
             if ( StringUtils.isNotBlank(expenditureFinancialDocumentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(expenditureFinancialDocumentTypeCode);
                 if ( docType != null ) {
-                    expenditureFinancialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
+                    expenditureFinancialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }

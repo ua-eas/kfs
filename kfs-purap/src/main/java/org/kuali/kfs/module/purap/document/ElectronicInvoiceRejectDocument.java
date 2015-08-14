@@ -57,8 +57,8 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.kfs.krad.bo.Note;
-import org.kuali.rice.krad.document.SessionDocument;
-import org.kuali.rice.krad.util.NoteType;
+import org.kuali.kfs.krad.document.SessionDocument;
+import org.kuali.kfs.krad.util.NoteType;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactionalDocumentBase implements SessionDocument

@@ -119,7 +119,7 @@ import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
 import org.kuali.kfs.krad.bo.Note;
-import org.kuali.rice.krad.datadictionary.exception.UnknownDocumentTypeException;
+import org.kuali.kfs.krad.datadictionary.exception.UnknownDocumentTypeException;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.DocumentBase;
 import org.kuali.kfs.krad.exception.ValidationException;

@@ -107,7 +107,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
         // retrieve value from param table and set to default
         try {
             DataDictionaryService ddService = SpringContext.getBean(DataDictionaryService.class);
-            org.kuali.rice.krad.datadictionary.DocumentEntry docEntry = ddService.getDataDictionary().getDocumentEntry(ddService.getValidDocumentClassByTypeName(KFSConstants.FinancialDocumentTypeCodes.CASH_CONTROL).getCanonicalName());
+            org.kuali.kfs.krad.datadictionary.DocumentEntry docEntry = ddService.getDataDictionary().getDocumentEntry(ddService.getValidDocumentClassByTypeName(KFSConstants.FinancialDocumentTypeCodes.CASH_CONTROL).getCanonicalName());
             String documentTypeCode = docEntry.getDocumentTypeName();
             if (SpringContext.getBean(BankService.class).isBankSpecificationEnabled()) {
                 bankCode = SpringContext.getBean(ParameterService.class).getSubParameterValueAsString(Bank.class, KFSParameterKeyConstants.DEFAULT_BANK_BY_DOCUMENT_TYPE, documentTypeCode);

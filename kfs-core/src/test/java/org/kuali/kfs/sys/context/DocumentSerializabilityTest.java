@@ -54,15 +54,15 @@ public class DocumentSerializabilityTest extends KualiTestBase {
 
             Set<String> unserializableFields = null;
             Class<?> testedClass;
-            if (entry instanceof org.kuali.rice.kns.datadictionary.MaintenanceDocumentEntry) {
-                testedClass = ((org.kuali.rice.kns.datadictionary.MaintenanceDocumentEntry)entry).getMaintainableClass();
+            if (entry instanceof org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry) {
+                testedClass = ((org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry)entry).getMaintainableClass();
                 if ( testedClass == null ) {
                     errorMessage += "Maintenance Document entry: " + documentEntryName + " has a null maintainable class";
                 } else {
                     unserializableFields = getUnserializableFieldsFromClass(testedClass);
                 }
-            } else if (entry instanceof org.kuali.rice.kns.datadictionary.TransactionalDocumentEntry) {
-                testedClass = ((org.kuali.rice.kns.datadictionary.TransactionalDocumentEntry)entry).getDocumentClass();
+            } else if (entry instanceof org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry) {
+                testedClass = ((org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry)entry).getDocumentClass();
                 if ( testedClass == null ) {
                     errorMessage += "Transactional Document entry: " + documentEntryName + " has a null document class";
                 } else {

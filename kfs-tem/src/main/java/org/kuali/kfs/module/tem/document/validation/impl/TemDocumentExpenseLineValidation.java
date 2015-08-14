@@ -35,7 +35,7 @@ import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
 import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.MessageMap;

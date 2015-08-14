@@ -26,7 +26,7 @@ import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.module.tem.dataaccess.PerDiemDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.util.OjbCollectionAware;
+import org.kuali.kfs.krad.util.OjbCollectionAware;
 
 public class PerDiemDaoOjb extends PlatformAwareDaoBaseOjb implements PerDiemDao, OjbCollectionAware {
 
