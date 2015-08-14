@@ -134,7 +134,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="businessObjectService">
 			<ref bean="kfs.businessObjectService" />
@@ -308,7 +308,7 @@
     <bean id="assetLocationService"  parent="assetLocationService-parentBean"/>
     <bean id="assetLocationService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetLocationServiceImpl" abstract="true">
     	<property name="businessObjectService" ref="kfs.businessObjectService" />
-    	<property name="dataDictionaryService" ref="dataDictionaryService" />
+    	<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
     </bean>
 
     <bean id="assetPaymentDao" parent="platformAwareDao" class="org.kuali.kfs.module.cam.document.dataaccess.impl.AssetPaymentDaoOjb"/>
@@ -371,7 +371,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="kualiRuleService">
 			<ref bean="kualiRuleService" />

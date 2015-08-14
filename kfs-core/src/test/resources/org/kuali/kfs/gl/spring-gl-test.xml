@@ -199,7 +199,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="kualiModuleService">
-            <ref bean="kualiModuleService" />
+            <ref bean="kfs.kualiModuleService" />
         </property>
 		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
 		<property name="nightlyOutFileName" value="gl_glentry_kfs" />
@@ -219,7 +219,7 @@
 		<property name="originEntryGroupService">
 			<ref bean="originEntryGroupService" />
 		</property>
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="pendingEntryListReportWriterService" ref="mockReportWriterService" />
 		<property name="pendingEntrySummaryReportWriterService" ref="mockReportWriterService" />
 		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>

@@ -1088,7 +1088,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="laborLedgerPendingEntryService">
             <ref bean="laborLedgerPendingEntryService" />
@@ -1116,7 +1116,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="balanceService">
             <ref bean="laborLedgerBalanceService" />
@@ -1157,7 +1157,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="optionsService">
             <ref bean="optionsService" />
@@ -1189,7 +1189,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="optionsService">
             <ref bean="optionsService" />
@@ -1218,7 +1218,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
     </bean>
 
@@ -1246,7 +1246,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="laborInquiryOptionsService">
             <ref bean="laborInquiryOptionsService" />
@@ -1304,7 +1304,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="laborCalculatedSalaryFoundationTrackerService">
             <ref bean="laborCalculatedSalaryFoundationTrackerService" />
@@ -1329,7 +1329,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
     </bean>
 
@@ -1373,7 +1373,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="laborInquiryOptionsService">
             <ref bean="laborInquiryOptionsService" />
@@ -1412,7 +1412,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="laborBaseFundsService">
             <ref bean="laborBaseFundsService" />
@@ -1445,7 +1445,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="laborLedgerBalanceService">
             <ref bean="laborLedgerBalanceService" />
@@ -1529,7 +1529,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="laborDao">
             <ref bean="laborDao" />
@@ -1597,7 +1597,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
     </bean>
 
@@ -1963,7 +1963,7 @@
             <ref bean="businessObjectMetaDataService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
         <property name="parameterService">
             <ref bean="kfs.parameterService" />
@@ -1978,7 +1978,7 @@
         <property name="laborBenefitsCalculationService" ref="laborBenefitsCalculationService" />
         <property name="optionsService" ref="optionsService" />
         <property name="objectCodeService" ref="objectCodeService" />
-        <property name="dataDictionaryService" ref="dataDictionaryService" />
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="dateTimeService" ref="dateTimeService" />
         <property name="yearEndPendingEntryService" ref="yearEndPendingEntryService" />
     </bean>
@@ -1989,7 +1989,7 @@
             <ref bean="dateTimeService" />
         </property>
         <property name="kualiModuleService">
-            <ref bean="kualiModuleService" />
+            <ref bean="kfs.kualiModuleService" />
         </property>
         <property name="batchFileDirectoryName" value="${staging.directory}/ld/originEntry" />
         <property name="nightlyOutFileName" value="ld_labentry_kfs" />

@@ -161,7 +161,7 @@
 		class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentActualExpenseDetailLineValidation">
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="dictionaryValidationService" ref="dictionaryValidationService"/>
-		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 	</bean>
 	
 	<bean id="TravelModule-distributionAccountingLineValidation" parent="TravelModule-distributionAccountingLineValidation-parentBean"/>
@@ -273,7 +273,7 @@
 	<bean id="TravelDocument-actualExpenseDatesValidation" parent="TravelDocument-actualExpenseDatesValidation-parentBean"/>
 	<bean id="TravelDocument-actualExpenseDatesValidation-parentBean" class="org.kuali.kfs.module.tem.document.validation.impl.ActualExpenseDatesValidation" abstract="true">
 		<property name="dateTimeService" ref="dateTimeService"/>
-		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 	</bean>
 		
 	<!-- Travel Payment validations -->
@@ -297,7 +297,7 @@
 	<bean id="TravelPayment-specialHandlingStateCodeValidation" parent="TravelPayment-specialHandlingStateCodeValidation-parentBean" scope="prototype"/>
 	<bean id="TravelPayment-specialHandlingStateCodeValidation-parentBean" class="org.kuali.kfs.module.tem.document.validation.impl.TravelPaymentSpecialHandlingStateCodeValidation" abstract="true">
 		<property name="stateService" ref="stateService"/>
-		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 	</bean>
 	
 	<bean id="TravelPayment-specialHandlingValidation" parent="TravelPayment-specialHandlingValidation-parentBean" scope="prototype"/>

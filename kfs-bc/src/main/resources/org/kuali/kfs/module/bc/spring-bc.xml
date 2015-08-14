@@ -112,7 +112,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -257,7 +257,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 	</bean>
 	
@@ -284,7 +284,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 	</bean>
 
@@ -341,7 +341,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 	</bean>
 
@@ -367,7 +367,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
@@ -397,7 +397,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>		
 		<property name="laborModuleService">
 			<ref bean="laborModuleService" />
@@ -796,7 +796,7 @@
             <ref bean="documentService" />
         </property>
         <property name="kualiModuleService">
-            <ref bean="kualiModuleService" />
+            <ref bean="kfs.kualiModuleService" />
         </property>
         <property name="workflowDocumentService">
             <ref bean="rice.kew.workflowDocumentService" />
@@ -1111,7 +1111,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 	</bean>
 	

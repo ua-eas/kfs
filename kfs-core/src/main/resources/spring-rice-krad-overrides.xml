@@ -33,11 +33,11 @@
     <bean id="kualiInquirable" class="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl" scope="prototype" />
 
 <!-- KRAD -->
-	<bean id="kualiModuleService" class="org.kuali.kfs.sys.service.impl.KfsKualiModuleServiceImpl"/>
+	<bean id="kfs.kualiModuleService" class="org.kuali.kfs.sys.service.impl.KfsKualiModuleServiceImpl"/>
 
 	<bean id="documentHelperService" class="org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl" >
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 	</bean> 
 
@@ -51,9 +51,9 @@
     
     <bean id="businessObjectAuthorizationService" class="org.kuali.kfs.sys.service.impl.BusinessObjectAuthorizationServiceImpl"/>
 
-    <bean id="dataDictionaryService" class="org.kuali.kfs.sys.service.impl.DataDictionaryServiceImpl">
+    <bean id="kfs.dataDictionaryService" class="org.kuali.kfs.sys.service.impl.DataDictionaryServiceImpl">
         <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
-        <property name="kualiModuleService" ref="kualiModuleService"/>
+        <property name="kualiModuleService" ref="kfs.kualiModuleService"/>
         <property name="baselinePackages">
             <list>
                 <value>classpath:org/kuali/rice/krad/bo/datadictionary/DataDictionaryBaseTypes.xml</value>

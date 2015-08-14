@@ -171,7 +171,7 @@
 			<ref bean="businessObjectDictionaryService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="encryptionService">
 			<ref bean="encryptionService" />
@@ -203,7 +203,7 @@
 			<ref bean="maintenanceDocumentDictionaryService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="businessObjectService">
 			<ref bean="kfs.businessObjectService" />

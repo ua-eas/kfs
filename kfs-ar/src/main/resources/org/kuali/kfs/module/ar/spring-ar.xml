@@ -164,7 +164,7 @@
 			<ref bean="financialSystemUserService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -186,7 +186,7 @@
       <ref bean="kualiConfigurationService" />
     </property>
     <property name="kualiModuleService">
-      <ref bean="kualiModuleService" />
+      <ref bean="kfs.kualiModuleService" />
     </property>
     <property name="parameterService">
       <ref bean="kfs.parameterService" />
@@ -213,7 +213,7 @@
 	<bean id="dunningLetterTemplateLookupableHelperService" class="org.kuali.kfs.module.ar.businessobject.lookup.DunningLetterTemplateLookupableHelperServiceImpl"
 		scope="prototype" parent="lookupableHelperService">
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="dunningLetterService">
 			<ref bean="dunningLetterService"/>
@@ -229,7 +229,7 @@
 	<bean id="invoiceTemplateLookupableHelperService" class="org.kuali.kfs.module.ar.businessobject.lookup.InvoiceTemplateLookupableHelperServiceImpl"
 		scope="prototype" parent="lookupableHelperService">
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="financialSystemUserService">
 			<ref bean="financialSystemUserService"/>
@@ -303,7 +303,7 @@
 			<ref bean="financialSystemDocumentService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -346,13 +346,13 @@
 	<bean id="arEmailService-parentBean" class="org.kuali.kfs.module.ar.service.impl.AREmailServiceImpl" abstract="true">
 		<property name="mailService" ref="attachmentMailService" />
 		<property name="parameterService" ref="kfs.parameterService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="kualiConfigurationService" ref="kualiConfigurationService" />
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="documentService" ref="documentService" />
 		<property name="noteService" ref="noteService" />
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="contractsGrantsBillingUtilityService">
 			<ref bean="contractsGrantsBillingUtilityService" />
@@ -440,7 +440,7 @@
 			<ref bean="identityService"/>
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="kualiRuleService">
 			<ref bean="kualiRuleService" />
@@ -709,7 +709,7 @@
 			<ref bean="generalLedgerPendingEntryService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -781,7 +781,7 @@
 			<ref bean="contractsGrantsReportHelperService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -832,7 +832,7 @@
 	<bean id="contractsGrantsInvoiceReportService" parent="contractsGrantsInvoiceReportService-parentBean"/>
 	<bean id="contractsGrantsInvoiceReportService-parentBean" class="org.kuali.kfs.module.ar.report.service.impl.ContractsGrantsInvoiceReportServiceImpl" abstract="true">
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -850,7 +850,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="documentService">
 			<ref bean="documentService" />
@@ -1122,13 +1122,13 @@
 			<ref bean="customerService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="documentService">
 			<ref bean="documentService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="maintenanceDocumentDictionaryService">
 			<ref bean="maintenanceDocumentDictionaryService" />
@@ -1177,7 +1177,7 @@
 			<ref bean="documentService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -1520,7 +1520,7 @@
 			<ref bean="invoicePaidAppliedService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 	</bean>
 	
@@ -1543,7 +1543,7 @@
 			<ref bean="systemInformationService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="chartService">
 			<ref bean="chartService" />
@@ -1697,7 +1697,7 @@
 	<bean id="cashControlElectronicPaymentClaimingDocumentHelper" parent="cashControlElectronicPaymentClaimingDocumentHelper-parentBean" />
 	<bean id="cashControlElectronicPaymentClaimingDocumentHelper-parentBean" class="org.kuali.kfs.module.ar.document.service.impl.CashControlElectronicPaymentClaimingHelperImpl" abstract="true">
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="documentService">
 			<ref bean="documentService" />
@@ -2334,7 +2334,7 @@
 	<bean id="fundsManagerDerivedRoleTypeService" parent="fundsManagerDerivedRoleTypeService-parentBean" />
 	<bean id="fundsManagerDerivedRoleTypeService-parentBean" class="org.kuali.kfs.module.ar.identity.FundsManagerDerivedRoleTypeServiceImpl" abstract="true">
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>		
 	</bean>
 	
@@ -2357,7 +2357,7 @@
 			<ref bean="customerCreditMemoDocumentService"/>
 		</property>
 		<property name="moduleService">
-			<ref bean="kualiModuleService"/>
+			<ref bean="kfs.kualiModuleService"/>
 		</property>
 	</bean>
 
@@ -2409,7 +2409,7 @@
 			<ref bean="dateTimeService" />
 		</property>	
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>		
 	</bean>
 	
@@ -2450,7 +2450,7 @@
 			<ref bean="financialSystemUserService"/>
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="noteService">
 			<ref bean="noteService" />
@@ -2490,7 +2490,7 @@
 	
 	<bean id="contractsGrantsReportHelperService" parent="contractsGrantsReportHelperService-parentBean"/>
 	<bean id="contractsGrantsReportHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.ar.report.service.impl.ContractsGrantsReportHelperServiceImpl">
-		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 		<property name="reportGenerationService" ref="reportGenerationService"/>
 		<property name="configurationService" ref="configurationService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
@@ -2559,7 +2559,7 @@
 		<property name="contractsGrantsInvoiceCreateDocumentService" ref="contractsGrantsInvoiceCreateDocumentService"/>
 	    <property name="contractsGrantsInvoiceDocumentService" ref="contractsGrantsInvoiceDocumentService"/>
 	    <property name="contractsAndGrantsModuleBillingService" ref="contractsAndGrantsModuleBillingService"/>
-	    <property name="kualiModuleService" ref="kualiModuleService"/>
+	    <property name="kualiModuleService" ref="kfs.kualiModuleService"/>
 	    <property name="optionsService" ref="optionsService" />
 	</bean>
 	
@@ -2582,7 +2582,7 @@
 	    <property name="customerService" ref="customerService"/>
 	    <property name="contractsGrantsInvoiceDocumentService" ref="contractsGrantsInvoiceDocumentService"/>
 	    <property name="financialSystemDocumentService" ref="financialSystemDocumentService"/>
-	    <property name="kualiModuleService" ref="kualiModuleService"/>
+	    <property name="kualiModuleService" ref="kfs.kualiModuleService"/>
 	    <property name="parameterService" ref="kfs.parameterService"/>
 	    <property name="verifyBillingFrequencyService" ref="verifyBillingFrequencyService"/>
 	    <property name="universityDateService" ref="universityDateService"/>

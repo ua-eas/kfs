@@ -88,7 +88,7 @@
 
     <bean id="accessSecurityService" parent="accessSecurityService-parentBean"/>	
 	<bean id="accessSecurityService-parentBean" class="org.kuali.kfs.sec.service.impl.AccessSecurityServiceImpl" abstract="true">
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="configurationService" ref="configurationService" />
 		<property name="contractsAndGrantsModuleService" ref="contractsAndGrantsModuleService" />

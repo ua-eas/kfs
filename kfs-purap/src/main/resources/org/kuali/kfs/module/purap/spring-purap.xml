@@ -153,7 +153,7 @@
         <property name="purapRunDateService" ref="purapRunDateService" />
         <property name="paymentFileEmailService" ref="pdpEmailService" />
         <property name="bankService" ref="bankService" />
-        <property name="dataDictionaryService" ref="dataDictionaryService" />
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="purapAccountingService" ref="purapAccountingService" />
         <property name="lockedDocuments">
         	<list>
@@ -182,7 +182,7 @@
 
     <bean id="purapService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.PurapServiceImpl" abstract="true">
         <property name="businessObjectService" ref="kfs.businessObjectService"/>
-        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="documentService" ref="documentService"/>
         <property name="noteService" ref="noteService"/>
@@ -268,7 +268,7 @@
         <property name="purapWorkflowIntegrationService" ref="purapWorkflowIntegrationService" />
         <property name="workflowDocumentService" ref="workflowDocumentService" />
         <property name="vendorService" ref="vendorService" />
-        <property name="dataDictionaryService" ref="dataDictionaryService" />
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="universityDateService" ref="universityDateService"/>
         <property name="bankService" ref="bankService" />
         <property name="purchaseOrderService" ref="purchaseOrderService" />
@@ -283,7 +283,7 @@
 	<bean id="creditMemoService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.CreditMemoServiceImpl" abstract="true">
         <property name="accountsPayableService" ref="accountsPayableService" />
 		<property name="creditMemoDao" ref="creditMemoDao" />
-        <property name="dataDictionaryService" ref="dataDictionaryService" />
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="documentService" ref="documentService" />
         <property name="configurationService" ref="kualiConfigurationService" />
         <property name="noteService" ref="noteService" />
@@ -334,7 +334,7 @@
         <property name="parameterService" ref="kfs.parameterService" />
         <property name="mailService" ref="mailService" />
         <property name="printService" ref="printService" />
-        <property name="dataDictionaryService" ref="dataDictionaryService" />
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="financialSystemDocumentService" ref="financialSystemDocumentService" />
 	</bean>
     <bean id="negativePaymentRequestApprovalLimitService" parent="negativePaymentRequestApprovalLimitService-parentBean"/>
