@@ -122,7 +122,7 @@
  
     <bean id="cgModuleService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.KcKfsModuleServiceImpl" abstract="true">
 		<property name="moduleConfiguration" ref="cgModuleConfiguration" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
     	<property name="configurationService" ref="kualiConfigurationService" />
 	</bean>
 	
@@ -138,7 +138,7 @@
     <bean id="accountCreationService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AccountCreationServiceImpl" abstract="true">
         <property name="documentService" ref="documentService" />
         <property name="parameterService" ref="kfs.parameterService" />
-        <property name="dataDictionaryService" ref="dataDictionaryService" />
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="businessObjectService" ref="kfs.businessObjectService" />
         <property name="accountDefaultsService" ref="accountDefaultsService"/>
         <property name="kualiRuleService" ref="kualiRuleService"/>
@@ -152,7 +152,7 @@
     <bean id="budgetAdjustmentService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.BudgetAdjustmentServiceImpl" abstract="true">
         <property name="documentService" ref="documentService" />
         <property name="parameterService" ref="kfs.parameterService" />
-        <property name="dataDictionaryService" ref="dataDictionaryService" />
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="businessObjectService" ref="kfs.businessObjectService" />
         <property name="accountCreationService" ref="accountCreationService" />
         <property name="objectCodeService" ref="objectCodeService" />

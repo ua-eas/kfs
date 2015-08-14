@@ -112,7 +112,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="balanceService">
 			<ref bean="glBalanceService" />
@@ -147,7 +147,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="postEncumbrance">
 			<ref bean="glPostEncumbrance" />
@@ -182,7 +182,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="balanceService">
 			<ref bean="glBalanceService" />
@@ -217,7 +217,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -249,7 +249,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="scrubberValidator">
 			<ref bean="scrubberValidator" />
@@ -281,7 +281,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -319,7 +319,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -348,7 +348,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -377,7 +377,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService" />
+			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -596,7 +596,7 @@
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="offsetDefinitionService" ref="offsetDefinitionService" />
 		<property name="objectCodeService" ref="objectCodeService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="flexibleOffsetAccountService" ref="flexibleOffsetAccountService" />
 		<property name="a21SubAccountService" ref="a21SubAccountService" />
 		<property name="subObjectCodeService" ref="subObjectCodeService" />
@@ -811,7 +811,7 @@
 			<ref bean="offsetDefinitionService"/>
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="dataDictionaryService"/>
+			<ref bean="kfs.dataDictionaryService"/>
 		</property>
 		<property name="businessObjectService">
 			<ref bean="kfs.businessObjectService"/>
@@ -1044,7 +1044,7 @@
 		<property name="originEntryGroupService">
 			<ref bean="originEntryGroupService" />
 		</property>
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="pendingEntryListReportWriterService" ref="generalLegerPendingEntryListReportWriterService" />
 		<property name="pendingEntrySummaryReportWriterService" ref="generalLegerPendingEntryLedgerReportWriterService" />
 		<property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>

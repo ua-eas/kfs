@@ -247,7 +247,7 @@
 	<bean id="travelerLookupableHelperService" parent="travelerLookupableHelperService-parentBean" scope="prototype" />
 	<bean id="travelerLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TravelerLookupableHelperServiceImpl">
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="personService" ref="personService" />
 		<property name="travelerService" ref="travelerService" />
@@ -351,7 +351,7 @@
     <property name="offsetDefinitionService" ref="offsetDefinitionService"/>
     <property name="optionsService" ref="optionsService"/>
     <property name="noteService" ref="noteService"/>
-    <property name="dataDictionaryService" ref="dataDictionaryService" />
+    <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="propertyChangeListeners">
 			<list>
 				<ref bean="TravelDocument-addActualExpenseListener" />
@@ -518,7 +518,7 @@
 	<bean id="travelDocumentService-parentBean" class="org.kuali.kfs.module.tem.document.service.impl.TravelDocumentServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="documentService" ref="documentService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="travelDocumentDao" ref="travelDocumentDao" />
 		<property name="travelAuthorizationService" ref="temTravelAuthorizationService" />
@@ -580,7 +580,7 @@
 		<property name="temProfileService" ref="temProfileService" />
         <property name="travelDocumentService" ref="travelDocumentService" />
         <property name="documentDao" ref="documentDao" />
-        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
         <property name="travelAuthorizationDao" ref="travelAuthorizationDao" />
         <property name="identityService" ref="identityService"/>
         <property name="noteService" ref="noteService"/>
@@ -799,7 +799,7 @@
 	<bean id="importedCTSExpenseService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.service.impl.ImportedCTSExpenseServiceImpl" >		
         <property name="importedExpensePendingEntryService" ref="importedExpensePendingEntryService" />
         <property name="travelExpenseService" ref="travelExpenseService"/>
-        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
     </bean>
 
 	<bean id="importedCorporateCardExpenseService" parent="importedCorporateCardExpenseService-parentBean" />
@@ -1104,7 +1104,7 @@
       <property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService" />
       <property name="travelDocumentService" ref="travelDocumentService" />
       <property name="objectCodeService" ref="objectCodeService" />
-      <property name="dataDictionaryService" ref="dataDictionaryService" />
+      <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
     </bean>
 	<!-- End Agency Upload configuration -->
 
@@ -1273,7 +1273,7 @@
 	<bean id="ReturnToFiscalOfficer-parentBean" abstract="true" class="org.kuali.kfs.module.tem.document.web.struts.ReturnToFiscalOfficerQuestionHandler">		
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="travelDocumentService" ref="travelDocumentService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 	</bean>
 
 	<bean id="AmendmentTa" parent="AmendmentTa-parentBean" />
@@ -1282,7 +1282,7 @@
 		<property name="travelService" ref="temTravelService" />
         <property name="travelDocumentService" ref="travelDocumentService" />
 		<property name="documentDao" ref="documentDao" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="accountingDocumentRelationshipService" ref="temAccountingDocumentRelationshipService" />
 		<property name="noteService" ref="noteService"/>
 		<property name="travelExpenseService" ref="travelExpenseService"/>
@@ -1293,7 +1293,7 @@
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="travelDocumentService" ref="travelDocumentService" />
 		<property name="documentDao" ref="documentDao" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="noteService" ref="noteService"/>
 	</bean>
 
@@ -1302,14 +1302,14 @@
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="travelDocumentService" ref="travelDocumentService" />
 		<property name="documentDao" ref="documentDao" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="noteService" ref="noteService"/>
 	</bean>
 
 	<bean id="CloseTa" parent="CloseTa-parentBean" />
 	<bean id="CloseTa-parentBean" abstract="true" class="org.kuali.kfs.module.tem.document.web.struts.CloseQuestionHandler">		
         <property name="travelAuthorizationService" ref="temTravelAuthorizationService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 	</bean>
 	
 	<bean id="CancelTa" parent="CancelTa-parentBean" />
@@ -1318,7 +1318,7 @@
 		<property name="documentService" ref="documentService"/>
 		<property name="travelEncumbranceService" ref="travelEncumbranceService"/>
 		<property name="configurationService" ref="kualiConfigurationService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 	</bean>
     
     <bean id="temExecutiveManagerRoleTypeService" parent="temExecutiveManagerRoleTypeService-parentBean" />

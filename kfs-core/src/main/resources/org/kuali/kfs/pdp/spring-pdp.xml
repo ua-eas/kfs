@@ -385,7 +385,7 @@
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="configurationService" ref="kualiConfigurationService"/>
 		<property name="countryService" ref="countryService"/>		
-        <property name="dataDictionaryService" ref="dataDictionaryService"/>		
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 	</bean>
 	
     <bean id="pdpExtractGlTransactionService" parent="pdpExtractGlTransactionService-parentBean"/>
@@ -447,7 +447,7 @@
 		<property name="dateTimeService" ref="dateTimeService"/>
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="bankService" ref="bankService"/>
-        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
         <property name="researchParticipantPaymentValidationService" ref="researchParticipantPaymentValidationService"/>		
 		<property name="pdpUtilService" ref="pdpUtilService"/>
@@ -482,7 +482,7 @@
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
 		<property name="mailService" ref="mailService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="achBankService" ref="pdpAchBankService" />
 	</bean>
@@ -502,7 +502,7 @@
 		<property name="bankService" ref="bankService" />
 		<property name="originationCodeService" ref="originationCodeService" />
 		<property name="documentTypeService" ref="rice.kew.documentTypeService" />
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 	</bean>
 	
 	<bean id="paymentInputFileType" parent="paymentInputFileType-parentBean"/>
@@ -534,7 +534,7 @@
 	<bean id="pdpPaymentGroupService-parentBean" class="org.kuali.kfs.pdp.service.impl.PaymentGroupServiceImpl" abstract="true">
 		<property name="paymentGroupDao" ref="pdpPaymentGroupDao"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
-		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
     <bean id="pdpPaymentMaintenanceService" parent="pdpPaymentMaintenanceService-parentBean"/>
@@ -655,7 +655,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="dataDictionaryService" />
+            <ref bean="kfs.dataDictionaryService" />
         </property>
 	</bean>
     <bean id="paymentProcessLookupable" parent="paymentProcessLookupable-parentBean"/>
