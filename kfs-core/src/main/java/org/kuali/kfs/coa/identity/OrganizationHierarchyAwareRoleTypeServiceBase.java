@@ -131,11 +131,13 @@ public abstract class OrganizationHierarchyAwareRoleTypeServiceBase extends Role
     public List<DelegateMember> doDelegationQualifiersMatchQualification(Map<String,String> qualification, List<DelegateMemberBo> delegationMemberList) {
         Map<String,String> translatedQualification = translateInputAttributes(qualification);
         List<DelegateMember> matchingMemberships = new ArrayList<DelegateMember>();
-        for (DelegateMemberBo dmi : delegationMemberList) {
-             if (performMatch(translatedQualification, dmi.getQualifier())) {
-                matchingMemberships.add(DelegateMemberBo.to(dmi));
-            }
-        }
+        //TODO: Spaghetti fix
+
+//        for (DelegateMemberBo dmi : delegationMemberList) {
+//             if (performMatch(translatedQualification, dmi.getQualifier())) {
+//                matchingMemberships.add(DelegateMemberBo.to(dmi));
+//            }
+//        }
         return matchingMemberships;
     }
 

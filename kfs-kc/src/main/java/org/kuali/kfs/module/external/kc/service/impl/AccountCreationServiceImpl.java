@@ -45,10 +45,10 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.datadictionary.validation.charlevel.AlphaNumericValidationPattern;
+import org.kuali.kfs.kns.datadictionary.validation.charlevel.AlphaNumericValidationPattern;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentAuthorizerBase;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.krad.UserSession;
@@ -566,7 +566,7 @@ public class AccountCreationServiceImpl implements AccountCreationService {
         int fieldSize = -1;
 
         //grab account number length from DD and set size
-        final org.kuali.rice.krad.datadictionary.BusinessObjectEntry entry = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(Account.class.getName());
+        final org.kuali.kfs.krad.datadictionary.BusinessObjectEntry entry = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(Account.class.getName());
         AttributeDefinition attributeDefinition = entry.getAttributeDefinition(KFSPropertyConstants.ACCOUNT_NUMBER);
 
         if(ObjectUtils.isNotNull(attributeDefinition)){

@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocume
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.kns.datadictionary.MaintainableCollectionDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
@@ -279,7 +279,7 @@ public class AssetGlobalPresentationController extends FinancialSystemMaintenanc
 
     // CSU 6702 BEGIN
     /**
-     * @see org.kuali.rice.kns.document.authorization.DocumentPresentationControllerBase#getDocumentActions(org.kuali.rice.kns.document.Document)
+     * @see org.kuali.kfs.kns.document.authorization.DocumentPresentationControllerBase#getDocumentActions(org.kuali.kfs.kns.document.Document)
      */
     @Override
     public Set<String> getDocumentActions(Document document) {

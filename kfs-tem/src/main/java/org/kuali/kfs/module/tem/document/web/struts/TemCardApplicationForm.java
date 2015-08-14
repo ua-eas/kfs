@@ -36,7 +36,7 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.rice.kns.web.ui.HeaderField;
+import org.kuali.kfs.kns.web.ui.HeaderField;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;

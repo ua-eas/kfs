@@ -47,10 +47,10 @@ import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.rice.krad.service.XmlObjectSerializerService;
-import org.kuali.rice.krad.workflow.DocumentInitiator;
-import org.kuali.rice.krad.workflow.KualiDocumentXmlMaterializer;
-import org.kuali.rice.krad.workflow.KualiTransactionalDocumentInformation;
+import org.kuali.kfs.krad.service.XmlObjectSerializerService;
+import org.kuali.kfs.krad.workflow.DocumentInitiator;
+import org.kuali.kfs.krad.workflow.KualiDocumentXmlMaterializer;
+import org.kuali.kfs.krad.workflow.KualiTransactionalDocumentInformation;
 
 
 @ConfigureContext(session = khuntley)

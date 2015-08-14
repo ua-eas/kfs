@@ -236,7 +236,7 @@ public class AssetPaymentServiceTest extends KualiTestBase {
     }
 
     public DocumentHeader getDocumentHeader() throws Exception {
-        WorkflowDocument workflowDocument = SpringContext.getBean(org.kuali.rice.krad.workflow.service.WorkflowDocumentService.class).createWorkflowDocument(SpringContext.getBean(DataDictionaryService.class).getDocumentTypeNameByClass(AssetPaymentDocument.class), GlobalVariables.getUserSession().getPerson());
+        WorkflowDocument workflowDocument = SpringContext.getBean(org.kuali.kfs.krad.workflow.service.WorkflowDocumentService.class).createWorkflowDocument(SpringContext.getBean(DataDictionaryService.class).getDocumentTypeNameByClass(AssetPaymentDocument.class), GlobalVariables.getUserSession().getPerson());
         FinancialSystemDocumentHeader documentHeader = new FinancialSystemDocumentHeader();
         documentHeader.setWorkflowDocument(workflowDocument);
         documentHeader.setDocumentNumber(workflowDocument.getDocumentId());

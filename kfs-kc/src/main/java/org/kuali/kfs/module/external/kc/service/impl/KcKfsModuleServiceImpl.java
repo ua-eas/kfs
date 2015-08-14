@@ -75,12 +75,12 @@ public class KcKfsModuleServiceImpl  extends KfsModuleServiceImpl  {
     /**
      * Gets primary key fields from the Datadictionary entries for the object.
      *
-     * @see org.kuali.rice.krad.service.impl.ModuleServiceBase#listPrimaryKeyFieldNames(java.lang.Class)
+     * @see org.kuali.kfs.krad.service.impl.ModuleServiceBase#listPrimaryKeyFieldNames(java.lang.Class)
      */
     @Override
     public List listPrimaryKeyFieldNames(Class businessObjectInterfaceClass) {
         Class clazz = getExternalizableBusinessObjectImplementation(businessObjectInterfaceClass);
-        final org.kuali.rice.krad.datadictionary.BusinessObjectEntry boEntry = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(clazz.getName());
+        final org.kuali.kfs.krad.datadictionary.BusinessObjectEntry boEntry = dataDictionaryService.getDataDictionary().getBusinessObjectEntry(clazz.getName());
         if (boEntry == null) {
             return null;
         }
@@ -90,7 +90,7 @@ public class KcKfsModuleServiceImpl  extends KfsModuleServiceImpl  {
     /**
      * Changing the base url to KC url
      *
-     * @see org.kuali.rice.krad.service.impl.ModuleServiceBase#getInquiryUrl(java.lang.Class)
+     * @see org.kuali.kfs.krad.service.impl.ModuleServiceBase#getInquiryUrl(java.lang.Class)
      */
     @Override
     protected String getInquiryUrl(Class inquiryBusinessObjectClass){
@@ -105,7 +105,7 @@ public class KcKfsModuleServiceImpl  extends KfsModuleServiceImpl  {
     /**
      * Mapping the kfs classes and parameters over to KC equivalents
      *
-     * @see org.kuali.rice.krad.service.impl.ModuleServiceBase#getUrlParameters(java.lang.String, java.util.Map)
+     * @see org.kuali.kfs.krad.service.impl.ModuleServiceBase#getUrlParameters(java.lang.String, java.util.Map)
      */
     @Override
     protected Properties getUrlParameters(String businessObjectClassAttribute, Map<String, String[]> parameters){

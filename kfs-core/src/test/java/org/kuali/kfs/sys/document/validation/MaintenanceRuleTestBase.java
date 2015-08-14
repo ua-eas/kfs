@@ -28,7 +28,7 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.KualiMaintainableImpl;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.kns.rules.MaintenanceDocumentRule;
+import org.kuali.kfs.kns.rules.MaintenanceDocumentRule;
 import org.kuali.kfs.kns.service.DictionaryValidationService;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;

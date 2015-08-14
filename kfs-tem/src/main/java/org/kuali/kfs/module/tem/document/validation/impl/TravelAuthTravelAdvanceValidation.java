@@ -53,7 +53,7 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
 import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
 import org.kuali.kfs.krad.document.DocumentAuthorizer;
-import org.kuali.rice.krad.document.DocumentPresentationController;
+import org.kuali.kfs.krad.document.DocumentPresentationController;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;

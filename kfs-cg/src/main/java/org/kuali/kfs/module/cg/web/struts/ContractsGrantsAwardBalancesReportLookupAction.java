@@ -59,7 +59,7 @@ import org.springframework.util.StringUtils;
 public class ContractsGrantsAwardBalancesReportLookupAction extends KualiLookupAction {
 
     /**
-     * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#execute(org.apache.struts.action.ActionMapping,
+     * @see org.kuali.kfs.kns.web.struts.action.KualiLookupAction#execute(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -82,7 +82,7 @@ public class ContractsGrantsAwardBalancesReportLookupAction extends KualiLookupA
      * @return
      */
     protected String getFieldNameForSorting(int index, String businessObjectName) {
-        org.kuali.rice.kns.datadictionary.BusinessObjectEntry boe = (org.kuali.rice.kns.datadictionary.BusinessObjectEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(businessObjectName);
+        org.kuali.kfs.kns.datadictionary.BusinessObjectEntry boe = (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(businessObjectName);
         List<String> lookupResultFields = boe.getLookupDefinition().getResultFieldNames();
         return lookupResultFields.get(index);
     }

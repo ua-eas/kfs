@@ -52,7 +52,7 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.rice.kns.web.ui.HeaderField;
+import org.kuali.kfs.kns.web.ui.HeaderField;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.ObjectUtils;

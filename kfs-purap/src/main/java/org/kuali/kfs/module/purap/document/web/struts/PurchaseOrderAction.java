@@ -86,7 +86,7 @@ import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.DictionaryValidationService;
 import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.struts.form.BlankFormFile;
+import org.kuali.kfs.kns.web.struts.form.BlankFormFile;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.exception.ValidationException;
@@ -107,7 +107,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchaseOrderAction.class);
 
     /**
-     * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
+     * @see org.kuali.kfs.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override

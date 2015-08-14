@@ -43,7 +43,7 @@ public class DictionaryPrimaryKeyTest extends KualiTestBase {
 
         for (BusinessObjectEntry boEntry : ddService.getDataDictionary().getBusinessObjectEntries().values()) {
             final Class<?> boClazz = boEntry.getBusinessObjectClass();
-            if (boClazz.getName().contains(appName) && ((org.kuali.rice.kns.datadictionary.BusinessObjectEntry)boEntry).getLookupDefinition() != null && persistenceStructureService.isPersistable(boClazz)) {
+            if (boClazz.getName().contains(appName) && ((org.kuali.kfs.kns.datadictionary.BusinessObjectEntry)boEntry).getLookupDefinition() != null && persistenceStructureService.isPersistable(boClazz)) {
                 List pkFieldNames = persistenceStructureService.getPrimaryKeys(boClazz);
                 for (Object pkFieldNameAsObject : pkFieldNames) {
                     final String pkFieldName = (String)pkFieldNameAsObject;

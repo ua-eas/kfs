@@ -38,7 +38,7 @@ import org.kuali.kfs.module.bc.document.validation.SaveMonthlyBudgetRule;
 import org.kuali.kfs.module.bc.document.validation.event.BudgetExpansionEvent;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.rules.rule.BusinessRule;
-import org.kuali.rice.krad.rules.rule.SaveDocumentRule;
+import org.kuali.kfs.krad.rules.rule.SaveDocumentRule;
 
 /**
  * Base rule class for Budget Construction. Handles calling other expansion rule classes and the core budget document rules.

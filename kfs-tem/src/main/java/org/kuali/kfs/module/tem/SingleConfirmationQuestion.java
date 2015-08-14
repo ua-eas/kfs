@@ -20,7 +20,7 @@ package org.kuali.kfs.module.tem;
 
 import java.util.ArrayList;
 
-import org.kuali.rice.kns.question.QuestionBase;
+import org.kuali.kfs.kns.question.QuestionBase;
 
 public class SingleConfirmationQuestion extends QuestionBase {
     public static final String OK = "0";

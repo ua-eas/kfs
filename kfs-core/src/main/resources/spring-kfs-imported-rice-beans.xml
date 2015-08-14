@@ -25,7 +25,7 @@
 
 
 	<!-- parent bean to make the definitions below easier to read -->
-	<bean id="grlBeanImporter" abstract="true" class="org.kuali.rice.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true" />
+	<bean id="grlBeanImporter" abstract="true" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true" />
 
  	<bean id="dataSource" p:serviceName="kradApplicationDataSource" parent="grlBeanImporter" />
 	<!-- These are beans we need to export from Rice -->

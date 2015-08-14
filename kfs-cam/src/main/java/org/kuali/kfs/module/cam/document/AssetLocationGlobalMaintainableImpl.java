@@ -35,7 +35,7 @@ import org.kuali.kfs.module.cam.businessobject.AssetLocationGlobalDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.KualiGlobalMaintainableImpl;
+import org.kuali.kfs.kns.maintenance.KualiGlobalMaintainableImpl;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;

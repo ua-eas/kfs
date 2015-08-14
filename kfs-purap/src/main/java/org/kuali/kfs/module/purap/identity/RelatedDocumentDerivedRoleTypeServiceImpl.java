@@ -29,7 +29,7 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kew.role.service.impl.RouteLogDerivedRoleTypeServiceImpl;
+import org.kuali.kfs.kew.role.service.impl.RouteLogDerivedRoleTypeServiceImpl;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.role.RoleMembership.Builder;

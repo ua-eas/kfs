@@ -72,7 +72,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.kns.question.ConfirmationQuestion;
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.rice.kns.web.struts.form.BlankFormFile;
+import org.kuali.kfs.kns.web.struts.form.BlankFormFile;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.krad.bo.Note;

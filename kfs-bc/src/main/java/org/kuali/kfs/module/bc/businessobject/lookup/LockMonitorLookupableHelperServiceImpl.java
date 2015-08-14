@@ -40,7 +40,7 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.InputHtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.InputHtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;

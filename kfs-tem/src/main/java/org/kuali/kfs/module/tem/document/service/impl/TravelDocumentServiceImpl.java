@@ -149,7 +149,7 @@ import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.uif.field.LinkField;
+import org.kuali.kfs.krad.uif.field.LinkField;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;

@@ -44,9 +44,10 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
     private String emailAddress;
     private String phoneNumber;
     private String employeeStatusCode;
-    protected EntityEmploymentStatusEbo employeeStatus;
+    //TODO: Spaghetti fix
+   // protected EntityEmploymentStatusEbo employeeStatus;
     protected String employeeTypeCode;
-    protected EntityEmploymentTypeEbo employeeType;
+   // protected EntityEmploymentTypeEbo employeeType;
     protected String primaryDepartmentCode;
     protected String campusCode;
     protected CampusEbo campus;
@@ -247,20 +248,20 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
      * Gets the employeeStatus attribute.
      * @return Returns the employeeStatus.
      */
-    @ManyToOne
-    @JoinColumn(name = "emp_status_cd")
-    public EntityEmploymentStatusEbo getEmployeeStatus() {
-        return employeeStatus;
-    }
-
-
-    /**
-     * Sets the employeeStatus attribute value.
-     * @param employeeStatus The employeeStatus to set.
-     */
-    public void setEmployeeStatus(EntityEmploymentStatusBo employeeStatus) {
-        this.employeeStatus = employeeStatus;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "emp_status_cd")
+//    public EntityEmploymentStatusEbo getEmployeeStatus() {
+//        return employeeStatus;
+//    }
+//
+//
+//    /**
+//     * Sets the employeeStatus attribute value.
+//     * @param employeeStatus The employeeStatus to set.
+//     */
+//    public void setEmployeeStatus(EntityEmploymentStatusBo employeeStatus) {
+//        this.employeeStatus = employeeStatus;
+//    }
 
 
     /**
@@ -282,24 +283,24 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
     }
 
 
-    /**
-     * Gets the employeeType attribute.
-     * @return Returns the employeeType.
-     */
-    @ManyToOne
-    @JoinColumn(name = "emp_typ_cd")
-    public EntityEmploymentTypeEbo getEmployeeType() {
-        return employeeType;
-    }
-
-
-    /**
-     * Sets the employeeType attribute value.
-     * @param employeeType The employeeType to set.
-     */
-    public void setEmployeeType(EntityEmploymentTypeEbo employeeType) {
-        this.employeeType = employeeType;
-    }
+//    /**
+//     * Gets the employeeType attribute.
+//     * @return Returns the employeeType.
+//     */
+//    @ManyToOne
+//    @JoinColumn(name = "emp_typ_cd")
+//    public EntityEmploymentTypeEbo getEmployeeType() {
+//        return employeeType;
+//    }
+//
+//
+//    /**
+//     * Sets the employeeType attribute value.
+//     * @param employeeType The employeeType to set.
+//     */
+//    public void setEmployeeType(EntityEmploymentTypeEbo employeeType) {
+//        this.employeeType = employeeType;
+//    }
 
 
     /**

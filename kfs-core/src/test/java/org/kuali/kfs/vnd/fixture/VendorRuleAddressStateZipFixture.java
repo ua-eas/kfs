@@ -83,18 +83,20 @@ public enum VendorRuleAddressStateZipFixture {
      * @return A List<VendorAddress>, appropriately populated with countries and zip codes.
      */
     @SuppressWarnings("deprecation")
+
+    //TODO: Spaghetti fix
     public List<VendorAddress> populateAddresses() {
         List<VendorAddress> addrList = new ArrayList<VendorAddress>();
         VendorAddress addr1 = new VendorAddress();
         VendorAddress addr2 = new VendorAddress();
 
-        addr1.setVendorCountry(CountryBo.from(country1));
-        addr1.setVendorState(StateBo.from(state1));
+//        addr1.setVendorCountry(CountryBo.from(country1));
+//        addr1.setVendorState(StateBo.from(state1));
         addr1.setVendorCountryCode(countryCd1);
         addr1.setVendorStateCode(stateCd1);
         addr1.setVendorZipCode(zip1);
-        addr2.setVendorCountry(CountryBo.from(country2));
-        addr2.setVendorState(StateBo.from(state2));
+//        addr2.setVendorCountry(CountryBo.from(country2));
+//        addr2.setVendorState(StateBo.from(state2));
         addr2.setVendorCountryCode(countryCd2);
         addr2.setVendorStateCode(stateCd2);
         addr2.setVendorZipCode(zip2);

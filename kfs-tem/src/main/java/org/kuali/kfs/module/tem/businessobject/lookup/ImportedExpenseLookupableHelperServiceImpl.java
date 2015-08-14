@@ -34,7 +34,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.InputHtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.InputHtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;

@@ -70,7 +70,7 @@ import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.datadictionary.ReferenceDefinition;
+import org.kuali.kfs.krad.datadictionary.ReferenceDefinition;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.service.BusinessObjectService;

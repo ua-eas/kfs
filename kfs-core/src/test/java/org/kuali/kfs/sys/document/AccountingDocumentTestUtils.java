@@ -42,7 +42,7 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.document.Copyable;

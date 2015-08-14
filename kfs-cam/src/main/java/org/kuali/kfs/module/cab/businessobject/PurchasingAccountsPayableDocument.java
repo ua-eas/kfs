@@ -205,7 +205,7 @@ public class PurchasingAccountsPayableDocument extends PersistableBusinessObject
             if ( StringUtils.isNotBlank(documentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(documentTypeCode);
                 if ( docType != null ) {
-                    financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
+                    financialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }
