@@ -185,7 +185,7 @@
 	<bean id="schedulerService-parentBean" abstract="true" class="org.kuali.kfs.sys.batch.service.impl.SchedulerServiceImpl">
 		<property name="scheduler" ref="scheduler" />
 		<property name="jobListener" ref="jobListener" />
-		<property name="kualiModuleService" ref="kualiModuleService" />
+		<property name="kualiModuleService" ref="kfs.kualiModuleService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="mailService" ref="mailService" />
@@ -553,8 +553,8 @@
 			<ref bean="kfs.parameterService" />
 		</property>		
 	    <property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
-		</property>
+			<ref bean="kfs.kualiModuleService" />
+		</property>		
 	</bean>
 
 	<bean id="FiscalYearMaker" parent="FiscalYearMaker-parentBean" abstract="true"/>
@@ -1318,7 +1318,7 @@
 	<bean id="preferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.PreferencesServiceImpl">
 		<property name="configurationService" ref="configurationService"/>
 		<property name="documentDictionaryService" ref="documentDictionaryService" />
-		<property name="kualiModuleService" ref="kualiModuleService"/>
+		<property name="kualiModuleService" ref="kfs.kualiModuleService"/>
 		<property name="preferencesDao" ref="preferencesDao" />
 	</bean>
 

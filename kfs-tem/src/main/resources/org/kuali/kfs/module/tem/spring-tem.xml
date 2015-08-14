@@ -1420,7 +1420,7 @@
     <bean id="agencyEntryGroupService" parent="agencyEntryGroupService-parentBean"/>
 	<bean id="agencyEntryGroupService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.service.impl.AgencyEntryGroupServiceImpl">
         <property name="dateTimeService" ref="dateTimeService" />
-        <property name="kualiModuleService" ref="kualiModuleService" />
+        <property name="kualiModuleService" ref="kfs.kualiModuleService" />
         <property name="batchFileDirectoryName" value="${staging.directory}/tem/agencyData"/>
         <property name="batchFileErrorDirectoryName" value="${staging.directory}/tem/agencyData/error"/>
         <property name="nightlyOutFileName" value="tem_agentry_kfs" />

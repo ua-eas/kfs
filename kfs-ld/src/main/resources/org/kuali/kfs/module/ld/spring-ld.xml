@@ -1989,7 +1989,7 @@
             <ref bean="dateTimeService" />
         </property>
         <property name="kualiModuleService">
-            <ref bean="kualiModuleService" />
+            <ref bean="kfs.kualiModuleService" />
         </property>
         <property name="batchFileDirectoryName" value="${staging.directory}/ld/originEntry" />
         <property name="nightlyOutFileName" value="ld_labentry_kfs" />

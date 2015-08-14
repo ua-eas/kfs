@@ -156,7 +156,7 @@
 			<ref bean="laborModuleService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>		
 		
 		<property name="effortCertificationDocumentBuildService">
@@ -232,7 +232,7 @@
 			<ref bean="laborModuleService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>		
 		<property name="contractsAndGrantsModuleService">
 			<ref bean="contractsAndGrantsModuleService" />
@@ -333,7 +333,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="effortCertificationReportDefinitionService">
 			<ref bean="effortCertificationReportDefinitionService" />

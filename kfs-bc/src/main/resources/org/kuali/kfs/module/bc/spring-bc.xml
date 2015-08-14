@@ -112,7 +112,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kualiModuleService" />
+			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -796,7 +796,7 @@
             <ref bean="documentService" />
         </property>
         <property name="kualiModuleService">
-            <ref bean="kualiModuleService" />
+            <ref bean="kfs.kualiModuleService" />
         </property>
         <property name="workflowDocumentService">
             <ref bean="rice.kew.workflowDocumentService" />

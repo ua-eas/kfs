@@ -1023,7 +1023,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="kualiModuleService">
-            <ref bean="kualiModuleService" />
+            <ref bean="kfs.kualiModuleService" />
         </property>
 		<property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>
 		<property name="nightlyOutFileName" value="gl_glentry_kfs" />

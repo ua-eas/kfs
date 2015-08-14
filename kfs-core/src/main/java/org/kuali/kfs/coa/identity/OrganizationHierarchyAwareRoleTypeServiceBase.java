@@ -123,6 +123,8 @@ public abstract class OrganizationHierarchyAwareRoleTypeServiceBase extends Role
         }
     }
 
+    /**
+     * TODO BARLEY
     @Override
     public boolean doesDelegationQualifierMatchQualification(Map<String,String> qualification, Map<String,String> delegationQualifier) {
         return performMatch(translateInputAttributes(qualification), delegationQualifier);
@@ -140,6 +142,7 @@ public abstract class OrganizationHierarchyAwareRoleTypeServiceBase extends Role
 //        }
         return matchingMemberships;
     }
+    */
 
 
     public void setOrganizationService(OrganizationService organizationService) {
