@@ -84,8 +84,8 @@
     	<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
     	<property name="configurationService" ref="configurationService" />
     	<property name="parameterRepositoryService" ref="parameterRepositoryService" />
-    	<property name="parameterService" ref="parameterService" />
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="parameterService" ref="kfs.parameterService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     	<property name="assetService" ref="assetService" />
     	<property name="purApInfoService" ref="purApInfoService" />
     	<property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService" />
@@ -105,9 +105,9 @@
 	<bean id="batchExtractService-parentBean" class="org.kuali.kfs.module.cab.batch.service.impl.BatchExtractServiceImpl" abstract="true">
 		<property name="extractDao" ref="extractDao" />
 		<property name="purchasingAccountsPayableItemAssetDao" ref="purchasingAccountsPayableItemAssetDao" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="purApLineService" ref="purApLineService" />
 		<property name="purApInfoService" ref="purApInfoService" />
 	</bean>
@@ -125,7 +125,7 @@
 	
 	<bean id="reconciliationService"  parent="reconciliationService-parentBean" singleton="false"/>
 	<bean id="reconciliationService-parentBean" class="org.kuali.kfs.module.cab.batch.service.impl.ReconciliationServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="reconciliationDao" ref="reconciliationDao" />
 	</bean>
 	
@@ -217,7 +217,7 @@
     
    	<bean id="generalLedgerEntryLookupableHelperService" singleton="false"  parent="generalLedgerEntryLookupableHelperService-parentBean"/>
 	<bean id="generalLedgerEntryLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cab.businessobject.lookup.GeneralLedgerEntryLookupableHelperServiceImpl" singleton="false"  parent="lookupableHelperService">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
     </bean>
 
     <bean id="cabGlEntryLookupable"  parent="cabGlEntryLookupable-parentBean" singleton="false"/>
@@ -241,14 +241,14 @@
     
 	<bean id="purApInfoService"  parent="purApInfoService-parentBean"/>
 	<bean id="purApInfoService-parentBean" class="org.kuali.kfs.module.cab.document.service.impl.PurApInfoServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>  
 	
 	<bean id="purApLineDao" parent="platformAwareDao" class="org.kuali.kfs.module.cab.dataaccess.impl.PurApLineDaoOjb"></bean>
 	
 	<bean id="purApLineService" parent="purApLineService-parentBean"/>
 	<bean id="purApLineService-parentBean" abstract="true"  class="org.kuali.kfs.module.cab.document.service.impl.PurApLineServiceImpl">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="purApLineDao" ref="purApLineDao" />
 		<property name="purApInfoService" ref="purApInfoService" />
 		<property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService" />
@@ -256,7 +256,7 @@
 	
 	<bean id="purApLineDocumentService"  parent="purApLineDocumentService-parentBean"/>
 	<bean id="purApLineDocumentService-parentBean" class="org.kuali.kfs.module.cab.document.service.impl.PurApLineDocumentServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="purApLineService" ref="purApLineService" />
 		<property name="purApInfoService" ref="purApInfoService" />
 		<property name="documentService" ref="documentService" />
@@ -267,12 +267,12 @@
 <!-- Start Gl Line Processing beans -->
 	<bean id="glLineService"  parent="glLineService-parentBean"/>
 	<bean id="glLineService-parentBean" class="org.kuali.kfs.module.cab.document.service.impl.GlLineServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="assetGlobalService" ref="assetGlobalService"/>
 		<property name="objectTypeService" ref="objectTypeService"/>
 		<property name="documentService" ref="documentService"/>
 		<property name="documentHeaderService" ref="documentHeaderService"/>
-		<property name="parameterService" ref="parameterService"/>
+		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
 		<property name="capitalAssetInformationDao" ref="capitalAssetInformationDao"/>
 	</bean> 

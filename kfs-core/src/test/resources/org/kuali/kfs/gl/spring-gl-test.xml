@@ -34,7 +34,7 @@
 		<property name="priorYearAccountService" ref="priorYearAccountService" />
 		<property name="orgReversionUnitOfWorkService" ref="glOrgReversionUnitOfWorkService" />
 		<property name="flexibleOffsetAccountService" ref="flexibleOffsetAccountService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="cashOrganizationReversionCategoryLogic">
 			<ref bean="glCashOrganizationReversionCategoryLogic" />
@@ -190,7 +190,7 @@
 		<property name="sufficientFundsService">
 			<ref bean="sufficientFundsService" />
 		</property>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
 	
 	<bean id="originEntryGroupService" parent="originEntryGroupService-parentBean"/>

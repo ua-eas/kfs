@@ -113,7 +113,7 @@
 	    <property name="cronExpression" value="0 * * ? * 5#3"/>
 	    <property name="mailService" ref="mailService" />
         <property name="parameterService">
-            <ref bean="parameterService" />
+            <ref bean="kfs.parameterService" />
         </property>
         <property name="depreciableAssetsDao">
             <ref bean="depreciableAssetsDao" />
@@ -137,7 +137,7 @@
 			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	    <property name="optionsService">
 			<ref bean="optionsService" />
@@ -164,7 +164,7 @@
 		</property>
 		<!-- CSU 6702 BEGIN -->
 		<property name="parameterService">
-            <ref bean="parameterService" />
+            <ref bean="kfs.parameterService" />
         </property>
 		<!-- CSU 6702 END -->
 	</bean>
@@ -234,7 +234,7 @@
     <bean id="assetPaymentLookupableHelperService" scope="prototype" parent="assetPaymentLookupableHelperService-parentBean"/>
     <bean id="assetPaymentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetPaymentLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService">
       	<property name="businessObjectService">
-            <ref bean="businessObjectService" />
+            <ref bean="kfs.businessObjectService" />
       	</property>
       	<property name="assetService">
             <ref bean="assetService" />
@@ -276,12 +276,12 @@
     <bean id="paymentSummaryService"  parent="paymentSummaryService-parentBean"/>
     <bean id="paymentSummaryService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.PaymentSummaryServiceImpl" abstract="true">
     	<property name="universityDateService" ref="universityDateService"/>
-    	<property name="parameterService" ref="parameterService"/>
+    	<property name="parameterService" ref="kfs.parameterService"/>
     </bean>
 
     <bean id="assetAcquisitionTypeService"  parent="assetAcquisitionTypeService-parentBean"/>
     <bean id="assetAcquisitionTypeService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetAcquisitionTypeServiceImpl" abstract="true">
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     </bean>
 
     <bean id="assetComponentDao" parent="platformAwareDao" class="org.kuali.kfs.module.cam.document.dataaccess.impl.AssetComponentDaoOjb"/>
@@ -293,7 +293,7 @@
 
     <bean id="retirementInfoService"  parent="retirementInfoService-parentBean"/>
     <bean id="retirementInfoService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.RetirementInfoServiceImpl"  abstract="true">
-    	<property name="parameterService" ref="parameterService"/>
+    	<property name="parameterService" ref="kfs.parameterService"/>
     	<property name="assetService" ref="assetService"/>
     </bean>
 
@@ -302,12 +302,12 @@
     	<property name="assetService" ref="assetService"></property>
     	<property name="universityDateService" ref="universityDateService"/>
     	<property name="dateTimeService" ref="dateTimeService" />
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     </bean>
 
     <bean id="assetLocationService"  parent="assetLocationService-parentBean"/>
     <bean id="assetLocationService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetLocationServiceImpl" abstract="true">
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     	<property name="dataDictionaryService" ref="dataDictionaryService" />
     </bean>
 
@@ -316,25 +316,25 @@
     <bean id="assetPaymentService" parent="assetPaymentService-parentBean"/>
     <bean id="assetPaymentService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetPaymentServiceImpl" abstract="true">
     	<property name="assetPaymentDao" ref="assetPaymentDao" />
-    	<property name="parameterService" ref="parameterService" />
+    	<property name="parameterService" ref="kfs.parameterService" />
     	<property name="universityDateService" ref="universityDateService" />
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     	<property name="objectCodeService" 	   ref="objectCodeService" />
     	<property name="assetService" ref="assetService" />
     </bean>
 
      <bean id="assetService"  parent="assetService-parentBean"/>
      <bean id="assetService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetServiceImpl"  abstract="true">
-    	<property name="parameterService" ref="parameterService" />
+    	<property name="parameterService" ref="kfs.parameterService" />
     	<property name="paymentSummaryService" ref="paymentSummaryService" />
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     </bean>
 
     <bean id="assetTransferService"  parent="assetTransferService-parentBean"/>
     <bean id="assetTransferService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetTransferServiceImpl"  abstract="true">
     	<property name="assetService" ref="assetService" />
     	<property name="universityDateService" ref="universityDateService" />
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     	<property name="assetPaymentService" ref="assetPaymentService" />
     	<property name="assetObjectCodeService" ref="assetObjectCodeService" />
     	<property name="dateTimeService" ref="dateTimeService" />
@@ -345,9 +345,9 @@
     <bean id="assetRetirementService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetRetirementServiceImpl" abstract="true">
     	<property name="universityDateService" ref="universityDateService" />
     	<property name="assetObjectCodeService" ref="assetObjectCodeService"></property>
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     	<property name="assetPaymentService" ref="assetPaymentService" />
-    	<property name="parameterService" ref="parameterService" />
+    	<property name="parameterService" ref="kfs.parameterService" />
     	<property name="assetService" ref="assetService" />
 	<property name="objectCodeService" ref="objectCodeService" />
 	<property name="organizationService" ref="organizationService" />
@@ -356,19 +356,19 @@
     <bean id="assetObjectCodeService"  parent="assetObjectCodeService-parentBean"/>
     <bean id="assetObjectCodeService-parentBean" class="org.kuali.kfs.module.cam.document.service.impl.AssetObjectCodeServiceImpl" abstract="true">
     	<property name="universityDateService" ref="universityDateService" />
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     </bean>
 
     <bean id="equipmentLoanOrReturnService" parent="equipmentLoanOrReturnService-parentBean" />
     <bean id="equipmentLoanOrReturnService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.document.service.impl.EquipmentLoanOrReturnServiceImpl" >
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     </bean>
 
 <!-- Asset Bar Code inventory-->
 	<bean id="assetBarcodeInventoryLoadService"  parent="assetBarcodeInventoryLoadService-parentBean"/>
 	<bean id="assetBarcodeInventoryLoadService-parentBean" class="org.kuali.kfs.module.cam.batch.service.impl.AssetBarcodeInventoryLoadServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="dataDictionaryService">
 			<ref bean="dataDictionaryService" />
@@ -382,7 +382,7 @@
 		<property name="workflowDocumentService">
 			<ref bean="rice.kew.workflowDocumentService" />
 		</property>
-	  	<property name="parameterService" ref="parameterService" />
+	  	<property name="parameterService" ref="kfs.parameterService" />
 	  	<property name="dateTimeService" ref="dateTimeService" />
 	</bean>
 
@@ -406,9 +406,9 @@
     	<property name="universityDateService" ref="universityDateService" />
     	<property name="assetService" ref="assetService"/>
     	<property name="assetObjectCodeService" ref="assetObjectCodeService"></property>
-    	<property name="businessObjectService" ref="businessObjectService" />
+    	<property name="businessObjectService" ref="kfs.businessObjectService" />
     	<property name="assetPaymentService" ref="assetPaymentService" />
-    	<property name="parameterService" ref="parameterService" />
+    	<property name="parameterService" ref="kfs.parameterService" />
     	<property name="paymentSummaryService" ref="paymentSummaryService" />
     	<property name="dateTimeService" ref="dateTimeService" />
     	<property name="objectCodeService" ref="objectCodeService" />

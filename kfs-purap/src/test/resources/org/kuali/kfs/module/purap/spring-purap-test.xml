@@ -63,7 +63,7 @@
 		abstract="true">
 		<property name="purapService" ref="purapService" />
 		<property name="persistenceService" ref="persistenceService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
 
 	<bean id="PaymentRequest-taxAreaValidation-test" parent="PaymentRequest-taxAreaValidation"

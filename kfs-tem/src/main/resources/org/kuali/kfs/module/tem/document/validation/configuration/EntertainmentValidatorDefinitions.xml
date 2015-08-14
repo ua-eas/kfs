@@ -25,7 +25,7 @@
 	<bean id="Entertainment-entertainmentInformationRequiredInfoValidation" class="org.kuali.kfs.module.tem.document.validation.impl.TravelEntertainmentRequiredInfoValidation"/>
 	<bean id="Entertainment-hostCertificationAttachmentValidation" class="org.kuali.kfs.module.tem.document.validation.impl.TravelEntertainmentHostCertificationAttachmentValidation" />
 	<bean id="Entertainment-nonEmployeeCertificationAttachmentValidation" class="org.kuali.kfs.module.tem.document.validation.impl.TravelEntertainmentNonEmployeeCertificationAttachmentValidation" >
-		<property name="parameterService" ref="parameterService"/>
+		<property name="parameterService" ref="kfs.parameterService"/>
 	</bean>
 	
 	<bean id="Entertainment-routeDocumentValidation" parent="Entertainment-routeDocumentValidation-parentBean" scope="prototype" />

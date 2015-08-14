@@ -67,7 +67,7 @@
 	<bean id="AccountingDocument-accountingLineGroupTotalsUnchangedValidation" class="org.kuali.kfs.sys.document.validation.impl.AccountingLineGroupTotalsUnchangedValidation" abstract="true" />
 	
 	<bean id="AccountingDocument-accountingLineValueAllowedValidation" class="org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation" abstract="true">
-		<property name="parameterService"><ref bean="parameterService" /></property>
+		<property name="parameterService"><ref bean="kfs.parameterService" /></property>
 	</bean>
 	
 	<bean id="AccountingDocument-businessObjectDataDictionaryValidation" class="org.kuali.kfs.sys.document.validation.impl.BusinessObjectDataDictionaryValidation" abstract="true">

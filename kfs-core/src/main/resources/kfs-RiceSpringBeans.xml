@@ -39,21 +39,21 @@
 		<property name="nonTransactionalMessageDataSource" ref="nonTransactionalDataSource" />
 	</bean>
 
-	<!--<bean id="kradConfigurer" class="org.kuali.kfs.krad.config.KRADConfigurer">-->
-		<!--<property name="applicationDataSource" ref="dataSource" />-->
-		<!--<property name="includeKnsSpringBeans" value="true" />-->
-	<!--</bean>-->
+	<bean id="kradConfigurer" class="org.kuali.rice.krad.config.KRADConfigurer">
+		<property name="applicationDataSource" ref="dataSource" />
+		<property name="includeKnsSpringBeans" value="true" />
+	</bean>
 
 	<!--<bean id="coreServiceConfigurer"-->
 		<!--class="org.kuali.kfs.coreservice.impl.config.CoreServiceConfigurer" />-->
 
 
 
-	<bean id="kimConfigurer" class="org.kuali.kfs.kim.config.KIMConfigurer" />
+	<bean id="kimConfigurer" class="org.kuali.rice.kim.config.KIMConfigurer" />
 
 
 
-	<bean id="kewConfigurer" class="org.kuali.kfs.kew.config.KEWConfigurer">
+	<bean id="kewConfigurer" class="org.kuali.rice.kew.config.KEWConfigurer">
 		<property name="dataSource" ref="riceDataSource" />
 	</bean>
 	<!-- <bean id="kenConfigurer" class="org.kuali.rice.ken.impl.config.KENConfigurer"/> 

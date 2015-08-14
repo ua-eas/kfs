@@ -35,11 +35,11 @@
 		
 	<bean id="PurchasingAccountsPayable-belowTheLineValuesValidation-parentBean" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableBelowTheLineValuesValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 	</bean>
 
 	<bean id="PurchasingAccountsPayable-objectCodeOverrideBranchingValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableObjectCodeOverrideBranchingValidation" abstract="true">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="responsibleProperty" value="financialObjectCode" />
 		<property name="propertyPath" value="financialObjectCode" />
 		<property name="parameterToCheckAgainst" value="OBJECT_CODES_OVERRIDING_RESTRICTIONS" />		
@@ -47,7 +47,7 @@
 
 	<bean id="PurchasingAccountsPayable-newIndividualItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableNewIndividualItemValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="belowTheLineValuesValidation" ref="PurchasingAccountsPayable-belowTheLineValuesValidation" />		
 	</bean>
 
@@ -145,7 +145,7 @@
 	<bean id="Purchasing-unitOfMeasureValidation" parent="Purchasing-unitOfMeasureValidation-parentBean" scope="prototype"/>
 	<bean id="Purchasing-unitOfMeasureValidation-parentBean" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingUnitOfMeasureValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />	
-		<property name="businessObjectService" ref="businessObjectService" />	
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
 	
 	<bean id="Purchasing-itemUnitPriceValidation" parent="Purchasing-itemUnitPriceValidation-parentBean" scope="prototype"/>	
@@ -154,7 +154,7 @@
 	</bean>
 
 	<bean id="Purchasing-commodityCodesForDistributionValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingCommodityCodesForDistributionValidation" abstract="true">	
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
 
 	<bean id="Purchasing-changeSystemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingChangeSystemValidation" abstract="true"/>	
@@ -169,9 +169,9 @@
 	
 	<bean id="Purchasing-newIndividualItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingNewIndividualItemValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />		
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="unitOfMeasureValidation" ref="Purchasing-unitOfMeasureValidation" />
 		<property name="itemUnitPriceValidation" ref="Purchasing-itemUnitPriceValidation" />
 		<property name="itemDescriptionValidation" ref="Purchasing-itemDescriptionValidation" />
@@ -182,7 +182,7 @@
 
 	<bean id="Purchasing-processVendorValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingProcessVendorValidation" abstract="true">
 		<property name="vendorService" ref="vendorService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
         <property name="postalCodeValidationService" ref="postalCodeValidationService" />
 	</bean>
 
@@ -208,7 +208,7 @@
 
 	<bean id="Purchasing-deliveryValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingDeliveryValidation" abstract="true">
 		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
         <property name="postalCodeValidationService" ref="postalCodeValidationService" />
 	</bean>
 
@@ -220,19 +220,19 @@
 
 	<bean id="Purchasing-commodityCodeValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingCommodityCodeValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="businessObjectService" ref="businessObjectService" />		
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
 
 	<bean id="Purchasing-addItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAddItemValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="dictionaryValidationService" ref="dictionaryValidationService" />		
-		<property name="businessObjectService" ref="businessObjectService" />		
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>		
 
 	<bean id="Purchasing-importItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingImportItemValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="dictionaryValidationService" ref="dictionaryValidationService" />		
-		<property name="businessObjectService" ref="businessObjectService" />		
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>		
 
 	<bean id="Purchasing-updateAccountingLineValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingUpdateAccountingLineValidation" abstract="true"/>
@@ -361,9 +361,9 @@
 <!-- Requisition Definitions -->	
 
 	<bean id="Requisition-newIndividualItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.RequisitionNewIndividualItemValidation" abstract="true">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService" />
 		<property name="unitOfMeasureValidation" ref="Purchasing-unitOfMeasureValidation" />
 		<property name="itemUnitPriceValidation" ref="Purchasing-itemUnitPriceValidation" />
@@ -401,9 +401,9 @@
 	<bean id="PurchaseOrder-emptyItemWithAccountsValidation-parentBean" class="org.kuali.kfs.module.purap.document.validation.impl.PurchaseOrderEmptyItemWithAccountsValidation" abstract="true"/>
 
 	<bean id="PurchaseOrder-newIndividualItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchaseOrderNewIndividualItemValidation" abstract="true">
-	    <property name="parameterService" ref="parameterService" />
+	    <property name="parameterService" ref="kfs.parameterService" />
 	    <property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService" />
 		<property name="emptyItemsWithAccountsValidation" ref="PurchaseOrder-emptyItemWithAccountsValidation"/>
 		<property name="unitOfMeasureValidation" ref="Purchasing-unitOfMeasureValidation" />
@@ -420,7 +420,7 @@
     <bean id="PurchaseOrder-processVendorValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchaseOrderProcessVendorValidation" abstract="true">
         <property name="vendorService" ref="vendorService" />
         <property name="dataDictionaryService" ref="dataDictionaryService" />
-        <property name="parameterService" ref="parameterService" />
+        <property name="parameterService" ref="kfs.parameterService" />
         <property name="postalCodeValidationService" ref="postalCodeValidationService" />
     </bean>
 
@@ -558,9 +558,9 @@
     
 <!-- Purchase Order Amendment Definitions -->
 	<bean id="PurchaseOrderAmendment-newIndividualItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchaseOrderAmendmentNewIndividualItemValidation" abstract="true">
-	    <property name="parameterService" ref="parameterService" />
+	    <property name="parameterService" ref="kfs.parameterService" />
 	    <property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="purchaseOrderService" ref="purchaseOrderService" />
 		<property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService" />
 		<property name="emptyItemsWithAccountsValidation" ref="PurchaseOrder-emptyItemWithAccountsValidation"/>
@@ -627,7 +627,7 @@
 	<bean id="VendorCreditMemo-totalOverZeroValidation" class="org.kuali.kfs.module.purap.document.validation.impl.VendorCreditMemoTotalOverZeroValidation" abstract="true"/>
 
 	<bean id="VendorCreditMemo-processItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.VendorCreditMemoProcessItemValidation" abstract="true">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		
 		<property name="itemQuantityValidation" ref="VendorCreditMemo-itemQuantityValidation" />
 		<property name="itemUnitPriceValidation" ref="VendorCreditMemo-itemUnitPriceValidation" />
@@ -640,7 +640,7 @@
 	</bean>
 
 	<bean id="VendorCreditMemo-objectCodeValidation" class="org.kuali.kfs.module.purap.document.validation.impl.VendorCreditMemoObjectCodeValidation" abstract="true">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 	</bean>
 
 	<bean id="VendorCreditMemo-initTabRequiredFieldsValidation" class="org.kuali.kfs.module.purap.document.validation.impl.VendorCreditMemoInitTabRequiredFieldsValidation" abstract="true">
@@ -668,7 +668,7 @@
     <bean id="PaymentRequest-lineItemQuantityNotZero" class="org.kuali.kfs.module.purap.document.validation.impl.LineItemQuantityNotZero" abstract="true" />
 
 	<bean id="PaymentRequest-nonZeroAccountingLineAmountValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestNonZeroAccountingLineAmountValidation" abstract="true">
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 	</bean>
 
 	<bean id="PaymentRequest-invoiceImageAttachmentValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestInvoiceImageAttachmentValidation" abstract="true"/>
@@ -681,7 +681,7 @@
 		
 	<bean id="PaymentRequest-expiredAccountWarningValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestExpiredAccountWarningValidation" abstract="true">
 		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 	</bean>
 
 	<bean id="PaymentRequest-accountingLineAccessibleBranchingValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestAccountingLineAccessibleBranchingValidation" abstract="true"/>
@@ -705,11 +705,11 @@
 	<bean id="PaymentRequest-payDateNotPastValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestPayDateNotPastValidation" abstract="true">
 		<property name="purapService" ref="purapService" />
 		<property name="persistenceService" ref="persistenceService"/>
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
 	
 	<bean id="PaymentRequest-taxAreaValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestTaxAreaValidation" abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>				       
 
 	<bean id="PaymentRequest-cancelValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PaymentRequestCancelValidation" abstract="true"/>

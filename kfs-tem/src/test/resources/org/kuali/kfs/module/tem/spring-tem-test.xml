@@ -25,13 +25,13 @@
 
     <bean id="realTemTravelDocumentService" parent="realTemTravelDocumentService-parentBean" />
 	<bean id="realTemTravelDocumentService-parentBean" class="org.kuali.kfs.module.tem.document.service.impl.TravelDocumentServiceImpl"	abstract="true">
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="documentService" ref="documentService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="travelDocumentDao" ref="travelDocumentDao" />
 		<property name="travelAuthorizationService" ref="temTravelAuthorizationService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="accountingDocumentRelationshipService" ref="temAccountingDocumentRelationshipService" />
 		<property name="temRoleService" ref="temRoleService" />
 		<property name="stateService" ref="stateService" />
@@ -65,7 +65,7 @@
 	<bean id="realTemProfileService" parent="realTemProfileService-parentBean" />
 	<bean id="realTemProfileService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.service.impl.TemProfileServiceImpl" >
 		<property name="personService" ref="personService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
 	</bean>
 	<bean id="temProfileService" parent="temProfileService-parentBean" />
 	<bean id="temProfileService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.service.impl.MockTemProfileServiceImpl">

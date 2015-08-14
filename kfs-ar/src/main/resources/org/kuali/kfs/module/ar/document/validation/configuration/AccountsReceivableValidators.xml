@@ -34,7 +34,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceDetailUnitOfMeasureValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -62,7 +62,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceBillingOrgOptionValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -73,7 +73,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 	</bean>
 
@@ -113,7 +113,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceDetailSystemInformationDiscountValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="universityDateService">
 			<ref bean="universityDateService" />
@@ -176,7 +176,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerCreditMemoNoOtherCRMInRouteForTheInvoiceValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="workflowDocumentService">
    			<ref bean="rice.kew.workflowDocumentService" />
@@ -210,7 +210,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceWriteoffNoOtherCRMInRouteForTheInvoiceValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="workflowDocumentService">
    			<ref bean="rice.kew.workflowDocumentService" />
@@ -221,7 +221,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceWriteoffNoOtherWriteoffInRouteForTheInvoiceValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="workflowDocumentService">
    			<ref bean="rice.kew.workflowDocumentService" />
@@ -236,7 +236,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceWriteoffGLPEGenerationBranchingValidation"
 		abstract="true">
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
 	</bean>
 
@@ -249,21 +249,21 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceWriteoffChartOfAccountsCodeValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 	<bean id="CustomerInvoiceWriteoff-accountNumberValidation"
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceWriteoffAccountNumberValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 	<bean id="CustomerInvoiceWriteoff-financialObjectCodeValidation"
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceWriteoffFinancialObjectCodeValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -288,7 +288,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CashControlPaymentMediumValidation"
 		abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 	<bean id="CashControl-documentHasDetailsValidation"

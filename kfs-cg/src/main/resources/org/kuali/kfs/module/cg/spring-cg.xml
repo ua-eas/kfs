@@ -113,11 +113,11 @@
     <bean id="contractsAndGrantsModuleService"  parent="contractsAndGrantsModuleService-parentBean"/>
     <bean id="contractsAndGrantsModuleService-parentBean" class="org.kuali.kfs.module.cg.service.impl.ContractsAndGrantsModuleServiceImpl" abstract="true" >
     <property name="awardService" ref="awardService" />
-		<property name="parameterService" ref="parameterService" />
+		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="agencyService" ref="agencyService" />
 		<property name="cfdaService" ref="cfdaService" />
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>	
 	</bean>
 	
@@ -136,7 +136,7 @@
 	<bean id="contractsAndGrantsModuleBillingService" parent="contractsAndGrantsModuleBillingService-parentBean" scope="prototype"/>
 	<bean id="contractsAndGrantsModuleBillingService-parentBean" class="org.kuali.kfs.module.cg.service.impl.ContractsAndGrantsModuleBillingServiceImpl" abstract="true" >
 		<property name="awardService" ref="awardService" />
-		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="businessObjectService" ref="kfs.businessObjectService" />
         <property name="lookupService" ref="lookupService" />
 	</bean>
 
@@ -157,7 +157,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>		
 		<property name="documentService">
 			<ref bean="documentService" />
@@ -211,14 +211,14 @@
     <bean id="subcontractorService"  parent="subcontractorService-parentBean"/>
     <bean id="subcontractorService-parentBean" class="org.kuali.kfs.module.cg.service.impl.SubcontractorServiceImpl" abstract="true">
         <property name="businessObjectService">
-            <ref bean="businessObjectService" />
+            <ref bean="kfs.businessObjectService" />
         </property>
     </bean>
 
     <bean id="agencyService"  parent="agencyService-parentBean"/>
     <bean id="agencyService-parentBean" class="org.kuali.kfs.module.cg.service.impl.AgencyServiceImpl" abstract="true">
         <property name="businessObjectService">
-            <ref bean="businessObjectService" />
+            <ref bean="kfs.businessObjectService" />
         </property>
          <property name="noteService">
             <ref bean="noteService" />
@@ -228,13 +228,13 @@
     <bean id="cfdaService"  parent="cfdaService-parentBean"/>
     <bean id="cfdaService-parentBean" class="org.kuali.kfs.module.cg.service.impl.CfdaServiceImpl" abstract="true">
         <property name="businessObjectService">
-            <ref bean="businessObjectService" />
+            <ref bean="kfs.businessObjectService" />
         </property>
    		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="parameterService" />
+			<ref bean="kfs.parameterService" />
 		</property>
     </bean>
 	
@@ -246,7 +246,7 @@
             <ref bean="mailService" />
         </property>
         <property name="parameterService">
-            <ref bean="parameterService" />
+            <ref bean="kfs.parameterService" />
         </property>
         <property name="configurationService" ref="kualiConfigurationService" />
     </bean>
@@ -281,14 +281,14 @@
 	<bean id="letterOfCreditFundService" parent="letterOfCreditFundService-parentBean" scope="prototype"/>
 	<bean id="letterOfCreditFundService-parentBean" class="org.kuali.kfs.module.cg.service.impl.LetterOfCreditFundServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
 	<bean id="awardService" parent="awardService-parentBean" scope="prototype"/>
 	<bean id="awardService-parentBean" class="org.kuali.kfs.module.cg.service.impl.AwardServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
 
@@ -338,7 +338,7 @@
 	<bean id="routingFormResearchRiskService"  parent="routingFormResearchRiskService-parentBean"/>
 	<bean id="routingFormResearchRiskService-parentBean" class="org.kuali.kfs.module.cg.document.service.impl.RoutingFormResearchRiskServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="businessObjectService" />
+			<ref bean="kfs.businessObjectService" />
 		</property>
 	</bean>
    
@@ -365,7 +365,7 @@
     
     <bean id="maintenanceDocumentNotesMigrationService" parent="maintenanceDocumentNotesMigrationService-parentBean"/>
     <bean id="maintenanceDocumentNotesMigrationService-parentBean" abstract="true" class="org.kuali.kfs.module.cg.batch.service.impl.MaintenanceDocumentNotesMigrationServiceImpl">
-    	<property name="businessObjectService" ref="businessObjectService"/>
+    	<property name="businessObjectService" ref="kfs.businessObjectService"/>
     	<property name="identityService" ref="identityService"/>
     	<property name="noteService" ref="noteService"/>
     </bean>
