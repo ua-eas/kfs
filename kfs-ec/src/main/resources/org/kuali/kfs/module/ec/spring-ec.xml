@@ -238,7 +238,7 @@
 			<ref bean="contractsAndGrantsModuleService" />
 		</property>	
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>	
 		<property name="businessObjectService">
 			<ref bean="kfs.businessObjectService" />

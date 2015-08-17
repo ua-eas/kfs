@@ -175,7 +175,7 @@
 	<bean id="TravelModule-accountingObjectLevelValidation" parent="TravelModule-accountingObjectLevelValidation-parentBean"/>
 	<bean id="TravelModule-accountingObjectLevelValidation-parentBean" abstract="true"
 		class="org.kuali.kfs.module.tem.document.validation.impl.ReimbursementAccountingObjectLevelValidation">
-		<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
+		<property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService" />
         <property name="parameterService" ref="kfs.parameterService" />
 	</bean>
 	

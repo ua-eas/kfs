@@ -480,7 +480,7 @@
 	
 	<bean id="PreEncumbrance-accountingLineObjectCodeRestrictionValidation" class="org.kuali.kfs.fp.document.validation.impl.AccountingLineObjectCodeRestrictionValidation" abstract="true">
         <property name="parameterService" ref="kfs.parameterService" />
-        <property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
+        <property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService" />
         <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
     </bean>			
 </beans>

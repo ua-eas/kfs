@@ -100,7 +100,7 @@
 			<ref bean="documentDao" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>	
 		<property name="workflowDocumentService">
 			<ref bean="rice.kew.workflowDocumentService" />
@@ -224,7 +224,7 @@
 			<ref bean="documentHelperService" />
 		</property>	
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>	
 	</bean>
 
@@ -793,7 +793,7 @@
         	<ref bean="dateTimeService"/>
         </property>
         <property name="documentService">
-            <ref bean="documentService" />
+            <ref bean ="kfs.documentService" />
         </property>
         <property name="kualiModuleService">
             <ref bean="kfs.kualiModuleService" />
@@ -943,7 +943,7 @@
 			<ref bean="importRequestDao" />
 		</property>	
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>	
         <property name="parameterService">
             <ref bean="kfs.parameterService" />
