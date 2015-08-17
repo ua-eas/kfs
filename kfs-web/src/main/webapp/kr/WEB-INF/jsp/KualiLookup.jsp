@@ -204,6 +204,7 @@
 			</div>
 		</c:if>
 
+		<a id="search-results"></a>
 		<div class="main-panel search-results">
 		<c:if test="${KualiForm.searchUsingOnlyPrimaryKeyValues}">
 			<bean-el:message key="lookup.using.primary.keys" arg0="${KualiForm.primaryKeyFieldLabels}"/>
@@ -325,6 +326,50 @@
 	  </c:if>
 
 	</display:table>
+
+		<c:if test="${!empty reqSearchResultsActualSize }">
+			<script type="text/javascript">
+				var headerSelector = '.search-results .headerarea-small'
+				var tableSelector = '.search-results table'
+				var tableHeaderSelector = '.search-results table>thead'
+
+				$(document).ready(function() {
+					// smooth scroll window to the search results after clicking search
+					if (window.location.hash != '#search-results') {
+						$('html,body').animate({
+							scrollTop: $('#search-results').offset().top
+						}, 1000);
+					}
+
+					// make search results header sticky
+					var headerLocation = $(headerSelector).offset().top - $(headerSelector).outerHeight()
+					console.log(headerLocation)
+					makeHeaderSticky()
+
+					// Modify header stickiness as we scroll
+					$(window).scroll(function() {
+						makeHeaderSticky()
+					})
+
+					$(window).resize(function() {
+						makeHeaderSticky()
+					})
+
+					function makeHeaderSticky() {
+						var headerIsSticky = $(headerSelector).hasClass('fixed')
+						var windowLocation = $(window).scrollTop()
+						$(headerSelector).css('width', $(tableSelector).outerWidth())
+						if (windowLocation > headerLocation && !headerIsSticky) {
+							$(headerSelector).addClass('fixed')
+							$(tableSelector).addClass('fixedHeader')
+						} else if (windowLocation <= headerLocation && headerIsSticky) {
+							$(headerSelector).removeClass('fixed')
+							$(tableSelector).removeClass('fixedHeader')
+						}
+					}
+				})
+			</script>
+		</c:if>
 	</div>
  </c:if>
 

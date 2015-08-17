@@ -147,9 +147,18 @@ div.excol {
     padding-top: 14px;
 }
 
+.search-results .headerarea-small.fixed {
+    position: fixed;
+    top: 62px;
+}
+
 .search-results table {
     display: block;
     overflow-y: scroll;
+}
+
+.search-results table.fixedHeader {
+    margin-top: 50px;
 }
 
 .search-results .paginator {
@@ -165,6 +174,10 @@ div.excol {
 
 .search-results .paginator .pagebanner .results-showing {
     font-weight: 700;
+}
+
+.paginator .pagelinks .btn {
+    margin: 0;
 }
 
 .paginator .pagelinks a {
@@ -186,6 +199,17 @@ div.excol {
 
 .paginator .pagelinks span>a {
     border-bottom: 1px #979797 dotted;
+}
+
+.paginator .pagelinks div.pagenumbers {
+    padding-right: 10px;
+    padding-left: 10px;
+    display: inline;
+    font-weight: 200;
+}
+
+.paginator .pagelinks div.pagenumbers a {
+    text-decoration: underline;
 }
 
 .datatable-100 td.infocell {
@@ -224,4 +248,21 @@ tr.even {
 
 .exportlinks {
     font-size: 15px;
+    padding: 10px;
+}
+
+.exportlinks a {
+    color: #555;
+    border-bottom: 1px #979797 dotted;
+}
+
+.exportlinks a:hover {
+    text-decoration: none;
+}
+
+#search-results {
+    display: block;
+    position: relative;
+    top: -82px;
+    visibility: hidden;
 }
