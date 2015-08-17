@@ -160,7 +160,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>		
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>			
 	</bean>
 	

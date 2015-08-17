@@ -81,9 +81,9 @@
     <bean id="capitalAssetBuilderModuleService-parentBean" class="org.kuali.kfs.module.cab.service.impl.CapitalAssetBuilderModuleServiceImpl" abstract="true">
     	<property name="glLineService" ref="glLineService" />
     	<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
-    	<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
+    	<property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService" />
     	<property name="configurationService" ref="configurationService" />
-    	<property name="parameterRepositoryService" ref="parameterRepositoryService" />
+    	<property name="parameterRepositoryService" ref="kfs.parameterRepositoryService" />
     	<property name="parameterService" ref="kfs.parameterService" />
     	<property name="businessObjectService" ref="kfs.businessObjectService" />
     	<property name="assetService" ref="assetService" />
@@ -273,7 +273,7 @@
 		<property name="documentService" ref="documentService"/>
 		<property name="documentHeaderService" ref="documentHeaderService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
-		<property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
+		<property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService"/>
 		<property name="capitalAssetInformationDao" ref="capitalAssetInformationDao"/>
 	</bean> 
 <!-- End GL Line Processing beans -->

@@ -138,7 +138,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="dataDictionaryService">
 			<ref bean="kfs.dataDictionaryService" />
@@ -157,7 +157,7 @@
 		<property name="documentService" ref="documentService"/>
 		<property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
-		<property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
+		<property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService"/>
 		<property name="vendorService" ref="vendorService"/>
 		<property name="paymentSourceHelperService" ref="paymentSourceHelperService"/>
 		<property name="disbursementVoucherDao" ref="disbursementVoucherDao"/>
@@ -189,7 +189,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="cashManagementDao">
 			<ref bean="cashManagementDao" />
@@ -406,7 +406,7 @@
 	
 	<bean id="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper"  parent="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean"/>
 	<bean id="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean" class="org.kuali.kfs.fp.batch.service.impl.DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl" abstract="true">
-		<property name="documentService"><ref bean="documentService" /></property>
+		<property name="documentService"><ref bean ="kfs.documentService" /></property>
 		<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
 		<property name="parameterService"><ref bean="kfs.parameterService" /></property>
 	</bean>

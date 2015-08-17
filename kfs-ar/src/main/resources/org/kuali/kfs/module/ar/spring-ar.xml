@@ -155,7 +155,7 @@
 			<ref bean="customerService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="electronicPaymentClaimingDocumentGenerationStrategy">
 			<ref bean="cashControlElectronicPaymentClaimingDocumentHelper" />
@@ -297,7 +297,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="financialSystemDocumentService">
 			<ref bean="financialSystemDocumentService" />
@@ -431,7 +431,7 @@
 			<ref bean="dateTimeService"/>
 		</property>
 		<property name="documentService">
-			<ref bean="documentService"/>
+			<ref bean ="kfs.documentService"/>
 		</property>
 		<property name="financialSystemDocumentService">
 			<ref bean="financialSystemDocumentService"/>
@@ -688,7 +688,7 @@
 	<bean id="letterOfCreditCreateService" parent="letterOfCreditCreateService-parentBean"/>
 	<bean id="letterOfCreditCreateService-parentBean" class="org.kuali.kfs.module.ar.batch.service.impl.LetterOfCreditCreateServiceImpl" abstract="true">
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="cashControlDocumentService">
 			<ref bean="cashControlDocumentService" />
@@ -853,7 +853,7 @@
 			<ref bean="kfs.kualiModuleService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="noteService">
 			<ref bean="noteService" />
@@ -1125,7 +1125,7 @@
 			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="kualiModuleService">
 			<ref bean="kfs.kualiModuleService" />
@@ -1174,7 +1174,7 @@
 			<ref bean="paymentApplicationDocumentService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="dataDictionaryService">
 			<ref bean="kfs.dataDictionaryService" />
@@ -1254,7 +1254,7 @@
 			<ref bean="invoicePaidAppliedService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="accountsReceivableTaxService">
 			<ref bean="accountsReceivableTaxService" />
@@ -1296,7 +1296,7 @@
 	<bean id="invoiceRecurrenceService"  parent="invoiceRecurrenceService-parentBean"/>
 	<bean id="invoiceRecurrenceService-parentBean" class="org.kuali.kfs.module.ar.batch.service.impl.InvoiceRecurrenceServiceImpl" abstract="true">
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -1366,7 +1366,7 @@
 			<ref bean="documentDao" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="financialSystemUserService">
 			<ref bean="financialSystemUserService" />
@@ -1410,7 +1410,7 @@
 			<ref bean="customerService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="invoiceWriteoffBatchService">
 			<ref bean="customerInvoiceWriteoffBatchService" />
@@ -1469,7 +1469,7 @@
 			<ref bean="nonAppliedHoldingService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="invoicePaidAppliedService">
 			<ref bean="invoicePaidAppliedService" />
@@ -1507,7 +1507,7 @@
 			<ref bean="contractsGrantsInvoiceDocumentDao" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -1530,7 +1530,7 @@
 			<ref bean="accountsReceivableDocumentHeaderService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="businessObjectService">
 			<ref bean="kfs.businessObjectService" />
@@ -1700,7 +1700,7 @@
 			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="electronicPaymentClaimingService">
 			<ref bean="electronicPaymentClaimingService" />
@@ -1747,7 +1747,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 		<property name="docService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="parameterService">
 			<ref bean="kfs.parameterService" />
@@ -1880,7 +1880,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="lockboxService">
 			<ref bean="lockboxService" />
@@ -2061,7 +2061,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="customerAddressService">
 			<ref bean="customerAddressService" />
@@ -2184,7 +2184,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -2222,7 +2222,7 @@
 			<ref bean="customerAddressService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
