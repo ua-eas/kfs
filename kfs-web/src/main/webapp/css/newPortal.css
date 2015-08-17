@@ -186,7 +186,7 @@ nav ul.nav li {
 #menu-toggle {
     float:right;
     background-color: #5b5b5b;
-    padding: 5px;
+    padding: 10px 10px 5px 5px;
     color: #D8D8D8;
     z-index: 1000;
 }
@@ -282,6 +282,10 @@ nav ul.nav li {
 
 .center {
     text-align: center;
+}
+
+.heavy {
+    font-weight: 700;
 }
 
 .btn:not(:last-child) {

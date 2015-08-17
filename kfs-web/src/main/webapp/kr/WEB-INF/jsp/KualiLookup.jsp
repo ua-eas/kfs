@@ -191,136 +191,188 @@
 			  </c:if>
 			</table>
 			</div>
+		</td>
+	  </tr>
+    </table>
+	</form>
+	</div>
 
-			<c:if test="${reqSearchResultsActualSize > reqSearchResultsLimitedSize && reqSearchResultsLimitedSize>0}">
-				<c:out value="${reqSearchResultsActualSize}" /> items found.  Please refine your search criteria to narrow down your search.
-            </c:if>
-			<c:if test="${!empty reqSearchResultsActualSize }">
-			    <c:if test="${KualiForm.searchUsingOnlyPrimaryKeyValues}">
-			    	<bean-el:message key="lookup.using.primary.keys" arg0="${KualiForm.primaryKeyFieldLabels}"/>
-			    </c:if>
-			    <c:if test="${empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
-    				<bean-el:message key="lookup.no.returnable.rows" />
-    			</c:if>
-				<display:table class="datatable-100" cellspacing="0"
-				requestURIcontext="false" cellpadding="0" name="${reqSearchResults}"
-				id="row" export="true" pagesize="100" varTotals="totals" 
-				excludedParams="methodToCall reqSearchResultsActualSize searchResultKey searchUsingOnlyPrimaryKeyValues actionUrlsExist" 
-				requestURI="lookup.do?methodToCall=viewResults&reqSearchResultsActualSize=${reqSearchResultsActualSize}&searchResultKey=${searchResultKey}&searchUsingOnlyPrimaryKeyValues=${KualiForm.searchUsingOnlyPrimaryKeyValues}&actionUrlsExist=${KualiForm.actionUrlsExist}">
+	<c:if test="${!empty reqSearchResultsActualSize }">
+		<c:if test="${reqSearchResultsActualSize > reqSearchResultsLimitedSize && reqSearchResultsLimitedSize>0}">
+			<div class="too-many-results">
+				<span class="heavy"><c:out value="${reqSearchResultsActualSize}" /></span> items found.  Please refine your search criteria to narrow down your search.
+			</div>
+		</c:if>
 
-				<%-- the param['d-16544-e'] parameter below is NOT null when we are in exporting mode, so this check disables rendering of return/action URLs when we are exporting to CSV, excel, xml, etc. --%>
-				<c:if test="${param['d-16544-e'] == null}">
-					<logic:present name="KualiForm" property="formKey">
-						<c:if test="${KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues && !empty KualiForm.backLocation}">
- 	 	 	 				<c:choose>
-								<c:when test="${row.rowReturnable}">    
-									<display:column class="infocell" media="html" title="Return Value">${row.returnUrl}</display:column>
-								</c:when>
-								<c:otherwise>
-									<display:column class="infocell" media="html" title="Blank">&nbsp;</display:column>
-								</c:otherwise>
- 		                   </c:choose>
- 		                </c:if>
-						<c:if test="${KualiForm.actionUrlsExist==true && KualiForm.suppressActions!=true && !KualiForm.multipleValues && KualiForm.showMaintenanceLinks}">
-							<c:choose>
-								<c:when test="${row.actionUrls!=''}">
-									<display:column class="infocell" property="actionUrls"
-										title="Actions" media="html" />
-								</c:when>
-								<c:otherwise>
-									<display:column class="infocell"
-										title="Actions" media="html">&nbsp;</display:column>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-					</logic:present>
-				</c:if>
+		<a id="search-results"></a>
+		<div class="main-panel search-results">
+		<c:if test="${KualiForm.searchUsingOnlyPrimaryKeyValues}">
+			<bean-el:message key="lookup.using.primary.keys" arg0="${KualiForm.primaryKeyFieldLabels}"/>
+		</c:if>
+		<c:if test="${empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
+			<bean-el:message key="lookup.no.returnable.rows" />
+		</c:if>
+		<display:table class="datatable-100" cellspacing="0"
+		requestURIcontext="false" cellpadding="0" name="${reqSearchResults}"
+		id="row" export="true" pagesize="100" varTotals="totals"
+		excludedParams="methodToCall reqSearchResultsActualSize searchResultKey searchUsingOnlyPrimaryKeyValues actionUrlsExist"
+		requestURI="lookup.do?methodToCall=viewResults&reqSearchResultsActualSize=${reqSearchResultsActualSize}&searchResultKey=${searchResultKey}&searchUsingOnlyPrimaryKeyValues=${KualiForm.searchUsingOnlyPrimaryKeyValues}&actionUrlsExist=${KualiForm.actionUrlsExist}">
 
-                <%-- needed for total line display --%>
-                <c:set var="columnNums" value=""/>
-                <c:set var="totalColumnNums" value=""/>
-                
-				<c:forEach items="${row.columns}" var="column" varStatus="loopStatus">
-                    <c:set var="colClass" value="${ fn:startsWith(column.formatter, 'org.kuali.rice.krad.web.format.CurrencyFormatter') ? 'numbercell' : 'infocell' }" />
-              
-                    <c:if test="${!empty columnNums}" >
-                      <c:set var="columnNums" value="${columnNums},"/>
-                    </c:if>
-                    <c:set var="columnNums" value="${columnNums}column${loopStatus.count}"/>
-                    
-                    <c:set var="staticColumnValue" value="${column.propertyValue}" />
-                    <c:if test="${column.total}" >
-                      <c:set var="staticColumnValue" value="${column.unformattedPropertyValue}" />
-                      
-                      <c:if test="${!empty totalColumnNums}" >
-                        <c:set var="totalColumnNums" value="${totalColumnNums},"/>
-                      </c:if>
-                      <c:set var="totalColumnNums" value="${totalColumnNums}column${loopStatus.count}"/>
-                    </c:if>
-                    
+		<%-- the param['d-16544-e'] parameter below is NOT null when we are in exporting mode, so this check disables rendering of return/action URLs when we are exporting to CSV, excel, xml, etc. --%>
+		<c:if test="${param['d-16544-e'] == null}">
+			<logic:present name="KualiForm" property="formKey">
+				<c:if test="${KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues && !empty KualiForm.backLocation}">
 					<c:choose>
-						<%--NOTE: Check if exporting first, as this should be outputted without extra HTML formatting --%>
-						<c:when	test="${param['d-16544-e'] != null}">
-								<display:column class="${colClass}" sortable="${column.sortable}"
-									title="${column.columnTitle}" comparator="${column.comparator}" total="${column.total}" value="${staticColumnValue}" 
-									maxLength="${column.maxLength}"><c:out value="${column.propertyValue}" escapeXml="false" default="" /></display:column>
+						<c:when test="${row.rowReturnable}">
+							<display:column class="infocell" media="html" title="Return Value">${row.returnUrl}</display:column>
 						</c:when>
-						<c:when	test="${!empty column.columnAnchor.href || column.multipleAnchors}">
-							<display:column class="${colClass}" sortable="${column.sortable}" title="${column.columnTitle}" comparator="${column.comparator}"  >
-<c:choose><c:when test="${column.multipleAnchors}"><c:set var="numberOfColumnAnchors" value="${column.numberOfColumnAnchors}" /><c:choose>
-<c:when test="${empty columnAnchor.target}"><c:set var="anchorTarget" value="_blank" /></c:when><c:otherwise><c:set var="anchorTarget" value="${columnAnchor.target}" /></c:otherwise></c:choose>
-<!-- Please don't change formatting of this logic:iterate block -->
-<logic:iterate id="columnAnchor" name="column" property="columnAnchors" indexId="ctr"><a href="<c:out value="${columnAnchor.href}"/>" target='<c:out value="${columnAnchor.target}"/>' title="${columnAnchor.title}"><c:out value="${fn:substring(columnAnchor.displayText, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(columnAnchor.displayText) gt column.maxLength}">...</c:if></a><c:if test="${ctr lt numberOfColumnAnchors-1}">,&nbsp;</c:if></logic:iterate>
-</c:when><c:otherwise><c:choose><c:when test="${empty column.columnAnchor.target}"><c:set var="anchorTarget" value="_blank" /></c:when><c:otherwise><c:set var="anchorTarget" value="${column.columnAnchor.target}" />
-</c:otherwise></c:choose><a href="<c:out value="${column.columnAnchor.href}"/>" target='<c:out value="${anchorTarget}"/>' title="${column.columnAnchor.title}"><c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if></a>
-</c:otherwise></c:choose></display:column>
-						</c:when>
-<%--NOTE: DO NOT FORMAT THIS FILE, DISPLAY:COLUMN WILL NOT WORK CORRECTLY IF IT CONTAINS LINE BREAKS --%>
 						<c:otherwise>
-							<display:column class="${colClass}" sortable="${column.sortable}"
-								title="${column.columnTitle}" comparator="${column.comparator}" total="${column.total}" value="${fn:escapeXml(staticColumnValue)}"
-								maxLength="${column.maxLength}" decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator"><c:out value="${column.propertyValue}"/>&nbsp;</display:column>
-                        </c:otherwise>
+							<display:column class="infocell" media="html" title="Blank">&nbsp;</display:column>
+						</c:otherwise>
+				   </c:choose>
+				</c:if>
+				<c:if test="${KualiForm.actionUrlsExist==true && KualiForm.suppressActions!=true && !KualiForm.multipleValues && KualiForm.showMaintenanceLinks}">
+					<c:choose>
+						<c:when test="${row.actionUrls!=''}">
+							<display:column class="infocell" property="actionUrls"
+								title="Actions" media="html" />
+						</c:when>
+						<c:otherwise>
+							<display:column class="infocell"
+								title="Actions" media="html">&nbsp;</display:column>
+						</c:otherwise>
 					</c:choose>
-				</c:forEach>
+				</c:if>
+			</logic:present>
+		</c:if>
 
-               <%-- block for displaying the total line --%>
-               <c:if test="${!empty totalColumnNums}" >
-                 <display:footer>
-  	               <tr>
-  	                 <c:forTokens var="colNum" items="${columnNums}" delims="," varStatus="loopStatus">
-  	                   <c:set var="isTotalColumn" value="false"/>
-  	                   
-  	                   <c:forTokens var="totalNum" items="${totalColumnNums}" delims="," >
-  	                     <c:if test="${totalNum eq colNum}">
-  	                       <c:set var="isTotalColumn" value="true"/>
-  	                     </c:if>
-  	                   </c:forTokens>
-  	                   
-  	                   <c:choose>
-  	                    <c:when test="${isTotalColumn}" >
-  		                  <td><b><fmt:formatNumber type="currency" value="${totals[colNum]}"/></b></td>
-  		                </c:when>
-  		                <c:otherwise>
-  		                  <td>
-  		                    <c:if test="${loopStatus.first}">
-  		                      <b><bean-el:message key="lookup.total.row.label" /></b>
-  		                    </c:if>
-  		                  </td>
-  		                </c:otherwise>
-  		               </c:choose> 
-  		              
-  		             </c:forTokens>
-                   </tr>
-                </display:footer>
-              </c:if>
-              
-			</display:table>
-		 </c:if></td>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-				height="20"></td>
-		</tr>
-	</table>
+		<%-- needed for total line display --%>
+		<c:set var="columnNums" value=""/>
+		<c:set var="totalColumnNums" value=""/>
+
+		<c:forEach items="${row.columns}" var="column" varStatus="loopStatus">
+			<c:set var="colClass" value="${ fn:startsWith(column.formatter, 'org.kuali.rice.krad.web.format.CurrencyFormatter') ? 'numbercell' : 'infocell' }" />
+
+			<c:if test="${!empty columnNums}" >
+			  <c:set var="columnNums" value="${columnNums},"/>
+			</c:if>
+			<c:set var="columnNums" value="${columnNums}column${loopStatus.count}"/>
+
+			<c:set var="staticColumnValue" value="${column.propertyValue}" />
+			<c:if test="${column.total}" >
+			  <c:set var="staticColumnValue" value="${column.unformattedPropertyValue}" />
+
+			  <c:if test="${!empty totalColumnNums}" >
+				<c:set var="totalColumnNums" value="${totalColumnNums},"/>
+			  </c:if>
+			  <c:set var="totalColumnNums" value="${totalColumnNums}column${loopStatus.count}"/>
+			</c:if>
+
+			<c:choose>
+				<%--NOTE: Check if exporting first, as this should be outputted without extra HTML formatting --%>
+				<c:when	test="${param['d-16544-e'] != null}">
+						<display:column class="${colClass}" sortable="${column.sortable}"
+							title="${column.columnTitle}" comparator="${column.comparator}" total="${column.total}" value="${staticColumnValue}"
+							maxLength="${column.maxLength}"><c:out value="${column.propertyValue}" escapeXml="false" default="" /></display:column>
+				</c:when>
+				<c:when	test="${!empty column.columnAnchor.href || column.multipleAnchors}">
+					<display:column class="${colClass}" sortable="${column.sortable}" title="${column.columnTitle}" comparator="${column.comparator}"  >
+				<c:choose><c:when test="${column.multipleAnchors}"><c:set var="numberOfColumnAnchors" value="${column.numberOfColumnAnchors}" /><c:choose>
+				<c:when test="${empty columnAnchor.target}"><c:set var="anchorTarget" value="_blank" /></c:when><c:otherwise><c:set var="anchorTarget" value="${columnAnchor.target}" /></c:otherwise></c:choose>
+				<!-- Please don't change formatting of this logic:iterate block -->
+				<logic:iterate id="columnAnchor" name="column" property="columnAnchors" indexId="ctr"><a href="<c:out value="${columnAnchor.href}"/>" target='<c:out value="${columnAnchor.target}"/>' title="${columnAnchor.title}"><c:out value="${fn:substring(columnAnchor.displayText, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(columnAnchor.displayText) gt column.maxLength}">...</c:if></a><c:if test="${ctr lt numberOfColumnAnchors-1}">,&nbsp;</c:if></logic:iterate>
+				</c:when><c:otherwise><c:choose><c:when test="${empty column.columnAnchor.target}"><c:set var="anchorTarget" value="_blank" /></c:when><c:otherwise><c:set var="anchorTarget" value="${column.columnAnchor.target}" />
+				</c:otherwise></c:choose><a href="<c:out value="${column.columnAnchor.href}"/>" target='<c:out value="${anchorTarget}"/>' title="${column.columnAnchor.title}"><c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if></a>
+				</c:otherwise></c:choose></display:column>
+				</c:when>
+				<%--NOTE: DO NOT FORMAT THIS FILE, DISPLAY:COLUMN WILL NOT WORK CORRECTLY IF IT CONTAINS LINE BREAKS --%>
+				<c:otherwise>
+					<display:column class="${colClass}" sortable="${column.sortable}"
+						title="${column.columnTitle}" comparator="${column.comparator}" total="${column.total}" value="${fn:escapeXml(staticColumnValue)}"
+						maxLength="${column.maxLength}" decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator"><c:out value="${column.propertyValue}"/>&nbsp;</display:column>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+	   <%-- block for displaying the total line --%>
+	   <c:if test="${!empty totalColumnNums}" >
+		 <display:footer>
+		   <tr>
+			 <c:forTokens var="colNum" items="${columnNums}" delims="," varStatus="loopStatus">
+			   <c:set var="isTotalColumn" value="false"/>
+
+			   <c:forTokens var="totalNum" items="${totalColumnNums}" delims="," >
+				 <c:if test="${totalNum eq colNum}">
+				   <c:set var="isTotalColumn" value="true"/>
+				 </c:if>
+			   </c:forTokens>
+
+			   <c:choose>
+				<c:when test="${isTotalColumn}" >
+				  <td><b><fmt:formatNumber type="currency" value="${totals[colNum]}"/></b></td>
+				</c:when>
+				<c:otherwise>
+				  <td>
+					<c:if test="${loopStatus.first}">
+					  <b><bean-el:message key="lookup.total.row.label" /></b>
+					</c:if>
+				  </td>
+				</c:otherwise>
+			   </c:choose>
+
+			 </c:forTokens>
+		   </tr>
+		</display:footer>
+	  </c:if>
+
+	</display:table>
+
+		<c:if test="${!empty reqSearchResultsActualSize }">
+			<script type="text/javascript">
+				var headerSelector = '.search-results .headerarea-small'
+				var tableSelector = '.search-results table'
+				var tableHeaderSelector = '.search-results table>thead'
+
+				$(document).ready(function() {
+					// smooth scroll window to the search results after clicking search
+					if (window.location.hash != '#search-results') {
+						$('html,body').animate({
+							scrollTop: $('#search-results').offset().top
+						}, 1000);
+					}
+
+					// make search results header sticky
+					var headerLocation = $(headerSelector).offset().top - $(headerSelector).outerHeight()
+					console.log(headerLocation)
+					makeHeaderSticky()
+
+					// Modify header stickiness as we scroll
+					$(window).scroll(function() {
+						makeHeaderSticky()
+					})
+
+					$(window).resize(function() {
+						makeHeaderSticky()
+					})
+
+					function makeHeaderSticky() {
+						var headerIsSticky = $(headerSelector).hasClass('fixed')
+						var windowLocation = $(window).scrollTop()
+						$(headerSelector).css('width', $(tableSelector).outerWidth())
+						if (windowLocation > headerLocation && !headerIsSticky) {
+							$(headerSelector).addClass('fixed')
+							$(tableSelector).addClass('fixedHeader')
+						} else if (windowLocation <= headerLocation && headerIsSticky) {
+							$(headerSelector).removeClass('fixed')
+							$(tableSelector).removeClass('fixedHeader')
+						}
+					}
+				})
+			</script>
+		</c:if>
+	</div>
+ </c:if>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// Set initial button state

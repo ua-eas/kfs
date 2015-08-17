@@ -135,6 +135,8 @@
 					<div id="view_div">
 					<kul:backdoor />
 
+					<div class="main-panel">
+
 					<c:if
 							test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
 						<div class="lookupcreatenew">
@@ -181,6 +183,7 @@
 					<c:otherwise>
 						<div id="view_div">
 						<kul:backdoor />
+						<div class="main-panel">
 						${headerMenuBar}
 					</c:otherwise>
 				</c:choose>
