@@ -135,10 +135,16 @@
 					<div id="view_div">
 					<kul:backdoor />
 
-					<div class="main-panel">
+					<c:choose>
+						<c:when test="${!_isInquiry}">
+							<div class="main-panel">
+						</c:when>
+						<c:otherwise>
+							<div class="inquiry">
+						</c:otherwise>
+					</c:choose>
 
-					<c:if
-							test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
+					<c:if test="${! empty headerMenuBar and !_isInquiry and KualiForm.showMaintenanceLinks}">
 						<div class="lookupcreatenew">
 								${headerMenuBar}
 						</div>
@@ -298,8 +304,8 @@
 			<div class="right">
 				<div class="excol">
 					<div class="lookupcreatenew">
-						<html:image property="methodToCall.showAllTabs" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-expandall.gif" title="show all panel content" alt="show all panel content" styleClass="tinybutton" onclick="return expandAllTab();" tabindex="-1" />
-						<html:image property="methodToCall.hideAllTabs" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-collapseall.gif" title="hide all panel content" alt="hide all panel content" styleClass="tinybutton" onclick="return collapseAllTab();" tabindex="-1" />
+						<html:submit property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="tinybutton btn btn-primary" onclick="return expandAllTab();" tabindex="-1" value="expand all" />
+						<html:submit property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="tinybutton btn btn-primary" onclick="return collapseAllTab();" tabindex="-1" value="collapse all" />
 					</div>
 				</div>
 			</div>
@@ -421,7 +427,7 @@
 </html:form>
 </c:if>
 <div id="formComplete"></div>
-</div>
+	</div>
 	</div>
 	</div>
 	</div>

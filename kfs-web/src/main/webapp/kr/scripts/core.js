@@ -15,12 +15,12 @@
  */
 // Toggles a tab to show / hide and changes the source image to properly reflect this
 // change. Returns false to avoid post. Example usage:
-// onclick="javascript: return toggleTab(document, this, ${currentTabIndex}) }
-function toggleTab(doc, tabKey) {
-	if (doc.forms[0].elements['tabStates(' + tabKey + ')'].value == 'CLOSE') {
-        showTab(doc, tabKey);
+// onclick="javascript: return toggleTab(document, 'KualiForm', ${currentTabIndex}) }
+function toggleTab(doc, formKey, tabKey) {
+	if (doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value == 'CLOSE') {
+        showTab(doc, formKey, tabKey);
     } else {
-        hideTab(doc, tabKey);
+        hideTab(doc, formKey, tabKey);
 	}
 	return false;
 }
@@ -50,36 +50,32 @@ function doToAllTabs(func) {
 	return false;
 }
 
-function showTab(doc, tabKey) {
+function showTab(doc, formKey, tabKey) {
     if (!doc.getElementById('tab-' + tabKey + '-div') || !doc.getElementById('tab-' + tabKey + '-imageToggle')) {
 		return false;
 	}
 	
     // replaced 'block' with '' to make budgetExpensesRow.tag happy.
     doc.getElementById('tab-' + tabKey + '-div').style.display = '';
-    doc.forms[0].elements['tabStates(' + tabKey + ')'].value = 'OPEN';
-    var image = doc.getElementById('tab-' + tabKey + '-imageToggle');
-    image.src = jsContextPath + '/kr/images/tinybutton-hide.gif';
-    image.alt = image.alt.replace(/^show/, 'hide');
-    image.alt = image.alt.replace(/^open/, 'close');
-    image.title = image.title.replace(/^show/, 'hide');
-    image.title = image.title.replace(/^open/, 'close');
+    doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value = 'OPEN';
+    var span = doc.getElementById('tab-' + tabKey + '-imageToggle');
+	$(span).toggleClass('glyphicon-menu-up glyphicon-menu-down');
+	span.title = span.title.replace(/^show/, 'hide');
+	span.title = span.title.replace(/^open/, 'close');
     return false;
 }
 
-function hideTab(doc, tabKey) {
+function hideTab(doc, formKey, tabKey) {
     if (!doc.getElementById('tab-' + tabKey + '-div') || !doc.getElementById('tab-' + tabKey + '-imageToggle')) {
 		return false;
 	}
 	
     doc.getElementById('tab-' + tabKey + '-div').style.display = 'none';
-    doc.forms[0].elements['tabStates(' + tabKey + ')'].value = 'CLOSE';
-    var image = doc.getElementById('tab-' + tabKey + '-imageToggle');
-    image.src = jsContextPath + '/kr/images/tinybutton-show.gif';
-    image.alt = image.alt.replace(/^hide/, 'show');
-    image.alt = image.alt.replace(/^close/, 'open');
-    image.title = image.title.replace(/^hide/, 'show');
-    image.title = image.title.replace(/^close/, 'open');
+    doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value = 'CLOSE';
+    var span = doc.getElementById('tab-' + tabKey + '-imageToggle');
+	$(span).toggleClass('glyphicon-menu-up glyphicon-menu-down');
+	span.title = span.title.replace(/^hide/, 'show');
+	span.title = span.title.replace(/^close/, 'open');
     return false;
 }
 

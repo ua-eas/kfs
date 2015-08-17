@@ -5,16 +5,44 @@
 
 #view_div .lookupcreatenew {
     float: right;
+    line-height: 50px;
+}
+
+#view_div .main-panel .lookupcreatenew {
+    float: right;
     margin-right: 35px;
     line-height: 50px;
 }
 
+#view_div .main-panel .toggle-show-tab {
+    float: right;
+    line-height: 50px;
+    color: #5F7D8C;
+    font-size: 16px;
+}
+
+#view_div .main-panel .toggle-show-tab>span {
+    cursor: pointer;
+}
+
+#view_div .main-panel .toggle-show-tab>span:focus {
+    outline: none;
+}
+
 #view_div .headerarea-small {
-    background-color: #FBFBFB;
     height: 50px;
-    box-shadow: 0px 2px 0px 0px #F3F3F3;
     padding-left: 30px;
     padding-right: 30px;
+}
+
+#view_div .inquiry .headerarea-small {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#view_div .main-panel .headerarea-small {
+    background-color: #FBFBFB;
+    box-shadow: 0px 2px 0px 0px #F3F3F3;
 }
 
 #view_div a img {
@@ -38,6 +66,10 @@ div.excol {
     padding-top: 8px;
 }
 
+.inquiry div.excol {
+    margin-right: 10px;
+}
+
 #view_div .headerarea-small h1 {
     margin: 0px;
     font-weight: 200;
@@ -45,6 +77,17 @@ div.excol {
     line-height: 50px;
     color: #5C6A73;
     float: left;
+}
+
+#view_div .headerarea-small h2 {
+    margin: 0px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 50px;
+    color: #5F7D8C;
+    float: left;
+    text-transform: uppercase;
+    padding-left: 10px;
 }
 
 #view_div .main-panel {
@@ -56,6 +99,10 @@ div.excol {
 
 #view_div .main-panel:not(:first-child) {
     margin-top: 10px;
+}
+
+#view_div .inquiry .main-panel {
+    margin: 10px;
 }
 
 #lookup {

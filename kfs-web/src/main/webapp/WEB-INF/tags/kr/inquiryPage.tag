@@ -33,9 +33,7 @@
 	defaultMethodToCall="${defaultMethodToCall}" additionalScriptFiles="${additionalScriptFiles}"
 	lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}">
 
-<%-- Put the header on the page. --%>
-
-	<div id="workarea">
+	<div>
 		<%-- settting FieldSections to KualiForm.sections --%>
 		<c:set var="FieldSections" value="${KualiForm.sections}" />
 		<div class="headerarea-small" id="headerarea-small">
@@ -50,12 +48,8 @@
 			<input type="hidden" name="${Constants.INACTIVE_RECORD_DISPLAY_PARAM_PREFIX}${entry.key}" value="${entry.value}"/>
 		</c:forEach>
 						
-		<kul:tableWrapper>
 		<%-- Show the information about the business object. --%>
-		<c:set var="firstTab" value="${true}" /><%-- make the background transparent in kul:tab for the first pass --%>
-	    <br />
 		<c:forEach items="${FieldSections}" var="section">
-	
 		  <%-- call helper tag to look ahead through fields for old to new changes, and highlight tab if so --%>
           <kul:checkTabHighlight rows="${section.rows}" addHighlighting="false" />
 		  
@@ -63,15 +57,12 @@
 		    <div class="tab-container" align="center">
 		      <table width="100%" cellpadding=0 cellspacing=0 class="datatable">
 			     <kul:rowDisplay rows="${section.rows}" numberOfColumns="${section.numberOfColumns}" />
-			  </table>   
+			  </table>
 	        </div>
 		  </kul:tab>
-		  
-		  <c:set var="firstTab" value="${false}" /><%-- make the background opaque after first pass --%>
 		</c:forEach>
 		<kul:panelFooter />
-		</kul:tableWrapper>
-		
+
 
 		
 		<kul:inquiryControls />
