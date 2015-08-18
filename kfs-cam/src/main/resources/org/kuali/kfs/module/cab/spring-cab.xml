@@ -259,7 +259,7 @@
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="purApLineService" ref="purApLineService" />
 		<property name="purApInfoService" ref="purApInfoService" />
-		<property name="documentService" ref="documentService" />
+		<property name="documentService" ref="kfs.documentService" />
 		<property name="assetGlobalService" ref="assetGlobalService" />
 	</bean>  
 <!-- **** End of PurAp service beans **** -->

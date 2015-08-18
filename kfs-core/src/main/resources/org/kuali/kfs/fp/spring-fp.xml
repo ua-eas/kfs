@@ -154,7 +154,7 @@
 	<bean id="disbursementVoucherExtractionHelperService" parent="disbursementVoucherExtractionHelperService-parentBean"/>
 	<bean id="disbursementVoucherExtractionHelperService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherExtractionHelperServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="kfs.businessObjectService"/>
-		<property name="documentService" ref="documentService"/>
+		<property name="documentService" ref="kfs.documentService"/>
 		<property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService"/>
@@ -227,7 +227,7 @@
 	<bean id="procurementCardCreateDocumentService-parentBean" class="org.kuali.kfs.fp.batch.service.impl.ProcurementCardCreateDocumentServiceImpl" abstract="true">
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
-		<property name="documentService" ref="documentService" />
+		<property name="documentService" ref="kfs.documentService" />
     	<property name="workflowDocumentService" ref="workflowDocumentService" />
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="dateTimeService" ref="dateTimeService" />

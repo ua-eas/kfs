@@ -26,7 +26,7 @@
     <bean id="realTemTravelDocumentService" parent="realTemTravelDocumentService-parentBean" />
 	<bean id="realTemTravelDocumentService-parentBean" class="org.kuali.kfs.module.tem.document.service.impl.TravelDocumentServiceImpl"	abstract="true">
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
-		<property name="documentService" ref="documentService" />
+		<property name="documentService" ref="kfs.documentService" />
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="travelDocumentDao" ref="travelDocumentDao" />

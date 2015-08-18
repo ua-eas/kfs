@@ -577,7 +577,7 @@
 		<property name="dateTimeService">
 			<ref bean="dateTimeService"/>
 		</property>
-		<property name="documentService" ref="documentService" />
+		<property name="documentService" ref="kfs.documentService" />
 	</bean>
     <bean id="batchLookupableHelperService" parent="batchLookupableHelperService-parentBean"  scope="prototype"/>
 
