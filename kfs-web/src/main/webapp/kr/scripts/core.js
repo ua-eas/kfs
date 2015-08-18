@@ -27,24 +27,27 @@ function toggleTab(doc, formKey, tabKey) {
 
 /** expands all tabs by unhiding them. */
 function expandAllTab() {
-	doToAllTabs(showTab);
+	doToAllTabs(showTab, 'KualiForm');
 	return false;
 	}
 
 /** collapses all tab by hiding them. */
 function collapseAllTab() {
-	doToAllTabs(hideTab);
+	doToAllTabs(hideTab, 'KualiForm');
 	return false;
 }
 
-/** executes a function on all tabs.  The function will be passed a document & partial tab name. */
-function doToAllTabs(func) {
+/** executes a function on all tabs.  The function will be passed a document, a formname & a partial tab name. */
+function doToAllTabs(func, formName) {
 	var elements = document.getElementsByTagName('div');
+	if (!formName) {
+		formName = 'KualiForm';
+	}
 	
 	for (var x in elements) {
 		if (elements[x].id && elements[x].id.substring(0, 4) === 'tab-' 
 			&& elements[x].id.substring(elements[x].id.length - 4, elements[x].id.length) === '-div') {
-			func(document, elements[x].id.substring(4, elements[x].id.length - 4));
+			func(document, formName, elements[x].id.substring(4, elements[x].id.length - 4));
 		}
 	}
 	return false;
