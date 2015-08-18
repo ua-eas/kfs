@@ -44,14 +44,14 @@
 		<property name="includeKnsSpringBeans" value="true" />
 	</bean>
 
-	<!--<bean id="coreServiceConfigurer"-->
-		<!--class="org.kuali.kfs.coreservice.impl.config.CoreServiceConfigurer" />-->
+	<bean id="kfs.kradConfigurer" class="org.kuali.kfs.krad.config.KRADConfigurer">
+		<property name="applicationDataSource" ref="dataSource" />
+		<property name="includeKnsSpringBeans" value="true" />
+	</bean>
 
-
+	<bean id="coreServiceConfigurer" class="org.kuali.kfs.coreservice.impl.config.CoreServiceConfigurer" />
 
 	<bean id="kimConfigurer" class="org.kuali.rice.kim.config.KIMConfigurer" />
-
-
 
 	<bean id="kewConfigurer" class="org.kuali.rice.kew.config.KEWConfigurer">
 		<property name="dataSource" ref="riceDataSource" />
