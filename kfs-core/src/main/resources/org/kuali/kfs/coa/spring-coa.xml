@@ -171,7 +171,7 @@
 		<property name="accountService" ref="accountService" />
 		<property name="reportWriterService" ref="addPriorYearAccountsReportWriterService" />
 		<property name="persistenceStructureService" ref="persistenceStructureService" />
-    	<property name="persistenceServiceOjb" ref="persistenceServiceOjb" />
+    	<property name="persistenceServiceOjb" ref="kfs.persistenceServiceOjb" />
     	<property name="businessObjectService" ref="kfs.businessObjectService" />
         <property name="parameterService" ref="kfs.parameterService" />
 	</bean>

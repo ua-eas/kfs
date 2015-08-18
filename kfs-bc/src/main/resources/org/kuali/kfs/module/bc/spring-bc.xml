@@ -149,7 +149,7 @@
 			<ref bean="bcBudgetPullupDao" />
 		</property>
         <property name="persistenceServiceOjb">
-            <ref bean="persistenceServiceOjb" />
+            <ref bean="kfs.persistenceServiceOjb" />
         </property>
 	</bean>
 
@@ -457,7 +457,7 @@
 			<ref bean="kfs.businessObjectService" />
 		</property>
         <property name="persistenceServiceOjb">
-            <ref bean="persistenceServiceOjb" />
+            <ref bean="kfs.persistenceServiceOjb" />
         </property>
 	</bean>
 	
@@ -536,7 +536,7 @@
 		<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="persistenceServiceOjb" />
+        <ref bean="kfs.persistenceServiceOjb" />
     </property>
 	</bean>
 	
@@ -613,7 +613,7 @@
     	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="persistenceServiceOjb" />
+        <ref bean="kfs.persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -654,7 +654,7 @@
     	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="persistenceServiceOjb" />
+        <ref bean="kfs.persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -673,7 +673,7 @@
     	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="persistenceServiceOjb" />
+        <ref bean="kfs.persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -692,7 +692,7 @@
     	<ref bean="kfs.businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="persistenceServiceOjb" />
+        <ref bean="kfs.persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -705,7 +705,7 @@
 		<ref bean="kfs.businessObjectService" />
 		</property>
     <property name="persistenceServiceOjb">
-        <ref bean="persistenceServiceOjb" />
+        <ref bean="kfs.persistenceServiceOjb" />
         </property>
     </bean>
     
@@ -909,7 +909,7 @@
         <ref bean="budgetConstructionMonthlyBudgetsCreateDeleteDao"/>
       </property>
       <property name="persistenceServiceOjb">
-        <ref bean="persistenceServiceOjb" />
+        <ref bean="kfs.persistenceServiceOjb" />
       </property>
     </bean>
 
@@ -949,7 +949,7 @@
             <ref bean="kfs.parameterService" />
         </property> 
         <property name="persistenceServiceOjb">
-            <ref bean="persistenceServiceOjb" />
+            <ref bean="kfs.persistenceServiceOjb" />
         </property>
 	</bean>
 	
