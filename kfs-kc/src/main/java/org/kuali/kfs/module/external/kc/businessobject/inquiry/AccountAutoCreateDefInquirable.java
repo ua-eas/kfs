@@ -23,10 +23,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.AccountAutoCreateDefaults;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
@@ -37,10 +37,10 @@ import org.kuali.kfs.krad.util.UrlFactory;
 /**
  * Inquirable class for {@link Account}
  */
-public class AccountAutoCreateDefInquirable extends KfsInquirableImpl {
+public class AccountAutoCreateDefInquirable extends KualiInquirableImpl {
 
     /**
-     * @see org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
+     * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
      *      java.lang.String, boolean)
      */
     @Override

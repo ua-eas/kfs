@@ -22,14 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.kfs.coa.service.OrganizationReversionService;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.rice.krad.bo.BusinessObject;
 
-public class OrganizationReversionInquirable extends KfsInquirableImpl {
+public class OrganizationReversionInquirable extends KualiInquirableImpl {
     private OrganizationReversionService organizationReversionService;
 
     /**

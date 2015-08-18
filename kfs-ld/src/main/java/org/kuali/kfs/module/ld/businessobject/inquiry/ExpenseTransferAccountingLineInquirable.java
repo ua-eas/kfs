@@ -20,11 +20,11 @@ package org.kuali.kfs.module.ld.businessobject.inquiry;
 
 import java.util.Properties;
 
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.kns.lookup.HtmlData;
@@ -33,7 +33,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
 
-public class ExpenseTransferAccountingLineInquirable extends KfsInquirableImpl {
+public class ExpenseTransferAccountingLineInquirable extends KualiInquirableImpl {
     protected static final String FRINGE_BENEFIT_METHOD_TO_CALL = "calculateFringeBenefit";
     protected static final String FRINGE_BENEFIT_INQUIRY_PAGE_NAME = "/fringeBenefitInquiry.do";
 

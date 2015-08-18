@@ -23,10 +23,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sec.businessobject.SecurityModelDefinition;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
@@ -42,10 +42,10 @@ import org.kuali.kfs.krad.util.UrlFactory;
 /**
  * Sets inquiry for member name based on type
  */
-public class SecurityModelMemberInquirable extends KfsInquirableImpl {
+public class SecurityModelMemberInquirable extends KualiInquirableImpl {
 
     /**
-     * @see org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, boolean)
+     * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, boolean)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject businessObject, String attributeName, boolean forceInquiry) {

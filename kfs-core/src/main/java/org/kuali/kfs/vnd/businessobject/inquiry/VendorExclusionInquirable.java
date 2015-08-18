@@ -21,12 +21,12 @@ package org.kuali.kfs.vnd.businessobject.inquiry;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
 import org.kuali.kfs.vnd.businessobject.VendorAlias;
 import org.kuali.rice.krad.bo.BusinessObject;
 
-public class VendorExclusionInquirable extends KfsInquirableImpl {
+public class VendorExclusionInquirable extends KualiInquirableImpl {
 
     /**
      * @see org.kuali.rice.kns.inquiry.KualiInquirableImpl#getBusinessObject(java.util.Map)

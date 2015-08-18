@@ -23,13 +23,13 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.Customer;
 import org.kuali.kfs.module.ar.businessobject.CustomerOpenItemReportDetail;
 import org.kuali.kfs.module.ar.service.CustomerViewService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.kfs.kns.web.ui.Field;
@@ -39,7 +39,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
 
-public class CustomerInquirableImpl extends KfsInquirableImpl {
+public class CustomerInquirableImpl extends KualiInquirableImpl {
 
     private static volatile CustomerViewService customerViewService;
 

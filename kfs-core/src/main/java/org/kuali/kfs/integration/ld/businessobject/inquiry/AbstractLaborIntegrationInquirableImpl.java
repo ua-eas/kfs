@@ -28,10 +28,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.kfs.gl.Constant;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.kns.lookup.HtmlData;
@@ -47,7 +47,7 @@ import org.kuali.kfs.krad.util.UrlFactory;
  * Main Abstract Labor Inquirable parent class that sets up the inquirable hierarchy that so that
  * labor inquiry logic can be used in labor and in other optional modules (ex: EC).
  */
-public abstract class AbstractLaborIntegrationInquirableImpl extends KfsInquirableImpl {
+public abstract class AbstractLaborIntegrationInquirableImpl extends KualiInquirableImpl {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractLaborIntegrationInquirableImpl.class);
 

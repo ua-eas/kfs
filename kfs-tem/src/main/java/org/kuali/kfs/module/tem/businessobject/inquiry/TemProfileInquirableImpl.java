@@ -23,9 +23,9 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.service.TemProfileService;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.FieldRestriction;
@@ -38,7 +38,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 @SuppressWarnings({ "rawtypes", "deprecation" })
-public class TemProfileInquirableImpl extends KfsInquirableImpl {
+public class TemProfileInquirableImpl extends KualiInquirableImpl {
 
     private static final Logger LOG = Logger.getLogger(TemProfileInquirableImpl.class);
 
