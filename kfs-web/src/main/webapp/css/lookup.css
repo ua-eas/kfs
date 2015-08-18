@@ -313,3 +313,28 @@ tr.even {
     top: -82px;
     visibility: hidden;
 }
+
+#globalbuttons {
+    text-align: center;
+    background-color: #F9F9F9;
+    height: 62px;
+    line-height: 62px;
+    margin: 0 -20px -40px -20px;
+    position: absolute;
+    bottom: 40px;
+}
+
+#globalbuttons.fixed {
+    position: fixed;
+    bottom: 40px;
+    height: 62px;
+    background-color: rgba(255,255,255,0.9);
+}
+
+div.inquiry {
+    margin-bottom: 30px;
+}
+
+div.inquiry.fixedButtons {
+    padding-bottom: 62px;
+}

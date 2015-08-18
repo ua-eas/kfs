@@ -305,8 +305,8 @@
 			<div class="right">
 				<div class="excol">
 					<div class="lookupcreatenew">
-						<html:button property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="tinybutton btn btn-primary" onclick="return expandAllTab();" tabindex="-1" value="expand all" />
-						<html:button property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="tinybutton btn btn-primary" onclick="return collapseAllTab();" tabindex="-1" value="collapse all" />
+						<html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab();" tabindex="-1" value="expand all" />
+						<html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab();" tabindex="-1" value="collapse all" />
 					</div>
 				</div>
 			</div>
@@ -363,12 +363,12 @@
 		    <div class="excol">
 		  	   <c:if test="${!empty extraTopButtons}">
 		         <c:forEach items="${extraTopButtons}" var="extraButton">
-		           <html:image src="${extraButton.extraButtonSource}" styleClass="tinybutton" property="${extraButton.extraButtonProperty}" alt="${extraButton.extraButtonAltText}" onclick="${extraButton.extraButtonOnclick}"/> &nbsp;&nbsp;
+		           <html:button styleClass="btn btn-default" property="${extraButton.extraButtonProperty}" alt="${extraButton.extraButtonAltText}" onclick="${extraButton.extraButtonOnclick}"/> &nbsp;&nbsp;
 		         </c:forEach>
 	           </c:if>
 			   <c:if test="${showTabButtons != '' && showTabButtons == true}">
-				  <html:image property="methodToCall.showAllTabs" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-expandall.gif" title="show all panel content" alt="show all panel content" styleClass="tinybutton" onclick="javascript: return expandAllTab(document, tabStatesSize); " tabindex="-1" />
-				  <html:image property="methodToCall.hideAllTabs" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-collapseall.gif" title="hide all panel content" alt="hide all panel content" styleClass="tinybutton" onclick="javascript: return collapseAllTab(document, tabStatesSize); " tabindex="-1" />
+				   <html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab();" tabindex="-1" value="expand all" />
+				   <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab();" tabindex="-1" value="collapse all" />
 		       </c:if>
 			   <c:if test="${renderRequiredFieldsLabel}" >
 				<br>* required field
