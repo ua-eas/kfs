@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject.inquiry;
 
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 
 /**
  * Override of base financial system inquirable to have cost category inquiries hide inactive items in child object collections
  */
-public class CostCategoryInquirable extends KfsInquirableImpl {
+public class CostCategoryInquirable extends KualiInquirableImpl {
 
     /**
      * overridden to add child object collection names to inactiveRecordDisplay

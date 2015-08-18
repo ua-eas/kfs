@@ -159,7 +159,7 @@
 		<property name="lookupableHelperService" ref="lookupableHelperService" />
 	</bean>
 
-    <bean id="kualiInquirable" class="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl" scope="prototype" />
+    <bean id="kualiInquirable" class="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" scope="prototype" />
 
 	<bean id="lookupableHelperService"
 		class="org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl"

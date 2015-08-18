@@ -29,9 +29,9 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.lookup.BusinessObjectFieldConverter;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
@@ -52,13 +52,13 @@ import org.kuali.kfs.krad.util.UrlFactory;
 /**
  * This class is the template class for the customized inqurable implementations used to generate balance inquiry screens.
  */
-public abstract class AbstractGeneralLedgerInquirableImpl extends KfsInquirableImpl {
+public abstract class AbstractGeneralLedgerInquirableImpl extends KualiInquirableImpl {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractGeneralLedgerInquirableImpl.class);
     
     private BusinessObject businessObject; 
     
     /**
-     * @see org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, boolean)
+     * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, boolean)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject businessObject, String attributeName, boolean forceInquiry) {

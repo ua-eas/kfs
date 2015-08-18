@@ -25,8 +25,8 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.module.cg.service.ContractsAndGrantsBillingService;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
 import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 /**
  * Used for wiring up {@link Agency} for inquiries.
  */
-public class AgencyInquirableImpl extends KfsInquirableImpl {
+public class AgencyInquirableImpl extends KualiInquirableImpl {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AgencyInquirableImpl.class);
 
     /**
