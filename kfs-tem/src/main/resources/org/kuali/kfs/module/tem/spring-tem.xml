@@ -819,7 +819,7 @@
 	<bean id="perDiemLoadValidationService" parent="perDiemLoadValidationService-parentBean"/>
 	<bean id="perDiemLoadValidationService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.batch.service.impl.PerDiemLoadValidationServiceImpl">		
 		<property name="perDiemService" ref="perDiemService" />
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="kfs.dictionaryValidationService" />
 	</bean>
 
 	<bean id="defaultMealBreakDownStrategy" parent="defaultMealBreakDownStrategy-parentBean"/>
