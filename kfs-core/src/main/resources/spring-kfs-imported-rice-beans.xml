@@ -86,7 +86,6 @@
  	<bean id="documentDictionaryService" p:serviceName="documentDictionaryService" parent="grlBeanImporter" />
  	<bean id="inquiryViewTypeService" p:serviceName="inquiryViewTypeService" parent="grlBeanImporter" />
  	<bean id="lookupViewTypeService" p:serviceName="lookupViewTypeService" parent="grlBeanImporter" />
- 	<bean id="persistenceServiceOjb" p:serviceName="persistenceServiceOjb" parent="grlBeanImporter" />
  	<bean id="workflowDocumentService" p:serviceName="workflowDocumentService" parent="grlBeanImporter" />
  	<bean id="businessObjectAuthorizationService" p:serviceName="businessObjectAuthorizationService" parent="grlBeanImporter" />
 	<!-- KIM -->
