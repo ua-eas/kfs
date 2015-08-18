@@ -92,7 +92,7 @@
     	<property name="kualiModuleService" ref="kfs.kualiModuleService" />
     	<property name="businessObjectDictionaryService" ref="businessObjectDictionaryService" />
     	<property name="campusService" ref="campusService" />
-    	<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+    	<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
     	<property name="purchasingAccountsPayableModuleService" ref="purchasingAccountsPayableModuleService" />
     </bean>
 	

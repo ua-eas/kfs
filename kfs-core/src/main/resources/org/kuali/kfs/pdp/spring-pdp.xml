@@ -756,7 +756,7 @@
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="customerProfileService" ref="pdpCustomerProfileService"/>    
         <property name="paymentFileService" ref="paymentFileService"/>
-        <property name="dictionaryValidationService" ref="dictionaryValidationService"/>
+        <property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
         <property name="sequenceAccessorService" ref="sequenceAccessorService"/>
         <property name="countryService" ref="countryService"/>
         <property name="researchParticipantPaymentValidationService" ref="researchParticipantPaymentValidationService"/>
