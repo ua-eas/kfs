@@ -32,11 +32,7 @@
 <!-- KRAD -->
 	<bean id="kfs.kualiModuleService" class="org.kuali.kfs.sys.service.impl.KfsKualiModuleServiceImpl"/>
 
-	<bean id="documentHelperService" class="org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl" >
-		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
-		</property>
-	</bean>
+	<bean id="documentHelperService" class="org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl"/>
 
     <bean id="kfs.documentHeaderDao" parent="platformAwareDao" class="org.kuali.kfs.sys.document.dataaccess.impl.FinancialSystemDocumentHeaderDaoOjb">
     	<property name="documentHeaderBaseClass" value="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader" />
