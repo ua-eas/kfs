@@ -435,9 +435,9 @@ public class SpringContext {
         SpringResourceLoader mainKfsSpringResourceLoader = (SpringResourceLoader)GlobalResourceLoader.getResourceLoader( new QName("KFS", "KFS_RICE_SPRING_RESOURCE_LOADER_NAME") );
         SpringContext.applicationContext = mainKfsSpringResourceLoader.getContext();
 
-        if ( LOG.isTraceEnabled() ) {
+      //  if ( LOG.isTraceEnabled() ) {
             GlobalResourceLoader.logAllContents();
-        }
+        //}
 
         // KFS addition - republish all components now - until this point, the KFS DD has not been loaded
         KRADServiceLocatorInternal.getDataDictionaryComponentPublisherService().publishAllComponents();
