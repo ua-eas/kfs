@@ -843,7 +843,7 @@
 		<property name="businessObjectService" ref="kfs.businessObjectService" />
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="parameterService" ref="kfs.parameterService" />
-		<property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService" />
+		<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
 	</bean>
 
 	<bean id="postalCodeValidationService" parent="postalCodeValidationService-parentBean"/>

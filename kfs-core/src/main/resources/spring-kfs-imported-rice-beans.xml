@@ -74,7 +74,7 @@
  	<bean id="persistenceService" p:serviceName="persistenceService" parent="grlBeanImporter" />
  	<bean id="businessObjectDictionaryService" p:serviceName="businessObjectDictionaryService" parent="grlBeanImporter" />
  	<bean id="maintenanceDocumentDictionaryService" p:serviceName="maintenanceDocumentDictionaryService" parent="grlBeanImporter" />
- 	<bean id="documentHeaderService" p:serviceName="documentHeaderService" parent="grlBeanImporter" />
+ 	<bean id="documentHeaderService" p:serviceName="kfs.documentHeaderService" parent="grlBeanImporter" />
  	<bean id="documentHeaderDao" p:serviceName="kfs.documentHeaderDao" parent="grlBeanImporter" />
  	<alias name="documentHeaderDao" alias="financialSystemDocumentHeaderDao" />
  	<bean id="documentService" p:serviceName="kfs.documentService" parent="grlBeanImporter" />
