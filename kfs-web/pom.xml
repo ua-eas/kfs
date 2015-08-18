@@ -65,26 +65,26 @@
               <excludes>${rice.web.excludes}</excludes>
             </configuration>
           </execution>
-          <execution>
-            <id>unpack-help</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.kuali.kfs</groupId>
-                  <artifactId>kfs-help</artifactId>
-                  <version>${kfs.help.version}</version>
-                  <type>jar</type>
-                  <overWrite>false</overWrite>
-                  <outputDirectory>${help.web.sources}/static/help</outputDirectory>
-                </artifactItem>
-              </artifactItems>
-              <includes>*/**</includes>
-            </configuration>
-          </execution>
+          <!--<execution>-->
+            <!--<id>unpack-help</id>-->
+            <!--<phase>generate-sources</phase>-->
+            <!--<goals>-->
+              <!--<goal>unpack</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<artifactItems>-->
+                <!--<artifactItem>-->
+                  <!--<groupId>org.kuali.kfs</groupId>-->
+                  <!--<artifactId>kfs-help</artifactId>-->
+                  <!--<version>${kfs.help.version}</version>-->
+                  <!--<type>jar</type>-->
+                  <!--<overWrite>false</overWrite>-->
+                  <!--<outputDirectory>${help.web.sources}/static/help</outputDirectory>-->
+                <!--</artifactItem>-->
+              <!--</artifactItems>-->
+              <!--<includes>*/**</includes>-->
+            <!--</configuration>-->
+          <!--</execution>-->
         </executions>
       </plugin>
       <plugin>
@@ -94,50 +94,50 @@
             <resource>
               <directory>${rice.web.sources}</directory>
             </resource>
-            <resource>
-              <directory>${help.web.sources}</directory>
-            </resource>
+            <!--<resource>-->
+              <!--<directory>${help.web.sources}</directory>-->
+            <!--</resource>-->
           </webResources>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>co.kuali</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>${frontend-maven-plugin.version}</version>
-        <configuration>
-          <installDirectory>${project.build.directory}</installDirectory>
-          <workingDirectory>${jsfrontend.sources}</workingDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <id>install node and npm</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>install-node-and-npm</goal>
-            </goals>
-            <configuration>
-              <nodeVersion>${frontend-maven-plugin.node.version}</nodeVersion>
-              <npmVersion>${frontend-maven-plugin.npm.version}</npmVersion>
-            </configuration>
-          </execution>
+      <!--<plugin>-->
+        <!--<groupId>co.kuali</groupId>-->
+        <!--<artifactId>frontend-maven-plugin</artifactId>-->
+        <!--<version>${frontend-maven-plugin.version}</version>-->
+        <!--<configuration>-->
+          <!--<installDirectory>${project.build.directory}</installDirectory>-->
+          <!--<workingDirectory>${jsfrontend.sources}</workingDirectory>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<id>install node and npm</id>-->
+            <!--<phase>generate-resources</phase>-->
+            <!--<goals>-->
+              <!--<goal>install-node-and-npm</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<nodeVersion>${frontend-maven-plugin.node.version}</nodeVersion>-->
+              <!--<npmVersion>${frontend-maven-plugin.npm.version}</npmVersion>-->
+            <!--</configuration>-->
+          <!--</execution>-->
 
-          <execution>
-            <id>npm install</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>install</arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>webpack build</id>
-            <goals>
-              <goal>webpack</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+          <!--<execution>-->
+            <!--<id>npm install</id>-->
+            <!--<goals>-->
+              <!--<goal>npm</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<arguments>install</arguments>-->
+            <!--</configuration>-->
+          <!--</execution>-->
+          <!--<execution>-->
+            <!--<id>webpack build</id>-->
+            <!--<goals>-->
+              <!--<goal>webpack</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      <!--</plugin>-->
     </plugins>
   </build>
 

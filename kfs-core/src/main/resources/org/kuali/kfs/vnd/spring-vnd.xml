@@ -115,7 +115,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <!--property name="dictionaryValidationService">
-            <ref bean="kfs.dictionaryValidationService" />
+            <ref bean="knsDictionaryValidationService" />
             </property-->
         <property name="dataDictionaryService">
             <ref bean="kfs.dataDictionaryService" />
