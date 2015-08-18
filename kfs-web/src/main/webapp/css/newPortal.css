@@ -2,9 +2,18 @@ body {
     font-family: Lato, sans-serif;
     background-color: #fff;
 }
+
+a {
+    color: #01579b;
+}
+
+*:focus {
+    outline: none;
+}
+
 .navbar-default {
     height: 62px;
-    box-shadow: 0 1px 2px #5b5b5b;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 .navbar-default .navbar-header {
     padding-left: 70px;
@@ -186,7 +195,7 @@ nav ul.nav li {
 #menu-toggle {
     float:right;
     background-color: #5b5b5b;
-    padding: 10px 10px 5px 5px;
+    padding: 10px 6px 5px 5px;
     color: #D8D8D8;
     z-index: 1000;
 }
@@ -322,6 +331,12 @@ nav ul.nav li {
 
 .btn-default:active {
     background-color: #e3e3e3;
+    outline: none !important;
+}
+
+.btn-default:focus {
+    background-color: #e7e7e7;
+    outline: none;
 }
 
 .btn-primary {
@@ -336,4 +351,10 @@ nav ul.nav li {
 
 .btn-primary:active {
     background-color: #567280 !important;
+    outline: none !important;
+}
+
+.btn-primary:focus {
+    background-color: #5F7D8C;
+    outline: none;
 }

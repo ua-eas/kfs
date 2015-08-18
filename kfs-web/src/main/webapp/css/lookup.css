@@ -25,10 +25,6 @@
     cursor: pointer;
 }
 
-#view_div .main-panel .toggle-show-tab>span:focus {
-    outline: none;
-}
-
 #view_div .headerarea-small {
     height: 50px;
     padding-left: 30px;
@@ -322,6 +318,7 @@ tr.even {
     margin: 0 -20px -40px -20px;
     position: absolute;
     bottom: 40px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 }
 
 #globalbuttons.fixed {
@@ -331,10 +328,53 @@ tr.even {
     background-color: rgba(255,255,255,0.9);
 }
 
+#globalbuttons .btn {
+    font-size: 16px;
+}
+
 div.inquiry {
     margin-bottom: 30px;
 }
 
 div.inquiry.fixedButtons {
     padding-bottom: 62px;
+}
+
+td.infocell span.glyphicon {
+    display: none;
+}
+
+td.infocell:hover span.glyphicon {
+    display: inherit;
+    opacity: .4;
+}
+
+td.infocell span.glyphicon:hover {
+    display: inherit;
+    opacity: .8;
+}
+
+div.inquiry table.datatable {
+    margin: 20px 0;
+}
+
+div.inquiry table.datatable th,
+div.inquiry table.datatable td {
+    line-height: 32px;
+    font-size: 14px;
+}
+
+div.inquiry table.datatable tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+div.inquiry table.datatable th {
+    text-align: right;
+    padding-right: 15px;
+    color: #777777;
+    font-weight: 700;
+}
+
+div.inquiry table.datatable td {
+    color: #777777;
 }

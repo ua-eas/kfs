@@ -40,6 +40,8 @@
 
 <%@ attribute name="hideEmptyCell" required="false" description="whether to hide the empty cell before the user name field" %>
 
+<%@ attribute name="newRow" required="false" description="whether to start a new table row for the user or not" %>
+
 <%-- if the universal user ID field is a key field on this document, lock-down the user ID field --%>
 <c:choose>
   <c:when test="${readOnly}">
@@ -72,12 +74,16 @@
     ${helpLink}
   </c:otherwise>
 </c:choose>
-</tr>
-<tr>
+
+<c:if test="${newRow}">
+    </tr>
+    <tr>
+
     <c:if test="${not hideEmptyCell}">
         <td width="50%">&nbsp;</td>
     </c:if>
     <td width="50%">
+</c:if>
         <c:choose>
             <c:when test="${!empty userNameFieldName}">
                 <span id="${userNameFieldName}.div">${userName}&nbsp;</span>
@@ -92,7 +98,9 @@
                 </c:if>
             </c:otherwise>
         </c:choose>
+<c:if test="${newRow}">
     </td>
+</c:if>
 
 <c:if test="${!empty universalIdFieldName}">
   ${kfunc:registerEditableProperty(KualiForm, universalIdFieldName)}
