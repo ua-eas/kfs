@@ -136,7 +136,7 @@
 	       
     <bean id="accountCreationService" parent="accountCreationService-parentBean"/>
     <bean id="accountCreationService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AccountCreationServiceImpl" abstract="true">
-        <property name="documentService" ref="documentService" />
+        <property name="documentService" ref="kfs.documentService" />
         <property name="parameterService" ref="kfs.parameterService" />
         <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="businessObjectService" ref="kfs.businessObjectService" />
@@ -150,7 +150,7 @@
     
     <bean id="budgetAdjustmentService" parent="budgetAdjustmentService-parentBean"/>
     <bean id="budgetAdjustmentService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.BudgetAdjustmentServiceImpl" abstract="true">
-        <property name="documentService" ref="documentService" />
+        <property name="documentService" ref="kfs.documentService" />
         <property name="parameterService" ref="kfs.parameterService" />
         <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
         <property name="businessObjectService" ref="kfs.businessObjectService" />

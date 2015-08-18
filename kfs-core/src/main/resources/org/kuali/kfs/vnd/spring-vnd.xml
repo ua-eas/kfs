@@ -81,7 +81,7 @@
     <bean id="vendorService-parentBean" class="org.kuali.kfs.vnd.document.service.impl.VendorServiceImpl" abstract="true">
         <property name="vendorDao" ref="vendorDao"/>
         <property name="businessObjectService" ref="kfs.businessObjectService"/>
-        <property name="documentService" ref="documentService"/>
+        <property name="documentService" ref="kfs.documentService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="noteService" ref="noteService"/>
     </bean>

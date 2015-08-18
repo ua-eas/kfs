@@ -771,7 +771,7 @@
     	<property name="dataDictonaryService"><ref bean="kfs.dataDictionaryService" /></property>
     	<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
     	<property name="businessObjectService"><ref bean="kfs.businessObjectService" /></property>
-    	<property name="documentService" ref="documentService" />
+    	<property name="documentService" ref="kfs.documentService" />
     </bean>
 
     <bean id="electronicFundTransferCancelAction" parent="electronicFundTransferCancelAction-parentBean" />
@@ -956,7 +956,7 @@
 	<bean id="financialSystemDocumentService" parent="financialSystemDocumentService-parentBean"/>
 
 	<bean id="financialSystemDocumentService-parentBean" abstract="true" class="org.kuali.kfs.sys.document.service.impl.FinancialSystemDocumentServiceImpl">
-		<property name="documentService" ref="documentService" />
+		<property name="documentService" ref="kfs.documentService" />
 		<property name="documentAdHocService" ref="documentAdHocService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="financialSystemDocumentDao" ref="financialSystemDocumentDao" />
@@ -1204,7 +1204,7 @@
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
 		<property name="businessObjectService" ref="kfs.businessObjectService"/>
 		<property name="paymentFileEmailService" ref="pdpEmailService"/>
-		<property name="documentService" ref="documentService"/>
+		<property name="documentService" ref="kfs.documentService"/>
 	</bean>
 
 	<bean id="paymentSourceToPdpExtractStep" parent="paymentSourceToPdpExtractStep-parentBean"/>
@@ -1219,7 +1219,7 @@
 		<property name="accountingDocumentRuleHelperService" ref="accountingDocumentRuleHelperService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="configurationService" ref="configurationService"/>
-		<property name="documentService" ref="documentService"/>
+		<property name="documentService" ref="kfs.documentService"/>
 		<property name="optionsService" ref="optionsService"/>
 		<property name="homeOriginationService" ref="homeOriginationService"/>
 	</bean>
