@@ -157,7 +157,7 @@
 		<property name="documentService" ref="kfs.documentService"/>
 		<property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
-		<property name="parameterEvaluatorService" ref="kfs.parameterEvaluatorService"/>
+		<property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
 		<property name="vendorService" ref="vendorService"/>
 		<property name="paymentSourceHelperService" ref="paymentSourceHelperService"/>
 		<property name="disbursementVoucherDao" ref="disbursementVoucherDao"/>
