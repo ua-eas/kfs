@@ -20,7 +20,7 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 
-<kul:page showDocumentInfo="false"
+<kul:page showDocumentInfo="false" docTitleClass="center"
 	headerTitle="KFS - Session Timeout" docTitle="KFS - Session Timeout" renderMultipart="true"
 	transactionalDocument="false" htmlFormAction="SessionInvalidateAction" errorKey="foo">
 

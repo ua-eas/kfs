@@ -68,10 +68,3 @@ function getElementValue(name) {
 	
 	return value;
 }
-
-/** executes a function on all tabs.  The function will be passed a document & partial tab name. */
-function doToAllTabs(func) {
-    NodeIterator.invoke(func);
-	
-	return false;
-}

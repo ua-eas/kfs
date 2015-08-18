@@ -16,6 +16,7 @@
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
 <%@ attribute name="docTitle" required="true" description="The title to display for the page." %>
+<%@ attribute name="docTitleClass" required="false" description="The class added to the title of the page." %>
 <%@ attribute name="transactionalDocument" required="true" description="The name of the document type this document page is rendering." %>
 <%@ attribute name="showDocumentInfo" required="false" description="Boolean value of whether to display the Document Type name and document type help on the page." %>
 <%@ attribute name="headerMenuBar" required="false" description="HTML text for menu bar to display at the top of the page." %>
@@ -211,7 +212,7 @@
 	<c:otherwise>
 		<a name="topOfForm"></a>
 		<div class="headerarea" id="headerarea">
-				<h1>
+				<h1 class="${docTitleClass}">
 					${docTitle}&nbsp;
 					<c:choose>
 						<c:when test="${!empty alternativeHelp}">
@@ -304,8 +305,8 @@
 			<div class="right">
 				<div class="excol">
 					<div class="lookupcreatenew">
-						<html:submit property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="tinybutton btn btn-primary" onclick="return expandAllTab();" tabindex="-1" value="expand all" />
-						<html:submit property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="tinybutton btn btn-primary" onclick="return collapseAllTab();" tabindex="-1" value="collapse all" />
+						<html:button property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="tinybutton btn btn-primary" onclick="return expandAllTab();" tabindex="-1" value="expand all" />
+						<html:button property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="tinybutton btn btn-primary" onclick="return collapseAllTab();" tabindex="-1" value="collapse all" />
 					</div>
 				</div>
 			</div>
