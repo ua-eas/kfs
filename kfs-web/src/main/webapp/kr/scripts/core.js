@@ -62,7 +62,8 @@ function showTab(doc, formKey, tabKey) {
     doc.getElementById('tab-' + tabKey + '-div').style.display = '';
     doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value = 'OPEN';
     var span = doc.getElementById('tab-' + tabKey + '-imageToggle');
-	$(span).toggleClass('glyphicon-menu-up glyphicon-menu-down');
+	$(span).removeClass('glyphicon-menu-down');
+	$(span).addClass('glyphicon-menu-up');
 	span.title = span.title.replace(/^show/, 'hide');
 	span.title = span.title.replace(/^open/, 'close');
     return false;
@@ -76,7 +77,8 @@ function hideTab(doc, formKey, tabKey) {
     doc.getElementById('tab-' + tabKey + '-div').style.display = 'none';
     doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value = 'CLOSE';
     var span = doc.getElementById('tab-' + tabKey + '-imageToggle');
-	$(span).toggleClass('glyphicon-menu-up glyphicon-menu-down');
+	$(span).removeClass('glyphicon-menu-up');
+	$(span).addClass('glyphicon-menu-down');
 	span.title = span.title.replace(/^hide/, 'show');
 	span.title = span.title.replace(/^close/, 'open');
     return false;
