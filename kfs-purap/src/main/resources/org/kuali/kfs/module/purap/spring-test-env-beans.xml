@@ -42,7 +42,7 @@
 	    <property name="documentService" ref="kfs.documentService" />
 	    <property name="requisitionService" ref="requisitionService" />
 	    <property name="purapService" ref="purapService" />
-	    <property name="boService" ref="kfs.businessObjectService" />
+	    <property name="boService" ref="businessObjectService" />
 	    <property name="psService" ref="persistenceStructureService" />
     </bean>
     

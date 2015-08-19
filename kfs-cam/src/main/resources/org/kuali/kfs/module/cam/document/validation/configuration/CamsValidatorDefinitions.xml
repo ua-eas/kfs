@@ -30,13 +30,13 @@
 	</bean>
 	
 	<bean id="AssetPayment-documentTypeValidation" class="org.kuali.kfs.module.cam.document.validation.impl.AssetPaymentDocumentTypeValidation" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 	</bean>
 
 	<bean id="AssetPayment-postingDateValidation" class="org.kuali.kfs.module.cam.document.validation.impl.AssetPaymentPostingDateValidation" abstract="true">
 		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="universityDateService" ref="universityDateService" />
 		<property name="assetPaymentService" ref="assetPaymentService" />

@@ -102,7 +102,7 @@
 			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="maintenanceDocumentService">
 			<ref bean="maintenanceDocumentService" />
@@ -115,7 +115,7 @@
 			<ref bean="kfs.parameterService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="persistenceStructureService">
 			<ref bean="persistenceStructureService" />
@@ -135,7 +135,7 @@
 	<bean id="disbursementVoucherPayeeService"  parent="disbursementVoucherPayeeService-parentBean"/>
 	<bean id="disbursementVoucherPayeeService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherPayeeServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="documentService">
 			<ref bean ="kfs.documentService" />
@@ -153,7 +153,7 @@
 	
 	<bean id="disbursementVoucherExtractionHelperService" parent="disbursementVoucherExtractionHelperService-parentBean"/>
 	<bean id="disbursementVoucherExtractionHelperService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherExtractionHelperServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
 		<property name="documentService" ref="kfs.documentService"/>
 		<property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
@@ -166,7 +166,7 @@
 	<bean id="cashDrawerService"  parent="cashDrawerService-parentBean"/>
 	<bean id="cashDrawerService-parentBean" class="org.kuali.kfs.fp.service.impl.CashDrawerServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 	</bean>
 
@@ -180,7 +180,7 @@
 	<bean id="cashManagementService"  parent="cashManagementService-parentBean"/>
 	<bean id="cashManagementService-parentBean" class="org.kuali.kfs.fp.document.service.impl.CashManagementServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="cashDrawerService">
 			<ref bean="cashDrawerService" />
@@ -202,7 +202,7 @@
 	<bean id="flexibleOffsetAccountService"  parent="flexibleOffsetAccountService-parentBean"/>
 	<bean id="flexibleOffsetAccountService-parentBean" class="org.kuali.kfs.sys.service.impl.FlexibleOffsetAccountServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="accountService">
 			<ref bean="accountService" />
@@ -219,14 +219,14 @@
 	<bean id="fiscalYearFunctionControlService"  parent="fiscalYearFunctionControlService-parentBean"/>
 	<bean id="fiscalYearFunctionControlService-parentBean" class="org.kuali.kfs.fp.service.impl.FiscalYearFunctionControlServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 	</bean>
 
 	<bean id="procurementCardCreateDocumentService"  parent="procurementCardCreateDocumentService-parentBean"/>
 	<bean id="procurementCardCreateDocumentService-parentBean" class="org.kuali.kfs.fp.batch.service.impl.ProcurementCardCreateDocumentServiceImpl" abstract="true">
 		<property name="parameterService" ref="kfs.parameterService" />
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="documentService" ref="kfs.documentService" />
     	<property name="workflowDocumentService" ref="workflowDocumentService" />
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
@@ -245,7 +245,7 @@
 	<bean id="procurementCardLoadTransactionsService"  parent="procurementCardLoadTransactionsService-parentBean"/>
 	<bean id="procurementCardLoadTransactionsService-parentBean" class="org.kuali.kfs.fp.batch.service.impl.ProcurementCardLoadTransactionsServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="batchInputFileService">
 			<ref bean="batchInputFileService" />
@@ -258,7 +258,7 @@
 	<bean id="cashReceiptService"  parent="cashReceiptService-parentBean"/>
 	<bean id="cashReceiptService-parentBean" class="org.kuali.kfs.fp.document.service.impl.CashReceiptServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="cashManagementDao">
 			<ref bean="cashManagementDao" />
@@ -347,7 +347,7 @@
 	<bean id="budgetAdjustmentLaborBenefitsService"  parent="budgetAdjustmentLaborBenefitsService-parentBean"/>
 	<bean id="budgetAdjustmentLaborBenefitsService-parentBean" class="org.kuali.kfs.fp.document.service.impl.BudgetAdjustmentLaborBenefitsServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 	</bean>
 
@@ -441,7 +441,7 @@
 			<ref bean="kfs.parameterService" />
 		</property>	
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="disbursementVoucherPayeeService">
 			<ref bean="disbursementVoucherPayeeService" />
