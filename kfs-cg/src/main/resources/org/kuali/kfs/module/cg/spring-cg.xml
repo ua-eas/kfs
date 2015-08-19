@@ -113,7 +113,7 @@
     <bean id="contractsAndGrantsModuleService"  parent="contractsAndGrantsModuleService-parentBean"/>
     <bean id="contractsAndGrantsModuleService-parentBean" class="org.kuali.kfs.module.cg.service.impl.ContractsAndGrantsModuleServiceImpl" abstract="true" >
     <property name="awardService" ref="awardService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="agencyService" ref="agencyService" />
 		<property name="cfdaService" ref="cfdaService" />
 		<property name="businessObjectService">
@@ -234,7 +234,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
     </bean>
 	
@@ -246,7 +246,7 @@
             <ref bean="mailService" />
         </property>
         <property name="parameterService">
-            <ref bean="kfs.parameterService" />
+            <ref bean="parameterService" />
         </property>
         <property name="configurationService" ref="kualiConfigurationService" />
     </bean>

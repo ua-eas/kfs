@@ -112,7 +112,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="balanceService">
 			<ref bean="glBalanceService" />
@@ -147,7 +147,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="postEncumbrance">
 			<ref bean="glPostEncumbrance" />
@@ -182,7 +182,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="balanceService">
 			<ref bean="glBalanceService" />
@@ -217,10 +217,10 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="generalLedgerPendingEntryService">
 			<ref bean="generalLedgerPendingEntryService" />
@@ -249,7 +249,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="scrubberValidator">
 			<ref bean="scrubberValidator" />
@@ -281,7 +281,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -319,7 +319,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -348,7 +348,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -377,7 +377,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="accountBalanceService">
 			<ref bean="glAccountBalanceService" />
@@ -401,7 +401,7 @@
 		<property name="priorYearAccountService" ref="priorYearAccountService" />
 		<property name="orgReversionUnitOfWorkService" ref="glOrgReversionUnitOfWorkService" />
 		<property name="flexibleOffsetAccountService" ref="flexibleOffsetAccountService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="cashOrganizationReversionCategoryLogic">
 			<ref bean="glCashOrganizationReversionCategoryLogic" />
@@ -420,7 +420,7 @@
 		<property name="priorYearAccountService" ref="priorYearAccountService" />
 		<property name="orgReversionUnitOfWorkService" ref="glOrgReversionUnitOfWorkService" />
 		<property name="flexibleOffsetAccountService" ref="flexibleOffsetAccountService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="cashOrganizationReversionCategoryLogic">
 			<ref bean="glCashOrganizationReversionCategoryLogic" />
@@ -432,7 +432,7 @@
 	<bean id="glOrganizationReversionProcessService"  parent="glOrganizationReversionProcessService-parentBean"/>
 	<bean id="glOrganizationReversionProcessService-parentBean" class="org.kuali.kfs.gl.batch.service.impl.OrganizationReversionProcessServiceImpl" abstract="true">
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="organizationReversionReportWriterService" ref="organizationReversionReportWriterService" />
@@ -478,7 +478,7 @@
 			<ref bean="originEntryGroupService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
@@ -525,7 +525,7 @@
 			<ref bean="kualiConfigurationService"/>
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService"/>
+			<ref bean="parameterService"/>
 		</property>
 		<property name="mailService">
 			<ref bean="mailService"/>
@@ -567,7 +567,7 @@
 			<ref bean="objectTypeService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
@@ -593,10 +593,10 @@
 	
 	<bean id="glEncumbranceClosingOriginEntryGenerationService" parent="glEncumbranceClosingOriginEntryGenerationService-parentBean"/>
 	<bean id="glEncumbranceClosingOriginEntryGenerationService-parentBean" abstract="true"  class="org.kuali.kfs.gl.batch.service.impl.EncumbranceClosingOriginEntryGenerationServiceImpl">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="offsetDefinitionService" ref="offsetDefinitionService" />
 		<property name="objectCodeService" ref="objectCodeService" />
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="flexibleOffsetAccountService" ref="flexibleOffsetAccountService" />
 		<property name="a21SubAccountService" ref="a21SubAccountService" />
 		<property name="subObjectCodeService" ref="subObjectCodeService" />
@@ -623,7 +623,7 @@
 			<ref bean="scrubberValidator" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
         <property name="businessObjectService">
             <ref bean="businessObjectService"/>
@@ -683,7 +683,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="universityDateDao">
 			<ref bean="universityDateDao" />
@@ -799,7 +799,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="runDateService">
 			<ref bean="glRunDateService"/>
@@ -811,7 +811,7 @@
 			<ref bean="offsetDefinitionService"/>
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService"/>
+			<ref bean="dataDictionaryService"/>
 		</property>
 		<property name="businessObjectService">
 			<ref bean="businessObjectService"/>
@@ -890,7 +890,7 @@
 	<bean id="glBalancingService" parent="glBalancingService-parentBean"/>
     <bean id="glBalancingService-parentBean" abstract="true"  class="org.kuali.kfs.gl.batch.service.impl.BalancingServiceImpl">
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
         <property name="configurationService">
             <ref bean="kualiConfigurationService" />
@@ -963,7 +963,7 @@
 			<ref bean="subFundGroupService" />
 		</property>
 	    <property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>	
 		<property name="balanceTypService">
 			<ref bean="balanceTypService" />
@@ -1023,7 +1023,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="kualiModuleService">
-            <ref bean="kfs.kualiModuleService" />
+            <ref bean="kualiModuleService" />
         </property>
 		<property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>
 		<property name="nightlyOutFileName" value="gl_glentry_kfs" />
@@ -1044,7 +1044,7 @@
 		<property name="originEntryGroupService">
 			<ref bean="originEntryGroupService" />
 		</property>
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="pendingEntryListReportWriterService" ref="generalLegerPendingEntryListReportWriterService" />
 		<property name="pendingEntrySummaryReportWriterService" ref="generalLegerPendingEntryLedgerReportWriterService" />
 		<property name="batchFileDirectoryName" value="${staging.directory}/gl/originEntry"/>
@@ -1116,7 +1116,7 @@
 			<ref bean="persistenceStructureService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService"/>
+			<ref bean="parameterService"/>
 		</property>
 	</bean>
 
@@ -1134,7 +1134,7 @@
 		<property name="persistenceStructureService">
 			<ref bean="persistenceStructureService" />
 		</property>
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 
 	<bean id="glIcrTransaction" parent="glIcrTransaction-parentBean" />
@@ -1212,7 +1212,7 @@
 			<ref bean="objectTypeService" />
 		</property>			
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="universityDateService">
 			<ref bean="universityDateService" />
@@ -2370,7 +2370,7 @@
 			<ref bean="kualiConfigurationService"/>
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService"/>
+			<ref bean="parameterService"/>
 		</property>
 		<property name="mailService">
 			<ref bean="mailService"/>
@@ -2390,7 +2390,7 @@
 	<bean id="glRunDateService" parent="glRunDateService-parentBean"/>
 	<bean id="glRunDateService-parentBean" abstract="true"  class="org.kuali.kfs.gl.batch.service.impl.RunDateServiceImpl">
 		<property name="parameterService">
-			<ref bean="kfs.parameterService"/>
+			<ref bean="parameterService"/>
 		</property>
 	</bean>
 	
@@ -2873,7 +2873,7 @@
     
     <bean id="preScrubberService" parent="preScrubberService-parentBean"/>
     <bean id="preScrubberService-parentBean" abstract="true"  class="org.kuali.kfs.gl.service.impl.PreScrubberServiceImpl">
-    	<property name="parameterService" ref="kfs.parameterService"/>
+    	<property name="parameterService" ref="parameterService"/>
     </bean>
     
     <bean id="preScrubberStep" class="org.kuali.kfs.gl.batch.PreScrubberStep" parent="wrappedStep">
@@ -2951,7 +2951,7 @@
     <bean id="glCurrentAccountBalanceLookupableHelperService" class="org.kuali.kfs.gl.businessobject.lookup.CurrentAccountBalanceLookupableHelperServiceImpl" scope="prototype">
         <property name="personService" ref="personService" />
         <property name="balanceService" ref="glBalanceService" />
-        <property name="parameterService" ref="kfs.parameterService" />
+        <property name="parameterService" ref="parameterService" />
         <property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService" />
         <property name="postBalance" ref="glPostBalance" />
         <property name="accountingPeriodService" ref="accountingPeriodService"/>

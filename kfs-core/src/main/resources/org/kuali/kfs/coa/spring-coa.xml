@@ -91,7 +91,7 @@
 	<bean id="accountService-parentBean" class="org.kuali.kfs.coa.service.impl.AccountServiceImpl" abstract="true">
 		<property name="accountDao" ref="accountDao" />
 		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="documentTypeService" ref="rice.kew.documentTypeService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
@@ -155,12 +155,12 @@
 	<bean id="chartService"  parent="chartService-parentBean"/>
 	<bean id="chartService-parentBean" class="org.kuali.kfs.coa.service.impl.ChartServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 
 	<bean id="organizationService"  parent="organizationService-parentBean"/>
 	<bean id="organizationService-parentBean" class="org.kuali.kfs.coa.service.impl.OrganizationServiceImpl" abstract="true">
-        <property name="parameterService" ref="kfs.parameterService" />
+        <property name="parameterService" ref="parameterService" />
         <property name="chartService" ref="chartService" />
         <property name="businessObjectService" ref="businessObjectService" />
 	</bean>
@@ -171,9 +171,9 @@
 		<property name="accountService" ref="accountService" />
 		<property name="reportWriterService" ref="addPriorYearAccountsReportWriterService" />
 		<property name="persistenceStructureService" ref="persistenceStructureService" />
-    	<property name="persistenceServiceOjb" ref="kfs.persistenceServiceOjb" />
+    	<property name="persistenceServiceOjb" ref="persistenceServiceOjb" />
     	<property name="businessObjectService" ref="businessObjectService" />
-        <property name="parameterService" ref="kfs.parameterService" />
+        <property name="parameterService" ref="parameterService" />
 	</bean>
 
 	<bean id="priorYearOrganizationService"  parent="priorYearOrganizationService-parentBean"/>
@@ -213,8 +213,8 @@
 
 	<bean id="subFundGroupService"  parent="subFundGroupService-parentBean"/>
 	<bean id="subFundGroupService-parentBean" class="org.kuali.kfs.coa.service.impl.SubFundGroupServiceImpl" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="parameterService" ref="parameterService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="subFundGroupDao" ref="subFundGroupDao" />
 	</bean>
 
@@ -236,7 +236,7 @@
 
 	<bean id="organizationReversionService" parent="organizationReversionService-parentBean"/>
 	<bean id="organizationReversionService-parentBean" class="org.kuali.kfs.coa.service.impl.OrganizationReversionServiceImpl" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
 	
@@ -396,7 +396,7 @@
 			<ref bean="kualiConfigurationService" />
 		</property>
 		<property name="documentHeaderService">
-			<ref bean="kfs.documentHeaderService" />
+			<ref bean="documentHeaderService" />
 		</property>
     </bean>
     
@@ -419,7 +419,7 @@
 			<ref bean="universityDateService" />
 		</property>
 		<property name="documentHeaderService">
-			<ref bean="kfs.documentHeaderService" />
+			<ref bean="documentHeaderService" />
 		</property>
     	<property name="configurationService">
     		<ref bean="kualiConfigurationService"/>
@@ -436,7 +436,7 @@
     		<ref bean="noteService"/>
     	</property>
 		<property name="documentHeaderService">
-			<ref bean="kfs.documentHeaderService" />
+			<ref bean="documentHeaderService" />
 		</property>
     	<property name="configurationService">
     		<ref bean="kualiConfigurationService"/>
@@ -617,7 +617,7 @@
         <property name="accountDelegateGlobalDao">
             <ref bean="accountDelegateGlobalDao" />
         </property>
-        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+        <property name="dataDictionaryService" ref="dataDictionaryService" />
         <property name="businessObjectService" ref="businessObjectService" />
         <property name="dateTimeService" ref="dateTimeService" />
     </bean>

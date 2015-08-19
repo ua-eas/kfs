@@ -73,7 +73,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 	</bean>
 
@@ -236,7 +236,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CustomerInvoiceWriteoffGLPEGenerationBranchingValidation"
 		abstract="true">
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 	</bean>
 

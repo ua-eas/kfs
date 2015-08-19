@@ -156,7 +156,7 @@
 			<ref bean="laborModuleService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kfs.kualiModuleService" />
+			<ref bean="kualiModuleService" />
 		</property>		
 		
 		<property name="effortCertificationDocumentBuildService">
@@ -232,7 +232,7 @@
 			<ref bean="laborModuleService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kfs.kualiModuleService" />
+			<ref bean="kualiModuleService" />
 		</property>		
 		<property name="contractsAndGrantsModuleService">
 			<ref bean="contractsAndGrantsModuleService" />
@@ -285,7 +285,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean> 
 
@@ -304,7 +304,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean> 
 
@@ -323,7 +323,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean> 
 
@@ -333,7 +333,7 @@
 			<ref bean="businessObjectService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kfs.kualiModuleService" />
+			<ref bean="kualiModuleService" />
 		</property>
 		<property name="effortCertificationReportDefinitionService">
 			<ref bean="effortCertificationReportDefinitionService" />
@@ -355,7 +355,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean> 
 	
@@ -381,7 +381,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean>   	
 	

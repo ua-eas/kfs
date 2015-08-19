@@ -34,7 +34,7 @@
 
 	<bean id="documentDictionaryService" parent="documentDictionaryService-parentBean"/>	
 	<bean id="documentDictionaryService-parentBean" class="org.kuali.kfs.sec.service.impl.SecDocumentDictionaryServiceImpl" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>	             
 
 </beans>                           
