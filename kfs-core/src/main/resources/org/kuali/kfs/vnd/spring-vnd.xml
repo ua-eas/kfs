@@ -80,7 +80,7 @@
    
     <bean id="vendorService-parentBean" class="org.kuali.kfs.vnd.document.service.impl.VendorServiceImpl" abstract="true">
         <property name="vendorDao" ref="vendorDao"/>
-        <property name="businessObjectService" ref="kfs.businessObjectService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
         <property name="documentService" ref="kfs.documentService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="noteService" ref="noteService"/>
@@ -277,7 +277,7 @@
 
     <bean id="commodityCodeService-parentBean" class="org.kuali.kfs.vnd.service.impl.CommodityCodeServiceImpl" abstract="true">
          <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property> 
         <property name="commodityCodeDao">
             <ref bean="commodityCodeDao" />
@@ -303,7 +303,7 @@
 			<ref bean="batchInputFileService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="batchInputFileType">
 			<ref bean="vendorExcludeInputFileType" />

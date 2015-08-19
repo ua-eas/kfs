@@ -97,7 +97,7 @@
 	<bean id="TravelModule-addAccountingLineAllowedObjCodeValidation-parentBean" abstract="true" class="org.kuali.kfs.module.tem.document.validation.impl.TemAccountingLineAllowedObjectCodeValidation">
 		<property name="travelDocumentService" ref="travelDocumentService" />
         <property name="parameterService" ref="kfs.parameterService" />
-        <property name="businessObjectService" ref="kfs.businessObjectService" />
+        <property name="businessObjectService" ref="businessObjectService" />
         <property name="accountingDistributionService" ref="temAccountingDistributionService" />
 	</bean>		
 		
@@ -147,7 +147,7 @@
 
 	<bean id="TravelDocument-actualExpenseLineValidation" parent="TravelDocument-actualExpenseLineValidation-parentBean"/>
 	<bean id="TravelDocument-actualExpenseLineValidation-parentBean" abstract="true" class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentActualExpenseLineValidation">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
 	</bean>
 	
@@ -159,7 +159,7 @@
 	<bean id="TravelDocument-actualExpenseDetailLineValidation" parent="TravelDocument-actualExpenseDetailLineValidation-parentBean"/>
 	<bean id="TravelDocument-actualExpenseDetailLineValidation-parentBean" abstract="true"
 		class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentActualExpenseDetailLineValidation">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
 	</bean>
@@ -167,7 +167,7 @@
 	<bean id="TravelModule-distributionAccountingLineValidation" parent="TravelModule-distributionAccountingLineValidation-parentBean"/>
 	<bean id="TravelModule-distributionAccountingLineValidation-parentBean" abstract="true"
 		class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentDistributionAccountingLinesValidation">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
 		<property name="accountingDistributionService" ref="temAccountingDistributionService" />
 	</bean>

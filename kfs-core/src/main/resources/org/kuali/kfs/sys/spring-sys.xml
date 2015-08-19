@@ -515,12 +515,12 @@
 	<bean id="FiscalYearMaker" parent="FiscalYearMaker-parentBean" abstract="true"/>
 	<bean id="FiscalYearMaker-parentBean" parent="platformAwareDao" class="org.kuali.kfs.sys.batch.dataaccess.impl.FiscalYearMakerImpl" abstract="true" >
 		<property name="persistenceStructureService" ref="persistenceStructureService" />
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
 	
 	<bean id="homeOriginationService" parent="homeOriginationService-parentBean"/>
 	<bean id="homeOriginationService-parentBean" class="org.kuali.kfs.sys.service.impl.HomeOriginationServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
 	
 	<bean id="originationCodeService" parent="originationCodeService-parentBean"/>
@@ -585,7 +585,7 @@
 	
 	<bean id="taxRegionService-parentBean" class="org.kuali.kfs.sys.service.impl.TaxRegionServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="postalCodeService">
 			<ref bean="postalCodeService" />
@@ -632,7 +632,7 @@
     <bean id="kfsBusinessObjectMetaDataService-parentBean" class="org.kuali.kfs.sys.service.impl.KfsBusinessObjectMetaDataServiceImpl" abstract="true">
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="parameterService" ref="kfs.parameterService" />
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="businessObjectMetaDataService" ref="businessObjectMetaDataService" />
 		<property name="businessObjectMetaDataDao" ref="businessObjectMetaDataDao" />
 		<property name="lookupService" ref="lookupService" />
@@ -704,7 +704,7 @@
 	<bean id="electronicPaymentClaimingService" parent="electronicPaymentClaimingService-parentBean"/>
     <bean id="electronicPaymentClaimingService-parentBean" class="org.kuali.kfs.sys.service.impl.ElectronicPaymentClaimingServiceImpl" abstract="true">
     	<property name="documentService"><ref bean ="kfs.documentService" /></property>
-    	<property name="businessObjectService"><ref bean="kfs.businessObjectService" /></property>
+    	<property name="businessObjectService"><ref bean="businessObjectService" /></property>
     	<property name="dateTimeService"><ref bean="dateTimeService" /></property>
     	<property name="parameterService"><ref bean="kfs.parameterService" /></property>
     </bean>
@@ -725,7 +725,7 @@
     <bean id="electronicFundTransferClaimAction-parentBean" class="org.kuali.kfs.sys.service.impl.ElectronicFundTransferClaimActionHelper" abstract="true">
     	<property name="dataDictonaryService"><ref bean="kfs.dataDictionaryService" /></property>
     	<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
-    	<property name="businessObjectService"><ref bean="kfs.businessObjectService" /></property>
+    	<property name="businessObjectService"><ref bean="businessObjectService" /></property>
     	<property name="documentService" ref="kfs.documentService" />
     </bean>
     
@@ -795,7 +795,7 @@
 	<bean id="bankService" parent="bankService-parentBean"/>
     
      <bean id="bankService-parentBean" class="org.kuali.kfs.sys.service.impl.BankServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
@@ -808,7 +808,7 @@
     
 	<bean id="segmentedLookupResultsService-parentBean" class="org.kuali.kfs.sys.service.impl.SegmentedLookupResultsServiceImpl" abstract="true">
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
         <property name="dateTimeService">
             <ref bean="dateTimeService"/>
@@ -916,7 +916,7 @@
 		<property name="parameterService" ref="kfs.parameterService" />
 		<property name="financialSystemDocumentDao" ref="financialSystemDocumentDao" />
 		<property name="financialSystemDocumentHeaderDao" ref="financialSystemDocumentHeaderDao"/>
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
 	</bean>
 
     <!-- Create an unscheduled Daily Mail job -->
@@ -1092,7 +1092,7 @@
 	
 	<bean id="lockModuleService" parent="lockModuleService-parentBean"/>
 	<bean id="lockModuleService-parentBean" class="org.kuali.kfs.sys.batch.service.impl.LockModuleServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="parameterService" ref="kfs.parameterService" />
 	</bean>
     
@@ -1157,7 +1157,7 @@
 	<bean id="paymentSourceExtractionService-parentBean" class="org.kuali.kfs.sys.batch.service.impl.PaymentSourceExtractionServiceImpl" abstract="true">
 		<property name="dateTimeService" ref="dateTimeService"/>
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
 		<property name="paymentFileEmailService" ref="pdpEmailService"/>
 		<property name="documentService" ref="kfs.documentService"/>
 	</bean>
@@ -1170,7 +1170,7 @@
 		<property name="universityDateService" ref="universityDateService"/>
 		<property name="bankService" ref="bankService"/>
 		<property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
 		<property name="accountingDocumentRuleHelperService" ref="accountingDocumentRuleHelperService"/>
 		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="configurationService" ref="configurationService"/>
@@ -1192,7 +1192,7 @@
    <bean id="velocityEmailServiceBase-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.VelocityEmailServiceBase">
    		<property name="mailService" ref="mailService" />
    		<property name="velocityEngine" ref="velocityEngine"/>
-   		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+   		<property name="businessObjectService" ref="businessObjectService"/>
    		<property name="parameterService" ref="kfs.parameterService"/>
    		<property name="htmlMessage" value="false" />
    </bean>
@@ -1238,7 +1238,7 @@
     
     <bean name="financialSystemDocumentHeaderPopulationService" parent="financialSystemDocumentHeaderPopulationService-parentBean"/>
     <bean name="financialSystemDocumentHeaderPopulationService-parentBean" abstract="true" class="org.kuali.kfs.sys.batch.service.impl.FinancialSystemDocumentHeaderPopulationServiceImpl">
-    	<property name="businessObjectService" ref="kfs.businessObjectService"/>
+    	<property name="businessObjectService" ref="businessObjectService"/>
     	<property name="workflowDocumentService" ref="rice.kew.workflowDocumentService"/>
     	<property name="identityService" ref="kimIdentityService"/>
     	<property name="financialSystemDocumentHeaderPopulationDao" ref="financialSystemDocumentHeaderPopulationDao"/>

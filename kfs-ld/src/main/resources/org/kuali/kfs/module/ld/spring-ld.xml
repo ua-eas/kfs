@@ -124,7 +124,7 @@
 
     <bean id="laborLedgerPendingEntryService-parentBean" class="org.kuali.kfs.module.ld.service.impl.LaborLedgerPendingEntryServiceImpl" abstract="true">
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
         <property name="laborLedgerPendingEntryDao">
             <ref bean="laborLedgerPendingEntryDao" />
@@ -174,21 +174,21 @@
 
     <bean id="laborPositionObjectBenefitService-parentBean" class="org.kuali.kfs.module.ld.service.impl.LaborPositionObjectBenefitServiceImpl" abstract="true">
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
     </bean>
     <bean id="laborBenefitsTypeService" parent="laborBenefitsTypeService-parentBean" />
 
     <bean id="laborBenefitsTypeService-parentBean" class="org.kuali.kfs.module.ld.service.impl.LaborBenefitsTypeServiceImpl" abstract="true">
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
     </bean>
     <bean id="laborBenefitsCalculationService" parent="laborBenefitsCalculationService-parentBean" />
 
     <bean id="laborBenefitsCalculationService-parentBean" class="org.kuali.kfs.module.ld.service.impl.LaborBenefitsCalculationServiceImpl" abstract="true">
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
         <property name="laborPositionObjectBenefitService">
             <ref bean="laborPositionObjectBenefitService" />
@@ -271,7 +271,7 @@
             <ref bean="dateTimeService" />
         </property>
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
         <property name="batchFileDirectoryName" value="${staging.directory}/ld/originEntry" />
         <property name="batchGlFileDirectoryName" value="${staging.directory}/gl/originEntry" />
@@ -400,7 +400,7 @@
             <ref bean="kfs.parameterService" />
         </property>
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
         <property name="balanceTypService">
             <ref bean="balanceTypService" />
@@ -496,7 +496,7 @@
             <ref bean="kualiConfigurationService" />
         </property>
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
         <property name="dateTimeService">
             <ref bean="dateTimeService" />
@@ -642,7 +642,7 @@
             <ref bean="optionsService" />
         </property>
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
 
         <property name="dateTimeService">
@@ -1385,7 +1385,7 @@
             <ref bean="laborDao" />
         </property>
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>
     </bean>
 
@@ -1932,7 +1932,7 @@
             <ref bean="laborBenefitsCalculationService" />
         </property>   
         <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property>         
         <property name="parameterService">
             <ref bean="kfs.parameterService" />

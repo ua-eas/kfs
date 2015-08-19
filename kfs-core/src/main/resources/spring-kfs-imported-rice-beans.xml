@@ -38,11 +38,11 @@
  	<bean id="mailService" p:serviceName="mailService" parent="grlBeanImporter" />
  	<bean id="mailSender" p:serviceName="mailSender" parent="grlBeanImporter" />
  	<bean id="kualiModuleService" p:serviceName="kualiModuleService" parent="grlBeanImporter" />
- 	<bean id="parameterService" p:serviceName="parameterService" parent="grlBeanImporter" />
+ 	<bean id="parameterService" p:serviceName="kfs.parameterService" parent="grlBeanImporter" />
  	<bean id="parameterRepositoryService" p:serviceName="parameterRepositoryService" parent="grlBeanImporter" />
  	<bean id="configurationService" p:serviceName="kualiConfigurationService" parent="grlBeanImporter" />
  	<alias name="configurationService" alias="kualiConfigurationService" />
- 	<bean id="persistenceStructureService" p:serviceName="persistenceStructureService" parent="grlBeanImporter" />
+ 	<bean id="persistenceStructureService" p:serviceName="kfs.persistenceStructureService" parent="grlBeanImporter" />
  	<bean id="persistenceStructureServiceJpa" p:serviceName="persistenceStructureServiceJpa" parent="grlBeanImporter" />
  	<bean id="persistenceStructureServiceOjb" p:serviceName="persistenceStructureServiceOjb" parent="grlBeanImporter" />
  	<bean id="encryptionService" p:serviceName="encryptionService" parent="grlBeanImporter" />
@@ -58,7 +58,7 @@
  	<bean id="attachmentService" p:serviceName="attachmentService" parent="grlBeanImporter" />
  	<bean id="sessionDocumentService" p:serviceName="sessionDocumentService" parent="grlBeanImporter" />
  	<bean id="noteService" p:serviceName="noteService" parent="grlBeanImporter" />
- 	<bean id="businessObjectService" p:serviceName="businessObjectService" parent="grlBeanImporter" />
+ 	<bean id="businessObjectService" p:serviceName="kfs.businessObjectService" parent="grlBeanImporter" />
  	<bean id="kualiRuleService" p:serviceName="kualiRuleService" parent="grlBeanImporter" />
  	<bean id="businessObjectMetaDataService" p:serviceName="businessObjectMetaDataService" parent="grlBeanImporter" />
  	<bean id="lookupService" p:serviceName="lookupService" parent="grlBeanImporter" />
@@ -185,7 +185,7 @@
 			<ref bean="sequenceAccessorService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="lookupResultsService">
 			<ref bean="lookupResultsService" />
@@ -205,7 +205,7 @@
 			<ref bean="kfs.dataDictionaryService" />
 		</property>
 		<property name="businessObjectService">
-			<ref bean="kfs.businessObjectService" />
+			<ref bean="businessObjectService" />
 		</property>
 		<property name="businessObjectDictionaryService">
 			<ref bean="businessObjectDictionaryService" />

@@ -47,7 +47,6 @@
 
 	<bean id="kfs.kradConfigurer" class="org.kuali.kfs.krad.config.KRADConfigurer">
 		<property name="applicationDataSource" ref="dataSource" />
-		<property name="includeKnsSpringBeans" value="true" />
 	</bean>
 
 	<!--<bean id="coreServiceConfigurer" class="org.kuali.kfs.coreservice.impl.config.CoreServiceConfigurer" />-->

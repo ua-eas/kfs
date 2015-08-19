@@ -103,7 +103,7 @@
 		<property name="documentService" ref="kfs.documentService" />
 		<property name="purapService" ref="purapService"/>
 		<property name="purchaseOrderService" ref="purchaseOrderService"/>
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
 	</bean>
 
 	<bean id="PurapConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
@@ -140,7 +140,7 @@
     <bean id="pdpExtractService" parent="pdpExtractService-parentBean"/>
     
 	<bean id="pdpExtractService-parentBean" class="org.kuali.kfs.module.purap.service.impl.PdpExtractServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
 		<property name="paymentRequestService" ref="paymentRequestService"/>
 		<property name="paymentFileService" ref="paymentFileService"/>
 		<property name="parameterService" ref="kfs.parameterService" />
@@ -164,7 +164,7 @@
     <bean id="requisitionService" parent="requisitionService-parentBean"/>
 
 	<bean id="requisitionService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.RequisitionServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
         <property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
 		<property name="documentService" ref="kfs.documentService"/>
@@ -181,7 +181,7 @@
     <bean id="purapService" parent="purapService-parentBean"/>
 
     <bean id="purapService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.PurapServiceImpl" abstract="true">
-        <property name="businessObjectService" ref="kfs.businessObjectService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
         <property name="dataDictionaryService" ref="kfs.dataDictionaryService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="documentService" ref="kfs.documentService"/>
@@ -211,7 +211,7 @@
     <bean id="purapGeneralLedgerService" parent="purapGeneralLedgerService-parentBean"/>
 	
     <bean id="purapGeneralLedgerService-parentBean" class="org.kuali.kfs.module.purap.service.impl.PurapGeneralLedgerServiceImpl" abstract="true">
-        <property name="businessObjectService" ref="kfs.businessObjectService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
         <property name="kualiRuleService" ref="kualiRuleService"/>
@@ -226,7 +226,7 @@
     <bean id="purapAccountRevisionService" parent="purapAccountRevisionService-parentBean"/>
     
     <bean id="purapAccountRevisionService-parentBean" class="org.kuali.kfs.module.purap.service.impl.PurapAccountRevisionServiceImpl" abstract="true">
-        <property name="businessObjectService" ref="kfs.businessObjectService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
     </bean>
     <bean id="purapAccountingService" parent="purapAccountingService-parentBean"/>
@@ -235,7 +235,7 @@
 		<property name="parameterService" ref="kfs.parameterService"/>
 		<property name="purApAccountingDao" ref="purApAccountingDao"/>
 		<property name="purapService" ref="purapService"/>
-		<property name="businessObjectService" ref="kfs.businessObjectService"/>
+		<property name="businessObjectService" ref="businessObjectService"/>
 	</bean>
     <bean id="accountsPayableService" parent="accountsPayableService-parentBean"/>
 
@@ -264,7 +264,7 @@
         <property name="configurationService" ref="kualiConfigurationService" />
         <property name="negativePaymentRequestApprovalLimitService" ref="negativePaymentRequestApprovalLimitService" />
         <property name="purapAccountingService" ref="purapAccountingService" />
-        <property name="businessObjectService" ref="kfs.businessObjectService" />
+        <property name="businessObjectService" ref="businessObjectService" />
         <property name="purapWorkflowIntegrationService" ref="purapWorkflowIntegrationService" />
         <property name="workflowDocumentService" ref="workflowDocumentService" />
         <property name="vendorService" ref="vendorService" />
@@ -299,7 +299,7 @@
     <bean id="printService" parent="printService-parentBean"/>
     
 	<bean id="printService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.PrintServiceImpl" abstract="true">
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="parameterService" ref="kfs.parameterService" />
         <property name="imageService" ref="imageService" />
         <property name="configurationService" ref="kualiConfigurationService" />
@@ -311,7 +311,7 @@
 		<property name="configurationService" ref="kualiConfigurationService" />
 		<property name="parameterService" ref="kfs.parameterService" />
         <property name="vendorService" ref="vendorService" />
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="countryService" ref="countryService" />
 	</bean>
 			
@@ -319,7 +319,7 @@
 	<bean id="purchaseOrderService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.PurchaseOrderServiceImpl" abstract="true">
         <property name="b2bPurchaseOrderService" ref="b2bPurchaseOrderService" />
         <property name="requisitionService" ref="requisitionService"/>
-        <property name="businessObjectService" ref="kfs.businessObjectService" />
+        <property name="businessObjectService" ref="businessObjectService" />
         <property name="dateTimeService" ref="dateTimeService" />
         <property name="documentService" ref="kfs.documentService" />
         <property name="purapService" ref="purapService" />
@@ -360,7 +360,7 @@
 
 	<bean id="b2BShoppingService-parentBean" class="org.kuali.kfs.module.purap.document.service.impl.B2BShoppingServiceImpl" abstract="true">
         <property name="b2bDao" ref="b2bDao"/>
-        <property name="businessObjectService" ref="kfs.businessObjectService" />
+        <property name="businessObjectService" ref="businessObjectService" />
         <property name="configurationService" ref="kualiConfigurationService"/>
         <property name="documentService" ref="kfs.documentService"/>
         <property name="parameterService" ref="kfs.parameterService"/>
@@ -692,7 +692,7 @@
 
     <bean id="itemUnitOfMeasureService-parentBean" class="org.kuali.kfs.module.purap.service.impl.ItemUnitOfMeasureServiceImpl" abstract="true">
          <property name="businessObjectService">
-            <ref bean="kfs.businessObjectService" />
+            <ref bean="businessObjectService" />
         </property> 
     </bean>
 
@@ -753,7 +753,7 @@
 
     <bean id="myOrdersService" parent="myOrdersService-parentBean"/>
     <bean id="myOrdersService-parentBean" abstract="true" class="org.kuali.kfs.module.purap.service.impl.MyOrdersServiceImpl">
-        <property name="businessObjectService" ref="kfs.businessObjectService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
     </bean>
 
     <!-- validations -->

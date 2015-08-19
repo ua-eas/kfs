@@ -190,7 +190,7 @@
 		<property name="sufficientFundsService">
 			<ref bean="sufficientFundsService" />
 		</property>
-		<property name="businessObjectService" ref="kfs.businessObjectService" />
+		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
 	
 	<bean id="originEntryGroupService" parent="originEntryGroupService-parentBean"/>
