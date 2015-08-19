@@ -37,6 +37,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.MemoryMonitor;
 import org.kuali.kfs.sys.batch.Step;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.kuali.kfs.sys.service.DocumentStoreSchemaUpdateService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.kuali.rice.coreservice.api.CoreServiceApiServiceLocator;
@@ -310,7 +311,7 @@ public class SpringContext {
     }
 
     static void initMonitoringThread() {
-        if ( KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean( "periodic.thread.dump" ) ) {
+        if ( KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean("periodic.thread.dump") ) {
             final long sleepPeriod = Long.parseLong( KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString("periodic.thread.dump.seconds") ) * 1000;
             final File logDir = new File( KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString( "logs.directory" ) );
             final File monitoringLogDir = new File( logDir, "monitoring" );
@@ -413,8 +414,13 @@ public class SpringContext {
                 }
             }
         }
+    }
 
+    public static void initDocumentStore() {
+        LOG.debug("initDocumentStore() started");
 
+        DocumentStoreSchemaUpdateService documentStoreSchemaUpdateService = getBean(DocumentStoreSchemaUpdateService.class);
+        documentStoreSchemaUpdateService.updateDocumentStoreSchema();
     }
 
     public static void registerSingletonBean(String beanId, Object bean) {
@@ -440,6 +446,7 @@ public class SpringContext {
         // DD so are not published by the command above
         publishBatchStepComponents();
         initDirectories();
+        initDocumentStore();
     }
 
     public static void publishBatchStepComponents() {
