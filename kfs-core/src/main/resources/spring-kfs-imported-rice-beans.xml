@@ -35,7 +35,7 @@
 	<!-- CoreServices -->
  	<bean id="dateTimeService" p:serviceName="dateTimeService" parent="grlBeanImporter" />
  	<bean id="mailer" p:serviceName="mailer" parent="grlBeanImporter" />
- 	<bean id="mailService" p:serviceName="mailService" parent="grlBeanImporter" />
+ 	<bean id="mailService" p:serviceName="kfs.mailService" parent="grlBeanImporter" />
  	<bean id="mailSender" p:serviceName="mailSender" parent="grlBeanImporter" />
  	<bean id="kualiModuleService" p:serviceName="kfs.kualiModuleService" parent="grlBeanImporter" />
  	<bean id="parameterService" p:serviceName="kfs.parameterService" parent="grlBeanImporter" />
@@ -62,7 +62,7 @@
  	<bean id="kualiRuleService" p:serviceName="kualiRuleService" parent="grlBeanImporter" />
  	<bean id="businessObjectMetaDataService" p:serviceName="businessObjectMetaDataService" parent="grlBeanImporter" />
  	<bean id="lookupService" p:serviceName="lookupService" parent="grlBeanImporter" />
- 	<bean id="lookupResultsService" p:serviceName="lookupResultsService" parent="grlBeanImporter" />
+ 	<bean id="lookupResultsService" p:serviceName="kfs.lookupResultsService" parent="grlBeanImporter" />
  	<bean id="lookupDao" p:serviceName="lookupDao" parent="grlBeanImporter" />
  	<bean id="documentAdHocService" p:serviceName="documentAdHocService" parent="grlBeanImporter" />
  	<bean id="maintenanceDocumentService" p:serviceName="maintenanceDocumentService" parent="grlBeanImporter" />
