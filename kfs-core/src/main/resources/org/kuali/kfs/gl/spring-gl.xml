@@ -1274,7 +1274,7 @@
 			<ref bean="glCorrectionCriteriaDao" />
 		</property>
 		<property name="documentService">
-			<ref bean ="kfs.documentService" />
+			<ref bean ="documentService" />
 		</property>
 		<property name="originEntryService">
 			<ref bean="originEntryService" />

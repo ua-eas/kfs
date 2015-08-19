@@ -278,7 +278,7 @@
 		class="org.kuali.kfs.module.ar.document.validation.impl.CashControlRefDocNumberValidation"
 		abstract="true">
 		<property name="documentService">
-			<ref bean ="kfs.documentService" />
+			<ref bean ="documentService" />
 		</property>
 	</bean>
 	<bean id="CashControl-lineAmountValidation"

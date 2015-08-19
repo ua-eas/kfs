@@ -80,7 +80,7 @@
   
   	<bean id="postProcessorService" class="org.kuali.kfs.sys.service.impl.PostProcessorServiceImpl">
 		<property name="documentService">
-			<ref bean ="kfs.documentService" />
+			<ref bean ="documentService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />

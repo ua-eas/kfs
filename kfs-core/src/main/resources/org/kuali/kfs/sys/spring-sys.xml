@@ -414,7 +414,7 @@
 	
 	<bean id="autoDisapproveService-parentBean" class="org.kuali.kfs.sys.batch.service.impl.AutoDisapproveDocumentsServiceImpl" abstract="true">
 		<property name="documentService">
-			<ref bean ="kfs.documentService" />
+			<ref bean ="documentService" />
 		</property>
     	<property name="parameterService">
     	 <ref bean="parameterService" />
@@ -703,7 +703,7 @@
     
 	<bean id="electronicPaymentClaimingService" parent="electronicPaymentClaimingService-parentBean"/>
     <bean id="electronicPaymentClaimingService-parentBean" class="org.kuali.kfs.sys.service.impl.ElectronicPaymentClaimingServiceImpl" abstract="true">
-    	<property name="documentService"><ref bean ="kfs.documentService" /></property>
+    	<property name="documentService"><ref bean ="documentService" /></property>
     	<property name="businessObjectService"><ref bean="businessObjectService" /></property>
     	<property name="dateTimeService"><ref bean="dateTimeService" /></property>
     	<property name="parameterService"><ref bean="parameterService" /></property>
