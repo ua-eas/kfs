@@ -84,7 +84,7 @@
   
   <bean id="moduleLockingHandlerInterceptor" class="org.kuali.rice.krad.web.controller.ModuleLockingHandlerInterceptor">
     <property name="moduleLockedMapping" value="module-locked" />
-    <property name="kualiModuleService" ref="kfs.kualiModuleService" />
+    <property name="kualiModuleService" ref="kualiModuleService" />
   </bean>
   
   <bean id="kualiModuleService" class="org.kuali.rice.krad.config.GlobalResourceLoaderServiceFactoryBean">

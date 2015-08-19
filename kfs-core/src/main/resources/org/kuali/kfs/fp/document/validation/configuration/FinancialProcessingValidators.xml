@@ -50,12 +50,12 @@
 	</bean>
 	
 	<bean id="TransferOfFunds-fundGroupsBalancedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsFundGroupsBalancedValidation" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="TransferOfFunds-objectSubTypeValueAllowedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsObjectSubTypeValueAllowedValidation">
 		<property name="transferOfFundsService" ref="transferOfFundsService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="responsibleProperty" value="financialObjectCode" />
 		<property name="propertyPath" value="objectCode.financialObjectSubTypeCode" />
 		<property name="parameterToCheckAgainst" value="OBJECT_SUB_TYPES" />
@@ -63,7 +63,7 @@
 	
 	<bean id="TransferOfFunds-objectCodeValueAllowedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsObjectCodeValueAllowedValidation">
 		<property name="debitDeterminerService" ref="debitDeterminerService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="responsibleProperty" value="financialObjectCode" />
 		<property name="propertyPath" value="financialObjectCode" />
 		<property name="parameterToCheckAgainst" value="OBJECT_CODES" />
@@ -107,12 +107,12 @@
 	
 	<bean id="AuxiliaryVoucher-accountingPeriodAllowedByParameterValidation" class="org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherAccountingPeriodAllowedByParameterValidation" abstract="true">
 		<property name="accountingPeriodService" ref="accountingPeriodService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="AuxiliaryVoucher-accountingPeriodWithinGracePeriodValdation" class="org.kuali.kfs.fp.document.validation.impl.AuxiliaryVoucherAccountingPeriodWithinGracePeriodValidation" abstract="true">
 		<property name="accountingPeriodService" ref="accountingPeriodService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="universityDateService" ref="universityDateService" />
 	</bean>
 	
@@ -154,7 +154,7 @@
 	</bean>
 	
 	<bean id="CashReceipt-accountAndObjectValidation" class="org.kuali.kfs.fp.document.validation.impl.CashReceiptAccountAndObjectCodeValidation" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="CashReceipt-cashTotalsValidation" class="org.kuali.kfs.fp.document.validation.impl.CashReceiptCashTotalsValidation" abstract="true">
@@ -170,11 +170,11 @@
 	<bean id="CreditCardReceipt-documentTotalValidation" class="org.kuali.kfs.fp.document.validation.impl.CreditCardReceiptDocumentTotalValidation" abstract="true" />
 	
 	<bean id="GeneralErrorCorrection-objectTypeValidation" class="org.kuali.kfs.fp.document.validation.impl.GeneralErrorCorrectionObjectTypeValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="GeneralErrorCorrection-requiredReferenceFieldValidation" class="org.kuali.kfs.fp.document.validation.impl.GeneralErrorCorrectionRequiredReferenceFieldValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="IndirectCostAdjustment-chartOfAccountsValidation" class="org.kuali.kfs.fp.document.validation.impl.IndirectCostAdjustmentChartOfAccountsValidation" abstract="true" />
@@ -184,30 +184,30 @@
 	<bean id="JournalVoucher-accountingLineAmountValidation" class="org.kuali.kfs.fp.document.validation.impl.JournalVoucherAccountingLineAmountValidation" abstract="true" />
 	
 	<bean id="JournalVoucher-accountingLineEncumbranceReferenceValidation" class="org.kuali.kfs.fp.document.validation.impl.JournalVoucherAccountingLineEncumbranceReferenceValidation" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 	
 	<bean id="JournalVoucher-accountingLineObjectTypeValueAllowedValidation" class="org.kuali.kfs.fp.document.validation.impl.JournalVoucherAccountingLineObjectTypeValueAllowedValidation" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 	
 	<bean id="JournalVoucher-accountingPeriodValidation" class="org.kuali.kfs.fp.document.validation.impl.JournalVoucherAccountingPeriodValidation" abstract="true">	
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 	
 	<bean id="JournalVoucher-balanceTypeValidation" class="org.kuali.kfs.fp.document.validation.impl.JournalVoucherBalanceTypeValidation" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 	
 	<bean id="JournalVoucher-accountingLineObjectTypeCodeValidation" class="org.kuali.kfs.fp.document.validation.impl.JournalVoucherObjectTypeValidation">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="accountingLineRuleHelperService" ref="accountingLineRuleHelperService" />
 	</bean>
 	
 	<bean id="JournalVoucher-reversalDateValidation" class="org.kuali.kfs.fp.document.validation.impl.JournalVoucherReversalDateValidation" abstract="true" />
 
 	<bean id="NonCheckDisbursement-requiredReferenceFieldValidation" class="org.kuali.kfs.fp.document.validation.impl.NonCheckDisbursementRequiredReferenceFieldValidation" abstract="true" >
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 	
 	<bean id="NonCheckDisbursement-bankCodeValidation" class="org.kuali.kfs.fp.document.validation.impl.NonCheckDisbursementBankValidation" abstract="true"/>
@@ -219,13 +219,13 @@
 	<bean id="PreEncumbrance-requiredAccountingLinesCountValidation" class="org.kuali.kfs.fp.document.validation.impl.PreEncumbranceRequiredAccountingLinesCountValidation" abstract="true" />
 	
 	<bean id="PreEncumbrance-requiredReferenceFieldValidation" class="org.kuali.kfs.fp.document.validation.impl.PreEncumbranceRequiredReferenceFieldValidation" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 	
 	<bean id="ProcurementCard-accountNumberValidation" class="org.kuali.kfs.fp.document.validation.impl.ProcurementCardAccountNumberValidation" abstract="true" />
 
 	<bean id="ProcurementCard-accountAccessibilityValidation" class="org.kuali.kfs.fp.document.validation.impl.ProcurementCardAccountAccessibilityValidation" abstract="true" >
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 	
 	<bean id="ProcurementCard-balanceValidation" class="org.kuali.kfs.fp.document.validation.impl.ProcurementCardBalanceValidation" abstract="true" />
@@ -239,7 +239,7 @@
 	<bean id="ServiceBilling-accountingLineAmountNonZeroValidation" class="org.kuali.kfs.fp.document.validation.impl.AccountingLineAmountNonZeroValidation" abstract="true" />
 	
 	<bean id="ServiceBilling-accountingLineAccessibleValidation" class="org.kuali.kfs.fp.document.validation.impl.ServiceBillingAccountingLineAccessibleValidation" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 
 	<bean id="YearEndBudgetAdjustment-accountingLineAccountHasRecordingLevelValidation" class="org.kuali.kfs.fp.document.validation.impl.BudgetAdjustmentAccountingLineAccountHasRecordingLevelValidation" abstract="true" />
@@ -267,11 +267,11 @@
 	</bean>
 
 	<bean id="YearEndGeneralErrorCorrection-objectTypeValidation" class="org.kuali.kfs.fp.document.validation.impl.GeneralErrorCorrectionObjectTypeValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="YearEndGeneralErrorCorrection-requiredReferenceFieldValidation" class="org.kuali.kfs.fp.document.validation.impl.GeneralErrorCorrectionRequiredReferenceFieldValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 
 	<bean id="YearEndTransferOfFunds-transferTotalsBalanceValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsTransferTotalsBalancedValidation" abstract="true">
@@ -279,12 +279,12 @@
 	</bean>
 	
 	<bean id="YearEndTransferOfFunds-fundGroupsBalancedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsFundGroupsBalancedValidation" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="YearEndTransferOfFunds-objectSubTypeValueAllowedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsObjectSubTypeValueAllowedValidation">
 		<property name="transferOfFundsService" ref="transferOfFundsService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="responsibleProperty" value="financialObjectCode" />
 		<property name="propertyPath" value="objectCode.financialObjectSubTypeCode" />
 		<property name="parameterToCheckAgainst" value="OBJECT_SUB_TYPES" />
@@ -292,7 +292,7 @@
 	
 	<bean id="YearEndTransferOfFunds-objectCodeValueAllowedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsObjectCodeValueAllowedValidation">
 		<property name="debitDeterminerService" ref="debitDeterminerService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="responsibleProperty" value="financialObjectCode" />
 		<property name="propertyPath" value="financialObjectCode" />
 		<property name="parameterToCheckAgainst" value="OBJECT_CODES" />
@@ -377,19 +377,19 @@
 
 
 	<bean id="DisbursementVoucher-accountingLineAccessibleValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherAccountingLineAccessibleValidation" abstract="true" >
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 
 	<bean id="DisbursementVoucher-accountingLineCountValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherAccountingLineCountValidation" abstract="true" />
 
 	<bean id="DisbursementVoucher-accountingLineAmountPositiveValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherAccountingLineAmountPositiveValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="DisbursementVoucher-accountingLineTotalsValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherAccountingLineTotalsValidation" abstract="true" />
 	
 	<bean id="DisbursementVoucher-accountingLineValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherAccountingLineValidation" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="DisbursementVoucher-bankCodeValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherBankCodeValidation" abstract="true" />
@@ -399,7 +399,7 @@
 	<bean id="DisbursementVoucher-documentFieldValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherDocumentFieldValidation" abstract="true" />
 	
 	<bean id="DisbursementVoucher-documentLocationValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherDocumentLocationValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="DisbursementVoucher-employeeInformationValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherEmployeeInformationValidation" abstract="true" />
@@ -407,7 +407,7 @@
 	<bean id="DisbursementVoucher-nonEmployeeTravelCompanyValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherNonEmployeeTravelCompanyValidation" abstract="true" />
 	
 	<bean id="DisbursementVoucher-nonEmployeeTravelValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherNonEmployeeTravelValidation" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="disbursementVoucherTaxService" ref="disbursementVoucherTaxService" />
 		<property name="disbursementVoucherTravelService" ref="disbursementVoucherTravelService" />
 		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
@@ -418,17 +418,17 @@
 	<bean id="DisbursementVoucher-payeeInitiatorValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherPayeeInitiatorValidation" abstract="true" />
 	
 	<bean id="DisbursementVoucher-paymentReasonValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherPaymentReasonValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="disbursementVoucherPayeeService" ref="disbursementVoucherPayeeService" />
 		<property name="disbursementVoucherPaymentReasonService" ref="disbursementVoucherPaymentReasonService" />
 	</bean>
 	
 	<bean id="DisbursementVoucher-prePaidTravelValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherPrePaidTravelValidation" abstract="true" >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="DisbursementVoucher-vendorInformationValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherVendorInformationValidation" abstract="true"  >
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 	
     <bean id="DisbursementVoucher-payeeAddressValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherPayeeAddressValidation" abstract="true" />
@@ -436,7 +436,7 @@
     <bean id="DisbursementVoucher-payeeStateCodeValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherPayeeStateCodeValidation" abstract="true" />
     
     <bean id="DisbursementVoucher-campusSpecialHandlingValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherCampusSpecialHandlingValidation" abstract="true">
-    	<property name="documentService" ref="kfs.documentService" />
+    	<property name="documentService" ref="documentService" />
     </bean>
 		
 	<bean id="CapitalAccountingLines-objectCodeSubTypeValidation" class="org.kuali.kfs.fp.document.validation.impl.CapitalAccountingLinesObjectSubtypeValidations" abstract="true" />		
@@ -479,8 +479,8 @@
 	</bean>
 	
 	<bean id="PreEncumbrance-accountingLineObjectCodeRestrictionValidation" class="org.kuali.kfs.fp.document.validation.impl.AccountingLineObjectCodeRestrictionValidation" abstract="true">
-        <property name="parameterService" ref="kfs.parameterService" />
+        <property name="parameterService" ref="parameterService" />
         <property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
-        <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+        <property name="dataDictionaryService" ref="dataDictionaryService" />
     </bean>			
 </beans>

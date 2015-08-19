@@ -112,10 +112,10 @@
 			<ref bean="businessObjectService" />
 		</property>
 		<property name="kualiModuleService">
-			<ref bean="kfs.kualiModuleService" />
+			<ref bean="kualiModuleService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="budgetParameterService">
 			<ref bean="budgetParameterService" />
@@ -149,7 +149,7 @@
 			<ref bean="bcBudgetPullupDao" />
 		</property>
         <property name="persistenceServiceOjb">
-            <ref bean="kfs.persistenceServiceOjb" />
+            <ref bean="persistenceServiceOjb" />
         </property>
 	</bean>
 
@@ -257,7 +257,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>		
 	</bean>
 	
@@ -284,7 +284,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>		
 	</bean>
 
@@ -341,7 +341,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>		
 	</bean>
 
@@ -367,7 +367,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>		
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
@@ -397,7 +397,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>		
 		<property name="laborModuleService">
 			<ref bean="laborModuleService" />
@@ -457,7 +457,7 @@
 			<ref bean="businessObjectService" />
 		</property>
         <property name="persistenceServiceOjb">
-            <ref bean="kfs.persistenceServiceOjb" />
+            <ref bean="persistenceServiceOjb" />
         </property>
 	</bean>
 	
@@ -536,7 +536,7 @@
 		<ref bean="businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="kfs.persistenceServiceOjb" />
+        <ref bean="persistenceServiceOjb" />
     </property>
 	</bean>
 	
@@ -613,7 +613,7 @@
     	<ref bean="businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="kfs.persistenceServiceOjb" />
+        <ref bean="persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -654,7 +654,7 @@
     	<ref bean="businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="kfs.persistenceServiceOjb" />
+        <ref bean="persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -673,7 +673,7 @@
     	<ref bean="businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="kfs.persistenceServiceOjb" />
+        <ref bean="persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -692,7 +692,7 @@
     	<ref bean="businessObjectService" />
     </property>
     <property name="persistenceServiceOjb">
-        <ref bean="kfs.persistenceServiceOjb" />
+        <ref bean="persistenceServiceOjb" />
     </property>
     </bean>
     
@@ -705,7 +705,7 @@
 		<ref bean="businessObjectService" />
 		</property>
     <property name="persistenceServiceOjb">
-        <ref bean="kfs.persistenceServiceOjb" />
+        <ref bean="persistenceServiceOjb" />
         </property>
     </bean>
     
@@ -796,7 +796,7 @@
             <ref bean ="kfs.documentService" />
         </property>
         <property name="kualiModuleService">
-            <ref bean="kfs.kualiModuleService" />
+            <ref bean="kualiModuleService" />
         </property>
         <property name="workflowDocumentService">
             <ref bean="rice.kew.workflowDocumentService" />
@@ -909,7 +909,7 @@
         <ref bean="budgetConstructionMonthlyBudgetsCreateDeleteDao"/>
       </property>
       <property name="persistenceServiceOjb">
-        <ref bean="kfs.persistenceServiceOjb" />
+        <ref bean="persistenceServiceOjb" />
       </property>
     </bean>
 
@@ -946,10 +946,10 @@
 			<ref bean ="kfs.documentService" />
 		</property>	
         <property name="parameterService">
-            <ref bean="kfs.parameterService" />
+            <ref bean="parameterService" />
         </property> 
         <property name="persistenceServiceOjb">
-            <ref bean="kfs.persistenceServiceOjb" />
+            <ref bean="persistenceServiceOjb" />
         </property>
 	</bean>
 	
@@ -1111,7 +1111,7 @@
 			<ref bean="businessObjectMetaDataService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean>
 	

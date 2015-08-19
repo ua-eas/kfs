@@ -81,7 +81,7 @@
     <bean id="vendorService-parentBean" class="org.kuali.kfs.vnd.document.service.impl.VendorServiceImpl" abstract="true">
         <property name="vendorDao" ref="vendorDao"/>
         <property name="businessObjectService" ref="businessObjectService"/>
-        <property name="documentService" ref="kfs.documentService"/>
+        <property name="documentService" ref="documentService"/>
         <property name="dateTimeService" ref="dateTimeService"/>
         <property name="noteService" ref="noteService"/>
     </bean>
@@ -89,14 +89,14 @@
 
     <bean id="phoneNumberService-parentBean" class="org.kuali.kfs.vnd.service.impl.PhoneNumberServiceImpl" abstract="true">
         <property name="parameterService">
-            <ref bean="kfs.parameterService"/>
+            <ref bean="parameterService"/>
         </property>
     </bean>
     <bean id="taxNumberService" parent="taxNumberService-parentBean"/>
     
     <bean id="taxNumberService-parentBean" class="org.kuali.kfs.vnd.service.impl.TaxNumberServiceImpl" abstract="true">
         <property name="parameterService">
-            <ref bean="kfs.parameterService"/>
+            <ref bean="parameterService"/>
         </property>
     </bean>
     <bean id="vendorLookupableHelperService" parent="vendorLookupableHelperService-parentBean" scope="prototype" />
@@ -118,13 +118,13 @@
             <ref bean="knsDictionaryValidationService" />
             </property-->
         <property name="dataDictionaryService">
-            <ref bean="kfs.dataDictionaryService" />
+            <ref bean="dataDictionaryService" />
         </property>
         <property name="vendorService">
             <ref bean="vendorService" />
         </property>
         <property name="parameterService">
-            <ref bean="kfs.parameterService" />
+            <ref bean="parameterService" />
         </property>
     </bean>
     <bean id="vendorContactLookupableHelperService" parent="vendorContactLookupableHelperService-parentBean" scope="prototype" />
@@ -143,7 +143,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="kfs.dataDictionaryService" />
+            <ref bean="dataDictionaryService" />
         </property>
     </bean>
     <bean id="vendorPhoneLookupableHelperService" parent="vendorPhoneLookupableHelperService-parentBean" scope="prototype" />
@@ -162,7 +162,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="kfs.dataDictionaryService" />
+            <ref bean="dataDictionaryService" />
         </property>
     </bean>
 	<bean id="vendorContractLookupableHelperService" parent="vendorContractLookupableHelperService-parentBean" scope="prototype" />
@@ -187,7 +187,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="kfs.dataDictionaryService" />
+            <ref bean="dataDictionaryService" />
         </property>
     </bean>
     <bean id="vendorAddressLookupableHelperService" parent="vendorAddressLookupableHelperService-parentBean" scope="prototype" />
@@ -206,7 +206,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="kfs.dataDictionaryService" />
+            <ref bean="dataDictionaryService" />
         </property>
     </bean>
     <bean id="vendorCustomerNumberLookupableHelperService" parent="vendorCustomerNumberLookupableHelperService-parentBean" scope="prototype" />
@@ -225,7 +225,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <property name="dataDictionaryService">
-            <ref bean="kfs.dataDictionaryService" />
+            <ref bean="dataDictionaryService" />
         </property>
     </bean>
     <bean id="vendorLookupable" parent="vendorLookupable-parentBean"/>

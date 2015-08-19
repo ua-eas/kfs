@@ -80,16 +80,16 @@
     <bean id="capitalAssetBuilderModuleService"  parent="capitalAssetBuilderModuleService-parentBean"/>
     <bean id="capitalAssetBuilderModuleService-parentBean" class="org.kuali.kfs.module.cab.service.impl.CapitalAssetBuilderModuleServiceImpl" abstract="true">
     	<property name="glLineService" ref="glLineService" />
-    	<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+    	<property name="dataDictionaryService" ref="dataDictionaryService" />
     	<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
     	<property name="configurationService" ref="configurationService" />
-    	<property name="parameterRepositoryService" ref="kfs.parameterRepositoryService" />
-    	<property name="parameterService" ref="kfs.parameterService" />
+    	<property name="parameterRepositoryService" ref="parameterRepositoryService" />
+    	<property name="parameterService" ref="parameterService" />
     	<property name="businessObjectService" ref="businessObjectService" />
     	<property name="assetService" ref="assetService" />
     	<property name="purApInfoService" ref="purApInfoService" />
     	<property name="capitalAssetManagementModuleService" ref="capitalAssetManagementModuleService" />
-    	<property name="kualiModuleService" ref="kfs.kualiModuleService" />
+    	<property name="kualiModuleService" ref="kualiModuleService" />
     	<property name="businessObjectDictionaryService" ref="businessObjectDictionaryService" />
     	<property name="campusService" ref="campusService" />
     	<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
@@ -105,7 +105,7 @@
 	<bean id="batchExtractService-parentBean" class="org.kuali.kfs.module.cab.batch.service.impl.BatchExtractServiceImpl" abstract="true">
 		<property name="extractDao" ref="extractDao" />
 		<property name="purchasingAccountsPayableItemAssetDao" ref="purchasingAccountsPayableItemAssetDao" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="purApLineService" ref="purApLineService" />
@@ -259,7 +259,7 @@
 		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="purApLineService" ref="purApLineService" />
 		<property name="purApInfoService" ref="purApInfoService" />
-		<property name="documentService" ref="kfs.documentService" />
+		<property name="documentService" ref="documentService" />
 		<property name="assetGlobalService" ref="assetGlobalService" />
 	</bean>  
 <!-- **** End of PurAp service beans **** -->
@@ -270,9 +270,9 @@
 		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="assetGlobalService" ref="assetGlobalService"/>
 		<property name="objectTypeService" ref="objectTypeService"/>
-		<property name="documentService" ref="kfs.documentService"/>
-		<property name="documentHeaderService" ref="kfs.documentHeaderService"/>
-		<property name="parameterService" ref="kfs.parameterService"/>
+		<property name="documentService" ref="documentService"/>
+		<property name="documentHeaderService" ref="documentHeaderService"/>
+		<property name="parameterService" ref="parameterService"/>
 		<property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
 		<property name="capitalAssetInformationDao" ref="capitalAssetInformationDao"/>
 	</bean> 

@@ -99,7 +99,7 @@
 	<bean id="disbursementVoucherTaxService"  parent="disbursementVoucherTaxService-parentBean"/>
 	<bean id="disbursementVoucherTaxService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherTaxServiceImpl" abstract="true">
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="businessObjectService">
 			<ref bean="businessObjectService" />
@@ -112,7 +112,7 @@
 	<bean id="disbursementVoucherCoverSheetService"  parent="disbursementVoucherCoverSheetService-parentBean"/>
 	<bean id="disbursementVoucherCoverSheetService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherCoverSheetServiceImpl" abstract="true">
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="businessObjectService">
 			<ref bean="businessObjectService" />
@@ -141,10 +141,10 @@
 			<ref bean ="kfs.documentService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="vendorService">
 			<ref bean="vendorService" />
@@ -154,9 +154,9 @@
 	<bean id="disbursementVoucherExtractionHelperService" parent="disbursementVoucherExtractionHelperService-parentBean"/>
 	<bean id="disbursementVoucherExtractionHelperService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherExtractionHelperServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService"/>
-		<property name="documentService" ref="kfs.documentService"/>
+		<property name="documentService" ref="documentService"/>
 		<property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
-		<property name="parameterService" ref="kfs.parameterService"/>
+		<property name="parameterService" ref="parameterService"/>
 		<property name="parameterEvaluatorService" ref="parameterEvaluatorService"/>
 		<property name="vendorService" ref="vendorService"/>
 		<property name="paymentSourceHelperService" ref="paymentSourceHelperService"/>
@@ -195,7 +195,7 @@
 			<ref bean="cashManagementDao" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean>
 
@@ -213,7 +213,7 @@
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
 		</property>
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 
 	<bean id="fiscalYearFunctionControlService"  parent="fiscalYearFunctionControlService-parentBean"/>
@@ -225,11 +225,11 @@
 
 	<bean id="procurementCardCreateDocumentService"  parent="procurementCardCreateDocumentService-parentBean"/>
 	<bean id="procurementCardCreateDocumentService-parentBean" class="org.kuali.kfs.fp.batch.service.impl.ProcurementCardCreateDocumentServiceImpl" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="documentService" ref="kfs.documentService" />
+		<property name="documentService" ref="documentService" />
     	<property name="workflowDocumentService" ref="workflowDocumentService" />
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="accountingLineRuleUtil" ref="accountingLineRuleHelperService" />
 		<property name="capitalAssetBuilderModuleService" ref="capitalAssetBuilderModuleService" />
@@ -267,7 +267,7 @@
 			<ref bean="cashDrawerService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 	</bean>
@@ -341,7 +341,7 @@
 
 	<bean id="cashReceiptCoverSheetService"  parent="cashReceiptCoverSheetService-parentBean"/>
 	<bean id="cashReceiptCoverSheetService-parentBean" class="org.kuali.kfs.fp.document.service.impl.CashReceiptCoverSheetServiceImpl" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
 	</bean>
 
 	<bean id="budgetAdjustmentLaborBenefitsService"  parent="budgetAdjustmentLaborBenefitsService-parentBean"/>
@@ -408,7 +408,7 @@
 	<bean id="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean" class="org.kuali.kfs.fp.batch.service.impl.DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl" abstract="true">
 		<property name="documentService"><ref bean ="kfs.documentService" /></property>
 		<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
-		<property name="parameterService"><ref bean="kfs.parameterService" /></property>
+		<property name="parameterService"><ref bean="parameterService" /></property>
 	</bean>
 	
 	<bean id="yearEndDistributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper" parent="yearEndDistributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean" />
@@ -416,7 +416,7 @@
 	
 	<bean id="transferOfFundsService"  parent="transferOfFundsService-parentBean"/>
 	<bean id="transferOfFundsService-parentBean" class="org.kuali.kfs.fp.document.service.impl.TransferOfFundsServiceImpl" abstract="true">
-		<property name="parameterService"><ref bean="kfs.parameterService" /></property>
+		<property name="parameterService"><ref bean="parameterService" /></property>
 	</bean>
 	
 	<bean id="disbursementPayeeLookupable"  parent="disbursementPayeeLookupable-parentBean" scope="prototype"/>
@@ -438,7 +438,7 @@
 	<bean id="disbursementVoucherPaymentReasonService"  parent="disbursementVoucherPaymentReasonService-parentBean"/>
 	<bean id="disbursementVoucherPaymentReasonService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherPaymentReasonServiceImpl"  abstract="true">
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>	
 		<property name="businessObjectService">
 			<ref bean="businessObjectService" />

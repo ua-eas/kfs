@@ -185,8 +185,8 @@
 	<bean id="schedulerService-parentBean" abstract="true" class="org.kuali.kfs.sys.batch.service.impl.SchedulerServiceImpl">
 		<property name="scheduler" ref="scheduler" />
 		<property name="jobListener" ref="jobListener" />
-		<property name="kualiModuleService" ref="kfs.kualiModuleService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="kualiModuleService" ref="kualiModuleService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="mailService" ref="mailService" />
 	</bean>
@@ -211,7 +211,7 @@
 	<bean id="flatFileSortStep" parent="step" class="org.kuali.kfs.sys.batch.FlatFileSortStep" abstract="true"/>
 
 	<bean id="step" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="dateTimeService" ref="dateTimeService" />
 	</bean>
 
@@ -257,7 +257,7 @@
     <bean id="batchJobStatusLookupableHelperService" parent="batchJobStatusLookupableHelperService-parentBean" scope="prototype" />
  	<bean id="batchJobStatusLookupableHelperService-parentBean" class="org.kuali.kfs.sys.businessobject.lookup.BatchJobStatusLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" abstract="true">
     	<property name="schedulerService" ref="schedulerService" />
-    	<property name="parameterService" ref="kfs.parameterService" />
+    	<property name="parameterService" ref="parameterService" />
     	<property name="configurationService" ref="kualiConfigurationService" />
     </bean>
 
@@ -462,7 +462,7 @@
 			<ref bean ="kfs.documentService" />
 		</property>
     	<property name="parameterService">
-    	 <ref bean="kfs.parameterService" />
+    	 <ref bean="parameterService" />
 		</property>		
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -550,10 +550,10 @@
 			<ref bean="fiscalYearMakersDao" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>		
 	    <property name="kualiModuleService">
-			<ref bean="kfs.kualiModuleService" />
+			<ref bean="kualiModuleService" />
 		</property>		
 	</bean>
 
@@ -595,7 +595,7 @@
 			<ref bean="optionsService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 		<property name="balanceTypeService">
 			<ref bean="balanceTypService" />
@@ -604,7 +604,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 		<property name="universityDateService">
 			<ref bean="universityDateService" />
@@ -623,7 +623,7 @@
 			<ref bean="taxRegionService" />
 		</property>
 		<property name="parameterService">
-			<ref bean="kfs.parameterService" />
+			<ref bean="parameterService" />
 		</property>
 	</bean>
 	<bean id="taxRegionService" parent="taxRegionService-parentBean"/>
@@ -675,8 +675,8 @@
 	<bean id="kfsBusinessObjectMetaDataService" parent="kfsBusinessObjectMetaDataService-parentBean"/>
 
     <bean id="kfsBusinessObjectMetaDataService-parentBean" class="org.kuali.kfs.sys.service.impl.KfsBusinessObjectMetaDataServiceImpl" abstract="true">
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="businessObjectMetaDataService" ref="businessObjectMetaDataService" />
 		<property name="businessObjectMetaDataDao" ref="businessObjectMetaDataDao" />
@@ -722,7 +722,7 @@
 	<bean id="accountingDocumentRuleHelperService" parent="accountingDocumentRuleHelperService-parentBean"/>
 
     <bean id="accountingDocumentRuleHelperService-parentBean" class="org.kuali.kfs.sys.document.service.impl.AccountingDocumentRuleHelperServiceImpl" abstract="true">
-    	<property name="dataDictionaryService"><ref bean="kfs.dataDictionaryService" /></property>
+    	<property name="dataDictionaryService"><ref bean="dataDictionaryService" /></property>
     	<property name="objectTypeService"><ref bean="objectTypeService" /></property>
     </bean>
 	<bean id="debitDeterminerService" parent="debitDeterminerService-parentBean"/>
@@ -734,14 +734,14 @@
 	<bean id="accountingLineRuleHelperService" parent="accountingLineRuleHelperService-parentBean"/>
 
     <bean id="accountingLineRuleHelperService-parentBean" class="org.kuali.kfs.sys.document.service.impl.AccountingLineRuleHelperServiceImpl" abstract="true">
-    	<property name="dataDictionaryService"><ref bean="kfs.dataDictionaryService" /></property>
+    	<property name="dataDictionaryService"><ref bean="dataDictionaryService" /></property>
     	<property name="financialSystemDocumentTypeService" ref="financialSystemDocumentTypeService" />
         <property name="accountService" ref="accountService" />
     </bean>
 	<bean id="financialSystemDocumentTypeService" parent="financialSystemDocumentTypeService-parentBean"/>
 
     <bean id="financialSystemDocumentTypeService-parentBean" class="org.kuali.kfs.sys.document.service.impl.FinancialSystemDocumentTypeServiceImpl" abstract="true">
-  	  <property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+  	  <property name="dataDictionaryService" ref="dataDictionaryService" />
   	  <property name="maintenanceDocumentDictionaryService" ref="maintenanceDocumentDictionaryService" />
   	  <property name="documentTypeService" ref="rice.kew.documentTypeService" />
     </bean>
@@ -751,7 +751,7 @@
     	<property name="documentService"><ref bean ="kfs.documentService" /></property>
     	<property name="businessObjectService"><ref bean="businessObjectService" /></property>
     	<property name="dateTimeService"><ref bean="dateTimeService" /></property>
-    	<property name="parameterService"><ref bean="kfs.parameterService" /></property>
+    	<property name="parameterService"><ref bean="parameterService" /></property>
     </bean>
 
     <bean id="electronicFundTransferStartAction"  parent="electronicFundTransferStartAction-parentBean" />
@@ -761,17 +761,17 @@
 
     <bean id="electronicFundTransferRefreshAction" parent="electronicFundTransferRefreshAction-parentBean" />
     <bean id="electronicFundTransferRefreshAction-parentBean" class="org.kuali.kfs.sys.service.impl.ElectronicFundTransferRefreshActionHelper" abstract="true">
-    	<property name="dataDictonaryService"><ref bean="kfs.dataDictionaryService" /></property>
+    	<property name="dataDictonaryService"><ref bean="dataDictionaryService" /></property>
     	<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
     	<property name="lookupResultsService"><ref bean="lookupResultsService" /></property>
     </bean>
 
     <bean id="electronicFundTransferClaimAction" parent="electronicFundTransferClaimAction-parentBean" />
     <bean id="electronicFundTransferClaimAction-parentBean" class="org.kuali.kfs.sys.service.impl.ElectronicFundTransferClaimActionHelper" abstract="true">
-    	<property name="dataDictonaryService"><ref bean="kfs.dataDictionaryService" /></property>
+    	<property name="dataDictonaryService"><ref bean="dataDictionaryService" /></property>
     	<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
     	<property name="businessObjectService"><ref bean="businessObjectService" /></property>
-    	<property name="documentService" ref="kfs.documentService" />
+    	<property name="documentService" ref="documentService" />
     </bean>
 
     <bean id="electronicFundTransferCancelAction" parent="electronicFundTransferCancelAction-parentBean" />
@@ -818,7 +818,7 @@
 
 	<bean id="accountingLineRenderingService" parent="accountingLineRenderingService-parentBean"/>
     <bean id="accountingLineRenderingService-parentBean" class="org.kuali.kfs.sys.document.service.impl.AccountingLineRenderingServiceImpl" abstract="true">
-    	<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
+    	<property name="dataDictionaryService" ref="dataDictionaryService" />
     	<property name="accountingLineAuthorizationTransformer" ref="accountingLineAuthorizationTransformer" />
     	<property name="fieldTransformations">
     		<list>
@@ -841,8 +841,8 @@
 
      <bean id="bankService-parentBean" class="org.kuali.kfs.sys.service.impl.BankServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="dataDictionaryService" ref="kfs.dataDictionaryService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="dataDictionaryService" ref="dataDictionaryService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
 	</bean>
 
@@ -921,7 +921,7 @@
         <property name="minimumMessageLength" value="10" />
         <property name="messageLabel" value="MESSAGE" />
         <property name="dataDictionaryService">
-			<ref bean="kfs.dataDictionaryService" />
+			<ref bean="dataDictionaryService" />
 		</property>
 	</bean>
 	<bean id="reportWriterService" parent="reportWriterService-parentBean"/>
@@ -947,7 +947,7 @@
 	<bean id="filePurgeService" parent="filePurgeService-parentBean"/>
 
 	<bean id="filePurgeService-parentBean" class="org.kuali.kfs.sys.batch.service.impl.FilePurgeServiceImpl" abstract="true">
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 
 	<bean id="financialSystemDocumentDao" parent="financialSystemDocumentDao-parentBean" />
@@ -956,9 +956,9 @@
 	<bean id="financialSystemDocumentService" parent="financialSystemDocumentService-parentBean"/>
 
 	<bean id="financialSystemDocumentService-parentBean" abstract="true" class="org.kuali.kfs.sys.document.service.impl.FinancialSystemDocumentServiceImpl">
-		<property name="documentService" ref="kfs.documentService" />
+		<property name="documentService" ref="documentService" />
 		<property name="documentAdHocService" ref="documentAdHocService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 		<property name="financialSystemDocumentDao" ref="financialSystemDocumentDao" />
 		<property name="financialSystemDocumentHeaderDao" ref="financialSystemDocumentHeaderDao"/>
 		<property name="businessObjectService" ref="businessObjectService"/>
@@ -1138,7 +1138,7 @@
 	<bean id="lockModuleService" parent="lockModuleService-parentBean"/>
 	<bean id="lockModuleService-parentBean" class="org.kuali.kfs.sys.batch.service.impl.LockModuleServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="parameterService" ref="kfs.parameterService" />
+		<property name="parameterService" ref="parameterService" />
 	</bean>
 
     <bean id="FlatFileParser" abstract="true" class="org.kuali.kfs.sys.batch.FlatFileParserBase">
@@ -1204,7 +1204,7 @@
 		<property name="customerProfileService" ref="pdpCustomerProfileService"/>
 		<property name="businessObjectService" ref="businessObjectService"/>
 		<property name="paymentFileEmailService" ref="pdpEmailService"/>
-		<property name="documentService" ref="kfs.documentService"/>
+		<property name="documentService" ref="documentService"/>
 	</bean>
 
 	<bean id="paymentSourceToPdpExtractStep" parent="paymentSourceToPdpExtractStep-parentBean"/>
@@ -1217,9 +1217,9 @@
 		<property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
 		<property name="businessObjectService" ref="businessObjectService"/>
 		<property name="accountingDocumentRuleHelperService" ref="accountingDocumentRuleHelperService"/>
-		<property name="parameterService" ref="kfs.parameterService"/>
+		<property name="parameterService" ref="parameterService"/>
 		<property name="configurationService" ref="configurationService"/>
-		<property name="documentService" ref="kfs.documentService"/>
+		<property name="documentService" ref="documentService"/>
 		<property name="optionsService" ref="optionsService"/>
 		<property name="homeOriginationService" ref="homeOriginationService"/>
 	</bean>
@@ -1238,7 +1238,7 @@
    		<property name="mailService" ref="mailService" />
    		<property name="velocityEngine" ref="velocityEngine"/>
    		<property name="businessObjectService" ref="businessObjectService"/>
-   		<property name="parameterService" ref="kfs.parameterService"/>
+   		<property name="parameterService" ref="parameterService"/>
    		<property name="htmlMessage" value="false" />
    </bean>
 
@@ -1269,7 +1269,7 @@
     <bean name="populateFinancialSystemDocumentHeadersFromKewStep" parent="populateFinancialSystemDocumentHeadersFromKewStep-parentBean"/>
     <bean name="populateFinancialSystemDocumentHeadersFromKewStep-parentBean" abstract="true" class="org.kuali.kfs.sys.batch.PopulateFinancialSystemDocumentHeadersFromKewStep">
     	<property name="populationService" ref="financialSystemDocumentHeaderPopulationService"/>
-    	<property name="parameterService" ref="kfs.parameterService"/>
+    	<property name="parameterService" ref="parameterService"/>
     </bean>
 
     <bean name="populateFinancialSystemDocumentHeadersFromKewJob" parent="populateFinancialSystemDocumentHeadersFromKewJob-parentBean"/>
@@ -1318,7 +1318,7 @@
 	<bean id="preferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.PreferencesServiceImpl">
 		<property name="configurationService" ref="configurationService"/>
 		<property name="documentDictionaryService" ref="documentDictionaryService" />
-		<property name="kualiModuleService" ref="kfs.kualiModuleService"/>
+		<property name="kualiModuleService" ref="kualiModuleService"/>
 		<property name="preferencesDao" ref="preferencesDao" />
 	</bean>
 
