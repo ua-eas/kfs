@@ -1,0 +1,742 @@
+{
+    "changeLog": [
+        {
+            "jira": "KFSTP-2186",
+            "id": "add InstitutionPreferences data",
+            "changes": [
+                {
+                    "changeType": "addDocument",
+                    "collectionName": "InstitutionPreferences",
+                    "document": {
+                        "institutionId": "1232413535",
+                        "logoUrl": "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg",
+                        "institutionName": "Monsters",
+                        "linkGroups": [
+                            {
+                                "label": "Accounting",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CR"
+                                    },
+                                    {
+                                        "documentTypeCode": "DI"
+                                    },
+                                    {
+                                        "label": "Electronic Payment Claim",
+                                        "link": "electronicFundTransfer.do?methodToCall=start"
+                                    },
+                                    {
+                                        "documentTypeCode": "GEC"
+                                    },
+                                    {
+                                        "documentTypeCode": "IAA"
+                                    },
+                                    {
+                                        "documentTypeCode": "PE"
+                                    },
+                                    {
+                                        "documentTypeCode": "ST"
+                                    },
+                                    {
+                                        "documentTypeCode": "TF"
+                                    },
+                                    {
+                                        "documentTypeCode": "IB"
+                                    },
+                                    {
+                                        "documentTypeCode": "SB"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Accounts Receivable",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CUS"
+                                    },
+                                    {
+                                        "label": "Customer Invoice",
+                                        "link": "arCustomerInvoiceDocument.do?methodToCall=docHandler&command=initiate&docTypeName=INV"
+                                    },
+                                    {
+                                        "label": "Customer Credit Memo",
+                                        "link": "arCustomerCreditMemoDocument.do?methodToCall=docHandler&command=initiate&docTypeName=CRM"
+                                    },
+                                    {
+                                        "label": "Customer Invoice Writeoff",
+                                        "link": "arCustomerInvoiceWriteoffDocument.do?methodToCall=docHandler&command=initiate&docTypeName=INVW"
+                                    },
+                                    {
+                                        "label": "Customer Invoice Writeoff Lookup",
+                                        "link": "arCustomerInvoiceWriteoffLookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ar.businessobject.CustomerInvoiceWriteoffLookupResult&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Budget",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "BA"
+                                    },
+                                    {
+                                        "label": "Budget Construction",
+                                        "link": "budgetBudgetConstructionSelection.do?methodToCall=loadExpansionScreen"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Capital Assets",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CASM"
+                                    },
+                                    {
+                                        "documentTypeCode": "ALOC"
+                                    },
+                                    {
+                                        "label": "Barcode%20Inventory%20Process",
+                                        "link": "uploadBarcodeInventoryFile.do?methodToCall=start&batchUpload.batchInputTypeName=assetBarcodeInventoryInputFileType"
+                                    },
+                                    {
+                                        "documentTypeCode": "PTAG"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Chart of Accounts",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "ACCT"
+                                    },
+                                    {
+                                        "documentTypeCode": "GACC"
+                                    },
+                                    {
+                                        "documentTypeCode": "RPTC"
+                                    },
+                                    {
+                                        "documentTypeCode": "OBJT"
+                                    },
+                                    {
+                                        "documentTypeCode": "ORGN"
+                                    },
+                                    {
+                                        "documentTypeCode": "PROJ"
+                                    },
+                                    {
+                                        "documentTypeCode": "SACC"
+                                    },
+                                    {
+                                        "documentTypeCode": "SOBJ"
+                                    },
+                                    {
+                                        "documentTypeCode": "GSOB"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Effort Certification",
+                                "links": [
+                                    {
+                                        "label": "Outstanding Certifications by Chart/Org/Report",
+                                        "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByOrganization&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Orders",
+                                "links": [
+                                    {
+                                        "label": "Shop Catalogs",
+                                        "link": "http://tst.kfs.kuali.org/kfs-tst/b2b.do?methodToCall=shopCatalogs"
+                                    },
+                                    {
+                                        "documentTypeCode": "REQS"
+                                    },
+                                    {
+                                        "documentTypeCode": "RCVB"
+                                    },
+                                    {
+                                        "documentTypeCode": "RCVL"
+                                    },
+                                    {
+                                        "documentTypeCode": "PVEN"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Reimbursements",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "DV"
+                                    },
+                                    {
+                                        "documentTypeCode": "ENT"
+                                    },
+                                    {
+                                        "documentTypeCode": "RELO"
+                                    },
+                                    {
+                                        "documentTypeCode": "TR"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Travel",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "TTA"
+                                    },
+                                    {
+                                        "documentTypeCode": "TA"
+                                    },
+                                    {
+                                        "documentTypeCode": "TTP"
+                                    },
+                                    {
+                                        "documentTypeCode": "TR"
+                                    },
+                                    {
+                                        "documentTypeCode": "CCAP"
+                                    },
+                                    {
+                                        "documentTypeCode": "CTAP"
+                                    },
+                                    {
+                                        "label": "TEM Cardholder Lookup",
+                                        "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.TemProfileAccount&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Workflow",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "ADEL"
+                                    },
+                                    {
+                                        "documentTypeCode": "GDLG"
+                                    },
+                                    {
+                                        "documentTypeCode": "GDLM"
+                                    },
+                                    {
+                                        "label": "Account Delegate Global From Model",
+                                        "link": "kr/lookup.do?businessObjectClassName=org.kuali.kfs.coa.businessobject.AccountDelegateModel&conversionFields=chartOfAccountsCode:modelChartOfAccountsCode,organizationCode:modelOrganizationCode,accountDelegateModelName:modelName"
+                                    },
+                                    {
+                                        "documentTypeCode": "ORR"
+                                    }
+                                ]
+                            }
+                        ],
+                        "menu": [
+                            {
+                                "label": "Feedback",
+                                "link": "http://some/feedback/link"
+                            },
+                            {
+                                "label": "Help",
+                                "link": "http://some/help/link"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "jira": "KFSTP-2166",
+            "id": "add help and feedback links",
+            "changes": [
+                {
+                    "changeType": "updateDocument",
+                    "collectionName": "InstitutionPreferences",
+                    "query": {
+                        "institutionId": "1232413535"
+                    },
+                    "document": {
+                        "institutionId": "1232413535",
+                        "logoUrl": "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg",
+                        "institutionName": "Monsters",
+                        "linkGroups": [
+                            {
+                                "label": "Accounting",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CR"
+                                    },
+                                    {
+                                        "documentTypeCode": "DI"
+                                    },
+                                    {
+                                        "label": "Electronic Payment Claim",
+                                        "link": "electronicFundTransfer.do?methodToCall=start"
+                                    },
+                                    {
+                                        "documentTypeCode": "GEC"
+                                    },
+                                    {
+                                        "documentTypeCode": "IAA"
+                                    },
+                                    {
+                                        "documentTypeCode": "PE"
+                                    },
+                                    {
+                                        "documentTypeCode": "ST"
+                                    },
+                                    {
+                                        "documentTypeCode": "TF"
+                                    },
+                                    {
+                                        "documentTypeCode": "IB"
+                                    },
+                                    {
+                                        "documentTypeCode": "SB"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Accounts Receivable",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CUS"
+                                    },
+                                    {
+                                        "label": "Customer Invoice",
+                                        "link": "arCustomerInvoiceDocument.do?methodToCall=docHandler&command=initiate&docTypeName=INV"
+                                    },
+                                    {
+                                        "label": "Customer Credit Memo",
+                                        "link": "arCustomerCreditMemoDocument.do?methodToCall=docHandler&command=initiate&docTypeName=CRM"
+                                    },
+                                    {
+                                        "label": "Customer Invoice Writeoff",
+                                        "link": "arCustomerInvoiceWriteoffDocument.do?methodToCall=docHandler&command=initiate&docTypeName=INVW"
+                                    },
+                                    {
+                                        "label": "Customer Invoice Writeoff Lookup",
+                                        "link": "arCustomerInvoiceWriteoffLookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ar.businessobject.CustomerInvoiceWriteoffLookupResult&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Budget",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "BA"
+                                    },
+                                    {
+                                        "label": "Budget Construction",
+                                        "link": "budgetBudgetConstructionSelection.do?methodToCall=loadExpansionScreen"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Capital Assets",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CASM"
+                                    },
+                                    {
+                                        "documentTypeCode": "ALOC"
+                                    },
+                                    {
+                                        "label": "Barcode%20Inventory%20Process",
+                                        "link": "uploadBarcodeInventoryFile.do?methodToCall=start&batchUpload.batchInputTypeName=assetBarcodeInventoryInputFileType"
+                                    },
+                                    {
+                                        "documentTypeCode": "PTAG"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Chart of Accounts",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "ACCT"
+                                    },
+                                    {
+                                        "documentTypeCode": "GACC"
+                                    },
+                                    {
+                                        "documentTypeCode": "RPTC"
+                                    },
+                                    {
+                                        "documentTypeCode": "OBJT"
+                                    },
+                                    {
+                                        "documentTypeCode": "ORGN"
+                                    },
+                                    {
+                                        "documentTypeCode": "PROJ"
+                                    },
+                                    {
+                                        "documentTypeCode": "SACC"
+                                    },
+                                    {
+                                        "documentTypeCode": "SOBJ"
+                                    },
+                                    {
+                                        "documentTypeCode": "GSOB"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Effort Certification",
+                                "links": [
+                                    {
+                                        "label": "Outstanding Certifications by Chart/Org/Report",
+                                        "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByOrganization&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Orders",
+                                "links": [
+                                    {
+                                        "label": "Shop Catalogs",
+                                        "link": "http://tst.kfs.kuali.org/kfs-tst/b2b.do?methodToCall=shopCatalogs"
+                                    },
+                                    {
+                                        "documentTypeCode": "REQS"
+                                    },
+                                    {
+                                        "documentTypeCode": "RCVB"
+                                    },
+                                    {
+                                        "documentTypeCode": "RCVL"
+                                    },
+                                    {
+                                        "documentTypeCode": "PVEN"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Reimbursements",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "DV"
+                                    },
+                                    {
+                                        "documentTypeCode": "ENT"
+                                    },
+                                    {
+                                        "documentTypeCode": "RELO"
+                                    },
+                                    {
+                                        "documentTypeCode": "TR"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Travel",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "TTA"
+                                    },
+                                    {
+                                        "documentTypeCode": "TA"
+                                    },
+                                    {
+                                        "documentTypeCode": "TTP"
+                                    },
+                                    {
+                                        "documentTypeCode": "TR"
+                                    },
+                                    {
+                                        "documentTypeCode": "CCAP"
+                                    },
+                                    {
+                                        "documentTypeCode": "CTAP"
+                                    },
+                                    {
+                                        "label": "TEM Cardholder Lookup",
+                                        "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.TemProfileAccount&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Workflow",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "ADEL"
+                                    },
+                                    {
+                                        "documentTypeCode": "GDLG"
+                                    },
+                                    {
+                                        "documentTypeCode": "GDLM"
+                                    },
+                                    {
+                                        "label": "Account Delegate Global From Model",
+                                        "link": "kr/lookup.do?businessObjectClassName=org.kuali.kfs.coa.businessobject.AccountDelegateModel&conversionFields=chartOfAccountsCode:modelChartOfAccountsCode,organizationCode:modelOrganizationCode,accountDelegateModelName:modelName"
+                                    },
+                                    {
+                                        "documentTypeCode": "ORR"
+                                    }
+                                ]
+                            }
+                        ],
+                        "menu": [
+                            {
+                                "label": "Feedback",
+                                "link": "kr/kualiFeedbackReport.do"
+                            },
+                            {
+                                "label": "Help",
+                                "link": "static/help/default.htm"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "jira": "KFSTP-2215",
+            "id": "switch confusing jquery to React state",
+            "changes": [
+                {
+                    "changeType": "updateDocument",
+                    "collectionName": "InstitutionPreferences",
+                    "query": {
+                        "institutionId": "1232413535"
+                    },
+                    "document": {
+                        "institutionId": "1232413535",
+                        "logoUrl": "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg",
+                        "institutionName": "Monsters",
+                        "linkGroups": [
+                            {
+                                "label": "Accounting",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CR"
+                                    },
+                                    {
+                                        "documentTypeCode": "DI"
+                                    },
+                                    {
+                                        "label": "Electronic Payment Claim",
+                                        "link": "electronicFundTransfer.do?methodToCall=start"
+                                    },
+                                    {
+                                        "documentTypeCode": "GEC"
+                                    },
+                                    {
+                                        "documentTypeCode": "IAA"
+                                    },
+                                    {
+                                        "documentTypeCode": "PE"
+                                    },
+                                    {
+                                        "documentTypeCode": "ST"
+                                    },
+                                    {
+                                        "documentTypeCode": "TF"
+                                    },
+                                    {
+                                        "documentTypeCode": "IB"
+                                    },
+                                    {
+                                        "documentTypeCode": "SB"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Accounts Receivable",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CUS"
+                                    },
+                                    {
+                                        "label": "Customer Invoice",
+                                        "link": "arCustomerInvoiceDocument.do?methodToCall=docHandler&command=initiate&docTypeName=INV"
+                                    },
+                                    {
+                                        "label": "Customer Credit Memo",
+                                        "link": "arCustomerCreditMemoDocument.do?methodToCall=docHandler&command=initiate&docTypeName=CRM"
+                                    },
+                                    {
+                                        "label": "Customer Invoice Writeoff",
+                                        "link": "arCustomerInvoiceWriteoffDocument.do?methodToCall=docHandler&command=initiate&docTypeName=INVW"
+                                    },
+                                    {
+                                        "label": "Customer Invoice Writeoff Lookup",
+                                        "link": "arCustomerInvoiceWriteoffLookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ar.businessobject.CustomerInvoiceWriteoffLookupResult&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Budget",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "BA"
+                                    },
+                                    {
+                                        "label": "Budget Construction",
+                                        "link": "budgetBudgetConstructionSelection.do?methodToCall=loadExpansionScreen"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Capital Assets",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "CASM"
+                                    },
+                                    {
+                                        "documentTypeCode": "ALOC"
+                                    },
+                                    {
+                                        "label": "Barcode Inventory Process",
+                                        "link": "uploadBarcodeInventoryFile.do?methodToCall=start&batchUpload.batchInputTypeName=assetBarcodeInventoryInputFileType"
+                                    },
+                                    {
+                                        "documentTypeCode": "PTAG"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Chart of Accounts",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "ACCT"
+                                    },
+                                    {
+                                        "documentTypeCode": "GACC"
+                                    },
+                                    {
+                                        "documentTypeCode": "RPTC"
+                                    },
+                                    {
+                                        "documentTypeCode": "OBJT"
+                                    },
+                                    {
+                                        "documentTypeCode": "ORGN"
+                                    },
+                                    {
+                                        "documentTypeCode": "PROJ"
+                                    },
+                                    {
+                                        "documentTypeCode": "SACC"
+                                    },
+                                    {
+                                        "documentTypeCode": "SOBJ"
+                                    },
+                                    {
+                                        "documentTypeCode": "GSOB"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Effort Certification",
+                                "links": [
+                                    {
+                                        "label": "Outstanding Certifications by Chart/Org/Report",
+                                        "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByOrganization&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Orders",
+                                "links": [
+                                    {
+                                        "label": "Shop Catalogs",
+                                        "link": "http://tst.kfs.kuali.org/kfs-tst/b2b.do?methodToCall=shopCatalogs"
+                                    },
+                                    {
+                                        "documentTypeCode": "REQS"
+                                    },
+                                    {
+                                        "documentTypeCode": "RCVB"
+                                    },
+                                    {
+                                        "documentTypeCode": "RCVL"
+                                    },
+                                    {
+                                        "documentTypeCode": "PVEN"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Reimbursements",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "DV"
+                                    },
+                                    {
+                                        "documentTypeCode": "ENT"
+                                    },
+                                    {
+                                        "documentTypeCode": "RELO"
+                                    },
+                                    {
+                                        "documentTypeCode": "TR"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Travel",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "TTA"
+                                    },
+                                    {
+                                        "documentTypeCode": "TA"
+                                    },
+                                    {
+                                        "documentTypeCode": "TTP"
+                                    },
+                                    {
+                                        "documentTypeCode": "TR"
+                                    },
+                                    {
+                                        "documentTypeCode": "CCAP"
+                                    },
+                                    {
+                                        "documentTypeCode": "CTAP"
+                                    },
+                                    {
+                                        "label": "TEM Cardholder Lookup",
+                                        "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.TemProfileAccount&docFormKey=88888888"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Workflow",
+                                "links": [
+                                    {
+                                        "documentTypeCode": "ADEL"
+                                    },
+                                    {
+                                        "documentTypeCode": "GDLG"
+                                    },
+                                    {
+                                        "documentTypeCode": "GDLM"
+                                    },
+                                    {
+                                        "label": "Account Delegate Global From Model",
+                                        "link": "kr/lookup.do?businessObjectClassName=org.kuali.kfs.coa.businessobject.AccountDelegateModel&conversionFields=chartOfAccountsCode:modelChartOfAccountsCode,organizationCode:modelOrganizationCode,accountDelegateModelName:modelName"
+                                    },
+                                    {
+                                        "documentTypeCode": "ORR"
+                                    }
+                                ]
+                            }
+                        ],
+                        "menu": [
+                            {
+                                "label": "Feedback",
+                                "link": "kr/kualiFeedbackReport.do"
+                            },
+                            {
+                                "label": "Help",
+                                "link": "static/help/default.htm"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

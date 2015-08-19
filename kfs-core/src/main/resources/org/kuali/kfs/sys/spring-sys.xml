@@ -355,7 +355,7 @@
 	<bean id="documentStoreSchemaUpdateService-parentBean" class="org.kuali.kfs.sys.service.impl.DocumentStoreSchemaUpdateServiceImpl" abstract="true">
 		<property name="runOnAppStartup" value="${run.documentStoreSchemaUpdateStep.onstartup}"/>
 		<property name="updatesPath" value="/org/kuali/kfs/db/documentstore/"/>
-		<property name="updatesList" value="updates.xml"/>
+		<property name="updatesList" value="updates.json"/>
 		<property name="documentStoreUpdateProcessDao">
 			<ref bean="documentStoreUpdateProcessDao"/>
 		</property>
