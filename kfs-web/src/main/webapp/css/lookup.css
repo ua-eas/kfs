@@ -93,10 +93,6 @@ div.excol {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-#view_div .main-panel:not(:first-child) {
-    margin-top: 10px;
-}
-
 #view_div .inquiry .main-panel {
     margin: 10px;
 }
@@ -333,25 +329,11 @@ tr.even {
 }
 
 div.inquiry {
-    margin-bottom: 30px;
+    margin-bottom: 70px;
 }
 
 div.inquiry.fixedButtons {
     padding-bottom: 62px;
-}
-
-td.infocell span.glyphicon {
-    display: none;
-}
-
-td.infocell:hover span.glyphicon {
-    display: inherit;
-    opacity: .4;
-}
-
-td.infocell span.glyphicon:hover {
-    display: inherit;
-    opacity: .8;
 }
 
 div.inquiry table.datatable {
@@ -362,6 +344,7 @@ div.inquiry table.datatable th,
 div.inquiry table.datatable td {
     line-height: 32px;
     font-size: 14px;
+    color: #777777;
 }
 
 div.inquiry table.datatable tr:nth-child(even) {
@@ -371,10 +354,5 @@ div.inquiry table.datatable tr:nth-child(even) {
 div.inquiry table.datatable th {
     text-align: right;
     padding-right: 15px;
-    color: #777777;
     font-weight: 700;
-}
-
-div.inquiry table.datatable td {
-    color: #777777;
 }

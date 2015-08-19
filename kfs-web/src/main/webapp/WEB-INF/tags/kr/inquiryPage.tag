@@ -61,11 +61,6 @@
 	        </div>
 		  </kul:tab>
 		</c:forEach>
-		<kul:panelFooter />
 
-
-		
 		<kul:inquiryControls />
-
-
 </kul:page>
