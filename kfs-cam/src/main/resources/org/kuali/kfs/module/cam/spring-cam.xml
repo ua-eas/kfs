@@ -377,7 +377,7 @@
 			<ref bean="kualiRuleService" />
 		</property>
 		<property name="documentService">
-			<ref bean ="kfs.documentService" />
+			<ref bean ="documentService" />
 		</property>
 		<property name="workflowDocumentService">
 			<ref bean="rice.kew.workflowDocumentService" />
