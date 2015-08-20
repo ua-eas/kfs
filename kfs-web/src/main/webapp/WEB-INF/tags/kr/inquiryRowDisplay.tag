@@ -47,19 +47,15 @@
 <c:set var="requestedAction" value="${KualiForm.methodToCall}" />
 
 <c:set var="isHeaderDisplayed" value="false" />
-<c:set var="rowsProcessed" value="0"/>
 <c:set var="rowCount" value="${rows.size()}"/>
 <c:forEach items="${rows}" var="row" varStatus="rowVarStatus">
 
     <c:set var="rowHidden" value="${rowsHidden || row.hidden}" />
 
-    <c:if test="${rowsProcessed >= numberOfColumns}">
         <c:choose>
             <c:when test="${rowHidden}"><tr style="display: none;"></c:when>
             <c:otherwise><tr></c:otherwise>
         </c:choose>
-    </c:if>
-    <c:set var="rowsProcessed" value="${rowsProcessed + 1}"/>
 
     <c:forEach items="${row.fields}" var="field" varStatus="fieldVarStatus">
         <c:set var="isFieldAContainer" value="${field.fieldType eq field.CONTAINER}" />
@@ -423,12 +419,9 @@
         </c:choose>
     </c:forEach>
 
-    <c:if test="${rowVarStatus.index == rowCount - 1 && rowCount % 2 != 0}">
+    <c:if test="${numberOfColumns > 1 && rowVarStatus.index == rowCount - 1 && rowCount % 2 != 0}">
         <th></th><td></td>
     </c:if>
 
-    <c:if test="${rowsProcessed >= numberOfColumns}">
-        </tr>
-        <c:set var="rowsProcessed" value="0"/>
-    </c:if>
+
 </c:forEach>
