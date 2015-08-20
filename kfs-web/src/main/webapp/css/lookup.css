@@ -68,7 +68,7 @@ div.excol {
 
 #view_div .headerarea-small h1 {
     margin: 0px;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 26px;
     line-height: 50px;
     color: #5C6A73;
@@ -250,7 +250,7 @@ div.excol {
     padding-right: 10px;
     padding-left: 10px;
     display: inline;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .paginator .pagelinks div.pagenumbers a {
@@ -342,16 +342,22 @@ div.inquiry.fixedButtons {
     padding-bottom: 62px;
 }
 
+td.infocell div.link-wrapper {
+    display: inline;
+    white-space: nowrap;
+}
+
 td.infocell a.new-window {
     text-decoration: none;
 }
 
 td.infocell a.new-window span.glyphicon {
-    display: none;
+    /*display: none;*/
+    visibility: hidden;
 }
 
 td.infocell:hover a.new-window span.glyphicon {
-    display: inherit;
+    visibility: inherit;
     opacity: .4;
 }
 
