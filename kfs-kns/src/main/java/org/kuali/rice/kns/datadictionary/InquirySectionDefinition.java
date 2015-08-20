@@ -46,7 +46,7 @@ public class InquirySectionDefinition extends DataDictionaryDefinitionBase {
     protected Map<String, FieldDefinition> inquiryFieldMap = new LinkedHashMap<String, FieldDefinition>();
     protected Map inquiryCollections;
     
-    protected Integer numberOfColumns = 1;
+    protected Integer numberOfColumns = 2;
     protected boolean defaultOpen = true;
     
     public InquirySectionDefinition() {}
