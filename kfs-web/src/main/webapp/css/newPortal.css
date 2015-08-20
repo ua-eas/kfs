@@ -358,3 +358,10 @@ nav ul.nav li {
     background-color: #5F7D8C;
     outline: none;
 }
+
+.modal-header {
+    background-color: #E5E5E5;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+}

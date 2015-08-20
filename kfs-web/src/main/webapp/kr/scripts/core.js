@@ -16,51 +16,51 @@
 // Toggles a tab to show / hide and changes the source image to properly reflect this
 // change. Returns false to avoid post. Example usage:
 // onclick="javascript: return toggleTab(document, 'KualiForm', ${currentTabIndex}) }
-function toggleTab(doc, formKey, tabKey) {
-	if (doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value == 'CLOSE') {
-        showTab(doc, formKey, tabKey);
+function toggleTab(doc, formId, tabKey) {
+	if (doc.getElementById(formId).elements['tabStates(' + tabKey + ')'].value == 'CLOSE') {
+        showTab(doc, formId, tabKey);
     } else {
-        hideTab(doc, formKey, tabKey);
+        hideTab(doc, formId, tabKey);
 	}
 	return false;
 }
 
 /** expands all tabs by unhiding them. */
-function expandAllTab() {
-	doToAllTabs(showTab, 'KualiForm');
+function expandAllTab(formId) {
+	doToAllTabs(showTab, formId);
 	return false;
 	}
 
 /** collapses all tab by hiding them. */
-function collapseAllTab() {
-	doToAllTabs(hideTab, 'KualiForm');
+function collapseAllTab(formId) {
+	doToAllTabs(hideTab, formId);
 	return false;
 }
 
 /** executes a function on all tabs.  The function will be passed a document, a formname & a partial tab name. */
-function doToAllTabs(func, formName) {
+function doToAllTabs(func, formId) {
 	var elements = document.getElementsByTagName('div');
-	if (!formName) {
-		formName = 'KualiForm';
+	if (!formId) {
+		formId = 'kualiForm';
 	}
 	
 	for (var x in elements) {
 		if (elements[x].id && elements[x].id.substring(0, 4) === 'tab-' 
 			&& elements[x].id.substring(elements[x].id.length - 4, elements[x].id.length) === '-div') {
-			func(document, formName, elements[x].id.substring(4, elements[x].id.length - 4));
+			func(document, formId, elements[x].id.substring(4, elements[x].id.length - 4));
 		}
 	}
 	return false;
 }
 
-function showTab(doc, formKey, tabKey) {
+function showTab(doc, formId, tabKey) {
     if (!doc.getElementById('tab-' + tabKey + '-div') || !doc.getElementById('tab-' + tabKey + '-imageToggle')) {
 		return false;
 	}
 	
     // replaced 'block' with '' to make budgetExpensesRow.tag happy.
     doc.getElementById('tab-' + tabKey + '-div').style.display = '';
-    doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value = 'OPEN';
+    doc.getElementById(formId).elements['tabStates(' + tabKey + ')'].value = 'OPEN';
     var span = doc.getElementById('tab-' + tabKey + '-imageToggle');
 	$(span).removeClass('glyphicon-menu-down');
 	$(span).addClass('glyphicon-menu-up');
@@ -69,13 +69,13 @@ function showTab(doc, formKey, tabKey) {
     return false;
 }
 
-function hideTab(doc, formKey, tabKey) {
+function hideTab(doc, formId, tabKey) {
     if (!doc.getElementById('tab-' + tabKey + '-div') || !doc.getElementById('tab-' + tabKey + '-imageToggle')) {
 		return false;
 	}
-	
+
     doc.getElementById('tab-' + tabKey + '-div').style.display = 'none';
-    doc.forms[formKey].elements['tabStates(' + tabKey + ')'].value = 'CLOSE';
+	doc.getElementById(formId).elements['tabStates(' + tabKey + ')'].value = 'CLOSE';
     var span = doc.getElementById('tab-' + tabKey + '-imageToggle');
 	$(span).removeClass('glyphicon-menu-up');
 	$(span).addClass('glyphicon-menu-down');
@@ -151,7 +151,6 @@ function resetScrollPosition() {
 }
 
 function saveScrollPosition() {
-//	alert( document.forms[0].formKey );
 	if ( document.forms[0].formKey ) {
 		// KULRICE-8292: Timeout issues across servers (3535) 
 		scrollPositionKey = document.forms[0].formKey.value % 20;
@@ -168,11 +167,6 @@ function saveScrollPosition() {
 		} 
 		document.cookie = "KulScrollPos"+scrollPositionKey+"="+x+","+y+"; path="+document.location.pathname;
 	}
-	// test read cookie back
-//	matchResult = document.cookie.match(new RegExp("KulScrollPos"+formKey+"=([^;]+);?"));
-//	if ( matchResult ) {
-//		alert( "Cookie: " + matchResult[1] );
-//	}
 }
 
 function restoreScrollPosition() {

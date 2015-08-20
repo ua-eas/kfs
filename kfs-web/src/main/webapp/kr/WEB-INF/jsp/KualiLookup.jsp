@@ -197,21 +197,22 @@
 	</form>
 	</div>
 
-	<c:if test="${!empty reqSearchResultsActualSize }">
+	<c:if test="${!empty reqSearchResultsActualSize && empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
+		<div class="search-message"><bean-el:message key="lookup.no.returnable.rows" /></div>
+	</c:if>
+
+	<c:if test="${!empty reqSearchResultsActualSize && !empty reqSearchResults}">
 		<c:if test="${reqSearchResultsActualSize > reqSearchResultsLimitedSize && reqSearchResultsLimitedSize>0}">
-			<div class="too-many-results">
+			<div class="search-message">
 				<span class="heavy"><c:out value="${reqSearchResultsActualSize}" /></span> items found.  Please refine your search criteria to narrow down your search.
 			</div>
+		</c:if>
+		<c:if test="${KualiForm.searchUsingOnlyPrimaryKeyValues}">
+			<div class="search-message"><bean-el:message key="lookup.using.primary.keys" arg0="${KualiForm.primaryKeyFieldLabels}"/></div>
 		</c:if>
 
 		<a id="search-results"></a>
 		<div class="main-panel search-results">
-		<c:if test="${KualiForm.searchUsingOnlyPrimaryKeyValues}">
-			<bean-el:message key="lookup.using.primary.keys" arg0="${KualiForm.primaryKeyFieldLabels}"/>
-		</c:if>
-		<c:if test="${empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
-			<bean-el:message key="lookup.no.returnable.rows" />
-		</c:if>
 		<display:table class="datatable-100" cellspacing="0"
 		requestURIcontext="false" cellpadding="0" name="${reqSearchResults}"
 		id="row" export="true" pagesize="100" varTotals="totals"
@@ -282,7 +283,13 @@
 				<!-- Please don't change formatting of this logic:iterate block -->
 				<logic:iterate id="columnAnchor" name="column" property="columnAnchors" indexId="ctr"><a href="<c:out value="${columnAnchor.href}"/>" target='<c:out value="${columnAnchor.target}"/>' title="${columnAnchor.title}"><c:out value="${fn:substring(columnAnchor.displayText, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(columnAnchor.displayText) gt column.maxLength}">...</c:if></a><c:if test="${ctr lt numberOfColumnAnchors-1}">,&nbsp;</c:if></logic:iterate>
 				</c:when><c:otherwise><c:choose><c:when test="${empty column.columnAnchor.target}"><c:set var="anchorTarget" value="_blank" /></c:when><c:otherwise><c:set var="anchorTarget" value="${column.columnAnchor.target}" />
-				</c:otherwise></c:choose><a href="<c:out value="${column.columnAnchor.href}"/>" target='<c:out value="${anchorTarget}"/>' title="${column.columnAnchor.title}"><c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if></a>
+				</c:otherwise></c:choose>
+					<a href="<c:out value="${column.columnAnchor.href}&mode=modal"/>" title="${column.columnAnchor.title}" data-toggle="modal" data-target="#myModal">
+						<c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if>
+					</a>
+					<a href="<c:out value="${column.columnAnchor.href}&mode=standalone"/>" target='<c:out value="${anchorTarget}"/>' title="Open in new tab" class="new-window">
+						<span class="glyphicon glyphicon-new-window"></span>
+					</a>
 				</c:otherwise></c:choose></display:column>
 				</c:when>
 				<%--NOTE: DO NOT FORMAT THIS FILE, DISPLAY:COLUMN WILL NOT WORK CORRECTLY IF IT CONTAINS LINE BREAKS --%>
@@ -327,6 +334,8 @@
 
 	</display:table>
 
+
+
 		<c:if test="${!empty reqSearchResultsActualSize }">
 			<script type="text/javascript">
 				var headerSelector = '.search-results .headerarea-small'
@@ -343,7 +352,6 @@
 
 					// make search results header sticky
 					var headerLocation = $(headerSelector).offset().top - $(headerSelector).outerHeight()
-					console.log(headerLocation)
 					makeHeaderSticky()
 
 					// Modify header stickiness as we scroll
@@ -403,4 +411,26 @@
 			}
 		})
 	</script>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- remote modal content goes here -->
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('a[data-target="#myModal"]').click(function(event) {
+				event.preventDefault();
+				var myModal = $('#myModal');
+				var modalBody = myModal.find('.modal-content');
+				modalBody.load($(event.target).attr('href'), function() {
+					myModal.modal('show');
+				});
+			});
+
+		});
+	</script>
+
 </kul:page>
