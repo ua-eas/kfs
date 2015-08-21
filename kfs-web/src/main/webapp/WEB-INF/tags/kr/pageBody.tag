@@ -287,8 +287,8 @@
                                                 </c:forEach>
                                             </c:if>
                                             <c:if test="${showTabButtons != '' && showTabButtons == true}">
-                                                <html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab();" tabindex="-1" value="expand all" />
-                                                <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab();" tabindex="-1" value="collapse all" />
+                                                <html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab('${formId}');" tabindex="-1" value="expand all" />
+                                                <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab('${formId}');" tabindex="-1" value="collapse all" />
                                             </c:if>
                                             <c:if test="${renderRequiredFieldsLabel}" >
                                                 <br>* Required Field
