@@ -205,7 +205,7 @@
 	</bean>
 
 	<bean id="TravelArrangerDocument-DocumentValuePathGroup-Traveler"
-		class="org.kuali.rice.krad.datadictionary.DocumentValuePathGroup">
+		class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
 		<property name="documentValues">
 			<list>
 				<value>profile.principalId</value>

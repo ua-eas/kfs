@@ -226,7 +226,7 @@
 
 	</bean>
 
-	<bean id="TemProfileMaintenanceDocument-RoutingType-Traveler" class="org.kuali.rice.krad.datadictionary.RoutingTypeDefinition">
+	<bean id="TemProfileMaintenanceDocument-RoutingType-Traveler" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
 		<property name="routingAttributes">
     		<list>
 		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute" p:qualificationAttributeName="profilePrincipalId" />
@@ -241,7 +241,7 @@
 	</bean>
 
 	<bean id="TemProfileMaintenanceDocument-DocumentValuePathGroup-Traveler"
-		class="org.kuali.rice.krad.datadictionary.DocumentValuePathGroup">
+		class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
 		<property name="documentValues">
 			<list>
 				<value>newMaintainableObject.businessObject.principalId</value>
