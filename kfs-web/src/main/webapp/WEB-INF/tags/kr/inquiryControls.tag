@@ -19,7 +19,7 @@
         <c:if test="${KualiForm.canExport}">
 		  <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_export.gif" styleClass="globalbuttons" property="methodToCall.export" title="Perform Export" alt="Perform Export" />
 	    </c:if>
-		<button class="globalbuttons btn btn-default" onclick="window.close()" title="close this window" alt="close this window">Back</button>
+		<button class="globalbuttons btn btn-default" onclick="window.close()" title="close this window" alt="close this window">Close</button>
 
 
     <script type="text/javascript">

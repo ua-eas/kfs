@@ -27,40 +27,25 @@
 <c:set var="headerMenuBar" value="${kualiInquirable.htmlMenuBar}" />
 <c:set var="headerTitle" value="Inquiry" />
 
-<kul:page showDocumentInfo="${showDocumentInfo}" docTitle="${docTitle}"
-	htmlFormAction="${htmlFormAction}" transactionalDocument="false"
-	renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}"
-	defaultMethodToCall="${defaultMethodToCall}" additionalScriptFiles="${additionalScriptFiles}"
-	lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}">
+<c:choose>
+	<c:when test="${param.mode eq 'modal'}">
+		<kul:pageBody showDocumentInfo="${showDocumentInfo}" docTitle="${docTitle}"
+					  htmlFormAction="${htmlFormAction}" transactionalDocument="false"
+					  renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}"
+					  defaultMethodToCall="${defaultMethodToCall}" lookup="${lookup}"
+					  headerMenuBar="${headerMenuBar}" alternativeHelp="${alternativeHelp}">
 
-	<div>
-		<%-- settting FieldSections to KualiForm.sections --%>
-		<c:set var="FieldSections" value="${KualiForm.sections}" />
-		<div class="headerarea-small" id="headerarea-small">
-			<h1>${kualiInquirable.title}</h1>
-		</div>
-	</div>
-		<html:hidden property="businessObjectClassName"/>
-		<c:forEach items="${KualiForm.inquiryPrimaryKeys}" var="primaryKey">
-			<input type="hidden" name="previousPkValue_${primaryKey.key}" value="<c:out value="${primaryKey.value}"/>"/>
-		</c:forEach>
-		<c:forEach items="${KualiForm.inactiveRecordDisplay}" var="entry">
-			<input type="hidden" name="${Constants.INACTIVE_RECORD_DISPLAY_PARAM_PREFIX}${entry.key}" value="${entry.value}"/>
-		</c:forEach>
-						
-		<%-- Show the information about the business object. --%>
-		<c:forEach items="${FieldSections}" var="section">
-		  <%-- call helper tag to look ahead through fields for old to new changes, and highlight tab if so --%>
-          <kul:checkTabHighlight rows="${section.rows}" addHighlighting="false" />
-		  
-		  <kul:tab tabTitle="${section.sectionTitle}" defaultOpen="${section.defaultOpen}" tabErrorKey="${section.errorKey}" highlightTab="${tabHighlight}" transparentBackground="${firstTab}" extraButtonSource="${section.extraButtonSource}"> 
-		    <div class="tab-container" align="center">
-		      <table width="100%" cellpadding=0 cellspacing=0 class="datatable">
-				  <kul:inquiryRowDisplay rows="${section.rows}" numberOfColumns="${section.numberOfColumns}" />
-			  </table>
-	        </div>
-		  </kul:tab>
-		</c:forEach>
+			<kul:inquiryPageBody />
+		</kul:pageBody>
+	</c:when>
+	<c:otherwise>
+		<kul:page showDocumentInfo="${showDocumentInfo}" docTitle="${docTitle}"
+				  htmlFormAction="${htmlFormAction}" transactionalDocument="false"
+				  renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}"
+				  defaultMethodToCall="${defaultMethodToCall}" additionalScriptFiles="${additionalScriptFiles}"
+				  lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}">
 
-		<kul:inquiryControls />
-</kul:page>
+			<kul:inquiryPageBody />
+		</kul:page>
+	</c:otherwise>
+</c:choose>

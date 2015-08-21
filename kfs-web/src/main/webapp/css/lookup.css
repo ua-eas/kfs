@@ -68,7 +68,7 @@ div.excol {
 
 #view_div .headerarea-small h1 {
     margin: 0px;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 26px;
     line-height: 50px;
     color: #5C6A73;
@@ -95,6 +95,10 @@ div.excol {
 
 #view_div .inquiry .main-panel {
     margin: 10px;
+}
+
+#view_div .main-panel:not(:first-child) {
+    margin-top: 10px;
 }
 
 #lookup {
@@ -173,18 +177,20 @@ div.excol {
     border-radius: 4px;
     margin-right: 3px;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+    padding: 0 5px;
 }
 
 #lookup input[type=radio]:not(:first-child) {
     margin-left: 15px;
 }
 
-.too-many-results {
+.search-message {
     text-align: center;
     font-size: 15px;
     color: #555555;
     padding-top: 14px;
 }
+
 
 .search-results .headerarea-small.fixed {
     position: fixed;
@@ -244,7 +250,7 @@ div.excol {
     padding-right: 10px;
     padding-left: 10px;
     display: inline;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .paginator .pagelinks div.pagenumbers a {
@@ -336,6 +342,30 @@ div.inquiry.fixedButtons {
     padding-bottom: 62px;
 }
 
+td.infocell div.link-wrapper {
+    display: inline;
+    white-space: nowrap;
+}
+
+td.infocell a.new-window {
+    text-decoration: none;
+}
+
+td.infocell a.new-window span.glyphicon {
+    /*display: none;*/
+    visibility: hidden;
+}
+
+td.infocell:hover a.new-window span.glyphicon {
+    visibility: inherit;
+    opacity: .4;
+}
+
+td.infocell a.new-window:hover span.glyphicon {
+    display: inherit;
+    opacity: .8;
+}
+
 div.inquiry table.datatable {
     margin: 20px 0;
 }
@@ -355,4 +385,40 @@ div.inquiry table.datatable th {
     text-align: right;
     padding-right: 15px;
     font-weight: 700;
+}
+
+.modal-dialog {
+    width: 85%;
+    height: 100%;
+}
+
+#wrapper.fullwidth {
+    width: 100%;
+    left: 0;
+}
+
+#sidebar-bg-wrapper.inquirymodal {
+    margin-bottom: 30px;
+}
+
+#wrapper.inquirymodal {
+    display: block;
+    border-radius: 6px;
+}
+
+#wrapper.inquirymodal #view_div {
+    padding-top: 0;
+}
+
+#wrapper.inquirymodal #main-wrapper,
+#wrapper.inquirymodal #main {
+    border-radius: 6px;
+}
+
+#wrapper.inquirymodal div.inquiry {
+    margin-bottom: 0;
+}
+
+#wrapper.fullwidth #main {
+    margin-top: 0;
 }

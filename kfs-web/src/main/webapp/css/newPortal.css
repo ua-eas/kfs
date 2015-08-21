@@ -31,7 +31,7 @@ a {
     padding-right: 7px;
 }
 .navbar-default .navbar-brand .institution-name {
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .dropdown.backdoor>a {
@@ -357,4 +357,11 @@ nav ul.nav li {
 .btn-primary:focus {
     background-color: #5F7D8C;
     outline: none;
+}
+
+.modal-header {
+    background-color: #E5E5E5;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
 }

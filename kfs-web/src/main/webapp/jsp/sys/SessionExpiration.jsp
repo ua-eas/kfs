@@ -21,7 +21,7 @@
 
 
 <kul:page showDocumentInfo="false" docTitleClass="center"
-	headerTitle="KFS - Session Timeout" docTitle="KFS - Session Timeout" renderMultipart="true"
+	headerTitle="Financials - Session Timeout" docTitle="Financials - Session Timeout" renderMultipart="true"
 	transactionalDocument="false" htmlFormAction="SessionInvalidateAction" errorKey="foo">
 
     <div style="margin-top: 10px; text-align: center; font-size: 1.2em;">
