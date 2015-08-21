@@ -406,6 +406,10 @@ div.inquiry table.datatable th {
     border-radius: 6px;
 }
 
+#wrapper.inquirymodal #view_div {
+    padding-top: 0;
+}
+
 #wrapper.inquirymodal #main-wrapper,
 #wrapper.inquirymodal #main {
     border-radius: 6px;
