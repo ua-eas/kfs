@@ -82,8 +82,16 @@
   
   <bean id="SecurityModelMember-memberTypeCode" parent="SecurityModelMember-memberTypeCode-parentBean"/>
 
-  <bean id="SecurityModelMember-memberTypeCode-parentBean" abstract="true" parent="RoleMemberBo-typeCode">
-    <property name="name" value="memberTypeCode"/>
+  <bean id="SecurityModelMember-memberTypeCode-parentBean" parent="AttributeDefinition" abstract="true" p:name="memberTypeCode"
+        p:forceUppercase="true" p:label="Member Type Code" p:shortLabel="Type Code" p:maxLength="40" p:required="false">
+    <property name="control">
+      <bean parent="SelectControlDefinition"
+            p:valuesFinderClass="org.kuali.rice.kim.bo.options.MemberTypeValuesFinder"/>
+    </property>
+    <property name="optionsFinderClass" value="org.kuali.rice.kim.bo.options.MemberTypeValuesFinder"/>
+    <property name="controlField">
+      <bean parent="Uif-DropdownControl"/>
+    </property>
   </bean>
   
   <bean id="SecurityModelMember-activeFromDate" parent="SecurityModelMember-activeFromDate-parentBean"/>

@@ -181,8 +181,17 @@
 	</bean>
 
 	<bean id="OrgReviewRole-orgReviewRoleMemberId" parent="OrgReviewRole-orgReviewRoleMemberId-parentBean" />
-	<bean id="OrgReviewRole-orgReviewRoleMemberId-parentBean" parent="DocRoleMember-roleMemberId"
-		abstract="true" p:name="orgReviewRoleMemberId" />
+	<bean id="OrgReviewRole-orgReviewRoleMemberId-parentBean" parent="AttributeDefinition" abstract="true"
+		p:name="orgReviewRoleMemberId"
+		p:forceUppercase="true"
+		p:label="Role Member Identifier"
+		p:shortLabel="Role Member Identifier"
+		p:maxLength="40"
+		p:required="false">
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="10"/>
+		</property>
+	</bean>
 
 	<bean id="OrgReviewRole-delegationMemberId" parent="OrgReviewRole-delegationMemberId-parentBean" />
 	<bean id="OrgReviewRole-delegationMemberId-parentBean" parent="AttributeDefinition"
@@ -299,8 +308,8 @@
 		abstract="true" p:name="groupMemberGroupName" />
 
 	<bean id="OrgReviewRole-memberNamespaceCode" parent="OrgReviewRole-memberNamespaceCode-parentBean" />
-	<bean id="OrgReviewRole-memberNamespaceCode-parentBean" parent="DocRoleMember-memberNamespaceCode"
-		abstract="true" p:name="memberNamespaceCode" />
+	<bean id="OrgReviewRole-memberNamespaceCode-parentBean" parent="KimAttributes-namespaceCode"
+		abstract="true" p:name="memberNamespaceCode"  p:required="false" p:label="Member Namespace" />
 
 	<bean id="OrgReviewRole-delegate" parent="OrgReviewRole-delegate-parentBean" />
 	<bean id="OrgReviewRole-delegate-parentBean" parent="AttributeReferenceDummy-genericBoolean"
@@ -316,12 +325,21 @@
 
 	<bean id="OrgReviewRole-memberName" parent="OrgReviewRole-memberName-parentBean" />
 	<bean id="OrgReviewRole-memberName-parentBean" abstract="true"
-		parent="DocRoleMember-memberName" p:name="memberName" p:label="Member Name"
-		p:shortLabel="Member Name" />
+		parent="AttributeDefinition" p:name="memberName" p:label="Member Name"
+		p:shortLabel="Member Name" p:forceUppercase="false" p:maxLength="100" p:required="false">
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="10"/>
+		</property>
+	</bean>
 
 	<bean id="OrgReviewRole-memberTypeCode" parent="OrgReviewRole-memberTypeCode-parentBean" />
-	<bean id="OrgReviewRole-memberTypeCode-parentBean" parent="DocRoleMember-memberTypeCode"
-		abstract="true" p:name="memberTypeCode" />
+	<bean id="OrgReviewRole-memberTypeCode-parentBean" parent="AttributeDefinition" abstract="true" p:name="memberTypeCode"
+		  p:forceUppercase="true" p:label="Member Type Code" p:shortLabel="Type Code" p:maxLength="40" p:required="false">
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.rice.kim.bo.options.MemberTypeValuesFinder"/>
+		</property>
+	</bean>
+
 
 	<bean id="OrgReviewRole-memberTypeCodeDescription" parent="OrgReviewRole-memberTypeCodeDescription-parentBean" />
 	<bean id="OrgReviewRole-memberTypeCodeDescription-parentBean"
@@ -355,16 +373,26 @@
 
 	<bean id="OrgReviewRole-activeFromDate" parent="OrgReviewRole-activeFromDate-parentBean" />
 	<bean id="OrgReviewRole-activeFromDate-parentBean" abstract="true"
-		parent="DocRoleMember-activeFromDate" p:name="activeFromDate">
+		parent="AttributeReferenceDummy-activeFromDate" p:name="activeFromDate">
 	    <property name="control" ref="DateControl" />
 	    <property name="formatterClass" value="org.kuali.rice.core.web.format.DateFormatter"/>
+		<property name="label" value="Active From Date"/>
+		<property name="shortLabel" value="Active From Dt"/>
+		<property name="required" value="false"/>
+		<property name="summary" value="Start Date"/>
+		<property name="description" value="Start Date"/>
 	</bean>
 
 	<bean id="OrgReviewRole-activeToDate" parent="OrgReviewRole-activeToDate-parentBean" />
 	<bean id="OrgReviewRole-activeToDate-parentBean" abstract="true"
-		parent="DocRoleMember-activeToDate" p:name="activeToDate">
+		parent="AttributeReferenceDummy-activeToDate" p:name="activeToDate">
 	    <property name="control" ref="DateControl" />
 	    <property name="formatterClass" value="org.kuali.rice.core.web.format.DateFormatter"/>
+		<property name="label" value="Active To Date"/>
+		<property name="shortLabel" value="Active To Dt"/>
+		<property name="required" value="false"/>
+		<property name="summary" value="End Date"/>
+		<property name="description" value="End Date"/>
 	</bean>
 
 	<bean id="OrgReviewRole-active" parent="OrgReviewRole-active-parentBean" />
