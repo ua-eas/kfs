@@ -74,7 +74,7 @@ public class LookupDefinition extends DataDictionaryDefinitionBase {
 
     protected String searchIconOverride;
 
-    protected int numOfColumns;
+    protected int numOfColumns = 2;
 
     protected HelpDefinition helpDefinition;
     protected String helpUrl;
