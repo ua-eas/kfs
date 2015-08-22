@@ -285,7 +285,7 @@
 				</c:when><c:otherwise><c:choose><c:when test="${empty column.columnAnchor.target}"><c:set var="anchorTarget" value="_blank" /></c:when><c:otherwise><c:set var="anchorTarget" value="${column.columnAnchor.target}" />
 				</c:otherwise></c:choose>
 					<div class="link-wrapper">
-						<a href="<c:out value="${column.columnAnchor.href}&mode=modal"/>" title="${column.columnAnchor.title}" data-toggle="modal" data-target="#myModal">
+						<a href="<c:out value="${column.columnAnchor.href}&mode=modal"/>" title="${column.columnAnchor.title}" data-remodal-target="modal">
 							<c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if>
 						</a>
 						<a href="<c:out value="${column.columnAnchor.href}&mode=standalone"/>" target='<c:out value="${anchorTarget}"/>' title="Open in new tab" class="new-window">
@@ -414,25 +414,6 @@
 		})
 	</script>
 
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- remote modal content goes here -->
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('a[data-target="#myModal"]').click(function(event) {
-				event.preventDefault();
-				var myModal = $('#myModal');
-				var modalBody = myModal.find('.modal-content');
-				modalBody.load($(event.target).attr('href'), function() {
-					myModal.modal('show');
-				});
-			});
 
-		});
-	</script>
 
 </kul:page>

@@ -347,20 +347,23 @@ td.infocell div.link-wrapper {
     white-space: nowrap;
 }
 
+td.grid a.new-window,
 td.infocell a.new-window {
     text-decoration: none;
 }
 
+td.grid a.new-window span.glyphicon,
 td.infocell a.new-window span.glyphicon {
-    /*display: none;*/
     visibility: hidden;
 }
 
+td.grid:hover a.new-window span.glyphicon,
 td.infocell:hover a.new-window span.glyphicon {
     visibility: inherit;
     opacity: .4;
 }
 
+td.grid a.new-window:hover span.glyphicon,
 td.infocell a.new-window:hover span.glyphicon {
     display: inherit;
     opacity: .8;
@@ -387,9 +390,19 @@ div.inquiry table.datatable th {
     font-weight: 700;
 }
 
-.modal-dialog {
-    width: 85%;
-    height: 100%;
+.remodal {
+    width: 100%;
+    vertical-align: top;
+}
+
+.remodal-wrapper {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+.remodal #breadcrumbs {
+    float: left;
+    color: #aaa;
 }
 
 #wrapper.fullwidth {
@@ -398,7 +411,7 @@ div.inquiry table.datatable th {
 }
 
 #sidebar-bg-wrapper.inquirymodal {
-    margin-bottom: 30px;
+    border-radius: 6px;
 }
 
 #wrapper.inquirymodal {

@@ -53,6 +53,7 @@
 
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript">var breadcrumbs = []</script>
 		<c:if test="${not empty SESSION_TIMEOUT_WARNING_MILLISECONDS}">
 			<script type="text/javascript">
 				<!--
@@ -106,6 +107,8 @@
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 			<script src="https://fb.me/react-0.13.3.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.0.2/remodal.min.js"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.0.2/remodal.min.css">
 		</c:if>
 	</head>
 	<c:choose>
@@ -132,19 +135,21 @@
 		</c:otherwise>
 	</c:choose>
 
-	<kul:pageBody showDocumentInfo="${showDocumentInfo}" docTitle="${docTitle}" docTitleClass="${docTitleClass}"
-				  htmlFormAction="${htmlFormAction}" transactionalDocument="${transactionalDocument}"
-				  renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}" headerDispatch="${headerDispatch}"
-				  defaultMethodToCall="${defaultMethodToCall}" lookup="${lookup}" extraTopButtons="${extraTopButtons}"
-				  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
-				  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
-				  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
-				  renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
+		<kul:pageBody showDocumentInfo="${showDocumentInfo}" docTitle="${docTitle}" docTitleClass="${docTitleClass}"
+					  htmlFormAction="${htmlFormAction}" transactionalDocument="${transactionalDocument}"
+					  renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}" headerDispatch="${headerDispatch}"
+					  defaultMethodToCall="${defaultMethodToCall}" lookup="${lookup}" extraTopButtons="${extraTopButtons}"
+					  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
+					  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
+					  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
+					  renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
 
-		<jsp:doBody/>
-	</kul:pageBody>
+			<jsp:doBody/>
+		</kul:pageBody>
 
-
+		<c:if test="${lookup}" >
+			<kul:modal/>
+		</c:if>
 	</body>
 
 </html:html>
