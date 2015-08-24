@@ -292,7 +292,7 @@
         <property name="summary" value="Moving From Country" />
         <property name="description" value="Moving From Country" />
         <property name="control">
-            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.rice.location.framework.country.CountryNotRestrictedValuesFinder"
+            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder"
                 p:includeKeyInLabel="false" />
         </property>
     </bean>
@@ -355,7 +355,7 @@
         <property name="summary" value="Moving To Country" />
         <property name="description" value="Moving To Country" />
         <property name="control">
-            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.rice.location.framework.country.CountryNotRestrictedValuesFinder"
+            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder"
                 p:includeKeyInLabel="false" />
         </property>
     </bean>

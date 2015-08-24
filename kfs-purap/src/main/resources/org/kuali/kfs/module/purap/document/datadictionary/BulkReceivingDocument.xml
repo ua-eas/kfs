@@ -710,7 +710,7 @@
   <!-- workflow attributes -->
   <bean id="BulkReceivingDocument-workflowAttributes" parent="BulkReceivingDocument-workflowAttributes-parentBean"/>
   
-  <bean id="BulkReceivingDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true">
+  <bean id="BulkReceivingDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
       <property name="searchingTypeDefinitions">
           <list>
               <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">

@@ -58,7 +58,7 @@
     <!-- workflow attributes -->
     <bean id="PurchaseOrderVoidDocument-workflowAttributes" parent="PurchaseOrderVoidDocument-workflowAttributes-parentBean"/>
   
-    <bean id="PurchaseOrderVoidDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true">
+    <bean id="PurchaseOrderVoidDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
     	<property name="searchingTypeDefinitions">
     		<ref bean="SearchingTypeDefinitions-PurchaseOrderDocumentFamily"/>
     	</property>

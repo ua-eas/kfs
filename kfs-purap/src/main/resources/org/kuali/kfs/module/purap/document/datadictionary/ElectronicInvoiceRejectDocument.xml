@@ -1527,7 +1527,7 @@
   <!-- workflow attributes -->
   <bean id="ElectronicInvoiceRejectDocument-workflowAttributes" parent="ElectronicInvoiceRejectDocument-workflowAttributes-parentBean"/>
   
-  <bean id="ElectronicInvoiceRejectDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true">
+  <bean id="ElectronicInvoiceRejectDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
       <property name="searchingTypeDefinitions">
           <list>
       	      <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
