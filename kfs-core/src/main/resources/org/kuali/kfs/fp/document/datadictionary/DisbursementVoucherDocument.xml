@@ -308,7 +308,7 @@
     <property name="name" value="campusCode"/>
     <property name="required" value="false"/>
     <property name="control">
-      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.rice.location.framework.campus.CampusValuesFinder" p:includeKeyInLabel="false"/>
+      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CampusValuesFinder" p:includeKeyInLabel="false"/>
     </property>
     
   </bean>

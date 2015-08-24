@@ -79,5 +79,5 @@
 
 	<bean
 		id="BillingFrequencyMaintenanceDocument-workflowAttributes-parentBean"
-		class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true" />
+		class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true" />
 </beans>

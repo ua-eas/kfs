@@ -32,7 +32,7 @@
   
   <bean id="ReceivingDocumentForSearching-workflowAttributes" parent="ReceivingDocumentForSearching-workflowAttributes-parentBean"/>
   
-  <bean id="ReceivingDocumentForSearching-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true">
+  <bean id="ReceivingDocumentForSearching-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
       <property name="searchingTypeDefinitions">
           <list>
               <bean class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">

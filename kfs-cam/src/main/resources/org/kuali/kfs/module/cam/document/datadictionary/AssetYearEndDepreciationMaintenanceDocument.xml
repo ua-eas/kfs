@@ -158,6 +158,6 @@
     <bean id="AssetYearEndDepreciationMaintenanceDocument-workflowAttributes"
           parent="AssetYearEndDepreciationMaintenanceDocument-workflowAttributes-parentBean"/>
 
-    <bean id="AssetYearEndDepreciationMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true"/>
+    <bean id="AssetYearEndDepreciationMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true"/>
 
 </beans>

@@ -68,6 +68,6 @@
   <!-- workflow attributes -->
   <bean id="AssetDepreciationConventionMaintenanceDocument-workflowAttributes" parent="AssetDepreciationConventionMaintenanceDocument-workflowAttributes-parentBean"/>
   
-  <bean id="AssetDepreciationConventionMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true">
+  <bean id="AssetDepreciationConventionMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
   </bean>
 </beans>
