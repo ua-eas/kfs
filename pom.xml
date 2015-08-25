@@ -1124,5 +1124,31 @@
     </dependency>
   </dependencies>
 
+  <repositories>
+    <repository>
+      <id>kualico.nexus</id>
+      <name>KualiCo Nexus Group</name>
+      <url>https://nexus.kuali.co/nexus/content/groups/public/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+  </repositories>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>kualico.nexus</id>
+      <name>KualiCo Nexus Group</name>
+      <url>https://nexus.kuali.co/nexus/content/groups/public/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
