@@ -27,16 +27,16 @@
 	<!--  COMMON ROUTING ATTRIBUTE QUALIFIER NAMES -->
 	<!-- ******************************************************************* -->
 	
-	<bean id="RoutingAttribute-Chart" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="RoutingAttribute-Chart" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="chartOfAccountsCode"/>
 	</bean>
-	<bean id="RoutingAttribute-Account" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="RoutingAttribute-Account" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="accountNumber"/>
 	</bean>	
-	<bean id="RoutingAttribute-Organization" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="RoutingAttribute-Organization" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="organizationCode"/>
 	</bean>
-	<bean id="RoutingAttribute-SubFund" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="RoutingAttribute-SubFund" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="subFundGroupCode"/>
 	</bean>
 

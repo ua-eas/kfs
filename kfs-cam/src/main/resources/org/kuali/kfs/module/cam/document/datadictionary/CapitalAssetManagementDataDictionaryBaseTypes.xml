@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
 >
   <!--  Define RoutingAttribute base -->
-  <bean id="RoutingAttribute-capitalAssetNumber" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+  <bean id="RoutingAttribute-capitalAssetNumber" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="capitalAssetNumber" />
   </bean>
   

@@ -83,12 +83,9 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         p:forceUppercase="true" p:label="Member Type Code" p:shortLabel="Type Code" p:maxLength="40" p:required="false">
     <property name="control">
       <bean parent="SelectControlDefinition"
-            p:valuesFinderClass="org.kuali.rice.kim.bo.options.MemberTypeValuesFinder"/>
+            p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder"/>
     </property>
-    <property name="optionsFinderClass" value="org.kuali.rice.kim.bo.options.MemberTypeValuesFinder"/>
-    <property name="controlField">
-      <bean parent="Uif-DropdownControl"/>
-    </property>
+    <property name="optionsFinderClass" value="org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder"/>
   </bean>
 
   

@@ -297,15 +297,15 @@
     	</property>
 	</bean>
 	
-	<bean id="AccountMaintenanceDocument-RoutingAttribute-AccountFiscalOfficerSystemIdentifier" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="AccountMaintenanceDocument-RoutingAttribute-AccountFiscalOfficerSystemIdentifier" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="accountFiscalOfficerSystemIdentifier"/>
 	</bean>
 	
-	<bean id="AccountMaintenanceDocument-RoutingAttribute-AccountsSupervisorySystemsIdentifier" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="AccountMaintenanceDocument-RoutingAttribute-AccountsSupervisorySystemsIdentifier" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="accountsSupervisorySystemsIdentifier"/>
 	</bean>
 	
-	<bean id="AccountMaintenanceDocument-RoutingAttribute-Award" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="AccountMaintenanceDocument-RoutingAttribute-Award" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="contractsAndGrantsAccountResponsibilityId"/>
 	</bean>
 	

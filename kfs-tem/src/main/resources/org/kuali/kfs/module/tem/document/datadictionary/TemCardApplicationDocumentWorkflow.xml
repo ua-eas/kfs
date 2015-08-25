@@ -123,10 +123,10 @@
     <bean id="TemCardApplicationDocument-RoutingType-temProfile.defaultAccount" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-    			<bean id="RoutingAttribute-temProfile.defaultAccount" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+    			<bean id="RoutingAttribute-temProfile.defaultAccount" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
 			    	<property name="qualificationAttributeName" value="accountNumber" />
 			   	</bean>
-			   	<bean id="RoutingAttribute-temProfile.defaultChartCode" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+			   	<bean id="RoutingAttribute-temProfile.defaultChartCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
 			    	<property name="qualificationAttributeName" value="chartOfAccountsCode" />
 			   	</bean>
     		</list>

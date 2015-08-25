@@ -132,7 +132,7 @@
 		</property>
 	</bean>
 	
-	<bean id="ObjectCodeGlobalMaintenanceDocument-RoutingAttribute-Chart" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="ObjectCodeGlobalMaintenanceDocument-RoutingAttribute-Chart" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="chartOfAccountsCode"/>
 	</bean>
 	

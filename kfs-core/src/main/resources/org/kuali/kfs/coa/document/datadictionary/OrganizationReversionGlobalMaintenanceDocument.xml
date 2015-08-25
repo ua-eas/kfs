@@ -158,11 +158,11 @@
 		</property>
 	</bean>
 	
-	<bean id="OrganizationReversionGlobalMaintenanceDocument-RoutingAttribute-Chart" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="OrganizationReversionGlobalMaintenanceDocument-RoutingAttribute-Chart" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="chartOfAccountsCode"/>
 	</bean>
 	
-	<bean id="OrganizationReversionGlobalMaintenanceDocument-RoutingAttribute-Organization" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+	<bean id="OrganizationReversionGlobalMaintenanceDocument-RoutingAttribute-Organization" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     	<property name="qualificationAttributeName" value="organizationCode"/>
 	</bean>
 	

@@ -393,10 +393,10 @@
     <bean id="RoutingType-TravelReimbursement-ReimbursementOverage" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
             <list>
-                <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+                <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="authorizationAmount"/>
 			    </bean>
-			    <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+			    <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="reimbursementAmount"/>
 			    </bean>
                 <ref bean="RoutingAttribute-chartOfAccountsCode" />
@@ -432,7 +432,7 @@
 	<bean id="TravelReimbursable-RoutingType-PaymentMethod" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="paymentMethodCode"/>
 			    </bean>
     		</list>
@@ -453,7 +453,7 @@
 	<bean id="TravelAuthorization-RoutingType-PaymentMethod" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="paymentMethodCode"/>
 			    </bean>
     		</list>
@@ -474,7 +474,7 @@
 	<bean id="TravelDocument-WithRoutingAttribute-profilePrincipalId" abstract="true" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
 		<property name="routingAttributes">
     		<list>
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="profilePrincipalId"/>
 			    </bean>
     		</list>

@@ -70,7 +70,7 @@
         </split>
         <role name="RecurrenceCreator">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -95,7 +95,7 @@
         <join name="JoinInitiatedBySystemUser"/>
         <role name="Recurrence">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -103,7 +103,7 @@
         </role>
         <role name="Account">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -153,7 +153,7 @@
         </split>
         <role name="Management">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
         <join name="Join"/>
@@ -193,7 +193,7 @@
         <start name="AdHoc"/>
         <role name="OrganizationHierarchy">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
       </routeNodes>
@@ -228,12 +228,12 @@
         <start name="AdHoc"/>
         <role name="OrganizationHierarchy">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
         <role name="Management">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
       </routeNodes>
