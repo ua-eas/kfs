@@ -31,7 +31,7 @@
 		</property>
 	</bean>
         
-	<bean id="BaseFundsLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="BaseFundsLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -41,7 +41,7 @@
 		</property>
 	</bean>	
 	
-	<bean id="CurrentFundsLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="CurrentFundsLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -51,7 +51,7 @@
 		</property>
 	</bean>			
 
-	<bean id="laborCalculatedSalaryFoundationTrackerLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborCalculatedSalaryFoundationTrackerLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -61,7 +61,7 @@
 		</property>
 	</bean>		
 	
-	<bean id="EmployeeFundingLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="EmployeeFundingLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -71,7 +71,7 @@
 		</property>
 	</bean>	
 	
-	<bean id="july1PositionFundingLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="july1PositionFundingLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -81,7 +81,7 @@
 		</property>
 	</bean>	
 	
-	<bean id="laborLedgerBalanceLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborLedgerBalanceLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -91,7 +91,7 @@
 		</property>
 	</bean>			
 	
-	<bean id="laborPendingEntryLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborPendingEntryLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -101,7 +101,7 @@
 		</property>
 	</bean>	
 	
-	<bean id="laborLedgerBalanceForBenefitExpenseTransferLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborLedgerBalanceForBenefitExpenseTransferLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -111,7 +111,7 @@
 		</property>
 	</bean>	
 	
-	<bean id="laborLedgerBalanceForEffortCertificationLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborLedgerBalanceForEffortCertificationLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -121,7 +121,7 @@
 		</property>
 	</bean>	
 	
-	<bean id="laborLedgerBalanceForSalaryExpenseTransferLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborLedgerBalanceForSalaryExpenseTransferLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -131,7 +131,7 @@
 		</property>
 	</bean>		
 	
-	<bean id="laborLedgerEntryLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborLedgerEntryLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">
@@ -141,7 +141,7 @@
 		</property>
 	</bean>		
 	
-	<bean id="laborLedgerEntryForExpenseTransferLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="laborLedgerEntryForExpenseTransferLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 		    <bean parent="securityBalanceLookupableHelperService" scope="prototype" p:laborInquiry="true">
 		        <property name="lookupableHelperService">

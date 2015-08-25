@@ -132,14 +132,14 @@
 	</bean>
 	
 	<bean id="temProfileAddressLookupable" parent="temProfileAddressLookupable-parentBean" scope="prototype" />
-	<bean id="temProfileAddressLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">		
+	<bean id="temProfileAddressLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService">
 			<ref bean="temProfileAddressLookupableHelperService" />
 		</property>
 	</bean>
 
 	<bean id="perDiemLookupable" parent="perDiemLookupable-parentBean" scope="prototype" />
-	<bean id="perDiemLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">		
+	<bean id="perDiemLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService" ref="perDiemLookupableHelperService" />
 	</bean>
 	
@@ -149,7 +149,7 @@
 	</bean>
 	
 	<bean id="primaryDestinationLookupable" parent="primaryDestinationLookupable-parentBean" scope="prototype" />
-	<bean id="primaryDestinationLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">		
+	<bean id="primaryDestinationLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService" ref="primaryDestinationLookupableHelperService" />
 	</bean>
 	
@@ -157,7 +157,7 @@
 	<bean id="primaryDestinationLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.PrimaryDestinationLookupableHelperServiceImpl" />
 	
 	<bean id="historicalTravelExpenseLookupable" parent="historicalTravelExpenseLookupable-parentBean" scope="prototype"  />
-	<bean id="historicalTravelExpenseLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">
+	<bean id="historicalTravelExpenseLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService" ref="historicalTravelExpenseLookupableHelperService" />
 	</bean>
 
@@ -175,7 +175,7 @@
 	</bean>
 	
 	<bean id="temProfileFromCustomerLookupable" parent="temProfileFromCustomerLookupable-parentBean" scope="prototype" />
-	<bean id="temProfileFromCustomerLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">		
+	<bean id="temProfileFromCustomerLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService">
 			<ref bean="temProfileFromCustomerLookupableHelperService" />
 		</property>
@@ -189,7 +189,7 @@
 	</bean>
 	
 	<bean id="temProfileFromKimLookupable" parent="temProfileFromKimLookupable-parentBean" scope="prototype" />
-	<bean id="temProfileFromKimLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">		
+	<bean id="temProfileFromKimLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService">
 			<ref bean="temProfileFromKimLookupableHelperService" />
 		</property>
@@ -223,7 +223,7 @@
 	</bean>
 	
 	<bean id="travelerProfileDocLookupable" parent="travelerProfileDocLookupable-parentBean" scope="prototype"/>
-	<bean id="travelerProfileDocLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">
+	<bean id="travelerProfileDocLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService">
 			<ref bean="travelerProfileDocLookupHelperService" />
 		</property>
@@ -233,14 +233,14 @@
 	<bean id="travelRelocationLookupHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.TravelRelocationLookupableHelperServiceImpl" />
 	
 	<bean id="travelRelocationLookupable" parent="travelRelocationLookupable-parentBean" scope="prototype" />
-	<bean id="travelRelocationLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">		
+	<bean id="travelRelocationLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService">
 			<ref bean="travelRelocationLookupHelperService" />
 		</property>
 	</bean>
 
 	<bean id="travelerLookupable" parent="travelerLookupable-parentBean" scope="prototype" />
-	<bean id="travelerLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">
+	<bean id="travelerLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService" ref="travelerLookupableHelperService" />
 	</bean>
 
@@ -281,7 +281,7 @@
 	</bean>
 	
 	<bean id="groupTravelerForLookupLookupable" parent="groupTravelerForLookupLookupable-parentBean" scope="prototype" />
-	<bean id="groupTravelerForLookupLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">
+	<bean id="groupTravelerForLookupLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService">
 			<ref bean="groupTravelerForLookupLookupableHelperService" />
 		</property>
@@ -1504,7 +1504,7 @@
 	</bean>
 	
 	<bean id="temProfileAccountLookupable" parent="temProfileAccountLookupable-parentBean" scope="prototype" />
-	<bean id="temProfileAccountLookupable-parentBean" abstract="true" class="org.kuali.rice.kns.lookup.KualiLookupableImpl">
+	<bean id="temProfileAccountLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
 		<property name="lookupableHelperService">
 			<ref bean="temProfileAccountLookupHelperService" />
 		</property>

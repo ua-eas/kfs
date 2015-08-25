@@ -49,7 +49,7 @@
     
     
     <property name="documentTypeName" value="COBJ"/>
-    <property name="businessRulesClass" value="org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase"/>
+    <property name="businessRulesClass" value="org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase"/>
     <property name="documentAuthorizerClass" value="org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase"/>
     <property name="workflowAttributes">
     	<ref bean="AssetObjectCodeMaintenanceDocument-workflowAttributes"/>
