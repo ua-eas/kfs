@@ -31,7 +31,7 @@
 		<property name="showAttributeInResultSet" value="true" />
 	</bean>
 	<bean id="RoutingAttribute-customerNumber"
-		class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName"
 			value="customerNumber" />
 	</bean>
@@ -45,7 +45,7 @@
 		<property name="showAttributeInResultSet" value="true" />
 	</bean>
 	<bean id="RoutingAttribute-customerName"
-		class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName"
 			value="customerName" />
 	</bean>

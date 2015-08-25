@@ -579,7 +579,7 @@
             </list>
         </property>
     </bean>
-    <bean id="RoutingAttribute-jobClassificationCode"  class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+    <bean id="RoutingAttribute-jobClassificationCode"  class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
   	  <property name="qualificationAttributeName" value="jobClsCode" />
     </bean>
     <bean id="DocumentValuePathGroup-TravelRelocationDocument-jobClassificationCode" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">

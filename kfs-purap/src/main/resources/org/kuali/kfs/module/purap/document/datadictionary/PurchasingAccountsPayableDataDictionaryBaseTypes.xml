@@ -29,7 +29,7 @@
     	<property name="routingAttributes">
     		<list>
 				<ref bean="RoutingAttribute-campusCode" />
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="purchasingCommodityCode" />
 			    </bean>			    
     		</list>
@@ -60,7 +60,7 @@
    	<bean id="RoutingType-PurchasingDocument-Award" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="contractsAndGrantsAccountResponsibilityId" />
 			    </bean>			    
     		</list>
@@ -161,7 +161,7 @@
     <bean id="RoutingType-PurchaseOrderDocument-ContractManagement" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-    		    <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+    		    <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     		        <property name="qualificationAttributeName" value="contractManagerCode" />
     		    </bean>
     		</list>
@@ -182,7 +182,7 @@
     <bean id="RoutingType-PurchaseOrderDocument-Budget" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-    		    <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+    		    <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     		        <property name="qualificationAttributeName" value="chartOfAccountsCode" />
     		    </bean>
     		</list>
@@ -205,10 +205,10 @@
     		<list>
 		        <ref bean="RoutingAttribute-chartOfAccountsCode" />
 		        <ref bean="RoutingAttribute-accountNumber" />
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     		        <property name="qualificationAttributeName" value="subAccountNumber" />
     		    </bean>
-    		    <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+    		    <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
     		        <property name="qualificationAttributeName" value="organizationCode" />
     		    </bean>
     		</list>

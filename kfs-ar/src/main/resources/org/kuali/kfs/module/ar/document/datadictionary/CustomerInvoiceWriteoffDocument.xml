@@ -139,7 +139,7 @@
 	</property>
 	</bean>
 	
-    <bean id="RoutingAttribute-CustomerInvoiceWriteoffDocument-invoiceWriteoffAmount" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+    <bean id="RoutingAttribute-CustomerInvoiceWriteoffDocument-invoiceWriteoffAmount" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
         	<property name="qualificationAttributeName" value="invoiceWriteoffAmount"/>
     
     

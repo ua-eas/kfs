@@ -29,7 +29,7 @@
    	<bean id="RoutingType-VendorMaintenanceDocument-Management" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="vendorTypeCode" />
 			    </bean>
 	    

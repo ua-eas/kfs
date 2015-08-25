@@ -529,7 +529,7 @@
 	<bean id="DisbursementVoucherDocument-RoutingType-PaymentMethod" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
-		        <bean class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+		        <bean class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 			    	<property name="qualificationAttributeName" value="paymentMethodCode"/>
 			    </bean>
     		</list>

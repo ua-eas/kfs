@@ -183,7 +183,7 @@
     	<property name="attributeName" value="accountNumber" />
     </bean>
     
-    <bean id="RoutingAttribute-financialDocumentTotalAmount"  class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+    <bean id="RoutingAttribute-financialDocumentTotalAmount"  class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
   	  <property name="qualificationAttributeName" value="financialDocumentTotalAmount" />
     </bean>
     
@@ -196,7 +196,7 @@
     	<property name="businessObjectClassName" value="org.kuali.kfs.sys.businessobject.AccountingLine" />
     	<property name="attributeName" value="overrideCode" />
     </bean>
-    <bean id="RoutingAttribute-overrideCode" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+    <bean id="RoutingAttribute-overrideCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="accountingLineOverrideCode" />
     </bean>
    
@@ -209,7 +209,7 @@
         <property name="businessObjectClassName" value="org.kuali.kfs.coa.businessobject.Account" />
     	<property name="attributeName" value="contractsAndGrantsAccountResponsibilityId" />
     </bean>
-    <bean id="RoutingAttribute-contractsAndGrantsAccountResponsibilityId" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+    <bean id="RoutingAttribute-contractsAndGrantsAccountResponsibilityId" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="contractsAndGrantsAccountResponsibilityId" />
     </bean>
    
@@ -217,7 +217,7 @@
     	<property name="businessObjectClassName" value="org.kuali.rice.location.impl.campus.CampusBo" />
     	<property name="attributeName" value="campusCode" />
     </bean>
-    <bean id="RoutingAttribute-campusCode" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+    <bean id="RoutingAttribute-campusCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="campusCode" />
    	</bean>
    	<bean id="DocumentValuePathGroup-AccountingDocument-financialDocumentTotalAmount" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup" abstract="true">
@@ -481,7 +481,7 @@
    		</property>
    	</bean>
    	
-   	<bean id="RoutingAttribute-financialObjectCode" class="org.kuali.rice.krad.datadictionary.RoutingAttribute">
+   	<bean id="RoutingAttribute-financialObjectCode" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute">
 		<property name="qualificationAttributeName" value="financialObjectCode" />
 	</bean>
    	
