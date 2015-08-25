@@ -381,7 +381,7 @@
 	<bean id="nonResidentAlienTaxPercentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.KualiNonResidentAlienTaxPercentLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
 
 	<bean id="nonResidentAlienTaxPercentLookupable"  parent="nonResidentAlienTaxPercentLookupable-parentBean" scope="prototype"/>
-	<bean id="nonResidentAlienTaxPercentLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="nonResidentAlienTaxPercentLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="nonResidentAlienTaxPercentLookupableHelperService" />
 		</property>
@@ -394,7 +394,7 @@
 	</bean>
 	
 	<bean id="cashDrawerLookupable"  parent="cashDrawerLookupable-parentBean" scope="prototype"/>
-	<bean id="cashDrawerLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="cashDrawerLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="cashDrawerLookupableHelperService" />
 		</property>
@@ -420,7 +420,7 @@
 	</bean>
 	
 	<bean id="disbursementPayeeLookupable"  parent="disbursementPayeeLookupable-parentBean" scope="prototype"/>
-	<bean id="disbursementPayeeLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="disbursementPayeeLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="disbursementPayeeLookupableHelperService" />
 		</property>

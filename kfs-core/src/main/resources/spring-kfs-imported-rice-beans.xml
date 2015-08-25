@@ -155,14 +155,14 @@
 		<property name="dbPlatform" ref="dbPlatform" />
 	</bean>
 
-	<bean id="kualiLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="kualiLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService" ref="lookupableHelperService" />
 	</bean>
 
     <bean id="kualiInquirable" class="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" scope="prototype" />
 
 	<bean id="lookupableHelperService"
-		class="org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl"
+		class="org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl"
 		scope="prototype">
 		<property name="persistenceStructureService">
 			<ref bean="persistenceStructureService" />
@@ -194,7 +194,7 @@
 	</bean>
 
 
-	<bean id="kualiMaintainable" class="org.kuali.rice.kns.maintenance.KualiMaintainableImpl"
+	<bean id="kualiMaintainable" class="org.kuali.kfs.kns.maintenance.KualiMaintainableImpl"
 		scope="prototype">
 		<property name="persistenceStructureService">
 			<ref bean="persistenceStructureService" />

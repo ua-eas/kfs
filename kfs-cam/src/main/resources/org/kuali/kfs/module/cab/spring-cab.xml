@@ -209,7 +209,7 @@
             <ref bean="purchasingAccountsPayableReportService" />
         </property>
     </bean>
-    <bean id="cabPurApReportLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" singleton="false">
+    <bean id="cabPurApReportLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" singleton="false">
         <property name="lookupableHelperService">
             <ref bean="purApReportLookupableHelperService" />
         </property>
@@ -221,7 +221,7 @@
     </bean>
 
     <bean id="cabGlEntryLookupable"  parent="cabGlEntryLookupable-parentBean" singleton="false"/>
-    <bean id="cabGlEntryLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+    <bean id="cabGlEntryLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="generalLedgerEntryLookupableHelperService" />
         </property>

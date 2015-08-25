@@ -172,7 +172,7 @@
 	</bean>
 
 	<bean id="proposalLookupable"  parent="proposalLookupable-parentBean" scope="prototype"/>
-	<bean id="proposalLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="proposalLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="proposalLookupableHelperService" />
 		</property>
@@ -189,7 +189,7 @@
     </bean>
 
     <bean id="awardLookupable"  parent="awardLookupable-parentBean" scope="prototype"/>
-    <bean id="awardLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+    <bean id="awardLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="awardLookupableHelperService" />
         </property>
@@ -202,7 +202,7 @@
         </property>
 	</bean>
 
-	<bean id="agencyLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="agencyLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 			<ref bean="agencyLookupHelperService" />
 		</property>
@@ -329,7 +329,7 @@
 		</property>
 	</bean>
 
-	<bean id="contractsGrantsAwardBalancesReportLookupResultLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="contractsGrantsAwardBalancesReportLookupResultLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 			<ref bean="contractsGrantsAwardBalancesReportLookupableHelperService" />
 		</property>

@@ -288,7 +288,7 @@
 		scope="prototype" parent="lookupableHelperService" />
 
 	<bean id="accountLookupable"  parent="accountLookupable-parentBean" scope="prototype"/>
-	<bean id="accountLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl"
+	<bean id="accountLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl"
 		 abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="accountLookupableHelperService" />
@@ -301,7 +301,7 @@
 		scope="prototype" parent="lookupableHelperService" />
 
 	<bean id="organizationRoutingModelLookupable"  parent="organizationRoutingModelLookupable-parentBean" scope="prototype"/>
-	<bean id="organizationRoutingModelLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl"
+	<bean id="organizationRoutingModelLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl"
 		 abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="organizationRoutingModelLookupableHelperService" />
@@ -314,7 +314,7 @@
 		scope="prototype" parent="lookupableHelperService" />
 
 	<bean id="indirectCostRecoveryExclusionByTypeLookupable"  parent="indirectCostRecoveryExclusionByTypeLookupable-parentBean" scope="prototype"/>
-	<bean id="indirectCostRecoveryExclusionByTypeLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl"
+	<bean id="indirectCostRecoveryExclusionByTypeLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl"
 		 abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="indirectCostRecoveryExclusionByTypeLookupableHelperService" />
@@ -605,7 +605,7 @@
 		<property name="orgReviewRoleService" ref="orgReviewRoleService" />
     </bean>
 
-	<bean id="orgReviewRoleLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" parent="kualiLookupable" scope="prototype">
+	<bean id="orgReviewRoleLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="kualiLookupable" scope="prototype">
         <property name="lookupableHelperService" ref="orgReviewRoleLookupableHelperService" />
     </bean>
     

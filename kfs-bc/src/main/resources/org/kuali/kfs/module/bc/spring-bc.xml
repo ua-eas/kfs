@@ -262,7 +262,7 @@
 	</bean>
 	
 	<bean id="intendedIncumbentSelectLookupable"  parent="intendedIncumbentSelectLookupable-parentBean" scope="prototype"/>
-	<bean id="intendedIncumbentSelectLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="intendedIncumbentSelectLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="intendedIncumbentSelectLookupableHelperService" />
 		</property>
@@ -289,7 +289,7 @@
 	</bean>
 
 	<bean id="positionSelectLookupable"  parent="positionSelectLookupable-parentBean" scope="prototype"/>
-	<bean id="positionSelectLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="positionSelectLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="positionSelectLookupableHelperService" />
 		</property>
@@ -346,7 +346,7 @@
 	</bean>
 
 	<bean id="accountSelectLookupable"  parent="accountSelectLookupable-parentBean" scope="prototype"/>
-	<bean id="accountSelectLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="accountSelectLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="accountSelectLookupableHelperService" />
 		</property>
@@ -375,7 +375,7 @@
 	</bean>
 
 	<bean id="lockMonitorLookupable"  parent="lockMonitorLookupable-parentBean" scope="prototype"/>
-	<bean id="lockMonitorLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="lockMonitorLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="lockMonitorLookupableHelperService" />
 		</property>
@@ -408,7 +408,7 @@
 	</bean>
 
 	<bean id="requestBenefitsLookupable"  parent="requestBenefitsLookupable-parentBean" scope="prototype"/>
-	<bean id="requestBenefitsLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="requestBenefitsLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="requestBenefitsLookupableHelperService" />
 		</property>
@@ -1116,7 +1116,7 @@
 	</bean>
 	
 	<bean id="csfTrackerLookupable"  parent="csfTrackerLookupable-parentBean" scope="prototype"/>
-	<bean id="csfTrackerLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="csfTrackerLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="csfTrackerLookupableHelperServiceImpl" />
 		</property>
