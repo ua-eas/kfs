@@ -655,6 +655,7 @@
     </bean>
 
 	<bean id="moduleLookupable" parent="moduleLookupable-parentBean"/>
+
 	<bean id="moduleLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
 		<property name="lookupableHelperService">
         	<bean class="org.kuali.kfs.sys.businessobject.lookup.ModuleLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" >
@@ -693,6 +694,7 @@
     </bean>
 
 	<bean id="businessObjectPropertyLookupable" parent="businessObjectPropertyLookupable-parentBean" scope="prototype"/>
+
     <bean id="businessObjectPropertyLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
         <property name="lookupableHelperService">
             <bean class="org.kuali.kfs.sys.businessobject.lookup.BusinessObjectPropertyLookupableHelperServiceImpl" parent="lookupableHelperService">
