@@ -60,6 +60,7 @@
  	<bean id="noteService" p:serviceName="kfs.noteService" parent="grlBeanImporter" />
  	<bean id="businessObjectService" p:serviceName="kfs.businessObjectService" parent="grlBeanImporter" />
  	<bean id="kualiRuleService" p:serviceName="kfs.kualiRuleService" parent="grlBeanImporter" />
+ 	<bean id="keyValuesService" p:serviceName="kfs.keyValuesService" parent="grlBeanImporter" />
  	<bean id="businessObjectMetaDataService" p:serviceName="kfs.businessObjectMetaDataService" parent="grlBeanImporter" />
  	<bean id="lookupService" p:serviceName="kfs.lookupService" parent="grlBeanImporter" />
  	<bean id="lookupResultsService" p:serviceName="kfs.lookupResultsService" parent="grlBeanImporter" />
