@@ -605,7 +605,7 @@
 		<property name="orgReviewRoleService" ref="orgReviewRoleService" />
     </bean>
 
-	<bean id="orgReviewRoleLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="kualiLookupable" scope="prototype">
+	<bean id="orgReviewRoleLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="kfs.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService" ref="orgReviewRoleLookupableHelperService" />
     </bean>
     

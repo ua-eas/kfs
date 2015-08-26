@@ -156,11 +156,11 @@
 		<property name="dbPlatform" ref="dbPlatform" />
 	</bean>
 
-	<bean id="kualiLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="kfs.kualiLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService" ref="lookupableHelperService" />
 	</bean>
 
-    <bean id="kualiInquirable" class="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" scope="prototype" />
+    <bean id="kfs.kualiInquirable" class="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" scope="prototype" />
 
 	<bean id="lookupableHelperService"
 		class="org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl"

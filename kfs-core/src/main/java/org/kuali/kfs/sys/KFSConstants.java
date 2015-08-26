@@ -376,7 +376,7 @@ public class KFSConstants {
     public static final String LOOKUP_ANCHOR = "lookupAnchor";
     public static final String LOOKUPABLE_IMPL_ATTRIBUTE_NAME = "lookupableImplServiceName";
     public static final String LOOKUPABLE_SUFFIX = "Lookupable";
-    public static final String KUALI_LOOKUPABLE_IMPL = "kualiLookupable";
+    public static final String KUALI_LOOKUPABLE_IMPL = "kfs.kualiLookupable";
     public static final String KUALI_DISBURSEMENT_PAYEE_LOOKUPABLE_IMPL = "disbursementPayeeLookupable";
     public static final String KUALI_VENDOR_ADDRESS_LOOKUPABLE_IMPL = "vendorAddressLookupable";
     public static final String DOC_HANDLER_ACTION = "DocHandler.do";
