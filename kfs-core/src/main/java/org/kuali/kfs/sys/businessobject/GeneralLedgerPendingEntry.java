@@ -44,8 +44,8 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseCons
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.kfs.kew.doctype.bo.DocumentType;
-import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.rice.kew.doctype.bo.DocumentType;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**

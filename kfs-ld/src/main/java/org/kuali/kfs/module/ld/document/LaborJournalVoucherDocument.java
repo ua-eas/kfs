@@ -41,7 +41,7 @@ import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.HomeOriginationService;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
@@ -133,7 +133,7 @@ public class LaborJournalVoucherDocument extends JournalVoucherDocument implemen
             if ( StringUtils.isNotBlank(documentHeader.getWorkflowDocument().getDocumentTypeName()) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(documentHeader.getWorkflowDocument().getDocumentTypeName());
                 if ( docType != null ) {
-                    financialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
+                    financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }

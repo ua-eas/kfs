@@ -30,7 +30,7 @@
                            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-lazy-init="false">
 
 <!-- KRAD -->
-	<!--bean id="kfs.kualiModuleService" class="org.kuali.kfs.sys.service.impl.KfsKualiModuleServiceImpl"/-->
+	<!--<bean id="kfs.kualiModuleService" class="org.kuali.kfs.sys.service.impl.KfsKualiModuleServiceImpl"/>-->
 
 	<bean id="documentHelperService" class="org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl"/>
 

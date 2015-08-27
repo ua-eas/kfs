@@ -34,7 +34,7 @@ import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 
 /**
  * Accounting line for the asset payment document.
@@ -226,7 +226,7 @@ public class AssetPaymentDetail extends SourceAccountingLine {
             if ( StringUtils.isNotBlank(expenditureFinancialDocumentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(expenditureFinancialDocumentTypeCode);
                 if ( docType != null ) {
-                    expenditureFinancialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
+                    expenditureFinancialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }

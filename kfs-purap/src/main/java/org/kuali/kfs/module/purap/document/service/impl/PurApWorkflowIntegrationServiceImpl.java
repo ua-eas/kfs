@@ -79,7 +79,7 @@ public class PurApWorkflowIntegrationServiceImpl implements PurApWorkflowIntegra
                 LOG.debug("Active Action Request list size to process is " + actionRequests.size());
                 LOG.debug("Attempting to super user approve action request with id " + actionRequestDTO.getId());
             }
-            SpringContext.getBean(org.kuali.kfs.kew.routeheader.service.WorkflowDocumentService.class).superUserActionRequestApproveAction(superUser.getPrincipalId(), documentNumber, actionRequestDTO.getId(), annotation, true );
+            SpringContext.getBean(org.kuali.rice.kew.routeheader.service.WorkflowDocumentService.class).superUserActionRequestApproveAction(superUser.getPrincipalId(), documentNumber, actionRequestDTO.getId(), annotation, true );
             break;
         }
     }

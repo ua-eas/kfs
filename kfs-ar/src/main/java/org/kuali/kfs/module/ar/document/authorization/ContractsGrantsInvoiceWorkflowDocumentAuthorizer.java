@@ -28,9 +28,9 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kew.doctype.bo.DocumentType;
-import org.kuali.kfs.kew.doctype.service.impl.KimDocumentTypeAuthorizer;
-import org.kuali.kfs.kew.routeheader.DocumentRouteHeaderValue;
+import org.kuali.rice.kew.doctype.bo.DocumentType;
+import org.kuali.rice.kew.doctype.service.impl.KimDocumentTypeAuthorizer;
+import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.KRADConstants;
@@ -72,7 +72,7 @@ public class ContractsGrantsInvoiceWorkflowDocumentAuthorizer extends KimDocumen
     /**
      * Overridden to pass in the current user's principal id as a qualifier to help determine if they are a Fund Manager.
      *
-     * @see org.kuali.kfs.kew.doctype.service.impl.DocumentActionsPermissionBase#canInitiate(java.lang.String, org.kuali.kfs.kew.doctype.bo.DocumentType)
+     * @see org.kuali.rice.kew.doctype.service.impl.DocumentActionsPermissionBase#canInitiate(java.lang.String, org.kuali.rice.kew.doctype.bo.DocumentType)
      */
     @Override
     public boolean canInitiate(String principalId, DocumentType documentType) {

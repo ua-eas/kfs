@@ -29,7 +29,7 @@ import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.kfs.vnd.businessobject.VendorType;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 
-public class KfsKimAttributes extends org.kuali.kfs.kim.bo.impl.KimAttributes {
+public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
 
     public static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";
     public static final String ACCOUNT_NUMBER = "accountNumber";

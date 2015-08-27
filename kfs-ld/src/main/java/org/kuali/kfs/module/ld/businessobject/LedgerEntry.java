@@ -45,7 +45,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 
@@ -1192,7 +1192,7 @@ public class LedgerEntry extends Entry implements LaborLedgerEntry {
             if ( StringUtils.isNotBlank(financialDocumentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(financialDocumentTypeCode);
                 if ( docType != null ) {
-                    financialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
+                    financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }
@@ -1210,7 +1210,7 @@ public class LedgerEntry extends Entry implements LaborLedgerEntry {
             if ( StringUtils.isNotBlank(referenceFinancialDocumentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(referenceFinancialDocumentTypeCode);
                 if ( docType != null ) {
-                    referenceFinancialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
+                    referenceFinancialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }
