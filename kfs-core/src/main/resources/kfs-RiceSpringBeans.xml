@@ -49,7 +49,7 @@
 		<property name="applicationDataSource" ref="dataSource" />
 	</bean>
 
-	<!--<bean id="coreServiceConfigurer" class="org.kuali.kfs.coreservice.impl.config.CoreServiceConfigurer" />-->
+	<bean id="coreServiceConfigurer" class="org.kuali.rice.coreservice.impl.config.CoreServiceConfigurer" />
 
 	<bean id="kimConfigurer" class="org.kuali.rice.kim.config.KIMConfigurer" />
 
