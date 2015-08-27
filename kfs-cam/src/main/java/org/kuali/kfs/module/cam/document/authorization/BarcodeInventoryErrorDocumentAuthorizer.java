@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.cam.document.authorization;
 
-import org.kuali.kfs.kew.service.KEWServiceLocator;
+import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;

@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.workflow;
 
-import org.kuali.kfs.kew.actionlist.CustomActionListAttribute;
+import org.kuali.rice.kew.actionlist.CustomActionListAttribute;
 import org.kuali.rice.kew.api.action.ActionSet;
 import org.kuali.rice.kew.api.actionlist.DisplayParameters;
 

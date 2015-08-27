@@ -43,7 +43,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.AccountingLineRuleHelperService;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.util.GlobalVariables;

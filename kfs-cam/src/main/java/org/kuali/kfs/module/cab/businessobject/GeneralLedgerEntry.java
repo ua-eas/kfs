@@ -38,7 +38,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
@@ -701,7 +701,7 @@ public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
             if ( StringUtils.isNotBlank(financialDocumentTypeCode) ) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(financialDocumentTypeCode);
                 if ( docType != null ) {
-                    financialSystemDocumentTypeCode = org.kuali.kfs.kew.doctype.bo.DocumentType.from(docType);
+                    financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
         }

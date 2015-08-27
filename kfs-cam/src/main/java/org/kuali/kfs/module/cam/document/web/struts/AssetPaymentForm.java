@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.kfs.kew.doctype.bo.DocumentTypeEBO;
+import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.service.SessionDocumentService;
 import org.kuali.kfs.krad.util.KRADConstants;
