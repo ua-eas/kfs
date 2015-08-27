@@ -23,7 +23,7 @@
 	htmlFormAction="arContractsGrantsInvoiceSummary"
 	docTitle="Contracts & Grants Invoice Summary">
 
-	<div id="globalbuttons" class="globalbuttons">
+	<div>
 		<c:if test="${KualiForm.awardInvoiced}">
 			<html:image
 				src="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif"
@@ -38,14 +38,14 @@
 			</ar:documentSummaryResults>
 			<kul:panelFooter />
 			<html:image
-				src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif"
-				styleClass="globalbuttons"
-				property="methodToCall.createInvoices.number${KualiForm.lookupResultsSequenceNumber}"
-				title="create Invoices" alt="create Invoices" />
+					src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif"
+					styleClass="globalbuttons"
+					property="methodToCall.createInvoices.number${KualiForm.lookupResultsSequenceNumber}"
+					title="create Invoices" alt="create Invoices" />
 			<html:image
-				src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif"
-				styleClass="globalbuttons" property="methodToCall.cancel"
-				title="cancel" alt="cancel" />
+					src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif"
+					styleClass="globalbuttons" property="methodToCall.cancel"
+					title="cancel" alt="cancel" />
 		</c:if>
 	</div>
 </kul:page>

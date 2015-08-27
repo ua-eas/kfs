@@ -99,7 +99,7 @@
 			</c:otherwise>
 		</c:choose>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
 		<link href='${pageContext.request.contextPath}/css/newPortal.css' rel='stylesheet' type='text/css'>
 		<link href='${pageContext.request.contextPath}/css/lookup.css' rel='stylesheet' type='text/css'>
 		<c:if test="${param.mode ne 'modal'}">
