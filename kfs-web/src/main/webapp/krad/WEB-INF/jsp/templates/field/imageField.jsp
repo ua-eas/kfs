@@ -17,7 +17,7 @@
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
 
-<tiles:useAttribute name="field" classname="org.kuali.rice.krad.uif.field.ImageField"/>
+<tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.ImageField"/>
 
 <%--
     Standard HTML Image element

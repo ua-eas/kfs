@@ -27,7 +27,7 @@ import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 
-public class SecUtil {
+public class    SecUtil {
 
     /**
      * Calls access security service to check view access on given GLPE for current user. Access to view the GLPE on the document should be related to the view permissions for an

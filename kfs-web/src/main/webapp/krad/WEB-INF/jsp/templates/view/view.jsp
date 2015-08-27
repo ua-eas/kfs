@@ -17,7 +17,7 @@
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
 
-<tiles:useAttribute name="view"	classname="org.kuali.rice.krad.uif.view.View" />
+<tiles:useAttribute name="view"	classname="org.kuali.kfs.krad.uif.view.View" />
 
 <krad:html view="${view}">
 <!-- begin of view render -->

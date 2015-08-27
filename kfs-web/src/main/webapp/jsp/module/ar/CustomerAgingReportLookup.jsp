@@ -76,7 +76,7 @@
                                 <c:if
                                         test="${not empty KualiForm.lookupable.extraButtonSource}">
                                     <a
-                                            href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.rice.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'
+                                            href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'
                                             title="cancel">
                                         <img src='<c:out value="${KualiForm.lookupable.extraButtonSource}" />'
                                              class="tinybutton" border="0" alt="cancel"/></a>
