@@ -23,7 +23,7 @@
 	htmlFormAction="arGenerateDunningLettersSummary"
 	docTitle="Generate Dunning Letters Summary">
 
-	<div id="globalbuttons" class="globalbuttons">
+	<div>
 		<c:choose>
 			<c:when test ="${KualiForm.dunningLettersGenerated}">
 				<html:image
