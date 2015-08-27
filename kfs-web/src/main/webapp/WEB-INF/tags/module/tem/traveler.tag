@@ -17,7 +17,6 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
-<c:set var="personAttributes" value="${DataDictionary.PersonImpl.attributes}" />
 <c:set var="documentAttributes" value="${DataDictionary.TravelAuthorizationDocument.attributes}" />
 <c:set var="travelerAttributes" value="${DataDictionary.TravelerDetail.attributes}" />
 <c:set var="docType" value="${KualiForm.document.dataDictionaryEntry.documentTypeName}"/>
