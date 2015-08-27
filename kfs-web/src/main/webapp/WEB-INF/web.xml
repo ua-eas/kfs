@@ -106,12 +106,12 @@
 
   <filter>
     <filter-name>UserLoginFilter</filter-name>
-    <filter-class>org.kuali.rice.kew.web.UserLoginFilter</filter-class>
+    <filter-class>org.kuali.kfs.krad.web.filter.UserLoginFilter</filter-class>
   </filter>
 
   <filter>
     <filter-name>UserPreferencesFilter</filter-name>
-    <filter-class>org.kuali.rice.kew.web.UserPreferencesFilter</filter-class>
+    <filter-class>org.kuali.kfs.krad.web.filter.UserPreferencesFilter</filter-class>
   </filter>
   
   <filter>
