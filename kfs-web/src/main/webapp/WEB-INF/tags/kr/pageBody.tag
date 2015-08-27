@@ -158,7 +158,7 @@
                         <c:set var="docHeaderAttributes" value="${DataDictionary.DocumentHeader.attributes}" />
                         <c:if test="${showDocumentInfo}">
                             <c:set var="KualiForm" value="${KualiForm}" />
-                            <jsp:useBean id="KualiForm" type="org.kuali.rice.kns.web.struts.form.KualiForm" />
+                            <jsp:useBean id="KualiForm" type="org.kuali.kfs.kns.web.struts.form.KualiForm" />
 
                             <c:set var="numberOfHeaderRows" value="<%=new Integer((int) java.lang.Math.ceil((double) KualiForm.getDocInfo().size()/KualiForm.getNumColumns()))%>" />
                             <c:set var="headerFieldCount" value="<%=new Integer(KualiForm.getDocInfo().size())%>" />
