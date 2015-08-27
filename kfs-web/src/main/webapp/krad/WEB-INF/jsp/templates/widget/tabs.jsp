@@ -17,7 +17,7 @@
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
 
-<tiles:useAttribute name="widget" classname="org.kuali.rice.krad.uif.widget.Tabs"/>
-<tiles:useAttribute name="parent" classname="org.kuali.rice.krad.uif.container.Group"/>
+<tiles:useAttribute name="widget" classname="org.kuali.kfs.krad.uif.widget.Tabs"/>
+<tiles:useAttribute name="parent" classname="org.kuali.kfs.krad.uif.container.Group"/>
 
 <krad:script value="createTabs('${parent.id}', ${widget.componentOptionsJSString});"/>

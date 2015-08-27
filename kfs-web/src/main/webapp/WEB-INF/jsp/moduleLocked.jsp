@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@ page import="org.kuali.rice.krad.util.KRADConstants"%>
+<%@ page import="org.kuali.kfs.krad.util.KRADConstants"%>
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 <html>
 <head>

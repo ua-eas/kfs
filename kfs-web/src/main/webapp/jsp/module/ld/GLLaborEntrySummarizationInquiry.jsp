@@ -69,7 +69,7 @@
 						<c:set var="title" value="${column.propertyValue}" />
 					</c:if>
 					
-					<display:column class="${column.formatter.implementationClass == 'org.kuali.rice.kns.web.format.CurrencyFormatter' ? 'numbercell' : 'infocell'}" sortable="${column.sortable}" decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator" title="${column.columnTitle}" comparator="${column.comparator}">
+					<display:column class="${column.formatter.implementationClass == 'org.kuali.rice.kns.web.format.CurrencyFormatter' ? 'numbercell' : 'infocell'}" sortable="${column.sortable}" decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator" title="${column.columnTitle}" comparator="${column.comparator}">
 						<c:choose>
 							<c:when test="${!empty column.propertyURL}">
 								<a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${column.columnAnchor.title}" />" target="_blank"><c:out value="${column.propertyValue}" /></a>	

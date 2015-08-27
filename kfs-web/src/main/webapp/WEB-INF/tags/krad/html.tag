@@ -17,7 +17,7 @@
 
 <%@ attribute name="view" required="true" 
               description="The view instance the html page is being rendered for."
-              type="org.kuali.rice.krad.uif.view.View"%>
+              type="org.kuali.kfs.krad.uif.view.View"%>
 
 <!DOCTYPE HTML>
 <html lang="en">

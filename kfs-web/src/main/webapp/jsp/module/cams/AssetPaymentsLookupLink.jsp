@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ page import="org.kuali.rice.krad.util.KRADConstants"%>
+<%@ page import="org.kuali.kfs.krad.util.KRADConstants"%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <!-- Make sure it isn't a fabrication -->
