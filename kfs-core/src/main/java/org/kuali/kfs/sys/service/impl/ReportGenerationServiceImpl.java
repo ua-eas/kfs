@@ -102,7 +102,9 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     protected Map<String, Object> decorateReportData(Map<String, Object> reportData) {
         Map<String, Object> decoratedReportData = new ConcurrentHashMap<>();
         decoratedReportData.putAll(reportData);
-        decoratedReportData.put(ReportGeneration.PARAMETER_NAME_SUBREPORT_DIR, new File(System.getProperty("java.io.tmpdir").concat(File.separator).concat(reportData.get(ReportGeneration.PARAMETER_NAME_SUBREPORT_DIR).toString())).getAbsolutePath().concat(File.separator));
+        if (reportData.containsKey(ReportGeneration.PARAMETER_NAME_SUBREPORT_DIR)) {
+            decoratedReportData.put(ReportGeneration.PARAMETER_NAME_SUBREPORT_DIR, new File(System.getProperty("java.io.tmpdir").concat(File.separator).concat(reportData.get(ReportGeneration.PARAMETER_NAME_SUBREPORT_DIR).toString())).getAbsolutePath().concat(File.separator));
+        }
         return decoratedReportData;
     }
 
