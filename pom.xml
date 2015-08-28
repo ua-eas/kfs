@@ -1144,6 +1144,17 @@
         <enabled>true</enabled>
       </releases>
     </repository>
+    <repository>
+      <id>kualico.nexus</id>
+      <name>Kuali Foundation Nexus Group</name>
+      <url>http://nexus.kuali.org/content/groups/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
   </repositories>
 
   <pluginRepositories>
