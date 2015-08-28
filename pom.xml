@@ -839,11 +839,11 @@
       <artifactId>barcode4j</artifactId>
       <version>${barcode4j.version}</version>
     </dependency>
-    <dependency>
-      <groupId>commons-net-ftp</groupId>
-      <artifactId>commons-net-ftp</artifactId>
-      <version>${commons.net.ftp.version}</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>commons-net-ftp</groupId>-->
+      <!--<artifactId>commons-net-ftp</artifactId>-->
+      <!--<version>${commons.net.ftp.version}</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>com.lowagie</groupId>
       <artifactId>itext</artifactId>
@@ -1033,6 +1033,12 @@
       <artifactId>xapool</artifactId>
       <version>${xapool.version}</version>
       <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.oracle</groupId>
+          <artifactId>ojdbc7</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
