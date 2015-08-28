@@ -1159,9 +1159,9 @@
       </releases>
     </repository>
     <repository>
-      <id>kuali.foundation.nexus</id>
+      <id>foundation.nexus</id>
       <name>Kuali Foundation Nexus Group</name>
-      <url>http://nexus.kuali.org/content/groups/</url>
+      <url>http://nexus.kuali.org/content/groups/public</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
