@@ -87,6 +87,11 @@
 
     </bean>
 
+	<bean id="fileStorageService" parent="fileStorageService-parentBean"/>
+	<bean id="fileStorageService-parentBean" class="org.kuali.kfs.sys.service.impl.FileSystemFileStorageServiceImpl" abstract="true">
+		<property name="pathPrefix" value="${work.directory}"/>
+	</bean>
+
     <bean id="financialSystemModuleService" parent="financialSystemModuleService-parentBean"/>
     <bean id="financialSystemModuleService-parentBean" class="org.kuali.kfs.sys.service.impl.KfsModuleServiceImpl" abstract="true">
     	<property name="moduleConfiguration" ref="financialSystemModuleConfiguration" />
