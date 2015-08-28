@@ -1145,7 +1145,7 @@
       </releases>
     </repository>
     <repository>
-      <id>kualico.nexus</id>
+      <id>kuali.foundation.nexus</id>
       <name>Kuali Foundation Nexus Group</name>
       <url>http://nexus.kuali.org/content/groups/</url>
       <snapshots>
