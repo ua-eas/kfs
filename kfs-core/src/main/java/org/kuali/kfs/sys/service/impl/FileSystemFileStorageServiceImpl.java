@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -135,7 +136,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         File dir = new File(getFullPathname(prefix));
 
         for (File f : dir.listFiles()) {
-            if ( (extension == null) || (f.getName().toLowerCase().endsWith(extension)) ) {
+            if ( (extension == null) || (f.getName().toLowerCase().endsWith(extension.toLowerCase())) ) {
                 matches.add(f.getName());
             }
         }
@@ -163,8 +164,7 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
         }
 
         File dir = new File(getFullPathname(dirname));
-        File[] files = dir.listFiles();
-        for (File f : files) {
+        for (File f : dir.listFiles()) {
             if (f.isDirectory()) {
                 emptyDirectory(dirname + separator() + f.getName());
             } else {
