@@ -433,7 +433,7 @@
         </property> 
 	</bean>
 	
-	<bean id="disbursementPayeeInquirable" class="org.kuali.kfs.fp.businessobject.inquirable.DisbursementPayeeInquirableImpl" scope="prototype" parent="kfs.kualiInquirable"/>
+	<bean id="disbursementPayeeInquirable" class="org.kuali.kfs.fp.businessobject.inquirable.DisbursementPayeeInquirableImpl" scope="prototype" parent="cf.kualiInquirable"/>
 	
 	<bean id="disbursementVoucherPaymentReasonService"  parent="disbursementVoucherPaymentReasonService-parentBean"/>
 	<bean id="disbursementVoucherPaymentReasonService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherPaymentReasonServiceImpl"  abstract="true">

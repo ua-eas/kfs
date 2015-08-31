@@ -259,7 +259,7 @@
     <bean id="agencyStagingDataLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.AgencyStagingDataLookupableHelperServiceImpl" parent="lookupableHelperService" />
 
 	<bean id="agencyStagingDataLookupable" parent="agencyStagingDataLookupable-parentBean" scope="prototype" />    
-    <bean id="agencyStagingDataLookupable-parentBean" abstract="true" parent="kfs.kualiLookupable">
+    <bean id="agencyStagingDataLookupable-parentBean" abstract="true" parent="cf.kualiLookupable">
         <property name="lookupableHelperService">
             <ref bean="agencyStagingDataLookupableHelperService" />
         </property>
@@ -269,7 +269,7 @@
     <bean id="creditCardStagingDataLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.CreditCardStagingDataLookupableHelperServiceImpl" parent="lookupableHelperService" />
 
 	<bean id="creditCardStagingDataLookupable" parent="creditCardStagingDataLookupable-parentBean" scope="prototype" />    
-    <bean id="creditCardStagingDataLookupable-parentBean" abstract="true" parent="kfs.kualiLookupable">
+    <bean id="creditCardStagingDataLookupable-parentBean" abstract="true" parent="cf.kualiLookupable">
         <property name="lookupableHelperService">
             <ref bean="creditCardStagingDataLookupableHelperService" />
         </property>

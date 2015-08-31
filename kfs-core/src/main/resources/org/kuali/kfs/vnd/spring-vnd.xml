@@ -355,13 +355,13 @@
 		</property>
 	</bean>
 	
-	<bean id="vendorExclusionLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="kfs.kualiLookupable" scope="prototype">
+	<bean id="vendorExclusionLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="cf.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService">
          	<ref bean="vendorExclusionLookupableHelperServiceImpl" />   
         </property>
     </bean>
      
-    <bean id="debarredVendorUnmatchedLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="kfs.kualiLookupable" scope="prototype">
+    <bean id="debarredVendorUnmatchedLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="cf.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService">
          	<ref bean="debarredVendorUnmatchedLookupableHelperServiceImpl" />   
         </property>

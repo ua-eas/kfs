@@ -111,7 +111,7 @@ public class TempListLookupForm extends LookupForm {
             if (BCConstants.TEMP_LIST_UNLOCK_METHOD.equals(getMethodToCall())) {
                 String lookupImplID = SpringContext.getBean(BusinessObjectDictionaryService.class).getLookupableID(BudgetConstructionLockSummary.class);
                 if (lookupImplID == null) {
-                    lookupImplID = "kfs.kualiLookupable";
+                    lookupImplID = "cf.kualiLookupable";
                 }
 
                 setLookupableImplServiceName(lookupImplID);

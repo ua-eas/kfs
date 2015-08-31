@@ -256,7 +256,7 @@
     	class="org.kuali.kfs.module.external.kc.service.impl.ExternalizableLookupableHelperServiceImpl"/>    
     
     <bean id="awardLookupable" parent="awardLookupable-parentBean"/>
-    <bean id="awardLookupable-parentBean" abstract="true" scope="prototype" parent="kfs.kualiLookupable">
+    <bean id="awardLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="awardLookupableHelperService"/>
     </bean>
     
@@ -266,7 +266,7 @@
     </bean>
     
     <bean id="unitLookupable" parent="unitLookupable-parentBean"/>
-    <bean id="unitLookupable-parentBean" abstract="true" scope="prototype" parent="kfs.kualiLookupable">
+    <bean id="unitLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="unitLookupableHelperService"/>
     </bean>
     
@@ -276,7 +276,7 @@
     </bean>
     
     <bean id="cfdaLookupable" parent="cfdaLookupable-parentBean"/>
-    <bean id="cfdaLookupable-parentBean" abstract="true" scope="prototype" parent="kfs.kualiLookupable">
+    <bean id="cfdaLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="cfdaLookupableHelperService"/>
     </bean>
     
@@ -286,7 +286,7 @@
     </bean>
 
     <bean id="sponsorLookupable" parent="sponsorLookupable-parentBean"/>
-    <bean id="sponsorLookupable-parentBean" abstract="true" scope="prototype" parent="kfs.kualiLookupable">
+    <bean id="sponsorLookupable-parentBean" abstract="true" scope="prototype" parent="cf.kualiLookupable">
     	<property name="lookupableHelperService" ref="sponsorLookupableHelperService"/>
     </bean>
     
