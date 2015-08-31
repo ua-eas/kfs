@@ -54,9 +54,9 @@
     <url>http://jira.kuali.org/</url>
   </issueManagement>
   <scm>
-    <developerConnection>scm:git:git@github.com:kuali/kfs.git</developerConnection>
-    <connection>scm:git:git@github.com:kuali/kfs.git</connection>
-    <url>https://github.com/kuali/kfs/tree/${project.scm.tag}</url>
+    <developerConnection>scm:git:git@github.com:kualico/financials.git</developerConnection>
+    <connection>scm:git:git@github.com:kualico/financials.git</connection>
+    <url>https://github.com/kualico/financials/tree/${project.scm.tag}</url>
     <tag>master</tag>
   </scm>
   <developers>
