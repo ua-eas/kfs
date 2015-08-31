@@ -195,7 +195,7 @@
 	</bean>
 
 
-	<bean id="kualiMaintainable" class="org.kuali.kfs.kns.maintenance.KualiMaintainableImpl"
+	<bean id="allbran.kualiMaintainable" class="org.kuali.kfs.kns.maintenance.KualiMaintainableImpl"
 		scope="prototype">
 		<property name="persistenceStructureService">
 			<ref bean="persistenceStructureService" />
