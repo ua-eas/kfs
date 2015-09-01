@@ -33,6 +33,7 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 public enum UniversityDateServiceFixture {
 
     DATE_2009_03_14(2009, "09", 3, 14),
+    DATE_2015_01_01(2015, "01", 7, 1),
     DATE_EMPTY(0, null, 0, 0);
 
 

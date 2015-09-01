@@ -29,6 +29,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.gl.batch.service.impl.IcrEncumbranceServiceImpl;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
@@ -37,8 +39,10 @@ import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDocumentErrorLog;
 import org.kuali.kfs.module.ar.businessobject.InvoiceAccountDetail;
+import org.kuali.kfs.module.ar.dataaccess.AwardAccountObjectCodeTotalBilledDao;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
+import org.kuali.kfs.module.ar.document.service.CustomerService;
 import org.kuali.kfs.module.ar.fixture.ARAgencyFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardAccountFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
@@ -46,12 +50,23 @@ import org.kuali.kfs.module.ar.fixture.ContractsGrantsInvoiceDocumentFixture;
 import org.kuali.kfs.module.ar.fixture.InvoiceAccountDetailFixture;
 import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateDocumentService;
 import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateTestBase;
+import org.kuali.kfs.module.ar.service.CostCategoryService;
+import org.kuali.kfs.module.ar.service.impl.ContractsGrantsInvoiceCreateDocumentServiceImpl;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.AwardAccount;
 import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
+import org.kuali.kfs.sys.fixture.UniversityDateServiceFixture;
+import org.kuali.kfs.sys.service.OptionsService;
+import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.rice.krad.service.DocumentService;
 import org.kuali.rice.krad.util.ErrorMessage;
 
 @ConfigureContext(session = khuntley)
@@ -312,15 +327,19 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     }
 
     @ConfigureContext(session = wklykins)
-    public void testManualCreateCGInvoiceDocumentsByAwardsOneValid() {
+    public void testManualCreateCGInvoiceDocumentsByAwardsOneValid() throws Exception {
+        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService = getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService();
+
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
 
         List<ErrorMessage> errorMessages = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentsByAwards(awards, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL);
 
-        assertTrue("errorMessages should be empty.", errorMessages.size() == 0);
+        assertEquals("errorMessages should be empty.", 0, errorMessages.size());
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
-        assertTrue("no errors should be persisted", persistedErrors.size() == 0);
+        assertEquals("no errors should be persisted", 0, persistedErrors.size());
+
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(originalUniversityDateService);
     }
 
     public void testManualCreateCGInvoiceDocumentsByAwardsEmptyAwardsList() {
@@ -416,9 +435,10 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     }
 
     @ConfigureContext(session = wklykins)
-    public void testManualCreateCGInvoiceDocumentsByAccountOneBillableOneNonBillable() {
+    public void testManualCreateCGInvoiceDocumentsByAccountOneBillableOneNonBillable() throws Exception {
+        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService = getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService();
+
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
-        List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         Award award = ((Award)awards.get(0));
         award.setInvoicingOptionCode(ArConstants.INV_ACCOUNT);
         AwardAccount awardAccount_2 = ARAwardAccountFixture.AWD_ACCT_WITH_CCA_2.createAwardAccount();
@@ -426,20 +446,22 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         awardAccount_2.refreshReferenceObject("account");
         award.getAwardAccounts().add(awardAccount_2);
 
-        errorMessages = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentsByAwards(awards, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL);
+        List<ErrorMessage> errorMessages = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentsByAwards(awards, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL);
 
         String errorMessage = configurationService.getPropertyValueAsString(ArKeyConstants.ContractsGrantsInvoiceCreateDocumentConstants.NON_BILLABLE);
         errorMessage = MessageFormat.format(errorMessage, awardAccount_2.getAccountNumber(), award.getProposalNumber().toString());
 
-        assertTrue("errorMessages should not be empty.", errorMessages.size() == 1);
+        assertEquals("errorMessages should contain one message", 1, errorMessages.size());
         assertTrue("errorMessages should contain the error we're expecting.", messagesContainsExpectedError(errorMessages, errorMessage));
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
-        assertTrue("one error should be persisted", persistedErrors.size() == 1);
+        assertEquals("one error should be persisted", 1, persistedErrors.size());
         for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
+
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(originalUniversityDateService);
     }
 
     @ConfigureContext(session = wklykins)
