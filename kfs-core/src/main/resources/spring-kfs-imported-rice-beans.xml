@@ -71,7 +71,7 @@
  	<!-- TODO: Remove use of the bean below in favor of "knsDictionaryValidationService"
  				Eventually, we may want to start using the KRAD dictionary files and this is hiding it from
  				being used for spring injection. -->
- 	<bean id="dictionaryValidationService" p:serviceName="dictionaryValidationService" parent="grlBeanImporter" />
+ 	<bean id="dictionaryValidationService" p:serviceName="cf.dictionaryValidationService" parent="grlBeanImporter" />
  	<bean id="knsDictionaryValidationService" p:serviceName="cf.knsDictionaryValidationService" parent="grlBeanImporter" />
  	<bean id="persistenceService" p:serviceName="cf.persistenceService" parent="grlBeanImporter" />
 	<bean id="persistenceServiceOjb" p:serviceName="cf.persistenceServiceOjb" parent="grlBeanImporter"/>
@@ -90,7 +90,8 @@
  	<bean id="inquiryViewTypeService" p:serviceName="cf.inquiryViewTypeService" parent="grlBeanImporter" />
  	<bean id="lookupViewTypeService" p:serviceName="cf.lookupViewTypeService" parent="grlBeanImporter" />
  	<bean id="workflowDocumentService" p:serviceName="cf.workflowDocumentService" parent="grlBeanImporter" />
- 	<bean id="businessObjectAuthorizationService" p:serviceName="cf.businessObjectAuthorizationService" parent="grlBeanImporter" />
+	<bean id="businessObjectAuthorizationService" p:serviceName="cf.businessObjectAuthorizationService" parent="grlBeanImporter" />
+	<bean id="workflowAttributePropertyResolutionService" p:serviceName="cf.workflowAttributePropertyResolutionService" parent="grlBeanImporter" />
 	<!-- KIM -->
  	<bean id="personService" p:serviceName="personService" parent="grlBeanImporter" />
  	<bean id="kimRoleService" p:serviceName="kimRoleService" parent="grlBeanImporter" />
