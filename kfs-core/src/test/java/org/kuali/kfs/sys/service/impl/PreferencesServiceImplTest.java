@@ -1,5 +1,6 @@
 package org.kuali.kfs.sys.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -35,10 +36,22 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PreferencesServiceImplTest {
+    abstract class PreferencesDaoInstitionPreferences implements PreferencesDao {
+        @Override
+        public Map<String, Object> getUserPreferences(String principalName) {
+            return null;
+        }
+
+        @Override
+        public void saveUserPreferences(String principalName, String preferences) {
+
+        }
+    }
+
     @Test
     public void testFindInstitutionPreferences_NoLinkGroups() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -59,7 +72,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_HasActionList() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -81,7 +94,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_HasSignoutUrl() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -103,7 +116,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_HasDocSearch() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -125,7 +138,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_HasHelp() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -172,7 +185,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_HasFeedback() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -206,7 +219,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_HealthyLinkGroup() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -249,7 +262,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_TransactionalDocumentTypeLinkIsTransformed() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -299,7 +312,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_MissingDocumentTypeReturnsNoLink() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -352,7 +365,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_MaintenanceDocumentTypeLinkIsTransformed() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -403,7 +416,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_GlobalMaintenanceDocumentTypeLinkIsTransformed() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
@@ -454,7 +467,7 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_RelativeLinkIsTransformed() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDao() {
+        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();

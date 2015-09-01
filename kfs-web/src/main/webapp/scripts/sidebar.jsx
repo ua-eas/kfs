@@ -5,20 +5,32 @@ let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {preferences: {}, expandedLinkGroup: ""}
+        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: ""}
     },
     componentWillMount() {
-        let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
-
+        let institutionPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
         $.ajax({
-            url: path,
+            url: institutionPath,
             dataType: 'json',
             type: 'GET',
             success: function(preferences) {
-                this.setState({preferences: preferences});
+                this.setState({institutionPreferences: preferences});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());
+            }.bind(this)
+        })
+
+        let userPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/users/khuntley"
+        $.ajax({
+            url: userPath,
+            dataType: 'json',
+            type: 'GET',
+            success: function(userPreferences) {
+                this.setState({userPreferences: userPreferences});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err.toString());
             }.bind(this)
         })
     },
@@ -31,31 +43,42 @@ var Sidebar = React.createClass({
         }
     },
     toggleSidebar() {
-        let windowWidth = $(window).width()
-        if ($('#sidebar-wrapper').width() > 25) {
-            $('#wrapper').animate({'left': '25px'}, {duration: animationTime, queue: false});
-            $('#wrapper').animate({'width': windowWidth - 25 + 'px'}, {duration: animationTime, queue: false, complete: function() {
-                $('#wrapper').css('width', 'calc(100% - 25px)')
-            }});
-            $('#sidebar-wrapper').animate({'width': '25px'}, {duration: animationTime, queue: false});
-            $('#menu-toggle').animate({'left': '0'}, {duration: animationTime, queue: false});
-            $('#menu-toggle').css('position', 'fixed');
+        let userPreferences = this.state.userPreferences;
+        let sidebarOutValue = userPreferences.sidebarOut;
+        console.log(sidebarOutValue);
+
+        if (sidebarOutValue) {
+            sidebarOutValue = false;
         } else {
-            $('#wrapper').animate({'left': '320px'}, {duration: animationTime, queue: false});
-            $('#wrapper').animate({'width': windowWidth - 320 + 'px'}, {duration: animationTime, queue: false, complete: function() {
-                $('#wrapper').css('width', 'calc(100% - 320px)')
-            }});
-            $('#sidebar-wrapper').animate({'width': '320px'}, {duration: animationTime, queue: false});
-            $('#menu-toggle').css('position', 'inherit');
+            sidebarOutValue = true;
         }
-        $('#menu-toggle>span').toggleClass('glyphicon-menu-left glyphicon-menu-right')
+
+        console.log(sidebarOutValue);
+
+        userPreferences.sidebarOut = sidebarOutValue;
+        this.setState({ userPreferences: userPreferences });
+
+        let userPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/users/khuntley"
+
+        $.ajax({
+            url: userPath,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(this.state.userPreferences),
+            type: 'PUT',
+            success: function(userPreferences) {
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(status, err.toString());
+            }.bind(this)
+        })
     },
     render() {
         let rootPath = KfsUtils.getUrlPathPrefix()
         let linkGroups = []
-        if (this.state.preferences.linkGroups) {
-            let beforeActive = findLabelBeforeActive(this.state.preferences.linkGroups, this.state.expandedLinkGroup)
-            let groups = this.state.preferences.linkGroups
+        if (this.state.institutionPreferences.linkGroups) {
+            let beforeActive = findLabelBeforeActive(this.state.institutionPreferences.linkGroups, this.state.expandedLinkGroup)
+            let groups = this.state.institutionPreferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(
                     <LinkGroup key={i}
@@ -66,6 +89,21 @@ var Sidebar = React.createClass({
                 )
             }
         }
+
+        let windowWidth = $(window).width()
+
+        if ( ! this.state.userPreferences.sidebarOut ) {
+            $('#wrapper').css('left','25px').css('width','calc(100% - 25px)');
+            $('#sidebar-wrapper').css('width','25px');
+            $('#menu-toggle').css('left','0').css('position','fixed');
+            $('#menu-toggle>span').removeClass('glyphicon-menu-left').addClass('glyphicon-menu-right');
+        } else {
+            $('#wrapper').css('left','320px').css('width','calc(100% - 320px)');
+            $('#sidebar-wrapper').css('width','320px');
+            $('#menu-toggle').css('position','inherit');
+            $('#menu-toggle>span').removeClass('glyphicon-menu-right').addClass('glyphicon-menu-left');
+        }
+
         return (
             <div id="sidebar">
                 <div id="menu-toggle" onClick={this.toggleSidebar}><span className="glyphicon glyphicon-menu-left"></span></div>
