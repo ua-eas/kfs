@@ -38,6 +38,7 @@ import org.kuali.kfs.module.ar.fixture.ARAwardAccountFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardFundManagerFixture;
 import org.kuali.kfs.module.ar.fixture.InvoiceBillFixture;
+import org.kuali.kfs.module.ar.service.impl.ContractsGrantsInvoiceCreateDocumentServiceImpl;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.AwardAccount;
 import org.kuali.kfs.module.cg.businessobject.AwardFundManager;
@@ -45,6 +46,9 @@ import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.kfs.sys.fixture.UniversityDateServiceFixture;
+import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.krad.bo.ModuleConfiguration;
 import org.kuali.rice.krad.service.BusinessObjectService;
@@ -60,6 +64,7 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
     protected DocumentService documentService;
     protected KualiModuleService kualiModuleService;
     protected AccountingPeriodService accountingPeriodService;
+    protected UniversityDateService originalUniversityDateService;
     protected VerifyBillingFrequencyService verifyBillingFrequencyService;
     protected String errorOutputFile;
 
@@ -73,6 +78,7 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
         kualiModuleService = SpringContext.getBean(KualiModuleService.class);
         accountingPeriodService = SpringContext.getBean(AccountingPeriodService.class);
         verifyBillingFrequencyService = SpringContext.getBean(VerifyBillingFrequencyService.class);
+        originalUniversityDateService = SpringContext.getBean(UniversityDateService.class);
 
         ModuleConfiguration systemConfiguration = kualiModuleService.getModuleServiceByNamespaceCode(KFSConstants.OptionalModuleNamespaces.ACCOUNTS_RECEIVABLE).getModuleConfiguration();
         String destinationFolderPath = ((FinancialSystemModuleConfiguration) systemConfiguration).getBatchFileDirectories().get(0);
@@ -166,5 +172,11 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
         predeterminedBillingSchedule.setBills(bills);
         businessObjectService.save(predeterminedBillingSchedule);
         businessObjectService.save(bill);
+    }
+
+    protected ContractsGrantsInvoiceCreateDocumentServiceImpl getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService() throws Exception {
+        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService =  (ContractsGrantsInvoiceCreateDocumentServiceImpl) TestUtils.getUnproxiedService("contractsGrantsInvoiceCreateDocumentService");
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(UniversityDateServiceFixture.DATE_2015_01_01.createUniversityDateService());
+        return contractsGrantsInvoiceCreateDocumentService;
     }
 }

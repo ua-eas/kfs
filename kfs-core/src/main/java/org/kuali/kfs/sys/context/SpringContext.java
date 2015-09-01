@@ -18,18 +18,6 @@
  */
 package org.kuali.kfs.sys.context;
 
-import static com.google.common.io.Files.createParentDirs;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import javax.xml.namespace.QName;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
@@ -37,7 +25,6 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.MemoryMonitor;
 import org.kuali.kfs.sys.batch.Step;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
-import org.kuali.kfs.sys.service.DocumentStoreSchemaUpdateService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.kuali.rice.coreservice.api.CoreServiceApiServiceLocator;
@@ -52,6 +39,27 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.Resource;
+
+import javax.xml.namespace.QName;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static com.google.common.io.Files.createParentDirs;
 
 @SuppressWarnings("deprecation")
 public class SpringContext {
@@ -416,13 +424,6 @@ public class SpringContext {
         }
     }
 
-    public static void initDocumentStore() {
-        LOG.debug("initDocumentStore() started");
-
-        DocumentStoreSchemaUpdateService documentStoreSchemaUpdateService = getBean(DocumentStoreSchemaUpdateService.class);
-        documentStoreSchemaUpdateService.updateDocumentStoreSchema();
-    }
-
     public static void registerSingletonBean(String beanId, Object bean) {
         applicationContext.getBeanFactory().registerSingleton(beanId, bean);
         //Cleaning caches
@@ -446,7 +447,6 @@ public class SpringContext {
         // DD so are not published by the command above
         publishBatchStepComponents();
         initDirectories();
-        initDocumentStore();
     }
 
     public static void publishBatchStepComponents() {

@@ -55,7 +55,7 @@ public class PreferencesServiceImpl implements PreferencesService {
 
         appendMenuProperties(institutionPreferences);
         transformLinks(institutionPreferences);
-        
+
         return institutionPreferences;
     }
 
@@ -166,9 +166,9 @@ public class PreferencesServiceImpl implements PreferencesService {
         final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
         final Class<?> businessObjectClass = documentDictionaryService.getMaintenanceDataObjectClass(documentTypeName);
         if (GlobalBusinessObject.class.isAssignableFrom(businessObjectClass)) {
-            return applicationUrl + "/kr/maintenance.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName();
+            return applicationUrl + "/kr/maintenance.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&hideReturnLink=true";
         }
-        return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&docFormKey=88888888&returnLocation=" + applicationUrl + "/index.jsp";
+        return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&docFormKey=88888888&returnLocation=" + applicationUrl + "/index.jsp&hideReturnLink=true";
     }
 
     protected String transformClassName(Class<? extends Document> documentClass) {

@@ -38,11 +38,13 @@ import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.fixture.ARAwardAccountFixture;
 import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateDocumentService;
 import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateTestBase;
+import org.kuali.kfs.module.ar.service.impl.ContractsGrantsInvoiceCreateDocumentServiceImpl;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.AwardAccount;
 import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.util.ErrorMessage;
 
@@ -60,7 +62,10 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         contractsGrantsInvoiceBatchCreateDocumentService = SpringContext.getBean(ContractsGrantsInvoiceBatchCreateDocumentService.class);
     }
 
-    public void testBatchCreateCGInvoiceDocumentsByAwardsOneValid() {
+    public void testBatchCreateCGInvoiceDocumentsByAwardsOneValid() throws Exception {
+        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService = getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService();
+        ContractsGrantsInvoiceBatchCreateDocumentServiceImpl contractsGrantsInvoiceBatchCreateDocumentService = setInvoiceCreateServiceOnInvoiceBatchCreateService(contractsGrantsInvoiceCreateDocumentService);
+
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
 
         contractsGrantsInvoiceBatchCreateDocumentService.createCGInvoiceDocumentsByAwards(awards, errorOutputFile);
@@ -69,7 +74,15 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         assertFalse("errors should not be written", errors.exists());
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
-        assertTrue("no errors should be persisted", persistedErrors.size() == 0);
+        assertEquals("no errors should be persisted", 0, persistedErrors.size());
+
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(originalUniversityDateService);
+    }
+
+    protected ContractsGrantsInvoiceBatchCreateDocumentServiceImpl setInvoiceCreateServiceOnInvoiceBatchCreateService(ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService) throws Exception {
+        ContractsGrantsInvoiceBatchCreateDocumentServiceImpl contractsGrantsInvoiceBatchCreateDocumentService =  (ContractsGrantsInvoiceBatchCreateDocumentServiceImpl) TestUtils.getUnproxiedService("contractsGrantsInvoiceBatchCreateDocumentService");
+        contractsGrantsInvoiceBatchCreateDocumentService.setContractsGrantsInvoiceCreateDocumentService(contractsGrantsInvoiceCreateDocumentService);
+        return contractsGrantsInvoiceBatchCreateDocumentService;
     }
 
     public void testBatchCreateCGInvoiceDocumentsByAwardsEmptyAwardsList() throws IOException {
@@ -167,9 +180,11 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         }
     }
 
-    public void testBatchCreateCGInvoiceDocumentsByAccountOneBillableOneNonBillable() throws WorkflowException, IOException {
+    public void testBatchCreateCGInvoiceDocumentsByAccountOneBillableOneNonBillable() throws Exception {
+        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService = getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService();
+        ContractsGrantsInvoiceBatchCreateDocumentServiceImpl contractsGrantsInvoiceBatchCreateDocumentService = setInvoiceCreateServiceOnInvoiceBatchCreateService(contractsGrantsInvoiceCreateDocumentService);
+
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
-        List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         Award award = ((Award)awards.get(0));
         award.setInvoicingOptionCode(ArConstants.INV_ACCOUNT);
         AwardAccount awardAccount_2 = ARAwardAccountFixture.AWD_ACCT_WITH_CCA_2.createAwardAccount();
@@ -188,11 +203,13 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         assertTrue("error file should contain expected error", FileUtils.readFileToString(errors).contains(errorMessage));
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
-        assertTrue("one error should be persisted", persistedErrors.size() == 1);
+        assertEquals("one error should be persisted", 1, persistedErrors.size());
         for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
+
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(originalUniversityDateService);
     }
 
     public void testBatchCreateCGInvoiceDocumentsByCCAContractAccountNotBillable() throws WorkflowException, IOException {

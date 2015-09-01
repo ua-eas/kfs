@@ -87,6 +87,11 @@
 
     </bean>
 
+	<bean id="fileStorageService" parent="fileStorageService-parentBean"/>
+	<bean id="fileStorageService-parentBean" class="org.kuali.kfs.sys.service.impl.FileSystemFileStorageServiceImpl" abstract="true">
+		<property name="pathPrefix" value="${work.directory}"/>
+	</bean>
+
     <bean id="financialSystemModuleService" parent="financialSystemModuleService-parentBean"/>
     <bean id="financialSystemModuleService-parentBean" class="org.kuali.kfs.sys.service.impl.KfsModuleServiceImpl" abstract="true">
     	<property name="moduleConfiguration" ref="financialSystemModuleConfiguration" />
@@ -319,51 +324,6 @@
 				<ref bean="purgeOldLookupResultsStep" />
 				<ref bean="purgeTempFilesStep" />
 				<ref bean="purgeSessionDocumentsStep" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="documentStoreAddDocumentHandler" parent="documentStoreAddDocumentHandler-parentBean"/>
-	<bean id="documentStoreAddDocumentHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.change.AddDocumentHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
-
-	<bean id="documentStoreUpdateDocumentHandler" parent="documentStoreUpdateDocumentHandler-parentBean"/>
-	<bean id="documentStoreUpdateDocumentHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.change.UpdateDocumentHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
-
-	<bean id="documentStoreDeleteDocumentsHandler" parent="documentStoreDeleteDocumentsHandler-parentBean"/>
-	<bean id="documentStoreDeleteDocumentsHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.change.DeleteDocumentsHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
-
-	<bean id="documentStoreUpdateProcessDao" parent="documentStoreUpdateProcessDao-parentBean"/>
-	<bean id="documentStoreUpdateProcessDao-parentBean" abstract="true" class="org.kuali.kfs.sys.dataaccess.impl.DocumentStoreUpdateProcessDaoMongo">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
-
-	<bean id="documentStoreSchemaUpdateService" parent="documentStoreSchemaUpdateService-parentBean"/>
-	<bean id="documentStoreSchemaUpdateService-parentBean" class="org.kuali.kfs.sys.service.impl.DocumentStoreSchemaUpdateServiceImpl" abstract="true">
-		<property name="runOnAppStartup" value="${run.documentStoreSchemaUpdateStep.onstartup}"/>
-		<property name="updatesPath" value="/org/kuali/kfs/db/documentstore/"/>
-		<property name="updatesList" value="updates.json"/>
-		<property name="documentStoreUpdateProcessDao">
-			<ref bean="documentStoreUpdateProcessDao"/>
-		</property>
-		<property name="handlers">
-			<list>
-				<ref bean="documentStoreAddDocumentHandler"/>
-				<ref bean="documentStoreUpdateDocumentHandler"/>
-				<ref bean="documentStoreDeleteDocumentsHandler"/>
 			</list>
 		</property>
 	</bean>
