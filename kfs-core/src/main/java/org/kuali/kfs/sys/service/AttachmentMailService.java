@@ -21,12 +21,12 @@ package org.kuali.kfs.sys.service;
 import javax.mail.MessagingException;
 
 import org.kuali.kfs.sys.mail.AttachmentMailMessage;
-import org.kuali.rice.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
 
 /**
  * This service extends the KRAD MailMessage to add attachment support
  */
-public interface AttachmentMailService extends org.kuali.rice.krad.service.MailService {
+public interface AttachmentMailService extends org.kuali.kfs.krad.service.MailService {
 
     /**
      * This method sends an email message with an attachment.

@@ -31,10 +31,10 @@ import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.api.role.RoleMember;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 
 /**

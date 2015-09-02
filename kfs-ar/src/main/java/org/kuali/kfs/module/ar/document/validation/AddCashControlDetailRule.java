@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.ar.document.validation;
 
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
-import org.kuali.rice.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.document.TransactionalDocument;
 
 /**
  * Rule invoked when a new customer invoice detail is added

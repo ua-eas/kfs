@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 /**
  * An organization which is related to a Global Organization Reversion Detail.

@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddressType;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)

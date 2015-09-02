@@ -37,8 +37,8 @@ import org.kuali.kfs.vnd.businessobject.DebarredVendorDetail;
 import org.kuali.kfs.vnd.businessobject.DebarredVendorMatch;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class VendorExcludeServiceImpl implements VendorExcludeService {

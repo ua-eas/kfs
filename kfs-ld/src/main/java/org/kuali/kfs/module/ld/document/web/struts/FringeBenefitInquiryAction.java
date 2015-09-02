@@ -36,7 +36,7 @@ import org.kuali.kfs.module.ld.service.LaborPositionObjectBenefitService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
 
 public class FringeBenefitInquiryAction extends KualiAction {
 

@@ -33,7 +33,7 @@ import org.kuali.kfs.gl.batch.service.YearEndService;
 import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
 import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.util.StopWatch;
 
 /**

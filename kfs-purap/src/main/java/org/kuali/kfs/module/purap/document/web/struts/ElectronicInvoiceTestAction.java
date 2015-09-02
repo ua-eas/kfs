@@ -43,12 +43,12 @@ import org.kuali.kfs.vnd.businessobject.PaymentTermType;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.krad.exception.AuthorizationException;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADUtils;
 
 /**
  * Struts Action for printing Purap documents outside of a document action

@@ -23,7 +23,7 @@ import java.util.Map;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
-import org.kuali.rice.kns.inquiry.KualiInquirableImpl;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 public class DataMappingFieldDefinitionInquirable extends KualiInquirableImpl {

@@ -56,13 +56,13 @@ import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.krad.document.Copyable;
-import org.kuali.rice.krad.exception.InfrastructureException;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This is the business object that represents the BudgetAdjustment document in Kuali.

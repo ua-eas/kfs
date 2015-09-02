@@ -26,7 +26,7 @@ import javax.persistence.Table;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 @Entity
 @Table(name="TEM_TRVL_EXP_T")

@@ -40,13 +40,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.krad.exception.AuthorizationException;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * This class is the struts action for the batch upload screen that supports file sets

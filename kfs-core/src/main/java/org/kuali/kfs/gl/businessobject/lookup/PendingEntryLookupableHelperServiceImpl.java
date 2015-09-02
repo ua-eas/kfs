@@ -38,16 +38,16 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * An extension of KualiLookupableImpl to support balance lookups

@@ -27,7 +27,7 @@ import org.kuali.kfs.module.ec.batch.EffortCertificationCreateStep;
 import org.kuali.kfs.module.ec.batch.EffortCertificationExtractStep;
 import org.kuali.kfs.module.ec.document.EffortCertificationDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * A convenient utility that can delegate the calling client to retrieve system parameters of effort certification module.

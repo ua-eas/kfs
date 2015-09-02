@@ -22,7 +22,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
-import org.kuali.rice.kns.web.taglib.html.KNSTextareaTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSTextareaTag;
 import org.springframework.web.util.HtmlUtils;
 
 /**

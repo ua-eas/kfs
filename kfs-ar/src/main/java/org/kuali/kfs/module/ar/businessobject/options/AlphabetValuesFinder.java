@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.krad.keyvalues.EnumValuesFinder;
+import org.kuali.kfs.krad.keyvalues.EnumValuesFinder;
 
 /**
  * Defines the values finder class that lists the letters in the alphabet.
@@ -39,7 +39,7 @@ public class AlphabetValuesFinder extends EnumValuesFinder {
     /**
      * need to add blank to key values list before returning it
      *
-     * @see org.kuali.rice.krad.keyvalues.EnumValuesFinder#getKeyValues()
+     * @see org.kuali.kfs.krad.keyvalues.EnumValuesFinder#getKeyValues()
      */
     @Override
     public List<KeyValue> getKeyValues() {

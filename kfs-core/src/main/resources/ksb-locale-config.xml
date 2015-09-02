@@ -78,9 +78,9 @@
 		</property>
 	</bean>
   
-  	<bean id="postProcessorService" class="org.kuali.kfs.sys.service.impl.PostProcessorServiceImpl">
+  	<bean id="cf.postProcessorService" class="org.kuali.kfs.sys.service.impl.PostProcessorServiceImpl">
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="documentService" />
 		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
@@ -161,14 +161,14 @@
         <property name="pointcut" ref="methodCacheNoCopyPointcut" />
     </bean>
 
-	<bean id="methodCacheInterceptor" class="org.kuali.rice.kns.util.cache.MethodCacheInterceptor">
+	<bean id="methodCacheInterceptor" class="org.kuali.kfs.kns.util.cache.MethodCacheInterceptor">
 		<property name="cache" ref="methodCache" />
 		<property name="expirationTimeInSeconds">
 			<value>${kns.cache.methodresult.max.age.seconds}</value>
 		</property>
 	</bean>
 
-    <bean id="methodCacheNoCopyInterceptor" class="org.kuali.rice.kns.util.cache.MethodCacheNoCopyInterceptor">
+    <bean id="methodCacheNoCopyInterceptor" class="org.kuali.kfs.kns.util.cache.MethodCacheNoCopyInterceptor">
         <property name="cache" ref="methodCacheNoCopy" />
         <property name="expirationTimeInSeconds">
             <value>${kns.cache.methodresult.nocopy.max.age.seconds}</value>
@@ -204,11 +204,11 @@
     </bean>
 
 	<bean id="methodCachePointcut" class="org.kuali.rice.core.impl.util.spring.ClassOrMethodAnnotationPointcut">
-		<constructor-arg value="org.kuali.rice.kns.util.spring.Cached" />
+		<constructor-arg value="org.kuali.kfs.kns.util.spring.Cached" />
 	</bean>
 
     <bean id="methodCacheNoCopyPointcut" class="org.kuali.rice.core.impl.util.spring.ClassOrMethodAnnotationPointcut">
-        <constructor-arg value="org.kuali.rice.kns.util.spring.CacheNoCopy" />
+        <constructor-arg value="org.kuali.kfs.kns.util.spring.CacheNoCopy" />
 	</bean>
 
 	<bean id="methodLoggingAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
@@ -216,10 +216,10 @@
 		<property name="pointcut" ref="methodLoggingPointcut" />
 	</bean>
 
-	<bean id="methodLoggingInterceptor" class="org.kuali.rice.kns.util.spring.MethodLoggingInterceptor" />
+	<bean id="methodLoggingInterceptor" class="org.kuali.kfs.kns.util.spring.MethodLoggingInterceptor" />
 
 	<bean id="methodLoggingPointcut" class="org.kuali.rice.core.impl.util.spring.ClassOrMethodAnnotationPointcut">
-		<constructor-arg value="org.kuali.rice.kns.util.spring.Logged" />
+		<constructor-arg value="org.kuali.kfs.kns.util.spring.Logged" />
 	</bean>
 	
 	<bean id="encryptionService" class="org.kuali.rice.core.service.impl.DemonstrationGradeEncryptionServiceImpl">

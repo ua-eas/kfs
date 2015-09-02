@@ -43,13 +43,13 @@ import org.kuali.kfs.module.purap.util.PurApRelatedViews;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAccountsPayableModuleService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchasingAccountsPayableModuleServiceImpl.class);

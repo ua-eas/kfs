@@ -115,7 +115,7 @@
             <ref bean="businessObjectDictionaryService" />
         </property>
         <!--property name="dictionaryValidationService">
-            <ref bean="dictionaryValidationService" />
+            <ref bean="knsDictionaryValidationService" />
             </property-->
         <property name="dataDictionaryService">
             <ref bean="dataDictionaryService" />
@@ -230,42 +230,42 @@
     </bean>
     <bean id="vendorLookupable" parent="vendorLookupable-parentBean"/>
     
-    <bean id="vendorLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
+    <bean id="vendorLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorContactLookupable" parent="vendorContactLookupable-parentBean"/>
     
-    <bean id="vendorContactLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
+    <bean id="vendorContactLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorContactLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorPhoneLookupable" parent="vendorPhoneLookupable-parentBean"/>
     
-    <bean id="vendorPhoneLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
+    <bean id="vendorPhoneLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorPhoneLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorContractLookupable" parent="vendorContractLookupable-parentBean"/>
     
-    <bean id="vendorContractLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
+    <bean id="vendorContractLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorContractLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorAddressLookupable" parent="vendorAddressLookupable-parentBean"/>
     
-    <bean id="vendorAddressLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
+    <bean id="vendorAddressLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorAddressLookupableHelperService" />
         </property>
     </bean>
     <bean id="vendorCustomerNumberLookupable" parent="vendorCustomerNumberLookupable-parentBean"/>
   
-    <bean id="vendorCustomerNumberLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
+    <bean id="vendorCustomerNumberLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="vendorCustomerNumberLookupableHelperService" />
         </property>
@@ -355,19 +355,19 @@
 		</property>
 	</bean>
 	
-	<bean id="vendorExclusionLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" parent="kualiLookupable" scope="prototype">
+	<bean id="vendorExclusionLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="cf.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService">
          	<ref bean="vendorExclusionLookupableHelperServiceImpl" />   
         </property>
     </bean>
      
-    <bean id="debarredVendorUnmatchedLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" parent="kualiLookupable" scope="prototype">
+    <bean id="debarredVendorUnmatchedLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" parent="cf.kualiLookupable" scope="prototype">
         <property name="lookupableHelperService">
          	<ref bean="debarredVendorUnmatchedLookupableHelperServiceImpl" />   
         </property>
     </bean>
     
-    <bean id="vendorExclusionLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.VendorExclusionLookupableHelperServiceImpl" parent="lookupableHelperService">
+    <bean id="vendorExclusionLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.VendorExclusionLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
 		</property>
@@ -379,7 +379,7 @@
 		</property>
 	</bean>
 	
-	<bean id="debarredVendorUnmatchedLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.DebarredVendorUnmatchedLookupableHelperServiceImpl" parent="lookupableHelperService">
+	<bean id="debarredVendorUnmatchedLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.DebarredVendorUnmatchedLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
 		</property>

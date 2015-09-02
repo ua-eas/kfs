@@ -25,7 +25,7 @@ import org.kuali.kfs.coa.identity.OrgReviewRoleLookupableHelperServiceImpl;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sec.util.SecUtil;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Lookupable helper that provides Access Security integration

@@ -67,7 +67,7 @@
         <start name="AdHoc"/>
         <role name="PlantFund">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
       </routeNodes>
@@ -105,12 +105,12 @@
         <start name="AdHoc"/>
         <role name="Account">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
         <role name="OrganizationHierarchy">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
       </routeNodes>
@@ -149,17 +149,17 @@
         <start name="AdHoc"/>
         <role name="Account">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
         <role name="OrganizationHierarchy">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
         <role name="Borrower">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
       </routeNodes>
@@ -196,7 +196,7 @@
         <start name="AdHoc"/>
         <role name="Initiator">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P

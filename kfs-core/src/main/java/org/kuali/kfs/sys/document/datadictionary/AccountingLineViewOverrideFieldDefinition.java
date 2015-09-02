@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.document.datadictionary;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewField;
 import org.kuali.kfs.sys.document.web.AccountingLineViewOverrideField;
-import org.kuali.rice.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 
 /**
  * The definition of an override field associated with an accounting line view field

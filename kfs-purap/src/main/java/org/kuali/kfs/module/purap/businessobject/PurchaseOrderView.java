@@ -25,8 +25,8 @@ import java.util.List;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Purchase Order View Business Object.

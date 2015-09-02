@@ -34,7 +34,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This is Implementation class for CustomerAgingReportDao DAO Interface.

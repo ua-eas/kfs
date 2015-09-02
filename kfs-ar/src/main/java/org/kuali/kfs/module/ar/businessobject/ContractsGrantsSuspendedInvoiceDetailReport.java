@@ -30,9 +30,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class ContractsGrantsSuspendedInvoiceDetailReport extends TransientBusinessObjectBase {
 

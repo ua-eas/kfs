@@ -27,7 +27,7 @@ import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 /**
  * Watches the workflow document and indicates valueChanged when either the status or the current node changes.

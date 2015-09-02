@@ -41,7 +41,7 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService {

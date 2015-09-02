@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.document.validation.event;
 
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public class AttributedSaveDocumentEvent extends AttributedDocumentEventBase {
     /**

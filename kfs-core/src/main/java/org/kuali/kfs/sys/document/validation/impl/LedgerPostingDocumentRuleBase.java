@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import org.kuali.rice.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
 
 
 

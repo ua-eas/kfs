@@ -29,8 +29,8 @@ import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class ElectronicFundTransferAction extends KualiAction {
     private final static String START_BEAN = "electronicFundTransferStartAction";

@@ -24,14 +24,14 @@ import static org.apache.commons.lang.StringUtils.isBlank;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.rice.krad.datadictionary.SearchingTypeDefinition;
+import org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition;
 
 /**
  * Generic BusinessObjectFillingInWorkflowAttributes that are aware of the business object. This makes it so that we can specify
  * attributes per business object if we need to and reduce the amount of repitious code.
  *
  */
-public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.rice.krad.datadictionary.WorkflowAttributes {
+public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.kfs.krad.datadictionary.WorkflowAttributes {
     private static final long serialVersionUID = -3426603523049661524L;
     private String businessObjectClassName;
 
@@ -53,7 +53,7 @@ public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.rice.kr
     }
 
     /**
-     * @see org.kuali.rice.krad.datadictionary.WorkflowAttributes#setSearchingTypeDefinitions(java.util.List)
+     * @see org.kuali.kfs.krad.datadictionary.WorkflowAttributes#setSearchingTypeDefinitions(java.util.List)
      */
     @Override
     public void setSearchingTypeDefinitions(final List<SearchingTypeDefinition> searchingTypeDefinitions) {

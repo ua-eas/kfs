@@ -43,13 +43,13 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizerBase;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizerBase;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * The default implementation of AccountingLineAuthorizer

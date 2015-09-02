@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 public interface LaborLedgerEntry extends PersistableBusinessObject, ExternalizableBusinessObject{
 

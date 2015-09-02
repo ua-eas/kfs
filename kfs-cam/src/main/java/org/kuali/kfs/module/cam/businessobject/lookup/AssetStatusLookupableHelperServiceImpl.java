@@ -24,9 +24,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetStatus;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * This class overrids the base getActionUrls method

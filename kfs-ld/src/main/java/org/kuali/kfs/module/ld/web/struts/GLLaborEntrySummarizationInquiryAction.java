@@ -37,16 +37,16 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
 import org.kuali.rice.kim.util.KimCommonUtils;
-import org.kuali.rice.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.exception.AuthorizationException;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Action which will perform lookup and presentation of LD entries related to a GL entry

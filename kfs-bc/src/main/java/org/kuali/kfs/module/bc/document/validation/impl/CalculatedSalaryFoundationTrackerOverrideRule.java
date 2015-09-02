@@ -23,9 +23,9 @@ import org.kuali.kfs.module.bc.businessobject.CalculatedSalaryFoundationTrackerO
 import org.kuali.kfs.module.bc.document.service.CalculatedSalaryFoundationTrackerOverrideService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CalculatedSalaryFoundationTrackerOverrideRule extends MaintenanceDocumentRuleBase {
 

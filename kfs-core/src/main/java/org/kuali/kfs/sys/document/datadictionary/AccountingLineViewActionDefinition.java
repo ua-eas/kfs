@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.document.datadictionary;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewActionsField;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 
 public class AccountingLineViewActionDefinition extends DataDictionaryDefinitionBase implements AccountingLineViewRenderableElementDefinition {
     private String actionMethod;

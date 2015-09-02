@@ -19,13 +19,13 @@
 package org.kuali.kfs.module.cam.businessobject.defaultvalue;
 
 import org.kuali.kfs.module.cam.businessobject.AssetPaymentDocumentType;
-import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 public class NextDocumentTypeIdFinder implements ValueFinder {
     /**
-     * @see org.kuali.rice.kns.lookup.valueFinder.ValueFinder#getValue()
+     * @see org.kuali.kfs.kns.lookup.valueFinder.ValueFinder#getValue()
      */
     @Override
     public String getValue() {

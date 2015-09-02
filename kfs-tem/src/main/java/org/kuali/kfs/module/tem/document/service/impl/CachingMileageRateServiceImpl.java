@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.kuali.kfs.module.tem.businessobject.MileageRate;
 import org.kuali.kfs.module.tem.document.service.CachingMileageRateService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.cache.annotation.Cacheable;
 
 /*

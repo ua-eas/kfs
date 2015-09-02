@@ -30,7 +30,7 @@ import org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobalDetail;
 import org.kuali.kfs.module.cam.document.service.AssetService;
 import org.kuali.kfs.module.cam.document.service.RetirementInfoService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * Implements RetirementInfoService, assists in identifying the latest retirement record

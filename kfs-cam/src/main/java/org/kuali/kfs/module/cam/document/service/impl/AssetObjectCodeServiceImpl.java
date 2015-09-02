@@ -25,7 +25,7 @@ import org.kuali.kfs.module.cam.businessobject.AssetObjectCode;
 import org.kuali.kfs.module.cam.document.service.AssetObjectCodeService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 public class AssetObjectCodeServiceImpl implements AssetObjectCodeService {
     UniversityDateService universityDateService;

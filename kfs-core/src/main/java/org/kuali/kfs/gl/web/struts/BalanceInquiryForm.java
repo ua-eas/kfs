@@ -28,15 +28,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.krad.lookup.LookupUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.service.BusinessObjectDictionaryService;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.Row;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
@@ -62,7 +63,7 @@ public class BalanceInquiryForm extends LookupForm {
     /**
      * Picks out business object name from the request to get retrieve a lookupable and set properties.
      * 
-     * @see org.kuali.rice.kns.web.struts.form.LookupForm#populate(javax.servlet.http.HttpServletRequest)
+     * @see org.kuali.kfs.kns.web.struts.form.LookupForm#populate(javax.servlet.http.HttpServletRequest)
      *      
      * KRAD Conversion: Lookupable performs customization of the fields and check for additional fields.
      *  
@@ -148,7 +149,7 @@ public class BalanceInquiryForm extends LookupForm {
                     }
 
                     // force uppercase if necessary
-                    field.setPropertyValue(org.kuali.rice.krad.lookup.LookupUtils.forceUppercase(boClass, field.getPropertyName(), field.getPropertyValue()));
+                    field.setPropertyValue(LookupUtils.forceUppercase(boClass, field.getPropertyName(), field.getPropertyValue()));
 
                     fieldValues.put(field.getPropertyName(), field.getPropertyValue());
                 }

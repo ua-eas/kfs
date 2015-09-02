@@ -27,7 +27,7 @@ import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
-import org.kuali.rice.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ErrorMessage;
 
 public interface AgencyDataImportService {
 

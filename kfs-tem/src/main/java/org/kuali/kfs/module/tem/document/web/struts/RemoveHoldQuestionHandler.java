@@ -41,15 +41,15 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.bo.AdHocRouteRecipient;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.dao.DocumentDao;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

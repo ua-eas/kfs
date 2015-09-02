@@ -29,8 +29,8 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentBase;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 
 /**
  * Labor Document base class implementation for all labor eDocs that are transactional, meaning implementing

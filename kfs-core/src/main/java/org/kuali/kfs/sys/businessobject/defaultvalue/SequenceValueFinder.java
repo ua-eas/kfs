@@ -19,9 +19,9 @@
 package org.kuali.kfs.sys.businessobject.defaultvalue;
 
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Abstract ValueFinder which looks up a value based on a sequence

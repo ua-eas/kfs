@@ -31,9 +31,9 @@ import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceWriteoffLookupResul
 import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.lookup.LookupResultsService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CustomerInvoiceWriteoffLookupUtil {
 

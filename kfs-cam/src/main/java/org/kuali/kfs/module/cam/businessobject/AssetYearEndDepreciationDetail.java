@@ -21,7 +21,7 @@ package org.kuali.kfs.module.cam.businessobject;
 import java.util.LinkedHashMap;
 
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 /**
  * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)

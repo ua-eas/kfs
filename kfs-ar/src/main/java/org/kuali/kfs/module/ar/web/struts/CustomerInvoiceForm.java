@@ -25,8 +25,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
-import org.kuali.rice.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 
 /**
  * This class is the action form for Customer Aging Reports.

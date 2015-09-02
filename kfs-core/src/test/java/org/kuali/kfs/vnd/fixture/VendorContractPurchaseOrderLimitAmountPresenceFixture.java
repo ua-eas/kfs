@@ -25,7 +25,7 @@ import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.kfs.vnd.businessobject.VendorContractOrganization;
 import org.kuali.kfs.vnd.fixture.VendorTestConstants.ContractPOLimitAmts;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public enum VendorContractPurchaseOrderLimitAmountPresenceFixture {
 

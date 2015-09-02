@@ -23,8 +23,8 @@ import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.coa.dataaccess.AccountDelegateGlobalDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 /**
  * This class is the OJB implementation of AccountDelegateGlobalDao

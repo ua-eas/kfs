@@ -32,7 +32,7 @@ import org.kuali.rice.kew.framework.postprocessor.DocumentLockingEvent;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kew.framework.postprocessor.ProcessDocReport;
-import org.kuali.rice.krad.service.PostProcessorService;
+import org.kuali.kfs.krad.service.PostProcessorService;
 
 /**
  * This class is the public entry point by which workflow communicates status changes, level changes, and other useful changes. Note

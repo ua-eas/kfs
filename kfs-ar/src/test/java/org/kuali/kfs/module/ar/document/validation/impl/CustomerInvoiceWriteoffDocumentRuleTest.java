@@ -33,7 +33,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceWriteoffDocumentRuleTest extends KualiTestBase {

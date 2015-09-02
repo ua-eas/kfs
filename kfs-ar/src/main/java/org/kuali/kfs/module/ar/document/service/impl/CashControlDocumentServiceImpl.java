@@ -54,11 +54,11 @@ import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.api.document.attribute.DocumentAttributeIndexingQueue;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.exception.InfrastructureException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CashControlDocumentServiceImpl implements CashControlDocumentService {
 

@@ -22,7 +22,7 @@ import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
 import org.kuali.kfs.module.purap.document.ReceivingDocument;
 import org.kuali.kfs.module.purap.document.service.ReceivingService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public class LineItemReceivingDocumentPreRule extends MaintenancePreRulesBase{
 

@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
@@ -51,14 +52,14 @@ import org.kuali.kfs.sys.document.web.renderers.ReadOnlyRenderer;
 import org.kuali.kfs.sys.document.web.renderers.TextAreaRenderer;
 import org.kuali.kfs.sys.document.web.renderers.TextRenderer;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.rice.kns.datadictionary.MaintainableFieldDefinition;
-import org.kuali.rice.kns.datadictionary.validation.fieldlevel.DateValidationPattern;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.validation.ValidationPattern;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.DateValidationPattern;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 
 /**
  * The default implementation of the AccountingLineRenderingService
@@ -233,7 +234,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
      * @return true if the property does use date validation, false otherwise
      */
     protected boolean usesDateValidation(String propertyName, Object businessObject) {
-        final org.kuali.rice.krad.datadictionary.BusinessObjectEntry entry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(businessObject.getClass().getName());
+        final BusinessObjectEntry entry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(businessObject.getClass().getName());
         AttributeDefinition attributeDefinition = entry.getAttributeDefinition(propertyName);
         
         if (attributeDefinition == null) {

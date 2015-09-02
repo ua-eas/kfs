@@ -35,11 +35,11 @@ import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Struts Action for printing Purap documents outside of a document action

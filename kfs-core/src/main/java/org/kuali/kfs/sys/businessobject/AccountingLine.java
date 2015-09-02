@@ -31,7 +31,7 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.fp.businessobject.SalesTax;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 /**
  * An AccountLine contains all the accounting items typically necessary to create a pending entry to the G/L. All transaction

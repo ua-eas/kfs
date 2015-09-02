@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.document.datadictionary;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.document.web.renderers.GroupTotalRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
-import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
 /**
  * The definition of an accounting line group total renderer, which will display an accounting line

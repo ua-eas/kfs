@@ -29,12 +29,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * This class overrides the base getActionUrls method

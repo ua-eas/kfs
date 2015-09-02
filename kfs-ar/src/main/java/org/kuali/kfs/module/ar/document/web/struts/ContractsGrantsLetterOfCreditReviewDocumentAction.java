@@ -47,14 +47,14 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 
 /**
  * Action class for Contracts & Grants LetterOfCredit Review Document.

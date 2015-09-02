@@ -27,8 +27,8 @@ import javax.servlet.jsp.tagext.Tag;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Base class for all renderers which render fields

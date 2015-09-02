@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import org.kuali.rice.krad.bo.AttributeReferenceDummy;
+import org.kuali.kfs.krad.bo.AttributeReferenceDummy;
 
 public class GenericAttributes extends AttributeReferenceDummy {
 

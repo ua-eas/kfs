@@ -19,7 +19,7 @@
 package org.kuali.kfs.sys.document.validation.impl;
 
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 
 /**
  * This class refers to an attribute which has a value and is labeled in the DataDictionary.

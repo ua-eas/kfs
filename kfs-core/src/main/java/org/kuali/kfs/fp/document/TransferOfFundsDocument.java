@@ -32,7 +32,7 @@ import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.kfs.sys.document.service.AccountingDocumentRuleHelperService;
 import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.rice.krad.document.Copyable;
+import org.kuali.kfs.krad.document.Copyable;
 
 /**
  * The Transfer of Funds (TF) document is used to transfer funds (cash) between accounts. There are two kinds of transfer

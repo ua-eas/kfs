@@ -30,10 +30,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.web.ui.ExtraButton;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 
 /**
  * Struts Action Form for Electronic Invoice Reject document.

@@ -34,10 +34,10 @@ import org.kuali.kfs.module.ar.businessobject.InvoiceSuspensionCategory;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Defines a custom lookup for the Suspense Activity Report.

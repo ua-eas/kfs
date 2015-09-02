@@ -23,8 +23,8 @@ import java.util.Set;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 public class BulkReceivingDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {

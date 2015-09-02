@@ -28,7 +28,7 @@ import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportDataBuilderSe
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Implementation of ContractsGrantsReportDataBuilderService to help build the Contracts & Grants Milestone Report

@@ -28,10 +28,10 @@ import org.kuali.kfs.module.tem.service.TemProfileService;
 import org.kuali.kfs.module.tem.service.TravelService;
 import org.kuali.kfs.module.tem.service.TravelerService;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 @SuppressWarnings("deprecation")
 public class TemProfileAccountLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {

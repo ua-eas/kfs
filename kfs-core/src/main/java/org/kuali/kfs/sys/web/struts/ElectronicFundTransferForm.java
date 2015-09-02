@@ -28,8 +28,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class ElectronicFundTransferForm extends KualiForm {
     private List<ElectronicPaymentClaim> claims;

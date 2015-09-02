@@ -25,8 +25,8 @@ import org.kuali.kfs.coa.businessobject.OrganizationReversion;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionDetail;
 import org.kuali.kfs.coa.service.OrganizationReversionService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * PreRules checks for the {@link OrganizationReversion} that needs to occur while still in the Struts processing. This includes defaults

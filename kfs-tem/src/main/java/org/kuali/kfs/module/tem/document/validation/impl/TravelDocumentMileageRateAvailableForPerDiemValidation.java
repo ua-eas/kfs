@@ -24,7 +24,7 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.PerDiemService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Determines if a mileage rate for all days of a trip using the default per diem mileage rate expense type

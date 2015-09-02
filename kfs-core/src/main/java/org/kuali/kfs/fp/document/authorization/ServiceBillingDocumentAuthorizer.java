@@ -29,9 +29,9 @@ import org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizerBase;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizerBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * The customized document authorizer for the Service Billing document

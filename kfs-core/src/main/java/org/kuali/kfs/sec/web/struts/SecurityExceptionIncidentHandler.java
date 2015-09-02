@@ -31,8 +31,8 @@ import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.businessobject.AccessSecurityRestrictionInfo;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.struts.form.pojo.StrutsExceptionIncidentHandler;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.pojo.StrutsExceptionIncidentHandler;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 
 /**

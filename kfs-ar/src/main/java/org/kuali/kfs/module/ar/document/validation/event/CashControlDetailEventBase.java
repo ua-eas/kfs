@@ -21,9 +21,9 @@ package org.kuali.kfs.module.ar.document.validation.event;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEventBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public abstract class CashControlDetailEventBase extends KualiDocumentEventBase implements CashControlDetailEvent {
 

@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 /**
  * Overrides maintainable so that if the threshhold is not null, turns receipted required to true (if it isn't)

@@ -17,7 +17,6 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
-<c:set var="arrangerAttributes" value="${DataDictionary.PersonImpl.attributes}" />
 <c:set var="profileAttributes" value="${DataDictionary.TravelArrangerDocument.attributes}" />
 <c:set var="tabindexOverrideBase" value="8" />
 <kul:tab tabTitle="Traveler Section" defaultOpen="true" tabErrorKey="${TemKeyConstants.TRVL_ARRGR_TRAVELER_ERRORS}">

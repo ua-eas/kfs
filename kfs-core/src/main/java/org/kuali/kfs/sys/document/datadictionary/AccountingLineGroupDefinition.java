@@ -27,8 +27,8 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl;
 import org.kuali.kfs.sys.document.web.RenderableAccountingLineContainer;
-import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
 /**
  * Data dictionary definition that includes metadata for an accounting document about one of its groups of accounting lines (typically source vs. target, but this should open things up).

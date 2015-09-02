@@ -30,9 +30,9 @@ import org.kuali.kfs.module.tem.document.service.MileageRateService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Rules for the mileage rate maintenance document

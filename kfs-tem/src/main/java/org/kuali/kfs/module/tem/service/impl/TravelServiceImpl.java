@@ -33,11 +33,11 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.TemRoleService;
 import org.kuali.kfs.module.tem.service.TravelService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.datadictionary.validation.charlevel.RegexValidationPattern;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.kns.datadictionary.validation.charlevel.RegexValidationPattern;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

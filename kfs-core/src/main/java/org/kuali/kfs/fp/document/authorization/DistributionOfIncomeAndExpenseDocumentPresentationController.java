@@ -30,8 +30,8 @@ import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class DistributionOfIncomeAndExpenseDocumentPresentationController extends AccountingDocumentPresentationControllerBase {
 

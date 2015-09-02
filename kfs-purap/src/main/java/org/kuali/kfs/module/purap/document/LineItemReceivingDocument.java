@@ -35,10 +35,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 /**
  * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)

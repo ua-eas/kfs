@@ -57,8 +57,8 @@ import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedValidation;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 import org.kuali.kfs.sys.service.IsDebitTestUtils;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 
 @ConfigureContext(session = khuntley)
 public class AuxiliaryVoucherDocumentRuleTest extends KualiTestBase {

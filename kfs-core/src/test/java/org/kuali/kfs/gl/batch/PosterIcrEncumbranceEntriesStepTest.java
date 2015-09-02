@@ -35,7 +35,7 @@ import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.suite.AnnotationTestSuite;
 import org.kuali.kfs.sys.suite.IcrEncumbranceSuite;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * This class tests posting of ICR Encumbrance entries to the general ledger table.

@@ -26,7 +26,7 @@ import java.util.Properties;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 // @Transactional
 

@@ -23,8 +23,8 @@ import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalDetail;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobalOrganization;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * 

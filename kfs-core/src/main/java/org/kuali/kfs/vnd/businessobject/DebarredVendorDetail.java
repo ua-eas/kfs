@@ -20,7 +20,7 @@ package org.kuali.kfs.vnd.businessobject;
 
 import java.util.Date;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class DebarredVendorDetail extends PersistableBusinessObjectBase {
     private int debarredVendorId;

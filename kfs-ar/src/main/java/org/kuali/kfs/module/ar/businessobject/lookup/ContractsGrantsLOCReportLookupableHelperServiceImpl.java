@@ -36,9 +36,9 @@ import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Defines a custom lookup for LOC Draw Details Report.

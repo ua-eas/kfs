@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.fixture.UniversityDateServiceFixture;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.suite.AnnotationTestSuite;
 import org.kuali.kfs.sys.suite.IcrEncumbranceSuite;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 /**

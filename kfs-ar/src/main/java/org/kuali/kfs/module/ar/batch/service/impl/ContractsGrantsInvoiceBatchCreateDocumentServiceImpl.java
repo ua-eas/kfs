@@ -33,7 +33,7 @@ import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.batch.service.ContractsGrantsInvoiceBatchCreateDocumentService;
 import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateDocumentService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ErrorMessage;
 
 /**
  * Default implementation of the ContractsGrantsInvoiceBatchCreateDocumentServiceImpl interface

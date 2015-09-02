@@ -56,17 +56,17 @@ import org.kuali.rice.coreservice.api.parameter.Parameter;
 import org.kuali.rice.coreservice.api.parameter.Parameter.Builder;
 import org.kuali.rice.coreservice.api.parameter.ParameterType;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PurapMassRequisitionStep extends AbstractStep implements TestingStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapMassRequisitionStep.class);

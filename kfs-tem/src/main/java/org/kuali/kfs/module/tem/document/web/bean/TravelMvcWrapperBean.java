@@ -28,9 +28,9 @@ import org.kuali.kfs.module.tem.businessobject.ImportedExpense;
 import org.kuali.kfs.module.tem.businessobject.TemDistributionAccountingLine;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.web.ui.ExtraButton;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Interface intended to decouple the MVC framework from the classes used therein and Spring. This allows button actions to interact

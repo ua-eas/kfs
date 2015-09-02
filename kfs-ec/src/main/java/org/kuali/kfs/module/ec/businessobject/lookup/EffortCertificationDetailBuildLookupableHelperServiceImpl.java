@@ -19,8 +19,8 @@
 package org.kuali.kfs.module.ec.businessobject.lookup;
 
 import org.kuali.kfs.module.ec.businessobject.inquiry.EffortLedgerBalanceInquirableImpl;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 public class EffortCertificationDetailBuildLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {

@@ -27,7 +27,7 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.kuali.kfs.sys.document.web.renderers.TableCellRenderer;
 import org.kuali.kfs.sys.document.web.renderers.TableHeaderRenderer;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * A class which represents a number of fields held in a table cell.

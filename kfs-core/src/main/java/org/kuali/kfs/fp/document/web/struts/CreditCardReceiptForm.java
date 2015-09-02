@@ -28,7 +28,7 @@ import org.kuali.kfs.fp.businessobject.CreditCardDetail;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
 import org.kuali.kfs.fp.document.CreditCardReceiptDocument;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 
 /**
  * This class is the struts form for Credit Card Receipt document.

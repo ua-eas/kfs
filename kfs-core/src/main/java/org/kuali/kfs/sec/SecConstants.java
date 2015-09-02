@@ -33,7 +33,7 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.sec.businessobject.SecurityAttributeMetadata;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterConstants;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
 
 
 /**

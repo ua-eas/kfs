@@ -34,12 +34,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Payee lookupable for PDP Payee ACH. Builds off of DV Payee lookup by taking off payment reason code, and adding adding entity id

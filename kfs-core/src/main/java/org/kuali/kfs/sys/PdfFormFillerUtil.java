@@ -28,7 +28,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;

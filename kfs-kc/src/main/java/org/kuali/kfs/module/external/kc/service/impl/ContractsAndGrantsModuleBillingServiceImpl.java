@@ -37,7 +37,7 @@ import org.kuali.kfs.module.external.kc.webService.AwardWebSoapService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kra.external.award.AwardWebService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Implementation of Contracts & Grants module billing service which will allow AR to utilize KC functionality to perform CGB actions.

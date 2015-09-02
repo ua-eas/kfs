@@ -19,8 +19,8 @@
 package org.kuali.kfs.sys.businessobject.lookup;
 
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
 
 public class LookupableSpringContext {
     public static Lookupable getLookupable(String beanId) {

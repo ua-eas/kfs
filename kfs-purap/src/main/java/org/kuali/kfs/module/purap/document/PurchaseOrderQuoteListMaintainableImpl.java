@@ -24,9 +24,9 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.vnd.VendorUtils;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /* 
  * A special implementation of Maintainable specifically for PurchaseOrderQuoteLanguage

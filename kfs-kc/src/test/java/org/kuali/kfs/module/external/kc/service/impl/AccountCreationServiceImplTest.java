@@ -36,11 +36,11 @@ import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 @ConfigureContext(session = khuntley)
 public class AccountCreationServiceImplTest extends KualiTestBase {

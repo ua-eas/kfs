@@ -19,7 +19,7 @@
 package org.kuali.kfs.fp.document.authorization;
 
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationController;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Contracts for extra presentation controller methods required by the Cash Management document

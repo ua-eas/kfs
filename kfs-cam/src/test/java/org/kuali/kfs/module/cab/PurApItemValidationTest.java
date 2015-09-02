@@ -29,9 +29,9 @@ import org.kuali.kfs.module.purap.fixture.PurchasingCapitalAssetFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.MaintenanceRuleTestBase;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.util.MessageList;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 @ConfigureContext(session = khuntley)
 public class PurApItemValidationTest extends MaintenanceRuleTestBase {

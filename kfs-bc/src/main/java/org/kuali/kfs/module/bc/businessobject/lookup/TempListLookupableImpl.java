@@ -20,7 +20,7 @@ package org.kuali.kfs.module.bc.businessobject.lookup;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.lookup.KualiLookupableImpl;
+import org.kuali.kfs.kns.lookup.KualiLookupableImpl;
 
 /**
  * Lookupable impl for lookups using the temp list action and jsp. Corrects maintenance new link.

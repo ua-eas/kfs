@@ -28,7 +28,7 @@ import org.kuali.kfs.fp.businessobject.InternalBillingItem;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.service.DictionaryValidationService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
 
 /**
  * This class handles Actions for InternalBilling.

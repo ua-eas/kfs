@@ -30,7 +30,7 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.util.RendererUtil;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Renders a quick field for an element

@@ -26,7 +26,7 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewCurrentBaseAmountFieldDefinition;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewFieldDefinition;
 import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * Represents a current/base amount for an accounting line

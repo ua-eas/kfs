@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  *

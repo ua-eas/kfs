@@ -28,8 +28,8 @@ import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class TemAccountingLineAuthorizer extends AccountingLineAuthorizerBase {
     private static Log LOG = LogFactory.getLog(TemAccountingLineAuthorizer.class);

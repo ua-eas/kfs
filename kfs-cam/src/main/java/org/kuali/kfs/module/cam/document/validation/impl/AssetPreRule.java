@@ -20,9 +20,9 @@ package org.kuali.kfs.module.cam.document.validation.impl;
 
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
 import org.kuali.kfs.module.cam.businessobject.Asset;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Business Prerules applicable to Asset documents. These PreRules checks for the Asset that needs to occur while

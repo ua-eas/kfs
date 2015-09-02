@@ -20,8 +20,8 @@ package org.kuali.kfs.vnd.businessobject.defaultValue;
 
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Finds the next value in the sequence for W8TypeOwnership records

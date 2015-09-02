@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.aop.support.AopUtils;
 
 @ConfigureContext(session = kfs)

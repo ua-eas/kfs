@@ -29,8 +29,8 @@ import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.AccountBalanceByLevel;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.kns.service.BusinessObjectDictionaryService;
-import org.kuali.rice.krad.service.LookupService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.krad.service.LookupService;
 
 /**
  * This class is used to generate the URL for the user-defined attributes for the account balace by consolidation screen. It is

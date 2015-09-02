@@ -40,8 +40,8 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedVali
 import org.kuali.kfs.sys.service.IsDebitTestUtils;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 
 /**
  * This class tests the business rules of the internal billing document. This is not implemented yet and needs to extend

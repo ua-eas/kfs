@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
-import org.kuali.rice.krad.kim.DocumentTypePermissionTypeServiceImpl;
+import org.kuali.kfs.krad.kim.DocumentTypePermissionTypeServiceImpl;
 
 /**
  * 
@@ -36,7 +36,7 @@ import org.kuali.rice.krad.kim.DocumentTypePermissionTypeServiceImpl;
 public class FinancialSystemDocumentTypePermissionTypeServiceImpl extends DocumentTypePermissionTypeServiceImpl {
 
     /**
-     * @see org.kuali.rice.krad.service.impl.DocumentTypePermissionTypeServiceImpl#performPermissionMatches(org.kuali.rice.kim.bo.types.dto.AttributeSet, java.util.List)
+     * @see org.kuali.kfs.krad.service.impl.DocumentTypePermissionTypeServiceImpl#performPermissionMatches(org.kuali.kfs.kim.bo.types.dto.AttributeSet, java.util.List)
      */
     @Override
     protected List<Permission> performPermissionMatches(Map<String,String> requestedDetails,

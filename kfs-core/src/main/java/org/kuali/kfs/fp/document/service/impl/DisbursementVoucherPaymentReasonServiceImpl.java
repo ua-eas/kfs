@@ -36,9 +36,9 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.util.MessageList;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * implementing the service methods defined in DisbursementVoucherPaymentReasonService

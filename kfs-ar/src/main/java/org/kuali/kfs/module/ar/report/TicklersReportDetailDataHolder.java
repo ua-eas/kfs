@@ -23,7 +23,7 @@ import java.sql.Date;
 
 import org.kuali.kfs.module.ar.businessobject.TicklersReport;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Data holder class for Ticklers Report.

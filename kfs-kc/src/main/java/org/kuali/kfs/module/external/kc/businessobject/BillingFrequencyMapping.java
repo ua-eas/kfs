@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.external.kc.businessobject;
 
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class BillingFrequencyMapping extends PersistableBusinessObjectBase implements MutableInactivatable {
 

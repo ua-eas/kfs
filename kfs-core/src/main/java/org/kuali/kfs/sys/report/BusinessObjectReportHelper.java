@@ -34,9 +34,9 @@ import org.kuali.rice.core.web.format.IntegerFormatter;
 import org.kuali.rice.core.web.format.KualiIntegerCurrencyFormatter;
 import org.kuali.rice.core.web.format.LongFormatter;
 import org.kuali.rice.core.web.format.PercentageFormatter;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Helper class for business objects to assist formatting them for error reporting. Utilizes spring injection for modularization and

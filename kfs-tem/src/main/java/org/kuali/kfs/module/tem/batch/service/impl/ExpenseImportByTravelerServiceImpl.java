@@ -48,10 +48,10 @@ import org.kuali.kfs.module.tem.service.TravelExpenseService;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class ExpenseImportByTravelerServiceImpl extends ExpenseImportServiceBase implements ExpenseImportByTravelerService {
 

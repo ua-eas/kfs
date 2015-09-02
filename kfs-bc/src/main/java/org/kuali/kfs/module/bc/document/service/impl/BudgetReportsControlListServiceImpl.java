@@ -32,8 +32,8 @@ import org.kuali.kfs.module.bc.businessobject.BudgetConstructionSubFundPick;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetReportsControlListDao;
 import org.kuali.kfs.module.bc.document.service.BudgetReportsControlListService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.PersistenceService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

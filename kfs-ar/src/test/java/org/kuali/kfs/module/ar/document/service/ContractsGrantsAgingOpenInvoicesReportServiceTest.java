@@ -40,10 +40,10 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ErrorMessage;
 
 /**
  * Test file for ContractsGrantsAgingOpenInvoicesReport service.

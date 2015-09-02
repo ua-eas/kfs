@@ -26,12 +26,12 @@ import org.kuali.kfs.sys.document.workflow.SensitiveDataSecurityAttribute;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * TEM Security Attribute restrict doc search results and view route log

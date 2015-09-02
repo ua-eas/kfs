@@ -46,7 +46,7 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

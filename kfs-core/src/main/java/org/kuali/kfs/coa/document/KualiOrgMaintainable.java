@@ -26,11 +26,11 @@ import org.kuali.kfs.coa.service.OrganizationService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.Maintainable;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.Row;
-import org.kuali.rice.kns.web.ui.Section;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.kns.web.ui.Section;
 
 /**
  * This class overrides the getCoreSections method to provide specific field conversions for the postal code

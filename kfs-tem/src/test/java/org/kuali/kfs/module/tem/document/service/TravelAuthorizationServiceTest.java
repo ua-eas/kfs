@@ -32,8 +32,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.exception.UnknownDocumentIdException;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
 
 @ConfigureContext
 public class TravelAuthorizationServiceTest extends KualiTestBase {

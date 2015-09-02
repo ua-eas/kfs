@@ -21,8 +21,8 @@ package org.kuali.kfs.module.purap.document.authorization;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 
 public class PurchasingAccountsPayableDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase {

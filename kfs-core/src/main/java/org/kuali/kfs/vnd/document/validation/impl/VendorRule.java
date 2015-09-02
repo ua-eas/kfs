@@ -31,6 +31,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -59,20 +60,20 @@ import org.kuali.kfs.vnd.service.TaxNumberService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.datadictionary.validation.fieldlevel.FixedPointValidationPattern;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.validation.ValidationPattern;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.FixedPointValidationPattern;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.util.AutoPopulatingList;
 
 /**
@@ -91,7 +92,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * vendors, so the saving of the vendor header is done manually. If we call the updateNonUpdateableReferences, it is going to
      * overwrite any changes that the user might have done in the vendor header with the existing values in the database.
      *
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#setupBaseConvenienceObjects(org.kuali.rice.kns.document.MaintenanceDocument)
+     * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#setupBaseConvenienceObjects(org.kuali.kfs.kns.document.MaintenanceDocument)
      */
     @Override
     public void setupBaseConvenienceObjects(MaintenanceDocument document) {
@@ -102,7 +103,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#setupConvenienceObjects()
+     * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#setupConvenienceObjects()
      */
     @Override
     public void setupConvenienceObjects() {
@@ -192,7 +193,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
+     * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomApproveDocumentBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomApproveDocumentBusinessRules(MaintenanceDocument document) {
@@ -201,7 +202,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
+     * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
@@ -210,7 +211,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
+     * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
@@ -1145,7 +1146,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             valid &= validateVendorContractBeginEndDates(contract);
             valid &= processContractB2BValidation(document, contract, i);
             if (contract.getOrganizationAutomaticPurchaseOrderLimit() != null) {
-                org.kuali.rice.krad.datadictionary.BusinessObjectEntry entry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(VendorContract.class.getName());
+                BusinessObjectEntry entry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(VendorContract.class.getName());
                 AttributeDefinition attributeDefinition = entry.getAttributeDefinition(VendorPropertyConstants.VENDOR_CONTRACT_DEFAULT_APO_LIMIT);
                 valid &= validateAPOAmount(contract.getOrganizationAutomaticPurchaseOrderLimit(), attributeDefinition);
             }
@@ -1309,7 +1310,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         }
 
         if (shouldAddToErrorPath && organization.getVendorContractPurchaseOrderLimitAmount() != null) {
-            org.kuali.rice.krad.datadictionary.BusinessObjectEntry entry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(VendorContractOrganization.class.getName());
+            BusinessObjectEntry entry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(VendorContractOrganization.class.getName());
             AttributeDefinition attributeDefinition = entry.getAttributeDefinition(VendorPropertyConstants.VENDOR_CONTRACT_ORGANIZATION_APO_LIMIT);
             valid &= validateAPOAmount(organization.getVendorContractPurchaseOrderLimitAmount(), attributeDefinition);
         }
@@ -1375,8 +1376,8 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * Validates business rules for VendorDetail document collection add lines. Add lines are the initial lines on a collections,
      * i.e. the ones next to the "Add" button
      *
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument,
+     *      java.lang.String, org.kuali.kfs.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -1625,7 +1626,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * the user tries to add a vendor contract when the vendor type of the vendor does not allow
      * contract.
      *
-     * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument, java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processAddCollectionLineBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument, java.lang.String, org.kuali.kfs.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {

@@ -32,15 +32,15 @@ import org.kuali.kfs.integration.ld.LaborBenefitRateCategory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.GlobalBusinessObject;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetail;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
@@ -102,7 +102,7 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.document.GlobalBusinessObject#getGlobalChangesToDelete()
+     * @see org.kuali.kfs.krad.document.GlobalBusinessObject#getGlobalChangesToDelete()
      */
     @Override
     public List<PersistableBusinessObject> generateDeactivationsToPersist() {
@@ -110,7 +110,7 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.document.GlobalBusinessObject#applyGlobalChanges(org.kuali.rice.krad.bo.BusinessObject)
+     * @see org.kuali.kfs.krad.document.GlobalBusinessObject#applyGlobalChanges(org.kuali.kfs.krad.bo.BusinessObject)
      */
     @Override
     public List<PersistableBusinessObject> generateGlobalChangesToPersist() {
@@ -956,7 +956,7 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.document.GlobalBusinessObject#isPersistable()
+     * @see org.kuali.kfs.krad.document.GlobalBusinessObject#isPersistable()
      */
     @Override
     public boolean isPersistable() {
@@ -984,7 +984,7 @@ public class AccountGlobal extends PersistableBusinessObjectBase implements Glob
     }
 
     /**
-     * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
+     * @see org.kuali.kfs.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
      */
     @Override
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {

@@ -22,7 +22,7 @@ import java.sql.Date;
 import java.util.LinkedHashMap;
 
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Base class so the Bill and InvoiceBill BOs don't have to duplicate code.

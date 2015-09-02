@@ -24,7 +24,7 @@ import java.util.Map;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReasonCode;
 import org.kuali.kfs.module.bc.service.BudgetConstructionAppointmentFundingReasonCodeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * implements the service methods defined in BudgetConstructionAppointmentFundingReasonCodeService

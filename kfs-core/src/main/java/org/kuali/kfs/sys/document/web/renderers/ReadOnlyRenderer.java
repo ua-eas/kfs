@@ -30,8 +30,8 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * Renderer which displays a read only field

@@ -31,7 +31,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.ConfigurableDateService;
 import org.kuali.kfs.sys.service.impl.ConfigurableDateTimeServiceImpl;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 @ConfigureContext(session = khuntley)
 public class CustomerInvoiceDueDateValidationTest extends KualiTestBase {

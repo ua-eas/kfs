@@ -28,8 +28,8 @@ import org.kuali.kfs.module.tem.document.validation.event.AddImportedExpenseDeta
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.DictionaryValidationService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class TravelDocumentImportedExpenseDetailLineValidation extends GenericValidation {
     protected DictionaryValidationService dictionaryValidationService;

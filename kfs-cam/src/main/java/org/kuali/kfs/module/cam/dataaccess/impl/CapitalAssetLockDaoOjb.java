@@ -29,7 +29,7 @@ import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetLock;
 import org.kuali.kfs.module.cam.dataaccess.CapitalAssetLockDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 public class CapitalAssetLockDaoOjb extends PlatformAwareDaoBaseOjb implements CapitalAssetLockDao {
 

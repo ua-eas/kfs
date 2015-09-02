@@ -25,8 +25,8 @@ import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.module.purap.document.service.BulkReceivingService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.rules.PromptBeforeValidationBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 
 public class BulkReceivingDocumentPreRules extends PromptBeforeValidationBase{
 

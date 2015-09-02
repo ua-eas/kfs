@@ -31,7 +31,7 @@ import org.kuali.kfs.vnd.fixture.VendorContractBeginEndDatesFixture;
 import org.kuali.kfs.vnd.fixture.VendorContractPurchaseOrderLimitAmountPresenceFixture;
 import org.kuali.kfs.vnd.fixture.VendorRuleAddressStateZipFixture;
 import org.kuali.kfs.vnd.fixture.VendorRuleAddressTypeFixture;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 /**
  * This class should contain all tests of methods implementing Vendor rules. For this purpose, we need to set up the parts of a

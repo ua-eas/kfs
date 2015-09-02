@@ -25,8 +25,8 @@ import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PaymentRequestTradeInWarningValidation extends GenericValidation {
 

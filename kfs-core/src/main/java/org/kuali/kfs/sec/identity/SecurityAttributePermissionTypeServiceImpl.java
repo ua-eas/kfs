@@ -25,7 +25,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
-import org.kuali.rice.kns.kim.permission.PermissionTypeServiceBase;
+import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 /**
  * Type service for Access Security Permissions that restrict based on property name
@@ -38,7 +38,7 @@ public class SecurityAttributePermissionTypeServiceImpl extends PermissionTypeSe
 
 
     /**
-     * @see org.kuali.rice.kns.kim.permission.PermissionTypeServiceBase#performPermissionMatches(org.kuali.rice.kim.bo.types.dto.AttributeSet,
+     * @see org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase#performPermissionMatches(org.kuali.rice.kim.bo.types.dto.AttributeSet,
      *      java.util.List)
      */
     @Override

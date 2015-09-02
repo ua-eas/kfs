@@ -36,7 +36,7 @@ import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 
 public class TravelEntertainmentForm extends TravelFormBase implements TravelEntertainmentMvcWrapperBean {
 

@@ -25,7 +25,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
-import org.kuali.rice.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl;
+import org.kuali.kfs.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl;
 
 /**
  * This is a permission type service with attributes for wildcard matching on the namespace and/or
@@ -58,7 +58,7 @@ public class NamespaceWildcardAllowedAndOrStringWildcardAllowedPermissionTypeSer
      *
      * I.e., matches best. KFS-SYS will have priority over KFS-*
      *
-     * @see org.kuali.rice.kim.service.support.impl.KimPermissionTypeServiceBase#performPermissionMatches(org.kuali.rice.kim.bo.types.dto.AttributeSet, java.util.List)
+     * @see org.kuali.kfs.kim.service.support.impl.KimPermissionTypeServiceBase#performPermissionMatches(org.kuali.kfs.kim.bo.types.dto.AttributeSet, java.util.List)
      */
 	@Override
 	protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails, List<Permission> permissionsList) {
@@ -250,7 +250,7 @@ public class NamespaceWildcardAllowedAndOrStringWildcardAllowedPermissionTypeSer
 
     /**
      * Exact match helper method that isn't applicable in wildcard match
-     * @see org.kuali.rice.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl#setExactMatchStringAttributeName(java.lang.String)
+     * @see org.kuali.kfs.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl#setExactMatchStringAttributeName(java.lang.String)
      */
     @Override
     public void setExactMatchStringAttributeName(String exactMatchStringAttributeName) {
