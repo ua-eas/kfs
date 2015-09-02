@@ -80,7 +80,7 @@ public class PreferencesResource {
 
         if ( loggedinPrincipalName.equals(principalName) ) {
             getPreferencesService().saveUserPreferencesKey(loggedinPrincipalName, key, preferences);
-            return Response.ok().build();
+            return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to save preferences for this user").build();
         }
