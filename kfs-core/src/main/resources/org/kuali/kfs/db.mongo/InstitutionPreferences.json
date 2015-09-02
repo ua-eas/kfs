@@ -1,7 +1,7 @@
 {
   "institutionId": "1232413535",
-  "logoUrl": "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg",
-  "institutionName": "Monsters",
+  "logoUrl": "static/images/out-of-the-box-logo-rtna.png",
+  "institutionName": "Kuali",
   "linkGroups":[
     {
       "label": "Accounting",
