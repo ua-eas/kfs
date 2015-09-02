@@ -19,19 +19,15 @@
 <%@ attribute name="addHighlighting" required="false"  description="boolean indicating if this field should be highlighted (to indicate old/new change)" %>
 <%@ attribute name="isLookup" required="false" description="boolean indicating if this is a Lookup Screen" %>
 
-<%-- Put the .div span around the link instead of vice versa,
-    so that if JavaScript changes the .div contents there is no misleading link. --%>
 <span id="${field.propertyName}.div">
     <c:choose>
         <c:when test="${not (empty field.inquiryURL.href || empty field.propertyValue)}">
-            <%--<a title="<c:out value="${field.inquiryURL.title}"/>" href="<c:out value="${field.inquiryURL.href}&mode=${param.mode}"/>" target="_blank">--%>
-
-             <a href="<c:out value="${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-remodal-target="modal">
-                 <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
-             </a>
-             <a href="<c:out value="${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="Open in new tab" class="new-window">
-                 <span class="glyphicon glyphicon-new-window"></span>
-             </a>
+            <a href="<c:out value="${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-label="<c:out value="${DataDictionary[field.inquiryURL.simpleClassName].objectLabel}"/>" data-remodal-target="modal">
+                <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
+            </a>
+            <a href="<c:out value="${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="Open in new tab" class="new-window">
+                <span class="glyphicon glyphicon-new-window"></span>
+            </a>
         </c:when>
         <c:otherwise>
             <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />

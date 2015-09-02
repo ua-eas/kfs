@@ -39,7 +39,7 @@
 
             var modalBody = myModal.find('.content');
             var href = $(event.target).attr('href');
-            var title = $.trim($(event.target).text());
+            var title = $(event.target).attr('data-label') || $.trim($(event.target).text());
             modalBody.load(href, function() {
                 myModal.remodal();
 

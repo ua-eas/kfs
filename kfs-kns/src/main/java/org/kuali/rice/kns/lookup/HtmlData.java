@@ -243,6 +243,7 @@ public abstract class HtmlData implements Serializable {
 		protected String style = "";
 		protected String styleClass ="";
 		protected String onclick ="";
+		protected String simpleClassName = "";
 
 		/**
 		 * Needed by inquiry framework
@@ -368,6 +369,14 @@ public abstract class HtmlData implements Serializable {
 		 */
 		public String getMethodToCall() {
 			return this.methodToCall;
+		}
+
+		public String getSimpleClassName() {
+			return simpleClassName;
+		}
+
+		public void setSimpleClassName(String simpleClassName) {
+			this.simpleClassName = simpleClassName;
 		}
 
 	}

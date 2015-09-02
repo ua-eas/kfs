@@ -217,6 +217,8 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 				String nestedReferenceName = ObjectUtils.getNestedAttributePrefix(attributeName);
 				Object nestedReferenceObject = ObjectUtils.getNestedValue(businessObject, nestedReferenceName);
 
+				hRef.setSimpleClassName(nestedReferenceObject.getClass().getSimpleName());
+
 				if (ObjectUtils.isNotNull(nestedReferenceObject) && nestedReferenceObject instanceof BusinessObject) {
 					nestedBusinessObject = (BusinessObject) nestedReferenceObject;
 					String nestedAttributePrimitive = ObjectUtils.getNestedAttributePrimitive(attributeName);
@@ -418,6 +420,7 @@ public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 
 	protected AnchorHtmlData getHyperLink(Class inquiryClass, Map<String, String> fieldList, String inquiryUrl) {
 		AnchorHtmlData a = new AnchorHtmlData(inquiryUrl, KRADConstants.EMPTY_STRING);
+		a.setSimpleClassName(inquiryClass.getSimpleName());
 		a.setTitle(HtmlData.getTitleText(this.createTitleText(inquiryClass), inquiryClass, fieldList));
 		return a;
 	}
