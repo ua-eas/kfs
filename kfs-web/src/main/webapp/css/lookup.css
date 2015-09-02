@@ -387,38 +387,24 @@ div.inquiry table.datatable th {
     font-weight: 700;
 }
 
-.modal-dialog {
-    width: 85%;
-    height: 100%;
-}
-
-#wrapper.fullwidth {
-    width: 100%;
-    left: 0;
-}
-
-#sidebar-bg-wrapper.inquirymodal {
-    margin-bottom: 30px;
-}
-
-#wrapper.inquirymodal {
+.contentwrapper.inquirymodal {
     display: block;
     border-radius: 6px;
 }
 
-#wrapper.inquirymodal #view_div {
+.inquirymodal .content #view_div {
     padding-top: 0;
-}
-
-#wrapper.inquirymodal #main-wrapper,
-#wrapper.inquirymodal #main {
     border-radius: 6px;
 }
 
-#wrapper.inquirymodal div.inquiry {
+.inquirymodal .content {
+    border-radius: 6px;
+}
+
+.inquirymodal .content div.inquiry {
     margin-bottom: 0;
 }
 
-#wrapper.fullwidth #main {
+.body.fullwidth {
     margin-top: 0;
 }

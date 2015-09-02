@@ -43,6 +43,9 @@ var Sidebar = React.createClass({
         }
     },
     toggleSidebar() {
+        $('#menu-toggle').toggleClass('rotated');
+        $('#sidebar').toggleClass('collapsed');
+
         let userPreferences = this.state.userPreferences;
         let sidebarOutValue = userPreferences.sidebarOut;
         console.log(sidebarOutValue);
@@ -90,25 +93,17 @@ var Sidebar = React.createClass({
             }
         }
 
-        let windowWidth = $(window).width()
-
-        if ( ! this.state.userPreferences.sidebarOut ) {
-            $('#wrapper').css('left','25px').css('width','calc(100% - 25px)');
-            $('#sidebar-wrapper').css('width','25px');
-            $('#menu-toggle').css('left','0').css('position','fixed');
-            $('#menu-toggle>span').removeClass('glyphicon-menu-left').addClass('glyphicon-menu-right');
-        } else {
-            $('#wrapper').css('left','320px').css('width','calc(100% - 320px)');
-            $('#sidebar-wrapper').css('width','320px');
-            $('#menu-toggle').css('position','inherit');
-            $('#menu-toggle>span').removeClass('glyphicon-menu-right').addClass('glyphicon-menu-left');
+        let menuToggleClassName = "glyphicon glyphicon-menu-left"
+        if (this.state.userPreferences.sidebarOut === false) {
+            menuToggleClassName += " rotated"
+            $('#sidebar').addClass('collapsed');
         }
 
         return (
-            <div id="sidebar">
-                <div id="menu-toggle" onClick={this.toggleSidebar}><span className="glyphicon glyphicon-menu-left"></span></div>
+            <div>
                 <ul id="accordion" className="nav list-group accordion accordion-group">
-                    <li className="first"><a href={rootPath}>Dashboard</a></li>
+                    <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
+                    <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
             </div>
@@ -124,7 +119,7 @@ var LinkGroup = React.createClass({
             return <Link key={i} url={link.link} label={link.label} className="list-group-item"/>
         })
 
-        let panelClassName = "panel"
+        let panelClassName = "panel list-item"
         let indicatorClassName = "indicator glyphicon pull-right"
         if (this.props.expandedLinkGroup === label) {
             panelClassName += " active"
@@ -160,7 +155,7 @@ function findLabelBeforeActive(linkGroups, expandedLinkGroup) {
 
 React.render(
     <Sidebar/>,
-    document.getElementById('sidebar-wrapper')
+    document.getElementById('sidebar')
 );
 
 export default Sidebar;
