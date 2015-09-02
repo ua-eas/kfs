@@ -1,15 +1,10 @@
 package org.kuali.kfs.sys.rest;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.PreferencesService;
 import org.kuali.kfs.sys.web.WebUtilities;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -19,8 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @Path("/preferences")
@@ -70,7 +63,7 @@ public class PreferencesResource {
 
         if ( loggedinPrincipalName.equals(principalName) ) {
             getPreferencesService().saveUserPreferences(loggedinPrincipalName,preferences);
-            return Response.ok().build();
+            return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to save preferences for this user").build();
         }

@@ -21,18 +21,25 @@ var Sidebar = React.createClass({
             }.bind(this)
         })
 
-        let userPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/users/khuntley"
-        $.ajax({
-            url: userPath,
-            dataType: 'json',
-            type: 'GET',
-            success: function(userPreferences) {
-                this.setState({userPreferences: userPreferences});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log(err.toString());
-            }.bind(this)
-        })
+        let userPreferencesString = localStorage.getItem('finUserPreferences')
+        if (userPreferencesString) {
+            let userPreferences = JSON.parse(userPreferencesString)
+            this.setState({userPreferences: userPreferences});
+        } else {
+            let userPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/users/khuntley"
+            $.ajax({
+                url: userPath,
+                dataType: 'json',
+                type: 'GET',
+                success: function (userPreferences) {
+                    localStorage.setItem('finUserPreferences', JSON.stringify(userPreferences))
+                    this.setState({userPreferences: userPreferences});
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.log(err.toString());
+                }.bind(this)
+            })
+        }
     },
     toggleAccordion(label) {
         let curExpandedGroup = this.state.expandedLinkGroup
@@ -70,6 +77,7 @@ var Sidebar = React.createClass({
             data: JSON.stringify(this.state.userPreferences),
             type: 'PUT',
             success: function(userPreferences) {
+                localStorage.setItem('finUserPreferences', JSON.stringify(userPreferences))
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());
