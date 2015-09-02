@@ -47,7 +47,7 @@
 				<start name="AdHoc" />
 				<role name="OrganizationHierarchy">
 					<qualifierResolverClass>
-						org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+						org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
 					</qualifierResolverClass>
 					<activationType>
 						P
@@ -85,12 +85,12 @@
 				<start name="AdHoc" />
 				<role name="OrganizationHierarchy">
 					<qualifierResolverClass>
-						org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+						org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
 					</qualifierResolverClass>
 				</role>
 				<role name="ResearchRisk">
 					<qualifierResolverClass>
-						org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+						org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
 					</qualifierResolverClass>
 				</role>
 			</routeNodes>

@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.cam.businessobject;
 
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class AssetDepreciationTransaction extends TransientBusinessObjectBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TransientBusinessObjectBase.class);

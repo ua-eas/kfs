@@ -220,7 +220,7 @@
         <start name="AdHoc"/>
         <role name="Organization">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -237,19 +237,19 @@
         <join name="JoinHasAccountingLines"/>
         <role name="Initiator">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
         <role name="SubAccount">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
         <role name="Account">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
           <mandatoryRoute>
@@ -258,13 +258,13 @@
         </role>
         <role name="AccountingOrganizationHierarchy">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
         <role name="Commodity">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -275,7 +275,7 @@
         </split>
         <role name="SeparationOfDuties">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -428,7 +428,7 @@
         </split>
         <role name="ContractManagement">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -442,7 +442,7 @@
         </simple>
         <role name="Commodity">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -455,7 +455,7 @@
         </split>
         <role name="Award">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -474,7 +474,7 @@
         </split>
         <role name="Budget">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -493,7 +493,7 @@
         </split>
         <role name="Tax">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>
             P
@@ -607,7 +607,7 @@
  	 			</split>
 		        <role name="NewUnorderedItems">
 					<qualifierResolverClass>
-						org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+						org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
 					</qualifierResolverClass>
 					<activationType>P</activationType>
 				</role>
@@ -874,7 +874,7 @@
         <start name="AdHoc"/>
         <role name="AccountsPayable">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1240,7 +1240,7 @@
         <start name="AdHoc"/>
         <role name="Management">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1310,7 +1310,7 @@
         </split>
         <role name="ImageAttachment">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1322,7 +1322,7 @@
         </simple>
         <role name="Account">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1427,7 +1427,7 @@
         </split>
         <role name="ImageAttachment">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1444,7 +1444,7 @@
         </split>
         <role name="Receiving">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1461,7 +1461,7 @@
         </split>
         <role name="AutoApprove">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1473,13 +1473,13 @@
         </simple>
         <role name="SubAccount">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
         <role name="Account">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
           <mandatoryRoute>
@@ -1488,7 +1488,7 @@
         </role>
         <role name="AccountingOrganizationHierarchy">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1499,7 +1499,7 @@
         </split>
         <role name="Tax">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>
@@ -1614,7 +1614,7 @@
         </split>
         <role name="OutstandingTransactions">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
           <activationType>P</activationType>
         </role>

@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.tem.document.authorization;
 
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Generic presentation controller for the travel card application documents

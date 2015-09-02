@@ -25,6 +25,8 @@ import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.fp.document.CashManagementDocument;
 import org.kuali.kfs.fp.document.service.CashManagementService;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
+import org.kuali.kfs.krad.maintenance.Maintainable;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.CashDrawerConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
@@ -33,9 +35,9 @@ import org.kuali.kfs.sys.document.authorization.LedgerPostingDocumentPresentatio
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.api.action.ValidActions;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.MaintenanceDocumentService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.MaintenanceDocumentService;
 
 public class CashManagementDocumentPresentationControllerBase extends LedgerPostingDocumentPresentationControllerBase implements CashManagementDocumentPresentationController {
 
@@ -64,7 +66,7 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     }
 
     /**
-     * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canApprove(org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.document.authorization.DocumentPresentationControllerBase#canApprove(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canApprove(Document document) {
@@ -78,7 +80,7 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     }
 
     /**
-     * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canBlanketApprove(org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.document.authorization.DocumentPresentationControllerBase#canBlanketApprove(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canBlanketApprove(Document document) {
@@ -98,7 +100,7 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     }
 
     /**
-     * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canCancel(org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.document.authorization.DocumentPresentationControllerBase#canCancel(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canCancel(Document document) {
@@ -118,7 +120,7 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     }
 
     /**
-     * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canDisapprove(org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.document.authorization.DocumentPresentationControllerBase#canDisapprove(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canDisapprove(Document document) {
@@ -132,7 +134,7 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     }
 
     /**
-     * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canRoute(org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.document.authorization.DocumentPresentationControllerBase#canRoute(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canRoute(Document document) {
@@ -152,7 +154,7 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     }
 
     /**
-     * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canSave(org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.document.authorization.DocumentPresentationControllerBase#canSave(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canSave(Document document) {
@@ -172,7 +174,7 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     }
 
     /**
-     * @see org.kuali.rice.krad.document.authorization.DocumentPresentationControllerBase#canAdHocRoute(org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.document.authorization.DocumentPresentationControllerBase#canAdHocRoute(org.kuali.rice.krad.document.Document)
      */
     @Override
     public boolean canAddAdhocRequests(Document document) {
@@ -217,8 +219,8 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
      * @return true if there are no maintenance documents with locks on the cash drawer, false otherwise
      */
     protected boolean noExistCashDrawerMaintLocks(CashDrawer cashDrawer, String documentNumber) {
-       final org.kuali.rice.krad.datadictionary.MaintenanceDocumentEntry cashDrawerMaintDocEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(cashDrawer.getClass());
-       org.kuali.rice.krad.maintenance.Maintainable cashDrawerMaintainable = createCashDrawerMaintainable(cashDrawerMaintDocEntry);
+       final MaintenanceDocumentEntry cashDrawerMaintDocEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(cashDrawer.getClass());
+        Maintainable cashDrawerMaintainable = createCashDrawerMaintainable(cashDrawerMaintDocEntry);
        cashDrawerMaintainable.setDataObjectClass(cashDrawer.getClass());
        cashDrawerMaintainable.setDataObject(cashDrawer);
        cashDrawerMaintainable.setDocumentNumber(documentNumber);
@@ -232,8 +234,8 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
      * @param cashDrawerMaintenanceDocumentEntry the data dictionary entry from the Cash Drawer's maintenance document
      * @return an appropriate Maintainable
      */
-    protected org.kuali.rice.krad.maintenance.Maintainable createCashDrawerMaintainable(org.kuali.rice.krad.datadictionary.MaintenanceDocumentEntry cashDrawerMaintenanceDocumentEntry) {
-        org.kuali.rice.krad.maintenance.Maintainable cashDrawerMaintainable;
+    protected Maintainable createCashDrawerMaintainable(MaintenanceDocumentEntry cashDrawerMaintenanceDocumentEntry) {
+        Maintainable cashDrawerMaintainable;
         try {
             cashDrawerMaintainable = cashDrawerMaintenanceDocumentEntry.getMaintainableClass().newInstance();
         }

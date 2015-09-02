@@ -27,7 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 
 /**
  * Check for Traveler Derived Role base on document traveler (for Travel Document) or proflie (Travel Arranger Document)

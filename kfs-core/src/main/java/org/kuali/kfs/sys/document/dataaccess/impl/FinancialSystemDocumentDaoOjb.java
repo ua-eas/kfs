@@ -27,8 +27,8 @@ import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.dataaccess.FinancialSystemDocumentDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 /**
  * This class is the KFS specific document dao implementation

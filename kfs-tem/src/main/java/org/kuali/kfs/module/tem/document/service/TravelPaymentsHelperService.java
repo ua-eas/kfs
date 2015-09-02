@@ -31,7 +31,7 @@ import org.kuali.kfs.pdp.businessobject.PaymentDetail;
 import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.DocumentHeader;
 
 /**
  * Methods shared among payment extraction services for various travel documents

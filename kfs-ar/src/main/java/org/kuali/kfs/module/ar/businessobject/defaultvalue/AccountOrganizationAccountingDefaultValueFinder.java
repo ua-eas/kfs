@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.ar.businessobject.defaultvalue;
 
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 public class AccountOrganizationAccountingDefaultValueFinder extends OrganizationAccountingDefaultValueFinderBase implements ValueFinder {
     

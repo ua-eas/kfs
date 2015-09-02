@@ -21,9 +21,9 @@ package org.kuali.kfs.sec.service.impl;
 import org.kuali.kfs.sec.document.validation.impl.AccessSecurityAccountingDocumentRuleBase;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.rules.rule.BusinessRule;
-import org.kuali.rice.krad.service.impl.DocumentDictionaryServiceImpl;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.service.impl.DocumentDictionaryServiceImpl;
 
 public class SecDocumentDictionaryServiceImpl extends DocumentDictionaryServiceImpl {
     private AccessSecurityService accessSecurityService;

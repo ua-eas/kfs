@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Defines a Contracts & Grants Billing Invoice Document Error Message.

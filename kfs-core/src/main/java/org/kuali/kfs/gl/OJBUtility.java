@@ -33,11 +33,11 @@ import org.apache.ojb.broker.query.Query;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.kns.datadictionary.FieldDefinition;
-import org.kuali.rice.krad.dao.LookupDao;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.datadictionary.FieldDefinition;
+import org.kuali.kfs.krad.dao.LookupDao;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 
 /**
  * This class provides a set of utilities that can handle common tasks related to business objects.

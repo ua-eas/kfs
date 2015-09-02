@@ -17,7 +17,7 @@
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
-<tiles:useAttribute name="group" classname="org.kuali.rice.krad.uif.container.ReorderingGroup"/>
+<tiles:useAttribute name="group" classname="org.kuali.kfs.krad.uif.container.ReorderingGroup"/>
 
 <%-- render group --%>
 <tiles:insertTemplate template="group.jsp">

@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.document.validation.event;
 
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * An event to save an accounting document, which AccountingDocumentBase will *not* generate

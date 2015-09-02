@@ -32,7 +32,7 @@ import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 
 /**
  * This class is used to generate the URL for the user-defined attributes for the Position Inquiry screen. It extends the

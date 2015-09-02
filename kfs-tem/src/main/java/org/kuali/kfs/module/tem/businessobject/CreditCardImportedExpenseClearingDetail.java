@@ -21,7 +21,7 @@ package org.kuali.kfs.module.tem.businessobject;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 public class CreditCardImportedExpenseClearingDetail extends GlobalBusinessObjectDetailBase {
     private Integer creditCardStagingDataId;

@@ -20,7 +20,7 @@ package org.kuali.kfs.sys.document.web;
 
 import java.util.List;
 
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * Base class for header labels

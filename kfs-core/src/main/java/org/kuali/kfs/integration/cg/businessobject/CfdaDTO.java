@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
 import org.kuali.kfs.integration.cg.ContractsAndGrantsCfda;
-import org.kuali.rice.krad.bo.BusinessObjectBase;
+import org.kuali.kfs.krad.bo.BusinessObjectBase;
 
 
 /**

@@ -34,11 +34,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.web.format.FormatException;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.ExternalizableBusinessObjectUtils;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class ObjectPopulationUtils {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ObjectPopulationUtils.class);

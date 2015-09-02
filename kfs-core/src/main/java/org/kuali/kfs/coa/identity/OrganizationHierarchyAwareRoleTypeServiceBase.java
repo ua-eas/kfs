@@ -36,7 +36,7 @@ import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.role.RoleMembership.Builder;
 import org.kuali.rice.kim.framework.common.delegate.DelegationTypeService;
 import org.kuali.rice.kim.impl.common.delegate.DelegateMemberBo;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public abstract class OrganizationHierarchyAwareRoleTypeServiceBase extends RoleTypeServiceBase implements DelegationTypeService {
     private static final Logger LOG = Logger.getLogger(OrganizationHierarchyAwareRoleTypeServiceBase.class);
@@ -123,6 +123,8 @@ public abstract class OrganizationHierarchyAwareRoleTypeServiceBase extends Role
         }
     }
 
+    /**
+     * TODO BARLEY
     @Override
     public boolean doesDelegationQualifierMatchQualification(Map<String,String> qualification, Map<String,String> delegationQualifier) {
         return performMatch(translateInputAttributes(qualification), delegationQualifier);
@@ -131,13 +133,16 @@ public abstract class OrganizationHierarchyAwareRoleTypeServiceBase extends Role
     public List<DelegateMember> doDelegationQualifiersMatchQualification(Map<String,String> qualification, List<DelegateMemberBo> delegationMemberList) {
         Map<String,String> translatedQualification = translateInputAttributes(qualification);
         List<DelegateMember> matchingMemberships = new ArrayList<DelegateMember>();
-        for (DelegateMemberBo dmi : delegationMemberList) {
-             if (performMatch(translatedQualification, dmi.getQualifier())) {
-                matchingMemberships.add(DelegateMemberBo.to(dmi));
-            }
-        }
+        //TODO: Spaghetti fix
+
+//        for (DelegateMemberBo dmi : delegationMemberList) {
+//             if (performMatch(translatedQualification, dmi.getQualifier())) {
+//                matchingMemberships.add(DelegateMemberBo.to(dmi));
+//            }
+//        }
         return matchingMemberships;
     }
+    */
 
 
     public void setOrganizationService(OrganizationService organizationService) {

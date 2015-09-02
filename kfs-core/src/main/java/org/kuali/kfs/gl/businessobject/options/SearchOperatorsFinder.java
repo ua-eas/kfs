@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * An extension of KeyValueBase that gives the user a choice of search operator options

@@ -21,7 +21,7 @@ package org.kuali.kfs.module.tem.document.validation.impl;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.validation.BranchingValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * A branching validation which will redirect to a "validateTravelAdvance" composite validation if the travel advance looks to need validation

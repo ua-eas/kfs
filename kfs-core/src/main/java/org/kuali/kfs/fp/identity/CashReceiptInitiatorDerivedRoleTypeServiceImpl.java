@@ -26,7 +26,7 @@ import java.util.Map;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 
 /**
  * A role which determines membership in role for people who can initiate Cash Receipts.  Members are those

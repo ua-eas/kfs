@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 
 public class PurchaseOrderPaymentHoldDocumentPresentationController extends PurchaseOrderDocumentPresentationController {

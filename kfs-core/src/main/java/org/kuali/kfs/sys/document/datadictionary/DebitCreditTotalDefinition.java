@@ -22,7 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.document.web.renderers.DebitCreditTotalRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
-import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
 /**
  * Metadata that instructs the accounting line tags how to render debit/credit totals used in voucher documents

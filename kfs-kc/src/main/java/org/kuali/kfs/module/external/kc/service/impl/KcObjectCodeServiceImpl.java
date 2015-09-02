@@ -27,7 +27,7 @@ import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.integration.cg.dto.HashMapElement;
 import org.kuali.kfs.integration.cg.dto.KcObjectCode;
 import org.kuali.kfs.module.external.kc.service.KcObjectCodeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

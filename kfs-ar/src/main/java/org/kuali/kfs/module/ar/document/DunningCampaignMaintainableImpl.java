@@ -24,7 +24,7 @@ import java.util.Map;
 import org.kuali.kfs.module.ar.businessobject.DunningCampaign;
 import org.kuali.kfs.module.ar.businessobject.DunningLetterDistribution;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.krad.maintenance.MaintenanceDocument;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 
 /**
  * Maintainable class for Dunning Campaign.

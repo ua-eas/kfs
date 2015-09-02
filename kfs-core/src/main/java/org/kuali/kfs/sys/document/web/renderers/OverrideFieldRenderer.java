@@ -29,7 +29,7 @@ import org.apache.struts.taglib.html.HiddenTag;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.AccountingLineRenderingService;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Field;
 import org.springframework.web.util.HtmlUtils;
 
 /**

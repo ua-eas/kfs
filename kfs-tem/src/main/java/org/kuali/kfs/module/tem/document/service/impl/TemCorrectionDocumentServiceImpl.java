@@ -22,10 +22,10 @@ import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
 import org.kuali.kfs.module.tem.document.TemCorrectionProcessDocument;
 import org.kuali.kfs.module.tem.document.service.TemCorrectionDocumentService;
 import org.kuali.kfs.module.tem.document.web.struts.TemCorrectionForm;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.krad.comparator.NumericValueComparator;
-import org.kuali.rice.krad.comparator.StringValueComparator;
-import org.kuali.rice.krad.comparator.TemporalValueComparator;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.krad.comparator.NumericValueComparator;
+import org.kuali.kfs.krad.comparator.StringValueComparator;
+import org.kuali.kfs.krad.comparator.TemporalValueComparator;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;

@@ -30,7 +30,7 @@ import org.kuali.kfs.module.ar.businessobject.NonAppliedHolding;
 import org.kuali.kfs.module.ar.document.dataaccess.NonAppliedHoldingDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.util.OjbCollectionAware;
+import org.kuali.kfs.krad.util.OjbCollectionAware;
 
 public class NonAppliedHoldingDaoOjb extends PlatformAwareDaoBaseOjb implements NonAppliedHoldingDao, OjbCollectionAware {
 

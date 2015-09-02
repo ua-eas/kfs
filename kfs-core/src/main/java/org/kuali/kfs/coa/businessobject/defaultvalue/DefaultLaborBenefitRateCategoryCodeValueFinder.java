@@ -21,8 +21,8 @@ package org.kuali.kfs.coa.businessobject.defaultvalue;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 public class DefaultLaborBenefitRateCategoryCodeValueFinder implements ValueFinder {
 

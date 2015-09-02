@@ -26,10 +26,10 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.rice.core.api.CoreConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.krad.service.PersistenceStructureService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 
 @ConfigureContext
 public class DictionaryPrimaryKeyTest extends KualiTestBase {
@@ -43,7 +43,7 @@ public class DictionaryPrimaryKeyTest extends KualiTestBase {
 
         for (BusinessObjectEntry boEntry : ddService.getDataDictionary().getBusinessObjectEntries().values()) {
             final Class<?> boClazz = boEntry.getBusinessObjectClass();
-            if (boClazz.getName().contains(appName) && ((org.kuali.rice.kns.datadictionary.BusinessObjectEntry)boEntry).getLookupDefinition() != null && persistenceStructureService.isPersistable(boClazz)) {
+            if (boClazz.getName().contains(appName) && ((org.kuali.kfs.kns.datadictionary.BusinessObjectEntry)boEntry).getLookupDefinition() != null && persistenceStructureService.isPersistable(boClazz)) {
                 List pkFieldNames = persistenceStructureService.getPrimaryKeys(boClazz);
                 for (Object pkFieldNameAsObject : pkFieldNames) {
                     final String pkFieldName = (String)pkFieldNameAsObject;

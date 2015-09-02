@@ -24,7 +24,7 @@ import java.util.Map;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.module.cg.businessobject.LetterOfCreditFund;
 import org.kuali.kfs.module.cg.service.LetterOfCreditFundService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * Implementation of the LetterOfCreditFundService

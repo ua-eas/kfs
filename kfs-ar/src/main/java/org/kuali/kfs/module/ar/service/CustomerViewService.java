@@ -20,7 +20,7 @@ package org.kuali.kfs.module.ar.service;
 
 import java.util.List;
 
-import org.kuali.rice.kns.web.ui.Section;
+import org.kuali.kfs.kns.web.ui.Section;
 
 
 

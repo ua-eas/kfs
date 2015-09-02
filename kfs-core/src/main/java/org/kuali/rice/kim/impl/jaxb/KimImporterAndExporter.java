@@ -27,9 +27,9 @@ import java.util.List;
 import org.kuali.rice.core.framework.impex.xml.XmlLoader;
 import org.kuali.rice.kim.api.permission.PermissionContract;
 import org.kuali.rice.kim.api.role.RoleContract;
-import org.kuali.rice.krad.bo.Exporter;
-import org.kuali.rice.krad.exception.ExportNotSupportedException;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.bo.Exporter;
+import org.kuali.kfs.krad.exception.ExportNotSupportedException;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Imports and exports roles and permissions from/to XML via JAXB.
@@ -53,7 +53,7 @@ public class KimImporterAndExporter implements XmlLoader, Exporter {
     }
 
     /**
-     * @see org.kuali.rice.krad.bo.Exporter#export(java.lang.Class, java.util.List, java.lang.String, java.io.OutputStream)
+     * @see org.kuali.kfs.krad.bo.Exporter#export(java.lang.Class, java.util.List, java.lang.String, java.io.OutputStream)
      */
     @Override
     public void export(Class<?> dataObjectClass, List<? extends Object> dataObjects, String exportFormat,
@@ -73,7 +73,7 @@ public class KimImporterAndExporter implements XmlLoader, Exporter {
     }
 
     /**
-     * @see org.kuali.rice.krad.bo.Exporter#getSupportedFormats(java.lang.Class)
+     * @see org.kuali.kfs.krad.bo.Exporter#getSupportedFormats(java.lang.Class)
      */
     @Override
     public List<String> getSupportedFormats(Class<?> dataObjectClass) {

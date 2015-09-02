@@ -33,9 +33,9 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class ReturnToFiscalOfficerQuestionHandler implements QuestionHandler<TravelDocument> {
     private ConfigurationService ConfigurationService;

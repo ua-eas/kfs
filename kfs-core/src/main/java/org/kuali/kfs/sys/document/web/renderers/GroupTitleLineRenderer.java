@@ -35,8 +35,8 @@ import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewActionDefinition;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.taglib.html.KNSFileTag;
-import org.kuali.rice.kns.web.taglib.html.KNSImageTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSFileTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
 
 /**
  * Renders the standard group header/import line

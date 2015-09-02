@@ -20,7 +20,7 @@ package org.kuali.kfs.module.purap.document.validation.event;
 
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Pre-Calculate event for an Accounts Payable Document

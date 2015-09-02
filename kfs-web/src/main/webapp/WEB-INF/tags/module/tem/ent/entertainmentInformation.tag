@@ -18,7 +18,6 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<c:set var="personAttributes" value="${DataDictionary.PersonImpl.attributes}" />
 <c:set var="documentAttributes" value="${DataDictionary.TravelEntertainmentDocument.attributes}" />
 <c:set var="travelerAttributes" value="${DataDictionary.TravelerDetail.attributes}" />
 <c:set var="tabindexOverrideBase" value="8" />

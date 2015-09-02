@@ -21,7 +21,7 @@ package org.kuali.kfs.module.tem.businessobject;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.kuali.rice.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 /**
  * Travel Card Type

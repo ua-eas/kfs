@@ -564,7 +564,7 @@
 		</pattern>
 		<pattern>
 			<match>org\.kuali\.rice\.kns\.lookup\.keyvalues\.CampusValuesFinder</match>
-			<replacement>org.kuali.rice.location.framework.campus.CampusValuesFinder</replacement>
+			<replacement>org.kuali.kfs.kns.bo.lookup.CampusValuesFinder</replacement>
 		</pattern>
 	
 	</rule>

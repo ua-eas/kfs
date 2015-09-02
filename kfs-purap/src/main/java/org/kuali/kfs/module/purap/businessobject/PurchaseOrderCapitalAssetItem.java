@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PurchaseOrderCapitalAssetItem extends PurchasingCapitalAssetItemBase {
 

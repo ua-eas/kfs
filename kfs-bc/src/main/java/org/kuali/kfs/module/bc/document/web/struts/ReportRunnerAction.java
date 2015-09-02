@@ -47,8 +47,8 @@ import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Action class to display document reports and dumps menu

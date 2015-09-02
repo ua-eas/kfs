@@ -19,7 +19,7 @@
 package org.kuali.kfs.sys.document;
 
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public interface FinancialSystemDocument extends Document {
 

@@ -19,7 +19,7 @@
 package org.kuali.kfs.fp.document.validation.event;
 
 import org.kuali.kfs.fp.businessobject.Check;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 
 /**
  * Defines methods common to all CheckEvents.

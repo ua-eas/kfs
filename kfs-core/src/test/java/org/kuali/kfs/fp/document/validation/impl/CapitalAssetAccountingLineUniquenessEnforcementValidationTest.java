@@ -29,7 +29,7 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.document.validation.event.AttributedRouteDocumentEvent;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 @ConfigureContext
 public class CapitalAssetAccountingLineUniquenessEnforcementValidationTest extends KualiTestBase {

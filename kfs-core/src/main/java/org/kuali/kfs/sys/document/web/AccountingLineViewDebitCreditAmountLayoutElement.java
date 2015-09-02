@@ -29,7 +29,7 @@ import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewDebitCreditAm
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewFieldDefinition;
 import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * A table joining element which adds two fields to an amount: debit amount and credit amount

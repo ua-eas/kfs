@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.web.ui.ContractsGrantsLookupResultRow;
-import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 
 /**
  * Action class for Contracts & Grants Invoice Lookup.

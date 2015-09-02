@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import org.kuali.rice.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 /**
  * Struts Action Form for Electroinc Invoice Reject document.

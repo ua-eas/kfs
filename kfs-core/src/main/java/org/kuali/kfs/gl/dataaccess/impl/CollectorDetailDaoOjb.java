@@ -34,7 +34,7 @@ import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.dataaccess.CollectorDetailDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.exception.ClassNotPersistableException;
+import org.kuali.kfs.krad.exception.ClassNotPersistableException;
 
 /**
  * An OJB implementation of the CollectorDetailDao

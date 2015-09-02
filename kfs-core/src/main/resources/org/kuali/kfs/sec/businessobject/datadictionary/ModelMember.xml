@@ -79,9 +79,15 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   
   <bean id="ModelMember-memberTypeCode" parent="ModelMember-memberTypeCode-parentBean"/>
 
-  <bean id="ModelMember-memberTypeCode-parentBean" abstract="true" parent="RoleMemberBo-typeCode">
-    <property name="name" value="memberTypeCode"/>
+  <bean id="ModelMember-memberTypeCode-parentBean" parent="AttributeDefinition" abstract="true" p:name="memberTypeCode"
+        p:forceUppercase="true" p:label="Member Type Code" p:shortLabel="Type Code" p:maxLength="40" p:required="false">
+    <property name="control">
+      <bean parent="SelectControlDefinition"
+            p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder"/>
+    </property>
+    <property name="optionsFinderClass" value="org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder"/>
   </bean>
+
   
   <bean id="ModelMember-active" parent="ModelMember-active-parentBean"/>
 

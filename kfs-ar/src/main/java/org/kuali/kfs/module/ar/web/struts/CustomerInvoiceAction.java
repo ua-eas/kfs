@@ -34,8 +34,8 @@ import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.module.ar.report.service.AccountsReceivableReportService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfCopy;

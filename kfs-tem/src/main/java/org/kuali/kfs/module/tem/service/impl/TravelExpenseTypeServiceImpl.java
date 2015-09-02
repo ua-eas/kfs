@@ -28,7 +28,7 @@ import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.service.TravelExpenseTypeService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.service.KeyValuesService;
+import org.kuali.kfs.krad.service.KeyValuesService;
 
 /**
  * This class returns list of travel expense company value pairs.

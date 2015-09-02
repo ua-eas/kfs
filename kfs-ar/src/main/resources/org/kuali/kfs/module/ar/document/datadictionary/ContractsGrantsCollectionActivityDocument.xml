@@ -112,7 +112,7 @@
 	
 	<!-- workflow attributes -->
 	<bean id="ContractsGrantsCollectionActivityDocument-workflowAttributes" parent="ContractsGrantsCollectionActivityDocument-workflowAttributes-parentBean"/>
-	<bean id="ContractsGrantsCollectionActivityDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true">
+	<bean id="ContractsGrantsCollectionActivityDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true">
 	</bean>
   
 </beans>

@@ -29,7 +29,7 @@ import org.kuali.kfs.module.tem.businessobject.MileageRate;
 import org.kuali.kfs.module.tem.document.service.CachingMileageRateService;
 import org.kuali.kfs.module.tem.document.service.MileageRateService;
 import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 public class MileageRateServiceImpl implements MileageRateService {
     private CachingMileageRateService cachingMileageRateService;

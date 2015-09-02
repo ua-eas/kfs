@@ -31,8 +31,8 @@ import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.web.ui.ContractsGrantsLookupResultRow;
 import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.kns.web.struts.form.MultipleValueLookupForm;
-import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 
 /**
  * Action class for the Generate Dunning Letters Lookup.

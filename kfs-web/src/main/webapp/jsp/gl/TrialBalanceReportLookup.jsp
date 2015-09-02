@@ -76,7 +76,7 @@
 						alt="print" title="print" border="0" /> 
 					<c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
 						<a
-							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.rice.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'  title="cancel">
+							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'  title="cancel">
 						<img
 							src='<c:out value="${KualiForm.lookupable.extraButtonSource}" />'
 							class="tinybutton"  border="0" alt="cancel"/></a>
@@ -115,10 +115,10 @@
 						<c:choose>
 
 							<c:when
-								test="${column.formatter.implementationClass == 'org.kuali.rice.kns.web.format.CurrencyFormatter'}">
+								test="${column.formatter.implementationClass == 'org.kuali.kfs.kns.web.format.CurrencyFormatter'}">
 
 								<display:column class="numbercell" sortable="true"
-									decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator"
+									decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
 									title="${column.columnTitle}" comparator="${column.comparator}">
 
 									<c:choose>
@@ -144,7 +144,7 @@
 									<c:when test="${column.propertyURL != \"\"}">
 
 										<display:column class="infocell" sortable="${column.sortable}"
-											decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator"
+											decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
 											title="${column.columnTitle}"
 											comparator="${column.comparator}">
 
@@ -159,7 +159,7 @@
 									<c:otherwise>
 
 										<display:column class="infocell" sortable="${column.sortable}"
-											decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator"
+											decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
 											title="${column.columnTitle}"
 											comparator="${column.comparator}">
 												<c:out value="${column.propertyValue}" />

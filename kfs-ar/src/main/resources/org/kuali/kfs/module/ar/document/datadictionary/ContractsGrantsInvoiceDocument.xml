@@ -798,7 +798,7 @@
 	</bean>
 
 	<bean id="SearchingType-ContractsGrantsInvoiceDocument-proposalNumber"
-		class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+		class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition">
 		<property name="searchingAttribute" ref="SearchingAttribute-proposalNumber" />
 		<property name="documentValues">
 			<list>
@@ -807,7 +807,7 @@
 		</property>
 	</bean>
 
-	<bean id="SearchingAttribute-proposalNumber" class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
+	<bean id="SearchingAttribute-proposalNumber" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute">
 		<property name="businessObjectClassName"
 			value="org.kuali.kfs.module.ar.businessobject.InvoiceGeneralDetail" />
 		<property name="attributeName" value="proposalNumber" />
@@ -816,7 +816,7 @@
 	</bean>
 	
 	<bean id="RoutingType-ContractsGrantsInvoiceDocument-FundsManager" parent="RoutingType-ContractsGrantsInvoiceDocument-FundsManager-parentBean"/>
-	<bean id="RoutingType-ContractsGrantsInvoiceDocument-FundsManager-parentBean" abstract="true" class="org.kuali.rice.krad.datadictionary.RoutingTypeDefinition">
+	<bean id="RoutingType-ContractsGrantsInvoiceDocument-FundsManager-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition">
     	<property name="routingAttributes">
     		<list>
 		        <ref bean="RoutingAttribute-proposalNumber" />
@@ -830,7 +830,7 @@
     </bean>
     
     <bean id="DocumentValuePathGroup-ContractsGrantsInvoiceDocument-FundsManager-proposalNumber" parent="DocumentValuePathGroup-ContractsGrantsInvoiceDocument-FundsManager-proposalNumber-parentBean"/>
-    <bean id="DocumentValuePathGroup-ContractsGrantsInvoiceDocument-FundsManager-proposalNumber-parentBean" abstract="true" class="org.kuali.rice.krad.datadictionary.DocumentValuePathGroup">
+    <bean id="DocumentValuePathGroup-ContractsGrantsInvoiceDocument-FundsManager-proposalNumber-parentBean" abstract="true" class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup">
     	<property name="documentValues">
     		<list>
     			<value>invoiceGeneralDetail.proposalNumber</value>

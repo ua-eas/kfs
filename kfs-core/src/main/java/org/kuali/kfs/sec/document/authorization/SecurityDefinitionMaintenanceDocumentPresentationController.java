@@ -22,8 +22,8 @@ import java.util.Set;
 
 import org.kuali.kfs.sec.SecPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
 
 
 /**

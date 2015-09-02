@@ -31,7 +31,7 @@ import org.kuali.kfs.sys.batch.FilePurgeStep;
 import org.kuali.kfs.sys.batch.MaxAgePurgeFileFilter;
 import org.kuali.kfs.sys.batch.NotAmongDirectoriesFileFilter;
 import org.kuali.kfs.sys.batch.service.FilePurgeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * Default implementation of the FilePurgeService

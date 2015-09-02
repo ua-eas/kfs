@@ -21,7 +21,7 @@ package org.kuali.kfs.fp.document.web.struts;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * This class is the struts base form for financial form documents that need

@@ -19,7 +19,7 @@
 package org.kuali.kfs.sys.service.impl;
 
 import org.kuali.kfs.sys.batch.Step;
-import org.kuali.rice.krad.service.impl.KualiModuleServiceImpl;
+import org.kuali.kfs.krad.service.impl.KualiModuleServiceImpl;
 
 public class KfsKualiModuleServiceImpl extends KualiModuleServiceImpl {
 
@@ -28,7 +28,7 @@ public class KfsKualiModuleServiceImpl extends KualiModuleServiceImpl {
      * KFS has additional components related to our steps.  So, when resolving the component,
      * we need to allow objects of the "Step" type to be used as well.
      *
-     * @see org.kuali.rice.krad.service.impl.KualiModuleServiceImpl#getComponentCode(java.lang.Class)
+     * @see org.kuali.kfs.krad.service.impl.KualiModuleServiceImpl#getComponentCode(java.lang.Class)
      */
     @Override
     public String getComponentCode(Class<?> documentClass) {

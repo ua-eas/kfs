@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 public class KfsMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
 

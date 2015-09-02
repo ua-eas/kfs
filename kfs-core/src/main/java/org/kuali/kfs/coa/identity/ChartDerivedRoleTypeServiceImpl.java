@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.kuali.kfs.coa.service.OrganizationService;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 
 public class ChartDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
 

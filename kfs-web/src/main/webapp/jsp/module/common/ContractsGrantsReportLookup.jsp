@@ -331,7 +331,7 @@
 											sortable="${column.sortable}" title="${column.columnTitle}"
 											comparator="${column.comparator}" total="${column.total}"
 											value="${staticColumnValue}" maxLength="${column.maxLength}"
-											decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator">
+											decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator">
 											<c:out value="${column.propertyValue}" />&nbsp;</display:column>
 									</c:otherwise>
 								</c:choose>

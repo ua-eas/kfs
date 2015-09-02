@@ -20,7 +20,7 @@ package org.kuali.kfs.module.tem.document.datadictionary;
 
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Accounting Line Group implementation with special logic to help with advance accounting lines

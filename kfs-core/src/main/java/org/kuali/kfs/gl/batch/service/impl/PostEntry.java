@@ -31,7 +31,7 @@ import org.kuali.kfs.gl.batch.service.PosterService;
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.service.ReportWriterService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

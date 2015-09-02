@@ -33,7 +33,7 @@ import org.kuali.rice.kim.api.group.GroupService;
 import org.kuali.rice.kim.api.role.RoleMembership;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 /**
  * Base role type for roles which will exclude their members based on certain criteria.  This base provides methods to

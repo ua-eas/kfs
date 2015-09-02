@@ -20,7 +20,7 @@ package org.kuali.kfs.module.tem.document.authorization;
 
 import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 public class TravelRelocationAuthorizer extends TravelArrangeableAuthorizer implements ReturnToFiscalOfficerAuthorizer {

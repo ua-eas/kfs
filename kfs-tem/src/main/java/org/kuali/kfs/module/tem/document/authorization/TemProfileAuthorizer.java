@@ -28,11 +28,11 @@ import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentAuthorizer;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizer;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * This authorizer needs to override the canCreate and canMaintain methods...which are final on the base MaintDocAuthorizer class that every other authorizer simply extends.  Therefore,
@@ -73,10 +73,10 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
     /**
      * Overridden to check that the user has the normal Create / Maintain permission and also, if it's their own profile, the ability to edit their own profile; if it's not their own profile,
      * it checks if they can edit anyone's profile
-     * @see org.kuali.rice.krad.maintenance.MaintenanceDocumentAuthorizer#canCreateOrMaintain(org.kuali.rice.krad.maintenance.MaintenanceDocument, org.kuali.rice.kim.api.identity.Person)
+     * @see org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer#canCreateOrMaintain(org.kuali.kfs.krad.maintenance.MaintenanceDocument, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
-    public boolean canCreateOrMaintain(org.kuali.rice.krad.maintenance.MaintenanceDocument maintenanceDocument, Person user) {
+    public boolean canCreateOrMaintain(org.kuali.kfs.krad.maintenance.MaintenanceDocument maintenanceDocument, Person user) {
         boolean result = getRootDocumentAuthorizer().canCreateOrMaintain(maintenanceDocument, user);
 
         final TemProfile profile = (TemProfile)maintenanceDocument.getNewMaintainableObject().getDataObject();

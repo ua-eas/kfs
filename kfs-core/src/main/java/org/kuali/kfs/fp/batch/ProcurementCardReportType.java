@@ -20,7 +20,7 @@ package org.kuali.kfs.fp.batch;
 
 import java.sql.Date;
 
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * This class is created for generating Procurement Card Report object.

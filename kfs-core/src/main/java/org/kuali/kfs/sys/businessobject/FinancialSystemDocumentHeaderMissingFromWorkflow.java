@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Basically a document number which has a FinancialSystemDocumentHeader record but not a KEW document header record

@@ -19,7 +19,7 @@
 package org.kuali.kfs.sys.document.validation.event;
 
 import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 
 /**
  * Defines methods common to all AccountingLineEvents.

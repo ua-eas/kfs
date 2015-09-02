@@ -24,8 +24,8 @@ import java.util.Set;
 
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.document.Document;
 
 
 /**

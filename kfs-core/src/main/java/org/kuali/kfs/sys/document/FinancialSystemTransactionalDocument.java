@@ -19,7 +19,7 @@
 package org.kuali.kfs.sys.document;
 
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.document.TransactionalDocument;
 
 public interface FinancialSystemTransactionalDocument extends TransactionalDocument, FinancialSystemDocument {
 

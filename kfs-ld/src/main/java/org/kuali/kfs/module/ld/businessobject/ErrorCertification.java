@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Error Certification business object for Salary Expense Transfer and Year End Salary Expense Transfer

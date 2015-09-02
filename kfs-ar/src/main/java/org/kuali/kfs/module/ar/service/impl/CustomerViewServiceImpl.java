@@ -27,10 +27,10 @@ import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.service.CustomerViewService;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.kns.web.ui.Row;
-import org.kuali.rice.kns.web.ui.Section;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Implementation of the Customer View Service.

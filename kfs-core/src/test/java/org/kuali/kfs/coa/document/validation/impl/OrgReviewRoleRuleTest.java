@@ -25,8 +25,8 @@ import org.kuali.kfs.coa.identity.OrgReviewRole;
 import org.kuali.kfs.coa.service.impl.OrgReviewRoleTestBase;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 @ConfigureContext
 public class OrgReviewRoleRuleTest extends OrgReviewRoleTestBase {
