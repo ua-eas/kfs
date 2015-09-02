@@ -1,10 +1,15 @@
 body {
     font-family: Lato, sans-serif;
-    display: flex;
     min-height: 100vh;
     flex-direction: column;
+    -webkit-flex-direction: column;
     margin: 0;
     background-color: #fff;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
 }
 
 a {
@@ -58,15 +63,28 @@ header .navbar-brand .institution-name {
 }
 
 .body {
-    display: flex;
-    flex: 1;
     margin-top: 62px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
 }
 
 .content {
-    flex: 1;
     background-color: #E5E5E5;
     position: relative;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
 }
 
 #headerarea {
@@ -103,14 +121,26 @@ nav ul.nav li {
 }
 
 #sidebar {
-    order: -1;
+    -webkit-box-flex: 0 0 320px;
+    -moz-box-flex: 0 0 320px;
+    -webkit-flex: 0 0 320px;
+    -ms-flex: 0 0 320px;
     flex: 0 0 320px;
     background-color: #5b5b5b;
     position: relative;
     transition:500ms all;
+    -webkit-box-ordinal-group: -1;
+    -moz-box-ordinal-group: -1;
+    -ms-flex-order: -1;
+    -webkit-order: -1;
+    order: -1;
 }
 
 #sidebar.collapsed {
+    -webkit-box-flex: 0 0 25px;
+    -moz-box-flex: 0 0 25px;
+    -webkit-flex: 0 0 25px;
+    -ms-flex: 0 0 25px;
     flex: 0 0 25px;
 }
 
