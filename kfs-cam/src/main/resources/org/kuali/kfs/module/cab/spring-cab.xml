@@ -204,7 +204,7 @@
 	
 <!-- **** Begin of Lookupable beans **** -->
 	<bean id="purApReportLookupableHelperService" singleton="false" parent="purApReportLookupableHelperService-parentBean"/>
-    <bean id="purApReportLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cab.businessobject.lookup.PurApReportLookupableHelperServiceImpl" singleton="false" parent="lookupableHelperService">
+    <bean id="purApReportLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cab.businessobject.lookup.PurApReportLookupableHelperServiceImpl" singleton="false" parent="cf.lookupableHelperService">
         <property name="purApReportService">
             <ref bean="purchasingAccountsPayableReportService" />
         </property>
@@ -216,7 +216,7 @@
     </bean>
     
    	<bean id="generalLedgerEntryLookupableHelperService" singleton="false"  parent="generalLedgerEntryLookupableHelperService-parentBean"/>
-	<bean id="generalLedgerEntryLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cab.businessobject.lookup.GeneralLedgerEntryLookupableHelperServiceImpl" singleton="false"  parent="lookupableHelperService">
+	<bean id="generalLedgerEntryLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cab.businessobject.lookup.GeneralLedgerEntryLookupableHelperServiceImpl" singleton="false"  parent="cf.lookupableHelperService">
 		<property name="businessObjectService" ref="businessObjectService" />
     </bean>
 

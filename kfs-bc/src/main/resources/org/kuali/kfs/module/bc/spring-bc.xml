@@ -296,7 +296,7 @@
 	</bean>	
 	
 	<bean id="budgetPositionLookupableHelperService" parent="budgetPositionLookupableHelperService-parentBean" scope="prototype"/>
-	<bean id="budgetPositionLookupableHelperService-parentBean" class="org.kuali.kfs.module.bc.businessobject.lookup.PositionLookupableHelperServiceImpl" parent="lookupableHelperService"  abstract="true">
+	<bean id="budgetPositionLookupableHelperService-parentBean" class="org.kuali.kfs.module.bc.businessobject.lookup.PositionLookupableHelperServiceImpl" parent="cf.lookupableHelperService"  abstract="true">
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
 		</property>
@@ -310,7 +310,7 @@
 	</bean>	
 	
 	<bean id="budgetIntendedIncumbentLookupableHelperService" parent="budgetIntendedIncumbentLookupableHelperService-parentBean" scope="prototype" />	
-	<bean id="budgetIntendedIncumbentLookupableHelperService-parentBean" class="org.kuali.kfs.module.bc.businessobject.lookup.IntendedIncumbentLookupableHelperServiceImpl" parent="lookupableHelperService" abstract="true">	
+	<bean id="budgetIntendedIncumbentLookupableHelperService-parentBean" class="org.kuali.kfs.module.bc.businessobject.lookup.IntendedIncumbentLookupableHelperServiceImpl" parent="cf.lookupableHelperService" abstract="true">
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
 		</property>

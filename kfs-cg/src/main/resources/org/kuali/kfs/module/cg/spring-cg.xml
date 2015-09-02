@@ -165,7 +165,7 @@
 	</bean>
 	
 	<bean id="proposalLookupableHelperService" parent="proposalLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="proposalLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.ProposalLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" >
+	<bean id="proposalLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.ProposalLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" >
         <property name="contractsAndGrantsLookupService">
             <ref bean="contractsAndGrantsLookupService" />
         </property>
@@ -179,7 +179,7 @@
 	</bean>
 
 	<bean id="awardLookupableHelperService" scope="prototype" parent="awardLookupableHelperService-parentBean"/>
-    <bean id="awardLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.AwardLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" >
+    <bean id="awardLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.AwardLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" >
         <property name="accountsReceivableModuleBillingService">
             <ref bean="accountsReceivableModuleBillingService" />
         </property>
@@ -196,7 +196,7 @@
     </bean>
 
 	<bean id="agencyLookupHelperService" class="org.kuali.kfs.module.cg.businessobject.lookup.AgencyLookupableHelperServiceImpl" scope="prototype"
-		parent="lookupableHelperService">
+		parent="cf.lookupableHelperService">
         <property name="accountsReceivableModuleBillingService">
             <ref bean="accountsReceivableModuleBillingService" />
         </property>
@@ -320,7 +320,7 @@
 
 
 	<bean id="contractsGrantsAwardBalancesReportLookupableHelperService" class="org.kuali.kfs.module.cg.businessobject.lookup.ContractsGrantsAwardBalancesReportLookupableHelperServiceImpl"
-		scope="prototype" parent="lookupableHelperService">
+		scope="prototype" parent="cf.lookupableHelperService">
 		<property name="accountsReceivableModuleBillingService">
 			<ref bean="accountsReceivableModuleBillingService" />
 		</property>

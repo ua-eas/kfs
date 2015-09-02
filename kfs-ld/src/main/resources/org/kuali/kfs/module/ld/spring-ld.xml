@@ -1572,7 +1572,7 @@
     <bean id="positionObjectBenefitLookupableHelperService" scope="prototype"  parent="positionObjectBenefitLookupableHelperService-parentBean" />
 
     <bean id="positionObjectBenefitLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.PositionObjectBenefitLookupableHelperServiceImpl"
-        scope="prototype" parent="lookupableHelperService" />
+        scope="prototype" parent="cf.lookupableHelperService" />
 
     <bean id="positionObjectBenefitLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
         <property name="lookupableHelperService">

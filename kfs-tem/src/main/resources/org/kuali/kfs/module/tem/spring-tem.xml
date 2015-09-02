@@ -103,7 +103,7 @@
 	<alias name="TravelDocumentSearchCustomizer" alias="TemFinancialSystemSearchableAttribute" />
 
 	<bean id="temProfileAddressLookupableHelperService" parent="temProfileAddressLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="temProfileAddressLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TemProfileAddressLookupableHelperServiceImpl">			
+	<bean id="temProfileAddressLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TemProfileAddressLookupableHelperServiceImpl">
 		<property name="travelerDao" ref="travelerDao" />
 		<property name="travelerService" ref="travelerService" />
 		<property name="accountsReceivableModuleService" ref="accountsReceivableModuleService" />		
@@ -144,7 +144,7 @@
 	</bean>
 	
 	<bean id="perDiemLookupableHelperService" parent="perDiemLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="perDiemLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.PerDiemLookupableHelperServiceImpl" parent="lookupableHelperService">
+	<bean id="perDiemLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.PerDiemLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
 		<property name="documentDictionaryService" ref="documentDictionaryService"/>
 	</bean>
 	
@@ -154,7 +154,7 @@
 	</bean>
 	
 	<bean id="primaryDestinationLookupableHelperService" parent="primaryDestinationLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="primaryDestinationLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.PrimaryDestinationLookupableHelperServiceImpl" />
+	<bean id="primaryDestinationLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.PrimaryDestinationLookupableHelperServiceImpl" />
 	
 	<bean id="historicalTravelExpenseLookupable" parent="historicalTravelExpenseLookupable-parentBean" scope="prototype"  />
 	<bean id="historicalTravelExpenseLookupable-parentBean" abstract="true" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl">
@@ -162,12 +162,12 @@
 	</bean>
 
 	<bean id="historicalTravelExpenseLookupableHelperService" parent="historicalTravelExpenseLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="historicalTravelExpenseLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.ImportedExpenseLookupableHelperServiceImpl">		
+	<bean id="historicalTravelExpenseLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.ImportedExpenseLookupableHelperServiceImpl">
         <property name="parameterService" ref="parameterService" />
 	</bean>
 	
 	<bean id="temProfileFromCustomerLookupableHelperService" parent="temProfileFromCustomerLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="temProfileFromCustomerLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TemProfileFromCustomerLookupableHelperServiceImpl">		
+	<bean id="temProfileFromCustomerLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TemProfileFromCustomerLookupableHelperServiceImpl">
 		<property name="travelerDao" ref="travelerDao" />
 		<property name="travelerService" ref="travelerService" />
 		<property name="temProfileService" ref="temProfileService" />
@@ -182,7 +182,7 @@
 	</bean>
 
 	<bean id="temProfileFromKimLookupableHelperService" parent="temProfileFromKimLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="temProfileFromKimLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TemProfileFromKimLookupableHelperServiceImpl">		
+	<bean id="temProfileFromKimLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TemProfileFromKimLookupableHelperServiceImpl">
 		<property name="personService" ref="personService" />
 		<property name="travelerService" ref="travelerService" />
 		<property name="temProfileService" ref="temProfileService" />
@@ -245,7 +245,7 @@
 	</bean>
 
 	<bean id="travelerLookupableHelperService" parent="travelerLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="travelerLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TravelerLookupableHelperServiceImpl">
+	<bean id="travelerLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService" class="org.kuali.kfs.module.tem.businessobject.lookup.TravelerLookupableHelperServiceImpl">
 		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
 		<property name="parameterService" ref="parameterService" />
@@ -256,7 +256,7 @@
 	</bean>
     
     <bean id="agencyStagingDataLookupableHelperService" parent="agencyStagingDataLookupableHelperService-parentBean" scope="prototype" />
-    <bean id="agencyStagingDataLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.AgencyStagingDataLookupableHelperServiceImpl" parent="lookupableHelperService" />
+    <bean id="agencyStagingDataLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.AgencyStagingDataLookupableHelperServiceImpl" parent="cf.lookupableHelperService" />
 
 	<bean id="agencyStagingDataLookupable" parent="agencyStagingDataLookupable-parentBean" scope="prototype" />    
     <bean id="agencyStagingDataLookupable-parentBean" abstract="true" parent="cf.kualiLookupable">
@@ -266,7 +266,7 @@
     </bean>
     
     <bean id="creditCardStagingDataLookupableHelperService" parent="creditCardStagingDataLookupableHelperService-parentBean" scope="prototype" />
-    <bean id="creditCardStagingDataLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.CreditCardStagingDataLookupableHelperServiceImpl" parent="lookupableHelperService" />
+    <bean id="creditCardStagingDataLookupableHelperService-parentBean" abstract="true" class="org.kuali.kfs.module.tem.businessobject.lookup.CreditCardStagingDataLookupableHelperServiceImpl" parent="cf.lookupableHelperService" />
 
 	<bean id="creditCardStagingDataLookupable" parent="creditCardStagingDataLookupable-parentBean" scope="prototype" />    
     <bean id="creditCardStagingDataLookupable-parentBean" abstract="true" parent="cf.kualiLookupable">

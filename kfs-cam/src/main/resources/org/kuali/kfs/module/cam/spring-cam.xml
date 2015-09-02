@@ -210,7 +210,7 @@
 <!-- ********* end of report service beans ********** -->
 
 	<bean id="assetStatusLookupableHelperService" scope="prototype" parent="assetStatusLookupableHelperService-parentBean"/>
-    <bean id="assetStatusLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetStatusLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService">
+    <bean id="assetStatusLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetStatusLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService">
     </bean>
 
     <bean id="assetStatusLookupable" parent="cf.kualiLookupable" scope="prototype">
@@ -221,7 +221,7 @@
 
 
 	<bean id="assetLookupableHelperService" scope="prototype" parent="assetLookupableHelperService-parentBean"/>
-    <bean id="assetLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService">
+    <bean id="assetLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService">
     	<property name="assetService" ref="assetService"/>
     </bean>
 
@@ -232,7 +232,7 @@
     </bean>
 
     <bean id="assetPaymentLookupableHelperService" scope="prototype" parent="assetPaymentLookupableHelperService-parentBean"/>
-    <bean id="assetPaymentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetPaymentLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService">
+    <bean id="assetPaymentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetPaymentLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService">
       	<property name="businessObjectService">
             <ref bean="businessObjectService" />
       	</property>
@@ -250,7 +250,7 @@
 
 
     <bean id="assetRetirementReasonLookupableHelperService" scope="prototype" parent="assetRetirementReasonLookupableHelperService-parentBean" />
-    <bean id="assetRetirementReasonLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetRetirementReasonLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+    <bean id="assetRetirementReasonLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetRetirementReasonLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 	<bean id="assetRetirementReasonLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 			<ref bean="assetRetirementReasonLookupableHelperService" />
@@ -258,7 +258,7 @@
 	</bean>
 
 	<bean id="assetPaymentAllocationTypeLookupableHelperService" scope="prototype" parent="assetPaymentAllocationTypeLookupableHelperService-parentBean" />
-    <bean id="assetPaymentAllocationTypeLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetPaymentAllocationTypeLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+    <bean id="assetPaymentAllocationTypeLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetPaymentAllocationTypeLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 	<bean id="assetPaymentAllocationTypeLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 			<ref bean="assetPaymentAllocationTypeLookupableHelperService" />
@@ -266,7 +266,7 @@
 	</bean>
 
 	<bean id="assetAcquisitionTypeLookupableHelperService" scope="prototype" parent="assetAcquisitionTypeLookupableHelperService-parentBean" />
-    <bean id="assetAcquisitionTypeLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetAcquisitionTypeLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+    <bean id="assetAcquisitionTypeLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetAcquisitionTypeLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 	<bean id="assetAcquisitionTypeLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 			<ref bean="assetAcquisitionTypeLookupableHelperService" />

@@ -252,7 +252,7 @@
     </bean>
     
     <bean id="externalLookupableHelperService" abstract="true" parent="externalLookupableHelperService-parentBean" />
-    <bean id="externalLookupableHelperService-parentBean" abstract="true" parent="lookupableHelperService"
+    <bean id="externalLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService"
     	class="org.kuali.kfs.module.external.kc.service.impl.ExternalizableLookupableHelperServiceImpl"/>    
     
     <bean id="awardLookupable" parent="awardLookupable-parentBean"/>
