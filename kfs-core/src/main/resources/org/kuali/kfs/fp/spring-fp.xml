@@ -378,7 +378,7 @@
 	</bean>
 
 	<bean id="nonResidentAlienTaxPercentLookupableHelperService" scope="prototype" parent="nonResidentAlienTaxPercentLookupableHelperService-parentBean" />
-	<bean id="nonResidentAlienTaxPercentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.KualiNonResidentAlienTaxPercentLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+	<bean id="nonResidentAlienTaxPercentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.KualiNonResidentAlienTaxPercentLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 
 	<bean id="nonResidentAlienTaxPercentLookupable"  parent="nonResidentAlienTaxPercentLookupable-parentBean" scope="prototype"/>
 	<bean id="nonResidentAlienTaxPercentLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
@@ -476,7 +476,7 @@
 		<property name="offsetDefinitionService" ref="offsetDefinitionService" />
     </bean>
     
-    <bean id="payeeLookupableHelperServiceImpl-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.AbstractPayeeLookupableHelperServiceImpl" parent="lookupableHelperService">
+    <bean id="payeeLookupableHelperServiceImpl-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.AbstractPayeeLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
     	<property name="vendorLookupable">
 			<ref bean="vendorLookupable" />
 		</property>	

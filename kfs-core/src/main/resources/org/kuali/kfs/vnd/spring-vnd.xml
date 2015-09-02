@@ -367,7 +367,7 @@
         </property>
     </bean>
     
-    <bean id="vendorExclusionLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.VendorExclusionLookupableHelperServiceImpl" parent="lookupableHelperService">
+    <bean id="vendorExclusionLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.VendorExclusionLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
 		</property>
@@ -379,7 +379,7 @@
 		</property>
 	</bean>
 	
-	<bean id="debarredVendorUnmatchedLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.DebarredVendorUnmatchedLookupableHelperServiceImpl" parent="lookupableHelperService">
+	<bean id="debarredVendorUnmatchedLookupableHelperServiceImpl" class="org.kuali.kfs.vnd.businessobject.lookup.DebarredVendorUnmatchedLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
 		<property name="vendorExcludeService">
 			<ref bean="vendorExcludeService" />
 		</property>

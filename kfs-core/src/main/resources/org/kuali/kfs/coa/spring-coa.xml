@@ -285,7 +285,7 @@
 	<bean id="accountLookupableHelperService" parent="accountLookupableHelperService-parentBean" scope="prototype" />		
 	<bean id="accountLookupableHelperService-parentBean" abstract="true" 
 		class="org.kuali.kfs.coa.businessobject.lookup.KualiAccountLookupableHelperServiceImpl"
-		scope="prototype" parent="lookupableHelperService" />
+		scope="prototype" parent="cf.lookupableHelperService" />
 
 	<bean id="accountLookupable"  parent="accountLookupable-parentBean" scope="prototype"/>
 	<bean id="accountLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl"
@@ -298,7 +298,7 @@
 	<bean id="organizationRoutingModelLookupableHelperService" parent="organizationRoutingModelLookupableHelperService-parentBean" scope="prototype" />
 	<bean id="organizationRoutingModelLookupableHelperService-parentBean" abstract="true" 
 		class="org.kuali.kfs.coa.businessobject.lookup.OrganizationRoutingModelNameLookupableHelperServiceImpl"
-		scope="prototype" parent="lookupableHelperService" />
+		scope="prototype" parent="cf.lookupableHelperService" />
 
 	<bean id="organizationRoutingModelLookupable"  parent="organizationRoutingModelLookupable-parentBean" scope="prototype"/>
 	<bean id="organizationRoutingModelLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl"
@@ -311,7 +311,7 @@
 	<bean id="indirectCostRecoveryExclusionByTypeLookupableHelperService" parent="indirectCostRecoveryExclusionByTypeLookupableHelperService-parentBean" scope="prototype" />
 	<bean id="indirectCostRecoveryExclusionByTypeLookupableHelperService-parentBean" abstract="true" 
 		class="org.kuali.kfs.coa.businessobject.lookup.IndirectCostRecoveryExclusionTypeLookupableHelperServiceImpl"
-		scope="prototype" parent="lookupableHelperService" />
+		scope="prototype" parent="cf.lookupableHelperService" />
 
 	<bean id="indirectCostRecoveryExclusionByTypeLookupable"  parent="indirectCostRecoveryExclusionByTypeLookupable-parentBean" scope="prototype"/>
 	<bean id="indirectCostRecoveryExclusionByTypeLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl"
@@ -601,7 +601,7 @@
 	</bean>	
 
     <bean id="orgReviewRoleLookupableHelperService" parent="orgReviewRoleLookupableHelperService-parentBean" />
-    <bean id="orgReviewRoleLookupableHelperService-parentBean" class="org.kuali.kfs.coa.identity.OrgReviewRoleLookupableHelperServiceImpl" parent="lookupableHelperService" abstract="true">
+    <bean id="orgReviewRoleLookupableHelperService-parentBean" class="org.kuali.kfs.coa.identity.OrgReviewRoleLookupableHelperServiceImpl" parent="cf.lookupableHelperService" abstract="true">
 		<property name="orgReviewRoleService" ref="orgReviewRoleService" />
     </bean>
 

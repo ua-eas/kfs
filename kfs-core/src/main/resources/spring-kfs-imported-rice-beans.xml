@@ -159,12 +159,12 @@
 	</bean>
 
 	<bean id="cf.kualiLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
-		<property name="lookupableHelperService" ref="lookupableHelperService" />
+		<property name="lookupableHelperService" ref="cf.lookupableHelperService" />
 	</bean>
 
     <bean id="cf.kualiInquirable" class="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" scope="prototype" />
 
-	<bean id="lookupableHelperService"
+	<bean id="cf.lookupableHelperService"
 		class="org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl"
 		scope="prototype">
 		<property name="persistenceStructureService">
