@@ -105,7 +105,6 @@
 		<list>
 			<bean parent="InquirySectionDefinition">
 				<property name="title" value="Per Diem Meals and Incidentals Breakdown Inquiry"/>
-				<property name="numberOfColumns" value="1"/>
 				<property name="inquiryFields">
 				<list>
 					<bean parent="FieldDefinition" p:attributeName="mealsAndIncidentals" />

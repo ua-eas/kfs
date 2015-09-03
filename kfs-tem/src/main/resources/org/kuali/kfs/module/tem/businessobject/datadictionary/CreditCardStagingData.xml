@@ -416,7 +416,6 @@
 		<list>
 			<bean parent="InquirySectionDefinition">
 				<property name="title" value="Traveler"/>
-				<property name="numberOfColumns" value="1"/>
 				<property name="inquiryFields">
 				<list>
 					<bean parent="FieldDefinition" p:attributeName="id" />
@@ -433,7 +432,6 @@
 			</bean>
             <bean parent="InquirySectionDefinition">
               <property name="title" value="Transaction"/>
-              <property name="numberOfColumns" value="1"/>
               <property name="inquiryFields">
               <list>
                 <bean parent="InquirySubSectionHeaderDefinition" p:attributeName="Transaction Detail"/>

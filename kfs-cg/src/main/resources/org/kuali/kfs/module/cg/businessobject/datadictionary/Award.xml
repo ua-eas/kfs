@@ -1108,7 +1108,6 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="awardDetailsSection" />
 		<property name="title" value="Award Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
@@ -1151,14 +1150,12 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="organizationsSection" />
 		<property name="title" value="Organizations" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">
 					<property name="attributeName" value="awardOrganizations" />
 					<property name="businessObjectClass"
 						value="org.kuali.kfs.module.cg.businessobject.AwardOrganization" />
-					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>
 							<bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode" />
@@ -1183,7 +1180,6 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="invoicingSection" />
 		<property name="title" value="Invoicing" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="letterOfCreditFundCode" />
@@ -1213,7 +1209,6 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="projectDirectorsSection" />
 		<property name="title" value="Project Directors" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">
@@ -1246,7 +1241,6 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="fundManagersSection" />
 		<property name="title" value="Fund Managers" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">
@@ -1279,7 +1273,6 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="subcontractorsSection" />
 		<property name="title" value="Subcontractors" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">
@@ -1311,14 +1304,12 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="accountsSection" />
 		<property name="title" value="Accounts" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">
 					<property name="attributeName" value="awardAccounts" />
 					<property name="businessObjectClass"
 						value="org.kuali.kfs.module.cg.businessobject.AwardAccount" />
-					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>
 							<bean parent="FieldDefinition" p:attributeName="accountNumber" />
@@ -1372,7 +1363,6 @@
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="notesSection" />
 		<property name="title" value="Notes" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">

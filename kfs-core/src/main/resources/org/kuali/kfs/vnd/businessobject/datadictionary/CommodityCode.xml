@@ -183,7 +183,6 @@
 	<bean id="CommodityCode-inquirySectionDefinition-commodityCode-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Commodity Code" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="purchasingCommodityCode" />

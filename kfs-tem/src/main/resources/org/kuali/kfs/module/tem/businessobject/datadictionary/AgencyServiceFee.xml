@@ -108,7 +108,6 @@
 		<list>
 			<bean parent="InquirySectionDefinition">
 				<property name="title" value="Agency Service Fee Inquiry"/>
-				<property name="numberOfColumns" value="1"/>
 				<property name="inquiryFields">
 				<list>
 					<bean parent="FieldDefinition" p:attributeName="code" />

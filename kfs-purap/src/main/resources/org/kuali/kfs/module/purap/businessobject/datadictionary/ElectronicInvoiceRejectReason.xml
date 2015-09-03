@@ -137,7 +137,6 @@
   <bean id="ElectronicInvoiceRejectReason-inquirySectionDefinition" parent="ElectronicInvoiceRejectReason-inquirySectionDefinition-parentBean"/>
   <bean id="ElectronicInvoiceRejectReason-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value=""/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="purapDocumentIdentifier"/>

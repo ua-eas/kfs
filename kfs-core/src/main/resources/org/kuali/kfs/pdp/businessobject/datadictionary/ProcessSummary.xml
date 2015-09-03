@@ -246,7 +246,6 @@
   <bean id="ProcessSummary-inquirySectionDefinition" parent="ProcessSummary-inquirySectionDefinition-parentBean"/>
   <bean id="ProcessSummary-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value=""/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="sortGroupId"/>    

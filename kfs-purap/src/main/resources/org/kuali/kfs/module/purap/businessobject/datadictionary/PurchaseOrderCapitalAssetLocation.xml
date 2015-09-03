@@ -173,7 +173,7 @@
   </bean>
 
   <bean id="PurchaseOrderCapitalAssetLocation-inquirySectionDefinition" parent="PurchaseOrderCapitalAssetLocation-inquirySectionDefinition-parentBean"/>
-  <bean id="PurchaseOrderCapitalAssetLocation-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" p:title="Purchase Order Capital Asset Location Attributes" p:numberOfColumns="1" abstract="true">
+  <bean id="PurchaseOrderCapitalAssetLocation-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" p:title="Purchase Order Capital Asset Location Attributes" abstract="true">
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="buildingCode"/>

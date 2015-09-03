@@ -660,7 +660,6 @@
   <bean id="CustomerProfile-inquirySectionDefinition-profile" parent="CustomerProfile-inquirySectionDefinition-profile-parentBean"/>
   <bean id="CustomerProfile-inquirySectionDefinition-profile-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Customer Profile"/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="id"/>
@@ -687,7 +686,6 @@
   <bean id="CustomerProfile-inquirySectionDefinition-checkAch" parent="CustomerProfile-inquirySectionDefinition-checkAch-parentBean"/>
   <bean id="CustomerProfile-inquirySectionDefinition-checkAch-parentBean" parent="InquirySectionDefinition" abstract="true">		
     <property name="title" value="Customer Check/ACH"/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="achPaymentDescription"/>
@@ -709,7 +707,6 @@
   <bean id="CustomerProfile-inquirySectionDefinition-processing" parent="CustomerProfile-inquirySectionDefinition-processing-parentBean"/>
   <bean id="CustomerProfile-inquirySectionDefinition-processing-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Customer Processing"/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="adviceCreate"/>

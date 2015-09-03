@@ -213,7 +213,6 @@
   <bean id="Building-inquirySectionDefinition" parent="Building-inquirySectionDefinition-parentBean"/>
   <bean id="Building-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
   <property name="title" value=""/>
-  <property name="numberOfColumns" value="1"/>
   <property name="inquiryFields">
     <list>
       <bean parent="FieldDefinition" p:attributeName="campusCode"/>

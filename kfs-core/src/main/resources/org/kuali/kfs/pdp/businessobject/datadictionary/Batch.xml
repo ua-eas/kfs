@@ -168,7 +168,6 @@
   <bean id="Batch-inquirySectionDefinition" parent="Batch-inquirySectionDefinition-parentBean"/>
   <bean id="Batch-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value=""/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="customerProfile.chartCode"/>

@@ -210,7 +210,6 @@
 		<list>
 			<bean parent="InquirySectionDefinition">
 				<property name="title" value="TEM Profile Account Inquiry"/>
-				<property name="numberOfColumns" value="1"/>
 				<property name="inquiryFields">
 				<list>
 					<bean parent="FieldDefinition" p:attributeName="accountId" />

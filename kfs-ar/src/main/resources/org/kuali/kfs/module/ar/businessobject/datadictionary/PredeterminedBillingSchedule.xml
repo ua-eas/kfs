@@ -226,7 +226,6 @@
 	<bean id="PredeterminedBillingSchedule-inquiryDefinition-predeterminedBillingSchedule-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Predetermined Billing Schedule" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
@@ -243,14 +242,12 @@
 	<bean id="PredeterminedBillingSchedule-inquiryDefinition-bills-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Bills" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">
 					<property name="attributeName" value="bills" />
 					<property name="businessObjectClass"
 						value="org.kuali.kfs.module.ar.businessobject.Bill" />
-					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>
 							<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
