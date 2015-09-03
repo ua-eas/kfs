@@ -179,7 +179,7 @@
 
     <dm.snapshotRepository.id>kualico.nexus.financials.snapshots</dm.snapshotRepository.id>
     <dm.snapshotRepository.name>KualiCo Nexus Snapshots Repository</dm.snapshotRepository.name>
-    <dm.snapshotRepository.url>https://nexus.kuali.co/nexus/content/repositories/financials-snapshots</dm.snapshotRepository.url>
+    <dm.snapshotRepository.url>https://nexus.kuali.co/nexus/content/repositories/finanicals-snapshots</dm.snapshotRepository.url>
 
     <dm.repository.id>kualico.nexus.financials.releases</dm.repository.id>
     <dm.repository.name>KualiCo Nexus Releases Repository</dm.repository.name>
@@ -836,12 +836,12 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>org.kuali.kfs</groupId>-->
-      <!--<artifactId>kfs-help</artifactId>-->
-      <!--<version>${kfs.help.version}</version>-->
-      <!--<scope>provided</scope>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.kuali.kfs</groupId>
+      <artifactId>kfs-help</artifactId>
+      <version>${kfs.help.version}</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>net.sf.barcode4j</groupId>
       <artifactId>barcode4j</artifactId>
