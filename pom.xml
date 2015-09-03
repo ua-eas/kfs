@@ -33,11 +33,6 @@
     <module>kfs-bc</module>
     <module>kfs-web</module>
   </modules>
-  <parent>
-    <groupId>org.kuali.pom</groupId>
-    <artifactId>kuali-common</artifactId>
-    <version>5.0.4</version>
-  </parent>
   <groupId>org.kuali.kfs</groupId>
   <artifactId>kfs</artifactId>
   <version>6.0.1-SNAPSHOT</version>
@@ -51,9 +46,9 @@
     <url>http://jira.kuali.org/</url>
   </issueManagement>
   <scm>
-    <developerConnection>scm:git:git@github.com:kuali/kfs.git</developerConnection>
-    <connection>scm:git:git@github.com:kuali/kfs.git</connection>
-    <url>https://github.com/kuali/kfs/tree/${project.scm.tag}</url>
+    <developerConnection>scm:git:git@github.com:kualico/financials.git</developerConnection>
+    <connection>scm:git:git@github.com:kualico/financials.git</connection>
+    <url>https://github.com/kualico/financials/tree/${project.scm.tag}</url>
     <tag>master</tag>
   </scm>
   <developers>
@@ -154,8 +149,13 @@
     <db.artifactId>${mysql.artifactId}</db.artifactId>
     <db.version>${mysql.version}</db.version>
 
-      <!-- plugin versions -->
+    <project.java.version>1.7</project.java.version>
+
+
+    <!-- plugin versions -->
+    <plugin.enforcer.version>1.3.1</plugin.enforcer.version>
     <plugin.tomcat.version>2.2</plugin.tomcat.version>
+    <plugin.surefire.version>2.18</plugin.surefire.version>
 
     <!-- logging properties -->
     <!-- slf4j.version and log4j.version need to be changed together -->
@@ -168,6 +168,14 @@
     <slf4j-log4j12.version>${slf4j.version}</slf4j-log4j12.version>
     <jcl-over-slf4j.version>${slf4j.version}</jcl-over-slf4j.version>
     <jul-to-slf4j.version>${slf4j.version}</jul-to-slf4j.version>
+
+    <dm.snapshotRepository.id>kualico.nexus.financials.snapshots</dm.snapshotRepository.id>
+    <dm.snapshotRepository.name>KualiCo Nexus Snapshots Repository</dm.snapshotRepository.name>
+    <dm.snapshotRepository.url>https://nexus.kuali.co/nexus/content/repositories/finanicals-snapshots</dm.snapshotRepository.url>
+
+    <dm.repository.id>kualico.nexus.financials.releases</dm.repository.id>
+    <dm.repository.name>KualiCo Nexus Releases Repository</dm.repository.name>
+    <dm.repository.url>https://nexus.kuali.co/nexus/content/repositories/financials-releases/</dm.repository.url>
 
   </properties>
   <build>
@@ -210,6 +218,8 @@
     <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>${plugin.surefire.version}</version>
+
         <configuration>
           <argLine>-Xms1024m -Xmx1024m</argLine>
           <includes>
@@ -219,6 +229,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${plugin.enforcer.version}</version>
         <executions>
           <execution>
             <id>enforce-rules</id>
@@ -1194,6 +1205,17 @@
         <enabled>true</enabled>
       </releases>
     </repository>
+    <repository>
+      <id>foundation.nexus</id>
+      <name>Kuali Foundation Nexus Group</name>
+      <url>http://nexus.kuali.org/content/groups/public</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -1209,4 +1231,18 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>${dm.snapshotRepository.id}</id>
+      <name>${dm.snapshotRepository.name}</name>
+      <url>${dm.snapshotRepository.url}</url>
+    </snapshotRepository>
+    <repository>
+      <id>${dm.repository.id}</id>
+      <name>${dm.repository.name}</name>
+      <url>${dm.repository.url}</url>
+    </repository>
+  </distributionManagement>
+
 </project>

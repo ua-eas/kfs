@@ -26,13 +26,6 @@
         </executions>
       </plugin>
       <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${plugin.javadoc.version}</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <argLine>-Xms1024m -Xmx1024m -Dadditional.kfs.test.config.locations=src/test/config/${project.artifactId}.properties</argLine>
