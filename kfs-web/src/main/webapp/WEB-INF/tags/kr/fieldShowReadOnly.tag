@@ -22,7 +22,7 @@
 <span id="${field.propertyName}.div">
     <c:choose>
         <c:when test="${not (empty field.inquiryURL.href || empty field.propertyValue)}">
-            <a href="<c:out value="${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-label="<c:out value="${DataDictionary[field.inquiryURL.simpleClassName].objectLabel}"/>" data-remodal-target="modal">
+            <a href="<c:out value="${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>" data-remodal-target="modal">
                 <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
             </a>
             <a href="<c:out value="${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="Open in new tab" class="new-window">
