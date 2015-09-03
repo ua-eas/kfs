@@ -36,11 +36,6 @@
     <module>kfs-krad-app</module>
     <module>kfs-krad-web</module>
   </modules>
-  <!--<parent>-->
-    <!--<groupId>org.kuali.pom</groupId>-->
-    <!--<artifactId>kuali-common</artifactId>-->
-    <!--<version>5.0.4</version>-->
-  <!--</parent>-->
   <groupId>org.kuali.kfs</groupId>
   <artifactId>kfs</artifactId>
   <version>6.0.1-SNAPSHOT</version>
