@@ -223,7 +223,7 @@
 		<property name="forceUppercase" value="true"/>	
 		<property name="control">
 			<bean parent="SelectControlDefinition"
-				p:valuesFinderClass="org.kuali.rice.location.framework.country.CountryNotRestrictedValuesFinder"
+				p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder"
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
@@ -295,7 +295,7 @@
 		<property name="description" value="Citizenship" />
 		<property name="control">
 			<bean parent="SelectControlDefinition"
-				p:valuesFinderClass="org.kuali.rice.location.framework.country.CountryNotRestrictedValuesFinder"
+				p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder"
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
@@ -326,7 +326,6 @@
 			<list>
 				<bean parent="InquirySectionDefinition">
 					<property name="title" value="Traveler Detail Inquiry" />
-					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>
 							<bean parent="FieldDefinition" p:attributeName="id" />
@@ -347,13 +346,11 @@
 				</bean>
 				<bean parent="InquirySectionDefinition">
 					<property name="title" value="Emergency Contact" />
-					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>
 							<bean parent="InquiryCollectionDefinition">
 								<property name="attributeName" value="emergencyContacts" />
 								<property name="businessObjectClass" value="org.kuali.kfs.module.tem.businessobject.TravelerDetailEmergencyContact" />
-								<property name="numberOfColumns" value="1" />
 								<property name="inquiryFields">
 									<list>
 										<bean parent="FieldDefinition" p:attributeName="id" />

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
-import org.kuali.rice.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
 
 /**
  * Slim subclass to enforce class hierarchy not enforced by the parent class' contract.

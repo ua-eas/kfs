@@ -21,7 +21,7 @@ package org.kuali.kfs.vnd.web.struts;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.rice.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 
 public class VendorExclusionForm extends LookupForm {
     

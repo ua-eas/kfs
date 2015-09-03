@@ -1,21 +1,24 @@
 package org.kuali.kfs.sys.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.PreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.bo.GlobalBusinessObject;
-import org.kuali.rice.krad.bo.ModuleConfiguration;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.krad.maintenance.MaintenanceDocument;
-import org.kuali.rice.krad.service.DocumentDictionaryService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ import java.util.stream.Collectors;
 
 @NonTransactional
 public class PreferencesServiceImpl implements PreferencesService {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PreferencesServiceImpl.class);
 
     private ConfigurationService configurationService;
     private DocumentDictionaryService documentDictionaryService;
@@ -51,12 +55,47 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     @Override
     public Map<String, Object> findInstitutionPreferences() {
-        final Map<String, Object> institutionPreferences = getPreferencesDao().findInstitutionPreferences();
+        LOG.debug("findInstitutionPreferences() started");
+
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
 
         appendMenuProperties(institutionPreferences);
         transformLinks(institutionPreferences);
 
         return institutionPreferences;
+    }
+
+    @Override
+    public Map<String, Object> getUserPreferences(String principalName) {
+        LOG.debug("getUserPreferences() started");
+
+        return preferencesDao.getUserPreferences(principalName);
+    }
+
+    @Override
+    public void saveUserPreferences(String principalName, String preferences) {
+        LOG.debug("saveUserPreferences() started");
+
+        preferencesDao.saveUserPreferences(principalName, preferences);
+    }
+
+    @Override
+    public void saveUserPreferencesKey(String principalName, String key, String preferences) {
+        LOG.debug("saveUserPreferencesKey() started");
+
+        Map<String, Object> userPrefs = getUserPreferences(principalName);
+        if ( userPrefs == null ) {
+            userPrefs = new ConcurrentHashMap<>();
+        }
+        userPrefs.put(key, preferences);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            saveUserPreferences(principalName, mapper.writeValueAsString(userPrefs));
+        } catch (JsonProcessingException e) {
+            LOG.error("saveUserPreferencesKey() Error processing json",e);
+            throw new RuntimeException("Error processing json");
+        }
     }
 
     protected void appendMenuProperties(Map<String, Object> institutionPreferences) {
@@ -66,17 +105,17 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected void appendActionListUrl(Map<String, Object> institutionPreferences) {
-        final String actionListUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/ActionList.do";
+        final String actionListUrl = configurationService.getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/ActionList.do";
         institutionPreferences.put("actionListUrl", actionListUrl);
     }
 
     protected void appendSignoutUrl(Map<String, Object> institutionPreferences) {
-        final String signoutUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)+"/logout.do";
+        final String signoutUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)+"/logout.do";
         institutionPreferences.put("signoutUrl", signoutUrl);
     }
 
     protected void appendDocSearchUrl(Map<String, Object> institutionPreferences) {
-        final String docSearchUrl = getConfigurationService().getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true&returnLocation=" + getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/index.jsp";
+        final String docSearchUrl = configurationService.getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/DocumentSearch.do?docFormKey=88888888&hideReturnLink=true&returnLocation=" + configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/index.jsp";
         institutionPreferences.put("docSearchUrl", docSearchUrl);
     }
 
@@ -137,15 +176,15 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     protected String fixRelativeLink(String link) {
         if (!link.startsWith("http")) {
-            final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+            final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
             link = applicationUrl + "/" + link;
         }
         return link;
     }
 
     protected Map<String, String> determineLinkInfo(String documentTypeName) {
-        final String label = getDocumentDictionaryService().getLabel(documentTypeName);
-        final Class<? extends Document> documentClass = (Class<? extends Document>)getDocumentDictionaryService().getDocumentClassByName(documentTypeName);
+        final String label = documentDictionaryService.getLabel(documentTypeName);
+        final Class<? extends Document> documentClass = (Class<? extends Document>)documentDictionaryService.getDocumentClassByName(documentTypeName);
         String link = StringUtils.EMPTY;
         if (!ObjectUtils.isNull(documentClass)) {
             if (TransactionalDocument.class.isAssignableFrom(documentClass)) {
@@ -158,12 +197,12 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected String constructTransactionalDocumentLinkFromClass(Class<? extends Document> documentClass, String documentTypeName) {
-        final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+        final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
         return applicationUrl + "/" + determineUrlNameForClass(documentClass) + transformClassName(documentClass) + ".do?methodToCall=docHandler&command=initiate&docTypeName="+documentTypeName;
     }
 
     protected String constructMaintenanceDocumentLinkFromClass(String documentTypeName) {
-        final String applicationUrl = getConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+        final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
         final Class<?> businessObjectClass = documentDictionaryService.getMaintenanceDataObjectClass(documentTypeName);
         if (GlobalBusinessObject.class.isAssignableFrom(businessObjectClass)) {
             return applicationUrl + "/kr/maintenance.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&hideReturnLink=true";
@@ -176,7 +215,7 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected String determineUrlNameForClass(Class<? extends Document> documentClass) {
-        final ModuleService module = getKualiModuleService().getResponsibleModuleService(documentClass);
+        final ModuleService module = kualiModuleService.getResponsibleModuleService(documentClass);
         if (!ObjectUtils.isNull(module)) {
             final ModuleConfiguration moduleConfiguration = module.getModuleConfiguration();
             return lookupUrlNameFromNamespace(moduleConfiguration.getNamespaceCode());
@@ -185,7 +224,7 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected String lookupUrlNameFromNamespace(String namespaceCode) {
-        return getNamespaceCodeToUrlName().get(namespaceCode);
+        return namespaceCodeToUrlName.get(namespaceCode);
     }
 
     protected Map<String, String> constructLinkInfo(String label, String link) {
@@ -199,40 +238,20 @@ public class PreferencesServiceImpl implements PreferencesService {
         return linkInfo;
     }
 
-    public ConfigurationService getConfigurationService() {
-        return configurationService;
-    }
-
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
-    }
-
-    public DocumentDictionaryService getDocumentDictionaryService() {
-        return documentDictionaryService;
     }
 
     public void setDocumentDictionaryService(DocumentDictionaryService documentDictionaryService) {
         this.documentDictionaryService = documentDictionaryService;
     }
 
-    public KualiModuleService getKualiModuleService() {
-        return kualiModuleService;
-    }
-
     public void setKualiModuleService(KualiModuleService kualiModuleService) {
         this.kualiModuleService = kualiModuleService;
     }
 
-    public PreferencesDao getPreferencesDao() {
-        return preferencesDao;
-    }
-
     public void setPreferencesDao(PreferencesDao preferencesDao) {
         this.preferencesDao = preferencesDao;
-    }
-
-    public Map<String, String> getNamespaceCodeToUrlName() {
-        return namespaceCodeToUrlName;
     }
 
     public void setNamespaceCodeToUrlName(Map<String, String> namespaceCodeToUrlName) {

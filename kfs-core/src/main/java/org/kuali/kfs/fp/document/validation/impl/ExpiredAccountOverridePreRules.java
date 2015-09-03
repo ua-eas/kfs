@@ -21,8 +21,8 @@ package org.kuali.kfs.fp.document.validation.impl;
 import org.kuali.kfs.fp.service.AccountingDocumentPreRuleService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentBase;
-import org.kuali.rice.kns.rules.PromptBeforeValidationBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 /**
  * Checks warnings and prompt conditions for FP documentS.
  */

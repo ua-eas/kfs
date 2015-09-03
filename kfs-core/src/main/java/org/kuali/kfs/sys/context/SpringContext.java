@@ -29,10 +29,10 @@ import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.kuali.rice.coreservice.api.CoreServiceApiServiceLocator;
 import org.kuali.rice.coreservice.api.component.Component;
-import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.KRADServiceLocatorInternal;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.aop.support.AopUtils;
@@ -436,9 +436,9 @@ public class SpringContext {
         SpringResourceLoader mainKfsSpringResourceLoader = (SpringResourceLoader)GlobalResourceLoader.getResourceLoader( new QName("KFS", "KFS_RICE_SPRING_RESOURCE_LOADER_NAME") );
         SpringContext.applicationContext = mainKfsSpringResourceLoader.getContext();
 
-        if ( LOG.isTraceEnabled() ) {
+      //  if ( LOG.isTraceEnabled() ) {
             GlobalResourceLoader.logAllContents();
-        }
+        //}
 
         // KFS addition - republish all components now - until this point, the KFS DD has not been loaded
         KRADServiceLocatorInternal.getDataDictionaryComponentPublisherService().publishAllComponents();

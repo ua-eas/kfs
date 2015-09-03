@@ -299,7 +299,6 @@
       <list>
         <bean parent="InquirySectionDefinition">
           <property name="title" value="General Information"/>
-          <property name="numberOfColumns" value="2"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="confirmStatusCode"/>
@@ -312,7 +311,6 @@
         </bean>
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Matching Fields"/>
-          <property name="numberOfColumns" value="2"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="vendorDetail.vendorNumber"/>

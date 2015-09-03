@@ -1406,7 +1406,7 @@
     </property>
     <property name="required" value="true"/>
     <property name="control">
-      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.rice.location.framework.country.CountryValuesFinder" p:includeBlankRow="true"/>
+      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryValuesFinder" p:includeBlankRow="true"/>
     </property>
   </bean>
   
@@ -1509,7 +1509,6 @@
         <bean parent="InquirySectionDefinition">
 		  <property name="defaultOpen" value="false"/>            
           <property name="title" value="Asset Detail Information"/>
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="capitalAssetNumber"/>
@@ -1544,7 +1543,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Asset Location"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="InquirySubSectionHeaderDefinition" p:attributeName="On Campus"/>
@@ -1565,7 +1563,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Organization Information"/>
 		  <property name="defaultOpen" value="false"/>
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="organizationInventoryName"/>
@@ -1584,7 +1581,6 @@
           <property name="id" value="paymentInformation"/>
           <property name="title" value="Payments"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="Asset-AssetPayment-InquiryCollectionDefinition"/>
@@ -1642,7 +1638,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Asset Depreciation Information"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="assetPrimaryDepreciationMethod.depreciationMethodCode"/>
@@ -1660,7 +1655,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="View Asset Merge History"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="InquiryCollectionDefinition">
@@ -1697,7 +1691,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="View Retirement Information"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="retirementInfo.documentNumber"/> 
@@ -1729,7 +1722,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="View Equipment Loan Information"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="loanDate"/>
@@ -1756,7 +1748,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Warranty"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="assetWarranty.warrantyNumber"/>
@@ -1772,13 +1763,11 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Repair History"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="InquiryCollectionDefinition">
                 <property name="attributeName" value="assetRepairHistory"/>
                 <property name="businessObjectClass" value="org.kuali.kfs.module.cam.businessobject.AssetRepairHistory"/>
-                <property name="numberOfColumns" value="2"/>
                 <property name="inquiryFields">
                   <list>
                     <bean parent="FieldDefinition" p:attributeName="incidentDate"/>
@@ -1798,13 +1787,11 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Components"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="InquiryCollectionDefinition">
                 <property name="attributeName" value="assetComponents"/>
                 <property name="businessObjectClass" value="org.kuali.kfs.module.cam.businessobject.AssetComponent"/>
-                <property name="numberOfColumns" value="2"/>
                 <property name="inquiryFields">
                   <list>
                     <bean parent="FieldDefinition" p:attributeName="componentNumber"/>
@@ -1838,7 +1825,6 @@
         <bean parent="InquirySectionDefinition">
           <property name="title" value="Lookup Related Capital Asset Document(s)"/>
 		  <property name="defaultOpen" value="false"/>          
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="assetMaintenanceDocumentLookup"/>
@@ -1864,7 +1850,6 @@
   <bean id="Asset-AssetPayment-InquiryCollectionDefinition-parentBean" abstract="true" parent="InquiryCollectionDefinition">
     <property name="attributeName" value="assetPayments"/>
     <property name="businessObjectClass" value="org.kuali.kfs.module.cam.businessobject.AssetPayment"/>
-    <property name="numberOfColumns" value="2"/>
     <property name="summaryTitle" value="Payment"/>
     <property name="inquiryFields">
       <list>

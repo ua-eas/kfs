@@ -20,8 +20,8 @@ package org.kuali.kfs.sec.businessobject.defaultvalue;
 
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 
 /**

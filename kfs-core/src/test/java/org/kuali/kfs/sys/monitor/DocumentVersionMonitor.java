@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.monitor;
 
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 
 /**
  * DocumentVersionMonitor

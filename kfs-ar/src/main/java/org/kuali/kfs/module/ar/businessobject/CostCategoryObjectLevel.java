@@ -20,7 +20,7 @@ package org.kuali.kfs.module.ar.businessobject;
 
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectLevel;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * An object level associated with a contracts & grants category

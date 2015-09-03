@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.pdp.identity;
 
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public class CustomerRoleTypeServiceImpl extends RoleTypeServiceBase {
 

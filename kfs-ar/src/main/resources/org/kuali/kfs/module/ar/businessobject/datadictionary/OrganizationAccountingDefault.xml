@@ -476,7 +476,7 @@
 			</list>
 		</property>
 		<property name="inquirableClass"
-			value="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl" />
+			value="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" />
 	</bean>
 	<bean
 		id="OrganizationAccountingDefault-inquirySectionDefinition-organizationAccountingDefaults"
@@ -501,7 +501,6 @@
 		id="OrganizationAccountingDefault-inquirySectionDefinition-organizationIncomeAccountDefaults-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Organization Income Account Defaults" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="defaultInvoiceChartOfAccountsCode" />
@@ -521,7 +520,6 @@
 		id="OrganizationAccountingDefault-inquirySectionDefinition-organizationWriteoffAccountDefaults-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Organization Writeoff Account Defaults" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="writeoffChartOfAccountsCode" />

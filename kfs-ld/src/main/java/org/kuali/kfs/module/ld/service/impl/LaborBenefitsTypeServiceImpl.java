@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.kuali.kfs.module.ld.businessobject.BenefitsType;
 import org.kuali.kfs.module.ld.service.LaborBenefitsTypeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 public class LaborBenefitsTypeServiceImpl implements LaborBenefitsTypeService {
 

@@ -77,17 +77,17 @@
 	
 		<pattern fileType="xml">
 			<match>org.kuali.rice.krad.bo.options.CountryValuesFinder</match>
-			<replacement>org.kuali.rice.location.framework.country.CountryValuesFinder</replacement>
+			<replacement>org.kuali.kfs.kns.bo.lookup.CountryValuesFinder</replacement>
 		</pattern>
 	
 		<pattern fileType="xml">
 			<match>org.kuali.rice.krad.bo.options.StateValuesFinder</match>
-			<replacement>org.kuali.rice.location.framework.state.StateValuesFinder</replacement>
+			<replacement>org.kuali.kfs.kns.bo.lookup.StateValuesFinder</replacement>
 		</pattern>
 	
 		<pattern fileType="xml">
 			<match>org.kuali.rice.krad.bo.options.CountryNotRestrictedValuesFinder</match>
-			<replacement>org.kuali.rice.location.framework.country.CountryNotRestrictedValuesFinder</replacement>
+			<replacement>org.kuali.kfs.kns.bo.lookup.CountryNotRestrictedValuesFinder</replacement>
 		</pattern>
 	
 		<pattern fileType="xml">

@@ -409,7 +409,6 @@
 		id="SystemInformation-inquirySectionDefinition-systemInformation-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="System Information" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="universityFiscalYear" />
@@ -443,7 +442,6 @@
 		id="SystemInformation-inquirySectionDefinition-universityClearingAccount-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="University Clearing Account" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="universityClearingChartOfAccountsCode" />
@@ -454,28 +452,13 @@
 			</list>
 		</property>
 	</bean>
-	<!--
-		<bean id="SystemInformation-inquirySectionDefinition-wireAccount"
-		parent="SystemInformation-inquirySectionDefinition-wireAccount-parentBean"/>
-		<bean
-		id="SystemInformation-inquirySectionDefinition-wireAccount-parentBean"
-		parent="InquirySectionDefinition" abstract="true"> <property
-		name="title" value="Wire Account" /> <property name="numberOfColumns"
-		value="1" /> <property name="inquiryFields"> <list> <bean
-		parent="FieldDefinition" p:attributeName="wireChartOfAccountsCode" />
-		<bean parent="FieldDefinition" p:attributeName="wireAccountNumber" />
-		<bean parent="FieldDefinition" p:attributeName="wireSubAccountNumber"
-		/> <bean parent="FieldDefinition" p:attributeName="wireObjectCode" />
-		<bean parent="FieldDefinition" p:attributeName="wireSubObjectCode" />
-		</list> </property> </bean>
-	-->
-	<bean id="SystemInformation-inquirySectionDefinition-remitToInformation"
+
+    <bean id="SystemInformation-inquirySectionDefinition-remitToInformation"
 		parent="SystemInformation-inquirySectionDefinition-remitToInformation-parentBean" />
 	<bean
 		id="SystemInformation-inquirySectionDefinition-remitToInformation-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Remit To Information" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="organizationCheckPayableToName" />

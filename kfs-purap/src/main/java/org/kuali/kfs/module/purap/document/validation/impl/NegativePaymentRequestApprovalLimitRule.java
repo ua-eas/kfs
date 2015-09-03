@@ -26,8 +26,8 @@ import org.kuali.kfs.module.purap.businessobject.NegativePaymentRequestApprovalL
 import org.kuali.kfs.module.purap.document.service.NegativePaymentRequestApprovalLimitService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 
 /**
  * Business rules for the NegativePaymentRequestApprovalLimit maintenance document

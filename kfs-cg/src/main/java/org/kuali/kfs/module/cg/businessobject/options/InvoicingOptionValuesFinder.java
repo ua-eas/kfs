@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.cg.businessobject.options;
 
 import org.kuali.kfs.integration.cg.CGIntegrationConstants;
-import org.kuali.rice.krad.keyvalues.EnumValuesFinder;
+import org.kuali.kfs.krad.keyvalues.EnumValuesFinder;
 
 /**
  * This class returns list of string key value pairs for InvoicingOption

@@ -24,7 +24,7 @@ import java.util.Date;
 
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.kns.lookup.LookupResultsService;
+import org.kuali.kfs.kns.lookup.LookupResultsService;
 
 public class PurgeOldLookupResultsStep extends AbstractStep {
     private LookupResultsService lookupResultsService;

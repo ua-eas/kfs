@@ -87,7 +87,7 @@
 		<property name="label" value="Campus" />
 		<property name="control">
 			<bean parent="SelectControlDefinition"
-				p:valuesFinderClass="org.kuali.rice.location.framework.campus.CampusValuesFinder"
+				p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CampusValuesFinder"
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
@@ -187,7 +187,6 @@
 	<bean id="PretagDetail-inquirySectionDefinition-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="purchaseOrderNumber" />

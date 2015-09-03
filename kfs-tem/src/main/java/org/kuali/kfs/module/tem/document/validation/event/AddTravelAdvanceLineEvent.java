@@ -20,7 +20,7 @@ package org.kuali.kfs.module.tem.document.validation.event;
 
 import org.kuali.kfs.module.tem.businessobject.TravelAdvance;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public class AddTravelAdvanceLineEvent extends AttributedDocumentEventBase implements TravelAdvanceLineEvent {
 

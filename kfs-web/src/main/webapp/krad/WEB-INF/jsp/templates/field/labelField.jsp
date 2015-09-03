@@ -17,7 +17,7 @@
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
 
-<tiles:useAttribute name="field" classname="org.kuali.rice.krad.uif.field.LabelField"/>
+<tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.LabelField"/>
 
 <c:set var="label" value="${field.labelText}"/>
 

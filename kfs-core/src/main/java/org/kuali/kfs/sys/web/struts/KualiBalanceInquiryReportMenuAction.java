@@ -28,10 +28,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.web.struts.action.KualiAction;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.UrlFactory;
 
 /**
  * This class handles Actions for the balance inquiry report menu

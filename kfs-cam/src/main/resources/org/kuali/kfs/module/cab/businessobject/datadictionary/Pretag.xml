@@ -301,7 +301,6 @@
 	<bean id="Pretag-inquirySectionDefinition-pretag-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="purchaseOrderNumber" />
@@ -327,7 +326,6 @@
 	<bean id="Pretag-inquirySectionDefinition-pretagDetails-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Pretag Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<ref bean="Pretag-inquiryCollectionDefinition-pretagDetails" />
@@ -342,7 +340,6 @@
 		<property name="attributeName" value="pretagDetails" />
 		<property name="businessObjectClass"
 			value="org.kuali.kfs.module.cab.businessobject.PretagDetail" />
-		<property name="numberOfColumns" value="1" />
 		<property name="summaryTitle" value="Pretag Detail" />
 		<property name="inquiryFields">
 			<list>

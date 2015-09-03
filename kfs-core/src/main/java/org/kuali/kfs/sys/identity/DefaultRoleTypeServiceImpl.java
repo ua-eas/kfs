@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.identity;
 
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 /**
  * The "default" Rice type service (org.kuali.rice.kns.kim.type.DataDictionaryTypeServiceBase) we were using for

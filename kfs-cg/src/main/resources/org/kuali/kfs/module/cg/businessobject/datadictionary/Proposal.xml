@@ -598,7 +598,6 @@
 	<bean id="Proposal-inquirySectionDefinition-proposalDetails-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Proposal Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
@@ -636,7 +635,6 @@
 	<bean id="Proposal-inquirySectionDefinition-organizations-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Organizations" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<ref bean="Proposal-inquiryCollectionDefinition-proposalOrganizations" />

@@ -621,7 +621,6 @@
   <bean id="PaymentDetail-inquirySectionDefinition-summary" parent="PaymentDetail-inquirySectionDefinition-summary-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-summary-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Summary"/>
-    <property name="numberOfColumns" value="2"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="nbrOfPaymentsInPaymentGroup"/>  
@@ -651,7 +650,6 @@
   <bean id="PaymentDetail-inquirySectionDefinition-batch" parent="PaymentDetail-inquirySectionDefinition-batch-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-batch-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Batch"/>
-    <property name="numberOfColumns" value="2"/>
     <property name="inquiryFields">
       <list> 
         <bean parent="FieldDefinition" p:attributeName="paymentGroup.batchId"/>  
@@ -671,7 +669,6 @@
   <bean id="PaymentDetail-inquirySectionDefinition-payment" parent="PaymentDetail-inquirySectionDefinition-payment-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-payment-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Payment"/>
-    <property name="numberOfColumns" value="2"/>
     <property name="inquiryFields">
       <list>               
         <bean parent="FieldDefinition" p:attributeName="origInvoiceAmount"/>                       
@@ -692,7 +689,6 @@
   <bean id="PaymentDetail-inquirySectionDefinition-payee" parent="PaymentDetail-inquirySectionDefinition-payee-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-payee-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Payee"/>
-    <property name="numberOfColumns" value="2"/>
     <property name="inquiryFields">
       <list> 
         <bean parent="FieldDefinition" p:attributeName="paymentGroup.alternatePayeeIdTypeCd"/>  
@@ -714,7 +710,6 @@
   <bean id="PaymentDetail-inquirySectionDefinition-accountDetail" parent="PaymentDetail-inquirySectionDefinition-accountDetail-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-accountDetail-parentBean" parent="InquirySectionDefinition" abstract="true">
    <property name="title" value="Account Detail"/>
-   <property name="numberOfColumns" value="1"/>
    <property name="defaultOpen" value="false"/>
    <property name="inquiryFields">
      <list>
@@ -727,7 +722,6 @@
   <bean id="PaymentDetail-inquiryCollectionDefinition-accountDetail-parentBean" parent="InquiryCollectionDefinition" abstract="true">
     <property name="attributeName" value="accountDetail"/>
     <property name="businessObjectClass" value="org.kuali.kfs.pdp.businessobject.PaymentAccountDetail"/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="finChartCode"/>
@@ -760,7 +754,6 @@
   <bean id="PaymentDetail-inquiryCollectionDefinition-accountHistory-parentBean" parent="InquiryCollectionDefinition" abstract="true">
   <property name="attributeName" value="accountHistory"/>
   <property name="businessObjectClass" value="org.kuali.kfs.pdp.businessobject.PaymentAccountHistory"/>
-  <property name="numberOfColumns" value="1"/>
   <property name="summaryTitle" value="Payment Account History"/>
   <property name="inquiryFields">
     <list>
@@ -789,7 +782,6 @@
   <bean id="PaymentDetail-inquirySectionDefinition-history" parent="PaymentDetail-inquirySectionDefinition-history-parentBean"/>
   <bean id="PaymentDetail-inquirySectionDefinition-history-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="History"/>
-    <property name="numberOfColumns" value="1"/>
     <property name="defaultOpen" value="false"/>
     <property name="inquiryFields">
       <list>
@@ -802,7 +794,6 @@
   <bean id="PaymentDetail-inquiryCollectionDefinition-history-parentBean" parent="InquiryCollectionDefinition" abstract="true">
     <property name="attributeName" value="paymentGroup.paymentGroupHistory"/>
     <property name="businessObjectClass" value="org.kuali.kfs.pdp.businessobject.PaymentGroupHistory"/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="changeTime" p:noInquiry="true"/>

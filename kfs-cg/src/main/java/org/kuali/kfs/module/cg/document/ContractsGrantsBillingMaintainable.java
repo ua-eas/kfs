@@ -25,17 +25,17 @@ import java.util.List;
 import java.util.Set;
 
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.datadictionary.MaintainableFieldDefinition;
-import org.kuali.rice.kns.datadictionary.MaintainableItemDefinition;
-import org.kuali.rice.kns.datadictionary.MaintainableSectionDefinition;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationController;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentRestrictions;
-import org.kuali.rice.kns.maintenance.Maintainable;
-import org.kuali.rice.kns.service.KNSServiceLocator;
-import org.kuali.rice.kns.web.ui.Section;
-import org.kuali.rice.kns.web.ui.SectionBridge;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationController;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentRestrictions;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.kns.web.ui.SectionBridge;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Abstract class that overrides getCoreSections to ignore CGB-specific sections if CGB is disabled.
@@ -49,7 +49,7 @@ public abstract class ContractsGrantsBillingMaintainable extends FinancialSystem
      * used to avoid processing / returning sections that are specific to the Contracts & Grants Billing (CGB) enhancement
      * if CGB is not enabled.
      *
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getCoreSections(org.kuali.rice.kns.document.MaintenanceDocument, org.kuali.rice.kns.maintenance.Maintainable)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#getCoreSections(org.kuali.kfs.kns.document.MaintenanceDocument, org.kuali.kfs.kns.maintenance.Maintainable)
      */
     @Override
     public List<Section> getCoreSections(MaintenanceDocument document, Maintainable oldMaintainable) {

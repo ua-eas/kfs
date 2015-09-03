@@ -387,7 +387,6 @@
 		id="LedgerBalanceForBenefitExpenseTransfer-inquirySectionDefinition-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="accountLineAnnualBalanceAmount" />

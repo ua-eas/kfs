@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.module.tem.document.service;
 
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 /**
  * Helper interface to bridge between trip and traveler implementations of travel agency auditing

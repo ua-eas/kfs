@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 /**
  * This class...

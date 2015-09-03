@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.context.BatchStepExecutor;
 import org.kuali.kfs.sys.context.BatchStepFileDescriptor;
 import org.kuali.kfs.sys.context.ContainerStepListener;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * BatchContainerStep looks for .run files.

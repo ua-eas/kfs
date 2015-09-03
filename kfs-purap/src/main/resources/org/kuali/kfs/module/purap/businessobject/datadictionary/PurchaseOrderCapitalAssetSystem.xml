@@ -70,7 +70,7 @@
       <ref bean="AnyCharacterValidation" />
     </property>
     <property name="control">
-      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.IndicatorYNBlankValuesFinder" p:includeKeyInLabel="false"/>
+      <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorYNBlankValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
   <bean id="PurchaseOrderCapitalAssetSystem-capitalAssetSystemDescription" parent="PurchaseOrderCapitalAssetSystem-capitalAssetSystemDescription-parentBean"/>
@@ -174,7 +174,6 @@
   <bean id="PurchaseOrderCapitalAssetSystem-inquirySectionDefinition" parent="PurchaseOrderCapitalAssetSystem-inquirySectionDefinition-parentBean"/>
   <bean id="PurchaseOrderCapitalAssetSystem-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value=""/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="capitalAssetManufacturerName"/>

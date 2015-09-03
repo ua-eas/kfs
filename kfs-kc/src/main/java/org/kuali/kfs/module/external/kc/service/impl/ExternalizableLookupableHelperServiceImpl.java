@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.kfs.module.external.kc.service.ExternalizableLookupableBusinessObjectService;
-import org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 public class ExternalizableLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {

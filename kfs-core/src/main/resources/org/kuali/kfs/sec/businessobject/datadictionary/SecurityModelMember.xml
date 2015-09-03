@@ -82,8 +82,13 @@
   
   <bean id="SecurityModelMember-memberTypeCode" parent="SecurityModelMember-memberTypeCode-parentBean"/>
 
-  <bean id="SecurityModelMember-memberTypeCode-parentBean" abstract="true" parent="RoleMemberBo-typeCode">
-    <property name="name" value="memberTypeCode"/>
+  <bean id="SecurityModelMember-memberTypeCode-parentBean" parent="AttributeDefinition" abstract="true" p:name="memberTypeCode"
+        p:forceUppercase="true" p:label="Member Type Code" p:shortLabel="Type Code" p:maxLength="40" p:required="false">
+    <property name="control">
+      <bean parent="SelectControlDefinition"
+            p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder"/>
+    </property>
+    <property name="optionsFinderClass" value="org.kuali.kfs.kns.bo.lookup.MemberTypeValuesFinder"/>
   </bean>
   
   <bean id="SecurityModelMember-activeFromDate" parent="SecurityModelMember-activeFromDate-parentBean"/>
@@ -138,7 +143,6 @@
   <bean id="SecurityModelMember-inquirySectionDefinition" parent="SecurityModelMember-inquirySectionDefinition-parentBean"/>  
   <bean id="SecurityModelMember-inquirySectionDefinition-parentBean" abstract="true" parent="InquirySectionDefinition">
     <property name="title" value=""/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="modelId"/>

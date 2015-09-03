@@ -114,7 +114,7 @@
     <property name="shortLabel" value="Code"/>
     <property name="required" value="false" />
     <property name="control">
-      <bean parent="SelectControlDefinition" p:includeBlankRow="true" p:valuesFinderClass="org.kuali.rice.location.framework.country.CountryValuesFinder"/>
+      <bean parent="SelectControlDefinition" p:includeBlankRow="true" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryValuesFinder"/>
     </property>
   </bean>
   
@@ -197,7 +197,6 @@
       <list>
         <bean parent="InquirySectionDefinition">
           <property name="title" value=""/>
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="assetLocationCityName"/>

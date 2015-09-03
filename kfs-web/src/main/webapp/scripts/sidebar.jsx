@@ -1,26 +1,33 @@
 import Link from './link.jsx';
+import UserPrefs from './sys/user_preferences.js';
 import KfsUtils from './sys/utils.js';
 
 let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {preferences: {}, expandedLinkGroup: ""}
+        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: ""}
     },
     componentWillMount() {
-        let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
-
+        let institutionPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
         $.ajax({
-            url: path,
+            url: institutionPath,
             dataType: 'json',
             type: 'GET',
             success: function(preferences) {
-                this.setState({preferences: preferences});
+                this.setState({institutionPreferences: preferences});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());
             }.bind(this)
         })
+
+        let thisComponent = this;
+        UserPrefs.getUserPreferences(function (userPreferences) {
+            thisComponent.setState({userPreferences: userPreferences});
+        }, function (error) {
+            console.log("error getting preferences: " + error);
+        });
     },
     toggleAccordion(label) {
         let curExpandedGroup = this.state.expandedLinkGroup
@@ -31,31 +38,23 @@ var Sidebar = React.createClass({
         }
     },
     toggleSidebar() {
-        let windowWidth = $(window).width()
-        if ($('#sidebar-wrapper').width() > 25) {
-            $('#wrapper').animate({'left': '25px'}, {duration: animationTime, queue: false});
-            $('#wrapper').animate({'width': windowWidth - 25 + 'px'}, {duration: animationTime, queue: false, complete: function() {
-                $('#wrapper').css('width', 'calc(100% - 25px)')
-            }});
-            $('#sidebar-wrapper').animate({'width': '25px'}, {duration: animationTime, queue: false});
-            $('#menu-toggle').animate({'left': '0'}, {duration: animationTime, queue: false});
-            $('#menu-toggle').css('position', 'fixed');
-        } else {
-            $('#wrapper').animate({'left': '320px'}, {duration: animationTime, queue: false});
-            $('#wrapper').animate({'width': windowWidth - 320 + 'px'}, {duration: animationTime, queue: false, complete: function() {
-                $('#wrapper').css('width', 'calc(100% - 320px)')
-            }});
-            $('#sidebar-wrapper').animate({'width': '320px'}, {duration: animationTime, queue: false});
-            $('#menu-toggle').css('position', 'inherit');
-        }
-        $('#menu-toggle>span').toggleClass('glyphicon-menu-left glyphicon-menu-right')
+        $('#menu-toggle').toggleClass('rotated');
+        $('#sidebar').toggleClass('collapsed');
+
+        let userPreferences = this.state.userPreferences;
+        let sidebarOutValue = ! userPreferences.sidebarOut;
+
+        userPreferences.sidebarOut = sidebarOutValue;
+        this.setState({ userPreferences: userPreferences });
+
+        UserPrefs.putUserPreferences(userPreferences);
     },
     render() {
         let rootPath = KfsUtils.getUrlPathPrefix()
         let linkGroups = []
-        if (this.state.preferences.linkGroups) {
-            let beforeActive = findLabelBeforeActive(this.state.preferences.linkGroups, this.state.expandedLinkGroup)
-            let groups = this.state.preferences.linkGroups
+        if (this.state.institutionPreferences.linkGroups) {
+            let beforeActive = findLabelBeforeActive(this.state.institutionPreferences.linkGroups, this.state.expandedLinkGroup)
+            let groups = this.state.institutionPreferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(
                     <LinkGroup key={i}
@@ -66,11 +65,18 @@ var Sidebar = React.createClass({
                 )
             }
         }
+
+        let menuToggleClassName = "glyphicon glyphicon-menu-left"
+        if (this.state.userPreferences.sidebarOut === false) {
+            menuToggleClassName += " rotated"
+            $('#sidebar').addClass('collapsed');
+        }
+
         return (
-            <div id="sidebar">
-                <div id="menu-toggle" onClick={this.toggleSidebar}><span className="glyphicon glyphicon-menu-left"></span></div>
+            <div>
                 <ul id="accordion" className="nav list-group accordion accordion-group">
-                    <li className="first"><a href={rootPath}>Dashboard</a></li>
+                    <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
+                    <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
             </div>
@@ -86,7 +92,7 @@ var LinkGroup = React.createClass({
             return <Link key={i} url={link.link} label={link.label} className="list-group-item"/>
         })
 
-        let panelClassName = "panel"
+        let panelClassName = "panel list-item"
         let indicatorClassName = "indicator glyphicon pull-right"
         if (this.props.expandedLinkGroup === label) {
             panelClassName += " active"
@@ -122,7 +128,7 @@ function findLabelBeforeActive(linkGroups, expandedLinkGroup) {
 
 React.render(
     <Sidebar/>,
-    document.getElementById('sidebar-wrapper')
+    document.getElementById('sidebar')
 );
 
 export default Sidebar;

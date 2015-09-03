@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.tem.identity;
 
 import org.kuali.kfs.module.tem.service.TravelerService;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 @SuppressWarnings("deprecation")
 public abstract class TemOrganizationHierarchyRoleTypeService extends RoleTypeServiceBase {

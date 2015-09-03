@@ -325,7 +325,7 @@
 		<property name="shortLabel" value="Country Cd" />
 		<property name="required" value="true" />
 		<property name="control">
-			<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.rice.location.framework.country.CountryValuesFinder"
+			<bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.CountryValuesFinder"
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
@@ -693,7 +693,6 @@
 	<bean id="Organization-inquirySectionDefinition-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Organization Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode" />

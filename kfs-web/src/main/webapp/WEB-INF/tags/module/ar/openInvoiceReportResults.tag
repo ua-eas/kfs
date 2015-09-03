@@ -36,7 +36,7 @@
 			<c:when test="${column.formatter.implementationClass == 'org.kuali.rice.core.web.format.CurrencyFormatter'}">
 				<display:column class="numbercell"
 			sortable="true"
-			decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator"
+			decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
 			title="${column.columnTitle}"
 			comparator="${column.comparator}">
 					<c:choose>
@@ -56,7 +56,7 @@
 			<c:otherwise>
 				<display:column class="infocell"
 					sortable="${column.sortable}"
-					decorator="org.kuali.rice.kns.web.ui.FormatAwareDecorator"
+					decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
 					title="${column.columnTitle}"
 					comparator="${column.comparator}">
 					<c:choose>

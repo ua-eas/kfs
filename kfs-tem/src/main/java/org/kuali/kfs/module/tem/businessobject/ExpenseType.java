@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.tem.businessobject;
 
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 /**
  * A record encapsulating information about a category of expense - airfare or lodging for instance

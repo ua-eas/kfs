@@ -26,7 +26,7 @@ import javax.mail.MessagingException;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.module.ar.businessobject.Milestone;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.rice.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
 
 /**
  * Defines methods for sending AR emails.

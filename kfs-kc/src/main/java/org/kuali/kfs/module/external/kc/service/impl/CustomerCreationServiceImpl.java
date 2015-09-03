@@ -38,11 +38,11 @@ import org.kuali.kfs.module.external.kc.service.CustomerCreationService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.service.KeyValuesService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class CustomerCreationServiceImpl implements CustomerCreationService {
 

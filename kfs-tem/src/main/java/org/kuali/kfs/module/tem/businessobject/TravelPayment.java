@@ -24,7 +24,7 @@ import org.kuali.kfs.sys.businessobject.PaymentDocumentationLocation;
 import org.kuali.kfs.sys.businessobject.options.PaymentDocumentationLocationValuesFinder;
 import org.kuali.kfs.sys.businessobject.options.PaymentMethodValuesFinder;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * BusinessObject which holds fields representing those a travel document needs to make a payment

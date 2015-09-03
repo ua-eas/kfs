@@ -169,6 +169,6 @@
 	</bean>
 
 	<bean id="CostCategoryMaintenanceDocument-workflowAttributes" parent="CostCategoryMaintenanceDocument-workflowAttributes-parentBean" />
-	<bean id="CostCategoryMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true" />
+	<bean id="CostCategoryMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true" />
 
 </beans>

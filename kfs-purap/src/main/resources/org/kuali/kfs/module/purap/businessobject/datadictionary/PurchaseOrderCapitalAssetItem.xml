@@ -107,7 +107,7 @@
   </bean>
 
   <bean id="PurchaseOrderCapitalAssetItem-inquirySectionDefinition" parent="PurchaseOrderCapitalAssetItem-inquirySectionDefinition-parentBean"/>
-  <bean id="PurchaseOrderCapitalAssetItem-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" p:title="Purchase Order Capital Asset Item Attributes" p:numberOfColumns="1" abstract="true">
+  <bean id="PurchaseOrderCapitalAssetItem-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" p:title="Purchase Order Capital Asset Item Attributes" abstract="true">
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="capitalAssetItemIdentifier"/>

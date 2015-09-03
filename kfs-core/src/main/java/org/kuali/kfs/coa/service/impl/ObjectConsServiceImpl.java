@@ -26,7 +26,7 @@ import org.kuali.kfs.coa.service.ObjectConsService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * This service implementation is the default implementation of the BalanceTyp service that is delivered with Kuali.

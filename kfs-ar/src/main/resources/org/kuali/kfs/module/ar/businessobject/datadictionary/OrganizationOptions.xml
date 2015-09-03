@@ -437,7 +437,6 @@
 		id="OrganizationOptions-inquirySectionDefinition-organizationInvoiceInformation-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Organization Invoice Information"/>
-		<property name="numberOfColumns" value="1"/>
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="organizationPostalZipCode"/>
@@ -458,7 +457,6 @@
 		id="OrganizationOptions-inquirySectionDefinition-organizationRemitToAddress-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Organization Remit To Address"/>
-		<property name="numberOfColumns" value="1"/>
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="organizationRemitToAddressName"/>

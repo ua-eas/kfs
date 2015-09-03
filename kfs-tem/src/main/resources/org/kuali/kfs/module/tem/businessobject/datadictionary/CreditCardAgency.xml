@@ -266,7 +266,6 @@
 		<list>
 			<bean parent="InquirySectionDefinition">
 				<property name="title" value="Credit Card or Agency Inquiry"/>
-				<property name="numberOfColumns" value="1"/>
 				<property name="inquiryFields">
 				<list>
 					<bean parent="FieldDefinition" p:attributeName="creditCardOrAgencyCode" />

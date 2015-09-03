@@ -465,7 +465,6 @@
 	<bean id="Agency-inquirySectionDefinition-details-parentBean" parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="agencyDetailsSection" />
 		<property name="title" value="Agency Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="agencyNumber" />
@@ -513,14 +512,12 @@
 	<bean id="Agency-inquirySectionDefinition-address-parentBean" parent="InquirySectionDefinition" abstract="true">
 		<property name="id" value="addressSection" />
 		<property name="title" value="Address" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="InquiryCollectionDefinition">
 					<property name="attributeName" value="agencyAddresses" />
 					<property name="businessObjectClass"
 						value="org.kuali.kfs.module.cg.businessobject.AgencyAddress" />
-					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>
 							<bean parent="FieldDefinition" p:attributeName="customerAddressTypeCode" />
@@ -574,7 +571,7 @@
 			<list>
 				<bean parent="InquiryCollectionDefinition">
 					<property name="attributeName" value="boNotes" />
-					<property name="businessObjectClass" value="org.kuali.rice.krad.bo.Note"/>
+					<property name="businessObjectClass" value="org.kuali.kfs.krad.bo.Note"/>
 					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>

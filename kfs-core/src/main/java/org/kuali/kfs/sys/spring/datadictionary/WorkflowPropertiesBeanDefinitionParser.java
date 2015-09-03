@@ -20,8 +20,8 @@ package org.kuali.kfs.sys.spring.datadictionary;
 
 import java.util.ArrayList;
 
-import org.kuali.rice.krad.datadictionary.WorkflowProperty;
-import org.kuali.rice.krad.datadictionary.WorkflowPropertyGroup;
+import org.kuali.kfs.krad.datadictionary.WorkflowProperty;
+import org.kuali.kfs.krad.datadictionary.WorkflowPropertyGroup;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;

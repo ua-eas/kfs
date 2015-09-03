@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 
 import org.kuali.kfs.gl.service.impl.StringHelper;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class DetailLine extends TransientBusinessObjectBase {
     private String financialDocumentReferenceInvoiceNumber; //document number of the invoice being processed.

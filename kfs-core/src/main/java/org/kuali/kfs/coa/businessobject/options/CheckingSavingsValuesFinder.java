@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * This class returns list containg 22 = Checking or 32 = Savings

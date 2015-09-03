@@ -28,17 +28,18 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.util.FieldUtils;
-import org.kuali.rice.kns.web.ui.Field;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * A container which holds a single accounting line and the elements which will render it
@@ -277,7 +278,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public void populateValuesForFields() {
         FieldUtils.populateFieldsFromBusinessObject(getFieldsForAccountingLine(), accountingLine);
         
-        org.kuali.rice.krad.datadictionary.BusinessObjectEntry boDDEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(getAccountingLine().getClass().getName());
+        BusinessObjectEntry boDDEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(getAccountingLine().getClass().getName());
         
         for (Field field : getFieldsForAccountingLine()) {
             setUnconvertedValueIfNecessary(field);
@@ -306,7 +307,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
      * 
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
-    protected void setShouldShowSecure(Field field, org.kuali.rice.krad.datadictionary.BusinessObjectEntry boDDEntry) {
+    protected void setShouldShowSecure(Field field, BusinessObjectEntry boDDEntry) {
         // TODO: FIX
         
         // from Warren:  k... org.kuali.rice.kns.service.BusinessObjectAuthorizationService.getMaintenanceDocumentRestrictions(MaintenanceDocument, Person) has the determination of what restrictions there should be

@@ -18,7 +18,7 @@
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
 
 <tiles:useAttribute name="field"
-	classname="org.kuali.rice.krad.uif.field.LinkField" />
+	classname="org.kuali.kfs.krad.uif.field.LinkField" />
 <tiles:useAttribute name="body"/>
 
 <%--

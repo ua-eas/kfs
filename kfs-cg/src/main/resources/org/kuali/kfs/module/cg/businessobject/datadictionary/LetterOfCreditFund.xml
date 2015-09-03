@@ -175,7 +175,6 @@
 	<bean id="LetterOfCreditFund-inquirySectionDefinition-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Letter of Credit Fund Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="letterOfCreditFundCode" />

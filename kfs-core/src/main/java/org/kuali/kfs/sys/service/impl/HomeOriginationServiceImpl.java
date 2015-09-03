@@ -20,7 +20,7 @@ package org.kuali.kfs.sys.service.impl;
 
 import org.kuali.kfs.sys.businessobject.HomeOrigination;
 import org.kuali.kfs.sys.service.HomeOriginationService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.cache.annotation.Cacheable;
 
 public class HomeOriginationServiceImpl implements HomeOriginationService {

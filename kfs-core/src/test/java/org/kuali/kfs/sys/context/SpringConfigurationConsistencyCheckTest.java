@@ -38,9 +38,9 @@ import org.kuali.kfs.sys.suite.PreCommitSuite;
 import org.kuali.rice.core.framework.persistence.dao.PlatformAwareDao;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.lookup.LookupableHelperService;
-import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
 

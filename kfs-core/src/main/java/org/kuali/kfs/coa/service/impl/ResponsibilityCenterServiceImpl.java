@@ -21,7 +21,7 @@ package org.kuali.kfs.coa.service.impl;
 import org.kuali.kfs.coa.businessobject.ResponsibilityCenter;
 import org.kuali.kfs.coa.service.ResponsibilityCenterService;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 @NonTransactional
 public class ResponsibilityCenterServiceImpl implements ResponsibilityCenterService{

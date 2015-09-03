@@ -305,7 +305,6 @@
 	
 	<bean id="DataMappingFieldDefinition-inquirySectionDefinition" parent="DataMappingFieldDefinition-inquirySectionDefinition-parentBean"/>	
 	<bean id="DataMappingFieldDefinition-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
-		<property name="numberOfColumns" value="2"/>
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="namespaceCode"/>

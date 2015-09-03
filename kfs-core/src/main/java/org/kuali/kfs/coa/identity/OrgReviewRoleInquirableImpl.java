@@ -24,15 +24,15 @@ import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.OrgReviewRoleService;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 
-public class OrgReviewRoleInquirableImpl extends KfsInquirableImpl {
+public class OrgReviewRoleInquirableImpl extends KualiInquirableImpl {
 
     protected static final String ORG_REVIEW_ROLE_INQUIRY_TITLE = "orgReviewRoleInquiryTitle";
     protected static final String ORG_REVIEW_ROLE_MEMBER_ID = "orgReviewRoleMemberId";

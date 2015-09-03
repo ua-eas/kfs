@@ -22,7 +22,7 @@ import javax.mail.MessagingException;
 
 import org.kuali.kfs.sys.mail.AttachmentMailMessage;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.rice.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
 
 /**
  * This class is useful in development environments where it will log rather than send email messages.

@@ -65,7 +65,7 @@
 		</property>
 	</bean>
 	
-	<bean id="RoutingAttribute-proposalNumber" class="org.kuali.rice.krad.datadictionary.RoutingAttribute" >
+	<bean id="RoutingAttribute-proposalNumber" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="proposalNumber" />
     </bean>
 	

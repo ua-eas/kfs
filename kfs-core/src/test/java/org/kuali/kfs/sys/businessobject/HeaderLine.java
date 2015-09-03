@@ -26,7 +26,7 @@ import java.util.List;
 import org.kuali.kfs.sys.batch.FlatFileData;
 import org.kuali.kfs.sys.batch.FlatFileTransactionInformation;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 
 

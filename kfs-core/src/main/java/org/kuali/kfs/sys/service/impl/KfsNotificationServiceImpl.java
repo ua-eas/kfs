@@ -30,7 +30,7 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.service.KfsNotificationService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.rice.krad.service.MailService;
+import org.kuali.kfs.krad.service.MailService;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 /**

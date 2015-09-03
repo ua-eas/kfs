@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ErrorMessage;
 
 public interface DataReportService {
 

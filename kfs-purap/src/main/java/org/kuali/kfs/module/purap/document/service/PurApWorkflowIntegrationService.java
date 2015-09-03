@@ -20,7 +20,7 @@ package org.kuali.kfs.module.purap.document.service;
 
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public interface PurApWorkflowIntegrationService {
 

@@ -30,8 +30,8 @@ import org.kuali.kfs.integration.cg.dto.HashMapElement;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.dto.DunningCampaignDTO;
 import org.kuali.kfs.module.external.kc.service.DunningCampaignService;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.ModuleService;
 
 public class DunningCampaignServiceImpl implements DunningCampaignService {
 

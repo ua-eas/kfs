@@ -24,7 +24,7 @@ import org.kuali.kfs.module.ar.batch.report.CustomerLoadFileResult;
 import org.kuali.kfs.module.ar.batch.vo.CustomerDigesterVO;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
 import org.kuali.kfs.sys.batch.InitiateDirectory;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 public interface CustomerLoadService extends InitiateDirectory{
 

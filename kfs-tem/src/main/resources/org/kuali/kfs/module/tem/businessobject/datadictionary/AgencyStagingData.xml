@@ -790,7 +790,7 @@
 		<property name="summary" value="Move To History Indicator" />
 		<property name="description" value="Move To History Indicator" />
 		<property name="control">
-		<bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
+		<bean parent="RadioControlDefinition" p:valuesFinderClass="org.kuali.kfs.krad.keyvalues.IndicatorValuesFinder" p:includeKeyInLabel="false"/>
 		</property>
 	</bean>
     <bean id="AgencyStagingData-importBy" parent="AgencyStagingData-importBy-parentBean" />
@@ -855,7 +855,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-agencyData" parent="AgencyStagingData-inquirySectionDefinition-agencyData-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-agencyData-parentBean" parent="InquirySectionDefinition" abstract="true">
 	    <property name="title" value="Travel Agency Data"/>
-	    <property name="numberOfColumns" value="2"/>
 	    <property name="inquiryFields">
 	        <list>
 	            <bean parent="FieldDefinition" p:attributeName="id" />
@@ -882,7 +881,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-trip" parent="AgencyStagingData-inquirySectionDefinition-trip-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-trip-parentBean" parent="InquirySectionDefinition" abstract="true">
 	   	<property name="title" value="Trip" />
-	   	<property name="numberOfColumns" value="2"/>
 	   	<property name="inquiryFields">
         	<list>
               <bean parent="FieldDefinition" p:attributeName="tripId" />
@@ -897,7 +895,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-traveler" parent="AgencyStagingData-inquirySectionDefinition-traveler-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-traveler-parentBean" parent="InquirySectionDefinition" abstract="true">
             	<property name="title" value="Traveler"/>
-            	<property name="numberOfColumns" value="2"/>
             	<property name="inquiryFields">
             		<list>
 		                <bean parent="FieldDefinition" p:attributeName="travelerName" />
@@ -911,7 +908,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-airline" parent="AgencyStagingData-inquirySectionDefinition-airline-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-airline-parentBean" parent="InquirySectionDefinition" abstract="true">
 				<property name="title" value="Airline"/>
-				<property name="numberOfColumns" value="2"/>
 				<property name="inquiryFields">
 					<list>
 						<bean parent="FieldDefinition" p:attributeName="airCarrierCode" />
@@ -936,7 +932,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-lodging" parent="AgencyStagingData-inquirySectionDefinition-lodging-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-lodging-parentBean" parent="InquirySectionDefinition" abstract="true">
 				<property name="title" value="Lodging"/>
-				<property name="numberOfColumns" value="2"/>
 				<property name="inquiryFields">
 					<list>
 						<bean parent="FieldDefinition" p:attributeName="lodgingPropertyName" />
@@ -955,7 +950,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-rentalcar" parent="AgencyStagingData-inquirySectionDefinition-rentalcar-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-rentalcar-parentBean" parent="InquirySectionDefinition" abstract="true">
 				<property name="title" value="Rental Car"/>
-				<property name="numberOfColumns" value="2"/>
 				<property name="inquiryFields">
 					<list>
 						<bean parent="FieldDefinition" p:attributeName="rentalCarCompanyName" />
@@ -977,7 +971,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-conference" parent="AgencyStagingData-inquirySectionDefinition-conference-parentBean" />
 	<bean id="AgencyStagingData-inquirySectionDefinition-conference-parentBean" parent="InquirySectionDefinition" abstract="true">
                 <property name="title" value="Conference"/>
-                <property name="numberOfColumns" value="2"/>
                 <property name="inquiryFields">
                     <list>
                         <bean parent="FieldDefinition" p:attributeName="registrationCompanyName" />
@@ -989,7 +982,6 @@
 	<bean id="AgencyStagingData-inquirySectionDefinition-accounting-parentBean" parent="InquirySectionDefinition" abstract="true">
 	    <property name="title" value="Accounting Information"/>
 	  	<property name="defaultOpen" value="true"/>          
-	    <property name="numberOfColumns" value="1"/>
 	    <property name="inquiryFields">
 	    	<list>
 	        	<ref bean="AgencyStagingData-inquiryCollectionDefinition-tripAccountingInformation" />
@@ -1000,7 +992,6 @@
 	<bean id="AgencyStagingData-inquiryCollectionDefinition-tripAccountingInformation-parentBean" parent="InquiryCollectionDefinition" abstract="true">
 	    <property name="attributeName" value="tripAccountingInformation"/>
 	    <property name="businessObjectClass" value="org.kuali.kfs.module.tem.businessobject.TripAccountingInformation"/>
-	    <property name="numberOfColumns" value="2"/>
 	    <property name="inquiryFields">
 	      <list>
 	        <bean parent="FieldDefinition" p:attributeName="tripChartCode"/>

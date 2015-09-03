@@ -96,7 +96,6 @@
   <bean id="FormatProcess-inquirySectionDefinition" parent="FormatProcess-inquirySectionDefinition-parentBean"/>
   <bean id="FormatProcess-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value=""/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="physicalCampusProcessCode"/>

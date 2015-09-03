@@ -25,8 +25,8 @@ import javax.servlet.jsp.PageContext;
 
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.MediaTypeEnum;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 
 /**
  * A decorator meant to help display balance inquiry information for the displaytag tag library.

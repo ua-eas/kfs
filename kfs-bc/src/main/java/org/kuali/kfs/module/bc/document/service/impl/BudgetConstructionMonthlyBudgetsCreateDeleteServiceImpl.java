@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthlyBudgetsCreateDeleteDao;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionMonthlyBudgetsCreateDeleteService;
 import org.kuali.kfs.module.bc.util.BudgetConstructionUtils;
-import org.kuali.rice.krad.service.PersistenceService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

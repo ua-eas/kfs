@@ -23,8 +23,7 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kns.web.taglib.html.KNSTextTag;
-import org.springframework.web.util.HtmlUtils;
+import org.kuali.kfs.kns.web.taglib.html.KNSTextTag;
 
 /**
  * Represents a field rendered as a text field

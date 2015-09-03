@@ -134,7 +134,6 @@
  <bean id="EffortCertificationDocumentBuild-inquirySectionDefinition-effortCertificationDetailBuild" parent="EffortCertificationDocumentBuild-inquirySectionDefinition-effortCertificationDetailBuild-parentBean"/>
  <bean id="EffortCertificationDocumentBuild-inquirySectionDefinition-effortCertificationDetailBuild-parentBean" parent="InquirySectionDefinition" abstract="true">
           <property name="title" value="Effort Certification Detail Build"/>
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="effortCertificationBuildNumber"/>
@@ -149,7 +148,6 @@
  <bean id="EffortCertificationDocumentBuild-inquirySectionDefinition-effortCertificationDetailLinesBuild" parent="EffortCertificationDocumentBuild-inquirySectionDefinition-effortCertificationDetailLinesBuild-parentBean"/>
  <bean id="EffortCertificationDocumentBuild-inquirySectionDefinition-effortCertificationDetailLinesBuild-parentBean" parent="InquirySectionDefinition" abstract="true">
           <property name="title" value="Effort Certification Detail Lines Build"/>
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <ref bean="EffortCertificationDocumentBuild-inquiryCollectionDefinition-effortCertificationDetailLinesBuild"/> 
@@ -160,7 +158,6 @@
  <bean id="EffortCertificationDocumentBuild-inquiryCollectionDefinition-effortCertificationDetailLinesBuild-parentBean" parent="InquiryCollectionDefinition" abstract="true">     
                 <property name="attributeName" value="effortCertificationDetailLinesBuild"/>
                 <property name="businessObjectClass" value="org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailBuild"/>
-                <property name="numberOfColumns" value="1"/>
                 <property name="inquiryFields">
                   <list>
                     <bean parent="FieldDefinition" p:attributeName="effortCertificationBuildNumber"/>

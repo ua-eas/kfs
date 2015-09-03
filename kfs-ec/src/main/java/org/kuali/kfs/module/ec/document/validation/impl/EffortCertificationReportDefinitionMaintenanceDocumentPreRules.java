@@ -25,9 +25,9 @@ import org.kuali.kfs.module.ec.document.service.EffortCertificationAutomaticRepo
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.rules.PromptBeforeValidationBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.rules.PromptBeforeValidationBase;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * Checks warnings and prompts for EffortCertifictionReportDefinition Maintenance Document

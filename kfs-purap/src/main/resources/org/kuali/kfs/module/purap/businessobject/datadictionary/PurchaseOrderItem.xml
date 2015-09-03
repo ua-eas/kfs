@@ -383,7 +383,6 @@
   <bean id="PurchaseOrderItem-inquirySectionDefinition" parent="PurchaseOrderItem-inquirySectionDefinition-parentBean"/>
   <bean id="PurchaseOrderItem-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value=""/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="externalOrganizationB2bProductReferenceNumber"/>

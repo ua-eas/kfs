@@ -31,7 +31,7 @@ import org.kuali.kfs.sys.document.web.renderers.AccountingLineTableFooterRendere
 import org.kuali.kfs.sys.document.web.renderers.AccountingLineTableHeaderRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 
 /**
  * This tag...how to describe what it does?  It takes these groups of accounting lines and, you know,

@@ -15,8 +15,8 @@
 --%>
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
-<%@ attribute name="field" required="true" type="org.kuali.rice.kns.web.ui.Field" description="The field to render as read only." %>
-<%@ attribute name="addHighlighting" required="false"  description="boolean indicating if this field should be highlighted (to indicate old/new change)" %>
+<%@ attribute name="field" required="true" type="org.kuali.kfs.kns.web.ui.Field" description="The field to render as read only." %>
+<%@ attribute name="addHighlighting" required="false" description="boolean indicating if this field should be highlighted (to indicate old/new change)" %>
 <%@ attribute name="isLookup" required="false" description="boolean indicating if this is a Lookup Screen" %>
 
 <span id="${field.propertyName}.div">

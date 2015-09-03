@@ -167,7 +167,6 @@
 <bean id="EffortCertificationDetailBuild-inquirySectionDefinition" parent="EffortCertificationDetailBuild-inquirySectionDefinition-parentBean"/>
  <bean id="EffortCertificationDetailBuild-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
           <property name="title" value=""/>
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="effortCertificationDocumentBuild.universityFiscalYear"/>

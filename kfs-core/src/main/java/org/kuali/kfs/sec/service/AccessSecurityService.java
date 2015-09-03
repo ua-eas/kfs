@@ -29,7 +29,7 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.kim.api.common.template.Template;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 
 /**
