@@ -100,7 +100,6 @@
 		<list>
 			<bean parent="InquirySectionDefinition">
 				<property name="title" value="Entertainment Purpose Inquiry"/>
-				<property name="numberOfColumns" value="1"/>
 				<property name="inquiryFields">
 				<list>
 					<bean parent="FieldDefinition" p:attributeName="purposeCode" />

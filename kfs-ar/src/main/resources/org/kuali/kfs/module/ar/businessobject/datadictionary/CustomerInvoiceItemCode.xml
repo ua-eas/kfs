@@ -296,7 +296,6 @@
 		id="CustomerInvoiceItemCode-inquirySectionDefinition-invoiceItemCode-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Invoice Item Code" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode" />
@@ -320,7 +319,6 @@
 		id="CustomerInvoiceItemCode-inquirySectionDefinition-itemCodeDefaultAccount-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Item Code Default Account" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="defaultInvoiceChartOfAccountsCode" />

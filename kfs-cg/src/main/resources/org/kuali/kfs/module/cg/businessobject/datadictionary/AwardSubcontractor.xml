@@ -213,7 +213,6 @@
 	<bean id="AwardSubcontractor-inquirySectionDefinition-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Award Subcontractor Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="awardSubcontractorAmendmentNumber" />

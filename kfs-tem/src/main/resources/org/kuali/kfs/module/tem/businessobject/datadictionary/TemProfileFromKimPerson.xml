@@ -237,7 +237,6 @@
 		<list>
 			<bean parent="InquirySectionDefinition">
 				<property name="title" value="Tem Profile From Kim Person Inquiry"/>
-				<property name="numberOfColumns" value="1"/>
 				<property name="inquiryFields">
 				<list>
                     <bean parent="FieldDefinition" p:attributeName="principalName" />

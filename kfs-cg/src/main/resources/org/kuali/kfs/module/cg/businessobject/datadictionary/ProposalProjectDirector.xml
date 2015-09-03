@@ -204,7 +204,6 @@
 	<bean id="ProposalProjectDirector-inquirySectionDefinition-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Proposal Project Director Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="principalId" />

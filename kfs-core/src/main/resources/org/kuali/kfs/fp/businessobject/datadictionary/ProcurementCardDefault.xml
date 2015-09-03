@@ -242,7 +242,6 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         </bean>
         <bean parent="InquirySectionDefinition">
         	<property name="title" value="Card Holder Default Information" />
-          	<property name="numberOfColumns" value="1" />
           	<property name="inquiryFields" >
             	<list>
             		<bean parent="FieldDefinition"
@@ -274,7 +273,6 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         </bean>
         <bean parent="InquirySectionDefinition">
         	<property name="title" value="Accounting Default Information" />
-          	<property name="numberOfColumns" value="1" />
           	<property name="inquiryFields" >
             	<list>
             		<bean parent="FieldDefinition"

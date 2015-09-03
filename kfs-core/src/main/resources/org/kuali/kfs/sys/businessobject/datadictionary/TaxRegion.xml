@@ -186,7 +186,6 @@
   <bean id="TaxRegion-inquirySectionDefinition-attributes" parent="TaxRegion-inquirySectionDefinition-attributes-parentBean"/>
   <bean id="TaxRegion-inquirySectionDefinition-attributes-parentBean" parent="InquirySectionDefinition" abstract="true">
     <property name="title" value="Tax Region Attributes"/>
-    <property name="numberOfColumns" value="1"/>
     <property name="inquiryFields">
       <list>
         <bean parent="FieldDefinition" p:attributeName="taxRegionCode" p:noInquiry="true"/>

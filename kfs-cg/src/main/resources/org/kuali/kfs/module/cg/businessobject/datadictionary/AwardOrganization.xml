@@ -128,7 +128,6 @@
 	<bean id="AwardOrganization-inquirySectionDefinition-parentBean"
 		parent="InquirySectionDefinition" abstract="true">
 		<property name="title" value="Award Organization Details" />
-		<property name="numberOfColumns" value="1" />
 		<property name="inquiryFields">
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="chartOfAccountsCode" />

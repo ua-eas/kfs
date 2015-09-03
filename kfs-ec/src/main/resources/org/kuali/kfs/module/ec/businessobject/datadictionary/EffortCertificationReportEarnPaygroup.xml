@@ -114,7 +114,6 @@
 <bean id="EffortCertificationReportEarnPaygroup-inquirySectionDefinition" parent="EffortCertificationReportEarnPaygroup-inquirySectionDefinition-parentBean"/>
  <bean id="EffortCertificationReportEarnPaygroup-inquirySectionDefinition-parentBean" parent="InquirySectionDefinition" abstract="true">
           <property name="title" value=""/>
-          <property name="numberOfColumns" value="1"/>
           <property name="inquiryFields">
             <list>
               <bean parent="FieldDefinition" p:attributeName="universityFiscalYear"/>

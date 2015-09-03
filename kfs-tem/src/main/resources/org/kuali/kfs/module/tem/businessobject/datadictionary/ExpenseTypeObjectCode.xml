@@ -293,7 +293,6 @@
 			<list>
 				<bean parent="InquirySectionDefinition">
 					<property name="title" value="Travel Expense Type Inquiry" />
-					<property name="numberOfColumns" value="1" />
 					<property name="inquiryFields">
 						<list>
 							<bean parent="FieldDefinition" p:attributeName="expenseTypeObjectCodeId"/>
