@@ -26,7 +26,7 @@ import org.kuali.kfs.module.cam.document.web.struts.AssetBarCodeInventoryInputFi
 import org.kuali.kfs.sys.batch.service.BatchInputFileSetService;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.exception.AuthorizationException;
 public interface AssetBarcodeInventoryInputFileService extends BatchInputFileSetService {
     public Map<String, String> save(Person user, AssetBarcodeInventoryInputFileType inputType, String fileUserIdentifer, Map<String, InputStream> typeToStreamMap, AssetBarCodeInventoryInputFileForm form) throws AuthorizationException, FileStorageException;    
 }

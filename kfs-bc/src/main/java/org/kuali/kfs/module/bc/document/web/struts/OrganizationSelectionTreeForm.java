@@ -31,7 +31,7 @@ import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationRepo
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.krad.service.PersistenceService;
+import org.kuali.kfs.krad.service.PersistenceService;
 
 /**
  * ActionForm that supports the Organization Selection Tree page

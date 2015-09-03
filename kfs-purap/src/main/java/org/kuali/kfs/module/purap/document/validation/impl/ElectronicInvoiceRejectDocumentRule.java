@@ -26,9 +26,9 @@ import org.kuali.kfs.module.purap.service.ElectronicInvoiceHelperService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kns.rules.DocumentRuleBase;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Business rule(s) applicable to Payment Request documents.

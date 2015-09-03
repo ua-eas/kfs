@@ -34,9 +34,9 @@ import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.krad.bo.ModuleConfiguration;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 
 public class BatchFileAdminAuthorizationServiceImpl implements BatchFileAdminAuthorizationService {
 

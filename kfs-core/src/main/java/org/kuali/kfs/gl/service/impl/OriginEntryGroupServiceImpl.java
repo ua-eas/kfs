@@ -32,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.vnd.identity;
 
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public class ContractManagerRoleTypeServiceImpl extends RoleTypeServiceBase {
     public static final String CONTRACT_MANAGER_ROLE_NAME = "Contract Manager";

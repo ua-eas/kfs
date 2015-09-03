@@ -27,12 +27,12 @@ import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.document.security.DocumentSecurityAttribute;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.krad.datadictionary.DocumentEntry;
-import org.kuali.rice.krad.document.DocumentAuthorizer;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class...
@@ -56,7 +56,7 @@ public class SensitiveDataSecurityAttribute implements DocumentSecurityAttribute
 
                         DocumentAuthorizer docAuthorizer = SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(docTypeName);
                         try {
-                            org.kuali.rice.krad.document.Document kfsDocument = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderIdSessionless(document.getDocumentId());
+                            org.kuali.kfs.krad.document.Document kfsDocument = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderIdSessionless(document.getDocumentId());
 
                             if (ObjectUtils.isNull(kfsDocument)) {
                                 LOG.error("KFS document is null but exists in rice, returning false from isAuthorizedForDocument. document.getDocumentId()=" + document.getDocumentId());

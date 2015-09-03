@@ -66,6 +66,6 @@
 	</bean>
 	
 	<bean id="CollectionEventMaintenanceDocument-workflowAttributes" parent="CollectionEventMaintenanceDocument-workflowAttributes-parentBean" />
-	<bean id="CollectionEventMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.rice.krad.datadictionary.WorkflowAttributes" abstract="true" />
+	<bean id="CollectionEventMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true" />
 
 </beans>

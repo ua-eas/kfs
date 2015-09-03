@@ -44,9 +44,9 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 /**
  * Base implementation of the TravelPaymentsHelperService

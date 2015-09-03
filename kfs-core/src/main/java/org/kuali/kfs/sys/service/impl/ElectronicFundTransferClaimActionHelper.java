@@ -35,11 +35,11 @@ import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm;
 import org.kuali.kfs.sys.web.struts.ElectronicPaymentClaimClaimedHelper;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.exception.AuthorizationException;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * An Electronic Funds Transfer action which claims the electronic payment claims in a form and redirects

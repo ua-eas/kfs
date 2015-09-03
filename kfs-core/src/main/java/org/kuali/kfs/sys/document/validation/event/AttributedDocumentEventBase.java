@@ -22,9 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.kuali.kfs.sys.document.validation.AccountingRuleEngineRule;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.rules.rule.BusinessRule;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEventBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
 
 /**
  * Base abstract implementation of an attributed document event.
@@ -44,7 +44,7 @@ public class AttributedDocumentEventBase extends KualiDocumentEventBase implemen
     }
     
     /**
-     * @see org.kuali.rice.krad.rule.event.KualiDocumentEventBase#KualiDocumentEventBase(java.lang.String, java.lang.String, org.kuali.rice.krad.document.Document)
+     * @see org.kuali.kfs.krad.rule.event.KualiDocumentEventBase#KualiDocumentEventBase(java.lang.String, java.lang.String, org.kuali.kfs.krad.document.Document)
      */
     public AttributedDocumentEventBase(String description, String errorPathPrefix, Document document) {
         super(description, errorPathPrefix, document);
@@ -82,14 +82,14 @@ public class AttributedDocumentEventBase extends KualiDocumentEventBase implemen
     }
 
     /**
-     * @see org.kuali.rice.krad.rule.event.KualiDocumentEvent#getRuleInterfaceClass()
+     * @see org.kuali.kfs.krad.rule.event.KualiDocumentEvent#getRuleInterfaceClass()
      */
     public Class getRuleInterfaceClass() {
         return AccountingRuleEngineRule.class;
     }
 
     /**
-     * @see org.kuali.rice.krad.rule.event.KualiDocumentEvent#invokeRuleMethod(org.kuali.rice.krad.rule.BusinessRule)
+     * @see org.kuali.kfs.krad.rule.event.KualiDocumentEvent#invokeRuleMethod(org.kuali.kfs.krad.rule.BusinessRule)
      */
     public boolean invokeRuleMethod(BusinessRule rule) {
         return ((AccountingRuleEngineRule)rule).validateForEvent(this);

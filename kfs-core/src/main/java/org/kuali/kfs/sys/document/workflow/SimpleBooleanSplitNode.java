@@ -29,8 +29,8 @@ import org.kuali.rice.kew.engine.RouteContext;
 import org.kuali.rice.kew.engine.RouteHelper;
 import org.kuali.rice.kew.engine.node.SplitNode;
 import org.kuali.rice.kew.engine.node.SplitResult;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 
 public class SimpleBooleanSplitNode implements SplitNode {
 

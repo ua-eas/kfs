@@ -26,7 +26,7 @@ import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 /**
  * Value Finder for Purchase Order Vendor Quote Statuses.

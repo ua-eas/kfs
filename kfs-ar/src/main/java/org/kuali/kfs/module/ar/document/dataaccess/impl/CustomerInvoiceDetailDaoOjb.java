@@ -27,7 +27,7 @@ import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.document.dataaccess.CustomerInvoiceDetailDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 public class CustomerInvoiceDetailDaoOjb extends PlatformAwareDaoBaseOjb implements CustomerInvoiceDetailDao{
 

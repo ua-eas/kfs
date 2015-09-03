@@ -36,7 +36,7 @@ import org.kuali.kfs.sys.service.ConfigurableDateService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.ConfigurableDateTimeServiceImpl;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 
 @ConfigureContext(session = khuntley)
 public class VerifyBillingFrequencyServiceTest extends KualiTestBase {

@@ -56,7 +56,7 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentTypeService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class AccountingCycleCachingServiceImpl extends AbstractBatchTransactionalCachingService implements AccountingCycleCachingService {
     protected org.kuali.kfs.sys.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao systemReferenceValueDao;

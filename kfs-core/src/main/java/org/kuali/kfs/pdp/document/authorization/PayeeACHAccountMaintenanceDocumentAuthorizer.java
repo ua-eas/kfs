@@ -23,7 +23,7 @@ import java.util.Map;
 import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
 
 public class PayeeACHAccountMaintenanceDocumentAuthorizer extends FinancialSystemMaintenanceDocumentAuthorizerBase {
 

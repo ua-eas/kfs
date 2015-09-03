@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.OJBUtility;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * This class represents the transient CGB attributes and is typically used as a "dummy business object"

@@ -23,8 +23,8 @@ import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 
 @ConfigureContext(session = khuntley)
 public class KcBusinessObjectEntryTest extends KualiTestBase {

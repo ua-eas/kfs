@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.taglib.html.HiddenTag;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.web.taglib.html.KNSImageTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
 
 /**
  * Renders the header of an accounting line table

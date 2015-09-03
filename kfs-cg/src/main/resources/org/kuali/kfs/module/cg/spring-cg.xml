@@ -160,26 +160,26 @@
 			<ref bean="businessObjectService" />
 		</property>		
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="documentService" />
 		</property>			
 	</bean>
 	
 	<bean id="proposalLookupableHelperService" parent="proposalLookupableHelperService-parentBean" scope="prototype" />
-	<bean id="proposalLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.ProposalLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" >
+	<bean id="proposalLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.ProposalLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" >
         <property name="contractsAndGrantsLookupService">
             <ref bean="contractsAndGrantsLookupService" />
         </property>
 	</bean>
 
 	<bean id="proposalLookupable"  parent="proposalLookupable-parentBean" scope="prototype"/>
-	<bean id="proposalLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="proposalLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="proposalLookupableHelperService" />
 		</property>
 	</bean>
 
 	<bean id="awardLookupableHelperService" scope="prototype" parent="awardLookupableHelperService-parentBean"/>
-    <bean id="awardLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.AwardLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" >
+    <bean id="awardLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cg.businessobject.lookup.AwardLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" >
         <property name="accountsReceivableModuleBillingService">
             <ref bean="accountsReceivableModuleBillingService" />
         </property>
@@ -189,20 +189,20 @@
     </bean>
 
     <bean id="awardLookupable"  parent="awardLookupable-parentBean" scope="prototype"/>
-    <bean id="awardLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+    <bean id="awardLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
         <property name="lookupableHelperService">
             <ref bean="awardLookupableHelperService" />
         </property>
     </bean>
 
 	<bean id="agencyLookupHelperService" class="org.kuali.kfs.module.cg.businessobject.lookup.AgencyLookupableHelperServiceImpl" scope="prototype"
-		parent="lookupableHelperService">
+		parent="cf.lookupableHelperService">
         <property name="accountsReceivableModuleBillingService">
             <ref bean="accountsReceivableModuleBillingService" />
         </property>
 	</bean>
 
-	<bean id="agencyLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="agencyLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 			<ref bean="agencyLookupHelperService" />
 		</property>
@@ -320,7 +320,7 @@
 
 
 	<bean id="contractsGrantsAwardBalancesReportLookupableHelperService" class="org.kuali.kfs.module.cg.businessobject.lookup.ContractsGrantsAwardBalancesReportLookupableHelperServiceImpl"
-		scope="prototype" parent="lookupableHelperService">
+		scope="prototype" parent="cf.lookupableHelperService">
 		<property name="accountsReceivableModuleBillingService">
 			<ref bean="accountsReceivableModuleBillingService" />
 		</property>
@@ -329,7 +329,7 @@
 		</property>
 	</bean>
 
-	<bean id="contractsGrantsAwardBalancesReportLookupResultLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
+	<bean id="contractsGrantsAwardBalancesReportLookupResultLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
 		<property name="lookupableHelperService">
 			<ref bean="contractsGrantsAwardBalancesReportLookupableHelperService" />
 		</property>

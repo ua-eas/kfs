@@ -19,8 +19,8 @@
 package org.kuali.kfs.sys.document.datadictionary;
 
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
-import org.kuali.rice.kns.datadictionary.MaintenanceDocumentEntry;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * This class allows the system to define a custom document base class for
@@ -28,14 +28,14 @@ import org.kuali.rice.krad.document.Document;
 public class FinancialSystemMaintenanceDocumentEntry extends MaintenanceDocumentEntry {
 
     /**
-     * @see org.kuali.rice.kns.datadictionary.DocumentEntry#setDocumentClass(java.lang.Class)
+     * @see org.kuali.kfs.kns.datadictionary.DocumentEntry#setDocumentClass(java.lang.Class)
      */
     public Class<? extends Document> getStandardDocumentBaseClass() {
         return FinancialSystemMaintenanceDocument.class;
     }
 
     /**
-     * @see org.kuali.rice.kns.datadictionary.DocumentEntry#setDocumentClass(java.lang.Class)
+     * @see org.kuali.kfs.kns.datadictionary.DocumentEntry#setDocumentClass(java.lang.Class)
      */
     @Override
     public void setDocumentClass(Class<? extends Document> documentClass) {

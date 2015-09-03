@@ -19,8 +19,8 @@
 package org.kuali.kfs.pdp.businessobject;
 
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class DailyReport extends TransientBusinessObjectBase {
     private String sortOrder;

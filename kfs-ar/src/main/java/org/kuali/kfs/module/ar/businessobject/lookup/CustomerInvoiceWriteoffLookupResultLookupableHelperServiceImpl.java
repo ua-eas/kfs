@@ -36,17 +36,17 @@ import org.kuali.kfs.module.ar.web.ui.ContractsGrantsLookupResultRow;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.web.comparator.CellComparatorHelper;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.lookup.CollectionIncomplete;
-import org.kuali.rice.krad.util.BeanPropertyComparator;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl extends AccountsReceivableLookupableHelperServiceImplBase {
     private org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceWriteoffLookupResultLookupableHelperServiceImpl.class);

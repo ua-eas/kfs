@@ -28,11 +28,11 @@ import org.kuali.kfs.module.ar.businessobject.InvoiceTemplate;
 import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Helper service class for Invoice Template lookup

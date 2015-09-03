@@ -47,7 +47,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 
 /**
  * This class tests the invoice correction process.

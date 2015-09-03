@@ -62,18 +62,18 @@ import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.rice.kns.service.DictionaryValidationService;
-import org.kuali.rice.kns.service.DocumentHelperService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lowagie.text.Document;
@@ -720,7 +720,7 @@ public class BudgetRequestImportServiceImpl implements BudgetRequestImportServic
 
     /**
      *
-     * @see org.kuali.kfs.module.bc.document.service.BudgetRequestImportService#setDictionaryValidationService(org.kuali.rice.kns.service.DictionaryValidationService)
+     * @see org.kuali.kfs.module.bc.document.service.BudgetRequestImportService#setDictionaryValidationService(org.kuali.kfs.krad.service.DictionaryValidationService)
      */
     @NonTransactional
     public void setDictionaryValidationService(DictionaryValidationService dictionaryValidationService) {

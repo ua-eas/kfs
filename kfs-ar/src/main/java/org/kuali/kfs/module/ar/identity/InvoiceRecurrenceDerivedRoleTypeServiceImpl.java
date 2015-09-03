@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
 
 public class InvoiceRecurrenceDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
 

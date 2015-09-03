@@ -71,17 +71,17 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.authorization.AuthorizationConstants;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase;
-import org.kuali.rice.kns.web.struts.action.KualiTableRenderAction;
-import org.kuali.rice.kns.web.struts.form.KualiTableRenderFormMetadata;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.krad.comparator.NumericValueComparator;
-import org.kuali.rice.krad.comparator.TemporalValueComparator;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.authorization.AuthorizationConstants;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.action.KualiTableRenderAction;
+import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.krad.comparator.NumericValueComparator;
+import org.kuali.kfs.krad.comparator.TemporalValueComparator;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class CorrectionAction extends KualiDocumentActionBase implements KualiTableRenderAction {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CorrectionAction.class);

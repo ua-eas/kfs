@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.document.validation.event;
 
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 
 /**
  * An interface that allows rules to add attribues to an event as it is processed.

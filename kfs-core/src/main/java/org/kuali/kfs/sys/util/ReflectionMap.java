@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.PropertyUtilsBean;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * A Map implementation which wraps a Java bean and can return values from that based on property Strings.  Unlike Apache Common's BeanMap, this Map can handle nested properties - though for the sake of that power,

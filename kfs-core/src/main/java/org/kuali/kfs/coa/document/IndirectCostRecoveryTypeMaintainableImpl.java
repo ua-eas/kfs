@@ -24,12 +24,12 @@ import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.kns.datadictionary.MaintainableSectionDefinition;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.util.MaintenanceUtils;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.util.MaintenanceUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class IndirectCostRecoveryTypeMaintainableImpl extends FinancialSystemMaintainable {
 

@@ -39,7 +39,7 @@ import org.kuali.rice.kew.framework.document.search.DocumentSearchResultValue;
 import org.kuali.rice.kew.framework.document.search.DocumentSearchResultValues;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class KFSPurapDocumentSearchCustomizer extends KFSDocumentSearchCustomizer {
 

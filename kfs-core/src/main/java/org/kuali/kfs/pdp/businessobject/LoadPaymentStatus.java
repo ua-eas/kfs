@@ -29,8 +29,8 @@ import java.util.List;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.util.MessageMap;
 
 
 /**

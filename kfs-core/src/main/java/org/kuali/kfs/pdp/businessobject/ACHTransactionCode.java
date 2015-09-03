@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import org.kuali.rice.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 public class ACHTransactionCode extends KualiCodeBase {
     

@@ -30,9 +30,9 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Returns the active fund managers of a given award using the proposal number. *

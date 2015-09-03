@@ -57,8 +57,8 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.api.type.KimType;
 import org.kuali.rice.kim.api.type.KimTypeAttribute;
 import org.kuali.rice.kim.util.KimCommonUtils;
-import org.kuali.rice.krad.exception.ValidationException;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.springframework.cache.annotation.Cacheable;
 
 public class OrgReviewRoleServiceImpl implements OrgReviewRoleService {

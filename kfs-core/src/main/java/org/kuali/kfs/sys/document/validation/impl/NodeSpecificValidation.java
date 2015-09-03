@@ -23,8 +23,8 @@ import java.util.Set;
 
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * A generic validation which will only validate at specified notes

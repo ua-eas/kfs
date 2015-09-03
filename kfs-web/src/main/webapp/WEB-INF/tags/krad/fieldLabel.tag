@@ -17,7 +17,7 @@
 
 <%@ attribute name="field" required="true"
               description="The field instance that is being rendered"
-              type="org.kuali.rice.krad.uif.field.Field"%>
+              type="org.kuali.kfs.krad.uif.field.Field"%>
 
 <%-- Used to wrap field templates and handle the label rendering --%>
 

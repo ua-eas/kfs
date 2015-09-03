@@ -24,7 +24,7 @@ import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerCreditMemoDocumentService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class CustomerCreditMemoNoDataToSubmitValidation extends GenericValidation {
 

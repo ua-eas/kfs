@@ -39,7 +39,7 @@
     value="${DataDictionary.AttributeReferenceElements.attributes}" />
 
 <%
-Object incident=request.getAttribute("org.kuali.rice.kns.web.struts.pojo.KualiExceptionIncident");
+Object incident=request.getAttribute("org.kuali.kfs.kns.web.struts.pojo.KualiExceptionIncident");
 request.setAttribute("test", incident);
 %>
 <c:set var="documentId" value="${requestScope['documentId']}" />

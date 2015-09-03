@@ -52,12 +52,12 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kns.question.ConfirmationQuestion;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 
 /**

@@ -24,7 +24,7 @@ import java.util.Map;
 import org.kuali.kfs.gl.batch.dataaccess.LedgerEntryBalanceCachingDao;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
-import org.kuali.rice.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 
 /**
  * This class...

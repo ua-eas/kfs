@@ -26,35 +26,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.PaymentDetail;
 import org.kuali.kfs.pdp.service.ResearchParticipantPaymentValidationService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.datadictionary.InquirySectionDefinition;
-import org.kuali.rice.kns.inquiry.InquiryRestrictions;
-import org.kuali.rice.kns.lookup.HtmlData;
-import org.kuali.rice.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.rice.kns.web.ui.Section;
-import org.kuali.rice.kns.web.ui.SectionBridge;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.datadictionary.InquirySectionDefinition;
+import org.kuali.kfs.kns.inquiry.InquiryRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.kns.web.ui.SectionBridge;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.datadictionary.AttributeSecurity;
-import org.kuali.rice.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 
-public class PaymentDetailInquirable extends KfsInquirableImpl {
+public class PaymentDetailInquirable extends KualiInquirableImpl {
 
     /**
-     * @see org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
+     * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
      *      java.lang.String, boolean)
      */
     @Override

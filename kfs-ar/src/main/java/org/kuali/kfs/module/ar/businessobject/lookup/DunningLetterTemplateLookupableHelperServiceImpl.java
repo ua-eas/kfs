@@ -27,10 +27,10 @@ import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate;
 import org.kuali.kfs.module.ar.document.service.DunningLetterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class DunningLetterTemplateLookupableHelperServiceImpl extends TemplateLookupableHelperServiceImplBase {
 

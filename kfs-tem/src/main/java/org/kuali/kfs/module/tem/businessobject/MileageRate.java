@@ -33,7 +33,7 @@ import javax.persistence.Table;
 
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Mileage Rate

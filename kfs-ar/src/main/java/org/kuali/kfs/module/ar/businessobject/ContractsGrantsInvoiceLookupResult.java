@@ -31,8 +31,8 @@ import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
 
 /**
  * Defines an entry in the Contracts & Grants Invoice Lookup Result.

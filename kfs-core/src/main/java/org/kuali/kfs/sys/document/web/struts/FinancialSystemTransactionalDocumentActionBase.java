@@ -31,12 +31,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.rice.kns.web.struts.form.KualiTransactionalDocumentFormBase;
-import org.kuali.rice.kns.web.ui.ExtraButton;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * This class...

@@ -22,7 +22,7 @@ package org.kuali.kfs.vnd.businessobject;
 import java.util.LinkedHashMap;
 
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * Title to identify the method of dividing ownership during the process of shipment of packages from a particular Vendor.

@@ -319,7 +319,7 @@
         <start name="AdHoc"/>
         <role name="ProjectManagement">
           <qualifierResolverClass>
-            org.kuali.rice.krad.workflow.attribute.DataDictionaryQualifierResolver
+            org.kuali.kfs.krad.workflow.attribute.DataDictionaryQualifierResolver
           </qualifierResolverClass>
         </role>
       </routeNodes>

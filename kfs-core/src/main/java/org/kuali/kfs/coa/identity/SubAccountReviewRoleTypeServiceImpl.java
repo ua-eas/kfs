@@ -37,7 +37,7 @@ import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.type.KimAttributeField;
 import org.kuali.rice.kim.util.KimCommonUtils;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public class SubAccountReviewRoleTypeServiceImpl extends RoleTypeServiceBase {
     protected DocumentTypeService documentTypeService;

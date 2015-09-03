@@ -27,11 +27,11 @@ import org.kuali.kfs.coa.service.AccountPersistenceStructureService;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.KualiGlobalMaintainableImpl;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.KualiGlobalMaintainableImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class...
@@ -44,7 +44,7 @@ public abstract class FinancialSystemGlobalMaintainable extends KualiGlobalMaint
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refreshReferences(String)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#refreshReferences(String)
      */
     @Override
     protected void refreshReferences(String referencesToRefresh) {
@@ -57,7 +57,7 @@ public abstract class FinancialSystemGlobalMaintainable extends KualiGlobalMaint
     }
     
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterAddLine(String)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterAddLine(String)
      */
     @Override
     public void processBeforeAddLine(String colName, Class colClass, BusinessObject bo) {
@@ -70,7 +70,7 @@ public abstract class FinancialSystemGlobalMaintainable extends KualiGlobalMaint
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterPost(String)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterPost(String)
      */
     @Override
     public void processAfterPost(MaintenanceDocument document, Map<String, String[]> parameters) {

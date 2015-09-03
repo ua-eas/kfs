@@ -21,7 +21,7 @@ package org.kuali.kfs.pdp.service;
 import java.util.List;
 
 import org.kuali.kfs.pdp.businessobject.PaymentFileLoad;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.MessageMap;
 
 /**
  * Defines validation methods on a payment file.

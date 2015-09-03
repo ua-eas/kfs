@@ -21,8 +21,8 @@ package org.kuali.kfs.sys.document.dataaccess.impl;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.kfs.sys.document.dataaccess.FinancialSystemDocumentHeaderDao;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.dao.impl.DocumentHeaderDaoOjb;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.dao.impl.DocumentHeaderDaoOjb;
 
 /**
  * This class is the financial system document header dao ojb implementation

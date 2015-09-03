@@ -24,7 +24,7 @@ import org.kuali.kfs.fp.document.AdvanceDepositDocument;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 /**
  * A service which helps in the claiming of ElectronicPaymentClaim records

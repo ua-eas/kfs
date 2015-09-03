@@ -23,9 +23,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.PostalCodeValidationService;
 import org.kuali.kfs.vnd.VendorPropertyConstants;
 import org.kuali.kfs.vnd.businessobject.CampusParameter;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class CampusParameterRule extends MaintenanceDocumentRuleBase {
 

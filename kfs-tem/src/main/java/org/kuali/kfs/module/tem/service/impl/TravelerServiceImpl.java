@@ -61,7 +61,7 @@ import org.kuali.kfs.sys.businessobject.ChartOrgHolderImpl;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.address.EntityAddressContract;
@@ -71,9 +71,9 @@ import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.personal.EntityBioDemographics;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 
 /**

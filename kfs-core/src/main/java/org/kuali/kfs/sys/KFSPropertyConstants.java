@@ -19,7 +19,7 @@
 package org.kuali.kfs.sys;
 
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.rice.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 
 

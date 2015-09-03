@@ -67,11 +67,11 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.krad.comparator.NumericValueComparator;
-import org.kuali.rice.krad.comparator.StringValueComparator;
-import org.kuali.rice.krad.comparator.TemporalValueComparator;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.krad.comparator.NumericValueComparator;
+import org.kuali.kfs.krad.comparator.StringValueComparator;
+import org.kuali.kfs.krad.comparator.TemporalValueComparator;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

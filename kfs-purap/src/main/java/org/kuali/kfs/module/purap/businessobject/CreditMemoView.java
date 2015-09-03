@@ -24,7 +24,7 @@ import java.util.List;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.core.web.format.DateFormatter;
-import org.kuali.rice.krad.bo.Note;
+import org.kuali.kfs.krad.bo.Note;
 
 
 /**

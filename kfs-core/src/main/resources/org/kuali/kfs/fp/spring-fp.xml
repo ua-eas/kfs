@@ -138,7 +138,7 @@
 			<ref bean="businessObjectService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="documentService" />
 		</property>
 		<property name="dataDictionaryService">
 			<ref bean="dataDictionaryService" />
@@ -189,7 +189,7 @@
 			<ref bean="dateTimeService" />
 		</property>
 		<property name="documentService">
-			<ref bean="documentService" />
+			<ref bean ="documentService" />
 		</property>
 		<property name="cashManagementDao">
 			<ref bean="cashManagementDao" />
@@ -269,7 +269,7 @@
 		<property name="dataDictionaryService">
 			<ref bean="dataDictionaryService" />
 		</property>
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 	</bean>
 	
 	<bean id="procurementCardDocumentJob" parent="scheduledJobDescriptor">
@@ -378,10 +378,10 @@
 	</bean>
 
 	<bean id="nonResidentAlienTaxPercentLookupableHelperService" scope="prototype" parent="nonResidentAlienTaxPercentLookupableHelperService-parentBean" />
-	<bean id="nonResidentAlienTaxPercentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.KualiNonResidentAlienTaxPercentLookupableHelperServiceImpl" scope="prototype" parent="lookupableHelperService" />
+	<bean id="nonResidentAlienTaxPercentLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.KualiNonResidentAlienTaxPercentLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
 
 	<bean id="nonResidentAlienTaxPercentLookupable"  parent="nonResidentAlienTaxPercentLookupable-parentBean" scope="prototype"/>
-	<bean id="nonResidentAlienTaxPercentLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="nonResidentAlienTaxPercentLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="nonResidentAlienTaxPercentLookupableHelperService" />
 		</property>
@@ -394,7 +394,7 @@
 	</bean>
 	
 	<bean id="cashDrawerLookupable"  parent="cashDrawerLookupable-parentBean" scope="prototype"/>
-	<bean id="cashDrawerLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="cashDrawerLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="cashDrawerLookupableHelperService" />
 		</property>
@@ -406,7 +406,7 @@
 	
 	<bean id="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper"  parent="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean"/>
 	<bean id="distributionOfIncomeAndExpenseElectronicPaymentClaimingDocumentHelper-parentBean" class="org.kuali.kfs.fp.batch.service.impl.DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrategyImpl" abstract="true">
-		<property name="documentService"><ref bean="documentService" /></property>
+		<property name="documentService"><ref bean ="documentService" /></property>
 		<property name="electronicPaymentClaimingService"><ref bean="electronicPaymentClaimingService" /></property>
 		<property name="parameterService"><ref bean="parameterService" /></property>
 	</bean>
@@ -420,7 +420,7 @@
 	</bean>
 	
 	<bean id="disbursementPayeeLookupable"  parent="disbursementPayeeLookupable-parentBean" scope="prototype"/>
-	<bean id="disbursementPayeeLookupable-parentBean" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" abstract="true">
+	<bean id="disbursementPayeeLookupable-parentBean" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" abstract="true">
 		<property name="lookupableHelperService">
 			<ref bean="disbursementPayeeLookupableHelperService" />
 		</property>
@@ -433,7 +433,7 @@
         </property> 
 	</bean>
 	
-	<bean id="disbursementPayeeInquirable" class="org.kuali.kfs.fp.businessobject.inquirable.DisbursementPayeeInquirableImpl" scope="prototype" parent="kualiInquirable"/>
+	<bean id="disbursementPayeeInquirable" class="org.kuali.kfs.fp.businessobject.inquirable.DisbursementPayeeInquirableImpl" scope="prototype" parent="cf.kualiInquirable"/>
 	
 	<bean id="disbursementVoucherPaymentReasonService"  parent="disbursementVoucherPaymentReasonService-parentBean"/>
 	<bean id="disbursementVoucherPaymentReasonService-parentBean" class="org.kuali.kfs.fp.document.service.impl.DisbursementVoucherPaymentReasonServiceImpl"  abstract="true">
@@ -476,7 +476,7 @@
 		<property name="offsetDefinitionService" ref="offsetDefinitionService" />
     </bean>
     
-    <bean id="payeeLookupableHelperServiceImpl-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.AbstractPayeeLookupableHelperServiceImpl" parent="lookupableHelperService">
+    <bean id="payeeLookupableHelperServiceImpl-parentBean" abstract="true"  class="org.kuali.kfs.fp.businessobject.lookup.AbstractPayeeLookupableHelperServiceImpl" parent="cf.lookupableHelperService">
     	<property name="vendorLookupable">
 			<ref bean="vendorLookupable" />
 		</property>	

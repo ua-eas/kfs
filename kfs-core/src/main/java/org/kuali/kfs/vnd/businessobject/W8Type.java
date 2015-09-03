@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class W8Type extends PersistableBusinessObjectBase implements MutableInactivatable {
 

@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)

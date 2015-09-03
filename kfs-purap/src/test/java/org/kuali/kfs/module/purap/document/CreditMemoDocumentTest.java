@@ -41,8 +41,8 @@ import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.rice.kns.service.TransactionalDocumentDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 
 /**
  * This class is used to create and test populated CreditMemo Documents of various kinds.

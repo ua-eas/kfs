@@ -28,11 +28,11 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocume
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
 import org.kuali.kfs.sys.document.authorization.LedgerPostingDocumentPresentationControllerBase;
-import org.kuali.rice.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.rice.kns.document.authorization.DocumentPresentationController;
-import org.kuali.rice.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.DocumentPresentationController;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 
-public class DocumentHelperServiceImpl extends org.kuali.rice.kns.service.impl.DocumentHelperServiceImpl {
+public class DocumentHelperServiceImpl extends org.kuali.kfs.kns.service.impl.DocumentHelperServiceImpl {
 
     @Override
     public DocumentAuthorizer getDocumentAuthorizer(String documentType) {
@@ -64,7 +64,7 @@ public class DocumentHelperServiceImpl extends org.kuali.rice.kns.service.impl.D
 
     @Override
     public DocumentPresentationController getDocumentPresentationController(String documentType) {
-        org.kuali.rice.krad.datadictionary.DocumentEntry documentEntry = getDataDictionaryService().getDataDictionary().getDocumentEntry(documentType);
+        DocumentEntry documentEntry = getDataDictionaryService().getDataDictionary().getDocumentEntry(documentType);
         Class documentPresentationControllerClass = documentEntry.getDocumentPresentationControllerClass();
         if (documentPresentationControllerClass == null) {
             if (FinancialSystemMaintenanceDocument.class.isAssignableFrom(documentEntry.getDocumentClass())) {

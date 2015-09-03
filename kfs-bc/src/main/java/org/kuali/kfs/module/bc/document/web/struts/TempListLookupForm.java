@@ -29,11 +29,11 @@ import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockSummary;
 import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.service.BusinessObjectDictionaryService;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Action Form for budget special lookup screens.
@@ -111,7 +111,7 @@ public class TempListLookupForm extends LookupForm {
             if (BCConstants.TEMP_LIST_UNLOCK_METHOD.equals(getMethodToCall())) {
                 String lookupImplID = SpringContext.getBean(BusinessObjectDictionaryService.class).getLookupableID(BudgetConstructionLockSummary.class);
                 if (lookupImplID == null) {
-                    lookupImplID = "kualiLookupable";
+                    lookupImplID = "cf.kualiLookupable";
                 }
 
                 setLookupableImplServiceName(lookupImplID);

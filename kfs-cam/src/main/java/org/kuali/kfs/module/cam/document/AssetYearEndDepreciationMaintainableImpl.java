@@ -41,15 +41,15 @@ import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.datadictionary.MaintainableSectionDefinition;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.kns.util.MaintenanceUtils;
-import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.util.MaintenanceUtils;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 /**
@@ -66,7 +66,7 @@ public class AssetYearEndDepreciationMaintainableImpl extends FinancialSystemMai
      * We are using a substitute mechanism for asset locking which can lock on assets when rule check passed. Return empty list from
      * this method.
      * 
-     * @see org.kuali.rice.kns.maintenance.Maintainable#generateMaintenanceLocks()
+     * @see org.kuali.kfs.kns.maintenance.Maintainable#generateMaintenanceLocks()
      */
     @Override
     public List<MaintenanceLock> generateMaintenanceLocks() {
@@ -75,7 +75,7 @@ public class AssetYearEndDepreciationMaintainableImpl extends FinancialSystemMai
 
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterEdit(org.kuali.rice.kns.document.MaintenanceDocument,
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#processAfterEdit(org.kuali.kfs.kns.document.MaintenanceDocument,
      *      java.util.Map)
      */
     @Override
@@ -94,8 +94,8 @@ public class AssetYearEndDepreciationMaintainableImpl extends FinancialSystemMai
     // I01994/T06314. JWalker. Replace this method which was getting array out of bounds error.
     // Copied from ICR addMultipleValueLookupResults.
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#addMultipleValueLookupResults(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, java.util.Collection, boolean, org.kuali.rice.kns.bo.PersistableBusinessObject)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#addMultipleValueLookupResults(org.kuali.kfs.kns.document.MaintenanceDocument,
+     *      java.lang.String, java.util.Collection, boolean, org.kuali.kfs.kns.bo.PersistableBusinessObject)
      */
     public void addMultipleValueLookupResults(MaintenanceDocument document, String collectionName, Collection<PersistableBusinessObject> rawValues, boolean needsBlank, PersistableBusinessObject bo) {
 
@@ -128,8 +128,8 @@ public class AssetYearEndDepreciationMaintainableImpl extends FinancialSystemMai
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#refresh(String, java.util.Map,
+     *      org.kuali.kfs.kns.document.MaintenanceDocument)
      */
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
@@ -164,7 +164,7 @@ public class AssetYearEndDepreciationMaintainableImpl extends FinancialSystemMai
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#doRouteStatusChange(org.kuali.rice.kns.bo.DocumentHeader)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#doRouteStatusChange(org.kuali.kfs.kns.bo.DocumentHeader)
      */
     @Override
     public void doRouteStatusChange(DocumentHeader documentHeader) {
@@ -199,7 +199,7 @@ public class AssetYearEndDepreciationMaintainableImpl extends FinancialSystemMai
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#addNewLineToCollection(String)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#addNewLineToCollection(String)
      */
     @Override
     public void addNewLineToCollection(String collectionName) {
@@ -221,7 +221,7 @@ public class AssetYearEndDepreciationMaintainableImpl extends FinancialSystemMai
 
 
     /**
-     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#populateNewCollectionLines(java.util.Map, org.kuali.rice.kns.document.MaintenanceDocument, java.lang.String)
+     * @see org.kuali.kfs.kns.maintenance.KualiMaintainableImpl#populateNewCollectionLines(java.util.Map, org.kuali.kfs.kns.document.MaintenanceDocument, java.lang.String)
      */
     @Override
     public Map<String, String> populateNewCollectionLines(Map<String, String> fieldValues, MaintenanceDocument maintenanceDocument, String methodToCall) {

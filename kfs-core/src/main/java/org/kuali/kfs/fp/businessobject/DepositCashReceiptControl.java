@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 
 import org.kuali.kfs.fp.document.CashReceiptDocument;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class represents a deposit cash receipt control which contains cash receipt header used for validating receipts

@@ -31,8 +31,8 @@ import org.kuali.kfs.module.tem.service.TravelService;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class TravelAuthEmergencyContactRequiredInfoValidation extends GenericValidation {
     protected TravelService travelService;

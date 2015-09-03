@@ -38,9 +38,9 @@ import org.kuali.kfs.pdp.dataaccess.BatchMaintenanceDao;
 import org.kuali.kfs.pdp.service.BatchMaintenanceService;
 import org.kuali.kfs.pdp.service.PaymentGroupService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

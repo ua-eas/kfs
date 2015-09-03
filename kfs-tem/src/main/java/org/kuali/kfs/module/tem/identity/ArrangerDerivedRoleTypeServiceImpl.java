@@ -34,8 +34,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.rice.kns.kim.role.DerivedRoleTypeServiceBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Check for Arranger Derived Role base on the TEM Profile ID and the Principal

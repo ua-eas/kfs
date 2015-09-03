@@ -33,14 +33,14 @@ import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.kns.lookup.LookupResultsService;
-import org.kuali.rice.kns.lookup.LookupUtils;
-import org.kuali.rice.kns.web.struts.action.KualiMultipleValueLookupAction;
-import org.kuali.rice.kns.web.struts.form.MultipleValueLookupForm;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiMultipleValueLookupAction;
+import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 
 /**
  * Parent class of C&G Billing multiple value lookups which have common attributes

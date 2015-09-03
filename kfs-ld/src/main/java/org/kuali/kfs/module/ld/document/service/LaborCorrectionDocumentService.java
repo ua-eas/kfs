@@ -30,7 +30,7 @@ import org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.document.LaborCorrectionDocument;
 import org.kuali.kfs.sys.batch.InitiateDirectory;
-import org.kuali.rice.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Column;
 
 
 /**

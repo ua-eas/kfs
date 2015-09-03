@@ -60,10 +60,10 @@ import org.kuali.rice.kim.api.type.KimType;
 import org.kuali.rice.kim.api.type.KimTypeAttribute;
 import org.kuali.rice.kim.framework.group.GroupEbo;
 import org.kuali.rice.kim.framework.role.RoleEbo;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * @author Kuali Rice Team (kuali-rice@googlegroups.com)

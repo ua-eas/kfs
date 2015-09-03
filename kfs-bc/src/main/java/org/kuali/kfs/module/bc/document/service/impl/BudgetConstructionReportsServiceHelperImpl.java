@@ -40,8 +40,8 @@ import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationRe
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.PersistenceService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lowagie.text.Document;

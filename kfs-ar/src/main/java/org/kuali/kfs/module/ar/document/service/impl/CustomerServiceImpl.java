@@ -30,12 +30,12 @@ import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceDocumentService;
 import org.kuali.kfs.module.ar.document.service.CustomerService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.NoteService;
-import org.kuali.rice.krad.service.SequenceAccessorService;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class CustomerServiceImpl implements CustomerService {
 

@@ -40,8 +40,8 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.impl.permission.PermissionServiceImpl;
 import org.kuali.rice.kim.impl.role.RoleServiceImpl;
 import org.kuali.rice.kim.service.impl.IdentityManagementServiceImpl;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 
 /**
  * This class tests the Check service.

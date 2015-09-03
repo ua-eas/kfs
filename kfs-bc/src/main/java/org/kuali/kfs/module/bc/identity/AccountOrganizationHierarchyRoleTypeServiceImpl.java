@@ -28,7 +28,7 @@ import org.kuali.kfs.module.bc.document.service.BudgetDocumentService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.type.KimAttributeField;
-import org.kuali.rice.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 
 public class AccountOrganizationHierarchyRoleTypeServiceImpl extends RoleTypeServiceBase {
     public static final String DESCEND_HIERARCHY_TRUE_VALUE = "Y";

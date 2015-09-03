@@ -31,7 +31,7 @@ import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.sys.document.PaymentSource;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.MessageMap;
 
 /**
  * Defines methods for sending PDP emails.

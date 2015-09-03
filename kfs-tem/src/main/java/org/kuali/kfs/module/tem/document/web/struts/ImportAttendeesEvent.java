@@ -41,8 +41,8 @@ import org.kuali.kfs.module.tem.document.validation.event.AddAttendeeLineEvent;
 import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
 import org.kuali.kfs.module.tem.exception.UploadParserException;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Event that handles import of attendees from CSV File. Activated by the "Import Attendees" link

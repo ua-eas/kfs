@@ -25,9 +25,9 @@ import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.PermissionTemplate;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.document.authorization.TransactionalDocumentAuthorizerBase;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizerBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 public class FinancialSystemTransactionalDocumentAuthorizerBase extends TransactionalDocumentAuthorizerBase {
     private static final Log LOG = LogFactory.getLog(FinancialSystemTransactionalDocumentAuthorizerBase.class);
@@ -35,7 +35,7 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
     /**
      * Overridden to check if document error correction can be allowed here.
      *
-     * @see org.kuali.rice.krad.document.authorization.DocumentAuthorizerBase#getDocumentActions(org.kuali.rice.krad.document.Document,
+     * @see org.kuali.kfs.krad.document.authorization.DocumentAuthorizerBase#getDocumentActions(org.kuali.kfs.krad.document.Document,
      *      org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
     @Override

@@ -28,11 +28,11 @@ import org.kuali.kfs.module.ar.document.service.CustomerService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.MaintenanceDocumentDictionaryService;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
 @ConfigureContext(session = khuntley)
 public class CustomerDocumentServiceImplTest extends KualiTestBase {

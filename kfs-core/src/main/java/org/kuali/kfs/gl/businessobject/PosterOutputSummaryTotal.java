@@ -28,7 +28,7 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implements PosterOutputSummaryAmountHolder {
     private KualiDecimal creditAmount;

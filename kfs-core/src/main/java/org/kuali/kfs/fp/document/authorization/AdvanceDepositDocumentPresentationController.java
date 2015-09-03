@@ -24,7 +24,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.AmountTotaling;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 
 public class AdvanceDepositDocumentPresentationController extends FinancialSystemTransactionalDocumentPresentationControllerBase{
 

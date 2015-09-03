@@ -28,8 +28,8 @@ import org.kuali.rice.kew.api.action.ActionTaken;
 import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.rice.krad.service.DocumentService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * KFSMI-4553

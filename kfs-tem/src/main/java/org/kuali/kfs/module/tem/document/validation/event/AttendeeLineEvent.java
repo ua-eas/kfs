@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.tem.document.validation.event;
 
 import org.kuali.kfs.module.tem.businessobject.Attendee;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 
 public interface AttendeeLineEvent<E extends Attendee> extends KualiDocumentEvent{
 

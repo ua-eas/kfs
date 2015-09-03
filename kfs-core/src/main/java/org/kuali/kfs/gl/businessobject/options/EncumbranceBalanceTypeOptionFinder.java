@@ -25,8 +25,8 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * An implementation of ValueFinder that returns all balance types, but which defaults to external encumbrance

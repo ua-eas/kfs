@@ -27,10 +27,10 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.datadictionary.AttributeSecurity;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Records any changes to a Vendor's Tax Number or Type. Not shown on the screen.

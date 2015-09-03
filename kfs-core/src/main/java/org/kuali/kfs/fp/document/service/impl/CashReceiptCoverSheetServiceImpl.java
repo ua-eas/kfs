@@ -32,8 +32,8 @@ import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;

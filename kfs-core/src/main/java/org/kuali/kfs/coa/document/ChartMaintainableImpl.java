@@ -31,7 +31,7 @@ import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.rice.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.DocumentHeader;
 
 /**
  * Maintainable implementation for the chart maintenance document

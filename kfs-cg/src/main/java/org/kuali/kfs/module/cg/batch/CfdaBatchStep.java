@@ -32,9 +32,9 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.exception.InvalidAddressException;
-import org.kuali.rice.krad.service.MailService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.service.MailService;
 
 /**
  * Parses data from a government web page listing the valid CFDA codes. The codes are then compared with what's in the CFDA table in

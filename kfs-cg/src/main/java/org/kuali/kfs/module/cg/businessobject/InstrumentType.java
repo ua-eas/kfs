@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsInstrumentType;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
 * Instrument Types under Contracts & Grants section.

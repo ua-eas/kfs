@@ -23,8 +23,8 @@ import java.util.Map;
 
 import org.kuali.kfs.module.tem.document.TaxableRamificationDocument;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
-import org.kuali.rice.krad.bo.Note;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
 
 public class TaxableRamificationForm extends FinancialSystemTransactionalDocumentFormBase {
     private final static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TaxableRamificationForm.class);

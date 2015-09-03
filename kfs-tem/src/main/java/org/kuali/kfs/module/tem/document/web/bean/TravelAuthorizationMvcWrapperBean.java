@@ -26,7 +26,7 @@ import org.kuali.kfs.module.tem.businessobject.GroupTraveler;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetail;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetailEmergencyContact;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
-import org.kuali.rice.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 
 public interface TravelAuthorizationMvcWrapperBean extends TravelMvcWrapperBean {
     /**

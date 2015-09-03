@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.kuali.kfs.coa.identity.OrgReviewRole;
 import org.kuali.rice.kim.api.role.RoleMember;
-import org.kuali.rice.krad.exception.ValidationException;
+import org.kuali.kfs.krad.exception.ValidationException;
 
 public interface OrgReviewRoleService {
 

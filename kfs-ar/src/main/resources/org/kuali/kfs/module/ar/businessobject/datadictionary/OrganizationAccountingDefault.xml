@@ -476,7 +476,7 @@
 			</list>
 		</property>
 		<property name="inquirableClass"
-			value="org.kuali.kfs.sys.businessobject.inquiry.KfsInquirableImpl" />
+			value="org.kuali.kfs.kns.inquiry.KualiInquirableImpl" />
 	</bean>
 	<bean
 		id="OrganizationAccountingDefault-inquirySectionDefinition-organizationAccountingDefaults"

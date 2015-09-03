@@ -24,8 +24,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.coreservice.api.parameter.Parameter;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class ParameterEvaluatorImpl implements ParameterEvaluator {
 	private static final long serialVersionUID = -758645169354452022L;
@@ -148,7 +148,7 @@ public class ParameterEvaluatorImpl implements ParameterEvaluator {
 	 */
 	protected DataDictionaryService getDataDictionaryService() {
 		if ( dataDictionaryService == null ) {
-			dataDictionaryService = SpringContext.getBean(org.kuali.rice.kns.service.DataDictionaryService.class);
+			dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
 		}
 		return dataDictionaryService;
 	}

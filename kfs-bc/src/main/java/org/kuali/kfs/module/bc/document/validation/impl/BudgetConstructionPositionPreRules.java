@@ -22,8 +22,8 @@ import java.math.BigDecimal;
 
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This class...

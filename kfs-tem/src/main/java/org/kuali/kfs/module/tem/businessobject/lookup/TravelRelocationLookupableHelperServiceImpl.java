@@ -22,9 +22,9 @@ import java.util.Properties;
 
 import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.UrlFactory;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 
 @SuppressWarnings("deprecation")
 public class TravelRelocationLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl{

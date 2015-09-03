@@ -28,7 +28,7 @@ import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.bo.KualiCodeBase;
+import org.kuali.kfs.krad.bo.KualiCodeBase;
 
 /**
  * Trip Type

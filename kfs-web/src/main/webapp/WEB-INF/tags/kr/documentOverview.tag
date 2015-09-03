@@ -18,7 +18,7 @@
 <%@ attribute name="editingMode" required="true" description="used to decide editability of overview fields" type="java.util.Map"%>
 <c:set var="isMaintenanceForm" value='false' />
 <c:if test='<%= jspContext.findAttribute("KualiForm") != null %>'>
-	<c:set var="isMaintenanceForm" value='<%= jspContext.findAttribute("KualiForm").getClass() == org.kuali.rice.kns.web.struts.form.KualiMaintenanceForm.class %>' />
+	<c:set var="isMaintenanceForm" value='<%= jspContext.findAttribute("KualiForm").getClass() == org.kuali.kfs.kns.web.struts.form.KualiMaintenanceForm.class %>' />
 </c:if>
 <c:set var="isMaintenance" value="${isMaintenanceForm || maintenanceViewMode eq Constants.PARAM_MAINTENANCE_VIEW_MODE_MAINTENANCE}" />
 <c:set var="readOnly" value="${ ! KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT_DOCUMENT_OVERVIEW]}" />

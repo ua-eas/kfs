@@ -23,8 +23,8 @@ import javax.mail.MessagingException;
 import org.kuali.kfs.sys.mail.AttachmentMailMessage;
 import org.kuali.kfs.sys.mail.AttachmentMailer;
 import org.kuali.kfs.sys.service.AttachmentMailService;
-import org.kuali.rice.krad.exception.InvalidAddressException;
-import org.kuali.rice.krad.service.impl.MailServiceImpl;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.service.impl.MailServiceImpl;
 
 /**
  * This class extends the Rice MailServiceImpl class to add support for attachments.

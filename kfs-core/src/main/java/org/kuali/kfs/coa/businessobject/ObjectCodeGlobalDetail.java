@@ -22,7 +22,7 @@ package org.kuali.kfs.coa.businessobject;
 import java.util.LinkedHashMap;
 
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 /**
  * 

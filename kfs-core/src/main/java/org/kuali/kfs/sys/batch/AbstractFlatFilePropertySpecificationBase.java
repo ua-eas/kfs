@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.batch;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.kfs.sys.businessobject.format.BatchDateFormatter;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.springframework.util.StringUtils;
 
 

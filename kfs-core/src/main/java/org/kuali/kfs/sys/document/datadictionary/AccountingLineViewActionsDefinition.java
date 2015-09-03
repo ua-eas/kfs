@@ -21,7 +21,7 @@ package org.kuali.kfs.sys.document.datadictionary;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewActionsField;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.rice.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 
 /**
  * The data dictionary definition of an element of an accounting line view that shows the actions available on the given line.

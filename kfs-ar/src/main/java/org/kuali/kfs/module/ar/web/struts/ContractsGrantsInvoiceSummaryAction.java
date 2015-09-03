@@ -47,15 +47,15 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.ui.Column;
-import org.kuali.rice.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.bo.ModuleConfiguration;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Action class for Contracts & Grants Invoice Summary.

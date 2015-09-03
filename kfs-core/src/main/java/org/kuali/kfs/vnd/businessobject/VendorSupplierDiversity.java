@@ -24,8 +24,8 @@ import java.util.LinkedHashMap;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Relationship between a Vendor and a <code>SupplierDiversity</code>.

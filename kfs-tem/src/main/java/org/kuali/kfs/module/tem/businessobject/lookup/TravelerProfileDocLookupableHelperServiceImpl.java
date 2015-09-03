@@ -34,14 +34,14 @@ import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.PermissionService;
-import org.kuali.rice.kns.util.FieldUtils;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.rice.kns.web.struts.form.KualiForm;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.util.FieldUtils;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.service.SessionDocumentService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.service.SessionDocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Overridden to filter results to only those available to the currently logged in user to use.  This will be used within TA, TR, ENT, and RELO

@@ -36,10 +36,10 @@ import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
 import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMakersDao;
 import org.kuali.kfs.sys.batch.service.FiscalYearMakerService;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.service.KualiModuleService;
-import org.kuali.rice.krad.service.ModuleService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

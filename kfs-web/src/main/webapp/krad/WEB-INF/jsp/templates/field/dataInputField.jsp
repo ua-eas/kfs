@@ -17,7 +17,7 @@
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
-<tiles:useAttribute name="field" classname="org.kuali.rice.krad.uif.field.DataField"/>
+<tiles:useAttribute name="field" classname="org.kuali.kfs.krad.uif.field.DataField"/>
 
 <c:set var="readOnly" value="${field.readOnly || !field.inputAllowed}"/>
 

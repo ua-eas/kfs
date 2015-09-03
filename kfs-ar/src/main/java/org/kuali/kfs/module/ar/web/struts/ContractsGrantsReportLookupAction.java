@@ -41,17 +41,17 @@ import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.DynamicCollectionComparator.SortOrder;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kns.lookup.Lookupable;
-import org.kuali.rice.kns.service.DataDictionaryService;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.kns.web.struts.action.KualiLookupAction;
-import org.kuali.rice.kns.web.struts.form.LookupForm;
-import org.kuali.rice.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiLookupAction;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.datadictionary.control.ControlDefinition;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * This Action Class defines all the core methods for Contracts & Grants Lookup.
@@ -62,7 +62,7 @@ public abstract class ContractsGrantsReportLookupAction extends KualiLookupActio
     private static volatile DataDictionaryService dataDictionaryService;
 
     /**
-     * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#execute(org.apache.struts.action.ActionMapping,
+     * @see org.kuali.kfs.kns.web.struts.action.KualiLookupAction#execute(org.apache.struts.action.ActionMapping,
      *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override

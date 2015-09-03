@@ -33,7 +33,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.role.RoleService;
-import org.kuali.rice.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.DocumentService;
 
 /**
  * This class tests the ContractsGrantsInvoiceDocumentService

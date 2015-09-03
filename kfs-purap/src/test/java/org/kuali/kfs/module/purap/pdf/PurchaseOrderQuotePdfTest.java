@@ -30,8 +30,8 @@ import org.kuali.kfs.vnd.businessobject.ContractManager;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.rice.location.api.country.CountryService;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.impl.country.CountryBo;
@@ -86,8 +86,9 @@ public class PurchaseOrderQuotePdfTest extends KualiTestBase {
         poqv.setVendorPhoneNumber("1-800-DUSTY-CELL");
         poqv.setVendorPostalCode("48864");
 
-        CountryEbo country = CountryBo.from(countryService.getCountry(KFSConstants.COUNTRY_CODE_UNITED_STATES));
-        poqv.setVendorCountry(country);
+        //TODO: Spaghetti fix
+//        CountryEbo country = CountryBo.from(countryService.getCountry(KFSConstants.COUNTRY_CODE_UNITED_STATES));
+//        poqv.setVendorCountry(country);
         PurchaseOrderItem poi = new PurchaseOrderItem();
         ItemType it = new ItemType();
         it.setItemTypeCode("ITEM");

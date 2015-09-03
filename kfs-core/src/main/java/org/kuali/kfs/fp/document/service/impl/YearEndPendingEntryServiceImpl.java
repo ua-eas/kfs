@@ -32,8 +32,8 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.rice.krad.document.TransactionalDocument;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * The default implementation of the YearEndPendingEntryService

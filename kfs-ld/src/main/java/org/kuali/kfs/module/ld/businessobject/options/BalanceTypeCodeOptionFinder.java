@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
-import org.kuali.rice.krad.valuefinder.ValueFinder;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.krad.valuefinder.ValueFinder;
 
 /**
  * Option Finder for Labor Balance Type Code.

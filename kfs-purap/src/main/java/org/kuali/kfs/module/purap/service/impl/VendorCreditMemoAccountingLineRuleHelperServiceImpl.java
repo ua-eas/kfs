@@ -20,9 +20,9 @@ package org.kuali.kfs.module.purap.service.impl;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.rice.krad.datadictionary.DataDictionary;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class VendorCreditMemoAccountingLineRuleHelperServiceImpl extends PurapAccountingLineRuleHelperServiceImpl {
 

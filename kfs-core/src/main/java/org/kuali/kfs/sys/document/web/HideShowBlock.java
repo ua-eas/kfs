@@ -27,8 +27,8 @@ import javax.servlet.jsp.tagext.Tag;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewHideShowLinesDefinition;
 import org.kuali.kfs.sys.document.web.renderers.HideShowBlockRenderer;
-import org.kuali.rice.kns.util.WebUtils;
-import org.kuali.rice.kns.web.ui.Field;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.ui.Field;
 
 /**
  * A renderable element that renders child elements within a div that can be hidden or displayed

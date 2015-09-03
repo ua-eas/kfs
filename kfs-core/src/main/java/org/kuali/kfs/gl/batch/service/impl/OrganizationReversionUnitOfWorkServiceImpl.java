@@ -26,7 +26,7 @@ import org.kuali.kfs.gl.batch.dataaccess.OrganizationReversionUnitOfWorkDao;
 import org.kuali.kfs.gl.batch.service.OrganizationReversionUnitOfWorkService;
 import org.kuali.kfs.gl.businessobject.OrgReversionUnitOfWork;
 import org.kuali.kfs.gl.businessobject.OrgReversionUnitOfWorkCategoryAmount;
-import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

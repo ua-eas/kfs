@@ -22,9 +22,9 @@ import java.util.Set;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.batch.LaborEnterpriseFeedStep;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
-import org.kuali.rice.kns.inquiry.InquiryPresentationController;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
+import org.kuali.kfs.kns.inquiry.InquiryPresentationController;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 public class BenefitsCalculationMaintenanceDocumentPresentationController extends MaintenanceDocumentPresentationControllerBase implements InquiryPresentationController {

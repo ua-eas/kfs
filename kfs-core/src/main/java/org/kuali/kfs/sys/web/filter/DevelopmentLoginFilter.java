@@ -29,8 +29,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.util.KRADConstants;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * A login filter which forwards to a login page that allows for the desired

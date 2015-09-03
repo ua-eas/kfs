@@ -29,8 +29,8 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.document.web.struts.TravelFormBase;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.kns.util.KNSGlobalVariables;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
 
 @SuppressWarnings("deprecation")
 public class CardTypeValuesFinder extends KeyValuesBase {

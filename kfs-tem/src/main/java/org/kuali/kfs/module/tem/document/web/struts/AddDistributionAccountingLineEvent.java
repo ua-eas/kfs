@@ -28,7 +28,7 @@ import org.kuali.kfs.module.tem.document.validation.event.AddDistributionAccount
 import org.kuali.kfs.module.tem.document.web.bean.TravelMvcWrapperBean;
 import org.kuali.kfs.module.tem.service.AccountingDistributionService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.KualiRuleService;
 
 public class AddDistributionAccountingLineEvent implements Observer {
     private static final int WRAPPER_ARG_IDX       = 0;

@@ -20,7 +20,7 @@ package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
-import org.kuali.rice.krad.document.Document;
+import org.kuali.kfs.krad.document.Document;
 /**
  * Business PreRules applicable to Purchasing documents
  */

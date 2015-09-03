@@ -25,9 +25,9 @@ import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetailLineOverr
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
-import org.kuali.rice.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.rice.krad.service.KualiRuleService;
-import org.kuali.rice.krad.service.PersistenceService;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
 
 /**
  * To define Actions for EffortCertification document.

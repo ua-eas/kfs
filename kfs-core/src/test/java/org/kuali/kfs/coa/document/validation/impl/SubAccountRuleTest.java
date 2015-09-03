@@ -28,8 +28,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.fixture.SubAccountFixture;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.rice.kns.document.MaintenanceDocument;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 @ConfigureContext(session = khuntley)
 public class SubAccountRuleTest extends ChartRuleTestBase {

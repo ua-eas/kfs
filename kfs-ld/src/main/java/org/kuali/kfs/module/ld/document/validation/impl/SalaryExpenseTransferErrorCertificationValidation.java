@@ -31,8 +31,8 @@ import org.kuali.kfs.module.ld.document.service.SalaryExpenseTransferTransaction
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validates Salary Expense Transfer document's accounting lines and error certification tab
