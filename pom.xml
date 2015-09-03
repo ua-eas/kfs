@@ -136,7 +136,8 @@
     <oracle.artifactId>ojdbc6</oracle.artifactId>
     <oracle.version>11.2.0.3</oracle.version>
     <p6spy.version>1.3-patched</p6spy.version>
-    <rice.version>2.1.11-SNAPSHOT</rice.version>
+    <rice.version>2.1.10</rice.version>
+    <cf.version>1.0.0-SNAPSHOT</cf.version>
     <servlet-api.version>2.5</servlet-api.version>
     <spring-data-mongodb.version>1.0.4.RELEASE</spring-data-mongodb.version>
     <tiles.version>2.2.2</tiles.version>
@@ -403,8 +404,8 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
-      <artifactId>rice-core-service-framework</artifactId>
-      <version>${rice.version}</version>
+      <artifactId>cf-core-service-framework</artifactId>
+      <version>${cf.version}</version>
       <exclusions>
         <exclusion>
           <groupId>xapool</groupId>
@@ -415,8 +416,8 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
-      <artifactId>rice-core-service-impl</artifactId>
-      <version>${rice.version}</version>
+      <artifactId>cf-core-service-impl</artifactId>
+      <version>${cf.version}</version>
       <exclusions>
         <exclusion>
           <groupId>javax.resource</groupId>
@@ -450,8 +451,8 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
-      <artifactId>rice-core-service-web</artifactId>
-      <version>${rice.version}</version>
+      <artifactId>cf-core-service-web</artifactId>
+      <version>${cf.version}</version>
       <exclusions>
         <exclusion>
           <groupId>xapool</groupId>
@@ -832,8 +833,8 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
-      <artifactId>rice-impl</artifactId>
-      <version>${rice.version}</version>
+      <artifactId>cf-impl</artifactId>
+      <version>${cf.version}</version>
       <exclusions>
         <exclusion>
           <groupId>javax.resource</groupId>
