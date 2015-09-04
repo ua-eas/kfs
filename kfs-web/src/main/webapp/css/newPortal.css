@@ -415,17 +415,23 @@ footer {
     outline: none;
 }
 
-.modal-dialog {
-    width: 85%;
-    height: 100%;
+.remodal {
+    width: 100%;
+    vertical-align: top;
+}
+
+.remodal-wrapper {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+.remodal #breadcrumbs {
+    float: left;
+    color: #aaa;
 }
 
 .modal-header {
     background-color: #E5E5E5;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-}
-
-.modal-content {
-    margin-bottom: 30px;
 }

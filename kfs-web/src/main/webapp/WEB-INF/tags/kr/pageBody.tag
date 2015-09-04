@@ -63,7 +63,8 @@
     <main class="content">
         <c:if test="${param.mode eq 'modal'}">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div id="breadcrumbs"></div>
+                <button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button>
             </div>
         </c:if>
 
