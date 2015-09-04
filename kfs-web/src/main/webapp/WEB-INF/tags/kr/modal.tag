@@ -18,17 +18,10 @@
 -->
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
-<%--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--%>
-    <%--<div class="modal-dialog">--%>
-        <%--<div class="modal-content">--%>
-            <%--<!-- remote modal content goes here -->--%>
-        <%--</div>--%>
-    <%--</div>--%>
-<%--</div>--%>
 <div class="remodal-overlay"></div>
 <div class="remodal-wrapper">
     <div id="remodal" class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
-        <div class="content"></div>
+        <div class="remodal-content"></div>
     </div>
 </div>
 <script type="text/javascript">
@@ -37,7 +30,7 @@
             event.preventDefault();
             var myModal = $('#remodal');
 
-            var modalBody = myModal.find('.content');
+            var modalBody = myModal.find('.remodal-content');
             var href = $(event.target).attr('href');
             var title = $(event.target).attr('data-label') || $.trim($(event.target).text());
             modalBody.load(href, function() {
@@ -45,7 +38,6 @@
 
                 // if we just clicked one of the crumbs then pop everything off the stack on top of it
                 var stackIndex = $(event.target).attr("data-stack-index");
-                console.log(stackIndex)
                 if (stackIndex > -1) {
                     breadcrumbs = breadcrumbs.slice(0, stackIndex);
                 }
