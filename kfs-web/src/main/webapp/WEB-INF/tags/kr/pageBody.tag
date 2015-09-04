@@ -61,24 +61,24 @@
 </c:if>
 
 <div class="${bodyClass}">
-    <main class="content">
-        <c:if test="${param.mode eq 'modal'}">
-            <div class="modal-header">
-                <div id="breadcrumbs"></div>
-                <button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button>
-            </div>
-        </c:if>
-
-        <c:choose>
-            <c:when test="${empty htmlFormAction}">
+    <c:choose>
+        <c:when test="${empty htmlFormAction}">
+            <main class="content">
                 <div id="dashboard"></div>
-            </c:when>
-            <c:otherwise>
-                <c:choose>
-                    <c:when test="${lookup}" >
+        </c:when>
+        <c:otherwise>
+            <c:choose>
+                <c:when test="${lookup}" >
+
+                    <main class="content">
+                        <c:if test="${param.mode eq 'modal'}">
+                        <div class="modal-header">
+                            <div id="breadcrumbs"></div>
+                            <button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        </c:if>
 
                         <div id="view_div">
-                        <kul:backdoor />
 
                         <c:choose>
                             <c:when test="${!_isInquiry}">
@@ -104,16 +104,16 @@
                                 </c:if>
                             </c:otherwise>
                         </c:choose>
-                    </c:when>
-                    <c:otherwise>
+                </c:when>
+                <c:otherwise>
+                    <main class="content">
                         <div id="view_div">
-                            <kul:backdoor />
-                            <main class="main-panel">
+                            <div class="main-panel">
                                 ${headerMenuBar}
-                    </c:otherwise>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </c:otherwise>
+    </c:choose>
 
         <c:set var="encoding" value=""/>
         <c:if test="${not empty renderMultipart and renderMultipart eq true}">
@@ -134,7 +134,7 @@
                        onsubmit="return hasFormAlreadyBeenSubmitted();">
                 <c:if test="${not lookup}" >
                     <a name="topOfForm"></a>
-                    <div class="headerarea" id="headerarea">
+                    <div class="headerarea-small" id="headerarea-small">
                     <h1 class="${docTitleClass}">
                         ${docTitle}&nbsp;
                         <c:choose>

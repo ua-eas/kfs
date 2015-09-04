@@ -79,7 +79,7 @@
                 <html:form styleId="kualiForm" action="/${htmlFormAction}.do"
                            method="post" onsubmit="return hasFormAlreadyBeenSubmitted();">
                     <a name="topOfForm"></a>
-                    <div class="headerarea" id="headerarea">
+                    <div class="headerarea-small" id="headerarea-small">
                         <h1>
                                 ${docTitle}&nbsp;
                         </h1>
