@@ -47,7 +47,7 @@ header .navbar-brand {
 }
 header .navbar-brand img {
     float: left;
-    padding-right: 7px;
+    margin-right: 7px;
 }
 header .navbar-brand .institution-name {
     font-weight: 300;
