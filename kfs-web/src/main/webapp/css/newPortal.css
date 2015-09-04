@@ -63,6 +63,44 @@ header .navbar-brand .institution-name {
     color: #333;
 }
 
+#test-header {
+    display: none;
+}
+
+#test-header .test-info {
+    position: fixed;
+    top: 62px;
+    height: 62px;
+    width: 100%;
+    background-color: red;
+    z-index: 1000;
+    padding: 15px;
+}
+
+#test-header .test-info .column {
+    float: left;
+    width: 33%;
+    line-height: 32px;
+}
+
+#test-header .test-info .column.first,
+#test-header .test-info .column.middle {
+    font-size: 18px;
+    color: #fff;
+}
+
+#test-header .test-info .column.middle {
+    text-align: center;
+}
+
+#test-header .test-info .column.last {
+    text-align: right;
+}
+
+#test-header .test-info .column input {
+    margin-right: 10px;
+}
+
 .body {
     margin-top: 62px;
     display: -webkit-box;
