@@ -83,6 +83,11 @@ var Header = React.createClass({
             })
         }
 
+        let logoUrl = prefs.logoUrl
+        if (logoUrl && !logoUrl.startsWith('http')) {
+            logoUrl = KfsUtils.getUrlPathPrefix() + logoUrl;
+        }
+
         let backdoorIdAppender = KfsUtils.buildBackdoorIdAppender(this.state.backdoorId)
         let actionListLink = backdoorIdAppender(prefs.actionListUrl)
         let docSearchLink = backdoorIdAppender(prefs.docSearchUrl)
@@ -103,7 +108,7 @@ var Header = React.createClass({
             <div>
                 <div className="navbar-header">
                     <a className="navbar-brand" href="#d">
-                        <img src={prefs.logoUrl} height="40px"/>
+                        <img src={logoUrl} height="40px"/>
                         <span className="institution-name">{prefs.institutionName}</span>Financials
                     </a>
                 </div>
