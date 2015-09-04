@@ -16,6 +16,7 @@ public class SysApplication extends Application {
         singletons.add(new PreferencesResource());
         singletons.add(new BackdoorResource());
         singletons.add(new AuthenticationResource());
+        singletons.add(new SystemResource());
         clazzes.add(LoggingFilter.class);
     }
 

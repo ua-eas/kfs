@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.rest;
 
 import org.kuali.kfs.sys.web.WebUtilities;
+import org.kuali.rice.kim.api.identity.Person;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -38,15 +39,67 @@ public class AuthenticationResource {
     @Context
     private HttpServletRequest servletRequest;
 
+    /**
+     * This returns the principal name of the user that is active.
+     * It will return the logged in user or the back door user if back door is active.
+     *
+     * @return
+     */
     @GET
     @Path("/id")
-    public Response getLoggedInPrincipalName() {
-        LOG.debug("getLoggedInPrincipalName() started");
+    public Response getActivePrincipalName() {
+        LOG.debug("getActivePrincipalName() started");
 
-        return Response.ok("{ \"principalName\": \"" + getPrincipalName() + "\" }").build();
+        Person activePerson = WebUtilities.retrieveUserSession(servletRequest).getPerson();
+        return Response.ok("{ \"principalName\": \"" + activePerson.getPrincipalName() + "\" }").build();
     }
 
-    private String getPrincipalName() {
-        return WebUtilities.retrieveUserSession(servletRequest).getPrincipalName();
+    @GET
+    @Path("/loggedInUser")
+    public Response getLoggedInUser() {
+        LOG.debug("getLoggedInUser() started");
+
+        Person loggedinPerson = WebUtilities.retrieveUserSession(servletRequest).getActualPerson();
+        return Response.ok(new PartialPerson(loggedinPerson)).build();
+    }
+
+    /**
+     * This is used to limit the fields that get returned to the client.
+     * Some other information in the Person object may be sensitive.
+     */
+    class PartialPerson {
+        private Person p;
+
+        public PartialPerson(Person p) {
+            this.p = p;
+        }
+
+        public String getPrincipalId() {
+            return p.getPrincipalId();
+        }
+
+        public String getPrincipalName() {
+            return p.getPrincipalName();
+        }
+
+        public String getFirstName() {
+            return p.getFirstName();
+        }
+
+        public String getMiddleName() {
+            return p.getMiddleName();
+        }
+
+        public String getLastName() {
+            return p.getLastName();
+        }
+
+        public String getName() {
+            return p.getName();
+        }
+
+        public String getEmailAddress() {
+            return p.getEmailAddress();
+        }
     }
 }

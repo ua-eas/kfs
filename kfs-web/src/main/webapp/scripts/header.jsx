@@ -3,13 +3,37 @@ import KfsUtils from './sys/utils.js';
 
 var Header = React.createClass({
     getInitialState() {
-        return {preferences: {}, backdoorId: "", backdoorIdField: ""}
+        return {preferences: {}, user: {}, environment: {}, backdoorId: "", backdoorIdField: ""}
     },
     componentWillMount() {
         let path = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
         let backdoorPath = KfsUtils.getUrlPathPrefix() + "sys/backdoor/id"
+        let userPath = KfsUtils.getUrlPathPrefix() + "sys/authentication/loggedInUser"
+        let environmentPath = KfsUtils.getUrlPathPrefix() + "sys/system/environment"
 
         $.when(
+            $.ajax({
+                url: environmentPath,
+                dataType: 'json',
+                type: 'GET',
+                success: function(env) {
+                    this.setState({environment: env});
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.error(status, err.toString());
+                }.bind(this)
+            }),
+            $.ajax({
+                url: userPath,
+                dataType: 'json',
+                type: 'GET',
+                success: function(user) {
+                    this.setState({user: user});
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.error(status, err.toString());
+                }.bind(this)
+            }),
             $.ajax({
                 url: path,
                 dataType: 'json',
@@ -101,49 +125,54 @@ var Header = React.createClass({
         }
         return (
             <div>
-                <div className="navbar-header">
-                    <a className="navbar-brand" href="#d">
-                        <img src={prefs.logoUrl} height="40px"/>
-                        <span className="institution-name">{prefs.institutionName}</span>Financials
-                    </a>
+                <div>
+                    <div className="navbar-header">
+                        <a className="navbar-brand" href="#d">
+                            <img src={prefs.logoUrl} height="40px"/>
+                            <span className="institution-name">{prefs.institutionName}</span>Financials
+                        </a>
+                    </div>
+                    <nav className="collapse navbar-collapse">
+                        <ul className="nav navbar-nav pull-right">
+                            <li>
+                                <a href={actionListLink} target="_blank"><span className="glyphicon glyphicon-ok-sign"></span>Action List</a>
+                            </li>
+                            <li>
+                                <a href={docSearchLink} target="_blank"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
+                            </li>
+                            <li className={backdoorClass}>
+                                <a href="#d" className="dropdown-toggle" data-toggle="dropdown" title={profileTitle}>
+                                    <span className={profileIcon}></span>{this.state.user.firstName}&nbsp;
+                                    <span className="caret"></span>
+                                </a>
+                                <ul className="dropdown-menu pull-right">
+                                    {backdoorMessage}
+                                    <li>
+                                        <form>
+                                           <input id="backdoorId" type="text" placeholder="Back Door ID" onChange={this.handleBackDoorIdChange}/>
+                                            <div className="btn-group" role="group">
+                                                <button type="button" className="btn btn-default" onClick={this.backdoorLogin} disabled={ ! this.state.backdoorIdField }>Login</button>
+                                                {logoutButton}
+                                            </div>
+                                        </form>
+                                    </li>
+                                    <li><a href={prefs.signoutUrl}>Sign Out</a></li>
+                                </ul>
+                            </li>
+                            <li className="dropdown">
+                                <a href="#d" id="nbAcctDD" className="dropdown-toggle" data-toggle="dropdown">
+                                    <i className="icon-user"></i>
+                                    <span className="glyphicon glyphicon-menu-hamburger"></span>Menu&nbsp;
+                                    <span className="caret"></span>
+                                </a>
+                                <ul className="dropdown-menu pull-right">
+                                    {menuLinks}
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <nav className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav pull-right">
-                        <li>
-                            <a href={actionListLink} target="_blank"><span className="glyphicon glyphicon-ok-sign"></span>Action List</a>
-                        </li>
-                        <li>
-                            <a href={docSearchLink} target="_blank"><span className="glyphicon glyphicon-search"></span>Doc Search</a>
-                        </li>
-                        <li className={backdoorClass}>
-                            <a href="#d" className="dropdown-toggle" data-toggle="dropdown" title={profileTitle}>
-                                <span className={profileIcon}></span>Profile
-                            </a>
-                            <ul className="dropdown-menu pull-right">
-                                {backdoorMessage}
-                                <li>
-                                    <form>
-                                        <input id="backdoorId" type="text" placeholder="Back Door ID" onChange={this.handleBackDoorIdChange}/>
-                                        <div className="btn-group" role="group">
-                                            <button type="button" className="btn btn-default" onClick={this.backdoorLogin} disabled={ ! this.state.backdoorIdField }>Login</button>
-                                            {logoutButton}
-                                        </div>
-                                    </form>
-                                </li>
-                                <li><a href={prefs.signoutUrl}>Sign Out</a></li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <a href="#d" id="nbAcctDD" className="dropdown-toggle" data-toggle="dropdown">
-                                <i className="icon-user"></i>
-                                <span className="glyphicon glyphicon-menu-hamburger"></span>Menu
-                            </a>
-                            <ul className="dropdown-menu pull-right">
-                                {menuLinks}
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                { this.state.environment.prodMode ? null : <div>This is a test environment</div> }
             </div>
         );
     }
