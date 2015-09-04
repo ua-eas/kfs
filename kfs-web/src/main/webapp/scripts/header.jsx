@@ -56,7 +56,7 @@ var Header = React.createClass({
                 <div>
                     <div className="navbar-header">
                         <a className="navbar-brand" href="#d">
-                            <img src={logoUrl} height="40px" width="40px"/>
+                            <img src={logoUrl} height="31px" width="31px"/>
                             <span className="institution-name">{prefs.institutionName}</span>Financials
                         </a>
                     </div>

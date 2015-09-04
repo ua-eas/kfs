@@ -20,8 +20,8 @@ a {
     outline: none;
 }
 
-header {
-    height: 62px;
+header.navbar {
+    height: 60px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     background-color: #f8f8f8;
     border-color: #e7e7e7;
@@ -33,23 +33,23 @@ header {
     z-index: 1000;
 }
 
-header .navbar-header {
+header.navbar .navbar-header {
     padding-left: 70px;
 }
-header .navbar-brand {
-    height: 62px;
+header.navbar .navbar-brand {
+    height: 60px;
     font-size: 26px;
-    line-height: 40px;
+    line-height: 31px;
     font-weight: 700;
     width: 400px;
-    padding: 10px 15px;
-    color: #4E6770;
+    padding: 14px 15px;
+    color: #516771;
 }
-header .navbar-brand img {
+header.navbar .navbar-brand img {
     float: left;
     margin-right: 7px;
 }
-header .navbar-brand .institution-name {
+header.navbar .navbar-brand .institution-name {
     font-weight: 300;
 }
 
@@ -69,23 +69,22 @@ header .navbar-brand .institution-name {
 
 #test-header .test-info {
     position: fixed;
-    top: 62px;
-    height: 62px;
+    top: 60px;
+    height: 40px;
     width: 100%;
-    background-color: red;
-    z-index: 1000;
-    padding: 15px;
+    background-color: #D44E2B;
+    padding: 4px 15px;
 }
 
 #test-header .test-info .column {
     float: left;
     width: 33%;
-    line-height: 32px;
+    line-height: 30px;
 }
 
 #test-header .test-info .column.first,
 #test-header .test-info .column.middle {
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
 }
 
@@ -98,11 +97,20 @@ header .navbar-brand .institution-name {
 }
 
 #test-header .test-info .column input {
-    margin-right: 10px;
+    height: 30px;
+    border: 1px solid #D6D6D6;
+    border-radius: 4px;
+    margin-right: 7px;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+    padding: 0 5px;
+}
+
+#test-header .test-info .column .btn {
+    padding: 4px 15px 6px 15px;
 }
 
 .body {
-    margin-top: 62px;
+    margin-top: 60px;
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -114,6 +122,10 @@ header .navbar-brand .institution-name {
     -ms-flex: 1;
     flex: 1;
     width: 100%;
+}
+
+.body.test-env {
+    margin-top: 100px;
 }
 
 .content {
@@ -147,7 +159,7 @@ nav ul.nav li {
     padding: 0;
     background-color: #fff;
     border-radius: 4px;
-    margin-top: 62px;
+    margin-top: 60px;
 }
 
 #main .page-header {

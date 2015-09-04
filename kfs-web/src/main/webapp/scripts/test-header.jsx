@@ -14,7 +14,7 @@ var TestHeader = React.createClass({
                 this.setState({environment: env});
 
                 if (this.state.environment && this.state.environment.prodMode === false) {
-                    $('.body').css('margin-top', '124px')
+                    $('.body').addClass('test-env')
                     $('#test-header').css('display', 'block')
                 }
             }.bind(this),
