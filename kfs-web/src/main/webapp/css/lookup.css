@@ -342,25 +342,29 @@ div.inquiry.fixedButtons {
     padding-bottom: 62px;
 }
 
+td.grid div.link-wrapper,
 td.infocell div.link-wrapper {
     display: inline;
     white-space: nowrap;
 }
 
+td.grid a.new-window,
 td.infocell a.new-window {
     text-decoration: none;
 }
 
+td.grid a.new-window span.glyphicon,
 td.infocell a.new-window span.glyphicon {
-    /*display: none;*/
     visibility: hidden;
 }
 
+td.grid:hover a.new-window span.glyphicon,
 td.infocell:hover a.new-window span.glyphicon {
     visibility: inherit;
     opacity: .4;
 }
 
+td.grid a.new-window:hover span.glyphicon,
 td.infocell a.new-window:hover span.glyphicon {
     display: inherit;
     opacity: .8;
@@ -397,7 +401,8 @@ div.inquiry table.datatable th {
     border-radius: 6px;
 }
 
-.inquirymodal .content {
+
+.remodal .content {
     border-radius: 6px;
 }
 
