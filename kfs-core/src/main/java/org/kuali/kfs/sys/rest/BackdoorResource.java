@@ -2,18 +2,16 @@ package org.kuali.kfs.sys.rest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -37,33 +35,36 @@ public class BackdoorResource {
     @POST
     @Path("/login")
     public Response login(@Context HttpServletRequest request, JsonNode body) {
-        String backdoorId = "";
-        if (body.has("backdoorId")) {
-            backdoorId = body.get("backdoorId").asText();
-        }
-        if (StringUtils.isBlank(backdoorId)) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity("{\"message\":\"BackdoorId was empty\"}").build();
-        }
-        UserSession uSession = WebUtilities.retrieveUserSession(request);
+        if (!ConfigContext.getCurrentContextConfig().isProductionEnvironment()) {
+            String backdoorId = "";
+            if (body.has("backdoorId")) {
+                backdoorId = body.get("backdoorId").asText();
+            }
+            if (StringUtils.isBlank(backdoorId)) {
+                return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"BackdoorId was empty\"}").build();
+            }
+            UserSession uSession = WebUtilities.retrieveUserSession(request);
 
-        if (uSession == null) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity("{\"message\":\"Session was empty\"}").build();
+            if (uSession == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"Session was empty\"}").build();
+            }
+
+            uSession.clearObjectMap();
+
+            if (!isBackdoorAuthorized(uSession)) {
+                return Response.status(Response.Status.UNAUTHORIZED).entity("{\"message\":\"User not permitted to use backdoor functionality\"}").build();
+            }
+
+            try {
+                uSession.setBackdoorUser(backdoorId);
+            } catch (RiceRuntimeException e) {
+                LOG.warn("invalid backdoor id " + backdoorId, e);
+                return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"Invalid backdoorId\"}").build();
+            }
+
+            return Response.ok("{\"backdoorId\": \"" + uSession.getPrincipalName() + "\"}").build();
         }
-
-        uSession.clearObjectMap();
-
-        if (!isBackdoorAuthorized(uSession)) {
-            return Response.status(HttpStatus.UNAUTHORIZED.value()).entity("{\"message\":\"User not permitted to use backdoor functionality\"}").build();
-        }
-
-        try {
-            uSession.setBackdoorUser(backdoorId);
-        } catch (RiceRuntimeException e) {
-            LOG.warn("invalid backdoor id " + backdoorId, e);
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity("{\"message\":\"Invalid backdoorId\"}").build();
-        }
-
-        return Response.ok("{\"backdoorId\": \"" + uSession.getPrincipalName() + "\"}").build();
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @GET
@@ -72,7 +73,7 @@ public class BackdoorResource {
         UserSession uSession = WebUtilities.retrieveUserSession(request);
 
         if (uSession == null) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity("{\"message\":\"Session was empty\"}").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"Session was empty\"}").build();
         }
         uSession.clearBackdoorUser();
         return Response.ok("{\"message\":\"Successfully logged out\"}").build();
