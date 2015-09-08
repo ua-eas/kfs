@@ -39,34 +39,8 @@
 
 	<html:hidden property="message" write="false" value="${message}" />
 
-    <div class="topblurb">
-		<div align="center">
-			<table cellpadding="10" cellspacing="0" border="0" class="container2">
-				<tr>
-					<td>
-						<div align="left" valign="top">
-							<strong>Error Message</strong>
-						</div>
-					</td>
-					<td align="left">
-						<div align="left">
-							<font color="red">${message}</font>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&nbsp;
-					</td>
-					<td align="left">
-						<div>
-							<input type="image" name="cancel" value="true" class="tinybutton"
-								   src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
-								   class="globalbuttons" title="close" alt="Close">
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
+    <div class="center">
+        <strong>Error Message:</strong>
+        ${message}
+    </div>
 </kul:page>
