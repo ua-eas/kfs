@@ -56,7 +56,7 @@ var TestHeader = React.createClass({
                 type: 'POST',
                 success: function () {
                     $("#backdoorId").val("")
-                    window.location.reload()
+                    window.location.replace(KfsUtils.getUrlPathPrefix())
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.error(status, err.toString());
@@ -72,7 +72,7 @@ var TestHeader = React.createClass({
             contentType: 'application/json',
             type: 'GET',
             success: function() {
-                window.location.reload()
+                window.location.replace(KfsUtils.getUrlPathPrefix())
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());
