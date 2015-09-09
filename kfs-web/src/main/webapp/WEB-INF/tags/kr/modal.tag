@@ -33,32 +33,48 @@
             var modalBody = myModal.find('.remodal-content');
             var href = $(event.target).attr('href');
             var title = $(event.target).attr('data-label') || $.trim($(event.target).text());
-            modalBody.load(href, function() {
-                myModal.remodal();
+            modalBody.load(href, function(response, status, xhr) {
+                if ( status == "error" ) {
+                    var msg = "Sorry but there was an error: ";
+                    var html = '<div class="fullwidth inquirymodal body"><main class="content">'
+                        html += '<div class="modal-header"><div id="breadcrumbs"></div><button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button></div>'
+                        html += '<div id="view_div"><div class="inquiry"><div class="main-panel">'
+                        html += '<div class="headerarea-small"><h2>Error</h2></div>'
+                        html += '<div style="padding: 30px 0;">' + msg + xhr.status + " " + xhr.statusText + '</div>'
+                        html += '</div></div></div>'
+                        html += '</main></div>'
+                    modalBody.html(html);
+                    myModal.remodal();
+                } else {
+                    myModal.remodal();
 
-                // if we just clicked one of the crumbs then pop everything off the stack on top of it
-                var stackIndex = $(event.target).attr("data-stack-index");
-                if (stackIndex > -1) {
-                    breadcrumbs = breadcrumbs.slice(0, stackIndex);
-                }
-
-                var crumbs = '';
-                for (var i = 0; i < breadcrumbs.length; i++) {
-                    crumbs += '<a href="' + breadcrumbs[i].href + '" title="' + breadcrumbs[i].title + '" data-remodal-target="modal" data-stack-index="' + i + '">';
-                    crumbs +=       breadcrumbs[i].title;
-                    crumbs += '</a>';
-                    if (i < breadcrumbs.length - 1) {
-                        crumbs += '<span class="glyphicon glyphicon-chevron-right"></span>';
+                    // if we just clicked one of the crumbs then pop everything off the stack on top of it
+                    var stackIndex = $(event.target).attr("data-stack-index");
+                    if (stackIndex > -1) {
+                        breadcrumbs = breadcrumbs.slice(0, stackIndex);
                     }
-                }
-                $('#breadcrumbs').html(crumbs)
 
-                breadcrumbs.push({title: title, href: href})
+                    breadcrumbs.push({title: title, href: href})
+
+                    var crumbs = '';
+                    for (var i = 0; i < breadcrumbs.length; i++) {
+                        if (i < breadcrumbs.length - 1 ) {
+                            crumbs += '<a href="' + breadcrumbs[i].href + '" title="' + breadcrumbs[i].title + '" data-remodal-target="modal" data-stack-index="' + i + '">';
+                            crumbs +=       breadcrumbs[i].title;
+                            crumbs += '</a>';
+                            crumbs += '<span class="glyphicon glyphicon-chevron-right"></span>';
+                        } else {
+                            crumbs += breadcrumbs[i].title;
+                        }
+                    }
+                    $('#breadcrumbs').html(crumbs)
+                }
             });
         });
 
         $(document).on('closed', '.remodal', function () {
             breadcrumbs = [];
+            $('#remodal .remodal-content').html('')
         });
     });
 </script>
