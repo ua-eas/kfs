@@ -383,10 +383,12 @@ footer {
     color: #C76247;
 }
 
+#dashboard .widget table td.status.final,
 #dashboard .widget table td.status.paid {
     color: #48A073;
 }
 
+#dashboard .widget table td.status.enroute,
 #dashboard .widget table td.status.open {
     color: #BD9C21;
 }
