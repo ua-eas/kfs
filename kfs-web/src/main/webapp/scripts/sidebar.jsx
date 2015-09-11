@@ -85,16 +85,36 @@ var Sidebar = React.createClass({
     }
 });
 
+var filterLinks = function(links, type) {
+    return links.filter(function(link) {
+        return link.type === type
+    }).map((link, i) => {
+        let className = 'list-group-item ' + link.type
+        return <Link key={type + "_" + i} url={link.link} label={link.label} className={className}/>
+    })
+}
+
 var LinkGroup = React.createClass({
     render() {
         let label = this.props.group.label
         label = label.replace('&', '')
         let id = label.toLowerCase().replace(/\s+/g, "-")
         id = id.replace('&', 'and')
-        let links = this.props.group.links.map((link, i) => {
-            let className = 'list-group-item ' + link.type
-            return <Link key={i} url={link.link} label={link.label} className={className}/>
-        })
+
+        let activitiesLinks = filterLinks(this.props.group.links, "activities")
+        let referenceLinks = filterLinks(this.props.group.links, "reference")
+        let administrationLinks = filterLinks(this.props.group.links, "administration")
+
+        let links = []
+        if (activitiesLinks.length > 0) {
+            links = links.concat([<h4 key="activitiesLabel" className="activities">Activities</h4>]).concat(activitiesLinks)
+        }
+        if (referenceLinks.length > 0) {
+            links = links.concat([<h4 key="referencesLabel" className="reference">Reference</h4>]).concat(referenceLinks)
+        }
+        if (administrationLinks.length > 0) {
+            links = links.concat([<h4 key="administrationLabel" className="administration">Administration</h4>]).concat(administrationLinks)
+        }
 
         let panelClassName = "panel list-item"
         let indicatorClassName = "indicator glyphicon pull-right"
@@ -122,6 +142,10 @@ var LinkGroup = React.createClass({
     }
 });
 
+var filterLink = function(link, type) {
+    return link.type === type
+}
+
 var LinkFilter = React.createClass({
     getInitialState() {
         return { checked: ['activities', 'reference', 'administration'] }
@@ -135,7 +159,7 @@ var LinkFilter = React.createClass({
             newChecked.splice(index, 1)
         }
         this.setState({checked: newChecked})
-        $('#sidebar a.' + type).toggle();
+        $('#sidebar .' + type).toggle();
     },
     render() {
         let activitiesChecked = this.state.checked.indexOf('activities') != -1
@@ -143,9 +167,9 @@ var LinkFilter = React.createClass({
         let administrationChecked = this.state.checked.indexOf('administration') != -1
         return (
             <div id="linkFilter">
-                <input onClick={this.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label for="activities">Activities</label>
-                <input onClick={this.modifyLinkFilter.bind(null, 'reference')} type="checkbox" value="reference" value="reference" name="linkFilter" checked={referenceChecked}/><label for="reference">Reference</label>
-                <input onClick={this.modifyLinkFilter.bind(null, 'administration')} type="checkbox" value="administration" value="administration" name="linkFilter" checked={administrationChecked}/><label for="administration">Administration</label>
+                <input onChange={this.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label htmlFor="activities">Activities</label>
+                <input onChange={this.modifyLinkFilter.bind(null, 'reference')} type="checkbox" id="reference" value="reference" name="linkFilter" checked={referenceChecked}/><label htmlFor="reference">Reference</label>
+                <input onChange={this.modifyLinkFilter.bind(null, 'administration')} type="checkbox" id="administration" value="administration" name="linkFilter" checked={administrationChecked}/><label htmlFor="administration">Administration</label>
             </div>
         )
     }

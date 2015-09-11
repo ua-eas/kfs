@@ -160,21 +160,22 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected Map<String, String> transformLink(Map<String, String> link) {
+        Map<String, String> linkInfo = new ConcurrentHashMap<>();
+
         if (link.containsKey("documentTypeCode")) {
             final String documentTypeName = link.remove("documentTypeCode");
-            final Map<String, String> linkInfo = determineLinkInfo(documentTypeName);
+            linkInfo = determineLinkInfo(documentTypeName);
+        } else if (StringUtils.isNotBlank(link.get("link"))) {
+            linkInfo.put("link", fixRelativeLink(link.get("link")));
+            linkInfo.put("label", link.get("label"));
+        }
+
+        if (linkInfo.containsKey("label")) {
             linkInfo.put("type", link.get("type"));
             linkInfo.put("linkType", link.get("linkType"));
-            return linkInfo;
-        } else if (StringUtils.isNotBlank(link.get("link"))) {
-            Map<String, String> newLink = new ConcurrentHashMap<>();
-            newLink.put("link", fixRelativeLink(link.get("link")));
-            newLink.put("label", link.get("label"));
-            newLink.put("type", link.get("type"));
-            newLink.put("linkType", link.get("linkType"));
-            return newLink;
         }
-        return new ConcurrentHashMap<>();
+
+        return linkInfo;
     }
 
     protected String fixRelativeLink(String link) {
