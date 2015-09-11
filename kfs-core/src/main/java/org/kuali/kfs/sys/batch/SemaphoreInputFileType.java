@@ -31,6 +31,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.BatchStepFileDescriptor;
 import org.kuali.kfs.sys.exception.ParseException;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.MessageMap;
 

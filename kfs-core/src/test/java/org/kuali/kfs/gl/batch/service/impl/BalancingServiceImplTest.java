@@ -40,7 +40,7 @@ import org.kuali.kfs.gl.dataaccess.LedgerEntryHistoryBalancingDao;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.batch.BatchSpringContext;
-import org.kuali.kfs.sys.batch.Step;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.krad.service.BusinessObjectService;

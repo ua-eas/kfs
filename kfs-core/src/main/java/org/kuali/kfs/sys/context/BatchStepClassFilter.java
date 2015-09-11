@@ -20,7 +20,7 @@ package org.kuali.kfs.sys.context;
 
 import java.lang.reflect.Proxy;
 
-import org.kuali.kfs.sys.batch.Step;
+import org.kuali.kfs.kns.bo.Step;
 import org.springframework.aop.ClassFilter;
 
 /**

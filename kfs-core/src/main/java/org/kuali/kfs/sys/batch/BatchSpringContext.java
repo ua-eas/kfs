@@ -18,8 +18,7 @@
  */
 package org.kuali.kfs.sys.batch;
 
-import java.util.Map;
-
+import org.kuali.kfs.kns.bo.Step;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.context.SpringContext;
 

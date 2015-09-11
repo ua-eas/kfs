@@ -35,6 +35,7 @@ import org.kuali.kfs.sys.context.BatchContainerDirectory;
 import org.kuali.kfs.sys.context.BatchStepExecutor;
 import org.kuali.kfs.sys.context.BatchStepFileDescriptor;
 import org.kuali.kfs.sys.context.ContainerStepListener;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 

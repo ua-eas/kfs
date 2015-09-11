@@ -23,7 +23,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.MemoryMonitor;
-import org.kuali.kfs.sys.batch.Step;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
