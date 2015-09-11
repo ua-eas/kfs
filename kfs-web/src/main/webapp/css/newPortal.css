@@ -278,6 +278,17 @@ nav ul.nav li {
     padding: 13px 0;
 }
 
+#linkFilter input {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+#linkFilter label {
+    padding-right: 20px;
+    font-size: 13px;
+    font-weight: 300;
+}
+
 .nav a:link,
 .header a:link {
     text-decoration: none;

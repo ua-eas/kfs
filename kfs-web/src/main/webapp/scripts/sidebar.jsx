@@ -76,6 +76,7 @@ var Sidebar = React.createClass({
             <div>
                 <ul id="accordion" className="nav list-group accordion accordion-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
+                    <li><LinkFilter/></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
@@ -87,7 +88,9 @@ var Sidebar = React.createClass({
 var LinkGroup = React.createClass({
     render() {
         let label = this.props.group.label
+        label = label.replace('&', '')
         let id = label.toLowerCase().replace(/\s+/g, "-")
+        id = id.replace('&', 'and')
         let links = this.props.group.links.map((link, i) => {
             return <Link key={i} url={link.link} label={link.label} className="list-group-item"/>
         })
@@ -114,6 +117,18 @@ var LinkGroup = React.createClass({
                     {links}
                 </div>
             </li>
+        )
+    }
+});
+
+var LinkFilter = React.createClass({
+    render() {
+        return (
+            <div id="linkFilter">
+                <input type="checkbox" id="activities" value="activities" name="linkFilter"/><label for="activities">Activities</label>
+                <input type="checkbox" value="reference" value="reference" name="linkFilter"/><label for="reference">Reference</label>
+                <input type="checkbox" value="administration" value="administration" name="linkFilter"/><label for="administration">Administration</label>
+            </div>
         )
     }
 });
