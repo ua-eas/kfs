@@ -1,14 +1,8 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.dataaccess.PreferencesDao;
-import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.sys.service.PreferencesService;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.document.Document;
@@ -19,6 +13,11 @@ import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.dataaccess.PreferencesDao;
+import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.kfs.sys.service.PreferencesService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,11 +163,15 @@ public class PreferencesServiceImpl implements PreferencesService {
         if (link.containsKey("documentTypeCode")) {
             final String documentTypeName = link.remove("documentTypeCode");
             final Map<String, String> linkInfo = determineLinkInfo(documentTypeName);
+            linkInfo.put("type", link.get("type"));
+            linkInfo.put("linkType", link.get("linkType"));
             return linkInfo;
         } else if (StringUtils.isNotBlank(link.get("link"))) {
             Map<String, String> newLink = new ConcurrentHashMap<>();
             newLink.put("link", fixRelativeLink(link.get("link")));
             newLink.put("label", link.get("label"));
+            newLink.put("type", link.get("type"));
+            newLink.put("linkType", link.get("linkType"));
             return newLink;
         }
         return new ConcurrentHashMap<>();

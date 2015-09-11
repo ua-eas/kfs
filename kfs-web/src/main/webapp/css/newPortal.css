@@ -74,6 +74,7 @@ header.navbar .navbar-brand .institution-name {
     width: 100%;
     background-color: #D44E2B;
     padding: 4px 15px;
+    z-index: 900;
 }
 
 #test-header .test-info .column {
@@ -205,7 +206,7 @@ nav ul.nav li {
     margin-left: -260px;
 }
 
-#sidebar ul>li:nth-child(2) {
+#sidebar ul>li:nth-child(3) {
     border-top: 1px solid #6a6a6a;
 }
 

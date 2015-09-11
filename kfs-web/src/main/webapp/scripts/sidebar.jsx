@@ -92,7 +92,8 @@ var LinkGroup = React.createClass({
         let id = label.toLowerCase().replace(/\s+/g, "-")
         id = id.replace('&', 'and')
         let links = this.props.group.links.map((link, i) => {
-            return <Link key={i} url={link.link} label={link.label} className="list-group-item"/>
+            let className = 'list-group-item ' + link.type
+            return <Link key={i} url={link.link} label={link.label} className={className}/>
         })
 
         let panelClassName = "panel list-item"
@@ -122,12 +123,29 @@ var LinkGroup = React.createClass({
 });
 
 var LinkFilter = React.createClass({
+    getInitialState() {
+        return { checked: ['activities', 'reference', 'administration'] }
+    },
+    modifyLinkFilter(type) {
+        let newChecked = this.state.checked
+        let index = newChecked.indexOf(type)
+        if (index === -1) {
+            newChecked.push(type)
+        } else {
+            newChecked.splice(index, 1)
+        }
+        this.setState({checked: newChecked})
+        $('#sidebar a.' + type).toggle();
+    },
     render() {
+        let activitiesChecked = this.state.checked.indexOf('activities') != -1
+        let referenceChecked = this.state.checked.indexOf('reference') != -1
+        let administrationChecked = this.state.checked.indexOf('administration') != -1
         return (
             <div id="linkFilter">
-                <input type="checkbox" id="activities" value="activities" name="linkFilter"/><label for="activities">Activities</label>
-                <input type="checkbox" value="reference" value="reference" name="linkFilter"/><label for="reference">Reference</label>
-                <input type="checkbox" value="administration" value="administration" name="linkFilter"/><label for="administration">Administration</label>
+                <input onClick={this.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label for="activities">Activities</label>
+                <input onClick={this.modifyLinkFilter.bind(null, 'reference')} type="checkbox" value="reference" value="reference" name="linkFilter" checked={referenceChecked}/><label for="reference">Reference</label>
+                <input onClick={this.modifyLinkFilter.bind(null, 'administration')} type="checkbox" value="administration" value="administration" name="linkFilter" checked={administrationChecked}/><label for="administration">Administration</label>
             </div>
         )
     }
