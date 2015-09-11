@@ -139,6 +139,18 @@ header.navbar .navbar-brand .institution-name {
     flex: 1;
 }
 
+#content-overlay {
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+}
+
+#content-overlay.visible {
+    display: inherit;
+}
+
 #headerarea {
     position: relative;
 }
@@ -263,20 +275,23 @@ nav ul.nav li {
 #sidebar .nav li.panel {
     background-color: #5b5b5b;
     margin-bottom: 0;
+    position: relative;
 }
 
 #sidebar .nav li.panel a {
     border: none;
     background-color: #5b5b5b;
-    color: #FFF;
+    color: #ffffff;
     text-transform: uppercase;
     font-size: 14px;
 }
 
-#sidebar .nav li>a,
-#sidebar .nav li>div {
-    margin-left: 10px;
-    padding: 13px 0;
+#sidebar .nav li>a {
+    padding: 13px 0 13px 25px;
+}
+
+#linkFilter {
+    padding: 15px;
 }
 
 #linkFilter input {
@@ -285,9 +300,13 @@ nav ul.nav li {
 }
 
 #linkFilter label {
-    padding-right: 20px;
+    padding-right: 21px;
     font-size: 13px;
     font-weight: 300;
+}
+
+#linkFilter label:last-child {
+    padding-right: 0;
 }
 
 .nav a:link,
@@ -295,29 +314,47 @@ nav ul.nav li {
     text-decoration: none;
 }
 
-#sidebar .nav li a span.glyphicon {
-    color: #858585;
-    padding-right: 25px;
-}
-
 #sidebar .nav li .sublinks {
-    padding-top: 0;
+    position: absolute;
+    right: -321px;
+    top: -1px;
+    background-color: #F5F5F5;
+    padding: 10px 0;
+    z-index: 1;
+    width: 320px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
 }
 
-#sidebar .nav li .sublinks a {
-    padding: 12px 20px;
-    text-transform: none;
-    color: #C1C1C1;
-}
-
+#sidebar .nav li.panel.active,
 #sidebar .nav li.panel.active a,
-#sidebar .nav li.panel.active {
-    background-color: #505050;
+#sidebar .nav li.panel .sublinks a,
+#sidebar .nav li.panel .sublinks h4 {
+    background-color: #F5F5F5;
+    color: #555555;
 }
 
-#sidebar .nav li.active,
-#sidebar .nav li.before-active {
-    border-bottom: 1px solid #505050;
+#sidebar .nav li .sublinks a,
+#sidebar .nav li.panel .sublinks h4 {
+    margin: 0;
+    padding: 5px 20px;
+    text-transform: none;
+    color: #333333;
+}
+
+#sidebar .nav li.panel .sublinks h4 {
+    color: #969696;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid #969696;
+    margin: 0 20px;
+    padding-left: 0;
+}
+
+#sidebar .nav li.panel {
+    border-radius: 0;
 }
 
 footer {

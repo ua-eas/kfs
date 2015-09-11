@@ -33,8 +33,10 @@ var Sidebar = React.createClass({
         let curExpandedGroup = this.state.expandedLinkGroup
         if (curExpandedGroup === label) {
             this.setState({expandedLinkGroup: ""})
+            $('#content-overlay').removeClass('visible')
         } else {
             this.setState({expandedLinkGroup: label})
+            $('#content-overlay').addClass('visible')
         }
     },
     toggleSidebar() {
@@ -53,15 +55,13 @@ var Sidebar = React.createClass({
         let rootPath = KfsUtils.getUrlPathPrefix()
         let linkGroups = []
         if (this.state.institutionPreferences.linkGroups) {
-            let beforeActive = findLabelBeforeActive(this.state.institutionPreferences.linkGroups, this.state.expandedLinkGroup)
             let groups = this.state.institutionPreferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(
                     <LinkGroup key={i}
                                group={groups[i]}
                                handleClick={this.toggleAccordion}
-                               expandedLinkGroup={this.state.expandedLinkGroup}
-                               beforeActive={beforeActive}/>
+                               expandedLinkGroup={this.state.expandedLinkGroup}/>
                 )
             }
         }
@@ -117,22 +117,14 @@ var LinkGroup = React.createClass({
         }
 
         let panelClassName = "panel list-item"
-        let indicatorClassName = "indicator glyphicon pull-right"
         if (this.props.expandedLinkGroup === label) {
             panelClassName += " active"
-            indicatorClassName += " glyphicon-menu-up"
-        } else {
-            if (this.props.beforeActive === label) {
-                panelClassName += " before-active"
-            }
-            indicatorClassName += " glyphicon-menu-down"
         }
 
         return (
             <li className={panelClassName}>
                 <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(null, label)}>
                     <span>{label}</span>
-                    <span className={indicatorClassName}></span>
                 </a>
                 <div id={id + "-menu"} className="sublinks collapse">
                     {links}
@@ -141,10 +133,6 @@ var LinkGroup = React.createClass({
         )
     }
 });
-
-var filterLink = function(link, type) {
-    return link.type === type
-}
 
 var LinkFilter = React.createClass({
     getInitialState() {
@@ -174,14 +162,6 @@ var LinkFilter = React.createClass({
         )
     }
 });
-
-function findLabelBeforeActive(linkGroups, expandedLinkGroup) {
-    for (let i = 0; i < linkGroups.length; i++) {
-        if (linkGroups[i].label === expandedLinkGroup && i > 0) {
-            return linkGroups[i-1].label
-        }
-    }
-}
 
 React.render(
     <Sidebar/>,
