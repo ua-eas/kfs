@@ -40,7 +40,7 @@ import org.kuali.kfs.sys.batch.JobDescriptor;
 import org.kuali.kfs.sys.batch.JobListener;
 import org.kuali.kfs.sys.batch.ScheduleStep;
 import org.kuali.kfs.sys.batch.SimpleTriggerDescriptor;
-import org.kuali.kfs.sys.batch.Step;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BatchModuleService;

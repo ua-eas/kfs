@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.NDC;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.Job;
-import org.kuali.kfs.sys.batch.Step;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;

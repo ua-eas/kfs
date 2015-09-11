@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.quartz.JobDetail;
 

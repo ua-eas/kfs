@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.kuali.kfs.kns.bo.Step;
 import org.quartz.JobDetail;
 import org.springframework.beans.factory.BeanNameAware;
 
