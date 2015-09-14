@@ -77,6 +77,10 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>DummyLoginFilter</filter-name>
+        <url-pattern>/sys/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DummyLoginFilter</filter-name>
         <url-pattern>/purap/*</url-pattern>
     </filter-mapping>
 
@@ -483,6 +487,11 @@
         </web-resource-collection>
         <auth-constraint />
     </security-constraint>
+
+    <error-page>
+        <exception-type>org.kuali.kfs.krad.exception.AuthenticationException</exception-type>
+        <location>/autherror.html</location>
+    </error-page>
 
     <error-page>
         <location>/error.html</location>
