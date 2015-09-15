@@ -329,7 +329,7 @@ nav ul.nav li {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     max-height: 550px;
-
+    min-height: 75px;
 }
 
 #sidebar .nav li .sublinks.col-3 {

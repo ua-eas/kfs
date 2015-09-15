@@ -38,7 +38,7 @@ var Sidebar = React.createClass({
             this.setState({expandedLinkGroup: label})
             $('#content-overlay').addClass('visible')
             $('html').one('click',function(event) {
-                if (!$(event.target).closest('li.panel.active').length) {
+                if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
                     $('li.panel.active').removeClass('active')
                     $('#content-overlay').removeClass('visible')
                 }
