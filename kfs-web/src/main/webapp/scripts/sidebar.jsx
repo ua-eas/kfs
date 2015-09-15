@@ -149,7 +149,6 @@ var determinePanelClassName = function(expandedLinkGroup, label) {
 var LinkGroup = React.createClass({
     render() {
         let label = this.props.group.label
-        label = label.replace('&', '')
         let id = label.toLowerCase().replace(/\s+/g, "-")
         id = id.replace('&', 'and')
 
