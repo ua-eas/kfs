@@ -228,7 +228,7 @@ nav ul.nav li {
     border-bottom: 1px solid #6a6a6a;
     font-size: 14px;
     text-transform: uppercase;
-    transition: 500ms all;
+    transition: opacity 500ms;
     opacity: 1;
 }
 
