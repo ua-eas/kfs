@@ -1,26 +1,31 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.dataaccess.PreferencesDao;
-import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.sys.service.PreferencesService;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.maintenance.MaintenanceDocument;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.dataaccess.PreferencesDao;
+import org.kuali.kfs.sys.service.NonTransactional;
+import org.kuali.kfs.sys.service.PreferencesService;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,13 +59,13 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     @Override
-    public Map<String, Object> findInstitutionPreferences() {
+    public Map<String, Object> findInstitutionPreferences(Person person) {
         LOG.debug("findInstitutionPreferences() started");
 
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
 
         appendMenuProperties(institutionPreferences);
-        transformLinks(institutionPreferences);
+        transformLinks(institutionPreferences,person);
 
         return institutionPreferences;
     }
@@ -119,9 +124,9 @@ public class PreferencesServiceImpl implements PreferencesService {
         institutionPreferences.put("docSearchUrl", docSearchUrl);
     }
 
-    protected void transformLinks(Map<String, Object> institutionPreferences) {
+    protected void transformLinks(Map<String, Object> institutionPreferences,Person person) {
         for(Map<String, Object> linkGroup : getLinkGroups(institutionPreferences)) {
-            transformLinksInLinkGroup(linkGroup);
+            transformLinksInLinkGroup(linkGroup,person);
         }
 
         for (Map<String, String> menuItem: getMenuItems(institutionPreferences)) {
@@ -147,9 +152,9 @@ public class PreferencesServiceImpl implements PreferencesService {
         return new ArrayList<>();
     }
 
-    protected void transformLinksInLinkGroup(Map<String, Object> linkGroup) {
+    protected void transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
         List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
-            return transformLink(link);
+            return transformLink(link,person);
         }).filter((Map<String, String> link) -> {
             return link.containsKey("label") && !StringUtils.isBlank(link.get("label")) && link.containsKey("link") && !StringUtils.isBlank(link.get("link"));
         }).collect(Collectors.toList());
@@ -160,10 +165,10 @@ public class PreferencesServiceImpl implements PreferencesService {
         return (List<Map<String, String>>)linkGroup.get("links");
     }
 
-    protected Map<String, String> transformLink(Map<String, String> link) {
+    protected Map<String, String> transformLink(Map<String, String> link,Person person) {
         if (link.containsKey("documentTypeCode")) {
             final String documentTypeName = link.remove("documentTypeCode");
-            final Map<String, String> linkInfo = determineLinkInfo(documentTypeName);
+            final Map<String, String> linkInfo = determineLinkInfo(documentTypeName,person);
             return linkInfo;
         } else if (StringUtils.isNotBlank(link.get("link"))) {
             Map<String, String> newLink = new ConcurrentHashMap<>();
@@ -182,18 +187,42 @@ public class PreferencesServiceImpl implements PreferencesService {
         return link;
     }
 
-    protected Map<String, String> determineLinkInfo(String documentTypeName) {
+    protected Map<String, String> determineLinkInfo(String documentTypeName,Person person) {
         final String label = documentDictionaryService.getLabel(documentTypeName);
         final Class<? extends Document> documentClass = (Class<? extends Document>)documentDictionaryService.getDocumentClassByName(documentTypeName);
         String link = StringUtils.EMPTY;
         if (!ObjectUtils.isNull(documentClass)) {
             if (TransactionalDocument.class.isAssignableFrom(documentClass)) {
-                link = constructTransactionalDocumentLinkFromClass(documentClass, documentTypeName);
+                if ( canInitiateDocument(documentTypeName,person) ) {
+                    link = constructTransactionalDocumentLinkFromClass(documentClass, documentTypeName);
+                }
             } else if (MaintenanceDocument.class.isAssignableFrom(documentClass)) {
-                link = constructMaintenanceDocumentLinkFromClass(documentTypeName);
+                final Class<?> businessObjectClass = documentDictionaryService.getMaintenanceDataObjectClass(documentTypeName);
+                if (GlobalBusinessObject.class.isAssignableFrom(businessObjectClass)) {
+                    if ( canInitiateDocument(documentTypeName,person) ) {
+                        link = constructGlobalMaintenanceDocumentLinkFromClass(businessObjectClass);
+                    }
+                } else {
+                    if ( canViewMaintableBusinessObjectLookup(businessObjectClass,person) ) {
+                        link = constructMaintainableBusinessObjectLookupLinkFromClass(businessObjectClass);
+                    }
+                }
             }
         }
         return constructLinkInfo(label, link);
+    }
+
+    protected boolean canInitiateDocument(String documentTypeName,Person person) {
+        DocumentAuthorizer documentAuthorizer = documentDictionaryService.getDocumentAuthorizer(documentTypeName);
+        return documentAuthorizer.canInitiate(documentTypeName,person);
+    }
+
+    protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass,Person person) {
+        return KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(
+                person.getPrincipalId(), KRADConstants.KNS_NAMESPACE,
+                KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
+                KRADUtils.getNamespaceAndComponentSimpleName(businessObjectClass),
+                Collections.<String, String>emptyMap());
     }
 
     protected String constructTransactionalDocumentLinkFromClass(Class<? extends Document> documentClass, String documentTypeName) {
@@ -201,13 +230,14 @@ public class PreferencesServiceImpl implements PreferencesService {
         return applicationUrl + "/" + determineUrlNameForClass(documentClass) + transformClassName(documentClass) + ".do?methodToCall=docHandler&command=initiate&docTypeName="+documentTypeName;
     }
 
-    protected String constructMaintenanceDocumentLinkFromClass(String documentTypeName) {
+    protected String constructMaintainableBusinessObjectLookupLinkFromClass(Class<?> businessObjectClass) {
         final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
-        final Class<?> businessObjectClass = documentDictionaryService.getMaintenanceDataObjectClass(documentTypeName);
-        if (GlobalBusinessObject.class.isAssignableFrom(businessObjectClass)) {
-            return applicationUrl + "/kr/maintenance.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&hideReturnLink=true";
-        }
         return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&docFormKey=88888888&returnLocation=" + applicationUrl + "/index.jsp&hideReturnLink=true";
+    }
+
+    protected String constructGlobalMaintenanceDocumentLinkFromClass(Class<?> businessObjectClass) {
+        final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+        return applicationUrl + "/kr/maintenance.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&hideReturnLink=true";
     }
 
     protected String transformClassName(Class<? extends Document> documentClass) {
