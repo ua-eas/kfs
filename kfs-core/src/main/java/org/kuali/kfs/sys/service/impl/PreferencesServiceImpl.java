@@ -26,6 +26,7 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -125,8 +126,12 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected void transformLinks(Map<String, Object> institutionPreferences,Person person) {
-        for(Map<String, Object> linkGroup : getLinkGroups(institutionPreferences)) {
-            transformLinksInLinkGroup(linkGroup,person);
+        Iterator<Map<String,Object>> i = getLinkGroups(institutionPreferences).iterator();
+        while ( i.hasNext() ) {
+            Map<String,Object> linkGroup = i.next();
+            if ( ! transformLinksInLinkGroup(linkGroup,person) ) {
+                i.remove();
+            }
         }
 
         for (Map<String, String> menuItem: getMenuItems(institutionPreferences)) {
@@ -152,13 +157,20 @@ public class PreferencesServiceImpl implements PreferencesService {
         return new ArrayList<>();
     }
 
-    protected void transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
+    /**
+     * Filter out links that the user does not have permission to view, build links for document types
+     * @param linkGroup
+     * @param person
+     * @return true if the group contains links, false if it is empty
+     */
+    protected boolean transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
         List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
             return transformLink(link,person);
         }).filter((Map<String, String> link) -> {
             return link.containsKey("label") && !StringUtils.isBlank(link.get("label")) && link.containsKey("link") && !StringUtils.isBlank(link.get("link"));
         }).collect(Collectors.toList());
         linkGroup.put("links", updatedLinks);
+        return updatedLinks.size() > 0;
     }
 
     protected List<Map<String, String>> getLinks(Map<String, Object> linkGroup) {
