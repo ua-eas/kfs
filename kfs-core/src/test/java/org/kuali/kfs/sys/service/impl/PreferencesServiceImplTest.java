@@ -26,6 +26,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.springframework.beans.BeansException;
@@ -66,7 +67,7 @@ public class PreferencesServiceImplTest {
         });
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNull("Link Groups should not exist", preferences.get("linkGroups"));
@@ -87,7 +88,7 @@ public class PreferencesServiceImplTest {
         });
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include an action list url", preferences.containsKey("actionListUrl"));
@@ -109,7 +110,7 @@ public class PreferencesServiceImplTest {
         });
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a signoutUrl", preferences.containsKey("signoutUrl"));
@@ -131,7 +132,7 @@ public class PreferencesServiceImplTest {
         });
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a doc search url", preferences.containsKey("actionListUrl"));
@@ -165,7 +166,7 @@ public class PreferencesServiceImplTest {
         });
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a help url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Help")));
@@ -212,7 +213,7 @@ public class PreferencesServiceImplTest {
         });
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a feedback url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Feedback")));
@@ -221,7 +222,17 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_HealthyLinkGroup() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
+            @Override
+            protected boolean canInitiateDocument(String documentTypeName, Person person) {
+                return true;
+            }
+
+            @Override
+            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+                return true;
+            }
+        };
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -252,7 +263,7 @@ public class PreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -264,7 +275,17 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_TransactionalDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
+            @Override
+            protected boolean canInitiateDocument(String documentTypeName, Person person) {
+                return true;
+            }
+
+            @Override
+            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+                return true;
+            }
+        };
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -295,7 +316,7 @@ public class PreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -314,7 +335,17 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_MissingDocumentTypeReturnsNoLink() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
+            @Override
+            protected boolean canInitiateDocument(String documentTypeName, Person person) {
+                return true;
+            }
+
+            @Override
+            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+                return true;
+            }
+        };
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -353,7 +384,7 @@ public class PreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -367,7 +398,17 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_MaintenanceDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
+            @Override
+            protected boolean canInitiateDocument(String documentTypeName, Person person) {
+                return true;
+            }
+
+            @Override
+            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+                return true;
+            }
+        };
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -398,7 +439,7 @@ public class PreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -418,7 +459,17 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_GlobalMaintenanceDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
+            @Override
+            protected boolean canInitiateDocument(String documentTypeName, Person person) {
+                return true;
+            }
+
+            @Override
+            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+                return true;
+            }
+        };
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -449,7 +500,7 @@ public class PreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -501,7 +552,7 @@ public class PreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));

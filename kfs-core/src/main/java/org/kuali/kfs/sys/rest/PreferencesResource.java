@@ -3,6 +3,7 @@ package org.kuali.kfs.sys.rest;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.PreferencesService;
 import org.kuali.kfs.sys.web.WebUtilities;
+import org.kuali.rice.kim.api.identity.Person;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -32,7 +33,7 @@ public class PreferencesResource {
     public Response getGroupedJobs() {
         LOG.debug("getGroupedJobs() started");
 
-        Map<String, Object> preferences = getPreferencesService().findInstitutionPreferences();
+        Map<String, Object> preferences = getPreferencesService().findInstitutionPreferences(getPerson());
         return Response.ok(preferences).build();
     }
 
@@ -41,7 +42,7 @@ public class PreferencesResource {
     public Response getUserPreferences(@PathParam("principalName")String principalName) {
         LOG.debug("getUserPreferences() started");
 
-        String loggedinPrincipalName = getPrincipalName();
+        String loggedinPrincipalName = getPerson().getPrincipalName();
 
         if ( loggedinPrincipalName.equals(principalName) ) {
             Map<String, Object> preferences = getPreferencesService().getUserPreferences(principalName);
@@ -59,7 +60,7 @@ public class PreferencesResource {
     public Response saveUserPreferences(@PathParam("principalName")String principalName,String preferences) {
         LOG.debug("saveUserPreferences() started");
 
-        String loggedinPrincipalName = getPrincipalName();
+        String loggedinPrincipalName = getPerson().getPrincipalName();
 
         if ( loggedinPrincipalName.equals(principalName) ) {
             getPreferencesService().saveUserPreferences(loggedinPrincipalName,preferences);
@@ -74,7 +75,7 @@ public class PreferencesResource {
     public Response saveUserPreferenceKey(@PathParam("principalName")String principalName,@PathParam("key")String key,String preferences) {
         LOG.debug("saveUserPreferenceKey() started");
 
-        String loggedinPrincipalName = getPrincipalName();
+        String loggedinPrincipalName = getPerson().getPrincipalName();
 
         LOG.fatal("Prefs: " + preferences);
 
@@ -86,8 +87,8 @@ public class PreferencesResource {
         }
     }
 
-    private String getPrincipalName() {
-        return WebUtilities.retrieveUserSession(servletRequest).getPrincipalName();
+    private Person getPerson() {
+        return WebUtilities.retrieveUserSession(servletRequest).getPerson();
     }
 
     protected PreferencesService getPreferencesService() {
