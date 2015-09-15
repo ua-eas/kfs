@@ -39,21 +39,20 @@ var Sidebar = React.createClass({
         }
         this.setState({checkedLinkFilters: newChecked})
     },
-    toggleAccordion(label) {
-        let curExpandedGroup = this.state.expandedLinkGroup
-        if (curExpandedGroup === label) {
+    toggleLinkGroup(label) {
+        if (this.state.expandedLinkGroup === label) {
             this.setState({expandedLinkGroup: ""})
             $('#content-overlay').removeClass('visible')
             $('html').off('click','**')
         } else {
             this.setState({expandedLinkGroup: label})
             $('#content-overlay').addClass('visible')
-            let thisAccordian = this
+            let sidebar = this
             $('html').on('click',function(event) {
                 if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
                     $('li.panel.active').removeClass('active')
                     $('#content-overlay').removeClass('visible')
-                    thisAccordian.setState({expandedLinkGroup: ""})
+                    sidebar.setState({expandedLinkGroup: ""})
                 }
             });
         }
@@ -79,7 +78,7 @@ var Sidebar = React.createClass({
                 linkGroups.push(
                     <LinkGroup key={i}
                         group={groups[i]}
-                        handleClick={this.toggleAccordion}
+                        handleClick={this.toggleLinkGroup}
                         expandedLinkGroup={this.state.expandedLinkGroup}
                         checkedLinkFilters={this.state.checkedLinkFilters}/>
                 )
@@ -94,7 +93,7 @@ var Sidebar = React.createClass({
 
         return (
             <div>
-                <ul id="accordion" className="nav list-group accordion accordion-group">
+                <ul id="linkgroups" className="nav list-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
                     <li className="list-item"><LinkFilter checkedLinkFilters={this.state.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
@@ -109,9 +108,42 @@ var filterLinks = function(links, type) {
     return links.filter(function(link) {
         return link.type === type
     }).map((link, i) => {
-        let className = 'list-group-item ' + link.type
-        return <Link key={type + "_" + i} url={link.link} label={link.label} className={className}/>
+        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item"/>
     })
+}
+
+var buildDisplayLinks = function(links, type, checkedLinkFilters) {
+    let displayLinks = []
+    if (checkedLinkFilters.indexOf(type) != -1) {
+        displayLinks = filterLinks(links, type)
+    }
+    return displayLinks
+}
+
+var addHeading = function(links, type) {
+    let newLinks = []
+    if (links.length > 0) {
+        newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links)
+    }
+    return newLinks
+}
+
+var determineSublinkClass = function(links, headingCount) {
+    let sublinksClass = "sublinks collapse"
+    if (links.length > (36 - headingCount)) {
+        sublinksClass += " col-3"
+    } else if (links.length > (18 - headingCount)) {
+        sublinksClass += " col-2"
+    }
+    return sublinksClass
+}
+
+var determinePanelClassName = function(expandedLinkGroup, label) {
+    let panelClassName = "panel list-item"
+    if (expandedLinkGroup === label) {
+        panelClassName += " active"
+    }
+    return panelClassName
 }
 
 var LinkGroup = React.createClass({
@@ -121,51 +153,21 @@ var LinkGroup = React.createClass({
         let id = label.toLowerCase().replace(/\s+/g, "-")
         id = id.replace('&', 'and')
 
-        let activitiesLinks = []
-        if (this.props.checkedLinkFilters.indexOf('activities') != -1) {
-            activitiesLinks = filterLinks(this.props.group.links, "activities")
-        }
+        let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters)
+        let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters)
+        let administrationLinks = buildDisplayLinks(this.props.group.links, 'administration', this.props.checkedLinkFilters)
 
-        let referenceLinks = []
-        if (this.props.checkedLinkFilters.indexOf('reference') != -1) {
-            referenceLinks = filterLinks(this.props.group.links, "reference")
-        }
+        let links = addHeading(activitiesLinks, 'Activities')
+        links = links.concat(addHeading(referenceLinks, 'Reference'))
+        links = links.concat(addHeading(administrationLinks, 'Administration'))
 
-        let administrationLinks = []
-        if (this.props.checkedLinkFilters.indexOf('administration') != -1) {
-            administrationLinks = filterLinks(this.props.group.links, "administration")
-        }
-
-        let links = []
-        let headingCount = 0
-        if (activitiesLinks.length > 0) {
-            links = links.concat([<h4 key="activitiesLabel" className="activities">Activities</h4>]).concat(activitiesLinks)
-            headingCount++
-        }
-        if (referenceLinks.length > 0) {
-            links = links.concat([<h4 key="referencesLabel" className="reference">Reference</h4>]).concat(referenceLinks)
-            headingCount++
-        }
-        if (administrationLinks.length > 0) {
-            links = links.concat([<h4 key="administrationLabel" className="administration">Administration</h4>]).concat(administrationLinks)
-            headingCount++
-        }
-
+        let headingCount = links.length - (activitiesLinks.length + referenceLinks.length + administrationLinks.length)
         if (headingCount > 0) {
             headingCount--
         }
 
-        let sublinksClass = "sublinks collapse"
-        if (links.length > (36 - headingCount)) {
-            sublinksClass += " col-3"
-        } else if (links.length > (18 - headingCount)) {
-            sublinksClass += " col-2"
-        }
-
-        let panelClassName = "panel list-item"
-        if (this.props.expandedLinkGroup === label) {
-            panelClassName += " active"
-        }
+        let sublinksClass = determineSublinkClass(links, headingCount)
+        let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label)
 
         if (links.length > 0) {
             return (
