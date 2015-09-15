@@ -106,14 +106,22 @@ var LinkGroup = React.createClass({
         let administrationLinks = filterLinks(this.props.group.links, "administration")
 
         let links = []
+        let headingCount = 0
         if (activitiesLinks.length > 0) {
             links = links.concat([<h4 key="activitiesLabel" className="activities">Activities</h4>]).concat(activitiesLinks)
+            headingCount++
         }
         if (referenceLinks.length > 0) {
             links = links.concat([<h4 key="referencesLabel" className="reference">Reference</h4>]).concat(referenceLinks)
+            headingCount++
         }
         if (administrationLinks.length > 0) {
             links = links.concat([<h4 key="administrationLabel" className="administration">Administration</h4>]).concat(administrationLinks)
+            headingCount++
+        }
+
+        if (headingCount > 0) {
+            headingCount--
         }
 
         let panelClassName = "panel list-item"
@@ -121,12 +129,19 @@ var LinkGroup = React.createClass({
             panelClassName += " active"
         }
 
+        let sublinksClass = "sublinks collapse"
+        if (links.length > (36 - headingCount)) {
+            sublinksClass += " col-3"
+        } else if (links.length > (18 - headingCount)) {
+            sublinksClass += " col-2"
+        }
+
         return (
             <li className={panelClassName}>
                 <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(null, label)}>
                     <span>{label}</span>
                 </a>
-                <div id={id + "-menu"} className="sublinks collapse">
+                <div id={id + "-menu"} className={sublinksClass}>
                     {links}
                 </div>
             </li>

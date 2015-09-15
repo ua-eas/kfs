@@ -316,15 +316,33 @@ nav ul.nav li {
 
 #sidebar .nav li .sublinks {
     position: absolute;
-    right: -321px;
-    top: -1px;
+    right: -361px;
+    top: -0.05em;
     background-color: #F5F5F5;
     padding: 10px 0;
     z-index: 1;
-    width: 320px;
+    width: 360px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
+    max-height: 550px;
+
+}
+
+#sidebar .nav li .sublinks.col-3 {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    right: -1081px;
+    width: 1080px;
+}
+
+#sidebar .nav li .sublinks.col-2 {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    right: -721px;
+    width: 720px;
 }
 
 #sidebar .nav li.panel.active,
@@ -341,6 +359,7 @@ nav ul.nav li {
     padding: 5px 20px;
     text-transform: none;
     color: #333333;
+    width: 320px;
 }
 
 #sidebar .nav li.panel .sublinks h4 {
@@ -351,6 +370,10 @@ nav ul.nav li {
     border-bottom: 1px solid #969696;
     margin: 0 20px;
     padding-left: 0;
+}
+
+#sidebar .nav li.panel .sublinks h4:not(:first-child) {
+    padding: 25px 20px 5px 0;
 }
 
 #sidebar .nav li.panel {
