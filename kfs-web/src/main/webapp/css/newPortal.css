@@ -329,7 +329,6 @@ nav ul.nav li {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     max-height: 550px;
-    min-height: 75px;
 }
 
 #sidebar .nav li .sublinks.col-3 {
@@ -387,7 +386,7 @@ nav ul.nav li {
 }
 
 #sidebar .nav li.panel .sublinks h4:not(:first-child) {
-    padding: 25px 20px 5px 0;
+    padding: 35px 20px 5px 0;
 }
 
 #sidebar .nav li.panel {

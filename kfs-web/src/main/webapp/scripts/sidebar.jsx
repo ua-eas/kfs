@@ -6,7 +6,7 @@ let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: ""}
+        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: "", checkedLinkFilters: ['activities', 'reference', 'administration']}
     },
     componentWillMount() {
         let institutionPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
@@ -29,22 +29,33 @@ var Sidebar = React.createClass({
             console.log("error getting preferences: " + error);
         });
     },
+    modifyLinkFilter(type) {
+        let newChecked = this.state.checkedLinkFilters
+        let index = newChecked.indexOf(type)
+        if (index === -1) {
+            newChecked.push(type)
+        } else {
+            newChecked.splice(index, 1)
+        }
+        this.setState({checkedLinkFilters: newChecked})
+    },
     toggleAccordion(label) {
         let curExpandedGroup = this.state.expandedLinkGroup
         if (curExpandedGroup === label) {
             this.setState({expandedLinkGroup: ""})
             $('#content-overlay').removeClass('visible')
+            $('html').off('click','**')
         } else {
             this.setState({expandedLinkGroup: label})
             $('#content-overlay').addClass('visible')
-            $('html').one('click',function(event) {
+            let thisAccordian = this
+            $('html').on('click',function(event) {
                 if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
                     $('li.panel.active').removeClass('active')
                     $('#content-overlay').removeClass('visible')
+                    thisAccordian.setState({expandedLinkGroup: ""})
                 }
             });
-
-            event.stopPropagation();
         }
     },
     toggleSidebar() {
@@ -67,9 +78,10 @@ var Sidebar = React.createClass({
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(
                     <LinkGroup key={i}
-                               group={groups[i]}
-                               handleClick={this.toggleAccordion}
-                               expandedLinkGroup={this.state.expandedLinkGroup}/>
+                        group={groups[i]}
+                        handleClick={this.toggleAccordion}
+                        expandedLinkGroup={this.state.expandedLinkGroup}
+                        checkedLinkFilters={this.state.checkedLinkFilters}/>
                 )
             }
         }
@@ -84,7 +96,7 @@ var Sidebar = React.createClass({
             <div>
                 <ul id="accordion" className="nav list-group accordion accordion-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
-                    <li className="list-item"><LinkFilter/></li>
+                    <li className="list-item"><LinkFilter checkedLinkFilters={this.state.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
@@ -109,9 +121,20 @@ var LinkGroup = React.createClass({
         let id = label.toLowerCase().replace(/\s+/g, "-")
         id = id.replace('&', 'and')
 
-        let activitiesLinks = filterLinks(this.props.group.links, "activities")
-        let referenceLinks = filterLinks(this.props.group.links, "reference")
-        let administrationLinks = filterLinks(this.props.group.links, "administration")
+        let activitiesLinks = []
+        if (this.props.checkedLinkFilters.indexOf('activities') != -1) {
+            activitiesLinks = filterLinks(this.props.group.links, "activities")
+        }
+
+        let referenceLinks = []
+        if (this.props.checkedLinkFilters.indexOf('reference') != -1) {
+            referenceLinks = filterLinks(this.props.group.links, "reference")
+        }
+
+        let administrationLinks = []
+        if (this.props.checkedLinkFilters.indexOf('administration') != -1) {
+            administrationLinks = filterLinks(this.props.group.links, "administration")
+        }
 
         let links = []
         let headingCount = 0
@@ -142,47 +165,36 @@ var LinkGroup = React.createClass({
         let panelClassName = "panel list-item"
         if (this.props.expandedLinkGroup === label) {
             panelClassName += " active"
-            sublinksClass += " active"
         }
 
-        return (
-            <li className={panelClassName}>
-                <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
-                    <span>{label}</span>
-                </a>
-                <div id={id + "-menu"} className={sublinksClass}>
-                    {links}
-                    <button type="button" className="close" onClick={this.props.handleClick.bind(null, label)}><span aria-hidden="true">&times;</span></button>
-                </div>
-            </li>
-        )
+        if (links.length > 0) {
+            return (
+                <li className={panelClassName}>
+                    <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
+                        <span>{label}</span>
+                    </a>
+                    <div id={id + "-menu"} className={sublinksClass}>
+                        {links}
+                        <button type="button" className="close" onClick={this.props.handleClick.bind(null, label)}><span aria-hidden="true">&times;</span></button>
+                    </div>
+                </li>
+            )
+        } else {
+            return null
+        }
     }
 });
 
 var LinkFilter = React.createClass({
-    getInitialState() {
-        return { checked: ['activities', 'reference', 'administration'] }
-    },
-    modifyLinkFilter(type) {
-        let newChecked = this.state.checked
-        let index = newChecked.indexOf(type)
-        if (index === -1) {
-            newChecked.push(type)
-        } else {
-            newChecked.splice(index, 1)
-        }
-        this.setState({checked: newChecked})
-        $('#sidebar .' + type).toggle();
-    },
     render() {
-        let activitiesChecked = this.state.checked.indexOf('activities') != -1
-        let referenceChecked = this.state.checked.indexOf('reference') != -1
-        let administrationChecked = this.state.checked.indexOf('administration') != -1
+        let activitiesChecked = this.props.checkedLinkFilters.indexOf('activities') != -1
+        let referenceChecked = this.props.checkedLinkFilters.indexOf('reference') != -1
+        let administrationChecked = this.props.checkedLinkFilters.indexOf('administration') != -1
         return (
             <div id="linkFilter">
-                <input onChange={this.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label htmlFor="activities">Activities</label>
-                <input onChange={this.modifyLinkFilter.bind(null, 'reference')} type="checkbox" id="reference" value="reference" name="linkFilter" checked={referenceChecked}/><label htmlFor="reference">Reference</label>
-                <input onChange={this.modifyLinkFilter.bind(null, 'administration')} type="checkbox" id="administration" value="administration" name="linkFilter" checked={administrationChecked}/><label htmlFor="administration">Administration</label>
+                <input onChange={this.props.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label htmlFor="activities">Activities</label>
+                <input onChange={this.props.modifyLinkFilter.bind(null, 'reference')} type="checkbox" id="reference" value="reference" name="linkFilter" checked={referenceChecked}/><label htmlFor="reference">Reference</label>
+                <input onChange={this.props.modifyLinkFilter.bind(null, 'administration')} type="checkbox" id="administration" value="administration" name="linkFilter" checked={administrationChecked}/><label htmlFor="administration">Administration</label>
             </div>
         )
     }
