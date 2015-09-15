@@ -20,6 +20,11 @@ a {
     outline: none;
 }
 
+.close {
+    font-size: 28px;
+    font-weight: 400;
+}
+
 header.navbar {
     height: 60px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -218,10 +223,6 @@ nav ul.nav li {
     margin-left: -260px;
 }
 
-#sidebar ul>li:nth-child(3) {
-    border-top: 1px solid #6a6a6a;
-}
-
 #sidebar ul>li.list-item {
     padding: 0;
     border-bottom: 1px solid #6a6a6a;
@@ -292,6 +293,8 @@ nav ul.nav li {
 
 #linkFilter {
     padding: 15px;
+    text-transform: none;
+    white-space: nowrap;
 }
 
 #linkFilter input {
@@ -319,7 +322,7 @@ nav ul.nav li {
     right: -361px;
     top: -0.05em;
     background-color: #F5F5F5;
-    padding: 10px 0;
+    padding: 10px 40px 10px 0;
     z-index: 1;
     width: 360px;
     border-top-right-radius: 3px;
@@ -345,12 +348,22 @@ nav ul.nav li {
     width: 720px;
 }
 
+#sidebar .nav li .sublinks .close {
+    position: absolute;
+    right: 12px;
+    top: 5px;
+}
+
 #sidebar .nav li.panel.active,
 #sidebar .nav li.panel.active a,
 #sidebar .nav li.panel .sublinks a,
 #sidebar .nav li.panel .sublinks h4 {
     background-color: #F5F5F5;
     color: #555555;
+}
+
+#sidebar .nav li.panel.active .sublinks {
+    display: block;
 }
 
 #sidebar .nav li .sublinks a,
@@ -370,6 +383,7 @@ nav ul.nav li {
     border-bottom: 1px solid #969696;
     margin: 0 20px;
     padding-left: 0;
+    width: 300px;
 }
 
 #sidebar .nav li.panel .sublinks h4:not(:first-child) {

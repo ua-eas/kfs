@@ -37,6 +37,14 @@ var Sidebar = React.createClass({
         } else {
             this.setState({expandedLinkGroup: label})
             $('#content-overlay').addClass('visible')
+            $('html').one('click',function(event) {
+                if (!$(event.target).closest('li.panel.active').length) {
+                    $('li.panel.active').removeClass('active')
+                    $('#content-overlay').removeClass('visible')
+                }
+            });
+
+            event.stopPropagation();
         }
     },
     toggleSidebar() {
@@ -47,7 +55,7 @@ var Sidebar = React.createClass({
         let sidebarOutValue = ! userPreferences.sidebarOut;
 
         userPreferences.sidebarOut = sidebarOutValue;
-        this.setState({ userPreferences: userPreferences });
+        this.setState({ userPreferences: userPreferences, expandedLinkGroup: "" });
 
         UserPrefs.putUserPreferences(userPreferences);
     },
@@ -76,7 +84,7 @@ var Sidebar = React.createClass({
             <div>
                 <ul id="accordion" className="nav list-group accordion accordion-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
-                    <li><LinkFilter/></li>
+                    <li className="list-item"><LinkFilter/></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
@@ -124,11 +132,6 @@ var LinkGroup = React.createClass({
             headingCount--
         }
 
-        let panelClassName = "panel list-item"
-        if (this.props.expandedLinkGroup === label) {
-            panelClassName += " active"
-        }
-
         let sublinksClass = "sublinks collapse"
         if (links.length > (36 - headingCount)) {
             sublinksClass += " col-3"
@@ -136,13 +139,20 @@ var LinkGroup = React.createClass({
             sublinksClass += " col-2"
         }
 
+        let panelClassName = "panel list-item"
+        if (this.props.expandedLinkGroup === label) {
+            panelClassName += " active"
+            sublinksClass += " active"
+        }
+
         return (
             <li className={panelClassName}>
-                <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(null, label)}>
+                <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
                     <span>{label}</span>
                 </a>
                 <div id={id + "-menu"} className={sublinksClass}>
                     {links}
+                    <button type="button" className="close" onClick={this.props.handleClick.bind(null, label)}><span aria-hidden="true">&times;</span></button>
                 </div>
             </li>
         )
