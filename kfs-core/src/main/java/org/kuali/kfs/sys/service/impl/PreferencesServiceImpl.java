@@ -80,8 +80,8 @@ public class PreferencesServiceImpl implements PreferencesService {
      */
     private void linkPermissionCheck(Map<String, Object> institutionPreferences, Person person) {
         getLinkGroups(institutionPreferences).forEach(linkGroup -> {
-            linkGroup.put("links",((List<Map<String, Object>>)linkGroup.get("links")).stream().filter(link ->
-                (link.get("permission") == null) || canViewLink((Map<String, Object>) link.get("permission"), person)
+            linkGroup.put("links", ((List<Map<String, Object>>) linkGroup.get("links")).stream().filter(link ->
+                            (link.get("permission") == null) || canViewLink((Map<String, Object>) link.get("permission"), person)
             ).collect(Collectors.toList()));
         });
     }
@@ -193,17 +193,22 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     protected Map<String, String> transformLink(Map<String, String> link,Person person) {
+        Map<String, String> linkInfo = new ConcurrentHashMap<>();
+
         if (link.containsKey("documentTypeCode")) {
             final String documentTypeName = link.remove("documentTypeCode");
-            final Map<String, String> linkInfo = determineLinkInfo(documentTypeName,person);
-            return linkInfo;
+            linkInfo = determineLinkInfo(documentTypeName, person);
         } else if (StringUtils.isNotBlank(link.get("link"))) {
-            Map<String, String> newLink = new ConcurrentHashMap<>();
-            newLink.put("link", fixRelativeLink(link.get("link")));
-            newLink.put("label", link.get("label"));
-            return newLink;
+            linkInfo.put("link", fixRelativeLink(link.get("link")));
+            linkInfo.put("label", link.get("label"));
         }
-        return new ConcurrentHashMap<>();
+
+        if (linkInfo.containsKey("label")) {
+            linkInfo.put("type", link.get("type"));
+            linkInfo.put("linkType", link.get("linkType"));
+        }
+
+        return linkInfo;
     }
 
     protected String fixRelativeLink(String link) {
