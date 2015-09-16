@@ -81,13 +81,9 @@ public class PreferencesServiceImpl implements PreferencesService {
      */
     private void linkPermissionCheck(Map<String, Object> institutionPreferences, Person person) {
         getLinkGroups(institutionPreferences).forEach(linkGroup -> {
-            Iterator<Map<String, Object>> i = ((List<Map<String, Object>>) linkGroup.get("links")).iterator();
-            while (i.hasNext()) {
-                Map<String, Object> link = i.next();
-                if ((link.get("permission") != null) && (!canViewLink((Map<String, Object>) link.get("permission"), person))) {
-                    i.remove();
-                }
-            }
+            linkGroup.put("links",((List<Map<String, Object>>)linkGroup.get("links")).stream().filter(link ->
+                (link.get("permission") == null) || canViewLink((Map<String, Object>) link.get("permission"), person)
+            ).collect(Collectors.toList()));
         });
     }
 
