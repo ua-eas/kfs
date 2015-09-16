@@ -60,8 +60,8 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId","123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
                 return ip;
             }
         });
@@ -81,8 +81,8 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
                 return ip;
             }
         });
@@ -103,8 +103,8 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
                 return ip;
             }
         });
@@ -125,8 +125,8 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
                 return ip;
             }
         });
@@ -147,8 +147,8 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 List<Map<String, String>> menu = new ArrayList<>();
                 Map<String, String> menuItem = new ConcurrentHashMap<>();
@@ -194,8 +194,8 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 List<Map<String, String>> menu = new ArrayList<>();
                 Map<String, String> menuItem = new ConcurrentHashMap<>();
@@ -228,11 +228,13 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 Map<String, String> link = new ConcurrentHashMap<>();
                 link.put("documentTypeCode", "SB");
+                link.put("type", "activities");
+                link.put("linkType", "kfs");
 
                 List<Map<String, String>> links = new ArrayList<>();
                 links.add(link);
@@ -271,11 +273,13 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 Map<String, String> link = new ConcurrentHashMap<>();
                 link.put("documentTypeCode", "SB");
+                link.put("type", "activities");
+                link.put("linkType", "kfs");
 
                 List<Map<String, String>> links = new ArrayList<>();
                 links.add(link);
@@ -306,6 +310,8 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
 
         Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
+        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
         String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
@@ -321,17 +327,23 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 Map<String, String> link = new ConcurrentHashMap<>();
                 link.put("documentTypeCode", "SB");
+                link.put("type", "activities");
+                link.put("linkType", "kfs");
 
                 Map<String, String> link2 = new ConcurrentHashMap<>();
                 link2.put("documentTypeCode", "ZZZZ");
+                link2.put("type", "reference");
+                link2.put("linkType", "kfs");
 
                 Map<String, String> link3 = new ConcurrentHashMap<>();
                 link3.put("documentTypeCode", "CCR");
+                link3.put("type", "activities");
+                link3.put("linkType", "kfs");
 
                 List<Map<String, String>> links = new ArrayList<>();
                 links.add(link);
@@ -374,11 +386,13 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 Map<String, String> link = new ConcurrentHashMap<>();
                 link.put("documentTypeCode", "CCTY");
+                link.put("type", "administration");
+                link.put("linkType", "kfs");
 
                 List<Map<String, String>> links = new ArrayList<>();
                 links.add(link);
@@ -409,6 +423,8 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
 
         Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
+        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
         String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
@@ -425,11 +441,13 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 Map<String, String> link = new ConcurrentHashMap<>();
                 link.put("documentTypeCode", "GORV");
+                link.put("type", "administration");
+                link.put("linkType", "kfs");
 
                 List<Map<String, String>> links = new ArrayList<>();
                 links.add(link);
@@ -460,6 +478,8 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
 
         Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
+        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
         String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
@@ -476,12 +496,14 @@ public class PreferencesServiceImplTest {
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
                 ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "https://s3.amazonaws.com/images.kfs.kuali.org/monsters-u-logo.jpg");
-                ip.put("institutionName", "Monsters");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
 
                 Map<String, String> link = new ConcurrentHashMap<>();
                 link.put("link", "electronicFundTransfer.do?methodToCall=start");
                 link.put("label", "Electronic Payment Claim");
+                link.put("type", "activities");
+                link.put("linkType", "kfs");
 
                 List<Map<String, String>> links = new ArrayList<>();
                 links.add(link);
@@ -512,6 +534,8 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
 
         Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
+        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
         String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
