@@ -63,6 +63,7 @@
     <c:choose>
         <c:when test="${empty htmlFormAction}">
             <main class="content">
+                <div id="content-overlay"></div>
                 <div id="dashboard"></div>
         </c:when>
         <c:otherwise>
@@ -70,6 +71,7 @@
                 <c:when test="${lookup}" >
 
                     <main class="content">
+                        <div id="content-overlay"></div>
                         <c:if test="${param.mode eq 'modal'}">
                         <div class="modal-header">
                             <div id="breadcrumbs"></div>
@@ -106,6 +108,7 @@
                 </c:when>
                 <c:otherwise>
                     <main class="content">
+                        <div id="content-overlay"></div>
                         <div id="view_div">
                             <div class="main-panel">
                                 ${headerMenuBar}

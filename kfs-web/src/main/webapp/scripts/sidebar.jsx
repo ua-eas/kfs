@@ -6,7 +6,7 @@ let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: ""}
+        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: "", checkedLinkFilters: ['activities', 'reference', 'administration']}
     },
     componentWillMount() {
         let institutionPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
@@ -29,12 +29,32 @@ var Sidebar = React.createClass({
             console.log("error getting preferences: " + error);
         });
     },
-    toggleAccordion(label) {
-        let curExpandedGroup = this.state.expandedLinkGroup
-        if (curExpandedGroup === label) {
+    modifyLinkFilter(type) {
+        let newChecked = this.state.checkedLinkFilters
+        let index = newChecked.indexOf(type)
+        if (index === -1) {
+            newChecked.push(type)
+        } else {
+            newChecked.splice(index, 1)
+        }
+        this.setState({checkedLinkFilters: newChecked})
+    },
+    toggleLinkGroup(label) {
+        if (this.state.expandedLinkGroup === label) {
             this.setState({expandedLinkGroup: ""})
+            $('#content-overlay').removeClass('visible')
+            $('html').off('click','**')
         } else {
             this.setState({expandedLinkGroup: label})
+            $('#content-overlay').addClass('visible')
+            let sidebar = this
+            $('html').on('click',function(event) {
+                if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
+                    $('li.panel.active').removeClass('active')
+                    $('#content-overlay').removeClass('visible')
+                    sidebar.setState({expandedLinkGroup: ""})
+                }
+            });
         }
     },
     toggleSidebar() {
@@ -45,7 +65,7 @@ var Sidebar = React.createClass({
         let sidebarOutValue = ! userPreferences.sidebarOut;
 
         userPreferences.sidebarOut = sidebarOutValue;
-        this.setState({ userPreferences: userPreferences });
+        this.setState({ userPreferences: userPreferences, expandedLinkGroup: "" });
 
         UserPrefs.putUserPreferences(userPreferences);
     },
@@ -53,15 +73,14 @@ var Sidebar = React.createClass({
         let rootPath = KfsUtils.getUrlPathPrefix()
         let linkGroups = []
         if (this.state.institutionPreferences.linkGroups) {
-            let beforeActive = findLabelBeforeActive(this.state.institutionPreferences.linkGroups, this.state.expandedLinkGroup)
             let groups = this.state.institutionPreferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(
                     <LinkGroup key={i}
-                               group={groups[i]}
-                               handleClick={this.toggleAccordion}
-                               expandedLinkGroup={this.state.expandedLinkGroup}
-                               beforeActive={beforeActive}/>
+                        group={groups[i]}
+                        handleClick={this.toggleLinkGroup}
+                        expandedLinkGroup={this.state.expandedLinkGroup}
+                        checkedLinkFilters={this.state.checkedLinkFilters}/>
                 )
             }
         }
@@ -74,8 +93,9 @@ var Sidebar = React.createClass({
 
         return (
             <div>
-                <ul id="accordion" className="nav list-group accordion accordion-group">
+                <ul id="linkgroups" className="nav list-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
+                    <li className="list-item"><LinkFilter checkedLinkFilters={this.state.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
@@ -84,47 +104,102 @@ var Sidebar = React.createClass({
     }
 });
 
+var filterLinks = function(links, type) {
+    return links.filter(function(link) {
+        return link.type === type
+    }).map((link, i) => {
+        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item"/>
+    })
+}
+
+var buildDisplayLinks = function(links, type, checkedLinkFilters) {
+    let displayLinks = []
+    if (checkedLinkFilters.indexOf(type) != -1) {
+        displayLinks = filterLinks(links, type)
+    }
+    return displayLinks
+}
+
+var addHeading = function(links, type) {
+    let newLinks = []
+    if (links.length > 0) {
+        newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links)
+    }
+    return newLinks
+}
+
+var determineSublinkClass = function(links, headingCount) {
+    let sublinksClass = "sublinks collapse"
+    if (links.length > (36 - headingCount)) {
+        sublinksClass += " col-3"
+    } else if (links.length > (18 - headingCount)) {
+        sublinksClass += " col-2"
+    }
+    return sublinksClass
+}
+
+var determinePanelClassName = function(expandedLinkGroup, label) {
+    let panelClassName = "panel list-item"
+    if (expandedLinkGroup === label) {
+        panelClassName += " active"
+    }
+    return panelClassName
+}
+
 var LinkGroup = React.createClass({
     render() {
         let label = this.props.group.label
         let id = label.toLowerCase().replace(/\s+/g, "-")
-        let links = this.props.group.links.map((link, i) => {
-            return <Link key={i} url={link.link} label={link.label} className="list-group-item"/>
-        })
+        id = id.replace('&', 'and')
 
-        let panelClassName = "panel list-item"
-        let indicatorClassName = "indicator glyphicon pull-right"
-        if (this.props.expandedLinkGroup === label) {
-            panelClassName += " active"
-            indicatorClassName += " glyphicon-menu-up"
-        } else {
-            if (this.props.beforeActive === label) {
-                panelClassName += " before-active"
-            }
-            indicatorClassName += " glyphicon-menu-down"
+        let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters)
+        let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters)
+        let administrationLinks = buildDisplayLinks(this.props.group.links, 'administration', this.props.checkedLinkFilters)
+
+        let links = addHeading(activitiesLinks, 'Activities')
+        links = links.concat(addHeading(referenceLinks, 'Reference'))
+        links = links.concat(addHeading(administrationLinks, 'Administration'))
+
+        let headingCount = links.length - (activitiesLinks.length + referenceLinks.length + administrationLinks.length)
+        if (headingCount > 0) {
+            headingCount--
         }
 
-        return (
-            <li className={panelClassName}>
-                <a href="#d" data-parent="#accordion" data-toggle="collapse" data-target={"#" + id + "-menu"} onClick={this.props.handleClick.bind(null, label)}>
-                    <span>{label}</span>
-                    <span className={indicatorClassName}></span>
-                </a>
-                <div id={id + "-menu"} className="sublinks collapse">
-                    {links}
-                </div>
-            </li>
-        )
+        let sublinksClass = determineSublinkClass(links, headingCount)
+        let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label)
+
+        if (links.length > 0) {
+            return (
+                <li className={panelClassName}>
+                    <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
+                        <span>{label}</span>
+                    </a>
+                    <div id={id + "-menu"} className={sublinksClass}>
+                        {links}
+                        <button type="button" className="close" onClick={this.props.handleClick.bind(null, label)}><span aria-hidden="true">&times;</span></button>
+                    </div>
+                </li>
+            )
+        } else {
+            return null
+        }
     }
 });
 
-function findLabelBeforeActive(linkGroups, expandedLinkGroup) {
-    for (let i = 0; i < linkGroups.length; i++) {
-        if (linkGroups[i].label === expandedLinkGroup && i > 0) {
-            return linkGroups[i-1].label
-        }
+var LinkFilter = React.createClass({
+    render() {
+        let activitiesChecked = this.props.checkedLinkFilters.indexOf('activities') != -1
+        let referenceChecked = this.props.checkedLinkFilters.indexOf('reference') != -1
+        let administrationChecked = this.props.checkedLinkFilters.indexOf('administration') != -1
+        return (
+            <div id="linkFilter">
+                <input onChange={this.props.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label htmlFor="activities">Activities</label>
+                <input onChange={this.props.modifyLinkFilter.bind(null, 'reference')} type="checkbox" id="reference" value="reference" name="linkFilter" checked={referenceChecked}/><label htmlFor="reference">Reference</label>
+                <input onChange={this.props.modifyLinkFilter.bind(null, 'administration')} type="checkbox" id="administration" value="administration" name="linkFilter" checked={administrationChecked}/><label htmlFor="administration">Administration</label>
+            </div>
+        )
     }
-}
+});
 
 React.render(
     <Sidebar/>,
