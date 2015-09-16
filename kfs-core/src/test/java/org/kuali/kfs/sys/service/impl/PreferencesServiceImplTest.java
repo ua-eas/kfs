@@ -222,17 +222,7 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_HealthyLinkGroup() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
-            @Override
-            protected boolean canInitiateDocument(String documentTypeName, Person person) {
-                return true;
-            }
-
-            @Override
-            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
-                return true;
-            }
-        };
+        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -275,17 +265,7 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_TransactionalDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
-            @Override
-            protected boolean canInitiateDocument(String documentTypeName, Person person) {
-                return true;
-            }
-
-            @Override
-            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
-                return true;
-            }
-        };
+        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -335,17 +315,7 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_MissingDocumentTypeReturnsNoLink() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
-            @Override
-            protected boolean canInitiateDocument(String documentTypeName, Person person) {
-                return true;
-            }
-
-            @Override
-            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
-                return true;
-            }
-        };
+        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -398,17 +368,7 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_MaintenanceDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
-            @Override
-            protected boolean canInitiateDocument(String documentTypeName, Person person) {
-                return true;
-            }
-
-            @Override
-            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
-                return true;
-            }
-        };
+        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -459,17 +419,7 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_GlobalMaintenanceDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl() {
-            @Override
-            protected boolean canInitiateDocument(String documentTypeName, Person person) {
-                return true;
-            }
-
-            @Override
-            protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
-                return true;
-            }
-        };
+        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
@@ -914,4 +864,22 @@ public class PreferencesServiceImplTest {
             return null;
         }
     }
+
+    class NoPermissionsPreferencesServiceImpl extends PreferencesServiceImpl {
+        @Override
+        protected boolean canViewLink(Map<String, Object> permission, Person person) {
+            return true;
+        }
+
+        @Override
+        protected boolean canInitiateDocument(String documentTypeName, Person person) {
+            return true;
+        }
+
+        @Override
+        protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+            return true;
+        }
+    };
+
 }

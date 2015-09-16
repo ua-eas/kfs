@@ -26,6 +26,7 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -66,9 +67,28 @@ public class PreferencesServiceImpl implements PreferencesService {
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
 
         appendMenuProperties(institutionPreferences);
-        transformLinks(institutionPreferences,person);
+        linkPermissionCheck(institutionPreferences, person);
+        transformLinks(institutionPreferences, person);
 
         return institutionPreferences;
+    }
+
+    /**
+     * This removes links from inititutionPreferences that have a permission
+     * specified and the user does not have the permission
+     * @param institutionPreferences institution preferences
+     * @param person person
+     */
+    private void linkPermissionCheck(Map<String, Object> institutionPreferences, Person person) {
+        getLinkGroups(institutionPreferences).forEach(linkGroup -> {
+            Iterator<Map<String, Object>> i = ((List<Map<String, Object>>) linkGroup.get("links")).iterator();
+            while (i.hasNext()) {
+                Map<String, Object> link = i.next();
+                if ((link.get("permission") != null) && (!canViewLink((Map<String, Object>) link.get("permission"), person))) {
+                    i.remove();
+                }
+            }
+        });
     }
 
     @Override
@@ -222,6 +242,28 @@ public class PreferencesServiceImpl implements PreferencesService {
             }
         }
         return constructLinkInfo(label, link);
+    }
+
+    protected boolean canViewLink(Map<String,Object> permission,Person person) {
+        String templateNamespace = (String)permission.get("templateNamespace");
+        String templateName = (String)permission.get("templateName");
+        Map<String,String> details = (Map<String,String>)permission.get("details");
+
+        if ( templateNamespace == null ) {
+            LOG.error("canViewLink() Permission on link is missing templateNamespace");
+            return false;
+        }
+        if ( templateName == null ) {
+            LOG.error("canViewLink() Permission on link is missing templateName");
+            return false;
+        }
+        if ( details == null ) {
+            LOG.error("canViewLink() Permission on link is missing details object");
+            return false;
+        }
+
+        return KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(person.getPrincipalId(),
+                templateNamespace,templateName,details,Collections.<String, String>emptyMap());
     }
 
     protected boolean canInitiateDocument(String documentTypeName,Person person) {
