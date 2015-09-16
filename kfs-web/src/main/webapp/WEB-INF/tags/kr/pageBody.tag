@@ -57,7 +57,6 @@
 
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
     <header id="header" class="navbar navbar-default navbar-fixed-top"></header>
-    <div id="test-header"></div>
 </c:if>
 
 <div class="${bodyClass}">

@@ -1,7 +1,9 @@
 package org.kuali.kfs.sys.rest;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.bo.AuthenticationValidationResponse;
+import org.kuali.kfs.kns.service.CfAuthenticationService;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.web.WebUtilities;
@@ -29,47 +31,59 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class BackdoorResource {
-
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BackdoorResource.class);
+
+    private CfAuthenticationService cfAuthenticationService;
 
     @POST
     @Path("/login")
     public Response login(@Context HttpServletRequest request, JsonNode body) {
-        if (!ConfigContext.getCurrentContextConfig().isProductionEnvironment()) {
-            String backdoorId = "";
-            if (body.has("backdoorId")) {
-                backdoorId = body.get("backdoorId").asText();
-            }
-            if (StringUtils.isBlank(backdoorId)) {
-                return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"BackdoorId was empty\"}").build();
-            }
-            UserSession uSession = WebUtilities.retrieveUserSession(request);
+        LOG.debug("login() started");
 
-            if (uSession == null) {
-                return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"Session was empty\"}").build();
-            }
-
-            uSession.clearObjectMap();
-
-            if (!isBackdoorAuthorized(uSession)) {
-                return Response.status(Response.Status.UNAUTHORIZED).entity("{\"message\":\"User not permitted to use backdoor functionality\"}").build();
-            }
-
-            try {
-                uSession.setBackdoorUser(backdoorId);
-            } catch (RiceRuntimeException e) {
-                LOG.warn("invalid backdoor id " + backdoorId, e);
-                return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"Invalid backdoorId\"}").build();
-            }
-
-            return Response.ok("{\"backdoorId\": \"" + uSession.getPrincipalName() + "\"}").build();
+        if (ConfigContext.getCurrentContextConfig().isProductionEnvironment()) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.status(Response.Status.BAD_REQUEST).build();
+
+        String backdoorId = "";
+        if (body.has("backdoorId")) {
+            backdoorId = body.get("backdoorId").asText();
+        }
+
+        UserSession uSession = WebUtilities.retrieveUserSession(request);
+
+        AuthenticationValidationResponse response = getCfAuthenticationService().validatePrincipalName(backdoorId);
+        switch (response) {
+            case INVALID_PRINCIPAL_NAME_BLANK:
+                return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"BackdoorId was empty\"}").build();
+            case INVALID_PRINCIPAL_DOES_NOT_EXIST:
+                LOG.debug("login() Principal does not exist");
+                return logout(request);
+            case INVALID_PRINCIPAL_CANNOT_LOGIN:
+                LOG.debug("login() Principal does not have permissions to back door login");
+                return logout(request);
+        }
+
+        if (!isBackdoorAuthorized(uSession)) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("{\"message\":\"User not permitted to use backdoor functionality\"}").build();
+        }
+
+        uSession.clearObjectMap();
+
+        try {
+            uSession.setBackdoorUser(backdoorId);
+        } catch (RiceRuntimeException e) {
+            LOG.warn("invalid backdoor id " + backdoorId, e);
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"Invalid backdoorId\"}").build();
+        }
+
+        return Response.ok("{\"backdoorId\": \"" + uSession.getPrincipalName() + "\"}").build();
     }
 
     @GET
     @Path("/logout")
     public Response logout(@Context HttpServletRequest request) {
+        LOG.debug("logout() started");
+
         UserSession uSession = WebUtilities.retrieveUserSession(request);
 
         if (uSession == null) {
@@ -82,6 +96,8 @@ public class BackdoorResource {
     @GET
     @Path("/id")
     public Response findBackdoorId(@Context HttpServletRequest request) {
+        LOG.debug("findBackdoorId() started");
+
         UserSession uSession = WebUtilities.retrieveUserSession(request);
         String backdoorId = "";
         if (uSession != null && uSession.isBackdoorInUse()) {
@@ -116,5 +132,12 @@ public class BackdoorResource {
                     + " but they do not have appropriate permissions. Backdoor processing aborted.");
         }
         return isAuthorized;
+    }
+
+    private CfAuthenticationService getCfAuthenticationService() {
+        if ( cfAuthenticationService == null ) {
+            cfAuthenticationService = KNSServiceLocator.getCfAuthenticationService();
+        }
+        return cfAuthenticationService;
     }
 }
