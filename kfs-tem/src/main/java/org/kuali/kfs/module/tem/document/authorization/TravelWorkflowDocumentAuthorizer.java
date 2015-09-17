@@ -21,6 +21,7 @@ package org.kuali.kfs.module.tem.document.authorization;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.kuali.kfs.krad.workflow.authorizer.CfDocumentTypeAuthorizer;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
@@ -31,7 +32,7 @@ import org.kuali.kfs.krad.util.KRADConstants;
 /**
  *
  */
-public class TravelWorkflowDocumentAuthorizer extends KimDocumentTypeAuthorizer {
+public class TravelWorkflowDocumentAuthorizer extends CfDocumentTypeAuthorizer {
 
     @Override
     public boolean canInitiate(String principalId, DocumentType documentType) {
