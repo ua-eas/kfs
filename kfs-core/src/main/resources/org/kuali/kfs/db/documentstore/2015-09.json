@@ -2663,7 +2663,8 @@
                     "documentTypeCode": "PVCF",
                     "type": "administration",
                     "linkType": "kfs"
-                  },{
+                  },
+                  {
                     "documentTypeCode": "PMCC",
                     "type": "administration",
                     "linkType": "kfs"
@@ -2770,7 +2771,8 @@
               {
                 "label": "Feedback",
                 "link": "kr/kualiFeedbackReport.do"
-              }, {
+              },
+              {
                 "label": "Help",
                 "link": "static/help/default.htm"
               }
@@ -4918,7 +4920,8 @@
                     "documentTypeCode": "PVCF",
                     "type": "administration",
                     "linkType": "kfs"
-                  },{
+                  },
+                  {
                     "documentTypeCode": "PMCC",
                     "type": "administration",
                     "linkType": "kfs"
@@ -5025,7 +5028,8 @@
               {
                 "label": "Feedback",
                 "link": "kr/kualiFeedbackReport.do"
-              }, {
+              },
+              {
                 "label": "Help",
                 "link": "static/help/default.htm"
               }
@@ -5034,6 +5038,5 @@
         }
       ]
     }
-
   ]
 }
