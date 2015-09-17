@@ -30,8 +30,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
-import org.kuali.rice.kew.doctype.service.impl.KimDocumentTypeAuthorizer;
-import org.kuali.rice.kew.framework.document.security.DocumentTypeAuthorizer;
 import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.kfs.krad.service.DocumentService;

@@ -25,7 +25,6 @@ import org.kuali.kfs.krad.workflow.authorizer.CfDocumentTypeAuthorizer;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
-import org.kuali.rice.kew.doctype.service.impl.KimDocumentTypeAuthorizer;
 import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
 import org.kuali.kfs.krad.util.KRADConstants;
 
