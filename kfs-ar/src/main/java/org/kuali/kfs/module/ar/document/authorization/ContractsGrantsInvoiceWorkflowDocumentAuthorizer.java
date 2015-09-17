@@ -23,13 +23,13 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.workflow.authorizer.CfDocumentTypeAuthorizer;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
-import org.kuali.rice.kew.doctype.service.impl.KimDocumentTypeAuthorizer;
 import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.kfs.krad.service.DocumentService;
@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 /**
  *
  */
-public class ContractsGrantsInvoiceWorkflowDocumentAuthorizer extends KimDocumentTypeAuthorizer {
+public class ContractsGrantsInvoiceWorkflowDocumentAuthorizer extends CfDocumentTypeAuthorizer {
 
     /**
      * Overridden to pass in the proposal number for the CINV doc to help determine whether the current user
