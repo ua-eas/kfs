@@ -62,6 +62,9 @@
       <postProcessorName>
         org.kuali.kfs.sys.document.workflow.PostProcessor
       </postProcessorName>
+      <authorizer>
+        org.kuali.kfs.krad.workflow.authorizer.CfDocumentTypeAuthorizer
+      </authorizer>
       <active>
         true
       </active>
