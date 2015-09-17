@@ -150,6 +150,7 @@ header.navbar .navbar-brand .institution-name {
     height: 100%;
     position: absolute;
     display: none;
+    z-index: 1;
 }
 
 #content-overlay.visible {
@@ -323,7 +324,7 @@ nav ul.nav li {
     top: -0.05em;
     background-color: #F5F5F5;
     padding: 10px 40px 10px 0;
-    z-index: 1;
+    z-index: 2;
     width: 360px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
