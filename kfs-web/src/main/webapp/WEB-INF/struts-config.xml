@@ -107,8 +107,8 @@
 			type="org.kuali.kfs.module.ar.document.web.struts.CashControlDocumentForm" />
 		<form-bean name="CustomerCreditMemoDocumentForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.CustomerCreditMemoDocumentForm" />
-		<form-bean name="CustomerInvoiceDocumentForm"
-			type="org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentForm" />
+		<form-bean name="CustomerInvoiceForm"
+			type="org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceForm" />
 		<form-bean name="CustomerInvoiceWriteoffDocumentForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceWriteoffDocumentForm" />
 		<form-bean name="CustomerAgingReportForm"
@@ -121,8 +121,8 @@
 			type="org.kuali.kfs.module.ar.web.struts.CustomerInvoiceWriteoffLookupSummaryForm" />
 		<form-bean name="CustomerStatementForm"
 			type="org.kuali.kfs.module.ar.web.struts.CustomerStatementForm" />
-		<form-bean name="CustomerInvoiceForm"
-			type="org.kuali.kfs.module.ar.web.struts.CustomerInvoiceForm" />
+		<form-bean name="CustomerInvoiceGenerationForm"
+			type="org.kuali.kfs.module.ar.web.struts.CustomerInvoiceGenerationForm" />
 		<!-- AR and CG related -->
 		<form-bean name="ContractsGrantsInvoiceDocumentErrorLogReportLookupForm"
 			type="org.kuali.kfs.module.ar.web.struts.ContractsGrantsInvoiceDocumentErrorLogReportLookupForm" />
@@ -222,8 +222,8 @@
 			type="org.kuali.kfs.module.bc.document.web.struts.BudgetExpansionForm" />
 
 		<!-- General Ledger Bean Definitions -->
-		<form-bean name="CorrectionForm"
-			type="org.kuali.kfs.gl.document.web.struts.CorrectionForm" />
+		<form-bean name="GeneralLedgerCorrectionProcessForm"
+			type="org.kuali.kfs.gl.document.web.struts.GeneralLedgerCorrectionProcessForm" />
 		<form-bean name="BalanceInquiryForm"
 			type="org.kuali.kfs.gl.web.struts.BalanceInquiryForm" />
 		<form-bean name="BalanceInquiryLookupForm"
@@ -584,11 +584,11 @@
 			<forward name="arPrintPDF" path="/jsp/module/ar/ArPrintForward.jsp" />
 		</action>
 
-		<action path="/arCustomerInvoice" name="CustomerInvoiceForm"
+		<action path="/arCustomerInvoiceGeneration" name="CustomerInvoiceGenerationForm"
 			scope="request" attribute="KualiForm" parameter="methodToCall"
-			type="org.kuali.kfs.module.ar.web.struts.CustomerInvoiceAction">
+			type="org.kuali.kfs.module.ar.web.struts.CustomerInvoiceGenerationAction">
 			<set-property property="cancellable" value="true" />
-			<forward name="basic" path="/jsp/module/ar/CustomerInvoice.jsp" />
+			<forward name="basic" path="/jsp/module/ar/CustomerInvoiceGeneration.jsp" />
 		</action>
 
 		<action path="/uploadBarcodeInventoryFile" name="AssetBarCodeInventoryInputFileForm"
@@ -687,11 +687,11 @@
 		</action>
 
 		<action path="/laborLedgerCorrection" name="LaborCorrectionForm"
-			input="/jsp/gl/Correction.jsp"
+			input="/jsp/gl/GeneralLedgerCorrectionProcess.jsp"
 			type="org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionAction"
 			scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
 			<set-property property="cancellable" value="true" />
-			<forward name="basic" path="/jsp/gl/Correction.jsp" />
+			<forward name="basic" path="/jsp/gl/GeneralLedgerCorrectionProcess.jsp" />
 		</action>
 
 		<action path="/laborLongRowTableInquiry" name="BalanceInquiryForm"

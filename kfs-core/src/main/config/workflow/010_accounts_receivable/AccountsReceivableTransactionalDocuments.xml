@@ -265,7 +265,7 @@
 				Customer Invoice
       		</label>
 			<docHandler>
-				${kfs.url}/arCustomerInvoiceDocument.do?methodToCall=docHandler
+				${kfs.url}/arCustomerInvoice.do?methodToCall=docHandler
       		</docHandler>
 			<helpDefinitionURL>
 				default.htm?turl=WordDocuments%2Fcustomerinvoice.htm

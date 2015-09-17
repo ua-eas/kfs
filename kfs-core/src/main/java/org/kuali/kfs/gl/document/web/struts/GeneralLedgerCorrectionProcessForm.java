@@ -19,31 +19,30 @@
 
 package org.kuali.kfs.gl.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
 import org.kuali.kfs.gl.document.service.CorrectionDocumentService;
 import org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
 import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 
 /**
  * This class represents the action form for the Correction Document
  */
-public class CorrectionForm extends KualiDocumentFormBase implements CorrectionDocumentEntryMetadata {
-    protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CorrectionForm.class);
+public class GeneralLedgerCorrectionProcessForm extends KualiDocumentFormBase implements CorrectionDocumentEntryMetadata {
+    protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GeneralLedgerCorrectionProcessForm.class);
 
     protected String docTitle;
     protected String htmlFormAction;
@@ -118,7 +117,7 @@ public class CorrectionForm extends KualiDocumentFormBase implements CorrectionD
 
     protected transient KualiTableRenderFormMetadata originEntrySearchResultTableMetadata;
 
-    public CorrectionForm() {
+    public GeneralLedgerCorrectionProcessForm() {
         super();
 
         // These are for the blank rows that are used to add criteria/changes
@@ -671,7 +670,7 @@ public class CorrectionForm extends KualiDocumentFormBase implements CorrectionD
         setDocumentType("GLCP");
         //setDocTitle("General Ledger Correction Process");
         setDocTitle("GeneralLedgerCorrectionProcessDocument");
-        setHtmlFormAction("generalLedgerCorrection");
+        setHtmlFormAction("generalLedgerGeneralLedgerCorrectionProcess");
     }
 
     /**

@@ -30,7 +30,7 @@ import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
 public interface CustomerInvoiceDetailService {
 
     /**
-     * This method returns a customer invoice detail for use on the CustomerInvoiceDocumentAction. If corresponding organization
+     * This method returns a customer invoice detail for use on the CustomerInvoiceAction. If corresponding organization
      * accounting default exists for billing chart and org, then the customer invoice detail is defaulted using the organization
      * accounting default values.
      *
@@ -43,7 +43,7 @@ public interface CustomerInvoiceDetailService {
 
     /**
      * This method returns a customer invoice detail for current user and current fiscal year for use on the
-     * CustomerInvoiceDocumentAction. If corresponding organization accounting default exists for billing chart and org, then the
+     * CustomerInvoiceAction. If corresponding organization accounting default exists for billing chart and org, then the
      * customer invoice detail is defaulted using the organization accounting default values.
      *
      * @return

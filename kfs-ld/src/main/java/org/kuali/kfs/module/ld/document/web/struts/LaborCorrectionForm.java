@@ -21,7 +21,7 @@ package org.kuali.kfs.module.ld.document.web.struts;
 
 import java.util.List;
 
-import org.kuali.kfs.gl.document.web.struts.CorrectionForm;
+import org.kuali.kfs.gl.document.web.struts.GeneralLedgerCorrectionProcessForm;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.document.LaborCorrectionDocument;
 import org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService;
@@ -32,7 +32,7 @@ import org.kuali.kfs.kns.web.ui.Column;
 /**
  * Struts Action Form for the Labor Ledger Correction Process.
  */
-public class LaborCorrectionForm extends CorrectionForm {
+public class LaborCorrectionForm extends GeneralLedgerCorrectionProcessForm {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborCorrectionForm.class);
 
     protected LaborOriginEntry laborEntryForManualEdit;
@@ -64,7 +64,7 @@ public class LaborCorrectionForm extends CorrectionForm {
     }
     
     /**
-     * @see org.kuali.kfs.gl.document.web.struts.CorrectionForm#clearForm()
+     * @see GeneralLedgerCorrectionProcessForm#clearForm()
      */
     public void clearForm() {
         super.clearForm();
@@ -97,7 +97,7 @@ public class LaborCorrectionForm extends CorrectionForm {
     }
 
     /**
-     * @see org.kuali.kfs.gl.document.web.struts.CorrectionForm#setDocType()
+     * @see GeneralLedgerCorrectionProcessForm#setDocType()
      */
     public void setDocType() {
         setDocumentType("LLCP");
