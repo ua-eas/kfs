@@ -29,7 +29,7 @@
         General Ledger Correction Process
       </label>
       <docHandler>
-        ${kfs.url}/generalLedgerCorrection.do?methodToCall=docHandler
+        ${kfs.url}/generalLedgerGeneralLedgerCorrectionProcess.do?methodToCall=docHandler
       </docHandler>
       <helpDefinitionURL>
         default.htm?turl=WordDocuments%2Fgeneralledgercorrectionprocess.htm

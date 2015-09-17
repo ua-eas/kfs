@@ -222,8 +222,8 @@
 			type="org.kuali.kfs.module.bc.document.web.struts.BudgetExpansionForm" />
 
 		<!-- General Ledger Bean Definitions -->
-		<form-bean name="CorrectionForm"
-			type="org.kuali.kfs.gl.document.web.struts.CorrectionForm" />
+		<form-bean name="GeneralLedgerCorrectionProcessForm"
+			type="org.kuali.kfs.gl.document.web.struts.GeneralLedgerCorrectionProcessForm" />
 		<form-bean name="BalanceInquiryForm"
 			type="org.kuali.kfs.gl.web.struts.BalanceInquiryForm" />
 		<form-bean name="BalanceInquiryLookupForm"
@@ -687,11 +687,11 @@
 		</action>
 
 		<action path="/laborLedgerCorrection" name="LaborCorrectionForm"
-			input="/jsp/gl/Correction.jsp"
+			input="/jsp/gl/GeneralLedgerCorrectionProcess.jsp"
 			type="org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionAction"
 			scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
 			<set-property property="cancellable" value="true" />
-			<forward name="basic" path="/jsp/gl/Correction.jsp" />
+			<forward name="basic" path="/jsp/gl/GeneralLedgerCorrectionProcess.jsp" />
 		</action>
 
 		<action path="/laborLongRowTableInquiry" name="BalanceInquiryForm"
