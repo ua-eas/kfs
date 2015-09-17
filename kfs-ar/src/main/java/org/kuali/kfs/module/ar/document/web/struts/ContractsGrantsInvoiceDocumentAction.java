@@ -48,7 +48,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 /**
  * Action class for ContractsGrantsInvoiceDocument
  */
-public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumentAction {
+public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceAction {
     protected static volatile ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService;
     protected static volatile FinancialSystemDocumentService financialSystemDocumentService;
 
@@ -66,7 +66,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceDocumen
 
     /**
      * Overridden to recheck the suspension categories when the document is opened
-     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentAction#loadDocument(org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase)
+     * @see CustomerInvoiceAction#loadDocument(org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {

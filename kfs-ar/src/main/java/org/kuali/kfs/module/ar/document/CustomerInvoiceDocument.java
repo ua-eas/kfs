@@ -1179,7 +1179,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
 
 
     /**
-     * This method is called on CustomerInvoiceDocumentAction.execute() to set isDiscount to true if it truly is a discount line
+     * This method is called on CustomerInvoiceAction.execute() to set isDiscount to true if it truly is a discount line
      */
     @SuppressWarnings("unchecked")
     public void updateDiscountAndParentLineReferences() {

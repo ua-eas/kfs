@@ -47,17 +47,17 @@ import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.kns.web.ui.HeaderField;
 import org.kuali.kfs.krad.util.KRADConstants;
 
-public class CustomerInvoiceDocumentForm extends KualiAccountingDocumentFormBase {
+public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
 
     protected transient ConfigurationService configService;
 
     protected CustomerInvoiceDetail newCustomerInvoiceDetail;
 
     /**
-     * Constructs a CustomerInvoiceDocumentForm.java. Also sets new customer invoice document detail to a newly constructed customer
+     * Constructs a CustomerInvoiceForm.java. Also sets new customer invoice document detail to a newly constructed customer
      * invoice detail.
      */
-    public CustomerInvoiceDocumentForm() {
+    public CustomerInvoiceForm() {
         super();
     }
 

@@ -31,9 +31,9 @@ import org.kuali.kfs.kns.web.ui.ExtraButton;
 /**
  * This class is the action form for Customer Aging Reports.
  */
-public class CustomerInvoiceForm extends KualiForm {
+public class CustomerInvoiceGenerationForm extends KualiForm {
 
-    private static final org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory.getLog(CustomerInvoiceForm.class);
+    private static final org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory.getLog(CustomerInvoiceGenerationForm.class);
 
     private String chartCode;
     private String orgCode;

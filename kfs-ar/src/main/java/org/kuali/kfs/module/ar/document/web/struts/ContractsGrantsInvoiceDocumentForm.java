@@ -38,10 +38,10 @@ import org.kuali.kfs.krad.util.KRADConstants;
 /**
  * Form Class for Contracts & Grants Invoice Document.
  */
-public class ContractsGrantsInvoiceDocumentForm extends CustomerInvoiceDocumentForm {
+public class ContractsGrantsInvoiceDocumentForm extends CustomerInvoiceForm {
 
     /**
-     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentForm#getExtraButtons()
+     * @see CustomerInvoiceForm#getExtraButtons()
      */
     @Override
     public List<ExtraButton> getExtraButtons() {
@@ -68,7 +68,7 @@ public class ContractsGrantsInvoiceDocumentForm extends CustomerInvoiceDocumentF
     }
 
     /**
-     * @see org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceDocumentForm#getDefaultDocumentTypeName()
+     * @see CustomerInvoiceForm#getDefaultDocumentTypeName()
      */
     @Override
     protected String getDefaultDocumentTypeName() {

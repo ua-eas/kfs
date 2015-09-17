@@ -47,8 +47,8 @@ import com.lowagie.text.pdf.SimpleBookmark;
  * This class handles Actions for lookup flow
  */
 
-public class CustomerInvoiceAction extends KualiAction {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceAction.class);
+public class CustomerInvoiceGenerationAction extends KualiAction {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceGenerationAction.class);
 
     /**
      *
@@ -90,7 +90,7 @@ public class CustomerInvoiceAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward clear(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CustomerInvoiceForm ciForm = (CustomerInvoiceForm)form;
+        CustomerInvoiceGenerationForm ciForm = (CustomerInvoiceGenerationForm)form;
         ciForm.setChartCode(null);
         ciForm.setOrgCode(null);
         ciForm.setOrgType(null);
@@ -110,7 +110,7 @@ public class CustomerInvoiceAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward print(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CustomerInvoiceForm ciForm = (CustomerInvoiceForm)form;
+        CustomerInvoiceGenerationForm ciForm = (CustomerInvoiceGenerationForm)form;
 
         String org = ciForm.getOrgCode();
         String chart = ciForm.getChartCode();

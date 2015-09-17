@@ -260,7 +260,7 @@ public abstract class FieldRendererBase implements FieldRenderer {
         String maxLength=Integer.toString(field.getMaxLength());
         String actionName=((String)context.getRequest().getAttribute("org.apache.struts.globals.ORIGINAL_URI_KEY"));
         /* Here we get the action url without decoration turning
-         *  /arCustomerInvoiceDocument.do    into    arCustomerInvoiceDocument
+         *  /arCustomerInvoice.do    into    arCustomerInvoice
          */
         actionName=actionName.substring(1,actionName.length() - 3);
         String title="Description";
