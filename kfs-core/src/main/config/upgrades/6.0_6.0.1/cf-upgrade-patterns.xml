@@ -20,12 +20,12 @@
 <rules>
     <rule name="cf_changes">
         <pattern>
-            <match>org\.kuali\.rice\.krad\.^(?!bo\.BusinessObject)</match>
+            <match>org\.kuali\.rice\.krad\.(?!bo\.BusinessObject)</match>
             <replacement>org.kuali.kfs.krad.</replacement>
         </pattern>
         <pattern>
             <match>org\.kuali\.rice\.kns\.</match>
-            <replacement>org.kuali.kfs.kns</replacement>
+            <replacement>org.kuali.kfs.kns.</replacement>
         </pattern>
         <pattern>
             <match>org\.kuali\.rice\.coreservice\.</match>
@@ -55,15 +55,6 @@
             <match>\"lookupableHelperService\"</match>
             <replacement>"cf.lookupableHelperService"</replacement>
         </pattern>
-        <pattern>
-            <match>\"documentHelperService\"</match>
-            <replacement>"cf.documentHelperService"</replacement>
-        </pattern>
-        <pattern>
-            <match>\"documentHeaderDao\"</match>
-            <replacement>"cf.documentHeaderDao"</replacement>
-        </pattern>
-
         <pattern>
             <match>org\.kuali\.rice\.kim.\bo\.options\.ActionPolicyValuesFinder</match>
             <replacement>org.kuali.kfs.kns.bo.lookup.ActionPolicyValuesFinder</replacement>
@@ -104,6 +95,5 @@
             <match>org\.kuali\.rice\.location\.framework\.state\.StateValuesFinder</match>
             <replacement>org.kuali.kfs.kns.bo.lookup.StateValuesFinder</replacement>
         </pattern>
-
     </rule>
 </rules>
