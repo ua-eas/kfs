@@ -34,16 +34,21 @@
 	<html-el:hidden name="KualiForm" property="conversionFields" />
 	<html-el:hidden name="KualiForm" property="hideReturnLink" />
 	<kul:errors errorTitle="Errors found in Search Criteria:" />
-	<table width="1000px" cellspacing="0" cellpadding="0">
+
+    <c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
+    <c:if test="${numberOfColumns > 1}">
+        <c:set var="tableClass" value="multi-column-table"/>
+    </c:if>
+
+    <table cellspacing="0" cellpadding="0">
 		<tr>
 			<td width="1%"><img
 				src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif"
 				alt="" width="20" height="20" /></td>
 
 			<td><c:if test="${param.inquiryFlag != 'true'}">
-				<div id="lookup" align="center"><br />
-				<br />
-				<table class="datatable-100" align="center" cellpadding="0"
+				<div id="lookup" align="center">
+				<table class="datatable-100 ${tableClass}" align="center" cellpadding="0"
 					cellspacing="0">
 					<c:set var="FormName" value="KualiForm" scope="request" />
 					<c:set var="FieldRows" value="${KualiForm.lookupable.rows}"
@@ -53,10 +58,10 @@
 					<c:set var="IsLookupDisplay" value="true" scope="request" />
 
 					<kul:rowDisplay rows="${KualiForm.lookupable.rows}"
-						numberOfColumns="${KualiForm.numColumns}" />
+						numberOfColumns="${numberOfColumns}" />
 
 					<tr align=center>
-						<td height="30" colspan="${KualiForm.numColumns*2}"
+						<td height="30" colspan="${numberOfColumns*2}"
 							class="infoline"><html:image property="methodToCall.search"
 							value="search"
 							src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_search.gif"
@@ -82,10 +87,6 @@
 					</tr>
 				</table>
 				</div>
-
-				<br />
-				<br />
-
 			</c:if></td>
 		</tr>
 	</table>

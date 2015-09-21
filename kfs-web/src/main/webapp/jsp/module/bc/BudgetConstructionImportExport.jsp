@@ -31,7 +31,7 @@
     <strong><h2>
     <c:out value="${KualiForm.title}"/>
 	 <a href="${ConfigProperties.externalizable.help.url}default.htm?turl=WordDocuments%2Frequestimporttool.htm" tabindex="${KualiForm.nextArbitrarilyHighIndex}" target="helpWindow"  title="[Help]Upload">
-	                                        <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.gif" title="[Help] Upload" alt="[Help] Upload" hspace=5 border=0  align="middle"></a>
+	                                        <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="[Help] Upload" alt="[Help] Upload" hspace=5 border=0  align="middle" class="help"></a>
   </h2></strong>
 	</br>
       

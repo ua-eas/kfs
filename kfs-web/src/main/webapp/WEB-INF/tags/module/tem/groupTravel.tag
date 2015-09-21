@@ -23,7 +23,7 @@
 
 <kul:tab tabTitle="Group Travel" defaultOpen="false" tabErrorKey="${TemKeyConstants.TRVL_GROUP_TRVL_ERRORS}">
 	<div class="tab-container" align=center>
-		<h3>Group Travel Section <a href="${KualiForm.uploadParserInstructionsUrl}" target="helpWindow"><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.gif" title="Group Traveler Import Help" src="Group Traveler Import Help" hspace="5" border="0" align="middle" /></a></h3>
+		<h3>Group Travel Section <a href="${KualiForm.uploadParserInstructionsUrl}" target="helpWindow"><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Group Traveler Import Help" src="Group Traveler Import Help" hspace="5" border="0" align="middle" class="help" /></a></h3>
 		<table cellpadding="0" cellspacing="0" class="datatable" summary="Group Traveler Section">
 			<c:if test="${fullEntryMode}">
 				<tr>

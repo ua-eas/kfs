@@ -26,7 +26,7 @@
 
 	<strong><h2>	
 	  <bean:message key="${KualiForm.titleKey}"/> <a href="${ConfigProperties.externalizable.help.url}default.htm?turl=WordDocuments%2Fbarcodeinventoryprocess.htm" tabindex="${KualiForm.nextArbitrarilyHighIndex}" target="helpWindow"  title="[Help]Upload">
-	                                        <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.gif" alt="[Help]Upload" hspace=5 border=0  align="middle"></a>
+	                                        <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" alt="[Help]Upload" hspace=5 border=0  align="middle" class="help"></a>
 	  </h2></strong>
 	</br>
 

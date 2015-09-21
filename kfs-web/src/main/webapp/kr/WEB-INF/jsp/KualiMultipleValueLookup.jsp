@@ -71,16 +71,19 @@
 				height="20"></td>
 			<td>
 
-			<div id="lookup" align="center"><br />
-			<br />
-			<table align="center" cellpadding=0 cellspacing=0 class="datatable-100">
+            <c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
+            <c:if test="${numberOfColumns > 1}">
+                <c:set var="tableClass" value="multi-column-table"/>
+            </c:if>
+			<div id="lookup" align="center">
+			<table align="center" cellpadding=0 cellspacing=0 class="datatable-100 ${tableClass}">
 				<c:set var="FormName" value="KualiForm" scope="request" />
 				<c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
 				<c:set var="ActionName" value="Lookup.do" scope="request" />
 				<c:set var="IsLookupDisplay" value="true" scope="request" />
 				<c:set var="cellWidth" value="50%" scope="request" />
 
-                <kul:rowDisplay rows="${FieldRows}" skipTheOldNewBar="true" />
+                <kul:rowDisplay rows="${FieldRows}" skipTheOldNewBar="true" numberOfColumns="${numberOfColumns}" />
 
 				<tr align=center>
 					<td height="30" colspan=2 class="infoline"><html:image
@@ -113,8 +116,6 @@
 				</tr>
 			</table>
 			</div>
-			<br>
-			<br>	
             <kul:displayMultipleValueLookupResults resultsList="${requestScope.reqSearchResults}"/>
 			</td>
 			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"

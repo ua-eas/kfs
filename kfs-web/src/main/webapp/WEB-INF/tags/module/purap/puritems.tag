@@ -86,7 +86,7 @@
 		<c:if test="${(fullEntryMode or amendmentEntry) and !lockB2BEntry}">
 			<tr>
 				<td colspan="9" class="subhead">
-					<span class="subhead-left">Add Item <a href="${KualiForm.lineItemImportInstructionsUrl}" target="helpWindow"><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.gif" title="Line Item Import Help" src="Line Item Import Help" hspace="5" border="0" align="middle" /></a>
+					<span class="subhead-left">Add Item <a href="${KualiForm.lineItemImportInstructionsUrl}" target="helpWindow"><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Line Item Import Help" src="Line Item Import Help" hspace="5" border="0" align="middle" class="help" /></a>
 				</td>
 				<td colspan="6" class="subhead" align="right" nowrap="nowrap" style="border-left: none;">
 					<SCRIPT type="text/javascript">

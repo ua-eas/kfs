@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.taglib.html.HiddenTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.taglib.html.HiddenTag;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
+import java.io.IOException;
 
 /**
  * Renders the header of an accounting line table
@@ -137,7 +136,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         subheading.append("\" target=\"helpWindow\">");
         subheading.append("<img src=\"");
         subheading.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("kr.externalizable.images.url"));
-        subheading.append("my_cp_inf.gif\" title=\"Accounting Lines Help\" alt=\"Accounting Lines Help\" hspace=\"5\" border=\"0\" align=\"middle\" />");
+        subheading.append("my_cp_inf.png\" title=\"Accounting Lines Help\" alt=\"Accounting Lines Help\" hspace=\"5\" border=\"0\" align=\"middle\" class=\"help\" />");
         subheading.append("</a>");
         
         return subheading.toString();

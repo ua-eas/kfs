@@ -26,7 +26,7 @@
 <%@ attribute name="tabindexOverride" required="false" %>
 <%@ attribute name="image" required="false"%>
 
-<c:set var="imageName" value="${empty image ? 'searchicon.gif' : image}"/>
+<c:set var="imageName" value="${empty image ? 'searchicon.png' : image}"/>
 
 <c:choose>
   <c:when test="${!empty tabindexOverride}">

@@ -65,7 +65,7 @@
 						<span class="subhead-left">
 							Add Attendee 
 							<a href="${KualiForm.uploadParserInstructionsUrl}" target="helpWindow">
-								<img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.gif" title="Attendee Import Help" src="Attendee Import Help" hspace="5" border="0" align="middle" />
+								<img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Attendee Import Help" src="Attendee Import Help" hspace="5" border="0" align="middle" class="help" />
 							</a>
 						</span>
 					</td>
