@@ -82,12 +82,12 @@ public class QuickFinderRenderer extends FieldRendererBase {
         
         quickFinderHtml.append("src=\"");
         quickFinderHtml.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("kr.externalizable.images.url"));
-        quickFinderHtml.append("searchicon.gif");
+        quickFinderHtml.append("searchicon.png");
         quickFinderHtml.append("\" ");
         
         quickFinderHtml.append("border=\"0\" ");
         
-        quickFinderHtml.append("class=\"tinybutton\" ");
+        quickFinderHtml.append("class=\"tinybutton searchicon\" ");
         
         quickFinderHtml.append("valign=\"middle\" ");
         

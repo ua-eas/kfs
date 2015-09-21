@@ -38,4 +38,4 @@
 <c:set var="epMethodToCallAttribute" value="methodToCall.performLookup.(!!${boClassName}!!).((`${lookupParameters}`)).(:;${lookedUpCollectionName};:).((%true%)).((~${autoSearch}~)).anchor${anchor}"/>
 ${kfunc:registerEditableProperty(KualiForm, epMethodToCallAttribute)} 
 <input type="image" tabindex="${tabindex}" name="${epMethodToCallAttribute}"
-   src="${ConfigProperties.kr.externalizable.images.url}searchicon.png" border="0" class="tinybutton" valign="middle" alt="Multiple Value Search on ${lookedUpBODisplayName}" title="Multiple Value Search on ${lookedUpBODisplayName}" />
+   src="${ConfigProperties.kr.externalizable.images.url}searchicon.png" border="0" class="tinybutton searchicon" valign="middle" alt="Multiple Value Search on ${lookedUpBODisplayName}" title="Multiple Value Search on ${lookedUpBODisplayName}" />

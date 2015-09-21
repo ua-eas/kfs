@@ -130,12 +130,6 @@ div.excol {
     padding-bottom: 12px;
 }
 
-#lookup input.searchicon {
-    height: 18px;
-    width: 18px;
-    vertical-align: middle;
-}
-
 #lookup td.infoline input[type=image] {
     padding-right: 10px;
 }
