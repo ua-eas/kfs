@@ -24,7 +24,7 @@
 
 	<bean id="TravelModule-tripInfoUpdateTripDetailsValidation" parent="TravelModule-tripInfoUpdateTripDetailsValidation-parentBean"/>
 	<bean id="TravelModule-tripInfoUpdateTripDetailsValidation-parentBean" abstract="true" class="org.kuali.kfs.module.tem.document.validation.impl.TravelUpdateTripDetailsValidation">
-		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
+		<property name="dictionaryValidationService" ref="dictionaryValidationService"/>
 	</bean>
 	
 	<bean id="TravelModule-milegeRateAvailableForPerDiemValidation" parent="TravelModule-milegeRateAvailableForPerDiemValidation-parentBean"/>
@@ -34,7 +34,7 @@
 
 	<bean id="TravelModule-perDiemExpenseValidation" parent="TravelModule-perDiemExpenseValidation-parentBean" />
     <bean id="TravelModule-perDiemExpenseValidation-parentBean" abstract="true" class="org.kuali.kfs.module.tem.document.validation.impl.PerDiemExpenseValidation">
-    	<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
+    	<property name="dictionaryValidationService" ref="dictionaryValidationService"/>
     	<property name="dateTimeService" ref="dateTimeService"/>
     </bean>
 
@@ -117,7 +117,7 @@
 	<bean id="TravelModule-tripInformationValidation-parentBean" abstract="true"
 		class="org.kuali.kfs.module.tem.document.validation.impl.TravelAuthTripInformationValidation">
 		<property name="travelService" ref="temTravelService" />
-		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
 		<property name="travelDocumentService" ref="travelDocumentService" />
 	</bean>
 
@@ -142,13 +142,13 @@
 	<bean id="TravelModule-addImportedExpenseDetailLineValidation" parent="TravelModule-addImportedExpenseDetailLineValidation-parentBean"/>
 	<bean id="TravelModule-addImportedExpenseDetailLineValidation-parentBean" abstract="true"
 		class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentImportedExpenseDetailLineValidation">
-		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
+		<property name="dictionaryValidationService" ref="dictionaryValidationService"/>
 	</bean>
 
 	<bean id="TravelDocument-actualExpenseLineValidation" parent="TravelDocument-actualExpenseLineValidation-parentBean"/>
 	<bean id="TravelDocument-actualExpenseLineValidation-parentBean" abstract="true" class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentActualExpenseLineValidation">
 		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
+		<property name="dictionaryValidationService" ref="dictionaryValidationService"/>
 	</bean>
 	
 	<bean id="TravelDocument-actualExpenseMileageRateExistsValidation" parent="TravelDocument-actualExpenseMileageRateExistsValidation-parentBean"/>
@@ -160,7 +160,7 @@
 	<bean id="TravelDocument-actualExpenseDetailLineValidation-parentBean" abstract="true"
 		class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentActualExpenseDetailLineValidation">
 		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
+		<property name="dictionaryValidationService" ref="dictionaryValidationService"/>
 		<property name="dataDictionaryService" ref="dataDictionaryService"/>
 	</bean>
 	
@@ -168,7 +168,7 @@
 	<bean id="TravelModule-distributionAccountingLineValidation-parentBean" abstract="true"
 		class="org.kuali.kfs.module.tem.document.validation.impl.TravelDocumentDistributionAccountingLinesValidation">
 		<property name="businessObjectService" ref="businessObjectService" />
-		<property name="dictionaryValidationService" ref="knsDictionaryValidationService"/>
+		<property name="dictionaryValidationService" ref="dictionaryValidationService"/>
 		<property name="accountingDistributionService" ref="temAccountingDistributionService" />
 	</bean>
 
