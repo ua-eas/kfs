@@ -269,7 +269,7 @@
 		<property name="dataDictionaryService">
 			<ref bean="dataDictionaryService" />
 		</property>
-		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
 	</bean>
 	
 	<bean id="procurementCardDocumentJob" parent="scheduledJobDescriptor">
