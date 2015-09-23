@@ -410,7 +410,7 @@
 		<property name="parameterService" ref="parameterService" />
 		<property name="disbursementVoucherTaxService" ref="disbursementVoucherTaxService" />
 		<property name="disbursementVoucherTravelService" ref="disbursementVoucherTravelService" />
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 	</bean>
 	
 	<bean id="DisbursementVoucher-nonResidentAlienInformationValidation" class="org.kuali.kfs.fp.document.validation.impl.DisbursementVoucherNonResidentAlienInformationValidation" abstract="true" />
