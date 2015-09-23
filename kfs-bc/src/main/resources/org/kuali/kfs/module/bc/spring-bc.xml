@@ -922,7 +922,7 @@
 			<ref bean="documentHelperService" />
 		</property>	
 		<property name="dictionaryValidationService">
-			<ref bean="knsDictionaryValidationService" />
+			<ref bean="dictionaryValidationService" />
 		</property>
 		<property name="lockService">
 			<ref bean="lockService" />
@@ -1072,7 +1072,7 @@
 			<ref bean="laborModuleService" />
 		</property>
 		<property name="dictionaryValidationService">
-			<ref bean="knsDictionaryValidationService" />
+			<ref bean="dictionaryValidationService" />
 		</property>
     </bean>	
     
