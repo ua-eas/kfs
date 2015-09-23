@@ -103,11 +103,11 @@
 	</bean>
 
 	<bean id="PurchasingAccountsPayable-addItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableAddItemValidation" abstract="true">
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 	</bean>
 
 	<bean id="PurchasingAccountsPayable-importItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableImportItemValidation" abstract="true">
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 	</bean>
 
     <bean id="PurchasingAccountsPayable-itemConsideredEnteredBranchingValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAccountsPayableItemConsideredEnteredBranchingValidation" abstract="true" />
@@ -225,13 +225,13 @@
 
 	<bean id="Purchasing-addItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingAddItemValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>		
 
 	<bean id="Purchasing-importItemValidation" class="org.kuali.kfs.module.purap.document.validation.impl.PurchasingImportItemValidation" abstract="true">
 		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 		<property name="businessObjectService" ref="businessObjectService" />
 	</bean>		
 
@@ -966,7 +966,7 @@
 	</bean>
 	
 	<bean id="BulkReceivingDocument-initScreenFieldValidation" class="org.kuali.kfs.module.purap.document.validation.impl.BulkReceivingInitScreenFieldValidation" abstract="true">
-		<property name="dictionaryValidationService" ref="dictionaryValidationService" />
+		<property name="dictionaryValidationService" ref="knsDictionaryValidationService" />
 	</bean>
 	
     <bean id="BulkReceivingDocument-deliveryValidation" class="org.kuali.kfs.module.purap.document.validation.impl.BulkReceivingDeliveryValidation" abstract="true">
