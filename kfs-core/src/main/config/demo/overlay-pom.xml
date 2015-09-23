@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.kuali.kfs</groupId>
+    <artifactId>kfs</artifactId>
+    <version>6.0.1-SNAPSHOT</version>
+  </parent>
+
   <groupId>edu.kuali.kfs</groupId>
   <artifactId>kfs-war</artifactId>
   <packaging>war</packaging>
@@ -10,15 +16,15 @@
   </description>
   <inceptionYear>2013</inceptionYear>
   <organization>
-    <name>KualiCo</name>
-    <url>http://www.kuali.co</url>
+    <name>Education University</name>
+    <url>http://www.edu.edu</url>
   </organization>
 
 
   <properties>
     <job.name>${project.artifactId}</job.name>
-    <rice.version>2.1.9</rice.version>
-    <kfs.version>6.0.2</kfs.version>
+    <rice.version>2.1.11</rice.version>
+    <kfs.version>6.0.1-SNAPSHOT</kfs.version>
     <skipTests>true</skipTests>
     <test.excludes>**/*Test.java.bogus</test.excludes>
     <buildNumber>1.0-SNAPSHOT</buildNumber>
@@ -161,20 +167,5 @@
 
   </dependencies>
 
-  <distributionManagement/>
-
-  <repositories>
-    <repository>
-      <id>kuali.nexus</id>
-      <name>Nexus Repository Manager</name>
-      <url>http://nexus.kuali.org/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
 </project>
