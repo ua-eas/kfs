@@ -18,6 +18,12 @@
  */
 package org.kuali.kfs.sys.context;
 
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.suite.AnnotationTestSuite;
+import org.kuali.kfs.sys.suite.PreCommitSuite;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.beans.factory.BeanIsAbstractException;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -26,12 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.PreCommitSuite;
-import org.springframework.aop.support.AopUtils;
-import org.springframework.beans.factory.BeanIsAbstractException;
 @AnnotationTestSuite(PreCommitSuite.class)
 @ConfigureContext
 /**
@@ -54,6 +54,7 @@ public class TransactionalAnnotationTest extends KualiTestBase {
     {
         excludedClasses.add( "org.kuali.kfs.coa.service.impl.SubFundGroupServiceImpl" );
         excludedClasses.add( "org.kuali.kfs.module.purap.service.impl.SensitiveDataServiceImpl" );
+        excludedClasses.add( "org.kuali.kfs.krad.service.impl.BusinessObjectServiceImpl" );
     }
 
     @Override
@@ -161,6 +162,9 @@ public class TransactionalAnnotationTest extends KualiTestBase {
             }
             if (beanClass.getAnnotation(org.kuali.kfs.sys.service.NonTransactional.class) != null){
                 hasClassAnnotation =  true;
+            }
+            if (beanClass.getAnnotation(org.kuali.rice.core.framework.persistence.jta.TransactionalNoValidationExceptionRollback.class) != null) {
+                hasClassAnnotation = true;
             }
 
 

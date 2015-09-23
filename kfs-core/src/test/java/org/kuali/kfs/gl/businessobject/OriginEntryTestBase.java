@@ -52,7 +52,7 @@ import org.kuali.kfs.krad.service.PersistenceService;
  * many convenience methods for writing tests that test against large batches of origin entries.
  */
 @ConfigureContext
-public class OriginEntryTestBase extends KualiTestBase {
+public abstract class OriginEntryTestBase extends KualiTestBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OriginEntryTestBase.class);
 
     protected ConfigurableDateService dateTimeService;
