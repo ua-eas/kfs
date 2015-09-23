@@ -175,7 +175,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
     p:shortLabel="File Path" />
     
     <bean id="KfsKimAttributes-profilePrincipalId" parent="KfsKimAttributes-profilePrincipalId-parentBean" />
-	<bean id="KfsKimAttributes-profilePrincipalId-parentBean" parent="AttributeDefinition">
+	<bean id="KfsKimAttributes-profilePrincipalId-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="profilePrincipalId" />
 		<property name="label" value="Profile Principal Id" />
 		<property name="control">
