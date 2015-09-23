@@ -68,7 +68,11 @@
  	<bean id="documentAdHocService" p:serviceName="cf.documentAdHocService" parent="grlBeanImporter" />
 	<bean id="maintenanceDocumentService" p:serviceName="cf.maintenanceDocumentService" parent="grlBeanImporter" />
 	<bean id="postProcessorService" p:serviceName="cf.postProcessorService" parent="grlBeanImporter" />
+ 	<!-- TODO: Remove use of the bean below in favor of "knsDictionaryValidationService"
+ 				Eventually, we may want to start using the KRAD dictionary files and this is hiding it from
+ 				being used for spring injection. -->
  	<bean id="dictionaryValidationService" p:serviceName="cf.dictionaryValidationService" parent="grlBeanImporter" />
+ 	<bean id="knsDictionaryValidationService" p:serviceName="cf.knsDictionaryValidationService" parent="grlBeanImporter" />
  	<bean id="persistenceService" p:serviceName="cf.persistenceService" parent="grlBeanImporter" />
 	<bean id="persistenceServiceOjb" p:serviceName="cf.persistenceServiceOjb" parent="grlBeanImporter"/>
  	<bean id="businessObjectDictionaryService" p:serviceName="cf.businessObjectDictionaryService" parent="grlBeanImporter" />
