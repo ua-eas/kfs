@@ -107,13 +107,13 @@ div.excol {
 
 #lookup .multi-column-table th {
     text-align: left;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     height: 30px;
 }
 
 #lookup .multi-column-table>tbody>tr>td {
     vertical-align: top;
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 #lookup .multi-column-table>tbody>tr>td:first-child {
@@ -138,6 +138,7 @@ div.excol {
     border-top: 1px solid #E7E7E7;
     padding-top: 20px;
     padding-bottom: 12px !important;
+    padding-right: 0 !important;
 }
 
 #lookup.fixedButtons {
@@ -145,11 +146,19 @@ div.excol {
     padding-bottom: 65px;
 }
 
+#lookup.fixedButtons.multiline {
+    padding-bottom: 130px;
+}
+
 #lookup td.infoline.fixed {
     position: fixed;
     bottom: 0;
     height: 65px;
     background-color: rgba(255,255,255,0.9);
+}
+
+#lookup td.infoline.multiline.fixed {
+    height: 130px;
 }
 
 #lookup td.infoline img {
@@ -326,6 +335,18 @@ tr.even {
 
 #globalbuttons .btn {
     font-size: 16px;
+}
+
+.infoline #globalbuttons {
+    position: inherit;
+    background-color: transparent;
+    box-shadow: none;
+    margin: 0;
+    width: inherit;
+}
+
+.infoline.fixed #globalbuttons {
+    height: 36px;
 }
 
 div.inquiry {

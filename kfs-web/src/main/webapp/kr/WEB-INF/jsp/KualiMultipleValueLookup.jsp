@@ -97,29 +97,23 @@
 							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'  title="cancel"><img
 							src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" 
 							border="0" /></a>
-					</c:if> <!-- Optional extra button --> <c:if
-						test="${! empty KualiForm.extraButtonSource && extraButtonSource != ''}">
-						<a
-							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" /><c:out value="${KualiForm.extraButtonParams}" />'><img
-							src='<c:out value="${KualiForm.extraButtonSource}" />'
-							class="tinybutton" border="0" /></a>
 					</c:if>
-					
-					<%-- removed for 3219 --%>
-					<%--
-					<c:if test="${ KualiForm.hasReturnableRow }" >
-						<input type="image" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" class="tinybutton" name="methodToCall.prepareToReturnSelectedResults" alt="Return selected results" title="Return selected results"/>
-					</c:if>
-					--%>
-					
+                        <c:if test="${! empty KualiForm.extraButtonSource && extraButtonSource != ''}">
+                            <a
+                                href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" /><c:out value="${KualiForm.extraButtonParams}" />'><img
+                                src='<c:out value="${KualiForm.extraButtonSource}" />'
+                                class="tinybutton" border="0" /></a>
+					    </c:if>
+
 					</td>
 				</tr>
 			</table>
 			</div>
             <kul:displayMultipleValueLookupResults resultsList="${requestScope.reqSearchResults}"/>
 			</td>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-				height="20"></td>
 		</tr>
 	</table>
+
+    <kul:stickyLookupButtons/>
+
 </kul:page>
