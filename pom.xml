@@ -390,9 +390,9 @@
     </dependency>
     <!-- rice-core-service dependencies. -->
     <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-core-service-api</artifactId>
-      <version>${rice.version}</version>
+      <groupId>org.kuali.kfs</groupId>
+      <artifactId>cf-core-service-api</artifactId>
+      <version>${cf.version}</version>
       <exclusions>
         <exclusion>
           <groupId>xapool</groupId>
@@ -831,41 +831,6 @@
           <groupId>org.kuali.rice</groupId>
           <artifactId>rice-krad-web-framework</artifactId>
         </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.kfs</groupId>
-      <artifactId>cf-impl</artifactId>
-      <version>${cf.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.resource</groupId>
-          <artifactId>connector-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.transaction</groupId>
-          <artifactId>jta</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-beanutils</groupId>
-          <artifactId>commons-beanutils</artifactId>
-        </exclusion>
-        <!--<exclusion>-->
-        <!--<groupId>org.kuali.rice</groupId>-->
-        <!--<artifactId>rice-kns</artifactId>-->
-        <!--</exclusion>-->
-        <!--<exclusion>-->
-        <!--<groupId>org.kuali.rice</groupId>-->
-        <!--<artifactId>rice-krad-app-framework</artifactId>-->
-        <!--</exclusion>-->
-        <!--<exclusion>-->
-        <!--<groupId>org.kuali.rice</groupId>-->
-        <!--<artifactId>rice-krad-web-framework</artifactId>-->
-        <!--</exclusion>-->
       </exclusions>
     </dependency>
 
