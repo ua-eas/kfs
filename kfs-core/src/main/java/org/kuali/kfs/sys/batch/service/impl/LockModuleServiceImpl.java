@@ -20,7 +20,7 @@ package org.kuali.kfs.sys.batch.service.impl;
 
 import org.kuali.kfs.sys.batch.service.LockModuleService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.rice.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;

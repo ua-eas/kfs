@@ -35,7 +35,7 @@ import org.kuali.kfs.module.purap.businessobject.PurchaseOrderAccount;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.rice.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
