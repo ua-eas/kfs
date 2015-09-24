@@ -99,16 +99,16 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
 		<link href='${pageContext.request.contextPath}/css/newPortal.css' rel='stylesheet' type='text/css'>
 		<link href='${pageContext.request.contextPath}/css/lookup.css' rel='stylesheet' type='text/css'>
 		<c:if test="${param.mode ne 'modal'}">
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-			<script src="https://fb.me/react-0.13.3.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.0.2/remodal.min.js"></script>
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.0.2/remodal.min.css">
+			<script src="${pageContext.request.contextPath}/scripts/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
+			<script src="${pageContext.request.contextPath}/scripts/react.min.js"></script>
+			<script src="${pageContext.request.contextPath}/scripts/remodal.min.js"></script>
+			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/remodal.min.css">
 		</c:if>
 	</head>
 	<c:choose>
