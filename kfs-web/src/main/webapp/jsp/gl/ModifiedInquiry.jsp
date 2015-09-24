@@ -212,5 +212,7 @@
 				
 		</tr>
 	</table>
+
+    <kul:stickyLookupButtons/>
 	
 </kul:page>

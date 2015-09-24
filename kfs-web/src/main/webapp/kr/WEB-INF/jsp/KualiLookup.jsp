@@ -383,37 +383,6 @@
 	</div>
  </c:if>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			// Set initial button state
-			var buttonsLocation = $('td.infoline').offset().top + $('td.infoline').outerHeight()
-			var buttonContainerWidth = $('td.infoline').outerWidth()
-			keepButtonsFixed()
-
-			// Modify button state as we scroll
-			$(window).scroll(function() {
-				keepButtonsFixed()
-			})
-
-			$(window).resize(function() {
-				keepButtonsFixed()
-			})
-
-			function keepButtonsFixed() {
-				var buttonsAreFixed = $('td.infoline').hasClass('fixed')
-				var windowLocation = $(window).scrollTop() + $(window).height()
-				if (windowLocation < buttonsLocation && !buttonsAreFixed) {
-					$('td.infoline').addClass('fixed')
-					$('td.infoline').css('width', buttonContainerWidth)
-					$('#lookup').addClass('fixedButtons')
-				} else if (windowLocation >= buttonsLocation && buttonsAreFixed) {
-					$('td.infoline').removeClass('fixed')
-					$('#lookup').removeClass('fixedButtons')
-				}
-			}
-		})
-	</script>
-
-
+    <kul:stickyLookupButtons/>
 
 </kul:page>
