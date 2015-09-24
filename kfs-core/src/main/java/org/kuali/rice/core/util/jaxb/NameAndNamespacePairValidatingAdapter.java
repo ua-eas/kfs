@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.coreservice.api.CoreServiceApiServiceLocator;
+import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
 
 /**
  * An XML adapter that simply validates the NameAndNamespacePair to ensure that the name and namespace are non-blank

@@ -23,7 +23,7 @@ import java.util.List;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
