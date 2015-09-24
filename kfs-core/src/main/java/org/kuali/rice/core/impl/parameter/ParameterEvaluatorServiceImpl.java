@@ -27,8 +27,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.rice.coreservice.api.parameter.EvaluationOperator;
-import org.kuali.rice.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 public class ParameterEvaluatorServiceImpl implements ParameterEvaluatorService {

@@ -25,13 +25,12 @@ import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.Job;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.coreservice.api.parameter.EvaluationOperator;
-import org.kuali.rice.coreservice.api.parameter.Parameter;
-import org.kuali.rice.coreservice.api.parameter.Parameter.Builder;
-import org.kuali.rice.coreservice.api.parameter.ParameterType;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.ParameterType;
 
 public class GenesisBatchStep extends AbstractStep {
 
@@ -65,7 +64,7 @@ public class GenesisBatchStep extends AbstractStep {
         ParameterService parameterService = SpringContext.getBean(ParameterService.class);
         Parameter runIndicatorParameter = parameterService.getParameter(GenesisBatchStep.class, Job.STEP_RUN_PARM_NM);
         if (runIndicatorParameter == null) {
-            Parameter.Builder newParameter = Builder.create(RUN_INDICATOR_PARAMETER_APPLICATION_NAMESPACE_CODE, RUN_INDICATOR_PARAMETER_NAMESPACE_CODE, RUN_INDICATOR_PARAMETER_NAMESPACE_STEP, Job.STEP_RUN_PARM_NM, ParameterType.Builder.create(RUN_INDICATOR_PARAMETER_TYPE));
+            Parameter.Builder newParameter = Parameter.Builder.create(RUN_INDICATOR_PARAMETER_APPLICATION_NAMESPACE_CODE, RUN_INDICATOR_PARAMETER_NAMESPACE_CODE, RUN_INDICATOR_PARAMETER_NAMESPACE_STEP, Job.STEP_RUN_PARM_NM, ParameterType.Builder.create(RUN_INDICATOR_PARAMETER_TYPE));
             newParameter.setValue(RUN_INDICATOR_PARAMETER_VALUE);
             newParameter.setEvaluationOperator( EvaluationOperator.ALLOW );
             newParameter.setDescription(RUN_INDICATOR_PARAMETER_DESCRIPTION);

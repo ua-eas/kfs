@@ -23,19 +23,19 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.api.component.Component;
 import org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.suite.AnnotationTestSuite;
 import org.kuali.kfs.sys.suite.PreCommitSuite;
-import org.kuali.rice.coreservice.api.component.Component;
-import org.kuali.rice.coreservice.api.component.ComponentService;
-import org.kuali.kfs.impl.component.ComponentBo;
+import org.kuali.kfs.coreservice.impl.component.ComponentBo;
 import org.kuali.kfs.coreservice.impl.parameter.ParameterBo;
 import org.kuali.kfs.coreservice.web.parameter.ParameterRule;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.coreservice.api.component.ComponentService;
 
 @ConfigureContext(shouldCommitTransactions=true)
 @AnnotationTestSuite(PreCommitSuite.class)
