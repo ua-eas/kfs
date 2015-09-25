@@ -214,6 +214,10 @@ public class PreferencesServiceImpl implements PreferencesService {
     protected String fixRelativeLink(String link) {
         if (!link.startsWith("http")) {
             final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+            if (link.startsWith("kr/lookup.do")) {
+                String connector = link.contains("?") ? "&" : "?";
+                link += connector + "returnLocation=" + applicationUrl + "/portal.do";
+            }
             link = applicationUrl + "/" + link;
         }
         return link;
