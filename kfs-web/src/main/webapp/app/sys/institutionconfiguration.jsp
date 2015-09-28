@@ -27,6 +27,6 @@
 <kul:page docTitle="Navigation Configuration" showDocumentInfo="false"
           headerTitle="Navigation Configuration" transactionalDocument="false"
           renderInnerDiv="true">
-
+    <script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
     <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js"></script>
 </kul:page>
