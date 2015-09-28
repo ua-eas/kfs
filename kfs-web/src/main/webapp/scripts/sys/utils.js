@@ -44,4 +44,8 @@ function buildBackdoorIdAppender(backdoorId) {
     }
 }
 
-module.exports = {getUrlPathPrefix: getUrlPathPrefix, buildBackdoorIdAppender: buildBackdoorIdAppender}
+function buildKeyFromLabel(label) {
+    return label.toLowerCase().replace(/\s+/g, "-").replace("&","and");
+}
+
+module.exports = {getUrlPathPrefix: getUrlPathPrefix, buildBackdoorIdAppender: buildBackdoorIdAppender, buildKeyFromLabel: buildKeyFromLabel}

@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Map;
 
 @Path("/preferences")
@@ -35,6 +36,15 @@ public class PreferencesResource {
 
         Map<String, Object> preferences = getPreferencesService().findInstitutionPreferences(getPerson());
         return Response.ok(preferences).build();
+    }
+
+    @GET
+    @Path("/config/groups")
+    public Response getGroupLinks() {
+        LOG.debug("getGroupLinks started");
+
+        List<Map<String, Object>> linkGroups = getPreferencesService().getAllLinkGroups();
+        return Response.ok(linkGroups).build();
     }
 
     @GET

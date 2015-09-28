@@ -322,6 +322,13 @@ public class PreferencesServiceImpl implements PreferencesService {
         return linkInfo;
     }
 
+    @Override
+    public List<Map<String, Object>> getAllLinkGroups() {
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        List<Map<String, Object>> linkGroups = getLinkGroups(institutionPreferences);
+        return linkGroups;
+    }
+
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }

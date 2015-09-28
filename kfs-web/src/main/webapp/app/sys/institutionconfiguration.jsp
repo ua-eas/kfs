@@ -18,6 +18,12 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
+<style>
+   #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+   #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+   #sortable li span { position: absolute; margin-left: -1.3em; }
+</style>
+
 <kul:page docTitle="Navigation Configuration" showDocumentInfo="false"
           headerTitle="Navigation Configuration" transactionalDocument="false"
           renderInnerDiv="true">
