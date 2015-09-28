@@ -67,13 +67,13 @@ let LinkGroups = React.createClass({
 
 let LinkGroup = React.createClass({
     render() {
-        return <li className="linkgroup">{this.props.linkGroup.label}</li>
+        return <li className="linkgroup"><span className="move"></span>{this.props.linkGroup.label}</li>
     }
 });
 
 React.render(
     <InstitutionConfig/>,
-    document.getElementById('view_div')
+    document.getElementById('institutionconfig')
 );
 
 export default InstitutionConfig;

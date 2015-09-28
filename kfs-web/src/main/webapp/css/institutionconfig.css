@@ -1,0 +1,37 @@
+#institutionconfig {
+    padding: 20px;
+}
+
+.headerarea-small h1 span.glyphicon {
+    font-size: 22px;
+}
+
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 45%;
+}
+
+#sortable li.linkgroup {
+    background-color: #6B6B6B;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 10px;
+    margin: 0 3px 3px 3px;
+    border-radius: 3px;
+    cursor: move;
+}
+
+#sortable li.linkgroup span.move {
+    margin-right: 10px;
+    margin-bottom: -8px;
+    height: 23px;
+    width: 18px;
+    background-image: url('../static/images/move.png');
+    display: inline-block;
+    background-size: 23px 18px;
+    background-repeat: no-repeat;
+}

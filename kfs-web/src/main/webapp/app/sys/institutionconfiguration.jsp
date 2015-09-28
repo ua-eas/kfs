@@ -18,15 +18,20 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<style>
-   #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-   #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-   #sortable li span { position: absolute; margin-left: -1.3em; }
-</style>
+<link href='${pageContext.request.contextPath}/css/institutionconfig.css' rel='stylesheet' type='text/css'>
 
 <kul:page docTitle="Navigation Configuration" showDocumentInfo="false"
           headerTitle="Navigation Configuration" transactionalDocument="false"
           renderInnerDiv="true">
+
+    <div class="main-panel">
+        <div class="headerarea-small" id="headerarea-small">
+            <h1><span class="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
+        </div>
+
+        <div id="institutionconfig"></div>
+    </div>
+
     <script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
     <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js"></script>
 </kul:page>
