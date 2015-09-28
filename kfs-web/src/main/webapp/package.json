@@ -17,6 +17,7 @@
     "webpack": "^1.10.0",
     "webpack-dev-server": "^1.10.1",
     "moment": "^2.10.6",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "immutable": "^3.7.5"
   }
 }
