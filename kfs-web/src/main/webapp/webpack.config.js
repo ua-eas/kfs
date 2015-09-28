@@ -1,11 +1,12 @@
 var webpack = require('webpack');
 module.exports = {
-    entry: [
-        "./scripts/app.jsx"
-    ],
+    entry: {
+        app: "./scripts/app.jsx",
+        institutionconfig: "./scripts/sys/institutionconfiguration.jsx"
+    },
     output: {
         path: __dirname + '/build',
-        filename: "bundle.js"
+        filename: "[name].bundle.js"
     },
     module: {
         loaders: [
