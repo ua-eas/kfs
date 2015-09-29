@@ -117,7 +117,6 @@
 		</property>
 	</bean>
 	
-	<!-- KFSCD-6 Block a Many to Many transfer within the TF & YETF documents -->	
 	<bean id="TransferOfFunds-addAccountingLine-accountingLineGroupedValidation" abstract="true" parent="CompositeValidation" scope="prototype"> <!-- here to get the quit on fail issues correct -->
 		<property name="validations">
 			<list>
