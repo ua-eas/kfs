@@ -6,6 +6,19 @@
     font-size: 22px;
 }
 
+.instconfig {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+ul#linkGroupsList,
+div#linkGroupLinksList {
+    width: 50%;
+}
+
 #linkGroupsList {
     list-style-type: none;
     margin: 0;
@@ -22,26 +35,26 @@
     padding: 12px 10px;
     margin: 0 3px 3px 3px;
     border-radius: 3px;
-    cursor: move;
+    cursor: hand;
 }
 
 #linkGroupsList li.linkgroup.active {
-    background-color: #6B6B6B;
-    text-transform: uppercase;
-    color: #555;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 12px 10px;
-    margin: 0 3px 3px 3px;
-    border-radius: 3px;
-    cursor: move;
+    background-color: #F4F4F4;
+    color: #555555;
+    border: 1px solid #ACACAC;
 }
 
-#linkGroupsList li.linkgroup.active ul {
+.instconfig div.admin-sublinks {
+    background-color: #F4F4F4;
+    border: 1px solid #ACACAC;
+    border-radius: 3px;
+}
+
+.instconfig div.admin-sublinks ul {
     padding: 0;
 }
 
-#linkGroupsList li.linkgroup.active li {
+.instconfig div.admin-sublinks li {
     list-style: none;
 }
 
@@ -54,12 +67,4 @@
     display: inline-block;
     background-size: 23px 18px;
     background-repeat: no-repeat;
-}
-
-#linkGroupsList li.active .admin-sublinks {
-    display: block;
-    position: absolute;
-    width: 45%;
-    right: 9%;
-    top: 90px;
 }
