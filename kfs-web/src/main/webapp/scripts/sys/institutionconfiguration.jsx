@@ -34,7 +34,7 @@ let InstitutionConfig = React.createClass({
     updateLinkGroupName(linkGroupIndex, newName) {
         let linkGroup = this.state.linkGroups.get(linkGroupIndex);
         let updatedLinkGroup = linkGroup.set('label', newName);
-        let updatedLinkGroups = this.state.linkGroups.set(updatedLinkGroup, linkGroupIndex);
+        let updatedLinkGroups = this.state.linkGroups.set(linkGroupIndex, updatedLinkGroup);
         this.setState({linkGroups: updatedLinkGroups});
     },
     render() {
@@ -46,7 +46,9 @@ let InstitutionConfig = React.createClass({
                             expandedLinkGroup={this.state.expandedLinkGroup}
                             linkGroupNameUpdater={this.updateLinkGroupName}/>
 
-                <LinkGroupLinks linkGroups={this.state.linkGroups} expandedLinkGroup={this.state.expandedLinkGroup}  updateLinkGroups={this.updateLinkGroups}/>
+                <LinkGroupLinks linkGroups={this.state.linkGroups}
+                                expandedLinkGroup={this.state.expandedLinkGroup}
+                                updateLinkGroups={this.updateLinkGroups}/>
             </div>
         )
     }
@@ -133,7 +135,7 @@ let SubLinkType = React.createClass({
         });
        return (
            <div>
-               <h4 key={this.props.type + "Label"}>{this.props.type}</h4>
+               <h4>{this.props.type}</h4>
                <SubLinkTypeLinks links={linksForType}
                                  type={this.props.type}
                                  groupLabel={this.props.groupLabel}
@@ -151,10 +153,9 @@ let SubLinkTypeLinks = React.createClass({
     },
     render() {
         let linkList = "";
-        let self = this;
         if (this.props.links) {
             let linkElements = this.props.links.map((link) => {
-                return <li><span className="list-group-item">{link.get('label')}</span></li>;
+                return <li><span className="list-group-item"><span className="move"></span>{link.get('label')}</span></li>;
             });
             let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
             linkList = <ul id={id}>{linkElements}</ul>;
@@ -167,7 +168,7 @@ let LinkGroupLinks = React.createClass({
     render() {
         let linkGroupLinkElements = this.props.linkGroups.map((linkGroup) => {
             let id = buildKeyFromLabel(linkGroup.get('label'))
-            return <SubLinkGroup id={id} links={linkGroup.get('links')} groupLabel={linkGroup.get('label')} expandedLinkGroup={this.props.expandedLinkGroup} linkGroups={this.props.linkGroups} updateLinkGroups={this.props.updateLinkGroups}/>
+            return <SubLinkGroup key={'subLinkGroup-' + id} id={id} links={linkGroup.get('links')} groupLabel={linkGroup.get('label')} expandedLinkGroup={this.props.expandedLinkGroup} linkGroups={this.props.linkGroups} updateLinkGroups={this.props.updateLinkGroups}/>
         });
         return <div id="linkGroupLinksList">{linkGroupLinkElements}</div>;
     }
@@ -185,12 +186,17 @@ let LinkGroup = React.createClass({
     getInitialState() {
         return {linkGroupEditing: false, linkGroupName: this.props.linkGroup.get('label')};
     },
-    editLabel() {
+    editLabel(event) {
+        event.stopPropagation();
         this.setState({linkGroupEditing: true});
     },
-    saveLinkGroupName(event) {
-        this.linkGroupNameUpdater(this.props.index, this.state.linkGroupName);
+    saveLinkGroupName() {
+        event.stopPropagation();
+        let newLabel = $(event.target).parent().prev().val();
+        let index = $(event.target).parent().parent().index();
+        this.setState({linkGroupName: newLabel});
         this.setState({linkGroupEditing: false});
+        this.props.linkGroupNameUpdater(index, newLabel)
     },
     updateLinkGroupLabel(event) {
         this.setState({linkGroupName: event.target.value});
@@ -199,28 +205,33 @@ let LinkGroup = React.createClass({
         this.setState({linkGroupName: this.props.linkGroup.get('label')});
     },
     render() {
-        let label = this.props.linkGroup.get('label');
+        let label = this.state.linkGroupName;
         let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label);
         let editButton = (this.state.linkGroupEditing)
-            ? <img src="checkbox.png" alt="Save Link Group Name Changes" onClick={this.saveLinkGroupName}/>
-            : <img src="" alt="Edit Link Group Name" onClick={this.editLabel}/>;
+            ? <img src="../../static/images/save.png" alt="Save Link Group Name Changes" onClick={this.saveLinkGroupName}/>
+            : <img src="../../static/images/edit-link-group.png" alt="Edit Link Group Name" onClick={this.editLabel}/>;
 
         return (
-            <li className={panelClassName}>
-                <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
-                    <span className="move"></span>
-                    <LinkGroupLabel label={label} linkGroupEditing={this.state.linkGroupEditing} updateLinkGroupLabel={this.updateLinkGroupLabel} cancelLinkGroupLabelChanges={cancelLinkGroupLabelChanges}/><div class="actions">{editButton}</div>
-                </a>
+            <li className={panelClassName} onClick={this.props.handleClick.bind(null, label)}>
+                <span className="move"></span>
+                <LinkGroupLabel label={label}
+                                linkGroupEditing={this.state.linkGroupEditing}
+                                updateLinkGroupLabel={this.updateLinkGroupLabel}
+                                cancelLinkGroupLabelChanges={this.cancelLinkGroupLabelChanges}/>
+                <div className="actions">{editButton}</div>
             </li>
         )
     }
 });
 
 let LinkGroupLabel = React.createClass({
-   render() {
+    editLabelClick(event) {
+        event.stopPropagation();
+    },
+    render() {
        let content = (this.props.linkGroupEditing)
-           ? <input type="text" value={this.props.label} onChange={this.props.updateLinkGroupLabel} onBlur={this.props.cancelLinkGroupLabelChanges}/>
-           : <span>{this.props.label}</span>
+           ? <input type="text" value={this.props.label} onChange={this.props.updateLinkGroupLabel} onBlur={this.props.cancelLinkGroupLabelChanges} onClick={this.editLabelClick}/>
+           : <span>{this.props.label}</span>;
        return content
    }
 });

@@ -12,6 +12,7 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+    flex-direction: row-reverse;
 }
 
 ul#linkGroupsList,
@@ -24,6 +25,7 @@ div#linkGroupLinksList {
     margin: 0;
     padding: 0;
     width: 45%;
+    order: 2;
 }
 
 #linkGroupsList li.linkgroup {
@@ -36,26 +38,24 @@ div#linkGroupLinksList {
     margin: 0 3px 3px 3px;
     border-radius: 3px;
     cursor: hand;
+    border-top: 1px solid #6B6B6B;
+    border-left: 1px solid #6B6B6B;
+    border-bottom: 1px solid #6B6B6B;
 }
 
 #linkGroupsList li.linkgroup.active {
     background-color: #F4F4F4;
     color: #555555;
-    border: 1px solid #ACACAC;
+    border-top: 1px solid #ACACAC;
+    border-left: 1px solid #ACACAC;
+    border-bottom: 1px solid #ACACAC;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
 }
 
-.instconfig div.admin-sublinks {
-    background-color: #F4F4F4;
-    border: 1px solid #ACACAC;
-    border-radius: 3px;
-}
-
-.instconfig div.admin-sublinks ul {
-    padding: 0;
-}
-
-.instconfig div.admin-sublinks li {
-    list-style: none;
+#linkGroupsList li.linkgroup.active {
+    margin-right: -1px;
 }
 
 #linkGroupsList li.linkgroup span.move {
@@ -66,5 +66,54 @@ div#linkGroupLinksList {
     background-image: url('../static/images/move.png');
     display: inline-block;
     background-size: 23px 18px;
+    background-repeat: no-repeat;
+}
+
+#linkGroupsList li.linkgroup input[type=text] {
+    color: #555555;
+}
+
+#linkGroupsList li.linkgroup .actions {
+    float: right;
+}
+
+#linkGroupsList li.linkgroup .actions img {
+    height: 30px;
+    width: 30px;
+    margin-top: -3px;
+}
+
+.instconfig div.admin-sublinks {
+    background-color: #F4F4F4;
+    border: 1px solid #ACACAC;
+    border-radius: 3px;
+    padding: 20px;
+}
+
+.instconfig div.admin-sublinks ul {
+    padding: 0;
+}
+
+.instconfig div.admin-sublinks li {
+    list-style: none;
+    padding: 1px 0;
+}
+
+.instconfig div.admin-sublinks h4 {
+    padding-top: 15px;
+}
+
+.instconfig div.admin-sublinks li .list-group-item {
+    padding: 4px 8px;
+}
+
+.instconfig div.admin-sublinks li span.move {
+    margin-right: 10px;
+    margin-bottom: -6px;
+    height: 18px;
+    width: 14px;
+    background-image: url('../static/images/small-move.png');
+    display: inline-block;
+    background-size: 18px 14px;
     background-repeat: no-repeat;
 }
