@@ -1,10 +1,11 @@
+import Link from '../link.jsx';
 import KfsUtils from './utils.js';
 import _ from 'lodash';
 import Immutable from 'immutable';
 
 let InstitutionConfig = React.createClass({
     getInitialState() {
-        return {linkGroups: new Immutable.List()};
+        return {linkGroups: new Immutable.List(), expandedLinkGroup: ""};
     },
     componentWillMount() {
         let linkGroupPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/groups";
@@ -20,6 +21,24 @@ let InstitutionConfig = React.createClass({
             }.bind(this)
         });
     },
+    toggleLinkGroup(label) {
+        if (this.state.expandedLinkGroup === label) {
+            this.setState({expandedLinkGroup: ""})
+            $('#content-overlay').removeClass('visible')
+            $('html').off('click','**')
+        } else {
+            this.setState({expandedLinkGroup: label})
+            $('#content-overlay').addClass('visible')
+            let sidebar = this
+            $('html').on('click',function(event) {
+                if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
+                    $('li.panel.active').removeClass('active')
+                    $('#content-overlay').removeClass('visible')
+                    sidebar.setState({expandedLinkGroup: ""})
+                }
+            });
+        }
+    },
     updateLinkGroups(linkGroups) {
         this.setState({linkGroups: linkGroups});
 
@@ -27,7 +46,10 @@ let InstitutionConfig = React.createClass({
     render() {
         return (
             <div className="instconfig">
-                <LinkGroups linkGroups={this.state.linkGroups} updateLinkGroups={this.updateLinkGroups}/>
+                <LinkGroups linkGroups={this.state.linkGroups}
+                            updateLinkGroups={this.updateLinkGroups}
+                            toggleLinkGroup={this.toggleLinkGroup}
+                            expandedLinkGroup={this.state.expandedLinkGroup}/>
             </div>
         )
     }
@@ -83,15 +105,63 @@ let LinkGroups = React.createClass({
     },
     render() {
         let linkGroupElements = this.props.linkGroups.map((linkGroup) => {
-            return <LinkGroup linkGroup={linkGroup} key={KfsUtils.buildKeyFromLabel(linkGroup.label)}/>
+            return <LinkGroup linkGroup={linkGroup}
+                              key={KfsUtils.buildKeyFromLabel(linkGroup.label)}
+                              handleClick={this.props.toggleLinkGroup}
+                              expandedLinkGroup={this.props.expandedLinkGroup}/>
         });
         return <ul id="sortable">{linkGroupElements}</ul>;
     }
 });
 
+var filterLinks = function(links, type) {
+    return links.filter(function(link) {
+        return link.type === type
+    }).map((link, i) => {
+        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item"/>
+    })
+}
+
+var addHeading = function(links, type) {
+    return ([<h4 key={type + "Label"}>{type}</h4>]).concat(links);
+}
+
+var determinePanelClassName = function(expandedLinkGroup, label) {
+    let panelClassName = "linkgroup"
+    if (expandedLinkGroup === label) {
+        panelClassName += " active"
+    }
+    return panelClassName
+}
+
 let LinkGroup = React.createClass({
     render() {
-        return <li className="linkgroup"><span className="move"></span>{this.props.linkGroup.label}</li>
+        let label = this.props.linkGroup.label
+        let id = KfsUtils.buildKeyFromLabel(label)
+
+        let activitiesLinks = filterLinks(this.props.linkGroup.links, 'activities');
+        let referenceLinks = filterLinks(this.props.linkGroup.links, 'reference');
+        let administrationLinks = filterLinks(this.props.linkGroup.links, 'administration');
+
+        let links = addHeading(activitiesLinks, 'Activities')
+        links = links.concat(addHeading(referenceLinks, 'Reference'))
+        links = links.concat(addHeading(administrationLinks, 'Administration'))
+
+        let sublinksClass = "sublinks collapse"
+        let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label)
+
+        return (
+            <li className={panelClassName}>
+                <a href="#d" onClick={this.props.handleClick.bind(null, this.props.linkGroup.label)}>
+                    <span className="move"></span>
+                    <span>{this.props.linkGroup.label}</span>
+                    <div id={id + "-menu"} className={sublinksClass}>
+                        {links}
+                        <button type="button" className="close" onClick={this.props.handleClick.bind(null, this.props.linkGroup.label)}><span aria-hidden="true">&times;</span></button>
+                    </div>
+                </a>
+            </li>
+        )
     }
 });
 

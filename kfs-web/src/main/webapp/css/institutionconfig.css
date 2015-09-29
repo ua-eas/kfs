@@ -35,3 +35,7 @@
     background-size: 23px 18px;
     background-repeat: no-repeat;
 }
+
+#sortable li.active .sublinks {
+    display: block;
+}

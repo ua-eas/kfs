@@ -326,6 +326,17 @@ public class PreferencesServiceImpl implements PreferencesService {
     public List<Map<String, Object>> getAllLinkGroups() {
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
         List<Map<String, Object>> linkGroups = getLinkGroups(institutionPreferences);
+
+        for (Map<String, Object> linkGroup: linkGroups) {
+            List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
+                if (link.containsKey("documentTypeCode")) {
+                    link.put("label", documentDictionaryService.getLabel(link.get("documentTypeCode")));
+                }
+                return link;
+            }).collect(Collectors.toList());
+            linkGroup.put("links", updatedLinks);
+        }
+
         return linkGroups;
     }
 
