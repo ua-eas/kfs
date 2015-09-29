@@ -31,13 +31,20 @@ let InstitutionConfig = React.createClass({
     updateLinkGroups(linkGroups) {
         this.setState({linkGroups: linkGroups});
     },
+    updateLinkGroupName(linkGroupIndex, newName) {
+        let linkGroup = this.state.linkGroups.get(linkGroupIndex);
+        let updatedLinkGroup = linkGroup.set('label', newName);
+        let updatedLinkGroups = this.state.linkGroups.set(updatedLinkGroup, linkGroupIndex);
+        this.setState({linkGroups: updatedLinkGroups});
+    },
     render() {
         return (
             <div className="instconfig">
                 <LinkGroups linkGroups={this.state.linkGroups}
                             updateLinkGroups={this.updateLinkGroups}
                             toggleLinkGroup={this.toggleLinkGroup}
-                            expandedLinkGroup={this.state.expandedLinkGroup}/>
+                            expandedLinkGroup={this.state.expandedLinkGroup}
+                            linkGroupNameUpdater={this.updateLinkGroupName}/>
 
                 <LinkGroupLinks linkGroups={this.state.linkGroups} expandedLinkGroup={this.state.expandedLinkGroup}  updateLinkGroups={this.updateLinkGroups}/>
             </div>
@@ -78,11 +85,13 @@ let LinkGroups = React.createClass({
         buildSortableDropHandler('linkGroupsList', self, 'linkGroups', 'updateLinkGroups');
     },
     render() {
-        let linkGroupElements = this.props.linkGroups.map((linkGroup) => {
+        let linkGroupElements = this.props.linkGroups.map((linkGroup, idx) => {
             return <LinkGroup linkGroup={linkGroup}
                               key={buildKeyFromLabel(linkGroup.get('label'))}
                               handleClick={this.props.toggleLinkGroup}
-                              expandedLinkGroup={this.props.expandedLinkGroup}/>
+                              expandedLinkGroup={this.props.expandedLinkGroup}
+                              linkGroupIndex={idx}
+                              linkGroupNameUpdater={this.props.linkGroupNameUpdater}/>
         });
         return <ul id="linkGroupsList">{linkGroupElements}</ul>;
     }
@@ -105,20 +114,27 @@ let SubLinkGroup = React.createClass({
 });
 
 let SubLinkType = React.createClass({
-    updateSublinkTypeLinks(linkGroups) {
-        debugger;
+    updateSublinkTypeLinks(links) {
         let self = this;
         let index = this.props.linkGroups.findIndex(function(linkGroup) {
             return linkGroup.get('label') === self.props.groupLabel;
         });
-        let updatedLinkGroups = this.props.linkGroups.set(index, this.props.linkGroups.get(index).set('links', linkGroups));
+        let linksWithoutCurrentType = this.props.linkGroups.get(index).get('links').filter((link) => {
+            return link.get('type') !== self.props.type;
+        });
+        let updatedLinks = links.concat(linksWithoutCurrentType);
+        let updatedLinkGroups = this.props.linkGroups.set(index, this.props.linkGroups.get(index).set('links', updatedLinks));
         this.props.updateLinkGroups(updatedLinkGroups);
     },
     render() {
+        let self = this;
+        let linksForType = this.props.links.filter((link) => {
+            return link.get('type') === self.props.type;
+        });
        return (
            <div>
                <h4 key={this.props.type + "Label"}>{this.props.type}</h4>
-               <SubLinkTypeLinks links={this.props.links}
+               <SubLinkTypeLinks links={linksForType}
                                  type={this.props.type}
                                  groupLabel={this.props.groupLabel}
                                  updateSublinkTypeLinks={this.updateSublinkTypeLinks}/>
@@ -137,9 +153,7 @@ let SubLinkTypeLinks = React.createClass({
         let linkList = "";
         let self = this;
         if (this.props.links) {
-            let linkElements = this.props.links.filter((link) => {
-                return link.get('type') === self.props.type;
-            }).map((link) => {
+            let linkElements = this.props.links.map((link) => {
                 return <li><span className="list-group-item">{link.get('label')}</span></li>;
             });
             let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
@@ -168,19 +182,47 @@ var determinePanelClassName = function(expandedLinkGroup, label) {
 }
 
 let LinkGroup = React.createClass({
+    getInitialState() {
+        return {linkGroupEditing: false, linkGroupName: this.props.linkGroup.get('label')};
+    },
+    editLabel() {
+        this.setState({linkGroupEditing: true});
+    },
+    saveLinkGroupName(event) {
+        this.linkGroupNameUpdater(this.props.index, this.state.linkGroupName);
+        this.setState({linkGroupEditing: false});
+    },
+    updateLinkGroupLabel(event) {
+        this.setState({linkGroupName: event.target.value});
+    },
+    cancelLinkGroupLabelChanges(event) {
+        this.setState({linkGroupName: this.props.linkGroup.get('label')});
+    },
     render() {
         let label = this.props.linkGroup.get('label');
-        let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label)
+        let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label);
+        let editButton = (this.state.linkGroupEditing)
+            ? <img src="checkbox.png" alt="Save Link Group Name Changes" onClick={this.saveLinkGroupName}/>
+            : <img src="" alt="Edit Link Group Name" onClick={this.editLabel}/>;
 
         return (
             <li className={panelClassName}>
                 <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
                     <span className="move"></span>
-                    <span>{label}</span>
+                    <LinkGroupLabel label={label} linkGroupEditing={this.state.linkGroupEditing} updateLinkGroupLabel={this.updateLinkGroupLabel} cancelLinkGroupLabelChanges={cancelLinkGroupLabelChanges}/><div class="actions">{editButton}</div>
                 </a>
             </li>
         )
     }
+});
+
+let LinkGroupLabel = React.createClass({
+   render() {
+       let content = (this.props.linkGroupEditing)
+           ? <input type="text" value={this.props.label} onChange={this.props.updateLinkGroupLabel} onBlur={this.props.cancelLinkGroupLabelChanges}/>
+           : <span>{this.props.label}</span>
+       return content
+   }
 });
 
 React.render(
