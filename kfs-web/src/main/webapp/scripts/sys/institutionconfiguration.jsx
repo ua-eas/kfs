@@ -30,7 +30,6 @@ let InstitutionConfig = React.createClass({
     },
     updateLinkGroups(linkGroups) {
         this.setState({linkGroups: linkGroups});
-
     },
     render() {
         return (
@@ -40,7 +39,7 @@ let InstitutionConfig = React.createClass({
                             toggleLinkGroup={this.toggleLinkGroup}
                             expandedLinkGroup={this.state.expandedLinkGroup}/>
 
-                <LinkGroupLinks linkGroups={this.state.linkGroups} expandedLinkGroup={this.state.expandedLinkGroup} />
+                <LinkGroupLinks linkGroups={this.state.linkGroups} expandedLinkGroup={this.state.expandedLinkGroup}  updateLinkGroups={this.updateLinkGroups}/>
             </div>
         )
     }
@@ -81,7 +80,7 @@ let LinkGroups = React.createClass({
     render() {
         let linkGroupElements = this.props.linkGroups.map((linkGroup) => {
             return <LinkGroup linkGroup={linkGroup}
-                              key={buildKeyFromLabel(linkGroup.label)}
+                              key={buildKeyFromLabel(linkGroup.get('label'))}
                               handleClick={this.props.toggleLinkGroup}
                               expandedLinkGroup={this.props.expandedLinkGroup}/>
         });
@@ -97,17 +96,23 @@ let SubLinkGroup = React.createClass({
         }
         return (
             <div id={this.props.id + "-menu"} className={divClassName}>
-                <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='activities'/>
-                <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='reference'/>
-                <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='administration'/>
+                <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='activities' linkGroups={this.props.linkGroups} updateLinkGroups={this.props.updateLinkGroups}/>
+                <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='reference' linkGroups={this.props.linkGroups} updateLinkGroups={this.props.updateLinkGroups}/>
+                <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='administration' linkGroups={this.props.linkGroups} updateLinkGroups={this.props.updateLinkGroups}/>
             </div>
         )
     }
 });
 
 let SubLinkType = React.createClass({
-    updateSublinkTypeLinks() {
-        console.log('updating sublinks');
+    updateSublinkTypeLinks(linkGroups) {
+        debugger;
+        let self = this;
+        let index = this.props.linkGroups.findIndex(function(linkGroup) {
+            return linkGroup.get('label') === self.props.groupLabel;
+        });
+        let updatedLinkGroups = this.props.linkGroups.set(index, this.props.linkGroups.get(index).set('links', linkGroups));
+        this.props.updateLinkGroups(updatedLinkGroups);
     },
     render() {
        return (
@@ -133,9 +138,9 @@ let SubLinkTypeLinks = React.createClass({
         let self = this;
         if (this.props.links) {
             let linkElements = this.props.links.filter((link) => {
-                return link.type === self.props.type;
+                return link.get('type') === self.props.type;
             }).map((link) => {
-                return <li><span className="list-group-item">{link.label}</span></li>;
+                return <li><span className="list-group-item">{link.get('label')}</span></li>;
             });
             let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
             linkList = <ul id={id}>{linkElements}</ul>;
@@ -147,8 +152,8 @@ let SubLinkTypeLinks = React.createClass({
 let LinkGroupLinks = React.createClass({
     render() {
         let linkGroupLinkElements = this.props.linkGroups.map((linkGroup) => {
-            let id = buildKeyFromLabel(linkGroup.label)
-            return <SubLinkGroup id={id} links={linkGroup.links} groupLabel={linkGroup.label} expandedLinkGroup={this.props.expandedLinkGroup} />
+            let id = buildKeyFromLabel(linkGroup.get('label'))
+            return <SubLinkGroup id={id} links={linkGroup.get('links')} groupLabel={linkGroup.get('label')} expandedLinkGroup={this.props.expandedLinkGroup} linkGroups={this.props.linkGroups} updateLinkGroups={this.props.updateLinkGroups}/>
         });
         return <div id="linkGroupLinksList">{linkGroupLinkElements}</div>;
     }
@@ -164,16 +169,14 @@ var determinePanelClassName = function(expandedLinkGroup, label) {
 
 let LinkGroup = React.createClass({
     render() {
-        let label = this.props.linkGroup.label
-
-
+        let label = this.props.linkGroup.get('label');
         let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label)
 
         return (
             <li className={panelClassName}>
-                <a href="#d" onClick={this.props.handleClick.bind(null, this.props.linkGroup.label)}>
+                <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
                     <span className="move"></span>
-                    <span>{this.props.linkGroup.label}</span>
+                    <span>{label}</span>
                 </a>
             </li>
         )
