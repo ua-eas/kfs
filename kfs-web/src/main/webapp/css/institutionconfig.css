@@ -25,6 +25,26 @@
     cursor: move;
 }
 
+#sortable li.linkgroup.active {
+    background-color: #6B6B6B;
+    text-transform: uppercase;
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 10px;
+    margin: 0 3px 3px 3px;
+    border-radius: 3px;
+    cursor: move;
+}
+
+#sortable li.linkgroup.active ul {
+    padding: 0;
+}
+
+#sortable li.linkgroup.active li {
+    list-style: none;
+}
+
 #sortable li.linkgroup span.move {
     margin-right: 10px;
     margin-bottom: -8px;
@@ -36,6 +56,10 @@
     background-repeat: no-repeat;
 }
 
-#sortable li.active .sublinks {
+#sortable li.active .admin-sublinks {
     display: block;
+    position: absolute;
+    width: 45%;
+    right: 9%;
+    top: 90px;
 }
