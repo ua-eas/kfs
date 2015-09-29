@@ -25,6 +25,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.MemoryMonitor;
 import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.impex.xml.DirectoryXmlDocCollection;
+import org.kuali.rice.core.api.impex.xml.FileXmlDocCollection;
+import org.kuali.rice.core.api.impex.xml.XmlDocCollection;
+import org.kuali.rice.core.api.impex.xml.XmlIngesterService;
+import org.kuali.rice.core.api.impex.xml.ZipXmlDocCollection;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
@@ -33,6 +39,10 @@ import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.rice.core.impl.impex.xml.XmlIngesterServiceImpl;
+import org.kuali.rice.kew.batch.XmlPollerService;
+import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
+import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.aop.support.AopUtils;
@@ -43,6 +53,7 @@ import org.springframework.core.io.Resource;
 import javax.xml.namespace.QName;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -68,6 +79,9 @@ public class SpringContext {
     protected static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
     protected static final String KFS_BATCH_STEP_COMPONENT_SET_ID = "STEP:KFS";
     protected static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
+    protected static final String WORKFLOW_DIRECTORY = "workflow.directory";
+
+    private static final String PENDING_MOVE_FAILED_ARCHIVE_FILE = "movesfailed";
 
     protected static ConfigurableApplicationContext applicationContext;
     protected static Set<Class<? extends Object>> SINGLETON_TYPES = new HashSet<Class<? extends Object>>();
@@ -314,7 +328,7 @@ public class SpringContext {
                 });
             }
         } else {
-            LOG.warn( MEMORY_MONITOR_THRESHOLD_KEY + " is not a number: " + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(MEMORY_MONITOR_THRESHOLD_KEY) );
+            LOG.warn(MEMORY_MONITOR_THRESHOLD_KEY + " is not a number: " + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(MEMORY_MONITOR_THRESHOLD_KEY));
         }
     }
 
@@ -424,6 +438,57 @@ public class SpringContext {
         }
     }
 
+    static void importWorkflow() {
+        String xmlDir = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(WORKFLOW_DIRECTORY);
+        if (StringUtils.isBlank(xmlDir)) {
+            LOG.info(WORKFLOW_DIRECTORY +" was blank, not importing workflow");
+            return;
+        }
+        File[] files = new File(xmlDir).listFiles();
+
+        if (files == null || files.length == 0) {
+            return;
+        }
+        LOG.info("Found " + files.length + " files to ingest.");
+        List<XmlDocCollection> collections = new ArrayList<XmlDocCollection>();
+        for (File file : files)
+        {
+            if (file.isDirectory())
+            {
+                collections.add(new DirectoryXmlDocCollection(file));
+            } else if (file.getName().equals(PENDING_MOVE_FAILED_ARCHIVE_FILE))
+            {
+                // the movesfailed file...ignore this
+                continue;
+            } else if (file.getName().toLowerCase().endsWith(".zip"))
+            {
+                try
+                {
+                    collections.add(new ZipXmlDocCollection(file));
+                } catch (IOException ioe)
+                {
+                    LOG.error("Unable to load file: " + file);
+                }
+            } else if (file.getName().endsWith(".xml"))
+            {
+                collections.add(new FileXmlDocCollection(file));
+            } else
+            {
+                LOG.warn("Ignoring extraneous file in xml pending directory: " + file);
+            }
+        }
+
+
+        XmlIngesterService xmlIngesterService = CoreApiServiceLocator.getXmlIngesterService();
+        try {
+            LOG.info("trying to ingest");
+            xmlIngesterService.ingest(collections);
+            LOG.info("############################################################################# ingested? ################################################################################################");
+        } catch (Exception e) {
+            LOG.error("Well something went wrong, hopefully there are some error messages", e);
+        }
+    }
+
     public static void registerSingletonBean(String beanId, Object bean) {
         applicationContext.getBeanFactory().registerSingleton(beanId, bean);
         //Cleaning caches
@@ -447,6 +512,8 @@ public class SpringContext {
         // DD so are not published by the command above
         publishBatchStepComponents();
         initDirectories();
+        importWorkflow();
+
     }
 
     public static void publishBatchStepComponents() {
