@@ -44,53 +44,37 @@ let InstitutionConfig = React.createClass({
     }
 });
 
+let moveElement = function(list, fromIndex, toIndex) {
+    let movingElement = list.get(fromIndex);
+    let updatedList = list.delete(fromIndex).splice(toIndex, 0, movingElement);
+    return updatedList;
+};
+
+let buildSortableDropHandler = function(elementId, component, sortableElementsPropertyName, updatingFunctionPropertyName) {
+    let ele = $("#"+elementId);
+    if (ele) {
+        ele.sortable({
+            start: function (event, ui) {
+                $(ui.item).data("startindex", ui.item.index());
+            },
+            update: function (event, ui) {
+                let startIndex = ui.item.data("startindex");
+                let newIndex = ui.item.index();
+                if (newIndex != startIndex) {
+                    let updatedLinkGroups = moveElement(component.props[sortableElementsPropertyName], startIndex, newIndex);
+                    $("#"+elementId).sortable('cancel');
+                    component.props[updatingFunctionPropertyName](updatedLinkGroups);
+                }
+            }
+        });
+        ele.disableSelection();
+    }
+}
+
 let LinkGroups = React.createClass({
-    removeElementAt(list, removeIndex) {
-        if (removeIndex === 0) {
-            return list.slice(1);
-        } else if (list.size === (removeIndex + 1)) {
-            return list.slice(0, -1);
-        } else {
-            return list.slice(0, removeIndex).concat(list.slice(removeIndex+1));
-        }
-    },
-    insertElementAt(list, ele, addIndex) {
-        let eleList = Immutable.List.of(ele);
-        if (addIndex === 0) {
-            return eleList.concat(list);
-        } else if (list.size === (addIndex + 1)) {
-            return list.concat(eleList);
-        } else {
-            return list.slice(0, addIndex).concat(eleList).concat(list.slice(addIndex));
-        }
-    },
-    moveElement(list, fromIndex, toIndex) {
-        let movingElement = list.get(fromIndex)
-        let updatedList = this.insertElementAt(this.removeElementAt(list, fromIndex), movingElement, toIndex);
-        return updatedList;
-    },
     componentDidMount() {
         let self = this;
-
-        let ele = $("#sortable");
-        if (ele) {
-            ele.sortable({
-                start: function (event, ui) {
-                    $(ui.item).data("startindex", ui.item.index());
-                },
-                update: function (event, ui) {
-                    event.stopPropagation();
-                    let startIndex = ui.item.data("startindex");
-                    let newIndex = ui.item.index();
-                    if (newIndex != startIndex) {
-                        let updatedLinkGroups = self.moveElement(self.props.linkGroups, startIndex, newIndex);
-                        $("#sortable").sortable('cancel');
-                        self.props.updateLinkGroups(updatedLinkGroups);
-                    }
-                }
-            });
-            ele.disableSelection();
-        }
+        buildSortableDropHandler('linkGroupsList', self, 'linkGroups', 'updateLinkGroups');
     },
     render() {
         let linkGroupElements = this.props.linkGroups.map((linkGroup) => {
@@ -99,7 +83,7 @@ let LinkGroups = React.createClass({
                               handleClick={this.props.toggleLinkGroup}
                               expandedLinkGroup={this.props.expandedLinkGroup}/>
         });
-        return <ul id="sortable">{linkGroupElements}</ul>;
+        return <ul id="linkGroupsList">{linkGroupElements}</ul>;
     }
 });
 

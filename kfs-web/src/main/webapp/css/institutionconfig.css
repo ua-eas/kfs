@@ -6,14 +6,14 @@
     font-size: 22px;
 }
 
-#sortable {
+#linkGroupsList {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 45%;
 }
 
-#sortable li.linkgroup {
+#linkGroupsList li.linkgroup {
     background-color: #6B6B6B;
     text-transform: uppercase;
     color: #fff;
@@ -25,7 +25,7 @@
     cursor: move;
 }
 
-#sortable li.linkgroup.active {
+#linkGroupsList li.linkgroup.active {
     background-color: #6B6B6B;
     text-transform: uppercase;
     color: #555;
@@ -37,15 +37,15 @@
     cursor: move;
 }
 
-#sortable li.linkgroup.active ul {
+#linkGroupsList li.linkgroup.active ul {
     padding: 0;
 }
 
-#sortable li.linkgroup.active li {
+#linkGroupsList li.linkgroup.active li {
     list-style: none;
 }
 
-#sortable li.linkgroup span.move {
+#linkGroupsList li.linkgroup span.move {
     margin-right: 10px;
     margin-bottom: -8px;
     height: 23px;
@@ -56,7 +56,7 @@
     background-repeat: no-repeat;
 }
 
-#sortable li.active .admin-sublinks {
+#linkGroupsList li.active .admin-sublinks {
     display: block;
     position: absolute;
     width: 45%;
