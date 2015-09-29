@@ -21,7 +21,7 @@ let InstitutionConfig = React.createClass({
         });
     },
     updateLinkGroups(linkGroups) {
-        this.setState({linkGroups: new Immutable.List(linkGroups)});
+        this.setState({linkGroups: linkGroups});
 
     },
     render() {
@@ -40,7 +40,7 @@ let LinkGroups = React.createClass({
         } else if (list.size === (removeIndex + 1)) {
             return list.slice(0, -1);
         } else {
-            return list.slice(0, removeIndex - 1).concat(list.slice(removeIndex+1));
+            return list.slice(0, removeIndex).concat(list.slice(removeIndex+1));
         }
     },
     insertElementAt(list, ele, addIndex) {
