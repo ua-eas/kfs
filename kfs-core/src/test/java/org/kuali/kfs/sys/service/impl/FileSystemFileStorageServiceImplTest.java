@@ -66,7 +66,7 @@ public class FileSystemFileStorageServiceImplTest {
 
     @Before
     public void setup() {
-        tempFolder = System.getProperty("java.io.tmpdir");
+        tempFolder = System.getProperty("java.io.tmpdir"+File.separator);
 
         service = new FileSystemFileStorageServiceImpl();
         service.setPathPrefix(tempFolder);
