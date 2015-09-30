@@ -39,7 +39,7 @@ public class FileSystemFileStorageServiceImplTest {
         String filename;
         do {
             filename = RandomStringUtils.randomAlphanumeric(8);
-        } while ((new File( tempFolder + filename + (extension != null ? "." + extension : "") )).exists());
+        } while ((new File( tempFolder + File.separator + filename + (extension != null ? "." + extension : "") )).exists());
         return filename;
     }
 
@@ -66,7 +66,7 @@ public class FileSystemFileStorageServiceImplTest {
 
     @Before
     public void setup() {
-        tempFolder = System.getProperty("java.io.tmpdir"+File.separator);
+        tempFolder = System.getProperty("java.io.tmpdir");
 
         service = new FileSystemFileStorageServiceImpl();
         service.setPathPrefix(tempFolder);
