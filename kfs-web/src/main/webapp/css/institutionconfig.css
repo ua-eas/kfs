@@ -71,6 +71,7 @@ div#linkGroupLinksList {
 
 #linkGroupsList li.linkgroup input[type=text] {
     color: #555555;
+    text-transform: uppercase;
 }
 
 #linkGroupsList li.linkgroup .actions {

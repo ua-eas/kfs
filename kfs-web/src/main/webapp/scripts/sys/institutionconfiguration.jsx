@@ -191,12 +191,10 @@ let LinkGroup = React.createClass({
         this.setState({linkGroupEditing: true});
     },
     saveLinkGroupName(event) {
-        debugger;
         event.stopPropagation();
         let newLabel = $(event.target).parent().prev().val();
         let index = $(event.target).parent().parent().index();
-        this.setState({linkGroupName: newLabel});
-        this.setState({linkGroupEditing: false});
+        this.setState({linkGroupName: newLabel, linkGroupEditing: false});
         this.props.linkGroupNameUpdater(index, newLabel)
     },
     updateLinkGroupLabel(event) {
@@ -204,14 +202,24 @@ let LinkGroup = React.createClass({
     },
     cancelLinkGroupLabelChanges(event) {
         event.stopPropagation();
-        this.setState({linkGroupName: this.props.linkGroup.get('label')});
-        this.setState({linkGroupEditing: false});
+        this.setState({linkGroupName: this.props.linkGroup.get('label'), linkGroupEditing: false});
+    },
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.linkGroupEditing && !prevState.linkGroupEditing) {
+            let self = this;
+            $('html').on('click', function (event) {
+                if ($(event.target)[0] !== $('#saveGroupLabelButton')[0] && $(event.target)[0] !== $('#groupLabelInput')[0]) {
+                    self.setState({linkGroupName: self.props.linkGroup.get('label'), linkGroupEditing: false});
+                    $('html').off('click','**');
+                }
+            });
+        }
     },
     render() {
         let label = this.state.linkGroupName;
         let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label);
         let editButton = (this.state.linkGroupEditing)
-            ? <img src="../../static/images/save.png" alt="Save Link Group Name Changes" onClick={this.saveLinkGroupName}/>
+            ? <img id="saveGroupLabelButton" src="../../static/images/save.png" alt="Save Link Group Name Changes" onClick={this.saveLinkGroupName}/>
             : <img src="../../static/images/edit-link-group.png" alt="Edit Link Group Name" onClick={this.editLabel}/>;
 
         return (
@@ -233,7 +241,7 @@ let LinkGroupLabel = React.createClass({
     },
     render() {
        let content = (this.props.linkGroupEditing)
-           ? <input type="text" value={this.props.label} onChange={this.props.updateLinkGroupLabel} onBlur={this.props.cancelLinkGroupLabelChanges} onClick={this.editLabelClick}/>
+           ? <input id="groupLabelInput" type="text" value={this.props.label} onChange={this.props.updateLinkGroupLabel} onBlur={this.props.cancelLinkGroupLabelChanges} onClick={this.editLabelClick}/>
            : <span>{this.props.label}</span>;
        return content
    }
