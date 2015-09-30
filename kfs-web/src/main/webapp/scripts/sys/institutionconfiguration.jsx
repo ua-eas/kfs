@@ -154,8 +154,8 @@ let SubLinkTypeLinks = React.createClass({
     render() {
         let linkList = "";
         if (this.props.links) {
-            let linkElements = this.props.links.map((link) => {
-                return <li><span className="list-group-item"><span className="move"></span>{link.get('label')}</span></li>;
+            let linkElements = this.props.links.map((link, idx) => {
+                return <li key={idx}><span className="list-group-item"><span className="move"></span>{link.get('label')}</span></li>;
             });
             let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
             linkList = <ul id={id}>{linkElements}</ul>;
@@ -190,7 +190,8 @@ let LinkGroup = React.createClass({
         event.stopPropagation();
         this.setState({linkGroupEditing: true});
     },
-    saveLinkGroupName() {
+    saveLinkGroupName(event) {
+        debugger;
         event.stopPropagation();
         let newLabel = $(event.target).parent().prev().val();
         let index = $(event.target).parent().parent().index();
@@ -202,7 +203,9 @@ let LinkGroup = React.createClass({
         this.setState({linkGroupName: event.target.value});
     },
     cancelLinkGroupLabelChanges(event) {
+        event.stopPropagation();
         this.setState({linkGroupName: this.props.linkGroup.get('label')});
+        this.setState({linkGroupEditing: false});
     },
     render() {
         let label = this.state.linkGroupName;
