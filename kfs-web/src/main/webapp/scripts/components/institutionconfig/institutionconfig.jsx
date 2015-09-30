@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 
 let InstitutionConfig = React.createClass({
     getInitialState() {
-        return {linkGroups: new Immutable.List(), expandedLinkGroup: ""};
+        return {linkGroups: new Immutable.List(), expandedLinkGroup: "", topGroupSelected: false};
     },
     componentWillMount() {
         let linkGroupPath = getUrlPathPrefix() + "sys/preferences/config/groups";
@@ -22,11 +22,15 @@ let InstitutionConfig = React.createClass({
             }.bind(this)
         });
     },
-    toggleLinkGroup(label) {
+    toggleLinkGroup(index, label) {
         if (this.state.expandedLinkGroup === label) {
-            this.setState({expandedLinkGroup: ""});
+            this.setState({expandedLinkGroup: "", topGroupSelected: false});
         } else {
-            this.setState({expandedLinkGroup: label});
+            let topGroupSelected = false;
+            if (index === 0) {
+                topGroupSelected = true;
+            }
+            this.setState({expandedLinkGroup: label, topGroupSelected: topGroupSelected});
         }
     },
     updateLinkGroups(linkGroups) {
@@ -57,7 +61,8 @@ let InstitutionConfig = React.createClass({
                             expandedLinkGroup={this.state.expandedLinkGroup}/>
 
                 <LinkGroupLinks linkGroups={this.state.linkGroups}
-                                expandedLinkGroup={this.state.expandedLinkGroup}/>
+                                expandedLinkGroup={this.state.expandedLinkGroup}
+                                topGroupSelected={this.state.topGroupSelected}/>
             </div>
         )
     }

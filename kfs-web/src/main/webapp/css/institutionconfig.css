@@ -43,6 +43,13 @@ div#linkGroupLinksList {
     border-bottom: 1px solid #6B6B6B;
 }
 
+#linkGroupsList li.linkgroup.ui-sortable-helper,
+#linkGroupsList li.linkgroup.ui-sortable-helper span.move {
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+
 #linkGroupsList li.linkgroup.active {
     background-color: #F4F4F4;
     color: #555555;
@@ -56,6 +63,7 @@ div#linkGroupLinksList {
 
 #linkGroupsList li.linkgroup.active {
     margin-right: -1px;
+    padding-right: 14px;
 }
 
 #linkGroupsList li.linkgroup span.move {
@@ -67,6 +75,9 @@ div#linkGroupLinksList {
     display: inline-block;
     background-size: 23px 18px;
     background-repeat: no-repeat;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
 }
 
 #linkGroupsList li.linkgroup input[type=text] {
@@ -91,6 +102,10 @@ div#linkGroupLinksList {
     padding: 20px;
 }
 
+.instconfig .top-selected div.admin-sublinks {
+    border-top-left-radius: 0;
+}
+
 .instconfig div.admin-sublinks ul {
     padding: 0;
 }
@@ -98,14 +113,36 @@ div#linkGroupLinksList {
 .instconfig div.admin-sublinks li {
     list-style: none;
     padding: 1px 0;
+    cursor: hand;
+}
+
+.instconfig div.admin-sublinks li.ui-sortable-helper,
+.instconfig div.admin-sublinks li.ui-sortable-helper span.move {
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
 }
 
 .instconfig div.admin-sublinks h4 {
     padding-top: 15px;
+    padding-bottom: 5px;
+    color: #767676;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 700;
+    text-transform: capitalize;
 }
 
 .instconfig div.admin-sublinks li .list-group-item {
-    padding: 4px 8px;
+    padding: 2px 8px;
+    color: #555555;
+}
+
+.instconfig div.admin-sublinks li .list-group-item.empty {
+    height: 32px;
+    border-style: dashed;
+    background-color: inherit;
+    cursor: default;
 }
 
 .instconfig div.admin-sublinks li span.move {
@@ -117,4 +154,7 @@ div#linkGroupLinksList {
     display: inline-block;
     background-size: 18px 14px;
     background-repeat: no-repeat;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
 }

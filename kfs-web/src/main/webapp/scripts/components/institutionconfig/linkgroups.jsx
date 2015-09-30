@@ -51,6 +51,10 @@ let LinkGroup = React.createClass({
     updateLinkGroupLabel(event) {
         this.setState({linkGroupName: event.target.value});
     },
+    toggleLinkGroup(event) {
+        let index = $(event.target).closest('li').index();
+        this.context.toggleLinkGroup(index, this.props.linkGroup.get('label'));
+    },
     componentDidUpdate(prevProps, prevState) {
         if (this.state.linkGroupEditing && !prevState.linkGroupEditing) {
             let self = this;
@@ -71,7 +75,7 @@ let LinkGroup = React.createClass({
             : <img src="../../static/images/edit-link-group.png" alt="Edit Link Group Name" onClick={this.editLabel}/>;
 
         return (
-            <li className={panelClassName} onClick={this.context.toggleLinkGroup.bind(null, label)}>
+            <li className={panelClassName} onClick={this.toggleLinkGroup}>
                 <span className="move"></span>
                 <LinkGroupLabel label={label}
                                 linkGroupEditing={this.state.linkGroupEditing}/>

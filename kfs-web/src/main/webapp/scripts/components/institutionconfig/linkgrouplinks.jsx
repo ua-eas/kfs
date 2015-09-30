@@ -7,7 +7,8 @@ let LinkGroupLinks = React.createClass({
             let id = buildKeyFromLabel(linkGroup.get('label'))
             return <SubLinkGroup key={'subLinkGroup-' + id} id={id} links={linkGroup.get('links')} groupLabel={linkGroup.get('label')} expandedLinkGroup={this.props.expandedLinkGroup} linkGroups={this.props.linkGroups}/>
         });
-        return <div id="linkGroupLinksList">{linkGroupLinkElements}</div>;
+        let className = this.props.topGroupSelected ? 'top-selected' : '';
+        return <div id="linkGroupLinksList" className={className}>{linkGroupLinkElements}</div>;
     }
 });
 
@@ -74,17 +75,23 @@ let SubLinkTypeLinks = React.createClass({
     componentDidMount() {
         let self = this;
         let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
-        buildSortableDropHandler(id, self, 'links', 'updateSublinkTypeLinks');
+        if (this.props.links && this.props.links.count() > 0) {
+            buildSortableDropHandler(id, self, 'links', 'updateSublinkTypeLinks');
+        }
     },
     render() {
-        let linkList = "";
-        if (this.props.links) {
-            let linkElements = this.props.links.map((link, idx) => {
+        let linkElements = []
+        if (this.props.links && this.props.links.count() > 0) {
+            linkElements = this.props.links.map((link, idx) => {
                 return <li key={idx}><span className="list-group-item"><span className="move"></span>{link.get('label')}</span></li>;
             });
-            let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
-            linkList = <ul id={id}>{linkElements}</ul>;
+        } else {
+            linkElements = <li><span className="list-group-item empty"></span></li>;
         }
+
+        let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
+        let linkList = <ul id={id}>{linkElements}</ul>;
+
         return linkList
     }
 });
