@@ -200,10 +200,6 @@ let LinkGroup = React.createClass({
     updateLinkGroupLabel(event) {
         this.setState({linkGroupName: event.target.value});
     },
-    cancelLinkGroupLabelChanges(event) {
-        event.stopPropagation();
-        this.setState({linkGroupName: this.props.linkGroup.get('label'), linkGroupEditing: false});
-    },
     componentDidUpdate(prevProps, prevState) {
         if (this.state.linkGroupEditing && !prevState.linkGroupEditing) {
             let self = this;
@@ -227,8 +223,7 @@ let LinkGroup = React.createClass({
                 <span className="move"></span>
                 <LinkGroupLabel label={label}
                                 linkGroupEditing={this.state.linkGroupEditing}
-                                updateLinkGroupLabel={this.updateLinkGroupLabel}
-                                cancelLinkGroupLabelChanges={this.cancelLinkGroupLabelChanges}/>
+                                updateLinkGroupLabel={this.updateLinkGroupLabel}/>
                 <div className="actions">{editButton}</div>
             </li>
         )
@@ -241,7 +236,7 @@ let LinkGroupLabel = React.createClass({
     },
     render() {
        let content = (this.props.linkGroupEditing)
-           ? <input id="groupLabelInput" type="text" value={this.props.label} onChange={this.props.updateLinkGroupLabel} onBlur={this.props.cancelLinkGroupLabelChanges} onClick={this.editLabelClick}/>
+           ? <input id="groupLabelInput" type="text" value={this.props.label} onChange={this.props.updateLinkGroupLabel} onClick={this.editLabelClick}/>
            : <span>{this.props.label}</span>;
        return content
    }
