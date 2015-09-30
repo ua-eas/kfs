@@ -441,7 +441,7 @@ public class SpringContext {
     static void importWorkflow() {
         String xmlDir = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(WORKFLOW_DIRECTORY);
         if (StringUtils.isBlank(xmlDir)) {
-            LOG.info(WORKFLOW_DIRECTORY +" was blank, not importing workflow");
+            LOG.info(WORKFLOW_DIRECTORY +" was blank; will not import workflow");
             return;
         }
         File[] files = new File(xmlDir).listFiles();
@@ -451,39 +451,28 @@ public class SpringContext {
         }
         LOG.info("Found " + files.length + " files to ingest.");
         List<XmlDocCollection> collections = new ArrayList<XmlDocCollection>();
-        for (File file : files)
-        {
-            if (file.isDirectory())
-            {
+        for (File file : files) {
+            if (file.isDirectory()) {
                 collections.add(new DirectoryXmlDocCollection(file));
-            } else if (file.getName().equals(PENDING_MOVE_FAILED_ARCHIVE_FILE))
-            {
+            } else if (file.getName().equals(PENDING_MOVE_FAILED_ARCHIVE_FILE)) {
                 // the movesfailed file...ignore this
                 continue;
-            } else if (file.getName().toLowerCase().endsWith(".zip"))
-            {
-                try
-                {
+            } else if (file.getName().toLowerCase().endsWith(".zip")) {
+                try {
                     collections.add(new ZipXmlDocCollection(file));
-                } catch (IOException ioe)
-                {
+                } catch (IOException ioe) {
                     LOG.error("Unable to load file: " + file);
                 }
-            } else if (file.getName().endsWith(".xml"))
-            {
+            } else if (file.getName().endsWith(".xml")) {
                 collections.add(new FileXmlDocCollection(file));
-            } else
-            {
+            } else {
                 LOG.warn("Ignoring extraneous file in xml pending directory: " + file);
             }
         }
 
-
         XmlIngesterService xmlIngesterService = CoreApiServiceLocator.getXmlIngesterService();
         try {
-            LOG.info("trying to ingest");
             xmlIngesterService.ingest(collections);
-            LOG.info("############################################################################# ingested? ################################################################################################");
         } catch (Exception e) {
             LOG.error("Well something went wrong, hopefully there are some error messages", e);
         }
