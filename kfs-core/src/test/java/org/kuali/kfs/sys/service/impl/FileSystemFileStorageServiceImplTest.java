@@ -3,6 +3,7 @@ package org.kuali.kfs.sys.service.impl;
 import junit.framework.Assert;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.kuali.kfs.sys.exception.FileStorageException;
@@ -67,6 +68,10 @@ public class FileSystemFileStorageServiceImplTest {
     @Before
     public void setup() {
         tempFolder = System.getProperty("java.io.tmpdir");
+
+        if (!StringUtils.endsWith(tempFolder, File.separator)) {
+            tempFolder = tempFolder+File.separator;
+        }
 
         service = new FileSystemFileStorageServiceImpl();
         service.setPathPrefix(tempFolder);
