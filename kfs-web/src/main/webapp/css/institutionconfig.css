@@ -1,3 +1,7 @@
+#view_div {
+    min-width: 900px;
+}
+
 #institutionconfig {
     padding: 20px;
 }
@@ -83,16 +87,37 @@ div#linkGroupLinksList {
 #linkGroupsList li.linkgroup input[type=text] {
     color: #555555;
     text-transform: uppercase;
+    width: 60%;
 }
 
 #linkGroupsList li.linkgroup .actions {
     float: right;
 }
 
-#linkGroupsList li.linkgroup .actions img {
+#linkGroupsList li.linkgroup .actions button {
+    background-color: #7C7C7C;
+    border: 1px solid #757575;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     height: 30px;
-    width: 30px;
+    min-width: 30px;
     margin-top: -3px;
+    border-radius: 2px;
+    color: #C5C5C5;
+    padding: 0;
+}
+
+#linkGroupsList li.linkgroup .actions #saveGroupLabelButton {
+    padding: 0 5px;
+}
+
+#linkGroupsList li.linkgroup .actions #editGroupLabelButton .edit {
+    background-image: url("../static/images/edit.png");
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    padding: 0;
 }
 
 .instconfig div.admin-sublinks {

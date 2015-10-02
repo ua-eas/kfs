@@ -558,18 +558,18 @@ footer {
 
 .btn-green,
 .btn-green:focus {
-    background-color: #6FA388;
+    background-color: #6DA487;
     text-transform: uppercase;
     color: #ffffff;
 }
 
 .btn-green:hover {
-    background-color: #70B892;
+    background-color: #79B797;
     color: #ffffff;
 }
 
 .btn-green:active {
-    background-color: #58806B !important;
+    background-color: #648A77 !important;
     color: #ffffff;
 }
 

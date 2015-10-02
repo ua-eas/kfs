@@ -71,8 +71,8 @@ let LinkGroup = React.createClass({
         let label = this.state.linkGroupName;
         let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label);
         let editButton = (this.state.linkGroupEditing)
-            ? <img id="saveGroupLabelButton" src="../../static/images/save.png" alt="Save Link Group Name Changes" onClick={this.saveLinkGroupName}/>
-            : <img src="../../static/images/edit-link-group.png" alt="Edit Link Group Name" onClick={this.editLabel}/>;
+            ? <button id="saveGroupLabelButton" alt="Save Link Group Name Changes" onClick={this.saveLinkGroupName}>Save</button>
+            : <button id="editGroupLabelButton" alt="Edit Link Group Name" onClick={this.editLabel}><span className="edit"></span></button>;
 
         return (
             <li className={panelClassName} onClick={this.toggleLinkGroup}>
