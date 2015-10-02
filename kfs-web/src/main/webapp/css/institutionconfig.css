@@ -158,3 +158,14 @@ div#linkGroupLinksList {
     cursor: -webkit-grab;
     cursor: grab;
 }
+
+.buttonbar {
+    text-align: center;
+    padding: 30px 0 15px 0;
+    border-top: 1px solid #D7D7D7;
+    margin-top: 40px;
+}
+
+.buttonbar .btn {
+    padding: 15px 45px;
+}

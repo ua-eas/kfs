@@ -1,6 +1,5 @@
 package org.kuali.kfs.sys.dataaccess.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
@@ -8,8 +7,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,6 +15,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PreferencesDaoMongo.class);
 
     public static final String INSTITUTION_PREFERENCES = "InstitutionPreferences";
+    public static final String INSTITUTION_ID_KEY = "institutionId";
 
     public static final String USER_PREFERENCES = "UserPreferences";
     public static final String PRINCIPAL_NAME_KEY = "principalName";
@@ -36,6 +34,16 @@ public class PreferencesDaoMongo implements PreferencesDao {
             institutionalPreference = institutionPreferences.get(0);
         }
         return institutionalPreference;
+    }
+
+    @Override
+    public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
+        LOG.debug("saveInstitutionPreferences started");
+
+        // Delete existing document if any
+        mongoTemplate.remove(getInstitutionIdQuery(institutionId), INSTITUTION_PREFERENCES);
+
+        mongoTemplate.save(preferences, INSTITUTION_PREFERENCES);
     }
 
     @Override
@@ -77,6 +85,10 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
     private BasicQuery getPrincipalNameQuery(String principalName) {
         return new BasicQuery("{ " + PRINCIPAL_NAME_KEY + " : \"" + principalName + "\"}");
+    }
+
+    private BasicQuery getInstitutionIdQuery(String institutionId) {
+        return new BasicQuery("{ " + INSTITUTION_ID_KEY + " : \"" + institutionId + "\"}");
     }
 
     public void setMongoTemplate(MongoTemplate mongoTemplate) {

@@ -508,6 +508,16 @@ footer {
 .btn {
     padding: 5px 15px 7px 15px;
     border: none;
+    box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.2);
+}
+
+.btn-default:hover {
+    border: none;
+}
+
+.btn:focus,
+.btn-default:active {
+    outline: none !important;
 }
 
 .btn.disabled {
@@ -518,30 +528,23 @@ footer {
     padding-bottom: 6px;
 }
 
-.btn-default {
+.btn-default,
+.btn-default:focus {
     background-color: #e7e7e7;
-    box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.2);
     color: #333;
 }
 
 .btn-default:hover {
     background-color: #efefef;
-    border: none;
 }
 
 .btn-default:active {
     background-color: #e3e3e3;
-    outline: none !important;
 }
 
-.btn-default:focus {
-    background-color: #e7e7e7;
-    outline: none;
-}
-
-.btn-primary {
+.btn-primary,
+.btn-primary:focus {
     background-color: #5F7D8C;
-    box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.3);
     text-transform: uppercase;
 }
 
@@ -551,12 +554,23 @@ footer {
 
 .btn-primary:active {
     background-color: #567280 !important;
-    outline: none !important;
 }
 
-.btn-primary:focus {
-    background-color: #5F7D8C;
-    outline: none;
+.btn-green,
+.btn-green:focus {
+    background-color: #6FA388;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.btn-green:hover {
+    background-color: #70B892;
+    color: #ffffff;
+}
+
+.btn-green:active {
+    background-color: #58806B !important;
+    color: #ffffff;
 }
 
 .remodal {

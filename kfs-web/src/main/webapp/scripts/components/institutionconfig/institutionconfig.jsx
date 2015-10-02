@@ -5,6 +5,18 @@ import _ from 'lodash';
 import Immutable from 'immutable';
 
 let InstitutionConfig = React.createClass({
+    childContextTypes: {
+        toggleLinkGroup: React.PropTypes.func,
+        updateLinkGroups: React.PropTypes.func,
+        updateLinkGroupName: React.PropTypes.func
+    },
+    getChildContext() {
+        return {
+            toggleLinkGroup: this.toggleLinkGroup,
+            updateLinkGroups: this.updateLinkGroups,
+            updateLinkGroupName: this.updateLinkGroupName
+        }
+    },
     getInitialState() {
         return {linkGroups: new Immutable.List(), expandedLinkGroup: "", topGroupSelected: false};
     },
@@ -14,8 +26,11 @@ let InstitutionConfig = React.createClass({
             url: linkGroupPath,
             dataType: 'json',
             type: 'GET',
-            success: function(linkGroups) {
-                this.setState({linkGroups: Immutable.fromJS(linkGroups)});
+            success: function(preferences) {
+                this.setState({
+                    linkGroups: Immutable.fromJS(preferences.linkGroups),
+                    institutionId: preferences.institutionId
+                });
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());
@@ -42,27 +57,39 @@ let InstitutionConfig = React.createClass({
         let updatedLinkGroups = this.state.linkGroups.set(linkGroupIndex, updatedLinkGroup);
         this.setState({linkGroups: updatedLinkGroups});
     },
-    childContextTypes: {
-        toggleLinkGroup: React.PropTypes.func,
-        updateLinkGroups: React.PropTypes.func,
-        updateLinkGroupName: React.PropTypes.func
-    },
-    getChildContext() {
-        return {
-            toggleLinkGroup: this.toggleLinkGroup,
-            updateLinkGroups: this.updateLinkGroups,
-            updateLinkGroupName: this.updateLinkGroupName
-        }
+    saveChanges() {
+        let institutionId = this.state.institutionId;
+        let linkGroupPath = getUrlPathPrefix() + "sys/preferences/institution/" + institutionId;
+        $.ajax({
+            url: linkGroupPath,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'PUT',
+            data: JSON.stringify(this.state.linkGroups),
+            success: function(linkGroups) {
+
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(status, err.toString());
+            }.bind(this)
+        });
     },
     render() {
         return (
-            <div className="instconfig">
-                <LinkGroups linkGroups={this.state.linkGroups}
-                            expandedLinkGroup={this.state.expandedLinkGroup}/>
+            <div>
+                <div className="instconfig">
+                    <LinkGroups linkGroups={this.state.linkGroups}
+                                expandedLinkGroup={this.state.expandedLinkGroup}/>
 
-                <LinkGroupLinks linkGroups={this.state.linkGroups}
-                                expandedLinkGroup={this.state.expandedLinkGroup}
-                                topGroupSelected={this.state.topGroupSelected}/>
+                    <LinkGroupLinks linkGroups={this.state.linkGroups}
+                                    expandedLinkGroup={this.state.expandedLinkGroup}
+                                    topGroupSelected={this.state.topGroupSelected}/>
+
+                </div>
+
+                <div className="buttonbar">
+                    <button className="btn btn-green" onClick={this.saveChanges}>Save Changes</button>
+                </div>
             </div>
         )
     }
