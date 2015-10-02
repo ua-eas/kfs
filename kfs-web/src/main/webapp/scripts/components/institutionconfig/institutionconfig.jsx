@@ -8,17 +8,19 @@ let InstitutionConfig = React.createClass({
     childContextTypes: {
         toggleLinkGroup: React.PropTypes.func,
         updateLinkGroups: React.PropTypes.func,
-        updateLinkGroupName: React.PropTypes.func
+        updateLinkGroupName: React.PropTypes.func,
+        addNewLinkGroup: React.PropTypes.func
     },
     getChildContext() {
         return {
             toggleLinkGroup: this.toggleLinkGroup,
             updateLinkGroups: this.updateLinkGroups,
-            updateLinkGroupName: this.updateLinkGroupName
+            updateLinkGroupName: this.updateLinkGroupName,
+            addNewLinkGroup: this.addNewLinkGroup
         }
     },
     getInitialState() {
-        return {linkGroups: new Immutable.List(), expandedLinkGroup: "", topGroupSelected: false};
+        return {linkGroups: new Immutable.List(), expandedLinkGroup: undefined, topGroupSelected: false};
     },
     componentWillMount() {
         let linkGroupPath = getUrlPathPrefix() + "sys/preferences/config/groups";
@@ -39,8 +41,8 @@ let InstitutionConfig = React.createClass({
     },
     toggleLinkGroup(index, label) {
         if (this.state.expandedLinkGroup === label) {
-            this.setState({expandedLinkGroup: "", topGroupSelected: false});
-        } else {
+            this.setState({expandedLinkGroup: undefined, topGroupSelected: false});
+        } else if (label) {
             let topGroupSelected = false;
             if (index === 0) {
                 topGroupSelected = true;
@@ -56,6 +58,12 @@ let InstitutionConfig = React.createClass({
         let updatedLinkGroup = linkGroup.set('label', newName);
         let updatedLinkGroups = this.state.linkGroups.set(linkGroupIndex, updatedLinkGroup);
         this.setState({linkGroups: updatedLinkGroups});
+    },
+    addNewLinkGroup() {
+        let linkGroups = this.state.linkGroups;
+        let newLinkGroup = Immutable.fromJS({label: '', links: []});
+        let updatedLinkGroups = linkGroups.push(newLinkGroup);
+        this.setState({linkGroups: updatedLinkGroups})
     },
     saveChanges() {
         let institutionId = this.state.institutionId;

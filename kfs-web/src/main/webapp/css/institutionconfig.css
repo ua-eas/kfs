@@ -38,13 +38,19 @@ div#linkGroupLinksList {
     color: #fff;
     font-size: 16px;
     font-weight: 400;
-    padding: 12px 10px;
+    padding: 13px 10px;
     margin: 0 3px 3px 3px;
     border-radius: 3px;
     cursor: hand;
     border-top: 1px solid #6B6B6B;
     border-left: 1px solid #6B6B6B;
     border-bottom: 1px solid #6B6B6B;
+}
+
+#linkGroupsList li.linkgroup.new {
+    background-color: #A7A7A7;
+    text-align: center;
+    border: 1px solid #A7A7A7;
 }
 
 #linkGroupsList li.linkgroup.ui-sortable-helper,

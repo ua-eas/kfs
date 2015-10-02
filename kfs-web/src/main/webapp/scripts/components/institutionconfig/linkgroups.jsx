@@ -2,12 +2,13 @@ import {buildSortableDropHandler} from './institutionconfigutils.js';
 import {buildKeyFromLabel} from '../../sys/utils.js';
 
 let LinkGroups = React.createClass({
+    contextTypes: {
+        updateLinkGroups: React.PropTypes.func,
+        addNewLinkGroup: React.PropTypes.func
+    },
     componentDidMount() {
         let self = this;
         buildSortableDropHandler('linkGroupsList', self, 'linkGroups', 'updateLinkGroups');
-    },
-    contextTypes: {
-        updateLinkGroups: React.PropTypes.func
     },
     render() {
         let linkGroupElements = this.props.linkGroups.map((linkGroup, idx) => {
@@ -16,7 +17,14 @@ let LinkGroups = React.createClass({
                               expandedLinkGroup={this.props.expandedLinkGroup}
                               linkGroupIndex={idx}/>
         });
-        return <ul id="linkGroupsList">{linkGroupElements}</ul>;
+        return (
+            <ul id="linkGroupsList">
+                {linkGroupElements}
+                <li className="linkgroup new" onClick={this.context.addNewLinkGroup}>
+                    <span className="glyphicon glyphicon-plus"></span>Add New
+                </li>
+            </ul>
+        )
     }
 });
 
@@ -34,7 +42,8 @@ let LinkGroup = React.createClass({
         }
     },
     getInitialState() {
-        return {linkGroupEditing: false, linkGroupName: this.props.linkGroup.get('label')};
+        let editing = this.props.linkGroup.get('label') ? false : true;
+        return {linkGroupEditing: editing, linkGroupName: this.props.linkGroup.get('label')};
     },
     editLabel(event) {
         event.stopPropagation();
