@@ -147,6 +147,15 @@
 					<property name="accountingDocumentParameterPropertyName" value="document" />
 					<property name="accountingLineParameterPropertyName" value="accountingLine" />
 				</bean>
+				<bean parent="TransferOfFunds-transferAccountingLinesCountValidation" scope="prototype">
+					<property name="parameterProperties">
+						<list>
+							<bean parent="accountingDocumentFieldConversion" />
+							<bean parent="accountingLineFieldConversion" />							
+						</list>
+					</property>
+					<property name="quitOnFail" value="true" />						
+				</bean>				
 			</list>
 		</property>
 	</bean>
@@ -164,7 +173,7 @@
 							<bean parent="accountingLineFieldConversion" />
 						</list>
 					</property>
-				</bean>
+				</bean>				
 			</list>
 		</property>
 	</bean>
