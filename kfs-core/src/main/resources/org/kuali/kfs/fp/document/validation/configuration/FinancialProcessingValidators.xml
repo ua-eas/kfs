@@ -52,7 +52,10 @@
 	<bean id="TransferOfFunds-fundGroupsBalancedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsFundGroupsBalancedValidation" abstract="true">
 		<property name="parameterService" ref="parameterService" />
 	</bean>
-	
+	<bean id="TransferOfFunds-transferAccountingLinesCountValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsAccountingLinesCountValidation" abstract="true">
+		<property name="parameterService" ref="parameterService" />
+	</bean>
+		
 	<bean id="TransferOfFunds-objectSubTypeValueAllowedValidation" class="org.kuali.kfs.fp.document.validation.impl.TransferOfFundsObjectSubTypeValueAllowedValidation">
 		<property name="transferOfFundsService" ref="transferOfFundsService" />
 		<property name="parameterService" ref="parameterService" />
