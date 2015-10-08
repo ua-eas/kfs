@@ -50,7 +50,20 @@
             <column name="APPL_ID" value="KFS"/>
         </insert>
     </changeSet>
-
+    <changeSet author="KFS61" id="KFSCD-12_DI_AND_YEDI_ACCOUNTING_LINES">
+        <comment>KFSCD-12 DI and YEDI changes to the accounting lines</comment>
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KFS-FP"/>
+            <column name="CMPNT_CD" value="DistributionOfIncomeAndExpense"/>
+            <column name="PARM_NM" value="ALLOW_ADDITIONAL_FROM_LINE_IND"/>
+            <column name="OBJ_ID" value="KFSCD-12-1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="N"/>
+            <column name="PARM_DESC_TXT" value="Specifies whether or not an additional FROM line will be available when claiming an Electronic Payment on the Distribution of Income and Expense and the Year End Distribution of Income and Expense document. Set the parameter to Y to add an editable From line to these documents."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KFS"/>
+        </insert>   
+    </changeSet>
 
 
 </databaseChangeLog>
