@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10315">
+    <insert tableName="fp_inc_cls_t">
+      <column name="INC_CLS_CD"><![CDATA[F]]></column>
+      <column name="OBJ_ID"><![CDATA[058AB8145A629D3CE043814FD8819D3C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="INC_CLS_NM"><![CDATA[Fellowship]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fp_inc_cls_t">
+      <column name="INC_CLS_CD"><![CDATA[I]]></column>
+      <column name="OBJ_ID"><![CDATA[058AB8145A639D3CE043814FD8819D3C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="INC_CLS_NM"><![CDATA[Independent Contractor]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fp_inc_cls_t">
+      <column name="INC_CLS_CD"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[058AB8145A659D3CE043814FD8819D3C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="INC_CLS_NM"><![CDATA[Non Reportable]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fp_inc_cls_t">
+      <column name="INC_CLS_CD"><![CDATA[R]]></column>
+      <column name="OBJ_ID"><![CDATA[058AB8145A649D3CE043814FD8819D3C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="INC_CLS_NM"><![CDATA[Royalties]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

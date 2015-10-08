@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10760">
+    <insert tableName="tem_mileage_rt_t">
+      <column name="ID"><![CDATA[1]]></column>
+      <column name="RT"><![CDATA[0.5500]]></column>
+      <column name="ACTV_FROM_DT" valueDate="2011-10-23 20:37:22.0"/>
+      <column name="ACTV_TO_DT" valueDate="2022-12-31 00:00:00.0"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BE234170A20B217AE040540A5EFD4F43]]></column>
+      <column name="EXP_TYP_CD"><![CDATA[MP]]></column>
+    </insert>
+    <insert tableName="tem_mileage_rt_t">
+      <column name="ID"><![CDATA[2]]></column>
+      <column name="RT"><![CDATA[0.3000]]></column>
+      <column name="ACTV_FROM_DT" valueDate="2011-10-23 20:37:23.0"/>
+      <column name="ACTV_TO_DT" valueDate="2022-12-31 00:00:00.0"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BE234170A20E217AE040540A5EFD4F43]]></column>
+      <column name="EXP_TYP_CD"><![CDATA[MM]]></column>
+    </insert>
+    <insert tableName="tem_mileage_rt_t">
+      <column name="ID"><![CDATA[3]]></column>
+      <column name="RT"><![CDATA[2.1000]]></column>
+      <column name="ACTV_FROM_DT" valueDate="2011-10-23 20:37:23.0"/>
+      <column name="ACTV_TO_DT" valueDate="2022-12-31 00:00:00.0"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BE234170A211217AE040540A5EFD4F43]]></column>
+      <column name="EXP_TYP_CD"><![CDATA[MA]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

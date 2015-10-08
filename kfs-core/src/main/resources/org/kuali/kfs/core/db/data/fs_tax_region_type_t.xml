@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10354">
+    <insert tableName="fs_tax_region_type_t">
+      <column name="TAX_REGION_TYP_CD"><![CDATA[CNTY]]></column>
+      <column name="OBJ_ID"><![CDATA[5577381FC377FF1BE0404F8189D851DA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="TAX_REGION_TYP_NM"><![CDATA[COUNTY]]></column>
+    </insert>
+    <insert tableName="fs_tax_region_type_t">
+      <column name="TAX_REGION_TYP_CD"><![CDATA[POST]]></column>
+      <column name="OBJ_ID"><![CDATA[5577381FC378FF1BE0404F8189D851DA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="TAX_REGION_TYP_NM"><![CDATA[POSTAL]]></column>
+    </insert>
+    <insert tableName="fs_tax_region_type_t">
+      <column name="TAX_REGION_TYP_CD"><![CDATA[ST]]></column>
+      <column name="OBJ_ID"><![CDATA[5577381FC376FF1BE0404F8189D851DA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="TAX_REGION_TYP_NM"><![CDATA[STATE]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10189">
+    <insert tableName="cg_awd_stat_t">
+      <column name="CGAWD_STAT_CD"><![CDATA[A]]></column>
+      <column name="OBJ_ID"><![CDATA[12D4ED2159F6EF34E043814FD881EF34]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CGAWD_STAT_DESC"><![CDATA[Award]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_awd_stat_t">
+      <column name="CGAWD_STAT_CD"><![CDATA[R]]></column>
+      <column name="OBJ_ID"><![CDATA[12D4ED2159F7EF34E043814FD881EF34]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CGAWD_STAT_DESC"><![CDATA[Rejected]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_awd_stat_t">
+      <column name="CGAWD_STAT_CD"><![CDATA[U]]></column>
+      <column name="OBJ_ID"><![CDATA[12D4ED2159F8EF34E043814FD881EF34]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CGAWD_STAT_DESC"><![CDATA[Underwrite]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_awd_stat_t">
+      <column name="CGAWD_STAT_CD"><![CDATA[W]]></column>
+      <column name="OBJ_ID"><![CDATA[12D4ED2159F9EF34E043814FD881EF34]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CGAWD_STAT_DESC"><![CDATA[Withdrawn]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

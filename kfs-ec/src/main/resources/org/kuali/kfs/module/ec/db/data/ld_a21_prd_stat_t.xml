@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10416">
+    <insert tableName="ld_a21_prd_stat_t">
+      <column name="LBR_RPT_PRDSTAT_CD"><![CDATA[C]]></column>
+      <column name="OBJ_ID"><![CDATA[3089F975CABC9170E043814FD8819170]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="LBR_PRD_STAT_DESC"><![CDATA[CLOSED AFTER A21S - NO UPDATES ALLOWED]]></column>
+    </insert>
+    <insert tableName="ld_a21_prd_stat_t">
+      <column name="LBR_RPT_PRDSTAT_CD"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[3089F975CABD9170E043814FD8819170]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="LBR_PRD_STAT_DESC"><![CDATA[NOT YET OPENED - UPDATES ALLOWED]]></column>
+    </insert>
+    <insert tableName="ld_a21_prd_stat_t">
+      <column name="LBR_RPT_PRDSTAT_CD"><![CDATA[O]]></column>
+      <column name="OBJ_ID"><![CDATA[3089F975CABE9170E043814FD8819170]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="LBR_PRD_STAT_DESC"><![CDATA[OPEN - IN PROCESS - batch generated]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

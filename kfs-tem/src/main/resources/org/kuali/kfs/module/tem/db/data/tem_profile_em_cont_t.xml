@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10775">
+    <insert tableName="tem_profile_em_cont_t">
+      <column name="ID"><![CDATA[1]]></column>
+      <column name="CONT_REL_TYP_CD"><![CDATA[PRN]]></column>
+      <column name="CONT_NM"><![CDATA[Mother Susie]]></column>
+      <column name="PHONE_NBR"><![CDATA[812-855-5555]]></column>
+      <column name="EMAIL_ADDR"><![CDATA[mother@test.edu]]></column>
+      <column name="TEM_PROFILE_ID"><![CDATA[1]]></column>
+      <column name="PRIMARY_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[DFB0EFA0AC458131E040E00ABCD62DC1]]></column>
+    </insert>
+    <insert tableName="tem_profile_em_cont_t">
+      <column name="ID"><![CDATA[2]]></column>
+      <column name="CONT_REL_TYP_CD"><![CDATA[REL]]></column>
+      <column name="CONT_NM"><![CDATA[nancy sue]]></column>
+      <column name="PHONE_NBR"><![CDATA[812-855-5555]]></column>
+      <column name="EMAIL_ADDR"><![CDATA[nan@test.edu]]></column>
+      <column name="TEM_PROFILE_ID"><![CDATA[5]]></column>
+      <column name="PRIMARY_IND"><![CDATA[N]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D8007982AD17E040E00ABCD67056]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

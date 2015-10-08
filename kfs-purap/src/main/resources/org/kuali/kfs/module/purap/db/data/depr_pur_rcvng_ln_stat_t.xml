@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10256">
+    <insert tableName="depr_pur_rcvng_ln_stat_t">
+      <column name="RCVNG_LN_STAT_CD"><![CDATA[APOO]]></column>
+      <column name="OBJ_ID"><![CDATA[60A6B6F3F0FBFF46E0404F8189D87ACD]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="RCVNG_LN_STAT_DESC"><![CDATA[Awaiting Purchase Order Open Status]]></column>
+    </insert>
+    <insert tableName="depr_pur_rcvng_ln_stat_t">
+      <column name="RCVNG_LN_STAT_CD"><![CDATA[CANC]]></column>
+      <column name="OBJ_ID"><![CDATA[6224502233A93004E0404F8189D8236B]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="RCVNG_LN_STAT_DESC"><![CDATA[Cancelled]]></column>
+    </insert>
+    <insert tableName="depr_pur_rcvng_ln_stat_t">
+      <column name="RCVNG_LN_STAT_CD"><![CDATA[CMPT]]></column>
+      <column name="OBJ_ID"><![CDATA[60A6B6F3F0FCFF46E0404F8189D87ACD]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="RCVNG_LN_STAT_DESC"><![CDATA[Complete]]></column>
+    </insert>
+    <insert tableName="depr_pur_rcvng_ln_stat_t">
+      <column name="RCVNG_LN_STAT_CD"><![CDATA[INPR]]></column>
+      <column name="OBJ_ID"><![CDATA[60A6B6F3F0FAFF46E0404F8189D87ACD]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="RCVNG_LN_STAT_DESC"><![CDATA[In Process]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

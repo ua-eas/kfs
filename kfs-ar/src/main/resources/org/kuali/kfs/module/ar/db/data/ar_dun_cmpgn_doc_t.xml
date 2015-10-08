@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10058">
+    <insert tableName="ar_dun_cmpgn_doc_t">
+      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
+      <column name="OBJ_ID"><![CDATA[e5a8aeb3-eef5-4c57-9e68-00c7f964d38c]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPGN_DESC"><![CDATA[New Kuali Letters]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10341">
+    <insert tableName="fp_sales_tax_t">
+      <column name="FDOC_NBR"><![CDATA[QU9084604]]></column>
+      <column name="FDOC_LN_TYP_CD"><![CDATA[F]]></column>
+      <column name="FDOC_LINE_NBR"><![CDATA[3]]></column>
+      <column name="OBJ_ID"><![CDATA[13FEFBF14ED141AAE043814FD88141AA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[6040000]]></column>
+      <column name="FDOC_GRS_SALES_AMT"><![CDATA[-380.00]]></column>
+      <column name="FDOC_TXBL_SALES_AMT"><![CDATA[-380.00]]></column>
+      <column name="FDOC_SALE_DT" valueDate="2004-04-01 00:00:00.0"/>
+    </insert>
+    <insert tableName="fp_sales_tax_t">
+      <column name="FDOC_NBR"><![CDATA[YF2857804]]></column>
+      <column name="FDOC_LN_TYP_CD"><![CDATA[F]]></column>
+      <column name="FDOC_LINE_NBR"><![CDATA[3]]></column>
+      <column name="OBJ_ID"><![CDATA[13FEFBF14ED241AAE043814FD88141AA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[6040000]]></column>
+      <column name="FDOC_GRS_SALES_AMT"><![CDATA[-75.85]]></column>
+      <column name="FDOC_TXBL_SALES_AMT"><![CDATA[-75.85]]></column>
+      <column name="FDOC_SALE_DT" valueDate="2004-05-01 00:00:00.0"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

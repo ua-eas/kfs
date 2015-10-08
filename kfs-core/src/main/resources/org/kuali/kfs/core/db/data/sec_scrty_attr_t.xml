@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10705">
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313ECA2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Account]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[2]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313EDA2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Chart]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[3]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313EEA2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Chart-Descend Hierarchy]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[4]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313EFA2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Object]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[5]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313F0A2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Object Level]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[6]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313F1A2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Organization]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[7]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313F2A2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Organization-Descend Hierarchy]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[8]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313F3A2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Principal Investigator]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[9]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313F4A2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Project Code]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="sec_scrty_attr_t">
+      <column name="ATTR_ID"><![CDATA[10]]></column>
+      <column name="OBJ_ID"><![CDATA[9D607BF313F5A2E0E040007F01005D95]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ATTR_NM"><![CDATA[Sub Account]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

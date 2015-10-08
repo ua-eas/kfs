@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10768">
+    <insert tableName="tem_pri_dest_t">
+      <column name="ID"><![CDATA[2147483647]]></column>
+      <column name="PRI_DEST_NM"><![CDATA[Primary Destination Not Found]]></column>
+      <column name="REGION_CD"><![CDATA[XXX]]></column>
+      <column name="COUNTY_CD" value="null"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="OBJ_ID"><![CDATA[E57DE145DB6556EFE040E00ABCD653FA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

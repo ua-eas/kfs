@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10627">
+    <insert tableName="pur_po_trns_mthd_t">
+      <column name="PO_TRNS_MTHD_CD"><![CDATA[ELEC]]></column>
+      <column name="OBJ_ID"><![CDATA[6C1578D5-2AC5-9E6F-5F2A-57A808DC79BF]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="PO_TRNS_MTHD_DESC"><![CDATA[ELECTRONIC]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
+      <column name="DISPLAY_TO_USER_IND"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="pur_po_trns_mthd_t">
+      <column name="PO_TRNS_MTHD_CD"><![CDATA[FAX]]></column>
+      <column name="OBJ_ID"><![CDATA[4D1BB005-9EA2-EAE2-B5FE-32942EE4FEC6]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="PO_TRNS_MTHD_DESC"><![CDATA[FAX]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
+      <column name="DISPLAY_TO_USER_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_trns_mthd_t">
+      <column name="PO_TRNS_MTHD_CD"><![CDATA[NOPR]]></column>
+      <column name="OBJ_ID"><![CDATA[73CA9EE5-F125-E94C-A3B3-BD0F981014F4]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PO_TRNS_MTHD_DESC"><![CDATA[NO PRINT]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="DISPLAY_TO_USER_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_trns_mthd_t">
+      <column name="PO_TRNS_MTHD_CD"><![CDATA[PRIN]]></column>
+      <column name="OBJ_ID"><![CDATA[4FB20242-1236-6533-137B-4F38C26C62E1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PO_TRNS_MTHD_DESC"><![CDATA[PRINT]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="DISPLAY_TO_USER_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10561">
+    <insert tableName="pdp_pmt_typ_t">
+      <column name="PMT_TYP_CD"><![CDATA[all]]></column>
+      <column name="OBJ_ID"><![CDATA[59DD323FB199B3EFE0404F8189D83BC1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_TYP_DESC"><![CDATA[All Payment Types]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_typ_t">
+      <column name="PMT_TYP_CD"><![CDATA[immediate]]></column>
+      <column name="OBJ_ID"><![CDATA[59DD323FB19EB3EFE0404F8189D83BC1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_TYP_DESC"><![CDATA[Only Disbursements Flagged as Immediate]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_typ_t">
+      <column name="PMT_TYP_CD"><![CDATA[pymtAttachment]]></column>
+      <column name="OBJ_ID"><![CDATA[59DD323FB19AB3EFE0404F8189D83BC1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_TYP_DESC"><![CDATA[Only Disbursements with Attachments]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_typ_t">
+      <column name="PMT_TYP_CD"><![CDATA[pymtAttachmentFalse]]></column>
+      <column name="OBJ_ID"><![CDATA[59DD323FB19BB3EFE0404F8189D83BC1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_TYP_DESC"><![CDATA[Only Disbursements with No Attachments]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_typ_t">
+      <column name="PMT_TYP_CD"><![CDATA[pymtSpecialHandling]]></column>
+      <column name="OBJ_ID"><![CDATA[59DD323FB19CB3EFE0404F8189D83BC1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_TYP_DESC"><![CDATA[Only Disbursements with Special Handling]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_typ_t">
+      <column name="PMT_TYP_CD"><![CDATA[pymtSpecialHandlingFalse]]></column>
+      <column name="OBJ_ID"><![CDATA[59DD323FB19DB3EFE0404F8189D83BC1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_TYP_DESC"><![CDATA[Only Disbursements with No Special Handling]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

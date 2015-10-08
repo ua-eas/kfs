@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10771">
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[1]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D800797CAD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[3]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[123 JOE'S STREET]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[INDIANAPOLIS]]></column>
+      <column name="STATE_CD"><![CDATA[IN]]></column>
+      <column name="ZIP_CD"><![CDATA[46464]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="OBJ_ID"><![CDATA[c524e711-2041-45ee-8650-ae6afdc0b916]]></column>
+      <column name="CUST_ADDR_ID" value="null"/>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[4]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D800797FAD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[5]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D8007981AD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[6]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D8007984AD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[7]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D8007986AD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[8]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D8007988AD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[9]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D800798AAD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[10]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D800798CAD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="tem_profile_addr_t">
+      <column name="TEM_PROFILE_ID"><![CDATA[11]]></column>
+      <column name="ADDR_LINE_1"><![CDATA[EAST PELTASON DR]]></column>
+      <column name="ADDR_LINE_2" value="null"/>
+      <column name="CITY_NM"><![CDATA[IRVINE]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="ZIP_CD"><![CDATA[92697]]></column>
+      <column name="COUNTRY_CD"><![CDATA[US]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[E074D800798EAD17E040E00ABCD67056]]></column>
+      <column name="CUST_ADDR_ID"><![CDATA[0]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
