@@ -45,12 +45,8 @@ public class WorkflowImporter {
     private static ClassPathXmlApplicationContext context;
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println("ERROR: You must pass the base directory on the command line.");
-            System.exit(-1);
-        }
         initializeKfs();
-        importWorkflow(context, args[0]);
+        importWorkflow(context);
         System.exit(0);
     }
 
@@ -79,10 +75,6 @@ public class WorkflowImporter {
             return;
         }
 
-        importWorkflow(applicationContext, xmlDir);
-    }
-
-    protected static void importWorkflow(ApplicationContext applicationContext, String xmlDir) {
         DocumentTypeService documentTypeService = KEWServiceLocator.getDocumentTypeService();
         RuleAttributeService ruleAttributeService = KEWServiceLocator.getRuleAttributeService();
 
