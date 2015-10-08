@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10128">
+  <changeSet author="kfs" id="10128" context="bootstrap,demo">
     <insert tableName="ca_federal_func_t">
       <column name="FIN_FED_FUNC_CD"><![CDATA[GA]]></column>
       <column name="OBJ_ID"><![CDATA[0DF1CCE1765BB5BCE043814FD881B5BC]]></column>
