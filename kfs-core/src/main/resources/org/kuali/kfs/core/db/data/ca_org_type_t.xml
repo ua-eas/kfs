@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10156">
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[A]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC69A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[ACADEMIC INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[B]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC79A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[BOOKSTORE INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[C]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC09A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[CAMPUS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[D]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC89A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[CHILD CARE CENTER INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[E]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC99A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[EVENTS INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[F]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CCA9A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[FACILITY SERVICES INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[H]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC19A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[HRIS ORGANIZATION]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[I]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CCB9A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[IU ATHLETICS INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[M]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CD09A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[MISC AUXILIARY INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC29A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[NOT OFFICIAL]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[O]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC39A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[OTHER ORGANIZATIONS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[P]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CCC9A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[PUBLISHING INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[R]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC49A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[RESPONSIBILITY CENTER]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[S]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CCD9A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[STUDENT LIVING INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[T]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CCE9A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[TRANSPORTATION INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[U]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CC59A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[UNIVERSITY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_org_type_t">
+      <column name="ORG_TYP_CD"><![CDATA[V]]></column>
+      <column name="OBJ_ID"><![CDATA[0395A4937CCF9A30E043814FD8819A30]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ORG_TYP_NM"><![CDATA[VOICE-TELECOM INDUSTRY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

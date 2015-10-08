@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10144">
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[AS]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EDBA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[ASSET]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[D]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[C1]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[AS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[CH]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EDCA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[CASH NOT INCOME]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[C]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[A3]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[IN]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[EE]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EDDA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[EXPENDITURE NOT EXPENSE]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[D]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[Y]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[B2]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[EX]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[ES]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EDEA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[EXPENSE NOT EXPENDITURE]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[D]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[B3]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[EX]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[EX]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EDFA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[EXPENSE EXPENDITURE]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[D]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[Y]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[B1]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[EX]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[FB]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EE0A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[FUND BALANCE]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[C]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[Y]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[F1]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[FB]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[IC]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EE1A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[INCOME NOT CASH]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[C]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[A2]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[IN]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[IN]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EE2A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[INCOME-CASH]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[C]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[A1]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[IN]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[LI]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EE3A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[LIABILITY]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[C]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[D1]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[LI]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[TE]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EE4A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[TRANSFER OF FUNDS - EXPENSE]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[D]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[B4]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[EX]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_type_t">
+      <column name="FIN_OBJ_TYP_CD"><![CDATA[TI]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EE5A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_TYP_NM"><![CDATA[TRANSFER OF FUNDS - INCOME]]></column>
+      <column name="FIN_OBJTYP_DBCR_CD"><![CDATA[C]]></column>
+      <column name="FIN_OBJ_TYP_ICR_CD"><![CDATA[N]]></column>
+      <column name="FUND_BALANCE_CD"><![CDATA[N]]></column>
+      <column name="FIN_REPORT_SORT_CD"><![CDATA[A4]]></column>
+      <column name="ACCTG_CTGRY_CD"><![CDATA[IN]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

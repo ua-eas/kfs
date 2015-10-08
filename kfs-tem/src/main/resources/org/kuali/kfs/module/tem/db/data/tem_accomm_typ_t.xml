@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10724">
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[APTS]]></column>
+      <column name="NM"><![CDATA[Apartment]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24156F5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[BARR]]></column>
+      <column name="NM"><![CDATA[Barracks]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415715898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[CAMP]]></column>
+      <column name="NM"><![CDATA[Camping]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415725898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[DORM]]></column>
+      <column name="NM"><![CDATA[Dormitory]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415705898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[HOTL]]></column>
+      <column name="NM"><![CDATA[Hotel]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24156D5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[HOUS]]></column>
+      <column name="NM"><![CDATA[House]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24156E5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[MOTL]]></column>
+      <column name="NM"><![CDATA[Motel]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415735898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[OTHR]]></column>
+      <column name="NM"><![CDATA[Other]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415755898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_accomm_typ_t">
+      <column name="CODE"><![CDATA[UNKN]]></column>
+      <column name="NM"><![CDATA[Unknown]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415745898E040540A5EFD3A74]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

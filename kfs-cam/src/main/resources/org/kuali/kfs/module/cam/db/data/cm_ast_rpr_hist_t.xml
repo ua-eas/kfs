@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10231">
+    <insert tableName="cm_ast_rpr_hist_t">
+      <column name="CPTLAST_NBR"><![CDATA[2391]]></column>
+      <column name="CPTLAST_INCIDNT_DT" valueDate="2007-05-05 00:00:00.0"/>
+      <column name="OBJ_ID"><![CDATA[481A1BE8C431AFA4E0404F8189D84C0F]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_PRBLM_DESC"><![CDATA[It was broke]]></column>
+      <column name="CPTLAST_RPRCNTC_NM" value="null"/>
+      <column name="CPTLAST_RPR_NT_TXT" value="null"/>
+      <column name="CPTLAST_EST_RPR_DT" value="null"/>
+      <column name="CPTLAST_RPR_DT" valueDate="2007-05-06 00:00:00.0"/>
+      <column name="CPTLAST_RPR_AMT"><![CDATA[50.00]]></column>
+      <column name="AST_RPR_SOLN_DESC" value="null"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

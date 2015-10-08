@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10162">
+    <insert tableName="ca_restrict_stat_t">
+      <column name="ACCT_RSTRC_STAT_CD"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF8209A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_RSTRC_STAT_NM"><![CDATA[NOT APPLICABLE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_restrict_stat_t">
+      <column name="ACCT_RSTRC_STAT_CD"><![CDATA[R]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF820AA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_RSTRC_STAT_NM"><![CDATA[RESTRICTED]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_restrict_stat_t">
+      <column name="ACCT_RSTRC_STAT_CD"><![CDATA[T]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF820BA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_RSTRC_STAT_NM"><![CDATA[TEMPORARLIY RESTRICTED]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_restrict_stat_t">
+      <column name="ACCT_RSTRC_STAT_CD"><![CDATA[U]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF820CA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_RSTRC_STAT_NM"><![CDATA[UNRESTRICTED]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

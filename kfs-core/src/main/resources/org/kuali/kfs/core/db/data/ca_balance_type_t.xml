@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10122">
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[A2]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83BCA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[A21 BALANCES - LABOR LEDGER ONLY]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[A21 BALANCES]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[AC]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83BDA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[ACTUALS (BALANCE SHEET)]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[ACTUALS]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[BB]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83BFA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[ADJUSTED BASE BUDGET]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[ADJ BSE BUDG]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[N]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[CB]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C1A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[CURRENT BUDGET]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[CURRENT BUDG]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[N]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[CE]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C2A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[COST SHARE ENCUMBRANCES]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[CST SHR ENCS]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[EX]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C3A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[EXTERNAL ENCUMBRANCE]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[EXTERNAL ENC]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[IE]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C4A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[INTERNAL ENCUMBRANCE]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[INTERNAL ENC]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[MB]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C6A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[MONTHLY BUDGET]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[MONTHLY BUDG]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[N]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[NB]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C7A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[CLOSE NOMINAL BALANCE]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[NOMINAL BAL]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[PE]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C8A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[PRE-ENCUMBRANCE]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[PRE-ENCUM]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[RE]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83C9A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[YEAR END BUDGET REVERSION]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[BUDG REVERT]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[N]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_balance_type_t">
+      <column name="FIN_BALANCE_TYP_CD"><![CDATA[TR]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF83CAA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_BALANCE_TYP_NM"><![CDATA[TRANSFERS]]></column>
+      <column name="FIN_BALTYP_SHRT_NM"><![CDATA[TRANSFERS]]></column>
+      <column name="FIN_OFFST_GNRTN_CD"><![CDATA[Y]]></column>
+      <column name="FIN_BALTYP_ENC_CD"><![CDATA[N]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

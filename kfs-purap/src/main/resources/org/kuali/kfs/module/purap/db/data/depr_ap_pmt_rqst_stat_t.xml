@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10254">
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[ACHA]]></column>
+      <column name="OBJ_ID"><![CDATA[D040E010-BE30-07D3-89F6-38201069F8F5]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Awaiting Chart Approval]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[AFOA]]></column>
+      <column name="OBJ_ID"><![CDATA[C32BA380-F87A-26B6-5D69-B0C0553035D6]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Awaiting Fiscal Officer Approval]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[APAD]]></column>
+      <column name="OBJ_ID"><![CDATA[35B3A59FDC81719AE043814FD881719A]]></column>
+      <column name="VER_NBR"><![CDATA[4]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Awaiting AP Review]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[ARVR]]></column>
+      <column name="OBJ_ID"><![CDATA[5A69D28F2BFA641FE0404F8189D81816]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Awaiting Receiving]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[ASAA]]></column>
+      <column name="OBJ_ID"><![CDATA[8671ED7F-D2E1-FC38-60ED-4C5474D2AA79]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Awaiting Sub-Account Manager Approval]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[ATAX]]></column>
+      <column name="OBJ_ID"><![CDATA[A218D615-C9D8-1E8A-CB24-9EAB254661E7]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Awaiting Tax Approval]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[AUTO]]></column>
+      <column name="OBJ_ID"><![CDATA[59DBFA8B-F38A-9C20-9404-EB9A767ADC73]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Auto-Approved]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[CANC]]></column>
+      <column name="OBJ_ID"><![CDATA[ED75C863-5F13-C538-DAC3-2A89F6624349]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Cancelled]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[CIPR]]></column>
+      <column name="OBJ_ID"><![CDATA[35B3A59FDC80719AE043814FD881719A]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Cancelled - In Process]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[DPTA]]></column>
+      <column name="OBJ_ID"><![CDATA[FC1A5747-AFE0-DEDD-E6E7-A0D5272D54FE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Department-Approved]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[INIT]]></column>
+      <column name="OBJ_ID"><![CDATA[35B3A59FDC82719AE043814FD881719A]]></column>
+      <column name="VER_NBR"><![CDATA[5]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Initiated]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[INPR]]></column>
+      <column name="OBJ_ID"><![CDATA[35B3A59FDC83719AE043814FD881719A]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[In Process]]></column>
+    </insert>
+    <insert tableName="depr_ap_pmt_rqst_stat_t">
+      <column name="PMT_RQST_STAT_CD"><![CDATA[PEIN]]></column>
+      <column name="OBJ_ID"><![CDATA[73743391-815B-47C5-8F93-452CF6E460C1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_RQST_STAT_DESC"><![CDATA[Pending Route Electronic Invoice]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

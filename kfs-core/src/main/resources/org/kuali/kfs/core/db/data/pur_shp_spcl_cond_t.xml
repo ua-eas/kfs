@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10651">
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[AR]]></column>
+      <column name="OBJ_ID"><![CDATA[B59AA8E1-FDF9-E701-FA7C-3BF27158846D]]></column>
+      <column name="VER_NBR"><![CDATA[3]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[AIR RIDE]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[BP]]></column>
+      <column name="OBJ_ID"><![CDATA[9500A852-36C8-F73D-009F-1BAB27D42F96]]></column>
+      <column name="VER_NBR"><![CDATA[4]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[BODY PARTS]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[EX]]></column>
+      <column name="OBJ_ID"><![CDATA[3D7B56B1-57E7-3FEC-BCBC-140E442B8CCE]]></column>
+      <column name="VER_NBR"><![CDATA[7]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[EXPRESS]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[HA]]></column>
+      <column name="OBJ_ID"><![CDATA[D9CBBCAD-9177-B1A8-CB39-1DC895630041]]></column>
+      <column name="VER_NBR"><![CDATA[6]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[HAZMAT]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[IN]]></column>
+      <column name="OBJ_ID"><![CDATA[07B10B5F-8065-CFA7-3D1C-5FB6DD77E343]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[INSURED]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[LA]]></column>
+      <column name="OBJ_ID"><![CDATA[8CE0A4A2-12E5-EE87-E5BD-B7220484E953]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[LIVE ANIMAL]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[OL]]></column>
+      <column name="OBJ_ID"><![CDATA[02160E0A-0117-4653-475B-12C697C13DAD]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[OVERSIZE LOAD]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[RA]]></column>
+      <column name="OBJ_ID"><![CDATA[E7305B4C-4162-E330-3604-910F89278783]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[RADIOACTIVE]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_shp_spcl_cond_t">
+      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[RE]]></column>
+      <column name="OBJ_ID"><![CDATA[EC1B3AE0-93A9-7710-4C86-030CA3457CBA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_SHP_SPCL_COND_DESC"><![CDATA[REFRIGERATED]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

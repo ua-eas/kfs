@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10685">
+    <insert tableName="pur_vndr_w8_typ_t">
+      <column name="VNDR_W8_TYP_CD"><![CDATA[01]]></column>
+      <column name="OBJ_ID"><![CDATA[KFSTP-1359-1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_W8_TYP_DESC"><![CDATA[W-8BEN]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_vndr_w8_typ_t">
+      <column name="VNDR_W8_TYP_CD"><![CDATA[02]]></column>
+      <column name="OBJ_ID"><![CDATA[KFSTP-1359-2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_W8_TYP_DESC"><![CDATA[W-8BEN-E]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_vndr_w8_typ_t">
+      <column name="VNDR_W8_TYP_CD"><![CDATA[03]]></column>
+      <column name="OBJ_ID"><![CDATA[KFSTP-1359-3]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_W8_TYP_DESC"><![CDATA[W-8ECI]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_vndr_w8_typ_t">
+      <column name="VNDR_W8_TYP_CD"><![CDATA[04]]></column>
+      <column name="OBJ_ID"><![CDATA[KFSTP-1359-4]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_W8_TYP_DESC"><![CDATA[W-8EXP]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_vndr_w8_typ_t">
+      <column name="VNDR_W8_TYP_CD"><![CDATA[05]]></column>
+      <column name="OBJ_ID"><![CDATA[KFSTP-1359-5]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VNDR_W8_TYP_DESC"><![CDATA[W-8IMY]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

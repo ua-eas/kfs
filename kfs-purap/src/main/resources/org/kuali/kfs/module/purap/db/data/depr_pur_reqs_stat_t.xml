@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10257">
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[ACHA]]></column>
+      <column name="OBJ_ID"><![CDATA[EB12B8C1-F28A-DAB9-468A-AE50F75F985F]]></column>
+      <column name="VER_NBR"><![CDATA[3]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Base Org Review]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[ACMR]]></column>
+      <column name="OBJ_ID"><![CDATA[E0488EB1-E3A6-15B8-B07C-F8A7755B31D8]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Contract Manager Assignment]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[ACNT]]></column>
+      <column name="OBJ_ID"><![CDATA[A9AF21E4-663D-A7BB-EA8F-59652C110BDA]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Content Approval]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[AFIS]]></column>
+      <column name="OBJ_ID"><![CDATA[36C6B9C0-7E69-19E8-6762-B3C5285C96F4]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Fiscal Officer]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[AHAL]]></column>
+      <column name="OBJ_ID"><![CDATA[62AF782FE655C822E0404F8189D8721E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Accounting Lines]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[ASOD]]></column>
+      <column name="OBJ_ID"><![CDATA[24E32AED-1A25-AC3D-7499-AA555596FA3A]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Separation of Duties]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[ASUB]]></column>
+      <column name="OBJ_ID"><![CDATA[4815B09B-57C8-7924-9224-6156D21BEAC5]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Sub Account]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[CANC]]></column>
+      <column name="OBJ_ID"><![CDATA[7D7E827E-26FC-3C34-E3BC-F47474DC932B]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Cancelled]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[CLOS]]></column>
+      <column name="OBJ_ID"><![CDATA[824AF337-F30E-D6FB-827A-A1504C920E17]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Closed]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[DCHA]]></column>
+      <column name="OBJ_ID"><![CDATA[5832B161-9CE7-17EB-5F15-2300B4FB5D11]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Disapproved - Base Org Review]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[DCNT]]></column>
+      <column name="OBJ_ID"><![CDATA[425DB016-9E8D-210B-6D52-747ED106FDD5]]></column>
+      <column name="VER_NBR"><![CDATA[3]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Disapproved - Content]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[DCOM]]></column>
+      <column name="OBJ_ID"><![CDATA[4A726628A0E23555E0404F8189D8234B]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Disapproved - Commodity Code]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[DFIS]]></column>
+      <column name="OBJ_ID"><![CDATA[01F920D6-B474-2C0A-D5E8-918518854D00]]></column>
+      <column name="VER_NBR"><![CDATA[3]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Disapproved - Fiscal]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[DHAL]]></column>
+      <column name="OBJ_ID"><![CDATA[62AF782FE656C822E0404F8189D8721E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Disapproved - Accounting Lines]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[DSOD]]></column>
+      <column name="OBJ_ID"><![CDATA[0D1E5578-E091-D137-3D17-F47C0FB9C1C8]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Disapproved - Separation of Duties]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[DSUB]]></column>
+      <column name="OBJ_ID"><![CDATA[B17508B4-0F66-BCD4-9323-57482CBD71ED]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Disapproved - Sub Account]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[INPR]]></column>
+      <column name="OBJ_ID"><![CDATA[C7A53E47-A2EE-9A1C-1730-219AD75754C7]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[In Process]]></column>
+    </insert>
+    <insert tableName="depr_pur_reqs_stat_t">
+      <column name="REQS_STAT_CD"><![CDATA[WCOM]]></column>
+      <column name="OBJ_ID"><![CDATA[4A726628A0E13555E0404F8189D8234B]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REQS_STAT_DESC"><![CDATA[Awaiting Commodity Code]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

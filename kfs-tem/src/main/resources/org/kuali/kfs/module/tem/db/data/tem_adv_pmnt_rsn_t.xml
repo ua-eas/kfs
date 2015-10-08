@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10728">
+    <insert tableName="tem_adv_pmnt_rsn_t">
+      <column name="CODE"><![CDATA[01]]></column>
+      <column name="DESCRIPTION"><![CDATA[Special handling, group leader]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2416495898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_adv_pmnt_rsn_t">
+      <column name="CODE"><![CDATA[02]]></column>
+      <column name="DESCRIPTION"><![CDATA[Not eligible for corporate card program, students and non-employees]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24164A5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_adv_pmnt_rsn_t">
+      <column name="CODE"><![CDATA[03]]></column>
+      <column name="DESCRIPTION"><![CDATA[Corporate card not yet issued/rejected]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24164B5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_adv_pmnt_rsn_t">
+      <column name="CODE"><![CDATA[04]]></column>
+      <column name="DESCRIPTION"><![CDATA[Expenses incurred before trip that need to be paid]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24164C5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_adv_pmnt_rsn_t">
+      <column name="CODE"><![CDATA[05]]></column>
+      <column name="DESCRIPTION"><![CDATA[Foreign travel - Per Diem]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24164D5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_adv_pmnt_rsn_t">
+      <column name="CODE"><![CDATA[06]]></column>
+      <column name="DESCRIPTION"><![CDATA[Other (requires free form text)]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24164E5898E040540A5EFD3A74]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

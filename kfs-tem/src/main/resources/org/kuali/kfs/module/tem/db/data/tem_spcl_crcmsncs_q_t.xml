@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10781">
+    <insert tableName="tem_spcl_crcmsncs_q_t">
+      <column name="ID"><![CDATA[1]]></column>
+      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
+      <column name="TEXT"><![CDATA[Question for TA - is anyone traveling with you?]]></column>
+      <column name="TXT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-001]]></column>
+    </insert>
+    <insert tableName="tem_spcl_crcmsncs_q_t">
+      <column name="ID"><![CDATA[2]]></column>
+      <column name="DOCUMENT_TYPE"><![CDATA[TR]]></column>
+      <column name="TEXT"><![CDATA[Question for TR documents - did you stay overnight with family or friends?:]]></column>
+      <column name="TXT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-002]]></column>
+    </insert>
+    <insert tableName="tem_spcl_crcmsncs_q_t">
+      <column name="ID"><![CDATA[3]]></column>
+      <column name="DOCUMENT_TYPE"><![CDATA[ENT]]></column>
+      <column name="TEXT"><![CDATA[Question for Entertainment documents - was alcohol served?:]]></column>
+      <column name="TXT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-003]]></column>
+    </insert>
+    <insert tableName="tem_spcl_crcmsncs_q_t">
+      <column name="ID"><![CDATA[4]]></column>
+      <column name="DOCUMENT_TYPE"><![CDATA[RELO]]></column>
+      <column name="TEXT"><![CDATA[Question for Relocation documents - do you have pets moving with you?:]]></column>
+      <column name="TXT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-004]]></column>
+    </insert>
+    <insert tableName="tem_spcl_crcmsncs_q_t">
+      <column name="ID"><![CDATA[5]]></column>
+      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
+      <column name="TEXT"><![CDATA[Question for TA documents - not free form: Carrying Fruit?]]></column>
+      <column name="TXT_IND"><![CDATA[N]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-005]]></column>
+    </insert>
+    <insert tableName="tem_spcl_crcmsncs_q_t">
+      <column name="ID"><![CDATA[6]]></column>
+      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
+      <column name="TEXT"><![CDATA[Inactive Question for search testing]]></column>
+      <column name="TXT_IND"><![CDATA[N]]></column>
+      <column name="ACTV_IND"><![CDATA[N]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-006]]></column>
+    </insert>
+    <insert tableName="tem_spcl_crcmsncs_q_t">
+      <column name="ID"><![CDATA[7]]></column>
+      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
+      <column name="TEXT"><![CDATA[Do you have large pets traveling with you?:]]></column>
+      <column name="TXT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-007]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

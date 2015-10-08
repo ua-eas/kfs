@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10514">
+    <insert tableName="ld_lbr_bft_rt_cat_t">
+      <column name="LBR_BEN_RT_CAT_CD"><![CDATA[--]]></column>
+      <column name="OBJ_ID"><![CDATA[B349747C3865BC90E040007F010026BB]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LBR_BEN_RT_CAT_NM"><![CDATA[Not Applicable]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10764">
+    <insert tableName="tem_per_diem_mie_break_down_t">
+      <column name="MEALS_INC"><![CDATA[46.00]]></column>
+      <column name="BKFST"><![CDATA[7]]></column>
+      <column name="LUNCH"><![CDATA[11]]></column>
+      <column name="DIN"><![CDATA[23]]></column>
+      <column name="INC"><![CDATA[5.00]]></column>
+      <column name="LAST_UPD_DT" valueDate="2011-08-31 00:00:00.0"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24165C5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_per_diem_mie_break_down_t">
+      <column name="MEALS_INC"><![CDATA[51.00]]></column>
+      <column name="BKFST"><![CDATA[8]]></column>
+      <column name="LUNCH"><![CDATA[12]]></column>
+      <column name="DIN"><![CDATA[26]]></column>
+      <column name="INC"><![CDATA[5.00]]></column>
+      <column name="LAST_UPD_DT" valueDate="2011-08-31 00:00:00.0"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24165D5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_per_diem_mie_break_down_t">
+      <column name="MEALS_INC"><![CDATA[56.00]]></column>
+      <column name="BKFST"><![CDATA[9]]></column>
+      <column name="LUNCH"><![CDATA[13]]></column>
+      <column name="DIN"><![CDATA[29]]></column>
+      <column name="INC"><![CDATA[5.00]]></column>
+      <column name="LAST_UPD_DT" valueDate="2011-08-31 00:00:00.0"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24165E5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_per_diem_mie_break_down_t">
+      <column name="MEALS_INC"><![CDATA[61.00]]></column>
+      <column name="BKFST"><![CDATA[10]]></column>
+      <column name="LUNCH"><![CDATA[15]]></column>
+      <column name="DIN"><![CDATA[31]]></column>
+      <column name="INC"><![CDATA[5.00]]></column>
+      <column name="LAST_UPD_DT" valueDate="2011-08-31 00:00:00.0"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24165F5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_per_diem_mie_break_down_t">
+      <column name="MEALS_INC"><![CDATA[66.00]]></column>
+      <column name="BKFST"><![CDATA[11]]></column>
+      <column name="LUNCH"><![CDATA[16]]></column>
+      <column name="DIN"><![CDATA[34]]></column>
+      <column name="INC"><![CDATA[5.00]]></column>
+      <column name="LAST_UPD_DT" valueDate="2011-08-31 00:00:00.0"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2416605898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_per_diem_mie_break_down_t">
+      <column name="MEALS_INC"><![CDATA[71.00]]></column>
+      <column name="BKFST"><![CDATA[12]]></column>
+      <column name="LUNCH"><![CDATA[18]]></column>
+      <column name="DIN"><![CDATA[36]]></column>
+      <column name="INC"><![CDATA[5.00]]></column>
+      <column name="LAST_UPD_DT" valueDate="2011-08-31 00:00:00.0"/>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2416615898E040540A5EFD3A74]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

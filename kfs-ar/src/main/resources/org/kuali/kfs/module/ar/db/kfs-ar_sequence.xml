@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="4726" dbms="mysql">
+        <createTable tableName="AR_BILL_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4726" dbms="oracle">
+        <createSequence sequenceName="AR_BILL_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4727" dbms="mysql">
+        <createTable tableName="AR_CLCTN_EVNT_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4727" dbms="oracle">
+        <createSequence sequenceName="AR_CLCTN_EVNT_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4728" dbms="mysql">
+        <createTable tableName="AR_DUN_LTR_DIST_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4728" dbms="oracle">
+        <createSequence sequenceName="AR_DUN_LTR_DIST_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4729" dbms="mysql">
+        <createTable tableName="AR_ENTRY_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4729" dbms="oracle">
+        <createSequence sequenceName="AR_ENTRY_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4730" dbms="mysql">
+        <createTable tableName="AR_ERROR_LOG_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4730" dbms="oracle">
+        <createSequence sequenceName="AR_ERROR_LOG_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4731" dbms="mysql">
+        <createTable tableName="AR_ERROR_MSG_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4731" dbms="oracle">
+        <createSequence sequenceName="AR_ERROR_MSG_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4732" dbms="mysql">
+        <createTable tableName="AR_INV_DTL_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4732" dbms="oracle">
+        <createSequence sequenceName="AR_INV_DTL_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4733" dbms="mysql">
+        <createTable tableName="AR_LOCKBOX_T_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4733" dbms="oracle">
+        <createSequence sequenceName="AR_LOCKBOX_T_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4734" dbms="mysql">
+        <createTable tableName="AR_LTRCR_RVW_DTL_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4734" dbms="oracle">
+        <createSequence sequenceName="AR_LTRCR_RVW_DTL_ID_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" id="4735" dbms="mysql">
+        <createTable tableName="AR_MLSTN_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" id="4735" dbms="oracle">
+        <createSequence sequenceName="AR_MLSTN_ID_SEQ" startValue="1"/>
+    </changeSet>
+</databaseChangeLog>

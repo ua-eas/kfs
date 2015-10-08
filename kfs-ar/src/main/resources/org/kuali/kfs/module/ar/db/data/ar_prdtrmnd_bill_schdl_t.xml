@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10099">
+    <insert tableName="ar_prdtrmnd_bill_schdl_t">
+      <column name="PRPSL_NBR"><![CDATA[80078]]></column>
+      <column name="OBJ_ID"><![CDATA[7841ad33-ff22-437c-b19b-dfb25c2a9741]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+    </insert>
+    <insert tableName="ar_prdtrmnd_bill_schdl_t">
+      <column name="PRPSL_NBR"><![CDATA[80080]]></column>
+      <column name="OBJ_ID"><![CDATA[80e313b2-9246-4beb-bfa8-bd880ec27685]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10420">
+    <insert tableName="ld_a21_rpt_typ_t">
+      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[10]]></column>
+      <column name="OBJ_ID"><![CDATA[3089F98382DA9088E043814FD8819088]]></column>
+      <column name="VER_NBR"><![CDATA[4]]></column>
+      <column name="A21_LBR_RPT_DESC"><![CDATA[10 PAY REPORTING]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ld_a21_rpt_typ_t">
+      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[12]]></column>
+      <column name="OBJ_ID"><![CDATA[3089F98382DB9088E043814FD8819088]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="A21_LBR_RPT_DESC"><![CDATA[12 PAY REPORTING]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ld_a21_rpt_typ_t">
+      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[BI]]></column>
+      <column name="OBJ_ID"><![CDATA[3089F98382DC9088E043814FD8819088]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="A21_LBR_RPT_DESC"><![CDATA[BIWEEKLY REPORTING]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ld_a21_rpt_typ_t">
+      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[SU]]></column>
+      <column name="OBJ_ID"><![CDATA[3089F98382DD9088E043814FD8819088]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="A21_LBR_RPT_DESC"><![CDATA[SUMMER REPORTING]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

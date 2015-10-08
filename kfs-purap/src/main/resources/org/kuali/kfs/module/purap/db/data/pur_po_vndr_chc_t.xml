@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10628">
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[CNST]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784369743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Construction]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[CONF]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784xe9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Conference/Hospitality]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[CONT]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784479743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Contracted Price]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[DESN]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784e49743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Design Required by Department]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[FCLR]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784ld9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Franchise, Copyright, License]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[GRAN]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if7844i9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Grant Specified]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[INTG]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if7849o9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Integrate with Existing Facility]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[LPRC]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if7843z9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Lowest Price]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[ONLY]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if7845c9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Only Known Source]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[OTHR]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784799743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Other]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[PROF]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784fl9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Professional Service]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[SMAI]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784qr9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Service, Maintenance, Parts]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[SMAL]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784y09743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Small Order (under $5,000)]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[SRVC]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784ry9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Services Maintenance by Manufacturer]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[SUBC]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784u89743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Subcontract]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_po_vndr_chc_t">
+      <column name="PO_VNDR_CHC_CD"><![CDATA[UTIL]]></column>
+      <column name="OBJ_ID"><![CDATA[posdifiri87if784rm9743ioeru]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PO_VNDR_CHC_DESC"><![CDATA[Utility]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

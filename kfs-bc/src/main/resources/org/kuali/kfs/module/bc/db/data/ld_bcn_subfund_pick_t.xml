@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10497">
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[AUXENT]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[DFRES]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[DOFDS]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERB]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERC]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERF]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERJ]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERK]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERP]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FOUNDF]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[GENFND]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[HIEDUM]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[HIEDUP]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[NONPRA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[NONPRP]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[1373005978]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[ROFDS]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[AUXENT]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[DFRES]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[DOFDS]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERB]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERC]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERF]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERJ]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERK]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FEDERP]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[FOUNDF]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[GENFND]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[HIEDUM]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[HIEDUP]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[NONPRA]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[NONPRP]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+    <insert tableName="ld_bcn_subfund_pick_t">
+      <column name="PERSON_UNVL_ID"><![CDATA[3949401795]]></column>
+      <column name="SUB_FUND_GRP_CD"><![CDATA[ROFDS]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="REPORT_FLAG"><![CDATA[0]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10098">
+    <insert tableName="ar_pmt_medium_t">
+      <column name="CUST_PMT_MEDIUM_CD"><![CDATA[CA]]></column>
+      <column name="OBJ_ID"><![CDATA[48A7ED7FBD54FC83E0404F8189D860FE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_PMT_MEDM_DESC"><![CDATA[Cash]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_pmt_medium_t">
+      <column name="CUST_PMT_MEDIUM_CD"><![CDATA[CK]]></column>
+      <column name="OBJ_ID"><![CDATA[48A7ED7FBD55FC83E0404F8189D860FE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_PMT_MEDM_DESC"><![CDATA[Check]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_pmt_medium_t">
+      <column name="CUST_PMT_MEDIUM_CD"><![CDATA[CR]]></column>
+      <column name="OBJ_ID"><![CDATA[48A7ED7FBD56FC83E0404F8189D860FE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_PMT_MEDM_DESC"><![CDATA[Credit Card]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_pmt_medium_t">
+      <column name="CUST_PMT_MEDIUM_CD"><![CDATA[WT]]></column>
+      <column name="OBJ_ID"><![CDATA[48A7ED7FBD57FC83E0404F8189D860FE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_PMT_MEDM_DESC"><![CDATA[Wire]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

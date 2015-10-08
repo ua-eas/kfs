@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10266">
+    <insert tableName="er_ctrl_attrib_typ_t">
+      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[A]]></column>
+      <column name="OBJ_ID"><![CDATA[233DE6DA95C0B1A8E043814FD881B1A8]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
+      <column name="REQD_IND"><![CDATA[N]]></column>
+      <column name="CTRL_ATTRIB_TYP_DESC" value="null"/>
+    </insert>
+    <insert tableName="er_ctrl_attrib_typ_t">
+      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[D]]></column>
+      <column name="OBJ_ID"><![CDATA[233DE6DA95BFB1A8E043814FD881B1A8]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
+      <column name="REQD_IND"><![CDATA[N]]></column>
+      <column name="CTRL_ATTRIB_TYP_DESC" value="null"/>
+    </insert>
+    <insert tableName="er_ctrl_attrib_typ_t">
+      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[S]]></column>
+      <column name="OBJ_ID"><![CDATA[233DE6DA95BEB1A8E043814FD881B1A8]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
+      <column name="REQD_IND"><![CDATA[N]]></column>
+      <column name="CTRL_ATTRIB_TYP_DESC" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
