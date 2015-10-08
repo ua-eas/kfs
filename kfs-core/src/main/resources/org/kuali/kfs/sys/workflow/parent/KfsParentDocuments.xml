@@ -194,8 +194,6 @@
             </routingVersion>
             <routePaths/>
         </documentType>
-    </documentTypes>
-    <documentTypes xmlns="ns:workflow/DocumentType" xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
         <documentType>
             <name>
                 COSM
