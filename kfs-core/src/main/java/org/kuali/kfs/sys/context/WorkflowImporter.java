@@ -50,6 +50,7 @@ public class WorkflowImporter {
         }
         initializeKfs();
         importWorkflow(context, args[0]);
+        System.exit(0);
     }
 
     public static void initializeKfs() {
