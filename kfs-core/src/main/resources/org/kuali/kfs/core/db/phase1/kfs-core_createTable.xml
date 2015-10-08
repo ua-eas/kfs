@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="947">
+  <changeSet author="kfs" id="947" context="bootstrap,demo">
     <createTable tableName="CA_A21_ICR_ACCT_T">
       <column defaultValueNumeric="0" name="CA_A21_ICR_ACCT_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -20,7 +20,7 @@
       <column defaultValue="Y" name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="948">
+  <changeSet author="kfs" id="948" context="bootstrap,demo">
     <createTable tableName="CA_A21_SUB_ACCT_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -48,7 +48,7 @@
       <column name="CST_SRCSUBACCT_NBR" type="VARCHAR(5)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="949">
+  <changeSet author="kfs" id="949" context="bootstrap,demo">
     <createTable tableName="CA_ACCOUNT_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -111,7 +111,7 @@
       <column defaultValue="--" name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="950">
+  <changeSet author="kfs" id="950" context="bootstrap,demo">
     <createTable tableName="CA_ACCOUNT_TYPE_T">
       <column defaultValue="" name="ACCT_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -128,7 +128,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="951">
+  <changeSet author="kfs" id="951" context="bootstrap,demo">
     <createTable tableName="CA_ACCTG_CTGRY_T">
       <column defaultValue="" name="ACCTG_CTGRY_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -147,7 +147,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="952">
+  <changeSet author="kfs" id="952" context="bootstrap,demo">
     <createTable tableName="CA_ACCT_CHG_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -181,7 +181,7 @@
       <column name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="953">
+  <changeSet author="kfs" id="953" context="bootstrap,demo">
     <createTable tableName="CA_ACCT_CHG_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -200,7 +200,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="954">
+  <changeSet author="kfs" id="954" context="bootstrap,demo">
     <createTable tableName="CA_ACCT_DELEGATE_GBL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -213,7 +213,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="955">
+  <changeSet author="kfs" id="955" context="bootstrap,demo">
     <createTable tableName="CA_ACCT_DELEGATE_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -240,7 +240,7 @@
       <column name="FDOC_APRV_TO_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="956">
+  <changeSet author="kfs" id="956" context="bootstrap,demo">
     <createTable tableName="CA_ACCT_DESC_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -261,7 +261,7 @@
       <column name="BLDG_CD" type="VARCHAR(10)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="957">
+  <changeSet author="kfs" id="957" context="bootstrap,demo">
     <createTable tableName="CA_ACCT_GDLNPRPS_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -280,7 +280,7 @@
       <column name="ACCT_PURPOSE_TXT" type="VARCHAR(400)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="958">
+  <changeSet author="kfs" id="958" context="bootstrap,demo">
     <createTable tableName="CA_ACCT_SF_T">
       <column defaultValue="" name="ACCT_SF_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -297,7 +297,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="959">
+  <changeSet author="kfs" id="959" context="bootstrap,demo">
     <createTable tableName="CA_AICPA_FUNC_T">
       <column defaultValue="" name="FIN_AICPA_FUNC_CD" type="VARCHAR(3)">
         <constraints nullable="false"/>
@@ -314,7 +314,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="960">
+  <changeSet author="kfs" id="960" context="bootstrap,demo">
     <createTable tableName="CA_BALANCE_TYPE_T">
       <column defaultValue="" name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -334,7 +334,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="961">
+  <changeSet author="kfs" id="961" context="bootstrap,demo">
     <createTable tableName="CA_BDGT_AGGR_T">
       <column defaultValue="" name="FOBJ_BDGT_AGGR_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -351,7 +351,7 @@
       <column name="FIN_BDGT_AGGR_NM" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="962">
+  <changeSet author="kfs" id="962" context="bootstrap,demo">
     <createTable tableName="CA_BDGT_REC_LVL_T">
       <column defaultValue="" name="BDGT_REC_LVL_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -368,7 +368,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="963">
+  <changeSet author="kfs" id="963" context="bootstrap,demo">
     <createTable tableName="CA_CHART_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -395,7 +395,7 @@
       <column name="FND_BAL_OBJ_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="964">
+  <changeSet author="kfs" id="964" context="bootstrap,demo">
     <createTable tableName="CA_DLGT_CHG_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -418,7 +418,7 @@
       <column name="ACCT_DLGT_START_DT" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="965">
+  <changeSet author="kfs" id="965" context="bootstrap,demo">
     <createTable tableName="CA_FEDERAL_FUNC_T">
       <column defaultValue="" name="FIN_FED_FUNC_CD" type="VARCHAR(3)">
         <constraints nullable="false"/>
@@ -435,7 +435,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="966">
+  <changeSet author="kfs" id="966" context="bootstrap,demo">
     <createTable tableName="CA_FED_FND_T">
       <column defaultValue="" name="FIN_FED_FUNDED_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -452,7 +452,7 @@
       <column name="FIN_FED_FND_NM" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="967">
+  <changeSet author="kfs" id="967" context="bootstrap,demo">
     <createTable tableName="CA_FUND_GRP_T">
       <column defaultValue="" name="FUND_GRP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -473,7 +473,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="968">
+  <changeSet author="kfs" id="968" context="bootstrap,demo">
     <createTable tableName="CA_HIGHR_ED_FUNC_T">
       <column defaultValue="" name="FIN_HGH_ED_FUNC_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -493,7 +493,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="969">
+  <changeSet author="kfs" id="969" context="bootstrap,demo">
     <createTable tableName="CA_ICR_ACCT_T">
       <column defaultValueNumeric="0" name="CA_ICR_ACCT_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -512,7 +512,7 @@
       <column defaultValue="Y" name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="970">
+  <changeSet author="kfs" id="970" context="bootstrap,demo">
     <createTable tableName="CA_ICR_AUTO_ENTR_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -539,7 +539,7 @@
       <column name="ACCT_ICR_RATE_ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="971">
+  <changeSet author="kfs" id="971" context="bootstrap,demo">
     <createTable tableName="CA_ICR_EXCL_ACCT_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -562,7 +562,7 @@
       <column name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="972">
+  <changeSet author="kfs" id="972" context="bootstrap,demo">
     <createTable tableName="CA_ICR_EXCL_TYPE_T">
       <column defaultValue="" name="ACCT_ICR_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -584,7 +584,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="973">
+  <changeSet author="kfs" id="973" context="bootstrap,demo">
     <createTable tableName="CA_ICR_RATE_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -603,7 +603,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="974">
+  <changeSet author="kfs" id="974" context="bootstrap,demo">
     <createTable tableName="CA_ICR_TYPE_T">
       <column defaultValue="" name="ACCT_ICR_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -620,7 +620,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="975">
+  <changeSet author="kfs" id="975" context="bootstrap,demo">
     <createTable tableName="CA_MNXFR_ELIM_T">
       <column defaultValue="" name="FOBJ_MNXFR_ELIM_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -637,7 +637,7 @@
       <column name="FOBJ_MNXFR_ELIM_NM" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="976">
+  <changeSet author="kfs" id="976" context="bootstrap,demo">
     <createTable tableName="CA_OBJECT_CODE_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -672,7 +672,7 @@
       <column name="RSCH_ON_CMP_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="977">
+  <changeSet author="kfs" id="977" context="bootstrap,demo">
     <createTable tableName="CA_OBJ_CD_CHG_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -704,7 +704,7 @@
       <column name="RSCH_ON_CMP_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="978">
+  <changeSet author="kfs" id="978" context="bootstrap,demo">
     <createTable tableName="CA_OBJ_CD_CHG_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -723,7 +723,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="979">
+  <changeSet author="kfs" id="979" context="bootstrap,demo">
     <createTable tableName="CA_OBJ_CONSOLDTN_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -743,7 +743,7 @@
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="980">
+  <changeSet author="kfs" id="980" context="bootstrap,demo">
     <createTable tableName="CA_OBJ_LEVEL_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -764,7 +764,7 @@
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="981">
+  <changeSet author="kfs" id="981" context="bootstrap,demo">
     <createTable tableName="CA_OBJ_SUB_TYPE_T">
       <column defaultValue="" name="FIN_OBJ_SUB_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -781,7 +781,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="982">
+  <changeSet author="kfs" id="982" context="bootstrap,demo">
     <createTable tableName="CA_OBJ_TYPE_T">
       <column defaultValue="" name="FIN_OBJ_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -805,7 +805,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="983">
+  <changeSet author="kfs" id="983" context="bootstrap,demo">
     <createTable tableName="CA_ORG_EXTNS_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -861,7 +861,7 @@
       <column name="LAST_UPDATE_DATE" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="984">
+  <changeSet author="kfs" id="984" context="bootstrap,demo">
     <createTable tableName="CA_ORG_REVERSION_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -888,7 +888,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="985">
+  <changeSet author="kfs" id="985" context="bootstrap,demo">
     <createTable tableName="CA_ORG_RTNG_MDL_NM_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -910,7 +910,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="986">
+  <changeSet author="kfs" id="986" context="bootstrap,demo">
     <createTable tableName="CA_ORG_RTNG_MDL_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -942,7 +942,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="987">
+  <changeSet author="kfs" id="987" context="bootstrap,demo">
     <createTable tableName="CA_ORG_RVRSN_CHG_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -961,7 +961,7 @@
       <column name="CSH_RVRSN_ACCT_NBR" type="VARCHAR(7)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="988">
+  <changeSet author="kfs" id="988" context="bootstrap,demo">
     <createTable tableName="CA_ORG_RVRSN_CHG_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -979,7 +979,7 @@
       <column name="ORG_RVRSN_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="989">
+  <changeSet author="kfs" id="989" context="bootstrap,demo">
     <createTable tableName="CA_ORG_RVRSN_CHG_ORG_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -998,7 +998,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="990">
+  <changeSet author="kfs" id="990" context="bootstrap,demo">
     <createTable tableName="CA_ORG_RVRSN_CTGRY_T">
       <column defaultValue="" name="ORG_RVRSN_CTGRY_CD" type="VARCHAR(8)">
         <constraints nullable="false"/>
@@ -1016,7 +1016,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="991">
+  <changeSet author="kfs" id="991" context="bootstrap,demo">
     <createTable tableName="CA_ORG_RVRSN_DTL_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -1041,7 +1041,7 @@
       <column name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="992">
+  <changeSet author="kfs" id="992" context="bootstrap,demo">
     <createTable tableName="CA_ORG_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -1079,7 +1079,7 @@
       <column name="CMP_PLNT_COA_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="993">
+  <changeSet author="kfs" id="993" context="bootstrap,demo">
     <createTable tableName="CA_ORG_TYPE_T">
       <column defaultValue="" name="ORG_TYP_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -1096,7 +1096,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="994">
+  <changeSet author="kfs" id="994" context="bootstrap,demo">
     <createTable tableName="CA_PRIOR_YR_ACCT_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -1157,7 +1157,7 @@
       <column name="ACCT_CLOSED_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="995">
+  <changeSet author="kfs" id="995" context="bootstrap,demo">
     <createTable tableName="CA_PRIOR_YR_ICR_ACCT_T">
       <column defaultValueNumeric="0" name="CA_PRIOR_YR_ICR_ACCT_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -1176,7 +1176,7 @@
       <column defaultValue="Y" name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="996">
+  <changeSet author="kfs" id="996" context="bootstrap,demo">
     <createTable tableName="CA_PRIOR_YR_ORG_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -1214,7 +1214,7 @@
       <column name="CMP_PLNT_COA_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="997">
+  <changeSet author="kfs" id="997" context="bootstrap,demo">
     <createTable tableName="CA_PROJECT_T">
       <column defaultValue="" name="PROJECT_CD" type="VARCHAR(10)">
         <constraints nullable="false"/>
@@ -1233,7 +1233,7 @@
       <column name="PROJECT_DESC" type="VARCHAR(400)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="998">
+  <changeSet author="kfs" id="998" context="bootstrap,demo">
     <createTable tableName="CA_RC_T">
       <column defaultValue="" name="RC_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -1249,7 +1249,7 @@
       <column name="RC_ACTIVE_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="999">
+  <changeSet author="kfs" id="999" context="bootstrap,demo">
     <createTable tableName="CA_RESTRICT_STAT_T">
       <column defaultValue="" name="ACCT_RSTRC_STAT_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -1266,7 +1266,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1000">
+  <changeSet author="kfs" id="1000" context="bootstrap,demo">
     <createTable tableName="CA_SUB_ACCT_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -1290,7 +1290,7 @@
       <column name="FIN_RPT_CD" type="VARCHAR(10)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1001">
+  <changeSet author="kfs" id="1001" context="bootstrap,demo">
     <createTable tableName="CA_SUB_FND_GRP_TYP_T">
       <column defaultValue="" name="SUB_FUNDGRP_TYP_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -1305,7 +1305,7 @@
       <column name="SUB_FND_GRP_TYP_ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1002">
+  <changeSet author="kfs" id="1002" context="bootstrap,demo">
     <createTable tableName="CA_SUB_FUND_GRP_T">
       <column defaultValue="" name="SUB_FUND_GRP_CD" type="VARCHAR(6)">
         <constraints nullable="false"/>
@@ -1328,7 +1328,7 @@
       <column name="ACCT_RSTRC_STAT_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1003">
+  <changeSet author="kfs" id="1003" context="bootstrap,demo">
     <createTable tableName="CA_SUB_OBJECT_CD_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -1356,7 +1356,7 @@
       <column name="FIN_SUBOBJ_ACTV_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1004">
+  <changeSet author="kfs" id="1004" context="bootstrap,demo">
     <createTable tableName="CA_SUB_OBJ_CD_CHG_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1375,7 +1375,7 @@
       <column name="FIN_SUBOBJ_ACTV_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1005">
+  <changeSet author="kfs" id="1005" context="bootstrap,demo">
     <createTable tableName="CA_SUB_OBJ_CD_CHG_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1397,7 +1397,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1006">
+  <changeSet author="kfs" id="1006" context="bootstrap,demo">
     <createTable tableName="CA_UBO_FUNC_T">
       <column defaultValue="" name="FIN_UBO_FUNC_CD" type="VARCHAR(3)">
         <constraints nullable="false"/>
@@ -1414,7 +1414,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1007">
+  <changeSet author="kfs" id="1007" context="bootstrap,demo">
     <createTable tableName="CM_CPTLAST_T">
       <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
         <constraints nullable="false"/>
@@ -1481,7 +1481,7 @@
       <column name="AST_FABR_EST_RETN_YRS" type="DECIMAL(5)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1008">
+  <changeSet author="kfs" id="1008" context="bootstrap,demo">
     <createTable tableName="FP_ACCT_LINES_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1517,7 +1517,7 @@
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1009">
+  <changeSet author="kfs" id="1009" context="bootstrap,demo">
     <createTable tableName="FP_ACRL_VCHR_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1535,7 +1535,7 @@
       <column name="FDOC_AV_TYP_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1010">
+  <changeSet author="kfs" id="1010" context="bootstrap,demo">
     <createTable tableName="FP_ADV_DPST_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1559,7 +1559,7 @@
       <column name="FDOC_BANK_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1011">
+  <changeSet author="kfs" id="1011" context="bootstrap,demo">
     <createTable tableName="FP_BAL_BY_CONS_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -1585,7 +1585,7 @@
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1012">
+  <changeSet author="kfs" id="1012" context="bootstrap,demo">
     <createTable tableName="FP_BAL_BY_LEVEL_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -1609,7 +1609,7 @@
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1013">
+  <changeSet author="kfs" id="1013" context="bootstrap,demo">
     <createTable tableName="FP_BAL_BY_OBJ_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -1630,7 +1630,7 @@
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1014">
+  <changeSet author="kfs" id="1014" context="bootstrap,demo">
     <createTable tableName="FP_BANK_T">
       <column defaultValue="" name="BNK_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -1671,7 +1671,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1015">
+  <changeSet author="kfs" id="1015" context="bootstrap,demo">
     <createTable tableName="FP_BDGT_ADJ_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1690,7 +1690,7 @@
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1016">
+  <changeSet author="kfs" id="1016" context="bootstrap,demo">
     <createTable tableName="FP_BDGT_ADJ_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1735,7 +1735,7 @@
       <column name="FDOC_LINE_DESC" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1017">
+  <changeSet author="kfs" id="1017" context="bootstrap,demo">
     <createTable tableName="FP_CASHIER_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1761,7 +1761,7 @@
       <column name="FDOC_NXT_RF_LN_NBR" type="DECIMAL(7)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1018">
+  <changeSet author="kfs" id="1018" context="bootstrap,demo">
     <createTable tableName="FP_CASHIER_ITM_IN_PROC_T">
       <column defaultValue="" name="CAMPUS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -1783,7 +1783,7 @@
       <column name="ITM_DESC" type="VARCHAR(200)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1019">
+  <changeSet author="kfs" id="1019" context="bootstrap,demo">
     <createTable tableName="FP_CASH_RCPT_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1817,7 +1817,7 @@
       <column name="FDOC_BNK_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1020">
+  <changeSet author="kfs" id="1020" context="bootstrap,demo">
     <createTable tableName="FP_CHECK_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1844,7 +1844,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1021">
+  <changeSet author="kfs" id="1021" context="bootstrap,demo">
     <createTable tableName="FP_COIN_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1870,7 +1870,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1022">
+  <changeSet author="kfs" id="1022" context="bootstrap,demo">
     <createTable tableName="FP_CPTL_AST_ACCT_GRP_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1901,7 +1901,7 @@
       <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1023">
+  <changeSet author="kfs" id="1023" context="bootstrap,demo">
     <createTable tableName="FP_CPTL_AST_INFO_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1926,7 +1926,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1024">
+  <changeSet author="kfs" id="1024" context="bootstrap,demo">
     <createTable tableName="FP_CPTL_AST_INFO_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1954,7 +1954,7 @@
       <column defaultValue="1" name="CPTLAST_DST_AMT_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1025">
+  <changeSet author="kfs" id="1025" context="bootstrap,demo">
     <createTable tableName="FP_CR_CARD_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -1978,7 +1978,7 @@
       <column name="FDOC_CCRD_DPST_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1026">
+  <changeSet author="kfs" id="1026" context="bootstrap,demo">
     <createTable tableName="FP_CR_CARD_TYP_T">
       <column defaultValue="" name="FDOC_CCRD_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -1995,7 +1995,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1027">
+  <changeSet author="kfs" id="1027" context="bootstrap,demo">
     <createTable tableName="FP_CR_CARD_VNDR_T">
       <column defaultValue="" name="FDOC_CCRD_VNDR_NBR" type="VARCHAR(10)">
         <constraints nullable="false"/>
@@ -2023,7 +2023,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1028">
+  <changeSet author="kfs" id="1028" context="bootstrap,demo">
     <createTable tableName="FP_CSH_DRWR_T">
       <column defaultValue="" name="CAMPUS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -2055,7 +2055,7 @@
       <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1029">
+  <changeSet author="kfs" id="1029" context="bootstrap,demo">
     <createTable tableName="FP_CURRENCY_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2082,7 +2082,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1030">
+  <changeSet author="kfs" id="1030" context="bootstrap,demo">
     <createTable tableName="FP_CUST_CC_INFO_T">
       <column defaultValue="" name="CUST_CCRD_NBR" type="VARCHAR(16)">
         <constraints nullable="false"/>
@@ -2102,7 +2102,7 @@
       <column name="CUST_CCRD_NTE_TXT" type="VARCHAR(2000)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1031">
+  <changeSet author="kfs" id="1031" context="bootstrap,demo">
     <createTable tableName="FP_DEPOSIT_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2123,7 +2123,7 @@
       <column name="FDOC_DPST_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1032">
+  <changeSet author="kfs" id="1032" context="bootstrap,demo">
     <createTable tableName="FP_DEPOSIT_HDR_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2152,7 +2152,7 @@
       <column name="FDOC_MSTR_OTHR_CENT_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1033">
+  <changeSet author="kfs" id="1033" context="bootstrap,demo">
     <createTable tableName="FP_DEP_CSH_RCPT_T">
       <column defaultValue="" name="FDOC_DPST_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2173,7 +2173,7 @@
       <column name="FS_PRCS_OPR_ID" type="VARCHAR(10)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1034">
+  <changeSet author="kfs" id="1034" context="bootstrap,demo">
     <createTable tableName="FP_DISTRIB_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2190,7 +2190,7 @@
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1035">
+  <changeSet author="kfs" id="1035" context="bootstrap,demo">
     <createTable tableName="FP_DV_ACH_T">
       <column defaultValue="" name="DV_ACH_PRFL_NBR" type="VARCHAR(3)">
         <constraints nullable="false"/>
@@ -2215,7 +2215,7 @@
       <column name="DV_WIRE_TRNFR_FEE_WVR_IND" type="CHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1036">
+  <changeSet author="kfs" id="1036" context="bootstrap,demo">
     <createTable tableName="FP_DV_DIEM_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -2233,7 +2233,7 @@
       <column name="DV_DIEM_CNTRY_TXT" type="VARCHAR(255)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1037">
+  <changeSet author="kfs" id="1037" context="bootstrap,demo">
     <createTable tableName="FP_DV_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2278,7 +2278,7 @@
       <column defaultValue="N" name="IMD_PMT_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1038">
+  <changeSet author="kfs" id="1038" context="bootstrap,demo">
     <createTable tableName="FP_DV_EXP_TYP_T">
       <column defaultValue="" name="DV_EXP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -2297,7 +2297,7 @@
       <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1039">
+  <changeSet author="kfs" id="1039" context="bootstrap,demo">
     <createTable tableName="FP_DV_MLG_T">
       <column name="DV_MLG_EFF_DT" type="datetime">
         <constraints nullable="false"/>
@@ -2314,7 +2314,7 @@
       <column name="DV_MLG_RT" type="DECIMAL(19, 4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1040">
+  <changeSet author="kfs" id="1040" context="bootstrap,demo">
     <createTable tableName="FP_DV_NONEMP_EXP_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2333,7 +2333,7 @@
       <column name="DV_EXP_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1041">
+  <changeSet author="kfs" id="1041" context="bootstrap,demo">
     <createTable tableName="FP_DV_NONEM_TRVL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2374,7 +2374,7 @@
       <column name="DV_TRVL_TO_CNTRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1042">
+  <changeSet author="kfs" id="1042" context="bootstrap,demo">
     <createTable tableName="FP_DV_NRA_TAX_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2401,7 +2401,7 @@
       <column name="NQI_CUST_TAX_ID" type="VARCHAR(50)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1043">
+  <changeSet author="kfs" id="1043" context="bootstrap,demo">
     <createTable tableName="FP_DV_PAYEE_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2433,7 +2433,7 @@
       <column name="DV_PAYEE_TYP_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1044">
+  <changeSet author="kfs" id="1044" context="bootstrap,demo">
     <createTable tableName="FP_DV_PMT_REAS_T">
       <column defaultValue="" name="DV_PMT_REAS_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -2451,7 +2451,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1045">
+  <changeSet author="kfs" id="1045" context="bootstrap,demo">
     <createTable tableName="FP_DV_PRECNF_REG_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2471,7 +2471,7 @@
       <column name="DV_EXP_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1046">
+  <changeSet author="kfs" id="1046" context="bootstrap,demo">
     <createTable tableName="FP_DV_PRE_CONF_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2489,7 +2489,7 @@
       <column name="DV_EXP_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1047">
+  <changeSet author="kfs" id="1047" context="bootstrap,demo">
     <createTable tableName="FP_DV_TRVL_CO_NM_T">
       <column defaultValue="" name="DV_EXP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -2511,7 +2511,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1048">
+  <changeSet author="kfs" id="1048" context="bootstrap,demo">
     <createTable tableName="FP_ELCTRNC_PMT_CLM_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2531,7 +2531,7 @@
       <column name="PMT_CLM_STAT_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1049">
+  <changeSet author="kfs" id="1049" context="bootstrap,demo">
     <createTable tableName="FP_ERROR_COR_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2548,7 +2548,7 @@
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1050">
+  <changeSet author="kfs" id="1050" context="bootstrap,demo">
     <createTable tableName="FP_FND_TRNFR_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2565,7 +2565,7 @@
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1051">
+  <changeSet author="kfs" id="1051" context="bootstrap,demo">
     <createTable tableName="FP_FSCL_YR_CTRL_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -2582,7 +2582,7 @@
       <column name="FS_FUNC_ACTIVE_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1052">
+  <changeSet author="kfs" id="1052" context="bootstrap,demo">
     <createTable tableName="FP_FUNC_CTRL_CD_T">
       <column defaultValue="" name="FS_FUNC_CTRL_CD" type="VARCHAR(6)">
         <constraints nullable="false"/>
@@ -2597,7 +2597,7 @@
       <column name="FS_FUNC_DESC" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1053">
+  <changeSet author="kfs" id="1053" context="bootstrap,demo">
     <createTable tableName="FP_ICR_ADJ_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2614,7 +2614,7 @@
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1054">
+  <changeSet author="kfs" id="1054" context="bootstrap,demo">
     <createTable tableName="FP_INC_CLS_T">
       <column defaultValue="" name="INC_CLS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -2631,7 +2631,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1055">
+  <changeSet author="kfs" id="1055" context="bootstrap,demo">
     <createTable tableName="FP_INTERIM1_CONS_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -2665,7 +2665,7 @@
       <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1056">
+  <changeSet author="kfs" id="1056" context="bootstrap,demo">
     <createTable tableName="FP_INTERIM1_LEVEL_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -2699,7 +2699,7 @@
       <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1057">
+  <changeSet author="kfs" id="1057" context="bootstrap,demo">
     <createTable tableName="FP_INTERIM1_OBJ_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -2731,7 +2731,7 @@
       <column name="TIMESTAMP" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1058">
+  <changeSet author="kfs" id="1058" context="bootstrap,demo">
     <createTable tableName="FP_INTERIM2_CONS_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -2768,7 +2768,7 @@
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1059">
+  <changeSet author="kfs" id="1059" context="bootstrap,demo">
     <createTable tableName="FP_INTERIM2_LEVEL_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -2800,7 +2800,7 @@
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1060">
+  <changeSet author="kfs" id="1060" context="bootstrap,demo">
     <createTable tableName="FP_INTERIM2_OBJ_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -2831,7 +2831,7 @@
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1061">
+  <changeSet author="kfs" id="1061" context="bootstrap,demo">
     <createTable tableName="FP_INT_BILL_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2849,7 +2849,7 @@
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1062">
+  <changeSet author="kfs" id="1062" context="bootstrap,demo">
     <createTable tableName="FP_INT_BILL_ITM_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2871,7 +2871,7 @@
       <column name="FDOC_UNIT_MSR_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1063">
+  <changeSet author="kfs" id="1063" context="bootstrap,demo">
     <createTable tableName="FP_JRNL_VCHR_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2889,7 +2889,7 @@
       <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1064">
+  <changeSet author="kfs" id="1064" context="bootstrap,demo">
     <createTable tableName="FP_JV_ACCT_LINES_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2926,7 +2926,7 @@
       <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1065">
+  <changeSet author="kfs" id="1065" context="bootstrap,demo">
     <createTable tableName="FP_MOTD_T">
       <column defaultValue="" name="FS_ORIGIN_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -2940,7 +2940,7 @@
       <column name="FS_MOTD_TXT" type="VARCHAR(2000)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1066">
+  <changeSet author="kfs" id="1066" context="bootstrap,demo">
     <createTable tableName="FP_NCHK_DSBRSDOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -2957,7 +2957,7 @@
       <column name="FDOC_BNK_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1067">
+  <changeSet author="kfs" id="1067" context="bootstrap,demo">
     <createTable tableName="FP_NRA_TAX_PCT_T">
       <column defaultValue="" name="INC_CLS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -2979,7 +2979,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1068">
+  <changeSet author="kfs" id="1068" context="bootstrap,demo">
     <createTable tableName="FP_OFST_ACCT_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3003,7 +3003,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1069">
+  <changeSet author="kfs" id="1069" context="bootstrap,demo">
     <createTable tableName="FP_PRCRMNT_ACCT_LINES_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3037,7 +3037,7 @@
       <column name="FDOC_LINE_DESC" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1070">
+  <changeSet author="kfs" id="1070" context="bootstrap,demo">
     <createTable tableName="FP_PRCRMNT_CARD_DFLT_T">
       <column name="CC_NBR" type="VARCHAR(16)">
         <constraints nullable="false"/>
@@ -3073,7 +3073,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1071">
+  <changeSet author="kfs" id="1071" context="bootstrap,demo">
     <createTable tableName="FP_PRCRMNT_CARD_HLDR_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3103,7 +3103,7 @@
       <column name="SUB_ACCT_NBR" type="VARCHAR(5)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1072">
+  <changeSet author="kfs" id="1072" context="bootstrap,demo">
     <createTable tableName="FP_PRCRMNT_CARD_TRN_MT">
       <column defaultValueNumeric="0" name="TRN_SEQ_ROW_NBR" type="DECIMAL(7)">
         <constraints nullable="false"/>
@@ -3164,7 +3164,7 @@
       <column name="FDOC_CARD_NTE_TXT" type="VARCHAR(50)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1073">
+  <changeSet author="kfs" id="1073" context="bootstrap,demo">
     <createTable tableName="FP_PRCRMNT_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3179,7 +3179,7 @@
       <column name="AUTO_APPROVED_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1074">
+  <changeSet author="kfs" id="1074" context="bootstrap,demo">
     <createTable tableName="FP_PRCRMNT_TRN_DTL_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3213,7 +3213,7 @@
       <column name="TRN_TOT_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1075">
+  <changeSet author="kfs" id="1075" context="bootstrap,demo">
     <createTable tableName="FP_PRCRMNT_VNDR_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3238,7 +3238,7 @@
       <column name="TRN_MCC_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1076">
+  <changeSet author="kfs" id="1076" context="bootstrap,demo">
     <createTable tableName="FP_PRE_ENCUM_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3256,7 +3256,7 @@
       <column name="FDOC_NXT_DIS_NBR" type="DECIMAL(7)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1077">
+  <changeSet author="kfs" id="1077" context="bootstrap,demo">
     <createTable tableName="FP_RPT_CD_T">
       <column defaultValue="" name="FIN_RPT_CHRT_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3281,7 +3281,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1078">
+  <changeSet author="kfs" id="1078" context="bootstrap,demo">
     <createTable tableName="FP_SALES_TAX_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3305,7 +3305,7 @@
       <column name="FDOC_SALE_DT" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1079">
+  <changeSet author="kfs" id="1079" context="bootstrap,demo">
     <createTable tableName="FS_CLCTR_HDR_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3345,14 +3345,14 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1080">
+  <changeSet author="kfs" id="1080" context="bootstrap,demo">
     <createTable tableName="FS_DOC_HDRS_MSNG_IN_KEW_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1081">
+  <changeSet author="kfs" id="1081" context="bootstrap,demo">
     <createTable tableName="FS_DOC_HEADER_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3368,7 +3368,7 @@
       <column name="FDOC_CRTE_DT" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1082">
+  <changeSet author="kfs" id="1082" context="bootstrap,demo">
     <createTable tableName="FS_HOME_ORIGIN_T">
       <column defaultValue="" name="FS_HOME_ORIGIN_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3381,7 +3381,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1083">
+  <changeSet author="kfs" id="1083" context="bootstrap,demo">
     <createTable tableName="FS_OPTION_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3421,7 +3421,7 @@
       <column name="NMNL_FIN_BAL_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1084">
+  <changeSet author="kfs" id="1084" context="bootstrap,demo">
     <createTable tableName="FS_ORIGIN_CODE_T">
       <column defaultValue="" name="FS_ORIGIN_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3448,7 +3448,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1085">
+  <changeSet author="kfs" id="1085" context="bootstrap,demo">
     <createTable tableName="FS_PMT_DOC_LOC_T">
       <column defaultValue="" name="PMT_DOC_LOC_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3466,7 +3466,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1086">
+  <changeSet author="kfs" id="1086" context="bootstrap,demo">
     <createTable tableName="FS_PMT_SRC_WIRE_TRNFR_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3494,7 +3494,7 @@
       <column name="FCRNCY_TYP_CD" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1087">
+  <changeSet author="kfs" id="1087" context="bootstrap,demo">
     <createTable tableName="FS_TAX_COUNTY_T">
       <column defaultValue="" name="POSTAL_CNTRY_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3517,7 +3517,7 @@
       <column name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1088">
+  <changeSet author="kfs" id="1088" context="bootstrap,demo">
     <createTable tableName="FS_TAX_POSTAL_CD_T">
       <column defaultValue="" name="POSTAL_CNTRY_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3537,7 +3537,7 @@
       <column name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1089">
+  <changeSet author="kfs" id="1089" context="bootstrap,demo">
     <createTable tableName="FS_TAX_REGION_RATE_T">
       <column defaultValue="" name="TAX_REGION_CD" type="VARCHAR(10)">
         <constraints nullable="false"/>
@@ -3554,7 +3554,7 @@
       <column name="TAX_RATE" type="DECIMAL(9, 8)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1090">
+  <changeSet author="kfs" id="1090" context="bootstrap,demo">
     <createTable tableName="FS_TAX_REGION_T">
       <column defaultValue="" name="TAX_REGION_CD" type="VARCHAR(10)">
         <constraints nullable="false"/>
@@ -3574,7 +3574,7 @@
       <column name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1091">
+  <changeSet author="kfs" id="1091" context="bootstrap,demo">
     <createTable tableName="FS_TAX_REGION_TYPE_T">
       <column defaultValue="" name="TAX_REGION_TYP_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -3588,7 +3588,7 @@
       <column name="TAX_REGION_TYP_NM" type="VARCHAR(100)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1092">
+  <changeSet author="kfs" id="1092" context="bootstrap,demo">
     <createTable tableName="FS_TAX_STATE_T">
       <column defaultValue="" name="POSTAL_CNTRY_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -3608,7 +3608,7 @@
       <column name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1093">
+  <changeSet author="kfs" id="1093" context="bootstrap,demo">
     <createTable tableName="FS_WIRE_CHRG_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3627,7 +3627,7 @@
       <column name="FRGN_CHRG_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1094">
+  <changeSet author="kfs" id="1094" context="bootstrap,demo">
     <createTable tableName="GL_ACCT_BALANCES_HIST_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3652,7 +3652,7 @@
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1095">
+  <changeSet author="kfs" id="1095" context="bootstrap,demo">
     <createTable tableName="GL_ACCT_BALANCES_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3678,7 +3678,7 @@
       <column name="TIMESTAMP" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="2716">
+  <changeSet author="kfs" id="2716" context="bootstrap,demo">
     <createTable tableName="GL_BALANCE_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3723,7 +3723,7 @@
       <column name="TIMESTAMP" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="2717">
+  <changeSet author="kfs" id="2717" context="bootstrap,demo">
     <createTable tableName="GL_COR_DOC_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3747,7 +3747,7 @@
       <column name="GL_COR_BDGT_TOT_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1096">
+  <changeSet author="kfs" id="1096" context="bootstrap,demo">
     <createTable tableName="GL_BALANCE_HIST_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3791,7 +3791,7 @@
       <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1097">
+  <changeSet author="kfs" id="1097" context="bootstrap,demo">
     <createTable tableName="GL_COR_CHG_GRP_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3809,7 +3809,7 @@
       <column name="GL_COR_CHG_NXT_LN_NBR" type="DECIMAL(3)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1098">
+  <changeSet author="kfs" id="1098" context="bootstrap,demo">
     <createTable tableName="GL_COR_CHG_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3832,7 +3832,7 @@
       <column name="GL_COR_FIELD_NM" type="VARCHAR(50)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1099">
+  <changeSet author="kfs" id="1099" context="bootstrap,demo">
     <createTable tableName="GL_COR_CRTA_T">
       <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -3856,7 +3856,7 @@
       <column name="GL_COR_FIELD_NM" type="VARCHAR(50)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1100">
+  <changeSet author="kfs" id="1100" context="bootstrap,demo">
     <createTable tableName="GL_ENCUMBRANCE_HIST_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3892,7 +3892,7 @@
       <column name="ACLN_ENCUM_CLS_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1101">
+  <changeSet author="kfs" id="1101" context="bootstrap,demo">
     <createTable tableName="GL_ENCUMBRANCE_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3932,7 +3932,7 @@
       <column name="TIMESTAMP" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1102">
+  <changeSet author="kfs" id="1102" context="bootstrap,demo">
     <createTable tableName="GL_ENTRY_HIST_T">
       <column name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -3957,7 +3957,7 @@
       <column name="ROW_CNT" type="DECIMAL(7)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1103">
+  <changeSet author="kfs" id="1103" context="bootstrap,demo">
     <createTable tableName="GL_ENTRY_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -4014,7 +4014,7 @@
       <column name="TIMESTAMP" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1104">
+  <changeSet author="kfs" id="1104" context="bootstrap,demo">
     <createTable tableName="GL_EXPEND_TRN_MT">
       <column defaultValue="" name="UNIV_FISCAL_YR" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -4052,7 +4052,7 @@
       <column name="ACCT_OBJ_DCST_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1105">
+  <changeSet author="kfs" id="1105" context="bootstrap,demo">
     <createTable tableName="GL_ID_BILL_T">
       <column defaultValue="" name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -4113,7 +4113,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1106">
+  <changeSet author="kfs" id="1106" context="bootstrap,demo">
     <createTable tableName="GL_OFFSET_DEFN_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -4136,7 +4136,7 @@
       <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1107">
+  <changeSet author="kfs" id="1107" context="bootstrap,demo">
     <createTable tableName="GL_ORG_RVRSN_CTGRY_AMT_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -4163,7 +4163,7 @@
       <column name="ORG_TOT_AVAIL_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1108">
+  <changeSet author="kfs" id="1108" context="bootstrap,demo">
     <createTable tableName="GL_ORG_RVRSN_UNIT_WRK_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -4186,7 +4186,7 @@
       <column name="ORG_TOT_CSH_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1109">
+  <changeSet author="kfs" id="1109" context="bootstrap,demo">
     <createTable tableName="GL_PENDING_BALANCES_MT">
       <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
@@ -4205,7 +4205,7 @@
       <column name="PEND_ENCUM" type="DECIMAL(19, 2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1110">
+  <changeSet author="kfs" id="1110" context="bootstrap,demo">
     <createTable tableName="GL_PENDING_ENTRY_MT">
       <column defaultValue="" name="SESID" type="VARCHAR(36)">
         <constraints nullable="false"/>
@@ -4250,7 +4250,7 @@
       <column name="TRNENTR_PROCESS_TM" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1111">
+  <changeSet author="kfs" id="1111" context="bootstrap,demo">
     <createTable tableName="GL_PENDING_ENTRY_T">
       <column defaultValue="" name="FS_ORIGIN_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -4295,7 +4295,7 @@
       <column name="TRNENTR_PROCESS_TM" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1112">
+  <changeSet author="kfs" id="1112" context="bootstrap,demo">
     <createTable tableName="GL_REVERSAL_T">
       <column name="FDOC_REVERSAL_DT" type="datetime">
         <constraints nullable="false"/>
@@ -4353,7 +4353,7 @@
       <column name="TRN_POST_DT" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1113">
+  <changeSet author="kfs" id="1113" context="bootstrap,demo">
     <createTable tableName="GL_SF_BALANCES_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -4374,7 +4374,7 @@
       <column name="TIMESTAMP" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1114">
+  <changeSet author="kfs" id="1114" context="bootstrap,demo">
     <createTable tableName="GL_SF_REBUILD_T">
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -4393,7 +4393,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1115">
+  <changeSet author="kfs" id="1115" context="bootstrap,demo">
     <createTable tableName="KRNS_MAINT_DOC_T">
       <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -4407,7 +4407,7 @@
       <column name="DOC_CNTNT" type="LONGTEXT"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1116">
+  <changeSet author="kfs" id="1116" context="bootstrap,demo">
     <createTable tableName="PDP_ACCTG_CHG_CD_T">
       <column defaultValue="" name="ACCTG_CHG_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -4421,7 +4421,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1117">
+  <changeSet author="kfs" id="1117" context="bootstrap,demo">
     <createTable tableName="PDP_ACH_ACCT_NBR_T">
       <column defaultValueNumeric="0" name="PMT_GRP_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4436,7 +4436,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1118">
+  <changeSet author="kfs" id="1118" context="bootstrap,demo">
     <createTable tableName="PDP_ACH_BNK_T">
       <column defaultValue="" name="BNK_RTNG_NBR" type="VARCHAR(9)">
         <constraints nullable="false"/>
@@ -4464,7 +4464,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1119">
+  <changeSet author="kfs" id="1119" context="bootstrap,demo">
     <createTable tableName="PDP_ACH_TRANS_CD_T">
       <column defaultValue="" name="TRANS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -4478,7 +4478,7 @@
       <column name="TRANS_DESC" type="VARCHAR(100)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1120">
+  <changeSet author="kfs" id="1120" context="bootstrap,demo">
     <createTable tableName="PDP_ACH_TRANS_TYP_T">
       <column defaultValue="" name="TRANS_TYP" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -4494,7 +4494,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1121">
+  <changeSet author="kfs" id="1121" context="bootstrap,demo">
     <createTable tableName="PDP_CUST_BNK_T">
       <column defaultValueNumeric="0" name="CUST_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4516,7 +4516,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1122">
+  <changeSet author="kfs" id="1122" context="bootstrap,demo">
     <createTable tableName="PDP_CUST_PRFL_T">
       <column defaultValueNumeric="0" name="CUST_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4601,7 +4601,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1123">
+  <changeSet author="kfs" id="1123" context="bootstrap,demo">
     <createTable tableName="PDP_DISB_NBR_RNG_T">
       <column name="OBJ_ID" type="VARCHAR(36)"/>
       <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
@@ -4633,7 +4633,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1124">
+  <changeSet author="kfs" id="1124" context="bootstrap,demo">
     <createTable tableName="PDP_DISB_TYP_CD_T">
       <column defaultValue="" name="DISB_TYP_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -4647,7 +4647,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1125">
+  <changeSet author="kfs" id="1125" context="bootstrap,demo">
     <createTable tableName="PDP_FIL_T">
       <column defaultValueNumeric="0" name="PMT_FIL_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4668,7 +4668,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1126">
+  <changeSet author="kfs" id="1126" context="bootstrap,demo">
     <createTable tableName="PDP_FMT_PROC_T">
       <column defaultValue="" name="PHYS_CMP_PROC_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -4686,7 +4686,7 @@
       <column name="PMT_PROC_ID" type="DECIMAL(8)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1127">
+  <changeSet author="kfs" id="1127" context="bootstrap,demo">
     <createTable tableName="PDP_GL_PENDING_ENTRY_T">
       <column defaultValueNumeric="0" name="GL_PENDING_ENTRY_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4732,7 +4732,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1128">
+  <changeSet author="kfs" id="1128" context="bootstrap,demo">
     <createTable tableName="PDP_PAYEE_ACH_ACCT_T">
       <column defaultValueNumeric="0" name="ACH_ACCT_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -4758,7 +4758,7 @@
       <column name="LST_UPDT_TS" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1129">
+  <changeSet author="kfs" id="1129" context="bootstrap,demo">
     <createTable tableName="PDP_PAYEE_TYP_T">
       <column defaultValue="" name="PAYEE_TYP_CD" type="VARCHAR(1)">
         <constraints nullable="false"/>
@@ -4775,7 +4775,7 @@
       <column defaultValue="N" name="ACH_ELGBL_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1130">
+  <changeSet author="kfs" id="1130" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_ACCT_DTL_T">
       <column defaultValueNumeric="0" name="PMT_ACCT_DTL_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4814,7 +4814,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1131">
+  <changeSet author="kfs" id="1131" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_ACCT_HIST_T">
       <column defaultValueNumeric="0" name="PMT_ACCT_HIST_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4834,7 +4834,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1132">
+  <changeSet author="kfs" id="1132" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_CHG_CD_T">
       <column defaultValue="" name="PMT_CHG_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -4848,7 +4848,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1133">
+  <changeSet author="kfs" id="1133" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_DTL_T">
       <column defaultValueNumeric="0" name="PMT_DTL_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4893,7 +4893,7 @@
       <column name="CUST_INST_NBR" type="VARCHAR(30)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1134">
+  <changeSet author="kfs" id="1134" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_GRP_HIST_T">
       <column defaultValueNumeric="0" name="PMT_GRP_HIST_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4925,7 +4925,7 @@
       <column name="ORIG_BNK_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1135">
+  <changeSet author="kfs" id="1135" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_GRP_T">
       <column defaultValueNumeric="0" name="PMT_GRP_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -4981,7 +4981,7 @@
       <column name="BNK_CD" type="VARCHAR(4)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1136">
+  <changeSet author="kfs" id="1136" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_NTE_TXT_T">
       <column defaultValueNumeric="0" name="PMT_NTE_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -5002,7 +5002,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1137">
+  <changeSet author="kfs" id="1137" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_STAT_CD_T">
       <column defaultValue="" name="PMT_STAT_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5016,7 +5016,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1138">
+  <changeSet author="kfs" id="1138" context="bootstrap,demo">
     <createTable tableName="PDP_PMT_TYP_T">
       <column defaultValue="" name="PMT_TYP_CD" type="VARCHAR(100)">
         <constraints nullable="false"/>
@@ -5032,7 +5032,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1139">
+  <changeSet author="kfs" id="1139" context="bootstrap,demo">
     <createTable tableName="PDP_PROC_SUM_T">
       <column defaultValueNumeric="0" name="PROC_SUM_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -5068,7 +5068,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1140">
+  <changeSet author="kfs" id="1140" context="bootstrap,demo">
     <createTable tableName="PDP_PROC_T">
       <column defaultValueNumeric="0" name="PROC_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
@@ -5093,7 +5093,7 @@
       <column defaultValue="N" name="FORMATTED_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1141">
+  <changeSet author="kfs" id="1141" context="bootstrap,demo">
     <createTable tableName="PUR_ADDR_TYP_T">
       <column defaultValue="" name="VNDR_ADDR_TYP_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5111,7 +5111,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1142">
+  <changeSet author="kfs" id="1142" context="bootstrap,demo">
     <createTable tableName="PUR_AP_CMP_PARM_T">
       <column defaultValue="" name="CAMPUS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -5136,7 +5136,7 @@
       <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1143">
+  <changeSet author="kfs" id="1143" context="bootstrap,demo">
     <createTable tableName="PUR_CNTCT_TYP_T">
       <column defaultValue="" name="VNDR_CNTCT_TYP_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5153,7 +5153,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1144">
+  <changeSet author="kfs" id="1144" context="bootstrap,demo">
     <createTable tableName="PUR_COMM_CONTR_MGR_T">
       <column defaultValue="" name="PUR_COMM_CD" type="VARCHAR(40)">
         <constraints nullable="false"/>
@@ -5173,7 +5173,7 @@
       <column name="CONTR_MGR_ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1145">
+  <changeSet author="kfs" id="1145" context="bootstrap,demo">
     <createTable tableName="PUR_COMM_T">
       <column defaultValue="" name="PUR_COMM_CD" type="VARCHAR(40)">
         <constraints nullable="false"/>
@@ -5195,7 +5195,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1146">
+  <changeSet author="kfs" id="1146" context="bootstrap,demo">
     <createTable tableName="PUR_CONTR_MGR_T">
       <column defaultValueNumeric="0" name="CONTR_MGR_CD" type="DECIMAL(2)">
         <constraints nullable="false"/>
@@ -5219,7 +5219,7 @@
       <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1147">
+  <changeSet author="kfs" id="1147" context="bootstrap,demo">
     <createTable tableName="PUR_OWNR_CTGRY_T">
       <column defaultValue="" name="VNDR_OWNR_CTGRY_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5236,7 +5236,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1148">
+  <changeSet author="kfs" id="1148" context="bootstrap,demo">
     <createTable tableName="PUR_OWNR_TYP_T">
       <column defaultValue="" name="VNDR_OWNR_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5254,7 +5254,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1149">
+  <changeSet author="kfs" id="1149" context="bootstrap,demo">
     <createTable tableName="PUR_PHN_TYP_T">
       <column defaultValue="" name="VNDR_PHN_TYP_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5271,7 +5271,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1150">
+  <changeSet author="kfs" id="1150" context="bootstrap,demo">
     <createTable tableName="PUR_PMT_TERM_TYP_T">
       <column defaultValue="" name="VNDR_PMT_TERM_CD" type="VARCHAR(5)">
         <constraints nullable="false"/>
@@ -5293,7 +5293,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1151">
+  <changeSet author="kfs" id="1151" context="bootstrap,demo">
     <createTable tableName="PUR_PO_CST_SRC_T">
       <column defaultValue="" name="PO_CST_SRC_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5312,7 +5312,7 @@
       <column name="ITM_UNIT_PRC_LWR_VAR_PCT" type="DECIMAL(3)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1152">
+  <changeSet author="kfs" id="1152" context="bootstrap,demo">
     <createTable tableName="PUR_SHP_PMT_TERM_T">
       <column defaultValue="" name="VNDR_SHP_PMT_TERM_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5330,7 +5330,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1153">
+  <changeSet author="kfs" id="1153" context="bootstrap,demo">
     <createTable tableName="PUR_SHP_SPCL_COND_T">
       <column defaultValue="" name="VNDR_SHP_SPCL_COND_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5347,7 +5347,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1154">
+  <changeSet author="kfs" id="1154" context="bootstrap,demo">
     <createTable tableName="PUR_SHP_TTL_T">
       <column defaultValue="" name="VNDR_SHP_TTL_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5364,7 +5364,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1155">
+  <changeSet author="kfs" id="1155" context="bootstrap,demo">
     <createTable tableName="PUR_SUPP_DVRST_T">
       <column defaultValue="" name="VNDR_SUPP_DVRST_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5381,7 +5381,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1156">
+  <changeSet author="kfs" id="1156" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_ADDR_T">
       <column defaultValueNumeric="0" name="VNDR_ADDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5418,7 +5418,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1157">
+  <changeSet author="kfs" id="1157" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_ALIAS_T">
       <column defaultValue="" name="VNDR_ALIAS_NM" type="VARCHAR(45)">
         <constraints nullable="false"/>
@@ -5440,7 +5440,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1158">
+  <changeSet author="kfs" id="1158" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_CHAP_3_STAT_T">
       <column defaultValue="" name="VNDR_CHAP_3_STAT_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -5457,7 +5457,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1159">
+  <changeSet author="kfs" id="1159" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_CHAP_4_STAT_T">
       <column defaultValue="" name="VNDR_CHAP_4_STAT_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -5474,7 +5474,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1160">
+  <changeSet author="kfs" id="1160" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_CNTCT_PHN_NBR_T">
       <column defaultValueNumeric="0" name="VNDR_CNTCT_PHN_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5498,7 +5498,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1161">
+  <changeSet author="kfs" id="1161" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_CNTCT_T">
       <column defaultValueNumeric="0" name="VNDR_CNTCT_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5534,7 +5534,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1162">
+  <changeSet author="kfs" id="1162" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_COMM_T">
       <column defaultValueNumeric="0" name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5557,7 +5557,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1163">
+  <changeSet author="kfs" id="1163" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_CONTR_ORG_T">
       <column defaultValueNumeric="0" name="VNDR_CONTR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5581,7 +5581,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1164">
+  <changeSet author="kfs" id="1164" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_CONTR_T">
       <column defaultValueNumeric="0" name="VNDR_CONTR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5616,7 +5616,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1165">
+  <changeSet author="kfs" id="1165" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_CUST_NBR_T">
       <column defaultValueNumeric="0" name="VNDR_CUST_NBR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5643,7 +5643,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1166">
+  <changeSet author="kfs" id="1166" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_DFLT_ADDR_T">
       <column defaultValueNumeric="0" name="VNDR_DFLT_ADDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5663,7 +5663,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1167">
+  <changeSet author="kfs" id="1167" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_DTL_T">
       <column defaultValueNumeric="0" name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5708,7 +5708,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1168">
+  <changeSet author="kfs" id="1168" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_EXCL_MT">
       <column defaultValueNumeric="0" name="VNDR_EXCL_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5725,7 +5725,7 @@
       <column name="VNDR_EXCL_DESC_TXT" type="VARCHAR(1000)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1169">
+  <changeSet author="kfs" id="1169" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_EXCL_MTCH_T">
       <column defaultValueNumeric="0" name="VNDR_EXCL_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5754,7 +5754,7 @@
       <column name="LST_UPDT_PRNCPL_NM" type="VARCHAR(100)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1170">
+  <changeSet author="kfs" id="1170" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_HDR_T">
       <column defaultValueNumeric="0" name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5789,7 +5789,7 @@
       <column name="VNDR_CHAP_4_STAT_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1171">
+  <changeSet author="kfs" id="1171" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_INACTV_REAS_T">
       <column defaultValue="" name="VNDR_INACTV_REAS_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5806,7 +5806,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1172">
+  <changeSet author="kfs" id="1172" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_PHN_NBR_T">
       <column defaultValueNumeric="0" name="VNDR_PHN_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5833,7 +5833,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1173">
+  <changeSet author="kfs" id="1173" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_SHP_SPCL_COND_T">
       <column defaultValueNumeric="0" name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5855,7 +5855,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1174">
+  <changeSet author="kfs" id="1174" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_SUPP_DVRST_T">
       <column defaultValueNumeric="0" name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5874,7 +5874,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1175">
+  <changeSet author="kfs" id="1175" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_TAX_CHG_T">
       <column defaultValueNumeric="0" name="VNDR_TAX_CHG_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5898,7 +5898,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1176">
+  <changeSet author="kfs" id="1176" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_TYP_T">
       <column defaultValue="" name="VNDR_TYP_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -5922,7 +5922,7 @@
       <column name="PUR_COMM_REQ_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1177">
+  <changeSet author="kfs" id="1177" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_W8_OWNRSHP_T">
       <column defaultValue="" name="ID" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -5940,7 +5940,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1178">
+  <changeSet author="kfs" id="1178" context="bootstrap,demo">
     <createTable tableName="PUR_VNDR_W8_TYP_T">
       <column defaultValue="" name="VNDR_W8_TYP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -5957,7 +5957,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1179">
+  <changeSet author="kfs" id="1179" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_ATTR_T">
       <column defaultValueNumeric="0" name="ATTR_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5976,7 +5976,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1180">
+  <changeSet author="kfs" id="1180" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_DEFN_DOC_TYP_T">
       <column defaultValueNumeric="0" name="DEFN_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -5995,7 +5995,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1181">
+  <changeSet author="kfs" id="1181" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_DEFN_T">
       <column defaultValueNumeric="0" name="DEFN_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -6043,7 +6043,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1182">
+  <changeSet author="kfs" id="1182" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_MDL_DEFN_T">
       <column defaultValueNumeric="0" name="MDL_DEFN_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -6077,7 +6077,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1183">
+  <changeSet author="kfs" id="1183" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_MDL_MBR_T">
       <column defaultValueNumeric="0" name="MDL_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -6098,7 +6098,7 @@
       <column name="ACTV_TO_DT" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1184">
+  <changeSet author="kfs" id="1184" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_MDL_T">
       <column defaultValueNumeric="0" name="MDL_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -6119,7 +6119,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1185">
+  <changeSet author="kfs" id="1185" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_PRNCPL_DEFN_T">
       <column defaultValueNumeric="0" name="PRNCPL_DEFN_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
@@ -6153,7 +6153,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1186">
+  <changeSet author="kfs" id="1186" context="bootstrap,demo">
     <createTable tableName="SEC_SCRTY_PRNCPL_T">
       <column defaultValue="" name="PRNCPL_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
@@ -6169,7 +6169,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1187">
+  <changeSet author="kfs" id="1187" context="bootstrap,demo">
     <createTable tableName="SH_ACCT_PERIOD_T">
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
@@ -6189,7 +6189,7 @@
       <column name="UNIV_FSCPD_END_DT" type="datetime"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1188">
+  <changeSet author="kfs" id="1188" context="bootstrap,demo">
     <createTable tableName="SH_BUILDING_T">
       <column defaultValue="" name="CAMPUS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -6215,7 +6215,7 @@
       <column name="BLDG_ADDR_CNTRY_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1189">
+  <changeSet author="kfs" id="1189" context="bootstrap,demo">
     <createTable tableName="SH_FNCTNL_FIELD_DESCR_T">
       <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
         <constraints nullable="false"/>
@@ -6236,7 +6236,7 @@
       <column name="ACTIVE_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1190">
+  <changeSet author="kfs" id="1190" context="bootstrap,demo">
     <createTable tableName="SH_ROOM_T">
       <column defaultValue="" name="CAMPUS_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
@@ -6261,7 +6261,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1191">
+  <changeSet author="kfs" id="1191" context="bootstrap,demo">
     <createTable tableName="SH_UNIV_DATE_T">
       <column name="UNIV_DT" type="datetime">
         <constraints nullable="false"/>
@@ -6276,7 +6276,7 @@
       <column name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="1192">
+  <changeSet author="kfs" id="1192" context="bootstrap,demo">
     <createTable tableName="SH_UOM_T">
       <column defaultValue="" name="ITM_UOM_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -6293,7 +6293,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4204">
+  <changeSet author="kfs" id="4204" context="bootstrap,demo">
     <createTable tableName="QRTZ_BLOB_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6304,7 +6304,7 @@
       <column name="BLOB_DATA" type="LONGBLOB"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4205">
+  <changeSet author="kfs" id="4205" context="bootstrap,demo">
     <createTable tableName="QRTZ_CALENDARS">
       <column defaultValue="" name="CALENDAR_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6314,7 +6314,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4206">
+  <changeSet author="kfs" id="4206" context="bootstrap,demo">
     <createTable tableName="QRTZ_CRON_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6328,7 +6328,7 @@
       <column name="TIME_ZONE_ID" type="VARCHAR(80)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4207">
+  <changeSet author="kfs" id="4207" context="bootstrap,demo">
     <createTable tableName="QRTZ_FIRED_TRIGGERS">
       <column defaultValue="" name="ENTRY_ID" type="VARCHAR(95)">
         <constraints nullable="false"/>
@@ -6360,7 +6360,7 @@
       <column name="REQUESTS_RECOVERY" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4208">
+  <changeSet author="kfs" id="4208" context="bootstrap,demo">
     <createTable tableName="QRTZ_JOB_DETAILS">
       <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6387,7 +6387,7 @@
       <column name="JOB_DATA" type="LONGBLOB"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4209">
+  <changeSet author="kfs" id="4209" context="bootstrap,demo">
     <createTable tableName="QRTZ_JOB_LISTENERS">
       <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6400,21 +6400,21 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4210">
+  <changeSet author="kfs" id="4210" context="bootstrap,demo">
     <createTable tableName="QRTZ_LOCKS">
       <column defaultValue="" name="LOCK_NAME" type="VARCHAR(40)">
         <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4211">
+  <changeSet author="kfs" id="4211" context="bootstrap,demo">
     <createTable tableName="QRTZ_PAUSED_TRIGGER_GRPS">
       <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
         <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4212">
+  <changeSet author="kfs" id="4212" context="bootstrap,demo">
     <createTable tableName="QRTZ_SCHEDULER_STATE">
       <column defaultValue="" name="INSTANCE_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6427,7 +6427,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4213">
+  <changeSet author="kfs" id="4213" context="bootstrap,demo">
     <createTable tableName="QRTZ_SIMPLE_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6446,7 +6446,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4214">
+  <changeSet author="kfs" id="4214" context="bootstrap,demo">
     <createTable tableName="QRTZ_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6482,7 +6482,7 @@
       <column name="JOB_DATA" type="LONGBLOB"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="4215">
+  <changeSet author="kfs" id="4215" context="bootstrap,demo">
     <createTable tableName="QRTZ_TRIGGER_LISTENERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6495,7 +6495,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3867">
+  <changeSet author="kfs" id="3867" context="bootstrap,demo">
     <createTable tableName="KRNS_ADHOC_RTE_ACTN_RECIP_T">
       <column defaultValueNumeric="0" name="RECIP_TYP_CD" type="DECIMAL(1)">
         <constraints nullable="false"/>
@@ -6517,7 +6517,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3868">
+  <changeSet author="kfs" id="3868" context="bootstrap,demo">
     <createTable tableName="KRNS_ATT_T">
       <column defaultValueNumeric="0" name="NTE_ID" type="DECIMAL(14)">
         <constraints nullable="false"/>
@@ -6535,7 +6535,7 @@
       <column name="ATT_TYP_CD" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3869">
+  <changeSet author="kfs" id="3869" context="bootstrap,demo">
     <createTable tableName="KRNS_DOC_HDR_T">
       <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -6552,7 +6552,7 @@
       <column name="EXPLANATION" type="VARCHAR(400)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3870">
+  <changeSet author="kfs" id="3870" context="bootstrap,demo">
     <createTable tableName="KRNS_LOOKUP_RSLT_T">
       <column defaultValue="" name="LOOKUP_RSLT_ID" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -6572,7 +6572,7 @@
       <column name="SERIALZD_RSLTS" type="LONGTEXT"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3871">
+  <changeSet author="kfs" id="3871" context="bootstrap,demo">
     <createTable tableName="KRNS_LOOKUP_SEL_T">
       <column defaultValue="" name="LOOKUP_RSLT_ID" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -6592,7 +6592,7 @@
       <column name="SEL_OBJ_IDS" type="LONGTEXT"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3872">
+  <changeSet author="kfs" id="3872" context="bootstrap,demo">
     <createTable tableName="KRNS_MAINT_DOC_ATT_LST_T">
       <column defaultValue="" name="ATT_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
@@ -6613,7 +6613,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3873">
+  <changeSet author="kfs" id="3873" context="bootstrap,demo">
     <createTable tableName="KRNS_MAINT_DOC_ATT_T">
       <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
         <constraints nullable="false"/>
@@ -6631,7 +6631,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3874">
+  <changeSet author="kfs" id="3874" context="bootstrap,demo">
     <createTable tableName="KRNS_MAINT_LOCK_T">
       <column name="MAINT_LOCK_REP_TXT" type="VARCHAR(500)">
         <constraints nullable="false"/>
@@ -6650,7 +6650,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3875">
+  <changeSet author="kfs" id="3875" context="bootstrap,demo">
     <createTable tableName="KRNS_NTE_T">
       <column defaultValueNumeric="0" name="NTE_ID" type="DECIMAL(14)">
         <constraints nullable="false"/>
@@ -6678,7 +6678,7 @@
       <column name="TPC_TXT" type="VARCHAR(40)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3876">
+  <changeSet author="kfs" id="3876" context="bootstrap,demo">
     <createTable tableName="KRNS_NTE_TYP_T">
       <column defaultValue="" name="NTE_TYP_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
@@ -6693,7 +6693,7 @@
       <column name="ACTV_IND" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3877">
+  <changeSet author="kfs" id="3877" context="bootstrap,demo">
     <createTable tableName="KRNS_PESSIMISTIC_LOCK_T">
       <column defaultValueNumeric="0" name="PESSIMISTIC_LOCK_ID" type="DECIMAL(14)">
         <constraints nullable="false"/>
@@ -6719,7 +6719,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3878">
+  <changeSet author="kfs" id="3878" context="bootstrap,demo">
     <createTable tableName="KRNS_SESN_DOC_T">
       <column defaultValue="" name="SESN_DOC_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
@@ -6740,7 +6740,7 @@
       <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3879">
+  <changeSet author="kfs" id="3879" context="bootstrap,demo">
     <createTable tableName="KRSB_BAM_PARM_T">
       <column defaultValueNumeric="0" name="BAM_PARM_ID" type="DECIMAL(14)">
         <constraints nullable="false"/>
@@ -6753,7 +6753,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3880">
+  <changeSet author="kfs" id="3880" context="bootstrap,demo">
     <createTable tableName="KRSB_BAM_T">
       <column defaultValueNumeric="0" name="BAM_ID" type="DECIMAL(14)">
         <constraints nullable="false"/>
@@ -6783,7 +6783,7 @@
       <column name="EXCPN_MSG" type="LONGTEXT"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3881">
+  <changeSet author="kfs" id="3881" context="bootstrap,demo">
     <createTable tableName="KRSB_MSG_PYLD_T">
       <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
         <constraints nullable="false"/>
@@ -6793,7 +6793,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3882">
+  <changeSet author="kfs" id="3882" context="bootstrap,demo">
     <createTable tableName="KRSB_MSG_QUE_T">
       <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
         <constraints nullable="false"/>
@@ -6824,7 +6824,7 @@
       <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3883">
+  <changeSet author="kfs" id="3883" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_BLOB_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6835,7 +6835,7 @@
       <column name="BLOB_DATA" type="LONGBLOB"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3884">
+  <changeSet author="kfs" id="3884" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_CALENDARS">
       <column defaultValue="" name="CALENDAR_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6845,7 +6845,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3885">
+  <changeSet author="kfs" id="3885" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_CRON_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6859,7 +6859,7 @@
       <column name="TIME_ZONE_ID" type="VARCHAR(80)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3886">
+  <changeSet author="kfs" id="3886" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_FIRED_TRIGGERS">
       <column defaultValue="" name="ENTRY_ID" type="VARCHAR(95)">
         <constraints nullable="false"/>
@@ -6891,7 +6891,7 @@
       <column name="REQUESTS_RECOVERY" type="VARCHAR(1)"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3887">
+  <changeSet author="kfs" id="3887" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_JOB_DETAILS">
       <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6918,7 +6918,7 @@
       <column name="JOB_DATA" type="LONGBLOB"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3888">
+  <changeSet author="kfs" id="3888" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_JOB_LISTENERS">
       <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6931,21 +6931,21 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3889">
+  <changeSet author="kfs" id="3889" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_LOCKS">
       <column defaultValue="" name="LOCK_NAME" type="VARCHAR(40)">
         <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3890">
+  <changeSet author="kfs" id="3890" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_PAUSED_TRIGGER_GRPS">
       <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
         <constraints nullable="false"/>
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3891">
+  <changeSet author="kfs" id="3891" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_SCHEDULER_STATE">
       <column defaultValue="" name="INSTANCE_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6958,7 +6958,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3892">
+  <changeSet author="kfs" id="3892" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_SIMPLE_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -6977,7 +6977,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3893">
+  <changeSet author="kfs" id="3893" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_TRIGGERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -7013,7 +7013,7 @@
       <column name="JOB_DATA" type="LONGBLOB"/>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3894">
+  <changeSet author="kfs" id="3894" context="bootstrap,demo">
     <createTable tableName="KRSB_QRTZ_TRIGGER_LISTENERS">
       <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
         <constraints nullable="false"/>
@@ -7026,7 +7026,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3895">
+  <changeSet author="kfs" id="3895" context="bootstrap,demo">
     <createTable tableName="KRSB_SVC_DEF_T">
       <column defaultValue="" name="SVC_DEF_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
@@ -7066,7 +7066,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3896">
+  <changeSet author="kfs" id="3896" context="bootstrap,demo">
     <createTable tableName="KRSB_SVC_DSCRPTR_T">
       <column defaultValue="" name="SVC_DSCRPTR_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>

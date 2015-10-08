@@ -3,7 +3,7 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="2352">
+    <changeSet author="kfs" id="2352" context="bootstrap,demo">
         <createTable tableName="CB_AST_TRN_TYP_T">
             <column defaultValue="" name="CPTL_AST_TRN_TYP_CD" type="VARCHAR(4)">
                 <constraints nullable="false"/>
@@ -25,7 +25,7 @@
             <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT" type="VARCHAR(100)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2353">
+    <changeSet author="kfs" id="2353" context="bootstrap,demo">
         <createTable tableName="CB_GL_ENTRY_AST_T">
             <column defaultValueNumeric="0" name="CB_GL_ACCT_ID" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -42,7 +42,7 @@
             <column name="CM_FDOC_NBR" type="VARCHAR(14)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2354">
+    <changeSet author="kfs" id="2354" context="bootstrap,demo">
         <createTable tableName="CB_GL_ENTRY_T">
             <column defaultValueNumeric="0" name="CB_GL_ACCT_ID" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -109,7 +109,7 @@
             <column name="TRN_LDGR_SUBMIT_AMT" type="DECIMAL(19, 2)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2355">
+    <changeSet author="kfs" id="2355" context="bootstrap,demo">
         <createTable tableName="CB_PRTG_DTL_T">
             <column defaultValue="" name="PO_NUMBER" type="VARCHAR(9)">
                 <constraints nullable="false"/>
@@ -140,7 +140,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2356">
+    <changeSet author="kfs" id="2356" context="bootstrap,demo">
         <createTable tableName="CB_PRTG_T">
             <column defaultValue="" name="PO_NUMBER" type="VARCHAR(9)">
                 <constraints nullable="false"/>
@@ -171,7 +171,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2357">
+    <changeSet author="kfs" id="2357" context="bootstrap,demo">
         <createTable tableName="CB_PUR_ACTN_HIST_T">
             <column defaultValueNumeric="0" name="ACTN_ID" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -209,7 +209,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2358">
+    <changeSet author="kfs" id="2358" context="bootstrap,demo">
         <createTable tableName="CB_PUR_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -230,7 +230,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2359">
+    <changeSet author="kfs" id="2359" context="bootstrap,demo">
         <createTable tableName="CB_PUR_ITM_AST_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -255,7 +255,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2360">
+    <changeSet author="kfs" id="2360" context="bootstrap,demo">
         <createTable tableName="CB_PUR_LN_AST_ACCT_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -281,7 +281,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2361">
+    <changeSet author="kfs" id="2361" context="bootstrap,demo">
         <createTable tableName="CM_ACQ_TYPE_T">
             <column defaultValue="" name="CPTLAST_ACQ_TYP_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -299,7 +299,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2362">
+    <changeSet author="kfs" id="2362" context="bootstrap,demo">
         <createTable tableName="CM_ASSET_TYPE_T">
             <column defaultValue="" name="CPTLAST_TYP_CD" type="VARCHAR(7)">
                 <constraints nullable="false"/>
@@ -319,7 +319,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2363">
+    <changeSet author="kfs" id="2363" context="bootstrap,demo">
         <createTable tableName="CM_AST_COMPONENT_T">
             <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -356,7 +356,7 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2364">
+    <changeSet author="kfs" id="2364" context="bootstrap,demo">
         <createTable tableName="CM_AST_CONDITION_T">
             <column defaultValue="" name="CPTLAST_COND_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -373,7 +373,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2365">
+    <changeSet author="kfs" id="2365" context="bootstrap,demo">
         <createTable tableName="CM_AST_DEPR_CNVNTN_T">
             <column defaultValue="" name="FIN_OBJ_SUB_TYPE_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -388,7 +388,7 @@
             <column name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2366">
+    <changeSet author="kfs" id="2366" context="bootstrap,demo">
         <createTable tableName="CM_AST_DEPR_MTHD_T">
             <column defaultValue="" name="AST_DEPR_METHOD_CD" type="VARCHAR(3)">
                 <constraints nullable="false"/>
@@ -405,7 +405,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2367">
+    <changeSet author="kfs" id="2367" context="bootstrap,demo">
         <createTable tableName="CM_AST_LOC_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -418,7 +418,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2368">
+    <changeSet author="kfs" id="2368" context="bootstrap,demo">
         <createTable tableName="CM_AST_LOC_DTL_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -439,7 +439,7 @@
             <column name="CPTLAST_TAG_NBR" type="VARCHAR(8)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2369">
+    <changeSet author="kfs" id="2369" context="bootstrap,demo">
         <createTable tableName="CM_AST_LOC_T">
             <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -464,7 +464,7 @@
             <column name="AST_LOC_ZIP_CD" type="VARCHAR(20)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2370">
+    <changeSet author="kfs" id="2370" context="bootstrap,demo">
         <createTable tableName="CM_AST_LOC_TYP_T">
             <column defaultValue="" name="CPTLAST_LOC_TYP_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -481,7 +481,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2371">
+    <changeSet author="kfs" id="2371" context="bootstrap,demo">
         <createTable tableName="CM_AST_ORG_T">
             <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -497,7 +497,7 @@
             <column name="ORG_TXT" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2372">
+    <changeSet author="kfs" id="2372" context="bootstrap,demo">
         <createTable tableName="CM_AST_PAYMENT_T">
             <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -545,7 +545,7 @@
             <column name="AST_TRNFR_PMT_CD" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2373">
+    <changeSet author="kfs" id="2373" context="bootstrap,demo">
         <createTable tableName="CM_AST_PMT_AST_DTL_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -565,7 +565,7 @@
             <column name="CPTLAST_ALLOC_VAL_PCT" type="DECIMAL(19, 6)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2374">
+    <changeSet author="kfs" id="2374" context="bootstrap,demo">
         <createTable tableName="CM_AST_PMT_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -582,7 +582,7 @@
             <column defaultValue="N" name="AST_PMT_DIST_CD_FROM_FP_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2375">
+    <changeSet author="kfs" id="2375" context="bootstrap,demo">
         <createTable tableName="CM_AST_PMT_DOC_TYP_T">
             <column defaultValueNumeric="0" name="DOC_TYP_ID" type="DECIMAL(7)">
                 <constraints nullable="false"/>
@@ -597,7 +597,7 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2376">
+    <changeSet author="kfs" id="2376" context="bootstrap,demo">
         <createTable tableName="CM_AST_PMT_DST_CD_T">
             <column defaultValue="" name="AST_PMT_DST_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -614,7 +614,7 @@
             <column defaultValue="Y" name="ROW_ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2377">
+    <changeSet author="kfs" id="2377" context="bootstrap,demo">
         <createTable tableName="CM_AST_PMT_DTL_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -648,7 +648,7 @@
             <column name="AST_TRNFR_PMT_CD" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2378">
+    <changeSet author="kfs" id="2378" context="bootstrap,demo">
         <createTable tableName="CM_AST_RETIRE_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -682,7 +682,7 @@
             <column name="AST_PD_CASE_NBR" type="VARCHAR(14)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2379">
+    <changeSet author="kfs" id="2379" context="bootstrap,demo">
         <createTable tableName="CM_AST_RETIRE_DTL_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -698,7 +698,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2380">
+    <changeSet author="kfs" id="2380" context="bootstrap,demo">
         <createTable tableName="CM_AST_RPR_HIST_T">
             <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -722,7 +722,7 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2381">
+    <changeSet author="kfs" id="2381" context="bootstrap,demo">
         <createTable tableName="CM_AST_STATUS_T">
             <column defaultValue="" name="AST_INVN_STAT_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -737,7 +737,7 @@
             <column defaultValue="Y" name="ROW_ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2382">
+    <changeSet author="kfs" id="2382" context="bootstrap,demo">
         <createTable tableName="CM_AST_TRNFR_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -771,7 +771,7 @@
             <column name="AST_OFFCMP_CNTRY_CD" type="VARCHAR(2)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2383">
+    <changeSet author="kfs" id="2383" context="bootstrap,demo">
         <createTable tableName="CM_AST_WRNTY_T">
             <column defaultValueNumeric="0" name="CPTLAST_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -792,7 +792,7 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2384">
+    <changeSet author="kfs" id="2384" context="bootstrap,demo">
         <createTable tableName="CM_CPTLAST_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -832,7 +832,7 @@
             <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2385">
+    <changeSet author="kfs" id="2385" context="bootstrap,demo">
         <createTable tableName="CM_CPTLAST_DTL_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -871,7 +871,7 @@
             <column name="SEP_SRC_AMT" type="DECIMAL(19, 2)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2386">
+    <changeSet author="kfs" id="2386" context="bootstrap,demo">
         <createTable tableName="CM_CPTLAST_LOCK_T">
             <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -891,7 +891,7 @@
             <column name="DOC_TYP_NM" type="VARCHAR(10)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2387">
+    <changeSet author="kfs" id="2387" context="bootstrap,demo">
         <createTable tableName="CM_CPTLAST_OBJ_T">
             <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
                 <constraints nullable="false"/>
@@ -916,7 +916,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2388">
+    <changeSet author="kfs" id="2388" context="bootstrap,demo">
         <createTable tableName="CM_EQPLNRTRN_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -946,7 +946,7 @@
             <column name="CPTLAST_NBR" type="DECIMAL(12)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2389">
+    <changeSet author="kfs" id="2389" context="bootstrap,demo">
         <createTable tableName="CM_FSCL_YR_END_DEPR_DTL_T">
             <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
                 <constraints nullable="false"/>
@@ -964,7 +964,7 @@
             <column defaultValue="N" name="YEAR_END_DEPR_DTL_PROC_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2390">
+    <changeSet author="kfs" id="2390" context="bootstrap,demo">
         <createTable tableName="CM_FSCL_YR_END_DEPR_HDR_T">
             <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
                 <constraints nullable="false"/>
@@ -979,7 +979,7 @@
             <column defaultValue="Y" name="YEAR_END_DEPR_ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2391">
+    <changeSet author="kfs" id="2391" context="bootstrap,demo">
         <createTable tableName="CM_INVN_ERR_DOC_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -993,7 +993,7 @@
             <column name="AST_UPLDR_UNVL_ID" type="VARCHAR(40)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2392">
+    <changeSet author="kfs" id="2392" context="bootstrap,demo">
         <createTable tableName="CM_INVN_ERR_DTL_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -1020,7 +1020,7 @@
             <column name="CPTLAST_COND_CD" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2393">
+    <changeSet author="kfs" id="2393" context="bootstrap,demo">
         <createTable tableName="CM_RETIRE_REAS_T">
             <column defaultValue="" name="AST_RETIRE_REAS_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>

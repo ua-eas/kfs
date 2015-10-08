@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-<changeSet author="kfs" id="3979">
+<changeSet author="kfs" id="3979" context="bootstrap,demo">
         <createTable tableName="LD_A21_DETAIL_LN_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -40,7 +40,7 @@
             <column name="A21_LBRORIG_PY_AMT" type="DECIMAL(19, 2)"/>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3980">
+<changeSet author="kfs" id="3980" context="bootstrap,demo">
         <createTable tableName="LD_A21_DETAIL_T">
             <column defaultValue="" name="FDOC_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -59,7 +59,7 @@
             <column name="EMPLID" type="VARCHAR(40)"/>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3981">
+<changeSet author="kfs" id="3981" context="bootstrap,demo">
         <createTable tableName="LD_A21_DTL_BLD_T">
             <column defaultValueNumeric="0" name="A21_LBR_BLD_NBR" type="DECIMAL(19)">
                 <constraints nullable="false"/>
@@ -76,7 +76,7 @@
             <column name="EMPLID" type="VARCHAR(40)"/>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3982">
+<changeSet author="kfs" id="3982" context="bootstrap,demo">
         <createTable tableName="LD_A21_DTL_LN_BLD_T">
             <column defaultValueNumeric="0" name="A21_LBR_BLD_NBR" type="DECIMAL(19)">
                 <constraints nullable="false"/>
@@ -116,7 +116,7 @@
             <column name="A21_LBRORIG_PY_AMT" type="DECIMAL(19, 2)"/>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3983">
+<changeSet author="kfs" id="3983" context="bootstrap,demo">
         <createTable tableName="LD_A21_PRD_STAT_T">
             <column defaultValue="" name="LBR_RPT_PRDSTAT_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -130,7 +130,7 @@
             <column name="LBR_PRD_STAT_DESC" type="VARCHAR(40)"/>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3984">
+<changeSet author="kfs" id="3984" context="bootstrap,demo">
         <createTable tableName="LD_A21_REPORT_T">
             <column defaultValue="" name="A21_LBR_RPT_NBR" type="VARCHAR(3)">
                 <constraints nullable="false"/>
@@ -159,7 +159,7 @@
             </column>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3985">
+<changeSet author="kfs" id="3985" context="bootstrap,demo">
         <createTable tableName="LD_A21_RPT_EARN_PAY_T">
             <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
                 <constraints nullable="false"/>
@@ -184,7 +184,7 @@
             </column>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3986">
+<changeSet author="kfs" id="3986" context="bootstrap,demo">
         <createTable tableName="LD_A21_RPT_POS_T">
             <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
                 <constraints nullable="false"/>
@@ -206,7 +206,7 @@
             </column>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="3987">
+<changeSet author="kfs" id="3987" context="bootstrap,demo">
         <createTable tableName="LD_A21_RPT_TYP_T">
             <column defaultValue="" name="A21_LBR_RPT_TYP_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>
