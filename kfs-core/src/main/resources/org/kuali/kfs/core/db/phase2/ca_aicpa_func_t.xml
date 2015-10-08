@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10121">
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[AS]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADCE03D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[ACADEMIC SUPPORT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[AUX]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADCF03D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[AUXILIARY & SERVICE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[IN]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD003D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[INSTRUCTIONAL]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[IS]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD103D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[INSTITUTIONAL SUPPORT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[NA]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD203D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[NOT APPLICABLE TO ACCOUNT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[PP]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD303D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[OPERATION AND MAINTENANCE OF PLANT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[PS]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD403D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[PUBLIC SERVICE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[RE]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD503D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[RESEARCH]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[S&F]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD603D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[SCHOLARSHIPS & FELLOWSHIPS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_aicpa_func_t">
+      <column name="FIN_AICPA_FUNC_CD"><![CDATA[SS]]></column>
+      <column name="OBJ_ID"><![CDATA[0DF1FAB5ADD703D2E043814FD88103D2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_AICPA_FUNC_NM"><![CDATA[STUDENT SERVICES]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

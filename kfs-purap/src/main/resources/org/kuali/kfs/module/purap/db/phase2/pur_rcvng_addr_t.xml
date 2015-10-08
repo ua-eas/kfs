@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10632">
+    <insert tableName="pur_rcvng_addr_t">
+      <column name="PUR_RCVNG_ADDR_ID"><![CDATA[1000]]></column>
+      <column name="OBJ_ID"><![CDATA[4C95554BF981AC7AE0404F8189D81998]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ORG_CD" value="null"/>
+      <column name="PUR_RCVNG_NM"><![CDATA[KUALI UNIVERSITY]]></column>
+      <column name="PUR_RCVNG_LN1_ADDR"><![CDATA[400 E. Main Street]]></column>
+      <column name="PUR_RCVNG_LN2_ADDR"><![CDATA[Central Receiving]]></column>
+      <column name="PUR_RCVNG_CTY_NM"><![CDATA[Kuali City]]></column>
+      <column name="PUR_RCVNG_ST_CD"><![CDATA[WY]]></column>
+      <column name="PUR_RCVNG_PSTL_CD"><![CDATA[83444]]></column>
+      <column name="PUR_RCVNG_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="PUR_RCVNG_DFLT_ADDR_IND"><![CDATA[Y]]></column>
+      <column name="VNDR_ADDR_USE_RCVNG_IND"><![CDATA[Y]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="pur_rcvng_addr_t">
+      <column name="PUR_RCVNG_ADDR_ID"><![CDATA[1001]]></column>
+      <column name="OBJ_ID"><![CDATA[4E38D982D10A34BCE0404F8189D82DAB]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ORG_CD"><![CDATA[PSY]]></column>
+      <column name="PUR_RCVNG_NM"><![CDATA[KUALI UNIVERSITY - PSYCHOLOGY DEPT.]]></column>
+      <column name="PUR_RCVNG_LN1_ADDR"><![CDATA[3201 Sigmund Lane]]></column>
+      <column name="PUR_RCVNG_LN2_ADDR" value="null"/>
+      <column name="PUR_RCVNG_CTY_NM"><![CDATA[Kuali City]]></column>
+      <column name="PUR_RCVNG_ST_CD"><![CDATA[WY]]></column>
+      <column name="PUR_RCVNG_PSTL_CD"><![CDATA[83444]]></column>
+      <column name="PUR_RCVNG_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="PUR_RCVNG_DFLT_ADDR_IND"><![CDATA[Y]]></column>
+      <column name="VNDR_ADDR_USE_RCVNG_IND"><![CDATA[Y]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

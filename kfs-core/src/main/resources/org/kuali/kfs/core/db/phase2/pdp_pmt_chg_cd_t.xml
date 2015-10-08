@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10550">
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[BC]]></column>
+      <column name="OBJ_ID"><![CDATA[582371A112D54DEDE0404F8189D83A6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Change Bank]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[CB]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB830FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Cancel Batch]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[CD]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB930FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Cancel Disbursement]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[CP]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB730FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Cancel Payment]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[CRD]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEABA30FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Cancel-Reissue Disbursement]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[HB]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB430FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Hold Batch]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[HP]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB330FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Hold Payment]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[IMP]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEABB30FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Change Immediate Print]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[RC]]></column>
+      <column name="OBJ_ID"><![CDATA[A6B78C3A1D8DFD23E040007F01002521]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[REISSUE CANCEL]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[RHB]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB630FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Release Hold on Batch]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_chg_cd_t">
+      <column name="PMT_CHG_CD"><![CDATA[RHP]]></column>
+      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB530FEE043814FD88130FE]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="PMT_CHG_CD_DESC"><![CDATA[Release Hold on Payment]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

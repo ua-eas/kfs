@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10211">
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[A]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472ED6409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Non Capital]]></column>
+      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[C]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472ED7409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Fabrication (University Constructed)]]></column>
+      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[F]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472ED8409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Found]]></column>
+      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[4997]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[G]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472ED9409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Gift]]></column>
+      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[1175]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EDA409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[New]]></column>
+      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[P]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EDB409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Pre-Asset Tagging]]></column>
+      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[S]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EDC409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Cptl Transfer-in Federally/Other Owned]]></column>
+      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[1185]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_acq_type_t">
+      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[T]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EDD409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Transferred from other Univ. or Federal]]></column>
+      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[1175]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

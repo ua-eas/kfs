@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" id="4130">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCNSTR_HDR_TC0" tableName="LD_BCNSTR_HDR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4131">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_ACCT_ORG_HIER_TC0"
+                             tableName="LD_BCN_ACCT_ORG_HIER_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4132">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_ACCT_RPTS_TC0" tableName="LD_BCN_ACCT_RPTS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4133">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_ADM_POST_TC0" tableName="LD_BCN_ADM_POST_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4134">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_AF_REASON_TC0" tableName="LD_BCN_AF_REASON_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4135">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_AF_RSN_CD_TC0" tableName="LD_BCN_AF_RSN_CD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4136">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_CSF_TRCKR_TC0" tableName="LD_BCN_CSF_TRCKR_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4137">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_DURATION_TC0" tableName="LD_BCN_DURATION_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4138">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_FND_LOCK_TC0" tableName="LD_BCN_FND_LOCK_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4139">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_BCN_ORG_RPTS_TC0" tableName="LD_BCN_ORG_RPTS_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4140">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_CSFTRCKR_OVRD_TC0" tableName="LD_CSFTRCKR_OVRD_T"/>
+    </changeSet>
+    <changeSet author="kfs" id="4141">
+        <addUniqueConstraint columnNames="OBJ_ID" constraintName="LD_PNDBC_APPTFND_TC0" tableName="LD_PNDBC_APPTFND_T"/>
+    </changeSet>
+</databaseChangeLog>

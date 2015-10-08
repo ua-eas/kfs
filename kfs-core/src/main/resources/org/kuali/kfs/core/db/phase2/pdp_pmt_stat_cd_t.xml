@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10560">
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[CDIS]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009859196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Cancel Disbursement]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[CPAY]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009829196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Cancel Payment]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[EXTR]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009849196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Extracted]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[FORM]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009869196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Selected for Format]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[HELD]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009819196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Held]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[HTXB]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009899196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Held for Tax (NRA - Empl)]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[HTXE]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009889196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Held for Tax (Employee)]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[HTXN]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009879196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Held for Tax (NRA)]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[OPEN]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009809196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Open Payment]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[PACH]]></column>
+      <column name="OBJ_ID"><![CDATA[3348445009839196E043814FD8819196]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Pending/ACH]]></column>
+    </insert>
+    <insert tableName="pdp_pmt_stat_cd_t">
+      <column name="PMT_STAT_CD"><![CDATA[PCHK]]></column>
+      <column name="OBJ_ID"><![CDATA[6E38252C8BF3965DE0404F8189D83B69]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PMT_STAT_CD_DESC"><![CDATA[Pending/Check]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

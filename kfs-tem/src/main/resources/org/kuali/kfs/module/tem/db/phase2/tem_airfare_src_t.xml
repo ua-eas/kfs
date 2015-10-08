@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10732">
+    <insert tableName="tem_airfare_src_t">
+      <column name="CODE"><![CDATA[FROSCH]]></column>
+      <column name="NAME"><![CDATA[Frosch (Ghost Card)]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415885898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_airfare_src_t">
+      <column name="CODE"><![CDATA[INTERNET]]></column>
+      <column name="NAME"><![CDATA[Internet]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415875898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_airfare_src_t">
+      <column name="CODE"><![CDATA[NEWHORIZON]]></column>
+      <column name="NAME"><![CDATA[New Horizons (Ghost Card)]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415865898E040540A5EFD3A74]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

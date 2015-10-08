@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10083">
+    <insert tableName="ar_inv_trns_mthd_t">
+      <column name="INV_TRNS_MTHD_CD"><![CDATA[EMAIL]]></column>
+      <column name="OBJ_ID"><![CDATA[EDC0BE4713F43031E040E00ABCD64EE1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="INV_TRNS_MTHD_DESC"><![CDATA[Through Email]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_inv_trns_mthd_t">
+      <column name="INV_TRNS_MTHD_CD"><![CDATA[MAIL]]></column>
+      <column name="OBJ_ID"><![CDATA[EDC0BE4713F53031E040E00ABCD64EE1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="INV_TRNS_MTHD_DESC"><![CDATA[Through Mail]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

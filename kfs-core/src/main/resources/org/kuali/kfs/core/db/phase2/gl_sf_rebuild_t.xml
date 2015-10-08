@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10381">
+    <insert tableName="gl_sf_rebuild_t">
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ACCT_FOBJ_TYP_CD"><![CDATA[A]]></column>
+      <column name="ACCT_NBR_FOBJ_CD"><![CDATA[1031420]]></column>
+      <column name="OBJ_ID"><![CDATA[0CD74F3CD377043EE043814FD881043E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

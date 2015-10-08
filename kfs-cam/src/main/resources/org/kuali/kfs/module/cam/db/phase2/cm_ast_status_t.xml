@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10232">
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[A]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F09409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Active and identifiable]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[C]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F0A409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Active and non-accessible]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[D]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F10409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Act Non-Capital 2003]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[E]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F11409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Ret Non-Capital 2003]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F0B409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Non-Capital Active]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[O]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F0C409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Non-Capital Retired]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[R]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F0D409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Retired]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[S]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F0E409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Surplus Equipment]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_status_t">
+      <column name="AST_INVN_STAT_CD"><![CDATA[U]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472F0F409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="AST_INVN_STAT_NM"><![CDATA[Under Construction]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10749">
+    <insert tableName="tem_ent_purpose_t">
+      <column name="PURPOSE_CODE"><![CDATA[PD]]></column>
+      <column name="PURPOSE_NAME"><![CDATA[Prospective Donor Events]]></column>
+      <column name="PURPOSE_DESCRIPTION"><![CDATA[Prospective Donor Events]]></column>
+      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2416595898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_ent_purpose_t">
+      <column name="PURPOSE_CODE"><![CDATA[RC]]></column>
+      <column name="PURPOSE_NAME"><![CDATA[Recruitment]]></column>
+      <column name="PURPOSE_DESCRIPTION"><![CDATA[Recruitment]]></column>
+      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24165A5898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_ent_purpose_t">
+      <column name="PURPOSE_CODE"><![CDATA[RR]]></column>
+      <column name="PURPOSE_NAME"><![CDATA[Reception or Retirement]]></column>
+      <column name="PURPOSE_DESCRIPTION"><![CDATA[Reception or retirement]]></column>
+      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2416585898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_ent_purpose_t">
+      <column name="PURPOSE_CODE"><![CDATA[SA]]></column>
+      <column name="PURPOSE_NAME"><![CDATA[Student or Administrative Meetings]]></column>
+      <column name="PURPOSE_DESCRIPTION"><![CDATA[Student or Administrative Meetings]]></column>
+      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2416575898E040540A5EFD3A74]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

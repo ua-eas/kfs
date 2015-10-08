@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10350">
+    <insert tableName="fs_tax_county_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="COUNTY_CD"><![CDATA[13]]></column>
+      <column name="STATE_CD"><![CDATA[AZ]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[12]]></column>
+      <column name="OBJ_ID"><![CDATA[5ACF22CFC6174AB0E0404F8189D87AB9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fs_tax_county_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="COUNTY_CD"><![CDATA[19]]></column>
+      <column name="STATE_CD"><![CDATA[AZ]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
+      <column name="OBJ_ID"><![CDATA[5ACF22CFC6154AB0E0404F8189D87AB9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fs_tax_county_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="COUNTY_CD"><![CDATA[37]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[4]]></column>
+      <column name="OBJ_ID"><![CDATA[5ACF22CFC6144AB0E0404F8189D87AB9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fs_tax_county_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="COUNTY_CD"><![CDATA[5]]></column>
+      <column name="STATE_CD"><![CDATA[AZ]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[9]]></column>
+      <column name="OBJ_ID"><![CDATA[5ACF22CFC6164AB0E0404F8189D87AB9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fs_tax_county_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="COUNTY_CD"><![CDATA[65]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
+      <column name="OBJ_ID"><![CDATA[6B64AB2CF60B9938E0404F8189D824B6]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fs_tax_county_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="COUNTY_CD"><![CDATA[71]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
+      <column name="OBJ_ID"><![CDATA[6B64AB2CF60D9938E0404F8189D824B6]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fs_tax_county_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="COUNTY_CD"><![CDATA[83]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
+      <column name="OBJ_ID"><![CDATA[6B64AB2CF60C9938E0404F8189D824B6]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

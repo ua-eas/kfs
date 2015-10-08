@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10798">
+    <insert tableName="tem_trvl_card_typ_t">
+      <column name="CODE"><![CDATA[CORP]]></column>
+      <column name="NM"><![CDATA[Corporate Travel]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[C5D5A3887C2FB054E040DA0AAE013EDF]]></column>
+    </insert>
+    <insert tableName="tem_trvl_card_typ_t">
+      <column name="CODE"><![CDATA[CTS]]></column>
+      <column name="NM"><![CDATA[CTS Travel]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[C5D5A3887C2EB054E040DA0AAE013EDF]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

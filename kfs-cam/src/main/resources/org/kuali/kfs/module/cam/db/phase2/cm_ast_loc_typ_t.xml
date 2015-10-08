@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10220">
+    <insert tableName="cm_ast_loc_typ_t">
+      <column name="CPTLAST_LOC_TYP_CD"><![CDATA[B]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EE0409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_LOC_TYP_NM"><![CDATA[Borrower]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_loc_typ_t">
+      <column name="CPTLAST_LOC_TYP_CD"><![CDATA[BS]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EE1409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_LOC_TYP_NM"><![CDATA[Borrower Storage]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_loc_typ_t">
+      <column name="CPTLAST_LOC_TYP_CD"><![CDATA[BU]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EE2409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_LOC_TYP_NM"><![CDATA[Buyer]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_loc_typ_t">
+      <column name="CPTLAST_LOC_TYP_CD"><![CDATA[O]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EE3409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_LOC_TYP_NM"><![CDATA[Off-Campus]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_loc_typ_t">
+      <column name="CPTLAST_LOC_TYP_CD"><![CDATA[R]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EE4409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_LOC_TYP_NM"><![CDATA[Retirement]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_loc_typ_t">
+      <column name="CPTLAST_LOC_TYP_CD"><![CDATA[RQ]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EE5409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_LOC_TYP_NM"><![CDATA[Requester]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cm_ast_loc_typ_t">
+      <column name="CPTLAST_LOC_TYP_CD"><![CDATA[ST]]></column>
+      <column name="OBJ_ID"><![CDATA[44F39C472EE6409CE043814FD881409C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CPTLAST_LOC_TYP_NM"><![CDATA[Ship To]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

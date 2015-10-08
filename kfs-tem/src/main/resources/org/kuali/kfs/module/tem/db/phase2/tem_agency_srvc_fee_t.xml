@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10729">
+    <insert tableName="tem_agency_srvc_fee_t">
+      <column name="DIST_CD"><![CDATA[VC]]></column>
+      <column name="DIST_DESC"><![CDATA[VC Service Fee]]></column>
+      <column name="CHART_CD"><![CDATA[UA]]></column>
+      <column name="ACCT_NBR"><![CDATA[9323001]]></column>
+      <column name="FIN_OBJECT_CD"><![CDATA[5055]]></column>
+      <column name="SRVC_FEE"><![CDATA[25.00]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS_TEM_AGENCY_SRVC_FEE_001]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

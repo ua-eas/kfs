@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10355">
+    <insert tableName="fs_tax_state_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="STATE_CD"><![CDATA[AZ]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[5]]></column>
+      <column name="OBJ_ID"><![CDATA[5ACF22CFC6134AB0E0404F8189D87AB9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="fs_tax_state_t">
+      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
+      <column name="STATE_CD"><![CDATA[CA]]></column>
+      <column name="TAX_REGION_CD"><![CDATA[2]]></column>
+      <column name="OBJ_ID"><![CDATA[5ACF22CFC6124AB0E0404F8189D87AB9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

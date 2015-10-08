@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10134">
+    <insert tableName="ca_icr_excl_acct_t">
+      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[6044900]]></column>
+      <column name="FIN_OBJ_COA_CD"><![CDATA[BA]]></column>
+      <column name="FIN_OBJECT_CD"><![CDATA[9900]]></column>
+      <column name="OBJ_ID"><![CDATA[0CC48498C5CCDF3EE043814FD881DF3E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

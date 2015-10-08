@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10055">
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[01]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A5A92D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Federal]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[02]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A5B92D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[State]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[03]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A5C92D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[City]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[04]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A5D92D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[County]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[05]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A5E92D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Private Business]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[06]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A5F92D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Non-Profit]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[07]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A6092D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Education]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[08]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A6192D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Individual]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[09]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A6292D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Partnership]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[10]]></column>
+      <column name="OBJ_ID"><![CDATA[4CA64CB31A6392D6E0404F8189D86045]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Foreign]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ar_cust_typ_t">
+      <column name="CUST_TYP_CD"><![CDATA[11]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA24159D5898E040540A5EFD3A74]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CUST_TYP_DESC"><![CDATA[Traveler]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

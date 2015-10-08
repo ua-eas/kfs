@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<changeSet author="kfs" id="4776">
+        <createTable tableName="TEM_ACCT_DOC_REL_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4777">
+        <createTable tableName="TEM_ATTENDEE_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4778">
+        <createTable tableName="TEM_CORP_CARD_PSEUDO_NUM_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4779">
+        <createTable tableName="TEM_CREDIT_CARD_STAGING_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4780">
+        <createTable tableName="TEM_EM_CONT_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4781">
+        <createTable tableName="TEM_GRP_TRVLR_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4782">
+        <createTable tableName="TEM_HIST_EXP_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4783">
+        <createTable tableName="TEM_MILEAGE_RT_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4784">
+        <createTable tableName="TEM_PER_DIEM_EXP_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4785">
+        <createTable tableName="TEM_PER_DIEM_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4786">
+        <createTable tableName="TEM_PRI_DEST_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4787">
+        <createTable tableName="TEM_PROFILE_ACCOUNT_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4788">
+        <createTable tableName="TEM_PROFILE_ARRANGER_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4789">
+        <createTable tableName="TEM_PROFILE_EM_CONT_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4790">
+        <createTable tableName="TEM_PROFILE_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4791">
+        <createTable tableName="TEM_SPCL_CRCMSNCS_Q_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4792">
+        <createTable tableName="TEM_SPCL_CRCMSNCS_S">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4793">
+        <createTable tableName="TEM_TRAVELER_DTL_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4794">
+        <createTable tableName="TEM_TRP_ACCT_INFO_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet author="kfs" id="4795">
+        <createTable tableName="TEM_TRVL_EXP_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

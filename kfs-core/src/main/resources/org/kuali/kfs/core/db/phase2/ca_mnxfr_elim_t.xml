@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10138">
+    <insert tableName="ca_mnxfr_elim_t">
+      <column name="FOBJ_MNXFR_ELIM_CD"><![CDATA[E]]></column>
+      <column name="OBJ_ID"><![CDATA[10253E9DB8CB7EBEE043814FD8817EBE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FOBJ_MNXFR_ELIM_NM"><![CDATA[ELIMINATIONS OBJECT]]></column>
+    </insert>
+    <insert tableName="ca_mnxfr_elim_t">
+      <column name="FOBJ_MNXFR_ELIM_CD"><![CDATA[M]]></column>
+      <column name="OBJ_ID"><![CDATA[10253E9DB8CA7EBEE043814FD8817EBE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FOBJ_MNXFR_ELIM_NM"><![CDATA[MANDATORY TRANSFER OBJECT]]></column>
+    </insert>
+    <insert tableName="ca_mnxfr_elim_t">
+      <column name="FOBJ_MNXFR_ELIM_CD"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[0CFF4715AAFACB80E043814FD881CB80]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FOBJ_MNXFR_ELIM_NM"><![CDATA[NEITHER]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

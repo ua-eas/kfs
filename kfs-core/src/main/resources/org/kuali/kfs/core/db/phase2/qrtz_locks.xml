@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10692">
+    <insert tableName="qrtz_locks">
+      <column name="LOCK_NAME"><![CDATA[CALENDAR_ACCESS]]></column>
+    </insert>
+    <insert tableName="qrtz_locks">
+      <column name="LOCK_NAME"><![CDATA[JOB_ACCESS]]></column>
+    </insert>
+    <insert tableName="qrtz_locks">
+      <column name="LOCK_NAME"><![CDATA[MISFIRE_ACCESS]]></column>
+    </insert>
+    <insert tableName="qrtz_locks">
+      <column name="LOCK_NAME"><![CDATA[STATE_ACCESS]]></column>
+    </insert>
+    <insert tableName="qrtz_locks">
+      <column name="LOCK_NAME"><![CDATA[TRIGGER_ACCESS]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

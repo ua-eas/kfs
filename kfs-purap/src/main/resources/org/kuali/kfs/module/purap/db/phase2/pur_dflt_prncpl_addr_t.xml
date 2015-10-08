@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10600">
+    <insert tableName="pur_dflt_prncpl_addr_t">
+      <column name="PRNCPL_ID"><![CDATA[1545104915]]></column>
+      <column name="OBJ_ID"><![CDATA[636024D36C768EC6E0404F8189D80405]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CAMPUS_CD"><![CDATA[BL]]></column>
+      <column name="BLDG_CD"><![CDATA[BL165]]></column>
+      <column name="BLDG_ROOM_NBR"><![CDATA[201 West]]></column>
+    </insert>
+    <insert tableName="pur_dflt_prncpl_addr_t">
+      <column name="PRNCPL_ID"><![CDATA[2664109901]]></column>
+      <column name="OBJ_ID"><![CDATA[636024D36C798EC6E0404F8189D80405]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CAMPUS_CD"><![CDATA[BL]]></column>
+      <column name="BLDG_CD"><![CDATA[BL320]]></column>
+      <column name="BLDG_ROOM_NBR"><![CDATA[65]]></column>
+    </insert>
+    <insert tableName="pur_dflt_prncpl_addr_t">
+      <column name="PRNCPL_ID"><![CDATA[3012703100]]></column>
+      <column name="OBJ_ID"><![CDATA[636024D36C738EC6E0404F8189D80405]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CAMPUS_CD"><![CDATA[BL]]></column>
+      <column name="BLDG_CD"><![CDATA[BL025B]]></column>
+      <column name="BLDG_ROOM_NBR"><![CDATA[45]]></column>
+    </insert>
+    <insert tableName="pur_dflt_prncpl_addr_t">
+      <column name="PRNCPL_ID"><![CDATA[3577005213]]></column>
+      <column name="OBJ_ID"><![CDATA[636024D36C778EC6E0404F8189D80405]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CAMPUS_CD"><![CDATA[IN]]></column>
+      <column name="BLDG_CD"><![CDATA[IN062]]></column>
+      <column name="BLDG_ROOM_NBR"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="pur_dflt_prncpl_addr_t">
+      <column name="PRNCPL_ID"><![CDATA[4217300016]]></column>
+      <column name="OBJ_ID"><![CDATA[636024D36C748EC6E0404F8189D80405]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CAMPUS_CD"><![CDATA[BL]]></column>
+      <column name="BLDG_CD"><![CDATA[BL109]]></column>
+      <column name="BLDG_ROOM_NBR"><![CDATA[867]]></column>
+    </insert>
+    <insert tableName="pur_dflt_prncpl_addr_t">
+      <column name="PRNCPL_ID"><![CDATA[5151809337]]></column>
+      <column name="OBJ_ID"><![CDATA[636024D36C788EC6E0404F8189D80405]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CAMPUS_CD"><![CDATA[BL]]></column>
+      <column name="BLDG_CD"><![CDATA[BL066]]></column>
+      <column name="BLDG_ROOM_NBR"><![CDATA[Lobby]]></column>
+    </insert>
+    <insert tableName="pur_dflt_prncpl_addr_t">
+      <column name="PRNCPL_ID"><![CDATA[5175504470]]></column>
+      <column name="OBJ_ID"><![CDATA[636024D36C758EC6E0404F8189D80405]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CAMPUS_CD"><![CDATA[BL]]></column>
+      <column name="BLDG_CD"><![CDATA[BL009]]></column>
+      <column name="BLDG_ROOM_NBR"><![CDATA[A-3]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

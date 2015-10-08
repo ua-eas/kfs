@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10790">
+    <insert tableName="tem_trip_typ_t">
+      <column name="CODE"><![CDATA[IN]]></column>
+      <column name="NM"><![CDATA[In-State]]></column>
+      <column name="GEN_ENC_IND"><![CDATA[Y]]></column>
+      <column name="ENC_BAL_TYP"><![CDATA[EX]]></column>
+      <column name="ENC_OBJ_CD"><![CDATA[6000]]></column>
+      <column name="CONT_INFO_REQ_IND"><![CDATA[N]]></column>
+      <column name="BLANKET_IND"><![CDATA[Y]]></column>
+      <column name="AUTO_TR_LIMIT"><![CDATA[0.00]]></column>
+      <column name="USE_PER_DIEM"><![CDATA[Y]]></column>
+      <column name="TA_REQUIRED"><![CDATA[N]]></column>
+      <column name="PER_DIEM_CALC_METHOD"><![CDATA[P]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415825898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_trip_typ_t">
+      <column name="CODE"><![CDATA[INT]]></column>
+      <column name="NM"><![CDATA[International]]></column>
+      <column name="GEN_ENC_IND"><![CDATA[Y]]></column>
+      <column name="ENC_BAL_TYP"><![CDATA[EX]]></column>
+      <column name="ENC_OBJ_CD"><![CDATA[6200]]></column>
+      <column name="CONT_INFO_REQ_IND"><![CDATA[Y]]></column>
+      <column name="BLANKET_IND"><![CDATA[N]]></column>
+      <column name="AUTO_TR_LIMIT"><![CDATA[0.00]]></column>
+      <column name="USE_PER_DIEM"><![CDATA[Y]]></column>
+      <column name="TA_REQUIRED"><![CDATA[N]]></column>
+      <column name="PER_DIEM_CALC_METHOD"><![CDATA[P]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415845898E040540A5EFD3A74]]></column>
+    </insert>
+    <insert tableName="tem_trip_typ_t">
+      <column name="CODE"><![CDATA[OUT]]></column>
+      <column name="NM"><![CDATA[Out of State]]></column>
+      <column name="GEN_ENC_IND"><![CDATA[Y]]></column>
+      <column name="ENC_BAL_TYP"><![CDATA[EX]]></column>
+      <column name="ENC_OBJ_CD"><![CDATA[6100]]></column>
+      <column name="CONT_INFO_REQ_IND"><![CDATA[N]]></column>
+      <column name="BLANKET_IND"><![CDATA[N]]></column>
+      <column name="AUTO_TR_LIMIT"><![CDATA[0.00]]></column>
+      <column name="USE_PER_DIEM"><![CDATA[Y]]></column>
+      <column name="TA_REQUIRED"><![CDATA[N]]></column>
+      <column name="PER_DIEM_CALC_METHOD"><![CDATA[P]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[BD96AA2415835898E040540A5EFD3A74]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

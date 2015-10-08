@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10105">
+    <insert tableName="ca_a21_icr_acct_t">
+      <column name="CA_A21_ICR_ACCT_GNRTD_ID"><![CDATA[10000]]></column>
+      <column name="OBJ_ID"><![CDATA[AF204E1BFABC9BC4E040007F0100096E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[4631640]]></column>
+      <column name="SUB_ACCT_NBR"><![CDATA[ICR1]]></column>
+      <column name="ICR_FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ICR_FIN_ACCT_NBR"><![CDATA[1031400]]></column>
+      <column name="ACLN_PCT"><![CDATA[100]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_a21_icr_acct_t">
+      <column name="CA_A21_ICR_ACCT_GNRTD_ID"><![CDATA[10001]]></column>
+      <column name="OBJ_ID"><![CDATA[AF204E1BFABD9BC4E040007F0100096E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[4631640]]></column>
+      <column name="SUB_ACCT_NBR"><![CDATA[ICR2]]></column>
+      <column name="ICR_FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ICR_FIN_ACCT_NBR"><![CDATA[1031400]]></column>
+      <column name="ACLN_PCT"><![CDATA[100]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_a21_icr_acct_t">
+      <column name="CA_A21_ICR_ACCT_GNRTD_ID"><![CDATA[10002]]></column>
+      <column name="OBJ_ID"><![CDATA[AF204E1BFABE9BC4E040007F0100096E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[4631640]]></column>
+      <column name="SUB_ACCT_NBR"><![CDATA[ICR3]]></column>
+      <column name="ICR_FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ICR_FIN_ACCT_NBR"><![CDATA[1031400]]></column>
+      <column name="ACLN_PCT"><![CDATA[100]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_a21_icr_acct_t">
+      <column name="CA_A21_ICR_ACCT_GNRTD_ID"><![CDATA[10003]]></column>
+      <column name="OBJ_ID"><![CDATA[AF204E1BFABF9BC4E040007F0100096E]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[4631640]]></column>
+      <column name="SUB_ACCT_NBR"><![CDATA[ICR4]]></column>
+      <column name="ICR_FIN_COA_CD"><![CDATA[UA]]></column>
+      <column name="ICR_FIN_ACCT_NBR"><![CDATA[2310050]]></column>
+      <column name="ACLN_PCT"><![CDATA[100]]></column>
+      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

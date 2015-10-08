@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10326">
+    <insert tableName="fp_motd_t">
+      <column name="FS_ORIGIN_CD"><![CDATA[01]]></column>
+      <column name="OBJ_ID"><![CDATA[0DCE0F5255F3F910E043814FD881F910]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FS_MOTD_TXT" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

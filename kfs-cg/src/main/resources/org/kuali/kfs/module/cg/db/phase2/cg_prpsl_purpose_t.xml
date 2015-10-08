@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10203">
+    <insert tableName="cg_prpsl_purpose_t">
+      <column name="CGPRPSL_PURPOSE_CD"><![CDATA[A]]></column>
+      <column name="OBJ_ID"><![CDATA[12BF192103099D6CE043814FD8819D6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PRPSL_PURPOSE_DESC"><![CDATA[INSTRUCTION]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_prpsl_purpose_t">
+      <column name="CGPRPSL_PURPOSE_CD"><![CDATA[C]]></column>
+      <column name="OBJ_ID"><![CDATA[12BF1921030A9D6CE043814FD8819D6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PRPSL_PURPOSE_DESC"><![CDATA[RESEARCH]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_prpsl_purpose_t">
+      <column name="CGPRPSL_PURPOSE_CD"><![CDATA[F]]></column>
+      <column name="OBJ_ID"><![CDATA[12BF1921030B9D6CE043814FD8819D6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PRPSL_PURPOSE_DESC"><![CDATA[SERVICE/OTHER]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_prpsl_purpose_t">
+      <column name="CGPRPSL_PURPOSE_CD"><![CDATA[G]]></column>
+      <column name="OBJ_ID"><![CDATA[12BF1921030C9D6CE043814FD8819D6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PRPSL_PURPOSE_DESC"><![CDATA[ACADEMIC SUPPORT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_prpsl_purpose_t">
+      <column name="CGPRPSL_PURPOSE_CD"><![CDATA[H]]></column>
+      <column name="OBJ_ID"><![CDATA[12BF1921030D9D6CE043814FD8819D6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PRPSL_PURPOSE_DESC"><![CDATA[STUDENT SERVICES]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_prpsl_purpose_t">
+      <column name="CGPRPSL_PURPOSE_CD"><![CDATA[S]]></column>
+      <column name="OBJ_ID"><![CDATA[12BF1921030E9D6CE043814FD8819D6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PRPSL_PURPOSE_DESC"><![CDATA[SCHOLARSHIPS & FELLOWSHIPS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="cg_prpsl_purpose_t">
+      <column name="CGPRPSL_PURPOSE_CD"><![CDATA[X]]></column>
+      <column name="OBJ_ID"><![CDATA[12BF1921030F9D6CE043814FD8819D6C]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PRPSL_PURPOSE_DESC"><![CDATA[DEFAULT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

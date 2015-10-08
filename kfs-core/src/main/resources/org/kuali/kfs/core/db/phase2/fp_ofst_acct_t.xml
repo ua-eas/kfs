@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10329">
+    <insert tableName="fp_ofst_acct_t">
+      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
+      <column name="ACCOUNT_NBR"><![CDATA[2231401]]></column>
+      <column name="FIN_OFST_OBJ_CD"><![CDATA[8000]]></column>
+      <column name="OBJ_ID"><![CDATA[0F0F5562BCA679F4E043814FD88179F4]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OFST_COA_CD"><![CDATA[UA]]></column>
+      <column name="FIN_OFST_ACCT_NBR"><![CDATA[1912201]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

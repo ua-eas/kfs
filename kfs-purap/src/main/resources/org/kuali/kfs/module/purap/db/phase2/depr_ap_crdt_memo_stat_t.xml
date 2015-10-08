@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10253">
+    <insert tableName="depr_ap_crdt_memo_stat_t">
+      <column name="CRDT_MEMO_STAT_CD"><![CDATA[APAD]]></column>
+      <column name="OBJ_ID"><![CDATA[35B3A59FDC87719AE043814FD881719A]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="CRDT_MEMO_STAT_DESC"><![CDATA[Awaiting AP Review]]></column>
+    </insert>
+    <insert tableName="depr_ap_crdt_memo_stat_t">
+      <column name="CRDT_MEMO_STAT_CD"><![CDATA[CANC]]></column>
+      <column name="OBJ_ID"><![CDATA[5460B05B-957A-D43A-6A88-24B8F0A4A874]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="CRDT_MEMO_STAT_DESC"><![CDATA[Cancelled]]></column>
+    </insert>
+    <insert tableName="depr_ap_crdt_memo_stat_t">
+      <column name="CRDT_MEMO_STAT_CD"><![CDATA[CIPR]]></column>
+      <column name="OBJ_ID"><![CDATA[35B3A59FDC84719AE043814FD881719A]]></column>
+      <column name="VER_NBR"><![CDATA[4]]></column>
+      <column name="CRDT_MEMO_STAT_DESC"><![CDATA[Cancelled - In Process]]></column>
+    </insert>
+    <insert tableName="depr_ap_crdt_memo_stat_t">
+      <column name="CRDT_MEMO_STAT_CD"><![CDATA[CMPT]]></column>
+      <column name="OBJ_ID"><![CDATA[38A20D30-955A-A862-CCB7-68C5A50E83BE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CRDT_MEMO_STAT_DESC"><![CDATA[Complete]]></column>
+    </insert>
+    <insert tableName="depr_ap_crdt_memo_stat_t">
+      <column name="CRDT_MEMO_STAT_CD"><![CDATA[INIT]]></column>
+      <column name="OBJ_ID"><![CDATA[35B3A59FDC86719AE043814FD881719A]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="CRDT_MEMO_STAT_DESC"><![CDATA[Initiated]]></column>
+    </insert>
+    <insert tableName="depr_ap_crdt_memo_stat_t">
+      <column name="CRDT_MEMO_STAT_CD"><![CDATA[INPR]]></column>
+      <column name="OBJ_ID"><![CDATA[BB71414E-C7D0-A399-08C1-CE0871AE4296]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CRDT_MEMO_STAT_DESC"><![CDATA[In Process]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
