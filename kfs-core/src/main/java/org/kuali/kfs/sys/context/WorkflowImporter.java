@@ -40,7 +40,7 @@ import java.util.Properties;
 public class WorkflowImporter {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(WorkflowImporter.class);
 
-    private static final String WORKFLOW_DIRECTORY = "workflow.directory";
+    private static final String WORKFLOW_PATH = "workflow.path";
     private static ClassPathXmlApplicationContext context;
 
     public static void main(String[] args) {
@@ -71,9 +71,9 @@ public class WorkflowImporter {
     }
 
     public static void importWorkflow(ApplicationContext applicationContext) {
-        String xmlDir = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(WORKFLOW_DIRECTORY);
+        String xmlDir = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(WORKFLOW_PATH);
         if (StringUtils.isBlank(xmlDir)) {
-            LOG.info(WORKFLOW_DIRECTORY +" was blank; will not import workflow");
+            LOG.info(WORKFLOW_PATH +" was blank; will not import workflow");
             return;
         }
 
@@ -92,11 +92,12 @@ public class WorkflowImporter {
                             if (resource.exists()) {
                                 final String resourcePath = ResourceLoaderUtil.parseResourcePathFromUrl(resource);
                                 if (!StringUtils.isBlank(resourcePath)) {
+                                    LOG.info("Attempting to ingest: "+ resourcePath);
                                     documentTypeService.loadXml(resource.getInputStream(), "KFS");
                                 }
                             } else {
                                 LOG.warn("Could not find " + xmlDir);
-                                throw new DataDictionaryException(WORKFLOW_DIRECTORY + " " + resource.getFilename() + " not found");
+                                throw new DataDictionaryException(WORKFLOW_PATH + " " + resource.getFilename() + " not found");
                             }
                         }
                     } catch (IOException e) {
