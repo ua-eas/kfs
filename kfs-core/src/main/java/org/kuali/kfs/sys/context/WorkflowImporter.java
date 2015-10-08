@@ -25,6 +25,7 @@ import org.kuali.kfs.krad.util.ResourceLoaderUtil;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.impl.config.property.JAXBConfigImpl;
 import org.kuali.rice.kew.doctype.service.DocumentTypeService;
+import org.kuali.rice.kew.rule.service.RuleAttributeService;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -83,6 +84,8 @@ public class WorkflowImporter {
 
     protected static void importWorkflow(ApplicationContext applicationContext, String xmlDir) {
         DocumentTypeService documentTypeService = KEWServiceLocator.getDocumentTypeService();
+        RuleAttributeService ruleAttributeService = KEWServiceLocator.getRuleAttributeService();
+
 
         for (String file : Arrays.asList(xmlDir.split(","))) {
             String trimmedFile = file.trim();
@@ -94,6 +97,7 @@ public class WorkflowImporter {
                                 final String resourcePath = ResourceLoaderUtil.parseResourcePathFromUrl(resource);
                                 if (!StringUtils.isBlank(resourcePath)) {
                                     LOG.info("Attempting to ingest: "+ resourcePath);
+                                    ruleAttributeService.loadXml(resource.getInputStream(), "KFS");
                                     documentTypeService.loadXml(resource.getInputStream(), "KFS");
                                 }
                             } else {
@@ -107,6 +111,7 @@ public class WorkflowImporter {
                     }
                 } else if (trimmedFile.endsWith(".zip")) {
                     try {
+                        ruleAttributeService.loadXml(new FileInputStream(new File(trimmedFile)), "KFS");
                         documentTypeService.loadXml(new FileInputStream(new File(trimmedFile)), "KFS");
                     } catch (IOException ioe) {
                         LOG.error("Unable to load file: " + trimmedFile);
