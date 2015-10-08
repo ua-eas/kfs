@@ -1157,6 +1157,11 @@
         </exclusion>
       </exclusions>
     </dependency>
+      <dependency>
+          <groupId>co.kuali.financials</groupId>
+          <artifactId>liquimongo</artifactId>
+          <version>${project.version}</version>
+      </dependency>
   </dependencies>
 
   <repositories>
