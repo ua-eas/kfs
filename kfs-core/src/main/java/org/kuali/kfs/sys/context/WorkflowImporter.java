@@ -31,6 +31,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -74,6 +75,9 @@ public class WorkflowImporter {
             LOG.info(WORKFLOW_PATH +" was blank; will not import workflow");
             return;
         }
+
+        LOG.info("workflow.path: "+xmlDir);
+        LOG.info("xmlDir: "+ ObjectUtils.identityToString(xmlDir));
 
         DocumentTypeService documentTypeService = KEWServiceLocator.getDocumentTypeService();
         RuleAttributeService ruleAttributeService = KEWServiceLocator.getRuleAttributeService();
