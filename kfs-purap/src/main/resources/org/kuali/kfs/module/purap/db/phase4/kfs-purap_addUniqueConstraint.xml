@@ -1,234 +1,219 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-<changeSet author="kfs" id="252">
+    <changeSet author="kfs" id="252">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_AUTO_APRV_EXCL_TC0" tableName="AP_AUTO_APRV_EXCL_T"/>
     </changeSet>
-<changeSet author="kfs" id="253">
+    <changeSet author="kfs" id="253">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_CRDT_MEMO_ACCT_CHG_TC0" tableName="AP_CRDT_MEMO_ACCT_CHG_T"/>
     </changeSet>
-<changeSet author="kfs" id="254">
+    <changeSet author="kfs" id="254">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_CRDT_MEMO_ACCT_TC0" tableName="AP_CRDT_MEMO_ACCT_T"/>
     </changeSet>
-<changeSet author="kfs" id="255">
+    <changeSet author="kfs" id="255">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_CRDT_MEMO_ITM_TC0" tableName="AP_CRDT_MEMO_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="256">
+    <changeSet author="kfs" id="256">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_CRDT_MEMO_ITM_USE_TAX_TC0" tableName="AP_CRDT_MEMO_ITM_USE_TAX_T"/>
     </changeSet>
-<changeSet author="kfs" id="257">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_CRDT_MEMO_STAT_TC0" tableName="DEPR_AP_CRDT_MEMO_STAT_T"/>
-    </changeSet>
-<changeSet author="kfs" id="258">
+    <changeSet author="kfs" id="258">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_CRDT_MEMO_TC0" tableName="AP_CRDT_MEMO_T"/>
     </changeSet>
-<changeSet author="kfs" id="259">
+    <changeSet author="kfs" id="259">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_ELCTRNC_INV_HDR_INFO_TC0" tableName="AP_ELCTRNC_INV_RJT_DOC_T"/>
     </changeSet>
-<changeSet author="kfs" id="260">
+    <changeSet author="kfs" id="260">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_ELCTRNC_INV_LOAD_SUM_TC0" tableName="AP_ELCTRNC_INV_LOAD_SUM_T"/>
     </changeSet>
-<changeSet author="kfs" id="261">
+    <changeSet author="kfs" id="261">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_ELCTRNC_INV_MAP_TC0" tableName="AP_ELCTRNC_INV_MAP_T"/>
     </changeSet>
-<changeSet author="kfs" id="262">
+    <changeSet author="kfs" id="262">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_ELCTRNC_INV_RJT_ITM_TC0" tableName="AP_ELCTRNC_INV_RJT_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="263">
+    <changeSet author="kfs" id="263">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_ELCTRNC_INV_RJT_REAS_TC0" tableName="AP_ELCTRNC_INV_RJT_REAS_T"/>
     </changeSet>
-<changeSet author="kfs" id="264">
+    <changeSet author="kfs" id="264">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_ELCTRNC_INV_RJT_TYP_CD_TC0" tableName="AP_ELCTRNC_INV_RJT_REAS_TYP_T"/>
     </changeSet>
-<changeSet author="kfs" id="265">
+    <changeSet author="kfs" id="265">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_NEG_PMT_RQST_APRVL_LMT_TC0" tableName="AP_NEG_PMT_RQST_APRVL_LMT_T"/>
     </changeSet>
-<changeSet author="kfs" id="266">
+    <changeSet author="kfs" id="266">
         <addUniqueConstraint columnNames="FIN_COA_CD, ORG_CD, ACCT_NBR" constraintName="AP_NEG_PMT_RQST_APRVL_LMT_TC1" tableName="AP_NEG_PMT_RQST_APRVL_LMT_T"/>
     </changeSet>
-<changeSet author="kfs" id="267">
+    <changeSet author="kfs" id="267">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_PMT_RQST_ACCT_CHG_TC0" tableName="AP_PMT_RQST_ACCT_CHG_T"/>
     </changeSet>
-<changeSet author="kfs" id="268">
+    <changeSet author="kfs" id="268">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_PMT_RQST_ACCT_TC0" tableName="AP_PMT_RQST_ACCT_T"/>
     </changeSet>
-<changeSet author="kfs" id="269">
+    <changeSet author="kfs" id="269">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_PMT_RQST_ITM_TC0" tableName="AP_PMT_RQST_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="270">
+    <changeSet author="kfs" id="270">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_PMT_RQST_ITM_USE_TAX_TC0" tableName="AP_PMT_RQST_ITM_USE_TAX_T"/>
     </changeSet>
-<changeSet author="kfs" id="271">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_PMT_RQST_STAT_TC0" tableName="DEPR_AP_PMT_RQST_STAT_T"/>
-    </changeSet>
-<changeSet author="kfs" id="272">
+    <changeSet author="kfs" id="272">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_PMT_RQST_TC0" tableName="AP_PMT_RQST_T"/>
     </changeSet>
-<changeSet author="kfs" id="273">
+    <changeSet author="kfs" id="273">
         <addUniqueConstraint columnNames="PMT_RQST_ID, FIN_COA_CD, ACCOUNT_NBR, SUB_ACCT_NBR, FIN_SUB_OBJ_CD, FIN_OBJECT_CD, PROJECT_CD, ORG_REFERENCE_ID" constraintName="AP_SUM_ACCT_TI1" tableName="AP_SUM_ACCT_T"/>
     </changeSet>
-<changeSet author="kfs" id="274">
+    <changeSet author="kfs" id="274">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="AP_SUM_ACCT_TTC0" tableName="AP_SUM_ACCT_T"/>
     </changeSet>
-<changeSet author="kfs" id="275">
+    <changeSet author="kfs" id="275">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_AP_ITM_TYP_TC0" tableName="PUR_AP_ITM_TYP_T"/>
     </changeSet>
-<changeSet author="kfs" id="276">
+    <changeSet author="kfs" id="276">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_AP_ORG_PARM_TC0" tableName="PUR_AP_ORG_PARM_T"/>
     </changeSet>
-<changeSet author="kfs" id="277">
+    <changeSet author="kfs" id="277">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_AP_RECUR_PMT_FREQ_TC0" tableName="PUR_AP_RECUR_PMT_FREQ_T"/>
     </changeSet>
-<changeSet author="kfs" id="278">
+    <changeSet author="kfs" id="278">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_AP_RECUR_PMT_TYP_TC0" tableName="PUR_AP_RECUR_PMT_TYP_T"/>
     </changeSet>
-<changeSet author="kfs" id="279">
+    <changeSet author="kfs" id="279">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_ASGN_CONTR_MGR_DTL_TC0" tableName="PUR_ASGN_CONTR_MGR_DTL_T"/>
     </changeSet>
-<changeSet author="kfs" id="280">
+    <changeSet author="kfs" id="280">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_ASGN_CONTR_MGR_TC0" tableName="PUR_ASGN_CONTR_MGR_T"/>
     </changeSet>
-<changeSet author="kfs" id="281">
+    <changeSet author="kfs" id="281">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_BILL_ADDR_TC0" tableName="PUR_BILL_ADDR_T"/>
     </changeSet>
-<changeSet author="kfs" id="282">
+    <changeSet author="kfs" id="282">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_CARI_TC0" tableName="PUR_CARI_T"/>
     </changeSet>
-<changeSet author="kfs" id="283">
+    <changeSet author="kfs" id="283">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_CPTL_AST_SYS_ST_TC0" tableName="PUR_CPTL_AST_SYS_ST_T"/>
     </changeSet>
-<changeSet author="kfs" id="284">
+    <changeSet author="kfs" id="284">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_CPTL_AST_SYS_TYP_TC0" tableName="PUR_CPTL_AST_SYS_TYP_T"/>
     </changeSet>
-<changeSet author="kfs" id="285">
+    <changeSet author="kfs" id="285">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_DFLT_PRNCPL_ADDR_TC0" tableName="PUR_DFLT_PRNCPL_ADDR_T"/>
     </changeSet>
-<changeSet author="kfs" id="286">
+    <changeSet author="kfs" id="286">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_DLVY_REQ_DT_REAS_TC0" tableName="PUR_DLVY_REQ_DT_REAS_T"/>
     </changeSet>
-<changeSet author="kfs" id="287">
+    <changeSet author="kfs" id="287">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_FND_SRC_TC0" tableName="PUR_FND_SRC_T"/>
     </changeSet>
-<changeSet author="kfs" id="288">
+    <changeSet author="kfs" id="288">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_ITM_REAS_ADD_TC0" tableName="PUR_ITM_REAS_ADD_T"/>
     </changeSet>
-<changeSet author="kfs" id="289">
+    <changeSet author="kfs" id="289">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_ACCT_TC0" tableName="PUR_PO_ACCT_T"/>
     </changeSet>
-<changeSet author="kfs" id="290">
+    <changeSet author="kfs" id="290">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_CONTR_LANG_TC0" tableName="PUR_PO_CONTR_LANG_T"/>
     </changeSet>
-<changeSet author="kfs" id="291">
+    <changeSet author="kfs" id="291">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_CPTL_AST_ITM_AST_TC0" tableName="PUR_PO_CPTL_AST_ITM_AST_T"/>
     </changeSet>
-<changeSet author="kfs" id="292">
+    <changeSet author="kfs" id="292">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_CPTL_AST_ITM_TC0" tableName="PUR_PO_CPTL_AST_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="293">
+    <changeSet author="kfs" id="293">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_CPTL_AST_LOC_TC0" tableName="PUR_PO_CPTL_AST_LOC_T"/>
     </changeSet>
-<changeSet author="kfs" id="294">
+    <changeSet author="kfs" id="294">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_CPTL_AST_SYS_TC0" tableName="PUR_PO_CPTL_AST_SYS_T"/>
     </changeSet>
-<changeSet author="kfs" id="295">
+    <changeSet author="kfs" id="295">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_ITM_TC0" tableName="PUR_PO_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="296">
+    <changeSet author="kfs" id="296">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_ITM_USE_TAX_TC0" tableName="PUR_PO_ITM_USE_TAX_T"/>
     </changeSet>
-<changeSet author="kfs" id="297">
+    <changeSet author="kfs" id="297">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_QT_LANG_TC0" tableName="PUR_PO_QT_LANG_T"/>
     </changeSet>
-<changeSet author="kfs" id="298">
+    <changeSet author="kfs" id="298">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_QT_LST_TC0" tableName="PUR_PO_QT_LST_T"/>
     </changeSet>
-<changeSet author="kfs" id="299">
+    <changeSet author="kfs" id="299">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_QT_LST_VNDR_TC0" tableName="PUR_PO_QT_LST_VNDR_T"/>
     </changeSet>
-<changeSet author="kfs" id="300">
+    <changeSet author="kfs" id="300">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_QT_STAT_TC0" tableName="PUR_PO_QT_STAT_T"/>
     </changeSet>
-<changeSet author="kfs" id="301">
+    <changeSet author="kfs" id="301">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_SNSTV_DTA_TC0" tableName="PUR_PO_SNSTV_DTA_T"/>
     </changeSet>
-<changeSet author="kfs" id="302">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_STAT_TC0" tableName="DEPR_PUR_PO_STAT_T"/>
-    </changeSet>
-<changeSet author="kfs" id="303">
+    <changeSet author="kfs" id="303">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_TC0" tableName="PUR_PO_T"/>
     </changeSet>
-<changeSet author="kfs" id="304">
+    <changeSet author="kfs" id="304">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_TRNS_MTHD_TC0" tableName="PUR_PO_TRNS_MTHD_T"/>
     </changeSet>
-<changeSet author="kfs" id="305">
+    <changeSet author="kfs" id="305">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_VNDR_CHC_TC0" tableName="PUR_PO_VNDR_CHC_T"/>
     </changeSet>
-<changeSet author="kfs" id="306">
+    <changeSet author="kfs" id="306">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_VNDR_QT_TC0" tableName="PUR_PO_VNDR_QT_T"/>
     </changeSet>
-<changeSet author="kfs" id="307">
+    <changeSet author="kfs" id="307">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_PO_VNDR_STPLTN_TC0" tableName="PUR_PO_VNDR_STPLTN_T"/>
     </changeSet>
-<changeSet author="kfs" id="308">
+    <changeSet author="kfs" id="308">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_RCVNG_ADDR_TC0" tableName="PUR_RCVNG_ADDR_T"/>
     </changeSet>
-<changeSet author="kfs" id="309">
+    <changeSet author="kfs" id="309">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_RCVNG_COR_ITM_TC0" tableName="PUR_RCVNG_COR_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="310">
+    <changeSet author="kfs" id="310">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_RCVNG_COR_TC0" tableName="PUR_RCVNG_COR_T"/>
     </changeSet>
-<changeSet author="kfs" id="311">
+    <changeSet author="kfs" id="311">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_RCVNG_LN_ITM_TC0" tableName="PUR_RCVNG_LN_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="312">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_RCVNG_LN_STAT_TC0" tableName="DEPR_PUR_RCVNG_LN_STAT_T"/>
-    </changeSet>
-<changeSet author="kfs" id="313">
+    <changeSet author="kfs" id="313">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_RCVNG_LN_TC0" tableName="PUR_RCVNG_LN_T"/>
     </changeSet>
-<changeSet author="kfs" id="314">
+    <changeSet author="kfs" id="314">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_ACCT_TC0" tableName="PUR_REQS_ACCT_T"/>
     </changeSet>
-<changeSet author="kfs" id="315">
+    <changeSet author="kfs" id="315">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_CPTL_AST_ITM_TC0" tableName="PUR_REQS_CPTL_AST_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="316">
+    <changeSet author="kfs" id="316">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_CPTL_AST_LOC_TC0" tableName="PUR_REQS_CPTL_AST_LOC_T"/>
     </changeSet>
-<changeSet author="kfs" id="317">
+    <changeSet author="kfs" id="317">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_CPTL_AST_SYS_TC0" tableName="PUR_REQS_CPTL_AST_SYS_T"/>
     </changeSet>
-<changeSet author="kfs" id="318">
+    <changeSet author="kfs" id="318">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_ITM_CPTL_AST_TC0" tableName="PUR_REQS_CPTL_AST_ITM_AST_T"/>
     </changeSet>
-<changeSet author="kfs" id="319">
+    <changeSet author="kfs" id="319">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_ITM_TC0" tableName="PUR_REQS_ITM_T"/>
     </changeSet>
-<changeSet author="kfs" id="320">
+    <changeSet author="kfs" id="320">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_ITM_USE_TAX_TC0" tableName="PUR_REQS_ITM_USE_TAX_T"/>
     </changeSet>
-<changeSet author="kfs" id="321">
+    <changeSet author="kfs" id="321">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_SRC_TC0" tableName="PUR_REQS_SRC_T"/>
     </changeSet>
-<changeSet author="kfs" id="322">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_STAT_TC0" tableName="DEPR_PUR_REQS_STAT_T"/>
-    </changeSet>
-<changeSet author="kfs" id="323">
+    <changeSet author="kfs" id="323">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_REQS_TC0" tableName="PUR_REQS_T"/>
     </changeSet>
-<changeSet author="kfs" id="324">
+    <changeSet author="kfs" id="324">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_SNSTV_DTA_ASGN_DTL_TC0" tableName="PUR_SNSTV_DTA_ASGN_DTL_T"/>
     </changeSet>
-<changeSet author="kfs" id="325">
+    <changeSet author="kfs" id="325">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_SNSTV_DTA_ASGN_TC0" tableName="PUR_SNSTV_DTA_ASGN_T"/>
     </changeSet>
-<changeSet author="kfs" id="326">
+    <changeSet author="kfs" id="326">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_SNSTV_DTA_TC0" tableName="PUR_SNSTV_DTA_T"/>
     </changeSet>
-<changeSet author="kfs" id="327">
+    <changeSet author="kfs" id="327">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_THRSHLD_TC0" tableName="PUR_THRSHLD_T"/>
     </changeSet>
-<changeSet author="kfs" id="328">
+    <changeSet author="kfs" id="328">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="PUR_VNDR_STPLTN_TC0" tableName="PUR_VNDR_STPLTN_T"/>
     </changeSet>
 </databaseChangeLog>
