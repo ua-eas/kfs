@@ -72,11 +72,10 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
         else {
             props.put(KSB_REMOTING_URL_PROPERTY_NAME, new StringBuilder("http://").append(System.getProperty(HTTP_URL_PROPERTY_NAME)).append("/kfs-").append(props.getProperty(KFSConstants.ENVIRONMENT_KEY)).append(REMOTING_URL_SUFFIX).toString());
         }
-        if (LOG.isDebugEnabled()) {
+        if (LOG.isInfoEnabled()) {
             for (Object key: props.keySet()) {
                 String value = (String) props.get(key);
-                System.out.println(key + ": " + value);
-                LOG.debug(key + ": " + value);
+                LOG.info(key + ": " + value);
             }
         }
         return props;
