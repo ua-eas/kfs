@@ -75,7 +75,6 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
         if (LOG.isDebugEnabled()) {
             for (Object key: props.keySet()) {
                 String value = (String) props.get(key);
-                System.out.println(key + ": " + value);
                 LOG.debug(key + ": " + value);
             }
         }
@@ -156,7 +155,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
             String[] files = externalConfigLocationPaths.split(","); 
             for (String f: files) { 
                 if (StringUtils.isNotEmpty(f)) { 
-                    System.err.println("Loading properties from " + f);
+                    LOG.info("Loading properties from " + f);
                     loadProperties(props, new StringBuffer("file:").append(f).toString()); 
                 } 
             }

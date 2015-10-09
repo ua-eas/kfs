@@ -23,6 +23,7 @@ import org.kuali.kfs.krad.datadictionary.DataDictionaryException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.util.ResourceLoaderUtil;
 import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.impl.config.property.JAXBConfigImpl;
 import org.kuali.rice.kew.doctype.service.DocumentTypeService;
 import org.kuali.rice.kew.rule.service.RuleAttributeService;
@@ -31,6 +32,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -69,7 +71,7 @@ public class WorkflowImporter {
     }
 
     public void importWorkflow(ApplicationContext applicationContext) {
-        String xmlDir = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(WORKFLOW_PATH);
+        String xmlDir = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(WORKFLOW_PATH);
         if (StringUtils.isBlank(xmlDir)) {
             LOG.info(WORKFLOW_PATH +" was blank; will not import workflow");
             return;
