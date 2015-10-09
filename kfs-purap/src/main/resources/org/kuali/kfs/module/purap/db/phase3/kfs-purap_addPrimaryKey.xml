@@ -57,21 +57,6 @@
     <changeSet author="kfs" id="194">
         <addPrimaryKey columnNames="SUM_ACCT_ID" constraintName="PKAP_SUM_ACCT_T" tableName="AP_SUM_ACCT_T"/>
     </changeSet>
-    <changeSet author="kfs" id="195">
-        <addPrimaryKey columnNames="CRDT_MEMO_STAT_CD" constraintName="PKDEPR_AP_CRDT_MEMO_STAT_T" tableName="DEPR_AP_CRDT_MEMO_STAT_T"/>
-    </changeSet>
-    <changeSet author="kfs" id="196">
-        <addPrimaryKey columnNames="PMT_RQST_STAT_CD" constraintName="PKDEPR_AP_PMT_RQST_STAT_T" tableName="DEPR_AP_PMT_RQST_STAT_T"/>
-    </changeSet>
-    <changeSet author="kfs" id="197">
-        <addPrimaryKey columnNames="PO_STAT_CD" constraintName="PKDEPR_PUR_PO_STAT_T" tableName="DEPR_PUR_PO_STAT_T"/>
-    </changeSet>
-    <changeSet author="kfs" id="198">
-        <addPrimaryKey columnNames="RCVNG_LN_STAT_CD" constraintName="PKDEPR_PUR_RCVNG_LN_STAT_T" tableName="DEPR_PUR_RCVNG_LN_STAT_T"/>
-    </changeSet>
-    <changeSet author="kfs" id="199">
-        <addPrimaryKey columnNames="REQS_STAT_CD" constraintName="PKDEPR_PUR_REQS_STAT_T" tableName="DEPR_PUR_REQS_STAT_T"/>
-    </changeSet>
     <changeSet author="kfs" id="200">
         <addPrimaryKey columnNames="ITM_TYP_CD" constraintName="PKPUR_AP_ITM_TYP_T" tableName="PUR_AP_ITM_TYP_T"/>
     </changeSet>
