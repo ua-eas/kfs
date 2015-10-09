@@ -447,7 +447,7 @@ public class SpringContext {
         // DD so are not published by the command above
         publishBatchStepComponents();
         initDirectories();
-        WorkflowImporter.importWorkflow(applicationContext);
+        new WorkflowImporter().importWorkflow(applicationContext);
 
     }
 

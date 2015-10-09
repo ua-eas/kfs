@@ -46,7 +46,7 @@ public class WorkflowImporter {
 
     public static void main(String[] args) {
         initializeKfs();
-        importWorkflow(context);
+        new WorkflowImporter().importWorkflow(context);
         System.exit(0);
     }
 
@@ -68,7 +68,7 @@ public class WorkflowImporter {
         LOG.info("...Kuali Rice Application successfully initialized, startup took " + (endInit - startInit) + " ms.");
     }
 
-    public static void importWorkflow(ApplicationContext applicationContext) {
+    public void importWorkflow(ApplicationContext applicationContext) {
         String xmlDir = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(WORKFLOW_PATH);
         if (StringUtils.isBlank(xmlDir)) {
             LOG.info(WORKFLOW_PATH +" was blank; will not import workflow");
@@ -77,7 +77,6 @@ public class WorkflowImporter {
 
         DocumentTypeService documentTypeService = KEWServiceLocator.getDocumentTypeService();
         RuleAttributeService ruleAttributeService = KEWServiceLocator.getRuleAttributeService();
-
 
         for (String file : Arrays.asList(xmlDir.split(","))) {
             String trimmedFile = file.trim();
