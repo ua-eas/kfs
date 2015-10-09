@@ -72,10 +72,10 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
         else {
             props.put(KSB_REMOTING_URL_PROPERTY_NAME, new StringBuilder("http://").append(System.getProperty(HTTP_URL_PROPERTY_NAME)).append("/kfs-").append(props.getProperty(KFSConstants.ENVIRONMENT_KEY)).append(REMOTING_URL_SUFFIX).toString());
         }
-        if (LOG.isInfoEnabled()) {
+        if (LOG.isDebugEnabled()) {
             for (Object key: props.keySet()) {
                 String value = (String) props.get(key);
-                LOG.info(key + ": " + value);
+                LOG.debug(key + ": " + value);
             }
         }
         return props;
@@ -155,7 +155,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
             String[] files = externalConfigLocationPaths.split(","); 
             for (String f: files) { 
                 if (StringUtils.isNotEmpty(f)) { 
-                    System.err.println("Loading properties from " + f);
+                    LOG.info("Loading properties from " + f);
                     loadProperties(props, new StringBuffer("file:").append(f).toString()); 
                 } 
             }

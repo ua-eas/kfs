@@ -77,9 +77,6 @@ public class WorkflowImporter {
             return;
         }
 
-        LOG.info("workflow.path: "+xmlDir);
-        LOG.info("xmlDir: "+ ObjectUtils.identityToString(xmlDir));
-
         DocumentTypeService documentTypeService = KEWServiceLocator.getDocumentTypeService();
         RuleAttributeService ruleAttributeService = KEWServiceLocator.getRuleAttributeService();
 
