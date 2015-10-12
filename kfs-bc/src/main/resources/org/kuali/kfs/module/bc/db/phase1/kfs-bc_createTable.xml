@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -151,7 +151,7 @@
             <column name="ORG_CD" type="VARCHAR(4)"/>
             <column name="FDOC_STATUS_CD" type="VARCHAR(2)"/>
             <column name="FDOC_INITIATOR_ID" type="VARCHAR(40)"/>
-            <column name="FDOC_CREATE_DT" type="datetime"/>
+            <column name="FDOC_CREATE_DT" type="DATE"/>
         </createTable>
     </changeSet>
     <changeSet author="kfs" id="4044" context="bootstrap,demo">
@@ -317,7 +317,7 @@
             <column defaultValueNumeric="0" name="EMPL_RCD" type="DECIMAL(3)">
                 <constraints nullable="false"/>
             </column>
-            <column name="EFFDT" type="datetime">
+            <column name="EFFDT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column defaultValueNumeric="0" name="EFFSEQ" type="DECIMAL(3)">
@@ -1003,7 +1003,7 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="POS_EFFDT" type="datetime"/>
+            <column name="POS_EFFDT" type="DATE"/>
             <column name="POS_EFF_STATUS" type="VARCHAR(1)"/>
             <column name="POSN_STATUS" type="VARCHAR(1)"/>
             <column name="BUDGETED_POSN" type="VARCHAR(1)"/>
@@ -1065,7 +1065,7 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="POS_EFFDT" type="datetime"/>
+            <column name="POS_EFFDT" type="DATE"/>
             <column name="POS_EFF_STATUS" type="VARCHAR(1)"/>
             <column name="POSN_STATUS" type="VARCHAR(1)"/>
             <column name="BUDGETED_POSN" type="VARCHAR(1)"/>
