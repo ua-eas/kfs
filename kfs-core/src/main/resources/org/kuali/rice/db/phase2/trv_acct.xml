@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10397">
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+      <column name="OBJ_ID"><![CDATA[a1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 1]]></column>
+      <column name="ACCT_TYPE"><![CDATA[IAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fred]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT" value="null"/>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a10]]></column>
+      <column name="OBJ_ID"><![CDATA[a10]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 10]]></column>
+      <column name="ACCT_TYPE"><![CDATA[CAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[eric]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[75.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a11]]></column>
+      <column name="OBJ_ID"><![CDATA[a11]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 11]]></column>
+      <column name="ACCT_TYPE"><![CDATA[EAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[erin]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[85.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a12]]></column>
+      <column name="OBJ_ID"><![CDATA[a12]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 12]]></column>
+      <column name="ACCT_TYPE"><![CDATA[EAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[eric]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[85.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a13]]></column>
+      <column name="OBJ_ID"><![CDATA[a13]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 13]]></column>
+      <column name="ACCT_TYPE"><![CDATA[CAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fran]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[95.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="OBJ_ID"><![CDATA[a14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 14]]></column>
+      <column name="ACCT_TYPE"><![CDATA[CAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fran]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT" value="null"/>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a16]]></column>
+      <column name="OBJ_ID"><![CDATA[a16]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 16]]></column>
+      <column name="ACCT_TYPE"><![CDATA[CAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fran]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[95.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+      <column name="OBJ_ID"><![CDATA[a2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 2]]></column>
+      <column name="ACCT_TYPE"><![CDATA[EAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fran]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT" value="null"/>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a3]]></column>
+      <column name="OBJ_ID"><![CDATA[a3]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 3]]></column>
+      <column name="ACCT_TYPE"><![CDATA[IAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[frank]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[20.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a4]]></column>
+      <column name="OBJ_ID"><![CDATA[a4]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 4]]></column>
+      <column name="ACCT_TYPE"><![CDATA[IAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[erin]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[45.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a5]]></column>
+      <column name="OBJ_ID"><![CDATA[a5]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 5]]></column>
+      <column name="ACCT_TYPE"><![CDATA[IAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[eric]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[45.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a6]]></column>
+      <column name="OBJ_ID"><![CDATA[a6]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 6]]></column>
+      <column name="ACCT_TYPE"><![CDATA[CAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fran]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT" value="null"/>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a7]]></column>
+      <column name="OBJ_ID"><![CDATA[a7]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 7]]></column>
+      <column name="ACCT_TYPE"><![CDATA[CAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[erin]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT"><![CDATA[75.00]]></column>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a8]]></column>
+      <column name="OBJ_ID"><![CDATA[a8]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 8]]></column>
+      <column name="ACCT_TYPE"><![CDATA[EAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fran]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT" value="null"/>
+    </insert>
+    <insert tableName="trv_acct">
+      <column name="ACCT_NUM"><![CDATA[a9]]></column>
+      <column name="OBJ_ID"><![CDATA[a9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_NAME"><![CDATA[Travel Account 9]]></column>
+      <column name="ACCT_TYPE"><![CDATA[CAT]]></column>
+      <column name="ACCT_FO_ID"><![CDATA[fran]]></column>
+      <column name="CREATE_DT" valueDate="2014-06-01 00:00:00.0"/>
+      <column name="SUBSIDIZED_PCT" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10310">
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1000]]></column>
+      <column name="NM"><![CDATA[campusSize]]></column>
+      <column name="TYP"><![CDATA[java.lang.Integer]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Size in # of students of the campus]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1001]]></column>
+      <column name="NM"><![CDATA[orgMember]]></column>
+      <column name="TYP"><![CDATA[java.lang.Boolean]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[is the principal in the organization]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1002]]></column>
+      <column name="NM"><![CDATA[Campus Code]]></column>
+      <column name="TYP"><![CDATA[java.lang.String]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[null]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1003]]></column>
+      <column name="NM"><![CDATA[bogusFundTermSpec]]></column>
+      <column name="TYP"><![CDATA[java.lang.String]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[null]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1004]]></column>
+      <column name="NM"><![CDATA[PO Value]]></column>
+      <column name="TYP"><![CDATA[java.lang.Integer]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Purchase Order Value]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1005]]></column>
+      <column name="NM"><![CDATA[PO Item Type]]></column>
+      <column name="TYP"><![CDATA[java.lang.String]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Purchased Item Type]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1006]]></column>
+      <column name="NM"><![CDATA[Account]]></column>
+      <column name="TYP"><![CDATA[java.lang.String]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Charged To Account]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1007]]></column>
+      <column name="NM"><![CDATA[Occasion]]></column>
+      <column name="TYP"><![CDATA[java.lang.String]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Special Event]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+    <insert tableName="krms_term_spec_t">
+      <column name="TERM_SPEC_ID"><![CDATA[T1008]]></column>
+      <column name="NM"><![CDATA[campusCode]]></column>
+      <column name="TYP"><![CDATA[java.lang.String]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[null]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

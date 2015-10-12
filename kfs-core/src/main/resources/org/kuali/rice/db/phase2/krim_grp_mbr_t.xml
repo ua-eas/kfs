@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10184">
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1100]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B56110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2001]]></column>
+      <column name="MBR_ID"><![CDATA[testuser1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1101]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B66110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2001]]></column>
+      <column name="MBR_ID"><![CDATA[testuser2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1102]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B76110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2002]]></column>
+      <column name="MBR_ID"><![CDATA[testuser2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1103]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B86110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2002]]></column>
+      <column name="MBR_ID"><![CDATA[testuser3]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1104]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B96110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2003]]></column>
+      <column name="MBR_ID"><![CDATA[testuser1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1105]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04BA6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2003]]></column>
+      <column name="MBR_ID"><![CDATA[testuser2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1106]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04BB6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2003]]></column>
+      <column name="MBR_ID"><![CDATA[testuser6]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1107]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04BC6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2003]]></column>
+      <column name="MBR_ID"><![CDATA[testuser4]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1108]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04BD6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2003]]></column>
+      <column name="MBR_ID"><![CDATA[testuser5]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1109]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04BE6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2003]]></column>
+      <column name="MBR_ID"><![CDATA[quickstart]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1110]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04BF6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2004]]></column>
+      <column name="MBR_ID"><![CDATA[quickstart]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1111]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C06110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2004]]></column>
+      <column name="MBR_ID"><![CDATA[user1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1112]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C16110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2004]]></column>
+      <column name="MBR_ID"><![CDATA[user2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1113]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C26110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2005]]></column>
+      <column name="MBR_ID"><![CDATA[user3]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1114]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C36110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2006]]></column>
+      <column name="MBR_ID"><![CDATA[user2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1115]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C46110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2007]]></column>
+      <column name="MBR_ID"><![CDATA[idm1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1116]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C56110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2007]]></column>
+      <column name="MBR_ID"><![CDATA[idm2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1117]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C66110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2007]]></column>
+      <column name="MBR_ID"><![CDATA[idm3]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1118]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C76110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2008]]></column>
+      <column name="MBR_ID"><![CDATA[admin1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1119]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C86110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2008]]></column>
+      <column name="MBR_ID"><![CDATA[admin2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1120]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04C96110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2009]]></column>
+      <column name="MBR_ID"><![CDATA[dev1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1121]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04CA6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2009]]></column>
+      <column name="MBR_ID"><![CDATA[dev2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1122]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04CB6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2000]]></column>
+      <column name="MBR_ID"><![CDATA[notsysadm]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1123]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04CC6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[1]]></column>
+      <column name="MBR_ID"><![CDATA[admin]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1124]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04CD6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[1]]></column>
+      <column name="MBR_ID"><![CDATA[notsys]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1130]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04D36110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2200]]></column>
+      <column name="MBR_ID"><![CDATA[user1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1131]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04D46110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2200]]></column>
+      <column name="MBR_ID"><![CDATA[user3]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1132]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04D56110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2201]]></column>
+      <column name="MBR_ID"><![CDATA[user2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1133]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04D66110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2201]]></column>
+      <column name="MBR_ID"><![CDATA[user4]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1134]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04D76110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2202]]></column>
+      <column name="MBR_ID"><![CDATA[user1]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1135]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04D86110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2202]]></column>
+      <column name="MBR_ID"><![CDATA[user2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1136]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04D96110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2203]]></column>
+      <column name="MBR_ID"><![CDATA[user3]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1137]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04DA6110E0404F8189D85213]]></column>
+      <column name="GRP_ID"><![CDATA[2203]]></column>
+      <column name="MBR_ID"><![CDATA[user4]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1200]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[B64D2DB6-0985-764A-5E91-54BB144910B6]]></column>
+      <column name="GRP_ID"><![CDATA[9997]]></column>
+      <column name="MBR_ID"><![CDATA[fred]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:55.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1201]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[EC0A39A7-5DC2-90FE-F404-C8978F55C4E4]]></column>
+      <column name="GRP_ID"><![CDATA[9997]]></column>
+      <column name="MBR_ID"><![CDATA[fran]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:55.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1202]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[4AC6FA43-9979-0FBB-EA90-23BAC017EC78]]></column>
+      <column name="GRP_ID"><![CDATA[9997]]></column>
+      <column name="MBR_ID"><![CDATA[frank]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:55.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1203]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[A03D25AA-447F-0C4F-3A59-34E4B5C8B373]]></column>
+      <column name="GRP_ID"><![CDATA[9998]]></column>
+      <column name="MBR_ID"><![CDATA[user4]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:56.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1204]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[14374618-61BF-2F53-F50E-06C86B53CF62]]></column>
+      <column name="GRP_ID"><![CDATA[9998]]></column>
+      <column name="MBR_ID"><![CDATA[director]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:56.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1205]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[66236DC2-1780-E315-3217-CB963BA68533]]></column>
+      <column name="GRP_ID"><![CDATA[9999]]></column>
+      <column name="MBR_ID"><![CDATA[user2]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:56.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1206]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[1E2DC1FE-38AD-6EB3-39F4-9A525780F33E]]></column>
+      <column name="GRP_ID"><![CDATA[9999]]></column>
+      <column name="MBR_ID"><![CDATA[user3]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:56.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[1207]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[6798B3E6C3C49827AE62E5F7A275A1A3]]></column>
+      <column name="GRP_ID"><![CDATA[2000]]></column>
+      <column name="MBR_ID"><![CDATA[admin]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" valueDate="2009-08-11 08:59:07.0"/>
+    </insert>
+    <insert tableName="krim_grp_mbr_t">
+      <column name="GRP_MBR_ID"><![CDATA[KFS10001]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS1001]]></column>
+      <column name="GRP_ID"><![CDATA[KFS10000]]></column>
+      <column name="MBR_ID"><![CDATA[1959008511]]></column>
+      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
+      <column name="ACTV_FRM_DT" value="null"/>
+      <column name="ACTV_TO_DT" value="null"/>
+      <column name="LAST_UPDT_DT" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

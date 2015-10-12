@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10255">
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[1000]]></column>
+      <column name="NM"><![CDATA[peopleFlowId]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
+      <column name="LBL"><![CDATA[PeopleFlow]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="DESC_TXT"><![CDATA[An identifier for a PeopleFlow]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[1001]]></column>
+      <column name="NM"><![CDATA[ruleTypeCode]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
+      <column name="LBL"><![CDATA[Invalid Rule]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[If true, execute the action]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[1004]]></column>
+      <column name="NM"><![CDATA[actionTypeCode]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
+      <column name="LBL"><![CDATA[Error Action]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Error]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[1005]]></column>
+      <column name="NM"><![CDATA[actionMessage]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
+      <column name="LBL"><![CDATA[Action Message]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Message validation action returns]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[1006]]></column>
+      <column name="NM"><![CDATA[peopleFlowName]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
+      <column name="LBL"><![CDATA[PeopleFlow Name]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[PeopleFlow Name]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[T1000]]></column>
+      <column name="NM"><![CDATA[Context1Qualifier]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="LBL"><![CDATA[Context 1 Qualifier]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[null]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[T1001]]></column>
+      <column name="NM"><![CDATA[Event]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="LBL"><![CDATA[Event Name]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[null]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[T1002]]></column>
+      <column name="NM"><![CDATA[Optional Test Attribute]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="LBL"><![CDATA[label]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="DESC_TXT"><![CDATA[this is an optional attribute for testing]]></column>
+    </insert>
+    <insert tableName="krms_attr_defn_t">
+      <column name="ATTR_DEFN_ID"><![CDATA[T1003]]></column>
+      <column name="NM"><![CDATA[Campus]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="LBL"><![CDATA[campus label]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="CMPNT_NM" value="null"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="DESC_TXT"><![CDATA[the campus which this agenda is valid for]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
