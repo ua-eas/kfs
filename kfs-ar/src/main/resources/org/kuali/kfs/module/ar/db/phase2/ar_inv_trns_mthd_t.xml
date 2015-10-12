@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10083">
+  <changeSet author="kfs" id="10083" context="bootstrap,demo">
     <insert tableName="ar_inv_trns_mthd_t">
       <column name="INV_TRNS_MTHD_CD"><![CDATA[EMAIL]]></column>
       <column name="OBJ_ID"><![CDATA[EDC0BE4713F43031E040E00ABCD64EE1]]></column>

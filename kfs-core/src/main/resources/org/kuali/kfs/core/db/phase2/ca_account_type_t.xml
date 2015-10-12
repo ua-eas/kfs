@@ -18,21 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10108">
-    <insert tableName="ca_account_type_t">
-      <column name="ACCT_TYP_CD"><![CDATA[AI]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF81D8A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACCT_TYP_NM"><![CDATA[A-21 ACTIVITY IDENTIFIER]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_account_type_t">
-      <column name="ACCT_TYP_CD"><![CDATA[BS]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF81D9A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACCT_TYP_NM"><![CDATA[BALANCE SHEET ACCOUNT]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet author="kfs" id="10108" context="demo">
     <insert tableName="ca_account_type_t">
       <column name="ACCT_TYP_CD"><![CDATA[DP]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF81DAA448E043814FD28EA448]]></column>
@@ -59,13 +45,6 @@
       <column name="OBJ_ID"><![CDATA[35A5641EA0D091B6E043814FD88191B6]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ACCT_TYP_NM"><![CDATA[FINANCIAL AID IU/IUF ENDOWED NEED-BASED]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_account_type_t">
-      <column name="ACCT_TYP_CD"><![CDATA[EQ]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF81DCA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACCT_TYP_NM"><![CDATA[EQUIPMENT ACCOUNTS]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_account_type_t">
@@ -132,13 +111,6 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_account_type_t">
-      <column name="ACCT_TYP_CD"><![CDATA[NA]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF81E0A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACCT_TYP_NM"><![CDATA[NOT APPLICABLE]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_account_type_t">
       <column name="ACCT_TYP_CD"><![CDATA[ND]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF81EBA448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -164,13 +136,6 @@
       <column name="OBJ_ID"><![CDATA[35A5641EA0D291B6E043814FD88191B6]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ACCT_TYP_NM"><![CDATA[RENEWAL AND REPL FY07 SPECIAL FUNDING]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_account_type_t">
-      <column name="ACCT_TYP_CD"><![CDATA[RA]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF81E1A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACCT_TYP_NM"><![CDATA[REPORTING AUXILIARIES]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_account_type_t">
@@ -248,6 +213,43 @@
       <column name="OBJ_ID"><![CDATA[014F3DAF81E8A448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ACCT_TYP_NM"><![CDATA[CIBTRA-TRANSFER TRANSACTIONS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+  <changeSet author="kfs" id="10108-bootstrap" context="bootstrap,demo">
+    <insert tableName="ca_account_type_t">
+      <column name="ACCT_TYP_CD"><![CDATA[AI]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF81D8A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_TYP_NM"><![CDATA[A-21 ACTIVITY IDENTIFIER]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_account_type_t">
+      <column name="ACCT_TYP_CD"><![CDATA[BS]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF81D9A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_TYP_NM"><![CDATA[BALANCE SHEET ACCOUNT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_account_type_t">
+      <column name="ACCT_TYP_CD"><![CDATA[EQ]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF81DCA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_TYP_NM"><![CDATA[EQUIPMENT ACCOUNTS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_account_type_t">
+      <column name="ACCT_TYP_CD"><![CDATA[NA]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF81E0A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_TYP_NM"><![CDATA[NOT APPLICABLE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_account_type_t">
+      <column name="ACCT_TYP_CD"><![CDATA[RA]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF81E1A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACCT_TYP_NM"><![CDATA[REPORTING AUXILIARIES]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_account_type_t">

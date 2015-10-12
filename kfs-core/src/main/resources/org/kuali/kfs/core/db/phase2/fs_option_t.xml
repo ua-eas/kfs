@@ -18,7 +18,71 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10346">
+  <changeSet author="kfs" id="10346-bootstrap" context="bootstrap,demo">
+    <insert tableName="fs_option_t">
+      <column name="UNIV_FISCAL_YR"><![CDATA[2016]]></column>
+      <column name="OBJ_ID"><![CDATA[dfb23a06-39e5-4a80-a913-2e6d7d7fe6cf]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="ACT_FIN_BAL_TYP_CD"><![CDATA[AC]]></column>
+      <column name="BDGT_CHK_BALTYP_CD"><![CDATA[CB]]></column>
+      <column name="BDGT_CHK_OPTN_CD"><![CDATA[Y]]></column>
+      <column name="UNIV_FSCYR_STRT_YR"><![CDATA[2015]]></column>
+      <column name="UNIV_FSCYR_STRT_MO"><![CDATA[07]]></column>
+      <column name="FOBJTP_INC_CSH_CD"><![CDATA[IN]]></column>
+      <column name="FOBJTP_XPND_EXP_CD"><![CDATA[EX]]></column>
+      <column name="FOBJTP_XPNDNEXP_CD"><![CDATA[EE]]></column>
+      <column name="FOBJTP_EXPNXPND_CD"><![CDATA[ES]]></column>
+      <column name="FOBJ_TYP_ASSET_CD"><![CDATA[AS]]></column>
+      <column name="FOBJ_TYP_LBLTY_CD"><![CDATA[LI]]></column>
+      <column name="FOBJ_TYP_FNDBAL_CD"><![CDATA[FB]]></column>
+      <column name="EXT_ENC_FBALTYP_CD"><![CDATA[EX]]></column>
+      <column name="INT_ENC_FBALTYP_CD"><![CDATA[IE]]></column>
+      <column name="PRE_ENC_FBALTYP_CD"><![CDATA[PE]]></column>
+      <column name="ELIM_FINBAL_TYP_CD"><![CDATA[TR]]></column>
+      <column name="FOBJTP_INC_NCSH_CD"><![CDATA[IC]]></column>
+      <column name="FOBJTP_CSH_NINC_CD"><![CDATA[CH]]></column>
+      <column name="UNIV_FISCAL_YR_NM"><![CDATA[2015-2016]]></column>
+      <column name="FIN_BEGBALLOAD_IND"><![CDATA[N]]></column>
+      <column name="CSTSHR_ENCUM_FIN_BAL_TYP_CD"><![CDATA[CE]]></column>
+      <column name="BASE_BDGT_FIN_BAL_TYP_CD"><![CDATA[BB]]></column>
+      <column name="MO_BDGT_FIN_BAL_TYP_CD"><![CDATA[MB]]></column>
+      <column name="FIN_OBJECT_TYP_TRNFR_INC_CD"><![CDATA[TI]]></column>
+      <column name="FIN_OBJECT_TYP_TRNFR_EXP_CD"><![CDATA[TE]]></column>
+      <column name="NMNL_FIN_BAL_TYP_CD"><![CDATA[NB]]></column>
+    </insert>
+    <insert tableName="fs_option_t">
+      <column name="UNIV_FISCAL_YR"><![CDATA[2017]]></column>
+      <column name="OBJ_ID"><![CDATA[531f3209-72c2-42dd-84f4-f2e7e2780674]]></column>
+      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="ACT_FIN_BAL_TYP_CD"><![CDATA[AC]]></column>
+      <column name="BDGT_CHK_BALTYP_CD"><![CDATA[CB]]></column>
+      <column name="BDGT_CHK_OPTN_CD"><![CDATA[Y]]></column>
+      <column name="UNIV_FSCYR_STRT_YR"><![CDATA[2016]]></column>
+      <column name="UNIV_FSCYR_STRT_MO"><![CDATA[07]]></column>
+      <column name="FOBJTP_INC_CSH_CD"><![CDATA[IN]]></column>
+      <column name="FOBJTP_XPND_EXP_CD"><![CDATA[EX]]></column>
+      <column name="FOBJTP_XPNDNEXP_CD"><![CDATA[EE]]></column>
+      <column name="FOBJTP_EXPNXPND_CD"><![CDATA[ES]]></column>
+      <column name="FOBJ_TYP_ASSET_CD"><![CDATA[AS]]></column>
+      <column name="FOBJ_TYP_LBLTY_CD"><![CDATA[LI]]></column>
+      <column name="FOBJ_TYP_FNDBAL_CD"><![CDATA[FB]]></column>
+      <column name="EXT_ENC_FBALTYP_CD"><![CDATA[EX]]></column>
+      <column name="INT_ENC_FBALTYP_CD"><![CDATA[IE]]></column>
+      <column name="PRE_ENC_FBALTYP_CD"><![CDATA[PE]]></column>
+      <column name="ELIM_FINBAL_TYP_CD"><![CDATA[TR]]></column>
+      <column name="FOBJTP_INC_NCSH_CD"><![CDATA[IC]]></column>
+      <column name="FOBJTP_CSH_NINC_CD"><![CDATA[CH]]></column>
+      <column name="UNIV_FISCAL_YR_NM"><![CDATA[2016-2017]]></column>
+      <column name="FIN_BEGBALLOAD_IND"><![CDATA[N]]></column>
+      <column name="CSTSHR_ENCUM_FIN_BAL_TYP_CD"><![CDATA[CE]]></column>
+      <column name="BASE_BDGT_FIN_BAL_TYP_CD"><![CDATA[BB]]></column>
+      <column name="MO_BDGT_FIN_BAL_TYP_CD"><![CDATA[MB]]></column>
+      <column name="FIN_OBJECT_TYP_TRNFR_INC_CD"><![CDATA[TI]]></column>
+      <column name="FIN_OBJECT_TYP_TRNFR_EXP_CD"><![CDATA[TE]]></column>
+      <column name="NMNL_FIN_BAL_TYP_CD"><![CDATA[NB]]></column>
+    </insert>
+  </changeSet>
+  <changeSet author="kfs" id="10346" context="demo">
     <insert tableName="fs_option_t">
       <column name="UNIV_FISCAL_YR"><![CDATA[2008]]></column>
       <column name="OBJ_ID"><![CDATA[682B40E65635B493E0404F8189D85FDE]]></column>
@@ -275,69 +339,9 @@
       <column name="FIN_OBJECT_TYP_TRNFR_EXP_CD"><![CDATA[TE]]></column>
       <column name="NMNL_FIN_BAL_TYP_CD"><![CDATA[NB]]></column>
     </insert>
-    <insert tableName="fs_option_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2016]]></column>
-      <column name="OBJ_ID"><![CDATA[dfb23a06-39e5-4a80-a913-2e6d7d7fe6cf]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="ACT_FIN_BAL_TYP_CD"><![CDATA[AC]]></column>
-      <column name="BDGT_CHK_BALTYP_CD"><![CDATA[CB]]></column>
-      <column name="BDGT_CHK_OPTN_CD"><![CDATA[Y]]></column>
-      <column name="UNIV_FSCYR_STRT_YR"><![CDATA[2015]]></column>
-      <column name="UNIV_FSCYR_STRT_MO"><![CDATA[07]]></column>
-      <column name="FOBJTP_INC_CSH_CD"><![CDATA[IN]]></column>
-      <column name="FOBJTP_XPND_EXP_CD"><![CDATA[EX]]></column>
-      <column name="FOBJTP_XPNDNEXP_CD"><![CDATA[EE]]></column>
-      <column name="FOBJTP_EXPNXPND_CD"><![CDATA[ES]]></column>
-      <column name="FOBJ_TYP_ASSET_CD"><![CDATA[AS]]></column>
-      <column name="FOBJ_TYP_LBLTY_CD"><![CDATA[LI]]></column>
-      <column name="FOBJ_TYP_FNDBAL_CD"><![CDATA[FB]]></column>
-      <column name="EXT_ENC_FBALTYP_CD"><![CDATA[EX]]></column>
-      <column name="INT_ENC_FBALTYP_CD"><![CDATA[IE]]></column>
-      <column name="PRE_ENC_FBALTYP_CD"><![CDATA[PE]]></column>
-      <column name="ELIM_FINBAL_TYP_CD"><![CDATA[TR]]></column>
-      <column name="FOBJTP_INC_NCSH_CD"><![CDATA[IC]]></column>
-      <column name="FOBJTP_CSH_NINC_CD"><![CDATA[CH]]></column>
-      <column name="UNIV_FIN_COA_CD"><![CDATA[IU]]></column>
-      <column name="UNIV_FISCAL_YR_NM"><![CDATA[2015-2016]]></column>
-      <column name="FIN_BEGBALLOAD_IND"><![CDATA[N]]></column>
-      <column name="CSTSHR_ENCUM_FIN_BAL_TYP_CD"><![CDATA[CE]]></column>
-      <column name="BASE_BDGT_FIN_BAL_TYP_CD"><![CDATA[BB]]></column>
-      <column name="MO_BDGT_FIN_BAL_TYP_CD"><![CDATA[MB]]></column>
-      <column name="FIN_OBJECT_TYP_TRNFR_INC_CD"><![CDATA[TI]]></column>
-      <column name="FIN_OBJECT_TYP_TRNFR_EXP_CD"><![CDATA[TE]]></column>
-      <column name="NMNL_FIN_BAL_TYP_CD"><![CDATA[NB]]></column>
-    </insert>
-    <insert tableName="fs_option_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2017]]></column>
-      <column name="OBJ_ID"><![CDATA[531f3209-72c2-42dd-84f4-f2e7e2780674]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="ACT_FIN_BAL_TYP_CD"><![CDATA[AC]]></column>
-      <column name="BDGT_CHK_BALTYP_CD"><![CDATA[CB]]></column>
-      <column name="BDGT_CHK_OPTN_CD"><![CDATA[Y]]></column>
-      <column name="UNIV_FSCYR_STRT_YR"><![CDATA[2016]]></column>
-      <column name="UNIV_FSCYR_STRT_MO"><![CDATA[07]]></column>
-      <column name="FOBJTP_INC_CSH_CD"><![CDATA[IN]]></column>
-      <column name="FOBJTP_XPND_EXP_CD"><![CDATA[EX]]></column>
-      <column name="FOBJTP_XPNDNEXP_CD"><![CDATA[EE]]></column>
-      <column name="FOBJTP_EXPNXPND_CD"><![CDATA[ES]]></column>
-      <column name="FOBJ_TYP_ASSET_CD"><![CDATA[AS]]></column>
-      <column name="FOBJ_TYP_LBLTY_CD"><![CDATA[LI]]></column>
-      <column name="FOBJ_TYP_FNDBAL_CD"><![CDATA[FB]]></column>
-      <column name="EXT_ENC_FBALTYP_CD"><![CDATA[EX]]></column>
-      <column name="INT_ENC_FBALTYP_CD"><![CDATA[IE]]></column>
-      <column name="PRE_ENC_FBALTYP_CD"><![CDATA[PE]]></column>
-      <column name="ELIM_FINBAL_TYP_CD"><![CDATA[TR]]></column>
-      <column name="FOBJTP_INC_NCSH_CD"><![CDATA[IC]]></column>
-      <column name="FOBJTP_CSH_NINC_CD"><![CDATA[CH]]></column>
-      <column name="UNIV_FIN_COA_CD"><![CDATA[IU]]></column>
-      <column name="UNIV_FISCAL_YR_NM"><![CDATA[2016-2017]]></column>
-      <column name="FIN_BEGBALLOAD_IND"><![CDATA[N]]></column>
-      <column name="CSTSHR_ENCUM_FIN_BAL_TYP_CD"><![CDATA[CE]]></column>
-      <column name="BASE_BDGT_FIN_BAL_TYP_CD"><![CDATA[BB]]></column>
-      <column name="MO_BDGT_FIN_BAL_TYP_CD"><![CDATA[MB]]></column>
-      <column name="FIN_OBJECT_TYP_TRNFR_INC_CD"><![CDATA[TI]]></column>
-      <column name="FIN_OBJECT_TYP_TRNFR_EXP_CD"><![CDATA[TE]]></column>
-      <column name="NMNL_FIN_BAL_TYP_CD"><![CDATA[NB]]></column>
-    </insert>
+    <update tableName="fs_option_t">
+      <column name="UNIV_FIN_COA_CD" value="IU"/>
+      <where>UNIV_FISCAL_YR IN (2016, 2017)</where>
+    </update>
   </changeSet>
 </databaseChangeLog>

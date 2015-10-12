@@ -18,21 +18,21 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-<changeSet author="kfs" id="4419">
+<changeSet author="kfs" id="4419" context="bootstrap,demo">
         <createIndex indexName="TEM_ACCT_LINES_TR3" tableName="TEM_ACCT_LINES_T">
             <column name="FDOC_POST_YR"/>
             <column name="FIN_COA_CD"/>
             <column name="FIN_OBJECT_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4420">
+<changeSet author="kfs" id="4420" context="bootstrap,demo">
         <createIndex indexName="TEM_ACCT_LINES_TR4" tableName="TEM_ACCT_LINES_T">
             <column name="FIN_COA_CD"/>
             <column name="ACCOUNT_NBR"/>
             <column name="SUB_ACCT_NBR"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4421">
+<changeSet author="kfs" id="4421" context="bootstrap,demo">
         <createIndex indexName="TEM_ACCT_LINES_TR5" tableName="TEM_ACCT_LINES_T">
             <column name="FDOC_POST_YR"/>
             <column name="FIN_COA_CD"/>
@@ -41,78 +41,78 @@
             <column name="FIN_SUB_OBJ_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4422">
+<changeSet author="kfs" id="4422" context="bootstrap,demo">
         <createIndex indexName="TEM_ACCT_LINES_TR6" tableName="TEM_ACCT_LINES_T">
             <column name="PROJECT_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4423">
+<changeSet author="kfs" id="4423" context="bootstrap,demo">
         <createIndex indexName="TEM_ACCT_LINES_TR7" tableName="TEM_ACCT_LINES_T">
             <column name="FIN_BALANCE_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4424">
+<changeSet author="kfs" id="4424" context="bootstrap,demo">
         <createIndex indexName="TEM_ACCT_LINES_TR9" tableName="TEM_ACCT_LINES_T">
             <column name="FS_REF_ORIGIN_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4425">
+<changeSet author="kfs" id="4425" context="bootstrap,demo">
         <createIndex indexName="TEM_CREDIT_CARD_AGENCY_TR1" tableName="TEM_CREDIT_CARD_AGENCY_T">
             <column name="TRAVEL_CARD_TYPE_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4426">
+<changeSet author="kfs" id="4426" context="bootstrap,demo">
         <createIndex indexName="TEM_CREDIT_CARD_AGENCY_TR2" tableName="TEM_CREDIT_CARD_AGENCY_T">
             <column name="BNK_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4427">
+<changeSet author="kfs" id="4427" context="bootstrap,demo">
         <createIndex indexName="TEM_CREDIT_CARD_AGENCY_TR3" tableName="TEM_CREDIT_CARD_AGENCY_T">
             <column name="VNDR_HDR_GNRTD_ID"/>
             <column name="VNDR_DTL_ASND_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4428">
+<changeSet author="kfs" id="4428" context="bootstrap,demo">
         <createIndex indexName="TEM_CREDIT_CARD_STAGING_TR1" tableName="TEM_CREDIT_CARD_STAGING_T">
             <column name="PMT_GRP_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4429">
+<changeSet author="kfs" id="4429" context="bootstrap,demo">
         <createIndex indexName="TEM_EM_CONT_TR1" tableName="TEM_EM_CONT_T">
             <column name="CONT_REL_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4430">
+<changeSet author="kfs" id="4430" context="bootstrap,demo">
         <createIndex indexName="TEM_EM_CONT_TR2" tableName="TEM_EM_CONT_T">
             <column name="TRAVELER_DTL_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4431">
+<changeSet author="kfs" id="4431" context="bootstrap,demo">
         <createIndex indexName="TEM_ENT_DOC_TR1" tableName="TEM_ENT_DOC_T">
             <column name="TRAVELER_DTL_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4432">
+<changeSet author="kfs" id="4432" context="bootstrap,demo">
         <createIndex indexName="TEM_ENT_DOC_TR3" tableName="TEM_ENT_DOC_T">
             <column name="PURPOSE_CODE"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4433">
+<changeSet author="kfs" id="4433" context="bootstrap,demo">
         <createIndex indexName="TEM_ENT_DOC_TR4" tableName="TEM_ENT_DOC_T">
             <column name="PRIMARY_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4434">
+<changeSet author="kfs" id="4434" context="bootstrap,demo">
         <createIndex indexName="TEM_ENT_DOC_TR5" tableName="TEM_ENT_DOC_T">
             <column name="FDOC_BNK_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4435">
+<changeSet author="kfs" id="4435" context="bootstrap,demo">
         <createIndex indexName="TEM_GRP_TRVLR_TR1" tableName="TEM_GRP_TRVLR_T">
             <column name="TRAVELER_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4436">
+<changeSet author="kfs" id="4436" context="bootstrap,demo">
         <createIndex indexName="TEM_HELD_ENCUM_ENTRY_TI2" tableName="TEM_HELD_ENCUM_ENTRY_T">
             <column name="FIN_COA_CD"/>
             <column name="ACCOUNT_NBR"/>
@@ -122,208 +122,208 @@
             <column name="FIN_BALANCE_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4437">
+<changeSet author="kfs" id="4437" context="bootstrap,demo">
         <createIndex indexName="TEM_HELD_ENCUM_ENTRY_TI3" tableName="TEM_HELD_ENCUM_ENTRY_T">
             <column name="FDOC_NBR"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4438">
+<changeSet author="kfs" id="4438" context="bootstrap,demo">
         <createIndex indexName="TEM_HELD_ENCUM_ENTRY_TI4" tableName="TEM_HELD_ENCUM_ENTRY_T">
             <column name="FIN_COA_CD"/>
             <column name="ACCOUNT_NBR"/>
             <column name="FIN_OBJECT_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4439">
+<changeSet author="kfs" id="4439" context="bootstrap,demo">
         <createIndex indexName="TEM_HELD_ENCUM_ENTRY_TI5" tableName="TEM_HELD_ENCUM_ENTRY_T">
             <column name="TRIP_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4440">
+<changeSet author="kfs" id="4440" context="bootstrap,demo">
         <createIndex indexName="TEM_HIST_EXP_TR1" tableName="TEM_HIST_EXP_T">
             <column name="EXP_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4441">
+<changeSet author="kfs" id="4441" context="bootstrap,demo">
         <createIndex indexName="TEM_MILEAGE_RT_TR1" tableName="TEM_MILEAGE_RT_T">
             <column name="EXP_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4442">
+<changeSet author="kfs" id="4442" context="bootstrap,demo">
         <createIndex indexName="TEM_PER_DIEM_EXP_TR1" tableName="TEM_PER_DIEM_EXP_T">
             <column name="MILEAGE_RT_EXP_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4443">
+<changeSet author="kfs" id="4443" context="bootstrap,demo">
         <createIndex indexName="TEM_PER_DIEM_EXP_TR2" tableName="TEM_PER_DIEM_EXP_T">
             <column name="PRI_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4444">
+<changeSet author="kfs" id="4444" context="bootstrap,demo">
         <createIndex indexName="TEM_PER_DIEM_EXP_TR3" tableName="TEM_PER_DIEM_EXP_T">
             <column name="ACCOM_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4445">
+<changeSet author="kfs" id="4445" context="bootstrap,demo">
         <createIndex indexName="TEM_PER_DIEM_TI1" tableName="TEM_PER_DIEM_T">
             <column name="SSN_BGN_MONTH_DAY"/>
             <column name="EFFECT_FROM_DT"/>
             <column name="PRI_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4446">
+<changeSet author="kfs" id="4446" context="bootstrap,demo">
         <createIndex indexName="TEM_PRI_DEST_TI1" tableName="TEM_PRI_DEST_T">
             <column name="PRI_DEST_NM"/>
             <column name="REGION_CD"/>
             <column name="COUNTY_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4447">
+<changeSet author="kfs" id="4447" context="bootstrap,demo">
         <createIndex indexName="TEM_PROFILE_ACCOUNT_TR1" tableName="TEM_PROFILE_ACCOUNT_T">
             <column name="PROFILE_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4448">
+<changeSet author="kfs" id="4448" context="bootstrap,demo">
         <createIndex indexName="TEM_PROFILE_ARRANGER_TR1" tableName="TEM_PROFILE_ARRANGER_T">
             <column name="PROFILE_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4449">
+<changeSet author="kfs" id="4449" context="bootstrap,demo">
         <createIndex indexName="TEM_PROFILE_EM_CONT_TR1" tableName="TEM_PROFILE_EM_CONT_T">
             <column name="CONT_REL_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4450">
+<changeSet author="kfs" id="4450" context="bootstrap,demo">
         <createIndex indexName="TEM_PROFILE_TR1" tableName="TEM_PROFILE_T">
             <column name="TRAVELER_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4451">
+<changeSet author="kfs" id="4451" context="bootstrap,demo">
         <createIndex indexName="TEM_RELO_DOC_TR1" tableName="TEM_RELO_DOC_T">
             <column name="TRAVELER_DTL_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4452">
+<changeSet author="kfs" id="4452" context="bootstrap,demo">
         <createIndex indexName="TEM_RELO_DOC_TR3" tableName="TEM_RELO_DOC_T">
             <column name="REASON_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4453">
+<changeSet author="kfs" id="4453" context="bootstrap,demo">
         <createIndex indexName="TEM_RELO_DOC_TR4" tableName="TEM_RELO_DOC_T">
             <column name="JOB_CLS_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4454">
+<changeSet author="kfs" id="4454" context="bootstrap,demo">
         <createIndex indexName="TEM_RELO_DOC_TR5" tableName="TEM_RELO_DOC_T">
             <column name="PRIMARY_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4455">
+<changeSet author="kfs" id="4455" context="bootstrap,demo">
         <createIndex indexName="TEM_RELO_DOC_TR6" tableName="TEM_RELO_DOC_T">
             <column name="FDOC_BNK_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4456">
+<changeSet author="kfs" id="4456" context="bootstrap,demo">
         <createIndex indexName="TEM_SPCL_CRCMSNCS_TR1" tableName="TEM_SPCL_CRCMSNCS_T">
             <column name="QID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4457">
+<changeSet author="kfs" id="4457" context="bootstrap,demo">
         <createIndex indexName="TEM_TRAVELER_DTL_TR1" tableName="TEM_TRAVELER_DTL_T">
             <column name="TRAVELER_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4458">
+<changeSet author="kfs" id="4458" context="bootstrap,demo">
         <createIndex indexName="TEM_TRAVELER_DTL_TR2" tableName="TEM_TRAVELER_DTL_T">
             <column name="CUST_NBR"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4459">
+<changeSet author="kfs" id="4459" context="bootstrap,demo">
         <createIndex indexName="TEM_TRIP_TYP_TR1" tableName="TEM_TRIP_TYP_T">
             <column name="ENC_BAL_TYP"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4460">
+<changeSet author="kfs" id="4460" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_AMEND_DOC_TR1" tableName="TEM_TRVL_AUTH_AMEND_DOC_T">
             <column name="TRAVELER_DTL_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4461">
+<changeSet author="kfs" id="4461" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_AMEND_DOC_TR2" tableName="TEM_TRVL_AUTH_AMEND_DOC_T">
             <column name="TRIP_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4462">
+<changeSet author="kfs" id="4462" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_AMEND_DOC_TR3" tableName="TEM_TRVL_AUTH_AMEND_DOC_T">
             <column name="PRIMARY_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4463">
+<changeSet author="kfs" id="4463" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_CLOSE_DOC_TR1" tableName="TEM_TRVL_AUTH_CLOSE_DOC_T">
             <column name="TRAVELER_DTL_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4464">
+<changeSet author="kfs" id="4464" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_CLOSE_DOC_TR2" tableName="TEM_TRVL_AUTH_CLOSE_DOC_T">
             <column name="TRIP_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4465">
+<changeSet author="kfs" id="4465" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_CLOSE_DOC_TR3" tableName="TEM_TRVL_AUTH_CLOSE_DOC_T">
             <column name="PRIMARY_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4466">
+<changeSet author="kfs" id="4466" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_DOC_TR1" tableName="TEM_TRVL_AUTH_DOC_T">
             <column name="TRAVELER_DTL_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4467">
+<changeSet author="kfs" id="4467" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_DOC_TR2" tableName="TEM_TRVL_AUTH_DOC_T">
             <column name="TRIP_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4468">
+<changeSet author="kfs" id="4468" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_DOC_TR3" tableName="TEM_TRVL_AUTH_DOC_T">
             <column name="PRIMARY_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4469">
+<changeSet author="kfs" id="4469" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_AUTH_DOC_TR4" tableName="TEM_TRVL_AUTH_DOC_T">
             <column name="FDOC_BNK_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4470">
+<changeSet author="kfs" id="4470" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_EXP_TR1" tableName="TEM_TRVL_EXP_T">
             <column name="AIRFARE_SRC_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4471">
+<changeSet author="kfs" id="4471" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_EXP_TR4" tableName="TEM_TRVL_EXP_T">
             <column name="CLASS_SVC_CODE"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4472">
+<changeSet author="kfs" id="4472" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_PMT_TR1" tableName="TEM_TRVL_PMT_T">
             <column name="DOC_LOC_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4473">
+<changeSet author="kfs" id="4473" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_REIMB_DOC_TR1" tableName="TEM_TRVL_REIMB_DOC_T">
             <column name="TRAVELER_DTL_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4474">
+<changeSet author="kfs" id="4474" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_REIMB_DOC_TR2" tableName="TEM_TRVL_REIMB_DOC_T">
             <column name="TRIP_TYP_CD"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4475">
+<changeSet author="kfs" id="4475" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_REIMB_DOC_TR3" tableName="TEM_TRVL_REIMB_DOC_T">
             <column name="PRIMARY_DEST_ID"/>
         </createIndex>
     </changeSet>
-<changeSet author="kfs" id="4476">
+<changeSet author="kfs" id="4476" context="bootstrap,demo">
         <createIndex indexName="TEM_TRVL_REIMB_DOC_TR4" tableName="TEM_TRVL_REIMB_DOC_T">
             <column name="FDOC_BNK_CD"/>
         </createIndex>

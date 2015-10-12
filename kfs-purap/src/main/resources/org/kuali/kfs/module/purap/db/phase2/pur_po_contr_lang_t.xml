@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10609">
+  <changeSet author="kfs" id="10609" context="demo">
     <insert tableName="pur_po_contr_lang_t">
       <column name="PO_CONTR_LANG_ID"><![CDATA[1000]]></column>
       <column name="OBJ_ID"><![CDATA[F517E488-1C72-0C15-C109-15B3F6C1457B]]></column>

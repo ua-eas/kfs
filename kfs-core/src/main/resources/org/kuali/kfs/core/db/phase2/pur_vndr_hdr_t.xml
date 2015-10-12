@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10675">
+  <changeSet author="kfs" id="10675" context="demo">
     <insert tableName="pur_vndr_hdr_t">
       <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1000]]></column>
       <column name="OBJ_ID"><![CDATA[9A9D8488-8DEA-9112-AB58-51875445B470]]></column>
