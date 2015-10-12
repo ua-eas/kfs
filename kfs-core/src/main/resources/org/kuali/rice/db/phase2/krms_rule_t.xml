@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10296">
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1000]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Rule1]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1000]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[stub rule lorem ipsum]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1001]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Rule2]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1001]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Frog specimens bogus rule foo]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1002]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Rule3]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1002]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Bloomington campus code rule]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1003]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Rule4]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1003]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[check for possible BBQ ingiter hazard]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1004]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Rule5]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1004]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[remembered to wear socks]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1005]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Rule6]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1005]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[good behavior at carnival]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1006]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Rule7]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1006]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[is KRMS in da haus]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1007]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[CmpdTestRule]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1007]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[For testing compound props]]></column>
+    </insert>
+    <insert tableName="krms_rule_t">
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
+      <column name="NM"><![CDATA[Going Away Party for Travis]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="PROP_ID"><![CDATA[T1011]]></column>
+      <column name="ACTV"><![CDATA[Y]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="DESC_TXT"><![CDATA[Does PO require my approval]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

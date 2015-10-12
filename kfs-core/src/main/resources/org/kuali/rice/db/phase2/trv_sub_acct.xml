@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10405">
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[A]]></column>
+      <column name="OBJ_ID"><![CDATA[a]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account A]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[B]]></column>
+      <column name="OBJ_ID"><![CDATA[b]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account B]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[C]]></column>
+      <column name="OBJ_ID"><![CDATA[c]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account C]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[D]]></column>
+      <column name="OBJ_ID"><![CDATA[d]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account D]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[E]]></column>
+      <column name="OBJ_ID"><![CDATA[e]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account E]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[F]]></column>
+      <column name="OBJ_ID"><![CDATA[f]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account F]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[G]]></column>
+      <column name="OBJ_ID"><![CDATA[g]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account G]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[H]]></column>
+      <column name="OBJ_ID"><![CDATA[h]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account H]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[I]]></column>
+      <column name="OBJ_ID"><![CDATA[i]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account Eye]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[J]]></column>
+      <column name="OBJ_ID"><![CDATA[j]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account J]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[K]]></column>
+      <column name="OBJ_ID"><![CDATA[k]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account K]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[L]]></column>
+      <column name="OBJ_ID"><![CDATA[l]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account L]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[M]]></column>
+      <column name="OBJ_ID"><![CDATA[m]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account M]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[N]]></column>
+      <column name="OBJ_ID"><![CDATA[n]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account N]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a14]]></column>
+      <column name="SUB_ACCT"><![CDATA[SUB123]]></column>
+      <column name="OBJ_ID"><![CDATA[sub123]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account 123]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+      <column name="SUB_ACCT"><![CDATA[SUB1]]></column>
+      <column name="OBJ_ID"><![CDATA[a2-sub1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account 1]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+      <column name="SUB_ACCT"><![CDATA[SUB2]]></column>
+      <column name="OBJ_ID"><![CDATA[a2-sub2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account 2]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a3]]></column>
+      <column name="SUB_ACCT"><![CDATA[SUB1]]></column>
+      <column name="OBJ_ID"><![CDATA[a3-sub1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account 1]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a3]]></column>
+      <column name="SUB_ACCT"><![CDATA[SUB2]]></column>
+      <column name="OBJ_ID"><![CDATA[a3-sub2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account 2]]></column>
+    </insert>
+    <insert tableName="trv_sub_acct">
+      <column name="ACCT_NUM"><![CDATA[a3]]></column>
+      <column name="SUB_ACCT"><![CDATA[SUB3]]></column>
+      <column name="OBJ_ID"><![CDATA[a3-sub3]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="SUB_ACCT_NAME"><![CDATA[Sub Account 3]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

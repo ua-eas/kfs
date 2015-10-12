@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10122">
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1044]]></column>
+      <column name="NM"><![CDATA[SendNotificationRequest.Reviewers]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1023]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Notification Request Reviewers]]></column>
+      <column name="FRC_ACTN"><![CDATA[1]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[SendNotificationRequest]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-08-01 15:59:02.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-08-01 15:59:02.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBE9644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1046]]></column>
+      <column name="NM"><![CDATA[TravelRequest.Destination.LasVegas]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1026]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Destination - Las Vegas]]></column>
+      <column name="FRC_ACTN"><![CDATA[0]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[TravelRequest]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-08-01 15:59:02.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-08-01 15:59:02.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBEA644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1049]]></column>
+      <column name="NM"><![CDATA[TravelRequest.Supervisor]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1028]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Supervisor Routing]]></column>
+      <column name="FRC_ACTN"><![CDATA[0]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[TravelRequest]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-08-01 15:59:02.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-08-01 15:59:02.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBEB644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1050]]></column>
+      <column name="NM"><![CDATA[TravelRequest.DeanDirector]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1030]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Dean/Director Routing]]></column>
+      <column name="FRC_ACTN"><![CDATA[0]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[TravelRequest]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-08-01 15:59:03.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-08-01 15:59:03.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBEC644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1051]]></column>
+      <column name="NM"><![CDATA[TravelRequest.FiscalOfficer]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1030]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Fiscal Officer Routing]]></column>
+      <column name="FRC_ACTN"><![CDATA[0]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[TravelRequest]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-08-01 15:59:03.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-08-01 15:59:03.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBED644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1052]]></column>
+      <column name="NM"><![CDATA[659D86718DD514C7E0404F8189D877C3]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1032]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Fiscal Officer Routing]]></column>
+      <column name="FRC_ACTN"><![CDATA[0]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[TravelRequest]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-08-01 15:59:03.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-08-01 15:59:03.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBEE644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1103]]></column>
+      <column name="NM"><![CDATA[eDoc.Example1Doctype.IUB]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1101]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Routing rule for EDocLite Example with IUB selected.]]></column>
+      <column name="FRC_ACTN"><![CDATA[0]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[eDoc.Example1Doctype]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-09-16 12:26:15.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-09-16 12:26:15.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBEF644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1106]]></column>
+      <column name="NM"><![CDATA[eDoc.Example1Doctype.IUPUI]]></column>
+      <column name="RULE_TMPL_ID"><![CDATA[1101]]></column>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[Routing rule for EDocLite Example with IUPUI selected.]]></column>
+      <column name="FRC_ACTN"><![CDATA[0]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[eDoc.Example1Doctype]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" valueDate="2008-09-16 12:26:16.0"/>
+      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2008-09-16 12:26:16.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[6166CBA1BBF0644DE0404F8189D86C09]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1642]]></column>
+      <column name="NM"><![CDATA[RecipeMastersGroupApproval]]></column>
+      <column name="RULE_TMPL_ID" value="null"/>
+      <column name="RULE_EXPR_ID" value="null"/>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[This rule requires an approval from the RecipeMasters workgroup.]]></column>
+      <column name="FRC_ACTN"><![CDATA[1]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[RecipeParentMaintenanceDocument]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" value="null"/>
+      <column name="TO_DT" value="null"/>
+      <column name="DACTVN_DT" value="null"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2009-05-15 12:22:09.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[D1216F1E-EAB3-68F8-FF50-1B20357669A4]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1643]]></column>
+      <column name="NM"><![CDATA[ChickenRecipeMastersGroupApproval]]></column>
+      <column name="RULE_TMPL_ID" value="null"/>
+      <column name="RULE_EXPR_ID"><![CDATA[2000]]></column>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[This rule requires an approval from the ChickenRecipeMasters workgroup if the ingredients for the recipe contains Chicken.]]></column>
+      <column name="FRC_ACTN"><![CDATA[1]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[RecipeMaintenanceDocument]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" value="null"/>
+      <column name="TO_DT" value="null"/>
+      <column name="DACTVN_DT" value="null"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2009-05-15 12:22:09.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[8E72AF5C-609C-9337-2606-62D941A7D3FF]]></column>
+    </insert>
+    <insert tableName="krew_rule_t">
+      <column name="RULE_ID"><![CDATA[1644]]></column>
+      <column name="NM"><![CDATA[MagazineGroupApproval]]></column>
+      <column name="RULE_TMPL_ID" value="null"/>
+      <column name="RULE_EXPR_ID"><![CDATA[2001]]></column>
+      <column name="ACTV_IND"><![CDATA[1]]></column>
+      <column name="RULE_BASE_VAL_DESC"><![CDATA[This rule requires an approval from the Magazine workgroup if any of the sources lists one of the Magazine System's managed magazines.]]></column>
+      <column name="FRC_ACTN"><![CDATA[1]]></column>
+      <column name="DOC_TYP_NM"><![CDATA[RecipeMaintenanceDocument]]></column>
+      <column name="DOC_HDR_ID" value="null"/>
+      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
+      <column name="FRM_DT" value="null"/>
+      <column name="TO_DT" value="null"/>
+      <column name="DACTVN_DT" value="null"/>
+      <column name="CUR_IND"><![CDATA[1]]></column>
+      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
+      <column name="DLGN_IND"><![CDATA[0]]></column>
+      <column name="PREV_VER_RULE_ID" value="null"/>
+      <column name="ACTVN_DT" valueDate="2009-05-15 12:22:09.0"/>
+      <column name="VER_NBR"><![CDATA[0]]></column>
+      <column name="OBJ_ID"><![CDATA[CF9FBB5A-942F-0DEB-327F-BE402D55AF51]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
