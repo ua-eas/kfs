@@ -1269,7 +1269,7 @@
     	<property name="realNotificationsEnabled" value="${real.notifications.enabled}" />
 	</bean>
 
-	<mongo:mongo id="mongo" host="${kfs.datasource.mongo.host}" port="${kfs.datasource.mongo.port}"/>
+	<mongo:mongo id="mongo" replica-set="${kfs.datasource.mongo.url}"/>
 	<mongo:db-factory mongo-ref="mongo" dbname="${kfs.datasource.mongo.dbname}" username="${kfs.datasource.mongo.username}" password="${kfs.datasource.mongo.password}"/>
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
