@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10290">
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1000]]></column>
+      <column name="DESC_TXT"><![CDATA[is campus bloomington]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1000]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1001]]></column>
+      <column name="DESC_TXT"><![CDATA[is campus bloomington]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1001]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1002]]></column>
+      <column name="DESC_TXT"><![CDATA[is campus bloomington]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1002]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1003]]></column>
+      <column name="DESC_TXT"><![CDATA[is campus bloomington]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1003]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1004]]></column>
+      <column name="DESC_TXT"><![CDATA[is campus bloomington]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1004]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1005]]></column>
+      <column name="DESC_TXT"><![CDATA[is campus bloomington]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1005]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1006]]></column>
+      <column name="DESC_TXT"><![CDATA[is campus bloomington]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1006]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1007]]></column>
+      <column name="DESC_TXT"><![CDATA[a compound prop]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[C]]></column>
+      <column name="CMPND_OP_CD"><![CDATA[&]]></column>
+      <column name="RULE_ID"><![CDATA[T1007]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1008]]></column>
+      <column name="DESC_TXT"><![CDATA[a simple child to a compound prop]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1007]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1009]]></column>
+      <column name="DESC_TXT"><![CDATA[2nd simple child to a compound prop ]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1007]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[2]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1010]]></column>
+      <column name="DESC_TXT"><![CDATA[3nd simple child to a compound prop ]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1007]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[3]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1011]]></column>
+      <column name="DESC_TXT"><![CDATA[is purchase special]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[C]]></column>
+      <column name="CMPND_OP_CD"><![CDATA[&]]></column>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1012]]></column>
+      <column name="DESC_TXT"><![CDATA[is purchase order value large]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1013]]></column>
+      <column name="DESC_TXT"><![CDATA[is purchased item controlled]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[C]]></column>
+      <column name="CMPND_OP_CD"><![CDATA[|]]></column>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[2]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1014]]></column>
+      <column name="DESC_TXT"><![CDATA[is it for a special event]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[C]]></column>
+      <column name="CMPND_OP_CD"><![CDATA[&]]></column>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[3]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1015]]></column>
+      <column name="DESC_TXT"><![CDATA[is item purchased animal]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1016]]></column>
+      <column name="DESC_TXT"><![CDATA[is purchased item radioactive]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[2]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1017]]></column>
+      <column name="DESC_TXT"><![CDATA[is it medicinal]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[3]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1018]]></column>
+      <column name="DESC_TXT"><![CDATA[charged to Kuali]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="krms_prop_t">
+      <column name="PROP_ID"><![CDATA[T1019]]></column>
+      <column name="DESC_TXT"><![CDATA[Party at Travis House]]></column>
+      <column name="TYP_ID" value="null"/>
+      <column name="DSCRM_TYP_CD"><![CDATA[S]]></column>
+      <column name="CMPND_OP_CD" value="null"/>
+      <column name="RULE_ID"><![CDATA[T1008]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CMPND_SEQ_NO"><![CDATA[2]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

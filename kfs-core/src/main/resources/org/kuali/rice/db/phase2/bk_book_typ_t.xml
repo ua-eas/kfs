@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10010">
+    <insert tableName="bk_book_typ_t">
+      <column name="TYP_CD"><![CDATA[ROM]]></column>
+      <column name="NM"><![CDATA[Romantic]]></column>
+      <column name="DESC_TXT"><![CDATA[Romantic Books]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="OBJ_ID"><![CDATA[6bbbdb82-d614-49c2-8716-4234e72f9f5e]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+    </insert>
+    <insert tableName="bk_book_typ_t">
+      <column name="TYP_CD"><![CDATA[SCI-FI]]></column>
+      <column name="NM"><![CDATA[Science Fiction]]></column>
+      <column name="DESC_TXT"><![CDATA[Science Fiction Story]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="OBJ_ID"><![CDATA[482b3394-0327-4e93-bd80-c5dc3b2a9e1f]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

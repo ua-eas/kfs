@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10185">
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A16110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[WorkflowAdmin]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+      <column name="GRP_DESC"><![CDATA[WorkflowAdmin]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:21.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2000]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A26110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[NotificationAdmin]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+      <column name="GRP_DESC"><![CDATA[Notification system admin group for automation.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:21.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2001]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A36110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[TestGroup1]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Test group 1 for KEN testing.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:21.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2002]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A46110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[TestGroup2]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Test group 2 for KEN testing.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:21.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2003]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A56110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[RiceTeam]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[A test workgroup for KEN.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:22.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2004]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A66110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[Group0]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Group0]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:22.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2005]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A76110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[Group1]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Group1]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:22.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2006]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A86110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[Group2]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Group2]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:22.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2007]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A96110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[Kuali Identity Managers]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Kuali Identity Managers]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:22.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2008]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04AA6110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[Kuali Administrators]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Kuali Administrators]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:22.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2009]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04AB6110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[Kuali Developers]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Kuali Developers]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:23.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2200]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B06110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[eDoc.Example1.SuperUsers]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[edoclite documentation uses this. Do not change or delete.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:23.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2201]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B16110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[eDoc.Example1.defaultExceptions]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[edoclite documentation uses this. Do not change or delete.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:24.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2202]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B26110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[eDoc.Example1.IUB.Workgroup]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Edoclite Documentation workgroup for example edoclite named eDoc.Example1]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:24.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2203]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04B36110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[eDoc.Example1.IUPUI.Workgroup]]></column>
+      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
+      <column name="GRP_DESC"><![CDATA[Edoclite Documentation workgroup for example edoclite named eDoc.Example1]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:24.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[9997]]></column>
+      <column name="OBJ_ID"><![CDATA[BB5ECDEF-27B7-44DF-F1B4-84406566C899]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[RecipeMasters]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+      <column name="GRP_DESC"><![CDATA[The masters of recipe making.  These people know it all!]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:55.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[9998]]></column>
+      <column name="OBJ_ID"><![CDATA[988E2790-350E-B816-B4BB-3730F27BCAF4]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[ChickenRecipeMasters]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+      <column name="GRP_DESC"><![CDATA[The masters of chicken recipes.  These people know it all!]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:55.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[9999]]></column>
+      <column name="OBJ_ID"><![CDATA[E96581EA-4C1B-605B-CE46-2A2EADD755FB]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[MagazineManagers]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+      <column name="GRP_DESC"><![CDATA[The managers of the magazine system.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2009-05-15 12:21:56.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[KFS10000]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS10000]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[KFS Organization Group]]></column>
+      <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+      <column name="GRP_DESC"><![CDATA[Organization-based group for testing.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[KFS68]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

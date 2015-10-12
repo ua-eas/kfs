@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet author="kfs" id="10396">
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2123]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2387]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2387]]></column>
+      <column name="ACCT_NUM"><![CDATA[a3]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2388]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2388]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2389]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2389]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2390]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2390]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2391]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2391]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2393]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2393]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2396]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2396]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2400]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2400]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2401]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2401]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2402]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2402]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2403]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2403]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2404]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2404]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2405]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2405]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2407]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2407]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2480]]></column>
+      <column name="ACCT_NUM"><![CDATA[a3]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2480]]></column>
+      <column name="ACCT_NUM"><![CDATA[a9]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2481]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2481]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2482]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2482]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2483]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2483]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2484]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2500]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2500]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2501]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2501]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2520]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2520]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2521]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2521]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2522]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2522]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2584]]></column>
+      <column name="ACCT_NUM"><![CDATA[a6]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2600]]></column>
+      <column name="ACCT_NUM"><![CDATA[a6]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2601]]></column>
+      <column name="ACCT_NUM"><![CDATA[a6]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2621]]></column>
+      <column name="ACCT_NUM"><![CDATA[a6]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2622]]></column>
+      <column name="ACCT_NUM"><![CDATA[a6]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2623]]></column>
+      <column name="ACCT_NUM"><![CDATA[a6]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2640]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2640]]></column>
+      <column name="ACCT_NUM"><![CDATA[a2]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2692]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2693]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2694]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2695]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+    <insert tableName="trav_doc_2_accounts">
+      <column name="FDOC_NBR"><![CDATA[2701]]></column>
+      <column name="ACCT_NUM"><![CDATA[a1]]></column>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
