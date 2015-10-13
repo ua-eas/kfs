@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10126">
+  <changeSet author="kfs" id="ricedata00041">
     <insert tableName="krew_rule_tmpl_t">
       <column name="RULE_TMPL_ID"><![CDATA[1015]]></column>
       <column name="NM"><![CDATA[WorkflowDocumentDelegationTemplate]]></column>
@@ -34,22 +34,6 @@
       <column name="DLGN_RULE_TMPL_ID"><![CDATA[1015]]></column>
       <column name="VER_NBR"><![CDATA[4]]></column>
       <column name="OBJ_ID"><![CDATA[6166CBA1BA87644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1017]]></column>
-      <column name="NM"><![CDATA[Ack1Template]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Acknowledgement 1 Template]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[4]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA88644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1018]]></column>
-      <column name="NM"><![CDATA[Ack2Template]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Acknowledgement 2 Template]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[4]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA89644DE0404F8189D86C09]]></column>
     </insert>
     <insert tableName="krew_rule_tmpl_t">
       <column name="RULE_TMPL_ID"><![CDATA[1023]]></column>
@@ -68,68 +52,12 @@
       <column name="OBJ_ID"><![CDATA[6166CBA1BA8D644DE0404F8189D86C09]]></column>
     </insert>
     <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1026]]></column>
-      <column name="NM"><![CDATA[TravelRequest-DestinationRouting]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Destination Routing]]></column>
-      <column name="DLGN_RULE_TMPL_ID"><![CDATA[1015]]></column>
-      <column name="VER_NBR"><![CDATA[8]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA8E644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1028]]></column>
-      <column name="NM"><![CDATA[TravelRequest-TravelerRouting]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Traveler Routing]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA8F644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1030]]></column>
-      <column name="NM"><![CDATA[TravelRequest-SupervisorRouting]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Supervisor Routing]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA90644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1032]]></column>
-      <column name="NM"><![CDATA[TravelRequest-AccountRouting]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Travel Account Routing]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA91644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1101]]></column>
-      <column name="NM"><![CDATA[eDoc.Example1.Node1]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[eDocLite Example1 Routing]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA92644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
       <column name="RULE_TMPL_ID"><![CDATA[1320]]></column>
       <column name="NM"><![CDATA[RuleRoutingTemplate]]></column>
       <column name="RULE_TMPL_DESC"><![CDATA[RuleRoutingTemplate]]></column>
       <column name="DLGN_RULE_TMPL_ID" value="null"/>
       <column name="VER_NBR"><![CDATA[2]]></column>
       <column name="OBJ_ID"><![CDATA[6166CBA1BA96644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1537]]></column>
-      <column name="NM"><![CDATA[WorkflowDocument2Template]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Workflow Document Template 2]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BAE9644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1538]]></column>
-      <column name="NM"><![CDATA[WorkflowDocument3Template]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Workflow Document Template 3]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BAEA644DE0404F8189D86C09]]></column>
     </insert>
   </changeSet>
 </databaseChangeLog>

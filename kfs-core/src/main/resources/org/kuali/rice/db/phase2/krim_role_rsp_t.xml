@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10226">
+  <changeSet author="kfs" id="ricedata00109">
     <insert tableName="krim_role_rsp_t">
       <column name="ROLE_RSP_ID"><![CDATA[KFS1000]]></column>
       <column name="OBJ_ID"><![CDATA[KFS1000]]></column>
@@ -657,14 +657,6 @@
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROLE_ID"><![CDATA[KFSMI4553-2]]></column>
       <column name="RSP_ID"><![CDATA[92]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_rsp_t">
-      <column name="ROLE_RSP_ID"><![CDATA[KRSAP10000]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1491DD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10005]]></column>
-      <column name="RSP_ID"><![CDATA[KRSAP10000]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
     </insert>
   </changeSet>

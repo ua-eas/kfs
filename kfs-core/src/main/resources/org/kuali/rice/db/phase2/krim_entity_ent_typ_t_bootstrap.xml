@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet context="bootstrap" author="kfs" id="ricedata00069">
+    <insert tableName="krim_entity_ent_typ_t">
+      <column name="ENT_TYP_CD"><![CDATA[PERSON]]></column>
+      <column name="ENTITY_ID"><![CDATA[1100]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B03E06110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:49.0"/>
+    </insert>
+    <insert tableName="krim_entity_ent_typ_t">
+      <column name="ENT_TYP_CD"><![CDATA[PERSON]]></column>
+      <column name="ENTITY_ID"><![CDATA[1131]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B03FF6110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:54.0"/>
+    </insert>
+    <insert tableName="krim_entity_ent_typ_t">
+      <column name="ENT_TYP_CD"><![CDATA[SYSTEM]]></column>
+      <column name="ENTITY_ID"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B1B6B919CCB6496E0404F8189D822F2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-07 09:49:02.0"/>
+    </insert>
+    <insert tableName="krim_entity_ent_typ_t">
+      <column name="ENT_TYP_CD"><![CDATA[SYSTEM]]></column>
+      <column name="ENTITY_ID"><![CDATA[KFS2]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS2-SYSTEM]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
