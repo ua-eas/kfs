@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10085">
+  <changeSet author="kfs" id="ricedata00026">
     <insert tableName="krew_doc_typ_t">
       <column name="DOC_TYP_ID"><![CDATA[2011]]></column>
       <column name="PARNT_ID"><![CDATA[2681]]></column>
       <column name="DOC_TYP_NM"><![CDATA[DocumentTypeDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Workflow Maintenance Document Type Document]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC"><![CDATA[Workflow Maintenance Document Type Document]]></column>
@@ -39,7 +39,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -140,72 +140,12 @@
       <column name="AUTHORIZER" value="null"/>
     </insert>
     <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2029]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAccountMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Travel Account Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Account Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA6F644DE0404F8189D86C09]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2030]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[FiscalOfficerMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Fiscal Officer]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Fiscal Officer]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA70644DE0404F8189D86C09]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
       <column name="DOC_TYP_ID"><![CDATA[2031]]></column>
       <column name="PARNT_ID"><![CDATA[2681]]></column>
       <column name="DOC_TYP_NM"><![CDATA[NamespaceMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Namespace]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC"><![CDATA[Create/edit parameter namespaces]]></column>
@@ -219,7 +159,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -235,7 +175,7 @@
       <column name="DOC_TYP_NM"><![CDATA[ParameterTypeMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Parameter Type Maintenance Document]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC"><![CDATA[Create/edit a parameter type]]></column>
@@ -249,7 +189,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -265,7 +205,7 @@
       <column name="DOC_TYP_NM"><![CDATA[ParameterDetailTypeMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Parameter Detail Type Maintenance Document]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC"><![CDATA[Create/edit a parameter detail type]]></column>
@@ -279,7 +219,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -295,7 +235,7 @@
       <column name="DOC_TYP_NM"><![CDATA[ParameterMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Parameter Maintenance Document]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC"><![CDATA[Create/edit a parameter]]></column>
@@ -309,102 +249,12 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
       <column name="HELP_DEF_URL"><![CDATA[default.htm?turl=WordDocuments%2Fparameter.htm]]></column>
       <column name="OBJ_ID"><![CDATA[6166CBA1BA74644DE0404F8189D86C09]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2217]]></column>
-      <column name="PARNT_ID" value="null"/>
-      <column name="DOC_TYP_NM"><![CDATA[eDoc.Example1.ParentDoctype]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[eDoc.Example1 Parent Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[eDoc.Example1 Parent Doctype]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${workflow.url}/EDocLite]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.edl.framework.workflow.EDocLitePostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY"><![CDATA[NONE]]></column>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[2200]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA7B644DE0404F8189D86C09]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2282]]></column>
-      <column name="PARNT_ID" value="null"/>
-      <column name="DOC_TYP_NM"><![CDATA[SampleThinClientDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[SampleThinClientDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[SampleThinClientDocument]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[none]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.kew.postprocessor.DefaultPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA7D644DE0404F8189D86C09]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2440]]></column>
-      <column name="PARNT_ID"><![CDATA[2217]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[eDoc.Example1Doctype]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[eDoc.Example1 Request DocumentType]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[eDoc.Example1 Request DocumentType]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${workflow.url}/EDocLite]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.edl.framework.workflow.EDocLitePostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY"><![CDATA[NONE]]></column>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[2200]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA80644DE0404F8189D86C09]]></column>
       <column name="DOC_SEARCH_HELP_URL" value="null"/>
       <column name="DOC_HDR_ID" value="null"/>
       <column name="AUTHORIZER" value="null"/>
@@ -429,7 +279,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[20]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -459,72 +309,12 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[47]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
       <column name="HELP_DEF_URL" value="null"/>
       <column name="OBJ_ID"><![CDATA[6166CBA1BA82644DE0404F8189D86C09]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2683]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelRequest]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Request]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Request]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/travelDocument2.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA84644DE0404F8189D86C09]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2697]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementPersonDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Person Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kim/identityManagementPersonDocument.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA85644DE0404F8189D86C09]]></column>
       <column name="DOC_SEARCH_HELP_URL" value="null"/>
       <column name="DOC_HDR_ID" value="null"/>
       <column name="AUTHORIZER" value="null"/>
@@ -560,192 +350,12 @@
       <column name="AUTHORIZER" value="null"/>
     </insert>
     <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2702]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementGroupDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Group]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kim/identityManagementGroupDocument.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[6BE7733A-643E-666C-CD18-E7439476C12E]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2703]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementRoleDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Role]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kim/identityManagementRoleDocument.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[EAF58989-D602-4CB1-961D-E31E0383B2D6]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2704]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[RecipeParentMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Recipe Maintenance Document Parent]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Parent Document for Recipe Maintenance Documents]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID"><![CDATA[RECIPE]]></column>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[327B8EEB-BC71-4701-A9E8-B4FC878FFCA6]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2705]]></column>
-      <column name="PARNT_ID"><![CDATA[2704]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[RecipeCategoryMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Recipe Category Maintenance]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create or Update a Recipe Category]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID"><![CDATA[RECIPE]]></column>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[E9CB1AAD-0015-16D5-9149-EC2A4AEDE932]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2706]]></column>
-      <column name="PARNT_ID"><![CDATA[2704]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[RecipeIngredientMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Recipe Ingredient Maintenance]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create or Update a Recipe Ingredient]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID"><![CDATA[RECIPE]]></column>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[41800805-9154-D43E-785F-3E76255F7F97]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[2707]]></column>
-      <column name="PARNT_ID"><![CDATA[2704]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[RecipeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Recipe Maintenance]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create or Update a Recipe]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[edu.sampleu.recipe.kew.RecipesPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID"><![CDATA[RECIPE]]></column>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[C1CED233-6389-D07B-8ADD-B8043E50B599]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
       <column name="DOC_TYP_ID"><![CDATA[2708]]></column>
       <column name="PARNT_ID"><![CDATA[2681]]></column>
       <column name="DOC_TYP_NM"><![CDATA[CampusMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[CampusMaintenanceDocument]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -759,7 +369,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -775,7 +385,7 @@
       <column name="DOC_TYP_NM"><![CDATA[CampusTypeMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[CampusTypeMaintenanceDocument]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -789,7 +399,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -805,7 +415,7 @@
       <column name="DOC_TYP_NM"><![CDATA[CountryMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[CountryMaintenanceDocument]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -819,7 +429,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -835,7 +445,7 @@
       <column name="DOC_TYP_NM"><![CDATA[CountyMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[CountyMaintenanceDocument]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -849,7 +459,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -865,7 +475,7 @@
       <column name="DOC_TYP_NM"><![CDATA[PostalCodeMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[PostalCodeMaintenanceDocument]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -879,7 +489,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -895,7 +505,7 @@
       <column name="DOC_TYP_NM"><![CDATA[StateMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[StateMaintenanceDocument]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -909,7 +519,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -939,7 +549,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[11]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -953,11 +563,11 @@
       <column name="DOC_TYP_ID"><![CDATA[2995]]></column>
       <column name="PARNT_ID"><![CDATA[2994]]></column>
       <column name="DOC_TYP_NM"><![CDATA[IdentityManagementRoleDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
+      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Role]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2703]]></column>
+      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
       <column name="DOC_HDLR_URL"><![CDATA[${kim.url}/identityManagementRoleDocument.do?methodToCall=docHandler]]></column>
       <column name="POST_PRCSR" value="null"/>
@@ -969,7 +579,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -983,11 +593,11 @@
       <column name="DOC_TYP_ID"><![CDATA[2996]]></column>
       <column name="PARNT_ID"><![CDATA[2994]]></column>
       <column name="DOC_TYP_NM"><![CDATA[IdentityManagementGroupDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
+      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Group]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2702]]></column>
+      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
       <column name="DOC_HDLR_URL"><![CDATA[${kim.url}/identityManagementGroupDocument.do?methodToCall=docHandler]]></column>
       <column name="POST_PRCSR" value="null"/>
@@ -999,7 +609,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -1013,11 +623,11 @@
       <column name="DOC_TYP_ID"><![CDATA[2997]]></column>
       <column name="PARNT_ID"><![CDATA[2994]]></column>
       <column name="DOC_TYP_NM"><![CDATA[IdentityManagementPersonDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
+      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Person]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2697]]></column>
+      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
       <column name="DOC_HDLR_URL"><![CDATA[${kim.url}/identityManagementPersonDocument.do?methodToCall=docHandler]]></column>
       <column name="POST_PRCSR" value="null"/>
@@ -1029,7 +639,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -1045,7 +655,7 @@
       <column name="DOC_TYP_NM"><![CDATA[IdentityManagementReviewResponsibilityMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Review Responsibility]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -1059,7 +669,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -1075,7 +685,7 @@
       <column name="DOC_TYP_NM"><![CDATA[IdentityManagementGenericPermissionMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Permission]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC" value="null"/>
@@ -1089,7 +699,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -1119,7 +729,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -1149,7 +759,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -1179,7 +789,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID" value="null"/>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID" value="null"/>
@@ -1209,7 +819,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -1239,7 +849,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -1269,7 +879,7 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
@@ -1280,42 +890,12 @@
       <column name="AUTHORIZER" value="null"/>
     </insert>
     <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3006]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAccountMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Travel Account Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2029]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Account Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.krad.url}/maintenance?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[0b89a795-8079-460a-b456-39c5c477938b]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
       <column name="DOC_TYP_ID"><![CDATA[3007]]></column>
       <column name="PARNT_ID"><![CDATA[2681]]></column>
       <column name="DOC_TYP_NM"><![CDATA[ComponentMaintenanceDocument]]></column>
       <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
       <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
+      <column name="CUR_IND"><![CDATA[1]]></column>
       <column name="LBL"><![CDATA[Component Maintenance Document]]></column>
       <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
       <column name="DOC_TYP_DESC"><![CDATA[Create/edit a component]]></column>
@@ -1329,1152 +909,12 @@
       <column name="APPL_ID" value="null"/>
       <column name="EMAIL_XSL" value="null"/>
       <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
+      <column name="VER_NBR"><![CDATA[0]]></column>
       <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
       <column name="RPT_GRP_ID" value="null"/>
       <column name="GRP_ID"><![CDATA[1]]></column>
       <column name="HELP_DEF_URL"><![CDATA[default.htm?turl=WordDocuments%2Fparametertype.htm]]></column>
       <column name="OBJ_ID"><![CDATA[e9e0086b-30ce-4a9b-a2d6-564772076a1e]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3008]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAuthorization]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Travel Authorization Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Authorization Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/approval?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[1]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[b9110d38-8fe0-4123-a65a-5df2336795fa]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3009]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[FiscalOfficerInfoMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Fiscal Officer Info Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Fiscal Officer Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/krad/maintenance?methodToCall=docHandler&dataObjectClassName=edu.sampleu.travel.dto.FiscalOfficerInfo]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[a4ecd35b-f35a-40ac-a9e1-ed47201281ec]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3010]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[CampusMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[CampusMaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2708]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#campus]]></column>
-      <column name="OBJ_ID"><![CDATA[4d0e4983-f69f-40e8-95c5-a7f9d5a8996a]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3011]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[CampusTypeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[CampusTypeMaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2709]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#campus_type]]></column>
-      <column name="OBJ_ID"><![CDATA[ae450ccf-3302-4672-877f-190a29ee0190]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3012]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[ComponentMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Component Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[3007]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create/edit a component]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#parameter_component]]></column>
-      <column name="OBJ_ID"><![CDATA[e659569f-5d4c-4a4c-b27b-84b78dea3643]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3013]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[CountryMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[CountryMaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2710]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#country]]></column>
-      <column name="OBJ_ID"><![CDATA[e007387e-87dc-406a-a127-dae7696ce4e7]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3014]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[CountyMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[CountyMaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2711]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#county]]></column>
-      <column name="OBJ_ID"><![CDATA[9726b611-a395-43ff-8843-3578cf20aafe]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3015]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[DocumentTypeDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Workflow Maintenance Document Type Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2011]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Workflow Maintenance Document Type Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#document_type]]></column>
-      <column name="OBJ_ID"><![CDATA[4cf561ff-c2ef-46df-b561-a6b295fa667a]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3016]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[NamespaceMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Namespace]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2031]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create/edit parameter namespaces]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#namespace]]></column>
-      <column name="OBJ_ID"><![CDATA[c13629e5-be44-4754-88bd-da304d2147bc]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3017]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[ParameterDetailTypeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Parameter Detail Type Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2033]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create/edit a parameter detail type]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#parameter_component]]></column>
-      <column name="OBJ_ID"><![CDATA[8a1b781f-61da-453f-9dea-80c06dafad1b]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3018]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[ParameterMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Parameter Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2034]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create/edit a parameter]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#parameter]]></column>
-      <column name="OBJ_ID"><![CDATA[551c3e31-f7af-43bd-b9a9-d1003297d623]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3019]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[ParameterTypeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Parameter Type Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2032]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create/edit a parameter type]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#parameter_type]]></column>
-      <column name="OBJ_ID"><![CDATA[60480f81-b125-4c14-950e-61a0e040408f]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3020]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[PostalCodeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[PostalCodeMaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2712]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#postal_code]]></column>
-      <column name="OBJ_ID"><![CDATA[276eb416-3246-4057-998b-6c8cc541db5f]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3021]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[StateMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[StateMaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2713]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#state]]></column>
-      <column name="OBJ_ID"><![CDATA[148d6b9f-cf6b-44eb-a931-39c89ec18c74]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3022]]></column>
-      <column name="PARNT_ID"><![CDATA[2994]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementGenericPermissionMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Permission]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2999]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#permission]]></column>
-      <column name="OBJ_ID"><![CDATA[f9249559-83e6-4584-ac38-08fb8c04ad64]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3023]]></column>
-      <column name="PARNT_ID"><![CDATA[2994]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementGroupDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[2]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Group]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2996]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kim.url}/identityManagementGroupDocument.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#group]]></column>
-      <column name="OBJ_ID"><![CDATA[e1195d31-a1ff-4906-b6a2-9ab3623f9e38]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3024]]></column>
-      <column name="PARNT_ID"><![CDATA[2994]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementPersonDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[2]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Person]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2997]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kim.url}/identityManagementPersonDocument.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#person]]></column>
-      <column name="OBJ_ID"><![CDATA[fb3322c3-36d3-4368-a80e-e6d4bcc25daa]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3025]]></column>
-      <column name="PARNT_ID"><![CDATA[2994]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementReviewResponsibilityMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Review Responsibility]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2998]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#responsibility]]></column>
-      <column name="OBJ_ID"><![CDATA[c3c4b25e-876a-404d-b79c-787e1e3868aa]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3026]]></column>
-      <column name="PARNT_ID"><![CDATA[2994]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[IdentityManagementRoleDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[2]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Role]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[2995]]></column>
-      <column name="DOC_TYP_DESC" value="null"/>
-      <column name="DOC_HDLR_URL"><![CDATA[${kim.url}/identityManagementRoleDocument.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#role]]></column>
-      <column name="OBJ_ID"><![CDATA[44ad6886-9517-403f-a4ce-98829e2216f6]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3027]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAccountTypeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Travel Account Type MaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Travel Account Type Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=org.kuali.rice.krad.demo.travel.dataobject.TravelAccountType]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[bb18fa9a-f001-4817-8f01-72c0dfcc33cf]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3028]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAttachmentGroupSampleMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Attachment Group Sample Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Attachment Group Sample Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.krad.url}/maintenance?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[9a933687-407c-4198-92f9-0470ef2c03d3]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3029]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAttachmentSampleMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Attachment Sample Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Attachment Sample Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.krad.url}/maintenance?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[8ab26557-a7f6-46c2-ad7b-bb24b753984c]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3030]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAuthorization]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[0]]></column>
-      <column name="LBL"><![CDATA[Travel Authorization Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[3008]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Authorization Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/approval?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[3220ba9d-1215-4dcd-ac47-d861508da205]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3031]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Parent Document Type for all Travel Documents]]></column>
-      <column name="DOC_HDLR_URL" value="null"/>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[9]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[9ac4ecbe-b44f-4981-a36d-a957b75ce90f]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3032]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[LabsTravelCompanyMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Labs Travel Company MaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Labs Travel Company Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=org.kuali.rice.krad.labs.LabsTravelCompany]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[c4d2b35b-9e54-4687-aed4-460cfddc7fbc]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3033]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelCompanyMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Company MaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Travel Company Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=edu.sampleu.travel.dataobject.TravelCompany]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[44d67b96-e197-4aba-b6d8-9ee114bb5219]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3034]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelDestinationMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Travel Destination Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Travel Destination Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=edu.sampleu.travel.dataobject.TravelDestination]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[ad2f4d50-1ded-4199-ba54-5d86aa3cd6cf]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3035]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelMileageRateMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Mileage Rate Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Travel Mileage Rate Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=edu.sampleu.travel.dataobject.TravelMileageRate]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[ddce3d35-a3d2-4f04-9c08-258276ee8863]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3036]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelerDetailMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Traveler Detail Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Traveler Detail Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=edu.sampleu.travel.dataobject.TravelerDetail]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[d0efdf8c-13cb-4233-a052-162111af035c]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3037]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelerTypeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Traveler Type Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Traveler Type Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=edu.sampleu.travel.dataobject.TravelerType]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[58caf2e0-87d8-4181-aede-7d842a8f0df7]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3038]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[LegacyKnsTravelCompanyMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Legacy KNS/OJB Travel Company MaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Legacy KNS/OJB Travel Company Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.url}/maintenance.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[dc01c7a9-f4b8-4aab-9f69-23cbfc3b0de2]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3039]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[LegacyKradTravelCompanyMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Legacy KRAD/JPA Travel Company MaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Legacy KRAD/JPA Travel Company Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=edu.sampleu.travel.dataobject.TravelCompany]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[29d90add-376c-4f04-8419-50e3f7b32570]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3040]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[LegacyTravelAuthorizationKns]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Authorization]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Travel Authorization Document in KNS and OJB]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/legacyTravelAuthorization.do?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[5c90c397-3c7c-4767-80d5-6b5942b6c18c]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3041]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAccountBulkUpdateMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Account Bulk Update MaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Travel Account Bulk Update Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&docTypeName=TravelAccountBulkUpdateMaintenanceDocument]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[4f8682e2-1e11-44f7-b95f-06c467ace909]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3042]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAccountMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[2]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Account Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[3006]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Account Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${kr.krad.url}/maintenance?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[66450b87-5926-4247-ba2c-caca3a6efc4c]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3043]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAccountTypeMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Account Type MaintenanceDocument]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[3027]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a Travel Account Type Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/maintenance?methodToCall=docHandler&dataObjectClassName=org.kuali.rice.krad.demo.travel.dataobject.TravelAccountType]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[06f6cfab-c08d-40b2-83cb-a9ed0c30e3a9]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3044]]></column>
-      <column name="PARNT_ID"><![CDATA[3031]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[TravelAuthorization]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[2]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Travel Authorization Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR"><![CDATA[3030]]></column>
-      <column name="DOC_TYP_DESC"><![CDATA[Create a New Travel Authorization Document]]></column>
-      <column name="DOC_HDLR_URL"><![CDATA[${application.url}/kr-krad/approval?methodToCall=docHandler]]></column>
-      <column name="POST_PRCSR"><![CDATA[org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor]]></column>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID"><![CDATA[1]]></column>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[bbe2956d-21a6-4f7a-9877-de582a14c68b]]></column>
-      <column name="DOC_SEARCH_HELP_URL" value="null"/>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="AUTHORIZER" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_t">
-      <column name="DOC_TYP_ID"><![CDATA[3045]]></column>
-      <column name="PARNT_ID"><![CDATA[2681]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[LabsEdlMaintenanceDocument]]></column>
-      <column name="DOC_TYP_VER_NBR"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="LBL"><![CDATA[Labs Edl Maintenance Document]]></column>
-      <column name="PREV_DOC_TYP_VER_NBR" value="null"/>
-      <column name="DOC_TYP_DESC"><![CDATA[Labs Edl Maintenance Document]]></column>
-      <column name="DOC_HDLR_URL" value="null"/>
-      <column name="POST_PRCSR" value="null"/>
-      <column name="JNDI_URL" value="null"/>
-      <column name="BLNKT_APPR_PLCY" value="null"/>
-      <column name="ADV_DOC_SRCH_URL" value="null"/>
-      <column name="RTE_VER_NBR"><![CDATA[2]]></column>
-      <column name="NOTIFY_ADDR" value="null"/>
-      <column name="APPL_ID" value="null"/>
-      <column name="EMAIL_XSL" value="null"/>
-      <column name="SEC_XML" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BLNKT_APPR_GRP_ID" value="null"/>
-      <column name="RPT_GRP_ID" value="null"/>
-      <column name="GRP_ID" value="null"/>
-      <column name="HELP_DEF_URL" value="null"/>
-      <column name="OBJ_ID"><![CDATA[f8f4ef7c-3ac3-4fc8-b270-1efe2b353d3b]]></column>
       <column name="DOC_SEARCH_HELP_URL" value="null"/>
       <column name="DOC_HDR_ID" value="null"/>
       <column name="AUTHORIZER" value="null"/>

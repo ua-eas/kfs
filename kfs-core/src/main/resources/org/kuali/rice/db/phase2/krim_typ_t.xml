@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10237">
+  <changeSet author="kfs" id="ricedata00115">
     <insert tableName="krim_typ_t">
       <column name="KIM_TYP_ID"><![CDATA[1]]></column>
       <column name="OBJ_ID"><![CDATA[5ADF18B6D4827954E0404F8189D85002]]></column>
@@ -831,7 +831,7 @@
     </insert>
     <insert tableName="krim_typ_t">
       <column name="KIM_TYP_ID"><![CDATA[KR1000]]></column>
-      <column name="OBJ_ID"><![CDATA[CDC48BA7E67687DFE040F90A05B92A31]]></column>
+      <column name="OBJ_ID"><![CDATA[CBA9C0DFF5FFE80EE040F90A05B97BE4]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="NM"><![CDATA[Document Type, Route Node, and Route Status]]></column>
       <column name="SRVC_NM"><![CDATA[documentTypeAndNodeAndRouteStatusPermissionTypeService]]></column>
@@ -840,75 +840,12 @@
     </insert>
     <insert tableName="krim_typ_t">
       <column name="KIM_TYP_ID"><![CDATA[KR1001]]></column>
-      <column name="OBJ_ID"><![CDATA[CEA27F2DB2D93593E040F90A05B924DB]]></column>
+      <column name="OBJ_ID"><![CDATA[CEA27C3715258653E040F90A05B924A3]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="NM"><![CDATA[Backdoor Restriction]]></column>
       <column name="SRVC_NM"><![CDATA[backdoorRestrictionPermissionTypeService]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
       <column name="NMSPC_CD"><![CDATA[KR-SYS]]></column>
-    </insert>
-    <insert tableName="krim_typ_t">
-      <column name="KIM_TYP_ID"><![CDATA[KR1002]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96C93105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Channel]]></column>
-      <column name="SRVC_NM"><![CDATA[{http://rice.kuali.org/ken/v2_0}channelPermissionTypeService]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-NTFCN]]></column>
-    </insert>
-    <insert tableName="krim_typ_t">
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP10]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148FBD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Namespace or Component]]></column>
-      <column name="SRVC_NM"><![CDATA[namespaceOrComponentPermissionTypeService]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-    </insert>
-    <insert tableName="krim_typ_t">
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP12]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148FCD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Namespace or Action]]></column>
-      <column name="SRVC_NM"><![CDATA[namespaceOrActionPermissionTypeService]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-    </insert>
-    <insert tableName="krim_typ_t">
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP3]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148F8D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Document Type (Permission)]]></column>
-      <column name="SRVC_NM"><![CDATA[documentTypePermissionTypeService]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-    </insert>
-    <insert tableName="krim_typ_t">
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP5]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148F9D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Ad Hoc Review]]></column>
-      <column name="SRVC_NM"><![CDATA[adhocReviewPermissionTypeService]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-    </insert>
-    <insert tableName="krim_typ_t">
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP59]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148FDD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Document Type & Relationship to Note Author]]></column>
-      <column name="SRVC_NM"><![CDATA[documentTypeAndRelationshipToNoteAuthorPermissionTypeService]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-    </insert>
-    <insert tableName="krim_typ_t">
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP8]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148FAD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Document Type & Routing Node or State]]></column>
-      <column name="SRVC_NM"><![CDATA[documentTypeAndNodeOrStatePermissionTypeService]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
     </insert>
   </changeSet>
 </databaseChangeLog>

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10227">
+  <changeSet author="kfs" id="ricedata00110">
     <insert tableName="krim_role_t">
       <column name="ROLE_ID"><![CDATA[1]]></column>
       <column name="OBJ_ID"><![CDATA[5ADF18B6D4847954E0404F8189D85002]]></column>
@@ -1219,59 +1219,15 @@
       <column name="LAST_UPDT_DT" value="null"/>
     </insert>
     <insert tableName="krim_role_t">
-      <column name="ROLE_ID"><![CDATA[KR1000]]></column>
-      <column name="OBJ_ID"><![CDATA[CFBAA6F5F0D25D07E0406E0AC31D229B]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_NM"><![CDATA[GuestRole]]></column>
-      <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
-      <column name="DESC_TXT"><![CDATA[This role is used for no login guest users.]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2012-11-30 17:23:57.0"/>
-    </insert>
-    <insert tableName="krim_role_t">
       <column name="ROLE_ID"><![CDATA[KR1001]]></column>
-      <column name="OBJ_ID"><![CDATA[D0C2892F47ED9142E0406E0AC31D23D6]]></column>
+      <column name="OBJ_ID"><![CDATA[D0C288607977E015E0406E0AC31D23C6]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROLE_NM"><![CDATA[Complete Request Recipient]]></column>
       <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
       <column name="DESC_TXT"><![CDATA[This role derives its members from users with an complete action request in the route log of a given document.]]></column>
       <column name="KIM_TYP_ID"><![CDATA[42]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2012-11-28 14:37:20.0"/>
-    </insert>
-    <insert tableName="krim_role_t">
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915D1BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_NM"><![CDATA[Sample App Admin]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-      <column name="DESC_TXT"><![CDATA[Test role for the sample app]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2012-11-06 17:34:21.0"/>
-    </insert>
-    <insert tableName="krim_role_t">
-      <column name="ROLE_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915D3BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_NM"><![CDATA[Sample App Users]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-      <column name="DESC_TXT"><![CDATA[Test role for the sample app]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2012-11-06 17:34:40.0"/>
-    </insert>
-    <insert tableName="krim_role_t">
-      <column name="ROLE_ID"><![CDATA[KRSAP10005]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1491BD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_NM"><![CDATA[Travel Approver]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-      <column name="DESC_TXT"><![CDATA[Travel Approver for KRAD Sample App]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2014-11-06 22:03:29.0"/>
+      <column name="LAST_UPDT_DT" valueDate="2013-02-20 00:37:12.0"/>
     </insert>
   </changeSet>
 </databaseChangeLog>

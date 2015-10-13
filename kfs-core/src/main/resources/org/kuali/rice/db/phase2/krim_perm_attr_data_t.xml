@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10186">
+  <changeSet author="kfs" id="ricedata00092">
     <insert tableName="krim_perm_attr_data_t">
       <column name="ATTR_DATA_ID"><![CDATA[181]]></column>
       <column name="OBJ_ID"><![CDATA[5B4F09744A25EF33E0404F8189D84F24]]></column>
@@ -297,6 +297,24 @@
       <column name="KIM_TYP_ID"><![CDATA[4]]></column>
       <column name="KIM_ATTR_DEFN_ID"><![CDATA[14]]></column>
       <column name="ATTR_VAL"><![CDATA[K]]></column>
+    </insert>
+    <insert tableName="krim_perm_attr_data_t">
+      <column name="ATTR_DATA_ID"><![CDATA[237]]></column>
+      <column name="OBJ_ID"><![CDATA[5B4F09744A5DEF33E0404F8189D84F24]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PERM_ID"><![CDATA[180]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[8]]></column>
+      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
+      <column name="ATTR_VAL"><![CDATA[KualiDocument]]></column>
+    </insert>
+    <insert tableName="krim_perm_attr_data_t">
+      <column name="ATTR_DATA_ID"><![CDATA[238]]></column>
+      <column name="OBJ_ID"><![CDATA[5B4F09744A5EEF33E0404F8189D84F24]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PERM_ID"><![CDATA[180]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[8]]></column>
+      <column name="KIM_ATTR_DEFN_ID"><![CDATA[16]]></column>
+      <column name="ATTR_VAL"><![CDATA[PreRoute]]></column>
     </insert>
     <insert tableName="krim_perm_attr_data_t">
       <column name="ATTR_DATA_ID"><![CDATA[239]]></column>
@@ -767,6 +785,15 @@
       <column name="ATTR_VAL"><![CDATA[org.kuali.rice.core.web.cache.CacheAdminController]]></column>
     </insert>
     <insert tableName="krim_perm_attr_data_t">
+      <column name="ATTR_DATA_ID"><![CDATA[883]]></column>
+      <column name="OBJ_ID"><![CDATA[B7DBFABEFD2C8CBFE0402E0AA9D757C9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PERM_ID"><![CDATA[843]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[67]]></column>
+      <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
+      <column name="ATTR_VAL"><![CDATA[KRMS_TEST]]></column>
+    </insert>
+    <insert tableName="krim_perm_attr_data_t">
       <column name="ATTR_DATA_ID"><![CDATA[884]]></column>
       <column name="OBJ_ID"><![CDATA[aa1d1400-6155-4819-8bad-e5dd81f9871b]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -800,7 +827,7 @@
       <column name="PERM_ID"><![CDATA[847]]></column>
       <column name="KIM_TYP_ID"><![CDATA[8]]></column>
       <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[RiceDocument]]></column>
+      <column name="ATTR_VAL"><![CDATA[*]]></column>
     </insert>
     <insert tableName="krim_perm_attr_data_t">
       <column name="ATTR_DATA_ID"><![CDATA[888]]></column>
@@ -6636,588 +6663,12 @@
     </insert>
     <insert tableName="krim_perm_attr_data_t">
       <column name="ATTR_DATA_ID"><![CDATA[KR1000]]></column>
-      <column name="OBJ_ID"><![CDATA[D0C2892F47EC9142E0406E0AC31D23D6]]></column>
+      <column name="OBJ_ID"><![CDATA[D0C288607976E015E0406E0AC31D23C6]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="PERM_ID"><![CDATA[KR1000]]></column>
       <column name="KIM_TYP_ID"><![CDATA[4]]></column>
       <column name="KIM_ATTR_DEFN_ID"><![CDATA[14]]></column>
       <column name="ATTR_VAL"><![CDATA[C]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KR1001]]></column>
-      <column name="OBJ_ID"><![CDATA[E3EF4C83B4BC5C9EE0406E0AC31D4562]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KR1001]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[8]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[KualiDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KR1002]]></column>
-      <column name="OBJ_ID"><![CDATA[E3EF4C83B4BD5C9EE0406E0AC31D4562]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KR1001]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[8]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[15]]></column>
-      <column name="ATTR_VAL"><![CDATA[I]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KR1003]]></column>
-      <column name="OBJ_ID"><![CDATA[E3EF4C83B4C05C9EE0406E0AC31D4562]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KR1002]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[8]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[KualiDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KR1004]]></column>
-      <column name="OBJ_ID"><![CDATA[E3EF4C83B4C15C9EE0406E0AC31D4562]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KR1002]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[8]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[15]]></column>
-      <column name="ATTR_VAL"><![CDATA[S]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KR1005]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96CF3105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KR1003]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[10]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
-      <column name="ATTR_VAL"><![CDATA[*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP12100]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14923D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP12000]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[LabsInquiry-AuthorizerSecurity]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP12200]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14924D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP12000]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[travelAuthorizationDocumentId]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP13100]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14927D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP13000]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[LabsInquiry-AuthorizerSecurity]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP13200]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14928D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP13000]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[51]]></column>
-      <column name="ATTR_VAL"><![CDATA[CostEstimatesSection]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP13300]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14938D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10030]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[9]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP13400]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1493BD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10031]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[9]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP13401]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1493CD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10031]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[9]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[9]]></column>
-      <column name="ATTR_VAL"><![CDATA[OTH]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2101]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148E5D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2100]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelerDetail]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2102]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148E6D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2100]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[phoneNumber]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2201]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148E8D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2200]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelerDetail]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2202]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148E9D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2200]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[phoneNumber]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2301]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1492BD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2300]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelAuthorizationDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2302]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1492CD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2300]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[travelerDetail.phoneNumber]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2401]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1492ED514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2400]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelAuthorizationDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP2402]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1492FD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2400]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[11]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[travelerDetail.phoneNumber]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP882]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915D7BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP883]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915D8BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[51]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView-SecureGroupView]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP884]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915DBBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP885]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915DCBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[51]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView-Page9]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP886]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915DFBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10005]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP887]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E0BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10005]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[51]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView-SecureGroupEdit]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP888]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E3BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10006]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP889]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E4BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10006]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[field6]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP890]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E7BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10007]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP891]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E8BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10007]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[field7]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP892]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915EBBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10008]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP893]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915ECBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10008]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[50]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView-SecureFieldGroup1]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP894]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915EFBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10009]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP895]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F0BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10009]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[70]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[50]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView-SecureFieldGroup2]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP896]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F3BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10010]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[73]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP897]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F4BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10010]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[73]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[48]]></column>
-      <column name="ATTR_VAL"><![CDATA[save]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP898]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F7BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10011]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[72]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP899]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F8BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10011]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[72]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[52]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView-SecureWidget]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP900]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915FBBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10012]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP901]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915FCBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10012]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[49]]></column>
-      <column name="ATTR_VAL"><![CDATA[list1]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP902]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915FFBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10013]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP903]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291600BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10013]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[71]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[49]]></column>
-      <column name="ATTR_VAL"><![CDATA[list2]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP904]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291603BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10014]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[74]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP905]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291604BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10014]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[74]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[49]]></column>
-      <column name="ATTR_VAL"><![CDATA[list3]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP906]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291605BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10014]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[74]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[field2]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP907]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291608BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10015]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[74]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP908]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291609BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10015]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[74]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[49]]></column>
-      <column name="ATTR_VAL"><![CDATA[list3]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP909]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD80329160ABF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10015]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[74]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
-      <column name="ATTR_VAL"><![CDATA[field3]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP910]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD80329160DBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10016]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[75]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[47]]></column>
-      <column name="ATTR_VAL"><![CDATA[UifCompView*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP911]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD80329160EBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10016]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[75]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[49]]></column>
-      <column name="ATTR_VAL"><![CDATA[list4]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP912]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD80329160FBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10016]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[75]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[48]]></column>
-      <column name="ATTR_VAL"><![CDATA[delete]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP913]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148FED514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10017]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP5]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP914]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148FFD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10018]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP3]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP915]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14900D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10019]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP3]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP916]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14901D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10020]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP3]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP917]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14902D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10021]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP3]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP918]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14903D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10024]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP3]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP919]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14905D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10028]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP8]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP920]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14904D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10027]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP59]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP921]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14906D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10029]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP8]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[13]]></column>
-      <column name="ATTR_VAL"><![CDATA[TravelDocument]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP922]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14907D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10022]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP10]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
-      <column name="ATTR_VAL"><![CDATA[KR*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP923]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14908D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10023]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP10]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
-      <column name="ATTR_VAL"><![CDATA[KR*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP924]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14909D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10025]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP12]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
-      <column name="ATTR_VAL"><![CDATA[KR*]]></column>
-    </insert>
-    <insert tableName="krim_perm_attr_data_t">
-      <column name="ATTR_DATA_ID"><![CDATA[KRSAP925]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1490AD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10027]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KRSAP59]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[8]]></column>
-      <column name="ATTR_VAL"><![CDATA[false]]></column>
     </insert>
     <insert tableName="krim_perm_attr_data_t">
       <column name="ATTR_DATA_ID"><![CDATA[PREQ_SU_DISAPPROVE_DOCTYPE]]></column>

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10222">
+  <changeSet author="kfs" id="ricedata00105">
     <insert tableName="krim_role_perm_t">
       <column name="ROLE_PERM_ID"><![CDATA[183]]></column>
       <column name="OBJ_ID"><![CDATA[5C27A267EF5C7417E0404F8189D830A9]]></column>
@@ -233,6 +233,14 @@
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROLE_ID"><![CDATA[1]]></column>
       <column name="PERM_ID"><![CDATA[174]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="krim_role_perm_t">
+      <column name="ROLE_PERM_ID"><![CDATA[226]]></column>
+      <column name="OBJ_ID"><![CDATA[5C27A267EF877417E0404F8189D830A9]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROLE_ID"><![CDATA[60]]></column>
+      <column name="PERM_ID"><![CDATA[180]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="krim_role_perm_t">
@@ -673,14 +681,6 @@
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROLE_ID"><![CDATA[98]]></column>
       <column name="PERM_ID"><![CDATA[846]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[862]]></column>
-      <column name="OBJ_ID"><![CDATA[BD74D7B702AD02CEE0402E0AA9D75B2D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[60]]></column>
-      <column name="PERM_ID"><![CDATA[847]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="krim_role_perm_t">
@@ -6485,7 +6485,7 @@
     </insert>
     <insert tableName="krim_role_perm_t">
       <column name="ROLE_PERM_ID"><![CDATA[KR1000]]></column>
-      <column name="OBJ_ID"><![CDATA[D0C2892F47EE9142E0406E0AC31D23D6]]></column>
+      <column name="OBJ_ID"><![CDATA[D0C288607978E015E0406E0AC31D23C6]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROLE_ID"><![CDATA[KR1001]]></column>
       <column name="PERM_ID"><![CDATA[KR1000]]></column>
@@ -6493,362 +6493,10 @@
     </insert>
     <insert tableName="krim_role_perm_t">
       <column name="ROLE_PERM_ID"><![CDATA[KR1001]]></column>
-      <column name="OBJ_ID"><![CDATA[D0C2892F47EF9142E0406E0AC31D23D6]]></column>
+      <column name="OBJ_ID"><![CDATA[D0C288607979E015E0406E0AC31D23C6]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROLE_ID"><![CDATA[KR1001]]></column>
       <column name="PERM_ID"><![CDATA[181]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KR1002]]></column>
-      <column name="OBJ_ID"><![CDATA[E3EF4C83B4BE5C9EE0406E0AC31D4562]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[60]]></column>
-      <column name="PERM_ID"><![CDATA[KR1001]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KR1003]]></column>
-      <column name="OBJ_ID"><![CDATA[E3EF4C83B4C25C9EE0406E0AC31D4562]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[60]]></column>
-      <column name="PERM_ID"><![CDATA[KR1002]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KR1004]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96D03105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KR1003]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10017]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1490BD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10017]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10018]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1490CD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[63]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10018]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10019]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1490DD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[63]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10019]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10020]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1490ED514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10020]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10021]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1490FD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10021]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10022]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14910D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10022]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10023]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14911D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10023]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10024]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14912D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10024]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10025]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14919D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10025]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10027]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14915D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[63]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10027]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10028]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14913D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[60]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10028]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10029]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1491AD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[60]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10029]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1003]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915D9BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10030]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14914D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[95]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10021]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10031]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14916D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[90]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10028]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10032]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14917D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10022]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10033]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14918D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[1]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10023]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10034]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14934D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KR1002]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10035]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14935D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10019]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP10036]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14936D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10028]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1004]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915DDBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1005]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E1BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10005]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1006]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E5BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10006]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1007]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915E9BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10007]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1008]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915EDBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10008]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1009]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F1BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10009]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1010]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F5BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10010]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1011]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915F9BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10011]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1012]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD8032915FDBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10012]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1013]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291601BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10013]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1014]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291606BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10014]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1015]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD80329160BBF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10015]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP1016]]></column>
-      <column name="OBJ_ID"><![CDATA[CDD803291610BF1FE040F90A05B94313]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10016]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP12001]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14925D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP12000]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP13001]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14929D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP13000]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP13002]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14939D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10030]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP13003]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD1493DD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP10031]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP2000]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148EAD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2100]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP2001]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD148EBD514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2200]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP2002]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14930D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10003]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2300]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_role_perm_t">
-      <column name="ROLE_PERM_ID"><![CDATA[KRSAP2003]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14931D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROLE_ID"><![CDATA[KRSAP10004]]></column>
-      <column name="PERM_ID"><![CDATA[KRSAP2400]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="krim_role_perm_t">

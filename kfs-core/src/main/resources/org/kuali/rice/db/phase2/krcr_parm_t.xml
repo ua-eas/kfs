@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10022">
+  <changeSet author="kfs" id="ricedata00009">
     <insert tableName="krcr_parm_t">
       <column name="NMSPC_CD"><![CDATA[KFS-AR]]></column>
       <column name="CMPNT_CD"><![CDATA[All]]></column>
@@ -3607,6 +3607,18 @@ If this parameter is left blank, then the program will assume the current system
       <column name="VAL"><![CDATA[IC;CH]]></column>
       <column name="PARM_DESC_TXT"><![CDATA[Object Type(s) restricted from use on the Distribution of Income and Expense document.]]></column>
       <column name="EVAL_OPRTR_CD"><![CDATA[D]]></column>
+      <column name="APPL_ID"><![CDATA[KFS]]></column>
+    </insert>
+    <insert tableName="krcr_parm_t">
+      <column name="NMSPC_CD"><![CDATA[KFS-FP]]></column>
+      <column name="CMPNT_CD"><![CDATA[Document]]></column>
+      <column name="PARM_NM"><![CDATA[ALLOW_MANY_TO_MANY_TRANSFERS_IND]]></column>
+      <column name="OBJ_ID"><![CDATA[KFSCD-6-1]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+      <column name="VAL"><![CDATA[Y]]></column>
+      <column name="PARM_DESC_TXT"><![CDATA[Specifies whether or not many-to-many transfers are allowed on the Transfer of Funds and Year End Transfer of Funds documents. Set the parameter to Y to allow many to many transfers.]]></column>
+      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
       <column name="APPL_ID"><![CDATA[KFS]]></column>
     </insert>
     <insert tableName="krcr_parm_t">
@@ -10368,90 +10380,6 @@ dress is a PO type address.]]></column>
       <column name="APPL_ID"><![CDATA[KUALI]]></column>
     </insert>
     <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-KRAD]]></column>
-      <column name="CMPNT_CD"><![CDATA[All]]></column>
-      <column name="PARM_NM"><![CDATA[AUTO_TRUNCATE_COLUMNS]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96D33105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[N]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Automatically truncate text that does not fit into table columns.  A tooltip with the non-trucated text on hover over.]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-KRAD]]></column>
-      <column name="CMPNT_CD"><![CDATA[Lookup]]></column>
-      <column name="PARM_NM"><![CDATA[AUTO_TRUNCATE_COLUMNS]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96D43105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[N]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Automatically truncate text that does not fit into lookup result columns.  A tooltip with the non-trucated text on hover over.]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-KRAD]]></column>
-      <column name="CMPNT_CD"><![CDATA[Lookup]]></column>
-      <column name="PARM_NM"><![CDATA[DEFAULT_HELP_URL]]></column>
-      <column name="OBJ_ID"><![CDATA[69A9BABE4A0FBD56E0404F8189D82511]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[HELP]]></column>
-      <column name="VAL"><![CDATA[http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#lookup]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Default External Help Url]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-KRAD]]></column>
-      <column name="CMPNT_CD"><![CDATA[Lookup]]></column>
-      <column name="PARM_NM"><![CDATA[MULTIPLE_VALUE_RESULTS_LIMIT]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96C73105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[100]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Maximum number of rows that will be displayed on a look-up results screen.]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-KRAD]]></column>
-      <column name="CMPNT_CD"><![CDATA[Lookup]]></column>
-      <column name="PARM_NM"><![CDATA[RESULTS_LIMIT]]></column>
-      <column name="OBJ_ID"><![CDATA[E3F2146BBD179481E0406E0AC31D69DB]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[200]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Maximum number of results returned in a look-up query.]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-KRAD]]></column>
-      <column name="CMPNT_CD"><![CDATA[TravelAccount]]></column>
-      <column name="PARM_NM"><![CDATA[DEFAULT_HELP_URL]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DDD14933D514E0506E0AC31D4299]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[http://www.kuali.org]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Default Help URL]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-LOC]]></column>
-      <column name="CMPNT_CD"><![CDATA[All]]></column>
-      <column name="PARM_NM"><![CDATA[DEFAULT_COUNTRY]]></column>
-      <column name="OBJ_ID"><![CDATA[64B87B4C5E3B8F4CE0404F8189D8291A]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[US]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Used as the default country code when relating records that do not have a country code to records that do have a country code, e.g. validating a zip code where the country is not collected.]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
       <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
       <column name="CMPNT_CD"><![CDATA[All]]></column>
       <column name="PARM_NM"><![CDATA[CHECK_ENCRYPTION_SERVICE_OVERRIDE_IND]]></column>
@@ -10479,23 +10407,11 @@ dress is a PO type address.]]></column>
       <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
       <column name="CMPNT_CD"><![CDATA[All]]></column>
       <column name="PARM_NM"><![CDATA[DEFAULT_COUNTRY]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96D23105E0506E0AC31D4281]]></column>
+      <column name="OBJ_ID"><![CDATA[64B87B4C5E3B8F4CE0404F8189D8291A]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
       <column name="VAL"><![CDATA[US]]></column>
       <column name="PARM_DESC_TXT"><![CDATA[Used as the default country code when relating records that do not have a country code to records that do have a country code, e.g. validating a zip code where the country is not collected.]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
-      <column name="CMPNT_CD"><![CDATA[All]]></column>
-      <column name="PARM_NM"><![CDATA[DEFAULT_LOCALE_CODE]]></column>
-      <column name="OBJ_ID"><![CDATA[CAA025BC0FFDC4F9E040F90A05B912C4]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[en-US]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[The locale code that should be used within the application when otherwise not specified.]]></column>
       <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
       <column name="APPL_ID"><![CDATA[KUALI]]></column>
     </insert>
@@ -10566,20 +10482,8 @@ dress is a PO type address.]]></column>
       <column name="OBJ_ID"><![CDATA[53680C68F59DAD9BE0404F8189D80A6C]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[5M]]></column>
+      <column name="VAL"><![CDATA[50M]]></column>
       <column name="PARM_DESC_TXT"><![CDATA[Maximum file upload size for the application. Used by PojoFormBase. Must be an integer, optionally followed by "K", "M", or "G". Only used if no other upload limits are in effect.]]></column>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
-      <column name="CMPNT_CD"><![CDATA[All]]></column>
-      <column name="PARM_NM"><![CDATA[OLTP_LOCKOUT_DEFAULT_MESSAGE]]></column>
-      <column name="OBJ_ID"><![CDATA[CF90C87BE340C290E0406E0AC31D4F3F]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-      <column name="VAL"><![CDATA[The module you are attempting to access has been locked for maintenance.]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[Default message to display when a module is locked]]></column>
       <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
       <column name="APPL_ID"><![CDATA[KUALI]]></column>
     </insert>
@@ -10591,8 +10495,8 @@ dress is a PO type address.]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
       <column name="VAL"><![CDATA[[0-9]{9};[0-9]{3}-[0-9]{2}-[0-9]{4}]]></column>
-      <column name="PARM_DESC_TXT"><![CDATA[A semi-colon delimted list of regular expressions that identify
-potentially sensitive data in strings.  These patterns will be matched
+      <column name="PARM_DESC_TXT"><![CDATA[A semi-colon delimted list of regular expressions that identify 
+potentially sensitive data in strings.  These patterns will be matched 
 against notes, document explanations, and routing annotations.]]></column>
       <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
       <column name="APPL_ID"><![CDATA[KUALI]]></column>
@@ -10788,18 +10692,6 @@ against notes, document explanations, and routing annotations.]]></column>
       <column name="PARM_DESC_TXT"><![CDATA[Time in milliseconds that the scheduleStep should wait between iterations.]]></column>
       <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
       <column name="APPL_ID"><![CDATA[KUALI]]></column>
-    </insert>
-    <insert tableName="krcr_parm_t">
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-      <column name="CMPNT_CD"><![CDATA[TestComponent]]></column>
-      <column name="PARM_NM"><![CDATA[TEST_PARAM]]></column>
-      <column name="OBJ_ID"><![CDATA[B6A90093AB168D60E040DC0A1F8A1116]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PARM_TYP_CD"><![CDATA[HELP]]></column>
-      <column name="VAL"><![CDATA[http://site.kuali.org/rice/latest/reference/html/Help.html#document_type]]></column>
-      <column name="PARM_DESC_TXT" value="null"/>
-      <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-      <column name="APPL_ID"><![CDATA[TRAVEL]]></column>
     </insert>
     <insert tableName="krcr_parm_t">
       <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
