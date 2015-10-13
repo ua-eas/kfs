@@ -1251,4 +1251,13 @@
   <changeSet author="kfs" id="3978" context="bootstrap,demo">
     <addForeignKeyConstraint baseColumnNames="SVC_DSCRPTR_ID" baseTableName="KRSB_SVC_DEF_T" constraintName="KRSB_SVC_DEF_FK1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="SVC_DSCRPTR_ID" referencedTableName="KRSB_SVC_DSCRPTR_T"/>
   </changeSet>
+  <changeSet author="kfs" id="3979">
+    <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_cmpnt_t" constraintName="KRNS_PARM_DTL_TYP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
+  </changeSet>
+  <changeSet author="kfs" id="3980">
+    <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_parm_t" constraintName="KRNS_PARM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
+  </changeSet>
+  <changeSet author="kfs" id="3981">
+    <addForeignKeyConstraint baseColumnNames="PARM_TYP_CD" baseTableName="krcr_parm_t" constraintName="KRNS_PARM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PARM_TYP_CD" referencedTableName="krcr_parm_typ_t"/>
+  </changeSet>
 </databaseChangeLog>

@@ -663,4 +663,13 @@
   <changeSet author="kfs" id="3937" context="bootstrap,demo">
     <addUniqueConstraint columnNames="OBJ_ID" constraintName="SH_NTE_TYP_TC0" tableName="KRNS_NTE_TYP_T"/>
   </changeSet>
+  <changeSet author="kfs" id="3938">
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_DTL_TYP_TC0" tableName="krcr_cmpnt_t"/>
+  </changeSet>
+  <changeSet author="kfs" id="3939">
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TYP_TC0" tableName="krcr_parm_typ_t"/>
+  </changeSet>
+  <changeSet author="kfs" id="3940">
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NMSPC_TC0" tableName="krcr_nmspc_t"/>
+  </changeSet>
 </databaseChangeLog>
