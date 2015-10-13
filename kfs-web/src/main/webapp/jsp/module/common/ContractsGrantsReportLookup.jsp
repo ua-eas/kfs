@@ -131,14 +131,14 @@
                             <tr align="center">
                                 <td height="30" colspan="${headerColspan}" class="infoline multiline">
                                     <c:if test="${KualiForm.renderSearchButtons}">
-                                        <html:image property="methodToCall.search" value="search"
-                                            src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_search.gif"
-                                            styleClass="tinybutton" alt="search" title="search"
-                                            border="0" />
-                                        <html:image property="methodToCall.clearValues"
-                                            value="clearValues"
-                                            src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_clear.gif"
-                                            styleClass="tinybutton" alt="clear" title="clear" border="0" />
+                                        <html:submit
+                                                property="methodToCall.search" value="Search"
+                                                styleClass="tinybutton btn btn-default"
+                                                alt="Search" title="Search" />
+                                        <html:submit
+                                                property="methodToCall.clearValues" value="Clear"
+                                                styleClass="tinybutton btn btn-default"
+                                                alt="Clear" title="Clear" />
                                     </c:if>
 
                                     <c:if test="${KualiForm.formKey!='' and !empty KualiForm.backLocation}">
@@ -151,11 +151,11 @@
                                     <div id="globalbuttons" class="globalbuttons">
                                         <c:if test="${!empty extraButtons}">
                                             <c:forEach items="${extraButtons}" var="extraButton">
-                                                <html:image src="${extraButton.extraButtonSource}"
-                                                    styleClass="globalbuttons"
-                                                    property="${extraButton.extraButtonProperty}"
-                                                    title="${extraButton.extraButtonAltText}"
-                                                    alt="${extraButton.extraButtonAltText}" />
+                                                <html:submit value="${extraButton.extraButtonAltText}"
+                                                             property="${extraButton.extraButtonProperty}"
+                                                             title="${extraButton.extraButtonAltText}"
+                                                             alt="${extraButton.extraButtonAltText}"
+                                                             styleClass="tinybutton btn btn-default" />
                                             </c:forEach>
                                         </c:if>
                                     </div>

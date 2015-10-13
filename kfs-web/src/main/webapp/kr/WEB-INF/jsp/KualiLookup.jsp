@@ -171,20 +171,22 @@
 									class="tinybutton" border="0" /></a>
 							</c:if>
 							<c:if test="${KualiForm.ddExtraButton}">
-								<html:image src="${extraButton.extraButtonSource}" styleClass="tinybutton" property="methodToCall.customLookupableMethodCall" alt="${extraButton.extraButtonAltText}" onclick="${extraButton.extraButtonOnclick}"/> &nbsp;&nbsp;
+                                <html:button value="${extraButton.extraButtonAltText}"
+                                        property="methodToCall.customLookupableMethodCall"
+                                        alt="${extraButton.extraButtonAltText}"
+                                        onclick="${extraButton.extraButtonOnclick}"
+                                        styleClass="tinybutton btn btn-default" />
 							</c:if>
 						</c:if>
 
 					</c:forEach>
 					<c:if test="${KualiForm.multipleValues && !empty KualiForm.backLocation}">
-						<a
-							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'>
-						<img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retnovalue.gif" class="tinybutton"
-							border="0" /></a>
-						<a
-							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&refreshCaller=multipleValues&searchResultKey=${searchResultKey}&searchResultDataKey=${searchResultDataKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}"/>'>
-						<img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_returnthese.gif" class="tinybutton"
-							border="0" /></a>
+						<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'>
+    						<img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retnovalue.gif" class="tinybutton" border="0" />
+                        </a>
+						<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&refreshCaller=multipleValues&searchResultKey=${searchResultKey}&searchResultDataKey=${searchResultDataKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}"/>'>
+						    <img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_returnthese.gif" class="tinybutton" border="0" />
+                        </a>
 					</c:if>
 					</td>
 				</tr>
