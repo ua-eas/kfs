@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10235">
+  <changeSet author="kfs" id="ricedata00114">
     <insert tableName="krim_typ_attr_t">
       <column name="KIM_TYP_ATTR_ID"><![CDATA[1]]></column>
       <column name="OBJ_ID"><![CDATA[5ADF18B6D4AD7954E0404F8189D85002]]></column>
@@ -1425,7 +1425,7 @@
     </insert>
     <insert tableName="krim_typ_attr_t">
       <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1000]]></column>
-      <column name="OBJ_ID"><![CDATA[CDC48BA7E67787DFE040F90A05B92A31]]></column>
+      <column name="OBJ_ID"><![CDATA[CBA9C0DFF600E80EE040F90A05B97BE4]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="SORT_CD"><![CDATA[a]]></column>
       <column name="KIM_TYP_ID"><![CDATA[KR1000]]></column>
@@ -1434,7 +1434,7 @@
     </insert>
     <insert tableName="krim_typ_attr_t">
       <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1001]]></column>
-      <column name="OBJ_ID"><![CDATA[CDC48BA7E67887DFE040F90A05B92A31]]></column>
+      <column name="OBJ_ID"><![CDATA[CBA9C0DFF601E80EE040F90A05B97BE4]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="SORT_CD"><![CDATA[b]]></column>
       <column name="KIM_TYP_ID"><![CDATA[KR1000]]></column>
@@ -1443,7 +1443,7 @@
     </insert>
     <insert tableName="krim_typ_attr_t">
       <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1002]]></column>
-      <column name="OBJ_ID"><![CDATA[CDC48BA7E67987DFE040F90A05B92A31]]></column>
+      <column name="OBJ_ID"><![CDATA[CBA9C0DFF602E80EE040F90A05B97BE4]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="SORT_CD"><![CDATA[c]]></column>
       <column name="KIM_TYP_ID"><![CDATA[KR1000]]></column>
@@ -1452,7 +1452,7 @@
     </insert>
     <insert tableName="krim_typ_attr_t">
       <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1003]]></column>
-      <column name="OBJ_ID"><![CDATA[CEA27F2DB2DB3593E040F90A05B924DB]]></column>
+      <column name="OBJ_ID"><![CDATA[CEA27C3715278653E040F90A05B924A3]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="SORT_CD"><![CDATA[A]]></column>
       <column name="KIM_TYP_ID"><![CDATA[KR1001]]></column>
@@ -1461,20 +1461,11 @@
     </insert>
     <insert tableName="krim_typ_attr_t">
       <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1004]]></column>
-      <column name="OBJ_ID"><![CDATA[CEA27F2DB2DE3593E040F90A05B924DB]]></column>
+      <column name="OBJ_ID"><![CDATA[CEA27C37152A8653E040F90A05B924A3]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="SORT_CD"><![CDATA[b]]></column>
       <column name="KIM_TYP_ID"><![CDATA[21]]></column>
       <column name="KIM_ATTR_DEFN_ID"><![CDATA[KR1001]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_typ_attr_t">
-      <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1005]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96CB3105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="SORT_CD"><![CDATA[a]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[KR1002]]></column>
-      <column name="KIM_ATTR_DEFN_ID"><![CDATA[KR1002]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
     </insert>
   </changeSet>

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10021">
+  <changeSet author="kfs" id="ricedata00008">
     <insert tableName="krcr_nmspc_t">
       <column name="NMSPC_CD"><![CDATA[KFS-AR]]></column>
       <column name="OBJ_ID"><![CDATA[KFS-AR]]></column>
@@ -172,14 +172,6 @@
       <column name="APPL_ID"><![CDATA[RICE]]></column>
     </insert>
     <insert tableName="krcr_nmspc_t">
-      <column name="NMSPC_CD"><![CDATA[KR-LOC]]></column>
-      <column name="OBJ_ID"><![CDATA[0738DD6D96C83105E0506E0AC31D4281]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Kuali Location]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="APPL_ID"><![CDATA[RICE]]></column>
-    </insert>
-    <insert tableName="krcr_nmspc_t">
       <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
       <column name="OBJ_ID"><![CDATA[53680C68F595AD9BE0404F8189D80A6C]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -200,22 +192,6 @@
       <column name="OBJ_ID"><![CDATA[AE3195EDFF2300E2E0404F8189D822AE]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="NM"><![CDATA[Kuali Rules]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="APPL_ID"><![CDATA[RICE]]></column>
-    </insert>
-    <insert tableName="krcr_nmspc_t">
-      <column name="NMSPC_CD"><![CDATA[KR-RULE-TEST]]></column>
-      <column name="OBJ_ID"><![CDATA[5a83c912-94b9-4b4d-ac3f-88c53380a4a3]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Kuali Rules Test]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="APPL_ID"><![CDATA[RICE]]></column>
-    </insert>
-    <insert tableName="krcr_nmspc_t">
-      <column name="NMSPC_CD"><![CDATA[KR-SAP]]></column>
-      <column name="OBJ_ID"><![CDATA[27035960-3755-482e-a2ae-7fac13cc5f45]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Sample App]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
       <column name="APPL_ID"><![CDATA[RICE]]></column>
     </insert>
