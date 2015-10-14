@@ -315,7 +315,7 @@ tr.even {
     visibility: hidden;
 }
 
-#globalbuttons {
+.inquiry #globalbuttons {
     text-align: center;
     background-color: #F9F9F9;
     height: 62px;
@@ -326,14 +326,14 @@ tr.even {
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-#globalbuttons.fixed {
+.inquiry #globalbuttons.fixed {
     position: fixed;
     bottom: 40px;
     height: 62px;
     background-color: rgba(255,255,255,0.9);
 }
 
-#globalbuttons .btn {
+.inquiry #globalbuttons .btn {
     font-size: 16px;
 }
 
@@ -343,6 +343,7 @@ tr.even {
     box-shadow: none;
     margin: 0;
     width: inherit;
+    padding-top: 15px;
 }
 
 .infoline.fixed #globalbuttons {

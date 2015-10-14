@@ -59,7 +59,6 @@
 	<table width="100%">
 		<tr>
 			<td>
-
 				<div id="lookup" align="center">
                     <c:if test="${numberOfColumns > 1}">
                         <c:set var="tableClass" value="multi-column-table"/>
@@ -97,11 +96,9 @@
 							</td>
 						</tr>
 					</table>
-				</div> <br> <br> <jsp:doBody/>
+				</div>
+                <jsp:doBody/>
 			</td>
-			<td width="1%"><img
-				src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif"
-				alt="" width="20" height="20"></td>
 		</tr>
 	</table>
 </kul:page>

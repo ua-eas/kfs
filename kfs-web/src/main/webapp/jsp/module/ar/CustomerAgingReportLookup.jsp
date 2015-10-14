@@ -19,6 +19,7 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <c:set var="orgAttributes" value="${DataDictionary.Organization.attributes}"/>
+<c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
 
 <kul:page lookup="true" showDocumentInfo="false"
           htmlFormAction="arCustomerAgingReportLookup"
@@ -43,20 +44,19 @@
 
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-                                height="20"/></td>
             <td>
-                <div id="lookup" align="center"><br/>
-                    <br/>
-                    <table class="datatable-100" align="center" cellpadding="0"
-                           cellspacing="0">
+                <div id="lookup" align="center">
+                    <c:if test="${numberOfColumns > 1}">
+                        <c:set var="tableClass" value="multi-column-table"/>
+                    </c:if>
+                    <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
                         <c:set var="FormName" value="KualiForm" scope="request"/>
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}"
                                scope="request"/>
                         <c:set var="ActionName" value="glModifiedInquiry.do" scope="request"/>
                         <c:set var="IsLookupDisplay" value="true" scope="request"/>
 
-                        <kul:rowDisplay rows="${KualiForm.lookupable.rows}"/> `
+                        <kul:rowDisplay rows="${KualiForm.lookupable.rows}" numberOfColumns="${numberOfColumns}"/>
 
                         <tr align=center>
                             <td height="30" colspan=2 class="infoline">
@@ -74,8 +74,12 @@
                                         alt="Cancel" title="Cancel" />
 
                                 <c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
-                                    <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />' title="cancel">
-                                        <img src='<c:out value="${KualiForm.lookupable.extraButtonSource}" />' class="tinybutton" border="0" alt="cancel"/>
+                                    <c:set var="backLocation" value="${KualiForm.backLocation}"/>
+                                    <c:if test="${empty backLocation}">
+                                        <c:set var="backLocation" value="portal.do"/>
+                                    </c:if>
+                                    <a href='<c:out value="${backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />' title="Cancel">
+                                        <span class="tinybutton btn btn-default">Cancel</span>
                                     </a>
                                 </c:if>
                             </td>
@@ -105,7 +109,6 @@
                             </display:column>
                         </c:forEach>
 
-
                         <display:footer>
                             <th><span class="grid">TOTALS:</span></th>
                             <c:if test="${reqSearchResultsSize == '1'}">
@@ -122,13 +125,9 @@
                             <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalOpenInvoices}"/></td>
                             <td class="numbercell">&nbsp; $<c:out value="${KualiForm.totalWriteOffs}"/></td>
                         </display:footer>
-
                     </display:table>
-
+                </c:if>
             </td>
-            </c:if>
-            <td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20"
-                                width="20"></td>
         </tr>
     </table>
     <br/>

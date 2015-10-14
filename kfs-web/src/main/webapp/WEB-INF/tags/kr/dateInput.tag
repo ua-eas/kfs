@@ -50,7 +50,7 @@
   		<kul:fieldShowErrorIcon />
 	</c:if>
 
-	<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="${property}_datepicker" style="cursor: pointer;" alt="Date selector" title="Date selector" onmouseover="this.style.background='red';" onmouseout="this.style.background='';" />    
+	<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="${property}_datepicker" style="cursor: pointer;" alt="Date selector" title="Date selector" />
     <script type="text/javascript">
       Calendar.setup(
       {

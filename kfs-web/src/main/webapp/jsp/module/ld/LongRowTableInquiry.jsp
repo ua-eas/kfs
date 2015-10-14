@@ -41,8 +41,6 @@
 
 	<table width="100%">
 		<tr>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-				height="20"></td>
 
 			<td><c:if test="${param.inquiryFlag != 'true'}">
 				<div id="lookup" align="center"><br />
@@ -71,22 +69,13 @@
                                     property="methodToCall.cancel" value="Cancel"
                                     styleClass="tinybutton btn btn-default"
                                     alt="Cancel" title="Cancel" />
-							<!--   
-							<c:if test="${KualiForm.formKey!=''}">
-							<a
-								href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}" />' title="cancel">
-							<img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" class="tinybutton"
-								border="0" alt="cancel" title="cancel" /></a>
-						    </c:if> <!-- Optional extra button --> 
-						    -->
 						    
 						    <c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
-							<a
-								href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'>
-							<img
-								src='<c:out value="${KualiForm.lookupable.extraButtonSource}" />'
-								class="tinybutton" border="0" alt="Cancel"/></a>
-						    </c:if></td>
+                                <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />' title='<c:out value="${KualiForm.lookupable.extraButtonAltText}" />'>
+                                    <span class="tinybutton btn btn-default"><c:out value="${KualiForm.lookupable.extraButtonAltText}" /></span>
+                                </a>
+						    </c:if>
+                        </td>
 					</tr>
 				</table>
 				</div>
@@ -159,8 +148,6 @@
 				</c:forEach>				
 			</display:table>
 			</td>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20"
-				width="20"></td>
 		</tr>
 	</table>
 
