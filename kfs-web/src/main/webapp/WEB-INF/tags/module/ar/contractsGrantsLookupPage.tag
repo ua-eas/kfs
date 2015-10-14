@@ -83,14 +83,19 @@
                                         styleClass="tinybutton btn btn-default"
                                         alt="Clear" title="Clear" />
 
-								<c:if test="${KualiForm.formKey!=''}">
-									<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" />' title="cancel">
-                                        <img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0" />
+                                <c:set var="backLocation" value="${KualiForm.backLocation}"/>
+                                <c:if test="${empty backLocation}">
+                                    <c:set var="backLocation" value="portal.do"/>
+                                </c:if>
+                                <c:if test="${KualiForm.formKey!=''}">
+									<a href='<c:out value="${backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" />' title="Cancel">
+                                        <span class="tinybutton btn btn-default">Cancel</span>
 									</a>
 								</c:if>
                                 <c:if test="${! empty KualiForm.extraButtonSource && extraButtonSource != ''}">
-									<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" /><c:out value="${KualiForm.extraButtonParams}" />'>
-										<img src='<c:out value="${KualiForm.extraButtonSource}" />' class="tinybutton" border="0" />
+									<a href='<c:out value="${backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" /><c:out value="${KualiForm.extraButtonParams}" />' title='<c:out value="${KualiForm.extraAltText}" />'>
+										<span class="tinybutton btn btn-default"><c:out value="${KualiForm.extraAltText}"/></span>
+                                        <img src='<c:out value="${KualiForm.extraButtonSource}" />' class="tinybutton" border="0" />
                                     </a>
 								</c:if>
 							</td>
