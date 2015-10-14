@@ -258,5 +258,85 @@
         2
       </routingVersion>
     </documentType>
+    <documentType>
+      <name>
+        ICRA
+      </name>
+      <parent>
+        FSSM
+      </parent>
+      <label>
+        Indirect Cost Recovery Exclusion By Account
+      </label>
+      <helpDefinitionURL>
+        default.htm?turl=WordDocuments%2Findirectcostrecoveryexclusionbyaccount.htm
+      </helpDefinitionURL>
+      <active>
+        true
+      </active>
+      <routingVersion>
+        2
+      </routingVersion>
+    </documentType>
+    <documentType>
+      <name>
+        ICRE
+      </name>
+      <parent>
+        FSSM
+      </parent>
+      <label>
+        Indirect Cost Recovery Rate
+      </label>
+      <helpDefinitionURL>
+        default.htm?turl=WordDocuments%2Findirectcostrecoveryrate.htm
+      </helpDefinitionURL>
+      <active>
+        true
+      </active>
+      <routingVersion>
+        2
+      </routingVersion>
+    </documentType>
+    <documentType>
+      <name>
+        ITYP
+      </name>
+      <parent>
+        FSSM
+      </parent>
+      <label>
+        Indirect Cost Recovery Type
+      </label>
+      <helpDefinitionURL>
+        default.htm?turl=WordDocuments%2Findirectcostrecoverytype.htm
+      </helpDefinitionURL>
+      <active>
+        true
+      </active>
+      <routingVersion>
+        2
+      </routingVersion>
+    </documentType>
+    <documentType>
+      <name>
+        PMUM
+      </name>
+      <parent>
+        FSSM
+      </parent>
+      <label>
+        Unit Of Measure
+      </label>
+      <helpDefinitionURL>
+        default.htm?turl=WordDocuments%2Funitofmeasure.htm
+      </helpDefinitionURL>
+      <active>
+        true
+      </active>
+      <routingVersion>
+        2
+      </routingVersion>
+    </documentType>
   </documentTypes>
 </data>
