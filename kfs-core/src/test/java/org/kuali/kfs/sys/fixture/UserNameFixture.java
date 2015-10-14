@@ -40,7 +40,7 @@ public enum UserNameFixture {
     // Org Hierarchy Reviewer
     cknotts,
     // Accounting Hierarchy Reviewer
-    jrichard,
+    hnmayer,
     // Fund Managers
     wklykins, wcorbitt;
 
