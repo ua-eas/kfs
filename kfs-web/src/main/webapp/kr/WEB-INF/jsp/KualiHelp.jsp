@@ -70,6 +70,9 @@
 	</div>
 	<br>
 	<br>
-	<div align="center"><a href="javascript:window.close();"
-		title="close this window"><img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" alt="close this window"></a></div>
+	<div align="center">
+        <a href="javascript:window.close();" title="Close This Window">
+            <span class="tinybutton btn btn-default">Close</span>
+        </a>
+    </div>
 </kul:page>
