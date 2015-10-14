@@ -43,8 +43,6 @@
 
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-                                height="20"/></td>
             <td>
                 <div id="lookup" align="center"><br/>
                     <br/>
@@ -94,7 +92,6 @@
                 </div>
 				<jsp:doBody/>
 			</td>
-            <td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20" width="20"></td>
         </tr>
     </table>
     <br/>

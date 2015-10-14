@@ -25,7 +25,6 @@
 	headerTitle="${KualiForm.pageTitle}" docTitle="" transactionalDocument="false">
 	<table width="100%">
 		<tr>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20" height="20" /></td>
 			<td>
 				<table width="100%" class="datatable-100">
 					<tr>
@@ -48,11 +47,9 @@
 					</tr>
 				</table>
 			</td>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20" width="20" /></td>
 		</tr>
 		<tr>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20" height="20" /></td>
-			<td> 
+			<td>
 			<c:if test="${!empty KualiForm.entries}">
 	        
 	        <display:table class="datatable-100" cellspacing="0"
@@ -84,7 +81,6 @@
 			</display:table>
 			</td>
 			</c:if>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20" width="20" /></td>
 		</tr>
 	</table>
 	

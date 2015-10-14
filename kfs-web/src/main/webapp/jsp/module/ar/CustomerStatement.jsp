@@ -28,87 +28,82 @@
 	headerTitle="Billing Statement Generation" docTitle="Billing Statement Generation" renderMultipart="true"
 	transactionalDocument="false" htmlFormAction="arCustomerStatement" errorKey="foo">
 
-	 <table cellpadding="0" cellspacing="0" class="datatable-80" summary="Billing Statement">
+    <div id="lookup">
+        <table align="center" cellpadding="0" cellspacing="0" class="datatable-80" summary="Billing Statement">
 			<tr>		
-                <th align=right valign=middle class="grid" style="width: 25%;">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.chartOfAccountsCode}" readOnly="true" /></div>
+                <th>
+                    <label for="chartCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.chartOfAccountsCode}" readOnly="true"/></label>
                 </th>
-                <td align=left valign=middle class="grid" style="width: 25%;">
-					<kul:htmlControlAttribute attributeEntry="${orgAttributes.chartOfAccountsCode}" property="chartCode"  />	
-                    <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Chart"  fieldConversions="chartOfAccountsCode:chartCode"  />
+                <td>
+					<kul:htmlControlAttribute attributeEntry="${orgAttributes.chartOfAccountsCode}" property="chartCode"/>
+                    <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Chart"  fieldConversions="chartOfAccountsCode:chartCode"/>
                 </td>
-				                       
             </tr>
             <tr>
-				<th align=right valign=middle class="grid">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.organizationCode}" readOnly="true" /></div>
+				<th>
+                    <label for="orgCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.organizationCode}" readOnly="true"/></label>
                 </th>
-                <td align=left valign=middle class="grid">
-                    <kul:htmlControlAttribute attributeEntry="${orgAttributes.organizationCode}" property="orgCode"  />
+                <td>
+                    <kul:htmlControlAttribute attributeEntry="${orgAttributes.organizationCode}" property="orgCode"/>
                     <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Organization"  fieldConversions="organizationCode:orgCode" lookupParameters="orgCode:organizationCode,chartCode:chartOfAccountsCode"/>
                 </td>                
-				            
             </tr>
              <tr>
-				<th align=right valign=middle class="grid">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerNumber}" readOnly="true"/></div>
+				<th>
+                    <label for="customerNumber"><kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerNumber}" readOnly="true"/></label>
                 </th>
-                <td align=left valign=middle class="grid">
-                	<kul:htmlControlAttribute attributeEntry="${arDocHeaderAttributes.customerNumber}" property="customerNumber"  />
-                	<kul:lookup boClassName="org.kuali.kfs.module.ar.businessobject.Customer" fieldConversions="customerNumber:customerNumber" lookupParameters="customerNumber:customerNumber" />
+                <td>
+                	<kul:htmlControlAttribute attributeEntry="${arDocHeaderAttributes.customerNumber}" property="customerNumber"/>
+                	<kul:lookup boClassName="org.kuali.kfs.module.ar.businessobject.Customer" fieldConversions="customerNumber:customerNumber" lookupParameters="customerNumber:customerNumber"/>
                 </td>                
-				            
             </tr>
-              <tr>
-				<th align=right valign=middle class="grid">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${accountAttributes.accountNumber}" readOnly="true"/></div>
+            <tr>
+				<th>
+                    <label for="accountNumber"><kul:htmlAttributeLabel attributeEntry="${accountAttributes.accountNumber}" readOnly="true"/></label>
                 </th>
-                <td align=left valign=middle class="grid">
-                	<kul:htmlControlAttribute attributeEntry="${accountAttributes.accountNumber}" property="accountNumber"  />
-                	<kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Account" fieldConversions="accountNbr:accountNumber" lookupParameters="accountNumber:accountNbr" />
+                <td>
+                	<kul:htmlControlAttribute attributeEntry="${accountAttributes.accountNumber}" property="accountNumber"/>
+                	<kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Account" fieldConversions="accountNbr:accountNumber" lookupParameters="accountNumber:accountNbr"/>
                 </td>                
-				            
             </tr>
             <tr>		
-                <th align=right valign=middle class="grid"">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${customerBillingStatementAttributes.statementFormat}" readOnly="true" /></div>
+                <th>
+                    <label><kul:htmlAttributeLabel attributeEntry="${customerBillingStatementAttributes.statementFormat}" readOnly="true" /></label>
                 </th>
-                <td align=left valign=middle class="grid">                	
-                	<%--<kul:htmlControlAttribute attributeEntry="${customerBillingStatementAttributes.statementFormat}" property="statementFormat" />--%>
-	                <input type="radio" name="statementFormat" value="Summary" checked />Summary&nbsp;&nbsp;
-					<input type="radio" name="statementFormat" value="Detail" />Detail&nbsp;&nbsp;
+                <td>
+	                <input type="radio" name="statementFormat" id="statementFormatSummary" value="Summary" checked />
+                    <label for="statementFormatSummary">Summary</label>
+					<input type="radio" name="statementFormat" id="statementFormatDetail" value="Detail" />
+                    <label for="statementFormatDetail">Detail</label>
                 </td>				                      
             </tr>            
             <tr>		
-                <th align=right valign=middle class="grid">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${customerBillingStatementAttributes.includeZeroBalanceCustomers}" readOnly="true" /></div>
+                <th>
+                    <label><kul:htmlAttributeLabel attributeEntry="${customerBillingStatementAttributes.includeZeroBalanceCustomers}" readOnly="true" /></label>
                 </th>
-                <td align=left valign=middle class="grid">
-	                <input type="radio" name="includeZeroBalanceCustomers" value="Yes" />Yes&nbsp;&nbsp;
-					<input type="radio" name="includeZeroBalanceCustomers" value="No" checked />No&nbsp;&nbsp;
+                <td>
+	                <input type="radio" name="includeZeroBalanceCustomers" id="includeZeroBalanceCustomersYes" value="Yes"/>
+                    <label for="includeZeroBalanceCustomersYes">Yes</label>
+					<input type="radio" name="includeZeroBalanceCustomers" id="includeZeroBalanceCustomersNo" value="No" checked />
+                    <label for="includeZeroBalanceCustomersNo">No</label>
                 </td>				                      
-            </tr>  
-       
-        </tr>
+            </tr>
+            <tr align="center">
+                <td height="30" colspan="4"  class="infoline">
+                    <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>
+                    <c:if test="${!empty extraButtons}">
+                        <c:forEach items="${extraButtons}" var="extraButton">
+                            <html:submit styleClass="tinybutton btn btn-default" property="${extraButton.extraButtonProperty}" title="${extraButton.extraButtonAltText}" alt="${extraButton.extraButtonAltText}" value="${extraButton.extraButtonAltText}"/>
+                        </c:forEach>
+                    </c:if>
+                </td>
+            </tr>
         </table>
-    
-     <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>  	
-  	
-	
-     <div id="globalbuttons" class="globalbuttons">
-	        	
-	        	<c:if test="${!empty extraButtons}">
-		        	<c:forEach items="${extraButtons}" var="extraButton">
-		        		<html:image src="${extraButton.extraButtonSource}" styleClass="globalbuttons" property="${extraButton.extraButtonProperty}" title="${extraButton.extraButtonAltText}" alt="${extraButton.extraButtonAltText}"/>
-		        	</c:forEach>
-	        	</c:if>
-	</div>
-	
-	<div>
-	  <c:if test="${!empty KualiForm.message }">
-            	 ${KualiForm.message }
-            </c:if>
-   </div>
-	
+    </div>
 
+	<div>
+	    <c:if test="${!empty KualiForm.message }">
+	        ${KualiForm.message }
+        </c:if>
+   </div>
 </kul:page>

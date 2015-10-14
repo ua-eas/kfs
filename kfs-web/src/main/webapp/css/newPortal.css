@@ -497,6 +497,7 @@ footer {
     font-weight: 700;
 }
 
+.infoline a:not(:last-child),
 .btn:not(:last-child) {
     margin-right: 7px;
 }

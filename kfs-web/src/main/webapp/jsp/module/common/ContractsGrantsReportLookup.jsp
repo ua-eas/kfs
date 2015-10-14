@@ -142,8 +142,8 @@
                                     </c:if>
 
                                     <c:if test="${KualiForm.formKey!='' and !empty KualiForm.backLocation}">
-                                        <a title="cancel" href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'>
-                                            <img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" class="tinybutton" alt="cancel" title="cancel" border="0" />
+                                        <a title="Cancel" href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'>
+                                            <span class="tinybutton btn btn-default">Cancel</span>
                                         </a>
                                     </c:if>
 
@@ -161,11 +161,11 @@
                                     </div>
 
                                     <c:if test="${KualiForm.multipleValues && !empty KualiForm.backLocation}">
-                                        <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'>
-                                            <img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retnovalue.gif" class="tinybutton" border="0" />
+                                        <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />' title="Return with No Value">
+                                            <span class="tinybutton btn btn-default">Return with No Value</span>
                                         </a>
-                                        <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&refreshCaller=multipleValues&searchResultKey=${searchResultKey}&searchResultDataKey=${searchResultDataKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}"/>'>
-                                            <img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_returnthese.gif" class="tinybutton" border="0" />
+                                        <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&refreshCaller=multipleValues&searchResultKey=${searchResultKey}&searchResultDataKey=${searchResultDataKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}"/>' title="Return These">
+                                            <span class="tinybutton btn btn-default">Return These</span>
                                         </a>
                                     </c:if>
                                 </td>

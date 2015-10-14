@@ -81,7 +81,7 @@
 									<td><label for="startTime">Start Date/Time</label>: </td>
 									<td>
 										<input type="text" id="startTime" name="startTime" id="startTime" value="" maxlength="20" size="20" onchange="" onblur="" style="" class="">
-										<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="startTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" onmouseover="this.style.backgroundColor='red';" onmouseout="this.style.backgroundColor='transparent';"	/>
+										<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="startTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
 						                <script type="text/javascript">
 						                  Calendar.setup(
 						                          {

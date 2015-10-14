@@ -368,9 +368,7 @@
                                         id="${field.propertyName}_datepicker"
                                         style="cursor: pointer;"
                                         title="Date selector"
-                                        alt="Date selector"
-                                        onmouseover="this.style.backgroundColor='red';"
-                                        onmouseout="this.style.backgroundColor='transparent';" />
+                                        alt="Date selector" />
 
                                     <script type="text/javascript">
 

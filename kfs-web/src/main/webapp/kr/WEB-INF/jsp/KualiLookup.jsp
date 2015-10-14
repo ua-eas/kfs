@@ -120,81 +120,75 @@
 	<table width="100%">
 	  <c:if test="${KualiForm.lookupCriteriaEnabled}">
 		<tr>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-				height="20"></td>
 			<td>
+                <div id="lookup" align="center">
+                    <c:if test="${numberOfColumns > 1}">
+                        <c:set var="tableClass" value="multi-column-table"/>
+                    </c:if>
+                    <table align="center" cellpadding="0" cellspacing="0" class="datatable-100 ${tableClass}">
+                        <c:set var="FormName" value="KualiForm" scope="request" />
+                        <c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
+                        <c:set var="ActionName" value="Lookup.do" scope="request" />
+                        <c:set var="IsLookupDisplay" value="true" scope="request" />
+                        <c:set var="cellWidth" value="50%" scope="request" />
 
-			<c:if test="${numberOfColumns > 1}">
-				<c:set var="tableClass" value="multi-column-table"/>
-			</c:if>
-			<div id="lookup" align="center">
-			<table align="center" cellpadding="0" cellspacing="0" class="datatable-100 ${tableClass}">
-				<c:set var="FormName" value="KualiForm" scope="request" />
-				<c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
-				<c:set var="ActionName" value="Lookup.do" scope="request" />
-				<c:set var="IsLookupDisplay" value="true" scope="request" />
-				<c:set var="cellWidth" value="50%" scope="request" />
+                        <kul:rowDisplay rows="${FieldRows}" skipTheOldNewBar="true" numberOfColumns="${numberOfColumns}" />
 
-                <kul:rowDisplay rows="${FieldRows}" skipTheOldNewBar="true" numberOfColumns="${numberOfColumns}" />
+                        <tr align="center">
+                            <td height="30" colspan="${headerColspan}" class="infoline">
+                                <c:if test="${KualiForm.renderSearchButtons}">
+                                  <html:submit
+                                    property="methodToCall.search" value="Search"
+                                    styleClass="tinybutton btn btn-default"
+                                    alt="Search" title="Search" />
+                                  <html:submit
+                                    property="methodToCall.clearValues" value="Clear"
+                                    styleClass="tinybutton btn btn-default"
+                                    alt="Clear" title="Clear" />
+                                </c:if>
 
-				<tr align="center">
-					<td height="30" colspan="${headerColspan}"  class="infoline">
-					
-					<c:if test="${KualiForm.renderSearchButtons}">
-					  <html:submit
-						property="methodToCall.search" value="Search"
-						styleClass="tinybutton btn btn-default"
-						alt="Search" title="Search" />
-					  <html:submit
-						property="methodToCall.clearValues" value="Clear"
-						styleClass="tinybutton btn btn-default"
-						alt="Clear" title="Clear" />
-					</c:if>	
-					
-					<c:if test="${KualiForm.formKey!=''}">
-						<!-- KULRICE-8092: Enter key won't return values in Parameter Component in IE-->
-						<input name="" type="t" value="" style="display:none"/>
-						
-						<c:if test="${!empty KualiForm.backLocation}">
-							<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'  title="Cancel">
-								<span class="tinybutton btn btn-default" alt="Cancel" title="Cancel">Cancel</span>
-							</a>
-						</c:if>
-					</c:if>
-					
-					<!-- Optional extra buttons -->
-					<c:forEach items="${KualiForm.extraButtons}" var="extraButton" varStatus="status">
-						<c:if test="${!empty extraButton.extraButtonSource && !empty extraButton.extraButtonParams}">
-							<c:if test="${not KualiForm.ddExtraButton && !empty KualiForm.backLocation}">
-								<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" /><c:out value="${extraButton.extraButtonParams}" />'><img
-							    	src='<c:out value="${extraButton.extraButtonSource}" />'
-									class="tinybutton" border="0" /></a>
-							</c:if>
-							<c:if test="${KualiForm.ddExtraButton}">
-                                <html:button value="${extraButton.extraButtonAltText}"
-                                        property="methodToCall.customLookupableMethodCall"
-                                        alt="${extraButton.extraButtonAltText}"
-                                        onclick="${extraButton.extraButtonOnclick}"
-                                        styleClass="tinybutton btn btn-default" />
-							</c:if>
-						</c:if>
+                                <c:if test="${KualiForm.formKey!=''}">
+                                    <input name="" type="t" value="" style="display:none"/>
 
-					</c:forEach>
-					<c:if test="${KualiForm.multipleValues && !empty KualiForm.backLocation}">
-						<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />'>
-    						<img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retnovalue.gif" class="tinybutton" border="0" />
-                        </a>
-						<a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&refreshCaller=multipleValues&searchResultKey=${searchResultKey}&searchResultDataKey=${searchResultDataKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}"/>'>
-						    <img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_returnthese.gif" class="tinybutton" border="0" />
-                        </a>
-					</c:if>
-					</td>
-				</tr>
-			  </c:if>
-			</table>
-			</div>
-		</td>
-	  </tr>
+                                    <c:if test="${!empty KualiForm.backLocation}">
+                                        <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" />' title="Cancel" >
+                                            <span class="tinybutton btn btn-default">Cancel</span>
+                                        </a>
+                                    </c:if>
+                                </c:if>
+
+                                <c:forEach items="${KualiForm.extraButtons}" var="extraButton" varStatus="status">
+                                    <c:if test="${!empty extraButton.extraButtonSource && !empty extraButton.extraButtonParams}">
+                                        <c:if test="${not KualiForm.ddExtraButton && !empty KualiForm.backLocation}">
+                                            <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}&docNum=${KualiForm.docNum}" /><c:out value="${extraButton.extraButtonParams}" />' title='<c:out value="${extraButton.extraButtonAltText}" />'>
+                                                <span class="tinybutton btn btn-default"><c:out value="${extraButton.extraButtonAltText}" /></span>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${KualiForm.ddExtraButton}">
+                                            <html:button value="${extraButton.extraButtonAltText}"
+                                                    property="methodToCall.customLookupableMethodCall"
+                                                    alt="${extraButton.extraButtonAltText}"
+                                                    onclick="${extraButton.extraButtonOnclick}"
+                                                    styleClass="tinybutton btn btn-default" />
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+
+                                <c:if test="${KualiForm.multipleValues && !empty KualiForm.backLocation}">
+                                    <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" />' title="Return with No Value">
+                                        <span class="tinybutton btn btn-default">Return with No Value</span>
+                                    </a>
+                                    <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&refreshCaller=multipleValues&searchResultKey=${searchResultKey}&searchResultDataKey=${searchResultDataKey}&anchor=${KualiForm.lookupAnchor}"/>' title="Return These">
+                                        <span class="tinybutton btn btn-default">Return These</span>
+                                    </a>
+                                </c:if>
+                            </td>
+                        </tr>
+                      </c:if>
+                    </table>
+                </div>
+		    </td>
+	    </tr>
     </table>
 	</form>
 	</div>
