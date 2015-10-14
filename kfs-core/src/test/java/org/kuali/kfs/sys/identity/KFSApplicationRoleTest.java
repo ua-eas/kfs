@@ -159,8 +159,8 @@ public class KFSApplicationRoleTest extends RoleTestBase {
     public static final String ACCOUNTING_ORG_HIERARCHY_LOWER_LEVEL_ORG = "HMNF";
     public static final String ACCOUNTING_ORG_HIERARCHY_TOO_HIGH_CHART = "BL";
     public static final String ACCOUNTING_ORG_HIERARCHY_TOO_HIGH_ORG = "ARSC";
-    public static final UserNameFixture ACCOUNTING_ORG_HIERARCHY_MEMBER = UserNameFixture.jrichard;
-    public static final String ACCOUNTING_ORG_HIERARCHY_DOC_TYPE = "REQS";
+    public static final UserNameFixture ACCOUNTING_ORG_HIERARCHY_MEMBER = UserNameFixture.ichance;
+    public static final String ACCOUNTING_ORG_HIERARCHY_DOC_TYPE = "FP";
     public static final String ACCOUNTING_ORG_HIERARCHY_ENOUGH_AMOUNT = "25000.03";
     public static final String ACCOUNTING_ORG_HIERARCHY_NOT_QUITE_ENOUGH_AMOUNT = "3.00";
 
