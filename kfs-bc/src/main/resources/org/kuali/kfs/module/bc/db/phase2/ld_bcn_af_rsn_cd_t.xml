@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10434">
+  <changeSet author="kfs" id="10434" context="bootstrap,demo">
     <insert tableName="ld_bcn_af_rsn_cd_t">
       <column name="APPT_FND_REASON_CD"><![CDATA[ATR]]></column>
       <column name="OBJ_ID"><![CDATA[24F6DE60C44AB0B0E043814FD881B0B0]]></column>

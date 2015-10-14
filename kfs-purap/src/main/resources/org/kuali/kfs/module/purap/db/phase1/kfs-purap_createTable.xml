@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -68,7 +68,7 @@
       <column name="ACLN_PCT" type="DECIMAL(35, 20)">
         <constraints nullable="false"/>
       </column>
-      <column name="CRDT_MEMO_ACCT_CHG_TS" type="datetime">
+      <column name="CRDT_MEMO_ACCT_CHG_TS" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
@@ -203,7 +203,7 @@
       <column name="CRDT_MEMO_NBR" type="VARCHAR(35)">
         <constraints nullable="false"/>
       </column>
-      <column name="CRDT_MEMO_DT" type="datetime">
+      <column name="CRDT_MEMO_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="CRDT_MEMO_AMT" type="DECIMAL(19, 2)">
@@ -212,7 +212,7 @@
       <column name="CRDT_MEMO_NTE_LN1_TXT" type="VARCHAR(90)"/>
       <column name="CRDT_MEMO_NTE_LN2_TXT" type="VARCHAR(90)"/>
       <column name="CRDT_MEMO_NTE_LN3_TXT" type="VARCHAR(90)"/>
-      <column name="CRDT_MEMO_PD_TS" type="datetime"/>
+      <column name="CRDT_MEMO_PD_TS" type="DATE"/>
       <column defaultValue="N" name="CRDT_HLD_IND" type="VARCHAR(1)">
         <constraints nullable="false"/>
       </column>
@@ -222,9 +222,9 @@
       <column name="PRCS_CMP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
       </column>
-      <column name="AP_APRVL_DT" type="datetime"/>
+      <column name="AP_APRVL_DT" type="DATE"/>
       <column name="ITM_MISC_CRDT_DESC" type="VARCHAR(255)"/>
-      <column name="CRDT_MEMO_EXTRT_DT" type="datetime"/>
+      <column name="CRDT_MEMO_EXTRT_DT" type="DATE"/>
       <column name="AP_PUR_DOC_LNK_ID" type="DECIMAL(10)"/>
       <column name="AP_HLD_ID" type="VARCHAR(40)"/>
       <column name="CONT_ACCT_IND" type="VARCHAR(1)"/>
@@ -253,7 +253,7 @@
       <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
         <constraints nullable="false"/>
       </column>
-      <column name="FL_PROC_DT" type="datetime">
+      <column name="FL_PROC_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="INV_LOAD_SCCSS_CNT" type="DECIMAL(4)"/>
@@ -292,7 +292,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="INV_LOAD_SUM_ID" type="DECIMAL(14)"/>
-      <column name="INV_PROC_DT" type="datetime">
+      <column name="INV_PROC_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="INV_FL_NM" type="VARCHAR(200)"/>
@@ -349,7 +349,7 @@
       <column name="INV_ITM_DSCT_CRNCY_CD" type="VARCHAR(20)"/>
       <column name="INV_ITM_NET_AMT" type="DECIMAL(19, 4)"/>
       <column name="INV_ITM_NET_CRNCY_CD" type="VARCHAR(20)"/>
-      <column name="INV_RJT_EXTRT_DT" type="datetime"/>
+      <column name="INV_RJT_EXTRT_DT" type="DATE"/>
       <column name="PO_DLVY_CMP_CD" type="VARCHAR(2)"/>
       <column name="INV_SHP_DT_TXT" type="VARCHAR(100)"/>
       <column name="INV_ADDR_NM" type="VARCHAR(100)"/>
@@ -390,7 +390,7 @@
       <column name="AP_PUR_DOC_LNK_ID" type="DECIMAL(10)"/>
       <column name="INV_NUM_ACPT_IND" type="VARCHAR(1)"/>
       <column name="INV_RJT_RSRCH_IND" type="VARCHAR(1)"/>
-      <column name="AP_APRVL_DT" type="datetime"/>
+      <column name="AP_APRVL_DT" type="DATE"/>
       <column name="PREQ_ID" type="DECIMAL(9)"/>
     </createTable>
   </changeSet>
@@ -534,7 +534,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="ACLN_PCT" type="DECIMAL(35, 20)"/>
-      <column name="PMT_RQST_ACCT_CHG_TS" type="datetime">
+      <column name="PMT_RQST_ACCT_CHG_TS" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
@@ -658,7 +658,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="PO_CLSIF_TYP_DESC" type="VARCHAR(4)"/>
-      <column name="INV_DT" type="datetime">
+      <column name="INV_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="INV_NBR" type="VARCHAR(25)"/>
@@ -666,7 +666,7 @@
       <column name="VNDR_PMT_TERMS_CD" type="VARCHAR(5)"/>
       <column name="VNDR_SHP_PMT_TERM_CD" type="VARCHAR(4)"/>
       <column name="VNDR_CUST_NBR" type="VARCHAR(30)"/>
-      <column name="PMT_RQST_PAY_DT" type="datetime"/>
+      <column name="PMT_RQST_PAY_DT" type="DATE"/>
       <column name="PMT_RQST_CST_SRC_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
       </column>
@@ -680,7 +680,7 @@
       <column name="PMT_SPCL_HANDLG_INSTRC_LN1_TXT" type="VARCHAR(90)"/>
       <column name="PMT_SPCL_HANDLG_INSTRC_LN2_TXT" type="VARCHAR(90)"/>
       <column name="PMT_SPCL_HANDLG_INSTRC_LN3_TXT" type="VARCHAR(90)"/>
-      <column name="PMT_PD_DT" type="datetime"/>
+      <column name="PMT_PD_DT" type="DATE"/>
       <column name="PMT_RQST_ELCTRNC_INV_IND" type="VARCHAR(1)"/>
       <column name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)"/>
       <column name="VNDR_DTL_ASND_ID" type="DECIMAL(10)"/>
@@ -691,14 +691,14 @@
       <column name="VNDR_ST_CD" type="VARCHAR(2)"/>
       <column name="VNDR_PSTL_CD" type="VARCHAR(20)"/>
       <column name="VNDR_CNTRY_CD" type="VARCHAR(2)"/>
-      <column name="PMT_EXTRT_DT" type="datetime"/>
+      <column name="PMT_EXTRT_DT" type="DATE"/>
       <column name="AP_PRCSR_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
       </column>
       <column name="AP_RQST_CNCL_ID" type="VARCHAR(40)"/>
       <column name="AP_HLD_ID" type="VARCHAR(40)"/>
       <column name="PRCS_CMP_CD" type="VARCHAR(2)"/>
-      <column name="AP_APRVL_DT" type="datetime"/>
+      <column name="AP_APRVL_DT" type="DATE"/>
       <column name="ORIG_VNDR_HDR_GNRTD_ID" type="DECIMAL(10)"/>
       <column name="ORIG_VNDR_DTL_ASND_ID" type="DECIMAL(10)"/>
       <column name="ALTRNT_VNDR_HDR_GNRTD_ID" type="DECIMAL(10)"/>
@@ -759,7 +759,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="CRDT_MEMO_ID" type="DECIMAL(9)"/>
-      <column name="LST_UPDT_TS" type="datetime"/>
+      <column name="LST_UPDT_TS" type="DATE"/>
     </createTable>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo" id="124">
@@ -927,7 +927,7 @@
       <column name="SHPMNT_PKNG_SLP_NBR" type="VARCHAR(45)"/>
       <column name="SHPMNT_BLL_OF_LDNG_NBR" type="VARCHAR(45)"/>
       <column name="TRAKNG_NBR" type="VARCHAR(45)"/>
-      <column name="SHPMNT_RCVD_DT" type="datetime">
+      <column name="SHPMNT_RCVD_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="SHPMNT_REF_NBR" type="VARCHAR(45)"/>
@@ -1142,7 +1142,7 @@
       <column name="PO_CONTR_LANG_DESC" type="VARCHAR(2000)">
         <constraints nullable="false"/>
       </column>
-      <column name="CONTR_LANG_CRTE_DT" type="datetime">
+      <column name="CONTR_LANG_CRTE_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)">
@@ -1305,7 +1305,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="PO_QT_LANG_DESC" type="VARCHAR(2000)"/>
-      <column name="PO_QT_LANG_CRTE_DT" type="datetime"/>
+      <column name="PO_QT_LANG_CRTE_DT" type="DATE"/>
       <column name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)">
         <constraints nullable="false"/>
       </column>
@@ -1443,24 +1443,24 @@
       <column name="DLVY_TO_NM" type="VARCHAR(45)"/>
       <column name="DLVY_TO_EMAIL_ADDR" type="VARCHAR(100)"/>
       <column name="DLVY_TO_PHN_NBR" type="VARCHAR(45)"/>
-      <column name="DLVY_REQ_DT" type="datetime"/>
+      <column name="DLVY_REQ_DT" type="DATE"/>
       <column name="DLVY_INSTRC_TXT" type="VARCHAR(255)"/>
       <column name="DLVY_REQ_DT_REAS_CD" type="VARCHAR(4)"/>
       <column name="FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="ORG_CD" type="VARCHAR(4)"/>
-      <column name="PO_CRTE_DT" type="datetime">
+      <column name="PO_CRTE_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
       <column name="PO_ENCUM_FSCL_YR" type="DECIMAL(4)"/>
       <column name="PO_CST_SRC_CD" type="VARCHAR(4)"/>
       <column name="PO_TRNS_MTHD_CD" type="VARCHAR(4)"/>
       <column name="PO_TOT_LMT" type="DECIMAL(19, 2)"/>
-      <column name="PO_BEG_DT" type="datetime"/>
-      <column name="PO_END_DT" type="datetime"/>
+      <column name="PO_BEG_DT" type="DATE"/>
+      <column name="PO_END_DT" type="DATE"/>
       <column name="RECUR_PMT_FREQ_CD" type="VARCHAR(4)"/>
       <column name="RECUR_PMT_AMT" type="DECIMAL(19, 2)"/>
       <column name="RECUR_PMT_TYP_CD" type="VARCHAR(4)"/>
-      <column name="RECUR_PMT_DT" type="datetime"/>
+      <column name="RECUR_PMT_DT" type="DATE"/>
       <column name="INST_CNTCT_NM" type="VARCHAR(45)"/>
       <column name="INST_CNTCT_PHN_NBR" type="VARCHAR(45)"/>
       <column name="INST_CNTCT_EMAIL_ADDR" type="VARCHAR(100)"/>
@@ -1473,15 +1473,15 @@
       <column name="BILL_CNTRY_CD" type="VARCHAR(2)"/>
       <column name="BILL_PHN_NBR" type="VARCHAR(20)"/>
       <column name="INIT_PMT_AMT" type="DECIMAL(19, 2)"/>
-      <column name="INIT_PMT_DT" type="datetime"/>
+      <column name="INIT_PMT_DT" type="DATE"/>
       <column name="FNL_PMT_AMT" type="DECIMAL(19, 2)"/>
-      <column name="FNL_PMT_DT" type="datetime"/>
+      <column name="FNL_PMT_DT" type="DATE"/>
       <column name="EXT_ORG_B2B_SUPP_ID" type="VARCHAR(19)"/>
       <column name="CONTR_MGR_CD" type="DECIMAL(2)"/>
       <column name="PO_AUTO_IND" type="VARCHAR(1)"/>
-      <column name="PO_INIT_OPEN_DT" type="datetime"/>
-      <column name="PO_LST_TRNS_DT" type="datetime"/>
-      <column name="PO_QT_DUE_DT" type="datetime"/>
+      <column name="PO_INIT_OPEN_DT" type="DATE"/>
+      <column name="PO_LST_TRNS_DT" type="DATE"/>
+      <column name="PO_QT_DUE_DT" type="DATE"/>
       <column name="PO_QT_TYP_CD" type="VARCHAR(25)"/>
       <column name="PO_QT_VNDR_NTE_TXT" type="VARCHAR(255)"/>
       <column name="PO_CNFRMD_IND" type="VARCHAR(1)"/>
@@ -1492,13 +1492,13 @@
       <column name="ALTRNT_VNDR_NM" type="VARCHAR(45)"/>
       <column name="PO_CUR_IND" type="VARCHAR(1)"/>
       <column name="PEND_ACTN_IND" type="VARCHAR(1)"/>
-      <column name="PO_1ST_TRNS_DT" type="datetime"/>
+      <column name="PO_1ST_TRNS_DT" type="DATE"/>
       <column name="AP_PUR_DOC_LNK_ID" type="DECIMAL(10)"/>
       <column name="VNDR_ADDR_INTL_PROV_NM" type="VARCHAR(45)"/>
       <column name="RCVNG_DOC_REQ_IND" type="VARCHAR(1)"/>
       <column name="PMT_RQST_PSTV_APRVL_IND" type="VARCHAR(1)"/>
-      <column name="PO_QT_INITLZTN_DT" type="datetime"/>
-      <column name="PO_QT_AWDED_DT" type="datetime"/>
+      <column name="PO_QT_INITLZTN_DT" type="DATE"/>
+      <column name="PO_QT_AWDED_DT" type="DATE"/>
       <column name="CPTL_AST_SYS_TYP_CD" type="VARCHAR(4)"/>
       <column name="PUR_RCVNG_NM" type="VARCHAR(45)"/>
       <column name="PUR_RCVNG_LN1_ADDR" type="VARCHAR(45)"/>
@@ -1586,10 +1586,10 @@
       <column name="VNDR_EMAIL_ADDR" type="VARCHAR(100)"/>
       <column name="VNDR_ATTN_NM" type="VARCHAR(45)"/>
       <column name="PO_QT_TRANS_TYP_CD" type="VARCHAR(50)"/>
-      <column name="PO_QT_TRANS_DT" type="datetime"/>
-      <column name="PO_QT_PRCE_EXPR_DT" type="datetime"/>
+      <column name="PO_QT_TRANS_DT" type="DATE"/>
+      <column name="PO_QT_PRCE_EXPR_DT" type="DATE"/>
       <column name="PO_QT_STAT_CD" type="VARCHAR(4)"/>
-      <column name="PO_QT_AWD_DT" type="datetime"/>
+      <column name="PO_QT_AWD_DT" type="DATE"/>
       <column name="PO_QT_RANK_NBR" type="VARCHAR(3)"/>
       <column name="VNDR_CNTRY_CD" type="VARCHAR(2)"/>
       <column name="VNDR_ADDR_INTL_PROV_NM" type="VARCHAR(45)"/>
@@ -1615,7 +1615,7 @@
       <column name="VNDR_STPLTN_AUTH_EMP_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
       </column>
-      <column name="VNDR_STPLTN_CRTE_DT" type="datetime">
+      <column name="VNDR_STPLTN_CRTE_DT" type="DATE">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -1732,7 +1732,7 @@
       <column name="SHPMNT_PKNG_SLP_NBR" type="VARCHAR(45)"/>
       <column name="SHPMNT_REF_NBR" type="VARCHAR(45)"/>
       <column name="SHPMNT_BLL_OF_LDNG_NBR" type="VARCHAR(45)"/>
-      <column name="SHPMNT_RCVD_DT" type="datetime"/>
+      <column name="SHPMNT_RCVD_DT" type="DATE"/>
       <column name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)"/>
       <column name="VNDR_DTL_ASND_ID" type="DECIMAL(10)"/>
       <column name="VNDR_NM" type="VARCHAR(45)"/>
@@ -1755,7 +1755,7 @@
       <column name="DLVY_TO_NM" type="VARCHAR(45)"/>
       <column name="DLVY_TO_EMAIL_ADDR" type="VARCHAR(100)"/>
       <column name="DLVY_TO_PHN_NBR" type="VARCHAR(45)"/>
-      <column name="DLVY_REQ_DT" type="datetime"/>
+      <column name="DLVY_REQ_DT" type="DATE"/>
       <column name="DLVY_INSTRC_TXT" type="VARCHAR(255)"/>
       <column name="DLVY_REQ_DT_REAS_CD" type="VARCHAR(4)"/>
       <column name="AP_PUR_DOC_LNK_ID" type="DECIMAL(10)"/>
@@ -2013,13 +2013,13 @@
       <column name="DLVY_TO_NM" type="VARCHAR(45)"/>
       <column name="DLVY_TO_EMAIL_ADDR" type="VARCHAR(100)"/>
       <column name="DLVY_TO_PHN_NBR" type="VARCHAR(45)"/>
-      <column name="DLVY_REQ_DT" type="datetime"/>
+      <column name="DLVY_REQ_DT" type="DATE"/>
       <column name="DLVY_INSTRC_TXT" type="VARCHAR(255)"/>
       <column name="REQS_ORG_REF_1_TXT" type="VARCHAR(20)"/>
       <column name="REQS_ORG_REF_2_TXT" type="VARCHAR(20)"/>
       <column name="REQS_ORG_REF_3_TXT" type="VARCHAR(20)"/>
-      <column name="PO_BEG_DT" type="datetime"/>
-      <column name="PO_END_DT" type="datetime"/>
+      <column name="PO_BEG_DT" type="DATE"/>
+      <column name="PO_END_DT" type="DATE"/>
       <column name="INST_CNTCT_NM" type="VARCHAR(45)"/>
       <column name="INST_CNTCT_PHN_NBR" type="VARCHAR(45)"/>
       <column name="INST_CNTCT_EMAIL_ADDR" type="VARCHAR(100)"/>
@@ -2107,7 +2107,7 @@
       </column>
       <column name="SNSTV_DTA_ASGN_REAS_TXT" type="VARCHAR(500)"/>
       <column name="SNSTV_DTA_ASGN_CHG_PRSN_ID" type="VARCHAR(40)"/>
-      <column name="SNSTV_DTA_ASGN_CHG_DT" type="datetime"/>
+      <column name="SNSTV_DTA_ASGN_CHG_DT" type="DATE"/>
     </createTable>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo" id="173">

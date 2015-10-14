@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10308">
+  <changeSet author="kfs" id="10308-bootstrap" context="bootstrap,demo">
     <insert tableName="fp_dv_trvl_co_nm_t">
       <column name="DV_EXP_CD"><![CDATA[A]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[CONTINENTAL/CONTINENTAL EXPRESS]]></column>
@@ -133,14 +133,6 @@
     </insert>
     <insert tableName="fp_dv_trvl_co_nm_t">
       <column name="DV_EXP_CD"><![CDATA[L]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[GRANT STREET INN]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A22CEA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[L]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[HAMPTON INN]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A22DEA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -151,14 +143,6 @@
       <column name="DV_EXP_CD"><![CDATA[L]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[HOLIDAY INNS]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A22EEA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[L]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[INDIANA MEMORIAL UNION]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A22FEA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
       <column name="FRGN_CMPNY"><![CDATA[N]]></column>
@@ -183,14 +167,6 @@
       <column name="DV_EXP_CD"><![CDATA[L]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[TRAVELODGE]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A232EA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[L]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[UNIVERSITY PLACE]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A233EA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
       <column name="FRGN_CMPNY"><![CDATA[N]]></column>
@@ -349,14 +325,6 @@
     </insert>
     <insert tableName="fp_dv_trvl_co_nm_t">
       <column name="DV_EXP_CD"><![CDATA[PL]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[GRANT STREET INN]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A247EA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[PL]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[HAMPTON INN]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A248EA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -367,14 +335,6 @@
       <column name="DV_EXP_CD"><![CDATA[PL]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[HOLIDAY INNS]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A249EA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[PL]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[INDIANA MEMORIAL UNION]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A24AEA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
       <column name="FRGN_CMPNY"><![CDATA[N]]></column>
@@ -399,14 +359,6 @@
       <column name="DV_EXP_CD"><![CDATA[PL]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[TRAVELODGE]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A24DEA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[PL]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[UNIVERSITY PLACE]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A24EEA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
       <column name="FRGN_CMPNY"><![CDATA[N]]></column>
@@ -493,22 +445,6 @@
     </insert>
     <insert tableName="fp_dv_trvl_co_nm_t">
       <column name="DV_EXP_CD"><![CDATA[PT]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[BLOOMINGTON SHUTTLE SVC]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A259EA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[PT]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[CLASSIC TOUCH]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A25AEA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[PT]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[OTHER]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A25BEA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -573,22 +509,6 @@
     </insert>
     <insert tableName="fp_dv_trvl_co_nm_t">
       <column name="DV_EXP_CD"><![CDATA[T]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[BLOOMINGTON SHUTTLE SVC]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A263EA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[T]]></column>
-      <column name="DV_EXP_CO_NM"><![CDATA[CLASSIC TOUCH]]></column>
-      <column name="OBJ_ID"><![CDATA[059C8C53A264EA14E043814FD881EA14]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="fp_dv_trvl_co_nm_t">
-      <column name="DV_EXP_CD"><![CDATA[T]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[OTHER]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A265EA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -599,6 +519,88 @@
       <column name="DV_EXP_CD"><![CDATA[T]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[YELLOW CAB CO.]]></column>
       <column name="OBJ_ID"><![CDATA[059C8C53A266EA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+  </changeSet>
+  <changeSet author="kfs" id="10308" context="demo">
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[L]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[GRANT STREET INN]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A22CEA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[L]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[INDIANA MEMORIAL UNION]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A22FEA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[L]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[UNIVERSITY PLACE]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A233EA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[PL]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[GRANT STREET INN]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A247EA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[PL]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[INDIANA MEMORIAL UNION]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A24AEA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[PL]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[UNIVERSITY PLACE]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A24EEA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[PT]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[BLOOMINGTON SHUTTLE SVC]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A259EA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[T]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[BLOOMINGTON SHUTTLE SVC]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A263EA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[PT]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[CLASSIC TOUCH]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A25AEA14E043814FD881EA14]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      <column name="FRGN_CMPNY"><![CDATA[N]]></column>
+    </insert>
+    <insert tableName="fp_dv_trvl_co_nm_t">
+      <column name="DV_EXP_CD"><![CDATA[T]]></column>
+      <column name="DV_EXP_CO_NM"><![CDATA[CLASSIC TOUCH]]></column>
+      <column name="OBJ_ID"><![CDATA[059C8C53A264EA14E043814FD881EA14]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
       <column name="FRGN_CMPNY"><![CDATA[N]]></column>

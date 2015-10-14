@@ -21,7 +21,7 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="597" dbms="mysql">
+    <changeSet author="kfs" id="597" dbms="mysql" context="bootstrap,demo">
         <createView fullDefinition="false" viewName="pur_po_itm_tot_amt_v">
             (select pur_po_itm_t.FDOC_NBR AS FDOC_NBR,
                 sum((case
@@ -36,7 +36,7 @@
             group by pur_po_itm_t.FDOC_NBR)
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="597" dbms="oracle">
+    <changeSet author="kfs" id="597" dbms="oracle" context="bootstrap,demo">
         <createView fullDefinition="false" viewName="pur_po_itm_tot_amt_v">
             (SELECT FDOC_NBR,
                 SUM(CASE
@@ -51,7 +51,7 @@
             GROUP BY FDOC_NBR)
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="598">
+    <changeSet author="kfs" id="598" context="bootstrap,demo">
         <createView fullDefinition="false" viewName="pur_po_itm_tot_enc_v">
             (select A.FDOC_NBR AS FDOC_NBR,
                 sum(A.ITM_OSTND_ENC_AMT) AS TOTAL_ENCUMBRANCE
@@ -59,7 +59,7 @@
             group by A.FDOC_NBR)
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="599" dbms="mysql">
+    <changeSet author="kfs" id="599" dbms="mysql" context="bootstrap,demo">
         <createView fullDefinition="false" viewName="pur_po_v">
             select P.AP_PUR_DOC_LNK_ID AS AP_PUR_DOC_LNK_ID,
                 P.PO_ID AS PO_ID,
@@ -77,7 +77,7 @@
             where ((P.FDOC_NBR = e.FDOC_NBR) and (P.FDOC_NBR = summation.FDOC_NBR))
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="599" dbms="oracle">
+    <changeSet author="kfs" id="599" dbms="oracle" context="bootstrap,demo">
         <createView fullDefinition="false" viewName="pur_po_v">
             SELECT P.AP_PUR_DOC_LNK_ID,
                 P.PO_ID,

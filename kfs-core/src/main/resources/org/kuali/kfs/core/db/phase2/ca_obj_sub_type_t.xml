@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10143">
+  <changeSet author="kfs" id="10143" context="demo">
     <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[AA]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6EE6A448E043814FD28EA448]]></column>
@@ -38,13 +38,6 @@
       <column name="OBJ_ID"><![CDATA[014F3DAF6EE8A448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[ART AND MUSEUM]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[AR]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EE9A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[ACCOUNTS RECEIVABLE]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
@@ -90,13 +83,6 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[BU]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EEEA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[BUDGET ONLY OBJECT CODES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[BX]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6F1DA448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -132,13 +118,6 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[CA]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EEFA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[CASH]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[CE]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6EF0A448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -164,13 +143,6 @@
       <column name="OBJ_ID"><![CDATA[014F3DAF6EF3A448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[CAPITAL LEASE PURCHASES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[CM]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EF4A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[CAPITAL MOVEABLE EQUIPMENT]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
@@ -216,31 +188,10 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[FB]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EFAA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[FUND BALANCE]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[FD]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6EFBA448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[FINANCING AND DEBT SERVICES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[FR]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EFCA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[FRINGE BENEFITS]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[GI]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EFDA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[GIFTS]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
@@ -251,31 +202,10 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[HW]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6EFFA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[HOURLY WAGES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[IF]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6F00A448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[INFRASTRUCTURES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[IN]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F01A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[INVENTORY]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[IV]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F02A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[INVESTMENTS]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
@@ -328,20 +258,6 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[MT]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F08A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[MANDATORY TRANSFERS]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[NA]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F09A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[NOT APPLICABLE]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[OP]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6F0AA448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -377,13 +293,6 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[SA]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F0FA448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[SALARIES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[SC]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6F10A448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
@@ -398,38 +307,10 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[SS]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F12A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[SALES AND SERVICE]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[ST]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F13A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[STATE APPROPRIATIONS]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
       <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[TF]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF6F14A448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[TRANSFER OF FUNDS]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[TN]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F15A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[TRANSFERS - NONMANDATORY]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_obj_sub_type_t">
-      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[TR]]></column>
-      <column name="OBJ_ID"><![CDATA[014F3DAF6F16A448E043814FD28EA448]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[TRAVEL]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
     <insert tableName="ca_obj_sub_type_t">
@@ -465,6 +346,127 @@
       <column name="OBJ_ID"><![CDATA[014F3DAF6F1BA448E043814FD28EA448]]></column>
       <column name="VER_NBR"><![CDATA[1]]></column>
       <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[WRITE-OFF EXPENSE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+  <changeSet author="kfs" id="10143-bootstrap" context="bootstrap,demo">
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[AR]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EE9A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[ACCOUNTS RECEIVABLE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[BU]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EEEA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[BUDGET ONLY OBJECT CODES]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[CA]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EEFA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[CASH]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[CM]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EF4A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[CAPITAL MOVEABLE EQUIPMENT]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[FB]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EFAA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[FUND BALANCE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[FR]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EFCA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[FRINGE BENEFITS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[GI]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EFDA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[GIFTS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[HW]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6EFFA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[HOURLY WAGES]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[IN]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F01A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[INVENTORY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[IV]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F02A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[INVESTMENTS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[MT]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F08A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[MANDATORY TRANSFERS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[NA]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F09A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[NOT APPLICABLE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[SA]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F0FA448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[SALARIES]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[SS]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F12A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[SALES AND SERVICE]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[ST]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F13A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[STATE APPROPRIATIONS]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[TN]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F15A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[TRANSFERS - NONMANDATORY]]></column>
+      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+    <insert tableName="ca_obj_sub_type_t">
+      <column name="FIN_OBJ_SUB_TYP_CD"><![CDATA[TR]]></column>
+      <column name="OBJ_ID"><![CDATA[014F3DAF6F16A448E043814FD28EA448]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="FIN_OBJ_SUB_TYP_NM"><![CDATA[TRAVEL]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
   </changeSet>

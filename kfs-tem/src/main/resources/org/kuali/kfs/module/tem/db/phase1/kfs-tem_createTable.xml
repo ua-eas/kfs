@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -161,7 +161,7 @@
             <column name="AGENCY_FL_NM" type="VARCHAR(50)"/>
             <column name="STAGING_FILE_NM" type="VARCHAR(60)"/>
             <column name="MERCH_NM" type="VARCHAR(40)"/>
-            <column name="BILLING_CYCLE_DT" type="datetime"/>
+            <column name="BILLING_CYCLE_DT" type="DATE"/>
             <column name="TRIP_ID" type="VARCHAR(19)"/>
             <column name="TRIP_INV_NBR" type="VARCHAR(20)"/>
             <column name="TRIP_TRV_TYP_ID" type="VARCHAR(1)"/>
@@ -176,10 +176,10 @@
             <column name="TRP_ARR_NM" type="VARCHAR(50)"/>
             <column name="GRP_OBJ_CD" type="VARCHAR(20)"/>
             <column name="DIST_CD" type="VARCHAR(4)"/>
-            <column name="TRP_DPT_DT" type="datetime"/>
-            <column name="TRP_RTRN_DT" type="datetime"/>
+            <column name="TRP_DPT_DT" type="DATE"/>
+            <column name="TRP_RTRN_DT" type="DATE"/>
             <column name="FARE_SVR_CD" type="VARCHAR(1)"/>
-            <column name="AIR_BK_DT" type="datetime"/>
+            <column name="AIR_BK_DT" type="DATE"/>
             <column name="AIR_CARR_CD" type="VARCHAR(3)"/>
             <column name="AIR_TKT_NBR" type="VARCHAR(20)"/>
             <column name="PNR_NBR" type="VARCHAR(20)"/>
@@ -195,13 +195,13 @@
             <column name="AIR_SRVC_FEE_AMT" type="DECIMAL(8, 2)"/>
             <column name="TRANS_ID" type="VARCHAR(40)"/>
             <column name="LDG_ITN_NBR" type="VARCHAR(20)"/>
-            <column name="LDG_PRPY_DT" type="datetime"/>
+            <column name="LDG_PRPY_DT" type="DATE"/>
             <column name="LDG_AMT" type="DECIMAL(8, 2)"/>
             <column name="LDG_PRPY_NBR" type="VARCHAR(3)"/>
             <column name="LDG_PRP_NM" type="VARCHAR(30)"/>
-            <column name="TRP_LDG_ARRV_DT" type="datetime"/>
-            <column name="LDG_DEPT_DT" type="datetime"/>
-            <column name="LDG_BK_DT" type="datetime"/>
+            <column name="TRP_LDG_ARRV_DT" type="DATE"/>
+            <column name="LDG_DEPT_DT" type="DATE"/>
+            <column name="LDG_BK_DT" type="DATE"/>
             <column name="LDG_PRP_CITY_NM" type="VARCHAR(30)"/>
             <column name="LDG_PRP_STATE_CD" type="VARCHAR(3)"/>
             <column name="LDG_PRP_COUNTRY_NM" type="VARCHAR(40)"/>
@@ -209,8 +209,8 @@
             <column name="RNT_CAR_AMT" type="DECIMAL(8, 2)"/>
             <column name="RNT_CAR_NMR_DAYS" type="VARCHAR(3)"/>
             <column name="RNT_CAR_CO_NM" type="VARCHAR(30)"/>
-            <column name="RNT_CAR_OPN_DT" type="datetime"/>
-            <column name="RNT_CAR_CLOSE_DT" type="datetime"/>
+            <column name="RNT_CAR_OPN_DT" type="DATE"/>
+            <column name="RNT_CAR_CLOSE_DT" type="DATE"/>
             <column name="RNT_CAR_FUEL_AMT" type="DECIMAL(8, 2)"/>
             <column name="RNT_CAR_ADD_AMT" type="DECIMAL(8, 2)"/>
             <column name="RNT_CAR_TX_AMT" type="DECIMAL(8, 2)"/>
@@ -220,10 +220,10 @@
             <column name="RNT_CAR_DTL" type="VARCHAR(100)"/>
             <column name="REG_CO_NM" type="VARCHAR(50)"/>
             <column name="REG_AMT" type="DECIMAL(8, 2)"/>
-            <column name="TRANS_POST_DT" type="datetime"/>
+            <column name="TRANS_POST_DT" type="DATE"/>
             <column name="OBJ_VER_NBR" type="VARCHAR(255)"/>
-            <column name="CREATION_TS" type="datetime"/>
-            <column name="PROCESSING_TS" type="datetime"/>
+            <column name="CREATION_TS" type="DATE"/>
+            <column name="PROCESSING_TS" type="DATE"/>
             <column name="MV_TO_HISTORY" type="VARCHAR(1)"/>
             <column name="ACTV_CD" type="VARCHAR(1)"/>
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
@@ -433,25 +433,25 @@
             <column name="CREDIT_CARD_KEY" type="VARCHAR(38)"/>
             <column name="AIR_NUMBER" type="VARCHAR(3)"/>
             <column name="TICKET_NBR" type="VARCHAR(16)"/>
-            <column name="BILLING_CYCLE_DT" type="datetime"/>
-            <column name="CREATION_DT" type="datetime"/>
-            <column name="CREATION_TIMESTAMP" type="datetime"/>
-            <column name="DEPARTURE_DT" type="datetime"/>
+            <column name="BILLING_CYCLE_DT" type="DATE"/>
+            <column name="CREATION_DT" type="DATE"/>
+            <column name="CREATION_TIMESTAMP" type="DATE"/>
+            <column name="DEPARTURE_DT" type="DATE"/>
             <column name="IDENTIFIER" type="VARCHAR(1)"/>
-            <column name="RECONCILIATION_DT" type="datetime"/>
+            <column name="RECONCILIATION_DT" type="DATE"/>
             <column name="REFERENCE_NBR" type="VARCHAR(23)"/>
             <column name="SEQUENCE_NBR" type="VARCHAR(3)"/>
             <column name="TRANSACTION_AMOUNT" type="DECIMAL(15, 4)"/>
             <column name="TRANSACTION_CD" type="VARCHAR(1)"/>
-            <column name="TRANSACTION_DT" type="datetime">
+            <column name="TRANSACTION_DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="TRAVELER_NM" type="VARCHAR(40)"/>
             <column name="TYPE_CD" type="VARCHAR(1)"/>
             <column name="DV_EXP_CD" type="VARCHAR(2)"/>
             <column name="MERCHANT_NM" type="VARCHAR(40)"/>
-            <column name="BANK_POST_DT" type="datetime"/>
-            <column name="PROCESSING_TS" type="datetime"/>
+            <column name="BANK_POST_DT" type="DATE"/>
+            <column name="PROCESSING_TS" type="DATE"/>
             <column name="MV_TO_HISTORY" type="VARCHAR(1)"/>
             <column name="LOC" type="VARCHAR(40)"/>
             <column name="SRVC_FEE_NBR" type="VARCHAR(20)"/>
@@ -473,8 +473,8 @@
             <column name="TEM_PROFILE_ID" type="DECIMAL(22)">
                 <constraints nullable="false"/>
             </column>
-            <column name="BNK_APPL_DT" type="datetime"/>
-            <column name="BNK_APPR_DT" type="datetime"/>
+            <column name="BNK_APPL_DT" type="DATE"/>
+            <column name="BNK_APPR_DT" type="DATE"/>
             <column name="USR_AGRMNT" type="VARCHAR(1)"/>
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
@@ -518,8 +518,8 @@
             <column name="TITLE" type="VARCHAR(100)"/>
             <column name="TRAVELER_DTL_ID" type="DECIMAL(22)"/>
             <column name="TEM_PROFILE_ID" type="DECIMAL(22)"/>
-            <column name="TRIP_BGN_DT" type="datetime"/>
-            <column name="TRIP_END_DT" type="datetime"/>
+            <column name="TRIP_BGN_DT" type="DATE"/>
+            <column name="TRIP_END_DT" type="DATE"/>
             <column name="PRIMARY_DEST_ID" type="DECIMAL(22)"/>
             <column name="PRIMARY_DEST_NAME" type="VARCHAR(100)"/>
             <column name="PRIMARY_DEST_CNTRY_ST" type="VARCHAR(100)"/>
@@ -539,9 +539,9 @@
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CORP_CARD_PMT_EXTRT_DT" type="datetime"/>
-            <column name="CORP_CARD_PMT_PAID_DT" type="datetime"/>
-            <column name="CORP_CARD_PMT_CNCL_DT" type="datetime"/>
+            <column name="CORP_CARD_PMT_EXTRT_DT" type="DATE"/>
+            <column name="CORP_CARD_PMT_PAID_DT" type="DATE"/>
+            <column name="CORP_CARD_PMT_CNCL_DT" type="DATE"/>
             <column name="HOST_AS_PAYEE" type="VARCHAR(1)"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
@@ -668,7 +668,7 @@
             <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
             <column name="ACCT_SF_FINOBJ_CD" type="VARCHAR(4)"/>
             <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
-            <column name="TRNENTR_PROCESS_TM" type="datetime"/>
+            <column name="TRNENTR_PROCESS_TM" type="DATE"/>
         </createTable>
     </changeSet>
 <changeSet author="kfs" id="4273" context="bootstrap,demo">
@@ -676,14 +676,14 @@
             <column defaultValueNumeric="0" name="ID" type="DECIMAL(22)">
                 <constraints nullable="false"/>
             </column>
-            <column name="IMPORT_DT" type="datetime"/>
+            <column name="IMPORT_DT" type="DATE"/>
             <column name="COMPANY" type="VARCHAR(40)"/>
             <column name="LOCATION" type="VARCHAR(40)"/>
             <column name="EXP_TYP_CD" type="VARCHAR(2)"/>
             <column name="AMOUNT" type="DECIMAL(8, 2)"/>
-            <column name="TRANS_POST_DT" type="datetime"/>
+            <column name="TRANS_POST_DT" type="DATE"/>
             <column name="DESCRIPTION" type="VARCHAR(25)"/>
-            <column name="RECON_DT" type="datetime"/>
+            <column name="RECON_DT" type="DATE"/>
             <column name="RECONCILED" type="VARCHAR(1)"/>
             <column name="CURR_RT" type="DECIMAL(20, 10)"/>
             <column name="CONV_AMT" type="DECIMAL(8, 2)"/>
@@ -695,7 +695,7 @@
             <column name="PROFILE_ID" type="DECIMAL(22)"/>
             <column name="DOC_NBR" type="VARCHAR(14)"/>
             <column name="DOC_TYPE" type="VARCHAR(10)"/>
-            <column name="EXP_NTF_DT" type="datetime"/>
+            <column name="EXP_NTF_DT" type="DATE"/>
             <column name="TRIP_ID" type="VARCHAR(19)"/>
             <column name="CCA_CD" type="VARCHAR(4)"/>
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
@@ -731,10 +731,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="RT" type="DECIMAL(14, 4)"/>
-            <column name="ACTV_FROM_DT" type="datetime">
+            <column name="ACTV_FROM_DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="ACTV_TO_DT" type="datetime">
+            <column name="ACTV_TO_DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
@@ -774,7 +774,7 @@
             <column name="ACCOM_NM" type="VARCHAR(255)"/>
             <column name="ACCOM_PH" type="VARCHAR(20)"/>
             <column name="ACCOM_ADDRESS" type="VARCHAR(255)"/>
-            <column name="MLG_DT" type="datetime"/>
+            <column name="MLG_DT" type="DATE"/>
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
@@ -794,7 +794,7 @@
             <column name="LUNCH" type="DECIMAL(22)"/>
             <column name="DIN" type="DECIMAL(22)"/>
             <column defaultValueNumeric="0.00" name="INC" type="DECIMAL(19, 2)"/>
-            <column name="LAST_UPD_DT" type="datetime"/>
+            <column name="LAST_UPD_DT" type="DATE"/>
             <column name="ACTV_IND" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
@@ -831,9 +831,9 @@
             <column defaultValueNumeric="0" name="ID" type="DECIMAL(22)">
                 <constraints nullable="false"/>
             </column>
-            <column name="EFFECT_FROM_DT" type="datetime"/>
-            <column name="EFFECT_TO_DT" type="datetime"/>
-            <column name="LOAD_DT" type="datetime"/>
+            <column name="EFFECT_FROM_DT" type="DATE"/>
+            <column name="EFFECT_TO_DT" type="DATE"/>
+            <column name="LOAD_DT" type="DATE"/>
             <column name="SSN_BGN_MONTH_DAY" type="VARCHAR(5)"/>
             <column defaultValueNumeric="0.00" name="BKFST" type="DECIMAL(19, 2)"/>
             <column defaultValueNumeric="0.00" name="LUNCH" type="DECIMAL(19, 2)"/>
@@ -883,8 +883,8 @@
             <column name="ACCOUNT_NBR" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="EXP_DATE" type="datetime"/>
-            <column name="EFFECTIVE_DATE" type="datetime"/>
+            <column name="EXP_DATE" type="DATE"/>
+            <column name="EFFECTIVE_DATE" type="DATE"/>
             <column name="NOTE" type="VARCHAR(500)"/>
             <column name="ACTV_IND" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -979,14 +979,14 @@
             <column name="CUST_NBR" type="VARCHAR(9)"/>
             <column name="DRIVE_LIC_NUM" type="VARCHAR(255)"/>
             <column name="DRIVE_LIC_STATE" type="VARCHAR(2)"/>
-            <column name="DRIVE_LIC_EXP_DT" type="datetime"/>
+            <column name="DRIVE_LIC_EXP_DT" type="DATE"/>
             <column name="CITIZENSHIP" type="VARCHAR(40)"/>
             <column name="UPDATED_BY" type="VARCHAR(40)"/>
-            <column name="LAST_UPDATE" type="datetime"/>
+            <column name="LAST_UPDATE" type="DATE"/>
             <column name="TRAVELER_TYP_CD" type="VARCHAR(3)">
                 <constraints nullable="false"/>
             </column>
-            <column name="DATE_OF_BIRTH" type="datetime">
+            <column name="DATE_OF_BIRTH" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="GENDER" type="VARCHAR(1)">
@@ -1031,8 +1031,8 @@
                 <constraints nullable="false"/>
             </column>
             <column name="TRVL_ID" type="VARCHAR(19)"/>
-            <column name="TRIP_BGN_DT" type="datetime"/>
-            <column name="TRIP_END_DT" type="datetime"/>
+            <column name="TRIP_BGN_DT" type="DATE"/>
+            <column name="TRIP_END_DT" type="DATE"/>
             <column name="PRIMARY_DEST_ID" type="DECIMAL(22)"/>
             <column name="PRIMARY_DEST_NAME" type="VARCHAR(100)"/>
             <column name="PRIMARY_DEST_CNTRY_ST" type="VARCHAR(100)"/>
@@ -1064,9 +1064,9 @@
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CORP_CARD_PMT_EXTRT_DT" type="datetime"/>
-            <column name="CORP_CARD_PMT_PAID_DT" type="datetime"/>
-            <column name="CORP_CARD_PMT_CNCL_DT" type="datetime"/>
+            <column name="CORP_CARD_PMT_EXTRT_DT" type="DATE"/>
+            <column name="CORP_CARD_PMT_PAID_DT" type="DATE"/>
+            <column name="CORP_CARD_PMT_CNCL_DT" type="DATE"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
@@ -1154,7 +1154,7 @@
             <column name="OPN_AMT" type="DECIMAL(22)">
                 <constraints nullable="false"/>
             </column>
-            <column name="DUE_DT" type="datetime"/>
+            <column name="DUE_DT" type="DATE"/>
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
@@ -1328,14 +1328,14 @@
             <column defaultValueNumeric="0.00" name="TVL_ADV_REQ" type="DECIMAL(19, 2)"/>
             <column name="AR_CUST_ID" type="VARCHAR(255)"/>
             <column name="AR_INV_DOC_NBR" type="VARCHAR(255)"/>
-            <column name="DUE_DT" type="datetime"/>
+            <column name="DUE_DT" type="DATE"/>
             <column name="PYMT_MTHD" type="VARCHAR(255)"/>
             <column name="ADV_PMNT_RSN_CD" type="VARCHAR(2)"/>
             <column name="TRVL_ADV_PLCY" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
             <column name="ADD_JUST" type="VARCHAR(100)"/>
-            <column name="TAX_RAM_NTF_DT" type="datetime"/>
+            <column name="TAX_RAM_NTF_DT" type="DATE"/>
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
@@ -1384,8 +1384,8 @@
             <column name="TRAVELER_DTL_ID" type="DECIMAL(22)"/>
             <column name="TEM_PROFILE_ID" type="DECIMAL(22)"/>
             <column name="TRIP_TYP_CD" type="VARCHAR(3)"/>
-            <column name="TRIP_BGN_DT" type="datetime"/>
-            <column name="TRIP_END_DT" type="datetime"/>
+            <column name="TRIP_BGN_DT" type="DATE"/>
+            <column name="TRIP_END_DT" type="DATE"/>
             <column name="PRIMARY_DEST_ID" type="DECIMAL(22)"/>
             <column name="PRIMARY_DEST_NAME" type="VARCHAR(100)"/>
             <column name="PRIMARY_DEST_CNTRY_ST" type="VARCHAR(100)"/>
@@ -1418,8 +1418,8 @@
             <column name="TRAVELER_DTL_ID" type="DECIMAL(22)"/>
             <column name="TEM_PROFILE_ID" type="DECIMAL(22)"/>
             <column name="TRIP_TYP_CD" type="VARCHAR(3)"/>
-            <column name="TRIP_BGN_DT" type="datetime"/>
-            <column name="TRIP_END_DT" type="datetime"/>
+            <column name="TRIP_BGN_DT" type="DATE"/>
+            <column name="TRIP_END_DT" type="DATE"/>
             <column name="PRIMARY_DEST_ID" type="DECIMAL(22)"/>
             <column name="PRIMARY_DEST_NAME" type="VARCHAR(100)"/>
             <column name="PRIMARY_DEST_CNTRY_ST" type="VARCHAR(100)"/>
@@ -1452,8 +1452,8 @@
             <column name="TRAVELER_DTL_ID" type="DECIMAL(22)"/>
             <column name="TEM_PROFILE_ID" type="DECIMAL(22)"/>
             <column name="TRIP_TYP_CD" type="VARCHAR(3)"/>
-            <column name="TRIP_BGN_DT" type="datetime"/>
-            <column name="TRIP_END_DT" type="datetime"/>
+            <column name="TRIP_BGN_DT" type="DATE"/>
+            <column name="TRIP_END_DT" type="DATE"/>
             <column name="PRIMARY_DEST_ID" type="DECIMAL(22)"/>
             <column name="PRIMARY_DEST_NAME" type="VARCHAR(100)"/>
             <column name="PRIMARY_DEST_CNTRY_ST" type="VARCHAR(100)"/>
@@ -1510,7 +1510,7 @@
             <column name="EXP_LN_TYP_CD" type="VARCHAR(1)"/>
             <column name="EXP_PARENT_ID" type="DECIMAL(22)"/>
             <column name="HIST_EXP_ID" type="DECIMAL(22)"/>
-            <column name="EXP_DT" type="datetime"/>
+            <column name="EXP_DT" type="DATE"/>
             <column defaultValueNumeric="0.000" name="EXP_AMT" type="DECIMAL(20, 3)"/>
             <column name="EXP_DESC" type="VARCHAR(255)"/>
             <column defaultValueNumeric="0E-10" name="CUR_RT" type="DECIMAL(20, 10)"/>
@@ -1549,14 +1549,14 @@
                 <constraints nullable="false"/>
             </column>
             <column name="CHK_TOT_AMT" type="DECIMAL(19, 2)"/>
-            <column name="DUE_DT" type="datetime"/>
+            <column name="DUE_DT" type="DATE"/>
             <column defaultValue="N" name="ATTCH_IND" type="VARCHAR(1)"/>
             <column defaultValue="N" name="SPCL_HANDLG_IND" type="VARCHAR(1)"/>
             <column name="CHK_STUB_TXT" type="VARCHAR(1400)"/>
             <column defaultValue="N" name="IMD_PMT_IND" type="VARCHAR(1)"/>
-            <column name="EXTRT_DT" type="datetime"/>
-            <column name="PAID_DT" type="datetime"/>
-            <column name="CNCL_DT" type="datetime"/>
+            <column name="EXTRT_DT" type="DATE"/>
+            <column name="PAID_DT" type="DATE"/>
+            <column name="CNCL_DT" type="DATE"/>
             <column name="DOC_LOC_CD" type="VARCHAR(2)"/>
             <column name="PMT_MTHD_CD" type="VARCHAR(1)"/>
             <column defaultValue="N" name="ALIEN_PMT_IND" type="VARCHAR(1)"/>
@@ -1593,8 +1593,8 @@
             <column name="CON_EMAIL_ADDR" type="VARCHAR(40)"/>
             <column name="CON_CAMPUS_CD" type="VARCHAR(2)"/>
             <column name="TRIP_TYP_CD" type="VARCHAR(3)"/>
-            <column name="TRIP_BGN_DT" type="datetime"/>
-            <column name="TRIP_END_DT" type="datetime"/>
+            <column name="TRIP_BGN_DT" type="DATE"/>
+            <column name="TRIP_END_DT" type="DATE"/>
             <column name="PRIMARY_DEST_ID" type="DECIMAL(22)"/>
             <column name="PRIMARY_DEST_NAME" type="VARCHAR(100)"/>
             <column name="PRIMARY_DEST_CNTRY_ST" type="VARCHAR(100)"/>
@@ -1612,9 +1612,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="BLNKT_TRVL_IND" type="VARCHAR(1)"/>
-            <column name="CORP_CARD_PMT_EXTRT_DT" type="datetime"/>
-            <column name="CORP_CARD_PMT_PAID_DT" type="datetime"/>
-            <column name="CORP_CARD_PMT_CNCL_DT" type="datetime"/>
+            <column name="CORP_CARD_PMT_EXTRT_DT" type="DATE"/>
+            <column name="CORP_CARD_PMT_PAID_DT" type="DATE"/>
+            <column name="CORP_CARD_PMT_CNCL_DT" type="DATE"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>

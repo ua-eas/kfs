@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10597">
+  <changeSet author="kfs" id="10597" context="bootstrap,demo">
     <insert tableName="pur_contr_mgr_t">
       <column name="CONTR_MGR_CD"><![CDATA[10]]></column>
       <column name="OBJ_ID"><![CDATA[DC110C03-D20F-A572-E1E6-0037D4AD2D58]]></column>
@@ -416,6 +416,18 @@
       <column name="CONTR_MGR_NM"><![CDATA[AUTOMATIC PURCHASE ORDER]]></column>
       <column name="CONTR_MGR_PHN_NBR"><![CDATA[7777777777]]></column>
       <column name="CONTR_MGR_FAX_NBR"><![CDATA[5554448888]]></column>
+      <column name="CONTR_MGR_DLGN_DLR_LMT"><![CDATA[100000.00]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+    </insert>
+  </changeSet>
+  <changeSet author="kfs" id="10597-bootstrap-only" context="bootstrap">
+    <insert tableName="pur_contr_mgr_t">
+      <column name="CONTR_MGR_CD"><![CDATA[99]]></column>
+      <column name="OBJ_ID"><![CDATA[2E5054C403C230CEE043814FD88130CE]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="CONTR_MGR_NM"><![CDATA[AUTOMATIC PURCHASE ORDER]]></column>
+      <column name="CONTR_MGR_PHN_NBR"><![CDATA[000-555-1212]]></column>
+      <column name="CONTR_MGR_FAX_NBR"><![CDATA[000-555-1212]]></column>
       <column name="CONTR_MGR_DLGN_DLR_LMT"><![CDATA[100000.00]]></column>
       <column name="ACTV_IND"><![CDATA[Y]]></column>
     </insert>

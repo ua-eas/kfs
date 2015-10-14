@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10348">
+  <changeSet author="kfs" id="10348" context="demo">
     <insert tableName="fs_pmt_doc_loc_t">
       <column name="PMT_DOC_LOC_CD"><![CDATA[A]]></column>
       <column name="OBJ_ID"><![CDATA[519DA571FE3562E1E0404F8189D85A64]]></column>
@@ -125,5 +125,14 @@
  SOUTHEAST CAMPUS]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
+  </changeSet>
+  <changeSet author="kfs" id="10348-bootstrap" context="bootstrap">
+      <insert tableName="fs_pmt_doc_loc_t">
+          <column name="PMT_DOC_LOC_CD"><![CDATA[01]]></column>
+          <column name="OBJ_ID"><![CDATA[21B01FC9D77C012FE0509A0A91976942]]></column>
+          <column name="VER_NBR"><![CDATA[1]]></column>
+          <column name="PMT_DOC_LOC_NM"><![CDATA[Kuali Default PMT Doc Loc]]></column>
+          <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
+      </insert>
   </changeSet>
 </databaseChangeLog>
