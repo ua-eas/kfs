@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2014 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="false">
+
+    <bean id="properties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean" />
+
+    <bean id="securityProperties" class="org.kuali.kfs.sys.context.PropertyLoadingFactoryBean"
+        p:secureMode="true" />
+
+    <bean id="propertyPlaceholderConfigurer" class="org.kuali.kfs.sys.context.ConfigPropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="propertiesArray">
+            <list>
+                <ref bean="properties" />
+                <ref bean="securityProperties" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="nonTransactionalDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${kfs.datasource.driver.name}"/>
+        <property name="validationQuery" value="${kfs.datasource.validating.query}"/>
+        <property name="url" value="${kfs.datasource.url}"/>
+        <property name="username" value="${kfs.datasource.username}" />
+        <property name="password" value="${kfs.datasource.password}" />
+        <property name="accessToUnderlyingConnectionAllowed" value="${kfs.datasource.pool.accessToUnderlyingConnectionAllowed}"/>
+        <property name="maxActive" value="${kfs.datasource.pool.maxActive}"/>
+        <property name="minIdle" value="${kfs.datasource.pool.minIdle}" />
+        <property name="initialSize" value="${kfs.datasource.pool.initialSize}" />
+    </bean>
+
+    <bean id="grlBeanImporter" abstract="true" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true" />
+
+    <bean id="dataSource" p:serviceName="kradApplicationDataSource" parent="grlBeanImporter" />
+    <bean id="configurationService" p:serviceName="cf.kualiConfigurationService" parent="grlBeanImporter" />
+    <alias name="configurationService" alias="kualiConfigurationService" />
+
+</beans>
