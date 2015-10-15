@@ -47,7 +47,6 @@ import java.util.Properties;
 public class LiquiRelational {
     private static final Logger LOG = Logger.getLogger(LiquiRelational.class);
 
-    protected static final String DATABASE_UPDATE_ON_STARTUP = "databaseUpdateOnStartup";
     protected static final String DATABASE_UPDATE_FULL_REBUILD = "databaseUpdateFullRebuild";
     protected static final String DATABASE_UPDATE_CONTEXT = "databaseUpdateContext";
     protected static final String DATABASE_UPDATE_PACKAGES = "databaseUpdatePackages";
@@ -62,9 +61,7 @@ public class LiquiRelational {
 
     public void updateDatabase() {
         initializeContext();
-        if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(DATABASE_UPDATE_ON_STARTUP))) {
-            applyUpdates();
-        }
+        applyUpdates();
         applicationContext.close();
     }
 

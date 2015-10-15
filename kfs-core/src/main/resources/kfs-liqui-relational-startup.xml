@@ -53,7 +53,5 @@
     <bean id="grlBeanImporter" abstract="true" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true" />
 
     <bean id="dataSource" p:serviceName="kradApplicationDataSource" parent="grlBeanImporter" />
-    <bean id="configurationService" p:serviceName="cf.kualiConfigurationService" parent="grlBeanImporter" />
-    <alias name="configurationService" alias="kualiConfigurationService" />
 
 </beans>
