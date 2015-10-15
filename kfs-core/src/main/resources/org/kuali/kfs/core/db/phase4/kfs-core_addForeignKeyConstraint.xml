@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -371,39 +371,6 @@
   </changeSet>
   <changeSet author="kfs" id="2069" context="bootstrap,demo">
     <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="CA_SUB_OBJ_CD_CHG_DTL_T" constraintName="CA_SUB_OBJ_CD_CHG_DTL_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2070" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="CPTLAST_TYP_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTLAST_TYP_CD" referencedTableName="CM_ASSET_TYPE_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2071" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="CAMPUS_CD,BLDG_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR12" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CAMPUS_CD,BLDG_CD" referencedTableName="SH_BUILDING_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2072" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="AST_RETIRE_REAS_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR14" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AST_RETIRE_REAS_CD" referencedTableName="CM_RETIRE_REAS_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2073" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="CPTLAST_COND_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR17" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CPTLAST_COND_CD" referencedTableName="CM_AST_CONDITION_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2074" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="AST_INVN_STAT_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR18" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AST_INVN_STAT_CD" referencedTableName="CM_AST_STATUS_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2075" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="ORG_OWNER_COA_CD,ORG_OWNER_ACCT_NBR" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2076" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="FIN_OBJ_SUB_TYP_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR21" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_OBJ_SUB_TYP_CD" referencedTableName="CA_OBJ_SUB_TYPE_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2077" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="ORG_OWNER_COA_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2078" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="CAMPUS_CD,BLDG_CD,BLDG_ROOM_NBR" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CAMPUS_CD,BLDG_CD,BLDG_ROOM_NBR" referencedTableName="SH_ROOM_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2079" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="AST_RETIR_COA_CD,AST_RETIR_ACCT_NBR" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD,ACCOUNT_NBR" referencedTableName="CA_ACCOUNT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="2080" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="AST_RETIR_COA_CD" baseTableName="CM_CPTLAST_T" constraintName="CM_CPTLAST_TR7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
   </changeSet>
   <changeSet author="kfs" id="2081" context="bootstrap,demo">
     <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="FP_ACCT_LINES_T" constraintName="FP_ACCT_LINES_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
