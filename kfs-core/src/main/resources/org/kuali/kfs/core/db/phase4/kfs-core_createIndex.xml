@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -546,60 +546,6 @@
   <changeSet author="kfs" id="1738" context="bootstrap,demo">
     <createIndex indexName="CA_SUB_OBJ_CD_CHG_DTL_TR4" tableName="CA_SUB_OBJ_CD_CHG_DTL_T">
       <column name="FIN_COA_CD"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1739" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TI2" tableName="CM_CPTLAST_T">
-      <column name="CPTLAST_TAG_NBR"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1740" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TI3" tableName="CM_CPTLAST_T">
-      <column name="AST_REP_UNVL_ID"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1741" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TI4" tableName="CM_CPTLAST_T">
-      <column name="CAMPUS_CD"/>
-      <column name="BLDG_CD"/>
-      <column name="BLDG_ROOM_NBR"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1742" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TR1" tableName="CM_CPTLAST_T">
-      <column name="CPTLAST_TYP_CD"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1743" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TR14" tableName="CM_CPTLAST_T">
-      <column name="AST_RETIRE_REAS_CD"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1744" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TR17" tableName="CM_CPTLAST_T">
-      <column name="CPTLAST_COND_CD"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1745" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TR18" tableName="CM_CPTLAST_T">
-      <column name="AST_INVN_STAT_CD"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1746" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TR2" tableName="CM_CPTLAST_T">
-      <column name="ORG_OWNER_COA_CD"/>
-      <column name="ORG_OWNER_ACCT_NBR"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1747" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TR21" tableName="CM_CPTLAST_T">
-      <column name="FIN_OBJ_SUB_TYP_CD"/>
-    </createIndex>
-  </changeSet>
-  <changeSet author="kfs" id="1748" context="bootstrap,demo">
-    <createIndex indexName="CM_CPTLAST_TR6" tableName="CM_CPTLAST_T">
-      <column name="AST_RETIR_COA_CD"/>
-      <column name="AST_RETIR_ACCT_NBR"/>
     </createIndex>
   </changeSet>
   <changeSet author="kfs" id="1749" context="bootstrap,demo">
