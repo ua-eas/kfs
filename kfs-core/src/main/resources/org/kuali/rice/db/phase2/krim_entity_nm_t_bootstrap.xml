@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet context="bootstrap" author="kfs" id="ricedata00074">
+    <insert tableName="krim_entity_nm_t">
+      <column name="ENTITY_NM_ID"><![CDATA[1200]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B042C6110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ENTITY_ID"><![CDATA[1100]]></column>
+      <column name="NM_TYP_CD"><![CDATA[PRFR]]></column>
+      <column name="FIRST_NM"><![CDATA[admin]]></column>
+      <column name="MIDDLE_NM" value="null"/>
+      <column name="LAST_NM"><![CDATA[admin]]></column>
+      <column name="SUFFIX_NM" value="null"/>
+      <column name="PREFIX_NM" value="null"/>
+      <column name="DFLT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:02.0"/>
+      <column name="TITLE_NM" value="null"/>
+      <column name="NOTE_MSG" value="null"/>
+      <column name="NM_CHNG_DT" value="null"/>
+    </insert>
+    <insert tableName="krim_entity_nm_t">
+      <column name="ENTITY_NM_ID"><![CDATA[1231]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B044B6110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ENTITY_ID"><![CDATA[1131]]></column>
+      <column name="NM_TYP_CD"><![CDATA[PRFR]]></column>
+      <column name="FIRST_NM"><![CDATA[Notification]]></column>
+      <column name="MIDDLE_NM" value="null"/>
+      <column name="LAST_NM"><![CDATA[System]]></column>
+      <column name="SUFFIX_NM" value="null"/>
+      <column name="PREFIX_NM" value="null"/>
+      <column name="DFLT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:07.0"/>
+      <column name="TITLE_NM" value="null"/>
+      <column name="NOTE_MSG" value="null"/>
+      <column name="NM_CHNG_DT" value="null"/>
+    </insert>
+    <insert tableName="krim_entity_nm_t">
+      <column name="ENTITY_NM_ID"><![CDATA[KFS2]]></column>
+      <column name="OBJ_ID"><![CDATA[KFS2]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ENTITY_ID"><![CDATA[KFS2]]></column>
+      <column name="NM_TYP_CD"><![CDATA[PRFR]]></column>
+      <column name="FIRST_NM"><![CDATA[KFS]]></column>
+      <column name="MIDDLE_NM"><![CDATA[]]></column>
+      <column name="LAST_NM"><![CDATA[Admin]]></column>
+      <column name="SUFFIX_NM"><![CDATA[]]></column>
+      <column name="PREFIX_NM" value="null"/>
+      <column name="DFLT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" value="null"/>
+      <column name="TITLE_NM"><![CDATA[]]></column>
+      <column name="NOTE_MSG" value="null"/>
+      <column name="NM_CHNG_DT" value="null"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>
