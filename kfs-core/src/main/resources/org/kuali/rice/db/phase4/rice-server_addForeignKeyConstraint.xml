@@ -18,12 +18,6 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="rice01128">
-        <addForeignKeyConstraint baseColumnNames="BOOK_ID" baseTableName="bk_order_entry_t" constraintName="BK_ORDER_ENTRY_T_BK_BOOK_T" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="BOOK_ID" referencedTableName="bk_book_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01129">
-        <addForeignKeyConstraint baseColumnNames="DOC_HDR_ID" baseTableName="bk_order_entry_t" constraintName="BK_ORDER_ENTRY_T_KRNS_DO_ADV1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_HDR_ID" referencedTableName="krns_doc_hdr_t"/>
-    </changeSet>
     <changeSet author="kfs" id="rice01130">
         <addForeignKeyConstraint baseColumnNames="CHNL_ID" baseTableName="kren_chnl_subscrp_t" constraintName="KREN_CHAN_SUBSCRP_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CHNL_ID" referencedTableName="kren_chnl_t"/>
     </changeSet>
@@ -441,30 +435,6 @@
     <changeSet author="kfs" id="rice01268">
         <addForeignKeyConstraint baseColumnNames="SVC_DSCRPTR_ID" baseTableName="krsb_svc_def_t" constraintName="KRSB_SVC_DEF_FK1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="SVC_DSCRPTR_ID" referencedTableName="krsb_svc_dscrptr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01269">
-        <addForeignKeyConstraint baseColumnNames="COORD_ID" baseTableName="krtst_conf_sess_t" constraintName="KRTST_CONF_SESS_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_coord_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01270">
-        <addForeignKeyConstraint baseColumnNames="ALT_COORD1_ID" baseTableName="krtst_conf_sess_t" constraintName="KRTST_CONF_SESS_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_coord_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01271">
-        <addForeignKeyConstraint baseColumnNames="ALT_COORD2_ID" baseTableName="krtst_conf_sess_t" constraintName="KRTST_CONF_SESS_FK3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_coord_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01272">
-        <addForeignKeyConstraint baseColumnNames="ROOM_ID" baseTableName="krtst_conf_sess_t" constraintName="KRTST_CONF_SESS_FK4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_room_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01273">
-        <addForeignKeyConstraint baseColumnNames="ALT_ROOM1_ID" baseTableName="krtst_conf_sess_t" constraintName="KRTST_CONF_SESS_FK5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_room_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01274">
-        <addForeignKeyConstraint baseColumnNames="ALT_ROOM2_ID" baseTableName="krtst_conf_sess_t" constraintName="KRTST_CONF_SESS_FK6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_room_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01275">
-        <addForeignKeyConstraint baseColumnNames="SESS_ID" baseTableName="krtst_conf_sess_pres_t" constraintName="KRTST_CONF_SESS_PRES_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_sess_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01276">
-        <addForeignKeyConstraint baseColumnNames="PRES_ID" baseTableName="krtst_conf_sess_pres_t" constraintName="KRTST_CONF_SESS_PRES_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="krtst_conf_presenter_t"/>
-    </changeSet>
     <changeSet author="kfs" id="rice01277">
         <addForeignKeyConstraint baseColumnNames="POSTAL_CNTRY_CD" baseTableName="krlc_pstl_cd_t" constraintName="KR_POSTAL_CODE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="POSTAL_CNTRY_CD" referencedTableName="krlc_cntry_t"/>
     </changeSet>
@@ -482,26 +452,5 @@
     </changeSet>
     <changeSet author="kfs" id="rice01282">
         <addForeignKeyConstraint baseColumnNames="CAMPUS_TYP_CD" baseTableName="krlc_cmp_t" constraintName="SH_CAMPUS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CAMPUS_TYP_CD" referencedTableName="krlc_cmp_typ_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01283">
-        <addForeignKeyConstraint baseColumnNames="TRVL_DEST_ID" baseTableName="trvl_auth_doc_t" constraintName="TRVL_AUTH_DOC_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRVL_DEST_ID" referencedTableName="trvl_dest_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01284">
-        <addForeignKeyConstraint baseColumnNames="TRVL_AUTH_DOC_ID" baseTableName="trvl_exp_itm_t" constraintName="TRVL_EXP_ITEM_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRVL_AUTH_DOC_ID" referencedTableName="trvl_auth_doc_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01285">
-        <addForeignKeyConstraint baseColumnNames="MLG_RT_ID" baseTableName="trvl_pd_exp_t" constraintName="TRVL_PD_EXP_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="MLG_RT_ID" referencedTableName="trvl_mlg_rt_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01286">
-        <addForeignKeyConstraint baseColumnNames="TRVL_DEST_ID" baseTableName="trvl_pd_exp_t" constraintName="TRVL_PD_EXP_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRVL_DEST_ID" referencedTableName="trvl_dest_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01287">
-        <addForeignKeyConstraint baseColumnNames="TRVL_AUTH_DOC_ID" baseTableName="trvl_pd_exp_t" constraintName="TRVL_PD_EXP_FK3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRVL_AUTH_DOC_ID" referencedTableName="trvl_auth_doc_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01288">
-        <addForeignKeyConstraint baseColumnNames="ACCT_TYPE" baseTableName="trv_acct" constraintName="TRV_ACCT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ACCT_TYPE" referencedTableName="trv_acct_type"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice01289">
-        <addForeignKeyConstraint baseColumnNames="ACCT_NUM" baseTableName="trv_sub_acct" constraintName="TRV_SUB_ACCT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ACCT_NUM" referencedTableName="trv_acct"/>
     </changeSet>
 </databaseChangeLog>
