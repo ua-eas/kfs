@@ -450,28 +450,4 @@
     <changeSet author="kfs" id="rice00836">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="KR_STATE_TC0" tableName="krlc_st_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice00837">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_AUTH_DOC_TC1" tableName="trvl_auth_doc_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice00838">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_CO_TC1" tableName="trvl_co_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice00839">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_DEST_TC1" tableName="trvl_dest_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice00840">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_EXP_ITEM_TC1" tableName="trvl_exp_itm_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice00841">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_MIL_RT_TC1" tableName="trvl_mlg_rt_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice00842">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_PD_EXP_TC1" tableName="trvl_pd_exp_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice00843">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_TRAVELER_DTL_TC0" tableName="trvl_traveler_dtl_t"/>
-    </changeSet>
-    <changeSet author="kfs" id="rice00844">
-        <addUniqueConstraint columnNames="OBJ_ID" constraintName="TRVL_TRAVELER_TYP_T_TC0" tableName="trvl_traveler_typ_t"/>
-    </changeSet>
 </databaseChangeLog>

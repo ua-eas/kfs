@@ -18,16 +18,6 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="rice00845">
-        <createIndex indexName="BK_ORDER_ENTRY_T_BK_BOOK_T" tableName="bk_order_entry_t">
-            <column name="BOOK_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice00846">
-        <createIndex indexName="BK_ORDER_ENTRY_T_KRNS_DO_ADV1" tableName="bk_order_entry_t">
-            <column name="DOC_HDR_ID"/>
-        </createIndex>
-    </changeSet>
     <changeSet author="kfs" id="rice00847">
         <createIndex indexName="KREN_CHNL_PRODCR_TI1" tableName="kren_chnl_prodcr_t">
             <column name="CHNL_ID"/>
@@ -1453,46 +1443,6 @@
             <column name="SVC_DSCRPTR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01109">
-        <createIndex indexName="KRTST_CONF_SESS_FK1" tableName="krtst_conf_sess_t">
-            <column name="COORD_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01110">
-        <createIndex indexName="KRTST_CONF_SESS_FK2" tableName="krtst_conf_sess_t">
-            <column name="ALT_COORD1_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01111">
-        <createIndex indexName="KRTST_CONF_SESS_FK3" tableName="krtst_conf_sess_t">
-            <column name="ALT_COORD2_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01112">
-        <createIndex indexName="KRTST_CONF_SESS_FK4" tableName="krtst_conf_sess_t">
-            <column name="ROOM_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01113">
-        <createIndex indexName="KRTST_CONF_SESS_FK5" tableName="krtst_conf_sess_t">
-            <column name="ALT_ROOM1_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01114">
-        <createIndex indexName="KRTST_CONF_SESS_FK6" tableName="krtst_conf_sess_t">
-            <column name="ALT_ROOM2_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01115">
-        <createIndex indexName="KRTST_CONF_SESS_PRES_FK1" tableName="krtst_conf_sess_pres_t">
-            <column name="SESS_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01116">
-        <createIndex indexName="KRTST_CONF_SESS_PRES_FK2" tableName="krtst_conf_sess_pres_t">
-            <column name="PRES_ID"/>
-        </createIndex>
-    </changeSet>
     <changeSet author="kfs" id="rice01117">
         <createIndex indexName="KR_POSTAL_CODE_TR1" tableName="krlc_pstl_cd_t">
             <column name="POSTAL_CNTRY_CD"/>
@@ -1519,36 +1469,6 @@
     <changeSet author="kfs" id="rice01121">
         <createIndex indexName="SH_CAMPUS_TR1" tableName="krlc_cmp_t">
             <column name="CAMPUS_TYP_CD"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01122">
-        <createIndex indexName="TRVL_AUTH_DOC_FK1" tableName="trvl_auth_doc_t">
-            <column name="TRVL_DEST_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01123">
-        <createIndex indexName="TRVL_EXP_ITEM_FK1" tableName="trvl_exp_itm_t">
-            <column name="TRVL_AUTH_DOC_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01124">
-        <createIndex indexName="TRVL_PD_EXP_FK1" tableName="trvl_pd_exp_t">
-            <column name="MLG_RT_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01125">
-        <createIndex indexName="TRVL_PD_EXP_FK2" tableName="trvl_pd_exp_t">
-            <column name="TRVL_DEST_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01126">
-        <createIndex indexName="TRVL_PD_EXP_FK3" tableName="trvl_pd_exp_t">
-            <column name="TRVL_AUTH_DOC_ID"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="kfs" id="rice01127">
-        <createIndex indexName="TRV_ACCT_TR1" tableName="trv_acct">
-            <column name="ACCT_TYPE"/>
         </createIndex>
     </changeSet>
 </databaseChangeLog>
