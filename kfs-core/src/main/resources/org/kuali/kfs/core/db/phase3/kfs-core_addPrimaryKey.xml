@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -197,9 +197,6 @@
   </changeSet>
   <changeSet author="kfs" id="1252" context="bootstrap,demo">
     <addPrimaryKey columnNames="FIN_UBO_FUNC_CD" constraintName="PKCA_UBO_FUNC_T" tableName="CA_UBO_FUNC_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="1253" context="bootstrap,demo">
-    <addPrimaryKey columnNames="CPTLAST_NBR" constraintName="PKCM_CPTLAST_T" tableName="CM_CPTLAST_T"/>
   </changeSet>
   <changeSet author="kfs" id="1254" context="bootstrap,demo">
     <addPrimaryKey columnNames="FDOC_NBR, FDOC_LINE_NBR, FDOC_LN_TYP_CD" constraintName="PKFP_ACCT_LINES_T" tableName="FP_ACCT_LINES_T"/>
