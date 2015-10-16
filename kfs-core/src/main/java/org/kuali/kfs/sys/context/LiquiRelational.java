@@ -26,6 +26,8 @@ import liquibase.exception.DatabaseException;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import liquibase.resource.ResourceAccessor;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.util.ClassLoaderUtils;
@@ -50,6 +52,7 @@ public class LiquiRelational {
     protected static final String DATABASE_UPDATE_FULL_REBUILD = "databaseUpdateFullRebuild";
     protected static final String DATABASE_UPDATE_CONTEXT = "databaseUpdateContext";
     protected static final String DATABASE_UPDATE_PACKAGES = "databaseUpdatePackages";
+    protected static final String DATABASE_UPDATE_PACKAGES_RICE = "databaseUpdatePackagesRice";
 
     private ClassPathXmlApplicationContext applicationContext;
 
@@ -70,16 +73,13 @@ public class LiquiRelational {
         LOG.info("Initializing LiquiRelational Context...");
 
         String bootstrapSpringBeans = "kfs-liqui-relational-startup.xml";
-
         Properties baseProps = new Properties();
         baseProps.putAll(System.getProperties());
         JAXBConfigImpl config = new JAXBConfigImpl(baseProps);
         ConfigContext.init(config);
 
         applicationContext = new ClassPathXmlApplicationContext(bootstrapSpringBeans);
-
         applicationContext.start();
-
         SpringContext.applicationContext = applicationContext;
 
         long endInit = System.currentTimeMillis();
@@ -87,7 +87,35 @@ public class LiquiRelational {
     }
 
     private void applyUpdates() {
-        DataSource dataSource = SpringContext.getBean(DataSource.class);
+        applyDatabaseUpdates("dataSource", DATABASE_UPDATE_PACKAGES);
+        applyDatabaseUpdates("riceDataSource", DATABASE_UPDATE_PACKAGES_RICE);
+    }
+
+    private void applyDatabaseUpdates(String dataSource, String databaseUpdatePackages) {
+        DataSource kfsDataSource = SpringContext.getBean(DataSource.class, dataSource);
+        List<String> packages = PropertyLoadingFactoryBean.getBaseListProperty(databaseUpdatePackages);
+        if (isEmptyList(packages)) {
+            LOG.info(databaseUpdatePackages + " property is empty, nothing to update.");
+        } else {
+            updateDatabase(kfsDataSource, packages);
+        }
+    }
+
+    private boolean isEmptyList(List<String> packages) {
+        if (CollectionUtils.isEmpty(packages)) {
+            return true;
+        }
+
+        for (String pkg : packages) {
+            if (StringUtils.isNotBlank(pkg)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void updateDatabase(DataSource dataSource, List<String> packages) {
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
@@ -96,8 +124,8 @@ public class LiquiRelational {
             ResourceAccessor resourceAccessor = new ClassLoaderResourceAccessor(ClassLoaderUtils.getDefaultClassLoader());
             String liquibaseContext = PropertyLoadingFactoryBean.getBaseProperty(DATABASE_UPDATE_CONTEXT);
 
-            runUpdatesPhase(database, resourceAccessor, liquibaseContext);
-        } catch (SQLException|DatabaseException e) {
+            runUpdatesPhase(database, resourceAccessor, liquibaseContext, packages);
+        } catch (SQLException |DatabaseException e) {
             LOG.error("Failed to get datasource.", e);
             throw new RuntimeException(e);
         } finally {
@@ -113,15 +141,15 @@ public class LiquiRelational {
         }
     }
 
-    private void runUpdatesPhase(Database database, ResourceAccessor resourceAccessor, String liquibaseContext) {
+    private void runUpdatesPhase(Database database, ResourceAccessor resourceAccessor, String liquibaseContext, List<String> packages) {
         List<String> phaseFilenames = new ArrayList<>();
         if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(DATABASE_UPDATE_FULL_REBUILD))) {
             for (int i=1; i<5;i++) {
-                phaseFilenames.addAll(findFilenamesForPhase(i));
+                phaseFilenames.addAll(findFilenamesForPhase(i, packages));
             }
         }
 
-        phaseFilenames.addAll(findFilenamesForPhase(5));
+        phaseFilenames.addAll(findFilenamesForPhase(5, packages));
 
         for (String filename : phaseFilenames) {
             try {
@@ -134,23 +162,27 @@ public class LiquiRelational {
         }
     }
 
-    private List<String> findFilenamesForPhase(int phase) {
+    private List<String> findFilenamesForPhase(int phase, List<String> packages) {
         List<String> phaseFilenames = new ArrayList<>();
 
-        for (String pkg : PropertyLoadingFactoryBean.getBaseListProperty(DATABASE_UPDATE_PACKAGES)) {
-            String sourceName = "classpath:/" + pkg + "/db/phase" + phase + "/*.xml";
-            try {
-                List<String> tempFilenames = new ArrayList<>();
-                final Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(applicationContext).getResources(sourceName);
-                for (int i = 0; i < resources.length; i++) {
-                    tempFilenames.add(pkg + "/db/phase" + phase + "/" + resources[i].getFilename());
+        for (String pkg : packages) {
+            if (StringUtils.isEmpty(pkg)) {
+                LOG.info("Package is empty, no files to find.");
+            } else {
+                String sourceName = "classpath:/" + pkg + "/db/phase" + phase + "/*.xml";
+                try {
+                    List<String> tempFilenames = new ArrayList<>();
+                    final Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(applicationContext).getResources(sourceName);
+                    for (int i = 0; i < resources.length; i++) {
+                        tempFilenames.add(pkg + "/db/phase" + phase + "/" + resources[i].getFilename());
+                    }
+                    Collections.sort(tempFilenames);
+                    phaseFilenames.addAll(tempFilenames);
+                } catch (FileNotFoundException e) {
+                    LOG.warn("Failed to find files for " + sourceName);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-                Collections.sort(tempFilenames);
-                phaseFilenames.addAll(tempFilenames);
-            } catch (FileNotFoundException e) {
-                LOG.warn("Failed to find files for " + sourceName);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }
         return phaseFilenames;

@@ -50,8 +50,19 @@
         <property name="initialSize" value="${kfs.datasource.pool.initialSize}" />
     </bean>
 
-    <bean id="grlBeanImporter" abstract="true" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean" p:singleton="true" p:mustExist="true" />
+    <bean id="riceNonTransactionalDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${rice.datasource.driver.name}"/>
+        <property name="validationQuery" value="${rice.datasource.validating.query}"/>
+        <property name="url" value="${rice.datasource.url}"/>
+        <property name="username" value="${rice.datasource.username}" />
+        <property name="password" value="${rice.datasource.password}" />
+        <property name="accessToUnderlyingConnectionAllowed" value="${rice.datasource.pool.accessToUnderlyingConnectionAllowed}"/>
+        <property name="maxActive" value="${rice.datasource.pool.maxActive}"/>
+        <property name="minIdle" value="${rice.datasource.pool.minIdle}" />
+        <property name="initialSize" value="${rice.datasource.pool.initialSize}" />
+    </bean>
 
-    <bean id="dataSource" p:serviceName="kradApplicationDataSource" parent="grlBeanImporter" />
+    <alias name="riceNonTransactionalDataSource" alias="riceDataSource"/>
+    <alias name="nonTransactionalDataSource" alias="dataSource"/>
 
 </beans>
