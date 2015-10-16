@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.context;
 
+import co.kuali.financials.liquimongo.service.DocumentStoreSchemaUpdateService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
@@ -68,6 +69,8 @@ public class SpringContext {
     protected static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
     protected static final String KFS_BATCH_STEP_COMPONENT_SET_ID = "STEP:KFS";
     protected static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
+    protected static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
+    protected static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
 
     protected static ConfigurableApplicationContext applicationContext;
     protected static Set<Class<? extends Object>> SINGLETON_TYPES = new HashSet<Class<? extends Object>>();
@@ -448,7 +451,15 @@ public class SpringContext {
         publishBatchStepComponents();
         initDirectories();
         new WorkflowImporter().importWorkflow(applicationContext);
+        updateDocumentstore();
+    }
 
+    static void updateDocumentstore() {
+        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(UPDATE_DOCUMENTSTORE_ON_STARTUP)) {
+            DocumentStoreSchemaUpdateService documentStoreSchemaUpdateService = getBean(DocumentStoreSchemaUpdateService.class);
+            String updateFilePath = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(UPDATE_DOCUMENTSTORE_FILE_PATH);
+            documentStoreSchemaUpdateService.updateDocumentStoreSchemaForLocation(updateFilePath);
+        }
     }
 
     public static void publishBatchStepComponents() {
