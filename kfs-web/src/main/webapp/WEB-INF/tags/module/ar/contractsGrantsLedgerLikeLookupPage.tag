@@ -20,6 +20,8 @@
 
 <%@ attribute name="formActionName" required="true" description="The controller method that the lookup form should post against." %>
 
+<c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
+
 <kul:page lookup="true" showDocumentInfo="false"
           htmlFormAction="${formActionName}"
           headerMenuBar="${KualiForm.lookupable.htmlMenuBar}"
@@ -44,17 +46,18 @@
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>
-                <div id="lookup" align="center"><br/>
-                    <br/>
-                    <table class="datatable-100" align="center" cellpadding="0"
-                           cellspacing="0">
+                <div id="lookup" align="center">
+                    <c:if test="${numberOfColumns > 1}">
+                        <c:set var="tableClass" value="multi-column-table"/>
+                    </c:if>
+                    <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
                         <c:set var="FormName" value="KualiForm" scope="request"/>
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}"
                                scope="request"/>
                         <c:set var="ActionName" value="glModifiedInquiry.do" scope="request"/>
                         <c:set var="IsLookupDisplay" value="true" scope="request"/>
 
-                        <kul:rowDisplay rows="${KualiForm.lookupable.rows}"/> `
+                        <kul:rowDisplay rows="${KualiForm.lookupable.rows}" numberOfColumns="${numberOfColumns}" />
 						
                         <tr align=center>
                             <td height="30" colspan=2 class="infoline">
@@ -73,13 +76,12 @@
                                         alt="Cancel" title="Cancel"/>
 
                                 <!-- Optional extra button -->
-                               <c:set var="extraButtons"
-										value="${KualiForm.extraButtons}" />
+                               <c:set var="extraButtons" value="${KualiForm.extraButtons}" />
 									<div id="globalbuttons" class="globalbuttons">
 										<c:if test="${!empty extraButtons}">
 											<c:forEach items="${extraButtons}" var="extraButton">
-												<html:image src="${extraButton.extraButtonSource}"
-													styleClass="globalbuttons"
+												<html:submit value="${extraButton.extraButtonAltText}"
+													styleClass="globalbuttons btn btn-default"
 													property="${extraButton.extraButtonProperty}"
 													title="${extraButton.extraButtonAltText}"
 													alt="${extraButton.extraButtonAltText}" />
