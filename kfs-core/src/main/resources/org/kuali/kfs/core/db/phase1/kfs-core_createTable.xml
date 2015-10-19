@@ -7027,4 +7027,59 @@
       </column>
     </createTable>
   </changeSet>
+  <changeSet author="kfs" id="3897" context="bootstrap,demo">
+    <createTable tableName="krcr_cmpnt_t">
+      <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column defaultValue="" name="CMPNT_CD" type="VARCHAR(100)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="OBJ_ID" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="NM" type="VARCHAR(255)"/>
+      <column defaultValue="Y" name="ACTV_IND" type="CHAR(1)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="kfs" id="3898" context="bootstrap,demo">
+    <createTable tableName="krcr_parm_typ_t">
+      <column defaultValue="" name="PARM_TYP_CD" type="VARCHAR(5)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="OBJ_ID" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="NM" type="VARCHAR(40)"/>
+      <column defaultValue="Y" name="ACTV_IND" type="CHAR(1)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="kfs" id="3899" context="bootstrap,demo">
+    <createTable tableName="krcr_nmspc_t">
+      <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="OBJ_ID" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="NM" type="VARCHAR(40)"/>
+      <column defaultValue="Y" name="ACTV_IND" type="CHAR(1)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="APPL_ID" type="VARCHAR(255)"/>
+    </createTable>
+  </changeSet>
 </databaseChangeLog>
