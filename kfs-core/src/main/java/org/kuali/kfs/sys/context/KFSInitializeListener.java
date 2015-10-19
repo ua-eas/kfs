@@ -30,6 +30,9 @@ public class KFSInitializeListener extends KualiInitializeListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         Log4jConfigurer.configureLogging(true);
+
+        LOG.info( "Updating relational database." );
+        SpringContext.updateDatabase();
         LOG.info( "Initializing Web Context" );
         LOG.info( "Calling KualiInitializeListener.contextInitialized" );
         super.contextInitialized(sce);

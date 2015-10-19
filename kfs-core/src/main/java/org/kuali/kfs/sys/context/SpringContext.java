@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.context;
 
 import co.kuali.financials.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
+import co.kuali.financials.datatools.liquirelational.LiquiRelational;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
@@ -69,6 +70,7 @@ public class SpringContext {
     protected static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
     protected static final String KFS_BATCH_STEP_COMPONENT_SET_ID = "STEP:KFS";
     protected static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
+    protected static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
     protected static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
     protected static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
 
@@ -452,6 +454,12 @@ public class SpringContext {
         initDirectories();
         new WorkflowImporter().importWorkflow(applicationContext);
         updateDocumentstore();
+    }
+
+    public static void updateDatabase() {
+        if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_ON_STARTUP))) {
+            new LiquiRelational().updateDatabase();
+        }
     }
 
     static void updateDocumentstore() {
