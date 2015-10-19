@@ -18,7 +18,7 @@
  */
 package org.kuali.kfs.sys.context;
 
-import co.kuali.financials.liquimongo.service.DocumentStoreSchemaUpdateService;
+import co.kuali.financials.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
