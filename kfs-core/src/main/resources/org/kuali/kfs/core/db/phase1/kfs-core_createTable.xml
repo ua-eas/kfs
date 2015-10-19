@@ -7027,7 +7027,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3897">
+  <changeSet author="kfs" id="3897" context="bootstrap,demo">
     <createTable tableName="krcr_cmpnt_t">
       <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
         <constraints nullable="false"/>
@@ -7047,7 +7047,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3898">
+  <changeSet author="kfs" id="3898" context="bootstrap,demo">
     <createTable tableName="krcr_parm_typ_t">
       <column defaultValue="" name="PARM_TYP_CD" type="VARCHAR(5)">
         <constraints nullable="false"/>
@@ -7064,7 +7064,7 @@
       </column>
     </createTable>
   </changeSet>
-  <changeSet author="kfs" id="3899">
+  <changeSet author="kfs" id="3899" context="bootstrap,demo">
     <createTable tableName="krcr_nmspc_t">
       <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
         <constraints nullable="false"/>

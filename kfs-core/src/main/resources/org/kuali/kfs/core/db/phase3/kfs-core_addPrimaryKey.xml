@@ -882,13 +882,13 @@
   <changeSet author="kfs" id="3926" context="bootstrap,demo">
     <addPrimaryKey columnNames="SVC_DSCRPTR_ID" constraintName="PKKRSB_SVC_DSCRPTR_T" tableName="KRSB_SVC_DSCRPTR_T"/>
   </changeSet>
-  <changeSet author="kfs" id="3927">
+  <changeSet author="kfs" id="3927" context="bootstrap,demo">
     <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD" constraintName="PKkrcr_cmpnt_t" tableName="krcr_cmpnt_t"/>
   </changeSet>
-  <changeSet author="kfs" id="3928">
+  <changeSet author="kfs" id="3928" context="bootstrap,demo">
     <addPrimaryKey columnNames="PARM_TYP_CD" constraintName="PKkrcr_parm_typ_t" tableName="krcr_parm_typ_t"/>
   </changeSet>
-  <changeSet author="kfs" id="3929">
+  <changeSet author="kfs" id="3929" context="bootstrap,demo">
     <addPrimaryKey columnNames="NMSPC_CD" constraintName="PKkrcr_nmspc_t" tableName="krcr_nmspc_t"/>
   </changeSet>
 </databaseChangeLog>
