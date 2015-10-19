@@ -73,6 +73,8 @@ public class SpringContext {
     protected static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
     protected static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
     protected static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
+    protected static final String UPDATE_WORKFLOW_ON_STARTUP ="updateWorkflowOnStartup";
+
 
     protected static ConfigurableApplicationContext applicationContext;
     protected static Set<Class<? extends Object>> SINGLETON_TYPES = new HashSet<Class<? extends Object>>();
@@ -452,8 +454,14 @@ public class SpringContext {
         // DD so are not published by the command above
         publishBatchStepComponents();
         initDirectories();
-        new WorkflowImporter().importWorkflow(applicationContext);
+        updateWorkflow();
         updateDocumentstore();
+    }
+
+    private static void updateWorkflow() {
+        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(UPDATE_WORKFLOW_ON_STARTUP)) {
+            new WorkflowImporter().importWorkflow(applicationContext);
+        }
     }
 
     public static void updateDatabase() {

@@ -73,7 +73,7 @@ public class WorkflowImporter {
     public void importWorkflow(ApplicationContext applicationContext) {
         String xmlDir = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(WORKFLOW_PATH);
         if (StringUtils.isBlank(xmlDir)) {
-            LOG.info(WORKFLOW_PATH +" was blank; will not import workflow");
+            LOG.info(WORKFLOW_PATH + " was blank; will not import workflow");
             return;
         }
 
