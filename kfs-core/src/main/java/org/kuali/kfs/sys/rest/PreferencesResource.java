@@ -1,5 +1,6 @@
 package org.kuali.kfs.sys.rest;
 
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.PreferencesService;
 import org.kuali.kfs.sys.web.WebUtilities;
@@ -88,7 +89,7 @@ public class PreferencesResource {
     }
 
     private Person getPerson() {
-        return WebUtilities.retrieveUserSession(servletRequest).getPerson();
+        return KRADUtils.getUserSessionFromRequest(servletRequest).getPerson();
     }
 
     protected PreferencesService getPreferencesService() {

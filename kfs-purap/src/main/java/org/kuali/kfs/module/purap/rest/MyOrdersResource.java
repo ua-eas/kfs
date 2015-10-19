@@ -1,5 +1,6 @@
 package org.kuali.kfs.module.purap.rest;
 
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.module.purap.service.MyOrdersService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.web.WebUtilities;
@@ -21,7 +22,7 @@ public class MyOrdersResource {
 
     @GET
     public Response getLatestOrdersForCurrentUser(@DefaultValue("4") @QueryParam("count") Integer count, @Context HttpServletRequest request) {
-        final Person user = WebUtilities.retrieveUserSession(request).getPerson();
+        final Person user = KRADUtils.getUserSessionFromRequest(request).getPerson();
         List<Map<String, Object>> latestOrders = getMyOrdersService().getLatestOrders(user, count);
         return Response.ok(latestOrders).build();
     }

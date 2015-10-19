@@ -6,6 +6,7 @@ import org.kuali.kfs.kns.service.CfAuthenticationService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
@@ -49,7 +50,7 @@ public class BackdoorResource {
             backdoorId = body.get("backdoorId").asText();
         }
 
-        UserSession uSession = WebUtilities.retrieveUserSession(request);
+        UserSession uSession = KRADUtils.getUserSessionFromRequest(request);
 
         AuthenticationValidationResponse response = getCfAuthenticationService().validatePrincipalName(backdoorId);
         switch (response) {
@@ -84,7 +85,7 @@ public class BackdoorResource {
     public Response logout(@Context HttpServletRequest request) {
         LOG.debug("logout() started");
 
-        UserSession uSession = WebUtilities.retrieveUserSession(request);
+        UserSession uSession = KRADUtils.getUserSessionFromRequest(request);
 
         if (uSession == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("{\"message\":\"Session was empty\"}").build();
@@ -98,7 +99,7 @@ public class BackdoorResource {
     public Response findBackdoorId(@Context HttpServletRequest request) {
         LOG.debug("findBackdoorId() started");
 
-        UserSession uSession = WebUtilities.retrieveUserSession(request);
+        UserSession uSession = KRADUtils.getUserSessionFromRequest(request);
         String backdoorId = "";
         if (uSession != null && uSession.isBackdoorInUse()) {
             backdoorId = uSession.getPrincipalName();
