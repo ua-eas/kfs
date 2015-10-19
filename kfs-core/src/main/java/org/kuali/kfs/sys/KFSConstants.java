@@ -467,7 +467,6 @@ public class KFSConstants {
     public static final String SUB_ACCOUNT_NUMBER_PROPERTY_NAME = KFSPropertyConstants.SUB_ACCOUNT_NUMBER;
     public static final String TARGET = "Target";
     public static final String TO = "To";
-    public static final String USER_SESSION_KEY = "UserSession";
     public static final String VERSION_NUMBER = "versionNumber";
 
     public static final String SEARCH_LIST_REQUEST_KEY = "searchResultKey";
