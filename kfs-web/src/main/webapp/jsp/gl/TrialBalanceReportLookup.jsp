@@ -19,7 +19,9 @@
 <!-- ASR-1212 Trial Balance -->
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 <c:set var="trialBalanceReportAttributes" value="${DataDictionary.TrialBalanceReport.attributes}" />
-	
+
+<c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
+
 <kul:page  lookup="true" showDocumentInfo="false" 
 	headerTitle="Lookup" docTitle="" headerMenuBar="${KualiForm.lookupable.htmlMenuBar}"
 	transactionalDocument="false" htmlFormAction="glTrialBalance">
@@ -41,55 +43,55 @@
 
 	<table width="100%">
 		<tr>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-				height="20" /></td>
 			<td>
-			<div id="lookup" align="center"><br />
-			<br />
-			<table class="datatable-100" align="center" cellpadding="0"	cellspacing="0">
-				<c:set var="FormName" value="KualiForm" scope="request" />
-				<c:set var="FieldRows" value="${KualiForm.lookupable.rows}"	scope="request" />
-				<c:set var="ActionName" value="glTrialBalance.do" scope="request" />
-				<c:set var="IsLookupDisplay" value="true" scope="request" />
+                <div id="lookup" align="center">
+                    <c:if test="${numberOfColumns > 1}">
+                        <c:set var="tableClass" value="multi-column-table"/>
+                    </c:if>
+                    <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
+                        <c:set var="FormName" value="KualiForm" scope="request" />
+                        <c:set var="FieldRows" value="${KualiForm.lookupable.rows}"	scope="request" />
+                        <c:set var="ActionName" value="glTrialBalance.do" scope="request" />
+                        <c:set var="IsLookupDisplay" value="true" scope="request" />
 
-				<kul:rowDisplay rows="${KualiForm.lookupable.rows}" skipTheOldNewBar="true" numberOfColumns="1"/>
+                        <kul:rowDisplay rows="${KualiForm.lookupable.rows}" skipTheOldNewBar="true" numberOfColumns="${numberOfColumns}"/>
 
-				<tr align=center>
-					<td height="30" colspan=2 class="infoline">
-					<html:image
-						property="methodToCall.search" value="search"
-						src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_search.gif" styleClass="tinybutton"
-						alt="search" title="search" border="0" /> 
-					<html:image
-						property="methodToCall.clearValues" value="clearValues"
-						src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_clear.gif" styleClass="tinybutton"
-						alt="clear" title="clear" border="0" /> 
-					<c:if test="${KualiForm.formKey!=''}">
-						<a
-							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}" />'>
-						<img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" class="tinybutton"
-							border="0" alt="cancel" title="cancel" /> </a>
-					</c:if><!-- Optional extra button -->
-					<html:image
-						property="methodToCall.print" value="print"
-						src="${ConfigProperties.externalizable.images.url}buttonsmall_genprintfile.gif" styleClass="tinybutton"
-						alt="print" title="print" border="0" /> 
-					<c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
-						<a
-							href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'  title="cancel">
-						<img
-							src='<c:out value="${KualiForm.lookupable.extraButtonSource}" />'
-							class="tinybutton"  border="0" alt="cancel"/></a>
-						</c:if>
-					</td>
-				</tr>
-			</table>
-			</div>
+                        <tr align=center>
+                            <td height="30" colspan=2 class="infoline">
+                                <html:submit
+                                        property="methodToCall.search" value="Search"
+                                        styleClass="tinybutton btn btn-default"
+                                        alt="Search" title="Search" />
+                                <html:submit
+                                        property="methodToCall.clearValues" value="Clear"
+                                        styleClass="tinybutton btn btn-default"
+                                        alt="Clear" title="Clear" />
 
-			<br />
-			<br />
+                                <c:set var="backLocation" value="${KualiForm.backLocation}"/>
+                                <c:if test="${empty backLocation}">
+                                    <c:set var="backLocation" value="portal.do"/>
+                                </c:if>
+                                <c:if test="${KualiForm.formKey!=''}">
+                                    <a href='<c:out value="${backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}" />' title="Cancel">
+                                        <span class="tinybutton btn btn-default">Cancel</span>
+                                    </a>
+                                </c:if>
 
-		</td>
+                                <html:submit
+                                    property="methodToCall.print" value="Print"
+                                    styleClass="tinybutton btn btn-default"
+                                    alt="Print" title="Print"/>
+
+                                <c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
+                                    <a href='<c:out value="${backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'  title="Cancel">
+                                        <span class="tinybutton btn btn-default">Cancel</span>
+                                    </a>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+		    </td>
 		</tr>
 	</table>
 	
@@ -190,9 +192,6 @@
 					</c:if>
 				</display:table></td>
 			</c:if>
-			<td width="1%"><img
-				src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif"
-				alt="" height="20" width="20"></td>
 		</tr>
 	</table>
 	<c:if test="${!empty KualiForm.message }">

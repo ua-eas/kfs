@@ -20,6 +20,8 @@
 
 <%@ attribute name="formActionName" required="true" description="The controller method that the lookup form should post against." %>
 
+<c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
+
 <kul:page lookup="true" showDocumentInfo="false"
           htmlFormAction="${formActionName}"
           headerMenuBar="${KualiForm.lookupable.htmlMenuBar}"
@@ -43,43 +45,43 @@
 
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-                                height="20"/></td>
             <td>
-                <div id="lookup" align="center"><br/>
-                    <br/>
-                    <table class="datatable-100" align="center" cellpadding="0"
-                           cellspacing="0">
+                <div id="lookup" align="center">
+                    <c:if test="${numberOfColumns > 1}">
+                        <c:set var="tableClass" value="multi-column-table"/>
+                    </c:if>
+                    <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
                         <c:set var="FormName" value="KualiForm" scope="request"/>
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}"
                                scope="request"/>
                         <c:set var="ActionName" value="glModifiedInquiry.do" scope="request"/>
                         <c:set var="IsLookupDisplay" value="true" scope="request"/>
 
-                        <kul:rowDisplay rows="${KualiForm.lookupable.rows}"/> `
+                        <kul:rowDisplay rows="${KualiForm.lookupable.rows}" numberOfColumns="${numberOfColumns}" />
 						
                         <tr align=center>
                             <td height="30" colspan=2 class="infoline">
-                                <html:image property="methodToCall.search" value="search"
-                                            src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_search.gif"
-                                            styleClass="tinybutton" alt="search" title="search" border="0"/>
-                                <html:image property="methodToCall.clearValues" value="clearValues"
-                                            src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_clear.gif"
-                                            styleClass="tinybutton" alt="clear" title="clear" border="0"/>
-
-
-                                <html:image property="methodToCall.cancel" value="cancel"
-                                            src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif"
-                                            styleClass="tinybutton" alt="cancel" title="cancel" border="0"/>
+                                <html:submit
+                                        property="methodToCall.search" value="Search"
+                                        styleClass="tinybutton btn btn-default"
+                                        alt="Search" title="Search" />
+                                <html:submit
+                                        property="methodToCall.clearValues" value="Clear"
+                                        styleClass="tinybutton btn btn-default"
+                                        alt="Clear" title="Clear" />
+                                <html:submit
+                                        property="methodToCall.cancel"
+                                        value="Cancel"
+                                        styleClass="tinybutton btn btn-default"
+                                        alt="Cancel" title="Cancel"/>
 
                                 <!-- Optional extra button -->
-                               <c:set var="extraButtons"
-										value="${KualiForm.extraButtons}" />
+                               <c:set var="extraButtons" value="${KualiForm.extraButtons}" />
 									<div id="globalbuttons" class="globalbuttons">
 										<c:if test="${!empty extraButtons}">
 											<c:forEach items="${extraButtons}" var="extraButton">
-												<html:image src="${extraButton.extraButtonSource}"
-													styleClass="globalbuttons"
+												<html:submit value="${extraButton.extraButtonAltText}"
+													styleClass="globalbuttons btn btn-default"
 													property="${extraButton.extraButtonProperty}"
 													title="${extraButton.extraButtonAltText}"
 													alt="${extraButton.extraButtonAltText}" />
@@ -92,7 +94,6 @@
                 </div>
 				<jsp:doBody/>
 			</td>
-            <td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20" width="20"></td>
         </tr>
     </table>
     <br/>

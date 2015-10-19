@@ -23,97 +23,70 @@
 <kul:page  showDocumentInfo="false" 
 	headerTitle="Customer Invoice Generation" docTitle="Customer Invoice Generation" renderMultipart="true"
 	transactionalDocument="false" htmlFormAction="arCustomerInvoice" errorKey="foo">
-	
-	
-	
-	
-	
-	 <table cellpadding="0" cellspacing="0" class="datatable-80" summary="Invoice Section">
-            
-			<tr>		
-                <th align=right valign=middle class="grid" style="width: 25%;">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.chartOfAccountsCode}" readOnly="true" /></div>
+
+    <div id="lookup">
+        <table cellpadding="0" cellspacing="0" class="datatable-80" align="center" summary="Invoice Section">
+            <tr>
+                <th>
+                    <label for="chartCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.chartOfAccountsCode}" readOnly="true" /></label>
                 </th>
-                <td align=left valign=middle class="grid" style="width: 25%;">
-					<kul:htmlControlAttribute attributeEntry="${orgAttributes.chartOfAccountsCode}" property="chartCode"  />	
+                <td>
+                    <kul:htmlControlAttribute attributeEntry="${orgAttributes.chartOfAccountsCode}" property="chartCode"  />
                     <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Chart"  fieldConversions="chartOfAccountsCode:chartCode"  />
                 </td>
-				                       
             </tr>
             <tr>
-				<th align=right valign=middle class="grid">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.organizationCode}" readOnly="true" /></div>
+                <th>
+                    <label for="orgCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.organizationCode}" readOnly="true" /></label>
                 </th>
-                <td align=left valign=middle class="grid">
+                <td>
                     <kul:htmlControlAttribute attributeEntry="${orgAttributes.organizationCode}" property="orgCode"  />
                     <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Organization"  fieldConversions="organizationCode:orgCode" lookupParameters="orgCode:organizationCode,chartCode:chartOfAccountsCode"/>
-                </td>                
-				            
-            </tr>
-            
-             <tr>
-                <th align=right valign=middle class="grid">
-                    <div align="right">User Id:</div>
-                </th>
-                <td align=left valign=middle class="grid">
-                <html-el:text property="userId"/>
-            	</td>
-            </tr>
-             <tr>
-				<th align=right valign=middle class="grid">
-                    <div align="right">Print invoices for date:</div>
-                </th>
-                <td align=left valign=middle class="grid">
-                    <kul:dateInput attributeEntry="${orgAttributes.organizationBeginDate}" property="runDate"/>
-                </td>                
-				            
-            </tr>
-            <tr>
-           		<th align=right valign=middle class="grid">
-                    <div align="right">Org Type:</div>
-                </th>
-            	<td align=left valign=middle class="grid">
-                    <html-el:radio property="orgType" value="P"/>Processing
-                    <html-el:radio property="orgType" value="B"/>Billing
                 </td>
             </tr>
-            
-          
-            
-           
-<%--            <tr>--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${!CustomerStatementForm.operationSelected}">--%>
-<%--         <th>--%>
-<%--            <html-el:image property="methodToCall.selectOperation" styleClass="tinybutton" src="${ConfigProperties.externalizable.images.url}tinybutton-generate.gif" />--%>
-<%--           </th>--%>
-<%--      --%>
-<%--        </c:when>--%>
-<%--        </c:choose>--%>
-<%--        --%>
-<%--        <tr>--%>
-<%--        <th>--%>
-<%--           <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" styleClass="tinybutton" property="methodToCall.cancel" title="cancel" alt="cancel"/>--%>
-<%--            <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_clear.gif" styleClass="tinybutton" property="methodToCall.clear" title="clear" alt="clear"/>--%>
-<%--           </th>--%>
-<%--        </tr>--%>
-<%--        --%>
-<%--        </tr>--%>
-        </table>
-     
+             <tr>
+                <th>
+                    <label for="userId">User Id:</label>
+                </th>
+                <td align=left valign=middle class="grid">
+                    <html-el:text property="userId"/>
+                </td>
+            </tr>
+             <tr>
+                <th>
+                    <label for="runDate">Print invoices for date:</label>
+                </th>
+                <td>
+                    <kul:dateInput attributeEntry="${orgAttributes.organizationBeginDate}" property="runDate"/>
+                </td>
 
-    <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>  	
-  	
-	
-     <div id="globalbuttons" class="globalbuttons">
-	        	
-	        	<c:if test="${!empty extraButtons}">
-		        	<c:forEach items="${extraButtons}" var="extraButton">
-		        		<html:image src="${extraButton.extraButtonSource}" styleClass="globalbuttons" property="${extraButton.extraButtonProperty}" title="${extraButton.extraButtonAltText}" alt="${extraButton.extraButtonAltText}"/>
-		        	</c:forEach>
-	        	</c:if>
-	</div>
-	
+            </tr>
+            <tr>
+                <th>
+                    <label for="orgType">Org Type:</label>
+                </th>
+                <td>
+                    <input type="radio" name="orgType" value="P" id="orgTypeP"/>
+                    <label for="orgTypeP">Processing</label>
+                    <input type="radio" name="orgType" value="B" id="orgTypeB"/>
+                    <label for="orgTypeB">Billing</label>
+                </td>
+            </tr>
+            <tr align="center">
+                <td height="30" colspan="4"  class="infoline">
+                    <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>
+                    <c:if test="${!empty extraButtons}">
+                        <c:forEach items="${extraButtons}" var="extraButton">
+                            <html:submit styleClass="tinybutton btn btn-default" property="${extraButton.extraButtonProperty}" title="${extraButton.extraButtonAltText}" alt="${extraButton.extraButtonAltText}" value="${extraButton.extraButtonAltText}"/>
+                        </c:forEach>
+                    </c:if>
+                 </td>
+             </tr>
+        </table>
+    </div>
+
+    <kul:stickyLookupButtons/>
+
 	<div>
 	  <c:if test="${!empty KualiForm.message }">
  			${KualiForm.message }	
