@@ -48,7 +48,7 @@
   </tx:advice>
 
   <aop:config>
-  <aop:pointcut id="controllerTransaction" expression="execution(* org.kuali.rice.krad.web.controller.UifControllerBase+.*(..))"/>
+  <aop:pointcut id="controllerTransaction" expression="execution(* org.kuali.kfs.krad.web.controller.UifControllerBase+.*(..))"/>
   <aop:advisor advice-ref="txAdvice" pointcut-ref="controllerTransaction"/>
   </aop:config>
 
@@ -80,20 +80,20 @@
     </property>
   </bean>
 
-  <bean id="uifControllerHandlerInterceptor" class="org.kuali.rice.krad.web.controller.UifControllerHandlerInterceptor" />
+  <bean id="uifControllerHandlerInterceptor" class="org.kuali.kfs.krad.web.controller.UifControllerHandlerInterceptor" />
   
-  <bean id="moduleLockingHandlerInterceptor" class="org.kuali.rice.krad.web.controller.ModuleLockingHandlerInterceptor">
+  <bean id="moduleLockingHandlerInterceptor" class="org.kuali.kfs.krad.web.controller.ModuleLockingHandlerInterceptor">
     <property name="moduleLockedMapping" value="module-locked" />
     <property name="kualiModuleService" ref="kualiModuleService" />
   </bean>
   
-  <bean id="kualiModuleService" class="org.kuali.rice.krad.config.GlobalResourceLoaderServiceFactoryBean">
+  <bean id="kualiModuleService" class="org.kuali.kfs.krad.config.GlobalResourceLoaderServiceFactoryBean">
     <property name="serviceName" value="kualiModuleService" />
   </bean>
   
-  <bean id="exceptionResolver" class="org.kuali.rice.krad.web.bind.UifHandlerExceptionResolver"/>
+  <bean id="exceptionResolver" class="org.kuali.kfs.krad.web.bind.UifHandlerExceptionResolver"/>
   
-  <bean class="org.kuali.rice.krad.web.controller.UifAnnotationMethodHandleAdapter">
+  <bean class="org.kuali.kfs.krad.web.controller.UifAnnotationMethodHandleAdapter">
     <property name="webBindingInitializer">
       <ref bean="kradConfigurableWebBindingInitializer"/>
     </property>
@@ -109,7 +109,7 @@
     </property>
   </bean>
 
-  <bean id="kradConfigurableWebBindingInitializer" class="org.kuali.rice.krad.web.bind.UifConfigurableWebBindingInitializer"/>
+  <bean id="kradConfigurableWebBindingInitializer" class="org.kuali.kfs.krad.web.bind.UifConfigurableWebBindingInitializer"/>
 
   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <property name="maxUploadSize" value="500000"/>
