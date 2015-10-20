@@ -34,8 +34,6 @@
 		var kualiElements = kualiForm.elements;
 		var excludeSubmitRestriction = true;
 	</script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/dwr/interface/DocumentTypeService.js"></script>
-
 
 	<c:if test="${KualiForm.headerBarEnabled}">
 		<div class="headerarea-small" id="headerarea-small">
