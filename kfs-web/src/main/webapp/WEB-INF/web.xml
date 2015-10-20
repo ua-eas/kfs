@@ -319,10 +319,6 @@
             <param-value>true</param-value>
         </init-param>
         <init-param>
-            <param-name>config-kew</param-name>
-            <param-value>WEB-INF/dwr-kew.xml</param-value>
-        </init-param>
-        <init-param>
             <param-name>config-kns</param-name>
             <param-value>WEB-INF/dwr-kns.xml</param-value>
         </init-param>

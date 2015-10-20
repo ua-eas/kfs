@@ -36,7 +36,6 @@
       var kualiForm = document.forms['KualiForm'];
       var kualiElements = kualiForm.elements;
     </SCRIPT>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/dwr/interface/DocumentTypeService.js"></script>
 
 	<c:if test="${KualiForm.supplementalActionsEnabled}" >
 		<div class="lookupcreatenew" title="Supplemental Search Actions">
