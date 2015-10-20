@@ -27,7 +27,6 @@ import org.kuali.kfs.fp.businessobject.AdvanceDepositDetail;
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
@@ -56,8 +55,6 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
     private AccountingPeriod financialDocumentPostingPeriod;
     private DocumentHeader generatingDocumentHeader;
 
-    private transient KualiDecimal amountFrom;
-    private transient KualiDecimal amountTo;
     /**
      * Default constructor.  It constructs.
      */
@@ -288,21 +285,5 @@ public class ElectronicPaymentClaim extends PersistableBusinessObjectBase {
      */
     public String getPaymentClaimStatus() {
         return getPaymentClaimStatusCode().equals("C") ? "Claimed" : "Unclaimed";
-    }
-
-    public KualiDecimal getAmountFrom() {
-        return amountFrom;
-    }
-
-    public void setAmountFrom(KualiDecimal amountFrom) {
-        this.amountFrom = amountFrom;
-    }
-
-    public KualiDecimal getAmountTo() {
-        return amountTo;
-    }
-
-    public void setAmountTo(KualiDecimal amountTo) {
-        this.amountTo = amountTo;
     }
 }
