@@ -1296,6 +1296,13 @@ public class KFSPropertyConstants {
     public static final String APPLICATION_DOCUMENT_STATUS = "applicationDocumentStatus";
     public static final String SALES_TAX = "salesTax";
     public static final String INVOICE_TEMPLATE_CODE = "invoiceTemplateCode";
+    public static final String MEMORY_MONITOR_THRESHOLD_KEY = "memory.monitor.threshold";
+    public static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
+    public static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
+    public static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
+    public static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
+    public static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
+    public static final String UPDATE_WORKFLOW_ON_STARTUP ="updateWorkflowOnStartup";
 
     //Added by Electronic Payment Claim mod
     public static final String PAYMENT_CLAIM_STATUS_CODE = "paymentClaimStatusCode";
