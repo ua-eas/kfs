@@ -19,7 +19,6 @@
 package org.kuali.kfs.module.ar;
 
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 
 /**
  * Business Object Property Constants for KFS-AR.
@@ -297,8 +296,7 @@ public class ArPropertyConstants{
     public static final String COLLECTOR_PRINC_NAME = "collector.principalName";
 
     // CG Invoice Reports
-    @Deprecated
-    public static final String RANGE_LOWER_BOUND_KEY_PREFIX = KFSPropertyConstants.RANGE_LOWER_BOUND_KEY_PREFIX;
+    public static final String RANGE_LOWER_BOUND_KEY_PREFIX = "rangeLowerBoundKeyPrefix_";
 
     public static final String INVOICE_REPORT_DELIVERY_PROPERTY_PATH = KFSConstants.DOCUMENT_PROPERTY_NAME + ".invoiceReportDelivery";
 
