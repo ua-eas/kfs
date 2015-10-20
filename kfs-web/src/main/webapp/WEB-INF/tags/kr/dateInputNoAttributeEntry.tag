@@ -36,7 +36,7 @@
 <c:if test="${hasErrors==true}">
   <kul:fieldShowErrorIcon />
 </c:if>
-<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="${property}_datepicker" style="cursor: pointer;" alt="Date selector" title="Date selector" onmouseover="this.style.background='#F00';" onmouseout="this.style.background='#FFF';" />    
+<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="${property}_datepicker" style="cursor: pointer;" alt="Date selector" title="Date selector" />
 <script type="text/javascript">
 	Calendar.setup(
 	{

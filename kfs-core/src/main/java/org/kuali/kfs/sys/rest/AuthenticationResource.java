@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.rest;
 
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.kim.api.identity.Person;
 
@@ -50,7 +51,7 @@ public class AuthenticationResource {
     public Response getActivePrincipalName() {
         LOG.debug("getActivePrincipalName() started");
 
-        Person activePerson = WebUtilities.retrieveUserSession(servletRequest).getPerson();
+        Person activePerson = KRADUtils.getUserSessionFromRequest(servletRequest).getPerson();
         return Response.ok("{ \"principalName\": \"" + activePerson.getPrincipalName() + "\" }").build();
     }
 
@@ -59,7 +60,7 @@ public class AuthenticationResource {
     public Response getLoggedInUser() {
         LOG.debug("getLoggedInUser() started");
 
-        Person loggedinPerson = WebUtilities.retrieveUserSession(servletRequest).getActualPerson();
+        Person loggedinPerson = KRADUtils.getUserSessionFromRequest(servletRequest).getActualPerson();
         return Response.ok(new PartialPerson(loggedinPerson)).build();
     }
 

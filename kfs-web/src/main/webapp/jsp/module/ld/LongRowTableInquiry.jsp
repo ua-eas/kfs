@@ -41,8 +41,6 @@
 
 	<table width="100%">
 		<tr>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
-				height="20"></td>
 
 			<td><c:if test="${param.inquiryFlag != 'true'}">
 				<div id="lookup" align="center"><br />
@@ -59,31 +57,25 @@
 
 					<tr align=center>
 						<td height="30" colspan=2 class="infoline">
-							<html:image	property="methodToCall.search" value="search"
-										src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_search.gif" styleClass="tinybutton"
-										alt="search" title="search" border="0" />
-							<html:image	property="methodToCall.clearValues" value="clearValues"
-										src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_clear.gif" styleClass="tinybutton"
-										alt="clear" title="clear" border="0" />
-							<html:image	property="methodToCall.cancel" value="cancel" 
-										src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" styleClass="tinybutton" 
-										alt="cancel" title="cancel" border="0" />
-							<!--   
-							<c:if test="${KualiForm.formKey!=''}">
-							<a
-								href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}" />' title="cancel">
-							<img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" class="tinybutton"
-								border="0" alt="cancel" title="cancel" /></a>
-						    </c:if> <!-- Optional extra button --> 
-						    -->
+                            <html:submit
+                                    property="methodToCall.search" value="Search"
+                                    styleClass="tinybutton btn btn-default"
+                                    alt="Search" title="Search" />
+                            <html:submit
+                                    property="methodToCall.clearValues" value="Clear"
+                                    styleClass="tinybutton btn btn-default"
+                                    alt="Clear" title="Clear" />
+                            <html:submit
+                                    property="methodToCall.cancel" value="Cancel"
+                                    styleClass="tinybutton btn btn-default"
+                                    alt="Cancel" title="Cancel" />
 						    
 						    <c:if test="${not empty KualiForm.lookupable.extraButtonSource}">
-							<a
-								href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />'>
-							<img
-								src='<c:out value="${KualiForm.lookupable.extraButtonSource}" />'
-								class="tinybutton" border="0" alt="Cancel"/></a>
-						    </c:if></td>
+                                <a href='<c:out value="${KualiForm.backLocation}?methodToCall=refresh&refreshCaller=org.kuali.kfs.kns.lookup.KualiLookupableImpl&docFormKey=${KualiForm.formKey}" /><c:out value="${KualiForm.lookupable.extraButtonParams}" />' title='<c:out value="${KualiForm.lookupable.extraButtonAltText}" />'>
+                                    <span class="tinybutton btn btn-default"><c:out value="${KualiForm.lookupable.extraButtonAltText}" /></span>
+                                </a>
+						    </c:if>
+                        </td>
 					</tr>
 				</table>
 				</div>
@@ -156,8 +148,6 @@
 				</c:forEach>				
 			</display:table>
 			</td>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20"
-				width="20"></td>
 		</tr>
 	</table>
 

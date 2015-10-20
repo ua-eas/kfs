@@ -64,7 +64,6 @@
         <c:when test="${empty htmlFormAction}">
             <main class="content">
                 <div id="content-overlay"></div>
-                <div id="dashboard"></div>
         </c:when>
         <c:otherwise>
             <c:choose>

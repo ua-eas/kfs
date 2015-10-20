@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.sys.KFSConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,10 +62,5 @@ public class WebUtilities {
      */
     public static boolean matchesPattern(String value, String pattern) {
         return (StringUtils.isBlank(value)) ? false : value.matches(pattern);
-    }
-
-    public static UserSession retrieveUserSession(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        return (UserSession) session.getAttribute("UserSession");
     }
 }

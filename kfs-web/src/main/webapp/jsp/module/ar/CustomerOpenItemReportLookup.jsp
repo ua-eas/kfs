@@ -31,7 +31,6 @@
 	<h3>
 		<table width="100%" cellspacing="0" cellpadding="0">
 			<tr>
-				<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20" height="20" /></td>
 				<td>Customer Number: &nbsp; <c:out value="${param.customerNumber}" />&nbsp;&nbsp;<c:out value="${param.customerName}" /></td>
 			</tr>
 		</table>
@@ -50,7 +49,6 @@
 
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20" height="20" /></td>
 			<td>
 				<c:if test="${empty reqSearchResultsSize}">
 					There were no results found.
@@ -74,8 +72,6 @@
 					</c:if>
 					<ar:openInvoiceReportResults reportLookupActionName="arCustomerOpenItemReportLookup.do"/>
 			    </c:if>
-			</td>
-			<td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" height="20" width="20">
 			</td>
 		</tr>
 	</table>
