@@ -24,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.MemoryMonitor;
 import org.kuali.kfs.kns.bo.Step;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
@@ -66,15 +67,7 @@ import static com.google.common.io.Files.createParentDirs;
 @SuppressWarnings("deprecation")
 public class SpringContext {
     private static final Logger LOG = Logger.getLogger(SpringContext.class);
-    protected static final String MEMORY_MONITOR_THRESHOLD_KEY = "memory.monitor.threshold";
-    protected static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
     protected static final String KFS_BATCH_STEP_COMPONENT_SET_ID = "STEP:KFS";
-    protected static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
-    protected static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
-    protected static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
-    protected static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
-    protected static final String UPDATE_WORKFLOW_ON_STARTUP ="updateWorkflowOnStartup";
-
 
     protected static ConfigurableApplicationContext applicationContext;
     protected static Set<Class<? extends Object>> SINGLETON_TYPES = new HashSet<Class<? extends Object>>();
@@ -294,11 +287,11 @@ public class SpringContext {
     }
 
     static void initMemoryMonitor() {
-        if ( NumberUtils.isNumber(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(MEMORY_MONITOR_THRESHOLD_KEY))) {
-            if (Double.valueOf(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(MEMORY_MONITOR_THRESHOLD_KEY)) > 0) {
+        if ( NumberUtils.isNumber(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY))) {
+            if (Double.valueOf(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY)) > 0) {
                 LOG.info( "Starting up MemoryMonitor thread" );
-                MemoryMonitor.setPercentageUsageThreshold(Double.valueOf(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(MEMORY_MONITOR_THRESHOLD_KEY)));
-                memoryMonitor = new MemoryMonitor("KFS Memory Monitor: Over " + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(MEMORY_MONITOR_THRESHOLD_KEY) + "% Memory Used");
+                MemoryMonitor.setPercentageUsageThreshold(Double.valueOf(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY)));
+                memoryMonitor = new MemoryMonitor("KFS Memory Monitor: Over " + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY) + "% Memory Used");
                 memoryMonitor.addListener(new MemoryMonitor.Listener() {
                     org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MemoryMonitor.class);
 
@@ -321,7 +314,7 @@ public class SpringContext {
                 });
             }
         } else {
-            LOG.warn(MEMORY_MONITOR_THRESHOLD_KEY + " is not a number: " + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(MEMORY_MONITOR_THRESHOLD_KEY));
+            LOG.warn(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY + " is not a number: " + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.MEMORY_MONITOR_THRESHOLD_KEY));
         }
     }
 
@@ -393,7 +386,7 @@ public class SpringContext {
     }
 
     static void initScheduler() {
-        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(USE_QUARTZ_SCHEDULING_KEY)) {
+        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(KFSPropertyConstants.USE_QUARTZ_SCHEDULING_KEY)) {
             try {
                 LOG.info("Attempting to initialize the SchedulerService");
                 getBean(SchedulerService.class).initialize();
@@ -408,7 +401,7 @@ public class SpringContext {
     }
 
     static void initDirectories() {
-        String dirPaths = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(DIRECTORIES_TO_CREATE_PATH);
+        String dirPaths = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.DIRECTORIES_TO_CREATE_PATH);
         for (String file : Arrays.asList(dirPaths.split(","))) {
             String trimmedFile = file.trim();
             if (!trimmedFile.isEmpty()) {
@@ -459,21 +452,21 @@ public class SpringContext {
     }
 
     private static void updateWorkflow() {
-        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(UPDATE_WORKFLOW_ON_STARTUP)) {
+        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(KFSPropertyConstants.UPDATE_WORKFLOW_ON_STARTUP)) {
             new WorkflowImporter().importWorkflow(applicationContext);
         }
     }
 
     public static void updateDatabase() {
-        if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_ON_STARTUP))) {
+        if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(KFSPropertyConstants.UPDATE_DATABASE_ON_STARTUP))) {
             new LiquiRelational().updateDatabase();
         }
     }
 
     static void updateDocumentstore() {
-        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(UPDATE_DOCUMENTSTORE_ON_STARTUP)) {
+        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(KFSPropertyConstants.UPDATE_DOCUMENTSTORE_ON_STARTUP)) {
             DocumentStoreSchemaUpdateService documentStoreSchemaUpdateService = getBean(DocumentStoreSchemaUpdateService.class);
-            String updateFilePath = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(UPDATE_DOCUMENTSTORE_FILE_PATH);
+            String updateFilePath = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.UPDATE_DOCUMENTSTORE_FILE_PATH);
             documentStoreSchemaUpdateService.updateDocumentStoreSchemaForLocation(updateFilePath);
         }
     }
