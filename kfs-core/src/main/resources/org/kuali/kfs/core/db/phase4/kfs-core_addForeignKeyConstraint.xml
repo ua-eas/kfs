@@ -1221,10 +1221,4 @@
   <changeSet author="kfs" id="3979" context="bootstrap,demo">
     <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_cmpnt_t" constraintName="KRNS_PARM_DTL_TYP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
   </changeSet>
-  <changeSet author="kfs" id="3980" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_parm_t" constraintName="KRNS_PARM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
-  </changeSet>
-  <changeSet author="kfs" id="3981" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="PARM_TYP_CD" baseTableName="krcr_parm_t" constraintName="KRNS_PARM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PARM_TYP_CD" referencedTableName="krcr_parm_typ_t"/>
-  </changeSet>
 </databaseChangeLog>
