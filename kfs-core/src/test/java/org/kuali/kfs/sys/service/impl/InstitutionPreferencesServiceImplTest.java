@@ -45,6 +45,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InstitutionPreferencesServiceImplTest {
     abstract class PreferencesDaoInstitutionPreferences implements PreferencesDao {
+        public Integer cacheLength = null;
+
         @Override
         public Map<String, Object> findInstitutionPreferences() {
             return null;
@@ -53,6 +55,16 @@ public class InstitutionPreferencesServiceImplTest {
         @Override
         public Map<String, Object> findInstitutionPreferencesCache(String principalName) {
             return null;
+        }
+
+        @Override
+        public void setInstitutionPreferencesCacheLength(int seconds) {
+            cacheLength = seconds;
+        }
+
+        @Override
+        public int getInstitutionPreferencesCacheLength() {
+            return cacheLength;
         }
 
         @Override
@@ -589,6 +601,28 @@ public class InstitutionPreferencesServiceImplTest {
     }
 
     @Test
+    public void testInstitutionPreferencesCacheSet() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        PreferencesDaoInstitutionPreferences dao = new PreferencesDaoInstitutionPreferences() {
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(dao);
+
+        institutionPreferencesServiceImpl.setInstitutionPreferencesCacheLength(1000);
+        Assert.assertEquals("Cache Length should be set",1000,(int)dao.cacheLength);
+    }
+
+    @Test
+    public void testInstitutionPreferencesCacheGet() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        PreferencesDaoInstitutionPreferences dao = new PreferencesDaoInstitutionPreferences() {
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(dao);
+        dao.cacheLength = 100;
+
+        Assert.assertEquals("Cache Length should be retrieved",100,(int)institutionPreferencesServiceImpl.getInstitutionPreferencesCacheLength());
+    }
+
+    @Test
     public void testFindInstitutionPreferencesLinksCache() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
         institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
@@ -622,7 +656,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),true);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Should have retrieved cached version","cached",preferences.get("cache"));

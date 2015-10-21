@@ -7,4 +7,6 @@ import java.util.Map;
 public interface InstitutionPreferencesService {
     Map<String, Object> findInstitutionPreferencesLinks(Person person,boolean useCache);
     Map<String, Object> findInstitutionPreferencesNoLinks();
+    void setInstitutionPreferencesCacheLength(int seconds);
+    int getInstitutionPreferencesCacheLength();
 }

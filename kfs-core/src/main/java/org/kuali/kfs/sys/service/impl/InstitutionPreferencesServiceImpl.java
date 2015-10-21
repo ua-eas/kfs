@@ -86,6 +86,22 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return preferences;
     }
 
+    @Override
+    public void setInstitutionPreferencesCacheLength(int seconds) {
+        LOG.debug("setInstitutionPreferencesCacheLength() started");
+
+        preferencesDao.setInstitutionPreferencesCacheLength(seconds);
+    }
+
+    @Override
+    public int getInstitutionPreferencesCacheLength() {
+        LOG.debug("getInstitutionPreferencesCacheLength() started");
+
+        int i = preferencesDao.getInstitutionPreferencesCacheLength();
+        LOG.error("getInstitutionPreferencesCacheLength() " + i);
+        return i;
+    }
+
     /**
      * This removes links from inititutionPreferences that have a permission
      * specified and the user does not have the permission
@@ -195,6 +211,10 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     protected String fixRelativeLink(String link) {
         if (!link.startsWith("http")) {
             final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+            if (link.startsWith("kr/lookup.do")) {
+                String connector = link.contains("?") ? "&" : "?";
+                link += connector + "returnLocation=" + applicationUrl + "/portal.do";
+            }
             link = applicationUrl + "/" + link;
         }
         return link;

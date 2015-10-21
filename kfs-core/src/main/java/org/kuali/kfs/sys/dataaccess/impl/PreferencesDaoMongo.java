@@ -1,9 +1,13 @@
 package org.kuali.kfs.sys.dataaccess.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.IndexDefinition;
+import org.springframework.data.mongodb.core.index.IndexInfo;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 
 import java.io.IOException;
@@ -17,6 +21,8 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
     public static final String INSTITUTION_PREFERENCES = "InstitutionPreferences";
     public static final String INSTITUTION_PREFERENCES_CACHE = "InstitutionPreferencesCache";
+    public static final String INSTITUTION_PREFERENCES_CACHE_LENGTH = "InstitutionPreferencesCacheLength";
+    public static final String EXPIRE_INDEX_NAME = "expireIndex";
 
     public static final String USER_PREFERENCES = "UserPreferences";
     public static final String PRINCIPAL_NAME_KEY = "principalName";
@@ -65,6 +71,67 @@ public class PreferencesDaoMongo implements PreferencesDao {
     }
 
     @Override
+    public void setInstitutionPreferencesCacheLength(int seconds) {
+        LOG.debug("setInstitutionPreferencesCacheLength() started");
+
+        dropIndexIfExists(EXPIRE_INDEX_NAME);
+        createExpireIndex(EXPIRE_INDEX_NAME, seconds);
+    }
+
+    @Override
+    public int getInstitutionPreferencesCacheLength() {
+        LOG.debug("getInstitutionPreferencesCacheLength() started");
+
+        // Spring doesn't retrieve all index options so we need to save/get it using another way
+        // rather than looking at the index itself.
+        List<CacheLength> lengths = mongoTemplate.findAll(CacheLength.class, INSTITUTION_PREFERENCES_CACHE_LENGTH);
+        if ( lengths.size() > 0 ) {
+            return lengths.get(0).expireSeconds;
+        }
+        return 0;
+    }
+
+    private void dropCacheLengthObject() {
+        mongoTemplate.remove(getCacheLengthQuery(),INSTITUTION_PREFERENCES_CACHE_LENGTH);
+    }
+
+    private BasicQuery getCacheLengthQuery() {
+        return new BasicQuery("{ \"id\" :\"cacheLength\" }");
+    }
+
+    private void dropIndexIfExists(String indexName) {
+        List<IndexInfo> indexes = mongoTemplate.indexOps(INSTITUTION_PREFERENCES_CACHE).getIndexInfo();
+        if ( indexes.stream().anyMatch(i -> i.getName().equals(indexName)) ) {
+            mongoTemplate.indexOps(INSTITUTION_PREFERENCES_CACHE).dropIndex(indexName);
+        }
+        dropCacheLengthObject();
+    }
+
+    private void createExpireIndex(String indexName,int seconds) {
+        IndexDefinition expireIndex = new IndexDefinition() {
+            @Override
+            public DBObject getIndexKeys() {
+                return new BasicDBObject("createdAt", 1);
+            }
+
+            @Override
+            public DBObject getIndexOptions() {
+                BasicDBObject b = new BasicDBObject("expireAfterSeconds",seconds);
+                b.put("name",indexName);
+                return b;
+            }
+        };
+
+        mongoTemplate.indexOps(INSTITUTION_PREFERENCES_CACHE).ensureIndex(expireIndex);
+
+        // Spring doesn't retrieve all index options so we need to save/get it using another way
+        // rather than looking at the index itself.
+        CacheLength cl = new CacheLength();
+        cl.expireSeconds = seconds;
+        mongoTemplate.save(cl,INSTITUTION_PREFERENCES_CACHE_LENGTH);
+    }
+
+    @Override
     public Map<String, Object> getUserPreferences(String principalName) {
         LOG.debug("getUserPreferences() started");
 
@@ -108,4 +175,10 @@ public class PreferencesDaoMongo implements PreferencesDao {
     public void setMongoTemplate(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
+
+    class CacheLength {
+        public String id = "cacheLength";
+        public int expireSeconds;
+    }
 }
+
