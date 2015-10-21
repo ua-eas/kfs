@@ -209,7 +209,7 @@ public class InstitutionPreferencesServiceImplTest {
         });
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a feedback url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Feedback")));
@@ -238,7 +238,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -270,7 +270,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -313,7 +313,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -347,7 +347,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -389,7 +389,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -432,7 +432,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -514,7 +514,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
@@ -548,7 +548,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
@@ -582,7 +582,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
@@ -622,7 +622,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson());
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Should have retrieved cached version","cached",preferences.get("cache"));
@@ -671,7 +671,7 @@ public class InstitutionPreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferencesLinks(null);
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));

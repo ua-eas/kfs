@@ -68,15 +68,17 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     @Override
-    public Map<String, Object> findInstitutionPreferencesLinks(Person person) {
+    public Map<String, Object> findInstitutionPreferencesLinks(Person person,boolean useCache) {
         LOG.debug("findInstitutionPreferencesLinks() started");
 
-        Map<String, Object> preferences = preferencesDao.findInstitutionPreferencesCache(person.getPrincipalName());
-        if ( preferences != null ) {
-            return preferences;
+        if ( useCache ) {
+            Map<String, Object> preferences = preferencesDao.findInstitutionPreferencesCache(person.getPrincipalName());
+            if ( preferences != null ) {
+                return preferences;
+            }
         }
 
-        preferences = preferencesDao.findInstitutionPreferences();
+        Map<String, Object> preferences = preferencesDao.findInstitutionPreferences();
         linkPermissionCheck(preferences, person);
         transformLinks(preferences, person);
 

@@ -10,10 +10,12 @@ import org.kuali.rice.kim.api.identity.Person;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -33,11 +35,17 @@ public class PreferencesResource {
 
     @GET
     @Path("/institution_links/{principalName}")
-    public Response getInstitutionLinks(@PathParam("principalName")String principalName) {
+    public Response getInstitutionLinks(@HeaderParam("cache-control")String cacheControlHeader,@PathParam("principalName")String principalName) {
         LOG.debug("getInstitutionLinks() started");
 
+        boolean useCache = true;
+        if ( cacheControlHeader != null ) {
+            CacheControl cacheControl = CacheControl.valueOf(cacheControlHeader);
+            useCache = !cacheControl.isMustRevalidate();
+        }
+
         if ( isAuthorized(principalName) ) {
-            Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesLinks(getPerson());
+            Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesLinks(getPerson(),useCache);
             return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to retrieve preferences for this user").build();

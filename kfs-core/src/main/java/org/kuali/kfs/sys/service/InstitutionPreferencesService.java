@@ -5,6 +5,6 @@ import org.kuali.rice.kim.api.identity.Person;
 import java.util.Map;
 
 public interface InstitutionPreferencesService {
-    Map<String, Object> findInstitutionPreferencesLinks(Person person);
+    Map<String, Object> findInstitutionPreferencesLinks(Person person,boolean useCache);
     Map<String, Object> findInstitutionPreferencesNoLinks();
 }
