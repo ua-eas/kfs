@@ -7082,4 +7082,32 @@
       <column name="APPL_ID" type="VARCHAR(255)"/>
     </createTable>
   </changeSet>
+  <changeSet author="kfs" id="3899-parameter" context="bootstrap,demo">
+    <createTable tableName="krcr_parm_t">
+      <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
+        <constraints nullable="false"/>
+      </column>
+      <column defaultValue="" name="CMPNT_CD" type="VARCHAR(100)">
+        <constraints nullable="false"/>
+      </column>
+      <column defaultValue="" name="PARM_NM" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="OBJ_ID" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="PARM_TYP_CD" type="VARCHAR(5)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="VAL" type="VARCHAR(4000)"/>
+      <column name="PARM_DESC_TXT" type="VARCHAR(4000)"/>
+      <column name="EVAL_OPRTR_CD" type="VARCHAR(1)"/>
+      <column defaultValue="KUALI" name="APPL_ID" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
 </databaseChangeLog>

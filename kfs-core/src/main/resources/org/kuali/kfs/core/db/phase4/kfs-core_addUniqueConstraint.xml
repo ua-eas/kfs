@@ -669,4 +669,7 @@
   <changeSet author="kfs" id="3940" context="bootstrap,demo">
     <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NMSPC_TC0" tableName="krcr_nmspc_t"/>
   </changeSet>
+  <changeSet author="kfs" id="3941-parameter" context="bootstrap,demo">
+    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TC0" tableName="krcr_parm_t"/>
+  </changeSet>
 </databaseChangeLog>
