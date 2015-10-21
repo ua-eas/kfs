@@ -43,7 +43,7 @@
             <column name="MSG_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00852">
+    <changeSet author="kfs" dbms="oracle" id="rice00852">
         <createIndex indexName="KREN_NTFCTN_FK1" tableName="kren_ntfctn_t">
             <column name="CHNL_ID"/>
         </createIndex>
@@ -471,7 +471,7 @@
             <column name="PPL_FLW_MBR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00928">
+    <changeSet author="kfs" dbms="oracle" id="rice00928">
         <createIndex indexName="KREW_PPL_FLW_FK1" tableName="krew_ppl_flw_t">
             <column name="TYP_ID"/>
         </createIndex>
@@ -669,7 +669,7 @@
             <column name="RULE_ATTR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00962">
+    <changeSet author="kfs" dbms="oracle" id="rice00962">
         <createIndex indexName="KREW_RULE_TR1" tableName="krew_rule_t">
             <column name="RULE_EXPR_ID"/>
         </createIndex>
@@ -689,200 +689,200 @@
             <column name="PRNCPL_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00966">
+    <changeSet author="kfs" dbms="oracle" id="rice00966">
         <createIndex indexName="KRIM_DLGN_MBR_ATTR_DATA_TR1" tableName="krim_dlgn_mbr_attr_data_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00967">
+    <changeSet author="kfs" dbms="oracle" id="rice00967">
         <createIndex indexName="KRIM_DLGN_MBR_ATTR_DATA_TR2" tableName="krim_dlgn_mbr_attr_data_t">
             <column name="KIM_ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00968">
+    <changeSet author="kfs" dbms="oracle" id="rice00968">
         <createIndex indexName="KRIM_DLGN_MBR_TR2" tableName="krim_dlgn_mbr_t">
             <column name="DLGN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00969">
+    <changeSet author="kfs" dbms="oracle" id="rice00969">
         <createIndex indexName="KRIM_DLGN_TR1" tableName="krim_dlgn_t">
             <column name="ROLE_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00970">
+    <changeSet author="kfs" dbms="oracle" id="rice00970">
         <createIndex indexName="KRIM_DLGN_TR2" tableName="krim_dlgn_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00971">
+    <changeSet author="kfs" dbms="oracle" id="rice00971">
         <createIndex indexName="KRIM_ENTITY_ADDR_TI1" tableName="krim_entity_addr_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00972">
+    <changeSet author="kfs" dbms="oracle" id="rice00972">
         <createIndex indexName="KRIM_ENTITY_ADDR_TR1" tableName="krim_entity_addr_t">
             <column name="ENT_TYP_CD"/>
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00973">
+    <changeSet author="kfs" dbms="oracle" id="rice00973">
         <createIndex indexName="KRIM_ENTITY_ADDR_TR2" tableName="krim_entity_addr_t">
             <column name="ADDR_TYP_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00974">
+    <changeSet author="kfs" dbms="oracle" id="rice00974">
         <createIndex indexName="KRIM_ENTITY_AFLTN_TI1" tableName="krim_entity_afltn_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00975">
+    <changeSet author="kfs" dbms="oracle" id="rice00975">
         <createIndex indexName="KRIM_ENTITY_AFLTN_TR2" tableName="krim_entity_afltn_t">
             <column name="AFLTN_TYP_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00976">
+    <changeSet author="kfs" dbms="oracle" id="rice00976">
         <createIndex indexName="KRIM_ENTITY_CTZNSHP_TR1" tableName="krim_entity_ctznshp_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00977">
+    <changeSet author="kfs" dbms="oracle" id="rice00977">
         <createIndex indexName="KRIM_ENTITY_CTZNSHP_TR2" tableName="krim_entity_ctznshp_t">
             <column name="CTZNSHP_STAT_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00978">
+    <changeSet author="kfs" dbms="oracle" id="rice00978">
         <createIndex indexName="KRIM_ENTITY_EMAIL_TI1" tableName="krim_entity_email_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00979">
+    <changeSet author="kfs" dbms="oracle" id="rice00979">
         <createIndex indexName="KRIM_ENTITY_EMAIL_TR1" tableName="krim_entity_email_t">
             <column name="ENT_TYP_CD"/>
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00980">
+    <changeSet author="kfs" dbms="oracle" id="rice00980">
         <createIndex indexName="KRIM_ENTITY_EMP_INFO_TI1" tableName="krim_entity_emp_info_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00981">
+    <changeSet author="kfs" dbms="oracle" id="rice00981">
         <createIndex indexName="KRIM_ENTITY_EMP_INFO_TI2" tableName="krim_entity_emp_info_t">
             <column name="ENTITY_AFLTN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00982">
+    <changeSet author="kfs" dbms="oracle" id="rice00982">
         <createIndex indexName="KRIM_ENTITY_EMP_INFO_TI3" tableName="krim_entity_emp_info_t">
             <column name="EMP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00983">
+    <changeSet author="kfs" dbms="oracle" id="rice00983">
         <createIndex indexName="KRIM_ENTITY_EMP_INFO_TR2" tableName="krim_entity_emp_info_t">
             <column name="EMP_STAT_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00984">
+    <changeSet author="kfs" dbms="oracle" id="rice00984">
         <createIndex indexName="KRIM_ENTITY_EMP_INFO_TR3" tableName="krim_entity_emp_info_t">
             <column name="EMP_TYP_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00985">
+    <changeSet author="kfs" dbms="oracle" id="rice00985">
         <createIndex indexName="KRIM_ENTITY_ENT_TYP_TI1" tableName="krim_entity_ent_typ_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00986">
+    <changeSet author="kfs" dbms="oracle" id="rice00986">
         <createIndex indexName="KRIM_ENTITY_ETHNIC_TR1" tableName="krim_entity_ethnic_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00987">
+    <changeSet author="kfs" dbms="oracle" id="rice00987">
         <createIndex indexName="KRIM_ENTITY_EXT_ID_TI1" tableName="krim_entity_ext_id_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00988">
+    <changeSet author="kfs" dbms="oracle" id="rice00988">
         <createIndex indexName="KRIM_ENTITY_EXT_ID_TR2" tableName="krim_entity_ext_id_t">
             <column name="EXT_ID_TYP_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00989">
+    <changeSet author="kfs" dbms="oracle" id="rice00989">
         <createIndex indexName="KRIM_ENTITY_NM_TI1" tableName="krim_entity_nm_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00990">
+    <changeSet author="kfs" dbms="oracle" id="rice00990">
         <createIndex indexName="KRIM_ENTITY_PHONE_TI1" tableName="krim_entity_phone_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00991">
+    <changeSet author="kfs" dbms="oracle" id="rice00991">
         <createIndex indexName="KRIM_ENTITY_PHONE_TR1" tableName="krim_entity_phone_t">
             <column name="ENT_TYP_CD"/>
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00992">
+    <changeSet author="kfs" dbms="oracle" id="rice00992">
         <createIndex indexName="KRIM_ENTITY_PHONE_TR2" tableName="krim_entity_phone_t">
             <column name="PHONE_TYP_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00993">
+    <changeSet author="kfs" dbms="oracle" id="rice00993">
         <createIndex indexName="KRIM_ENTITY_RESIDENCY_TR1" tableName="krim_entity_residency_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00994">
+    <changeSet author="kfs" dbms="oracle" id="rice00994">
         <createIndex indexName="KRIM_ENTITY_VISA_TR1" tableName="krim_entity_visa_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00995">
+    <changeSet author="kfs" dbms="oracle" id="rice00995">
         <createIndex indexName="KRIM_GRP_ATTR_DATA_TR1" tableName="krim_grp_attr_data_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00996">
+    <changeSet author="kfs" dbms="oracle" id="rice00996">
         <createIndex indexName="KRIM_GRP_ATTR_DATA_TR2" tableName="krim_grp_attr_data_t">
             <column name="KIM_ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00997">
+    <changeSet author="kfs" dbms="oracle" id="rice00997">
         <createIndex indexName="KRIM_GRP_ATTR_DATA_TR3" tableName="krim_grp_attr_data_t">
             <column name="GRP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00998">
+    <changeSet author="kfs" dbms="oracle" id="rice00998">
         <createIndex indexName="KRIM_GRP_MBR_TI1" tableName="krim_grp_mbr_t">
             <column name="MBR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice00999">
+    <changeSet author="kfs" dbms="oracle" id="rice00999">
         <createIndex indexName="KRIM_GRP_MBR_TR1" tableName="krim_grp_mbr_t">
             <column name="GRP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01000">
+    <changeSet author="kfs" dbms="oracle" id="rice01000">
         <createIndex indexName="KRIM_GRP_TR1" tableName="krim_grp_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01001">
+    <changeSet author="kfs" dbms="oracle" id="rice01001">
         <createIndex indexName="KRIM_PERM_ATTR_DATA_TI1" tableName="krim_perm_attr_data_t">
             <column name="PERM_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01002">
+    <changeSet author="kfs" dbms="oracle" id="rice01002">
         <createIndex indexName="KRIM_PERM_ATTR_DATA_TR1" tableName="krim_perm_attr_data_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01003">
+    <changeSet author="kfs" dbms="oracle" id="rice01003">
         <createIndex indexName="KRIM_PERM_ATTR_DATA_TR2" tableName="krim_perm_attr_data_t">
             <column name="KIM_ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01004">
+    <changeSet author="kfs" dbms="oracle" id="rice01004">
         <createIndex indexName="KRIM_PERM_TI1" tableName="krim_perm_t">
             <column name="PERM_TMPL_ID"/>
         </createIndex>
@@ -893,38 +893,38 @@
             <column name="ACTV_IND"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01006">
+    <changeSet author="kfs" dbms="oracle" id="rice01006">
         <createIndex indexName="KRIM_PERM_TMPL_TI1" tableName="krim_perm_tmpl_t">
             <column name="NMSPC_CD"/>
             <column name="NM"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01007">
+    <changeSet author="kfs" dbms="oracle" id="rice01007">
         <createIndex indexName="KRIM_PERM_TMPL_TR1" tableName="krim_perm_tmpl_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01008">
+    <changeSet author="kfs" dbms="oracle" id="rice01008">
         <createIndex indexName="KRIM_PRNCPL_TR1" tableName="krim_prncpl_t">
             <column name="ENTITY_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01009">
+    <changeSet author="kfs" dbms="oracle" id="rice01009">
         <createIndex indexName="KRIM_ROLE_MBR_ATTR_DATA_TI1" tableName="krim_role_mbr_attr_data_t">
             <column name="ROLE_MBR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01010">
+    <changeSet author="kfs" dbms="oracle" id="rice01010">
         <createIndex indexName="KRIM_ROLE_MBR_ATTR_DATA_TR1" tableName="krim_role_mbr_attr_data_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01011">
+    <changeSet author="kfs" dbms="oracle" id="rice01011">
         <createIndex indexName="KRIM_ROLE_MBR_ATTR_DATA_TR2" tableName="krim_role_mbr_attr_data_t">
             <column name="KIM_ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01012">
+    <changeSet author="kfs" dbms="oracle" id="rice01012">
         <createIndex indexName="KRIM_ROLE_MBR_TI1" tableName="krim_role_mbr_t">
             <column name="MBR_ID"/>
         </createIndex>
@@ -942,7 +942,7 @@
             <column name="MBR_TYP_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01015">
+    <changeSet author="kfs" dbms="oracle" id="rice01015">
         <createIndex indexName="KRIM_ROLE_PERM_TI1" tableName="krim_role_perm_t">
             <column name="PERM_ID"/>
         </createIndex>
@@ -953,52 +953,52 @@
             <column name="ACTV_IND"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01017">
+    <changeSet author="kfs" dbms="oracle" id="rice01017">
         <createIndex indexName="KRIM_ROLE_RSP_TI1" tableName="krim_role_rsp_t">
             <column name="RSP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01018">
+    <changeSet author="kfs" dbms="oracle" id="rice01018">
         <createIndex indexName="KRIM_ROLE_TR1" tableName="krim_role_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01019">
+    <changeSet author="kfs" dbms="oracle" id="rice01019">
         <createIndex indexName="KRIM_RSP_ATTR_DATA_TR1" tableName="krim_rsp_attr_data_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01020">
+    <changeSet author="kfs" dbms="oracle" id="rice01020">
         <createIndex indexName="KRIM_RSP_ATTR_DATA_TR2" tableName="krim_rsp_attr_data_t">
             <column name="KIM_ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01021">
+    <changeSet author="kfs" dbms="oracle" id="rice01021">
         <createIndex indexName="KRIM_RSP_ATTR_DATA_TR3" tableName="krim_rsp_attr_data_t">
             <column name="RSP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01022">
+    <changeSet author="kfs" dbms="oracle" id="rice01022">
         <createIndex indexName="KRIM_RSP_TMPL_TR1" tableName="krim_rsp_tmpl_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01023">
+    <changeSet author="kfs" dbms="oracle" id="rice01023">
         <createIndex indexName="KRIM_RSP_TR1" tableName="krim_rsp_t">
             <column name="RSP_TMPL_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01024">
+    <changeSet author="kfs" dbms="oracle" id="rice01024">
         <createIndex indexName="KRIM_TYP_ATTRIBUTE_TI1" tableName="krim_typ_attr_t">
             <column name="KIM_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01025">
+    <changeSet author="kfs" dbms="oracle" id="rice01025">
         <createIndex indexName="KRIM_TYP_ATTR_TR2" tableName="krim_typ_attr_t">
             <column name="KIM_ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01026">
+    <changeSet author="kfs" dbms="oracle" id="rice01026">
         <createIndex indexName="KRLC_CNTY_TR1" tableName="krlc_cnty_t">
             <column name="STATE_CD"/>
             <column name="POSTAL_CNTRY_CD"/>
@@ -1075,7 +1075,7 @@
             <column name="CNTXT_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01041">
+    <changeSet author="kfs" dbms="oracle" id="rice01041">
         <createIndex indexName="KRMS_CMPND_PROP_PROPS_FK2" tableName="krms_cmpnd_prop_props_t">
             <column name="CMPND_PROP_ID"/>
         </createIndex>
@@ -1115,17 +1115,17 @@
             <column name="CNTXT_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01049">
+    <changeSet author="kfs" dbms="oracle" id="rice01049">
         <createIndex indexName="KRMS_CNTXT_VLD_TERM_SPEC_TI1" tableName="krms_cntxt_vld_term_spec_t">
             <column name="CNTXT_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01050">
+    <changeSet author="kfs" dbms="oracle" id="rice01050">
         <createIndex indexName="KRMS_CNTXT_VLD_TERM_SPEC_TI2" tableName="krms_cntxt_vld_term_spec_t">
             <column name="TERM_SPEC_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01051">
+    <changeSet author="kfs" dbms="oracle" id="rice01051">
         <createIndex indexName="KRMS_FUNC_CTGRY_FK2" tableName="krms_func_ctgry_t">
             <column name="CTGRY_ID"/>
         </createIndex>
@@ -1150,22 +1150,22 @@
             <column name="TERM_RSLVR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01056">
+    <changeSet author="kfs" dbms="oracle" id="rice01056">
         <createIndex indexName="KRMS_NL_TMPL_ATTR_FK2" tableName="krms_nl_tmpl_attr_t">
             <column name="ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01057">
+    <changeSet author="kfs" dbms="oracle" id="rice01057">
         <createIndex indexName="KRMS_NL_TMPL_FK1" tableName="krms_nl_tmpl_t">
             <column name="NL_USAGE_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01058">
+    <changeSet author="kfs" dbms="oracle" id="rice01058">
         <createIndex indexName="KRMS_NL_USAGE_ATTR_FK2" tableName="krms_nl_usage_attr_t">
             <column name="ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01059">
+    <changeSet author="kfs" dbms="oracle" id="rice01059">
         <createIndex indexName="KRMS_PROP_FK2" tableName="krms_prop_t">
             <column name="TYP_ID"/>
         </createIndex>
@@ -1200,7 +1200,7 @@
             <column name="TERM_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01066">
+    <changeSet author="kfs" dbms="oracle" id="rice01066">
         <createIndex indexName="KRMS_TERM_RESLV_PARM_FK1" tableName="krms_term_rslvr_parm_spec_t">
             <column name="TERM_RSLVR_ID"/>
         </createIndex>
@@ -1215,7 +1215,7 @@
             <column name="ATTR_DEFN_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01069">
+    <changeSet author="kfs" dbms="oracle" id="rice01069">
         <createIndex indexName="KRMS_TERM_RSLVR_FK1" tableName="krms_term_rslvr_t">
             <column name="OUTPUT_TERM_SPEC_ID"/>
         </createIndex>
@@ -1225,7 +1225,7 @@
             <column name="TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01071">
+    <changeSet author="kfs" dbms="oracle" id="rice01071">
         <createIndex indexName="KRMS_TERM_SPEC_CTGRY_FK2" tableName="krms_term_spec_ctgry_t">
             <column name="CTGRY_ID"/>
         </createIndex>
@@ -1245,12 +1245,12 @@
             <column name="TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01075">
+    <changeSet author="kfs" dbms="oracle" id="rice01075">
         <createIndex indexName="KRMS_TYP_RELN_FK2" tableName="krms_typ_reln_t">
             <column name="TO_TYP_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01076">
+    <changeSet author="kfs" dbms="oracle" id="rice01076">
         <createIndex indexName="KRMS_TYP_T" tableName="krms_nl_tmpl_t">
             <column name="TYP_ID"/>
         </createIndex>
@@ -1275,17 +1275,17 @@
             <column name="DOC_HDR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01081">
+    <changeSet author="kfs" dbms="oracle" id="rice01081">
         <createIndex indexName="KRNS_NTE_TI1" tableName="krns_nte_t">
             <column name="RMT_OBJ_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01082">
+    <changeSet author="kfs" dbms="oracle" id="rice01082">
         <createIndex indexName="KRNS_NTE_TR1" tableName="krns_nte_t">
             <column name="NTE_TYP_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01083">
+    <changeSet author="kfs" dbms="oracle" id="rice01083">
         <createIndex indexName="KRNS_PARM_TR2" tableName="krcr_parm_t">
             <column name="PARM_TYP_CD"/>
         </createIndex>
@@ -1443,30 +1443,30 @@
             <column name="SVC_DSCRPTR_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01117">
+    <changeSet author="kfs" dbms="oracle" id="rice01117">
         <createIndex indexName="KR_POSTAL_CODE_TR1" tableName="krlc_pstl_cd_t">
             <column name="POSTAL_CNTRY_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01118">
+    <changeSet author="kfs" dbms="oracle" id="rice01118">
         <createIndex indexName="KR_POSTAL_CODE_TR2" tableName="krlc_pstl_cd_t">
             <column name="POSTAL_STATE_CD"/>
             <column name="POSTAL_CNTRY_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01119">
+    <changeSet author="kfs" dbms="oracle" id="rice01119">
         <createIndex indexName="KR_POSTAL_CODE_TR3" tableName="krlc_pstl_cd_t">
             <column name="COUNTY_CD"/>
             <column name="POSTAL_STATE_CD"/>
             <column name="POSTAL_CNTRY_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01120">
+    <changeSet author="kfs" dbms="oracle" id="rice01120">
         <createIndex indexName="KR_STATE_TR1" tableName="krlc_st_t">
             <column name="POSTAL_CNTRY_CD"/>
         </createIndex>
     </changeSet>
-    <changeSet author="kfs" id="rice01121">
+    <changeSet author="kfs" dbms="oracle" id="rice01121">
         <createIndex indexName="SH_CAMPUS_TR1" tableName="krlc_cmp_t">
             <column name="CAMPUS_TYP_CD"/>
         </createIndex>
