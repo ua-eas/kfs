@@ -891,4 +891,7 @@
   <changeSet author="kfs" id="3929" context="bootstrap,demo">
     <addPrimaryKey columnNames="NMSPC_CD" constraintName="PKkrcr_nmspc_t" tableName="krcr_nmspc_t"/>
   </changeSet>
+  <changeSet author="kfs" id="3929-parameter" context="bootstrap,demo">
+    <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD, PARM_NM, APPL_ID" constraintName="PKkrcr_parm_t" tableName="krcr_parm_t"/>
+  </changeSet>
 </databaseChangeLog>
