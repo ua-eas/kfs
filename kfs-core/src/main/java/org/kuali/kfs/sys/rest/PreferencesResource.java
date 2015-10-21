@@ -38,6 +38,24 @@ public class PreferencesResource {
         return Response.ok(preferences).build();
     }
 
+    @PUT
+    @Path("/institution/{institutionId}")
+    public Response saveInstitutionPreferences(@PathParam("institutionId") String institutionId, String linkGroups) {
+        LOG.debug("saveInstitutionPreferences started");
+
+        getPreferencesService().saveInstitutionPreferences(institutionId, linkGroups);
+        return Response.ok(linkGroups).build();
+    }
+
+    @GET
+    @Path("/config/groups")
+    public Response getGroupLinks() {
+        LOG.debug("getGroupLinks started");
+
+        Map<String, Object> linkGroups = getPreferencesService().getAllLinkGroups();
+        return Response.ok(linkGroups).build();
+    }
+
     @GET
     @Path("/users/{principalName}")
     public Response getUserPreferences(@PathParam("principalName")String principalName) {
@@ -58,13 +76,13 @@ public class PreferencesResource {
 
     @PUT
     @Path("/users/{principalName}")
-    public Response saveUserPreferences(@PathParam("principalName")String principalName,String preferences) {
+    public Response saveUserPreferences(@PathParam("principalName")String principalName, String preferences) {
         LOG.debug("saveUserPreferences() started");
 
         String loggedinPrincipalName = getPerson().getPrincipalName();
 
         if ( loggedinPrincipalName.equals(principalName) ) {
-            getPreferencesService().saveUserPreferences(loggedinPrincipalName,preferences);
+            getPreferencesService().saveUserPreferences(loggedinPrincipalName, preferences);
             return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to save preferences for this user").build();
