@@ -507,6 +507,11 @@ public class PreferencesServiceImplTest {
 
                 return ip;
             }
+
+            @Override
+            public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
+
+            }
         });
         preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
