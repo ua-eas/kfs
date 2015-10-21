@@ -472,47 +472,31 @@ public class PreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_LookupLinkHasReturnLocation() {
         PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                Map<String, Object> ip = new ConcurrentHashMap<>();
-                ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
-                ip.put("institutionName", "Kuali");
 
-                Map<String, String> link = new ConcurrentHashMap<>();
-                link.put("link", "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group");
-                link.put("label", "Batch Schedule");
-                link.put("type", "administration");
-                link.put("linkType", "kfs");
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("link", "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group");
+        link.put("label", "Batch Schedule");
+        link.put("type", "administration");
+        link.put("linkType", "kfs");
 
-                Map<String, String> link2 = new ConcurrentHashMap<>();
-                link2.put("link", "kr/lookup.do");
-                link2.put("label", "Batch Schedule");
-                link2.put("type", "administration");
-                link2.put("linkType", "kfs");
+        Map<String, String> link2 = new ConcurrentHashMap<>();
+        link2.put("link", "kr/lookup.do");
+        link2.put("label", "Batch Schedule");
+        link2.put("type", "administration");
+        link2.put("linkType", "kfs");
 
-                List<Map<String, String>> links = new ArrayList<>();
-                links.add(link);
-                links.add(link2);
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+        links.add(link2);
 
-                Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-                linkGroup.put("label", "Test Menu");
-                linkGroup.put("links", links);
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
 
-                List<Map<String, Object>> linkGroups = new ArrayList<>();
-                linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
 
-                ip.put("linkGroups", linkGroups);
-
-                return ip;
-            }
-
-            @Override
-            public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
-
-            }
-        });
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -530,16 +514,16 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
         Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
-        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
+        String assertLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(assertLink));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", link);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", assertLink);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
 
-        String link2 = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(1).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link2));
+        String assertLink2 = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(1).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(assertLink2));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", link2);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", assertLink2);
     }
 
     protected class StubDocumentDictionaryService implements DocumentDictionaryService {
