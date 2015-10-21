@@ -67,7 +67,7 @@ element.
 
     <xsd:element name="workflowAttributes">
 		<xsd:annotation>
-			<xsd:documentation source="java:org.kuali.rice.kns.datadictionary.WorkflowAttributes">
+			<xsd:documentation source="java:org.kuali.kfs.kns.datadictionary.WorkflowAttributes">
 Used on document entries to specify a list of properties of a document that will be used for workflow routing or searching
  			</xsd:documentation>
 		</xsd:annotation>
