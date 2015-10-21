@@ -64,8 +64,10 @@ public class WorkflowImporter {
         ConfigContext.init(config);
 
         context = new ClassPathXmlApplicationContext(bootstrapSpringBeans);
-
         context.start();
+
+        SpringContext.applicationContext = context;
+
         long endInit = System.currentTimeMillis();
         LOG.info("...Kuali Rice Application successfully initialized, startup took " + (endInit - startInit) + " ms.");
     }
