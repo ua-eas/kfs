@@ -2,7 +2,8 @@ package org.kuali.kfs.sys.rest;
 
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.PreferencesService;
+import org.kuali.kfs.sys.service.InstitutionPreferencesService;
+import org.kuali.kfs.sys.service.UserPreferencesService;
 import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.kim.api.identity.Person;
 
@@ -24,17 +25,31 @@ import java.util.Map;
 public class PreferencesResource {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PreferencesResource.class);
 
-    protected static volatile PreferencesService preferencesService;
+    protected static volatile InstitutionPreferencesService institutionPreferencesService;
+    protected static volatile UserPreferencesService userPreferencesService;
 
     @Context
     private HttpServletRequest servletRequest;
 
     @GET
-    @Path("/institution")
-    public Response getGroupedJobs() {
-        LOG.debug("getGroupedJobs() started");
+    @Path("/institution_links/{principalName}")
+    public Response getInstitutionLinks(@PathParam("principalName")String principalName) {
+        LOG.debug("getInstitutionLinks() started");
 
-        Map<String, Object> preferences = getPreferencesService().findInstitutionPreferences(getPerson());
+        if ( isAuthorized(principalName) ) {
+            Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesLinks(getPerson());
+            return Response.ok(preferences).build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to retrieve preferences for this user").build();
+        }
+    }
+
+    @GET
+    @Path("/institution")
+    public Response getInstitutionNoLinks() {
+        LOG.debug("getInstitutionNoLinks() started");
+
+        Map<String, Object> preferences = getInstitutionPreferencesService().findInstitutionPreferencesNoLinks();
         return Response.ok(preferences).build();
     }
 
@@ -43,10 +58,8 @@ public class PreferencesResource {
     public Response getUserPreferences(@PathParam("principalName")String principalName) {
         LOG.debug("getUserPreferences() started");
 
-        String loggedinPrincipalName = getPerson().getPrincipalName();
-
-        if ( loggedinPrincipalName.equals(principalName) ) {
-            Map<String, Object> preferences = getPreferencesService().getUserPreferences(principalName);
+        if ( isAuthorized(principalName) ) {
+            Map<String, Object> preferences = getUserPreferencesService().getUserPreferences(principalName);
             if (preferences == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("User Preference Not Found").build();
             }
@@ -61,10 +74,8 @@ public class PreferencesResource {
     public Response saveUserPreferences(@PathParam("principalName")String principalName,String preferences) {
         LOG.debug("saveUserPreferences() started");
 
-        String loggedinPrincipalName = getPerson().getPrincipalName();
-
-        if ( loggedinPrincipalName.equals(principalName) ) {
-            getPreferencesService().saveUserPreferences(loggedinPrincipalName,preferences);
+        if ( isAuthorized(principalName) ) {
+            getUserPreferencesService().saveUserPreferences(principalName, preferences);
             return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to save preferences for this user").build();
@@ -76,27 +87,35 @@ public class PreferencesResource {
     public Response saveUserPreferenceKey(@PathParam("principalName")String principalName,@PathParam("key")String key,String preferences) {
         LOG.debug("saveUserPreferenceKey() started");
 
-        String loggedinPrincipalName = getPerson().getPrincipalName();
-
-        LOG.fatal("Prefs: " + preferences);
-
-        if ( loggedinPrincipalName.equals(principalName) ) {
-            getPreferencesService().saveUserPreferencesKey(loggedinPrincipalName, key, preferences);
+        if ( isAuthorized(principalName) ) {
+            getUserPreferencesService().saveUserPreferencesKey(principalName, key, preferences);
             return Response.ok(preferences).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized to save preferences for this user").build();
         }
     }
 
-    private Person getPerson() {
+    private boolean isAuthorized(String principalName) {
+        String loggedinPrincipalName = getPerson().getPrincipalName();
+
+        return loggedinPrincipalName.equals(principalName);
+    }
+
+    protected Person getPerson() {
         return KRADUtils.getUserSessionFromRequest(servletRequest).getPerson();
     }
 
-    protected PreferencesService getPreferencesService() {
-        if (preferencesService == null) {
-            preferencesService = SpringContext.getBean(PreferencesService.class);
+    protected UserPreferencesService getUserPreferencesService() {
+        if (userPreferencesService == null) {
+            userPreferencesService = SpringContext.getBean(UserPreferencesService.class);
         }
-        return preferencesService;
+        return userPreferencesService;
     }
 
+    protected InstitutionPreferencesService getInstitutionPreferencesService() {
+        if (institutionPreferencesService == null) {
+            institutionPreferencesService = SpringContext.getBean(InstitutionPreferencesService.class);
+        }
+        return institutionPreferencesService;
+    }
 }

@@ -9,20 +9,42 @@ var Sidebar = React.createClass({
         return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: "", checkedLinkFilters: ['activities', 'reference', 'administration']}
     },
     componentWillMount() {
-        let institutionPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
-        $.ajax({
-            url: institutionPath,
-            dataType: 'json',
-            type: 'GET',
-            success: function(preferences) {
-                this.setState({institutionPreferences: preferences});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(status, err.toString());
-            }.bind(this)
+        let thisComponent = this
+        let found = false
+
+        UserPrefs.getPrincipalName(function(principalName) {
+            let preferencesString = localStorage.getItem("institutionPreferences")
+            if ( preferencesString != null ) {
+                let sessionId = KfsUtils.getKualiSessionId()
+                let prefs = JSON.parse(preferencesString)
+                if ( (prefs.sessionId == sessionId) && (prefs.principalName == principalName) ) {
+                    found = true
+                    thisComponent.setState({institutionPreferences: prefs})
+                } else {
+                    localStorage.removeItem("institutionPreferences")
+                }
+            }
+
+            if ( ! found ) {
+                let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName
+                $.ajax({
+                    url: institutionLinksPath,
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function (preferences) {
+                        thisComponent.setState({institutionPreferences: preferences});
+                        preferences.sessionId = KfsUtils.getKualiSessionId()
+                        localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                    }.bind(this),
+                    error: function (xhr, status, err) {
+                        console.error(status, err.toString());
+                    }.bind(this)
+                })
+            }
+        },function() {
+            console.error("Error retreiving principalName")
         })
 
-        let thisComponent = this;
         UserPrefs.getUserPreferences(function (userPreferences) {
             thisComponent.setState({userPreferences: userPreferences});
         }, function (error) {
