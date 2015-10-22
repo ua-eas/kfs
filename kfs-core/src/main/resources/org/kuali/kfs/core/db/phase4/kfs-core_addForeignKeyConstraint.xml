@@ -924,9 +924,6 @@
   <changeSet author="kfs" id="2258" context="bootstrap,demo">
     <addForeignKeyConstraint baseColumnNames="FIN_COA_CD" baseTableName="GL_SF_REBUILD_T" constraintName="GL_SF_REBUILD_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FIN_COA_CD" referencedTableName="CA_CHART_T"/>
   </changeSet>
-  <changeSet author="kfs" id="2259" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="DOC_HDR_ID" baseTableName="KRNS_MAINT_DOC_T" constraintName="KRNS_MAINT_DOC_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_HDR_ID" referencedTableName="KRNS_DOC_HDR_T"/>
-  </changeSet>
   <changeSet author="kfs" id="2260" context="bootstrap,demo">
     <addForeignKeyConstraint baseColumnNames="PMT_GRP_ID" baseTableName="PDP_ACH_ACCT_NBR_T" constraintName="PDP_ACH_ACCT_NBR_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PMT_GRP_ID" referencedTableName="PDP_PMT_GRP_T"/>
   </changeSet>
@@ -1190,35 +1187,5 @@
   </changeSet>
   <changeSet author="kfs" id="4248" context="bootstrap,demo">
     <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="QRTZ_BLOB_TRIGGERS" constraintName="SYS_C0092243" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="QRTZ_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3970" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="NTE_ID" baseTableName="KRNS_ATT_T" constraintName="KRNS_ATT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTE_ID" referencedTableName="KRNS_NTE_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3971" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="DOC_HDR_ID" baseTableName="KRNS_MAINT_DOC_ATT_LST_T" constraintName="KRNS_MAINT_DOC_ATT_LST_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_HDR_ID" referencedTableName="KRNS_MAINT_DOC_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3972" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="NTE_TYP_CD" baseTableName="KRNS_NTE_T" constraintName="KRNS_NTE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTE_TYP_CD" referencedTableName="KRNS_NTE_TYP_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3973" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="KRSB_QRTZ_BLOB_TRIGGERS" constraintName="KRSB_QRTZ_BLOB_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="KRSB_QRTZ_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3974" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="KRSB_QRTZ_CRON_TRIGGERS" constraintName="KRSB_QRTZ_CRON_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="KRSB_QRTZ_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3975" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="KRSB_QRTZ_SIMPLE_TRIGGERS" constraintName="KRSB_QRTZ_SIMPLE_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="KRSB_QRTZ_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3976" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="KRSB_QRTZ_TRIGGER_LISTENERS" constraintName="KRSB_QRTZ_TRIGGER_LISTENE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="KRSB_QRTZ_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3977" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="JOB_NAME,JOB_GROUP" baseTableName="KRSB_QRTZ_JOB_LISTENERS" constraintName="KRSB_QUARTZ_JOB_LISTENERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="JOB_NAME,JOB_GROUP" referencedTableName="KRSB_QRTZ_JOB_DETAILS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3978" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="SVC_DSCRPTR_ID" baseTableName="KRSB_SVC_DEF_T" constraintName="KRSB_SVC_DEF_FK1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="SVC_DSCRPTR_ID" referencedTableName="KRSB_SVC_DSCRPTR_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3979" context="bootstrap,demo">
-    <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_cmpnt_t" constraintName="KRNS_PARM_DTL_TYP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
   </changeSet>
 </databaseChangeLog>

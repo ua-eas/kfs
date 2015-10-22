@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2015 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" dbms="mysql" id="rice00320">
+        <createTable tableName="krns_doc_typ_attr_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00320">
+        <createSequence sequenceName="krns_doc_typ_attr_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00321">
+        <createTable tableName="krns_lock_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00321">
+        <createSequence sequenceName="krns_lock_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00322">
+        <createTable tableName="krns_lookup_rslt_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00322">
+        <createSequence sequenceName="krns_lookup_rslt_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00326">
+        <createTable tableName="krns_maint_doc_att_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00326">
+        <createSequence sequenceName="krns_maint_doc_att_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00329">
+        <createTable tableName="krns_maint_lock_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00329">
+        <createSequence sequenceName="krns_maint_lock_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00331">
+        <createTable tableName="krns_nte_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00331">
+        <createSequence sequenceName="krns_nte_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00336">
+        <createTable tableName="krsb_bam_parm_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00336">
+        <createSequence sequenceName="krsb_bam_parm_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00338">
+        <createTable tableName="krsb_bam_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00338">
+        <createSequence sequenceName="krsb_bam_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00341">
+        <createTable tableName="krsb_msg_que_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00341">
+        <createSequence sequenceName="krsb_msg_que_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00355">
+        <createTable tableName="krsb_svc_def_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00355">
+        <createSequence sequenceName="krsb_svc_def_s" startValue="1"/>
+    </changeSet>
+    <changeSet author="kfs" dbms="mysql" id="rice00357">
+        <createTable tableName="krsb_svc_dscrptr_s">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="kfs" dbms="oracle" id="rice00357">
+        <createSequence sequenceName="krsb_svc_dscrptr_s" startValue="1"/>
+    </changeSet>
+</databaseChangeLog>

@@ -333,9 +333,6 @@
   <changeSet author="kfs" id="1543" context="bootstrap,demo">
     <addUniqueConstraint columnNames="OBJ_ID" constraintName="FP_JRNL_VCHR_DOC_TC0" tableName="FP_JRNL_VCHR_DOC_T"/>
   </changeSet>
-  <changeSet author="kfs" id="1544" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="FP_MAINTENANCE_DOCUMENT_TC0" tableName="KRNS_MAINT_DOC_T"/>
-  </changeSet>
   <changeSet author="kfs" id="1545" context="bootstrap,demo">
     <addUniqueConstraint columnNames="OBJ_ID" constraintName="FP_MOTD_TC0" tableName="FP_MOTD_T"/>
   </changeSet>
@@ -626,50 +623,5 @@
   </changeSet>
   <changeSet author="kfs" id="1640" context="bootstrap,demo">
     <addUniqueConstraint columnNames="OBJ_ID" constraintName="SH_UNIV_DATE_TC0" tableName="SH_UNIV_DATE_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3927" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="FP_DOC_HEADER_TC0" tableName="KRNS_DOC_HDR_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3928" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="FP_MAINT_DOC_ATTACHMENT_TC0" tableName="KRNS_MAINT_DOC_ATT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3929" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="FS_ADHOC_RTE_ACTN_RECP_TC0" tableName="KRNS_ADHOC_RTE_ACTN_RECIP_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3930" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="FS_LOOKUP_RESULTS_MTC0" tableName="KRNS_LOOKUP_RSLT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3931" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="FS_LOOKUP_SELECTIONS_MTC0" tableName="KRNS_LOOKUP_SEL_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3932" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KNS_PESSIMISTIC_LOCK_TC0" tableName="KRNS_PESSIMISTIC_LOCK_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3933" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_DOC_ATT_LST_TC0" tableName="KRNS_MAINT_DOC_ATT_LST_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3934" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_MAINT_LOCK_TC0" tableName="KRNS_MAINT_LOCK_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3935" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="SH_ATT_TC0" tableName="KRNS_ATT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3936" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="SH_NTE_TC0" tableName="KRNS_NTE_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3937" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="SH_NTE_TYP_TC0" tableName="KRNS_NTE_TYP_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3938" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_DTL_TYP_TC0" tableName="krcr_cmpnt_t"/>
-  </changeSet>
-  <changeSet author="kfs" id="3939" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TYP_TC0" tableName="krcr_parm_typ_t"/>
-  </changeSet>
-  <changeSet author="kfs" id="3940" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_NMSPC_TC0" tableName="krcr_nmspc_t"/>
-  </changeSet>
-  <changeSet author="kfs" id="3941-parameter" context="bootstrap,demo">
-    <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRNS_PARM_TC0" tableName="krcr_parm_t"/>
   </changeSet>
 </databaseChangeLog>

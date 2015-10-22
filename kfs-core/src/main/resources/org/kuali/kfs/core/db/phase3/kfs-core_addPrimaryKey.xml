@@ -522,9 +522,6 @@
   <changeSet author="kfs" id="1359" context="bootstrap,demo">
     <addPrimaryKey columnNames="FIN_COA_CD, ACCT_FOBJ_TYP_CD, ACCT_NBR_FOBJ_CD" constraintName="PKGL_SF_REBUILD_T" tableName="GL_SF_REBUILD_T"/>
   </changeSet>
-  <changeSet author="kfs" id="1360" context="bootstrap,demo">
-    <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKKRNS_MAINT_DOC_T" tableName="KRNS_MAINT_DOC_T"/>
-  </changeSet>
   <changeSet author="kfs" id="1361" context="bootstrap,demo">
     <addPrimaryKey columnNames="ACCTG_CHG_CD" constraintName="PKPDP_ACCTG_CHG_CD_T" tableName="PDP_ACCTG_CHG_CD_T"/>
   </changeSet>
@@ -791,107 +788,5 @@
   </changeSet>
   <changeSet author="kfs" id="4227" context="bootstrap,demo">
     <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP, TRIGGER_LISTENER" constraintName="PKQRTZ_TRIGGER_LISTENERS" tableName="QRTZ_TRIGGER_LISTENERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3897" context="bootstrap,demo">
-    <addPrimaryKey columnNames="RECIP_TYP_CD, ACTN_RQST_CD, ACTN_RQST_RECIP_ID, DOC_HDR_ID" constraintName="PKKRNS_ADHOC_RTE_ACTN_RECIP_T" tableName="KRNS_ADHOC_RTE_ACTN_RECIP_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3898" context="bootstrap,demo">
-    <addPrimaryKey columnNames="NTE_ID" constraintName="PKKRNS_ATT_T" tableName="KRNS_ATT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3899" context="bootstrap,demo">
-    <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKKRNS_DOC_HDR_T" tableName="KRNS_DOC_HDR_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3900" context="bootstrap,demo">
-    <addPrimaryKey columnNames="LOOKUP_RSLT_ID" constraintName="PKKRNS_LOOKUP_RSLT_T" tableName="KRNS_LOOKUP_RSLT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3901" context="bootstrap,demo">
-    <addPrimaryKey columnNames="LOOKUP_RSLT_ID" constraintName="PKKRNS_LOOKUP_SEL_T" tableName="KRNS_LOOKUP_SEL_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3902" context="bootstrap,demo">
-    <addPrimaryKey columnNames="ATT_ID" constraintName="PKKRNS_MAINT_DOC_ATT_LST_T" tableName="KRNS_MAINT_DOC_ATT_LST_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3903" context="bootstrap,demo">
-    <addPrimaryKey columnNames="DOC_HDR_ID" constraintName="PKKRNS_MAINT_DOC_ATT_T" tableName="KRNS_MAINT_DOC_ATT_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3904" context="bootstrap,demo">
-    <addPrimaryKey columnNames="MAINT_LOCK_ID" constraintName="PKKRNS_MAINT_LOCK_T" tableName="KRNS_MAINT_LOCK_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3905" context="bootstrap,demo">
-    <addPrimaryKey columnNames="NTE_ID" constraintName="PKKRNS_NTE_T" tableName="KRNS_NTE_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3906" context="bootstrap,demo">
-    <addPrimaryKey columnNames="NTE_TYP_CD" constraintName="PKKRNS_NTE_TYP_T" tableName="KRNS_NTE_TYP_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3907" context="bootstrap,demo">
-    <addPrimaryKey columnNames="PESSIMISTIC_LOCK_ID" constraintName="PKKRNS_PESSIMISTIC_LOCK_T" tableName="KRNS_PESSIMISTIC_LOCK_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3908" context="bootstrap,demo">
-    <addPrimaryKey columnNames="SESN_DOC_ID, DOC_HDR_ID, PRNCPL_ID, IP_ADDR" constraintName="PKKRNS_SESN_DOC_T" tableName="KRNS_SESN_DOC_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3909" context="bootstrap,demo">
-    <addPrimaryKey columnNames="BAM_PARM_ID" constraintName="PKKRSB_BAM_PARM_T" tableName="KRSB_BAM_PARM_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3910" context="bootstrap,demo">
-    <addPrimaryKey columnNames="BAM_ID" constraintName="PKKRSB_BAM_T" tableName="KRSB_BAM_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3911" context="bootstrap,demo">
-    <addPrimaryKey columnNames="MSG_QUE_ID" constraintName="PKKRSB_MSG_PYLD_T" tableName="KRSB_MSG_PYLD_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3912" context="bootstrap,demo">
-    <addPrimaryKey columnNames="MSG_QUE_ID" constraintName="PKKRSB_MSG_QUE_T" tableName="KRSB_MSG_QUE_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3913" context="bootstrap,demo">
-    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKKRSB_QRTZ_BLOB_TRIGGERS" tableName="KRSB_QRTZ_BLOB_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3914" context="bootstrap,demo">
-    <addPrimaryKey columnNames="CALENDAR_NAME" constraintName="PKKRSB_QRTZ_CALENDARS" tableName="KRSB_QRTZ_CALENDARS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3915" context="bootstrap,demo">
-    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKKRSB_QRTZ_CRON_TRIGGERS" tableName="KRSB_QRTZ_CRON_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3916" context="bootstrap,demo">
-    <addPrimaryKey columnNames="ENTRY_ID" constraintName="PKKRSB_QRTZ_FIRED_TRIGGERS" tableName="KRSB_QRTZ_FIRED_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3917" context="bootstrap,demo">
-    <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP" constraintName="PKKRSB_QRTZ_JOB_DETAILS" tableName="KRSB_QRTZ_JOB_DETAILS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3918" context="bootstrap,demo">
-    <addPrimaryKey columnNames="JOB_NAME, JOB_GROUP, JOB_LISTENER" constraintName="PKKRSB_QRTZ_JOB_LISTENERS" tableName="KRSB_QRTZ_JOB_LISTENERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3919" context="bootstrap,demo">
-    <addPrimaryKey columnNames="LOCK_NAME" constraintName="PKKRSB_QRTZ_LOCKS" tableName="KRSB_QRTZ_LOCKS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3920" context="bootstrap,demo">
-    <addPrimaryKey columnNames="TRIGGER_GROUP" constraintName="PKKRSB_QRTZ_PAUSED_TRIGGER_GR" tableName="KRSB_QRTZ_PAUSED_TRIGGER_GRPS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3921" context="bootstrap,demo">
-    <addPrimaryKey columnNames="INSTANCE_NAME" constraintName="PKKRSB_QRTZ_SCHEDULER_STATE" tableName="KRSB_QRTZ_SCHEDULER_STATE"/>
-  </changeSet>
-  <changeSet author="kfs" id="3922" context="bootstrap,demo">
-    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKKRSB_QRTZ_SIMPLE_TRIGGERS" tableName="KRSB_QRTZ_SIMPLE_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3923" context="bootstrap,demo">
-    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP" constraintName="PKKRSB_QRTZ_TRIGGERS" tableName="KRSB_QRTZ_TRIGGERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3924" context="bootstrap,demo">
-    <addPrimaryKey columnNames="TRIGGER_NAME, TRIGGER_GROUP, TRIGGER_LISTENER" constraintName="PKKRSB_QRTZ_TRIGGER_LISTENERS" tableName="KRSB_QRTZ_TRIGGER_LISTENERS"/>
-  </changeSet>
-  <changeSet author="kfs" id="3925" context="bootstrap,demo">
-    <addPrimaryKey columnNames="SVC_DEF_ID" constraintName="PKKRSB_SVC_DEF_T" tableName="KRSB_SVC_DEF_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3926" context="bootstrap,demo">
-    <addPrimaryKey columnNames="SVC_DSCRPTR_ID" constraintName="PKKRSB_SVC_DSCRPTR_T" tableName="KRSB_SVC_DSCRPTR_T"/>
-  </changeSet>
-  <changeSet author="kfs" id="3927" context="bootstrap,demo">
-    <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD" constraintName="PKkrcr_cmpnt_t" tableName="krcr_cmpnt_t"/>
-  </changeSet>
-  <changeSet author="kfs" id="3928" context="bootstrap,demo">
-    <addPrimaryKey columnNames="PARM_TYP_CD" constraintName="PKkrcr_parm_typ_t" tableName="krcr_parm_typ_t"/>
-  </changeSet>
-  <changeSet author="kfs" id="3929" context="bootstrap,demo">
-    <addPrimaryKey columnNames="NMSPC_CD" constraintName="PKkrcr_nmspc_t" tableName="krcr_nmspc_t"/>
-  </changeSet>
-  <changeSet author="kfs" id="3929-parameter" context="bootstrap,demo">
-    <addPrimaryKey columnNames="NMSPC_CD, CMPNT_CD, PARM_NM, APPL_ID" constraintName="PKkrcr_parm_t" tableName="krcr_parm_t"/>
   </changeSet>
 </databaseChangeLog>
