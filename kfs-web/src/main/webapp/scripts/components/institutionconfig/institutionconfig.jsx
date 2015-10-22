@@ -10,7 +10,8 @@ let InstitutionConfig = React.createClass({
         updateLinkGroups: React.PropTypes.func,
         updateLinkGroupName: React.PropTypes.func,
         addNewLinkGroup: React.PropTypes.func,
-        deleteLinkGroup: React.PropTypes.func
+        deleteLinkGroup: React.PropTypes.func,
+        addNewCustomLink: React.PropTypes.func
     },
     getChildContext() {
         return {
@@ -18,7 +19,8 @@ let InstitutionConfig = React.createClass({
             updateLinkGroups: this.updateLinkGroups,
             updateLinkGroupName: this.updateLinkGroupName,
             addNewLinkGroup: this.addNewLinkGroup,
-            deleteLinkGroup: this.deleteLinkGroup
+            deleteLinkGroup: this.deleteLinkGroup,
+            addNewCustomLink: this.addNewCustomLink
         }
     },
     getInitialState() {
@@ -71,6 +73,15 @@ let InstitutionConfig = React.createClass({
         let linkGroups = this.state.linkGroups;
         let updatedLinkGroups = linkGroups.splice(index, 1);
         this.setState({linkGroups: updatedLinkGroups});
+    },
+    addNewCustomLink(groupIndex, newLink) {
+        let linkGroups = this.state.linkGroups;
+        let linkGroup = linkGroups.get(groupIndex);
+        let links = linkGroup.get('links');
+        let updatedLinks = links.push(newLink);
+        let updatedLinkGroup = linkGroup.set('links', updatedLinks);
+        let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
+        this.setState({'linkGroups': updatedLinkGroups});
     },
     saveChanges() {
         let institutionId = this.state.institutionId;
