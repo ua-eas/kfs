@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2015 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="KFS61" id="FINI-43">
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINI43]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI43]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[29]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[Use Screen org.kuali.kfs.sys.web.struts.SidebarMenuCacheAction]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows access to the Sidebar Menu Cache Configuration Screen]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINI43]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI43]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINI43]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[12]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[2]]></column>
+            <column name="ATTR_VAL"><![CDATA[org.kuali.kfs.sys.web.struts.SidebarMenuCacheAction]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINI43]]></column>
+            <column name="OBJ_ID"><![CDATA[FINI43]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[51]]></column>
+            <column name="PERM_ID"><![CDATA[FINI43]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

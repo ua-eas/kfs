@@ -423,7 +423,7 @@
 		</property>
     	<property name="parameterService">
     	 <ref bean="parameterService" />
-		</property>		
+		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
 		</property>
@@ -511,10 +511,10 @@
 		</property>
 		<property name="parameterService">
 			<ref bean="parameterService" />
-		</property>		
+		</property>
 	    <property name="kualiModuleService">
 			<ref bean="kualiModuleService" />
-		</property>		
+		</property>
 	</bean>
 
 	<bean id="FiscalYearMaker" parent="FiscalYearMaker-parentBean" abstract="true"/>
@@ -1276,11 +1276,16 @@
 		<constructor-arg ref="mongoDbFactory" />
 	</bean>
 
-	<bean id="preferencesService" parent="preferencesService-parentBean"/>
-	<bean id="preferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.PreferencesServiceImpl">
+	<bean id="institutionPreferencesService" parent="institutionPreferencesService-parentBean"/>
+	<bean id="institutionPreferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.InstitutionPreferencesServiceImpl">
 		<property name="configurationService" ref="configurationService"/>
 		<property name="documentDictionaryService" ref="documentDictionaryService" />
 		<property name="kualiModuleService" ref="kualiModuleService"/>
+		<property name="preferencesDao" ref="preferencesDao" />
+	</bean>
+
+	<bean id="userPreferencesService" parent="userPreferencesService-parentBean"/>
+	<bean id="userPreferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.UserPreferencesServiceImpl">
 		<property name="preferencesDao" ref="preferencesDao" />
 	</bean>
 

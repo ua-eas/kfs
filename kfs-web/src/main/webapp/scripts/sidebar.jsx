@@ -6,23 +6,46 @@ let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: "", checkedLinkFilters: ['activities', 'reference', 'administration']}
+        return { principalName: "",institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: "", checkedLinkFilters: ['activities', 'reference', 'administration']}
     },
     componentWillMount() {
-        let institutionPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
-        $.ajax({
-            url: institutionPath,
-            dataType: 'json',
-            type: 'GET',
-            success: function(preferences) {
-                this.setState({institutionPreferences: preferences});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(status, err.toString());
-            }.bind(this)
+        let thisComponent = this
+        let found = false
+
+        UserPrefs.getPrincipalName(function(principalName) {
+            thisComponent.setState({principalName: principalName})
+            let preferencesString = localStorage.getItem("institutionPreferences")
+            if ( preferencesString != null ) {
+                let sessionId = KfsUtils.getKualiSessionId()
+                let prefs = JSON.parse(preferencesString)
+                if ( (prefs.sessionId == sessionId) && (prefs.principalName == principalName) ) {
+                    found = true
+                    thisComponent.setState({institutionPreferences: prefs})
+                } else {
+                    localStorage.removeItem("institutionPreferences")
+                }
+            }
+
+            if ( ! found ) {
+                let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName
+                $.ajax({
+                    url: institutionLinksPath,
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function (preferences) {
+                        thisComponent.setState({institutionPreferences: preferences});
+                        preferences.sessionId = KfsUtils.getKualiSessionId()
+                        localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                    }.bind(this),
+                    error: function (xhr, status, err) {
+                        console.error(status, err.toString());
+                    }.bind(this)
+                })
+            }
+        },function() {
+            console.error("Error retrieving principalName")
         })
 
-        let thisComponent = this;
         UserPrefs.getUserPreferences(function (userPreferences) {
             thisComponent.setState({userPreferences: userPreferences});
         }, function (error) {
@@ -69,6 +92,33 @@ var Sidebar = React.createClass({
 
         UserPrefs.putUserPreferences(userPreferences);
     },
+    refreshLinks() {
+        let thisComponent = this
+        let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + thisComponent.state.principalName
+
+        $('.cover').show()
+        $('.sidebar-waiting').css('top',($(window).height() / 2) - 20).show()
+
+        $.ajax({
+            url: institutionLinksPath,
+            dataType: 'json',
+            type: 'GET',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('cache-control', 'must-revalidate')
+            },
+            success: function (preferences) {
+                thisComponent.setState({institutionPreferences: preferences})
+                preferences.sessionId = KfsUtils.getKualiSessionId()
+                localStorage.setItem("institutionPreferences", JSON.stringify(preferences))
+                $('.cover').hide()
+                $('.sidebar-waiting').hide()
+            }.bind(this),
+            error: function (xhr, status, err) {
+                $('#sidebar').removeClass('sidebar-dim')
+                console.error(status, err.toString())
+            }.bind(this)
+        })
+    },
     render() {
         let rootPath = KfsUtils.getUrlPathPrefix()
         let linkGroups = []
@@ -93,12 +143,17 @@ var Sidebar = React.createClass({
 
         return (
             <div>
+                <div className="cover"></div>
+                <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
                 <ul id="linkgroups" className="nav list-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
                     <li className="list-item"><LinkFilter checkedLinkFilters={this.state.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
+                <div className="refresh">
+                    Missing something? <a href="#d" onClick={this.refreshLinks}><span> Refresh Menu </span></a> to make sure your permissions are up to date.
+                </div>
             </div>
         )
     }
