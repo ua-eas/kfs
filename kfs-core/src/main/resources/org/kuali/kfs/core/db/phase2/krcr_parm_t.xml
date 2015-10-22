@@ -10267,42 +10267,6 @@ dress is a PO type address.]]></column>
         <insert tableName="krcr_parm_t">
             <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
             <column name="CMPNT_CD"><![CDATA[All]]></column>
-            <column name="PARM_NM"><![CDATA[ENABLE_DIRECT_INQUIRIES_IND]]></column>
-            <column name="OBJ_ID"><![CDATA[KFS603]]></column>
-            <column name="VER_NBR"><![CDATA[1]]></column>
-            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-            <column name="VAL"><![CDATA[N]]></column>
-            <column name="PARM_DESC_TXT"><![CDATA[Flag for enabling/disabling direct inquiries on screens that are drawn by the nervous system (i.e. lookups and maintenance documents)]]></column>
-            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-            <column name="APPL_ID"><![CDATA[KFS]]></column>
-        </insert>
-        <insert tableName="krcr_parm_t">
-            <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
-            <column name="CMPNT_CD"><![CDATA[All]]></column>
-            <column name="PARM_NM"><![CDATA[ENABLE_FIELD_LEVEL_HELP_IND]]></column>
-            <column name="OBJ_ID"><![CDATA[KFS604]]></column>
-            <column name="VER_NBR"><![CDATA[1]]></column>
-            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-            <column name="VAL"><![CDATA[N]]></column>
-            <column name="PARM_DESC_TXT"><![CDATA[Indicates whether field level help links are enabled on lookup pages and documents.]]></column>
-            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-            <column name="APPL_ID"><![CDATA[KFS]]></column>
-        </insert>
-        <insert tableName="krcr_parm_t">
-            <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
-            <column name="CMPNT_CD"><![CDATA[All]]></column>
-            <column name="PARM_NM"><![CDATA[LOGOFF_REDIRECT_URL]]></column>
-            <column name="OBJ_ID"><![CDATA[KR-NS-PARM-001]]></column>
-            <column name="VER_NBR"><![CDATA[1]]></column>
-            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-            <column name="VAL"><![CDATA[signout.html]]></column>
-            <column name="PARM_DESC_TXT"><![CDATA[Set this value to the URL to redirect to when a user signs out of the application.]]></column>
-            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
-            <column name="APPL_ID"><![CDATA[KFS]]></column>
-        </insert>
-        <insert tableName="krcr_parm_t">
-            <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
-            <column name="CMPNT_CD"><![CDATA[All]]></column>
             <column name="PARM_NM"><![CDATA[MAX_FILE_SIZE_DEFAULT_UPLOAD]]></column>
             <column name="OBJ_ID"><![CDATA[53680C68F59DAD9BE0404F8189D80A6C]]></column>
             <column name="VER_NBR"><![CDATA[1]]></column>
