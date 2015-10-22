@@ -1,11 +1,12 @@
 import {buildSortableDropHandler} from './institutionconfigutils.js';
 import {buildKeyFromLabel} from '../../sys/utils.js';
+import Immutable from 'immutable';
 
 let LinkGroupLinks = React.createClass({
     render() {
-        let linkGroupLinkElements = this.props.linkGroups.map((linkGroup) => {
+        let linkGroupLinkElements = this.props.linkGroups.map((linkGroup, index) => {
             let id = buildKeyFromLabel(linkGroup.get('label'))
-            return <SubLinkGroup key={'subLinkGroup-' + id} id={id} links={linkGroup.get('links')} groupLabel={linkGroup.get('label')} expandedLinkGroup={this.props.expandedLinkGroup} linkGroups={this.props.linkGroups}/>
+            return <SubLinkGroup key={'subLinkGroup-' + id} id={id} links={linkGroup.get('links')} groupIndex = {index} groupLabel={linkGroup.get('label')} expandedLinkGroup={this.props.expandedLinkGroup} linkGroups={this.props.linkGroups}/>
         });
         let className = this.props.topGroupSelected ? 'top-selected' : '';
         return <div id="linkGroupLinksList" className={className}>{linkGroupLinkElements}</div>;
@@ -13,13 +14,78 @@ let LinkGroupLinks = React.createClass({
 });
 
 let SubLinkGroup = React.createClass({
+    contextTypes: {
+        addNewCustomLink: React.PropTypes.func
+    },
+    getInitialState() {
+        return {
+            customLinkFormOpen: false,
+            errors: [],
+            newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
+        };
+    },
+    openAddCustomLink() {
+        this.setState({
+            customLinkFormOpen: !this.state.customLinkFormOpen,
+            errors: [],
+            newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
+        });
+    },
+    addCustomLink() {
+        if (this.state.newLink.get('label').trim() && this.state.newLink.get('link').trim()) {
+            this.context.addNewCustomLink(this.props.groupIndex, this.state.newLink);
+            this.setState({
+                    customLinkFormOpen: false,
+                    errors: [],
+                    newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
+            });
+        } else {
+            let errors = [];
+            if (!this.state.newLink.get('label').trim()) {
+                errors.push('label');
+            }
+            if (!this.state.newLink.get('link').trim()) {
+                errors.push('link');
+            }
+            this.setState({errors: errors});
+        }
+    },
+    updateNewLinkValue(key, event) {
+        let value = $(event.target).val();
+        let updatedNewLink = this.state.newLink.set(key, value);
+        this.setState({newLink: updatedNewLink});
+    },
     render() {
         let divClassName = 'admin-sublinks';
         if (this.props.groupLabel !== this.props.expandedLinkGroup) {
             divClassName += ' collapse';
         }
+        let formClass = this.state.customLinkFormOpen ? 'customLinkForm' : 'customLinkForm hidden';
+        let labelClass = this.state.errors.indexOf('label') > -1 ? 'error' : '';
+        let linkClass = this.state.errors.indexOf('link') > -1 ? 'error' : '';
         return (
             <div id={this.props.id + "-menu"} className={divClassName}>
+                <div className="addCustomLink">
+                    <button className="btn btn-default" onClick={this.openAddCustomLink}><span className="glyphicon glyphicon-plus"></span>Add Custom Link</button>
+                    <div className={formClass}>
+                        <div><label>LINK NAME:</label></div>
+                        <div><input className={labelClass} type="text" value={this.state.newLink.get('label')} onChange={this.updateNewLinkValue.bind(this, 'label')}/></div>
+                        <div><label>URL:</label></div>
+                        <div><input className={linkClass} type="text" value={this.state.newLink.get('link')} onChange={this.updateNewLinkValue.bind(this, 'link')}/></div>
+                        <div>
+                            <input checked={this.state.newLink.get('type') === 'activities'} type="radio" value="activities" id={this.props.id + "-activities-radio"} onChange={this.updateNewLinkValue.bind(this, 'type')}/>
+                            <label htmlFor={this.props.id + "-activities-radio"}>Activities</label>
+                            <input checked={this.state.newLink.get('type') === 'reference'} type="radio" value="reference" id={this.props.id + "-reference-radio"} onChange={this.updateNewLinkValue.bind(this, 'type')}/>
+                            <label htmlFor={this.props.id + "-reference-radio"}>Reference</label>
+                            <input checked={this.state.newLink.get('type') === 'administration'} type="radio" value="administration" id={this.props.id + "-administration-radio"} onChange={this.updateNewLinkValue.bind(this, 'type')}/>
+                            <label htmlFor={this.props.id + "-administration-radio"}>Administration</label>
+                        </div>
+                        <div>
+                            <button className="btn btn-green" onClick={this.addCustomLink}>Add</button>
+                            <button className="btn btn-default" onClick={this.openAddCustomLink}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
                 <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='activities' linkGroups={this.props.linkGroups}/>
                 <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='reference' linkGroups={this.props.linkGroups}/>
                 <SubLinkType groupLabel={this.props.groupLabel} links={this.props.links} type='administration' linkGroups={this.props.linkGroups}/>

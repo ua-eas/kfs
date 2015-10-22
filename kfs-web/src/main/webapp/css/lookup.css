@@ -172,8 +172,8 @@ div.excol {
     padding-right: 12px;
 }
 
-#lookup input[type=text],
-#lookup select {
+input[type=text],
+select {
     height: 30px;
     width: 290px;
     border: 1px solid #D6D6D6;

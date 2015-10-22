@@ -32,6 +32,65 @@ div#linkGroupLinksList {
     order: 2;
 }
 
+#linkGroupLinksList div.addCustomLink {
+    height: 30px;
+    position: relative;
+}
+
+#linkGroupLinksList div.addCustomLink>button {
+    float: right;
+    color: #555555;
+    text-transform: uppercase;
+}
+
+#linkGroupLinksList div.customLinkForm {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #BBBBBB;
+    border-radius: 3px;
+    padding: 15px 20px;
+    color: #666666;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.20);
+}
+
+#linkGroupLinksList div.customLinkForm.hidden {
+    display: none;
+}
+
+#linkGroupLinksList div.customLinkForm div {
+    display: table;
+    width: 100%;
+}
+
+#linkGroupLinksList div.customLinkForm input {
+    margin-bottom: 25px;
+}
+
+#linkGroupLinksList div.customLinkForm input[type=text] {
+    width: 330px;
+}
+
+#linkGroupLinksList div.customLinkForm input[type=radio] {
+    margin-right: 7px;
+}
+
+#linkGroupLinksList div.customLinkForm input.error {
+    border-color: #C47965;
+}
+
+#linkGroupLinksList div.customLinkForm label {
+    margin-right: 15px;
+    font-weight: 400;
+}
+
+#linkGroupLinksList div.customLinkForm button {
+    float: right;
+    margin-left: 10px;
+}
+
 #linkGroupsList li.linkgroup {
     background-color: #6B6B6B;
     text-transform: uppercase;
