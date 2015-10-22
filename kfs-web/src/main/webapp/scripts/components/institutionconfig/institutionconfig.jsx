@@ -9,14 +9,16 @@ let InstitutionConfig = React.createClass({
         toggleLinkGroup: React.PropTypes.func,
         updateLinkGroups: React.PropTypes.func,
         updateLinkGroupName: React.PropTypes.func,
-        addNewLinkGroup: React.PropTypes.func
+        addNewLinkGroup: React.PropTypes.func,
+        deleteLinkGroup: React.PropTypes.func
     },
     getChildContext() {
         return {
             toggleLinkGroup: this.toggleLinkGroup,
             updateLinkGroups: this.updateLinkGroups,
             updateLinkGroupName: this.updateLinkGroupName,
-            addNewLinkGroup: this.addNewLinkGroup
+            addNewLinkGroup: this.addNewLinkGroup,
+            deleteLinkGroup: this.deleteLinkGroup
         }
     },
     getInitialState() {
@@ -65,6 +67,11 @@ let InstitutionConfig = React.createClass({
         let updatedLinkGroups = linkGroups.push(newLinkGroup);
         this.setState({linkGroups: updatedLinkGroups})
     },
+    deleteLinkGroup(index) {
+        let linkGroups = this.state.linkGroups;
+        let updatedLinkGroups = linkGroups.splice(index, 1);
+        this.setState({linkGroups: updatedLinkGroups});
+    },
     saveChanges() {
         let institutionId = this.state.institutionId;
         let linkGroupPath = getUrlPathPrefix() + "sys/preferences/institution/" + institutionId;
@@ -75,7 +82,7 @@ let InstitutionConfig = React.createClass({
             type: 'PUT',
             data: JSON.stringify(this.state.linkGroups),
             success: function(linkGroups) {
-
+                alert('Preferences successfully saved!');
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());
