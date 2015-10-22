@@ -109,21 +109,39 @@ div#linkGroupLinksList {
     margin-top: -3px;
     border-radius: 2px;
     color: #C5C5C5;
-    padding: 0;
+    padding: 4px;
+    margin-left: 10px;
+    float: left;
 }
 
 #linkGroupsList li.linkgroup .actions #saveGroupLabelButton {
-    padding: 0 5px;
+    padding: 2px 5px;
+    margin-top: 0;
+}
+
+#linkGroupsList li.linkgroup .actions button span {
+    display: inline-block;
+    width: 16px;
+    height: 30px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    padding: 0;
+}
+
+#linkGroupsList li.linkgroup .actions #editGroupLabelButton {
+    padding-top: 6px;
 }
 
 #linkGroupsList li.linkgroup .actions #editGroupLabelButton .edit {
     background-image: url("../static/images/edit.png");
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-size: 16px;
-    background-repeat: no-repeat;
-    padding: 0;
+}
+
+#linkGroupsList li.linkgroup .actions #deleteGroupLabelButton .delete {
+    background-image: url("../static/images/trash.png");
+}
+
+#linkGroupsList li.linkgroup .actions #saveGroupLabelButton .save {
+    width: inherit;
 }
 
 .instconfig div.admin-sublinks {
