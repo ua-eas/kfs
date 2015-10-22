@@ -21,7 +21,7 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="2566" context="bootstrap,demo">
+    <changeSet author="kfs" id="2566" context="bootstrap,demo,unit">
         <createTable tableName="CG_AGENCY_ADDR_T">
             <column defaultValue="" name="CG_AGENCY_NBR" type="VARCHAR(6)">
                 <constraints nullable="false"/>
@@ -54,7 +54,7 @@
             <column name="AGENCY_CNTCT_EMAIL_ADDR" type="VARCHAR(60)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2567" context="bootstrap,demo">
+    <changeSet author="kfs" id="2567" context="bootstrap,demo,unit">
         <createTable tableName="CG_AGENCY_T">
             <column defaultValue="" name="CG_AGENCY_NBR" type="VARCHAR(6)">
                 <constraints nullable="false"/>
@@ -83,7 +83,7 @@
             <column defaultValue="N" name="STATE_AGENCY_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2568" context="bootstrap,demo">
+    <changeSet author="kfs" id="2568" context="bootstrap,demo,unit">
         <createTable tableName="CG_AGENCY_TYP_T">
             <column defaultValue="" name="CG_AGENCY_TYP_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -100,7 +100,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2569" context="bootstrap,demo">
+    <changeSet author="kfs" id="2569" context="bootstrap,demo,unit">
         <createTable tableName="CG_AWD_ACCT_T">
             <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -126,7 +126,7 @@
             <column name="PREV_LST_BILLED_DT" type="DATE"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2570" context="bootstrap,demo">
+    <changeSet author="kfs" id="2570" context="bootstrap,demo,unit">
         <createTable tableName="CG_AWD_FNDMGR_T">
             <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -147,7 +147,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2571" context="bootstrap,demo">
+    <changeSet author="kfs" id="2571" context="bootstrap,demo,unit">
         <createTable tableName="CG_AWD_ORG_T">
             <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -170,7 +170,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2572" context="bootstrap,demo">
+    <changeSet author="kfs" id="2572" context="bootstrap,demo,unit">
         <createTable tableName="CG_AWD_PRJDR_T">
             <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -191,7 +191,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2573" context="bootstrap,demo">
+    <changeSet author="kfs" id="2573" context="bootstrap,demo,unit">
         <createTable tableName="CG_AWD_STAT_T">
             <column defaultValue="" name="CGAWD_STAT_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -208,7 +208,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2574" context="bootstrap,demo">
+    <changeSet author="kfs" id="2574" context="bootstrap,demo,unit">
         <createTable tableName="CG_AWD_SUBCN_T">
             <column defaultValue="" name="AWD_SUBCN_AMND_NBR" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -238,7 +238,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2575" context="bootstrap,demo">
+    <changeSet author="kfs" id="2575" context="bootstrap,demo,unit">
         <createTable tableName="CG_AWD_T">
             <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -299,7 +299,7 @@
             <column name="STOP_WRK_REASON_TXT" type="VARCHAR(120)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2576" context="bootstrap,demo">
+    <changeSet author="kfs" id="2576" context="bootstrap,demo,unit">
         <createTable tableName="CG_BILL_FREQ_T">
             <column defaultValue="" name="BILL_FREQ_CD" type="VARCHAR(4)">
                 <constraints nullable="false"/>
@@ -317,7 +317,7 @@
             <column name="GRACE_PERIOD" type="DECIMAL(3)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2577" context="bootstrap,demo">
+    <changeSet author="kfs" id="2577" context="bootstrap,demo,unit">
         <createTable tableName="CG_CFDA_REF_T">
             <column defaultValue="" name="CG_CFDA_NBR" type="VARCHAR(6)">
                 <constraints nullable="false"/>
@@ -335,7 +335,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2578" context="bootstrap,demo">
+    <changeSet author="kfs" id="2578" context="bootstrap,demo,unit">
         <createTable tableName="CG_GRANT_DESC_T">
             <column defaultValue="" name="CG_GRANT_DESC_CD" type="VARCHAR(3)">
                 <constraints nullable="false"/>
@@ -350,7 +350,7 @@
             <column name="CG_GRNT_DESC_ACTV_CD" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2579" context="bootstrap,demo">
+    <changeSet author="kfs" id="2579" context="bootstrap,demo,unit">
         <createTable tableName="CG_INSTRMNT_TYP_T">
             <column defaultValue="" name="INSTRMNT_TYP_CD" type="VARCHAR(4)">
                 <constraints nullable="false"/>
@@ -367,7 +367,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2580" context="bootstrap,demo">
+    <changeSet author="kfs" id="2580" context="bootstrap,demo,unit">
         <createTable tableName="CG_LTRCR_FNDGRP_T">
             <column defaultValue="" name="CG_LTRCR_FNDGRP_CD" type="VARCHAR(4)">
                 <constraints nullable="false"/>
@@ -384,7 +384,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2581" context="bootstrap,demo">
+    <changeSet author="kfs" id="2581" context="bootstrap,demo,unit">
         <createTable tableName="CG_LTRCR_FND_T">
             <column defaultValue="" name="CG_LTRCR_FND_CD" type="VARCHAR(15)">
                 <constraints nullable="false"/>
@@ -405,7 +405,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2582" context="bootstrap,demo">
+    <changeSet author="kfs" id="2582" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_AWD_TYP_T">
             <column defaultValue="" name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -422,7 +422,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2583" context="bootstrap,demo">
+    <changeSet author="kfs" id="2583" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_CLOSE_T">
             <column defaultValue="" name="CG_PRPSL_CLOSE_NBR" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -440,7 +440,7 @@
             <column name="CG_USR_INITIATE_DT" type="DATE"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2584" context="bootstrap,demo">
+    <changeSet author="kfs" id="2584" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_ORG_T">
             <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -463,7 +463,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2585" context="bootstrap,demo">
+    <changeSet author="kfs" id="2585" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_PRJDR_T">
             <column defaultValue="" name="PERSON_UNVL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -484,7 +484,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2586" context="bootstrap,demo">
+    <changeSet author="kfs" id="2586" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_PURPOSE_T">
             <column defaultValue="" name="CGPRPSL_PURPOSE_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -501,7 +501,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2587" context="bootstrap,demo">
+    <changeSet author="kfs" id="2587" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_RSRCH_RSK_T">
             <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -520,7 +520,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2588" context="bootstrap,demo">
+    <changeSet author="kfs" id="2588" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_STAT_T">
             <column defaultValue="" name="CGPRPSL_STAT_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -537,7 +537,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2589" context="bootstrap,demo">
+    <changeSet author="kfs" id="2589" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_SUBCN_T">
             <column defaultValue="" name="CGPRPSL_SUBCN_NBR" type="VARCHAR(2)">
                 <constraints nullable="false"/>
@@ -561,7 +561,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2590" context="bootstrap,demo">
+    <changeSet author="kfs" id="2590" context="bootstrap,demo,unit">
         <createTable tableName="CG_PRPSL_T">
             <column defaultValueNumeric="0" name="CGPRPSL_NBR" type="DECIMAL(12)">
                 <constraints nullable="false"/>
@@ -599,7 +599,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2591" context="bootstrap,demo">
+    <changeSet author="kfs" id="2591" context="bootstrap,demo,unit">
         <createTable tableName="CG_SUBCNR_T">
             <column defaultValue="" name="CG_SUBCNR_NBR" type="VARCHAR(5)">
                 <constraints nullable="false"/>
@@ -622,7 +622,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2592" context="bootstrap,demo">
+    <changeSet author="kfs" id="2592" context="bootstrap,demo,unit">
         <createTable tableName="ER_CTRL_ATTRIB_TYP_T">
             <column defaultValue="" name="CTRL_ATTRIB_TYP_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
@@ -640,7 +640,7 @@
             <column name="CTRL_ATTRIB_TYP_DESC" type="VARCHAR(100)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="2593" context="bootstrap,demo">
+    <changeSet author="kfs" id="2593" context="bootstrap,demo,unit">
         <createTable tableName="ER_RSRCH_RSK_TYP_T">
             <column defaultValue="" name="RSRCH_RSK_TYP_CD" type="VARCHAR(2)">
                 <constraints nullable="false"/>

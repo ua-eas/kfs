@@ -18,204 +18,204 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="4776" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4776" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_ACCT_DOC_REL_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4776" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4776" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_ACCT_DOC_REL_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4777" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4777" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_ATTENDEE_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4777" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4777" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_ATTENDEE_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4778" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4778" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_CORP_CARD_PSEUDO_NUM_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4778" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4778" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_CORP_CARD_PSEUDO_NUM_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4779" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4779" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_CREDIT_CARD_STAGING_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4779" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4779" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_CREDIT_CARD_STAGING_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4780" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4780" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_EM_CONT_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4780" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4780" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_EM_CONT_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4781" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4781" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_GRP_TRVLR_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4781" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4781" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_GRP_TRVLR_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4782" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4782" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_HIST_EXP_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4782" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4782" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_HIST_EXP_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4783" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4783" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_MILEAGE_RT_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4783" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4783" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_MILEAGE_RT_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4784" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4784" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PER_DIEM_EXP_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4784" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4784" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_PER_DIEM_EXP_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4785" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4785" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PER_DIEM_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4785" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4785" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_PER_DIEM_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4786" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4786" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PRI_DEST_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4786" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4786" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_PRI_DEST_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4787" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4787" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PROFILE_ACCOUNT_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4787" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4787" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_PROFILE_ACCOUNT_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4788" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4788" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PROFILE_ARRANGER_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4788" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4788" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_PROFILE_ARRANGER_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4789" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4789" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PROFILE_EM_CONT_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4789" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4789" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_PROFILE_EM_CONT_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4790" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4790" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PROFILE_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4790" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4790" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_PROFILE_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4791" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4791" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_SPCL_CRCMSNCS_Q_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4791" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4791" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_SPCL_CRCMSNCS_Q_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4792" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4792" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_SPCL_CRCMSNCS_S">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4792" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4792" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_SPCL_CRCMSNCS_S" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4793" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4793" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRAVELER_DTL_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4793" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4793" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_TRAVELER_DTL_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4794" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4794" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRP_ACCT_INFO_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4794" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4794" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_TRP_ACCT_INFO_ID_SEQ" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" id="4795" dbms="mysql" context="demo,bootstrap">
+    <changeSet author="kfs" id="4795" dbms="mysql" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRVL_EXP_ID_SEQ">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="4795" dbms="oracle" context="demo,bootstrap">
+    <changeSet author="kfs" id="4795" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_TRVL_EXP_ID_SEQ" startValue="1"/>
     </changeSet>
 </databaseChangeLog>

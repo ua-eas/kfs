@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="rice00328">
+    <changeSet author="kfs" id="rice00328" context="bootstrap,demo,unit">
         <createTable tableName="krns_maint_doc_t">
             <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -32,7 +32,7 @@
             <column name="DOC_CNTNT" type="LONGTEXT"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00316">
+    <changeSet author="kfs" id="rice00316" context="bootstrap,demo,unit">
         <createTable tableName="krns_adhoc_rte_actn_recip_t">
             <column defaultValueNumeric="0" name="RECIP_TYP_CD" type="DECIMAL(1)">
                 <constraints nullable="false"/>
@@ -54,7 +54,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00318">
+    <changeSet author="kfs" id="rice00318" context="bootstrap,demo,unit">
         <createTable tableName="krns_att_t">
             <column defaultValueNumeric="0" name="NTE_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
@@ -72,7 +72,7 @@
             <column name="ATT_TYP_CD" type="VARCHAR(40)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00319">
+    <changeSet author="kfs" id="rice00319" context="bootstrap,demo,unit">
         <createTable tableName="krns_doc_hdr_t">
             <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -89,7 +89,7 @@
             <column name="EXPLANATION" type="VARCHAR(400)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00323">
+    <changeSet author="kfs" id="rice00323" context="bootstrap,demo,unit">
         <createTable tableName="krns_lookup_rslt_t">
             <column defaultValue="" name="LOOKUP_RSLT_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -109,7 +109,7 @@
             <column name="SERIALZD_RSLTS" type="LONGTEXT"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00324">
+    <changeSet author="kfs" id="rice00324" context="bootstrap,demo,unit">
         <createTable tableName="krns_lookup_sel_t">
             <column defaultValue="" name="LOOKUP_RSLT_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -129,7 +129,7 @@
             <column name="SEL_OBJ_IDS" type="LONGTEXT"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00325">
+    <changeSet author="kfs" id="rice00325" context="bootstrap,demo,unit">
         <createTable tableName="krns_maint_doc_att_lst_t">
             <column defaultValue="" name="ATT_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -150,7 +150,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00327">
+    <changeSet author="kfs" id="rice00327" context="bootstrap,demo,unit">
         <createTable tableName="krns_maint_doc_att_t">
             <column defaultValue="" name="DOC_HDR_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
@@ -168,7 +168,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00330">
+    <changeSet author="kfs" id="rice00330" context="bootstrap,demo,unit">
         <createTable tableName="krns_maint_lock_t">
             <column name="MAINT_LOCK_REP_TXT" type="VARCHAR(500)"/>
             <column name="OBJ_ID" type="VARCHAR(36)">
@@ -185,7 +185,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00332">
+    <changeSet author="kfs" id="rice00332" context="bootstrap,demo,unit">
         <createTable tableName="krns_nte_t">
             <column defaultValueNumeric="0" name="NTE_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
@@ -213,7 +213,7 @@
             <column name="TPC_TXT" type="VARCHAR(40)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00333">
+    <changeSet author="kfs" id="rice00333" context="bootstrap,demo,unit">
         <createTable tableName="krns_nte_typ_t">
             <column defaultValue="" name="NTE_TYP_CD" type="VARCHAR(4)">
                 <constraints nullable="false"/>
@@ -228,7 +228,7 @@
             <column name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00334">
+    <changeSet author="kfs" id="rice00334" context="bootstrap,demo,unit">
         <createTable tableName="krns_pessimistic_lock_t">
             <column defaultValueNumeric="0" name="PESSIMISTIC_LOCK_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
@@ -254,7 +254,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00335">
+    <changeSet author="kfs" id="rice00335" context="bootstrap,demo,unit">
         <createTable tableName="krns_sesn_doc_t">
             <column defaultValue="" name="SESN_DOC_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -275,7 +275,7 @@
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00337">
+    <changeSet author="kfs" id="rice00337" context="bootstrap,demo,unit">
         <createTable tableName="krsb_bam_parm_t">
             <column defaultValueNumeric="0" name="BAM_PARM_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
@@ -288,7 +288,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00339">
+    <changeSet author="kfs" id="rice00339" context="bootstrap,demo,unit">
         <createTable tableName="krsb_bam_t">
             <column defaultValueNumeric="0" name="BAM_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
@@ -318,7 +318,7 @@
             <column name="EXCPN_MSG" type="LONGTEXT"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00340">
+    <changeSet author="kfs" id="rice00340" context="bootstrap,demo,unit">
         <createTable tableName="krsb_msg_pyld_t">
             <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
@@ -328,7 +328,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00342">
+    <changeSet author="kfs" id="rice00342" context="bootstrap,demo,unit">
         <createTable tableName="krsb_msg_que_t">
             <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
@@ -359,7 +359,7 @@
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00343">
+    <changeSet author="kfs" id="rice00343" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_blob_triggers">
             <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -370,7 +370,7 @@
             <column name="BLOB_DATA" type="LONGBLOB"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00344">
+    <changeSet author="kfs" id="rice00344" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_calendars">
             <column defaultValue="" name="CALENDAR_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -380,7 +380,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00345">
+    <changeSet author="kfs" id="rice00345" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_cron_triggers">
             <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -394,7 +394,7 @@
             <column name="TIME_ZONE_ID" type="VARCHAR(80)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00346">
+    <changeSet author="kfs" id="rice00346" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_fired_triggers">
             <column defaultValue="" name="ENTRY_ID" type="VARCHAR(95)">
                 <constraints nullable="false"/>
@@ -426,7 +426,7 @@
             <column name="REQUESTS_RECOVERY" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00347">
+    <changeSet author="kfs" id="rice00347" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_job_details">
             <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -453,7 +453,7 @@
             <column name="JOB_DATA" type="LONGBLOB"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00348">
+    <changeSet author="kfs" id="rice00348" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_job_listeners">
             <column defaultValue="" name="JOB_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -466,21 +466,21 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00349">
+    <changeSet author="kfs" id="rice00349" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_locks">
             <column defaultValue="" name="LOCK_NAME" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00350">
+    <changeSet author="kfs" id="rice00350" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_paused_trigger_grps">
             <column defaultValue="" name="TRIGGER_GROUP" type="VARCHAR(80)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00351">
+    <changeSet author="kfs" id="rice00351" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_scheduler_state">
             <column defaultValue="" name="INSTANCE_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -493,7 +493,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00352">
+    <changeSet author="kfs" id="rice00352" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_simple_triggers">
             <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -512,7 +512,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00354">
+    <changeSet author="kfs" id="rice00354" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_triggers">
             <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -548,7 +548,7 @@
             <column name="JOB_DATA" type="LONGBLOB"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00353">
+    <changeSet author="kfs" id="rice00353" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_trigger_listeners">
             <column defaultValue="" name="TRIGGER_NAME" type="VARCHAR(80)">
                 <constraints nullable="false"/>
@@ -561,7 +561,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00356">
+    <changeSet author="kfs" id="rice00356" context="bootstrap,demo,unit">
         <createTable tableName="krsb_svc_def_t">
             <column defaultValue="" name="SVC_DEF_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -601,7 +601,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00358">
+    <changeSet author="kfs" id="rice00358" context="bootstrap,demo,unit">
         <createTable tableName="krsb_svc_dscrptr_t">
             <column defaultValue="" name="SVC_DSCRPTR_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -611,7 +611,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00017">
+    <changeSet author="kfs" id="rice00017" context="bootstrap,demo,unit">
         <createTable tableName="krcr_cmpnt_t">
             <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
                 <constraints nullable="false"/>
@@ -631,7 +631,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00019">
+    <changeSet author="kfs" id="rice00019" context="bootstrap,demo,unit">
         <createTable tableName="krcr_nmspc_t">
             <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
                 <constraints nullable="false"/>
@@ -649,7 +649,7 @@
             <column name="APPL_ID" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00020">
+    <changeSet author="kfs" id="rice00020" context="bootstrap,demo,unit">
         <createTable tableName="krcr_parm_t">
             <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
                 <constraints nullable="false"/>
@@ -677,7 +677,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" id="rice00021">
+    <changeSet author="kfs" id="rice00021" context="bootstrap,demo,unit">
         <createTable tableName="krcr_parm_typ_t">
             <column defaultValue="" name="PARM_TYP_CD" type="VARCHAR(5)">
                 <constraints nullable="false"/>

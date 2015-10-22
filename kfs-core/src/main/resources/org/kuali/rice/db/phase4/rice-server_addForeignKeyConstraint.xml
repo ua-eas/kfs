@@ -18,439 +18,439 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="rice01130">
+    <changeSet author="kfs" id="rice01130" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CHNL_ID" baseTableName="kren_chnl_subscrp_t" constraintName="KREN_CHAN_SUBSCRP_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CHNL_ID" referencedTableName="kren_chnl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01131">
+    <changeSet author="kfs" id="rice01131" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CHNL_ID" baseTableName="kren_chnl_prodcr_t" constraintName="KREN_CHNL_PRODCR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CHNL_ID" referencedTableName="kren_chnl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01132">
+    <changeSet author="kfs" id="rice01132" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PRODCR_ID" baseTableName="kren_chnl_prodcr_t" constraintName="KREN_CHNL_PRODCR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PRODCR_ID" referencedTableName="kren_prodcr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01133">
+    <changeSet author="kfs" id="rice01133" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="MSG_ID" baseTableName="kren_msg_deliv_t" constraintName="KREN_MSG_DELIV_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="MSG_ID" referencedTableName="kren_msg_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01134">
+    <changeSet author="kfs" id="rice01134" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CHNL_ID" baseTableName="kren_ntfctn_t" constraintName="KREN_NTFCTN_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CHNL_ID" referencedTableName="kren_chnl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01135">
+    <changeSet author="kfs" id="rice01135" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTNT_TYP_ID" baseTableName="kren_ntfctn_t" constraintName="KREN_NTFCTN_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTNT_TYP_ID" referencedTableName="kren_cntnt_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01136">
+    <changeSet author="kfs" id="rice01136" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PRIO_ID" baseTableName="kren_ntfctn_t" constraintName="KREN_NTFCTN_FK3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PRIO_ID" referencedTableName="kren_prio_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01137">
+    <changeSet author="kfs" id="rice01137" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PRODCR_ID" baseTableName="kren_ntfctn_t" constraintName="KREN_NTFCTN_FK4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PRODCR_ID" referencedTableName="kren_prodcr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01138">
+    <changeSet author="kfs" id="rice01138" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NTFCTN_ID" baseTableName="kren_ntfctn_msg_deliv_t" constraintName="KREN_NTFCTN_MSG_DELIV_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTFCTN_ID" referencedTableName="kren_ntfctn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01139">
+    <changeSet author="kfs" id="rice01139" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NTFCTN_ID" baseTableName="kren_recip_t" constraintName="KREN_RECIP_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTFCTN_ID" referencedTableName="kren_ntfctn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01140">
+    <changeSet author="kfs" id="rice01140" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CHNL_ID" baseTableName="kren_recip_list_t" constraintName="KREN_RECIP_LIST_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CHNL_ID" referencedTableName="kren_chnl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01141">
+    <changeSet author="kfs" id="rice01141" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NTFCTN_ID" baseTableName="kren_sndr_t" constraintName="KREN_SNDR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTFCTN_ID" referencedTableName="kren_ntfctn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01142">
+    <changeSet author="kfs" id="rice01142" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="DOC_TYP_ID,CAT_NM" baseTableName="krew_doc_typ_app_doc_stat_t" constraintName="KREW_DOC_TYP_APP_DOC_STAT_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_TYP_ID,CAT_NM" referencedTableName="krew_doc_typ_app_stat_cat_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01143">
+    <changeSet author="kfs" id="rice01143" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="DOC_TYP_ID" baseTableName="krew_doc_typ_app_stat_cat_t" constraintName="KREW_DOC_TYP_APP_STAT_CAT_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_TYP_ID" referencedTableName="krew_doc_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01144">
+    <changeSet author="kfs" id="rice01144" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PPL_FLW_ID" baseTableName="krew_ppl_flw_attr_t" constraintName="KREW_PPL_FLW_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PPL_FLW_ID" referencedTableName="krew_ppl_flw_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01145">
+    <changeSet author="kfs" id="rice01145" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krew_ppl_flw_attr_t" constraintName="KREW_PPL_FLW_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krew_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01146">
+    <changeSet author="kfs" id="rice01146" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PPL_FLW_MBR_ID" baseTableName="krew_ppl_flw_dlgt_t" constraintName="KREW_PPL_FLW_DLGT_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PPL_FLW_MBR_ID" referencedTableName="krew_ppl_flw_mbr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01147">
+    <changeSet author="kfs" id="rice01147" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TYP_ID" baseTableName="krew_ppl_flw_t" constraintName="KREW_PPL_FLW_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krew_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01148">
+    <changeSet author="kfs" id="rice01148" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PPL_FLW_ID" baseTableName="krew_ppl_flw_mbr_t" constraintName="KREW_PPL_FLW_MBR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PPL_FLW_ID" referencedTableName="krew_ppl_flw_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01149">
+    <changeSet author="kfs" id="rice01149" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="RULE_EXPR_ID" baseTableName="krew_rule_t" constraintName="KREW_RULE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RULE_EXPR_ID" referencedTableName="krew_rule_expr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01150">
+    <changeSet author="kfs" id="rice01150" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krew_typ_attr_t" constraintName="KREW_TYP_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krew_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01151">
+    <changeSet author="kfs" id="rice01151" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TYP_ID" baseTableName="krew_typ_attr_t" constraintName="KREW_TYP_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krew_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01152">
+    <changeSet author="kfs" id="rice01152" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_dlgn_mbr_attr_data_t" constraintName="KRIM_DLGN_MBR_ATTR_DATA_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01153">
+    <changeSet author="kfs" id="rice01153" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_ATTR_DEFN_ID" baseTableName="krim_dlgn_mbr_attr_data_t" constraintName="KRIM_DLGN_MBR_ATTR_DATA_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_ATTR_DEFN_ID" referencedTableName="krim_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01154">
+    <changeSet author="kfs" id="rice01154" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="DLGN_ID" baseTableName="krim_dlgn_mbr_t" constraintName="KRIM_DLGN_MBR_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DLGN_ID" referencedTableName="krim_dlgn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01155">
+    <changeSet author="kfs" id="rice01155" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ROLE_ID" baseTableName="krim_dlgn_t" constraintName="KRIM_DLGN_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ROLE_ID" referencedTableName="krim_role_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01156">
+    <changeSet author="kfs" id="rice01156" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_dlgn_t" constraintName="KRIM_DLGN_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01157">
+    <changeSet author="kfs" id="rice01157" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENT_TYP_CD,ENTITY_ID" baseTableName="krim_entity_addr_t" constraintName="KRIM_ENTITY_ADDR_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENT_TYP_CD,ENTITY_ID" referencedTableName="krim_entity_ent_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01158">
+    <changeSet author="kfs" id="rice01158" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ADDR_TYP_CD" baseTableName="krim_entity_addr_t" constraintName="KRIM_ENTITY_ADDR_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ADDR_TYP_CD" referencedTableName="krim_addr_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01159">
+    <changeSet author="kfs" id="rice01159" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_afltn_t" constraintName="KRIM_ENTITY_AFLTN_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01160">
+    <changeSet author="kfs" id="rice01160" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="AFLTN_TYP_CD" baseTableName="krim_entity_afltn_t" constraintName="KRIM_ENTITY_AFLTN_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AFLTN_TYP_CD" referencedTableName="krim_afltn_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01161">
+    <changeSet author="kfs" id="rice01161" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_ctznshp_t" constraintName="KRIM_ENTITY_CTZNSHP_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01162">
+    <changeSet author="kfs" id="rice01162" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CTZNSHP_STAT_CD" baseTableName="krim_entity_ctznshp_t" constraintName="KRIM_ENTITY_CTZNSHP_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CTZNSHP_STAT_CD" referencedTableName="krim_ctznshp_stat_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01163">
+    <changeSet author="kfs" id="rice01163" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENT_TYP_CD,ENTITY_ID" baseTableName="krim_entity_email_t" constraintName="KRIM_ENTITY_EMAIL_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENT_TYP_CD,ENTITY_ID" referencedTableName="krim_entity_ent_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01164">
+    <changeSet author="kfs" id="rice01164" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_emp_info_t" constraintName="KRIM_ENTITY_EMP_INFO_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01165">
+    <changeSet author="kfs" id="rice01165" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="EMP_STAT_CD" baseTableName="krim_entity_emp_info_t" constraintName="KRIM_ENTITY_EMP_INFO_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="EMP_STAT_CD" referencedTableName="krim_emp_stat_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01166">
+    <changeSet author="kfs" id="rice01166" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="EMP_TYP_CD" baseTableName="krim_entity_emp_info_t" constraintName="KRIM_ENTITY_EMP_INFO_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="EMP_TYP_CD" referencedTableName="krim_emp_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01167">
+    <changeSet author="kfs" id="rice01167" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_AFLTN_ID" baseTableName="krim_entity_emp_info_t" constraintName="KRIM_ENTITY_EMP_INFO_TR4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ENTITY_AFLTN_ID" referencedTableName="krim_entity_afltn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01168">
+    <changeSet author="kfs" id="rice01168" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_ent_typ_t" constraintName="KRIM_ENTITY_ENT_TYP_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01169">
+    <changeSet author="kfs" id="rice01169" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENT_TYP_CD" baseTableName="krim_entity_ent_typ_t" constraintName="KRIM_ENTITY_ENT_TYP_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ENT_TYP_CD" referencedTableName="krim_ent_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01170">
+    <changeSet author="kfs" id="rice01170" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_ethnic_t" constraintName="KRIM_ENTITY_ETHNIC_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01171">
+    <changeSet author="kfs" id="rice01171" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_ext_id_t" constraintName="KRIM_ENTITY_EXT_ID_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01172">
+    <changeSet author="kfs" id="rice01172" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="EXT_ID_TYP_CD" baseTableName="krim_entity_ext_id_t" constraintName="KRIM_ENTITY_EXT_ID_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="EXT_ID_TYP_CD" referencedTableName="krim_ext_id_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01173">
+    <changeSet author="kfs" id="rice01173" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_nm_t" constraintName="KRIM_ENTITY_NM_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01174">
+    <changeSet author="kfs" id="rice01174" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENT_TYP_CD,ENTITY_ID" baseTableName="krim_entity_phone_t" constraintName="KRIM_ENTITY_PHONE_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENT_TYP_CD,ENTITY_ID" referencedTableName="krim_entity_ent_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01175">
+    <changeSet author="kfs" id="rice01175" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PHONE_TYP_CD" baseTableName="krim_entity_phone_t" constraintName="KRIM_ENTITY_PHONE_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PHONE_TYP_CD" referencedTableName="krim_phone_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01176">
+    <changeSet author="kfs" id="rice01176" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_residency_t" constraintName="KRIM_ENTITY_RESIDENCY_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01177">
+    <changeSet author="kfs" id="rice01177" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_entity_visa_t" constraintName="KRIM_ENTITY_VISA_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01178">
+    <changeSet author="kfs" id="rice01178" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_grp_attr_data_t" constraintName="KRIM_GRP_ATTR_DATA_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01179">
+    <changeSet author="kfs" id="rice01179" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_ATTR_DEFN_ID" baseTableName="krim_grp_attr_data_t" constraintName="KRIM_GRP_ATTR_DATA_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_ATTR_DEFN_ID" referencedTableName="krim_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01180">
+    <changeSet author="kfs" id="rice01180" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="GRP_ID" baseTableName="krim_grp_attr_data_t" constraintName="KRIM_GRP_ATTR_DATA_TR3" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="GRP_ID" referencedTableName="krim_grp_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01181">
+    <changeSet author="kfs" id="rice01181" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="GRP_ID" baseTableName="krim_grp_mbr_t" constraintName="KRIM_GRP_MBR_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="GRP_ID" referencedTableName="krim_grp_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01182">
+    <changeSet author="kfs" id="rice01182" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_grp_t" constraintName="KRIM_GRP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01183">
+    <changeSet author="kfs" id="rice01183" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_perm_attr_data_t" constraintName="KRIM_PERM_ATTR_DATA_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01184">
+    <changeSet author="kfs" id="rice01184" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_ATTR_DEFN_ID" baseTableName="krim_perm_attr_data_t" constraintName="KRIM_PERM_ATTR_DATA_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_ATTR_DEFN_ID" referencedTableName="krim_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01185">
+    <changeSet author="kfs" id="rice01185" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PERM_ID" baseTableName="krim_perm_attr_data_t" constraintName="KRIM_PERM_ATTR_DATA_TR3" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="PERM_ID" referencedTableName="krim_perm_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01186">
+    <changeSet author="kfs" id="rice01186" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_perm_tmpl_t" constraintName="KRIM_PERM_TMPL_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01187">
+    <changeSet author="kfs" id="rice01187" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PERM_TMPL_ID" baseTableName="krim_perm_t" constraintName="KRIM_PERM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PERM_TMPL_ID" referencedTableName="krim_perm_tmpl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01188">
+    <changeSet author="kfs" id="rice01188" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="FDOC_NBR" baseTableName="krim_pnd_afltn_mt" constraintName="KRIM_PND_AFLTN_MT_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FDOC_NBR" referencedTableName="krim_person_document_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01189">
+    <changeSet author="kfs" id="rice01189" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ENTITY_ID" baseTableName="krim_prncpl_t" constraintName="KRIM_PRNCPL_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ENTITY_ID" referencedTableName="krim_entity_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01190">
+    <changeSet author="kfs" id="rice01190" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_role_mbr_attr_data_t" constraintName="KRIM_ROLE_MBR_ATTR_DATA_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01191">
+    <changeSet author="kfs" id="rice01191" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_ATTR_DEFN_ID" baseTableName="krim_role_mbr_attr_data_t" constraintName="KRIM_ROLE_MBR_ATTR_DATA_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_ATTR_DEFN_ID" referencedTableName="krim_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01192">
+    <changeSet author="kfs" id="rice01192" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ROLE_ID" baseTableName="krim_role_mbr_t" constraintName="KRIM_ROLE_MBR_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ROLE_ID" referencedTableName="krim_role_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01193">
+    <changeSet author="kfs" id="rice01193" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PERM_ID" baseTableName="krim_role_perm_t" constraintName="KRIM_ROLE_PERM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PERM_ID" referencedTableName="krim_perm_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01194">
+    <changeSet author="kfs" id="rice01194" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="RSP_ID" baseTableName="krim_role_rsp_t" constraintName="KRIM_ROLE_RSP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RSP_ID" referencedTableName="krim_rsp_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01195">
+    <changeSet author="kfs" id="rice01195" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_role_t" constraintName="KRIM_ROLE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01196">
+    <changeSet author="kfs" id="rice01196" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_rsp_attr_data_t" constraintName="KRIM_RSP_ATTR_DATA_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01197">
+    <changeSet author="kfs" id="rice01197" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_ATTR_DEFN_ID" baseTableName="krim_rsp_attr_data_t" constraintName="KRIM_RSP_ATTR_DATA_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_ATTR_DEFN_ID" referencedTableName="krim_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01198">
+    <changeSet author="kfs" id="rice01198" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="RSP_ID" baseTableName="krim_rsp_attr_data_t" constraintName="KRIM_RSP_ATTR_DATA_TR3" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="RSP_ID" referencedTableName="krim_rsp_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01199">
+    <changeSet author="kfs" id="rice01199" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_rsp_tmpl_t" constraintName="KRIM_RSP_TMPL_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01200">
+    <changeSet author="kfs" id="rice01200" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="RSP_TMPL_ID" baseTableName="krim_rsp_t" constraintName="KRIM_RSP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RSP_TMPL_ID" referencedTableName="krim_rsp_tmpl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01201">
+    <changeSet author="kfs" id="rice01201" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_TYP_ID" baseTableName="krim_typ_attr_t" constraintName="KRIM_TYP_ATTRIBUTE_TR1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="KIM_TYP_ID" referencedTableName="krim_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01202">
+    <changeSet author="kfs" id="rice01202" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="KIM_ATTR_DEFN_ID" baseTableName="krim_typ_attr_t" constraintName="KRIM_TYP_ATTR_TR2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="KIM_ATTR_DEFN_ID" referencedTableName="krim_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01203">
+    <changeSet author="kfs" id="rice01203" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="STATE_CD,POSTAL_CNTRY_CD" baseTableName="krlc_cnty_t" constraintName="KRLC_CNTY_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="POSTAL_STATE_CD,POSTAL_CNTRY_CD" referencedTableName="krlc_st_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01204">
+    <changeSet author="kfs" id="rice01204" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ACTN_ID" baseTableName="krms_actn_attr_t" constraintName="KRMS_ACTN_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ACTN_ID" referencedTableName="krms_actn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01205">
+    <changeSet author="kfs" id="rice01205" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_actn_attr_t" constraintName="KRMS_ACTN_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01206">
+    <changeSet author="kfs" id="rice01206" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="RULE_ID" baseTableName="krms_actn_t" constraintName="KRMS_ACTN_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RULE_ID" referencedTableName="krms_rule_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01207">
+    <changeSet author="kfs" id="rice01207" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="AGENDA_ID" baseTableName="krms_agenda_attr_t" constraintName="KRMS_AGENDA_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AGENDA_ID" referencedTableName="krms_agenda_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01208">
+    <changeSet author="kfs" id="rice01208" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_agenda_attr_t" constraintName="KRMS_AGENDA_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01209">
+    <changeSet author="kfs" id="rice01209" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTXT_ID" baseTableName="krms_agenda_t" constraintName="KRMS_AGENDA_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTXT_ID" referencedTableName="krms_cntxt_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01210">
+    <changeSet author="kfs" id="rice01210" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="RULE_ID" baseTableName="krms_agenda_itm_t" constraintName="KRMS_AGENDA_ITM_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RULE_ID" referencedTableName="krms_rule_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01211">
+    <changeSet author="kfs" id="rice01211" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="AGENDA_ID" baseTableName="krms_agenda_itm_t" constraintName="KRMS_AGENDA_ITM_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AGENDA_ID" referencedTableName="krms_agenda_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01212">
+    <changeSet author="kfs" id="rice01212" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="SUB_AGENDA_ID" baseTableName="krms_agenda_itm_t" constraintName="KRMS_AGENDA_ITM_FK3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AGENDA_ID" referencedTableName="krms_agenda_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01213">
+    <changeSet author="kfs" id="rice01213" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="WHEN_TRUE" baseTableName="krms_agenda_itm_t" constraintName="KRMS_AGENDA_ITM_FK4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AGENDA_ITM_ID" referencedTableName="krms_agenda_itm_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01214">
+    <changeSet author="kfs" id="rice01214" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="WHEN_FALSE" baseTableName="krms_agenda_itm_t" constraintName="KRMS_AGENDA_ITM_FK5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AGENDA_ITM_ID" referencedTableName="krms_agenda_itm_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01215">
+    <changeSet author="kfs" id="rice01215" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ALWAYS" baseTableName="krms_agenda_itm_t" constraintName="KRMS_AGENDA_ITM_FK6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AGENDA_ITM_ID" referencedTableName="krms_agenda_itm_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01216">
+    <changeSet author="kfs" id="rice01216" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PROP_ID" baseTableName="krms_cmpnd_prop_props_t" constraintName="KRMS_CMPND_PROP_PROPS_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROP_ID" referencedTableName="krms_prop_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01217">
+    <changeSet author="kfs" id="rice01217" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CMPND_PROP_ID" baseTableName="krms_cmpnd_prop_props_t" constraintName="KRMS_CMPND_PROP_PROPS_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROP_ID" referencedTableName="krms_prop_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01218">
+    <changeSet author="kfs" id="rice01218" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTXT_ID" baseTableName="krms_cntxt_attr_t" constraintName="KRMS_CNTXT_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTXT_ID" referencedTableName="krms_cntxt_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01219">
+    <changeSet author="kfs" id="rice01219" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_cntxt_attr_t" constraintName="KRMS_CNTXT_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01220">
+    <changeSet author="kfs" id="rice01220" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTXT_ID" baseTableName="krms_cntxt_vld_actn_typ_t" constraintName="KRMS_CNTXT_VLD_ACTN_TYP_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTXT_ID" referencedTableName="krms_cntxt_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01221">
+    <changeSet author="kfs" id="rice01221" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTXT_ID" baseTableName="krms_cntxt_vld_agenda_typ_t" constraintName="KRMS_CNTXT_VLD_AGENDA_TYP_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTXT_ID" referencedTableName="krms_cntxt_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01222">
+    <changeSet author="kfs" id="rice01222" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTXT_ID" baseTableName="krms_cntxt_vld_func_t" constraintName="KRMS_CNTXT_VLD_FUNC_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTXT_ID" referencedTableName="krms_cntxt_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01223">
+    <changeSet author="kfs" id="rice01223" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTXT_ID" baseTableName="krms_cntxt_vld_rule_typ_t" constraintName="KRMS_CNTXT_VLD_RULE_TYP_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTXT_ID" referencedTableName="krms_cntxt_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01224">
+    <changeSet author="kfs" id="rice01224" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CNTXT_ID" baseTableName="krms_cntxt_vld_term_spec_t" constraintName="KRMS_CNTXT_VLD_TERM_SPEC_TI1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CNTXT_ID" referencedTableName="krms_cntxt_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01225">
+    <changeSet author="kfs" id="rice01225" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_SPEC_ID" baseTableName="krms_cntxt_vld_term_spec_t" constraintName="KRMS_CNTXT_VLD_TERM_SPEC_TI2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_SPEC_ID" referencedTableName="krms_term_spec_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01226">
+    <changeSet author="kfs" id="rice01226" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="FUNC_ID" baseTableName="krms_func_ctgry_t" constraintName="KRMS_FUNC_CTGRY_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FUNC_ID" referencedTableName="krms_func_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01227">
+    <changeSet author="kfs" id="rice01227" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CTGRY_ID" baseTableName="krms_func_ctgry_t" constraintName="KRMS_FUNC_CTGRY_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CTGRY_ID" referencedTableName="krms_ctgry_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01228">
+    <changeSet author="kfs" id="rice01228" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TYP_ID" baseTableName="krms_func_t" constraintName="KRMS_FUNC_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krms_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01229">
+    <changeSet author="kfs" id="rice01229" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="FUNC_ID" baseTableName="krms_func_parm_t" constraintName="KRMS_FUNC_PARM_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FUNC_ID" referencedTableName="krms_func_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01230">
+    <changeSet author="kfs" id="rice01230" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_RSLVR_ID" baseTableName="krms_term_rslvr_input_spec_t" constraintName="KRMS_INPUT_ASSET_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_RSLVR_ID" referencedTableName="krms_term_rslvr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01231">
+    <changeSet author="kfs" id="rice01231" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_SPEC_ID" baseTableName="krms_term_rslvr_input_spec_t" constraintName="KRMS_INPUT_ASSET_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_SPEC_ID" referencedTableName="krms_term_spec_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01232">
+    <changeSet author="kfs" id="rice01232" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NL_TMPL_ID" baseTableName="krms_nl_tmpl_attr_t" constraintName="KRMS_NL_TMPL_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NL_TMPL_ID" referencedTableName="krms_nl_tmpl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01233">
+    <changeSet author="kfs" id="rice01233" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_nl_tmpl_attr_t" constraintName="KRMS_NL_TMPL_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01234">
+    <changeSet author="kfs" id="rice01234" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NL_USAGE_ID" baseTableName="krms_nl_tmpl_t" constraintName="KRMS_NL_TMPL_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NL_USAGE_ID" referencedTableName="krms_nl_usage_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01235">
+    <changeSet author="kfs" id="rice01235" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NL_USAGE_ID" baseTableName="krms_nl_usage_attr_t" constraintName="KRMS_NL_USAGE_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NL_USAGE_ID" referencedTableName="krms_nl_usage_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01236">
+    <changeSet author="kfs" id="rice01236" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_nl_usage_attr_t" constraintName="KRMS_NL_USAGE_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01237">
+    <changeSet author="kfs" id="rice01237" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TYP_ID" baseTableName="krms_prop_t" constraintName="KRMS_PROP_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krms_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01238">
+    <changeSet author="kfs" id="rice01238" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PROP_ID" baseTableName="krms_prop_parm_t" constraintName="KRMS_PROP_PARM_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROP_ID" referencedTableName="krms_prop_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01239">
+    <changeSet author="kfs" id="rice01239" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="RULE_ID" baseTableName="krms_rule_attr_t" constraintName="KRMS_RULE_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RULE_ID" referencedTableName="krms_rule_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01240">
+    <changeSet author="kfs" id="rice01240" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_rule_attr_t" constraintName="KRMS_RULE_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01241">
+    <changeSet author="kfs" id="rice01241" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PROP_ID" baseTableName="krms_rule_t" constraintName="KRMS_RULE_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PROP_ID" referencedTableName="krms_prop_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01242">
+    <changeSet author="kfs" id="rice01242" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_ID" baseTableName="krms_term_parm_t" constraintName="KRMS_TERM_PARM_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_ID" referencedTableName="krms_term_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01243">
+    <changeSet author="kfs" id="rice01243" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_RSLVR_ID" baseTableName="krms_term_rslvr_parm_spec_t" constraintName="KRMS_TERM_RESLV_PARM_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_RSLVR_ID" referencedTableName="krms_term_rslvr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01244">
+    <changeSet author="kfs" id="rice01244" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_RSLVR_ID" baseTableName="krms_term_rslvr_attr_t" constraintName="KRMS_TERM_RSLVR_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_RSLVR_ID" referencedTableName="krms_term_rslvr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01245">
+    <changeSet author="kfs" id="rice01245" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_term_rslvr_attr_t" constraintName="KRMS_TERM_RSLVR_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01246">
+    <changeSet author="kfs" id="rice01246" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="OUTPUT_TERM_SPEC_ID" baseTableName="krms_term_rslvr_t" constraintName="KRMS_TERM_RSLVR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_SPEC_ID" referencedTableName="krms_term_spec_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01247">
+    <changeSet author="kfs" id="rice01247" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TYP_ID" baseTableName="krms_term_rslvr_t" constraintName="KRMS_TERM_RSLVR_FK3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krms_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01248">
+    <changeSet author="kfs" id="rice01248" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_SPEC_ID" baseTableName="krms_term_spec_ctgry_t" constraintName="KRMS_TERM_SPEC_CTGRY_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_SPEC_ID" referencedTableName="krms_term_spec_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01249">
+    <changeSet author="kfs" id="rice01249" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CTGRY_ID" baseTableName="krms_term_spec_ctgry_t" constraintName="KRMS_TERM_SPEC_CTGRY_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CTGRY_ID" referencedTableName="krms_ctgry_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01250">
+    <changeSet author="kfs" id="rice01250" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TERM_SPEC_ID" baseTableName="krms_term_t" constraintName="KRMS_TERM_T__FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TERM_SPEC_ID" referencedTableName="krms_term_spec_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01251">
+    <changeSet author="kfs" id="rice01251" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="ATTR_DEFN_ID" baseTableName="krms_typ_attr_t" constraintName="KRMS_TYP_ATTR_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ATTR_DEFN_ID" referencedTableName="krms_attr_defn_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01252">
+    <changeSet author="kfs" id="rice01252" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TYP_ID" baseTableName="krms_typ_attr_t" constraintName="KRMS_TYP_ATTR_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krms_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01253">
+    <changeSet author="kfs" id="rice01253" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="FROM_TYP_ID" baseTableName="krms_typ_reln_t" constraintName="KRMS_TYP_RELN_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krms_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01254">
+    <changeSet author="kfs" id="rice01254" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TO_TYP_ID" baseTableName="krms_typ_reln_t" constraintName="KRMS_TYP_RELN_FK2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krms_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01255">
+    <changeSet author="kfs" id="rice01255" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TYP_ID" baseTableName="krms_nl_tmpl_t" constraintName="KRMS_TYP_T" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TYP_ID" referencedTableName="krms_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01256">
+    <changeSet author="kfs" id="rice01256" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NTE_ID" baseTableName="krns_att_t" constraintName="KRNS_ATT_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTE_ID" referencedTableName="krns_nte_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01257">
+    <changeSet author="kfs" id="rice01257" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="DOC_HDR_ID" baseTableName="krns_maint_doc_att_lst_t" constraintName="KRNS_MAINT_DOC_ATT_LST_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_HDR_ID" referencedTableName="krns_maint_doc_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01258">
+    <changeSet author="kfs" id="rice01258" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="DOC_HDR_ID" baseTableName="krns_maint_doc_t" constraintName="KRNS_MAINT_DOC_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="DOC_HDR_ID" referencedTableName="krns_doc_hdr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01259">
+    <changeSet author="kfs" id="rice01259" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NTE_TYP_CD" baseTableName="krns_nte_t" constraintName="KRNS_NTE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NTE_TYP_CD" referencedTableName="krns_nte_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01260">
+    <changeSet author="kfs" id="rice01260" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_cmpnt_t" constraintName="KRNS_PARM_DTL_TYP_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01261">
+    <changeSet author="kfs" id="rice01261" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="NMSPC_CD" baseTableName="krcr_parm_t" constraintName="KRNS_PARM_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="NMSPC_CD" referencedTableName="krcr_nmspc_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01262">
+    <changeSet author="kfs" id="rice01262" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="PARM_TYP_CD" baseTableName="krcr_parm_t" constraintName="KRNS_PARM_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PARM_TYP_CD" referencedTableName="krcr_parm_typ_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01263">
+    <changeSet author="kfs" id="rice01263" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_blob_triggers" constraintName="KRSB_QRTZ_BLOB_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01264">
+    <changeSet author="kfs" id="rice01264" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_cron_triggers" constraintName="KRSB_QRTZ_CRON_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01265">
+    <changeSet author="kfs" id="rice01265" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_simple_triggers" constraintName="KRSB_QRTZ_SIMPLE_TRIGGERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01266">
+    <changeSet author="kfs" id="rice01266" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" baseTableName="krsb_qrtz_trigger_listeners" constraintName="KRSB_QRTZ_TRIGGER_LISTENE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" referencedTableName="krsb_qrtz_triggers"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01267">
+    <changeSet author="kfs" id="rice01267" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="JOB_NAME,JOB_GROUP" baseTableName="krsb_qrtz_job_listeners" constraintName="KRSB_QUARTZ_JOB_LISTENERS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="JOB_NAME,JOB_GROUP" referencedTableName="krsb_qrtz_job_details"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01268">
+    <changeSet author="kfs" id="rice01268" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="SVC_DSCRPTR_ID" baseTableName="krsb_svc_def_t" constraintName="KRSB_SVC_DEF_FK1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="SVC_DSCRPTR_ID" referencedTableName="krsb_svc_dscrptr_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01277">
+    <changeSet author="kfs" id="rice01277" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="POSTAL_CNTRY_CD" baseTableName="krlc_pstl_cd_t" constraintName="KR_POSTAL_CODE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="POSTAL_CNTRY_CD" referencedTableName="krlc_cntry_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01278">
+    <changeSet author="kfs" id="rice01278" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="POSTAL_STATE_CD,POSTAL_CNTRY_CD" baseTableName="krlc_pstl_cd_t" constraintName="KR_POSTAL_CODE_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="POSTAL_STATE_CD,POSTAL_CNTRY_CD" referencedTableName="krlc_st_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01279">
+    <changeSet author="kfs" id="rice01279" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="COUNTY_CD,POSTAL_STATE_CD,POSTAL_CNTRY_CD" baseTableName="krlc_pstl_cd_t" constraintName="KR_POSTAL_CODE_TR3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="COUNTY_CD,STATE_CD,POSTAL_CNTRY_CD" referencedTableName="krlc_cnty_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01280">
+    <changeSet author="kfs" id="rice01280" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="POSTAL_CNTRY_CD" baseTableName="krlc_st_t" constraintName="KR_STATE_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="POSTAL_CNTRY_CD" referencedTableName="krlc_cntry_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01281">
+    <changeSet author="kfs" id="rice01281" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CHNL_ID" baseTableName="kren_rvwer_t" constraintName="NOTIFICATION_REVIEWERS_N_FK1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CHNL_ID" referencedTableName="kren_chnl_t"/>
     </changeSet>
-    <changeSet author="kfs" id="rice01282">
+    <changeSet author="kfs" id="rice01282" context="bootstrap,demo,unit">
         <addForeignKeyConstraint baseColumnNames="CAMPUS_TYP_CD" baseTableName="krlc_cmp_t" constraintName="SH_CAMPUS_TR1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CAMPUS_TYP_CD" referencedTableName="krlc_cmp_typ_t"/>
     </changeSet>
 </databaseChangeLog>

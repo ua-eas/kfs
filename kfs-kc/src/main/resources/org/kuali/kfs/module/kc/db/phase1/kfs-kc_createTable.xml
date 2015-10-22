@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-<changeSet author="kfs" id="2344" context="bootstrap,demo">
+<changeSet author="kfs" id="2344" context="bootstrap,demo,unit">
         <createTable tableName="CA_ACCT_AUTODEF_ICR_T">
             <column defaultValueNumeric="0" name="CA_ICR_ACCT_GNRTD_ID" type="DECIMAL(10)">
                 <constraints nullable="false"/>
@@ -36,7 +36,7 @@
             <column defaultValue="Y" name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="2345" context="bootstrap,demo">
+<changeSet author="kfs" id="2345" context="bootstrap,demo,unit">
         <createTable tableName="CA_ACCT_AUTO_CREATE_DFLT_T">
             <column name="KC_UNIT" type="VARCHAR(8)"/>
             <column name="OBJ_ID" type="VARCHAR(36)">
@@ -83,7 +83,7 @@
             </column>
         </createTable>
     </changeSet>
-<changeSet author="kfs" id="2346" context="bootstrap,demo">
+<changeSet author="kfs" id="2346" context="bootstrap,demo,unit">
         <createTable tableName="KC_BILL_FREQ_MAP_T">
             <column defaultValue="" name="KFS_FREQ_CD" type="VARCHAR(4)">
                 <constraints nullable="false"/>

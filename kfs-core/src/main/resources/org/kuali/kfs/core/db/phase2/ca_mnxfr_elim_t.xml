@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10138" context="bootstrap,demo">
+  <changeSet author="kfs" id="10138" context="bootstrap,demo,unit">
     <insert tableName="ca_mnxfr_elim_t">
       <column name="FOBJ_MNXFR_ELIM_CD"><![CDATA[E]]></column>
       <column name="OBJ_ID"><![CDATA[10253E9DB8CB7EBEE043814FD8817EBE]]></column>

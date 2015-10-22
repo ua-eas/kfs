@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00010">
+  <changeSet author="kfs" id="ricedata00010" context="bootstrap,demo,unit">
     <insert tableName="krcr_parm_typ_t">
       <column name="PARM_TYP_CD"><![CDATA[AUTH]]></column>
       <column name="OBJ_ID"><![CDATA[53680C68F593AD9BE0404F8189D80A6C]]></column>

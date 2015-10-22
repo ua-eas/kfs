@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00105">
+  <changeSet author="kfs" id="ricedata00105" context="bootstrap,demo,unit">
     <insert tableName="krim_role_perm_t">
       <column name="ROLE_PERM_ID"><![CDATA[183]]></column>
       <column name="OBJ_ID"><![CDATA[5C27A267EF5C7417E0404F8189D830A9]]></column>

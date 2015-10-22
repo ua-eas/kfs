@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10308-bootstrap" context="bootstrap,demo">
+  <changeSet author="kfs" id="10308-bootstrap" context="bootstrap,demo,unit">
     <insert tableName="fp_dv_trvl_co_nm_t">
       <column name="DV_EXP_CD"><![CDATA[A]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[CONTINENTAL/CONTINENTAL EXPRESS]]></column>
@@ -524,7 +524,7 @@
       <column name="FRGN_CMPNY"><![CDATA[N]]></column>
     </insert>
   </changeSet>
-  <changeSet author="kfs" id="10308" context="demo">
+  <changeSet author="kfs" id="10308" context="demo,unit">
     <insert tableName="fp_dv_trvl_co_nm_t">
       <column name="DV_EXP_CD"><![CDATA[L]]></column>
       <column name="DV_EXP_CO_NM"><![CDATA[GRANT STREET INN]]></column>
