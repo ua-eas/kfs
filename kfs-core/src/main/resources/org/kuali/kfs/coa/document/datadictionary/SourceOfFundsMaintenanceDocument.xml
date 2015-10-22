@@ -70,6 +70,6 @@
 	<!-- Exported Workflow Properties -->
 
 	<bean id="SourceOfFundsMaintenanceDocument-workflowAttributes" parent="SourceOfFundsMaintenanceDocument-workflowAttributes-parentBean" />
-	<bean id="SourceOfFundsMaintenanceDocument-workflowAttributes-parentBean"  parent="WorkflowAttributes" abstract="true" />
+	<bean id="SourceOfFundsMaintenanceDocument-workflowAttributes-parentBean" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes" abstract="true" />
   
 </beans>

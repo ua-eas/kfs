@@ -638,5 +638,25 @@
         2
       </routingVersion>
     </documentType>
+    <documentType>
+      <name>
+        SOF
+      </name>
+      <parent>
+        COSM
+      </parent>
+      <label>
+        Source Of Funds
+      </label>
+      <helpDefinitionURL>
+        default.htm?turl=WordDocuments%2Fsourceoffunds.htm
+      </helpDefinitionURL>
+      <active>
+        true
+      </active>
+      <routingVersion>
+        1
+      </routingVersion>
+    </documentType>
   </documentTypes>
 </data>
