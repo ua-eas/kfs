@@ -1970,4 +1970,9 @@
       <column name="RMT_OBJ_ID"/>
     </createIndex>
   </changeSet>
+  <changeSet author="kfs" id="3970-parameter" context="bootstrap,demo">
+    <createIndex indexName="KRNS_PARM_TR2" tableName="krcr_parm_t">
+      <column name="PARM_TYP_CD"/>
+    </createIndex>
+  </changeSet>
 </databaseChangeLog>
