@@ -53,4 +53,8 @@ function putUserPreferences(userPreferences) {
     });
 }
 
-module.exports = {getUserPreferences: getUserPreferences, putUserPreferences: putUserPreferences}
+module.exports = {
+    getPrincipalName: getPrincipalName,
+    getUserPreferences: getUserPreferences,
+    putUserPreferences: putUserPreferences
+}
