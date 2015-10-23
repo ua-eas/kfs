@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet context="demo" author="kfs" id="ricedata00082">
+  <changeSet context="demo,unit" author="kfs" id="ricedata00082">
     <insert tableName="krim_entity_t">
       <column name="ENTITY_ID"><![CDATA[1]]></column>
       <column name="OBJ_ID"><![CDATA[5B1B6B919CC96496E0404F8189D822F2]]></column>

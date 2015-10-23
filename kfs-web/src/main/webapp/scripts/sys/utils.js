@@ -1,5 +1,11 @@
 import URL from 'url'
 
+function getKualiSessionId() {
+    let kualiCookieRegex = new RegExp("kualiSessionId=([^;]+)");
+    let value = kualiCookieRegex.exec(document.cookie);
+    return (value != null) ? value[1] : null;
+}
+
 function getUrlPathPrefix() {
     let path = URL.parse(window.location.href).pathname
     let pathPrefix = path.match(/^\/[^\/]+\//);
@@ -44,4 +50,8 @@ function buildBackdoorIdAppender(backdoorId) {
     }
 }
 
-module.exports = {getUrlPathPrefix: getUrlPathPrefix, buildBackdoorIdAppender: buildBackdoorIdAppender}
+module.exports = {
+    getKualiSessionId: getKualiSessionId,
+    getUrlPathPrefix: getUrlPathPrefix,
+    buildBackdoorIdAppender: buildBackdoorIdAppender
+}

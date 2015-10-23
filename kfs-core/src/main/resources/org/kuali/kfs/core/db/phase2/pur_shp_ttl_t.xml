@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10652" context="bootstrap,demo">
+  <changeSet author="kfs" id="10652" context="bootstrap,demo,unit">
     <insert tableName="pur_shp_ttl_t">
       <column name="VNDR_SHP_TTL_CD"><![CDATA[CI]]></column>
       <column name="OBJ_ID"><![CDATA[BD3A73C7-BA3E-A68C-8C3D-B2BAE3304C7B]]></column>

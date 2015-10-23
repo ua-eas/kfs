@@ -1,7 +1,5 @@
 package org.kuali.kfs.sys.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
@@ -17,12 +15,12 @@ import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
-import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.sys.service.PreferencesService;
+import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,9 +30,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@NonTransactional
-public class PreferencesServiceImpl implements PreferencesService {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PreferencesServiceImpl.class);
+@Transactional
+public class InstitutionPreferencesServiceImpl implements InstitutionPreferencesService {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InstitutionPreferencesServiceImpl.class);
 
     private ConfigurationService configurationService;
     private DocumentDictionaryService documentDictionaryService;
@@ -43,8 +41,7 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     private Map<String, String> namespaceCodeToUrlName;
 
-    public PreferencesServiceImpl() {
-        // initiate defaults for namespaceCodeToUrlName map
+    public InstitutionPreferencesServiceImpl() {
         namespaceCodeToUrlName = new ConcurrentHashMap<>();
         namespaceCodeToUrlName.put("KFS-AR", "ar");
         namespaceCodeToUrlName.put("KFS-CAM", "cams");
@@ -60,16 +57,49 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     @Override
-    public Map<String, Object> findInstitutionPreferences(Person person) {
-        LOG.debug("findInstitutionPreferences() started");
+    public Map<String, Object> findInstitutionPreferencesNoLinks() {
+        LOG.debug("findInstitutionPreferencesNoLinks() started");
 
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
-
         appendMenuProperties(institutionPreferences);
-        linkPermissionCheck(institutionPreferences, person);
-        transformLinks(institutionPreferences, person);
+        institutionPreferences.remove("linkGroups");
 
         return institutionPreferences;
+    }
+
+    @Override
+    public Map<String, Object> findInstitutionPreferencesLinks(Person person,boolean useCache) {
+        LOG.debug("findInstitutionPreferencesLinks() started");
+
+        if ( useCache ) {
+            Map<String, Object> preferences = preferencesDao.findInstitutionPreferencesCache(person.getPrincipalName());
+            if ( preferences != null ) {
+                return preferences;
+            }
+        }
+
+        Map<String, Object> preferences = preferencesDao.findInstitutionPreferences();
+        linkPermissionCheck(preferences, person);
+        transformLinks(preferences, person);
+
+        preferencesDao.cacheInstitutionPreferences(person.getPrincipalName(),preferences);
+        return preferences;
+    }
+
+    @Override
+    public void setInstitutionPreferencesCacheLength(int seconds) {
+        LOG.debug("setInstitutionPreferencesCacheLength() started");
+
+        preferencesDao.setInstitutionPreferencesCacheLength(seconds);
+    }
+
+    @Override
+    public int getInstitutionPreferencesCacheLength() {
+        LOG.debug("getInstitutionPreferencesCacheLength() started");
+
+        int i = preferencesDao.getInstitutionPreferencesCacheLength();
+        LOG.error("getInstitutionPreferencesCacheLength() " + i);
+        return i;
     }
 
     /**
@@ -84,39 +114,6 @@ public class PreferencesServiceImpl implements PreferencesService {
                             (link.get("permission") == null) || canViewLink((Map<String, Object>) link.get("permission"), person)
             ).collect(Collectors.toList()));
         });
-    }
-
-    @Override
-    public Map<String, Object> getUserPreferences(String principalName) {
-        LOG.debug("getUserPreferences() started");
-
-        return preferencesDao.getUserPreferences(principalName);
-    }
-
-    @Override
-    public void saveUserPreferences(String principalName, String preferences) {
-        LOG.debug("saveUserPreferences() started");
-
-        preferencesDao.saveUserPreferences(principalName, preferences);
-    }
-
-    @Override
-    public void saveUserPreferencesKey(String principalName, String key, String preferences) {
-        LOG.debug("saveUserPreferencesKey() started");
-
-        Map<String, Object> userPrefs = getUserPreferences(principalName);
-        if ( userPrefs == null ) {
-            userPrefs = new ConcurrentHashMap<>();
-        }
-        userPrefs.put(key, preferences);
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            saveUserPreferences(principalName, mapper.writeValueAsString(userPrefs));
-        } catch (JsonProcessingException e) {
-            LOG.error("saveUserPreferencesKey() Error processing json",e);
-            throw new RuntimeException("Error processing json");
-        }
     }
 
     protected void appendMenuProperties(Map<String, Object> institutionPreferences) {
@@ -174,8 +171,8 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     /**
      * Filter out links that the user does not have permission to view, build links for document types
-     * @param linkGroup
-     * @param person
+     * @param linkGroup link group
+     * @param person person
      * @return true if the group contains links, false if it is empty
      */
     protected boolean transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
@@ -239,7 +236,7 @@ public class PreferencesServiceImpl implements PreferencesService {
                         link = constructGlobalMaintenanceDocumentLinkFromClass(businessObjectClass);
                     }
                 } else {
-                    if ( canViewMaintableBusinessObjectLookup(businessObjectClass,person) ) {
+                    if ( canViewMaintainableBusinessObjectLookup(businessObjectClass, person) ) {
                         link = constructMaintainableBusinessObjectLookupLinkFromClass(businessObjectClass);
                     }
                 }
@@ -267,15 +264,15 @@ public class PreferencesServiceImpl implements PreferencesService {
         }
 
         return KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(person.getPrincipalId(),
-                templateNamespace,templateName,details,Collections.<String, String>emptyMap());
+                templateNamespace, templateName, details, Collections.<String, String>emptyMap());
     }
 
     protected boolean canInitiateDocument(String documentTypeName,Person person) {
         DocumentAuthorizer documentAuthorizer = documentDictionaryService.getDocumentAuthorizer(documentTypeName);
-        return documentAuthorizer.canInitiate(documentTypeName,person);
+        return documentAuthorizer.canInitiate(documentTypeName, person);
     }
 
-    protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass,Person person) {
+    protected boolean canViewMaintainableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
         return KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(
                 person.getPrincipalId(), KRADConstants.KNS_NAMESPACE,
                 KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
@@ -340,9 +337,5 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     public void setPreferencesDao(PreferencesDao preferencesDao) {
         this.preferencesDao = preferencesDao;
-    }
-
-    public void setNamespaceCodeToUrlName(Map<String, String> namespaceCodeToUrlName) {
-        this.namespaceCodeToUrlName = namespaceCodeToUrlName;
     }
 }

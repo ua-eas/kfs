@@ -91,7 +91,7 @@
     <property name="serviceName" value="kualiModuleService" />
   </bean>
   
-  <bean id="exceptionResolver" class="org.kuali.rice.krad.web.bind.UifHandlerExceptionResolver"/>
+  <bean id="exceptionResolver" class="org.kuali.kfs.krad.web.bind.UifHandlerExceptionResolver"/>
   
   <bean class="org.kuali.rice.krad.web.controller.UifAnnotationMethodHandleAdapter">
     <property name="webBindingInitializer">
