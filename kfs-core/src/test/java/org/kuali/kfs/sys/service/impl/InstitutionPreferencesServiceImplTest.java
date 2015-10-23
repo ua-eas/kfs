@@ -29,6 +29,7 @@ import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.impl.identity.PersonImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.springframework.beans.BeansException;
@@ -50,6 +51,10 @@ public class InstitutionPreferencesServiceImplTest {
         @Override
         public Map<String, Object> findInstitutionPreferences() {
             return null;
+        }
+
+        @Override
+        public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
         }
 
         @Override
@@ -81,6 +86,75 @@ public class InstitutionPreferencesServiceImplTest {
         }
     }
 
+    private PreferencesDaoInstitutionPreferences createFakePreferencesDaoInstitutionPreferences() {
+        return new PreferencesDaoInstitutionPreferences() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId","123413535");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
+                return ip;
+            }
+
+            @Override
+            public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
+
+            }
+        };
+    }
+
+    private PreferencesDaoInstitutionPreferences createFakePreferencesDaoInstitutionPreferencesWithMenu() {
+        return new PreferencesDaoInstitutionPreferences() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
+
+                List<Map<String, String>> menu = new ArrayList<>();
+                Map<String, String> menuItem = new ConcurrentHashMap<>();
+                menuItem.put("label", "Feedback");
+                menuItem.put("link", "kr/kualiFeedbackReport.do");
+                menu.add(menuItem);
+                menuItem = new ConcurrentHashMap<>();
+                menuItem.put("label", "Help");
+                menuItem.put("link", "static/help/default.htm");
+                menu.add(menuItem);
+
+                ip.put("menu", menu);
+                return ip;
+            }
+
+            @Override
+            public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
+
+            }
+        };
+    }
+
+    private PreferencesDaoInstitutionPreferences createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(List<Map<String, Object>> linkGroups) {
+        return new PreferencesDaoInstitutionPreferences() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                Map<String, Object> ip = new ConcurrentHashMap<>();
+                ip.put("institutionId", "123413535");
+                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
+                ip.put("institutionName", "Kuali");
+
+                ip.put("linkGroups", linkGroups);
+
+                return ip;
+            }
+
+            @Override
+            public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
+
+            }
+        };
+    }
+
     private Map<String,Object> jsonToMap(String json) {
         try {
             return new ObjectMapper().readValue(json, HashMap.class);
@@ -93,14 +167,7 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferencesLinks_NoLinkGroups() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ \"institutionId\": \"12341355\"," +
-                        "\"logoUrl\": \"static/images/out-of-the-box-logo-rtna.png\", " +
-                        "\"institutionName\": \"Kuali\" } ");
-            }
-        });
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
         Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
@@ -112,14 +179,7 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferencesLinks_HasActionList() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ \"institutionId\": \"12341355\"," +
-                        "\"logoUrl\": \"static/images/out-of-the-box-logo-rtna.png\", " +
-                        "\"institutionName\": \"Kuali\" } ");
-            }
-        });
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
         Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
@@ -132,14 +192,7 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferencesLinks_HasSignoutUrl() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ \"institutionId\": \"12341355\"," +
-                        "\"logoUrl\": \"static/images/out-of-the-box-logo-rtna.png\", " +
-                        "\"institutionName\": \"Kuali\" } ");
-            }
-        });
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
         Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
@@ -152,14 +205,7 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_HasDocSearch() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ \"institutionId\": \"12341355\"," +
-                        "\"logoUrl\": \"static/images/out-of-the-box-logo-rtna.png\", " +
-                        "\"institutionName\": \"Kuali\" } ");
-            }
-        });
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
         Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
@@ -170,22 +216,25 @@ public class InstitutionPreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferencesLinks_HasHelp() {
+    public void testFindInstitutionPreferencesLinks_HasHelpLinksNotTransformed() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ \"institutionId\": \"12341355\"," +
-                        "\"logoUrl\": \"static/images/out-of-the-box-logo-rtna.png\", " +
-                        "\"institutionName\": \"Kuali\", " +
-                        "\"menu\": [ " +
-                        "{ \"label\": \"Feedback\",\"link\": \"kr/kualiFeedbackReport.do\" }," +
-                        "{ \"label\": \"Help\",\"link\": \"http://tst.kfs.kuali.org/kfs-tst/static/help/default.htm\"} ] }");
-            }
-        });
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
         Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertTrue("Preferences should always include a help url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Help")));
+        Assert.assertEquals("We should know what help url is", "static/help/default.htm", getMenuLinkUrl(preferences, "Help"));
+    }
+
+    @Test
+    public void testFindInstitutionPreferencesLinks_HasHelpTransformedLinks() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new PersonImpl(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a help url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Help")));
@@ -208,17 +257,7 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferencesLinks_HasFeedback() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ \"institutionId\": \"12341355\"," +
-                        "\"logoUrl\": \"static/images/out-of-the-box-logo-rtna.png\", " +
-                        "\"institutionName\": \"Kuali\", " +
-                        "\"menu\": [ " +
-                        "{ \"label\": \"Feedback\",\"link\": \"http://tst.kfs.kuali.org/kfs-tst/kr/kualiFeedbackReport.do\" }," +
-                        "{ \"label\": \"Help\",\"link\": \"http://tst.kfs.kuali.org/kfs-tst/static/help/default.htm\"} ] }");
-            }
-        });
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
         Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
@@ -231,21 +270,23 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferencesLinks_HealthyLinkGroup() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"SB\",\"type\": \"activities\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
-                        "    } " +
-                        "] " +
-                        "}");
-            }
-        });
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("documentTypeCode", "SB");
+        link.put("type", "activities");
+        link.put("linkType", "kfs");
+
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -263,21 +304,23 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferencesLinks_TransactionalDocumentTypeLinkIsTransformed() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"SB\",\"type\": \"activities\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
-                        "    } " +
-                        "] " +
-                        "}");
-            }
-        });
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("documentTypeCode", "SB");
+        link.put("type", "activities");
+        link.put("linkType", "kfs");
+
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -295,32 +338,44 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
         Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
-        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/financialServiceBilling.do?methodToCall=docHandler&command=initiate&docTypeName=SB", link);
+        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/financialServiceBilling.do?methodToCall=docHandler&command=initiate&docTypeName=SB", groupLink);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
     }
 
     @Test
     public void testFindInstitutionPreferencesLinks_MissingDocumentTypeReturnsNoLink() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"SB\",\"type\": \"activities\",\"linkType\": \"kfs\" }," +
-                        "          { \"documentTypeCode\": \"ZZZZ\",\"type\": \"reference\",\"linkType\": \"kfs\" }," +
-                        "          { \"documentTypeCode\": \"CCR\",\"type\": \"activities\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
-                        "    } " +
-                        "] " +
-                        "}");
-            }
-        });
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("documentTypeCode", "SB");
+        link.put("type", "activities");
+        link.put("linkType", "kfs");
+
+        Map<String, String> link2 = new ConcurrentHashMap<>();
+        link2.put("documentTypeCode", "ZZZZ");
+        link2.put("type", "reference");
+        link2.put("linkType", "kfs");
+
+        Map<String, String> link3 = new ConcurrentHashMap<>();
+        link3.put("documentTypeCode", "CCR");
+        link3.put("type", "activities");
+        link3.put("linkType", "kfs");
+
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+        links.add(link2);
+        links.add(link3);
+
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -340,21 +395,23 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferencesLinks_MaintenanceDocumentTypeLinkIsTransformed() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"CCTY\",\"type\": \"administration\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
-                        "    } " +
-                        "] " +
-                        "}");
-            }
-        });
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("documentTypeCode", "CCTY");
+        link.put("type", "administration");
+        link.put("linkType", "kfs");
+
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -372,31 +429,33 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
         Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
-        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
+        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.CreditCardType&docFormKey=88888888&returnLocation=http://tst.kfs.kuali.org/kfs-tst/index.jsp&hideReturnLink=true", link);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.CreditCardType&docFormKey=88888888&returnLocation=http://tst.kfs.kuali.org/kfs-tst/index.jsp&hideReturnLink=true", groupLink);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
     }
 
     @Test
     public void testFindInstitutionPreferencesLinks_GlobalMaintenanceDocumentTypeLinkIsTransformed() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"GORV\",\"type\": \"administration\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
-                        "    } " +
-                        "] " +
-                        "}");
-            }
-        });
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("documentTypeCode", "GORV");
+        link.put("type", "administration");
+        link.put("linkType", "kfs");
+
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -414,32 +473,34 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
         Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
-        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
+        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal&hideReturnLink=true", link);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal&hideReturnLink=true", groupLink);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
     }
 
     @Test
     public void testFindInstitutionPreferencesLinks_RelativeLinkIsTransformed() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
-        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
-                        "            \"type\": \"activities\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
-                        "    } " +
-                        "] " +
-                        "}");
-            }
-        });
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("link", "electronicFundTransfer.do?methodToCall=start");
+        link.put("label", "Electronic Payment Claim");
+        link.put("type", "activities");
+        link.put("linkType", "kfs");
+
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -457,10 +518,10 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
         Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
-        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
+        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/electronicFundTransfer.do?methodToCall=start", link);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/electronicFundTransfer.do?methodToCall=start", groupLink);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
     }
 
@@ -665,42 +726,31 @@ public class InstitutionPreferencesServiceImplTest {
     @Test
     public void testFindInstitutionPreferences_LookupLinkHasReturnLocation() {
         InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            @Override
-            public Map<String, Object> findInstitutionPreferences() {
-                Map<String, Object> ip = new ConcurrentHashMap<>();
-                ip.put("institutionId", "123413535");
-                ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
-                ip.put("institutionName", "Kuali");
 
-                Map<String, String> link = new ConcurrentHashMap<>();
-                link.put("link", "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group");
-                link.put("label", "Batch Schedule");
-                link.put("type", "administration");
-                link.put("linkType", "kfs");
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("link", "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group");
+        link.put("label", "Batch Schedule");
+        link.put("type", "administration");
+        link.put("linkType", "kfs");
 
-                Map<String, String> link2 = new ConcurrentHashMap<>();
-                link2.put("link", "kr/lookup.do");
-                link2.put("label", "Batch Schedule");
-                link2.put("type", "administration");
-                link2.put("linkType", "kfs");
+        Map<String, String> link2 = new ConcurrentHashMap<>();
+        link2.put("link", "kr/lookup.do");
+        link2.put("label", "Batch Schedule");
+        link2.put("type", "administration");
+        link2.put("linkType", "kfs");
 
-                List<Map<String, String>> links = new ArrayList<>();
-                links.add(link);
-                links.add(link2);
+        List<Map<String, String>> links = new ArrayList<>();
+        links.add(link);
+        links.add(link2);
 
-                Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-                linkGroup.put("label", "Test Menu");
-                linkGroup.put("links", links);
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", links);
 
-                List<Map<String, Object>> linkGroups = new ArrayList<>();
-                linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
 
-                ip.put("linkGroups", linkGroups);
-
-                return ip;
-            }
-        });
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
@@ -718,16 +768,16 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
         Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
-        String link = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link));
+        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", link);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
 
-        String link2 = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(1).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(link2));
+        String groupLink2 = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(1).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink2));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", link2);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink2);
     }
 
     protected class StubDocumentDictionaryService implements DocumentDictionaryService {

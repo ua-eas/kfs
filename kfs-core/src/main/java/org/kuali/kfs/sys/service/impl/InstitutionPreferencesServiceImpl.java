@@ -1,5 +1,6 @@
 package org.kuali.kfs.sys.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
@@ -22,6 +23,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -68,7 +70,29 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     @Override
-    public Map<String, Object> findInstitutionPreferencesLinks(Person person,boolean useCache) {
+    public void saveInstitutionPreferences(String institutionId, String linkGroupsString) {
+        LOG.debug("saveInstitutionPreferences started");
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<Map<String, Object>> linkGroups;
+        try {
+            linkGroups = mapper.readValue(linkGroupsString, List.class);
+        } catch (IOException e) {
+            LOG.error("saveInstitutionPreferences Error parsing json", e);
+            throw new RuntimeException("Error parsing json");
+        }
+
+        linkGroups = removeGeneratedLabels(linkGroups);
+
+        Map<String, Object> preferences = preferencesDao.findInstitutionPreferences();
+        preferences.put("linkGroups", linkGroups);
+
+        preferencesDao.saveInstitutionPreferences(institutionId, preferences);
+    }
+
+    @Override
+    public Map<String, Object> findInstitutionPreferencesLinks(Person person, boolean useCache) {
         LOG.debug("findInstitutionPreferencesLinks() started");
 
         if ( useCache ) {
@@ -321,6 +345,41 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             linkInfo.put("link", link);
         }
         return linkInfo;
+    }
+
+    protected List<Map<String, Object>> removeGeneratedLabels(List<Map<String, Object>> linkGroups) {
+        for (Map<String, Object> linkGroup : linkGroups) {
+            List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
+                if (link.containsKey("documentTypeCode")) {
+                    link.remove("label");
+                }
+                return link;
+            }).collect(Collectors.toList());
+            linkGroup.put("links", updatedLinks);
+        }
+        return linkGroups;
+    }
+
+    @Override
+    public Map<String, Object> getAllLinkGroups() {
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        List<Map<String, Object>> linkGroups = getLinkGroups(institutionPreferences);
+
+        for (Map<String, Object> linkGroup: linkGroups) {
+            List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
+                if (link.containsKey("documentTypeCode")) {
+                    link.put("label", documentDictionaryService.getLabel(link.get("documentTypeCode")));
+                }
+                return link;
+            }).collect(Collectors.toList());
+            linkGroup.put("links", updatedLinks);
+        }
+
+        Map<String, Object> groupsWithInstitutionId = new ConcurrentHashMap<>();
+        groupsWithInstitutionId.put("institutionId", institutionPreferences.get("institutionId"));
+        groupsWithInstitutionId.put("linkGroups", linkGroups);
+
+        return groupsWithInstitutionId;
     }
 
     public void setConfigurationService(ConfigurationService configurationService) {
