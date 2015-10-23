@@ -107,7 +107,7 @@
 		<c:if test="${param.mode ne 'modal'}">
 			<script src="${pageContext.request.contextPath}/scripts/jquery.min.js"></script>
 			<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
-			<script src="${pageContext.request.contextPath}/scripts/react.js"></script>
+			<script src="${pageContext.request.contextPath}/scripts/react.min.js"></script>
 			<script src="${pageContext.request.contextPath}/scripts/remodal.min.js"></script>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/remodal.min.css">
 		</c:if>
