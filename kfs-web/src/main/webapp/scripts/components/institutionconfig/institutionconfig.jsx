@@ -11,7 +11,8 @@ let InstitutionConfig = React.createClass({
         updateLinkGroupName: React.PropTypes.func,
         addNewLinkGroup: React.PropTypes.func,
         deleteLinkGroup: React.PropTypes.func,
-        addNewCustomLink: React.PropTypes.func
+        addNewCustomLink: React.PropTypes.func,
+        updateExistingCustomLink: React.PropTypes.func
     },
     getChildContext() {
         return {
@@ -20,7 +21,8 @@ let InstitutionConfig = React.createClass({
             updateLinkGroupName: this.updateLinkGroupName,
             addNewLinkGroup: this.addNewLinkGroup,
             deleteLinkGroup: this.deleteLinkGroup,
-            addNewCustomLink: this.addNewCustomLink
+            addNewCustomLink: this.addNewCustomLink,
+            updateExistingCustomLink: this.updateExistingCustomLink
         }
     },
     getInitialState() {
@@ -79,6 +81,25 @@ let InstitutionConfig = React.createClass({
         let linkGroup = linkGroups.get(groupIndex);
         let links = linkGroup.get('links');
         let updatedLinks = links.push(newLink);
+        let updatedLinkGroup = linkGroup.set('links', updatedLinks);
+        let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
+        this.setState({'linkGroups': updatedLinkGroups});
+    },
+    updateExistingCustomLink(groupIndex, oldLink, updatedLink) {
+        let linkGroups = this.state.linkGroups;
+        let linkGroup = linkGroups.get(groupIndex);
+        let links = linkGroup.get('links');
+        let index = -1;
+
+        let jsLinks = links.toJS();
+        let jsOldLink = oldLink.toJS();
+        _.each(jsLinks, function(data, idx) {
+            if (_.isEqual(data, jsOldLink)) {
+                index = idx;
+                return;
+            }
+        });
+        let updatedLinks = links.set(index, updatedLink);
         let updatedLinkGroup = linkGroup.set('links', updatedLinks);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
         this.setState({'linkGroups': updatedLinkGroups});

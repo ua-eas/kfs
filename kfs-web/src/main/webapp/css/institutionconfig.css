@@ -267,6 +267,19 @@ div#linkGroupLinksList {
     cursor: grab;
 }
 
+.instconfig div.admin-sublinks li .list-group-item .actions {
+    float: right;
+    color: #767676;
+}
+
+.instconfig div.admin-sublinks li .list-group-item .actions .editLink {
+    background-image: url('../static/images/small-edit.png');
+    background-size: 13px 12px;
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    padding-left: 14px;
+}
+
 .buttonbar {
     text-align: center;
     padding: 30px 0 15px 0;
