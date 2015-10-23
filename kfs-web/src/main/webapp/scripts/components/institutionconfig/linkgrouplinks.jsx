@@ -16,7 +16,8 @@ let LinkGroupLinks = React.createClass({
 let SubLinkGroup = React.createClass({
     contextTypes: {
         addNewCustomLink: React.PropTypes.func,
-        updateExistingCustomLink: React.PropTypes.func
+        updateExistingCustomLink: React.PropTypes.func,
+        deleteExistingCustomLink: React.PropTypes.func
     },
     childContextTypes: {
         openUpdateCustomLink: React.PropTypes.func,
@@ -89,6 +90,17 @@ let SubLinkGroup = React.createClass({
             this.setState({errors: errors});
         }
     },
+    deleteCustomLink() {
+        let confirmed = confirm('Are you sure you want to delete this link?');
+        if (confirmed) {
+            this.context.deleteExistingCustomLink(this.props.groupIndex, this.state.oldLink);
+            this.replaceState({
+                customLinkFormOpen: false,
+                errors: [],
+                newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
+            });
+        }
+    },
     updateNewLinkValue(key, event) {
         let value = $(event.target).val();
         let updatedNewLink = this.state.newLink.set(key, value);
@@ -105,10 +117,13 @@ let SubLinkGroup = React.createClass({
 
         let formActionFunction = this.addCustomLink;
         let formActionText = 'Add';
+        let deleteButton;
         if (this.state.update) {
             formActionFunction = this.updateCustomLink;
             formActionText = 'Update';
+            deleteButton = <button className="btn btn-default" onClick={this.deleteCustomLink}>Delete</button>
         }
+
         return (
             <div id={this.props.id + "-menu"} className={divClassName}>
                 <div className="addCustomLink">
@@ -129,6 +144,7 @@ let SubLinkGroup = React.createClass({
                         <div>
                             <button className="btn btn-green" onClick={formActionFunction}>{formActionText}</button>
                             <button className="btn btn-default" onClick={this.openAddCustomLink}>Cancel</button>
+                            {deleteButton}
                         </div>
                     </div>
                 </div>
