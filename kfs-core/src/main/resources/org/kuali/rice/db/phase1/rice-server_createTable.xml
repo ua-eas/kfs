@@ -42,7 +42,7 @@
             <column name="TXT" type="VARCHAR(4000)"/>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00016">
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00016">
         <createTable tableName="krcr_cmpnt_set_t">
             <column defaultValue="" name="CMPNT_SET_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
@@ -78,7 +78,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00018">
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00018">
         <createTable tableName="krcr_drvd_cmpnt_t">
             <column defaultValue="" name="NMSPC_CD" type="VARCHAR(20)">
                 <constraints nullable="false"/>
@@ -155,7 +155,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00022">
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00022">
         <createTable tableName="krcr_style_t">
             <column defaultValue="" name="STYLE_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>

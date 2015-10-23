@@ -21,7 +21,7 @@
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00693">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRAD_MSG_TC0" tableName="krad_msg_t"/>
     </changeSet>
-    <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00694">
+    <changeSet author="kfs" context="bootstrap,demo" id="rice00694">
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRCR_STYLE_TC0" tableName="krcr_style_t"/>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00695">
