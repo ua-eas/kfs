@@ -1,15 +1,10 @@
 package org.kuali.kfs.sys.service;
 
-import org.kuali.rice.kim.api.identity.Person;
-
 import java.util.Map;
 
-public interface PreferencesService {
+public interface UserPreferencesService {
 
-    Map<String, Object> findInstitutionPreferences(Person person);
-    void saveInstitutionPreferences(String institutionId, String linkGroups);
     Map<String, Object> getUserPreferences(String username);
     void saveUserPreferences(String principalName,String preferences);
     void saveUserPreferencesKey(String principalName,String key,String preferences);
-    Map<String,Object> getAllLinkGroups();
 }

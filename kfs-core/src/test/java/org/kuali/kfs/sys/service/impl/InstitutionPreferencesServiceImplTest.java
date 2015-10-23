@@ -2,6 +2,7 @@ package org.kuali.kfs.sys.service.impl;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal;
@@ -26,21 +27,55 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.impl.identity.PersonImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PreferencesServiceImplTest {
+public class InstitutionPreferencesServiceImplTest {
     abstract class PreferencesDaoInstitutionPreferences implements PreferencesDao {
+        public Integer cacheLength = null;
+
+        @Override
+        public Map<String, Object> findInstitutionPreferences() {
+            return null;
+        }
+
+        @Override
+        public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
+        }
+
+        @Override
+        public Map<String, Object> findInstitutionPreferencesCache(String principalName) {
+            return null;
+        }
+
+        @Override
+        public void setInstitutionPreferencesCacheLength(int seconds) {
+            cacheLength = seconds;
+        }
+
+        @Override
+        public int getInstitutionPreferencesCacheLength() {
+            return cacheLength;
+        }
+
+        @Override
+        public void cacheInstitutionPreferences(String principalName, Map<String, Object> institutionPreferences) {
+        }
+
         @Override
         public Map<String, Object> getUserPreferences(String principalName) {
             return null;
@@ -48,7 +83,6 @@ public class PreferencesServiceImplTest {
 
         @Override
         public void saveUserPreferences(String principalName, String preferences) {
-
         }
     }
 
@@ -121,25 +155,34 @@ public class PreferencesServiceImplTest {
         };
     }
 
-    @Test
-    public void testFindInstitutionPreferences_NoLinkGroups() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+    private Map<String,Object> jsonToMap(String json) {
+        try {
+            return new ObjectMapper().readValue(json, HashMap.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Invalid json: " + json);
+        }
+    }
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+    @Test
+    public void testFindInstitutionPreferencesLinks_NoLinkGroups() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNull("Link Groups should not exist", preferences.get("linkGroups"));
     }
 
     @Test
-    public void testFindInstitutionPreferences_HasActionList() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+    public void testFindInstitutionPreferencesLinks_HasActionList() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include an action list url", preferences.containsKey("actionListUrl"));
@@ -147,12 +190,12 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_HasSignoutUrl() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+    public void testFindInstitutionPreferencesLinks_HasSignoutUrl() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a signoutUrl", preferences.containsKey("signoutUrl"));
@@ -161,11 +204,11 @@ public class PreferencesServiceImplTest {
 
     @Test
     public void testFindInstitutionPreferences_HasDocSearch() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a doc search url", preferences.containsKey("actionListUrl"));
@@ -173,12 +216,25 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_HasHelp() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+    public void testFindInstitutionPreferencesLinks_HasHelpLinksNotTransformed() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertTrue("Preferences should always include a help url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Help")));
+        Assert.assertEquals("We should know what help url is", "static/help/default.htm", getMenuLinkUrl(preferences, "Help"));
+    }
+
+    @Test
+    public void testFindInstitutionPreferencesLinks_HasHelpTransformedLinks() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new PersonImpl(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a help url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Help")));
@@ -199,12 +255,12 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_HasFeedback() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+    public void testFindInstitutionPreferencesLinks_HasFeedback() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a feedback url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Feedback")));
@@ -212,8 +268,8 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_HealthyLinkGroup() {
-        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
+    public void testFindInstitutionPreferencesLinks_HealthyLinkGroup() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
 
         Map<String, String> link = new ConcurrentHashMap<>();
         link.put("documentTypeCode", "SB");
@@ -230,12 +286,12 @@ public class PreferencesServiceImplTest {
         List<Map<String, Object>> linkGroups = new ArrayList<>();
         linkGroups.add(linkGroup);
 
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
-        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
-        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -246,8 +302,8 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_TransactionalDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
+    public void testFindInstitutionPreferencesLinks_TransactionalDocumentTypeLinkIsTransformed() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
 
         Map<String, String> link = new ConcurrentHashMap<>();
         link.put("documentTypeCode", "SB");
@@ -264,12 +320,12 @@ public class PreferencesServiceImplTest {
         List<Map<String, Object>> linkGroups = new ArrayList<>();
         linkGroups.add(linkGroup);
 
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
-        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
-        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -289,8 +345,8 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_MissingDocumentTypeReturnsNoLink() {
-        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
+    public void testFindInstitutionPreferencesLinks_MissingDocumentTypeReturnsNoLink() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
 
         Map<String, String> link = new ConcurrentHashMap<>();
         link.put("documentTypeCode", "SB");
@@ -319,12 +375,12 @@ public class PreferencesServiceImplTest {
         List<Map<String, Object>> linkGroups = new ArrayList<>();
         linkGroups.add(linkGroup);
 
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
-        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
-        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -337,8 +393,8 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_MaintenanceDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
+    public void testFindInstitutionPreferencesLinks_MaintenanceDocumentTypeLinkIsTransformed() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
 
         Map<String, String> link = new ConcurrentHashMap<>();
         link.put("documentTypeCode", "CCTY");
@@ -355,12 +411,12 @@ public class PreferencesServiceImplTest {
         List<Map<String, Object>> linkGroups = new ArrayList<>();
         linkGroups.add(linkGroup);
 
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
-        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
-        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -377,12 +433,12 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.CreditCardType&docFormKey=88888888&returnLocation=http://tst.kfs.kuali.org/kfs-tst/index.jsp&hideReturnLink=true", groupLink);
-        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
+        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
     }
 
     @Test
-    public void testFindInstitutionPreferences_GlobalMaintenanceDocumentTypeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new NoPermissionsPreferencesServiceImpl();
+    public void testFindInstitutionPreferencesLinks_GlobalMaintenanceDocumentTypeLinkIsTransformed() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
 
         Map<String, String> link = new ConcurrentHashMap<>();
         link.put("documentTypeCode", "GORV");
@@ -399,12 +455,12 @@ public class PreferencesServiceImplTest {
         List<Map<String, Object>> linkGroups = new ArrayList<>();
         linkGroups.add(linkGroup);
 
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
-        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
-        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -425,8 +481,8 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
-    public void testFindInstitutionPreferences_RelativeLinkIsTransformed() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+    public void testFindInstitutionPreferencesLinks_RelativeLinkIsTransformed() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
 
         Map<String, String> link = new ConcurrentHashMap<>();
         link.put("link", "electronicFundTransfer.do?methodToCall=start");
@@ -444,12 +500,12 @@ public class PreferencesServiceImplTest {
         List<Map<String, Object>> linkGroups = new ArrayList<>();
         linkGroups.add(linkGroup);
 
-        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
-        preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
-        preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
-        preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -470,8 +526,206 @@ public class PreferencesServiceImplTest {
     }
 
     @Test
+    public void testFindInstitutionPreferencesNoLinks_hasNoLinks() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                return jsonToMap("{ " +
+                        "\"linkGroups\": [" +
+                        "    { " +
+                        "      \"label\": \"Test Menu\", " +
+                        "      \"links\": [" +
+                        "          { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
+                        "            \"type\": \"activities\",\"linkType\": \"kfs\" }" +
+                        "        ] " +
+                        "    } " +
+                        "] " +
+                        "}");
+            }
+        });
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesNoLinks();
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertNull("Link Groups should not exist", preferences.get("linkGroups"));
+    }
+
+    @Test
+    public void testFindInstitutionPreferencesLinks_canViewLinkPermission() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl() {
+            @Override
+            protected boolean canViewLink(Map<String, Object> permission, Person person) {
+                return false;
+            }
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                return jsonToMap("{ " +
+                        "\"linkGroups\": [" +
+                        "    { " +
+                        "      \"label\": \"Test Menu\", " +
+                        "      \"links\": [" +
+                        "          { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
+                        "            \"type\": \"activities\",\"linkType\": \"kfs\",\"permission\": {" +
+                        "                \"templateNamespace\": \"KR-SYS\"," +
+                        "                \"templateName\": \"Initiate Document\"," +
+                        "                \"details\": { \"documentTypeCode\": \"ETB\" }" +
+                        "              } }" +
+                        "        ] " +
+                        "    } " +
+                        "] " +
+                        "}");
+            }
+        });
+
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
+    }
+
+    @Test
+    public void testFindInstitutionPreferencesLinks_canInitiateDocumentPermission() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl() {
+            @Override
+            protected boolean canInitiateDocument(String documentTypeName, Person person) {
+                return false;
+            }
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                return jsonToMap("{ " +
+                        "\"linkGroups\": [" +
+                        "    { " +
+                        "      \"label\": \"Test Menu\", " +
+                        "      \"links\": [" +
+                        "          { \"documentTypeCode\": \"SB\",\"type\": \"activities\",\"linkType\": \"kfs\" }" +
+                        "        ] " +
+                        "    } " +
+                        "] " +
+                        "}");
+            }
+        });
+
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
+    }
+
+    @Test
+    public void testFindInstitutionPreferencesLinks_canViewMaintableBusinessObjectLookupPermission() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl() {
+            @Override
+            protected boolean canViewMaintainableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+                return false;
+            }
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                return jsonToMap("{ " +
+                        "\"linkGroups\": [" +
+                        "    { " +
+                        "      \"label\": \"Test Menu\", " +
+                        "      \"links\": [" +
+                        "          { \"documentTypeCode\": \"CCTY\",\"type\": \"administration\",\"linkType\": \"kfs\" }" +
+                        "        ] " +
+                        "    } " +
+                        "] " +
+                        "}");
+            }
+        });
+
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
+    }
+
+    @Test
+    public void testInstitutionPreferencesCacheSet() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        PreferencesDaoInstitutionPreferences dao = new PreferencesDaoInstitutionPreferences() {
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(dao);
+
+        institutionPreferencesServiceImpl.setInstitutionPreferencesCacheLength(1000);
+        Assert.assertEquals("Cache Length should be set",1000,(int)dao.cacheLength);
+    }
+
+    @Test
+    public void testInstitutionPreferencesCacheGet() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        PreferencesDaoInstitutionPreferences dao = new PreferencesDaoInstitutionPreferences() {
+        };
+        institutionPreferencesServiceImpl.setPreferencesDao(dao);
+        dao.cacheLength = 100;
+
+        Assert.assertEquals("Cache Length should be retrieved",100,(int)institutionPreferencesServiceImpl.getInstitutionPreferencesCacheLength());
+    }
+
+    @Test
+    public void testFindInstitutionPreferencesLinksCache() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
+            private Map<String,Object> getData() {
+                return jsonToMap("{ " +
+                        "\"linkGroups\": [" +
+                        "    { " +
+                        "      \"label\": \"Test Menu\", " +
+                        "      \"links\": [" +
+                        "          { \"documentTypeCode\": \"CCTY\",\"type\": \"administration\",\"linkType\": \"kfs\" }" +
+                        "        ] " +
+                        "    } " +
+                        "] " +
+                        "}");
+            }
+
+            @Override
+            public Map<String, Object> findInstitutionPreferencesCache(String principalName) {
+                Map<String,Object> data = getData();
+                data.put("cache","cached");
+                return data;
+            }
+
+            @Override
+            public Map<String, Object> findInstitutionPreferences() {
+                return getData();
+            }
+        });
+
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),true);
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertEquals("Should have retrieved cached version","cached",preferences.get("cache"));
+    }
+
+    @Test
     public void testFindInstitutionPreferences_LookupLinkHasReturnLocation() {
-        PreferencesServiceImpl preferencesServiceImpl = new PreferencesServiceImpl();
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
 
         Map<String, String> link = new ConcurrentHashMap<>();
         link.put("link", "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group");
@@ -501,7 +755,7 @@ public class PreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferences(null);
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -514,16 +768,16 @@ public class PreferencesServiceImplTest {
         Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
         Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
 
-        String assertLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(assertLink));
+        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", assertLink);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink);
         Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
 
-        String assertLink2 = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(1).get("link");
-        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(assertLink2));
+        String groupLink2 = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(1).get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink2));
 
-        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", assertLink2);
+        Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink2);
     }
 
     protected class StubDocumentDictionaryService implements DocumentDictionaryService {
@@ -665,6 +919,218 @@ public class PreferencesServiceImplTest {
         }
     }
 
+    protected class TestPerson implements Person {
+        @Override
+        public String getPrincipalId() {
+            return "1234567890";
+        }
+
+        @Override
+        public String getPrincipalName() {
+            return "Test";
+        }
+
+        @Override
+        public String getEntityId() {
+            return null;
+        }
+
+        @Override
+        public String getEntityTypeCode() {
+            return null;
+        }
+
+        @Override
+        public String getFirstName() {
+            return null;
+        }
+
+        @Override
+        public String getFirstNameUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getMiddleName() {
+            return null;
+        }
+
+        @Override
+        public String getMiddleNameUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getLastName() {
+            return null;
+        }
+
+        @Override
+        public String getLastNameUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getName() {
+            return null;
+        }
+
+        @Override
+        public String getNameUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getEmailAddress() {
+            return null;
+        }
+
+        @Override
+        public String getEmailAddressUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getAddressLine1() {
+            return null;
+        }
+
+        @Override
+        public String getAddressLine1Unmasked() {
+            return null;
+        }
+
+        @Override
+        public String getAddressLine2() {
+            return null;
+        }
+
+        @Override
+        public String getAddressLine2Unmasked() {
+            return null;
+        }
+
+        @Override
+        public String getAddressLine3() {
+            return null;
+        }
+
+        @Override
+        public String getAddressLine3Unmasked() {
+            return null;
+        }
+
+        @Override
+        public String getAddressCity() {
+            return null;
+        }
+
+        @Override
+        public String getAddressCityUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getAddressStateProvinceCode() {
+            return null;
+        }
+
+        @Override
+        public String getAddressStateProvinceCodeUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getAddressPostalCode() {
+            return null;
+        }
+
+        @Override
+        public String getAddressPostalCodeUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getAddressCountryCode() {
+            return null;
+        }
+
+        @Override
+        public String getAddressCountryCodeUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getPhoneNumber() {
+            return null;
+        }
+
+        @Override
+        public String getPhoneNumberUnmasked() {
+            return null;
+        }
+
+        @Override
+        public String getCampusCode() {
+            return null;
+        }
+
+        @Override
+        public Map<String, String> getExternalIdentifiers() {
+            return null;
+        }
+
+        @Override
+        public boolean hasAffiliationOfType(String s) {
+            return false;
+        }
+
+        @Override
+        public List<String> getCampusCodesForAffiliationOfType(String s) {
+            return null;
+        }
+
+        @Override
+        public String getEmployeeStatusCode() {
+            return null;
+        }
+
+        @Override
+        public String getEmployeeTypeCode() {
+            return null;
+        }
+
+        @Override
+        public KualiDecimal getBaseSalaryAmount() {
+            return null;
+        }
+
+        @Override
+        public String getExternalId(String s) {
+            return null;
+        }
+
+        @Override
+        public String getPrimaryDepartmentCode() {
+            return null;
+        }
+
+        @Override
+        public String getEmployeeId() {
+            return null;
+        }
+
+        @Override
+        public boolean isActive() {
+            return false;
+        }
+
+        @Override
+        public void refresh() {
+
+        }
+    }
+
     protected class StubConfigurationService implements ConfigurationService {
         @Override
         public String getPropertyValueAsString(String s) {
@@ -711,7 +1177,7 @@ public class PreferencesServiceImplTest {
         @Override
         public ModuleService getResponsibleModuleService(Class boClass) {
             if (boClass.equals(ServiceBillingDocument.class) || boClass.equals(CreditCardType.class)) {
-                ModuleService fpModule = new ModuleService() {
+                return new ModuleService() {
                     @Override
                     public ModuleConfiguration getModuleConfiguration() {
                         FinancialSystemModuleConfiguration moduleConfig = new FinancialSystemModuleConfiguration();
@@ -834,8 +1300,6 @@ public class PreferencesServiceImplTest {
 
                     }
                 };
-                return fpModule;
-
             }
             return null;
         }
@@ -871,7 +1335,7 @@ public class PreferencesServiceImplTest {
         }
     }
 
-    class NoPermissionsPreferencesServiceImpl extends PreferencesServiceImpl {
+    class NoPermissionsInstitutionPreferencesServiceImpl extends InstitutionPreferencesServiceImpl {
         @Override
         protected boolean canViewLink(Map<String, Object> permission, Person person) {
             return true;
@@ -883,9 +1347,8 @@ public class PreferencesServiceImplTest {
         }
 
         @Override
-        protected boolean canViewMaintableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+        protected boolean canViewMaintainableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
             return true;
         }
-    };
-
+    }
 }
