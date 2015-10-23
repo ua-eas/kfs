@@ -47,7 +47,7 @@ div#linkGroupLinksList {
     position: absolute;
     right: 0;
     top: 50px;
-    z-index: 1000;
+    z-index: 100;
     background-color: #fff;
     border: 1px solid #BBBBBB;
     border-radius: 3px;
