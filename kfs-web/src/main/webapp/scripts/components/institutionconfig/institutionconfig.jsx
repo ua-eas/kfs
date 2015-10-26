@@ -145,6 +145,10 @@ let InstitutionConfig = React.createClass({
     render() {
         return (
             <div>
+                <div className="headerarea-small" id="headerarea-small">
+                    <h1><span class="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
+                </div>
+
                 <div className="instconfig">
                     <LinkGroups linkGroups={this.state.linkGroups}
                                 expandedLinkGroup={this.state.expandedLinkGroup}/>
@@ -165,7 +169,7 @@ let InstitutionConfig = React.createClass({
 
 React.render(
     <InstitutionConfig/>,
-    document.getElementById('institutionconfig')
+    document.getElementById('page-content')
 );
 
 export default InstitutionConfig;
