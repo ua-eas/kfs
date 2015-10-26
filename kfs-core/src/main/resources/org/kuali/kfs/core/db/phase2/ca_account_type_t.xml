@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10108" context="demo">
+  <changeSet author="kfs" id="10108" context="demo,unit">
     <insert tableName="ca_account_type_t">
       <column name="ACCT_TYP_CD"><![CDATA[DP]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF81DAA448E043814FD28EA448]]></column>
@@ -216,7 +216,7 @@
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
     </insert>
   </changeSet>
-  <changeSet author="kfs" id="10108-bootstrap" context="bootstrap,demo">
+  <changeSet author="kfs" id="10108-bootstrap" context="bootstrap,demo,unit">
     <insert tableName="ca_account_type_t">
       <column name="ACCT_TYP_CD"><![CDATA[AI]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF81D8A448E043814FD28EA448]]></column>

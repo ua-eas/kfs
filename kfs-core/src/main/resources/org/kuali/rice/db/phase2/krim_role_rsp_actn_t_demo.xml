@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet context="demo" author="kfs" id="ricedata00108">
+  <changeSet context="demo,unit" author="kfs" id="ricedata00108">
     <insert tableName="krim_role_rsp_actn_t">
       <column name="ROLE_RSP_ACTN_ID"><![CDATA[KFS10000]]></column>
       <column name="OBJ_ID"><![CDATA[KFS-RSP-ACTN-000]]></column>

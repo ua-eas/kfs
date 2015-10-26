@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet context="demo" author="kfs" id="ricedata00067">
+  <changeSet context="demo,unit" author="kfs" id="ricedata00067">
     <insert tableName="krim_entity_emp_info_t">
       <column name="ENTITY_EMP_ID"><![CDATA[KFS1000]]></column>
       <column name="OBJ_ID"><![CDATA[KFS1000]]></column>

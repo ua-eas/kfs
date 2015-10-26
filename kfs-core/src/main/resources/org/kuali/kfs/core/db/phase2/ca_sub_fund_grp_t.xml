@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10165" context="demo">
+  <changeSet author="kfs" id="10165" context="demo,unit">
     <insert tableName="ca_sub_fund_grp_t">
       <column name="SUB_FUND_GRP_CD"><![CDATA[AUXAMB]]></column>
       <column name="OBJ_ID"><![CDATA[015D880780746C10E043814FD8816C10]]></column>
@@ -1905,7 +1905,7 @@
       <column name="ACCT_RSTRC_STAT_CD" value="null"/>
     </insert>
   </changeSet>
-  <changeSet author="kfs" id="10165-bootstrap" context="bootstrap,demo">
+  <changeSet author="kfs" id="10165-bootstrap" context="bootstrap,demo,unit">
     <insert tableName="ca_sub_fund_grp_t">
       <column name="SUB_FUND_GRP_CD"><![CDATA[GENFND]]></column>
       <column name="OBJ_ID"><![CDATA[015D880780C26C10E043814FD8816C10]]></column>
