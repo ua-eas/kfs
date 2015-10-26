@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10121" context="bootstrap,demo">
+  <changeSet author="kfs" id="10121" context="bootstrap,demo,unit">
     <insert tableName="ca_aicpa_func_t">
       <column name="FIN_AICPA_FUNC_CD"><![CDATA[AS]]></column>
       <column name="OBJ_ID"><![CDATA[0DF1FAB5ADCE03D2E043814FD88103D2]]></column>

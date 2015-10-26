@@ -18,1207 +18,1207 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" dbms="oracle" id="rice00024">
+    <changeSet author="kfs" dbms="oracle" id="rice00024" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_chnl_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00025">
+    <changeSet author="kfs" dbms="mysql" id="rice00025" context="bootstrap,demo,unit">
         <createTable tableName="kren_chnl_subscrp_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00025">
+    <changeSet author="kfs" dbms="oracle" id="rice00025" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_chnl_subscrp_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00028">
+    <changeSet author="kfs" dbms="mysql" id="rice00028" context="bootstrap,demo,unit">
         <createTable tableName="kren_cntnt_typ_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00028">
+    <changeSet author="kfs" dbms="oracle" id="rice00028" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_cntnt_typ_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00030">
+    <changeSet author="kfs" dbms="mysql" id="rice00030" context="bootstrap,demo,unit">
         <createTable tableName="kren_msg_deliv_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00030">
+    <changeSet author="kfs" dbms="oracle" id="rice00030" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_msg_deliv_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00032">
+    <changeSet author="kfs" dbms="mysql" id="rice00032" context="bootstrap,demo,unit">
         <createTable tableName="kren_msg_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00032">
+    <changeSet author="kfs" dbms="oracle" id="rice00032" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_msg_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00034">
+    <changeSet author="kfs" dbms="mysql" id="rice00034" context="bootstrap,demo,unit">
         <createTable tableName="kren_ntfctn_msg_deliv_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00034">
+    <changeSet author="kfs" dbms="oracle" id="rice00034" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_ntfctn_msg_deliv_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00036">
+    <changeSet author="kfs" dbms="mysql" id="rice00036" context="bootstrap,demo,unit">
         <createTable tableName="kren_ntfctn_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00036">
+    <changeSet author="kfs" dbms="oracle" id="rice00036" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_ntfctn_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00038">
+    <changeSet author="kfs" dbms="mysql" id="rice00038" context="bootstrap,demo,unit">
         <createTable tableName="kren_prio_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00038">
+    <changeSet author="kfs" dbms="oracle" id="rice00038" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_prio_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00040">
+    <changeSet author="kfs" dbms="mysql" id="rice00040" context="bootstrap,demo,unit">
         <createTable tableName="kren_prodcr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00040">
+    <changeSet author="kfs" dbms="oracle" id="rice00040" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_prodcr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00042">
+    <changeSet author="kfs" dbms="mysql" id="rice00042" context="bootstrap,demo,unit">
         <createTable tableName="kren_recip_deliv_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00042">
+    <changeSet author="kfs" dbms="oracle" id="rice00042" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_recip_deliv_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00044">
+    <changeSet author="kfs" dbms="mysql" id="rice00044" context="bootstrap,demo,unit">
         <createTable tableName="kren_recip_list_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00044">
+    <changeSet author="kfs" dbms="oracle" id="rice00044" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_recip_list_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00046">
+    <changeSet author="kfs" dbms="mysql" id="rice00046" context="bootstrap,demo,unit">
         <createTable tableName="kren_recip_pref_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00046">
+    <changeSet author="kfs" dbms="oracle" id="rice00046" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_recip_pref_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00048">
+    <changeSet author="kfs" dbms="mysql" id="rice00048" context="bootstrap,demo,unit">
         <createTable tableName="kren_recip_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00048">
+    <changeSet author="kfs" dbms="oracle" id="rice00048" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_recip_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00050">
+    <changeSet author="kfs" dbms="mysql" id="rice00050" context="bootstrap,demo,unit">
         <createTable tableName="kren_rvwer_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00050">
+    <changeSet author="kfs" dbms="oracle" id="rice00050" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_rvwer_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00052">
+    <changeSet author="kfs" dbms="mysql" id="rice00052" context="bootstrap,demo,unit">
         <createTable tableName="kren_sndr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00052">
+    <changeSet author="kfs" dbms="oracle" id="rice00052" context="bootstrap,demo,unit">
         <createSequence sequenceName="kren_sndr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00054">
+    <changeSet author="kfs" dbms="mysql" id="rice00054" context="bootstrap,demo,unit">
         <createTable tableName="krew_actn_itm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00054">
+    <changeSet author="kfs" dbms="oracle" id="rice00054" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_actn_itm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00056">
+    <changeSet author="kfs" dbms="mysql" id="rice00056" context="bootstrap,demo,unit">
         <createTable tableName="krew_actn_list_optn_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00056">
+    <changeSet author="kfs" dbms="oracle" id="rice00056" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_actn_list_optn_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00057">
+    <changeSet author="kfs" dbms="mysql" id="rice00057" context="bootstrap,demo,unit">
         <createTable tableName="krew_actn_rqst_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00057">
+    <changeSet author="kfs" dbms="oracle" id="rice00057" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_actn_rqst_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00059">
+    <changeSet author="kfs" dbms="mysql" id="rice00059" context="bootstrap,demo,unit">
         <createTable tableName="krew_actn_tkn_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00059">
+    <changeSet author="kfs" dbms="oracle" id="rice00059" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_actn_tkn_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00063">
+    <changeSet author="kfs" dbms="mysql" id="rice00063" context="bootstrap,demo,unit">
         <createTable tableName="krew_attr_defn_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00063">
+    <changeSet author="kfs" dbms="oracle" id="rice00063" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_attr_defn_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00071">
+    <changeSet author="kfs" dbms="mysql" id="rice00071" context="bootstrap,demo,unit">
         <createTable tableName="krew_doc_hdr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00071">
+    <changeSet author="kfs" dbms="oracle" id="rice00071" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_doc_hdr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00073">
+    <changeSet author="kfs" dbms="mysql" id="rice00073" context="bootstrap,demo,unit">
         <createTable tableName="krew_doc_lnk_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00073">
+    <changeSet author="kfs" dbms="oracle" id="rice00073" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_doc_lnk_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00075">
+    <changeSet author="kfs" dbms="mysql" id="rice00075" context="bootstrap,demo,unit">
         <createTable tableName="krew_doc_nte_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00075">
+    <changeSet author="kfs" dbms="oracle" id="rice00075" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_doc_nte_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00079">
+    <changeSet author="kfs" dbms="mysql" id="rice00079" context="bootstrap,demo,unit">
         <createTable tableName="krew_doc_typ_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00079">
+    <changeSet author="kfs" dbms="oracle" id="rice00079" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_doc_typ_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00087">
+    <changeSet author="kfs" dbms="mysql" id="rice00087" context="bootstrap,demo,unit">
         <createTable tableName="krew_edl_fld_dmp_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00087">
+    <changeSet author="kfs" dbms="oracle" id="rice00087" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_edl_fld_dmp_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00089">
+    <changeSet author="kfs" dbms="mysql" id="rice00089" context="bootstrap,demo,unit">
         <createTable tableName="krew_edl_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00089">
+    <changeSet author="kfs" dbms="oracle" id="rice00089" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_edl_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00091">
+    <changeSet author="kfs" dbms="mysql" id="rice00091" context="bootstrap,demo,unit">
         <createTable tableName="krew_out_box_itm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00091">
+    <changeSet author="kfs" dbms="oracle" id="rice00091" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_out_box_itm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00093">
+    <changeSet author="kfs" dbms="mysql" id="rice00093" context="bootstrap,demo,unit">
         <createTable tableName="krew_ppl_flw_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00093">
+    <changeSet author="kfs" dbms="oracle" id="rice00093" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_ppl_flw_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00095">
+    <changeSet author="kfs" dbms="mysql" id="rice00095" context="bootstrap,demo,unit">
         <createTable tableName="krew_ppl_flw_dlgt_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00095">
+    <changeSet author="kfs" dbms="oracle" id="rice00095" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_ppl_flw_dlgt_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00097">
+    <changeSet author="kfs" dbms="mysql" id="rice00097" context="bootstrap,demo,unit">
         <createTable tableName="krew_ppl_flw_mbr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00097">
+    <changeSet author="kfs" dbms="oracle" id="rice00097" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_ppl_flw_mbr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00099">
+    <changeSet author="kfs" dbms="mysql" id="rice00099" context="bootstrap,demo,unit">
         <createTable tableName="krew_ppl_flw_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00099">
+    <changeSet author="kfs" dbms="oracle" id="rice00099" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_ppl_flw_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00101">
+    <changeSet author="kfs" dbms="mysql" id="rice00101" context="bootstrap,demo,unit">
         <createTable tableName="krew_rsp_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00101">
+    <changeSet author="kfs" dbms="oracle" id="rice00101" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_rsp_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00105">
+    <changeSet author="kfs" dbms="mysql" id="rice00105" context="bootstrap,demo,unit">
         <createTable tableName="krew_rte_node_cfg_parm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00105">
+    <changeSet author="kfs" dbms="oracle" id="rice00105" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_rte_node_cfg_parm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00111">
+    <changeSet author="kfs" dbms="mysql" id="rice00111" context="bootstrap,demo,unit">
         <createTable tableName="krew_rte_node_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00111">
+    <changeSet author="kfs" dbms="oracle" id="rice00111" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_rte_node_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00113">
+    <changeSet author="kfs" dbms="mysql" id="rice00113" context="bootstrap,demo,unit">
         <createTable tableName="krew_rte_tmpl_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00113">
+    <changeSet author="kfs" dbms="oracle" id="rice00113" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_rte_tmpl_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00115">
+    <changeSet author="kfs" dbms="mysql" id="rice00115" context="bootstrap,demo,unit">
         <createTable tableName="krew_rule_expr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00115">
+    <changeSet author="kfs" dbms="oracle" id="rice00115" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_rule_expr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00122">
+    <changeSet author="kfs" dbms="mysql" id="rice00122" context="bootstrap,demo,unit">
         <createTable tableName="krew_rule_tmpl_optn_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00122">
+    <changeSet author="kfs" dbms="oracle" id="rice00122" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_rule_tmpl_optn_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00125">
+    <changeSet author="kfs" dbms="mysql" id="rice00125" context="bootstrap,demo,unit">
         <createTable tableName="krew_srch_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00125">
+    <changeSet author="kfs" dbms="oracle" id="rice00125" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_srch_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00126">
+    <changeSet author="kfs" dbms="mysql" id="rice00126" context="bootstrap,demo,unit">
         <createTable tableName="krew_typ_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00126">
+    <changeSet author="kfs" dbms="oracle" id="rice00126" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_typ_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00128">
+    <changeSet author="kfs" dbms="mysql" id="rice00128" context="bootstrap,demo,unit">
         <createTable tableName="krew_typ_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00128">
+    <changeSet author="kfs" dbms="oracle" id="rice00128" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_typ_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00131">
+    <changeSet author="kfs" dbms="mysql" id="rice00131" context="bootstrap,demo,unit">
         <createTable tableName="krew_usr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00131">
+    <changeSet author="kfs" dbms="oracle" id="rice00131" context="bootstrap,demo,unit">
         <createSequence sequenceName="krew_usr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00134">
+    <changeSet author="kfs" dbms="mysql" id="rice00134" context="bootstrap,demo,unit">
         <createTable tableName="krim_attr_data_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00134">
+    <changeSet author="kfs" dbms="oracle" id="rice00134" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_attr_data_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00135">
+    <changeSet author="kfs" dbms="mysql" id="rice00135" context="bootstrap,demo,unit">
         <createTable tableName="krim_attr_defn_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00135">
+    <changeSet author="kfs" dbms="oracle" id="rice00135" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_attr_defn_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00138">
+    <changeSet author="kfs" dbms="mysql" id="rice00138" context="bootstrap,demo,unit">
         <createTable tableName="krim_dlgn_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00138">
+    <changeSet author="kfs" dbms="oracle" id="rice00138" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_dlgn_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00140">
+    <changeSet author="kfs" dbms="mysql" id="rice00140" context="bootstrap,demo,unit">
         <createTable tableName="krim_dlgn_mbr_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00140">
+    <changeSet author="kfs" dbms="oracle" id="rice00140" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_dlgn_mbr_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00148">
+    <changeSet author="kfs" dbms="mysql" id="rice00148" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_addr_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00148">
+    <changeSet author="kfs" dbms="oracle" id="rice00148" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_addr_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00150">
+    <changeSet author="kfs" dbms="mysql" id="rice00150" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_afltn_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00150">
+    <changeSet author="kfs" dbms="oracle" id="rice00150" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_afltn_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00154">
+    <changeSet author="kfs" dbms="mysql" id="rice00154" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_ctznshp_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00154">
+    <changeSet author="kfs" dbms="oracle" id="rice00154" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_ctznshp_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00156">
+    <changeSet author="kfs" dbms="mysql" id="rice00156" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_email_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00156">
+    <changeSet author="kfs" dbms="oracle" id="rice00156" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_email_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00158">
+    <changeSet author="kfs" dbms="mysql" id="rice00158" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_emp_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00158">
+    <changeSet author="kfs" dbms="oracle" id="rice00158" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_emp_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00161">
+    <changeSet author="kfs" dbms="mysql" id="rice00161" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_ethnic_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00161">
+    <changeSet author="kfs" dbms="oracle" id="rice00161" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_ethnic_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00163">
+    <changeSet author="kfs" dbms="mysql" id="rice00163" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_ext_id_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00163">
+    <changeSet author="kfs" dbms="oracle" id="rice00163" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_ext_id_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00165">
+    <changeSet author="kfs" dbms="mysql" id="rice00165" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00165">
+    <changeSet author="kfs" dbms="oracle" id="rice00165" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00166">
+    <changeSet author="kfs" dbms="mysql" id="rice00166" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_nm_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00166">
+    <changeSet author="kfs" dbms="oracle" id="rice00166" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_nm_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00168">
+    <changeSet author="kfs" dbms="mysql" id="rice00168" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_phone_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00168">
+    <changeSet author="kfs" dbms="oracle" id="rice00168" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_phone_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00171">
+    <changeSet author="kfs" dbms="mysql" id="rice00171" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_residency_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00171">
+    <changeSet author="kfs" dbms="oracle" id="rice00171" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_residency_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00174">
+    <changeSet author="kfs" dbms="mysql" id="rice00174" context="bootstrap,demo,unit">
         <createTable tableName="krim_entity_visa_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00174">
+    <changeSet author="kfs" dbms="oracle" id="rice00174" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_entity_visa_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00177">
+    <changeSet author="kfs" dbms="mysql" id="rice00177" context="bootstrap,demo,unit">
         <createTable tableName="krim_grp_attr_data_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00177">
+    <changeSet author="kfs" dbms="oracle" id="rice00177" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_grp_attr_data_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00180">
+    <changeSet author="kfs" dbms="mysql" id="rice00180" context="bootstrap,demo,unit">
         <createTable tableName="krim_grp_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00180">
+    <changeSet author="kfs" dbms="oracle" id="rice00180" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_grp_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00181">
+    <changeSet author="kfs" dbms="mysql" id="rice00181" context="bootstrap,demo,unit">
         <createTable tableName="krim_grp_mbr_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00181">
+    <changeSet author="kfs" dbms="oracle" id="rice00181" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_grp_mbr_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00185">
+    <changeSet author="kfs" dbms="mysql" id="rice00185" context="bootstrap,demo,unit">
         <createTable tableName="krim_perm_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00185">
+    <changeSet author="kfs" dbms="oracle" id="rice00185" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_perm_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00186">
+    <changeSet author="kfs" dbms="mysql" id="rice00186" context="bootstrap,demo,unit">
         <createTable tableName="krim_perm_rqrd_attr_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00186">
+    <changeSet author="kfs" dbms="oracle" id="rice00186" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_perm_rqrd_attr_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00188">
+    <changeSet author="kfs" dbms="mysql" id="rice00188" context="bootstrap,demo,unit">
         <createTable tableName="krim_perm_tmpl_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00188">
+    <changeSet author="kfs" dbms="oracle" id="rice00188" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_perm_tmpl_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00212">
+    <changeSet author="kfs" dbms="mysql" id="rice00212" context="bootstrap,demo,unit">
         <createTable tableName="krim_prncpl_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00212">
+    <changeSet author="kfs" dbms="oracle" id="rice00212" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_prncpl_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00215">
+    <changeSet author="kfs" dbms="mysql" id="rice00215" context="bootstrap,demo,unit">
         <createTable tableName="krim_role_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00215">
+    <changeSet author="kfs" dbms="oracle" id="rice00215" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_role_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00217">
+    <changeSet author="kfs" dbms="mysql" id="rice00217" context="bootstrap,demo,unit">
         <createTable tableName="krim_role_mbr_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00217">
+    <changeSet author="kfs" dbms="oracle" id="rice00217" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_role_mbr_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00219">
+    <changeSet author="kfs" dbms="mysql" id="rice00219" context="bootstrap,demo,unit">
         <createTable tableName="krim_role_perm_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00219">
+    <changeSet author="kfs" dbms="oracle" id="rice00219" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_role_perm_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00221">
+    <changeSet author="kfs" dbms="mysql" id="rice00221" context="bootstrap,demo,unit">
         <createTable tableName="krim_role_rsp_actn_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00221">
+    <changeSet author="kfs" dbms="oracle" id="rice00221" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_role_rsp_actn_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00223">
+    <changeSet author="kfs" dbms="mysql" id="rice00223" context="bootstrap,demo,unit">
         <createTable tableName="krim_role_rsp_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00223">
+    <changeSet author="kfs" dbms="oracle" id="rice00223" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_role_rsp_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00227">
+    <changeSet author="kfs" dbms="mysql" id="rice00227" context="bootstrap,demo,unit">
         <createTable tableName="krim_rsp_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00227">
+    <changeSet author="kfs" dbms="oracle" id="rice00227" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_rsp_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00228">
+    <changeSet author="kfs" dbms="mysql" id="rice00228" context="bootstrap,demo,unit">
         <createTable tableName="krim_rsp_rqrd_attr_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00228">
+    <changeSet author="kfs" dbms="oracle" id="rice00228" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_rsp_rqrd_attr_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00230">
+    <changeSet author="kfs" dbms="mysql" id="rice00230" context="bootstrap,demo,unit">
         <createTable tableName="krim_rsp_tmpl_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00230">
+    <changeSet author="kfs" dbms="oracle" id="rice00230" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_rsp_tmpl_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00232">
+    <changeSet author="kfs" dbms="mysql" id="rice00232" context="bootstrap,demo,unit">
         <createTable tableName="krim_typ_attr_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00232">
+    <changeSet author="kfs" dbms="oracle" id="rice00232" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_typ_attr_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00234">
+    <changeSet author="kfs" dbms="mysql" id="rice00234" context="bootstrap,demo,unit">
         <createTable tableName="krim_typ_id_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00234">
+    <changeSet author="kfs" dbms="oracle" id="rice00234" context="bootstrap,demo,unit">
         <createSequence sequenceName="krim_typ_id_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00242">
+    <changeSet author="kfs" dbms="mysql" id="rice00242" context="bootstrap,demo,unit">
         <createTable tableName="krms_actn_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00242">
+    <changeSet author="kfs" dbms="oracle" id="rice00242" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_actn_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00244">
+    <changeSet author="kfs" dbms="mysql" id="rice00244" context="bootstrap,demo,unit">
         <createTable tableName="krms_actn_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00244">
+    <changeSet author="kfs" dbms="oracle" id="rice00244" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_actn_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00246">
+    <changeSet author="kfs" dbms="mysql" id="rice00246" context="bootstrap,demo,unit">
         <createTable tableName="krms_agenda_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00246">
+    <changeSet author="kfs" dbms="oracle" id="rice00246" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_agenda_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00248">
+    <changeSet author="kfs" dbms="mysql" id="rice00248" context="bootstrap,demo,unit">
         <createTable tableName="krms_agenda_itm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00248">
+    <changeSet author="kfs" dbms="oracle" id="rice00248" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_agenda_itm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00250">
+    <changeSet author="kfs" dbms="mysql" id="rice00250" context="bootstrap,demo,unit">
         <createTable tableName="krms_agenda_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00250">
+    <changeSet author="kfs" dbms="oracle" id="rice00250" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_agenda_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00252">
+    <changeSet author="kfs" dbms="mysql" id="rice00252" context="bootstrap,demo,unit">
         <createTable tableName="krms_attr_defn_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00252">
+    <changeSet author="kfs" dbms="oracle" id="rice00252" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_attr_defn_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00254">
+    <changeSet author="kfs" dbms="mysql" id="rice00254" context="bootstrap,demo,unit">
         <createTable tableName="krms_cmpnd_prop_props_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00254">
+    <changeSet author="kfs" dbms="oracle" id="rice00254" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cmpnd_prop_props_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00256">
+    <changeSet author="kfs" dbms="mysql" id="rice00256" context="bootstrap,demo,unit">
         <createTable tableName="krms_cntxt_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00256">
+    <changeSet author="kfs" dbms="oracle" id="rice00256" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cntxt_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00258">
+    <changeSet author="kfs" dbms="mysql" id="rice00258" context="bootstrap,demo,unit">
         <createTable tableName="krms_cntxt_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00258">
+    <changeSet author="kfs" dbms="oracle" id="rice00258" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cntxt_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00260">
+    <changeSet author="kfs" dbms="mysql" id="rice00260" context="bootstrap,demo,unit">
         <createTable tableName="krms_cntxt_vld_actn_typ_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00260">
+    <changeSet author="kfs" dbms="oracle" id="rice00260" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cntxt_vld_actn_typ_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00262">
+    <changeSet author="kfs" dbms="mysql" id="rice00262" context="bootstrap,demo,unit">
         <createTable tableName="krms_cntxt_vld_agenda_typ_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00262">
+    <changeSet author="kfs" dbms="oracle" id="rice00262" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cntxt_vld_agenda_typ_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00264">
+    <changeSet author="kfs" dbms="mysql" id="rice00264" context="bootstrap,demo,unit">
         <createTable tableName="krms_cntxt_vld_func_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00264">
+    <changeSet author="kfs" dbms="oracle" id="rice00264" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cntxt_vld_func_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00266">
+    <changeSet author="kfs" dbms="mysql" id="rice00266" context="bootstrap,demo,unit">
         <createTable tableName="krms_cntxt_vld_rule_typ_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00266">
+    <changeSet author="kfs" dbms="oracle" id="rice00266" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cntxt_vld_rule_typ_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00268">
+    <changeSet author="kfs" dbms="mysql" id="rice00268" context="bootstrap,demo,unit">
         <createTable tableName="krms_cntxt_vld_term_spec_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00268">
+    <changeSet author="kfs" dbms="oracle" id="rice00268" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_cntxt_vld_term_spec_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00270">
+    <changeSet author="kfs" dbms="mysql" id="rice00270" context="bootstrap,demo,unit">
         <createTable tableName="krms_ctgry_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00270">
+    <changeSet author="kfs" dbms="oracle" id="rice00270" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_ctgry_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00273">
+    <changeSet author="kfs" dbms="mysql" id="rice00273" context="bootstrap,demo,unit">
         <createTable tableName="krms_func_parm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00273">
+    <changeSet author="kfs" dbms="oracle" id="rice00273" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_func_parm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00275">
+    <changeSet author="kfs" dbms="mysql" id="rice00275" context="bootstrap,demo,unit">
         <createTable tableName="krms_func_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00275">
+    <changeSet author="kfs" dbms="oracle" id="rice00275" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_func_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00277">
+    <changeSet author="kfs" dbms="mysql" id="rice00277" context="bootstrap,demo,unit">
         <createTable tableName="krms_nl_tmpl_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00277">
+    <changeSet author="kfs" dbms="oracle" id="rice00277" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_nl_tmpl_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00279">
+    <changeSet author="kfs" dbms="mysql" id="rice00279" context="bootstrap,demo,unit">
         <createTable tableName="krms_nl_tmpl_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00279">
+    <changeSet author="kfs" dbms="oracle" id="rice00279" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_nl_tmpl_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00281">
+    <changeSet author="kfs" dbms="mysql" id="rice00281" context="bootstrap,demo,unit">
         <createTable tableName="krms_nl_usage_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00281">
+    <changeSet author="kfs" dbms="oracle" id="rice00281" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_nl_usage_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00283">
+    <changeSet author="kfs" dbms="mysql" id="rice00283" context="bootstrap,demo,unit">
         <createTable tableName="krms_nl_usage_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00283">
+    <changeSet author="kfs" dbms="oracle" id="rice00283" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_nl_usage_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00285">
+    <changeSet author="kfs" dbms="mysql" id="rice00285" context="bootstrap,demo,unit">
         <createTable tableName="krms_prop_parm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00285">
+    <changeSet author="kfs" dbms="oracle" id="rice00285" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_prop_parm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00287">
+    <changeSet author="kfs" dbms="mysql" id="rice00287" context="bootstrap,demo,unit">
         <createTable tableName="krms_prop_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00287">
+    <changeSet author="kfs" dbms="oracle" id="rice00287" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_prop_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00289">
+    <changeSet author="kfs" dbms="mysql" id="rice00289" context="bootstrap,demo,unit">
         <createTable tableName="krms_ref_obj_krms_obj_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00289">
+    <changeSet author="kfs" dbms="oracle" id="rice00289" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_ref_obj_krms_obj_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00291">
+    <changeSet author="kfs" dbms="mysql" id="rice00291" context="bootstrap,demo,unit">
         <createTable tableName="krms_rule_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00291">
+    <changeSet author="kfs" dbms="oracle" id="rice00291" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_rule_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00293">
+    <changeSet author="kfs" dbms="mysql" id="rice00293" context="bootstrap,demo,unit">
         <createTable tableName="krms_rule_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00293">
+    <changeSet author="kfs" dbms="oracle" id="rice00293" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_rule_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00295">
+    <changeSet author="kfs" dbms="mysql" id="rice00295" context="bootstrap,demo,unit">
         <createTable tableName="krms_term_parm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00295">
+    <changeSet author="kfs" dbms="oracle" id="rice00295" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_term_parm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00297">
+    <changeSet author="kfs" dbms="mysql" id="rice00297" context="bootstrap,demo,unit">
         <createTable tableName="krms_term_rslvr_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00297">
+    <changeSet author="kfs" dbms="oracle" id="rice00297" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_term_rslvr_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00299">
+    <changeSet author="kfs" dbms="mysql" id="rice00299" context="bootstrap,demo,unit">
         <createTable tableName="krms_term_rslvr_input_spec_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00299">
+    <changeSet author="kfs" dbms="oracle" id="rice00299" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_term_rslvr_input_spec_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00301">
+    <changeSet author="kfs" dbms="mysql" id="rice00301" context="bootstrap,demo,unit">
         <createTable tableName="krms_term_rslvr_parm_spec_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00301">
+    <changeSet author="kfs" dbms="oracle" id="rice00301" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_term_rslvr_parm_spec_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00303">
+    <changeSet author="kfs" dbms="mysql" id="rice00303" context="bootstrap,demo,unit">
         <createTable tableName="krms_term_rslvr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00303">
+    <changeSet author="kfs" dbms="oracle" id="rice00303" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_term_rslvr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00305">
+    <changeSet author="kfs" dbms="mysql" id="rice00305" context="bootstrap,demo,unit">
         <createTable tableName="krms_term_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00305">
+    <changeSet author="kfs" dbms="oracle" id="rice00305" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_term_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00307">
+    <changeSet author="kfs" dbms="mysql" id="rice00307" context="bootstrap,demo,unit">
         <createTable tableName="krms_term_spec_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00307">
+    <changeSet author="kfs" dbms="oracle" id="rice00307" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_term_spec_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00310">
+    <changeSet author="kfs" dbms="mysql" id="rice00310" context="bootstrap,demo,unit">
         <createTable tableName="krms_typ_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00310">
+    <changeSet author="kfs" dbms="oracle" id="rice00310" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_typ_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00312">
+    <changeSet author="kfs" dbms="mysql" id="rice00312" context="bootstrap,demo,unit">
         <createTable tableName="krms_typ_reln_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00312">
+    <changeSet author="kfs" dbms="oracle" id="rice00312" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_typ_reln_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00314">
+    <changeSet author="kfs" dbms="mysql" id="rice00314" context="bootstrap,demo,unit">
         <createTable tableName="krms_typ_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00314">
+    <changeSet author="kfs" dbms="oracle" id="rice00314" context="bootstrap,demo,unit">
         <createSequence sequenceName="krms_typ_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00320">
+    <changeSet author="kfs" dbms="mysql" id="rice00320" context="bootstrap,demo,unit">
         <createTable tableName="krns_doc_typ_attr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00320">
+    <changeSet author="kfs" dbms="oracle" id="rice00320" context="bootstrap,demo,unit">
         <createSequence sequenceName="krns_doc_typ_attr_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00321">
+    <changeSet author="kfs" dbms="mysql" id="rice00321" context="bootstrap,demo,unit">
         <createTable tableName="krns_lock_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00321">
+    <changeSet author="kfs" dbms="oracle" id="rice00321" context="bootstrap,demo,unit">
         <createSequence sequenceName="krns_lock_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00322">
+    <changeSet author="kfs" dbms="mysql" id="rice00322" context="bootstrap,demo,unit">
         <createTable tableName="krns_lookup_rslt_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00322">
+    <changeSet author="kfs" dbms="oracle" id="rice00322" context="bootstrap,demo,unit">
         <createSequence sequenceName="krns_lookup_rslt_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00326">
+    <changeSet author="kfs" dbms="mysql" id="rice00326" context="bootstrap,demo,unit">
         <createTable tableName="krns_maint_doc_att_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00326">
+    <changeSet author="kfs" dbms="oracle" id="rice00326" context="bootstrap,demo,unit">
         <createSequence sequenceName="krns_maint_doc_att_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00329">
+    <changeSet author="kfs" dbms="mysql" id="rice00329" context="bootstrap,demo,unit">
         <createTable tableName="krns_maint_lock_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00329">
+    <changeSet author="kfs" dbms="oracle" id="rice00329" context="bootstrap,demo,unit">
         <createSequence sequenceName="krns_maint_lock_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00331">
+    <changeSet author="kfs" dbms="mysql" id="rice00331" context="bootstrap,demo,unit">
         <createTable tableName="krns_nte_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00331">
+    <changeSet author="kfs" dbms="oracle" id="rice00331" context="bootstrap,demo,unit">
         <createSequence sequenceName="krns_nte_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00336">
+    <changeSet author="kfs" dbms="mysql" id="rice00336" context="bootstrap,demo,unit">
         <createTable tableName="krsb_bam_parm_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00336">
+    <changeSet author="kfs" dbms="oracle" id="rice00336" context="bootstrap,demo,unit">
         <createSequence sequenceName="krsb_bam_parm_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00338">
+    <changeSet author="kfs" dbms="mysql" id="rice00338" context="bootstrap,demo,unit">
         <createTable tableName="krsb_bam_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00338">
+    <changeSet author="kfs" dbms="oracle" id="rice00338" context="bootstrap,demo,unit">
         <createSequence sequenceName="krsb_bam_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00341">
+    <changeSet author="kfs" dbms="mysql" id="rice00341" context="bootstrap,demo,unit">
         <createTable tableName="krsb_msg_que_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00341">
+    <changeSet author="kfs" dbms="oracle" id="rice00341" context="bootstrap,demo,unit">
         <createSequence sequenceName="krsb_msg_que_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00355">
+    <changeSet author="kfs" dbms="mysql" id="rice00355" context="bootstrap,demo,unit">
         <createTable tableName="krsb_svc_def_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00355">
+    <changeSet author="kfs" dbms="oracle" id="rice00355" context="bootstrap,demo,unit">
         <createSequence sequenceName="krsb_svc_def_s" startValue="1"/>
     </changeSet>
-    <changeSet author="kfs" dbms="mysql" id="rice00357">
+    <changeSet author="kfs" dbms="mysql" id="rice00357" context="bootstrap,demo,unit">
         <createTable tableName="krsb_svc_dscrptr_s">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="kfs" dbms="oracle" id="rice00357">
+    <changeSet author="kfs" dbms="oracle" id="rice00357" context="bootstrap,demo,unit">
         <createSequence sequenceName="krsb_svc_dscrptr_s" startValue="1"/>
     </changeSet>
 </databaseChangeLog>

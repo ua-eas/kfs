@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10593" context="bootstrap,demo">
+  <changeSet author="kfs" id="10593" context="bootstrap,demo,unit">
     <insert tableName="pur_cari_t">
       <column name="CARI_CD"><![CDATA[ABF]]></column>
       <column name="OBJ_ID"><![CDATA[BD51DF30-34E7-B049-6861-9BEA1610D0FE]]></column>

@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10603" context="bootstrap,demo">
+  <changeSet author="kfs" id="10603" context="bootstrap,demo,unit">
     <insert tableName="pur_itm_reas_add_t">
       <column name="ITM_REAS_ADD_CD"><![CDATA[NTOR]]></column>
       <column name="OBJ_ID"><![CDATA[4A9AB8C8A74F6B33E0404F8189D86C69]]></column>
