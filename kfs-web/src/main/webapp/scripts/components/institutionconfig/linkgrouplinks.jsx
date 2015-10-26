@@ -1,4 +1,4 @@
-import {buildSortableDropHandler} from './institutionconfigutils.js';
+import {buildSortableDropHandler, isScrolledIntoView} from './institutionconfigutils.js';
 import {buildKeyFromLabel} from '../../sys/utils.js';
 import Immutable from 'immutable';
 
@@ -70,6 +70,9 @@ let SubLinkGroup = React.createClass({
             oldLink: link,
             update: true
         });
+        if (!isScrolledIntoView($('.active .addCustomLink'))) {
+            $('html,body').animate({scrollTop: 100}, 1000);
+        }
     },
     updateCustomLink() {
         if (this.state.newLink.get('label').trim() && this.state.newLink.get('link').trim()) {
@@ -91,15 +94,12 @@ let SubLinkGroup = React.createClass({
         }
     },
     deleteCustomLink() {
-        let confirmed = confirm('Are you sure you want to delete this link?');
-        if (confirmed) {
-            this.context.deleteExistingCustomLink(this.props.groupIndex, this.state.oldLink);
-            this.replaceState({
-                customLinkFormOpen: false,
-                errors: [],
-                newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
-            });
-        }
+        this.context.deleteExistingCustomLink(this.props.groupIndex, this.state.oldLink);
+        this.replaceState({
+            customLinkFormOpen: false,
+            errors: [],
+            newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
+        });
     },
     updateNewLinkValue(key, event) {
         let value = $(event.target).val();
@@ -110,6 +110,8 @@ let SubLinkGroup = React.createClass({
         let divClassName = 'admin-sublinks';
         if (this.props.groupLabel !== this.props.expandedLinkGroup) {
             divClassName += ' collapse';
+        } else {
+            divClassName += ' active';
         }
         let formClass = this.state.customLinkFormOpen ? 'customLinkForm' : 'customLinkForm hidden';
         let labelClass = this.state.errors.indexOf('label') > -1 ? 'error' : '';

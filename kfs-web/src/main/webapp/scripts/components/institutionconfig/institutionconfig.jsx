@@ -28,7 +28,13 @@ let InstitutionConfig = React.createClass({
         }
     },
     getInitialState() {
-        return {linkGroups: new Immutable.List(), expandedLinkGroup: undefined, topGroupSelected: false};
+        return {
+            linkGroups: new Immutable.List(),
+            expandedLinkGroup: undefined,
+            topGroupSelected: false,
+            hasChanges: false,
+            saveButtonText: 'SAVE CHANGES'
+        };
     },
     componentWillMount() {
         let linkGroupPath = getUrlPathPrefix() + "sys/preferences/config/groups";
@@ -59,13 +65,13 @@ let InstitutionConfig = React.createClass({
         }
     },
     updateLinkGroups(linkGroups) {
-        this.setState({linkGroups: linkGroups});
+        this.setState({linkGroups: linkGroups, hasChanges: true});
     },
     updateLinkGroupName(linkGroupIndex, newName) {
         let linkGroup = this.state.linkGroups.get(linkGroupIndex);
         let updatedLinkGroup = linkGroup.set('label', newName);
         let updatedLinkGroups = this.state.linkGroups.set(linkGroupIndex, updatedLinkGroup);
-        this.setState({linkGroups: updatedLinkGroups});
+        this.setState({linkGroups: updatedLinkGroups, hasChanges: true});
     },
     addNewLinkGroup() {
         let linkGroups = this.state.linkGroups;
@@ -76,7 +82,7 @@ let InstitutionConfig = React.createClass({
     deleteLinkGroup(index) {
         let linkGroups = this.state.linkGroups;
         let updatedLinkGroups = linkGroups.splice(index, 1);
-        this.setState({linkGroups: updatedLinkGroups});
+        this.setState({linkGroups: updatedLinkGroups, hasChanges: true});
     },
     addNewCustomLink(groupIndex, newLink) {
         let linkGroups = this.state.linkGroups;
@@ -85,7 +91,7 @@ let InstitutionConfig = React.createClass({
         let updatedLinks = links.push(newLink);
         let updatedLinkGroup = linkGroup.set('links', updatedLinks);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
-        this.setState({'linkGroups': updatedLinkGroups});
+        this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
     },
     updateExistingCustomLink(groupIndex, oldLink, updatedLink) {
         let linkGroups = this.state.linkGroups;
@@ -104,7 +110,7 @@ let InstitutionConfig = React.createClass({
         let updatedLinks = links.set(index, updatedLink);
         let updatedLinkGroup = linkGroup.set('links', updatedLinks);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
-        this.setState({'linkGroups': updatedLinkGroups});
+        this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
     },
     deleteExistingCustomLink(groupIndex, oldLink) {
         let linkGroups = this.state.linkGroups;
@@ -123,7 +129,7 @@ let InstitutionConfig = React.createClass({
         let updatedLinks = links.delete(index);
         let updatedLinkGroup = linkGroup.set('links', updatedLinks);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
-        this.setState({'linkGroups': updatedLinkGroups});
+        this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
     },
     saveChanges() {
         let institutionId = this.state.institutionId;
@@ -135,7 +141,13 @@ let InstitutionConfig = React.createClass({
             type: 'PUT',
             data: JSON.stringify(this.state.linkGroups),
             success: function(linkGroups) {
-                alert('Preferences successfully saved!');
+                let spanStyle = {
+                    color: '#6DA487'
+                };
+                this.setState({
+                    hasChanges: false,
+                    saveButtonText: <span style={spanStyle}><span className="glyphicon glyphicon-ok"></span>SAVED</span>
+                })
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());
@@ -143,6 +155,15 @@ let InstitutionConfig = React.createClass({
         });
     },
     render() {
+        let saveDisabled;
+        let saveButtonClass = 'btn btn-green';
+        let saveButtonText = this.state.saveButtonText;
+        if (!this.state.hasChanges) {
+            saveDisabled = true;
+            saveButtonClass += ' disabled';
+        } else {
+            saveButtonText = "SAVE CHANGES";
+        }
         return (
             <div>
                 <div className="instconfig">
@@ -156,7 +177,7 @@ let InstitutionConfig = React.createClass({
                 </div>
 
                 <div className="buttonbar">
-                    <button className="btn btn-green" onClick={this.saveChanges}>Save Changes</button>
+                    <button disabled={saveDisabled} className={saveButtonClass} onClick={this.saveChanges}>{saveButtonText}</button>
                 </div>
             </div>
         )

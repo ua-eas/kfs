@@ -567,14 +567,6 @@ footer {
     outline: none !important;
 }
 
-.btn.disabled {
-    color: #bbb;
-    background-color: #eee;
-    box-shadow: none;
-    padding-top: 6px;
-    padding-bottom: 6px;
-}
-
 .btn-default,
 .btn-default:focus {
     background-color: #e7e7e7;
@@ -618,6 +610,16 @@ footer {
 .btn-green:active {
     background-color: #648A77 !important;
     color: #ffffff;
+}
+
+.btn.disabled,
+.btn[disabled],
+.btn[disabled]:hover,
+.btn[disabled]:focus,
+.btn[disabled]:active {
+    color: #bbb;
+    background-color: #eee;
+    box-shadow: none;
 }
 
 .remodal {

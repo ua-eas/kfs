@@ -25,4 +25,17 @@ let buildSortableDropHandler = function(elementId, component, sortableElementsPr
     }
 };
 
-module.exports = {buildSortableDropHandler: buildSortableDropHandler};
+let isScrolledIntoView = function (elem) {
+    var $elem = $(elem);
+    var $window = $(window);
+
+    var docViewTop = $window.scrollTop();
+    var docViewBottom = docViewTop + $window.height();
+
+    var elemTop = $elem.offset().top;
+    var elemBottom = elemTop + $elem.height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+};
+
+module.exports = {buildSortableDropHandler: buildSortableDropHandler, isScrolledIntoView: isScrolledIntoView};
