@@ -145,7 +145,9 @@
 					  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
 					  renderRequiredFieldsLabel="${renderRequiredFieldsLabel}" renderInnerDiv="${renderInnerDiv}">
 
-			<jsp:doBody/>
+			<div id="page-content">
+                <jsp:doBody/>
+            </div>
 		</kul:pageBody>
 
 		<c:if test="${lookup}" >

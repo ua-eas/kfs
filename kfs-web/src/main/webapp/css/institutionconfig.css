@@ -2,10 +2,6 @@
     min-width: 900px;
 }
 
-#institutionconfig {
-    padding: 20px;
-}
-
 .headerarea-small h1 span.glyphicon {
     font-size: 22px;
 }
@@ -17,6 +13,7 @@
     display: -webkit-flex;
     display: flex;
     flex-direction: row-reverse;
+    padding: 20px;
 }
 
 ul#linkGroupsList,
