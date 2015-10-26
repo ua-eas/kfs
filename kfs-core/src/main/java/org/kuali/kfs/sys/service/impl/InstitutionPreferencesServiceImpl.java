@@ -19,7 +19,9 @@ import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +42,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private DocumentDictionaryService documentDictionaryService;
     private KualiModuleService kualiModuleService;
     private PreferencesDao preferencesDao;
+    private PermissionService permissionService;
+    private IdentityService identityService;
 
     private Map<String, String> namespaceCodeToUrlName;
 
@@ -382,6 +386,12 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return groupsWithInstitutionId;
     }
 
+    @Override
+    public boolean hasConfigurationPermission(String principalName) {
+        final String principalId = getIdentityService().getPrincipalByPrincipalName(principalName).getPrincipalId();
+        return getPermissionService().hasPermissionByTemplate(principalId, KFSConstants.CoreModuleNamespaces.KFS, "Use Screen", Map);
+    }
+
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
@@ -396,5 +406,21 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     public void setPreferencesDao(PreferencesDao preferencesDao) {
         this.preferencesDao = preferencesDao;
+    }
+
+    public PermissionService getPermissionService() {
+        return permissionService;
+    }
+
+    public void setPermissionService(PermissionService permissionService) {
+        this.permissionService = permissionService;
+    }
+
+    public IdentityService getIdentityService() {
+        return identityService;
+    }
+
+    public void setIdentityService(IdentityService identityService) {
+        this.identityService = identityService;
     }
 }

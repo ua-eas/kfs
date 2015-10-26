@@ -65,6 +65,10 @@ public class PreferencesResource {
     public Response saveInstitutionPreferences(@PathParam("institutionId") String institutionId, String linkGroups) {
         LOG.debug("saveInstitutionPreferences started");
 
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User "+getPrincipalName()+" does not have access to InstitutionConfig").build();
+        }
+
         getInstitutionPreferencesService().saveInstitutionPreferences(institutionId, linkGroups);
         return Response.ok(linkGroups).build();
     }
@@ -73,6 +77,10 @@ public class PreferencesResource {
     @Path("/config/groups")
     public Response getGroupLinks() {
         LOG.debug("getGroupLinks started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
 
         Map<String, Object> linkGroups = getInstitutionPreferencesService().getAllLinkGroups();
         return Response.ok(linkGroups).build();
@@ -121,9 +129,13 @@ public class PreferencesResource {
     }
 
     private boolean isAuthorized(String principalName) {
-        String loggedinPrincipalName = getPerson().getPrincipalName();
+        String loggedinPrincipalName = getPrincipalName();
 
         return loggedinPrincipalName.equals(principalName);
+    }
+
+    protected String getPrincipalName() {
+        return getPerson().getPrincipalName();
     }
 
     protected Person getPerson() {

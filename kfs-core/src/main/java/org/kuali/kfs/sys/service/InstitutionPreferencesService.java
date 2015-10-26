@@ -11,4 +11,5 @@ public interface InstitutionPreferencesService {
     Map<String,Object> getAllLinkGroups();
     void setInstitutionPreferencesCacheLength(int seconds);
     int getInstitutionPreferencesCacheLength();
+    boolean hasConfigurationPermission(String principalName);
 }
