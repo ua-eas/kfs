@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -389,7 +390,12 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     @Override
     public boolean hasConfigurationPermission(String principalName) {
         final String principalId = getIdentityService().getPrincipalByPrincipalName(principalName).getPrincipalId();
-        return getPermissionService().hasPermissionByTemplate(principalId, KFSConstants.CoreModuleNamespaces.KFS, "Use Screen", Map);
+
+        Map<String,String> permissionDetails = new HashMap<>();
+        permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, KFSConstants.CoreModuleNamespaces.KFS);
+        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "InstitutionConfig");
+
+        return getPermissionService().hasPermissionByTemplate(principalId, KFSConstants.CoreModuleNamespaces.KNS, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails);
     }
 
     public void setConfigurationService(ConfigurationService configurationService) {
