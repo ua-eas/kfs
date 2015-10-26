@@ -1528,4 +1528,8 @@ public class KFSConstants {
         public static final String LIABILITIES = "LI";
     }
 
+    public static class ReactComponents {
+        public static final String INSTITUTION_CONFIG = "InstitutionConfig";
+    }
+
 }

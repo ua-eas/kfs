@@ -393,7 +393,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
         Map<String,String> permissionDetails = new HashMap<>();
         permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, KFSConstants.CoreModuleNamespaces.KFS);
-        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "InstitutionConfig");
+        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, KFSConstants.ReactComponents.INSTITUTION_CONFIG);
 
         return getPermissionService().hasPermissionByTemplate(principalId, KFSConstants.CoreModuleNamespaces.KNS, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails);
     }
