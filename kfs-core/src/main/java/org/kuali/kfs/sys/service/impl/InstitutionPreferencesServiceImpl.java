@@ -274,7 +274,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return constructLinkInfo(label, link);
     }
 
-    protected boolean canViewLink(Map<String,Object> permission,Person person) {
+    protected boolean canViewLink(Map<String,Object> permission, Person person) {
         String templateNamespace = (String)permission.get("templateNamespace");
         String templateName = (String)permission.get("templateName");
         Map<String,String> details = (Map<String,String>)permission.get("details");
