@@ -2,6 +2,8 @@ package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
 import org.kuali.kfs.krad.document.Document;
@@ -40,6 +42,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private DocumentDictionaryService documentDictionaryService;
     private KualiModuleService kualiModuleService;
     private PreferencesDao preferencesDao;
+    private DataDictionaryService dataDictionaryService;
 
     private Map<String, String> namespaceCodeToUrlName;
 
@@ -200,11 +203,10 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
      * @return true if the group contains links, false if it is empty
      */
     protected boolean transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
-        List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
-            return transformLink(link,person);
-        }).filter((Map<String, String> link) -> {
-            return link.containsKey("label") && !StringUtils.isBlank(link.get("label")) && link.containsKey("link") && !StringUtils.isBlank(link.get("link"));
-        }).collect(Collectors.toList());
+        List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream()
+                .map((Map<String, String> link) -> transformLink(link, person))
+                .filter((Map<String, String> link) -> link.containsKey("label") && !StringUtils.isBlank(link.get("label")) && link.containsKey("link") && !StringUtils.isBlank(link.get("link")))
+                .collect(Collectors.toList());
         linkGroup.put("links", updatedLinks);
         return updatedLinks.size() > 0;
     }
@@ -216,9 +218,12 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     protected Map<String, String> transformLink(Map<String, String> link,Person person) {
         Map<String, String> linkInfo = new ConcurrentHashMap<>();
 
-        if (link.containsKey("documentTypeCode")) {
+        if (StringUtils.isNotBlank(link.get("documentTypeCode"))) {
             final String documentTypeName = link.remove("documentTypeCode");
-            linkInfo = determineLinkInfo(documentTypeName, person);
+            linkInfo = determineDocumentLinkInfo(documentTypeName, person);
+        } else if (StringUtils.isNotBlank(link.get("businessObjectClass"))) {
+            final String businessObjectClassName = link.remove("businessObjectClass");
+            linkInfo = determineLookupLinkInfo(businessObjectClassName, person);
         } else if (StringUtils.isNotBlank(link.get("link"))) {
             linkInfo.put("link", fixRelativeLink(link.get("link")));
             linkInfo.put("label", link.get("label"));
@@ -244,7 +249,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return link;
     }
 
-    protected Map<String, String> determineLinkInfo(String documentTypeName,Person person) {
+    protected Map<String, String> determineDocumentLinkInfo(String documentTypeName, Person person) {
         final String label = documentDictionaryService.getLabel(documentTypeName);
         final Class<? extends Document> documentClass = (Class<? extends Document>)documentDictionaryService.getDocumentClassByName(documentTypeName);
         String link = StringUtils.EMPTY;
@@ -260,8 +265,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
                         link = constructGlobalMaintenanceDocumentLinkFromClass(businessObjectClass);
                     }
                 } else {
-                    if ( canViewMaintainableBusinessObjectLookup(businessObjectClass, person) ) {
-                        link = constructMaintainableBusinessObjectLookupLinkFromClass(businessObjectClass);
+                    if ( canViewBusinessObjectLookup(businessObjectClass, person) ) {
+                        link = constructBusinessObjectLookupLinkFromClass(businessObjectClass);
                     }
                 }
             }
@@ -296,7 +301,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return documentAuthorizer.canInitiate(documentTypeName, person);
     }
 
-    protected boolean canViewMaintainableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+    protected boolean canViewBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
         return KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(
                 person.getPrincipalId(), KRADConstants.KNS_NAMESPACE,
                 KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
@@ -309,7 +314,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return applicationUrl + "/" + determineUrlNameForClass(documentClass) + transformClassName(documentClass) + ".do?methodToCall=docHandler&command=initiate&docTypeName="+documentTypeName;
     }
 
-    protected String constructMaintainableBusinessObjectLookupLinkFromClass(Class<?> businessObjectClass) {
+    protected String constructBusinessObjectLookupLinkFromClass(Class<?> businessObjectClass) {
         final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
         return applicationUrl + "/kr/lookup.do?methodToCall=start&businessObjectClassName=" + businessObjectClass.getName() + "&docFormKey=88888888&returnLocation=" + applicationUrl + "/index.jsp&hideReturnLink=true";
     }
@@ -360,6 +365,26 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return linkGroups;
     }
 
+    protected Map<String, String> determineLookupLinkInfo(String businessObjectClassName, Person person) {
+        String link = null;
+        String label = null;
+
+        try {
+            final Class<?> businessObjectClass = Class.forName(businessObjectClassName);
+            if ( canViewBusinessObjectLookup(businessObjectClass, person) ) {
+                final BusinessObjectEntry entry = (BusinessObjectEntry)getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(businessObjectClassName);
+                if (entry != null && !StringUtils.isBlank(entry.getObjectLabel()) && !ObjectUtils.isNull(entry.getLookupDefinition())) {
+                    label = entry.getObjectLabel();
+                }
+                link = constructBusinessObjectLookupLinkFromClass(businessObjectClass);
+            }
+        } catch (ClassNotFoundException cnfe) {
+            throw new RuntimeException("Misconfigured class in navigation links: "+businessObjectClassName, cnfe);
+        }
+
+        return constructLinkInfo(label, link);
+    }
+
     @Override
     public Map<String, Object> getAllLinkGroups() {
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
@@ -396,5 +421,13 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     public void setPreferencesDao(PreferencesDao preferencesDao) {
         this.preferencesDao = preferencesDao;
+    }
+
+    public DataDictionaryService getDataDictionaryService() {
+        return dataDictionaryService;
+    }
+
+    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
+        this.dataDictionaryService = dataDictionaryService;
     }
 }

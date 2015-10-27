@@ -631,7 +631,7 @@ public class InstitutionPreferencesServiceImplTest {
     public void testFindInstitutionPreferencesLinks_canViewMaintableBusinessObjectLookupPermission() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl() {
             @Override
-            protected boolean canViewMaintainableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+            protected boolean canViewBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
                 return false;
             }
         };
@@ -1347,7 +1347,7 @@ public class InstitutionPreferencesServiceImplTest {
         }
 
         @Override
-        protected boolean canViewMaintainableBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
+        protected boolean canViewBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
             return true;
         }
     }

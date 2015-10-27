@@ -1282,6 +1282,7 @@
 		<property name="documentDictionaryService" ref="documentDictionaryService" />
 		<property name="kualiModuleService" ref="kualiModuleService"/>
 		<property name="preferencesDao" ref="preferencesDao" />
+		<property name="dataDictionaryService" ref="dataDictionaryService"/>
 	</bean>
 
 	<bean id="userPreferencesService" parent="userPreferencesService-parentBean"/>
