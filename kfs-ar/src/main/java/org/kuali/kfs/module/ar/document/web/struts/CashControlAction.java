@@ -39,7 +39,6 @@ import org.kuali.kfs.module.ar.document.service.CashControlDocumentService;
 import org.kuali.kfs.module.ar.document.validation.event.AddCashControlDetailEvent;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.Bank;
-import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.kfs.sys.service.BankService;
@@ -57,7 +56,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
 
-public class CashControlDocumentAction extends FinancialSystemTransactionalDocumentActionBase {
+public class CashControlAction extends FinancialSystemTransactionalDocumentActionBase {
 
     /**
      * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#loadDocument(org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase)
@@ -66,7 +65,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
 
         super.loadDocument(kualiDocumentFormBase);
-        CashControlDocumentForm ccForm = (CashControlDocumentForm) kualiDocumentFormBase;
+        CashControlForm ccForm = (CashControlForm) kualiDocumentFormBase;
         CashControlDocument cashControlDocument = ccForm.getCashControlDocument();
 
         // now that the form has been originally loaded, we need to set a few Form variables that are used by
@@ -102,7 +101,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CashControlDocumentForm ccForm = (CashControlDocumentForm) form;
+        CashControlForm ccForm = (CashControlForm) form;
         CashControlDocument ccDoc = ccForm.getCashControlDocument();
 
         if (ccDoc != null) {
@@ -125,7 +124,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
     @Override
     protected void createDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
         super.createDocument(kualiDocumentFormBase);
-        CashControlDocumentForm form = (CashControlDocumentForm) kualiDocumentFormBase;
+        CashControlForm form = (CashControlForm) kualiDocumentFormBase;
         CashControlDocument document = form.getCashControlDocument();
 
         //get the default bank code for the given document type, which is CTRL for this document.
@@ -151,7 +150,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CashControlDocumentForm cashControlDocForm = (CashControlDocumentForm) form;
+        CashControlForm cashControlDocForm = (CashControlForm) form;
         CashControlDocument cashControlDocument = cashControlDocForm.getCashControlDocument();
 
         // If the cancel works, proceed to canceling the cash control doc
@@ -169,7 +168,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
     @Override
     public ActionForward disapprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         boolean success = true;
-        CashControlDocumentForm cashControlDocForm = (CashControlDocumentForm) form;
+        CashControlForm cashControlDocForm = (CashControlForm) form;
         CashControlDocument cashControlDocument = cashControlDocForm.getCashControlDocument();
 
         success = cancelLinkedPaymentApplicationDocuments(cashControlDocument);
@@ -221,7 +220,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
      */
     public ActionForward addCashControlDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CashControlDocumentForm cashControlDocForm = (CashControlDocumentForm) form;
+        CashControlForm cashControlDocForm = (CashControlForm) form;
         CashControlDocument cashControlDocument = cashControlDocForm.getCashControlDocument();
         ConfigurationService kualiConfiguration = SpringContext.getBean(ConfigurationService.class);
 
@@ -276,7 +275,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
      * @throws Exception
      */
     public ActionForward deleteCashControlDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CashControlDocumentForm cashControlDocForm = (CashControlDocumentForm) form;
+        CashControlForm cashControlDocForm = (CashControlForm) form;
         CashControlDocument cashControlDocument = cashControlDocForm.getCashControlDocument();
 
         int indexOfLineToDelete = getLineToDelete(request);
@@ -312,7 +311,7 @@ public class CashControlDocumentAction extends FinancialSystemTransactionalDocum
      */
     public ActionForward generateGLPEs(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CashControlDocumentForm cashControlDocForm = (CashControlDocumentForm) form;
+        CashControlForm cashControlDocForm = (CashControlForm) form;
         CashControlDocument cashControlDocument = cashControlDocForm.getCashControlDocument();
         String paymentMediumCode = cashControlDocument.getCustomerPaymentMediumCode();
 

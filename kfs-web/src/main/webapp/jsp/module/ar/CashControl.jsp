@@ -37,7 +37,7 @@
 
 <kul:documentPage showDocumentInfo="true"
 	documentTypeName="CashControlDocument"
-	htmlFormAction="arCashControlDocument" renderMultipart="true"
+	htmlFormAction="arCashControl" renderMultipart="true"
 	showTabButtons="true">
 
 	<c:if

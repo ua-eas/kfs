@@ -31,7 +31,7 @@
         Cash Control
       </label>
       <docHandler>
-        ${kfs.url}/arCashControlDocument.do?methodToCall=docHandler
+        ${kfs.url}/arCashControl.do?methodToCall=docHandler
       </docHandler>
       <helpDefinitionURL>
         default.htm?turl=WordDocuments%2Fcashcontrol.htm

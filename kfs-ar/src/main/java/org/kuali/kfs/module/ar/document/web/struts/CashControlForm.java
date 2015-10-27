@@ -31,8 +31,8 @@ import org.kuali.kfs.krad.service.SessionDocumentService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 
-public class CashControlDocumentForm extends FinancialSystemTransactionalDocumentFormBase {
-    protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CashControlDocumentForm.class);
+public class CashControlForm extends FinancialSystemTransactionalDocumentFormBase {
+    protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CashControlForm.class);
 
     protected CashControlDetail newCashControlDetail;
     protected String processingChartOfAccCodeAndOrgCode;
@@ -40,9 +40,9 @@ public class CashControlDocumentForm extends FinancialSystemTransactionalDocumen
     protected boolean cashPaymentMediumSelected;
 
     /**
-     * Constructs a CashControlDocumentForm.java.
+     * Constructs a CashControlForm.java.
      */
-    public CashControlDocumentForm() {
+    public CashControlForm() {
 
         super();
 

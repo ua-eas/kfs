@@ -105,8 +105,8 @@
 			type="org.kuali.kfs.module.ar.document.web.struts.PaymentApplicationForm" />
 		<form-bean name="ContractsGrantsCollectionActivityDocumentForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.ContractsGrantsCollectionActivityDocumentForm" />
-		<form-bean name="CashControlDocumentForm"
-			type="org.kuali.kfs.module.ar.document.web.struts.CashControlDocumentForm" />
+		<form-bean name="CashControlForm"
+			type="org.kuali.kfs.module.ar.document.web.struts.CashControlForm" />
 		<form-bean name="CustomerCreditMemoDocumentForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.CustomerCreditMemoDocumentForm" />
 		<form-bean name="CustomerInvoiceForm"
