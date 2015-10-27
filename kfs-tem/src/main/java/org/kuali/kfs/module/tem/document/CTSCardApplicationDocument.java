@@ -37,8 +37,8 @@ import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
-public class TemCTSCardApplicationDocument extends CardApplicationDocumentBase implements CardApplicationDocument {
-    protected static Logger LOG = Logger.getLogger(TemCTSCardApplicationDocument.class);
+public class CTSCardApplicationDocument extends CardApplicationDocumentBase implements CardApplicationDocument {
+    protected static Logger LOG = Logger.getLogger(CTSCardApplicationDocument.class);
 
     private Date bankAppliedDate;
     private Date bankApprovedDate;
@@ -76,7 +76,7 @@ public class TemCTSCardApplicationDocument extends CardApplicationDocumentBase i
             TemProfileAccount profileAccount = new TemProfileAccount();
             Calendar cal = Calendar.getInstance();
             profileAccount.setEffectiveDate(new java.sql.Date(cal.getTimeInMillis()));
-            String code = getParameterService().getParameterValueAsString(TemCTSCardApplicationDocument.class, TemConstants.CENTRAL_TRAVEL_SYSTEM_CARD_CODE);
+            String code = getParameterService().getParameterValueAsString(CTSCardApplicationDocument.class, TemConstants.CENTRAL_TRAVEL_SYSTEM_CARD_CODE);
             Map<String, String> fieldValues = new HashMap<String, String>();
             fieldValues.put(TemPropertyConstants.CREDIT_CARD_AGENCY_CODE, code);
             List<CreditCardAgency> creditCardAgencyList = (List<CreditCardAgency>) getBusinessObjectService().findMatching(CreditCardAgency.class, fieldValues);
