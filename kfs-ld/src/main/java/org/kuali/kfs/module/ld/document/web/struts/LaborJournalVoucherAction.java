@@ -38,7 +38,7 @@ import org.kuali.kfs.sys.KFSConstants;
  * defines several fields that aren't typically used by the other financial transaction processing eDocs (i.e. external system
  * fields, object type override, credit and debit amounts).
  */
-public class JournalVoucherAction extends org.kuali.kfs.fp.document.web.struts.JournalVoucherAction {
+public class LaborJournalVoucherAction extends org.kuali.kfs.fp.document.web.struts.JournalVoucherAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#performLookup(org.apache.struts.action.ActionMapping,

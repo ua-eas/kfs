@@ -23,7 +23,7 @@
 
 <kul:documentPage showDocumentInfo="true"
 	documentTypeName="LaborJournalVoucherDocument"
-	htmlFormAction="laborJournalVoucher" renderMultipart="true"
+	htmlFormAction="laborLaborJournalVoucher" renderMultipart="true"
 	showTabButtons="true">
 
 	<sys:documentOverview editingMode="${KualiForm.editingMode}" />

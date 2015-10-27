@@ -182,7 +182,7 @@
 			type="org.kuali.kfs.module.ld.document.web.struts.YearEndSalaryExpenseTransferForm" />
 		<form-bean name="LaborBenefitExpenseTransferForm"
 			type="org.kuali.kfs.module.ld.document.web.struts.BenefitExpenseTransferForm" />
-		<form-bean name="LaborJournalVoucherForm"
+		<form-bean name="LaborLaborJournalVoucherForm"
 			type="org.kuali.kfs.module.ld.document.web.struts.LaborJournalVoucherForm" />
 		<form-bean name="LaborCorrectionForm"
 			type="org.kuali.kfs.module.ld.document.web.struts.LedgerCorrectionForm" />
