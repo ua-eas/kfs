@@ -163,7 +163,8 @@ var filterLinks = function(links, type) {
     return links.filter(function(link) {
         return link.type === type
     }).map((link, i) => {
-        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item"/>
+        let target = link.linkType === 'kfs' ? null : '_blank';
+        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item" target={target}/>
     })
 }
 
