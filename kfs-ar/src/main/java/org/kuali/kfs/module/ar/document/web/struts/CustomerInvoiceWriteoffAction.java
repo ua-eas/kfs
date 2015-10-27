@@ -35,7 +35,7 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.krad.service.KualiRuleService;
 
-public class CustomerInvoiceWriteoffDocumentAction extends FinancialSystemTransactionalDocumentActionBase {
+public class CustomerInvoiceWriteoffAction extends FinancialSystemTransactionalDocumentActionBase {
     
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
@@ -44,7 +44,7 @@ public class CustomerInvoiceWriteoffDocumentAction extends FinancialSystemTransa
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
         super.loadDocument(kualiDocumentFormBase);
 
-        CustomerInvoiceWriteoffDocumentForm form = (CustomerInvoiceWriteoffDocumentForm) kualiDocumentFormBase;
+        CustomerInvoiceWriteoffForm form = (CustomerInvoiceWriteoffForm) kualiDocumentFormBase;
         CustomerInvoiceWriteoffDocument document = (CustomerInvoiceWriteoffDocument) form.getDocument();
         document.populateCustomerNote();
     }
@@ -83,8 +83,8 @@ public class CustomerInvoiceWriteoffDocumentAction extends FinancialSystemTransa
     protected void saveCustomerNote(ActionForm form) {
         CustomerService customerService = SpringContext.getBean(CustomerService.class);
         
-        CustomerInvoiceWriteoffDocumentForm customerInvoiceWriteoffDocumentForm = (CustomerInvoiceWriteoffDocumentForm) form;
-        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffDocumentForm.getDocument();
+        CustomerInvoiceWriteoffForm customerInvoiceWriteoffForm = (CustomerInvoiceWriteoffForm) form;
+        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffForm.getDocument();
         
         String customerNumber = customerInvoiceWriteoffDocument.getCustomerInvoiceDocument().getCustomer().getCustomerNumber();
         String customerNote = customerInvoiceWriteoffDocument.getCustomerNote();
@@ -117,8 +117,8 @@ public class CustomerInvoiceWriteoffDocumentAction extends FinancialSystemTransa
      */
     public ActionForward clearInitTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         
-        CustomerInvoiceWriteoffDocumentForm customerInvoiceWriteoffDocumentForm = (CustomerInvoiceWriteoffDocumentForm) form;
-        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffDocumentForm.getDocument();
+        CustomerInvoiceWriteoffForm customerInvoiceWriteoffForm = (CustomerInvoiceWriteoffForm) form;
+        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffForm.getDocument();
         customerInvoiceWriteoffDocument.clearInitFields();
         
         return super.refresh(mapping, form, request, response);
@@ -137,8 +137,8 @@ public class CustomerInvoiceWriteoffDocumentAction extends FinancialSystemTransa
      */
     public ActionForward continueCustomerInvoiceWriteoff(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CustomerInvoiceWriteoffDocumentForm customerInvoiceWriteoffDocumentForm = (CustomerInvoiceWriteoffDocumentForm) form;
-        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffDocumentForm.getDocument();
+        CustomerInvoiceWriteoffForm customerInvoiceWriteoffForm = (CustomerInvoiceWriteoffForm) form;
+        CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument = (CustomerInvoiceWriteoffDocument) customerInvoiceWriteoffForm.getDocument();
         
         String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME;
         boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new ContinueCustomerInvoiceWriteoffDocumentEvent(errorPath,customerInvoiceWriteoffDocument));

@@ -20,7 +20,7 @@
 
 <kul:documentPage showDocumentInfo="true"
 	documentTypeName="CustomerInvoiceWriteoffDocument"
-	htmlFormAction="arCustomerInvoiceWriteoffDocument" renderMultipart="true"
+	htmlFormAction="arCustomerInvoiceWriteoff" renderMultipart="true"
 	showTabButtons="true">
 	
 	<c:set var="displayInitTab" value="${KualiForm.editingMode['displayInitTab']}" scope="request" />

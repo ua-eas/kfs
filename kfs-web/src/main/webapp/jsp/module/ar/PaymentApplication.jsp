@@ -64,7 +64,7 @@ function toggle(id) {
 
 <kul:documentPage showDocumentInfo="true"
 	documentTypeName="PaymentApplicationDocument"
-	htmlFormAction="arPaymentApplicationDocument" renderMultipart="true"
+	htmlFormAction="arPaymentApplication" renderMultipart="true"
 	showTabButtons="true">
 
 	<sys:hiddenDocumentFields isFinancialDocument="false" />

@@ -34,9 +34,9 @@ import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentatio
 import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
 
-public class CustomerInvoiceWriteoffDocumentForm extends FinancialSystemTransactionalDocumentFormBase {
+public class CustomerInvoiceWriteoffForm extends FinancialSystemTransactionalDocumentFormBase {
     
-    public CustomerInvoiceWriteoffDocumentForm() {
+    public CustomerInvoiceWriteoffForm() {
         super();
     }
 

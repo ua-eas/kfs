@@ -54,8 +54,8 @@ import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class PaymentApplicationDocumentForm extends FinancialSystemTransactionalDocumentFormBase {
-    protected static Logger LOG = org.apache.log4j.Logger.getLogger(PaymentApplicationDocumentForm.class);;
+public class PaymentApplicationForm extends FinancialSystemTransactionalDocumentFormBase {
+    protected static Logger LOG = org.apache.log4j.Logger.getLogger(PaymentApplicationForm.class);;
 
     protected String selectedInvoiceDocumentNumber;
     protected String enteredInvoiceDocumentNumber;
@@ -77,10 +77,10 @@ public class PaymentApplicationDocumentForm extends FinancialSystemTransactional
     protected Map<String, KualiDecimal> distributionsFromControlDocs;
 
     /**
-     * Constructs a PaymentApplicationDocumentForm.java.
+     * Constructs a PaymentApplicationForm.java.
      */
     @SuppressWarnings("unchecked")
-    public PaymentApplicationDocumentForm() {
+    public PaymentApplicationForm() {
         super();
         nonInvoicedAddLine = new NonInvoiced();
         invoices = new ArrayList<CustomerInvoiceDocument>();

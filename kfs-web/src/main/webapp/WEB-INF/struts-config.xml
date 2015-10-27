@@ -101,8 +101,8 @@
 			type="org.kuali.kfs.fp.document.web.struts.YearEndBudgetAdjustmentForm" />
 
 		<!-- Accounts Receivable Module Bean Definitions -->
-		<form-bean name="PaymentApplicationDocumentForm"
-			type="org.kuali.kfs.module.ar.document.web.struts.PaymentApplicationDocumentForm" />
+		<form-bean name="PaymentApplicationForm"
+			type="org.kuali.kfs.module.ar.document.web.struts.PaymentApplicationForm" />
 		<form-bean name="ContractsGrantsCollectionActivityDocumentForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.ContractsGrantsCollectionActivityDocumentForm" />
 		<form-bean name="CashControlDocumentForm"
@@ -111,8 +111,8 @@
 			type="org.kuali.kfs.module.ar.document.web.struts.CustomerCreditMemoDocumentForm" />
 		<form-bean name="CustomerInvoiceForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceForm" />
-		<form-bean name="CustomerInvoiceWriteoffDocumentForm"
-			type="org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceWriteoffDocumentForm" />
+		<form-bean name="CustomerInvoiceWriteoffForm"
+			type="org.kuali.kfs.module.ar.document.web.struts.CustomerInvoiceWriteoffForm" />
 		<form-bean name="CustomerAgingReportForm"
 			type="org.kuali.kfs.module.ar.web.struts.CustomerAgingReportForm" />
 		<form-bean name="TicklersReportLookupForm"
