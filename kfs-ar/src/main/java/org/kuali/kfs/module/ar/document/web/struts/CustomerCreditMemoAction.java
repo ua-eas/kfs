@@ -54,11 +54,11 @@ import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.krad.util.UrlFactory;
 
-public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocumentActionBase {
+public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBase {
 
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerCreditMemoDocumentAction.class);
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerCreditMemoAction.class);
 
-    public CustomerCreditMemoDocumentAction() {
+    public CustomerCreditMemoAction() {
         super();
     }
 
@@ -98,8 +98,8 @@ public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocument
      */
     public ActionForward clearInitTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CustomerCreditMemoDocumentForm customerCreditMemoDocumentForm = (CustomerCreditMemoDocumentForm) form;
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoDocumentForm.getDocument();
+        CustomerCreditMemoForm customerCreditMemoForm = (CustomerCreditMemoForm) form;
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoForm.getDocument();
         customerCreditMemoDocument.clearInitFields();
 
         return super.refresh(mapping, form, request, response);
@@ -118,8 +118,8 @@ public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocument
      */
     public ActionForward continueCreditMemo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CustomerCreditMemoDocumentForm customerCreditMemoDocumentForm = (CustomerCreditMemoDocumentForm) form;
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoDocumentForm.getDocument();
+        CustomerCreditMemoForm customerCreditMemoForm = (CustomerCreditMemoForm) form;
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoForm.getDocument();
 
         String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME;
         boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new ContinueCustomerCreditMemoDocumentEvent(errorPath,customerCreditMemoDocument));
@@ -142,8 +142,8 @@ public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocument
      */
     public ActionForward recalculateCustomerCreditMemoDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CustomerCreditMemoDocumentForm customerCreditMemoDocumentForm = (CustomerCreditMemoDocumentForm) form;
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)customerCreditMemoDocumentForm.getDocument();
+        CustomerCreditMemoForm customerCreditMemoForm = (CustomerCreditMemoForm) form;
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoForm.getDocument();
 
         int indexOfLineToRecalculate = getSelectedLine(request);
         CustomerCreditMemoDetail customerCreditMemoDetail = customerCreditMemoDocument.getCreditMemoDetails().get(indexOfLineToRecalculate);
@@ -172,7 +172,7 @@ public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocument
      */
     public ActionForward refreshCustomerCreditMemoDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CustomerCreditMemoDocumentForm customerCreditMemoDocForm = (CustomerCreditMemoDocumentForm) form;
+        CustomerCreditMemoForm customerCreditMemoDocForm = (CustomerCreditMemoForm) form;
         CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)customerCreditMemoDocForm.getDocument();
         int indexOfLineToRefresh = getSelectedLine(request);
 
@@ -199,7 +199,7 @@ public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocument
      * @throws Exception
      */
     public ActionForward refreshCustomerCreditMemoDocument(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CustomerCreditMemoDocumentForm customerCreditMemoDocForm = (CustomerCreditMemoDocumentForm) form;
+        CustomerCreditMemoForm customerCreditMemoDocForm = (CustomerCreditMemoForm) form;
         CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)customerCreditMemoDocForm.getDocument();
 
         List<CustomerCreditMemoDetail> customerCreditMemoDetails = customerCreditMemoDocument.getCreditMemoDetails();
@@ -229,8 +229,8 @@ public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocument
      */
     public ActionForward recalculateCustomerCreditMemoDocument(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CustomerCreditMemoDocumentForm customerCreditMemoDocumentForm = (CustomerCreditMemoDocumentForm) form;
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)customerCreditMemoDocumentForm.getDocument();
+        CustomerCreditMemoForm customerCreditMemoForm = (CustomerCreditMemoForm) form;
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoForm.getDocument();
 
         String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME;
         boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new RecalculateCustomerCreditMemoDocumentEvent(errorPath,customerCreditMemoDocument,false));
@@ -253,7 +253,7 @@ public class CustomerCreditMemoDocumentAction extends KualiTransactionalDocument
      */
     public ActionForward print(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String basePath = getApplicationBaseUrl();
-        String docId = ((CustomerCreditMemoDocumentForm) form).getDocument().getDocumentNumber();
+        String docId = ((CustomerCreditMemoForm) form).getDocument().getDocumentNumber();
         String printCreditMemoPDFUrl = getUrlForPrintCreditMemo(basePath, docId, ArConstants.PRINT_CREDIT_MEMO_PDF_METHOD);
         String displayInvoiceTabbedPageUrl = getUrlForPrintCreditMemo(basePath, docId, KFSConstants.DOC_HANDLER_METHOD);
 

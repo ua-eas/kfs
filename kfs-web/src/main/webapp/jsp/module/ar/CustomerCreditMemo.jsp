@@ -20,7 +20,7 @@
 
 <kul:documentPage showDocumentInfo="true"
 	documentTypeName="CustomerCreditMemoDocument"
-	htmlFormAction="arCustomerCreditMemoDocument" renderMultipart="true"
+	htmlFormAction="arCustomerCreditMemo" renderMultipart="true"
 	showTabButtons="true">
 	
 	<c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />

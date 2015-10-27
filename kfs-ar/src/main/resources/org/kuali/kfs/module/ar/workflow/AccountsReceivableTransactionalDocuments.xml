@@ -221,7 +221,7 @@
         Customer Credit Memo
       </label>
       <docHandler>
-        ${kfs.url}/arCustomerCreditMemoDocument.do?methodToCall=docHandler
+        ${kfs.url}/arCustomerCreditMemo.do?methodToCall=docHandler
       </docHandler>
       <helpDefinitionURL>
         default.htm?turl=WordDocuments%2Fcustomercreditmemo.htm

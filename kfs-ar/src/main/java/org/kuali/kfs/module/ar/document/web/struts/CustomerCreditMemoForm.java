@@ -35,9 +35,9 @@ import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.krad.util.KRADConstants;
 
-public class CustomerCreditMemoDocumentForm extends FinancialSystemTransactionalDocumentFormBase {
+public class CustomerCreditMemoForm extends FinancialSystemTransactionalDocumentFormBase {
    
-    public CustomerCreditMemoDocumentForm() {
+    public CustomerCreditMemoForm() {
         super();
     }
     
