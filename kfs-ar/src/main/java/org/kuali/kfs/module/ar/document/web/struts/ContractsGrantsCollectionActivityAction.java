@@ -54,13 +54,13 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 /**
  * Action file for Collection Activity Document.
  */
-public class ContractsGrantsCollectionActivityDocumentAction extends FinancialSystemTransactionalDocumentActionBase {
+public class ContractsGrantsCollectionActivityAction extends FinancialSystemTransactionalDocumentActionBase {
     protected static transient ContractsGrantsCollectionActivityDocumentService contractsGrantsCollectionActivityDocumentService;
     protected static transient BusinessObjectService businessObjectService;
     protected static transient SegmentedLookupResultsService segmentedLookupResultsService;
     protected static transient DateTimeService dateTimeService;
 
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ContractsGrantsCollectionActivityDocumentAction.class);
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ContractsGrantsCollectionActivityAction.class);
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#createDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
@@ -69,7 +69,7 @@ public class ContractsGrantsCollectionActivityDocumentAction extends FinancialSy
     protected void createDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
         super.createDocument(kualiDocumentFormBase);
 
-        final ContractsGrantsCollectionActivityDocumentForm cgCollectionActivityForm = (ContractsGrantsCollectionActivityDocumentForm) kualiDocumentFormBase;
+        final ContractsGrantsCollectionActivityForm cgCollectionActivityForm = (ContractsGrantsCollectionActivityForm) kualiDocumentFormBase;
         final ContractsGrantsCollectionActivityDocument document = cgCollectionActivityForm.getCollectionActivityDocument();
         document.setActivityDate(getDateTimeService().getCurrentSqlDate());
 
@@ -90,7 +90,7 @@ public class ContractsGrantsCollectionActivityDocumentAction extends FinancialSy
      * @throws Exception
      */
     public ActionForward deleteInvoice(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ContractsGrantsCollectionActivityDocumentForm colActDocForm = (ContractsGrantsCollectionActivityDocumentForm) form;
+        ContractsGrantsCollectionActivityForm colActDocForm = (ContractsGrantsCollectionActivityForm) form;
         ContractsGrantsCollectionActivityDocument colActDoc = colActDocForm.getCollectionActivityDocument();
 
         int indexOfLineToDelete = getLineToDelete(request);
@@ -102,7 +102,7 @@ public class ContractsGrantsCollectionActivityDocumentAction extends FinancialSy
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         super.refresh(mapping, form, request, response);
-        ContractsGrantsCollectionActivityDocumentForm collectionActivityDocumentForm = (ContractsGrantsCollectionActivityDocumentForm) form;
+        ContractsGrantsCollectionActivityForm collectionActivityDocumentForm = (ContractsGrantsCollectionActivityForm) form;
         ContractsGrantsCollectionActivityDocument colActDoc = collectionActivityDocumentForm.getCollectionActivityDocument();
         Collection<PersistableBusinessObject> rawValues = null;
 

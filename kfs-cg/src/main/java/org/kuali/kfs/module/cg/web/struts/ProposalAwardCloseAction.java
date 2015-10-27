@@ -20,5 +20,5 @@ package org.kuali.kfs.module.cg.web.struts;
 
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 
-public class CloseAction extends FinancialSystemTransactionalDocumentActionBase {
+public class ProposalAwardCloseAction extends FinancialSystemTransactionalDocumentActionBase {
 }

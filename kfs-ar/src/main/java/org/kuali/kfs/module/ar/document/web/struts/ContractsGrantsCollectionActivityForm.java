@@ -25,7 +25,7 @@ import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumen
 /**
  * Form class for Collection Activity Document.
  */
-public class ContractsGrantsCollectionActivityDocumentForm extends FinancialSystemTransactionalDocumentFormBase {
+public class ContractsGrantsCollectionActivityForm extends FinancialSystemTransactionalDocumentFormBase {
     // Indicates which result set we are using when refreshing/returning from a multi-value lookup.
     protected String lookupResultsSequenceNumber;
     // a selected proposal number, if we are supposed to pre-fill the document

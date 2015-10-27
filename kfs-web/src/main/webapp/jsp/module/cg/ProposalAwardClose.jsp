@@ -22,7 +22,7 @@
 	value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
 
 <kul:page showDocumentInfo="true"
-	htmlFormAction="cgClose"
+	htmlFormAction="cgProposalAwardClose"
     renderMultipart="true"
 	docTitle="Proposal/Award Close"
     transactionalDocument="false">

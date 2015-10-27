@@ -26,9 +26,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.rice.core.web.format.DateFormatter;
 
-public class CloseForm extends FinancialSystemTransactionalDocumentFormBase {
+public class ProposalAwardCloseForm extends FinancialSystemTransactionalDocumentFormBase {
 
-    public CloseForm() {
+    public ProposalAwardCloseForm() {
         super();
         setFormatterType("document.userInitiatedCloseDate", DateFormatter.class);
         setFormatterType("document.closeOnOrBeforeDate", DateFormatter.class);

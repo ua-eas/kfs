@@ -23,7 +23,7 @@
 
 <kul:documentPage showDocumentInfo="true"
 	documentTypeName="ContractsGrantsCollectionActivityDocument"
-	htmlFormAction="arContractsGrantsCollectionActivityDocument" renderMultipart="true"
+	htmlFormAction="arContractsGrantsCollectionActivity" renderMultipart="true"
 	showTabButtons="true">
 	
 	<sys:hiddenDocumentFields isFinancialDocument="false" />

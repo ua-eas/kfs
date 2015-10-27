@@ -103,8 +103,8 @@
 		<!-- Accounts Receivable Module Bean Definitions -->
 		<form-bean name="PaymentApplicationForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.PaymentApplicationForm" />
-		<form-bean name="ContractsGrantsCollectionActivityDocumentForm"
-			type="org.kuali.kfs.module.ar.document.web.struts.ContractsGrantsCollectionActivityDocumentForm" />
+		<form-bean name="ContractsGrantsCollectionActivityForm"
+			type="org.kuali.kfs.module.ar.document.web.struts.ContractsGrantsCollectionActivityForm" />
 		<form-bean name="CashControlForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.CashControlForm" />
 		<form-bean name="CustomerCreditMemoForm"
@@ -261,8 +261,8 @@
 
 
 		<!-- CG Module Bean Definitions -->
-		<form-bean name="CloseForm"
-			type="org.kuali.kfs.module.cg.web.struts.CloseForm" />
+		<form-bean name="ProposalAwardCloseForm"
+			type="org.kuali.kfs.module.cg.web.struts.ProposalAwardCloseForm" />
 
 		<form-bean name="ContractsGrantsAwardBalancesReportLookupForm"
 			type="org.kuali.kfs.module.cg.web.struts.ContractsGrantsAwardBalancesReportLookupForm" />
