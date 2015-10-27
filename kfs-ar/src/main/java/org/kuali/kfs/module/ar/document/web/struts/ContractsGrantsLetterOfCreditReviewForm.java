@@ -40,7 +40,7 @@ import org.kuali.kfs.kns.web.ui.ExtraButton;
 /**
  * Form Class for Contracts & Grants LetterOfCredit Review Document.
  */
-public class ContractsGrantsLetterOfCreditReviewDocumentForm extends FinancialSystemTransactionalDocumentFormBase {
+public class ContractsGrantsLetterOfCreditReviewForm extends FinancialSystemTransactionalDocumentFormBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase#getDefaultDocumentTypeName()

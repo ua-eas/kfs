@@ -165,8 +165,8 @@
 		<form-bean name="FinalBilledIndicatorDocumentForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.FinalBilledIndicatorDocumentForm" />
 
-		<form-bean name="ContractsGrantsLetterOfCreditReviewDocumentForm"
-			type="org.kuali.kfs.module.ar.document.web.struts.ContractsGrantsLetterOfCreditReviewDocumentForm" />
+		<form-bean name="ContractsGrantsLetterOfCreditReviewForm"
+			type="org.kuali.kfs.module.ar.document.web.struts.ContractsGrantsLetterOfCreditReviewForm" />
 
 		<form-bean name="FederalFinancialReportForm"
 			type="org.kuali.kfs.module.ar.web.struts.FederalFinancialReportForm" />

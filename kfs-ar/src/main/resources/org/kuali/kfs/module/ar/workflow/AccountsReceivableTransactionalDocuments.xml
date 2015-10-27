@@ -397,10 +397,10 @@
         AR
       </parent>
       <label>
-        Contracts &amp; Grants Letter of Credit Review
+        Contracts &amp; Grants LOC Review
       </label>
       <docHandler>
-        ${kfs.url}/arContractsGrantsLetterOfCreditReviewDocument.do?methodToCall=docHandler
+        ${kfs.url}/arContractsGrantsLetterOfCreditReview.do?methodToCall=docHandler
       </docHandler>
       <helpDefinitionURL>
         default.htm?turl=WordDocuments%2Fcontractsgrantslocreview.htm

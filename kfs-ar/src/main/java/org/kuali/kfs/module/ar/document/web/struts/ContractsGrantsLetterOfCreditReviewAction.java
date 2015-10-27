@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -47,20 +46,20 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Properties;
 
 /**
  * Action class for Contracts & Grants LetterOfCredit Review Document.
  */
-public class ContractsGrantsLetterOfCreditReviewDocumentAction extends KualiTransactionalDocumentActionBase {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ContractsGrantsLetterOfCreditReviewDocumentAction.class);
+public class ContractsGrantsLetterOfCreditReviewAction extends KualiTransactionalDocumentActionBase {
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ContractsGrantsLetterOfCreditReviewAction.class);
 
     /**
      * Clears out init tab.
@@ -73,8 +72,8 @@ public class ContractsGrantsLetterOfCreditReviewDocumentAction extends KualiTran
      * @return An ActionForward
      */
     public ActionForward clearInitTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ContractsGrantsLetterOfCreditReviewDocumentForm contractsGrantsLetterOfCreditReviewDocumentForm = (ContractsGrantsLetterOfCreditReviewDocumentForm) form;
-        ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument = (ContractsGrantsLetterOfCreditReviewDocument) contractsGrantsLetterOfCreditReviewDocumentForm.getDocument();
+        ContractsGrantsLetterOfCreditReviewForm contractsGrantsLetterOfCreditReviewForm = (ContractsGrantsLetterOfCreditReviewForm) form;
+        ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument = (ContractsGrantsLetterOfCreditReviewDocument) contractsGrantsLetterOfCreditReviewForm.getDocument();
         contractsGrantsLetterOfCreditReviewDocument.clearInitFields();
 
         return super.refresh(mapping, form, request, response);
@@ -92,8 +91,8 @@ public class ContractsGrantsLetterOfCreditReviewDocumentAction extends KualiTran
      * @return An ActionForward
      */
     public ActionForward continueLOCReview(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ContractsGrantsLetterOfCreditReviewDocumentForm contractsGrantsLetterOfCreditReviewDocumentForm = (ContractsGrantsLetterOfCreditReviewDocumentForm) form;
-        ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument = (ContractsGrantsLetterOfCreditReviewDocument) contractsGrantsLetterOfCreditReviewDocumentForm.getDocument();
+        ContractsGrantsLetterOfCreditReviewForm contractsGrantsLetterOfCreditReviewForm = (ContractsGrantsLetterOfCreditReviewForm) form;
+        ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument = (ContractsGrantsLetterOfCreditReviewDocument) contractsGrantsLetterOfCreditReviewForm.getDocument();
 
         if (StringUtils.isBlank(contractsGrantsLetterOfCreditReviewDocument.getLetterOfCreditFundCode()) && StringUtils.isBlank(contractsGrantsLetterOfCreditReviewDocument.getLetterOfCreditFundGroupCode())) {
             GlobalVariables.getMessageMap().putError(ArConstants.LETTER_OF_CREDIT_REVIEW_INIT_SECTION, ArKeyConstants.ERROR_LOC_REVIEW_FUND_OR_FUND_GROUP_REQUIRED);
@@ -125,8 +124,8 @@ public class ContractsGrantsLetterOfCreditReviewDocumentAction extends KualiTran
      * @return An ActionForward
      */
     public ActionForward recalculateAmountToDraw(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ContractsGrantsLetterOfCreditReviewDocumentForm contractsGrantsLetterOfCreditReviewDocumentForm = (ContractsGrantsLetterOfCreditReviewDocumentForm) form;
-        ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument = (ContractsGrantsLetterOfCreditReviewDocument) contractsGrantsLetterOfCreditReviewDocumentForm.getDocument();
+        ContractsGrantsLetterOfCreditReviewForm contractsGrantsLetterOfCreditReviewForm = (ContractsGrantsLetterOfCreditReviewForm) form;
+        ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument = (ContractsGrantsLetterOfCreditReviewDocument) contractsGrantsLetterOfCreditReviewForm.getDocument();
 
         int indexOfLineToRecalculate = getSelectedLine(request);
         ContractsGrantsLetterOfCreditReviewDetail contractsGrantsLetterOfCreditReviewDetail = contractsGrantsLetterOfCreditReviewDocument.getHeaderReviewDetails().get(indexOfLineToRecalculate);
@@ -167,7 +166,7 @@ public class ContractsGrantsLetterOfCreditReviewDocumentAction extends KualiTran
      * @throws Exception
      */
     public ActionForward export(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ContractsGrantsLetterOfCreditReviewDocumentForm locForm = (ContractsGrantsLetterOfCreditReviewDocumentForm) form;
+        ContractsGrantsLetterOfCreditReviewForm locForm = (ContractsGrantsLetterOfCreditReviewForm) form;
         ContractsGrantsLetterOfCreditReviewDocument document = (ContractsGrantsLetterOfCreditReviewDocument) locForm.getDocument();
 
         ContractsGrantsInvoiceReportService reportService = SpringContext.getBean(ContractsGrantsInvoiceReportService.class);
@@ -195,7 +194,7 @@ public class ContractsGrantsLetterOfCreditReviewDocumentAction extends KualiTran
      */
     public ActionForward print(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String basePath = getApplicationBaseUrl();
-        ContractsGrantsLetterOfCreditReviewDocumentForm locForm = (ContractsGrantsLetterOfCreditReviewDocumentForm) form;
+        ContractsGrantsLetterOfCreditReviewForm locForm = (ContractsGrantsLetterOfCreditReviewForm) form;
         ContractsGrantsLetterOfCreditReviewDocument document = (ContractsGrantsLetterOfCreditReviewDocument) locForm.getDocument();
 
         String printInvoicePDFUrl = getUrlForPrintInvoice(basePath, document.getDocumentNumber(), ArConstants.PRINT_INVOICE_PDF_METHOD);

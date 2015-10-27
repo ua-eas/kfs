@@ -20,7 +20,7 @@
 
 <kul:documentPage showDocumentInfo="true"
 	documentTypeName="ContractsGrantsLetterOfCreditReviewDocument"
-	htmlFormAction="arContractsGrantsLetterOfCreditReviewDocument"
+	htmlFormAction="arContractsGrantsLetterOfCreditReview"
 	renderMultipart="true" showTabButtons="true">
 
 	<c:set var="readOnly"
