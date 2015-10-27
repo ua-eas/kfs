@@ -31,32 +31,6 @@
   <changeSet author="kfs" id="CA_A21_ICR_ACCT_SEQ" dbms="oracle" context="bootstrap,demo,unit">
     <createSequence sequenceName="CA_A21_ICR_ACCT_SEQ" startValue="10020"/>
   </changeSet>
-  <changeSet author="kfs" id="CA_ACCT_AUTODEF_ICR_SEQ" dbms="mysql" context="bootstrap,demo,unit">
-    <createTable tableName="CA_ACCT_AUTODEF_ICR_SEQ">
-      <column autoIncrement="true" name="id" type="BIGINT">
-        <constraints primaryKey="true"/>
-      </column>
-    </createTable>
-    <insert tableName="CA_ACCT_AUTODEF_ICR_SEQ">
-      <column name="id" value="10000"/>
-    </insert>
-  </changeSet>
-  <changeSet author="kfs" id="CA_ACCT_AUTODEF_ICR_SEQ" dbms="oracle" context="bootstrap,demo,unit">
-    <createSequence sequenceName="CA_ACCT_AUTODEF_ICR_SEQ" startValue="10000"/>
-  </changeSet>
-  <changeSet author="kfs" id="CA_ACCT_AUTO_CREATE_DFLT_SEQ" dbms="mysql" context="bootstrap,demo,unit">
-    <createTable tableName="CA_ACCT_AUTO_CREATE_DFLT_SEQ">
-      <column autoIncrement="true" name="id" type="BIGINT">
-        <constraints primaryKey="true"/>
-      </column>
-    </createTable>
-    <insert tableName="CA_ACCT_AUTO_CREATE_DFLT_SEQ">
-      <column name="id" value="1"/>
-    </insert>
-  </changeSet>
-  <changeSet author="kfs" id="CA_ACCT_AUTO_CREATE_DFLT_SEQ" dbms="oracle" context="bootstrap,demo,unit">
-    <createSequence sequenceName="CA_ACCT_AUTO_CREATE_DFLT_SEQ" startValue="1"/>
-  </changeSet>
   <changeSet author="kfs" id="CA_ICR_ACCT_SEQ" dbms="mysql" context="bootstrap,demo,unit">
     <createTable tableName="CA_ICR_ACCT_SEQ">
       <column autoIncrement="true" name="id" type="BIGINT">
