@@ -185,7 +185,7 @@
 		<form-bean name="LaborJournalVoucherForm"
 			type="org.kuali.kfs.module.ld.document.web.struts.LaborJournalVoucherForm" />
 		<form-bean name="LaborCorrectionForm"
-			type="org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionForm" />
+			type="org.kuali.kfs.module.ld.document.web.struts.LedgerCorrectionForm" />
 		<form-bean name="LaborYearEndBenefitExpenseTransferForm"
 			type="org.kuali.kfs.module.ld.document.web.struts.YearEndBenefitExpenseTransferForm" />
 		<form-bean name="FringeBenefitInquiryForm"
@@ -696,7 +696,7 @@
 
 		<action path="/laborLedgerCorrection" name="LaborCorrectionForm"
 			input="/jsp/gl/GeneralLedgerCorrectionProcess.jsp"
-			type="org.kuali.kfs.module.ld.document.web.struts.LaborCorrectionAction"
+			type="org.kuali.kfs.module.ld.document.web.struts.LedgerCorrectionAction"
 			scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
 			<set-property property="cancellable" value="true" />
 			<forward name="basic" path="/jsp/gl/GeneralLedgerCorrectionProcess.jsp" />

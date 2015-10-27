@@ -19,21 +19,21 @@
 
 package org.kuali.kfs.module.ld.document.web.struts;
 
-import java.util.List;
-
 import org.kuali.kfs.gl.document.web.struts.GeneralLedgerCorrectionProcessForm;
+import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
-import org.kuali.kfs.module.ld.document.LaborCorrectionDocument;
+import org.kuali.kfs.module.ld.document.LedgerCorrectionDocument;
 import org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.web.ui.Column;
+
+import java.util.List;
 
 
 /**
  * Struts Action Form for the Labor Ledger Correction Process.
  */
-public class LaborCorrectionForm extends GeneralLedgerCorrectionProcessForm {
-    protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborCorrectionForm.class);
+public class LedgerCorrectionForm extends GeneralLedgerCorrectionProcessForm {
+    protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LedgerCorrectionForm.class);
 
     protected LaborOriginEntry laborEntryForManualEdit;
     protected String laborEntryUniversityFiscalYear;
@@ -49,9 +49,9 @@ public class LaborCorrectionForm extends GeneralLedgerCorrectionProcessForm {
     protected String laborEntryEmployeeRecord;
 
     /**
-     * Constructs a LaborCorrectionForm instance.
+     * Constructs a LedgerCorrectionForm instance.
      */
-    public LaborCorrectionForm() {
+    public LedgerCorrectionForm() {
         super();
         laborEntryForManualEdit = new LaborOriginEntry();
         laborEntryForManualEdit.setEntryId(0);
@@ -102,7 +102,7 @@ public class LaborCorrectionForm extends GeneralLedgerCorrectionProcessForm {
     public void setDocType() {
         setDocumentType("LLCP");
         //setDocTitle("Labor Ledger Correction Process");
-        setDocTitle("LaborCorrectionDocument");
+        setDocTitle("LedgerCorrectionDocument");
         setHtmlFormAction("laborLedgerCorrection");
     }
 
@@ -234,12 +234,12 @@ public class LaborCorrectionForm extends GeneralLedgerCorrectionProcessForm {
     }
 
     /**
-     * Gets the LaborCorrectionDocument attribute.
+     * Gets the LedgerCorrectionDocument attribute.
      * 
-     * @return Returns the LaborCorrectionDocument.
+     * @return Returns the LedgerCorrectionDocument.
      */
-    public LaborCorrectionDocument getLaborCorrectionDocument() {
-        return (LaborCorrectionDocument) getDocument();
+    public LedgerCorrectionDocument getLaborCorrectionDocument() {
+        return (LedgerCorrectionDocument) getDocument();
     }
 
     /**

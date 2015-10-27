@@ -60,7 +60,7 @@ import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.businessobject.options.CorrectionLaborGroupEntriesFinder;
 import org.kuali.kfs.module.ld.businessobject.options.LaborOriginEntryFieldFinder;
-import org.kuali.kfs.module.ld.document.LaborCorrectionDocument;
+import org.kuali.kfs.module.ld.document.LedgerCorrectionDocument;
 import org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryGroupService;
 import org.kuali.kfs.module.ld.service.LaborOriginEntryService;
@@ -84,7 +84,7 @@ import org.kuali.kfs.krad.util.KRADConstants;
 /**
  * Struts Action Class for the Labor Ledger Correction Process.
  */
-public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction {
+public class LedgerCorrectionAction extends GeneralLedgerCorrectionProcessAction {
 
     LaborOriginEntryService laborOriginEntryService = SpringContext.getBean(LaborOriginEntryService.class);
 
@@ -112,7 +112,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
             GeneralLedgerCorrectionProcessAction.kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
         }
 
-        LaborCorrectionForm rForm = (LaborCorrectionForm) form;
+        LedgerCorrectionForm rForm = (LedgerCorrectionForm) form;
         if (LOG.isDebugEnabled()) {
             LOG.debug("execute() methodToCall: " + rForm.getMethodToCall());    
         }
@@ -136,7 +136,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
 
                     if ((!"showOutputGroup".equals(rForm.getMethodToCall())) && rForm.getShowOutputFlag()) {
                         // reapply the any criteria to pare down the list if the match criteria only flag is checked
-                        LaborCorrectionDocument document = rForm.getLaborCorrectionDocument();
+                        LedgerCorrectionDocument document = rForm.getLaborCorrectionDocument();
                         List<CorrectionChangeGroup> groups = document.getCorrectionChangeGroup();
                         //TODO:- need to change for LLCP                      
                         updateEntriesFromCriteria(rForm, rForm.isRestrictedFunctionalityMode());
@@ -176,43 +176,43 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("save() started");
         
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
         // Did they pick the edit method and system?
-        if (!checkMainDropdown(laborCorrectionForm)) {
+        if (!checkMainDropdown(ledgerCorrectionForm)) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
-        if (!checkRestrictedFunctionalityModeForManualEdit(laborCorrectionForm)) {
+        if (!checkRestrictedFunctionalityModeForManualEdit(ledgerCorrectionForm)) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
-        if (!validGroupsItemsForDocumentSave(laborCorrectionForm)) {
+        if (!validGroupsItemsForDocumentSave(ledgerCorrectionForm)) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
-        if (!validChangeGroups(laborCorrectionForm)) {
+        if (!validChangeGroups(ledgerCorrectionForm)) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
-        if (!checkInputGroupPersistedForDocumentSave(laborCorrectionForm)) {
+        if (!checkInputGroupPersistedForDocumentSave(ledgerCorrectionForm)) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
 
         // Populate document
-        document.setCorrectionTypeCode(laborCorrectionForm.getEditMethod());
-        document.setCorrectionSelection(laborCorrectionForm.getMatchCriteriaOnly());
-        document.setCorrectionFileDelete(!laborCorrectionForm.getProcessInBatch());
-        document.setCorrectionInputFileName(laborCorrectionForm.getInputGroupId());
+        document.setCorrectionTypeCode(ledgerCorrectionForm.getEditMethod());
+        document.setCorrectionSelection(ledgerCorrectionForm.getMatchCriteriaOnly());
+        document.setCorrectionFileDelete(!ledgerCorrectionForm.getProcessInBatch());
+        document.setCorrectionInputFileName(ledgerCorrectionForm.getInputGroupId());
         document.setCorrectionOutputFileName(null); 
-        if (laborCorrectionForm.getDataLoadedFlag() || laborCorrectionForm.isRestrictedFunctionalityMode()) {
-            document.setCorrectionInputFileName(laborCorrectionForm.getInputGroupId());
+        if (ledgerCorrectionForm.getDataLoadedFlag() || ledgerCorrectionForm.isRestrictedFunctionalityMode()) {
+            document.setCorrectionInputFileName(ledgerCorrectionForm.getInputGroupId());
         }
         else {
             document.setCorrectionInputFileName(null);
         }
         document.setCorrectionOutputFileName(null);
 
-        SpringContext.getBean(LaborCorrectionDocumentService.class).persistOriginEntryGroupsForDocumentSave(document, laborCorrectionForm);
+        SpringContext.getBean(LaborCorrectionDocumentService.class).persistOriginEntryGroupsForDocumentSave(document, ledgerCorrectionForm);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("save() doc type name: " + laborCorrectionForm.getDocTypeName());
+            LOG.debug("save() doc type name: " + ledgerCorrectionForm.getDocTypeName());
         }
         ActionForward af = super.superSave(mapping, form, request, response);
         return af;
@@ -229,30 +229,30 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward docHandler(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("docHandler() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        String command = laborCorrectionForm.getCommand();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        String command = ledgerCorrectionForm.getCommand();
 
         if (KewApiConstants.INITIATE_COMMAND.equals(command)) {
-            laborCorrectionForm.clearForm();
-            createDocument(laborCorrectionForm);
+            ledgerCorrectionForm.clearForm();
+            createDocument(ledgerCorrectionForm);
         }
         else {
-            loadDocument(laborCorrectionForm);
+            loadDocument(ledgerCorrectionForm);
 
-            LaborCorrectionDocument laborDocument = laborCorrectionForm.getLaborCorrectionDocument();
-            laborCorrectionForm.setInputGroupIdFromLastDocumentLoad(laborDocument.getCorrectionInputFileName());
-            populateAuthorizationFields(laborCorrectionForm);
-            Map<String, String> documentActions = laborCorrectionForm.getDocumentActions();
+            LedgerCorrectionDocument laborDocument = ledgerCorrectionForm.getLaborCorrectionDocument();
+            ledgerCorrectionForm.setInputGroupIdFromLastDocumentLoad(laborDocument.getCorrectionInputFileName());
+            populateAuthorizationFields(ledgerCorrectionForm);
+            Map<String, String> documentActions = ledgerCorrectionForm.getDocumentActions();
             if (documentActions.containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT)) {
                 // They have saved the document and they are retreiving it to be completed
-                laborCorrectionForm.setProcessInBatch(!laborDocument.getCorrectionFileDelete());
-                laborCorrectionForm.setMatchCriteriaOnly(laborDocument.getCorrectionSelection());
-                laborCorrectionForm.setEditMethod(laborDocument.getCorrectionTypeCode());
+                ledgerCorrectionForm.setProcessInBatch(!laborDocument.getCorrectionFileDelete());
+                ledgerCorrectionForm.setMatchCriteriaOnly(laborDocument.getCorrectionSelection());
+                ledgerCorrectionForm.setEditMethod(laborDocument.getCorrectionTypeCode());
                 
                 if (laborDocument.getCorrectionInputFileName() != null) {
                     if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(laborDocument.getCorrectionTypeCode())) {
-                        loadPersistedInputGroup(laborCorrectionForm);
-                        laborCorrectionForm.setDeleteFileFlag(false);
+                        loadPersistedInputGroup(ledgerCorrectionForm);
+                        ledgerCorrectionForm.setDeleteFileFlag(false);
                     }
                     else if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(laborDocument.getCorrectionTypeCode())) {
                         // for the "true" param below, when the origin entries are persisted in the CorrectionDocumentService, they
@@ -260,50 +260,50 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                         // // not to have origin entry IDs assigned to them. So, we create pseudo entry IDs that are
                         // // unique within the allEntries list, but not necessarily within the DB. The persistence layer
                         // // is responsible for auto-incrementing entry IDs in the DB.
-                        loadPersistedOutputGroup(laborCorrectionForm, true);
+                        loadPersistedOutputGroup(ledgerCorrectionForm, true);
 
-                        laborCorrectionForm.setManualEditFlag(true);
-                        laborCorrectionForm.setEditableFlag(false);
-                        laborCorrectionForm.setDeleteFileFlag(false);
+                        ledgerCorrectionForm.setManualEditFlag(true);
+                        ledgerCorrectionForm.setEditableFlag(false);
+                        ledgerCorrectionForm.setDeleteFileFlag(false);
                     }
                     else if (CorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(laborDocument.getCorrectionTypeCode())) {
-                        loadPersistedInputGroup(laborCorrectionForm);
-                        laborCorrectionForm.setDeleteFileFlag(true);
+                        loadPersistedInputGroup(ledgerCorrectionForm);
+                        ledgerCorrectionForm.setDeleteFileFlag(true);
                     }
                     else {
                         throw new RuntimeException("Unknown edit method " + laborDocument.getCorrectionTypeCode());
                     }
-                    laborCorrectionForm.setDataLoadedFlag(true);
+                    ledgerCorrectionForm.setDataLoadedFlag(true);
                 }
                 else {
-                    laborCorrectionForm.setDataLoadedFlag(false);
+                    ledgerCorrectionForm.setDataLoadedFlag(false);
                 }
-                laborCorrectionForm.setShowOutputFlag(documentActions.containsKey(KRADConstants.KUALI_ACTION_CAN_APPROVE));
-                if (laborCorrectionForm.getShowOutputFlag() && !laborCorrectionForm.isRestrictedFunctionalityMode()) {
-                    updateEntriesFromCriteria(laborCorrectionForm, false);
+                ledgerCorrectionForm.setShowOutputFlag(documentActions.containsKey(KRADConstants.KUALI_ACTION_CAN_APPROVE));
+                if (ledgerCorrectionForm.getShowOutputFlag() && !ledgerCorrectionForm.isRestrictedFunctionalityMode()) {
+                    updateEntriesFromCriteria(ledgerCorrectionForm, false);
                 }
-                laborCorrectionForm.setInputFileName(laborDocument.getCorrectionInputFileName());
+                ledgerCorrectionForm.setInputFileName(laborDocument.getCorrectionInputFileName());
                 if (laborDocument.getCorrectionInputFileName() != null) {
-                    laborCorrectionForm.setChooseSystem(CorrectionDocumentService.SYSTEM_UPLOAD);
+                    ledgerCorrectionForm.setChooseSystem(CorrectionDocumentService.SYSTEM_UPLOAD);
                 }
                 else {
-                    laborCorrectionForm.setChooseSystem(CorrectionDocumentService.SYSTEM_DATABASE);
+                    ledgerCorrectionForm.setChooseSystem(CorrectionDocumentService.SYSTEM_DATABASE);
                 }
 
-                laborCorrectionForm.setPreviousChooseSystem(laborCorrectionForm.getChooseSystem());
-                laborCorrectionForm.setPreviousEditMethod(laborCorrectionForm.getEditMethod());
-                laborCorrectionForm.setPreviousInputGroupId(laborCorrectionForm.getInputGroupId());
+                ledgerCorrectionForm.setPreviousChooseSystem(ledgerCorrectionForm.getChooseSystem());
+                ledgerCorrectionForm.setPreviousEditMethod(ledgerCorrectionForm.getEditMethod());
+                ledgerCorrectionForm.setPreviousInputGroupId(ledgerCorrectionForm.getInputGroupId());
             }
             else {
                 // They are calling this from their action list to look at it or approve it
-                laborCorrectionForm.setProcessInBatch(!laborDocument.getCorrectionFileDelete());
-                laborCorrectionForm.setMatchCriteriaOnly(laborDocument.getCorrectionSelection());
+                ledgerCorrectionForm.setProcessInBatch(!laborDocument.getCorrectionFileDelete());
+                ledgerCorrectionForm.setMatchCriteriaOnly(laborDocument.getCorrectionSelection());
 
                 // we don't care about setting entry IDs for the records below, so the param is false below
-                loadPersistedOutputGroup(laborCorrectionForm, false);
-                laborCorrectionForm.setShowOutputFlag(true);
+                loadPersistedOutputGroup(ledgerCorrectionForm, false);
+                ledgerCorrectionForm.setShowOutputFlag(true);
             }
-            laborCorrectionForm.setInputGroupIdFromLastDocumentLoadIsMissing(!originEntryGroupService.getGroupExists(laborDocument.getCorrectionInputFileName()));
+            ledgerCorrectionForm.setInputGroupIdFromLastDocumentLoadIsMissing(!originEntryGroupService.getGroupExists(laborDocument.getCorrectionInputFileName()));
         }
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -320,14 +320,14 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward uploadFile(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException, IOException, Exception {
         LOG.debug("uploadFile() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
         Date now = GeneralLedgerCorrectionProcessAction.dateTimeService.getCurrentDate();
         //creat file after all enries loaded well
         //OriginEntryGroup newOriginEntryGroup = GeneralLedgerCorrectionProcessAction.originEntryGroupService.createGroup(today, OriginEntrySource.LABOR_CORRECTION_PROCESS_EDOC, false, false, false);
 
-        FormFile sourceFile = laborCorrectionForm.getSourceFile();
+        FormFile sourceFile = ledgerCorrectionForm.getSourceFile();
         String llcpDirectory = SpringContext.getBean(LaborCorrectionDocumentService.class).getLlcpDirectoryName();
         String fullFileName = llcpDirectory + File.separator + sourceFile.getFileName() + "-" + GeneralLedgerCorrectionProcessAction.dateTimeService.toDateTimeStringForFilename(now);
         BufferedReader br = new BufferedReader(new InputStreamReader(sourceFile.getInputStream()));
@@ -357,12 +357,12 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
 
         int recordCountFunctionalityLimit = CorrectionDocumentUtils.getRecordCountFunctionalityLimit();
         if (CorrectionDocumentUtils.isRestrictedFunctionalityMode(loadedCount, recordCountFunctionalityLimit)) {
-            laborCorrectionForm.setRestrictedFunctionalityMode(true);
-            laborCorrectionForm.setDataLoadedFlag(false);
+            ledgerCorrectionForm.setRestrictedFunctionalityMode(true);
+            ledgerCorrectionForm.setDataLoadedFlag(false);
             document.setCorrectionInputFileName(fullFileName);
-            laborCorrectionForm.setInputFileName(fullFileName);
+            ledgerCorrectionForm.setInputFileName(fullFileName);
 
-            if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(laborCorrectionForm.getEditMethod())) {
+            if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(ledgerCorrectionForm.getEditMethod())) {
                 // the group size is not suitable for manual editing because it is too large
                 if (recordCountFunctionalityLimit == CorrectionDocumentUtils.RECORD_COUNT_FUNCTIONALITY_LIMIT_IS_NONE) {
                     GlobalVariables.getMessageMap().putError(SYSTEM_AND_EDIT_METHOD_ERROR_KEY, KFSKeyConstants.ERROR_GL_ERROR_CORRECTION_UNABLE_TO_MANUAL_EDIT_ANY_GROUP);
@@ -373,7 +373,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
             }
         }
         else {
-            laborCorrectionForm.setRestrictedFunctionalityMode(false);
+            ledgerCorrectionForm.setRestrictedFunctionalityMode(false);
             if (loadedCount > 0) {
                 //now we can load all data from file
                 List<LaborOriginEntry> originEntryList = new ArrayList();
@@ -393,16 +393,16 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
                 }
                 // Set all the data that we know                
-                laborCorrectionForm.setDataLoadedFlag(true);
-                laborCorrectionForm.setInputFileName(fullFileName);
+                ledgerCorrectionForm.setDataLoadedFlag(true);
+                ledgerCorrectionForm.setInputFileName(fullFileName);
                 document.setCorrectionInputFileName(fullFileName);
                 List<OriginEntryFull> originEntryFullList = new ArrayList();
                 originEntryFullList.addAll(originEntryList);
-                loadAllEntries(originEntryFullList, laborCorrectionForm);
+                loadAllEntries(originEntryFullList, ledgerCorrectionForm);
                 
-                if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(laborCorrectionForm.getEditMethod())) {
-                    laborCorrectionForm.setEditableFlag(false);
-                    laborCorrectionForm.setManualEditFlag(true);
+                if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(ledgerCorrectionForm.getEditMethod())) {
+                    ledgerCorrectionForm.setEditableFlag(false);
+                    ledgerCorrectionForm.setManualEditFlag(true);
                 }
             }
             else {
@@ -454,11 +454,11 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
 //        }
 //    }
 
-    protected void loadAllEntries(String fileNameWithPath, LaborCorrectionForm laborCorrectionForm) {
+    protected void loadAllEntries(String fileNameWithPath, LedgerCorrectionForm ledgerCorrectionForm) {
         LOG.debug("loadAllEntries() started");
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
         
-        if (!laborCorrectionForm.isRestrictedFunctionalityMode()) {
+        if (!ledgerCorrectionForm.isRestrictedFunctionalityMode()) {
             List<LaborOriginEntry> laborSearchResults = new ArrayList();
             Map loadMessageMap = laborOriginEntryService.getEntriesByGroupIdWithPath(fileNameWithPath, laborSearchResults);
             List<OriginEntryFull> searchResults = new ArrayList();
@@ -477,7 +477,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                 }
             } else {
                 try {
-                    loadAllEntries(searchResults, laborCorrectionForm);
+                    loadAllEntries(searchResults, ledgerCorrectionForm);
                     
                 } catch (Exception e){
                     throw new RuntimeException(e);
@@ -496,41 +496,41 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward saveManualEntry(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("saveManualEdit() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
-        if (validLaborOriginEntry(laborCorrectionForm)) {
-            int entryId = laborCorrectionForm.getLaborEntryForManualEdit().getEntryId();
+        if (validLaborOriginEntry(ledgerCorrectionForm)) {
+            int entryId = ledgerCorrectionForm.getLaborEntryForManualEdit().getEntryId();
 
             // Find it and replace it with the one from the edit spot
-            for (Iterator<OriginEntryFull> iter = laborCorrectionForm.getAllEntries().iterator(); iter.hasNext();) {
+            for (Iterator<OriginEntryFull> iter = ledgerCorrectionForm.getAllEntries().iterator(); iter.hasNext();) {
                 OriginEntryFull element = iter.next();
                 if (element.getEntryId() == entryId) {
                     iter.remove();
                 }
             }
 
-            laborCorrectionForm.updateLaborEntryForManualEdit();
-            laborCorrectionForm.getAllEntries().add(laborCorrectionForm.getLaborEntryForManualEdit());
+            ledgerCorrectionForm.updateLaborEntryForManualEdit();
+            ledgerCorrectionForm.getAllEntries().add(ledgerCorrectionForm.getLaborEntryForManualEdit());
 
             // we've modified the list of all entries, so repersist it
-            SpringContext.getBean(GlCorrectionProcessOriginEntryService.class).persistAllEntries(laborCorrectionForm.getGlcpSearchResultsSequenceNumber(), laborCorrectionForm.getAllEntries());
-            // laborCorrectionForm.setDisplayEntries(null);
-            laborCorrectionForm.setDisplayEntries(laborCorrectionForm.getAllEntries());
+            SpringContext.getBean(GlCorrectionProcessOriginEntryService.class).persistAllEntries(ledgerCorrectionForm.getGlcpSearchResultsSequenceNumber(), ledgerCorrectionForm.getAllEntries());
+            // ledgerCorrectionForm.setDisplayEntries(null);
+            ledgerCorrectionForm.setDisplayEntries(ledgerCorrectionForm.getAllEntries());
 
-            if (laborCorrectionForm.getShowOutputFlag()) {
-                removeNonMatchingEntries(laborCorrectionForm.getDisplayEntries(), document.getCorrectionChangeGroup());
+            if (ledgerCorrectionForm.getShowOutputFlag()) {
+                removeNonMatchingEntries(ledgerCorrectionForm.getDisplayEntries(), document.getCorrectionChangeGroup());
             }
 
             // Clear out the additional row
-            laborCorrectionForm.clearLaborEntryForManualEdit();
+            ledgerCorrectionForm.clearLaborEntryForManualEdit();
         }
 
         // Calculate the debit/credit/row count
-        updateDocumentSummary(document, laborCorrectionForm.getAllEntries(), laborCorrectionForm.isRestrictedFunctionalityMode());
+        updateDocumentSummary(document, ledgerCorrectionForm.getAllEntries(), ledgerCorrectionForm.isRestrictedFunctionalityMode());
 
         // list has changed, we'll need to repage and resort
-        applyPagingAndSortingFromPreviousPageView(laborCorrectionForm);
+        applyPagingAndSortingFromPreviousPageView(ledgerCorrectionForm);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -544,38 +544,38 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward addManualEntry(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("addManualEdit() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
-        if (validLaborOriginEntry(laborCorrectionForm)) {
-            laborCorrectionForm.updateLaborEntryForManualEdit();
+        if (validLaborOriginEntry(ledgerCorrectionForm)) {
+            ledgerCorrectionForm.updateLaborEntryForManualEdit();
 
             // new entryId is always 0, so give it a unique Id, SequenceAccessorService is used.
             //Long newEntryId = SpringContext.getBean(SequenceAccessorService.class).getNextAvailableSequenceNumber("GL_ORIGIN_ENTRY_T_SEQ");
-            int newEntryId = getMaxEntryId(laborCorrectionForm.getAllEntries()) + 1;
-            laborCorrectionForm.getEntryForManualEdit().setEntryId(new Integer(newEntryId));
+            int newEntryId = getMaxEntryId(ledgerCorrectionForm.getAllEntries()) + 1;
+            ledgerCorrectionForm.getEntryForManualEdit().setEntryId(new Integer(newEntryId));
             
-            laborCorrectionForm.getAllEntries().add(laborCorrectionForm.getLaborEntryForManualEdit());
+            ledgerCorrectionForm.getAllEntries().add(ledgerCorrectionForm.getLaborEntryForManualEdit());
 
             // Clear out the additional row
-            laborCorrectionForm.clearLaborEntryForManualEdit();
+            ledgerCorrectionForm.clearLaborEntryForManualEdit();
         }
 
 
         // Calculate the debit/credit/row count
-        updateDocumentSummary(document, laborCorrectionForm.getAllEntries(), laborCorrectionForm.isRestrictedFunctionalityMode());
+        updateDocumentSummary(document, ledgerCorrectionForm.getAllEntries(), ledgerCorrectionForm.isRestrictedFunctionalityMode());
 
-        laborCorrectionForm.setShowSummaryOutputFlag(true);
+        ledgerCorrectionForm.setShowSummaryOutputFlag(true);
 
         // we've modified the list of all entries, so repersist it
-        SpringContext.getBean(GlCorrectionProcessOriginEntryService.class).persistAllEntries(laborCorrectionForm.getGlcpSearchResultsSequenceNumber(), laborCorrectionForm.getAllEntries());
-        laborCorrectionForm.setDisplayEntries(new ArrayList<OriginEntryFull>(laborCorrectionForm.getAllEntries()));
-        if (laborCorrectionForm.getShowOutputFlag()) {
-            removeNonMatchingEntries(laborCorrectionForm.getDisplayEntries(), document.getCorrectionChangeGroup());
+        SpringContext.getBean(GlCorrectionProcessOriginEntryService.class).persistAllEntries(ledgerCorrectionForm.getGlcpSearchResultsSequenceNumber(), ledgerCorrectionForm.getAllEntries());
+        ledgerCorrectionForm.setDisplayEntries(new ArrayList<OriginEntryFull>(ledgerCorrectionForm.getAllEntries()));
+        if (ledgerCorrectionForm.getShowOutputFlag()) {
+            removeNonMatchingEntries(ledgerCorrectionForm.getDisplayEntries(), document.getCorrectionChangeGroup());
         }
 
         // list has changed, we'll need to repage and resort
-        applyPagingAndSortingFromPreviousPageView(laborCorrectionForm);
+        applyPagingAndSortingFromPreviousPageView(ledgerCorrectionForm);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -588,13 +588,13 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
      */
     public ActionForward manualEdit(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
-        laborCorrectionForm.clearLaborEntryForManualEdit();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
+        ledgerCorrectionForm.clearLaborEntryForManualEdit();
         
-        laborCorrectionForm.clearEntryForManualEdit();
-        laborCorrectionForm.setEditableFlag(true);
-        laborCorrectionForm.setManualEditFlag(false);
+        ledgerCorrectionForm.clearEntryForManualEdit();
+        ledgerCorrectionForm.setEditableFlag(true);
+        ledgerCorrectionForm.setManualEditFlag(false);
 
         if ( document.getCorrectionChangeGroup().isEmpty() ) {
             document.addCorrectionChangeGroup(new CorrectionChangeGroup());
@@ -613,33 +613,33 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward editManualEntry(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("editManualEdit() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
         int entryId = Integer.parseInt(getImageContext(request, "entryId"));
 
         // Find it and put it in the editing spot
-        for (Iterator iter = laborCorrectionForm.getAllEntries().iterator(); iter.hasNext();) {
+        for (Iterator iter = ledgerCorrectionForm.getAllEntries().iterator(); iter.hasNext();) {
             LaborOriginEntry element = (LaborOriginEntry) iter.next();
             if (element.getEntryId() == entryId) {
-                laborCorrectionForm.setLaborEntryForManualEdit(element);
-                laborCorrectionForm.setLaborEntryFinancialDocumentReversalDate(CorrectionDocumentUtils.convertToString(element.getFinancialDocumentReversalDate(), "Date"));
-                laborCorrectionForm.setLaborEntryTransactionDate(CorrectionDocumentUtils.convertToString(element.getTransactionDate(), "Date"));
-                laborCorrectionForm.setLaborEntryTransactionLedgerEntryAmount(CorrectionDocumentUtils.convertToString(element.getTransactionLedgerEntryAmount(), "KualiDecimal"));
-                laborCorrectionForm.setLaborEntryTransactionLedgerEntrySequenceNumber(CorrectionDocumentUtils.convertToString(element.getTransactionLedgerEntrySequenceNumber(), "Integer"));
-                laborCorrectionForm.setLaborEntryUniversityFiscalYear(CorrectionDocumentUtils.convertToString(element.getUniversityFiscalYear(), "Integer"));
+                ledgerCorrectionForm.setLaborEntryForManualEdit(element);
+                ledgerCorrectionForm.setLaborEntryFinancialDocumentReversalDate(CorrectionDocumentUtils.convertToString(element.getFinancialDocumentReversalDate(), "Date"));
+                ledgerCorrectionForm.setLaborEntryTransactionDate(CorrectionDocumentUtils.convertToString(element.getTransactionDate(), "Date"));
+                ledgerCorrectionForm.setLaborEntryTransactionLedgerEntryAmount(CorrectionDocumentUtils.convertToString(element.getTransactionLedgerEntryAmount(), "KualiDecimal"));
+                ledgerCorrectionForm.setLaborEntryTransactionLedgerEntrySequenceNumber(CorrectionDocumentUtils.convertToString(element.getTransactionLedgerEntrySequenceNumber(), "Integer"));
+                ledgerCorrectionForm.setLaborEntryUniversityFiscalYear(CorrectionDocumentUtils.convertToString(element.getUniversityFiscalYear(), "Integer"));
                 
-                laborCorrectionForm.setLaborEntryTransactionPostingDate(CorrectionDocumentUtils.convertToString(element.getTransactionPostingDate(), "Date"));
-                laborCorrectionForm.setLaborEntryPayPeriodEndDate(CorrectionDocumentUtils.convertToString(element.getPayPeriodEndDate(), "Date"));
-                laborCorrectionForm.setLaborEntryTransactionTotalHours(CorrectionDocumentUtils.convertToString(element.getTransactionTotalHours(), "BigDecimal"));
-                laborCorrectionForm.setLaborEntryPayrollEndDateFiscalYear(CorrectionDocumentUtils.convertToString(element.getPayrollEndDateFiscalYear(), "Integer"));
-                laborCorrectionForm.setLaborEntryEmployeeRecord(CorrectionDocumentUtils.convertToString(element.getEmployeeRecord(), "Integer"));
+                ledgerCorrectionForm.setLaborEntryTransactionPostingDate(CorrectionDocumentUtils.convertToString(element.getTransactionPostingDate(), "Date"));
+                ledgerCorrectionForm.setLaborEntryPayPeriodEndDate(CorrectionDocumentUtils.convertToString(element.getPayPeriodEndDate(), "Date"));
+                ledgerCorrectionForm.setLaborEntryTransactionTotalHours(CorrectionDocumentUtils.convertToString(element.getTransactionTotalHours(), "BigDecimal"));
+                ledgerCorrectionForm.setLaborEntryPayrollEndDateFiscalYear(CorrectionDocumentUtils.convertToString(element.getPayrollEndDateFiscalYear(), "Integer"));
+                ledgerCorrectionForm.setLaborEntryEmployeeRecord(CorrectionDocumentUtils.convertToString(element.getEmployeeRecord(), "Integer"));
                 
                 break;
             }
         }
 
-        laborCorrectionForm.setShowSummaryOutputFlag(true);
+        ledgerCorrectionForm.setShowSummaryOutputFlag(true);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -647,13 +647,13 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     /**
      * This method is for validation of Labor Origin Entry
      * 
-     * @param laborCorrectionForm
+     * @param ledgerCorrectionForm
      * @return boolean
      */
-    protected boolean validLaborOriginEntry(LaborCorrectionForm laborCorrectionForm) {
+    protected boolean validLaborOriginEntry(LedgerCorrectionForm ledgerCorrectionForm) {
         LOG.debug("validOriginEntry() started");
 
-        LaborOriginEntry oe = laborCorrectionForm.getLaborEntryForManualEdit();
+        LaborOriginEntry oe = ledgerCorrectionForm.getLaborEntryForManualEdit();
 
         boolean valid = true;
         LaborOriginEntryFieldFinder loeff = new LaborOriginEntryFieldFinder();
@@ -671,37 +671,37 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                 fieldValue = (String) oe.getFieldValue(fieldName);
             }
             else if (KFSPropertyConstants.FINANCIAL_DOCUMENT_REVERSAL_DATE.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryFinancialDocumentReversalDate();
+                fieldValue = ledgerCorrectionForm.getLaborEntryFinancialDocumentReversalDate();
             }
             else if (KFSPropertyConstants.TRANSACTION_DATE.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryTransactionDate();
+                fieldValue = ledgerCorrectionForm.getLaborEntryTransactionDate();
             }
             else if (KFSPropertyConstants.TRN_ENTRY_LEDGER_SEQUENCE_NUMBER.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryTransactionLedgerEntrySequenceNumber();
+                fieldValue = ledgerCorrectionForm.getLaborEntryTransactionLedgerEntrySequenceNumber();
             }
             else if (KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryTransactionLedgerEntryAmount();
+                fieldValue = ledgerCorrectionForm.getLaborEntryTransactionLedgerEntryAmount();
             }
             else if (KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryUniversityFiscalYear();
+                fieldValue = ledgerCorrectionForm.getLaborEntryUniversityFiscalYear();
             }
             
             // for Labor Specified fields
             else if (KFSPropertyConstants.TRANSACTION_POSTING_DATE.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryTransactionPostingDate();
+                fieldValue = ledgerCorrectionForm.getLaborEntryTransactionPostingDate();
             }
             else if (KFSPropertyConstants.PAY_PERIOD_END_DATE.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryPayPeriodEndDate();
+                fieldValue = ledgerCorrectionForm.getLaborEntryPayPeriodEndDate();
             }
             else if (KFSPropertyConstants.TRANSACTION_TOTAL_HOURS.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryTransactionTotalHours();
+                fieldValue = ledgerCorrectionForm.getLaborEntryTransactionTotalHours();
             }
             else if (KFSPropertyConstants.PAYROLL_END_DATE_FISCAL_YEAR.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryPayrollEndDateFiscalYear();
+                fieldValue = ledgerCorrectionForm.getLaborEntryPayrollEndDateFiscalYear();
             }
             
             else if (KFSPropertyConstants.EMPLOYEE_RECORD.equals(fieldName)) {
-                fieldValue = laborCorrectionForm.getLaborEntryEmployeeRecord();
+                fieldValue = ledgerCorrectionForm.getLaborEntryEmployeeRecord();
             }
             
             
@@ -745,8 +745,8 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     protected boolean validChangeGroups(GeneralLedgerCorrectionProcessForm generalLedgerCorrectionProcessForm) {
         LOG.debug("validChangeGroups() started");
 
-        LaborCorrectionForm form = (LaborCorrectionForm) generalLedgerCorrectionProcessForm;
-        LaborCorrectionDocument doc = form.getLaborCorrectionDocument();
+        LedgerCorrectionForm form = (LedgerCorrectionForm) generalLedgerCorrectionProcessForm;
+        LedgerCorrectionDocument doc = form.getLaborCorrectionDocument();
         String tab = "";
         if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(form.getEditMethod())) {
             tab = "editCriteria";
@@ -789,44 +789,44 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
      */
     protected void loadPersistedInputGroup(GeneralLedgerCorrectionProcessForm generalLedgerCorrectionProcessForm) throws Exception {
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) generalLedgerCorrectionProcessForm;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) generalLedgerCorrectionProcessForm;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
         int recordCountFunctionalityLimit = CorrectionDocumentUtils.getRecordCountFunctionalityLimit();
         LaborCorrectionDocumentService laborCorrectionDocumentService = SpringContext.getBean(LaborCorrectionDocumentService.class);
 
         if (!laborCorrectionDocumentService.areInputOriginEntriesPersisted(document)) {
             // the input origin entry group has been purged from the system
-            laborCorrectionForm.setPersistedOriginEntriesMissing(true);
-            laborCorrectionForm.setRestrictedFunctionalityMode(true);
+            ledgerCorrectionForm.setPersistedOriginEntriesMissing(true);
+            ledgerCorrectionForm.setRestrictedFunctionalityMode(true);
             return;
         }
 
-        laborCorrectionForm.setPersistedOriginEntriesMissing(false);
+        ledgerCorrectionForm.setPersistedOriginEntriesMissing(false);
         List<LaborOriginEntry> laborSearchResults = laborCorrectionDocumentService.retrievePersistedInputOriginEntries(document, recordCountFunctionalityLimit);
         if (laborSearchResults == null) {
             // null when the origin entry list is too large (i.e. in restricted functionality mode)
-            laborCorrectionForm.setRestrictedFunctionalityMode(true);
+            ledgerCorrectionForm.setRestrictedFunctionalityMode(true);
             updateDocumentSummary(document, null, true);
         }
         else {
             List<OriginEntryFull> searchResults = new ArrayList();
             searchResults.addAll(laborSearchResults);
-            laborCorrectionForm.setAllEntries(searchResults);
-            laborCorrectionForm.setDisplayEntries(new ArrayList<OriginEntryFull>(searchResults));
+            ledgerCorrectionForm.setAllEntries(searchResults);
+            ledgerCorrectionForm.setDisplayEntries(new ArrayList<OriginEntryFull>(searchResults));
 
-            updateDocumentSummary(document, laborCorrectionForm.getAllEntries(), false);
+            updateDocumentSummary(document, ledgerCorrectionForm.getAllEntries(), false);
 
             // if not in restricted functionality mode, then we can store these results temporarily in the GLCP origin entry service
             SequenceAccessorService sequenceAccessorService = SpringContext.getBean(SequenceAccessorService.class);
             String glcpSearchResultsSequenceNumber = String.valueOf(sequenceAccessorService.getNextAvailableSequenceNumber(KRADConstants.LOOKUP_RESULTS_SEQUENCE));
 
             SpringContext.getBean(GlCorrectionProcessOriginEntryService.class).persistAllEntries(glcpSearchResultsSequenceNumber, searchResults);
-            laborCorrectionForm.setGlcpSearchResultsSequenceNumber(glcpSearchResultsSequenceNumber);
+            ledgerCorrectionForm.setGlcpSearchResultsSequenceNumber(glcpSearchResultsSequenceNumber);
 
             int maxRowsPerPage = CorrectionDocumentUtils.getRecordsPerPage();
-            KualiTableRenderFormMetadata originEntrySearchResultTableMetadata = laborCorrectionForm.getOriginEntrySearchResultTableMetadata();
-            originEntrySearchResultTableMetadata.jumpToFirstPage(laborCorrectionForm.getDisplayEntries().size(), maxRowsPerPage);
+            KualiTableRenderFormMetadata originEntrySearchResultTableMetadata = ledgerCorrectionForm.getOriginEntrySearchResultTableMetadata();
+            originEntrySearchResultTableMetadata.jumpToFirstPage(ledgerCorrectionForm.getDisplayEntries().size(), maxRowsPerPage);
             originEntrySearchResultTableMetadata.setColumnToSortIndex(-1);
         }
     }
@@ -838,21 +838,21 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
      *      boolean)
      */
     protected void loadPersistedOutputGroup(GeneralLedgerCorrectionProcessForm generalLedgerCorrectionProcessForm, boolean setSequentialIds) throws Exception {
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) generalLedgerCorrectionProcessForm;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) generalLedgerCorrectionProcessForm;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
         LaborCorrectionDocumentService laborCorrectionDocumentService = SpringContext.getBean(LaborCorrectionDocumentService.class);
         if (!laborCorrectionDocumentService.areOutputOriginEntriesPersisted(document)) {
             // the input origin entry group has been purged from the system
-            laborCorrectionForm.setPersistedOriginEntriesMissing(true);
-            laborCorrectionForm.setRestrictedFunctionalityMode(true);
+            ledgerCorrectionForm.setPersistedOriginEntriesMissing(true);
+            ledgerCorrectionForm.setRestrictedFunctionalityMode(true);
             return;
         }
 
-        laborCorrectionForm.setPersistedOriginEntriesMissing(false);
+        ledgerCorrectionForm.setPersistedOriginEntriesMissing(false);
 
         int recordCountFunctionalityLimit;
-        if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(laborCorrectionForm.getEditMethod())) {
+        if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(ledgerCorrectionForm.getEditMethod())) {
             // with manual edits, rows may have been added so that the list goes would go into restricted func mode
             // so for manual edits, we ignore this limit
             recordCountFunctionalityLimit = CorrectionDocumentUtils.RECORD_COUNT_FUNCTIONALITY_LIMIT_IS_UNLIMITED;
@@ -865,7 +865,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
 
         if (laborSearchResults == null) {
             // null when the origin entry list is too large (i.e. in restricted functionality mode)
-            laborCorrectionForm.setRestrictedFunctionalityMode(true);
+            ledgerCorrectionForm.setRestrictedFunctionalityMode(true);
 
             WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
 
@@ -881,26 +881,26 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
         else {
             List<OriginEntryFull> searchResults = new ArrayList();
             searchResults.addAll(laborSearchResults);
-            laborCorrectionForm.setAllEntries(searchResults);
-            laborCorrectionForm.setDisplayEntries(new ArrayList<OriginEntryFull>(searchResults));
+            ledgerCorrectionForm.setAllEntries(searchResults);
+            ledgerCorrectionForm.setDisplayEntries(new ArrayList<OriginEntryFull>(searchResults));
 
             if (setSequentialIds) {
-                CorrectionDocumentUtils.setSequentialEntryIds(laborCorrectionForm.getAllEntries());
+                CorrectionDocumentUtils.setSequentialEntryIds(ledgerCorrectionForm.getAllEntries());
             }
 
             // if we can display the entries (i.e. not restricted functionality mode), then recompute the summary
-            updateDocumentSummary(document, laborCorrectionForm.getAllEntries(), false);
+            updateDocumentSummary(document, ledgerCorrectionForm.getAllEntries(), false);
 
             // if not in restricted functionality mode, then we can store these results temporarily in the GLCP origin entry service
             SequenceAccessorService sequenceAccessorService = SpringContext.getBean(SequenceAccessorService.class);
             String glcpSearchResultsSequenceNumber = String.valueOf(sequenceAccessorService.getNextAvailableSequenceNumber(KRADConstants.LOOKUP_RESULTS_SEQUENCE));
 
             SpringContext.getBean(GlCorrectionProcessOriginEntryService.class).persistAllEntries(glcpSearchResultsSequenceNumber, searchResults);
-            laborCorrectionForm.setGlcpSearchResultsSequenceNumber(glcpSearchResultsSequenceNumber);
+            ledgerCorrectionForm.setGlcpSearchResultsSequenceNumber(glcpSearchResultsSequenceNumber);
 
             int maxRowsPerPage = CorrectionDocumentUtils.getRecordsPerPage();
-            KualiTableRenderFormMetadata originEntrySearchResultTableMetadata = laborCorrectionForm.getOriginEntrySearchResultTableMetadata();
-            originEntrySearchResultTableMetadata.jumpToFirstPage(laborCorrectionForm.getDisplayEntries().size(), maxRowsPerPage);
+            KualiTableRenderFormMetadata originEntrySearchResultTableMetadata = ledgerCorrectionForm.getOriginEntrySearchResultTableMetadata();
+            originEntrySearchResultTableMetadata.jumpToFirstPage(ledgerCorrectionForm.getDisplayEntries().size(), maxRowsPerPage);
             originEntrySearchResultTableMetadata.setColumnToSortIndex(-1);
         }
     }
@@ -912,8 +912,8 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
      */
     protected boolean prepareForRoute(GeneralLedgerCorrectionProcessForm generalLedgerCorrectionProcessForm) throws Exception {
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) generalLedgerCorrectionProcessForm;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) generalLedgerCorrectionProcessForm;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
         // Is there a description?
         if (StringUtils.isEmpty(document.getDocumentHeader().getDocumentDescription())) {
@@ -921,17 +921,17 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
             return false;
         }
 
-        if (laborCorrectionForm.isPersistedOriginEntriesMissing()) {
+        if (ledgerCorrectionForm.isPersistedOriginEntriesMissing()) {
             GlobalVariables.getMessageMap().putError("searchResults", KFSKeyConstants.ERROR_GL_ERROR_CORRECTION_PERSISTED_ORIGIN_ENTRIES_MISSING);
             return false;
         }
 
         // Did they pick the edit method and system?
-        if (!checkMainDropdown(laborCorrectionForm)) {
+        if (!checkMainDropdown(ledgerCorrectionForm)) {
             return false;
         }
 
-        if (laborCorrectionForm.getDataLoadedFlag() || laborCorrectionForm.isRestrictedFunctionalityMode()) {
+        if (ledgerCorrectionForm.getDataLoadedFlag() || ledgerCorrectionForm.isRestrictedFunctionalityMode()) {
             document.setCorrectionInputFileName(generalLedgerCorrectionProcessForm.getInputGroupId());
         }
         else {
@@ -951,32 +951,32 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
             return false;
         }
 
-        if (!validGroupsItemsForDocumentSave(laborCorrectionForm)) {
+        if (!validGroupsItemsForDocumentSave(ledgerCorrectionForm)) {
             return false;
         }
 
         // If it is criteria, are all the criteria valid?
-        if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(laborCorrectionForm.getEditMethod())) {
-            if (!validChangeGroups(laborCorrectionForm)) {
+        if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(ledgerCorrectionForm.getEditMethod())) {
+            if (!validChangeGroups(ledgerCorrectionForm)) {
                 return false;
             }
         }
 
-        if (!checkRestrictedFunctionalityModeForManualEdit(laborCorrectionForm)) {
+        if (!checkRestrictedFunctionalityModeForManualEdit(ledgerCorrectionForm)) {
             return false;
         }
 
-        if (!checkInputGroupPersistedForDocumentSave(laborCorrectionForm)) {
+        if (!checkInputGroupPersistedForDocumentSave(ledgerCorrectionForm)) {
             return false;
         }
         // Get the output group if necessary
-        if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(laborCorrectionForm.getEditMethod())) {
-            if (!laborCorrectionForm.isRestrictedFunctionalityMode() && laborCorrectionForm.getDataLoadedFlag() && !laborCorrectionForm.getShowOutputFlag()) {
+        if (CorrectionDocumentService.CORRECTION_TYPE_CRITERIA.equals(ledgerCorrectionForm.getEditMethod())) {
+            if (!ledgerCorrectionForm.isRestrictedFunctionalityMode() && ledgerCorrectionForm.getDataLoadedFlag() && !ledgerCorrectionForm.getShowOutputFlag()) {
                 // we're going to force the user to view the output group upon routing, so apply the criteria
                 // if the user wasn't in show output mode.
-                updateEntriesFromCriteria(laborCorrectionForm, false);
+                updateEntriesFromCriteria(ledgerCorrectionForm, false);
             }
-            laborCorrectionForm.setShowOutputFlag(true);
+            ledgerCorrectionForm.setShowOutputFlag(true);
         }
         else {
             // If it is manual edit, we don't need to save any correction groups
@@ -984,16 +984,16 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
         }
 
         // Populate document
-        document.setCorrectionTypeCode(laborCorrectionForm.getEditMethod());
-        document.setCorrectionSelection(laborCorrectionForm.getMatchCriteriaOnly());
-        document.setCorrectionFileDelete(!laborCorrectionForm.getProcessInBatch());
-        document.setCorrectionInputFileName(laborCorrectionForm.getInputGroupId());
+        document.setCorrectionTypeCode(ledgerCorrectionForm.getEditMethod());
+        document.setCorrectionSelection(ledgerCorrectionForm.getMatchCriteriaOnly());
+        document.setCorrectionFileDelete(!ledgerCorrectionForm.getProcessInBatch());
+        document.setCorrectionInputFileName(ledgerCorrectionForm.getInputGroupId());
         document.setCorrectionOutputFileName(null); // this field is never used
 
         // we'll populate the output group id when the doc has a route level change
         document.setCorrectionOutputFileName(null);
 
-        SpringContext.getBean(LaborCorrectionDocumentService.class).persistOriginEntryGroupsForDocumentSave(document, laborCorrectionForm);
+        SpringContext.getBean(LaborCorrectionDocumentService.class).persistOriginEntryGroupsForDocumentSave(document, ledgerCorrectionForm);
 
         return true;
     }
@@ -1007,16 +1007,16 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward saveToDesktop(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOG.debug("saveToDesktop() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
 
-        if (checkOriginEntryGroupSelection(laborCorrectionForm)) {
-            if (laborCorrectionForm.isInputGroupIdFromLastDocumentLoadIsMissing() && laborCorrectionForm.getInputGroupIdFromLastDocumentLoad() != null && laborCorrectionForm.getInputGroupIdFromLastDocumentLoad().equals(laborCorrectionForm.getInputGroupId())) {
-                if (laborCorrectionForm.isPersistedOriginEntriesMissing()) {
+        if (checkOriginEntryGroupSelection(ledgerCorrectionForm)) {
+            if (ledgerCorrectionForm.isInputGroupIdFromLastDocumentLoadIsMissing() && ledgerCorrectionForm.getInputGroupIdFromLastDocumentLoad() != null && ledgerCorrectionForm.getInputGroupIdFromLastDocumentLoad().equals(ledgerCorrectionForm.getInputGroupId())) {
+                if (ledgerCorrectionForm.isPersistedOriginEntriesMissing()) {
                     GlobalVariables.getMessageMap().putError("documentsInSystem", LaborKeyConstants.ERROR_LABOR_ERROR_CORRECTION_PERSISTED_ORIGIN_ENTRIES_MISSING);
                     return mapping.findForward(KFSConstants.MAPPING_BASIC);
                 }
                 else {
-                    String fileName = "llcp_archived_group_" + laborCorrectionForm.getInputGroupIdFromLastDocumentLoad().toString() + ".txt";
+                    String fileName = "llcp_archived_group_" + ledgerCorrectionForm.getInputGroupIdFromLastDocumentLoad().toString() + ".txt";
                     // set response
                     response.setContentType("application/txt");
                     response.setHeader("Content-disposition", "attachment; filename=" + fileName);
@@ -1026,7 +1026,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
 
                     BufferedOutputStream bw = new BufferedOutputStream(response.getOutputStream());
 
-                    SpringContext.getBean(CorrectionDocumentService.class).writePersistedInputOriginEntriesToStream((LaborCorrectionDocument) laborCorrectionForm.getDocument(), bw);
+                    SpringContext.getBean(CorrectionDocumentService.class).writePersistedInputOriginEntriesToStream((LedgerCorrectionDocument) ledgerCorrectionForm.getDocument(), bw);
 
                     bw.flush();
                     bw.close();
@@ -1037,10 +1037,10 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
             else {
                 String batchDirectory = SpringContext.getBean(LaborCorrectionDocumentService.class).getBatchFileDirectoryName();
                 String fileNameWithPath; 
-                if (!laborCorrectionForm.getInputGroupId().contains(batchDirectory)){
-                    fileNameWithPath = batchDirectory + File.separator + laborCorrectionForm.getInputGroupId();
+                if (!ledgerCorrectionForm.getInputGroupId().contains(batchDirectory)){
+                    fileNameWithPath = batchDirectory + File.separator + ledgerCorrectionForm.getInputGroupId();
                 } else {
-                    fileNameWithPath = laborCorrectionForm.getInputGroupId(); 
+                    fileNameWithPath = ledgerCorrectionForm.getInputGroupId();
                 }
                 
                 FileReader fileReader = new FileReader(fileNameWithPath);
@@ -1049,7 +1049,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 // write to output
                 buildTextOutputfile(baos, br);
-                WebUtils.saveMimeOutputStreamAsFile(response, "application/txt", baos, laborCorrectionForm.getInputGroupId());
+                WebUtils.saveMimeOutputStreamAsFile(response, "application/txt", baos, ledgerCorrectionForm.getInputGroupId());
                 
                 br.close();
                 
@@ -1072,7 +1072,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
      * Uses data dictionary for originEntrySearchResultTableMetadata
      */
     public ActionForward sort(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LaborCorrectionForm correctionForm = (LaborCorrectionForm) form;
+        LedgerCorrectionForm correctionForm = (LedgerCorrectionForm) form;
         
         // when we return from the lookup, our next request's method to call is going to be refresh
         correctionForm.registerEditableProperty(KRADConstants.DISPATCH_REQUEST_PARAMETER);
@@ -1112,19 +1112,19 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
      * 
      * Uses data dictionary for originEntrySearchResultTableMetadata
      */
-    protected void applyPagingAndSortingFromPreviousPageView(LaborCorrectionForm laborCorrectionForm) {
-        KualiTableRenderFormMetadata originEntrySearchResultTableMetadata = laborCorrectionForm.getOriginEntrySearchResultTableMetadata();
+    protected void applyPagingAndSortingFromPreviousPageView(LedgerCorrectionForm ledgerCorrectionForm) {
+        KualiTableRenderFormMetadata originEntrySearchResultTableMetadata = ledgerCorrectionForm.getOriginEntrySearchResultTableMetadata();
         if (originEntrySearchResultTableMetadata.getPreviouslySortedColumnIndex() != -1) {
 
-            List<Column> columns = SpringContext.getBean(LaborCorrectionDocumentService.class).getTableRenderColumnMetadata(laborCorrectionForm.getDocument().getDocumentNumber());
+            List<Column> columns = SpringContext.getBean(LaborCorrectionDocumentService.class).getTableRenderColumnMetadata(ledgerCorrectionForm.getDocument().getDocumentNumber());
 
             String propertyToSortName = columns.get(originEntrySearchResultTableMetadata.getPreviouslySortedColumnIndex()).getPropertyName();
             Comparator valueComparator = columns.get(originEntrySearchResultTableMetadata.getPreviouslySortedColumnIndex()).getValueComparator();
-            sortList(laborCorrectionForm.getDisplayEntries(), propertyToSortName, valueComparator, originEntrySearchResultTableMetadata.isSortDescending());
+            sortList(ledgerCorrectionForm.getDisplayEntries(), propertyToSortName, valueComparator, originEntrySearchResultTableMetadata.isSortDescending());
         }
 
         int maxRowsPerPage = CorrectionDocumentUtils.getRecordsPerPage();
-        originEntrySearchResultTableMetadata.jumpToPage(originEntrySearchResultTableMetadata.getViewedPageNumber(), laborCorrectionForm.getDisplayEntries().size(), maxRowsPerPage);
+        originEntrySearchResultTableMetadata.jumpToPage(originEntrySearchResultTableMetadata.getViewedPageNumber(), ledgerCorrectionForm.getDisplayEntries().size(), maxRowsPerPage);
     }
 
     /**
@@ -1134,13 +1134,13 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
      */
     protected boolean checkInputGroupPersistedForDocumentSave(GeneralLedgerCorrectionProcessForm generalLedgerCorrectionProcessForm) {
         boolean present;
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) generalLedgerCorrectionProcessForm;
-        WorkflowDocument workflowDocument = laborCorrectionForm.getDocument().getDocumentHeader().getWorkflowDocument();
-        if (workflowDocument.isInitiated() || (workflowDocument.isSaved() && (laborCorrectionForm.getInputGroupIdFromLastDocumentLoad() == null || !laborCorrectionForm.getInputGroupIdFromLastDocumentLoad().equals(laborCorrectionForm.getInputGroupId())))) {
-            present = originEntryGroupService.getGroupExists(((LaborCorrectionDocument) laborCorrectionForm.getDocument()).getCorrectionInputFileName());
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) generalLedgerCorrectionProcessForm;
+        WorkflowDocument workflowDocument = ledgerCorrectionForm.getDocument().getDocumentHeader().getWorkflowDocument();
+        if (workflowDocument.isInitiated() || (workflowDocument.isSaved() && (ledgerCorrectionForm.getInputGroupIdFromLastDocumentLoad() == null || !ledgerCorrectionForm.getInputGroupIdFromLastDocumentLoad().equals(ledgerCorrectionForm.getInputGroupId())))) {
+            present = originEntryGroupService.getGroupExists(((LedgerCorrectionDocument) ledgerCorrectionForm.getDocument()).getCorrectionInputFileName());
         }
         else {
-            present = SpringContext.getBean(LaborCorrectionDocumentService.class).areInputOriginEntriesPersisted((LaborCorrectionDocument) laborCorrectionForm.getDocument());
+            present = SpringContext.getBean(LaborCorrectionDocumentService.class).areInputOriginEntriesPersisted((LedgerCorrectionDocument) ledgerCorrectionForm.getDocument());
         }
         if (!present) {
             GlobalVariables.getMessageMap().putError(SYSTEM_AND_EDIT_METHOD_ERROR_KEY, KFSKeyConstants.ERROR_GL_ERROR_CORRECTION_PERSISTED_ORIGIN_ENTRIES_MISSING);
@@ -1157,10 +1157,10 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward selectSystemEditMethod(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("selectSystemEditMethod() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
-        LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
+        LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
 
-        if (checkMainDropdown(laborCorrectionForm)) {
+        if (checkMainDropdown(ledgerCorrectionForm)) {
             // Clear out any entries that were already loaded
             document.setCorrectionInputFileName(null);
             document.setCorrectionOutputFileName(null);
@@ -1170,16 +1170,16 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
             document.setCorrectionRowCount(null);
             document.getCorrectionChangeGroup().clear();
 
-            laborCorrectionForm.setDataLoadedFlag(false);
-            laborCorrectionForm.setDeleteFileFlag(false);
-            laborCorrectionForm.setEditableFlag(false);
-            laborCorrectionForm.setManualEditFlag(false);
-            laborCorrectionForm.setShowOutputFlag(false);
-            laborCorrectionForm.setAllEntries(new ArrayList<OriginEntryFull>());
-            laborCorrectionForm.setRestrictedFunctionalityMode(false);
-            laborCorrectionForm.setProcessInBatch(true);
+            ledgerCorrectionForm.setDataLoadedFlag(false);
+            ledgerCorrectionForm.setDeleteFileFlag(false);
+            ledgerCorrectionForm.setEditableFlag(false);
+            ledgerCorrectionForm.setManualEditFlag(false);
+            ledgerCorrectionForm.setShowOutputFlag(false);
+            ledgerCorrectionForm.setAllEntries(new ArrayList<OriginEntryFull>());
+            ledgerCorrectionForm.setRestrictedFunctionalityMode(false);
+            ledgerCorrectionForm.setProcessInBatch(true);
 
-            if (CorrectionDocumentService.SYSTEM_DATABASE.equals(laborCorrectionForm.getChooseSystem())) {
+            if (CorrectionDocumentService.SYSTEM_DATABASE.equals(ledgerCorrectionForm.getChooseSystem())) {
                 // if users choose database, then get the list of origin entry groups and set the default
 
                 // I shouldn't have to do this query twice, but with the current architecture, I can't find anyway not to do it.
@@ -1201,17 +1201,17 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                 }
                 else {
                     GlobalVariables.getMessageMap().putError(SYSTEM_AND_EDIT_METHOD_ERROR_KEY, KFSKeyConstants.ERROR_NO_ORIGIN_ENTRY_GROUPS);
-                    laborCorrectionForm.setChooseSystem("");
+                    ledgerCorrectionForm.setChooseSystem("");
                 }
             }
         }
         else {
-            laborCorrectionForm.setEditMethod("");
-            laborCorrectionForm.setChooseSystem("");
+            ledgerCorrectionForm.setEditMethod("");
+            ledgerCorrectionForm.setChooseSystem("");
         }
-        laborCorrectionForm.setPreviousChooseSystem(laborCorrectionForm.getChooseSystem());
-        laborCorrectionForm.setPreviousEditMethod(laborCorrectionForm.getEditMethod());
-        laborCorrectionForm.setPreviousInputGroupId(null);
+        ledgerCorrectionForm.setPreviousChooseSystem(ledgerCorrectionForm.getChooseSystem());
+        ledgerCorrectionForm.setPreviousEditMethod(ledgerCorrectionForm.getEditMethod());
+        ledgerCorrectionForm.setPreviousInputGroupId(null);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -1222,25 +1222,25 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward loadGroup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("loadGroup() started");
 
-        LaborCorrectionForm laborCorrectionForm = (LaborCorrectionForm) form;
+        LedgerCorrectionForm ledgerCorrectionForm = (LedgerCorrectionForm) form;
         String batchDirectory = SpringContext.getBean(LaborCorrectionDocumentService.class).getBatchFileDirectoryName();
 
-        if (checkOriginEntryGroupSelection(laborCorrectionForm)) {
-            LaborCorrectionDocument doc = laborCorrectionForm.getLaborCorrectionDocument();
-            doc.setCorrectionInputFileName(batchDirectory + File.separator + laborCorrectionForm.getInputGroupId());
+        if (checkOriginEntryGroupSelection(ledgerCorrectionForm)) {
+            LedgerCorrectionDocument doc = ledgerCorrectionForm.getLaborCorrectionDocument();
+            doc.setCorrectionInputFileName(batchDirectory + File.separator + ledgerCorrectionForm.getInputGroupId());
 
             // TODO:- need to change using file - just size info will be enough
             // TODO:- int will be enough? should I change it long??
-            int inputGroupSize = laborOriginEntryService.getGroupCount(laborCorrectionForm.getInputGroupId());
+            int inputGroupSize = laborOriginEntryService.getGroupCount(ledgerCorrectionForm.getInputGroupId());
             int recordCountFunctionalityLimit = CorrectionDocumentUtils.getRecordCountFunctionalityLimit();
-            laborCorrectionForm.setPersistedOriginEntriesMissing(false);
+            ledgerCorrectionForm.setPersistedOriginEntriesMissing(false);
 
             if (CorrectionDocumentUtils.isRestrictedFunctionalityMode(inputGroupSize, recordCountFunctionalityLimit)) {
-                laborCorrectionForm.setRestrictedFunctionalityMode(true);
-                laborCorrectionForm.setDataLoadedFlag(false);
-                updateDocumentSummary(laborCorrectionForm.getCorrectionDocument(), null, true);
+                ledgerCorrectionForm.setRestrictedFunctionalityMode(true);
+                ledgerCorrectionForm.setDataLoadedFlag(false);
+                updateDocumentSummary(ledgerCorrectionForm.getCorrectionDocument(), null, true);
 
-                if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(laborCorrectionForm.getEditMethod())) {
+                if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(ledgerCorrectionForm.getEditMethod())) {
                     // the group size is not suitable for manual editing because it is too large
                     if (recordCountFunctionalityLimit == CorrectionDocumentUtils.RECORD_COUNT_FUNCTIONALITY_LIMIT_IS_NONE) {
                         GlobalVariables.getMessageMap().putError(SYSTEM_AND_EDIT_METHOD_ERROR_KEY, KFSKeyConstants.ERROR_GL_ERROR_CORRECTION_UNABLE_TO_MANUAL_EDIT_ANY_GROUP);
@@ -1251,33 +1251,33 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                 }
             }
             else {
-                laborCorrectionForm.setRestrictedFunctionalityMode(false);
+                ledgerCorrectionForm.setRestrictedFunctionalityMode(false);
                 
                 //TODO:- need to change using file
-                loadAllEntries(laborCorrectionForm.getInputGroupId(), laborCorrectionForm);
+                loadAllEntries(ledgerCorrectionForm.getInputGroupId(), ledgerCorrectionForm);
 
-                if (laborCorrectionForm.getAllEntries().size() > 0) {
-                    if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(laborCorrectionForm.getEditMethod())) {
-                        laborCorrectionForm.setManualEditFlag(true);
-                        laborCorrectionForm.setEditableFlag(false);
-                        laborCorrectionForm.setDeleteFileFlag(false);
+                if (ledgerCorrectionForm.getAllEntries().size() > 0) {
+                    if (CorrectionDocumentService.CORRECTION_TYPE_MANUAL.equals(ledgerCorrectionForm.getEditMethod())) {
+                        ledgerCorrectionForm.setManualEditFlag(true);
+                        ledgerCorrectionForm.setEditableFlag(false);
+                        ledgerCorrectionForm.setDeleteFileFlag(false);
                     }
-                    laborCorrectionForm.setDataLoadedFlag(true);
+                    ledgerCorrectionForm.setDataLoadedFlag(true);
                 }
                 else {
                     GlobalVariables.getMessageMap().putError("documentsInSystem", KFSKeyConstants.ERROR_GL_ERROR_CORRECTION_NO_RECORDS);
                 }
             }
 
-            LaborCorrectionDocument document = laborCorrectionForm.getLaborCorrectionDocument();
+            LedgerCorrectionDocument document = ledgerCorrectionForm.getLaborCorrectionDocument();
             if (document.getCorrectionChangeGroup().isEmpty()) {
                 document.addCorrectionChangeGroup(new CorrectionChangeGroup());
             }
 
-            laborCorrectionForm.setPreviousInputGroupId(laborCorrectionForm.getInputGroupId());
+            ledgerCorrectionForm.setPreviousInputGroupId(ledgerCorrectionForm.getInputGroupId());
         }
 
-        laborCorrectionForm.setShowOutputFlag(false);
+        ledgerCorrectionForm.setShowOutputFlag(false);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -1286,7 +1286,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
     public ActionForward confirmDeleteDocument(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("confirmDeleteDocument() started");
 
-        LaborCorrectionForm correctionForm = (LaborCorrectionForm) form;
+        LedgerCorrectionForm correctionForm = (LedgerCorrectionForm) form;
 
         if (checkOriginEntryGroupSelection(correctionForm)) {
             String batchDirectory = SpringContext.getBean(LaborCorrectionDocumentService.class).getBatchFileDirectoryName();
@@ -1306,7 +1306,7 @@ public class LaborCorrectionAction extends GeneralLedgerCorrectionProcessAction 
                 correctionForm.setRestrictedFunctionalityMode(true);
             }
             
-            LaborCorrectionDocument document = (LaborCorrectionDocument) correctionForm.getDocument();
+            LedgerCorrectionDocument document = (LedgerCorrectionDocument) correctionForm.getDocument();
             document.setCorrectionInputFileName(dataFileName);
         }
 

@@ -37,13 +37,13 @@ import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 /**
  * labor Document class for the Labor Ledger Correction Process.
  */
-public class LaborCorrectionDocument extends GeneralLedgerCorrectionProcessDocument {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborCorrectionDocument.class);
+public class LedgerCorrectionDocument extends GeneralLedgerCorrectionProcessDocument {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LedgerCorrectionDocument.class);
 
     /**
-     * Constructs a LaborCorrectionDocument.java.
+     * Constructs a LedgerCorrectionDocument.java.
      */
-    public LaborCorrectionDocument() {
+    public LedgerCorrectionDocument() {
         super();
     }
 
@@ -81,7 +81,7 @@ public class LaborCorrectionDocument extends GeneralLedgerCorrectionProcessDocum
             OriginEntryGroupService originEntryGroupService = (OriginEntryGroupService) SpringContext.getBean(LaborOriginEntryGroupService.class);
             
             // QUESTION - since this *is* the labor correction document - why are we loading it again?
-            LaborCorrectionDocument doc = laborCorrectionDocumentService.findByCorrectionDocumentHeaderId(docId);
+            LedgerCorrectionDocument doc = laborCorrectionDocumentService.findByCorrectionDocumentHeaderId(docId);
 
             String correctionType = doc.getCorrectionTypeCode();
             if (LaborCorrectionDocumentService.CORRECTION_TYPE_REMOVE_GROUP_FROM_PROCESSING.equals(correctionType)) {

@@ -28,7 +28,7 @@ import org.kuali.kfs.gl.document.CorrectionDocumentUtils;
 import org.kuali.kfs.gl.document.GeneralLedgerCorrectionProcessDocument;
 import org.kuali.kfs.gl.document.web.CorrectionDocumentEntryMetadata;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
-import org.kuali.kfs.module.ld.document.LaborCorrectionDocument;
+import org.kuali.kfs.module.ld.document.LedgerCorrectionDocument;
 import org.kuali.kfs.sys.batch.InitiateDirectory;
 import org.kuali.kfs.kns.web.ui.Column;
 
@@ -81,7 +81,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @param docId, i
      * @return
      */
-    public LaborCorrectionDocument findByCorrectionDocumentHeaderId(String docId);
+    public LedgerCorrectionDocument findByCorrectionDocumentHeaderId(String docId);
 
     /**
      * Returns metadata to help render columns in the LLCP. Do not modify this list or the contents in this list.
@@ -97,15 +97,15 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @param document an initiated or saved document
      * @param entries
      */
-    public void persistInputOriginEntriesForInitiatedOrSavedDocument(LaborCorrectionDocument document, Iterator<LaborOriginEntry> entries);
+    public void persistInputOriginEntriesForInitiatedOrSavedDocument(LedgerCorrectionDocument document, Iterator<LaborOriginEntry> entries);
 
     /**
-     * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#removePersistedInputOriginEntriesForInitiatedOrSavedDocument(org.kuali.kfs.module.ld.document.LaborCorrectionDocument)
+     * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#removePersistedInputOriginEntriesForInitiatedOrSavedDocument(LedgerCorrectionDocument)
      */
-    public void removePersistedInputOriginEntries(LaborCorrectionDocument document);
+    public void removePersistedInputOriginEntries(LedgerCorrectionDocument document);
 
     /**
-     * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#removePersistedInputOriginEntriesForInitiatedOrSavedDocument(org.kuali.kfs.module.ld.document.LaborCorrectionDocument)
+     * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#removePersistedInputOriginEntriesForInitiatedOrSavedDocument(LedgerCorrectionDocument)
      */
     public void removePersistedInputOriginEntries(String docId);
 
@@ -118,7 +118,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @return the list, or null if there are too many origin entries
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      */
-    public List<LaborOriginEntry> retrievePersistedInputOriginEntries(LaborCorrectionDocument document, int abortThreshold);
+    public List<LaborOriginEntry> retrievePersistedInputOriginEntries(LedgerCorrectionDocument document, int abortThreshold);
 
     /**
      * Returns true if the system is storing input origin entries for this class. Note that this does not mean that there's at least
@@ -129,7 +129,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @param document
      * @return
      */
-    public boolean areInputOriginEntriesPersisted(LaborCorrectionDocument document);
+    public boolean areInputOriginEntriesPersisted(LedgerCorrectionDocument document);
 
     /**
      * Writes out the persisted input origin entries in an {@link OutputStream} in a flat file format
@@ -139,7 +139,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @throws IOException
      * @throws RuntimeException several reasons, including if the entries are not persisted
      */
-    public void writePersistedInputOriginEntriesToStream(LaborCorrectionDocument document, OutputStream out) throws IOException;
+    public void writePersistedInputOriginEntriesToStream(LedgerCorrectionDocument document, OutputStream out) throws IOException;
 
     /**
      * This method persists an Iterator of input origin entries for a document that is in the initiated or saved state
@@ -147,12 +147,12 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @param document an initiated or saved document
      * @param entries
      */
-    public void persistOutputLaborOriginEntriesForInitiatedOrSavedDocument(LaborCorrectionDocument document, Iterator<LaborOriginEntry> entries);
+    public void persistOutputLaborOriginEntriesForInitiatedOrSavedDocument(LedgerCorrectionDocument document, Iterator<LaborOriginEntry> entries);
 
     /**
      * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#removePersistedOutputOriginEntriesForInitiatedOrSavedDocument(org.kuali.module.labor.document.CorrectionDocument)
      */
-    public void removePersistedOutputOriginEntries(LaborCorrectionDocument document);
+    public void removePersistedOutputOriginEntries(LedgerCorrectionDocument document);
 
     /**
      * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#removePersistedOutputOriginEntriesForInitiatedOrSavedDocument(org.kuali.module.labor.document.CorrectionDocument)
@@ -168,7 +168,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @return the list, or null if there are too many origin entries
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      */
-    public List<LaborOriginEntry> retrievePersistedOutputOriginEntries(LaborCorrectionDocument document, int abortThreshold);
+    public List<LaborOriginEntry> retrievePersistedOutputOriginEntries(LedgerCorrectionDocument document, int abortThreshold);
 
     /**
      * Retrieves input origin entries that have been persisted for this document in an iterator. Implementations of this method may
@@ -178,7 +178,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @return the iterator
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      */
-    public Iterator<LaborOriginEntry> retrievePersistedInputOriginEntriesAsIterator(LaborCorrectionDocument document);
+    public Iterator<LaborOriginEntry> retrievePersistedInputOriginEntriesAsIterator(LedgerCorrectionDocument document);
 
     /**
      * Retrieves output origin entries that have been persisted for this document in an iterator. Implementations of this method may
@@ -188,7 +188,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @return the iterator
      * @throws RuntimeException several reasons, primarily relating to underlying persistence layer problems
      */
-    public Iterator<LaborOriginEntry> retrievePersistedOutputOriginEntriesAsIterator(LaborCorrectionDocument document);
+    public Iterator<LaborOriginEntry> retrievePersistedOutputOriginEntriesAsIterator(LedgerCorrectionDocument document);
 
     /**
      * Returns true if the system is storing output origin entries for this class. Note that this does not mean that there's at
@@ -199,7 +199,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @param document
      * @return
      */
-    public boolean areOutputOriginEntriesPersisted(LaborCorrectionDocument document);
+    public boolean areOutputOriginEntriesPersisted(LedgerCorrectionDocument document);
 
     /**
      * Writes out the persisted output origin entries in an {@link OutputStream} in a flat file format\
@@ -209,7 +209,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @throws IOException
      * @throws RuntimeException several reasons, including if the entries are not persisted
      */
-    public void writePersistedOutputOriginEntriesToStream(LaborCorrectionDocument document, OutputStream out) throws IOException;
+    public void writePersistedOutputOriginEntriesToStream(LedgerCorrectionDocument document, OutputStream out) throws IOException;
 
     /**
      * Saves the input and output origin entry groups for a document prior to saving the document
@@ -217,7 +217,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * @param document
      * @param LaborCorrectionDocumentEntryMetadata
      */
-    public void persistOriginEntryGroupsForDocumentSave(LaborCorrectionDocument document, CorrectionDocumentEntryMetadata correctionDocumentEntryMetadata);
+    public void persistOriginEntryGroupsForDocumentSave(LedgerCorrectionDocument document, CorrectionDocumentEntryMetadata correctionDocumentEntryMetadata);
     
     public String generateOutputOriginEntryFileName(String docId);
     
@@ -232,7 +232,7 @@ public interface LaborCorrectionDocumentService extends InitiateDirectory{
      * 
      * @param document LLCP document to report on
      */
-    public void generateCorrectionReport(LaborCorrectionDocument document);
+    public void generateCorrectionReport(LedgerCorrectionDocument document);
     
     public void aggregateCorrectionDocumentReports(GeneralLedgerCorrectionProcessDocument document);
 }
