@@ -304,4 +304,17 @@
     <changeSet author="kfs" id="TEM_TRVL_EXP_ID_SEQ" dbms="oracle" context="bootstrap,demo,unit">
         <createSequence sequenceName="TEM_TRVL_EXP_ID_SEQ" startValue="1002"/>
     </changeSet>
+    <changeSet author="kfs" id="TRVL_ID_SEQ" dbms="mysql" context="bootstrap,demo,unit">
+        <createTable tableName="TRVL_ID_SEQ">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <insert tableName="TRVL_ID_SEQ">
+            <column name="id" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" id="TRVL_ID_SEQ" dbms="oracle" context="bootstrap,demo,unit">
+        <createSequence sequenceName="TRVL_ID_SEQ" startValue="1"/>
+    </changeSet>
 </databaseChangeLog>
