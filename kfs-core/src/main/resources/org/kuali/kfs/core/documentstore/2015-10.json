@@ -9316,14 +9316,12 @@
                 "label": "Accounts Receivable",
                 "links": [
                   {
-                    "label": "Cash Control",
-                    "link": "arCashControlDocument.do?methodToCall=docHandler&command=initiate&docTypeName=CTRL",
+                    "documentTypeCode": "CTRL",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Customer Credit Memo",
-                    "link": "arCustomerCreditMemoDocument.do?methodToCall=docHandler&command=initiate&docTypeName=CRM",
+                    "documentTypeCode": "CRM",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -9339,8 +9337,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Customer Invoice Writeoff",
-                    "link": "arCustomerInvoiceWriteoffDocument.do?methodToCall=docHandler&command=initiate&docTypeName=INVW",
+                    "documentTypeCode": "INVW",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -9351,8 +9348,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Payment Application",
-                    "link": "arPaymentApplicationDocument.do?methodToCall=docHandler&command=initiate&docTypeName=APP",
+                    "documentTypeCode": "APP",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -9618,8 +9614,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Asset Manual Payment",
-                    "link": "camsAssetPayment.do?methodToCall=docHandler&command=initiate&docTypeName=MPAY",
+                    "documentTypeCode": "MPAY",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -9959,8 +9954,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Proposal/Award Close",
-                    "link": "cgClose.do?methodToCall=docHandler&command=initiate&docTypeName=CLOS",
+                    "documentTypeCode": "CLOS",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -10001,8 +9995,7 @@
                 "label": "Contracts & Grants Billing",
                 "links": [
                   {
-                    "label": "Contracts & Grants Collection Activity",
-                    "link": "arContractsGrantsCollectionActivityDocument.do?methodToCall=docHandler&command=initiate&docTypeName=CCA",
+                    "documentTypeCode": "CCA",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -10013,14 +10006,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Contracts & Grants LOC Review",
-                    "link": "arContractsGrantsLetterOfCreditReviewDocument.do?methodToCall=docHandler&command=initiate&docTypeName=LCR",
+                    "documentTypeCode": "LCR",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Final Billed Indicator",
-                    "link": "arFinalBilledIndicatorDocument.do?methodToCall=docHandler&command=initiate&docTypeName=FBI",
+                    "documentTypeCode": "FBI",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -10142,8 +10133,7 @@
                 "label": "Effort Certification",
                 "links": [
                   {
-                    "label": "Effort Certification Recreate",
-                    "link": "effortCertificationRecreate.do?methodToCall=docHandler&command=initiate&docTypeName=ECD",
+                    "documentTypeCode": "ECD",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -10316,14 +10306,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Journal Voucher",
-                    "link": "laborJournalVoucher.do?methodToCall=docHandler&command=initiate&docTypeName=LLJV",
+                    "documentTypeCode": "LLJV",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Ledger Correction Process",
-                    "link": "laborLedgerCorrection.do?methodToCall=docHandler&command=initiate&docTypeName=LLCP",
+                    "documentTypeCode": "LLCP",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -11032,20 +11020,17 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Travel Arranger",
-                    "link": "temTravelArranger.do?methodToCall=docHandler&command=initiate&docTypeName=TTA",
+                    "documentTypeCode": "TTA",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Travel Authorization",
-                    "link": "temTravelAuthorization.do?methodToCall=docHandler&command=initiate&docTypeName=TA",
+                    "documentTypeCode": "TA",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Travel Reimbursement",
-                    "link": "temTravelReimbursement.do?methodToCall=docHandler&command=initiate&docTypeName=TR",
+                    "documentTypeCode": "TR",
                     "type": "activities",
                     "linkType": "kfs"
                   },
