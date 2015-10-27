@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.context;
 
+import co.kuali.financials.datatools.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
@@ -56,7 +57,7 @@ public class WorkflowImporter {
         long startInit = System.currentTimeMillis();
         LOG.info("Initializing Kuali Rice Application...");
 
-        String bootstrapSpringBeans = "kfs-startup.xml";
+        String bootstrapSpringBeans = "kfs-workflow-importer-startup.xml";
 
         Properties baseProps = new Properties();
         baseProps.putAll(System.getProperties());
@@ -73,7 +74,7 @@ public class WorkflowImporter {
     }
 
     public void importWorkflow(ApplicationContext applicationContext) {
-        String xmlDir = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(WORKFLOW_PATH);
+        String xmlDir = PropertyLoadingFactoryBean.getBaseProperty(WORKFLOW_PATH);
         if (StringUtils.isBlank(xmlDir)) {
             LOG.info(WORKFLOW_PATH + " was blank; will not import workflow");
             return;
