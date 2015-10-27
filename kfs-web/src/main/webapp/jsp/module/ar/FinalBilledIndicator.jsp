@@ -21,7 +21,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/module/cg" prefix="cg"%>
 
 <kul:documentPage showDocumentInfo="true" documentTypeName="FBI"
-	htmlFormAction="arFinalBilledIndicatorDocument" renderMultipart="true"
+	htmlFormAction="arFinalBilledIndicator" renderMultipart="true"
 	showTabButtons="true">
 
 	<kul:documentOverview editingMode="${KualiForm.editingMode}" />

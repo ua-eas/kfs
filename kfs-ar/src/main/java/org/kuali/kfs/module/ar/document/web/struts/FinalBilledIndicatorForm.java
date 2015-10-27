@@ -26,12 +26,12 @@ import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
 /**
  * Form class for Final Billed Indicator Document.
  */
-public class FinalBilledIndicatorDocumentForm extends KualiTransactionalDocumentFormBase {
+public class FinalBilledIndicatorForm extends KualiTransactionalDocumentFormBase {
     private FinalBilledIndicatorEntry invoiceEntry;
 
     // this in sync with the default
     // value set in the document business object
-    public FinalBilledIndicatorDocumentForm() {
+    public FinalBilledIndicatorForm() {
         super();
     }
 

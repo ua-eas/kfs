@@ -162,8 +162,8 @@
 		<form-bean name="GenerateDunningLettersSummaryForm"
 			type="org.kuali.kfs.module.ar.web.struts.GenerateDunningLettersSummaryForm" />
 
-		<form-bean name="FinalBilledIndicatorDocumentForm"
-			type="org.kuali.kfs.module.ar.document.web.struts.FinalBilledIndicatorDocumentForm" />
+		<form-bean name="FinalBilledIndicatorForm"
+			type="org.kuali.kfs.module.ar.document.web.struts.FinalBilledIndicatorForm" />
 
 		<form-bean name="ContractsGrantsLetterOfCreditReviewForm"
 			type="org.kuali.kfs.module.ar.document.web.struts.ContractsGrantsLetterOfCreditReviewForm" />

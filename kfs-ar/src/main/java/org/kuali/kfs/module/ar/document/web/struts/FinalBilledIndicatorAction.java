@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.module.ar.businessobject.FinalBilledIndicatorEntry;
 import org.kuali.kfs.module.ar.document.FinalBilledIndicatorDocument;
 import org.kuali.kfs.module.ar.document.validation.impl.FinalBilledIndicatorValidation;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Action class for Final Billed Indicator Document.
  */
-public class FinalBilledIndicatorDocumentAction extends KualiTransactionalDocumentActionBase {
+public class FinalBilledIndicatorAction extends KualiTransactionalDocumentActionBase {
 
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FinalBilledIndicatorDocumentAction.class);
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FinalBilledIndicatorAction.class);
 
     /**
      * This method adds an entry to the list of entries.
@@ -49,7 +49,7 @@ public class FinalBilledIndicatorDocumentAction extends KualiTransactionalDocume
      * @throws Exception
      */
     public ActionForward addInvoiceEntry(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        FinalBilledIndicatorDocumentForm form = (FinalBilledIndicatorDocumentForm) actionForm;
+        FinalBilledIndicatorForm form = (FinalBilledIndicatorForm) actionForm;
         FinalBilledIndicatorDocument document = form.getFinalBilledIndicatorDocument();
         FinalBilledIndicatorEntry newUnfinalizeInvoiceEntry = form.getInvoiceEntry();
         if (FinalBilledIndicatorValidation.validateEntry(newUnfinalizeInvoiceEntry)) {
@@ -70,7 +70,7 @@ public class FinalBilledIndicatorDocumentAction extends KualiTransactionalDocume
      * @throws Exception
      */
     public ActionForward deleteInvoiceEntry(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        FinalBilledIndicatorDocumentForm form = (FinalBilledIndicatorDocumentForm) actionForm;
+        FinalBilledIndicatorForm form = (FinalBilledIndicatorForm) actionForm;
         FinalBilledIndicatorDocument document = form.getFinalBilledIndicatorDocument();
         int deleteIndex = getLineToDelete(request);
         document.removeInvoiceEntry(deleteIndex);
@@ -83,7 +83,7 @@ public class FinalBilledIndicatorDocumentAction extends KualiTransactionalDocume
      */
     @Override
     protected void doProcessingAfterPost(KualiForm actionForm, HttpServletRequest request) {
-        FinalBilledIndicatorDocumentForm form = (FinalBilledIndicatorDocumentForm) actionForm;
+        FinalBilledIndicatorForm form = (FinalBilledIndicatorForm) actionForm;
         FinalBilledIndicatorDocument document = form.getFinalBilledIndicatorDocument();
         FinalBilledIndicatorValidation.validateDocument(document);
         super.doProcessingAfterPost(actionForm, request);
