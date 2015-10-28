@@ -17,6 +17,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ taglib uri="/WEB-INF/tlds/institutionConfigWebFunctions.tld" prefix="icwf" %>
 
 <link href='${pageContext.request.contextPath}/css/institutionconfig.css' rel='stylesheet' type='text/css'>
 
@@ -24,14 +25,14 @@
           headerTitle="Navigation Configuration" transactionalDocument="false"
           renderInnerDiv="true">
 
-    <div class="main-panel">
-        <div class="headerarea-small" id="headerarea-small">
-            <h1><span class="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
-        </div>
-
-        <div id="institutionconfig"></div>
-    </div>
-
-    <script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js"></script>
 </kul:page>
+
+<script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
+<c:choose>
+    <c:when test="${icwf:hasPermission()}">
+        <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js"></script>
+    </c:when>
+    <c:otherwise>
+        <script src="${pageContext.request.contextPath}/build/accessdenied.bundle.js"></script>
+    </c:otherwise>
+</c:choose>

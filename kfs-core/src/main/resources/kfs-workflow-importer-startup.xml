@@ -45,10 +45,11 @@
       </list>
     </property>
   </bean>
-	
-	<import resource="classpath:kfs-RiceJTASpringBeans.xml"/>
-	<import resource="classpath:kfs-RiceDataSourceSpringBeans.xml"/>
-	<import resource="classpath:kfs-RiceSpringBeans.xml"/>
+
+    <import resource="classpath:kfs-RiceJTASpringBeans.xml" />
+    <import resource="classpath:kfs-DataSourceSpringBeans.xml"/>
+    <import resource="classpath:kfs-RiceDataSourceSpringBeans.xml" />
+    <import resource="classpath:kfs-RiceSpringBeans.xml" />
 
 	<!-- no need to start up the KFS beans - we are only running the workflow engine -->
 </beans>

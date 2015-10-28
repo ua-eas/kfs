@@ -6776,9 +6776,9 @@
         }
       ]
     },
-    {
-      "jira": "FINP-126",
-      "id": "Add permission check to menu configuration",
+    {      
+      "jira": "KFSCD-26",
+      "id": "Add Menu Item for new COA Source of Funds Maintenance Document",
       "changes": [
         {
           "changeType": "updateDocuments",
@@ -7491,6 +7491,11 @@
                   },
                   {
                     "documentTypeCode": "RSTA",
+                    "type": "administration",
+                    "linkType": "kfs"
+                  },
+                  {
+                    "documentTypeCode": "SOF",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -8551,20 +8556,6 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Institution Configuration",
-                    "link": "app/sys/institutionconfiguration.jsp",
-                    "type": "administration",
-                    "linkType": "kfs",
-                    "permission": {
-                      "templateNamespace": "KR-NS",
-                      "templateName": "Use Screen",
-                      "details": {
-                        "namespaceCode": "KFS-SYS",
-                        "actionClass": "InstitutionConfig"
-                      }
-                    }
-                  },
-                  {
                     "documentTypeCode": "MOTD",
                     "type": "administration",
                     "linkType": "kfs"
@@ -8587,9 +8578,10 @@
                     "linkType": "kfs"
                   },
                   {
-                    "documentTypeCode": "PARM",
+                    "label": "Parameter",
+                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coreservice.impl.parameter.ParameterBo&docFormKey=88888888&hideReturnLink=true",
                     "type": "administration",
-                    "linkType": "kfs"
+                    "linkType": "rice"
                   },
                   {
                     "label": "Parameter Component",

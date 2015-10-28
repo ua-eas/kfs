@@ -100,6 +100,7 @@ public class KFSConstants {
     public static final String EXTERNALIZABLE_HELP_URL_KEY = KRADConstants.EXTERNALIZABLE_HELP_URL_KEY;
     public static final String EXTERNALIZABLE_IMAGES_URL_KEY = "externalizable.images.url";
     public static final String RICE_EXTERNALIZABLE_IMAGES_URL_KEY = KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY;
+    public static final String RICE_SERVER_URL_KEY = "rice.server.url";
     public static final String KC_APPLICATION_URL_KEY = "kc.application.url";
     public static final String REPORTS_DIRECTORY_KEY = "reports.directory";
     public static final String WORKFLOW_URL_KEY = Config.KEW_URL;
@@ -1526,6 +1527,10 @@ public class KFSConstants {
         public static final String FUND_BALANCE = "FB";
         public static final String INCOME = "IN";
         public static final String LIABILITIES = "LI";
+    }
+
+    public static class ReactComponents {
+        public static final String INSTITUTION_CONFIG = "InstitutionConfig";
     }
 
 }

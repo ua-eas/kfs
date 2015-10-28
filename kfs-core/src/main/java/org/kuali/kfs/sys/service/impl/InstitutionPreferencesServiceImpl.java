@@ -21,13 +21,16 @@ import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +45,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private DocumentDictionaryService documentDictionaryService;
     private KualiModuleService kualiModuleService;
     private PreferencesDao preferencesDao;
+    private PermissionService permissionService;
+    private IdentityService identityService;
     private DataDictionaryService dataDictionaryService;
 
     private Map<String, String> namespaceCodeToUrlName;
@@ -215,7 +220,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return (List<Map<String, String>>)linkGroup.get("links");
     }
 
-    protected Map<String, String> transformLink(Map<String, String> link,Person person) {
+    protected Map<String, String> transformLink(Map<String, String> link, Person person) {
         Map<String, String> linkInfo = new ConcurrentHashMap<>();
 
         if (StringUtils.isNotBlank(link.get("documentTypeCode"))) {
@@ -225,7 +230,13 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             final String businessObjectClassName = link.remove("businessObjectClass");
             linkInfo = determineLookupLinkInfo(businessObjectClassName, person);
         } else if (StringUtils.isNotBlank(link.get("link"))) {
-            linkInfo.put("link", fixRelativeLink(link.get("link")));
+            String finalLink;
+            if (link.get("linkType") != null && link.get("linkType").equals("rice")) {
+                finalLink = determineRiceLink(link.get("link"));
+            } else {
+                finalLink = fixRelativeLink(link.get("link"));
+            }
+            linkInfo.put("link", finalLink);
             linkInfo.put("label", link.get("label"));
         }
 
@@ -235,6 +246,14 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         }
 
         return linkInfo;
+    }
+
+    protected String determineRiceLink(String link) {
+        String riceHost = configurationService.getPropertyValueAsString(KFSConstants.RICE_SERVER_URL_KEY);
+        if (!link.startsWith("/")) {
+            link = "/" + link;
+        }
+        return riceHost + link;
     }
 
     protected String fixRelativeLink(String link) {
@@ -274,7 +293,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return constructLinkInfo(label, link);
     }
 
-    protected boolean canViewLink(Map<String,Object> permission,Person person) {
+    protected boolean canViewLink(Map<String,Object> permission, Person person) {
         String templateNamespace = (String)permission.get("templateNamespace");
         String templateName = (String)permission.get("templateName");
         Map<String,String> details = (Map<String,String>)permission.get("details");
@@ -407,6 +426,17 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return groupsWithInstitutionId;
     }
 
+    @Override
+    public boolean hasConfigurationPermission(String principalName) {
+        final String principalId = getIdentityService().getPrincipalByPrincipalName(principalName).getPrincipalId();
+
+        Map<String,String> permissionDetails = new HashMap<>();
+        permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, KFSConstants.CoreModuleNamespaces.KFS);
+        permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, KFSConstants.ReactComponents.INSTITUTION_CONFIG);
+
+        return getPermissionService().hasPermissionByTemplate(principalId, KFSConstants.CoreModuleNamespaces.KNS, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails);
+    }
+
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
@@ -429,5 +459,21 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
         this.dataDictionaryService = dataDictionaryService;
+    }
+
+    public PermissionService getPermissionService() {
+        return permissionService;
+    }
+
+    public void setPermissionService(PermissionService permissionService) {
+        this.permissionService = permissionService;
+    }
+
+    public IdentityService getIdentityService() {
+        return identityService;
+    }
+
+    public void setIdentityService(IdentityService identityService) {
+        this.identityService = identityService;
     }
 }
