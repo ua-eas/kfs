@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="krcrparm000001" context="bootstrap,demo">
+    <changeSet author="kfs" id="krcrparm000001" context="bootstrap,demo,unit">
         <insert tableName="krcr_parm_t">
             <column name="NMSPC_CD"><![CDATA[KFS-AR]]></column>
             <column name="CMPNT_CD"><![CDATA[All]]></column>
@@ -10483,7 +10483,7 @@ against notes, document explanations, and routing annotations.]]></column>
             <column name="APPL_ID"><![CDATA[KFS]]></column>
         </insert>
     </changeSet>
-    <changeSet author="kfs" id="krcrparm000001-demo" context="demo">
+    <changeSet author="kfs" id="krcrparm000001-demo" context="demo,unit">
         <update tableName="krcr_parm_t">
             <column name="VAL"><![CDATA[Y]]></column>
             <where>NMSPC_CD = 'KFS-AR' and CMPNT_CD = 'All' and PARM_NM = 'CG_PRORATE_BILL_IND' and APPL_ID = 'KFS'</where>

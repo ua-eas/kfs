@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10604" context="bootstrap,demo">
+  <changeSet author="kfs" id="10604" context="bootstrap,demo,unit">
     <insert tableName="pur_ownr_ctgry_t">
       <column name="VNDR_OWNR_CTGRY_CD"><![CDATA[LE]]></column>
       <column name="OBJ_ID"><![CDATA[6D430FCD-E216-8D45-29CC-1F96A80BA843]]></column>

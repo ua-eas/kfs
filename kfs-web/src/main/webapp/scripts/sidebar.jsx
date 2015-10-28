@@ -163,7 +163,8 @@ var filterLinks = function(links, type) {
     return links.filter(function(link) {
         return link.type === type
     }).map((link, i) => {
-        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item"/>
+        let target = link.linkType === 'kfs' ? null : '_blank';
+        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item" target={target}/>
     })
 }
 
@@ -204,8 +205,7 @@ var determinePanelClassName = function(expandedLinkGroup, label) {
 var LinkGroup = React.createClass({
     render() {
         let label = this.props.group.label
-        let id = label.toLowerCase().replace(/\s+/g, "-")
-        id = id.replace('&', 'and')
+        let id = KfsUtils.buildKeyFromLabel(label)
 
         let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters)
         let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters)

@@ -4,7 +4,6 @@ import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.kfs.sys.service.UserPreferencesService;
-import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.kim.api.identity.Person;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +60,32 @@ public class PreferencesResource {
         return Response.ok(preferences).build();
     }
 
+    @PUT
+    @Path("/institution/{institutionId}")
+    public Response saveInstitutionPreferences(@PathParam("institutionId") String institutionId, String linkGroups) {
+        LOG.debug("saveInstitutionPreferences started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User "+getPrincipalName()+" does not have access to InstitutionConfig").build();
+        }
+
+        getInstitutionPreferencesService().saveInstitutionPreferences(institutionId, linkGroups);
+        return Response.ok(linkGroups).build();
+    }
+
+    @GET
+    @Path("/config/groups")
+    public Response getGroupLinks() {
+        LOG.debug("getGroupLinks started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
+
+        Map<String, Object> linkGroups = getInstitutionPreferencesService().getAllLinkGroups();
+        return Response.ok(linkGroups).build();
+    }
+
     @GET
     @Path("/users/{principalName}")
     public Response getUserPreferences(@PathParam("principalName")String principalName) {
@@ -79,7 +104,7 @@ public class PreferencesResource {
 
     @PUT
     @Path("/users/{principalName}")
-    public Response saveUserPreferences(@PathParam("principalName")String principalName,String preferences) {
+    public Response saveUserPreferences(@PathParam("principalName")String principalName, String preferences) {
         LOG.debug("saveUserPreferences() started");
 
         if ( isAuthorized(principalName) ) {
@@ -104,9 +129,13 @@ public class PreferencesResource {
     }
 
     private boolean isAuthorized(String principalName) {
-        String loggedinPrincipalName = getPerson().getPrincipalName();
+        String loggedinPrincipalName = getPrincipalName();
 
         return loggedinPrincipalName.equals(principalName);
+    }
+
+    protected String getPrincipalName() {
+        return getPerson().getPrincipalName();
     }
 
     protected Person getPerson() {

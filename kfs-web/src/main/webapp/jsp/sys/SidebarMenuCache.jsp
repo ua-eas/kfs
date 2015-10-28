@@ -34,7 +34,7 @@
     </div>
     <table width="100%">
         <tr>
-            <td width="1%"><img src="http://kfsweb:8080/kfs-dev/kr/static/images/pixel_clear.gif" alt="" width="20"
+            <td width="1%"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20"
                                 height="20"></td>
             <td>
                 <div id="lookup" align="center">

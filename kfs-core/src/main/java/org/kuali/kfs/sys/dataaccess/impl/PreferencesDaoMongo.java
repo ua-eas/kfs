@@ -20,6 +20,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PreferencesDaoMongo.class);
 
     public static final String INSTITUTION_PREFERENCES = "InstitutionPreferences";
+    public static final String INSTITUTION_ID_KEY = "institutionId";
     public static final String INSTITUTION_PREFERENCES_CACHE = "InstitutionPreferencesCache";
     public static final String INSTITUTION_PREFERENCES_CACHE_LENGTH = "InstitutionPreferencesCacheLength";
     public static final String EXPIRE_INDEX_NAME = "expireIndex";
@@ -46,6 +47,15 @@ public class PreferencesDaoMongo implements PreferencesDao {
     }
 
     @Override
+    public void saveInstitutionPreferences(String institutionId, Map<String, Object> preferences) {
+        LOG.debug("saveInstitutionPreferences started");
+
+        // Delete existing document if any
+        mongoTemplate.remove(getInstitutionIdQuery(institutionId), INSTITUTION_PREFERENCES);
+
+        mongoTemplate.save(preferences, INSTITUTION_PREFERENCES);
+    }
+
     public Map<String, Object> findInstitutionPreferencesCache(String principalName) {
         LOG.debug("findInstitutionPreferencesCache() started");
 
@@ -170,6 +180,10 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
     private BasicQuery getPrincipalNameQuery(String principalName) {
         return new BasicQuery("{ " + PRINCIPAL_NAME_KEY + " : \"" + principalName + "\"}");
+    }
+
+    private BasicQuery getInstitutionIdQuery(String institutionId) {
+        return new BasicQuery("{ " + INSTITUTION_ID_KEY + " : \"" + institutionId + "\"}");
     }
 
     public void setMongoTemplate(MongoTemplate mongoTemplate) {

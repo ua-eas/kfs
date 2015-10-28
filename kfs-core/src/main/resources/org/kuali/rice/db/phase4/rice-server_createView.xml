@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="kfs" id="rice01290">
+    <changeSet author="kfs" id="rice01290" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_grp_mbr_v">
             select g.NMSPC_CD AS NMSPC_CD,
             g.GRP_NM AS grp_nm,
@@ -36,7 +36,7 @@
             order by g.NMSPC_CD,g.GRP_NM,p.PRNCPL_NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01291">
+    <changeSet author="kfs" id="rice01291" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_grp_v">
             select g.NMSPC_CD AS NMSPC_CD,
             g.GRP_NM AS grp_nm,
@@ -51,7 +51,7 @@
             left join krim_typ_t t on((g.KIM_TYP_ID = t.KIM_TYP_ID)))
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01292">
+    <changeSet author="kfs" id="rice01292" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_perm_attr_v">
             select t.NMSPC_CD AS tmpl_nmspc_cd,
             t.NM AS tmpl_nm,
@@ -68,7 +68,7 @@
             order by t.NMSPC_CD,t.NM,p.NMSPC_CD,p.PERM_ID,a.NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01293">
+    <changeSet author="kfs" id="rice01293" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_perm_v">
             select t.NMSPC_CD AS tmpl_nmspc_cd,
             t.NM AS tmpl_nm,
@@ -84,7 +84,7 @@
             left join krim_typ_t typ on((t.KIM_TYP_ID = typ.KIM_TYP_ID)))
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01294">
+    <changeSet author="kfs" id="rice01294" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_prncpl_v">
             select p.PRNCPL_ID AS PRNCPL_ID,
             p.PRNCPL_NM AS PRNCPL_NM,
@@ -101,7 +101,7 @@
             left join krim_entity_nm_t en on(((p.ENTITY_ID = en.ENTITY_ID) and ('Y' = en.DFLT_IND))))
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01295">
+    <changeSet author="kfs" id="rice01295" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_role_grp_v">
             select r.NMSPC_CD AS NMSPC_CD,
             r.ROLE_NM AS ROLE_NM,
@@ -121,7 +121,7 @@
             order by r.NMSPC_CD,r.ROLE_NM,g.NMSPC_CD,g.GRP_NM,rm.ROLE_MBR_ID,a.NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01296">
+    <changeSet author="kfs" id="rice01296" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_role_perm_v">
             select r.NMSPC_CD AS NMSPC_CD,
             r.ROLE_NM AS ROLE_NM,
@@ -144,7 +144,7 @@
             order by r.NMSPC_CD,r.ROLE_NM,pt.NMSPC_CD,pt.NM,p.PERM_ID,a.NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01297">
+    <changeSet author="kfs" id="rice01297" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_role_prncpl_v">
             select r.NMSPC_CD AS NMSPC_CD,
             r.ROLE_NM AS ROLE_NM,
@@ -167,7 +167,7 @@
             order by r.NMSPC_CD,r.ROLE_NM,p.PRNCPL_NM,rm.ROLE_MBR_ID,ad.NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01298">
+    <changeSet author="kfs" id="rice01298" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_role_role_v">
             select r.NMSPC_CD AS NMSPC_CD,
             r.ROLE_NM AS ROLE_NM,
@@ -188,7 +188,7 @@
             order by r.NMSPC_CD,r.ROLE_NM,mr.NMSPC_CD,mr.ROLE_NM,rm.ROLE_MBR_ID,a.NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01299" dbms="mysql">
+    <changeSet author="kfs" id="rice01299" dbms="mysql" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_role_v">
             select r.NMSPC_CD AS NMSPC_CD,
             r.ROLE_NM AS ROLE_NM,
@@ -203,7 +203,7 @@
             order by r.NMSPC_CD,r.ROLE_NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01299" dbms="oracle">
+    <changeSet author="kfs" id="rice01299" dbms="oracle" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_role_v">
             select r.NMSPC_CD AS NMSPC_CD,
             r.ROLE_NM AS ROLE_NM,
@@ -218,7 +218,7 @@
             order by r.NMSPC_CD,r.ROLE_NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01300">
+    <changeSet author="kfs" id="rice01300" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_rsp_attr_v">
             select krim_typ_t.NM AS responsibility_type_name,
             krim_rsp_tmpl_t.NM AS rsp_TEMPLATE_NAME,
@@ -236,7 +236,7 @@
             order by krim_rsp_tmpl_t.NM,krim_rsp_t.NM,krim_attr_defn_t.NM
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01301">
+    <changeSet author="kfs" id="rice01301" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_rsp_role_actn_v">
             select rsp.NMSPC_CD AS rsp_nmspc_cd,
             rsp.RSP_ID AS rsp_id,
@@ -260,7 +260,7 @@
             order by rsp.NMSPC_CD,rsp.RSP_ID,rr.ROLE_ID,rm.ROLE_MBR_ID
         </createView>
     </changeSet>
-    <changeSet author="kfs" id="rice01302">
+    <changeSet author="kfs" id="rice01302" context="bootstrap,demo,unit">
         <createView fullDefinition="false" viewName="krim_rsp_role_v">
             select rspt.NMSPC_CD AS rsp_tmpl_nmspc_cd,
             rspt.NM AS rsp_tmpl_nm,

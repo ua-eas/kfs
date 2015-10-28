@@ -21,7 +21,9 @@ package org.kuali.kfs.sys.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
+import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.UserPreferencesService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,6 +34,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
     private PreferencesDao preferencesDao;
 
     @Override
+    @Transactional
     public Map<String, Object> getUserPreferences(String principalName) {
         LOG.debug("getUserPreferences() started");
 
@@ -39,6 +42,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
     }
 
     @Override
+    @Transactional
     public void saveUserPreferences(String principalName, String preferences) {
         LOG.debug("saveUserPreferences() started");
 
@@ -46,6 +50,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
     }
 
     @Override
+    @Transactional
     public void saveUserPreferencesKey(String principalName, String key, String preferences) {
         LOG.debug("saveUserPreferencesKey() started");
 
@@ -64,6 +69,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
         }
     }
 
+    @NonTransactional
     public void setPreferencesDao(PreferencesDao preferencesDao) {
         this.preferencesDao = preferencesDao;
     }

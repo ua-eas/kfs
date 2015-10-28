@@ -154,7 +154,7 @@
         Labor Journal Voucher
       </label>
       <docHandler>
-        ${kfs.url}/laborJournalVoucher.do?methodToCall=docHandler
+        ${kfs.url}/laborLaborJournalVoucher.do?methodToCall=docHandler
       </docHandler>
       <helpDefinitionURL>
         default.htm?turl=WordDocuments%2Flaborjournalvoucher.htm

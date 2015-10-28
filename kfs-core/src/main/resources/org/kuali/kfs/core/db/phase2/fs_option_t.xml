@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10346-bootstrap" context="bootstrap,demo">
+  <changeSet author="kfs" id="10346-bootstrap" context="bootstrap,demo,unit">
     <insert tableName="fs_option_t">
       <column name="UNIV_FISCAL_YR"><![CDATA[2016]]></column>
       <column name="OBJ_ID"><![CDATA[dfb23a06-39e5-4a80-a913-2e6d7d7fe6cf]]></column>
@@ -82,7 +82,7 @@
       <column name="NMNL_FIN_BAL_TYP_CD"><![CDATA[NB]]></column>
     </insert>
   </changeSet>
-  <changeSet author="kfs" id="10346" context="demo">
+  <changeSet author="kfs" id="10346" context="demo,unit">
     <insert tableName="fs_option_t">
       <column name="UNIV_FISCAL_YR"><![CDATA[2008]]></column>
       <column name="OBJ_ID"><![CDATA[682B40E65635B493E0404F8189D85FDE]]></column>

@@ -18,7 +18,7 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10162" context="bootstrap,demo">
+  <changeSet author="kfs" id="10162" context="bootstrap,demo,unit">
     <insert tableName="ca_restrict_stat_t">
       <column name="ACCT_RSTRC_STAT_CD"><![CDATA[N]]></column>
       <column name="OBJ_ID"><![CDATA[014F3DAF8209A448E043814FD28EA448]]></column>

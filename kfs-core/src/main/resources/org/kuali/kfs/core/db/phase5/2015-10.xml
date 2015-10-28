@@ -20,4 +20,47 @@
 <databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
                    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
                    xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_TABLE">
+        <createTable tableName="CA_SOURCE_OF_FUNDS_T">
+            <column name="FUNDS_TYPE_CD" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8,0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SOURCE_NAME" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SOURCE_DESC" type="VARCHAR(200)"/>
+            <column name="ACTIVE_IND" type="VARCHAR(1)"/>
+        </createTable>
+    </changeSet>
+                   
+
+    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_PRIMARY_KEYS">
+        <addPrimaryKey columnNames="FUNDS_TYPE_CD" constraintName="CA_SOURCE_OF_FUNDS_TP1" tableName="CA_SOURCE_OF_FUNDS_T"/>
+     </changeSet>
+     
+    <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_OBJ_ID_CONSTRAINTS">
+        <addUniqueConstraint tableName="CA_SOURCE_OF_FUNDS_T" columnNames="OBJ_ID" constraintName="CA_SOURCE_OF_FUNDS_TC0" />
+    </changeSet>
+
+    <changeSet author="KFS61" id="KFSCD-12_DI_AND_YEDI_ACCOUNTING_LINES">
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KFS-FP"/>
+            <column name="CMPNT_CD" value="DistributionOfIncomeAndExpense"/>
+            <column name="PARM_NM" value="ALLOW_ADDITIONAL_FROM_LINE_IND"/>
+            <column name="OBJ_ID" value="KFSCD12-1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="N"/>
+            <column name="PARM_DESC_TXT" value="Specifies whether or not an additional FROM line will be available when claiming an Electronic Payment on the Distribution of Income and Expense and the Year End Distribution of Income and Expense document. Set the parameter to Y to add an editable From line to these documents."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KFS"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

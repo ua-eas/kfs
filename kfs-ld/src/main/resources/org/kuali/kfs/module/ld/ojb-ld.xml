@@ -1894,7 +1894,7 @@
 	</class-descriptor>
 
 	<class-descriptor
-		class="org.kuali.kfs.module.ld.document.LaborCorrectionDocument"
+		class="org.kuali.kfs.module.ld.document.LedgerCorrectionDocument"
 		table="GL_COR_DOC_T">
 		<field-descriptor name="documentNumber" column="FDOC_NBR"
 			jdbc-type="VARCHAR" primarykey="true" index="true" />

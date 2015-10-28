@@ -86,7 +86,7 @@ public class FinalBilledIndicatorDocument extends TransactionalDocumentBase {
                 updateContractsGrantsInvoiceDocument();
             }
             catch (WorkflowException ex) {
-                LOG.error("problem during FinalBilledIndicatorDocumentAction.doProcessingAfterPost()", ex);
+                LOG.error("problem during FinalBilledIndicatorAction.doProcessingAfterPost()", ex);
                 throw new RuntimeException("Could not update Contracts & Grants Invoice Document for Final Billed Indicator Document",ex);
             }
         }
