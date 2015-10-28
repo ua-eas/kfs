@@ -2,7 +2,8 @@ var webpack = require('webpack');
 module.exports = {
     entry: {
         app: "./scripts/app.jsx",
-        institutionconfig: "./scripts/components/institutionconfig/institutionconfig.jsx"
+        institutionconfig: "./scripts/components/institutionconfig/institutionconfig.jsx",
+        accessdenied: "./scripts/components/general/accessDenied.jsx"
     },
     output: {
         path: __dirname + '/build',

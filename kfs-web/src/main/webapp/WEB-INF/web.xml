@@ -62,26 +62,11 @@
     <filter-mapping>
         <filter-name>DummyLoginFilter</filter-name>
         <servlet-name>action</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>DummyLoginFilter</filter-name>
-        <url-pattern>/index.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>DummyLoginFilter</filter-name>
         <servlet-name>dwr-invoker</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>DummyLoginFilter</filter-name>
         <servlet-name>batchFileUpload</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>DummyLoginFilter</filter-name>
-        <url-pattern>/sys/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>DummyLoginFilter</filter-name>
         <url-pattern>/purap/*</url-pattern>
+        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/index.jsp</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -155,20 +140,13 @@
     <filter-mapping>
         <filter-name>UserLoginFilter</filter-name>
         <servlet-name>action</servlet-name>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>UserLoginFilter</filter-name>
         <url-pattern>/index.jsp</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
         <filter-name>ResourceLoginFilter</filter-name>
         <url-pattern>/sys/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>ResourceLoginFilter</filter-name>
+        <url-pattern>/app/*</url-pattern>
         <url-pattern>/purap/*</url-pattern>
     </filter-mapping>
 
@@ -182,56 +160,10 @@
         <servlet-name>action</servlet-name>
     </filter-mapping>
 
-    <!--<filter-mapping>-->
-    <!--<filter-name>BootstrapFilter</filter-name>-->
-    <!--<servlet-name>notification</servlet-name>-->
-    <!--</filter-mapping>-->
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>UserLoginFilter</filter-name>-->
-    <!--<servlet-name>notification</servlet-name>-->
-    <!--</filter-mapping>-->
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>UserPreferencesFilter</filter-name>-->
-    <!--<servlet-name>notification</servlet-name>-->
-    <!--</filter-mapping>-->
-
     <filter-mapping>
         <filter-name>UserLoginFilter</filter-name>
         <servlet-name>krad</servlet-name>
     </filter-mapping>
-
-    <!-- for KCB Spring Web MVC pages -->
-    <!--<filter-mapping>-->
-    <!--<filter-name>BootstrapFilter</filter-name>-->
-    <!--<servlet-name>kcb</servlet-name>-->
-    <!--</filter-mapping>-->
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>UserLoginFilter</filter-name>-->
-    <!--<servlet-name>kcb</servlet-name>-->
-    <!--</filter-mapping>-->
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>UserPreferencesFilter</filter-name>-->
-    <!--<servlet-name>kcb</servlet-name>-->
-    <!--</filter-mapping>-->
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>BootstrapFilter</filter-name>-->
-    <!--<servlet-name>edoclite</servlet-name>-->
-    <!--</filter-mapping>-->
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>UserLoginFilter</filter-name>-->
-    <!--<servlet-name>edoclite</servlet-name>-->
-    <!--</filter-mapping>-->
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>UserPreferencesFilter</filter-name>-->
-    <!--<servlet-name>edoclite</servlet-name>-->
-    <!--</filter-mapping>-->
 
     <listener>
         <listener-class>org.kuali.kfs.krad.web.session.NonSerializableSessionListener</listener-class>
@@ -289,28 +221,6 @@
         <load-on-startup>0</load-on-startup>
     </servlet>
 
-    <!-- Notification system servlets -->
-    <!-- Notification System Spring MVC UI -->
-    <!--
-    <servlet>
-      <servlet-name>notification</servlet-name>
-      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-      <init-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>ken/WEB-INF/notification-servlet.xml</param-value>
-      </init-param>
-      <init-param>
-        <description>this init parameter is Ken's module prefix within the containing webapp, it is propagated as a
-          property in the XmlApplicationContext
-        </description>
-        <param-name>prefix</param-name>
-        <param-value>/ken</param-value>
-      </init-param>
-      <load-on-startup>2</load-on-startup>
-    </servlet>
-
-
-       -->
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-class>org.kuali.kfs.sys.web.servlet.KfsDWRServlet</servlet-class>
@@ -325,25 +235,6 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- KCB servlets -->
-    <!--
-    <servlet>
-      <servlet-name>kcb</servlet-name>
-      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-      <init-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>kcb/WEB-INF/kcb-servlet.xml</param-value>
-      </init-param>
-      <init-param>
-        <description>this init parameter is KCB's module prefix within the containing webapp, it is propagated as a
-          property in the XmlApplicationContext
-        </description>
-        <param-name>prefix</param-name>
-        <param-value>/kcb</param-value>
-      </init-param>
-      <load-on-startup>2</load-on-startup>
-    </servlet>
-    -->
     <servlet>
         <servlet-name>remoting</servlet-name>
         <servlet-class>org.kuali.rice.ksb.messaging.servlet.KSBDispatcherServlet</servlet-class>
@@ -368,12 +259,7 @@
         <servlet-name>attachment</servlet-name>
         <servlet-class>org.kuali.rice.kew.notes.web.AttachmentServlet</servlet-class>
     </servlet>
-    <!--
-      <servlet>
-        <servlet-name>edoclite</servlet-name>
-        <servlet-class>org.kuali.rice.edl.impl.EDLServlet</servlet-class>
-      </servlet>
-     -->
+
     <servlet>
         <servlet-name>krad</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -390,16 +276,6 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
-    <!--
-      <servlet-mapping>
-        <servlet-name>notification</servlet-name>
-        <url-pattern>*.form</url-pattern>
-      </servlet-mapping>
-      <servlet-mapping>
-        <servlet-name>kcb</servlet-name>
-        <url-pattern>*.kcb</url-pattern>
-      </servlet-mapping>
-     -->
     <servlet-mapping>
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
@@ -419,12 +295,7 @@
         <servlet-name>attachment</servlet-name>
         <url-pattern>/kew/attachment/*</url-pattern>
     </servlet-mapping>
-    <!--
-      <servlet-mapping>
-        <servlet-name>edoclite</servlet-name>
-        <url-pattern>/kew/EDocLite</url-pattern>
-      </servlet-mapping>
-     -->
+    
     <servlet-mapping>
         <servlet-name>krad</servlet-name>
         <url-pattern>/kr-krad/*</url-pattern>

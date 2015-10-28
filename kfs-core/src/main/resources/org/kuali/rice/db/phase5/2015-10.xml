@@ -47,4 +47,42 @@
             <column name="ACTV_IND"><![CDATA[Y]]></column>
         </insert>
     </changeSet>
+    <changeSet context="bootstrap,demo,unit" author="KFS61" id="FINP-126">
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[KFS10958]]></column>
+            <column name="OBJ_ID"><![CDATA[KFS-PERM-143]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[29]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[Administer Dashboard]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows users to adminstrate the dashboard via the InstitutionConfig screen and related REST endpoints.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[KFS10959]]></column>
+            <column name="OBJ_ID"><![CDATA[KFS-PERM-ATTR-DATA-250]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[KFS10958]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[12]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
+            <column name="ATTR_VAL"><![CDATA[KFS-SYS]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[KFS10960]]></column>
+            <column name="OBJ_ID"><![CDATA[KFS-PERM-ATTR-DATA-251]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[KFS10958]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[12]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[2]]></column>
+            <column name="ATTR_VAL"><![CDATA[InstitutionConfig]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[KFS10961]]></column>
+            <column name="OBJ_ID"><![CDATA[KFS-ROLE-PERM-387]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[44]]></column>
+            <column name="PERM_ID"><![CDATA[KFS10958]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
