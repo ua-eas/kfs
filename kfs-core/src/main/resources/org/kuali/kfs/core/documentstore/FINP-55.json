@@ -147,38 +147,32 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Disbursement Voucher Payment Reason",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.PaymentReasonCode&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "DVPR",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Disbursement Voucher Tax Income Class",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.TaxIncomeClassCode&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "DVIC",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Disbursement Voucher Travel Company",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.TravelCompanyCode&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "DVTC",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Disbursement Voucher Travel Expense Type",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.TravelExpenseTypeCode&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "DVET",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Disbursement Voucher Travel Mileage Rate",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.TravelMileageRate&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "DVML",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Disbursement Voucher Travel Per Diem",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.TravelPerDiem&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "DVPD",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -223,8 +217,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Current Account Balances",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.gl.businessobject.CurrentAccountBalance&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.gl.businessobject.CurrentAccountBalance",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -414,8 +407,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Appointment Funding Duration",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.bc.businessobject.BudgetConstructionDuration&docFormKey=88888888&hideReturnLink=true&backdoorId=khuntley",
+                    "documentTypeCode": "DURA",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -462,14 +454,12 @@
                 "label": "Capital Assets",
                 "links": [
                   {
-                    "label": "Capital Asset Builder AP Transactions",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableProcessingReport&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableProcessingReport",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Capital Asset Builder GL Transactions",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -545,8 +535,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Asset Fabrication",
-                    "link": "kr/maintenance.do?maintenanceAction=New&methodToCall=start&businessObjectClassName=org.kuali.kfs.module.cam.businessobject.AssetFabrication",
+                    "documentTypeCode": "FR",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -556,8 +545,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Asset Location Global",
-                    "link": "kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.cam.businessobject.AssetLocationGlobal",
+                    "documentTypeCode": "ALOC",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -567,8 +555,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Asset Payment",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.cam.businessobject.AssetPayment&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.cam.businessobject.AssetPayment",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -578,8 +565,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Pre-Asset Tagging",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.cab.businessobject.Pretag&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "PTAG",
                     "type": "reference",
                     "linkType": "kfs"
                   }
@@ -744,8 +730,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Account Delegate Global",
-                    "link": "kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.AccountDelegateGlobal",
+                    "documentTypeCode": "GDLG",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -761,14 +746,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Account Global",
-                    "link": "kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.AccountGlobal",
+                    "documentTypeCode": "GACC",
                     "type": "reference",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Financial Reporting Code",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.ReportingCode&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "RPTC",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -788,8 +771,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Organization Review",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.identity.OrgReviewRole&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "ORR",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -809,8 +791,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Sub-Object Code Global",
-                    "link": "kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.SubObjectCodeGlobal",
+                    "documentTypeCode": "GSOB",
                     "type": "reference",
                     "linkType": "kfs"
                   }
@@ -850,8 +831,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Indirect Cost Recovery Exclusion By Type",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -861,8 +841,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Indirect Cost Recovery Rate Detail",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1001,8 +980,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Method of Invoice Transmission",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ar.businessobject.InvoiceTransmissionMethod&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "IMTM",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1096,8 +1074,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Report Period Status Code",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ec.businessobject.EffortCertificationPeriodStatusCode&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.ec.businessobject.EffortCertificationPeriodStatusCode",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1107,8 +1084,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Duplicate Certifications Report",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ec.businessobject.DuplicateCertificationsReport&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.ec.businessobject.DuplicateCertificationsReport",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -1119,14 +1095,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Outstanding Certifications by Chart/Org Report",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByOrganization&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByOrganization",
                     "type": "reference",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Outstanding Certifications by Report",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByReport&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.ec.businessobject.OutstandingCertificationsByReport",
                     "type": "reference",
                     "linkType": "kfs"
                   }
@@ -1279,20 +1253,17 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Benefits Calculation",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ld.businessobject.BenefitsCalculation&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "BCAL",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Benefits Rate Category",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ld.businessobject.LaborBenefitRateCategory&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "BNRC",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Benefits Type",
-                    "link": "kr/lookup.do?methodToCall=search&businessObjectClassName=org.kuali.kfs.module.ld.businessobject.BenefitsType&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "BENT",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1303,20 +1274,17 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Object Code",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ld.businessobject.LaborObject&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "LOBJ",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Object Code Benefits",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ld.businessobject.PositionObjectBenefit&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "LOBN",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Labor Position Object Group Code",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ld.businessobject.PositionObjectGroup&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "POGR",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1467,8 +1435,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Method of PO Transmission",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.purap.businessobject.PurchaseOrderTransmissionMethod&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "PMTM",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1483,8 +1450,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Payment Request Auto Approve Exclusions",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.purap.businessobject.AutoApproveExclude&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "PMAA",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1566,20 +1532,17 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Format Reset",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.pdp.businessobject.FormatProcess&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.pdp.businessobject.FormatProcess",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Search for Batch",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.pdp.businessobject.Batch&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.pdp.businessobject.Batch",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Search for Payment",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.pdp.businessobject.PaymentDetail&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.pdp.businessobject.PaymentDetail",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -1656,14 +1619,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Format Summary",
-                    "link": "kr/lookup.do?methodToCall=search&businessObjectClassName=org.kuali.kfs.pdp.businessobject.PaymentProcess&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.pdp.businessobject.PaymentProcess",
                     "type": "reference",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Payment Bank History",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.pdp.businessobject.BankChangeHistory&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.pdp.businessobject.BankChangeHistory",
                     "type": "reference",
                     "linkType": "kfs"
                   }
@@ -1698,8 +1659,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Batch File",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchFile&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.sys.batch.BatchFile",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -1788,8 +1748,7 @@
                     "linkType": "rice"
                   },
                   {
-                    "label": "Namespace",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coreservice.impl.namespace.NamespaceBo&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.coreservice.impl.namespace.NamespaceBo",
                     "type": "administration",
                     "linkType": "rice"
                   },
@@ -1804,14 +1763,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Parameter Component",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coreservice.impl.component.ComponentBo&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.coreservice.impl.component.ComponentBo",
                     "type": "administration",
                     "linkType": "rice"
                   },
                   {
-                    "label": "Parameter Type",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo",
                     "type": "administration",
                     "linkType": "rice"
                   },
@@ -1944,14 +1901,12 @@
                     "linkType": "rice"
                   },
                   {
-                    "label": "Credit Card Imported Expense Clearing Document",
-                    "link": "kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.CreditCardImportedExpenseClearingObject",
+                    "documentTypeCode" : "CCIE",
                     "type": "activities",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Credit Card Staging Data",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.CreditCardStagingData&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.module.tem.businessobject.CreditCardStagingData",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -1962,8 +1917,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Travel Agency Audit and Correction",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.AgencyStagingData&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "TAAR",
                     "type": "activities",
                     "linkType": "kfs"
                   },
@@ -2034,8 +1988,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Expense Type Object Code",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "ETOC",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -2055,8 +2008,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Per Diem Meals and Incidentals Breakdown",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.PerDiemMealIncidentalBreakDown&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "TPDB",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -2109,8 +2061,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Travel Cardholder Lookup",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.tem.businessobject.TemProfileAccount&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectCode": "org.kuali.kfs.module.tem.businessobject.TemProfileAccount",
                     "type": "reference",
                     "linkType": "kfs"
                   },
@@ -2170,14 +2121,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Ownership Type Category",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.vnd.businessobject.OwnershipCategory&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "PMOC",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Payment Terms Type",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.vnd.businessobject.PaymentTermType&docFormKey=88888888&hideReturnLink=true",
+                    "documentTypeCode": "PMPA",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -2207,14 +2156,12 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Vendor Exclusion",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.vnd.businessobject.DebarredVendorMatch&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.vnd.businessobject.DebarredVendorMatch",
                     "type": "administration",
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Vendor Exclusion Debarred Unmatched",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.vnd.businessobject.DebarredUnmatchedVendor&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.vnd.businessobject.DebarredUnmatchedVendor",
                     "type": "administration",
                     "linkType": "kfs"
                   },
@@ -2239,8 +2186,7 @@
                     "linkType": "kfs"
                   },
                   {
-                    "label": "Vendor Contracts",
-                    "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.vnd.businessobject.VendorContract&docFormKey=88888888&hideReturnLink=true",
+                    "businessObjectClass": "org.kuali.kfs.vnd.businessobject.VendorContract",
                     "type": "reference",
                     "linkType": "kfs"
                   }
