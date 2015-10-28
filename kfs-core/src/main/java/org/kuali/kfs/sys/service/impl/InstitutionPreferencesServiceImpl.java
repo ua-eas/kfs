@@ -213,14 +213,20 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return (List<Map<String, String>>)linkGroup.get("links");
     }
 
-    protected Map<String, String> transformLink(Map<String, String> link,Person person) {
+    protected Map<String, String> transformLink(Map<String, String> link, Person person) {
         Map<String, String> linkInfo = new ConcurrentHashMap<>();
 
         if (link.containsKey("documentTypeCode")) {
             final String documentTypeName = link.remove("documentTypeCode");
             linkInfo = determineLinkInfo(documentTypeName, person);
         } else if (StringUtils.isNotBlank(link.get("link"))) {
-            linkInfo.put("link", fixRelativeLink(link.get("link")));
+            String finalLink;
+            if (link.get("linkType") != null && link.get("linkType").equals("rice")) {
+                finalLink = determineRiceLink(link.get("link"));
+            } else {
+                finalLink = fixRelativeLink(link.get("link"));
+            }
+            linkInfo.put("link", finalLink);
             linkInfo.put("label", link.get("label"));
         }
 
@@ -230,6 +236,14 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         }
 
         return linkInfo;
+    }
+
+    protected String determineRiceLink(String link) {
+        String riceHost = configurationService.getPropertyValueAsString(KFSConstants.RICE_SERVER_URL_KEY);
+        if (!link.startsWith("/")) {
+            link = "/" + link;
+        }
+        return riceHost + link;
     }
 
     protected String fixRelativeLink(String link) {
