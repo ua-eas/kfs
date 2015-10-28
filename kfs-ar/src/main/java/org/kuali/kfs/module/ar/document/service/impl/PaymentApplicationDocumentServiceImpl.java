@@ -92,7 +92,7 @@ public class PaymentApplicationDocumentServiceImpl implements PaymentApplication
         arDocHeader.setDocumentNumber(applicationDocument.getDocumentNumber());
         applicationDocument.setAccountsReceivableDocumentHeader(arDocHeader);
 
-        // This code is basically copied from PaymentApplicationDocumentAction.quickApply
+        // This code is basically copied from PaymentApplicationAction.quickApply
         int paidAppliedItemNumber = 1;
         for (CustomerInvoiceDetail customerInvoiceDetail : customerInvoiceDocument.getCustomerInvoiceDetailsWithoutDiscounts()) {
             InvoicePaidApplied invoicePaidApplied = createInvoicePaidAppliedForInvoiceDetail(customerInvoiceDetail, applicationDocument, paidAppliedItemNumber);
