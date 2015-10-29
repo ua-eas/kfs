@@ -700,6 +700,11 @@
                     "linkType": "kfs"
                   },
                   {
+                    "documentTypeCode": "SOF",
+                    "type": "administration",
+                    "linkType": "kfs"
+                  },
+                  {
                     "documentTypeCode": "SFGR",
                     "type": "administration",
                     "linkType": "kfs"
