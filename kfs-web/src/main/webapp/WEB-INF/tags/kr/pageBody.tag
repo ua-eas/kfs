@@ -355,6 +355,10 @@
         </c:choose>
 
         <div id="formComplete"></div>
+
+        <c:if test="${not empty htmlFormAction or renderInnerDiv}">
+            </div>
+        </c:if>
     </main>
     <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
         <div id="sidebar">
@@ -367,5 +371,6 @@
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
     <footer id="footer"></footer>
 
+    <script src="${pageContext.request.contextPath}/scripts/polyfill.min.js"></script>
     <script src="${pageContext.request.contextPath}/build/app.bundle.js"></script>
 </c:if>
