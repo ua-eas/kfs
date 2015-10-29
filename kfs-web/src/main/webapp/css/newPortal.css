@@ -134,6 +134,7 @@ header.navbar .navbar-brand .institution-name {
     -ms-flex: 1;
     flex: 1;
     width: 100%;
+    min-height: 1000px;
 }
 
 .body.test-env {
