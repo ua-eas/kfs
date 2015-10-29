@@ -2,6 +2,27 @@ import {buildSortableDropHandler, isScrolledIntoView} from './institutionconfigu
 import {buildKeyFromLabel} from '../../sys/utils.js';
 import Immutable from 'immutable';
 
+let validateForm = function(label, link) {
+    let errors = [];
+    let errorMessages = [];
+    if (!label.trim()) {
+        errors.push('label');
+        errorMessages.push('Link Name cannot be blank');
+    }
+
+    if (!link.trim()) {
+        errors.push('link');
+        errorMessages.push('URL cannot be blank');
+    }
+
+    if (link.indexOf('http://') != 0 && link.indexOf('https://') != 0) {
+        errors.push('link');
+        errorMessages.push('URL must be an absolute path (i.e. http:// or https://)');
+    }
+
+    return {errors: errors, errorMessages: errorMessages};
+};
+
 let LinkGroupLinks = React.createClass({
     render() {
         let linkGroupLinkElements = this.props.linkGroups.map((linkGroup, index) => {
@@ -33,6 +54,7 @@ let SubLinkGroup = React.createClass({
         return {
             customLinkFormOpen: false,
             errors: [],
+            errorMessages: [],
             newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
         };
     },
@@ -40,32 +62,30 @@ let SubLinkGroup = React.createClass({
         this.setState({
             customLinkFormOpen: !this.state.customLinkFormOpen,
             errors: [],
+            errorMessages: [],
             newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
         });
     },
     addCustomLink() {
-        if (this.state.newLink.get('label').trim() && this.state.newLink.get('link').trim()) {
+        let errorObj = validateForm(this.state.newLink.get('label'), this.state.newLink.get('link'));
+
+        if (errorObj.errors.length < 1) {
             this.context.addNewCustomLink(this.props.groupIndex, this.state.newLink);
             this.setState({
-                    customLinkFormOpen: false,
-                    errors: [],
-                    newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
+                customLinkFormOpen: false,
+                errors: [],
+                errorMessages: [],
+                newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
             });
         } else {
-            let errors = [];
-            if (!this.state.newLink.get('label').trim()) {
-                errors.push('label');
-            }
-            if (!this.state.newLink.get('link').trim()) {
-                errors.push('link');
-            }
-            this.setState({errors: errors});
+            this.setState(errorObj);
         }
     },
     openUpdateCustomLink(link) {
         this.setState({
             customLinkFormOpen: true,
             errors: [],
+            errorMessages: [],
             newLink: link,
             oldLink: link,
             update: true
@@ -75,22 +95,18 @@ let SubLinkGroup = React.createClass({
         }
     },
     updateCustomLink() {
-        if (this.state.newLink.get('label').trim() && this.state.newLink.get('link').trim()) {
+        let errorObj = validateForm(this.state.newLink.get('label'), this.state.newLink.get('link'));
+
+        if (errorObj.errors.length < 1) {
             this.context.updateExistingCustomLink(this.props.groupIndex, this.state.oldLink, this.state.newLink);
             this.replaceState({
                 customLinkFormOpen: false,
                 errors: [],
+                errorMessages: [],
                 newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
             });
         } else {
-            let errors = [];
-            if (!this.state.newLink.get('label').trim()) {
-                errors.push('label');
-            }
-            if (!this.state.newLink.get('link').trim()) {
-                errors.push('link');
-            }
-            this.setState({errors: errors});
+            this.setState(errorObj);
         }
     },
     deleteCustomLink() {
@@ -98,6 +114,7 @@ let SubLinkGroup = React.createClass({
         this.replaceState({
             customLinkFormOpen: false,
             errors: [],
+            errorMessages: [],
             newLink: Immutable.Map({label: '', link: '', linkType: 'custom', type: 'activities'})
         });
     },
@@ -126,11 +143,20 @@ let SubLinkGroup = React.createClass({
             deleteButton = <button className="btn btn-default" onClick={this.deleteCustomLink}>Delete</button>
         }
 
+        let errorMessage;
+        if (this.state.errorMessages && this.state.errorMessages.length > 0) {
+            let messages = this.state.errorMessages.map(function(message) {
+                return <li>{message}</li>
+            });
+            errorMessage = <ul className="errorMessages">{messages}</ul>;
+        }
+
         return (
             <div id={this.props.id + "-menu"} className={divClassName}>
                 <div className="addCustomLink">
                     <button className="btn btn-default" onClick={this.openAddCustomLink}><span className="glyphicon glyphicon-plus"></span>Add Custom Link</button>
                     <div className={formClass}>
+                        {errorMessage}
                         <div><label>LINK NAME:</label></div>
                         <div><input className={labelClass} type="text" value={this.state.newLink.get('label')} onChange={this.updateNewLinkValue.bind(null, 'label')}/></div>
                         <div><label>URL:</label></div>
