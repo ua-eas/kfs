@@ -78,6 +78,15 @@ div#linkGroupLinksList {
     border-color: #C47965;
 }
 
+#linkGroupLinksList div.customLinkForm ul.errorMessages {
+    color: #C47965;
+    padding-bottom: 10px;
+}
+
+#linkGroupLinksList div.customLinkForm ul.errorMessages li {
+    list-style: none;
+}
+
 #linkGroupLinksList div.customLinkForm label {
     margin-right: 15px;
     font-weight: 400;
