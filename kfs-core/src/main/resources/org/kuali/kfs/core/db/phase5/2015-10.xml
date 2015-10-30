@@ -63,4 +63,17 @@
         </insert>
     </changeSet>
 
+    <changeSet author="KFS601" id="KFSCD-25_ADD_SOURCE_OF_FUNDS_TYPE_CODE_TO_ACCOUNT_TABLE">
+        <addColumn tableName="CA_ACCOUNT_T">
+            <column name="FUNDS_TYPE_CD" type="VARCHAR(3)"/>
+        </addColumn>
+        <createIndex tableName="CA_ACCOUNT_T" indexName="CA_ACCOUNT_TI29">
+            <column name="FUNDS_TYPE_CD" type="VARCHAR(3)"/>
+        </createIndex>
+    </changeSet>
+  
+    <changeSet author="KFS601" id="KFSCD-25_FUNDS_TYPE_CD_FOREIGN_KEYS">
+        <addForeignKeyConstraint constraintName="CA_ACCOUNT_TR22" referencedTableName="CA_SOURCE_OF_FUNDS_T" baseColumnNames="FUNDS_TYPE_CD" baseTableName="CA_ACCOUNT_T"  referencedColumnNames="FUNDS_TYPE_CD" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" />
+     </changeSet>    
+
 </databaseChangeLog>
