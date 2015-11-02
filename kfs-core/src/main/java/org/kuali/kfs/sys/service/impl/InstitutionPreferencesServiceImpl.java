@@ -1,6 +1,7 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.service.DataDictionaryService;
@@ -142,10 +143,15 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
      */
     private void linkPermissionCheck(Map<String, Object> institutionPreferences, Person person) {
         getLinkGroups(institutionPreferences).forEach(linkGroup -> {
-            linkGroup.put("links", ((List<Map<String, Object>>) linkGroup.get("links")).stream().filter(link ->
-                            (link.get("permission") == null) || canViewLink((Map<String, Object>) link.get("permission"), person)
-            ).collect(Collectors.toList()));
+            Map<String, List<Map<String, Object>>> links = (Map<String, List<Map<String, Object>>>)linkGroup.get("links");
+            links.replaceAll((String key, List<Map<String, Object>> value) -> linkPermissionCheckByType(value, person));
         });
+    }
+
+    protected List<Map<String, Object>> linkPermissionCheckByType(List<Map<String, Object>> links, Person person) {
+        return links.stream()
+                .filter(link -> (link.get("permission") == null) || canViewLink((Map<String, Object>) link.get("permission"), person))
+                .collect(Collectors.toList());
     }
 
     protected void appendMenuProperties(Map<String, Object> institutionPreferences) {
@@ -208,16 +214,26 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
      * @return true if the group contains links, false if it is empty
      */
     protected boolean transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
-        List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream()
+        Map<String, List<Map<String,String>>> links = getLinks(linkGroup);
+        links.replaceAll((String linkType, List<Map<String, String>> linksByType) -> transformLinksByLinkType(linksByType, person));
+        links.keySet().forEach((String linkType) -> {
+            if (CollectionUtils.isEmpty(links.get(linkType))) {
+                links.remove(linkType);
+            }
+        });
+        linkGroup.put("links", links);
+        return links.size() > 0;
+    }
+
+    protected List<Map<String, String>> transformLinksByLinkType(List<Map<String, String>> links, Person person) {
+        return links.stream()
                 .map((Map<String, String> link) -> transformLink(link, person))
                 .filter((Map<String, String> link) -> link.containsKey("label") && !StringUtils.isBlank(link.get("label")) && link.containsKey("link") && !StringUtils.isBlank(link.get("link")))
                 .collect(Collectors.toList());
-        linkGroup.put("links", updatedLinks);
-        return updatedLinks.size() > 0;
     }
 
-    protected List<Map<String, String>> getLinks(Map<String, Object> linkGroup) {
-        return (List<Map<String, String>>)linkGroup.get("links");
+    protected Map<String, List<Map<String, String>>> getLinks(Map<String, Object> linkGroup) {
+        return (Map<String, List<Map<String, String>>>)linkGroup.get("links");
     }
 
     protected Map<String, String> transformLink(Map<String, String> link, Person person) {
@@ -241,7 +257,6 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         }
 
         if (linkInfo.containsKey("label")) {
-            linkInfo.put("type", link.get("type"));
             linkInfo.put("linkType", link.get("linkType"));
         }
 
@@ -373,12 +388,14 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     protected List<Map<String, Object>> removeGeneratedLabels(List<Map<String, Object>> linkGroups) {
         for (Map<String, Object> linkGroup : linkGroups) {
-            List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
-                if (link.containsKey("documentTypeCode")) {
-                    link.remove("label");
-                }
-                return link;
-            }).collect(Collectors.toList());
+            Map<String, List<Map<String,String>>> updatedLinks = getLinks(linkGroup);
+            updatedLinks.replaceAll((String linkType, List<Map<String, String>> links) ->
+                links.stream().map((Map<String, String> link) -> {
+                    if (link.containsKey("documentTypeCode") || link.containsKey("businessObjectClass")) {
+                        link.remove("label");
+                    }
+                    return link;
+                }).collect(Collectors.toList()));
             linkGroup.put("links", updatedLinks);
         }
         return linkGroups;
@@ -410,12 +427,15 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         List<Map<String, Object>> linkGroups = getLinkGroups(institutionPreferences);
 
         for (Map<String, Object> linkGroup: linkGroups) {
-            List<Map<String,String>> updatedLinks = getLinks(linkGroup).stream().map((Map<String, String> link) -> {
+            Map<String, List<Map<String,String>>> updatedLinks = getLinks(linkGroup);
+            updatedLinks.replaceAll((String linkType, List<Map<String, String>> links) -> links.stream().map((Map<String, String> link) -> {
                 if (link.containsKey("documentTypeCode")) {
                     link.put("label", documentDictionaryService.getLabel(link.get("documentTypeCode")));
+                } else if (link.containsKey("businessObjectClass")) {
+                    link.put("label", getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(link.get("businessObjectClass")).getObjectLabel());
                 }
                 return link;
-            }).collect(Collectors.toList());
+            }).collect(Collectors.toList()));
             linkGroup.put("links", updatedLinks);
         }
 

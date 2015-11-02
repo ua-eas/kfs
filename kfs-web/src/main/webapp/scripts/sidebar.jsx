@@ -160,9 +160,7 @@ var Sidebar = React.createClass({
 });
 
 var filterLinks = function(links, type) {
-    return links.filter(function(link) {
-        return link.type === type
-    }).map((link, i) => {
+    return links.map((link, i) => {
         let target = link.linkType === 'kfs' ? null : '_blank';
         return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item" target={target}/>
     })
@@ -171,7 +169,7 @@ var filterLinks = function(links, type) {
 var buildDisplayLinks = function(links, type, checkedLinkFilters) {
     let displayLinks = []
     if (checkedLinkFilters.indexOf(type) != -1) {
-        displayLinks = filterLinks(links, type)
+        displayLinks = convertLinks(links[type])
     }
     return displayLinks
 }
