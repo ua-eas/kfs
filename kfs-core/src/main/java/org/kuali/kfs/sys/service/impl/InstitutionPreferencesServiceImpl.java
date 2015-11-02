@@ -216,11 +216,13 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     protected boolean transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
         Map<String, List<Map<String,String>>> links = getLinks(linkGroup);
         links.replaceAll((String linkType, List<Map<String, String>> linksByType) -> transformLinksByLinkType(linksByType, person));
-        links.keySet().forEach((String linkType) -> {
-            if (CollectionUtils.isEmpty(links.get(linkType))) {
-                links.remove(linkType);
+        Iterator<Map.Entry<String, List<Map<String, String>>>> linksIter = links.entrySet().iterator();
+        while (linksIter.hasNext()) {
+            Map.Entry<String, List<Map<String, String>>> nextLinks = linksIter.next();
+            if (CollectionUtils.isEmpty(nextLinks.getValue())) {
+                linksIter.remove();
             }
-        });
+        }
         linkGroup.put("links", links);
         return links.size() > 0;
     }
