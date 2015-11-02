@@ -267,6 +267,24 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertEquals("We should know what feedback url is", "http://tst.kfs.kuali.org/kfs-tst/kr/kualiFeedbackReport.do", getMenuLinkUrl(preferences, "Feedback"));
     }
 
+    protected List<Map<String, Object>> buildLinkGroup(Map<String, String>... links) {
+        Map<String, List<Map<String, String>>> linksByType = new ConcurrentHashMap<>();
+        for (Map<String, String> currLink : links) {
+            List<Map<String, String>> linksForType = linksByType.getOrDefault(currLink.get("type"), new ArrayList<>());
+            linksForType.add(currLink);
+            linksByType.put(currLink.get("type"), linksForType);
+        }
+
+        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
+        linkGroup.put("label", "Test Menu");
+        linkGroup.put("links", linksByType);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(linkGroup);
+
+        return linkGroups;
+    }
+
     @Test
     public void testFindInstitutionPreferencesLinks_HealthyLinkGroup() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
@@ -276,15 +294,7 @@ public class InstitutionPreferencesServiceImplTest {
         link.put("type", "activities");
         link.put("linkType", "kfs");
 
-        List<Map<String, String>> links = new ArrayList<>();
-        links.add(link);
-
-        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-        linkGroup.put("label", "Test Menu");
-        linkGroup.put("links", links);
-
-        List<Map<String, Object>> linkGroups = new ArrayList<>();
-        linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link);
 
         institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -298,7 +308,7 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
         Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
         Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
-        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("activities")));
     }
 
     @Test
@@ -310,15 +320,7 @@ public class InstitutionPreferencesServiceImplTest {
         link.put("type", "activities");
         link.put("linkType", "kfs");
 
-        List<Map<String, String>> links = new ArrayList<>();
-        links.add(link);
-
-        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-        linkGroup.put("label", "Test Menu");
-        linkGroup.put("links", links);
-
-        List<Map<String, Object>> linkGroups = new ArrayList<>();
-        linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link);
 
         institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -332,16 +334,17 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
         Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
         Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
-        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("activities")));
 
-        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
-        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
-        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
+        Map<String, String> testLink = getLinkAt(preferences, 0, "activities", 0);
 
-        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(testLink.get("label")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(testLink.get("linkType")));
+
+        String groupLink = testLink.get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/financialServiceBilling.do?methodToCall=docHandler&command=initiate&docTypeName=SB", groupLink);
-        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
+        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(testLink.get("documentTypeCode")));
     }
 
     @Test
@@ -363,17 +366,7 @@ public class InstitutionPreferencesServiceImplTest {
         link3.put("type", "activities");
         link3.put("linkType", "kfs");
 
-        List<Map<String, String>> links = new ArrayList<>();
-        links.add(link);
-        links.add(link2);
-        links.add(link3);
-
-        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-        linkGroup.put("label", "Test Menu");
-        linkGroup.put("links", links);
-
-        List<Map<String, Object>> linkGroups = new ArrayList<>();
-        linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link, link2, link3);
 
         institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -387,9 +380,11 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
         Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
         Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
-        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
-        Assert.assertEquals("Link group should only have one link", 1, ((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).size());
-        Assert.assertEquals("The one link should be for Service Billing", "Service Billing", ((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label"));
+        Assert.assertTrue("Link groups should have activity links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("activities")));
+        Assert.assertTrue("Link groups should have not reference links", CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("references")));
+        Assert.assertTrue("Link groups should have not have administration links", CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("administration")));
+        Assert.assertEquals("Link group should only have one link", 1, ((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("activities").size());
+        Assert.assertEquals("The one link should be for Service Billing", "Service Billing", ((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("activities").get(0).get("label"));
     }
 
     @Test
@@ -401,15 +396,7 @@ public class InstitutionPreferencesServiceImplTest {
         link.put("type", "administration");
         link.put("linkType", "kfs");
 
-        List<Map<String, String>> links = new ArrayList<>();
-        links.add(link);
-
-        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-        linkGroup.put("label", "Test Menu");
-        linkGroup.put("links", links);
-
-        List<Map<String, Object>> linkGroups = new ArrayList<>();
-        linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link);
 
         institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -423,17 +410,21 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
         Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
         Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
-        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("administration")));
 
-        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
-        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
-        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
+        Map<String, String> testLink = getLinkAt(preferences, 0, "administration", 0);
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(testLink.get("label")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(testLink.get("linkType")));
 
-        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        String groupLink = testLink.get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.CreditCardType&docFormKey=88888888&returnLocation=http://tst.kfs.kuali.org/kfs-tst/index.jsp&hideReturnLink=true", groupLink);
-        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
+        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(testLink.get("documentTypeCode")));
+    }
+
+    protected Map<String, String> getLinkAt(Map<String, Object> preferences, int i, String type, int j) {
+        return ((Map<String, List<Map<String, String>>>)((List<Map<String, Object>>) preferences.get("linkGroups")).get(i).get("links")).get(type).get(j);
     }
 
     @Test
@@ -445,15 +436,7 @@ public class InstitutionPreferencesServiceImplTest {
         link.put("type", "administration");
         link.put("linkType", "kfs");
 
-        List<Map<String, String>> links = new ArrayList<>();
-        links.add(link);
-
-        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-        linkGroup.put("label", "Test Menu");
-        linkGroup.put("links", links);
-
-        List<Map<String, Object>> linkGroups = new ArrayList<>();
-        linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link);
 
         institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -467,17 +450,17 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
         Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
         Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
-        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("administration")));
 
-        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
-        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
-        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
+        Map<String, String> testLink = getLinkAt(preferences, 0, "administration", 0);
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(testLink.get("label")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(testLink.get("linkType")));
 
-        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        String groupLink = testLink.get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal&hideReturnLink=true", groupLink);
-        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
+        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(testLink.get("documentTypeCode")));
     }
 
     @Test
@@ -490,15 +473,7 @@ public class InstitutionPreferencesServiceImplTest {
         link.put("type", "activities");
         link.put("linkType", "kfs");
 
-        List<Map<String, String>> links = new ArrayList<>();
-        links.add(link);
-
-        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-        linkGroup.put("label", "Test Menu");
-        linkGroup.put("links", links);
-
-        List<Map<String, Object>> linkGroups = new ArrayList<>();
-        linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link);
 
         institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -512,17 +487,18 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
         Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
         Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
-        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("activities")));
 
-        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
-        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
-        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
+        Map<String, String> testLink = getLinkAt(preferences, 0, "activities", 0);
 
-        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(testLink.get("label")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(testLink.get("linkType")));
+
+        String groupLink = testLink.get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/electronicFundTransfer.do?methodToCall=start", groupLink);
-        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
+        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(testLink.get("documentTypeCode")));
     }
 
     @Test
@@ -569,14 +545,14 @@ public class InstitutionPreferencesServiceImplTest {
                         "\"linkGroups\": [" +
                         "    { " +
                         "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
-                        "            \"type\": \"activities\",\"linkType\": \"kfs\",\"permission\": {" +
+                        "      \"links\": {" +
+                        "          \"activities\": [ { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
+                        "            \"linkType\": \"kfs\",\"permission\": {" +
                         "                \"templateNamespace\": \"KR-SYS\"," +
                         "                \"templateName\": \"Initiate Document\"," +
                         "                \"details\": { \"documentTypeCode\": \"ETB\" }" +
-                        "              } }" +
-                        "        ] " +
+                        "              } } ]" +
+                        "        } " +
                         "    } " +
                         "] " +
                         "}");
@@ -608,9 +584,9 @@ public class InstitutionPreferencesServiceImplTest {
                         "\"linkGroups\": [" +
                         "    { " +
                         "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"SB\",\"type\": \"activities\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
+                        "      \"links\": {" +
+                        "          \"activities\": [ { \"documentTypeCode\": \"SB\",\"linkType\": \"kfs\" } ]" +
+                        "        } " +
                         "    } " +
                         "] " +
                         "}");
@@ -642,9 +618,9 @@ public class InstitutionPreferencesServiceImplTest {
                         "\"linkGroups\": [" +
                         "    { " +
                         "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"CCTY\",\"type\": \"administration\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
+                        "      \"links\": {" +
+                        "          \"administration\": [ { \"documentTypeCode\": \"CCTY\",\"linkType\": \"kfs\" } ]" +
+                        "        } " +
                         "    } " +
                         "] " +
                         "}");
@@ -692,9 +668,9 @@ public class InstitutionPreferencesServiceImplTest {
                         "\"linkGroups\": [" +
                         "    { " +
                         "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"documentTypeCode\": \"CCTY\",\"type\": \"administration\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
+                        "      \"links\": {" +
+                        "          \"administration\": [ { \"documentTypeCode\": \"CCTY\",\"linkType\": \"kfs\" } ]" +
+                        "        } " +
                         "    } " +
                         "] " +
                         "}");
@@ -739,16 +715,7 @@ public class InstitutionPreferencesServiceImplTest {
         link2.put("type", "administration");
         link2.put("linkType", "kfs");
 
-        List<Map<String, String>> links = new ArrayList<>();
-        links.add(link);
-        links.add(link2);
-
-        Map<String, Object> linkGroup = new ConcurrentHashMap<>();
-        linkGroup.put("label", "Test Menu");
-        linkGroup.put("links", links);
-
-        List<Map<String, Object>> linkGroups = new ArrayList<>();
-        linkGroups.add(linkGroup);
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link, link2);
 
         preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
         preferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -762,19 +729,22 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
         Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
         Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
-        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("administration")));
 
-        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("label")));
-        Assert.assertTrue("Link should have a type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("type")));
-        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(((List<Map<String, String>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get(0).get("linkType")));
+        Map<String, String> testLink = getLinkAt(preferences, 0, "administration", 0);
 
-        String groupLink = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("link");
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(testLink.get("label")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(testLink.get("linkType")));
+
+        String groupLink = testLink.get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
 
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&hideReturnLink=true&conversionFields=name:name,group:group&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink);
-        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(0).get("documentTypeCode")));
+        Assert.assertTrue("Link should NOT have a document type", StringUtils.isBlank(testLink.get("documentTypeCode")));
 
-        String groupLink2 = ((List<Map<String, String>>)((List<Map<String, Object>>)preferences.get("linkGroups")).get(0).get("links")).get(1).get("link");
+        Map<String, String> testLink2 = getLinkAt(preferences, 0, "administration", 1);
+
+        String groupLink2 = testLink2.get("link");
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink2));
 
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink2);
