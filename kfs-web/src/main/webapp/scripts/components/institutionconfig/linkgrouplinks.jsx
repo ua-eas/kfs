@@ -1,4 +1,4 @@
-import {buildSortableDropHandler, isScrolledIntoView} from './institutionconfigutils.js';
+import {buildLinkSortableDropHandler, isScrolledIntoView} from './institutionconfigutils.js';
 import {buildKeyFromLabel} from '../../sys/utils.js';
 import Immutable from 'immutable';
 
@@ -213,8 +213,8 @@ let SubLinkType = React.createClass({
         let index = this.props.linkGroups.findIndex(function(linkGroup) {
             return linkGroup.get('label') === self.props.groupLabel;
         });
-        let updatedLinks = this.props.linkGroups.get(index).get('links').set(this.props.type, links);
-        let updatedLinkGroups = this.props.linkGroups.set(index, this.props.linkGroups.get(index).set('links', updatedLinks));
+        let updatedLinks = this.props.linkGroups.get(index).set('links', links);
+        let updatedLinkGroups = this.props.linkGroups.set(index, updatedLinks);
         this.context.updateLinkGroups(updatedLinkGroups);
     },
     render() {
@@ -223,7 +223,8 @@ let SubLinkType = React.createClass({
         return (
             <div>
                 <h4>{this.props.type}</h4>
-                <SubLinkTypeLinks links={linksForType}
+                <SubLinkTypeLinks allLinks={this.props.links}
+                                  links={linksForType}
                                   type={this.props.type}
                                   groupLabel={this.props.groupLabel}/>
             </div>
@@ -240,8 +241,9 @@ let SubLinkTypeLinks = React.createClass({
     componentDidMount() {
         let self = this;
         let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
+        let connectWithClass = ".sortable-" + buildKeyFromLabel(this.props.groupLabel);
         if (this.props.links && this.props.links.count() > 0) {
-            buildSortableDropHandler(id, self, 'links', 'updateSublinkTypeLinks');
+            buildLinkSortableDropHandler(id, connectWithClass, self, 'allLinks', 'updateSublinkTypeLinks');
         }
     },
     render() {
@@ -266,7 +268,8 @@ let SubLinkTypeLinks = React.createClass({
         }
 
         let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
-        let linkList = <ul id={id}>{linkElements}</ul>;
+        let className = "sortable-" + buildKeyFromLabel(this.props.groupLabel);
+        let linkList = <ul id={id} className={className} data-type={this.props.type}>{linkElements}</ul>;
 
         return linkList
     }

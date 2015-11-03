@@ -75,7 +75,7 @@ let InstitutionConfig = React.createClass({
     },
     addNewLinkGroup() {
         let linkGroups = this.state.linkGroups;
-        let newLinkGroup = Immutable.fromJS({label: '', links: []});
+        let newLinkGroup = Immutable.fromJS({label: '', links: {}});
         let updatedLinkGroups = linkGroups.push(newLinkGroup);
         this.setState({linkGroups: updatedLinkGroups})
     },
@@ -89,6 +89,9 @@ let InstitutionConfig = React.createClass({
         let linkGroup = linkGroups.get(groupIndex);
         let linksTypes = linkGroup.get('links');
         let links = linksTypes.get(newLinkType);
+        if (!links) {
+            links = Immutable.fromJS([]);
+        }
         let updatedLinks = links.push(newLink);
         let updatedLinkType = linksTypes.set(newLinkType, updatedLinks);
         let updatedLinkGroup = linkGroup.set('links', updatedLinkType);
