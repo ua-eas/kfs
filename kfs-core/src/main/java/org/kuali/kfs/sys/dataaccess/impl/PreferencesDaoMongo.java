@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.index.IndexInfo;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -154,7 +155,26 @@ public class PreferencesDaoMongo implements PreferencesDao {
             return (Map<String, Object>)doc.get(PREFERENCES_KEY);
         }
 
-        return null;
+        // create a new default UserPreferences
+        final Map<String, Object> defaultUserPreferencesDocument = createDefaultUserPreferencesDocument(principalName);
+        mongoTemplate.save(defaultUserPreferencesDocument, USER_PREFERENCES);
+
+        return (Map<String, Object>)defaultUserPreferencesDocument.get(PREFERENCES_KEY);
+    }
+
+    protected Map<String, Object> createDefaultUserPreferencesDocument(String principalName) {
+        Map<String, Object> defaultUserPreferencesDoc = new ConcurrentHashMap<>();
+        defaultUserPreferencesDoc.put(PRINCIPAL_NAME_KEY, principalName);
+        defaultUserPreferencesDoc.put(PREFERENCES_KEY, createDefaultUserPreferences());
+        return defaultUserPreferencesDoc;
+    }
+
+    protected Map<String, Object> createDefaultUserPreferences() {
+        Map<String, Object> defaultUserPreferences = new ConcurrentHashMap<>();
+        defaultUserPreferences.put("sidebarOut", Boolean.TRUE);
+        List<String> checkedLinkFilters = Arrays.asList("activities", "reference", "administration");
+        defaultUserPreferences.put("checkedLinkFilters", checkedLinkFilters);
+        return defaultUserPreferences;
     }
 
     @Override
