@@ -91,4 +91,19 @@
         </insert>
     </changeSet>
 
+    <changeSet author="KFS601" id="FINI-196_ADD_BACKDOOR_PARAMETER" context="bootstrap,demo,unit">
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+            <column name="CMPNT_CD"><![CDATA[Backdoor]]></column>
+            <column name="PARM_NM"><![CDATA[SHOW_BACK_DOOR_LOGIN_IND]]></column>
+            <column name="OBJ_ID"><![CDATA[ABC6785416434C4D9E5F05AF077DBZYX]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+            <column name="VAL"><![CDATA[Y]]></column>
+            <column name="PARM_DESC_TXT"><![CDATA[Flag to show the backdoor login.]]></column>
+            <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+            <column name="APPL_ID"><![CDATA[KFS]]></column>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
