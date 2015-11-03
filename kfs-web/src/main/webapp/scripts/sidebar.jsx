@@ -6,7 +6,7 @@ let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return { principalName: "",institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: "", checkedLinkFilters: ['activities', 'reference', 'administration']}
+        return { principalName: "",institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: ""};
     },
     componentWillMount() {
         let thisComponent = this
@@ -53,14 +53,16 @@ var Sidebar = React.createClass({
         });
     },
     modifyLinkFilter(type) {
-        let newChecked = this.state.checkedLinkFilters
-        let index = newChecked.indexOf(type)
+        let userPreferences = this.state.userPreferences;
+        let newChecked = userPreferences.checkedLinkFilters;
+        let index = newChecked.indexOf(type);
         if (index === -1) {
-            newChecked.push(type)
+            newChecked.push(type);
         } else {
-            newChecked.splice(index, 1)
+            newChecked.splice(index, 1);
         }
-        this.setState({checkedLinkFilters: newChecked})
+        this.setState({userPreferences: userPreferences});
+        UserPrefs.putUserPreferences(userPreferences);
     },
     toggleLinkGroup(label) {
         if (this.state.expandedLinkGroup === label) {
@@ -130,7 +132,7 @@ var Sidebar = React.createClass({
                         group={groups[i]}
                         handleClick={this.toggleLinkGroup}
                         expandedLinkGroup={this.state.expandedLinkGroup}
-                        checkedLinkFilters={this.state.checkedLinkFilters}/>
+                        checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}/>
                 )
             }
         }
@@ -147,7 +149,7 @@ var Sidebar = React.createClass({
                 <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
                 <ul id="linkgroups" className="nav list-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
-                    <li className="list-item"><LinkFilter checkedLinkFilters={this.state.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
+                    <li className="list-item"><LinkFilter checkedLinkFilters={this.state.userPreferences.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
@@ -160,6 +162,9 @@ var Sidebar = React.createClass({
 });
 
 var filterLinks = function(links, type) {
+    if (!links) {
+        return "";
+    }
     return links.filter(function(link) {
         return link.type === type
     }).map((link, i) => {
@@ -170,7 +175,7 @@ var filterLinks = function(links, type) {
 
 var buildDisplayLinks = function(links, type, checkedLinkFilters) {
     let displayLinks = []
-    if (checkedLinkFilters.indexOf(type) != -1) {
+    if (checkedLinkFilters && checkedLinkFilters.indexOf(type) != -1) {
         displayLinks = filterLinks(links, type)
     }
     return displayLinks
@@ -243,9 +248,9 @@ var LinkGroup = React.createClass({
 
 var LinkFilter = React.createClass({
     render() {
-        let activitiesChecked = this.props.checkedLinkFilters.indexOf('activities') != -1
-        let referenceChecked = this.props.checkedLinkFilters.indexOf('reference') != -1
-        let administrationChecked = this.props.checkedLinkFilters.indexOf('administration') != -1
+        let activitiesChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('activities') != -1
+        let referenceChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('reference') != -1
+        let administrationChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('administration') != -1
         return (
             <div id="linkFilter">
                 <input onChange={this.props.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label htmlFor="activities">Activities</label>
