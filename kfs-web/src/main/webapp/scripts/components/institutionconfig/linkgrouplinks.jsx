@@ -25,9 +25,18 @@ let validateForm = function(label, link) {
 
 let LinkGroupLinks = React.createClass({
     render() {
+        let linkGroupNames = this.props.linkGroups.map((linkGroup) => {
+            return linkGroup.get('label');
+        });
         let linkGroupLinkElements = this.props.linkGroups.map((linkGroup, index) => {
             let id = buildKeyFromLabel(linkGroup.get('label'))
-            return <SubLinkGroup key={'subLinkGroup-' + id} id={id} links={linkGroup.get('links')} groupIndex = {index} groupLabel={linkGroup.get('label')} expandedLinkGroup={this.props.expandedLinkGroup} linkGroups={this.props.linkGroups}/>
+            return <SubLinkGroup key={'subLinkGroup-' + id}
+                                 id={id} links={linkGroup.get('links')}
+                                 groupIndex = {index}
+                                 groupLabel={linkGroup.get('label')}
+                                 expandedLinkGroup={this.props.expandedLinkGroup}
+                                 linkGroups={this.props.linkGroups}
+                                 linkGroupNames={linkGroupNames}/>
         });
         let className = this.props.topGroupSelected ? 'top-selected' : '';
         return <div id="linkGroupLinksList" className={className}>{linkGroupLinkElements}</div>;
@@ -65,7 +74,9 @@ let SubLinkGroup = React.createClass({
             errors: [],
             errorMessages: [],
             newLink: Immutable.Map({label: '', link: '', linkType: 'custom'}),
-            newLinkType: 'activities'
+            newLinkType: 'activities',
+            moveToGroupIndex: this.props.groupIndex,
+            update: false
         });
     },
     addCustomLink() {
@@ -93,6 +104,7 @@ let SubLinkGroup = React.createClass({
             newLinkType: type,
             oldLink: link,
             oldLinkType: type,
+            moveToGroupIndex: this.props.groupIndex,
             update: true
         });
         if (!isScrolledIntoView($('.active .addCustomLink'))) {
@@ -104,7 +116,7 @@ let SubLinkGroup = React.createClass({
 
         if (errorObj.errors.length < 1) {
             this.context.updateExistingCustomLink(this.props.groupIndex, this.state.oldLink, this.state.oldLinkType,
-                this.state.newLink, this.state.newLinkType);
+                this.state.moveToGroupIndex, this.state.newLink, this.state.newLinkType);
             this.replaceState({
                 customLinkFormOpen: false,
                 errors: [],
@@ -135,6 +147,10 @@ let SubLinkGroup = React.createClass({
         let type = $(event.target).val();
         this.setState({'newLinkType': type});
     },
+    updateLinkGroup(event) {
+        let group = $(event.target).val();
+        this.setState({'moveToGroupIndex': group});
+    },
     render() {
         let divClassName = 'admin-sublinks';
         if (this.props.groupLabel !== this.props.expandedLinkGroup) {
@@ -154,6 +170,10 @@ let SubLinkGroup = React.createClass({
             formActionText = 'Update';
             deleteButton = <button className="btn btn-default" onClick={this.deleteCustomLink}>Delete</button>
         }
+
+        let groupSelectItems = this.props.linkGroupNames.map((linkGroupName, index) => {
+            return <option value={index}>{linkGroupName}</option>;
+        });
 
         let errorMessage;
         if (this.state.errorMessages && this.state.errorMessages.length > 0) {
@@ -180,6 +200,10 @@ let SubLinkGroup = React.createClass({
                             <label htmlFor={this.props.id + "-reference-radio"}>Reference</label>
                             <input checked={this.state.newLinkType === 'administration'} type="radio" value="administration" id={this.props.id + "-administration-radio"} onChange={this.updateNewLinkType}/>
                             <label htmlFor={this.props.id + "-administration-radio"}>Administration</label>
+                        </div>
+                        <div><label>GROUP:</label></div>
+                        <div>
+                            <select value={this.state.moveToGroupIndex} onChange={this.updateLinkGroup}>{groupSelectItems}</select>
                         </div>
                         <div>
                             <button className="btn btn-green" onClick={formActionFunction}>{formActionText}</button>
@@ -242,9 +266,7 @@ let SubLinkTypeLinks = React.createClass({
         let self = this;
         let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
         let connectWithClass = ".sortable-" + buildKeyFromLabel(this.props.groupLabel);
-        if (this.props.links && this.props.links.count() > 0) {
-            buildLinkSortableDropHandler(id, connectWithClass, self, 'allLinks', 'updateSublinkTypeLinks');
-        }
+        buildLinkSortableDropHandler(id, connectWithClass, self, 'allLinks', 'updateSublinkTypeLinks');
     },
     render() {
         let linkElements = []

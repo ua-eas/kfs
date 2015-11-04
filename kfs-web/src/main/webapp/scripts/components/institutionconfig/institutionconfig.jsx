@@ -98,42 +98,68 @@ let InstitutionConfig = React.createClass({
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
         this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
     },
-    updateExistingCustomLink(groupIndex, oldLink, oldLinkType, updatedLink, updatedLinkType) {
+    updateExistingCustomLink(groupIndex, oldLink, oldLinkType, updatedGroupIndex, updatedLink, updatedLinkType) {
         let linkGroups = this.state.linkGroups;
         let linkGroup = linkGroups.get(groupIndex);
         let linkTypes = linkGroup.get('links');
         let linksOldType = linkTypes.get(oldLinkType);
-        let index = -1;
+        let linkIndex = -1;
 
         let jsLinks = linksOldType.toJS();
         let jsOldLink = oldLink.toJS();
         _.each(jsLinks, function(data, idx) {
             if (_.isEqual(data, jsOldLink)) {
-                index = idx;
+                linkIndex = idx;
                 return;
             }
         });
 
-        let updatedLinkTypes;
-        if (oldLinkType === updatedLinkType) {
-            let updatedLinks = linksOldType.set(index, updatedLink);
-            updatedLinkTypes = linkTypes.set(oldLinkType, updatedLinks);
+        if (groupIndex !== updatedGroupIndex) {
+            let moveToLinkGroup = linkGroups.get(updatedGroupIndex);
+
+            let updatedLinks = linksOldType.delete(linkIndex);
+            let updatedLinkTypes = linkTypes.set(oldLinkType, updatedLinks);
+
+            let moveToLinkTypes = moveToLinkGroup.get('links');
+            let moveToLinksType = moveToLinkTypes.get(updatedLinkType);
+            if (!moveToLinksType) {
+                moveToLinksType = Immutable.fromJS([]);
+            }
+            let updatedMoveToLinkType = moveToLinksType.push(updatedLink);
+            let updatedMoveToLinkTypes = moveToLinkTypes.set(updatedLinkType, updatedMoveToLinkType);
+
+            let updatedLinkGroup = linkGroup.set('links', updatedLinkTypes);
+            let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
+
+            let updatedMoveToLinkGroup = moveToLinkGroup.set('links', updatedMoveToLinkTypes);
+            let finalLinkGroups = updatedLinkGroups.set(updatedGroupIndex, updatedMoveToLinkGroup);
+
+            this.setState({'linkGroups': finalLinkGroups, hasChanges: true});
         } else {
-            // delete link from old type links
-            let updatedLinksOldType = linksOldType.delete(index);
+            let updatedLinkTypes;
+            if (oldLinkType === updatedLinkType) {
+                let updatedLinks = linksOldType.set(linkIndex, updatedLink);
+                updatedLinkTypes = linkTypes.set(oldLinkType, updatedLinks);
+            } else {
+                // delete link from old type links
+                let updatedLinksOldType = linksOldType.delete(linkIndex);
 
-            // add link to new type links
-            let linksUpdatedType = linkTypes.get(updatedLinkType);
-            let updatedLinksUpdatedType = linksUpdatedType.push(updatedLink);
+                // add link to new type links
+                let linksUpdatedType = linkTypes.get(updatedLinkType);
+                if (!linksUpdatedType) {
+                    linksUpdatedType = Immutable.fromJS([]);
+                }
+                let updatedLinksUpdatedType = linksUpdatedType.push(updatedLink);
 
-            // update links for both updated and old types
-            let partialUpdatedLinkTypes = linkTypes.set(oldLinkType, updatedLinksOldType);
-            updatedLinkTypes = partialUpdatedLinkTypes.set(updatedLinkType, updatedLinksUpdatedType);
+                // update links for both updated and old types
+                let partialUpdatedLinkTypes = linkTypes.set(oldLinkType, updatedLinksOldType);
+                updatedLinkTypes = partialUpdatedLinkTypes.set(updatedLinkType, updatedLinksUpdatedType);
+            }
+
+            let updatedLinkGroup = linkGroup.set('links', updatedLinkTypes);
+            let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
+            this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
         }
-
-        let updatedLinkGroup = linkGroup.set('links', updatedLinkTypes);
-        let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
-        this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
     },
     deleteExistingCustomLink(groupIndex, type, oldLink) {
         let linkGroups = this.state.linkGroups;
