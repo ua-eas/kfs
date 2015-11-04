@@ -10,10 +10,8 @@ let moveLinkElement = function(list, fromIndex, toIndex, fromType, toType) {
         let updatedType = movingType.delete(fromIndex).splice(toIndex, 0, movingElement);
         updatedList = list.set(fromType, updatedType);
     } else {
-        // delete from old type
         let updatedMoveFromType = movingType.delete(fromIndex);
 
-        // add to new type
         let moveToType = list.get(toType);
         if (!moveToType) {
             moveToType = Immutable.fromJS([]);

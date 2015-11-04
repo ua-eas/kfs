@@ -25,7 +25,7 @@ let validateForm = function(label, link) {
 
 let LinkGroupLinks = React.createClass({
     render() {
-        let linkGroupNames = this.props.linkGroups.map((linkGroup) => {
+        let linkGroupLabels = this.props.linkGroups.map((linkGroup) => {
             return linkGroup.get('label');
         });
         let linkGroupLinkElements = this.props.linkGroups.map((linkGroup, index) => {
@@ -36,7 +36,7 @@ let LinkGroupLinks = React.createClass({
                                  groupLabel={linkGroup.get('label')}
                                  expandedLinkGroup={this.props.expandedLinkGroup}
                                  linkGroups={this.props.linkGroups}
-                                 linkGroupNames={linkGroupNames}/>
+                                 linkGroupLabels={linkGroupLabels}/>
         });
         let className = this.props.topGroupSelected ? 'top-selected' : '';
         return <div id="linkGroupLinksList" className={className}>{linkGroupLinkElements}</div>;
@@ -165,8 +165,8 @@ let SubLinkGroup = React.createClass({
         let labelClass = this.state.errors.indexOf('label') > -1 ? 'error' : '';
         let linkClass = this.state.errors.indexOf('link') > -1 ? 'error' : '';
 
-        let groupSelectItems = this.props.linkGroupNames.map((linkGroupName, index) => {
-            return <option value={index}>{linkGroupName}</option>;
+        let groupSelectItems = this.props.linkGroupLabels.map((linkGroupLabel, index) => {
+            return <option value={index}>{linkGroupLabel}</option>;
         });
 
         let errorMessage;
