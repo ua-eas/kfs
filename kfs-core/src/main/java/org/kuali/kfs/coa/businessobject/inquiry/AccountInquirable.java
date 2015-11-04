@@ -18,19 +18,28 @@
  */
 package org.kuali.kfs.coa.businessobject.inquiry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRate;
-import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSParameterKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.inquiry.KualiInquirableImpl;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
@@ -41,6 +50,8 @@ import org.kuali.kfs.krad.util.UrlFactory;
  */
 public class AccountInquirable extends KualiInquirableImpl {
 
+	private ParameterService parameterService;
+	
     /**
      * @see org.kuali.kfs.kns.inquiry.KualiInquirableImpl#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject,
      *      java.lang.String, boolean)
@@ -70,6 +81,52 @@ public class AccountInquirable extends KualiInquirableImpl {
         }
 
         return super.getInquiryUrl(businessObject, attributeName, forceInquiry);
+    }
+    
+    @Override
+    @Deprecated
+    public List<Section> getSections(BusinessObject arg0) {
+    	List<Section> sections = super.getSections(arg0);
+		for(Section section : sections) {
+			for (Row row : section.getRows()) {
+				List<Field> updatedFields = new ArrayList<Field>();
+				for (Field field : row.getFields()) {
+					if(shouldIncludeField(field)) {
+						updatedFields.add(field);
+					}
+				}
+				row.setFields(updatedFields);
+			}
+		}
+		
+		return sections;
+	}
+    
+    protected boolean shouldIncludeField(Field field) {
+        boolean includeField = true;
+        if (field.getFieldHelpName().equalsIgnoreCase(KFSPropertyConstants.SOURCE_OF_FUNDS_TYPE_CODE)) {
+        	
+        	if (getParameterService().parameterExists(Account.class,  KFSParameterKeyConstants.CoaParameterConstants.DISPLAY_SOURCE_OF_FUNDS_IND)) {
+        		String sourceOfFundsParmValue = getParameterService().getParameterValueAsString(Account.class, KFSParameterKeyConstants.CoaParameterConstants.DISPLAY_SOURCE_OF_FUNDS_IND);
+    			
+            	if (sourceOfFundsParmValue.equalsIgnoreCase(KFSConstants.ParameterValues.YES)) {
+            		includeField = true;
+    			} else {
+    				includeField = false;
+    			}
+        	} else {
+        		includeField = false;
+        	}
+        	
+        }
+        return includeField;
+    }
+    
+    public ParameterService getParameterService() {
+        if(parameterService == null){
+            parameterService = (ParameterService)GlobalResourceLoader.getService( "parameterService" );
+        }
+        return parameterService;
     }
 
 }
