@@ -1,3 +1,6 @@
+import Immutable from 'immutable';
+
+
 let moveLinkElement = function(list, fromIndex, toIndex, fromType, toType) {
     let movingType = list.get(fromType);
     let movingElement = movingType.get(fromIndex);
@@ -12,6 +15,9 @@ let moveLinkElement = function(list, fromIndex, toIndex, fromType, toType) {
 
         // add to new type
         let moveToType = list.get(toType);
+        if (!moveToType) {
+            moveToType = Immutable.fromJS([]);
+        }
         let updatedMoveToType = moveToType.splice(toIndex, 0, movingElement);
 
         let partialUpdatedList = list.set(fromType, updatedMoveFromType);

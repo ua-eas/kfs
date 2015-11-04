@@ -62,11 +62,17 @@ div#linkGroupLinksList {
     width: 100%;
 }
 
-#linkGroupLinksList div.customLinkForm input {
+#linkGroupLinksList div.customLinkForm input,
+#linkGroupLinksList div.customLinkForm select {
     margin-bottom: 25px;
 }
 
-#linkGroupLinksList div.customLinkForm input[type=text] {
+#linkGroupLinksList div.customLinkForm select {
+    text-transform: uppercase;
+}
+
+#linkGroupLinksList div.customLinkForm input[type=text],
+#linkGroupLinksList div.customLinkForm select{
     width: 330px;
 }
 
