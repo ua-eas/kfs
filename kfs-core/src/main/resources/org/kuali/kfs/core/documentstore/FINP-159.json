@@ -2199,7 +2199,14 @@
                     {
                       "label": "Special Batch File Upload",
                       "link": "batchFileUpload",
-                      "linkType": "kfs"
+                      "linkType": "kfs",
+                      "permission": {
+                        "templateNamespace": "KR-SYS",
+                        "templateName": "Initiate Document",
+                        "details": {
+                          "documentTypeName": "GLCP"
+                        }
+                      }
                     },
                     {
                       "label": "State",
