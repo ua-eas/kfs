@@ -199,8 +199,14 @@ let InstitutionConfig = React.createClass({
                     hasChanges: false,
                     saveButtonText: <span style={spanStyle}><span className="glyphicon glyphicon-ok"></span>SAVED</span>
                 })
+                $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
+                let message = 'Save failed.';
+                if (err) {
+                    message = 'Save failed: ' + err;
+                }
+                $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)
         });
