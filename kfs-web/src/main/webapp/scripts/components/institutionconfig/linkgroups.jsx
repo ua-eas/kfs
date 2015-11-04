@@ -1,5 +1,15 @@
-import {buildSortableDropHandler} from './institutionconfigutils.js';
+import {buildGroupSortableDropHandler} from './institutionconfigutils.js';
 import {buildKeyFromLabel} from '../../sys/utils.js';
+
+
+let determinePanelClassName = function(expandedLinkGroup, label) {
+    let panelClassName = "linkgroup";
+    if (expandedLinkGroup === label) {
+        panelClassName += " active";
+    }
+    return panelClassName
+};
+
 
 let LinkGroups = React.createClass({
     contextTypes: {
@@ -8,15 +18,19 @@ let LinkGroups = React.createClass({
     },
     componentDidMount() {
         let self = this;
-        buildSortableDropHandler('linkGroupsList', self, 'linkGroups', 'updateLinkGroups');
+        buildGroupSortableDropHandler('linkGroupsList', self, 'linkGroups', 'updateLinkGroups');
     },
     render() {
-        let linkGroupElements = this.props.linkGroups.map((linkGroup, idx) => {
-            return <LinkGroup linkGroup={linkGroup}
-                              key={buildKeyFromLabel(linkGroup.get('label'))}
-                              expandedLinkGroup={this.props.expandedLinkGroup}
-                              linkGroupIndex={idx}/>
-        });
+        let linkGroupElements = [];
+        for (let idx = 0; idx < this.props.linkGroups.size; idx++) {
+            let linkGroup = this.props.linkGroups.get(idx);
+            linkGroupElements.push(
+                <LinkGroup linkGroup={linkGroup}
+                           key={buildKeyFromLabel(linkGroup.get('label'))}
+                           expandedLinkGroup={this.props.expandedLinkGroup}
+                           linkGroupIndex={idx}/>
+            );
+        }
         return (
             <ul id="linkGroupsList">
                 {linkGroupElements}
@@ -128,13 +142,5 @@ let LinkGroupLabel = React.createClass({
         return content
     }
 });
-
-var determinePanelClassName = function(expandedLinkGroup, label) {
-    let panelClassName = "linkgroup";
-    if (expandedLinkGroup === label) {
-        panelClassName += " active";
-    }
-    return panelClassName
-};
 
 export default LinkGroups;

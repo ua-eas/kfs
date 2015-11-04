@@ -161,32 +161,31 @@ var Sidebar = React.createClass({
     }
 });
 
-var filterLinks = function(links, type) {
+
+var convertLinks = function(links, type) {
     if (!links) {
         return "";
     }
-    return links.filter(function(link) {
-        return link.type === type
-    }).map((link, i) => {
+    return links.map((link, i) => {
         let target = link.linkType === 'kfs' ? null : '_blank';
         return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item" target={target}/>
     })
 }
 
 var buildDisplayLinks = function(links, type, checkedLinkFilters) {
-    let displayLinks = []
-    if (checkedLinkFilters && checkedLinkFilters.indexOf(type) != -1) {
-        displayLinks = filterLinks(links, type)
+    let displayLinks = [];
+    if (links && links[type] && checkedLinkFilters.indexOf(type) != -1) {
+        displayLinks = convertLinks(links[type], type);
     }
-    return displayLinks
+    return displayLinks;
 }
 
 var addHeading = function(links, type) {
-    let newLinks = []
+    let newLinks = [];
     if (links.length > 0) {
-        newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links)
+        newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links);
     }
-    return newLinks
+    return newLinks;
 }
 
 var determineSublinkClass = function(links, headingCount) {
