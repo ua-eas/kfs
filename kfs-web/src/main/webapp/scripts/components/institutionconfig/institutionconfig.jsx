@@ -75,7 +75,7 @@ let InstitutionConfig = React.createClass({
     },
     addNewLinkGroup() {
         let linkGroups = this.state.linkGroups;
-        let newLinkGroup = Immutable.fromJS({label: '', links: []});
+        let newLinkGroup = Immutable.fromJS({label: '', links: {}});
         let updatedLinkGroups = linkGroups.push(newLinkGroup);
         this.setState({linkGroups: updatedLinkGroups})
     },
@@ -84,38 +84,88 @@ let InstitutionConfig = React.createClass({
         let updatedLinkGroups = linkGroups.splice(index, 1);
         this.setState({linkGroups: updatedLinkGroups, hasChanges: true});
     },
-    addNewCustomLink(groupIndex, newLink) {
+    addNewCustomLink(groupIndex, newLink, newLinkType) {
         let linkGroups = this.state.linkGroups;
         let linkGroup = linkGroups.get(groupIndex);
-        let links = linkGroup.get('links');
+        let linksTypes = linkGroup.get('links');
+        let links = linksTypes.get(newLinkType);
+        if (!links) {
+            links = Immutable.fromJS([]);
+        }
         let updatedLinks = links.push(newLink);
-        let updatedLinkGroup = linkGroup.set('links', updatedLinks);
+        let updatedLinkType = linksTypes.set(newLinkType, updatedLinks);
+        let updatedLinkGroup = linkGroup.set('links', updatedLinkType);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
         this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
     },
-    updateExistingCustomLink(groupIndex, oldLink, updatedLink) {
+    updateExistingCustomLink(groupIndex, oldLink, oldLinkType, updatedGroupIndex, updatedLink, updatedLinkType) {
         let linkGroups = this.state.linkGroups;
         let linkGroup = linkGroups.get(groupIndex);
-        let links = linkGroup.get('links');
-        let index = -1;
+        let linkTypes = linkGroup.get('links');
+        let linksOldType = linkTypes.get(oldLinkType);
+        let linkIndex = -1;
 
-        let jsLinks = links.toJS();
+        let jsLinks = linksOldType.toJS();
         let jsOldLink = oldLink.toJS();
         _.each(jsLinks, function(data, idx) {
             if (_.isEqual(data, jsOldLink)) {
-                index = idx;
+                linkIndex = idx;
                 return;
             }
         });
-        let updatedLinks = links.set(index, updatedLink);
-        let updatedLinkGroup = linkGroup.set('links', updatedLinks);
-        let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
-        this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
+
+        if (groupIndex !== updatedGroupIndex) {
+            let moveToLinkGroup = linkGroups.get(updatedGroupIndex);
+
+            let updatedLinks = linksOldType.delete(linkIndex);
+            let updatedLinkTypes = linkTypes.set(oldLinkType, updatedLinks);
+
+            let moveToLinkTypes = moveToLinkGroup.get('links');
+            let moveToLinksType = moveToLinkTypes.get(updatedLinkType);
+            if (!moveToLinksType) {
+                moveToLinksType = Immutable.fromJS([]);
+            }
+            let updatedMoveToLinkType = moveToLinksType.push(updatedLink);
+            let updatedMoveToLinkTypes = moveToLinkTypes.set(updatedLinkType, updatedMoveToLinkType);
+
+            let updatedLinkGroup = linkGroup.set('links', updatedLinkTypes);
+            let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
+
+            let updatedMoveToLinkGroup = moveToLinkGroup.set('links', updatedMoveToLinkTypes);
+            let finalLinkGroups = updatedLinkGroups.set(updatedGroupIndex, updatedMoveToLinkGroup);
+
+            this.setState({'linkGroups': finalLinkGroups, hasChanges: true});
+        } else {
+            let updatedLinkTypes;
+            if (oldLinkType === updatedLinkType) {
+                let updatedLinks = linksOldType.set(linkIndex, updatedLink);
+                updatedLinkTypes = linkTypes.set(oldLinkType, updatedLinks);
+            } else {
+                // delete link from old type links
+                let updatedLinksOldType = linksOldType.delete(linkIndex);
+
+                // add link to new type links
+                let linksUpdatedType = linkTypes.get(updatedLinkType);
+                if (!linksUpdatedType) {
+                    linksUpdatedType = Immutable.fromJS([]);
+                }
+                let updatedLinksUpdatedType = linksUpdatedType.push(updatedLink);
+
+                // update links for both updated and old types
+                let partialUpdatedLinkTypes = linkTypes.set(oldLinkType, updatedLinksOldType);
+                updatedLinkTypes = partialUpdatedLinkTypes.set(updatedLinkType, updatedLinksUpdatedType);
+            }
+
+            let updatedLinkGroup = linkGroup.set('links', updatedLinkTypes);
+            let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
+            this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
+        }
     },
-    deleteExistingCustomLink(groupIndex, oldLink) {
+    deleteExistingCustomLink(groupIndex, type, oldLink) {
         let linkGroups = this.state.linkGroups;
         let linkGroup = linkGroups.get(groupIndex);
-        let links = linkGroup.get('links');
+        let linkTypes = linkGroup.get('links');
+        let links = linkTypes.get(type);
         let index = -1;
 
         let jsLinks = links.toJS();
@@ -127,7 +177,8 @@ let InstitutionConfig = React.createClass({
             }
         });
         let updatedLinks = links.delete(index);
-        let updatedLinkGroup = linkGroup.set('links', updatedLinks);
+        let updatedLinksType = linkTypes.set(type, updatedLinks);
+        let updatedLinkGroup = linkGroup.set('links', updatedLinksType);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
         this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
     },
@@ -148,8 +199,14 @@ let InstitutionConfig = React.createClass({
                     hasChanges: false,
                     saveButtonText: <span style={spanStyle}><span className="glyphicon glyphicon-ok"></span>SAVED</span>
                 })
+                $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
+                let message = 'Save failed.';
+                if (err) {
+                    message = 'Save failed: ' + err;
+                }
+                $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)
         });
