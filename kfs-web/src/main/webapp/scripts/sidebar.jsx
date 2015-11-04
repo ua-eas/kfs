@@ -6,7 +6,9 @@ let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return { principalName: "",institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: ""};
+        let userPreferences = {};
+        userPreferences.checkedLinkFilters = ["activities", "reference", "administration"];
+        return { principalName: "",institutionPreferences: {}, userPreferences: userPreferences, expandedLinkGroup: ""};
     },
     componentWillMount() {
         let thisComponent = this
@@ -174,7 +176,7 @@ var convertLinks = function(links, type) {
 
 var buildDisplayLinks = function(links, type, checkedLinkFilters) {
     let displayLinks = [];
-    if (links && links[type] && checkedLinkFilters.indexOf(type) != -1) {
+    if (links && links[type] && checkedLinkFilters && checkedLinkFilters.indexOf(type) != -1) {
         displayLinks = convertLinks(links[type], type);
     }
     return displayLinks;
