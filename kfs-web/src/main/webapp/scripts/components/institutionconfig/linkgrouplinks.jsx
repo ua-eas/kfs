@@ -112,9 +112,12 @@ let SubLinkGroup = React.createClass({
         }
     },
     updateCustomLink() {
-        let errorObj = validateForm(this.state.newLink.get('label'), this.state.newLink.get('link'));
+        let errorObj;
+        if (this.state.newLink.get('linkType') === 'custom') {
+            errorObj = validateForm(this.state.newLink.get('label'), this.state.newLink.get('link'));
+        }
 
-        if (errorObj.errors.length < 1) {
+        if (!errorObj || errorObj.errors.length < 1) {
             this.context.updateExistingCustomLink(this.props.groupIndex, this.state.oldLink, this.state.oldLinkType,
                 this.state.moveToGroupIndex, this.state.newLink, this.state.newLinkType);
             this.replaceState({
@@ -162,15 +165,6 @@ let SubLinkGroup = React.createClass({
         let labelClass = this.state.errors.indexOf('label') > -1 ? 'error' : '';
         let linkClass = this.state.errors.indexOf('link') > -1 ? 'error' : '';
 
-        let formActionFunction = this.addCustomLink;
-        let formActionText = 'Add';
-        let deleteButton;
-        if (this.state.update) {
-            formActionFunction = this.updateCustomLink;
-            formActionText = 'Update';
-            deleteButton = <button className="btn btn-default" onClick={this.deleteCustomLink}>Delete</button>
-        }
-
         let groupSelectItems = this.props.linkGroupNames.map((linkGroupName, index) => {
             return <option value={index}>{linkGroupName}</option>;
         });
@@ -183,16 +177,41 @@ let SubLinkGroup = React.createClass({
             errorMessage = <ul className="errorMessages">{messages}</ul>;
         }
 
+        let editLinkName;
+        let editLinkURL;
+        let deleteButton;
+        let formActionFunction = this.updateCustomLink;
+        let formActionText = 'Update';
+        if (this.state.newLink.get('linkType') === 'custom') {
+            editLinkName = (
+                <div>
+                    <div><label>LINK NAME:</label></div>
+                    <div><input className={labelClass} type="text" value={this.state.newLink.get('label')} onChange={this.updateNewLinkValue.bind(null, 'label')}/></div>
+                </div>
+            );
+            editLinkURL = (
+                <div>
+                    <div><label>URL:</label></div>
+                    <div><input className={linkClass} type="text" value={this.state.newLink.get('link')} onChange={this.updateNewLinkValue.bind(null, 'link')}/></div>
+                </div>
+            );
+
+            if (!this.state.update) {
+                formActionFunction = this.addCustomLink;
+                formActionText = 'Add';
+            } else {
+                deleteButton = <button className="btn btn-default" onClick={this.deleteCustomLink}>Delete</button>
+            }
+        }
+
         return (
             <div id={this.props.id + "-menu"} className={divClassName}>
                 <div className="addCustomLink">
                     <button className="btn btn-default" onClick={this.openAddCustomLink}><span className="glyphicon glyphicon-plus"></span>Add Custom Link</button>
                     <div className={formClass}>
                         {errorMessage}
-                        <div><label>LINK NAME:</label></div>
-                        <div><input className={labelClass} type="text" value={this.state.newLink.get('label')} onChange={this.updateNewLinkValue.bind(null, 'label')}/></div>
-                        <div><label>URL:</label></div>
-                        <div><input className={linkClass} type="text" value={this.state.newLink.get('link')} onChange={this.updateNewLinkValue.bind(null, 'link')}/></div>
+                        {editLinkName}
+                        {editLinkURL}
                         <div>
                             <input checked={this.state.newLinkType === 'activities'} type="radio" value="activities" id={this.props.id + "-activities-radio"} onChange={this.updateNewLinkType}/>
                             <label htmlFor={this.props.id + "-activities-radio"}>Activities</label>
@@ -272,18 +291,17 @@ let SubLinkTypeLinks = React.createClass({
         let linkElements = []
         if (this.props.links && this.props.links.count() > 0) {
             linkElements = this.props.links.map((link, idx) => {
-                let edit;
-                if (link.get('linkType') === 'custom') {
-                    edit = <span className="editLink" onClick={this.context.openUpdateCustomLink.bind(null, link, this.props.type)}>edit</span>;
-                }
                 return (
-                <li key={idx}>
-                        <span className="list-group-item">
-                            <span className="move"></span>
-                            {link.get('label')}
-                            <div className="actions">{edit}</div>
-                        </span>
-                </li>);
+                    <li key={idx}>
+                            <span className="list-group-item">
+                                <span className="move"></span>
+                                {link.get('label')}
+                                <div className="actions">
+                                    <span className="editLink" onClick={this.context.openUpdateCustomLink.bind(null, link, this.props.type)}>edit</span>
+                                </div>
+                            </span>
+                    </li>
+                );
             });
         } else {
             linkElements = <li><span className="list-group-item empty"></span></li>;
