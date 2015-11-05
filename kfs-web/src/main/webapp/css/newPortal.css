@@ -252,6 +252,24 @@ nav ul.nav li {
     opacity: 1;
 }
 
+#sidebar ul>li.search>span {
+    margin-left: -45px;
+    color: #BCBCBC;
+    cursor: pointer;
+}
+
+#sidebar ul>li.search input {
+    margin: 15px 19px;
+    padding: 7px;
+    border-radius: 2px;
+    height: 36px;
+    width: 280px;
+    border: 1px solid #CCCCCC;
+    font-size: 16px;
+    color: #767676;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,.15);
+}
+
 #sidebar.collapsed ul>li.list-item {
     opacity: 0;
 }
@@ -383,6 +401,8 @@ nav ul.nav li {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     max-height: 550px;
+    min-height: 75px;
+    overflow-x: auto;
 }
 
 #sidebar .nav li .sublinks.col-3 {
