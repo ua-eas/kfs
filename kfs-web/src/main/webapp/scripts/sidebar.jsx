@@ -61,6 +61,31 @@ var Sidebar = React.createClass({
             console.log("error getting preferences: " + error);
         });
     },
+    componentDidUpdate() {
+        let newClass;
+        let activePanel = $('li.panel.active>.sublinks');
+
+        if (activePanel.offset()) {
+            let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            let panelHeight = activePanel.outerHeight();
+            let distanceFromTop = activePanel.offset().top - window.pageYOffset;
+            let distanceFromBottom = viewportHeight - (distanceFromTop + panelHeight);
+            let distanceFromBottomOfPage = $('body').height() - (activePanel.offset().top + panelHeight);
+            if (distanceFromTop - panelHeight / 2 > 60 && distanceFromBottom + panelHeight / 2 > 0 && distanceFromBottomOfPage + panelHeight / 2 > 60) {
+                newClass = 'flowCenter';
+            } else if ((distanceFromBottom < 60 && distanceFromTop - panelHeight > 60) || distanceFromBottomOfPage < 60) {
+                newClass = 'flowUp';
+            }
+
+            if (newClass) {
+                activePanel.addClass(newClass);
+                if (newClass === 'flowCenter') {
+                    let activeGroupAdjust = $('li.panel.active').outerHeight() / 2;
+                    activePanel.css('bottom', '-' + (panelHeight / 2 - activeGroupAdjust) + 'px');
+                }
+            }
+        }
+    },
     modifyLinkFilter(type) {
         let userPreferences = this.state.userPreferences;
         let newChecked = userPreferences.checkedLinkFilters;
@@ -75,18 +100,22 @@ var Sidebar = React.createClass({
     },
     toggleLinkGroup(label) {
         if (this.state.expandedLinkGroup === label) {
-            this.setState({expandedLinkGroup: ""})
-            $('#content-overlay').removeClass('visible')
-            $('html').off('click','**')
+            this.setState({expandedLinkGroup: ""});
+            $('li.panel.active>.sublinks').removeClass('flowUp flowCenter');
+            $('li.panel.active>.sublinks').css('bottom', '');
+            $('#content-overlay').removeClass('visible');
+            $('html').off('click','**');
         } else {
-            this.setState({expandedLinkGroup: label})
-            $('#content-overlay').addClass('visible')
-            let sidebar = this
+            this.setState({expandedLinkGroup: label});
+            $('#content-overlay').addClass('visible');
+            let sidebar = this;
             $('html').on('click',function(event) {
                 if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
-                    $('li.panel.active').removeClass('active')
-                    $('#content-overlay').removeClass('visible')
-                    sidebar.setState({expandedLinkGroup: ""})
+                    $('li.panel.active>.sublinks').removeClass('flowUp flowCenter');
+                    $('li.panel.active>.sublinks').css('bottom', '');
+                    $('li.panel.active').removeClass('active');
+                    $('#content-overlay').removeClass('visible');
+                    sidebar.setState({expandedLinkGroup: ""});
                 }
             });
         }

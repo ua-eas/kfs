@@ -439,6 +439,18 @@ nav ul.nav li {
     display: block;
 }
 
+#sidebar .nav li.panel.active .sublinks.flowUp {
+    bottom: 0;
+    top: inherit;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 3px;
+}
+
+#sidebar .nav li.panel.active .sublinks.flowCenter {
+    top: inherit;
+    border-top-left-radius: 3px;
+}
+
 #sidebar .nav li .sublinks a,
 #sidebar .nav li.panel .sublinks h4 {
     margin: 0;
