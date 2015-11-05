@@ -252,7 +252,7 @@ nav ul.nav li {
     opacity: 1;
 }
 
-#sidebar ul>li.search span {
+#sidebar ul>li.search>span {
     margin-left: -45px;
     color: #BCBCBC;
     cursor: pointer;
@@ -401,6 +401,8 @@ nav ul.nav li {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     max-height: 550px;
+    min-height: 75px;
+    overflow-x: auto;
 }
 
 #sidebar .nav li .sublinks.col-3 {

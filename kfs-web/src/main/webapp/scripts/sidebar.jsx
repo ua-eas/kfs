@@ -8,7 +8,14 @@ var Sidebar = React.createClass({
     getInitialState() {
         let userPreferences = {};
         userPreferences.checkedLinkFilters = ["activities", "reference", "administration"];
-        return { principalName: "", institutionPreferences: {}, userPreferences: userPreferences, expandedLinkGroup: "", expandedSearch: false};
+        return { principalName: "",
+            institutionPreferences: {},
+            userPreferences: userPreferences,
+            expandedLinkGroup: "",
+            expandedSearch: false,
+            search: '',
+            searchResults: undefined
+        };
     },
     componentWillMount() {
         let thisComponent = this
@@ -125,9 +132,9 @@ var Sidebar = React.createClass({
     },
     autocompleteSearch(event) {
         let searchString = event.target.value;
-        let expandedSearch = searchString.length > 0;
+        let expandedSearch = searchString.length > 2;
 
-        let newState = {'search': searchString, 'expandedSearch': expandedSearch};
+        let newState = {'search': searchString, 'expandedSearch': expandedSearch, expandedLinkGroup: ""};
 
         if (!expandedSearch) {
             $('#content-overlay').removeClass('visible');
@@ -149,7 +156,15 @@ var Sidebar = React.createClass({
                 let groupLinks = linkGroup.links;
                 for (let groupLinkType of Object.keys(groupLinks)) {
                     let linksOfType = groupLinks[groupLinkType];
-                    let filteredLinks = linksOfType.filter(link => link.label.toLowerCase().indexOf(lowerSearchString) != -1);
+                    let filteredLinks = linksOfType.filter(link => {
+                        return link.label.toLowerCase().indexOf(lowerSearchString) != -1;
+                    }).map(link => {
+                        let newLink = $.extend(true, {}, link);
+                        let searchPattern = new RegExp('('+searchString+')', 'ig');
+                        let splitLabel = newLink.label.split(searchPattern);
+                        newLink.label = splitLabel.map(piece => piece.toLowerCase() === lowerSearchString ? <strong>{piece}</strong> : piece);
+                        return newLink;
+                    });
                     groupResults = groupResults.concat(filteredLinks);
                 }
                 if (groupResults.length > 0) {
@@ -163,8 +178,14 @@ var Sidebar = React.createClass({
         this.setState(newState);
     },
     clearSearch() {
-        this.setState({'search': ''});
         this.refs.searchBox.getDOMNode().focus();
+        this.setState({'search': '', 'searchResults': undefined});
+    },
+    closeSearch() {
+        $('li.search.panel.active').removeClass('active');
+        $('#content-overlay').removeClass('visible');
+        $('html').off('click','**');
+        this.setState({expandedSearch: false});
     },
     render() {
         let rootPath = KfsUtils.getUrlPathPrefix();
@@ -194,20 +215,22 @@ var Sidebar = React.createClass({
         }
 
         let searchResultsClass;
-        let searchResults = 'No results found';
-        if (this.state.searchResults) {
+        let searchResults = <div className="sublinks collapse">No results found</div>;
+        if (this.state.searchResults && Object.keys(this.state.searchResults).length > 0) {
             let finalLinks = [];
             let groupCount = 0;
             for (let resultGroup of Object.keys(this.state.searchResults)) {
-                let displayLinks = convertLinks(this.state.searchResults[resultGroup], 'navSearch');
+                let displayLinks = convertLinks(this.state.searchResults[resultGroup], 'navSearch' + resultGroup);
                 finalLinks = finalLinks.concat(addHeading(displayLinks, resultGroup));
                 groupCount++;
             }
-            searchResults = <div>{finalLinks}</div>;
+            searchResults = finalLinks;
 
             if (groupCount > 0) {
                 groupCount--
             }
+
+            searchResults.push(<button type="button" className="close" onClick={this.closeSearch}><span aria-hidden="true">&times;</span></button>);
 
             searchResultsClass = determineSublinkClass(finalLinks, groupCount)
         }
