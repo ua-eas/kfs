@@ -8,7 +8,7 @@ var Sidebar = React.createClass({
     getInitialState() {
         let userPreferences = {};
         userPreferences.checkedLinkFilters = ["activities", "reference", "administration"];
-        return { principalName: "",institutionPreferences: {}, userPreferences: userPreferences, expandedLinkGroup: ""};
+        return { principalName: "", institutionPreferences: {}, userPreferences: userPreferences, expandedLinkGroup: "", expandedSearch: false};
     },
     componentWillMount() {
         let thisComponent = this
@@ -111,21 +111,64 @@ var Sidebar = React.createClass({
                 xhr.setRequestHeader('cache-control', 'must-revalidate')
             },
             success: function (preferences) {
-                thisComponent.setState({institutionPreferences: preferences})
-                preferences.sessionId = KfsUtils.getKualiSessionId()
-                localStorage.setItem("institutionPreferences", JSON.stringify(preferences))
-                $('.cover').hide()
+                thisComponent.setState({institutionPreferences: preferences});
+                preferences.sessionId = KfsUtils.getKualiSessionId();
+                localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                $('.cover').hide();
                 $('.sidebar-waiting').hide()
             }.bind(this),
             error: function (xhr, status, err) {
-                $('#sidebar').removeClass('sidebar-dim')
+                $('#sidebar').removeClass('sidebar-dim');
                 console.error(status, err.toString())
             }.bind(this)
         })
     },
+    autocompleteSearch(event) {
+        let searchString = event.target.value;
+        let expandedSearch = searchString.length > 0;
+
+        let newState = {'search': searchString, 'expandedSearch': expandedSearch};
+
+        if (!expandedSearch) {
+            $('#content-overlay').removeClass('visible');
+            $('html').off('click','**')
+        } else {
+            $('#content-overlay').addClass('visible');
+            $('html').on('click', event => {
+                if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
+                    $('li.panel.active').removeClass('active');
+                    $('#content-overlay').removeClass('visible');
+                    this.setState({expandedSearch: false});
+                }
+            });
+
+            let results = {};
+            let lowerSearchString = searchString.toLowerCase();
+            this.state.institutionPreferences.linkGroups.forEach(linkGroup => {
+                let groupResults = [];
+                let groupLinks = linkGroup.links;
+                for (let groupLinkType of Object.keys(groupLinks)) {
+                    let linksOfType = groupLinks[groupLinkType];
+                    let filteredLinks = linksOfType.filter(link => link.label.toLowerCase().indexOf(lowerSearchString) != -1);
+                    groupResults = groupResults.concat(filteredLinks);
+                }
+                if (groupResults.length > 0) {
+                    results[linkGroup.label] = groupResults;
+                }
+            });
+
+            newState.searchResults = results;
+        }
+
+        this.setState(newState);
+    },
+    clearSearch() {
+        this.setState({'search': ''});
+        this.refs.searchBox.getDOMNode().focus();
+    },
     render() {
-        let rootPath = KfsUtils.getUrlPathPrefix()
-        let linkGroups = []
+        let rootPath = KfsUtils.getUrlPathPrefix();
+        let linkGroups = [];
         if (this.state.institutionPreferences.linkGroups) {
             let groups = this.state.institutionPreferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
@@ -145,12 +188,43 @@ var Sidebar = React.createClass({
             $('#sidebar').addClass('collapsed');
         }
 
+        let navSearchClass = "search list-item panel";
+        if (this.state.expandedSearch) {
+            navSearchClass += " active";
+        }
+
+        let searchResultsClass;
+        let searchResults = 'No results found';
+        if (this.state.searchResults) {
+            let finalLinks = [];
+            let groupCount = 0;
+            for (let resultGroup of Object.keys(this.state.searchResults)) {
+                let displayLinks = convertLinks(this.state.searchResults[resultGroup], 'navSearch');
+                finalLinks = finalLinks.concat(addHeading(displayLinks, resultGroup));
+                groupCount++;
+            }
+            searchResults = <div>{finalLinks}</div>;
+
+            if (groupCount > 0) {
+                groupCount--
+            }
+
+            searchResultsClass = determineSublinkClass(finalLinks, groupCount)
+        }
+
         return (
             <div>
                 <div className="cover"></div>
                 <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
                 <ul id="linkgroups" className="nav list-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
+                    <li className={navSearchClass}>
+                        <input type="search" placeholder="Search" onChange={this.autocompleteSearch} value={this.state.search} ref="searchBox" onFocus={this.autocompleteSearch} />
+                        <span className="glyphicon glyphicon-remove" onClick={this.clearSearch}></span>
+                        <div className={searchResultsClass}>
+                            {searchResults}
+                        </div>
+                    </li>
                     <li className="list-item"><LinkFilter checkedLinkFilters={this.state.userPreferences.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
@@ -191,21 +265,21 @@ var addHeading = function(links, type) {
 }
 
 var determineSublinkClass = function(links, headingCount) {
-    let sublinksClass = "sublinks collapse"
+    let sublinksClass = "sublinks collapse";
     if (links.length > (36 - headingCount)) {
-        sublinksClass += " col-3"
+        sublinksClass += " col-3";
     } else if (links.length > (18 - headingCount)) {
-        sublinksClass += " col-2"
+        sublinksClass += " col-2";
     }
-    return sublinksClass
+    return sublinksClass;
 }
 
 var determinePanelClassName = function(expandedLinkGroup, label) {
-    let panelClassName = "panel list-item"
+    let panelClassName = "panel list-item";
     if (expandedLinkGroup === label) {
-        panelClassName += " active"
+        panelClassName += " active";
     }
-    return panelClassName
+    return panelClassName;
 }
 
 var LinkGroup = React.createClass({
