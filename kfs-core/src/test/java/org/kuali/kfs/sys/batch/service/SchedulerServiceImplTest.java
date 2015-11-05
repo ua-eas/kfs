@@ -267,11 +267,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
     }
 
     public void test2ndExecutionOfJobAfterJobInterrupt() throws Exception {
-        JobDescriptor jd = SpringContext.getBean(JobDescriptor.class, "scrubberJob");
         SchedulerService s = SpringContext.getBean(SchedulerService.class);
-        // need to ensure that the job does not already have a status
-//        s.updateStatus(jd.getJobDetail(), null);
-        // this will put scrubberJob into a Cancelled state
 
         // We need to give this next part 30 seconds - scheduling this for a future execution
         Date secondRunTime = new Date( System.currentTimeMillis() + 30000L );
@@ -298,7 +294,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
         // provide an "out" in case things fail badly
         int waitCount = 0;
         while (!job.isRunning() && waitCount < 100) {
-            Thread.sleep(50);
+            Thread.sleep(20);
             waitCount++;
         }
         job = s.getJob(SchedulerService.SCHEDULED_GROUP, "scrubberJob");
