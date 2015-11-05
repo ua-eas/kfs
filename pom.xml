@@ -127,7 +127,6 @@
     <jta.version>1.1</jta.version>
     <junit.version>4.9</junit.version>
     <kfs.help.version>5.4.0</kfs.help.version>
-    <liquibase.version>3.3.2</liquibase.version>
     <datatools.version>1.0.0-SNAPSHOT</datatools.version>
     <maven.compiler.version>3.3</maven.compiler.version>
     <mockito-core.version>1.9.0</mockito-core.version>
@@ -1086,11 +1085,6 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.liquibase</groupId>
-      <artifactId>liquibase-core</artifactId>
-      <version>${liquibase.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
