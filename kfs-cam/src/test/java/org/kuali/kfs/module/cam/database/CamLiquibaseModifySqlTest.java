@@ -23,7 +23,12 @@ import org.kuali.kfs.sys.database.LiquibaseTestBase;
 
 public class CamLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
-    public void testCam() throws Exception {
+    public void testForDateColumn() throws Exception {
+        testForDateColumn("/org/kuali/kfs/module/cam/db/phase1/kfs-cam_createTable.xml");
+    }
+
+    @Test
+    public void testForMissingModifySql() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/module/cam/db/phase1/kfs-cam_createTable.xml");
     }
 }
