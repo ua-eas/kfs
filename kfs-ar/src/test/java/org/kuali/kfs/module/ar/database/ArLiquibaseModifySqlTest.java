@@ -23,7 +23,12 @@ import org.kuali.kfs.sys.database.LiquibaseTestBase;
 
 public class ArLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
-    public void testAr() throws Exception {
+    public void testForDateColumn() throws Exception {
+        testForDateColumn("/org/kuali/kfs/module/ar/db/phase1/kfs-ar_createTable.xml");
+    }
+
+    @Test
+    public void testForMissingModifySql() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/module/ar/db/phase1/kfs-ar_createTable.xml");
     }
 }

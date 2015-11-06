@@ -29,29 +29,48 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LiquibaseTestBase {
     protected void testForMissingModifySql(String filename) throws IOException, SAXException, ParserConfigurationException {
-        List<String> badTables = new ArrayList<>();
-
         Element rootElement = parseFile(filename);
         NodeList children = rootElement.getChildNodes();
 
+        boolean found = false;
         for ( int i = 0; i < children.getLength(); i++ ) {
             Node child = children.item(i);
             if ( child.getNodeType() == Node.ELEMENT_NODE ) {
                 if ( isCreateTableMissingModifySql(child) ) {
                     Node createTableNode = getNodeByName(child,"createTable");
-                    badTables.add(getTableName(createTableNode));
+                    System.out.println("Table missing a valid modifySql: " + getTableName(createTableNode));
+                    found = true;
                 }
             }
         }
 
-        if (badTables.size() > 0) {
-            badTables.forEach(t -> System.out.println("Table missing modifySql: " + t));
-            throw new RuntimeException("Some tables are missing modifySql");
+        if (found) {
+            throw new RuntimeException("Some tables are missing a valid modifySql");
+        }
+    }
+
+    protected void testForDateColumn(String filename) throws IOException, SAXException, ParserConfigurationException {
+        Element rootElement = parseFile(filename);
+        NodeList children = rootElement.getChildNodes();
+
+        boolean found = false;
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                Node createTableNode = getNodeByName(child,"createTable");
+
+                if ( tableContainsFieldOfType(createTableNode, "DATE")) {
+                    System.out.println("Table contains DATE column instead of DATETIME: " + getTableName(createTableNode));
+                    found = true;
+                }
+            }
+        }
+
+        if (found) {
+            throw new RuntimeException("Some tables contain DATE column instead of DATETIME");
         }
     }
 
@@ -59,9 +78,28 @@ public class LiquibaseTestBase {
         Node createTableNode = getNodeByName(changeSet,"createTable");
         Node modifySql = getNodeByName(changeSet,"modifySql");
 
-        if ( tableContainsDate(createTableNode) ) {
+        if ( tableContainsFieldOfType(createTableNode, "DATETIME") ) {
             if ( modifySql == null ) {
                 return true;
+            } else {
+                Element modifySqlElement = (Element)modifySql;
+                String dbms = modifySqlElement.getAttribute("dbms");
+                if ( ! "oracle".equals(dbms) ) {
+                    return true;
+                }
+                Node replaceNode = getNodeByName(modifySql,"replace");
+                if ( replaceNode == null ) {
+                    return false;
+                }
+                Element replaceNodeElement = (Element)replaceNode;
+                String replace = replaceNodeElement.getAttribute("replace");
+                String with = replaceNodeElement.getAttribute("with");
+                if ( ! "TIMESTAMP".equals(replace) ) {
+                    return true;
+                }
+                if ( ! "DATE".equals(with) ) {
+                    return true;
+                }
             }
         }
         return false;
@@ -72,13 +110,13 @@ public class LiquibaseTestBase {
         return e.getAttribute("tableName");
     }
 
-    protected boolean tableContainsDate(Node createTableNode) {
+    protected boolean tableContainsFieldOfType(Node createTableNode,String columnType) {
         NodeList children = createTableNode.getChildNodes();
         for ( int i = 0; i < children.getLength(); i++ ) {
             Node child = children.item(i);
             if (child.getNodeType() == Node.ELEMENT_NODE) {
                 Element column = (Element)child;
-                if ( "DATE".equals(column.getAttribute("type")) ) {
+                if ( columnType.equals(column.getAttribute("type")) ) {
                     return true;
                 }
             }
