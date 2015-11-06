@@ -1065,7 +1065,7 @@
             <column defaultValue="" name="EMPLID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="POS_CSF_CREATE_TM" type="DATE">
+            <column name="POS_CSF_CREATE_TM" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="OBJ_ID" type="VARCHAR(36)">
@@ -1082,9 +1082,12 @@
             <column name="EMPL_RCD" type="DECIMAL(3)"/>
             <column name="ERNCD" type="VARCHAR(3)"/>
             <column name="ADDL_SEQ" type="DECIMAL(2)"/>
-            <column name="EFFDT" type="DATE"/>
+            <column name="EFFDT" type="DATETIME"/>
             <column name="EFFSEQ" type="DECIMAL(3)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2760" context="bootstrap,demo,unit">
         <createTable tableName="LD_ERROR_CERT_T">
@@ -1200,10 +1203,13 @@
             <column name="FDOC_NXT_LINE_NBR" type="DECIMAL(7)"/>
             <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
             <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
-            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
             <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
             <column name="FDOC_OFST_TYP_CD" type="VARCHAR(4)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2765" context="bootstrap,demo,unit">
         <createTable tableName="LD_JRNL_VCHR_DTL_T">
@@ -1238,7 +1244,7 @@
             <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
             <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
             <column name="POSITION_NBR" type="VARCHAR(8)"/>
-            <column name="PAY_PERIOD_END_DT" type="DATE"/>
+            <column name="PAY_PERIOD_END_DT" type="DATETIME"/>
             <column name="TRN_TOTAL_HR" type="DECIMAL(9, 2)"/>
             <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
             <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
@@ -1257,6 +1263,9 @@
             <column name="COMPANY" type="VARCHAR(3)"/>
             <column name="SETID" type="VARCHAR(5)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2766" context="bootstrap,demo,unit">
         <createTable tableName="LD_JULY1_POS_FND_T">
@@ -1387,16 +1396,19 @@
             <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
             <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
             <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-            <column name="TRANSACTION_DT" type="DATE"/>
+            <column name="TRANSACTION_DT" type="DATETIME"/>
             <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
             <column name="PROJECT_CD" type="VARCHAR(10)"/>
             <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
             <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
             <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
             <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
             <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2770" context="bootstrap,demo,unit">
         <createTable tableName="LD_LBR_OBJ_BENE_T">
@@ -1531,8 +1543,11 @@
             <column name="MO11_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
             <column name="MO12_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
             <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
-            <column name="TIMESTAMP" type="DATE"/>
+            <column name="TIMESTAMP" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2773" context="bootstrap,demo,unit">
         <createTable tableName="LD_LDGR_ENTR_HIST_T">
@@ -1613,16 +1628,16 @@
             <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
             <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
             <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-            <column name="TRANSACTION_DT" type="DATE"/>
+            <column name="TRANSACTION_DT" type="DATETIME"/>
             <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
             <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
             <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
             <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
             <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
             <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
-            <column name="TRN_POST_DT" type="DATE"/>
-            <column name="PAY_PERIOD_END_DT" type="DATE"/>
+            <column name="TRN_POST_DT" type="DATETIME"/>
+            <column name="PAY_PERIOD_END_DT" type="DATETIME"/>
             <column name="TRN_TOTAL_HR" type="DECIMAL(8, 2)"/>
             <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
             <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
@@ -1640,8 +1655,11 @@
             <column name="LL_ORIG_FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
             <column name="COMPANY" type="VARCHAR(3)"/>
             <column name="SETID" type="VARCHAR(5)"/>
-            <column name="TIMESTAMP" type="DATE"/>
+            <column name="TIMESTAMP" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2775" context="bootstrap,demo,unit">
         <createTable tableName="LD_PND_LDGR_ENTR_T">
@@ -1675,22 +1693,22 @@
             <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
             <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
             <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-            <column name="TRANSACTION_DT" type="DATE"/>
+            <column name="TRANSACTION_DT" type="DATETIME"/>
             <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
             <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
             <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
             <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
             <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-            <column name="FDOC_REVERSAL_DT" type="DATE"/>
+            <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
             <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
-            <column name="TRN_POST_DT" type="DATE"/>
-            <column name="PAY_PERIOD_END_DT" type="DATE"/>
+            <column name="TRN_POST_DT" type="DATETIME"/>
+            <column name="PAY_PERIOD_END_DT" type="DATETIME"/>
             <column name="TRN_TOTAL_HR" type="DECIMAL(8, 2)"/>
             <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
             <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
             <column name="FDOC_APPROVED_CD" type="VARCHAR(1)"/>
             <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
-            <column name="TRNENTR_PROCESS_TM" type="DATE"/>
+            <column name="TRNENTR_PROCESS_TM" type="DATETIME"/>
             <column name="EMPLID" type="VARCHAR(40)"/>
             <column name="EMPL_RCD" type="DECIMAL(3)"/>
             <column name="ERNCD" type="VARCHAR(3)"/>
@@ -1705,8 +1723,11 @@
             <column name="LL_ORIG_FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
             <column name="COMPANY" type="VARCHAR(3)"/>
             <column name="SETID" type="VARCHAR(5)"/>
-            <column name="TIMESTAMP" type="DATE"/>
+            <column name="TIMESTAMP" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2776" context="bootstrap,demo,unit">
         <createTable tableName="LD_POS_OBJ_GRP_T">
@@ -1730,7 +1751,7 @@
             <column defaultValue="" name="POSITION_NBR" type="VARCHAR(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="EFFDT" type="DATE">
+            <column name="EFFDT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="OBJ_ID" type="VARCHAR(36)">
@@ -1758,7 +1779,7 @@
             <column name="POSN_STATUS" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="STATUS_DT" type="DATE"/>
+            <column name="STATUS_DT" type="DATETIME"/>
             <column name="BUDGETED_POSN" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
@@ -1781,5 +1802,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
 </databaseChangeLog>

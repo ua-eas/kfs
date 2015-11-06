@@ -167,7 +167,7 @@
             <column name="LBR_ET_FSCL_YR" type="DECIMAL(4)"/>
             <column name="LBR_ET_FSCL_PRD_CD" type="VARCHAR(2)"/>
             <column name="A21_LBR_RPT_TYP_CD" type="VARCHAR(2)"/>
-            <column name="A21LBR_RPT_RTRN_DT" type="DATE"/>
+            <column name="A21LBR_RPT_RTRN_DT" type="DATETIME"/>
             <column name="LBR_RPT_BEG_FSCL_YR" type="DECIMAL(4)"/>
             <column name="LBR_RPT_BEG_FSCL_PRD_CD" type="VARCHAR(2)"/>
             <column name="LBR_RPT_END_FSCL_YR" type="DECIMAL(4)"/>
@@ -176,6 +176,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="3985" context="bootstrap,demo,unit">
         <createTable tableName="LD_A21_RPT_EARN_PAY_T">

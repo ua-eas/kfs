@@ -16,19 +16,19 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.bc.database;
+package org.kuali.kfs.module.purap.database;
 
 import org.junit.Test;
 import org.kuali.kfs.sys.database.LiquibaseTestBase;
 
-public class BcLiquibaseModifySqlTest extends LiquibaseTestBase {
+public class PurapLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
     public void testForDateColumn() throws Exception {
-        testForDateColumn("/org/kuali/kfs/module/bc/db/phase1/kfs-bc_createTable.xml");
+        testForDateColumn("/org/kuali/kfs/module/purap/db/phase1/kfs-purap_createTable.xml");
     }
 
     @Test
     public void testForMissingModifySql() throws Exception {
-        testForMissingModifySql("/org/kuali/kfs/module/bc/db/phase1/kfs-bc_createTable.xml");
+        testForMissingModifySql("/org/kuali/kfs/module/purap/db/phase1/kfs-purap_createTable.xml");
     }
 }
