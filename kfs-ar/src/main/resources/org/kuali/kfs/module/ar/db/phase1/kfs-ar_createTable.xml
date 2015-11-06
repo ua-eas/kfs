@@ -77,7 +77,7 @@
             </column>
             <column name="PRPSL_NBR" type="DECIMAL(12)"/>
             <column name="BILL_NBR" type="DECIMAL(12)"/>
-            <column name="BILL_DT" type="DATETIME"/>
+            <column name="BILL_DT" type="DATE"/>
             <column name="EST_AMT" type="DECIMAL(19, 2)"/>
             <column name="BILLED_IND" type="VARCHAR(5)"/>
             <column name="BILL_DESC" type="VARCHAR(100)"/>
@@ -85,8 +85,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="603" context="bootstrap,demo,unit">

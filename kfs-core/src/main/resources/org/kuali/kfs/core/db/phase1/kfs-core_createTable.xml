@@ -2677,12 +2677,12 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(1)"/>
       <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1056" context="bootstrap,demo,unit">
@@ -2714,12 +2714,12 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1057" context="bootstrap,demo,unit">
@@ -2751,10 +2751,10 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1058" context="bootstrap,demo,unit">
@@ -2786,15 +2786,15 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(1)"/>
       <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
       <column name="CONS_FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="FIN_CONS_OBJ_CD" type="VARCHAR(4)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1059" context="bootstrap,demo,unit">
@@ -2823,13 +2823,13 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1060" context="bootstrap,demo,unit">
@@ -2858,12 +2858,12 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1061" context="bootstrap,demo,unit">
@@ -3737,10 +3737,10 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="2716" context="bootstrap,demo,unit">
@@ -3785,10 +3785,10 @@
       <column name="MO11_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
       <column name="MO12_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
       <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="2717" context="bootstrap,demo,unit">
@@ -3993,14 +3993,14 @@
         <constraints nullable="false"/>
       </column>
       <column name="TRN_ENCUM_DESC" type="VARCHAR(40)"/>
-      <column name="TRN_ENCUM_DT" type="DATETIME"/>
+      <column name="TRN_ENCUM_DT" type="DATE"/>
       <column name="ACLN_ENCUM_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_CLS_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_PRG_CD" type="VARCHAR(1)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1102" context="bootstrap,demo,unit">
@@ -4072,20 +4072,20 @@
       <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
       <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
       <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-      <column name="TRANSACTION_DT" type="DATETIME"/>
+      <column name="TRANSACTION_DT" type="DATE"/>
       <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
       <column name="PROJECT_CD" type="VARCHAR(10)"/>
       <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
       <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
       <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
+      <column name="FDOC_REVERSAL_DT" type="DATE"/>
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
       <column name="TRN_POST_DT" type="DATETIME"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1104" context="bootstrap,demo,unit">
@@ -4457,10 +4457,10 @@
       <column name="CURR_BDGT_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACCT_ACTL_XPND_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACCT_ENCUM_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATE"/>
     </createTable>
-    <modifySql dbms="oracle">
-      <replace replace="TIMESTAMP" with="DATE"/>
+    <modifySql dbms="mysql">
+      <replace replace="DATE" with="DATETIME"/>
     </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1114" context="bootstrap,demo,unit">

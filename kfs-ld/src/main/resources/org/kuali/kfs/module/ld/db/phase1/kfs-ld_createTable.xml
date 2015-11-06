@@ -1543,10 +1543,10 @@
             <column name="MO11_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
             <column name="MO12_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
             <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
-            <column name="TIMESTAMP" type="DATETIME"/>
+            <column name="TIMESTAMP" type="DATE"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2773" context="bootstrap,demo,unit">
@@ -1655,10 +1655,10 @@
             <column name="LL_ORIG_FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
             <column name="COMPANY" type="VARCHAR(3)"/>
             <column name="SETID" type="VARCHAR(5)"/>
-            <column name="TIMESTAMP" type="DATETIME"/>
+            <column name="TIMESTAMP" type="DATE"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2775" context="bootstrap,demo,unit">
@@ -1693,16 +1693,16 @@
             <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
             <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
             <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-            <column name="TRANSACTION_DT" type="DATETIME"/>
+            <column name="TRANSACTION_DT" type="DATE"/>
             <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
             <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
             <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
             <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
             <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-            <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
+            <column name="FDOC_REVERSAL_DT" type="DATE"/>
             <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
             <column name="TRN_POST_DT" type="DATETIME"/>
-            <column name="PAY_PERIOD_END_DT" type="DATETIME"/>
+            <column name="PAY_PERIOD_END_DT" type="DATE"/>
             <column name="TRN_TOTAL_HR" type="DECIMAL(8, 2)"/>
             <column name="PYRL_DT_FSCL_YR" type="DECIMAL(4)"/>
             <column name="PYRL_DT_FSCLPRD_CD" type="VARCHAR(2)"/>
@@ -1723,10 +1723,10 @@
             <column name="LL_ORIG_FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
             <column name="COMPANY" type="VARCHAR(3)"/>
             <column name="SETID" type="VARCHAR(5)"/>
-            <column name="TIMESTAMP" type="DATETIME"/>
+            <column name="TIMESTAMP" type="DATE"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2776" context="bootstrap,demo,unit">
