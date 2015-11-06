@@ -84,6 +84,11 @@ public class InstitutionPreferencesServiceImplTest {
         @Override
         public void saveUserPreferences(String principalName, String preferences) {
         }
+
+        @Override
+        public void saveUserPreferences(String principalName, Map<String, Object> preferences) {
+
+        }
     }
 
     private PreferencesDaoInstitutionPreferences createFakePreferencesDaoInstitutionPreferences() {

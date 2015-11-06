@@ -155,42 +155,30 @@ public class PreferencesDaoMongo implements PreferencesDao {
             return (Map<String, Object>)doc.get(PREFERENCES_KEY);
         }
 
-        // create a new default UserPreferences
-        final Map<String, Object> defaultUserPreferencesDocument = createDefaultUserPreferencesDocument(principalName);
-        mongoTemplate.save(defaultUserPreferencesDocument, USER_PREFERENCES);
-
-        return (Map<String, Object>)defaultUserPreferencesDocument.get(PREFERENCES_KEY);
-    }
-
-    protected Map<String, Object> createDefaultUserPreferencesDocument(String principalName) {
-        Map<String, Object> defaultUserPreferencesDoc = new ConcurrentHashMap<>();
-        defaultUserPreferencesDoc.put(PRINCIPAL_NAME_KEY, principalName);
-        defaultUserPreferencesDoc.put(PREFERENCES_KEY, createDefaultUserPreferences());
-        return defaultUserPreferencesDoc;
-    }
-
-    protected Map<String, Object> createDefaultUserPreferences() {
-        Map<String, Object> defaultUserPreferences = new ConcurrentHashMap<>();
-        defaultUserPreferences.put("sidebarOut", Boolean.TRUE);
-        List<String> checkedLinkFilters = Arrays.asList("activities", "reference", "administration");
-        defaultUserPreferences.put("checkedLinkFilters", checkedLinkFilters);
-        return defaultUserPreferences;
+        return null;
     }
 
     @Override
     public void saveUserPreferences(String principalName, String preferences) {
-        LOG.debug("saveUserPreferences() started");
+        LOG.debug("saveUserPreferences(String, String) started");
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        Map<String, Object> doc = new ConcurrentHashMap<>();
-        doc.put(PRINCIPAL_NAME_KEY,principalName);
         try {
-            doc.put(PREFERENCES_KEY, mapper.readValue(preferences,Map.class));
+            ObjectMapper mapper = new ObjectMapper();
+            saveUserPreferences(principalName, (Map<String, Object>) mapper.readValue(preferences, Map.class));
         } catch (IOException e) {
             LOG.error("saveUserPreferences() Error parsing json",e);
             throw new RuntimeException("Error parsing json");
         }
+
+    }
+
+    @Override
+    public void saveUserPreferences(String principalName, Map<String, Object> preferences) {
+        LOG.debug("saveUserPreferences(String, Map) started");
+
+        Map<String, Object> doc = new ConcurrentHashMap<>();
+        doc.put(PRINCIPAL_NAME_KEY,principalName);
+        doc.put(PREFERENCES_KEY, preferences);
 
         // Delete existing document if any
         mongoTemplate.remove(getPrincipalNameQuery(principalName), USER_PREFERENCES);

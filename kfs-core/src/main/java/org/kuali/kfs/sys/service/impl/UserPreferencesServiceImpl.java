@@ -20,11 +20,16 @@ package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.collections.MapUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.sys.service.UserPreferencesService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,7 +43,27 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
     public Map<String, Object> getUserPreferences(String principalName) {
         LOG.debug("getUserPreferences() started");
 
-        return preferencesDao.getUserPreferences(principalName);
+        final Map<String, Object> userPreferences = preferencesDao.getUserPreferences(principalName);
+
+        if (!MapUtils.isEmpty(userPreferences)) {
+            return userPreferences;
+        }
+
+        // create a new default UserPreferences
+        final Map<String, Object> defaultUserPreferences = createDefaultUserPreferences();
+        preferencesDao.saveUserPreferences(principalName, defaultUserPreferences);
+
+        return defaultUserPreferences;
+    }
+
+    @Override
+    @NonTransactional
+    public Map<String, Object> createDefaultUserPreferences() {
+        Map<String, Object> defaultUserPreferences = new ConcurrentHashMap<>();
+        defaultUserPreferences.put(KFSPropertyConstants.SIDEBAR_OUT, Boolean.TRUE);
+        List<String> checkedLinkFilters = Arrays.asList(KFSConstants.NavigationLinkCategories.ACTVITIES, KFSConstants.NavigationLinkCategories.REFERENCE, KFSConstants.NavigationLinkCategories.ADMINISTRATION);
+        defaultUserPreferences.put(KFSPropertyConstants.CHECKED_LINK_FILTERS, checkedLinkFilters);
+        return defaultUserPreferences;
     }
 
     @Override

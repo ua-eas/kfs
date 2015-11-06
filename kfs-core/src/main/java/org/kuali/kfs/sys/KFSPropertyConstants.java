@@ -1316,6 +1316,22 @@ public class KFSPropertyConstants {
     public static final String PAYMENT_CLAIM_AMOUNT_FROM = "amountFrom";
     public static final String PAYMENT_CLAIM_AMOUNT_TO = "amountTo";
     public static final String ADVANCE_DEPOSITS = "advanceDeposits";
+    public static final String LINK_GROUPS = "linkGroups";
+    public static final String PERMISSION = "permission";
+    public static final String ACTION_LIST_URL = "actionListUrl";
+    public static final String SIGNOUT_URL = "signoutUrl";
+    public static final String DOC_SEARCH_URL = "docSearchUrl";
+    public static final String LABEL = "label";
+    public static final String LINK = "link";
+    public static final String LINKS = "links";
+    public static final String BUSINESS_OBJECT_CLASS = "businessObjectClass";
+    public static final String LINK_TYPE = "linkType";
+    public static final String TEMPLATE_NAMESPACE = "templateNamespace";
+    public static final String TEMPLATE_NAME = "templateName";
+    public static final String DETAILS = "details";
+    public static final String INSTITUTION_ID = "institutionId";
+    public static final String SIDEBAR_OUT = "sidebarOut";
+    public static final String CHECKED_LINK_FILTERS = "checkedLinkFilters";
 
     public static class SubAccountImport {
         public static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";
