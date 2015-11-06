@@ -1,6 +1,6 @@
 import React from 'react/addons';
 import Router from 'react-router';
-import {Route, Link, RouteHandler} from 'react-router';
+import {Route, RouteHandler} from 'react-router';
 
 import NavigationConfig from './navigationconfig.jsx';
 import MenuConfig from './menuconfig.jsx';
