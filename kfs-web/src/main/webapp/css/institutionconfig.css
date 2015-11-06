@@ -282,6 +282,7 @@ div#linkGroupLinksList {
 .instconfig div.admin-sublinks li .list-group-item .actions {
     float: right;
     color: #767676;
+    cursor: pointer;
 }
 
 .instconfig div.admin-sublinks li .list-group-item .actions .editLink {

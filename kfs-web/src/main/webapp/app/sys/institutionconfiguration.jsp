@@ -21,7 +21,6 @@
 
 <kul:institutionConfigPage />
 
-<script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
 <c:choose>
     <c:when test="${icwf:hasPermission()}">
         <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js"></script>
