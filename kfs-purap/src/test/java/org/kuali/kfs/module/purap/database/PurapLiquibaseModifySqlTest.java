@@ -21,6 +21,8 @@ package org.kuali.kfs.module.purap.database;
 import org.junit.Test;
 import org.kuali.kfs.sys.database.LiquibaseTestBase;
 
+import java.util.List;
+
 public class PurapLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
     public void testForDateColumn() throws Exception {
@@ -30,5 +32,23 @@ public class PurapLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
     public void testForMissingModifySql() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/module/purap/db/phase1/kfs-purap_createTable.xml");
+    }
+
+    @Test
+    public void testPhase5_modifySql() throws Exception {
+        List<String> phase5Files = findLiquibaseFiles("org/kuali/kfs/module/purap/db/phase5/");
+        for (String fileName : phase5Files) {
+            System.out.println(fileName);
+            testForMissingModifySql("/" + fileName);
+        }
+    }
+
+    @Test
+    public void testPhase5_dateColumn() throws Exception {
+        List<String> phase5Files = findLiquibaseFiles("org/kuali/kfs/module/purap/db/phase5/");
+        for (String fileName : phase5Files) {
+            System.out.println(fileName);
+            testForDateColumn("/" + fileName);
+        }
     }
 }

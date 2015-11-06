@@ -20,6 +20,8 @@ package org.kuali.kfs.sys.database;
 
 import org.junit.Test;
 
+import java.util.List;
+
 public class CoreLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
     public void testForDateColumnRice() throws Exception {
@@ -37,17 +39,35 @@ public class CoreLiquibaseModifySqlTest extends LiquibaseTestBase {
     }
 
     @Test
-    public void testCoreRice() throws Exception {
+    public void testForModifySqlRice() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/core/db/phase1/kfs-core-rice_createTable.xml");
     }
 
     @Test
-    public void testCoreKfs() throws Exception {
+    public void testForModifySqlKfs() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/core/db/phase1/kfs-core_createTable.xml");
     }
 
     @Test
-    public void testRiceServer() throws Exception {
+    public void testForModifySqlRiceServer() throws Exception {
         testForMissingModifySql("/org/kuali/rice/db/phase1/rice-server_createTable.xml");
+    }
+
+    @Test
+    public void testPhase5_modifySql() throws Exception {
+        List<String> phase5Files = findLiquibaseFiles("org/kuali/kfs/core/db/phase5/");
+        for (String fileName : phase5Files) {
+            System.out.println(fileName);
+            testForMissingModifySql("/" + fileName);
+        }
+    }
+
+    @Test
+    public void testPhase5_dateColumn() throws Exception {
+        List<String> phase5Files = findLiquibaseFiles("org/kuali/kfs/core/db/phase5/");
+        for (String fileName : phase5Files) {
+            System.out.println(fileName);
+            testForDateColumn("/" + fileName);
+        }
     }
 }

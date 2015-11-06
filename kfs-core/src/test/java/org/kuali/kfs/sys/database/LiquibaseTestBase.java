@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.database;
 
+import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,22 +28,28 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LiquibaseTestBase {
     protected void testForMissingModifySql(String filename) throws IOException, SAXException, ParserConfigurationException {
         Element rootElement = parseFile(filename);
-        NodeList children = rootElement.getChildNodes();
+        List<Node> children = getChildNodes(rootElement);
 
         boolean found = false;
-        for ( int i = 0; i < children.getLength(); i++ ) {
-            Node child = children.item(i);
-            if ( child.getNodeType() == Node.ELEMENT_NODE ) {
-                if ( isCreateTableMissingModifySql(child) ) {
-                    Node createTableNode = getNodeByName(child,"createTable");
-                    System.out.println("Table missing a valid modifySql: " + getTableName(createTableNode));
-                    found = true;
+        for (Node changeSet : children) {
+            List<Node> changes = getChildNodes(changeSet);
+            for (Node change : changes) {
+                if (changeContainsColumns(change) && changeContainsFieldOfType(change, "DATETIME")) {
+                    if ( isChangeSetMissingValidModifySql(changeSet) ) {
+                        System.out.println("Table missing a valid modifySql: " + getTableName(change));
+                        found = true;
+                    }
                 }
             }
         }
@@ -54,16 +61,14 @@ public class LiquibaseTestBase {
 
     protected void testForDateColumn(String filename) throws IOException, SAXException, ParserConfigurationException {
         Element rootElement = parseFile(filename);
-        NodeList children = rootElement.getChildNodes();
+        List<Node> children = getChildNodes(rootElement);
 
         boolean found = false;
-        for (int i = 0; i < children.getLength(); i++) {
-            Node child = children.item(i);
-            if (child.getNodeType() == Node.ELEMENT_NODE) {
-                Node createTableNode = getNodeByName(child,"createTable");
-
-                if ( tableContainsFieldOfType(createTableNode, "DATE")) {
-                    System.out.println("Table contains DATE column instead of DATETIME: " + getTableName(createTableNode));
+        for (Node changeSet : children) {
+            List<Node> changes = getChildNodes(changeSet);
+            for (Node change : changes) {
+                if ( changeContainsColumns(change) && changeContainsFieldOfType(change, "DATE")) {
+                    System.out.println("Table contains DATE column instead of DATETIME: " + getTableName(change));
                     found = true;
                 }
             }
@@ -74,32 +79,48 @@ public class LiquibaseTestBase {
         }
     }
 
-    protected boolean isCreateTableMissingModifySql(Node changeSet) {
-        Node createTableNode = getNodeByName(changeSet,"createTable");
+    protected List<String> findLiquibaseFiles(String path) {
+        try {
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);
+            if ( is == null ) {
+                return Collections.emptyList();
+            }
+            List<String> files = IOUtils.readLines(is);
+            return files.stream().map(f -> path + f).collect(Collectors.toList());
+        } catch (FileNotFoundException e) {
+            return Collections.emptyList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected boolean changeContainsColumns(Node changeSet) {
+        return ("createTable".equals(changeSet.getNodeName()) || "addColumn".equals(changeSet.getNodeName()));
+    }
+
+    protected boolean isChangeSetMissingValidModifySql(Node changeSet) {
         Node modifySql = getNodeByName(changeSet,"modifySql");
 
-        if ( tableContainsFieldOfType(createTableNode, "DATETIME") ) {
-            if ( modifySql == null ) {
+        if ( modifySql == null ) {
+            return true;
+        } else {
+            Element modifySqlElement = (Element)modifySql;
+            String dbms = modifySqlElement.getAttribute("dbms");
+            if ( ! "oracle".equals(dbms) ) {
                 return true;
-            } else {
-                Element modifySqlElement = (Element)modifySql;
-                String dbms = modifySqlElement.getAttribute("dbms");
-                if ( ! "oracle".equals(dbms) ) {
-                    return true;
-                }
-                Node replaceNode = getNodeByName(modifySql,"replace");
-                if ( replaceNode == null ) {
-                    return false;
-                }
-                Element replaceNodeElement = (Element)replaceNode;
-                String replace = replaceNodeElement.getAttribute("replace");
-                String with = replaceNodeElement.getAttribute("with");
-                if ( ! "TIMESTAMP".equals(replace) ) {
-                    return true;
-                }
-                if ( ! "DATE".equals(with) ) {
-                    return true;
-                }
+            }
+            Node replaceNode = getNodeByName(modifySql,"replace");
+            if ( replaceNode == null ) {
+                return false;
+            }
+            Element replaceNodeElement = (Element)replaceNode;
+            String replace = replaceNodeElement.getAttribute("replace");
+            String with = replaceNodeElement.getAttribute("with");
+            if ( ! "TIMESTAMP".equals(replace) ) {
+                return true;
+            }
+            if ( ! "DATE".equals(with) ) {
+                return true;
             }
         }
         return false;
@@ -110,29 +131,38 @@ public class LiquibaseTestBase {
         return e.getAttribute("tableName");
     }
 
-    protected boolean tableContainsFieldOfType(Node createTableNode,String columnType) {
-        NodeList children = createTableNode.getChildNodes();
-        for ( int i = 0; i < children.getLength(); i++ ) {
-            Node child = children.item(i);
-            if (child.getNodeType() == Node.ELEMENT_NODE) {
-                Element column = (Element)child;
-                if ( columnType.equals(column.getAttribute("type")) ) {
-                    return true;
-                }
+    protected boolean changeContainsFieldOfType(Node changeNode, String columnType) {
+        List<Node> children = getChildNodes(changeNode);
+        for (Node child : children) {
+            Element column = (Element)child;
+            if ( columnType.equals(column.getAttribute("type")) ) {
+                return true;
             }
         }
         return false;
     }
 
     protected Node getNodeByName(Node parentNode,String name) {
-        NodeList children = parentNode.getChildNodes();
-        for ( int i = 0; i < children.getLength(); i++ ) {
-            Node child = children.item(i);
-            if ( (child.getNodeType() == Node.ELEMENT_NODE) && (name.equals(child.getNodeName())) ) {
+        List<Node> children = getChildNodes(parentNode);
+        for (Node child : children) {
+            if ( name.equals(child.getNodeName()) ) {
                 return child;
             }
         }
         return null;
+    }
+
+    protected List<Node> getChildNodes(Node parent) {
+        List<Node> children = new ArrayList<>();
+
+        NodeList childrenNodes = parent.getChildNodes();
+        for ( int i = 0; i < childrenNodes.getLength(); i++ ) {
+            Node child = childrenNodes.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                children.add(child);
+            }
+        }
+        return children;
     }
 
     protected Element parseFile(String filename) throws ParserConfigurationException, IOException, SAXException {

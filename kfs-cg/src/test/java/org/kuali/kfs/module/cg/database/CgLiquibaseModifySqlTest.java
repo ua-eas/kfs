@@ -21,6 +21,8 @@ package org.kuali.kfs.module.cg.database;
 import org.junit.Test;
 import org.kuali.kfs.sys.database.LiquibaseTestBase;
 
+import java.util.List;
+
 public class CgLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
     public void testForDateColumn() throws Exception {
@@ -30,5 +32,23 @@ public class CgLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
     public void testCg() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/module/cg/db/phase1/kfs-cg_createTable.xml");
+    }
+
+    @Test
+    public void testPhase5_modifySql() throws Exception {
+        List<String> phase5Files = findLiquibaseFiles("org/kuali/kfs/module/cg/db/phase5/");
+        for (String fileName : phase5Files) {
+            System.out.println(fileName);
+            testForMissingModifySql("/" + fileName);
+        }
+    }
+
+    @Test
+    public void testPhase5_dateColumn() throws Exception {
+        List<String> phase5Files = findLiquibaseFiles("org/kuali/kfs/module/cg/db/phase5/");
+        for (String fileName : phase5Files) {
+            System.out.println(fileName);
+            testForDateColumn("/" + fileName);
+        }
     }
 }
