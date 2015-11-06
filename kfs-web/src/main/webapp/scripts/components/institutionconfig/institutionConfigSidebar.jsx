@@ -6,7 +6,7 @@ var InstConfigSidebar = React.createClass({
             <div className="inst-config-sidebar">
                 <ul id="linkgroups" className="nav list-group">
                     <li className="list-item"></li>
-                    <li className="panel list-item"><a href="#/">Navigation Configuration</a></li>
+                    <li className="panel list-item"><a href="#/navigationconfig">Navigation Configuration</a></li>
                     <li className="panel list-item"><a href="#/menuconfig">Menu Configuration</a></li>
                 </ul>
             </div>
