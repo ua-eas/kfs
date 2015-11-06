@@ -18,8 +18,6 @@
 -->
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
-<%@ attribute name="headerMenuBar" required="false" description="HTML text for menu bar to display at the top of the page." %>
-
 <c:set var="bodyClass" value="body"/>
 <c:choose>
     <c:when test="${param.mode eq 'standalone'}">
@@ -35,7 +33,7 @@
 <html:html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <title><bean:message key="app.title" /> :: ${headerTitle}</title>
+        <title><bean:message key="app.title" /> :: Institution Configuration</title>
 
         <c:if test="${not empty SESSION_TIMEOUT_WARNING_MILLISECONDS}">
             <script type="text/javascript">
