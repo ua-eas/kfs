@@ -23,7 +23,7 @@ import org.kuali.kfs.sys.database.LiquibaseTestBase;
 
 public class BcLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
-    public void testAr() throws Exception {
+    public void testBc() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/module/bc/db/phase1/kfs-bc_createTable.xml");
     }
 }
