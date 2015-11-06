@@ -374,4 +374,5 @@
     <script src="${pageContext.request.contextPath}/scripts/polyfill.min.js"></script>
     <script src="${pageContext.request.contextPath}/scripts/notify.min.js"></script>
     <script src="${pageContext.request.contextPath}/build/app.bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/build/sidebar.bundle.js"></script>
 </c:if>

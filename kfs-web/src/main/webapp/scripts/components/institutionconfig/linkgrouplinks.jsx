@@ -167,13 +167,13 @@ let SubLinkGroup = React.createClass({
         let linkClass = this.state.errors.indexOf('link') > -1 ? 'error' : '';
 
         let groupSelectItems = this.props.linkGroupLabels.map((linkGroupLabel, index) => {
-            return <option value={index}>{linkGroupLabel}</option>;
+            return <option key={index} value={index}>{linkGroupLabel}</option>;
         });
 
         let errorMessage;
         if (this.state.errorMessages && this.state.errorMessages.length > 0) {
-            let messages = this.state.errorMessages.map(function(message) {
-                return <li>{message}</li>
+            let messages = this.state.errorMessages.map(function(message, index) {
+                return <li key={index}>{message}</li>
             });
             errorMessage = <ul className="errorMessages">{messages}</ul>;
         }

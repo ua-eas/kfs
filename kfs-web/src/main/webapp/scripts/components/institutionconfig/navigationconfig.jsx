@@ -225,7 +225,7 @@ let NavigationConfig = React.createClass({
         return (
             <div>
                 <div className="headerarea-small" id="headerarea-small">
-                    <h1><span class="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
+                    <h1><span className="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
                 </div>
 
                 <div className="instconfig">

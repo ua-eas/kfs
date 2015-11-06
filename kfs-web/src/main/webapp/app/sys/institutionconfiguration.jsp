@@ -19,13 +19,7 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 <%@ taglib uri="/WEB-INF/tlds/institutionConfigWebFunctions.tld" prefix="icwf" %>
 
-<link href='${pageContext.request.contextPath}/css/institutionconfig.css' rel='stylesheet' type='text/css'>
-
-<kul:page docTitle="Navigation Configuration" showDocumentInfo="false"
-          headerTitle="Navigation Configuration" transactionalDocument="false"
-          renderInnerDiv="true">
-
-</kul:page>
+<kul:institutionConfigPage />
 
 <script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
 <c:choose>
