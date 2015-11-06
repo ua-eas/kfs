@@ -1,3 +1,4 @@
+import React from 'react/addons';
 import {buildGroupSortableDropHandler} from './institutionconfigutils.js';
 import {buildKeyFromLabel} from '../../sys/utils.js';
 

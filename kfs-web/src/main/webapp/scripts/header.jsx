@@ -1,3 +1,4 @@
+import React from 'react/addons';
 import Link from './link.jsx';
 import KfsUtils from './sys/utils.js';
 
