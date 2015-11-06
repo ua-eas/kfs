@@ -1533,4 +1533,15 @@ public class KFSConstants {
         public static final String INSTITUTION_CONFIG = "InstitutionConfig";
     }
 
+    public static class NavigationLinkTypes {
+        public static final String KFS = "kfs";
+        public static final String RICE = "rice";
+    }
+
+    public static class NavigationLinkCategories {
+        public static final String ACTVITIES = "activities";
+        public static final String REFERENCE = "reference";
+        public static final String ADMINISTRATION = "administration";
+    }
+
 }

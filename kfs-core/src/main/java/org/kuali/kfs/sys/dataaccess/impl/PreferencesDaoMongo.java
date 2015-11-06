@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.index.IndexInfo;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -159,18 +160,25 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
     @Override
     public void saveUserPreferences(String principalName, String preferences) {
-        LOG.debug("saveUserPreferences() started");
+        LOG.debug("saveUserPreferences(String, String) started");
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        Map<String, Object> doc = new ConcurrentHashMap<>();
-        doc.put(PRINCIPAL_NAME_KEY,principalName);
         try {
-            doc.put(PREFERENCES_KEY, mapper.readValue(preferences,Map.class));
+            ObjectMapper mapper = new ObjectMapper();
+            saveUserPreferences(principalName, (Map<String, Object>) mapper.readValue(preferences, Map.class));
         } catch (IOException e) {
             LOG.error("saveUserPreferences() Error parsing json",e);
             throw new RuntimeException("Error parsing json");
         }
+
+    }
+
+    @Override
+    public void saveUserPreferences(String principalName, Map<String, Object> preferences) {
+        LOG.debug("saveUserPreferences(String, Map) started");
+
+        Map<String, Object> doc = new ConcurrentHashMap<>();
+        doc.put(PRINCIPAL_NAME_KEY,principalName);
+        doc.put(PREFERENCES_KEY, preferences);
 
         // Delete existing document if any
         mongoTemplate.remove(getPrincipalNameQuery(principalName), USER_PREFERENCES);

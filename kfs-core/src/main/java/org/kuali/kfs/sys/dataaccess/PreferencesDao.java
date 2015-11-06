@@ -12,4 +12,5 @@ public interface PreferencesDao {
     int getInstitutionPreferencesCacheLength();
     Map<String, Object> getUserPreferences(String principalName);
     void saveUserPreferences(String principalName,String preferences);
+    void saveUserPreferences(String principalName, Map<String, Object> preferences);
 }

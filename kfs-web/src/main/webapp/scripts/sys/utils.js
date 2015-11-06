@@ -54,10 +54,12 @@ function buildKeyFromLabel(label) {
     return label.toLowerCase().replace(/\s+/g, "-").replace("&","and");
 }
 
-module.exports = {
+const KfsUtils = {
     getKualiSessionId: getKualiSessionId,
     getUrlPathPrefix: getUrlPathPrefix,
     buildBackdoorIdAppender: buildBackdoorIdAppender,
     buildKeyFromLabel: buildKeyFromLabel
 };
 
+module.exports = KfsUtils;
+export default KfsUtils;
