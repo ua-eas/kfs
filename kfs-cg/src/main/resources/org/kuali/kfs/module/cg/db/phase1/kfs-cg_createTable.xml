@@ -53,7 +53,7 @@
             <column name="FAX_NBR" type="VARCHAR(40)"/>
             <column name="AGENCY_CNTCT_EMAIL_ADDR" type="VARCHAR(60)"/>
         </createTable>
-        <modifySql>
+        <modifySql dbms="oracle">
             <replace replace="TIMESTAMP" with="DATE"/>
         </modifySql>
     </changeSet>
@@ -128,7 +128,7 @@
             <column name="CURR_LST_BILLED_DT" type="DATETIME"/>
             <column name="PREV_LST_BILLED_DT" type="DATETIME"/>
         </createTable>
-        <modifySql>
+        <modifySql dbms="oracle">
             <replace replace="TIMESTAMP" with="DATE"/>
         </modifySql>
     </changeSet>
@@ -304,7 +304,7 @@
             <column defaultValue="N" name="STOP_WRK_IND" type="VARCHAR(1)"/>
             <column name="STOP_WRK_REASON_TXT" type="VARCHAR(120)"/>
         </createTable>
-        <modifySql>
+        <modifySql dbms="oracle">
             <replace replace="TIMESTAMP" with="DATE"/>
         </modifySql>
     </changeSet>
@@ -413,7 +413,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql>
+        <modifySql dbms="oracle">
             <replace replace="TIMESTAMP" with="DATE"/>
         </modifySql>
     </changeSet>
@@ -451,7 +451,7 @@
             <column name="PERSON_USER_ID" type="VARCHAR(40)"/>
             <column name="CG_USR_INITIATE_DT" type="DATETIME"/>
         </createTable>
-        <modifySql>
+        <modifySql dbms="oracle">
             <replace replace="TIMESTAMP" with="DATE"/>
         </modifySql>
     </changeSet>
@@ -613,7 +613,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql>
+        <modifySql dbms="oracle">
             <replace replace="TIMESTAMP" with="DATE"/>
         </modifySql>
     </changeSet>

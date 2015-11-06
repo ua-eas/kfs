@@ -23,6 +23,11 @@ import org.kuali.kfs.sys.database.LiquibaseTestBase;
 
 public class CgLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
+    public void testForDateColumn() throws Exception {
+        testForDateColumn("/org/kuali/kfs/module/cg/db/phase1/kfs-cg_createTable.xml");
+    }
+
+    @Test
     public void testCg() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/module/cg/db/phase1/kfs-cg_createTable.xml");
     }
