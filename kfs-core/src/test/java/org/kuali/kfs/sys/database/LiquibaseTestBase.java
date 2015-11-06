@@ -45,7 +45,7 @@ public class LiquibaseTestBase {
         for (Node changeSet : children) {
             List<Node> changes = getChildNodes(changeSet);
             for (Node change : changes) {
-                if (changeContainsColumns(change) && changeContainsFieldOfType(change, "DATETIME")) {
+                if (changeContainsColumns(change) && changeContainsFieldOfType(change, "DATE")) {
                     if ( isChangeSetMissingValidModifySql(changeSet) ) {
                         System.out.println("Table missing a valid modifySql: " + getTableName(change));
                         found = true;
@@ -67,15 +67,15 @@ public class LiquibaseTestBase {
         for (Node changeSet : children) {
             List<Node> changes = getChildNodes(changeSet);
             for (Node change : changes) {
-                if ( changeContainsColumns(change) && changeContainsFieldOfType(change, "DATE")) {
-                    System.out.println("Table contains DATE column instead of DATETIME: " + getTableName(change));
+                if ( changeContainsColumns(change) && changeContainsFieldOfType(change, "DATETIME")) {
+                    System.out.println("Table contains DATETIME column instead of DATE: " + getTableName(change));
                     found = true;
                 }
             }
         }
 
         if (found) {
-            throw new RuntimeException("Some tables contain DATE column instead of DATETIME");
+            throw new RuntimeException("Some tables contain DATETIME column instead of DATE");
         }
     }
 
@@ -106,7 +106,7 @@ public class LiquibaseTestBase {
         } else {
             Element modifySqlElement = (Element)modifySql;
             String dbms = modifySqlElement.getAttribute("dbms");
-            if ( ! "oracle".equals(dbms) ) {
+            if ( ! "mysql".equals(dbms) ) {
                 return true;
             }
             Node replaceNode = getNodeByName(modifySql,"replace");
@@ -116,10 +116,10 @@ public class LiquibaseTestBase {
             Element replaceNodeElement = (Element)replaceNode;
             String replace = replaceNodeElement.getAttribute("replace");
             String with = replaceNodeElement.getAttribute("with");
-            if ( ! "TIMESTAMP".equals(replace) ) {
+            if ( ! "DATE".equals(replace) ) {
                 return true;
             }
-            if ( ! "DATE".equals(with) ) {
+            if ( ! "DATETIME".equals(with) ) {
                 return true;
             }
         }
