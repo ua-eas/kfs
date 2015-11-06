@@ -151,10 +151,10 @@
             <column name="ORG_CD" type="VARCHAR(4)"/>
             <column name="FDOC_STATUS_CD" type="VARCHAR(2)"/>
             <column name="FDOC_INITIATOR_ID" type="VARCHAR(40)"/>
-            <column name="FDOC_CREATE_DT" type="DATETIME"/>
+            <column name="FDOC_CREATE_DT" type="DATE"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4044" context="bootstrap,demo,unit">
@@ -320,7 +320,7 @@
             <column defaultValueNumeric="0" name="EMPL_RCD" type="DECIMAL(3)">
                 <constraints nullable="false"/>
             </column>
-            <column name="EFFDT" type="DATETIME">
+            <column name="EFFDT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column defaultValueNumeric="0" name="EFFSEQ" type="DECIMAL(3)">
@@ -333,8 +333,8 @@
             <column name="EMPL_STATUS" type="VARCHAR(1)"/>
             <column name="DEPTID" type="VARCHAR(10)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4050" context="bootstrap,demo,unit">
@@ -1009,7 +1009,7 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="POS_EFFDT" type="DATETIME"/>
+            <column name="POS_EFFDT" type="DATE"/>
             <column name="POS_EFF_STATUS" type="VARCHAR(1)"/>
             <column name="POSN_STATUS" type="VARCHAR(1)"/>
             <column name="BUDGETED_POSN" type="VARCHAR(1)"/>
@@ -1033,8 +1033,8 @@
             <column name="IU_DFLT_OBJ_CD" type="VARCHAR(4)"/>
             <column name="IU_POSITION_TYPE" type="VARCHAR(2)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4073" context="bootstrap,demo,unit">
@@ -1074,7 +1074,7 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="POS_EFFDT" type="DATETIME"/>
+            <column name="POS_EFFDT" type="DATE"/>
             <column name="POS_EFF_STATUS" type="VARCHAR(1)"/>
             <column name="POSN_STATUS" type="VARCHAR(1)"/>
             <column name="BUDGETED_POSN" type="VARCHAR(1)"/>
@@ -1099,8 +1099,8 @@
             <column name="IU_POSITION_TYPE" type="VARCHAR(2)"/>
             <column name="POS_LOCK_USR_ID" type="VARCHAR(40)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="DATE" with="DATETIME"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4075" context="bootstrap,demo,unit">
