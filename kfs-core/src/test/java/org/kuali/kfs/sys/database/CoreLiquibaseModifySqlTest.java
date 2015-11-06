@@ -22,6 +22,21 @@ import org.junit.Test;
 
 public class CoreLiquibaseModifySqlTest extends LiquibaseTestBase {
     @Test
+    public void testForDateColumnRice() throws Exception {
+        testForDateColumn("/org/kuali/kfs/core/db/phase1/kfs-core-rice_createTable.xml");
+    }
+
+    @Test
+    public void testForDateColumnKfs() throws Exception {
+        testForDateColumn("/org/kuali/kfs/core/db/phase1/kfs-core_createTable.xml");
+    }
+
+    @Test
+    public void testForDateColumnRiceServer() throws Exception {
+        testForDateColumn("/org/kuali/rice/db/phase1/rice-server_createTable.xml");
+    }
+
+    @Test
     public void testCoreRice() throws Exception {
         testForMissingModifySql("/org/kuali/kfs/core/db/phase1/kfs-core-rice_createTable.xml");
     }

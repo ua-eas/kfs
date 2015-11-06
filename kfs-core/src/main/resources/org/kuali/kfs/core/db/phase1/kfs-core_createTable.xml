@@ -91,16 +91,16 @@
       <column name="ACCT_FRNG_BNFT_CD" type="VARCHAR(1)"/>
       <column name="FIN_HGH_ED_FUNC_CD" type="VARCHAR(4)"/>
       <column name="ACCT_RSTRC_STAT_CD" type="VARCHAR(1)"/>
-      <column name="ACCT_RSTRC_STAT_DT" type="DATE"/>
+      <column name="ACCT_RSTRC_STAT_DT" type="DATETIME"/>
       <column name="ACCT_CITY_NM" type="VARCHAR(25)"/>
       <column name="ACCT_STATE_CD" type="VARCHAR(2)"/>
       <column name="ACCT_STREET_ADDR" type="VARCHAR(30)"/>
       <column name="ACCT_ZIP_CD" type="VARCHAR(20)"/>
       <column name="RPTS_TO_FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="RPTS_TO_ACCT_NBR" type="VARCHAR(7)"/>
-      <column name="ACCT_CREATE_DT" type="DATE"/>
-      <column name="ACCT_EFFECT_DT" type="DATE"/>
-      <column name="ACCT_EXPIRATION_DT" type="DATE"/>
+      <column name="ACCT_CREATE_DT" type="DATETIME"/>
+      <column name="ACCT_EFFECT_DT" type="DATETIME"/>
+      <column name="ACCT_EXPIRATION_DT" type="DATETIME"/>
       <column name="CONT_FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="CONT_ACCOUNT_NBR" type="VARCHAR(7)"/>
       <column name="ENDOW_FIN_COA_CD" type="VARCHAR(2)"/>
@@ -128,6 +128,9 @@
       <column name="CG_ACCT_RESP_ID" type="DECIMAL(2)"/>
       <column defaultValue="--" name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="950" context="bootstrap,demo,unit">
     <createTable tableName="CA_ACCOUNT_TYPE_T">
@@ -186,7 +189,7 @@
       <column name="ACCT_STATE_CD" type="VARCHAR(2)"/>
       <column name="ACCT_STREET_ADDR" type="VARCHAR(30)"/>
       <column name="ACCT_ZIP_CD" type="VARCHAR(20)"/>
-      <column name="ACCT_EXPIRATION_DT" type="DATE"/>
+      <column name="ACCT_EXPIRATION_DT" type="DATETIME"/>
       <column name="CONT_FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="CONT_ACCOUNT_NBR" type="VARCHAR(7)"/>
       <column name="INCOME_FIN_COA_CD" type="VARCHAR(2)"/>
@@ -198,6 +201,9 @@
       <column name="ACCT_SRCH_CRTA_TXT" type="VARCHAR(400)"/>
       <column name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="953" context="bootstrap,demo,unit">
     <createTable tableName="CA_ACCT_CHG_DTL_T">
@@ -254,9 +260,12 @@
       <column name="FDOC_APRV_FROM_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACCT_DLGT_PRMRT_CD" type="VARCHAR(1)"/>
       <column name="ACCT_DLGT_ACTV_CD" type="VARCHAR(1)"/>
-      <column name="ACCT_DLGT_START_DT" type="DATE"/>
+      <column name="ACCT_DLGT_START_DT" type="DATETIME"/>
       <column name="FDOC_APRV_TO_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="956" context="bootstrap,demo,unit">
     <createTable tableName="CA_ACCT_DESC_T">
@@ -433,8 +442,11 @@
       <column name="FDOC_APRV_FROM_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_APRV_TO_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACCT_DLGT_PRMRT_CD" type="VARCHAR(1)"/>
-      <column name="ACCT_DLGT_START_DT" type="DATE"/>
+      <column name="ACCT_DLGT_START_DT" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="965" context="bootstrap,demo,unit">
     <createTable tableName="CA_FEDERAL_FUNC_T">
@@ -876,8 +888,11 @@
       <column name="IU_TITLE_ALLOW_FL" type="VARCHAR(1)"/>
       <column name="IU_OCC_UN_ALLOW_FL" type="VARCHAR(1)"/>
       <column name="ORG_FSCL_APRVR_UID" type="VARCHAR(40)"/>
-      <column name="LAST_UPDATE_DATE" type="DATE"/>
+      <column name="LAST_UPDATE_DATE" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="984" context="bootstrap,demo,unit">
     <createTable tableName="CA_ORG_REVERSION_T">
@@ -954,11 +969,14 @@
       <column name="FDOC_APRV_FROM_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_APRV_TO_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACCT_DLGT_PRMRT_CD" type="VARCHAR(1)"/>
-      <column name="ACCT_DLGT_START_DT" type="DATE"/>
+      <column name="ACCT_DLGT_START_DT" type="DATETIME"/>
       <column name="ROW_ACTV_IND" type="VARCHAR(1)">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="987" context="bootstrap,demo,unit">
     <createTable tableName="CA_ORG_RVRSN_CHG_DOC_T">
@@ -1085,8 +1103,8 @@
       <column name="ORG_STATE_CD" type="VARCHAR(2)"/>
       <column name="ORG_ZIP_CD" type="VARCHAR(20)"/>
       <column name="ORG_CNTRY_CD" type="VARCHAR(2)"/>
-      <column name="ORG_BEGIN_DT" type="DATE"/>
-      <column name="ORG_END_DT" type="DATE"/>
+      <column name="ORG_BEGIN_DT" type="DATETIME"/>
+      <column name="ORG_END_DT" type="DATETIME"/>
       <column name="RPTS_TO_FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="RPTS_TO_ORG_CD" type="VARCHAR(4)"/>
       <column name="ORG_ACTIVE_CD" type="VARCHAR(1)"/>
@@ -1096,6 +1114,9 @@
       <column name="ORG_PLNT_COA_CD" type="VARCHAR(2)"/>
       <column name="CMP_PLNT_COA_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="993" context="bootstrap,demo,unit">
     <createTable tableName="CA_ORG_TYPE_T">
@@ -1139,16 +1160,16 @@
       <column name="ACCT_FRNG_BNFT_CD" type="VARCHAR(1)"/>
       <column name="FIN_HGH_ED_FUNC_CD" type="VARCHAR(4)"/>
       <column name="ACCT_RSTRC_STAT_CD" type="VARCHAR(1)"/>
-      <column name="ACCT_RSTRC_STAT_DT" type="DATE"/>
+      <column name="ACCT_RSTRC_STAT_DT" type="DATETIME"/>
       <column name="ACCT_CITY_NM" type="VARCHAR(25)"/>
       <column name="ACCT_STATE_CD" type="VARCHAR(2)"/>
       <column name="ACCT_STREET_ADDR" type="VARCHAR(30)"/>
       <column name="ACCT_ZIP_CD" type="VARCHAR(20)"/>
       <column name="RPTS_TO_FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="RPTS_TO_ACCT_NBR" type="VARCHAR(7)"/>
-      <column name="ACCT_CREATE_DT" type="DATE"/>
-      <column name="ACCT_EFFECT_DT" type="DATE"/>
-      <column name="ACCT_EXPIRATION_DT" type="DATE"/>
+      <column name="ACCT_CREATE_DT" type="DATETIME"/>
+      <column name="ACCT_EFFECT_DT" type="DATETIME"/>
+      <column name="ACCT_EXPIRATION_DT" type="DATETIME"/>
       <column name="CONT_FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="CONT_ACCOUNT_NBR" type="VARCHAR(7)"/>
       <column name="ENDOW_FIN_COA_CD" type="VARCHAR(2)"/>
@@ -1174,6 +1195,9 @@
       <column name="ACCT_OFF_CMP_IND" type="VARCHAR(1)"/>
       <column name="ACCT_CLOSED_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="995" context="bootstrap,demo,unit">
     <createTable tableName="CA_PRIOR_YR_ICR_ACCT_T">
@@ -1220,8 +1244,8 @@
       <column name="ORG_STATE_CD" type="VARCHAR(2)"/>
       <column name="ORG_ZIP_CD" type="VARCHAR(20)"/>
       <column name="ORG_CNTRY_CD" type="VARCHAR(2)"/>
-      <column name="ORG_BEGIN_DT" type="DATE"/>
-      <column name="ORG_END_DT" type="DATE"/>
+      <column name="ORG_BEGIN_DT" type="DATETIME"/>
+      <column name="ORG_END_DT" type="DATETIME"/>
       <column name="RPTS_TO_FIN_COA_CD" type="VARCHAR(2)"/>
       <column name="RPTS_TO_ORG_CD" type="VARCHAR(4)"/>
       <column name="ORG_ACTIVE_CD" type="VARCHAR(1)"/>
@@ -1231,6 +1255,9 @@
       <column name="ORG_PLNT_COA_CD" type="VARCHAR(2)"/>
       <column name="CMP_PLNT_COA_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="997" context="bootstrap,demo,unit">
     <createTable tableName="CA_PROJECT_T">
@@ -1482,9 +1509,12 @@
       <column name="FDOC_NXT_LINE_NBR" type="DECIMAL(7)"/>
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATE"/>
+      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
       <column name="FDOC_AV_TYP_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1010" context="bootstrap,demo,unit">
     <createTable tableName="FP_ADV_DPST_DTL_T">
@@ -1503,12 +1533,15 @@
       <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
         <constraints nullable="false"/>
       </column>
-      <column name="FDOC_ADV_DPST_DT" type="DATE"/>
+      <column name="FDOC_ADV_DPST_DT" type="DATETIME"/>
       <column name="FDOC_ADPST_REF_NBR" type="VARCHAR(10)"/>
       <column name="FDOC_ADV_DPST_DESC" type="VARCHAR(40)"/>
       <column name="FDOC_ADV_DPST_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_BANK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1011" context="bootstrap,demo,unit">
     <createTable tableName="FP_BAL_BY_CONS_MT">
@@ -1729,10 +1762,13 @@
       <column name="ITM_AMT" type="DECIMAL(19, 2)"/>
       <column name="ITM_RDCD_AMT" type="DECIMAL(19, 2)"/>
       <column name="ITM_TOT_AMT" type="DECIMAL(19, 2)"/>
-      <column name="ITM_OPEN_DT" type="DATE"/>
-      <column name="ITM_CLOSED_DT" type="DATE"/>
+      <column name="ITM_OPEN_DT" type="DATETIME"/>
+      <column name="ITM_CLOSED_DT" type="DATETIME"/>
       <column name="ITM_DESC" type="VARCHAR(200)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1019" context="bootstrap,demo,unit">
     <createTable tableName="FP_CASH_RCPT_DOC_T">
@@ -1761,12 +1797,15 @@
       <column name="FDOC_NXT_RF_LN_NBR" type="DECIMAL(7)"/>
       <column name="FDOC_NXT_AD_LN_NBR" type="DECIMAL(7)"/>
       <column name="CAMPUS_CD" type="VARCHAR(2)"/>
-      <column name="FDOC_DEPOSIT_DT" type="DATE"/>
+      <column name="FDOC_DEPOSIT_DT" type="DATETIME"/>
       <column name="FDOC_CNFRMD_CASH_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_CNFRMD_CHCK_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_CNFRMD_COIN_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_BNK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1020" context="bootstrap,demo,unit">
     <createTable tableName="FP_CHECK_DTL_T">
@@ -1786,7 +1825,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="FDOC_CHCK_NBR" type="VARCHAR(10)"/>
-      <column name="FDOC_CHCK_DT" type="DATE"/>
+      <column name="FDOC_CHCK_DT" type="DATETIME"/>
       <column name="FDOC_CHCK_DESC" type="VARCHAR(40)"/>
       <column name="FDOC_CHCK_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_DPST_LN_NBR" type="DECIMAL(7)"/>
@@ -1794,6 +1833,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1021" context="bootstrap,demo,unit">
     <createTable tableName="FP_COIN_DTL_T">
@@ -1924,10 +1966,13 @@
       </column>
       <column name="FDOC_CCRD_TYP_CD" type="VARCHAR(2)"/>
       <column name="FDOC_CCRD_VNDR_NBR" type="VARCHAR(10)"/>
-      <column name="FDOC_CCRD_DPST_DT" type="DATE"/>
+      <column name="FDOC_CCRD_DPST_DT" type="DATETIME"/>
       <column name="FDOC_CCRD_DREF_NBR" type="VARCHAR(10)"/>
       <column name="FDOC_CCRD_DPST_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1026" context="bootstrap,demo,unit">
     <createTable tableName="FP_CR_CARD_TYP_T">
@@ -2047,11 +2092,14 @@
       <column name="CUST_CCRD_HLDR_NM" type="VARCHAR(123)"/>
       <column name="CUST_CCRD_ISSR_NM" type="VARCHAR(123)"/>
       <column name="FDOC_CCRD_TYPE_CD" type="VARCHAR(2)"/>
-      <column name="CUST_CCRD_EXP_DT" type="DATE"/>
+      <column name="CUST_CCRD_EXP_DT" type="DATETIME"/>
       <column name="CUST_NBR" type="VARCHAR(9)"/>
       <column name="FIDOC_CCRD_VNDR_NBR" type="VARCHAR(10)"/>
       <column name="CUST_CCRD_NTE_TXT" type="VARCHAR(2000)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1031" context="bootstrap,demo,unit">
     <createTable tableName="FP_DEPOSIT_DOC_T">
@@ -2068,11 +2116,14 @@
         <constraints nullable="false"/>
       </column>
       <column name="FDOC_DPST_TYP_CD" type="VARCHAR(1)"/>
-      <column name="FDOC_DPST_DT" type="DATE"/>
+      <column name="FDOC_DPST_DT" type="DATETIME"/>
       <column name="FDOC_DPST_BNK_CD" type="VARCHAR(4)"/>
       <column name="FDOC_DPST_TKT_NBR" type="VARCHAR(20)"/>
       <column name="FDOC_DPST_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1032" context="bootstrap,demo,unit">
     <createTable tableName="FP_DEPOSIT_HDR_T">
@@ -2120,9 +2171,12 @@
       <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
         <constraints nullable="false"/>
       </column>
-      <column name="FS_CSHRCPT_PRCS_TS" type="DATE"/>
+      <column name="FS_CSHRCPT_PRCS_TS" type="DATETIME"/>
       <column name="FS_PRCS_OPR_ID" type="VARCHAR(10)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1034" context="bootstrap,demo,unit">
     <createTable tableName="FP_DISTRIB_DOC_T">
@@ -2202,7 +2256,7 @@
       <column name="DV_CNTCT_EMAIL_ID" type="VARCHAR(50)"/>
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
-      <column name="DV_DUE_DT" type="DATE"/>
+      <column name="DV_DUE_DT" type="DATETIME"/>
       <column name="DV_ATTCH_IND" type="CHAR(1)"/>
       <column name="DV_SPCL_HANDLG_IND" type="CHAR(1)"/>
       <column name="DV_CHK_TOT_AMT" type="DECIMAL(19, 2)"/>
@@ -2214,13 +2268,13 @@
       <column name="DV_PAYEE_TXCTRL_CD" type="VARCHAR(1)"/>
       <column name="DV_PAYEE_CHG_IND" type="CHAR(1)"/>
       <column name="DV_CHK_NBR" type="VARCHAR(6)"/>
-      <column name="DV_CHK_DT" type="DATE"/>
+      <column name="DV_CHK_DT" type="DATETIME"/>
       <column name="DV_W9_CMPLT_IND" type="CHAR(1)"/>
       <column name="DV_PMT_MTHD_CD" type="VARCHAR(1)"/>
       <column name="DV_PAYEE_TYP_CD" type="VARCHAR(1)"/>
-      <column name="DV_EXTRT_DT" type="DATE"/>
-      <column name="DV_PD_DT" type="DATE"/>
-      <column name="DV_CNCL_DT" type="DATE"/>
+      <column name="DV_EXTRT_DT" type="DATETIME"/>
+      <column name="DV_PD_DT" type="DATETIME"/>
+      <column name="DV_CNCL_DT" type="DATETIME"/>
       <column name="DV_BNK_CD" type="VARCHAR(4)"/>
       <column name="DV_PDP_BNK_CD" type="VARCHAR(4)"/>
       <column defaultValue="N" name="DV_EXCPT_IND" type="VARCHAR(1)">
@@ -2228,6 +2282,9 @@
       </column>
       <column defaultValue="N" name="IMD_PMT_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1038" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_EXP_TYP_T">
@@ -2250,7 +2307,7 @@
   </changeSet>
   <changeSet author="kfs" id="1039" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_MLG_T">
-      <column name="DV_MLG_EFF_DT" type="DATE">
+      <column name="DV_MLG_EFF_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column defaultValueNumeric="0" name="DV_MLG_LMT_AMT" type="DECIMAL(7)">
@@ -2264,6 +2321,9 @@
       </column>
       <column name="DV_MLG_RT" type="DECIMAL(19, 4)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1040" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_NONEMP_EXP_T">
@@ -2299,8 +2359,8 @@
       <column name="DV_TRVL_FROM_ST_CD" type="VARCHAR(2)"/>
       <column name="DV_TRVL_TO_CTY_NM" type="VARCHAR(40)"/>
       <column name="DV_TRVL_TO_ST_CD" type="VARCHAR(2)"/>
-      <column name="DV_DIEM_STRT_TS" type="DATE"/>
-      <column name="DV_DIEM_END_TS" type="DATE"/>
+      <column name="DV_DIEM_STRT_TS" type="DATETIME"/>
+      <column name="DV_DIEM_END_TS" type="DATETIME"/>
       <column name="DV_DIEM_CALC_AMT" type="DECIMAL(19, 2)"/>
       <column name="DV_DIEM_ACTL_AMT" type="DECIMAL(19, 2)"/>
       <column name="DV_DIEM_CHG_TXT" type="VARCHAR(200)"/>
@@ -2324,6 +2384,9 @@
       <column name="DV_TRVL_FRM_CNTRY_CD" type="VARCHAR(2)"/>
       <column name="DV_TRVL_TO_CNTRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1042" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_NRA_TAX_T">
@@ -2434,11 +2497,14 @@
         <constraints nullable="false"/>
       </column>
       <column name="DV_CONF_DEST_NM" type="VARCHAR(40)"/>
-      <column name="DV_CONF_STRT_DT" type="DATE"/>
-      <column name="DV_CONF_END_DT" type="DATE"/>
+      <column name="DV_CONF_STRT_DT" type="DATETIME"/>
+      <column name="DV_CONF_END_DT" type="DATETIME"/>
       <column name="DV_CONF_TOT_AMT" type="DECIMAL(19, 2)"/>
       <column name="DV_EXP_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1047" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_TRVL_CO_NM_T">
@@ -2611,10 +2677,13 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(1)"/>
       <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1056" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM1_LEVEL_MT">
@@ -2645,10 +2714,13 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1057" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM1_OBJ_MT">
@@ -2679,8 +2751,11 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1058" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM2_CONS_MT">
@@ -2711,13 +2786,16 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(1)"/>
       <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
       <column name="CONS_FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="FIN_CONS_OBJ_CD" type="VARCHAR(4)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1059" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM2_LEVEL_MT">
@@ -2745,11 +2823,14 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1060" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM2_OBJ_MT">
@@ -2777,10 +2858,13 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1061" context="bootstrap,demo,unit">
     <createTable tableName="FP_INT_BILL_DOC_T">
@@ -2816,11 +2900,14 @@
       </column>
       <column name="FDOC_ITM_STCK_NBR" type="VARCHAR(9)"/>
       <column name="FDOC_ITM_STCK_DESC" type="VARCHAR(40)"/>
-      <column name="FDOC_ITM_SRVC_DT" type="DATE"/>
+      <column name="FDOC_ITM_SRVC_DT" type="DATETIME"/>
       <column name="FDOC_ITM_QTY" type="DECIMAL(7, 2)"/>
       <column name="FDOC_ITM_UNIT_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_UNIT_MSR_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1063" context="bootstrap,demo,unit">
     <createTable tableName="FP_JRNL_VCHR_DOC_T">
@@ -2836,9 +2923,12 @@
       <column name="FDOC_NXT_LINE_NBR" type="DECIMAL(7)"/>
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATE"/>
+      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
       <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1064" context="bootstrap,demo,unit">
     <createTable tableName="FP_JV_ACCT_LINES_T">
@@ -3074,13 +3164,13 @@
       <column name="FIN_OBJECT_CD" type="VARCHAR(4)"/>
       <column name="FIN_SUB_OBJ_CD" type="VARCHAR(3)"/>
       <column name="PROJECT_CD" type="VARCHAR(10)"/>
-      <column name="TRN_CYCLE_STRT_DT" type="DATE"/>
-      <column name="TRN_CYCLE_END_DT" type="DATE"/>
+      <column name="TRN_CYCLE_STRT_DT" type="DATETIME"/>
+      <column name="TRN_CYCLE_END_DT" type="DATETIME"/>
       <column name="FDOC_CARD_HLDR_NM" type="VARCHAR(123)"/>
-      <column name="TRANSACTION_DT" type="DATE"/>
+      <column name="TRANSACTION_DT" type="DATETIME"/>
       <column name="TRN_REF_NBR" type="VARCHAR(23)"/>
       <column name="TRN_MCC_CD" type="VARCHAR(4)"/>
-      <column name="TRN_POST_DT" type="DATE"/>
+      <column name="TRN_POST_DT" type="DATETIME"/>
       <column name="TRN_ORIG_CRNCY_CD" type="VARCHAR(3)"/>
       <column name="TRN_BILL_CRNCY_CD" type="VARCHAR(3)"/>
       <column name="TRN_ORIG_CRNCY_AMT" type="DECIMAL(19, 2)"/>
@@ -3114,6 +3204,9 @@
       <column name="FDOC_CARD_STAT_CD" type="VARCHAR(2)"/>
       <column name="FDOC_CARD_NTE_TXT" type="VARCHAR(50)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1073" context="bootstrap,demo,unit">
     <createTable tableName="FP_PRCRMNT_DOC_T">
@@ -3144,9 +3237,9 @@
       <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
         <constraints nullable="false"/>
       </column>
-      <column name="TRANSACTION_DT" type="DATE"/>
+      <column name="TRANSACTION_DT" type="DATETIME"/>
       <column name="TRN_REF_NBR" type="VARCHAR(23)"/>
-      <column name="TRN_POST_DT" type="DATE"/>
+      <column name="TRN_POST_DT" type="DATETIME"/>
       <column name="TRN_ORIG_CRNCY_CD" type="VARCHAR(3)"/>
       <column name="TRN_BILL_CRNCY_CD" type="VARCHAR(3)"/>
       <column name="TRN_ORIG_CRNCY_AMT" type="DECIMAL(19, 2)"/>
@@ -3159,10 +3252,13 @@
       <column name="TRN_UNIT_CNTCT_NM" type="VARCHAR(123)"/>
       <column name="TRN_TRVL_AUTH_CD" type="VARCHAR(50)"/>
       <column name="TRN_PT_OF_SALE_CD" type="VARCHAR(25)"/>
-      <column name="TRN_CYCLE_STRT_DT" type="DATE"/>
-      <column name="TRN_CYCLE_END_DT" type="DATE"/>
+      <column name="TRN_CYCLE_STRT_DT" type="DATETIME"/>
+      <column name="TRN_CYCLE_END_DT" type="DATETIME"/>
       <column name="TRN_TOT_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1075" context="bootstrap,demo,unit">
     <createTable tableName="FP_PRCRMNT_VNDR_T">
@@ -3203,9 +3299,12 @@
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
       <column name="FDOC_NXT_ENC_NBR" type="DECIMAL(7)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATE"/>
+      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
       <column name="FDOC_NXT_DIS_NBR" type="DECIMAL(7)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1077" context="bootstrap,demo,unit">
     <createTable tableName="FP_RPT_CD_T">
@@ -3253,8 +3352,11 @@
       <column name="ACCOUNT_NBR" type="VARCHAR(7)"/>
       <column name="FDOC_GRS_SALES_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_TXBL_SALES_AMT" type="DECIMAL(19, 2)"/>
-      <column name="FDOC_SALE_DT" type="DATE"/>
+      <column name="FDOC_SALE_DT" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1079" context="bootstrap,demo,unit">
     <createTable tableName="FS_CLCTR_HDR_T">
@@ -3264,7 +3366,7 @@
       <column defaultValue="" name="ORG_CD" type="VARCHAR(4)">
         <constraints nullable="false"/>
       </column>
-      <column name="PROC_TRNS_DT" type="DATE">
+      <column name="PROC_TRNS_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column defaultValueNumeric="0" name="PROC_BATCH_SEQ_NBR" type="DECIMAL(5)">
@@ -3295,6 +3397,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1080" context="bootstrap,demo,unit">
     <createTable tableName="FS_DOC_HDRS_MSNG_IN_KEW_T">
@@ -3311,13 +3416,16 @@
       <column name="FDOC_STATUS_CD" type="VARCHAR(2)"/>
       <column name="FDOC_TOTAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_IN_ERR_NBR" type="VARCHAR(14)"/>
-      <column name="TEMP_DOC_FNL_DT" type="DATE"/>
+      <column name="TEMP_DOC_FNL_DT" type="DATETIME"/>
       <column name="FDOC_HDR_STAT_CD" type="VARCHAR(1)"/>
       <column name="APP_DOC_STAT" type="VARCHAR(64)"/>
       <column name="INITR_PRNCPL_ID" type="VARCHAR(40)"/>
       <column name="FDOC_TYP_NM" type="VARCHAR(64)"/>
-      <column name="FDOC_CRTE_DT" type="DATE"/>
+      <column name="FDOC_CRTE_DT" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1082" context="bootstrap,demo,unit">
     <createTable tableName="FS_HOME_ORIGIN_T">
@@ -3493,7 +3601,7 @@
       <column defaultValue="" name="TAX_REGION_CD" type="VARCHAR(10)">
         <constraints nullable="false"/>
       </column>
-      <column name="TAX_RATE_EFFECTIVE_DT" type="DATE">
+      <column name="TAX_RATE_EFFECTIVE_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="OBJ_ID" type="VARCHAR(36)">
@@ -3504,6 +3612,9 @@
       </column>
       <column name="TAX_RATE" type="DECIMAL(9, 8)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1090" context="bootstrap,demo,unit">
     <createTable tableName="FS_TAX_REGION_T">
@@ -3626,8 +3737,11 @@
       <column name="CURR_BDLN_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ACTLS_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="2716" context="bootstrap,demo,unit">
     <createTable tableName="GL_BALANCE_T">
@@ -3671,8 +3785,11 @@
       <column name="MO11_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
       <column name="MO12_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
       <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="2717" context="bootstrap,demo,unit">
     <createTable tableName="GL_COR_DOC_T">
@@ -3876,12 +3993,15 @@
         <constraints nullable="false"/>
       </column>
       <column name="TRN_ENCUM_DESC" type="VARCHAR(40)"/>
-      <column name="TRN_ENCUM_DT" type="DATE"/>
+      <column name="TRN_ENCUM_DT" type="DATETIME"/>
       <column name="ACLN_ENCUM_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_CLS_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACLN_ENCUM_PRG_CD" type="VARCHAR(1)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1102" context="bootstrap,demo,unit">
     <createTable tableName="GL_ENTRY_HIST_T">
@@ -3952,18 +4072,21 @@
       <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
       <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
       <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-      <column name="TRANSACTION_DT" type="DATE"/>
+      <column name="TRANSACTION_DT" type="DATETIME"/>
       <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
       <column name="PROJECT_CD" type="VARCHAR(10)"/>
       <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
       <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
       <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATE"/>
+      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
-      <column name="TRN_POST_DT" type="DATE"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TRN_POST_DT" type="DATETIME"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1104" context="bootstrap,demo,unit">
     <createTable tableName="GL_EXPEND_TRN_MT">
@@ -4011,7 +4134,7 @@
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
         <constraints nullable="false"/>
       </column>
-      <column name="CREATE_DT" type="DATE">
+      <column name="CREATE_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column defaultValue="" name="FIN_COA_CD" type="VARCHAR(2)">
@@ -4063,6 +4186,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1106" context="bootstrap,demo,unit">
     <createTable tableName="GL_OFFSET_DEFN_T">
@@ -4185,7 +4311,7 @@
       <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
       <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
       <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-      <column name="TRANSACTION_DT" type="DATE"/>
+      <column name="TRANSACTION_DT" type="DATETIME"/>
       <column name="FDOC_TYP_CD" type="VARCHAR(4)"/>
       <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
       <column name="PROJECT_CD" type="VARCHAR(10)"/>
@@ -4193,13 +4319,16 @@
       <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
       <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATE"/>
+      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
       <column name="FDOC_APPROVED_CD" type="VARCHAR(1)"/>
       <column name="ACCT_SF_FINOBJ_CD" type="VARCHAR(4)"/>
       <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
-      <column name="TRNENTR_PROCESS_TM" type="DATE"/>
+      <column name="TRNENTR_PROCESS_TM" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1111" context="bootstrap,demo,unit">
     <createTable tableName="GL_PENDING_ENTRY_T">
@@ -4230,7 +4359,7 @@
       <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
       <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
       <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-      <column name="TRANSACTION_DT" type="DATE"/>
+      <column name="TRANSACTION_DT" type="DATETIME"/>
       <column name="FDOC_TYP_CD" type="VARCHAR(4)"/>
       <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
       <column name="PROJECT_CD" type="VARCHAR(10)"/>
@@ -4238,17 +4367,20 @@
       <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
       <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATE"/>
+      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
       <column name="FDOC_APPROVED_CD" type="VARCHAR(1)"/>
       <column name="ACCT_SF_FINOBJ_CD" type="VARCHAR(4)"/>
       <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
-      <column name="TRNENTR_PROCESS_TM" type="DATE"/>
+      <column name="TRNENTR_PROCESS_TM" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1112" context="bootstrap,demo,unit">
     <createTable tableName="GL_REVERSAL_T">
-      <column name="FDOC_REVERSAL_DT" type="DATE">
+      <column name="FDOC_REVERSAL_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
@@ -4293,7 +4425,7 @@
       <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
       <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
       <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-      <column name="TRANSACTION_DT" type="DATE"/>
+      <column name="TRANSACTION_DT" type="DATETIME"/>
       <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
       <column name="PROJECT_CD" type="VARCHAR(10)"/>
       <column name="ORG_REFERENCE_ID" type="VARCHAR(8)"/>
@@ -4301,8 +4433,11 @@
       <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
-      <column name="TRN_POST_DT" type="DATE"/>
+      <column name="TRN_POST_DT" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1113" context="bootstrap,demo,unit">
     <createTable tableName="GL_SF_BALANCES_T">
@@ -4322,8 +4457,11 @@
       <column name="CURR_BDGT_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACCT_ACTL_XPND_AMT" type="DECIMAL(19, 2)"/>
       <column name="ACCT_ENCUM_AMT" type="DECIMAL(19, 2)"/>
-      <column name="TIMESTAMP" type="DATE"/>
+      <column name="TIMESTAMP" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1114" context="bootstrap,demo,unit">
     <createTable tableName="GL_SF_REBUILD_T">
@@ -4368,10 +4506,13 @@
         <constraints nullable="false"/>
       </column>
       <column name="ACH_BNK_ACCT_NBR" type="VARCHAR(255)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1118" context="bootstrap,demo,unit">
     <createTable tableName="PDP_ACH_BNK_T">
@@ -4556,7 +4697,7 @@
       <column name="END_DISB_NBR" type="DECIMAL(9)">
         <constraints nullable="false"/>
       </column>
-      <column name="DISB_NBR_RNG_START_DT" type="DATE">
+      <column name="DISB_NBR_RNG_START_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column defaultValue="" name="BNK_CD" type="VARCHAR(4)">
@@ -4569,6 +4710,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1124" context="bootstrap,demo,unit">
     <createTable tableName="PDP_DISB_TYP_CD_T">
@@ -4594,16 +4738,19 @@
         <constraints nullable="false"/>
       </column>
       <column name="PMT_FL_NM" type="VARCHAR(30)"/>
-      <column name="CUST_FL_CRTN_TS" type="DATE"/>
+      <column name="CUST_FL_CRTN_TS" type="DATETIME"/>
       <column name="PMT_CNT" type="DECIMAL(5)"/>
       <column name="PMT_TOT_AMT" type="DECIMAL(19, 2)"/>
       <column name="SBMTR_USR_ID" type="VARCHAR(40)"/>
-      <column name="FL_PROC_TS" type="DATE"/>
+      <column name="FL_PROC_TS" type="DATETIME"/>
       <column name="CUST_ID" type="DECIMAL(8)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1126" context="bootstrap,demo,unit">
     <createTable tableName="PDP_FMT_PROC_T">
@@ -4614,14 +4761,17 @@
       <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
         <constraints nullable="false"/>
       </column>
-      <column name="BEG_PROC_TS" type="DATE">
+      <column name="BEG_PROC_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="PMT_PROC_ID" type="DECIMAL(8)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1127" context="bootstrap,demo,unit">
     <createTable tableName="PDP_GL_PENDING_ENTRY_T">
@@ -4651,7 +4801,7 @@
       <column name="TRN_LDGR_ENTR_DESC" type="VARCHAR(40)"/>
       <column name="TRN_LDGR_ENTR_AMT" type="DECIMAL(19, 2)"/>
       <column name="TRN_DEBIT_CRDT_CD" type="VARCHAR(1)"/>
-      <column name="TRANSACTION_DT" type="DATE"/>
+      <column name="TRANSACTION_DT" type="DATETIME"/>
       <column name="FDOC_TYP_CD" type="VARCHAR(4)"/>
       <column name="ORG_DOC_NBR" type="VARCHAR(10)"/>
       <column name="PROJECT_CD" type="VARCHAR(10)"/>
@@ -4659,7 +4809,7 @@
       <column name="FDOC_REF_TYP_CD" type="VARCHAR(4)"/>
       <column name="FS_REF_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="FDOC_REF_NBR" type="VARCHAR(14)"/>
-      <column name="FDOC_REVERSAL_DT" type="DATE"/>
+      <column name="FDOC_REVERSAL_DT" type="DATETIME"/>
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
       <column name="FDOC_APPROVED_CD" type="VARCHAR(1)"/>
       <column name="ACCT_SF_FINOBJ_CD" type="VARCHAR(4)"/>
@@ -4668,6 +4818,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1128" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PAYEE_ACH_ACCT_T">
@@ -4692,8 +4845,11 @@
         <constraints nullable="false"/>
       </column>
       <column name="AUTO_INACTV_IND" type="VARCHAR(1)"/>
-      <column name="LST_UPDT_TS" type="DATE"/>
+      <column name="LST_UPDT_TS" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1129" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PAYEE_TYP_T">
@@ -4746,10 +4902,13 @@
       <column name="PMT_DTL_ID" type="DECIMAL(8)">
         <constraints nullable="false"/>
       </column>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1131" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_ACCT_HIST_T">
@@ -4764,12 +4923,15 @@
       <column name="ACCT_ATTRIB_NM" type="VARCHAR(25)"/>
       <column name="ACCT_ATTRIB_ORIG_VAL" type="VARCHAR(15)"/>
       <column name="ACCT_ATTRIB_NEW_VAL" type="VARCHAR(15)"/>
-      <column name="ACCT_CHG_TS" type="DATE"/>
+      <column name="ACCT_CHG_TS" type="DATETIME"/>
       <column name="PMT_ACCT_DTL_ID" type="DECIMAL(8)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1132" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_CHG_CD_T">
@@ -4795,12 +4957,12 @@
         <constraints nullable="false"/>
       </column>
       <column name="CUST_PMT_DOC_NBR" type="VARCHAR(14)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="INV_NBR" type="VARCHAR(25)"/>
       <column name="PO_NBR" type="VARCHAR(9)"/>
-      <column name="INV_DT" type="DATE">
+      <column name="INV_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="PMT_GRP_ID" type="DECIMAL(8)"/>
@@ -4829,6 +4991,9 @@
       <column name="FS_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="CUST_INST_NBR" type="VARCHAR(30)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1134" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_GRP_HIST_T">
@@ -4842,25 +5007,28 @@
       <column name="PMT_CHG_CD" type="VARCHAR(4)"/>
       <column name="PMT_CHG_NTE_TXT" type="VARCHAR(250)"/>
       <column name="PMT_CHG_USR_ID" type="VARCHAR(40)"/>
-      <column name="PMT_CHG_TS" type="DATE"/>
+      <column name="PMT_CHG_TS" type="DATETIME"/>
       <column name="ORIG_PMT_STAT_CD" type="VARCHAR(4)"/>
-      <column name="ORIG_PMT_DT" type="DATE"/>
+      <column name="ORIG_PMT_DT" type="DATETIME"/>
       <column name="ORIG_ACH_BNK_RTNG_NBR" type="VARCHAR(9)"/>
       <column name="ORIG_ADV_EMAIL_ADDR" type="VARCHAR(50)"/>
       <column name="ORIG_DISB_NBR" type="DECIMAL(9)"/>
-      <column name="ORIG_DISB_TS" type="DATE"/>
+      <column name="ORIG_DISB_TS" type="DATETIME"/>
       <column name="ORIG_PROC_IMD_IND" type="VARCHAR(1)"/>
       <column name="ORIG_PMT_SPCL_HANDLG_IND" type="VARCHAR(1)"/>
-      <column name="PMT_CNCL_EXTRT_TS" type="DATE"/>
+      <column name="PMT_CNCL_EXTRT_TS" type="DATETIME"/>
       <column name="ORIG_DISB_TYP_CD" type="VARCHAR(4)"/>
       <column name="PMT_CNCL_EXTRT_STAT_IND" type="VARCHAR(1)"/>
       <column name="ORIG_PROC_ID" type="DECIMAL(8)"/>
       <column name="PMT_GRP_ID" type="DECIMAL(8)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="ORIG_BNK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1135" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_GRP_T">
@@ -4874,13 +5042,13 @@
       <column name="PMT_PAYEE_NM" type="VARCHAR(123)"/>
       <column name="DISB_NBR" type="DECIMAL(9)"/>
       <column name="PAYEE_ID" type="VARCHAR(25)"/>
-      <column name="DISB_TS" type="DATE"/>
+      <column name="DISB_TS" type="DATETIME"/>
       <column name="PAYEE_ID_TYP_CD" type="VARCHAR(1)"/>
       <column name="PHYS_CMP_PROC_CD" type="VARCHAR(2)"/>
       <column name="PMT_SORT_ORD_VAL" type="VARCHAR(150)"/>
       <column name="ALTRNT_PAYEE_ID" type="VARCHAR(25)"/>
       <column name="ALTRNT_PAYEE_ID_TYP_CD" type="VARCHAR(1)"/>
-      <column name="PMT_ACH_EXTRT_TS" type="DATE"/>
+      <column name="PMT_ACH_EXTRT_TS" type="DATETIME"/>
       <column name="PAYEE_OWNR_CD" type="VARCHAR(2)"/>
       <column name="CUST_INST_NBR" type="VARCHAR(30)"/>
       <column name="PMT_LN1_ADDR" type="VARCHAR(55)"/>
@@ -4891,7 +5059,7 @@
       <column name="PMT_ZIP_CD" type="VARCHAR(20)"/>
       <column name="PMT_ST_NM" type="VARCHAR(30)"/>
       <column name="CMP_ADDR_IND" type="VARCHAR(1)"/>
-      <column name="PMT_DT" type="DATE"/>
+      <column name="PMT_DT" type="DATETIME"/>
       <column name="PMT_CNTRY_NM" type="VARCHAR(30)"/>
       <column name="PMT_ATTCHMNT_IND" type="VARCHAR(1)"/>
       <column name="PMT_SPCL_HANDLG_IND" type="VARCHAR(1)"/>
@@ -4905,18 +5073,21 @@
       <column name="PMT_FIL_ID" type="DECIMAL(8)"/>
       <column name="DISB_TYP_CD" type="VARCHAR(4)"/>
       <column name="PMT_STAT_CD" type="VARCHAR(4)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="PROC_ID" type="DECIMAL(8)"/>
       <column name="PMT_GRP_CMB_IND" type="VARCHAR(1)">
         <constraints nullable="false"/>
       </column>
-      <column name="ADV_EMAIL_SNT_TS" type="DATE"/>
-      <column name="PDP_EPIC_PMT_CNCL_EXTRT_TS" type="DATE"/>
-      <column name="PDP_EPIC_PMT_PD_EXTRT_TS" type="DATE"/>
+      <column name="ADV_EMAIL_SNT_TS" type="DATETIME"/>
+      <column name="PDP_EPIC_PMT_CNCL_EXTRT_TS" type="DATETIME"/>
+      <column name="PDP_EPIC_PMT_PD_EXTRT_TS" type="DATETIME"/>
       <column name="BNK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1136" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_NTE_TXT_T">
@@ -4934,10 +5105,13 @@
         <constraints nullable="false"/>
       </column>
       <column name="PMT_DTL_ID" type="DECIMAL(8)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1137" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_STAT_CD_T">
@@ -5000,10 +5174,13 @@
         <constraints nullable="false"/>
       </column>
       <column name="PROC_ID" type="DECIMAL(8)"/>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1140" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PROC_T">
@@ -5017,18 +5194,21 @@
       <column name="PHYS_CMP_CD" type="VARCHAR(2)">
         <constraints nullable="false"/>
       </column>
-      <column name="PROC_TS" type="DATE">
+      <column name="PROC_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="PROC_USR_ID" type="VARCHAR(40)">
         <constraints nullable="false"/>
       </column>
-      <column name="LST_UPDT_TS" type="DATE">
+      <column name="LST_UPDT_TS" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column defaultValue="Y" name="EXTRACTED_IND" type="VARCHAR(1)"/>
       <column defaultValue="N" name="FORMATTED_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1141" context="bootstrap,demo,unit">
     <createTable tableName="PUR_ADDR_TYP_T">
@@ -5538,20 +5718,23 @@
       <column name="VNDR_CONTR_NM" type="VARCHAR(20)"/>
       <column name="VNDR_CONTR_DESC" type="VARCHAR(60)"/>
       <column name="VNDR_CMP_CD" type="VARCHAR(2)"/>
-      <column name="VNDR_CONTR_BEG_DT" type="DATE"/>
-      <column name="VNDR_CONTR_END_DT" type="DATE"/>
+      <column name="VNDR_CONTR_BEG_DT" type="DATETIME"/>
+      <column name="VNDR_CONTR_END_DT" type="DATETIME"/>
       <column name="CONTR_MGR_CD" type="DECIMAL(2)"/>
       <column name="PO_CST_SRC_CD" type="VARCHAR(4)"/>
       <column name="VNDR_PMT_TERM_CD" type="VARCHAR(5)"/>
       <column name="VNDR_SHP_PMT_TERM_CD" type="VARCHAR(4)"/>
       <column name="VNDR_SHP_TTL_CD" type="VARCHAR(4)"/>
-      <column name="VNDR_CONTR_EXTNS_DT" type="DATE"/>
+      <column name="VNDR_CONTR_EXTNS_DT" type="DATETIME"/>
       <column name="VNDR_B2B_IND" type="VARCHAR(1)"/>
       <column name="ORG_AUTO_PO_LMT" type="DECIMAL(19, 2)"/>
       <column name="DOBJ_MAINT_CD_ACTV_IND" type="VARCHAR(1)">
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1165" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_CUST_NBR_T">
@@ -5635,7 +5818,7 @@
       <column name="VNDR_RMT_NM" type="VARCHAR(45)"/>
       <column name="VNDR_RSTRC_IND" type="VARCHAR(1)"/>
       <column name="VNDR_RSTRC_REAS_TXT" type="VARCHAR(60)"/>
-      <column name="VNDR_RSTRC_DT" type="DATE"/>
+      <column name="VNDR_RSTRC_DT" type="DATETIME"/>
       <column name="VNDR_RSTRC_PRSN_ID" type="VARCHAR(40)"/>
       <column name="VNDR_SOLD_TO_GNRTD_ID" type="DECIMAL(10)"/>
       <column name="VNDR_SOLD_TO_ASND_ID" type="DECIMAL(10)"/>
@@ -5644,13 +5827,16 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1168" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_EXCL_MT">
       <column defaultValueNumeric="0" name="VNDR_EXCL_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
       </column>
-      <column name="VNDR_EXCL_LOAD_DT" type="DATE"/>
+      <column name="VNDR_EXCL_LOAD_DT" type="DATETIME"/>
       <column name="VNDR_EXCL_NM" type="VARCHAR(200)"/>
       <column name="VNDR_EXCL_LN1_ADDR" type="VARCHAR(150)"/>
       <column name="VNDR_EXCL_LN2_ADDR" type="VARCHAR(50)"/>
@@ -5661,6 +5847,9 @@
       <column name="VNDR_EXCL_OTHR_NM" type="VARCHAR(1000)"/>
       <column name="VNDR_EXCL_DESC_TXT" type="VARCHAR(1000)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1169" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_EXCL_MTCH_T">
@@ -5677,7 +5866,7 @@
       <column name="VNDR_DTL_ASND_ID" type="DECIMAL(10)"/>
       <column name="VNDR_ADDR_GNRTD_ID" type="DECIMAL(10)"/>
       <column name="VNDR_EXCL_CFRM_STAT_CD" type="VARCHAR(10)"/>
-      <column name="VNDR_EXCL_LOAD_DT" type="DATE"/>
+      <column name="VNDR_EXCL_LOAD_DT" type="DATETIME"/>
       <column name="VNDR_EXCL_NM" type="VARCHAR(200)"/>
       <column name="VNDR_EXCL_LN1_ADDR" type="VARCHAR(150)"/>
       <column name="VNDR_EXCL_LN2_ADDR" type="VARCHAR(50)"/>
@@ -5687,9 +5876,12 @@
       <column name="VNDR_EXCL_ZIP_CD" type="VARCHAR(20)"/>
       <column name="VNDR_EXCL_OTHR_NM" type="VARCHAR(1000)"/>
       <column name="VNDR_EXCL_DESC_TXT" type="VARCHAR(1000)"/>
-      <column name="LST_UPDT_TS" type="DATE"/>
+      <column name="LST_UPDT_TS" type="DATETIME"/>
       <column name="LST_UPDT_PRNCPL_NM" type="VARCHAR(100)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1170" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_HDR_T">
@@ -5709,22 +5901,25 @@
       <column name="VNDR_TAX_TYP_CD" type="VARCHAR(4)"/>
       <column name="VNDR_OWNR_CD" type="VARCHAR(4)"/>
       <column name="VNDR_OWNR_CTGRY_CD" type="VARCHAR(4)"/>
-      <column name="VNDR_FWT_BEG_DT" type="DATE"/>
-      <column name="VNDR_FWT_END_DT" type="DATE"/>
+      <column name="VNDR_FWT_BEG_DT" type="DATETIME"/>
+      <column name="VNDR_FWT_END_DT" type="DATETIME"/>
       <column name="VNDR_W9_RCVD_IND" type="VARCHAR(1)"/>
       <column name="VNDR_W8_RCVD_IND" type="VARCHAR(1)"/>
       <column name="VNDR_DEBRD_IND" type="VARCHAR(1)"/>
       <column name="VNDR_FRGN_IND" type="VARCHAR(1)"/>
       <column name="VNDR_W8_TYP_CD" type="VARCHAR(2)"/>
-      <column name="VNDR_W9_SIGNED_DT" type="DATE"/>
-      <column name="VNDR_W8_SIGNED_DT" type="DATE"/>
+      <column name="VNDR_W9_SIGNED_DT" type="DATETIME"/>
+      <column name="VNDR_W8_SIGNED_DT" type="DATETIME"/>
       <column name="VNDR_CORP_CTZN_CNTRY_CD" type="VARCHAR(2)"/>
       <column name="VNDR_FOREIGN_TAX_ID" type="VARCHAR(255)"/>
       <column name="VNDR_GIIN" type="VARCHAR(19)"/>
-      <column name="VNDR_DOB_DT" type="DATE"/>
+      <column name="VNDR_DOB_DT" type="DATETIME"/>
       <column name="VNDR_CHAP_3_STAT_CD" type="VARCHAR(2)"/>
       <column name="VNDR_CHAP_4_STAT_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1171" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_INACTV_REAS_T">
@@ -5825,7 +6020,7 @@
       <column name="VNDR_HDR_GNRTD_ID" type="DECIMAL(10)">
         <constraints nullable="false"/>
       </column>
-      <column name="VNDR_TAX_CHG_DT" type="DATE">
+      <column name="VNDR_TAX_CHG_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="VNDR_PREV_TAX_NBR" type="VARCHAR(255)"/>
@@ -5834,6 +6029,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1176" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_TYP_T">
@@ -6031,9 +6229,12 @@
       <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
         <constraints nullable="false"/>
       </column>
-      <column name="ACTV_FRM_DT" type="DATE"/>
-      <column name="ACTV_TO_DT" type="DATE"/>
+      <column name="ACTV_FRM_DT" type="DATETIME"/>
+      <column name="ACTV_TO_DT" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1184" context="bootstrap,demo,unit">
     <createTable tableName="SEC_SCRTY_MDL_T">
@@ -6123,8 +6324,11 @@
       <column name="UNIV_FISCAL_PRD_NM" type="VARCHAR(10)"/>
       <column name="ROW_ACTV_IND" type="VARCHAR(1)"/>
       <column name="BDGT_ROLLOVER_CD" type="VARCHAR(1)"/>
-      <column name="UNIV_FSCPD_END_DT" type="DATE"/>
+      <column name="UNIV_FSCPD_END_DT" type="DATETIME"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1188" context="bootstrap,demo,unit">
     <createTable tableName="SH_BUILDING_T">
@@ -6200,7 +6404,7 @@
   </changeSet>
   <changeSet author="kfs" id="1191" context="bootstrap,demo,unit">
     <createTable tableName="SH_UNIV_DATE_T">
-      <column name="UNIV_DT" type="DATE">
+      <column name="UNIV_DT" type="DATETIME">
         <constraints nullable="false"/>
       </column>
       <column name="OBJ_ID" type="VARCHAR(36)">
@@ -6212,6 +6416,9 @@
       <column name="UNIV_FISCAL_YR" type="DECIMAL(4)"/>
       <column name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="oracle">
+      <replace replace="TIMESTAMP" with="DATE"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1192" context="bootstrap,demo,unit">
     <createTable tableName="SH_UOM_T">

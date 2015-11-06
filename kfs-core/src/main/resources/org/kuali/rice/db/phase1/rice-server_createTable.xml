@@ -47,7 +47,7 @@
             <column defaultValue="" name="CMPNT_SET_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LAST_UPDT_TS" type="DATE">
+            <column name="LAST_UPDT_TS" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="CHKSM" type="VARCHAR(40)">
@@ -57,6 +57,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00017">
         <createTable tableName="krcr_cmpnt_t">
@@ -270,11 +273,14 @@
             <column defaultValueNumeric="0" name="PROC_CNT" type="DECIMAL(4)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LOCKD_DTTM" type="DATE"/>
+            <column name="LOCKD_DTTM" type="DATETIME"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00033">
         <createTable tableName="kren_msg_t">
@@ -285,7 +291,7 @@
             <column name="DELIV_TYP" type="VARCHAR(500)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CRTE_DTTM" type="DATE">
+            <column name="CRTE_DTTM" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="TTL" type="VARCHAR(255)"/>
@@ -305,6 +311,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00035">
         <createTable tableName="kren_ntfctn_msg_deliv_t">
@@ -321,12 +330,15 @@
                 <constraints nullable="false"/>
             </column>
             <column name="SYS_ID" type="VARCHAR(300)"/>
-            <column name="LOCKD_DTTM" type="DATE"/>
+            <column name="LOCKD_DTTM" type="DATETIME"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
             <column name="OBJ_ID" type="VARCHAR(36)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00037">
         <createTable tableName="kren_ntfctn_t">
@@ -336,11 +348,11 @@
             <column name="DELIV_TYP" type="VARCHAR(3)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CRTE_DTTM" type="DATE">
+            <column name="CRTE_DTTM" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="SND_DTTM" type="DATE"/>
-            <column name="AUTO_RMV_DTTM" type="DATE"/>
+            <column name="SND_DTTM" type="DATETIME"/>
+            <column name="AUTO_RMV_DTTM" type="DATETIME"/>
             <column name="PRIO_ID" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
@@ -360,13 +372,16 @@
             <column name="PROCESSING_FLAG" type="VARCHAR(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LOCKD_DTTM" type="DATE"/>
+            <column name="LOCKD_DTTM" type="DATETIME"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
             <column name="OBJ_ID" type="VARCHAR(36)"/>
             <column name="DOC_TYP_NM" type="VARCHAR(64)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00039">
         <createTable tableName="kren_prio_t">
@@ -525,7 +540,7 @@
             <column name="PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ASND_DT" type="DATE">
+            <column name="ASND_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="RQST_CD" type="CHAR(1)">
@@ -559,6 +574,9 @@
             <column name="DLGN_GRP_ID" type="VARCHAR(40)"/>
             <column name="RQST_LBL" type="VARCHAR(255)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00058">
         <createTable tableName="krew_actn_rqst_t">
@@ -596,7 +614,7 @@
             <column name="DOC_VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CRTE_DT" type="DATE">
+            <column name="CRTE_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="RSP_DESC_TXT" type="VARCHAR(200)"/>
@@ -609,6 +627,9 @@
             <column name="GRP_ID" type="VARCHAR(40)"/>
             <column name="RQST_LBL" type="VARCHAR(255)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00060">
         <createTable tableName="krew_actn_tkn_t">
@@ -625,7 +646,7 @@
             <column name="ACTN_CD" type="CHAR(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ACTN_DT" type="DATE">
+            <column name="ACTN_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="DOC_VER_NBR" type="DECIMAL(8)">
@@ -636,6 +657,9 @@
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
             <column name="DLGTR_GRP_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00061">
         <createTable tableName="krew_app_doc_stat_tran_t">
@@ -645,12 +669,15 @@
             <column name="DOC_HDR_ID" type="VARCHAR(40)"/>
             <column name="APP_DOC_STAT_FROM" type="VARCHAR(64)"/>
             <column name="APP_DOC_STAT_TO" type="VARCHAR(64)"/>
-            <column name="STAT_TRANS_DATE" type="DATE"/>
+            <column name="STAT_TRANS_DATE" type="DATETIME"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00062">
         <createTable tableName="krew_att_t">
@@ -731,8 +758,11 @@
             <column name="KEY_CD" type="VARCHAR(256)">
                 <constraints nullable="false"/>
             </column>
-            <column name="VAL" type="DATE"/>
+            <column name="VAL" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00068">
         <createTable tableName="krew_doc_hdr_ext_flt_t">
@@ -788,15 +818,15 @@
             <column name="RTE_LVL" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="STAT_MDFN_DT" type="DATE">
+            <column name="STAT_MDFN_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="CRTE_DT" type="DATE">
+            <column name="CRTE_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="APRV_DT" type="DATE"/>
-            <column name="FNL_DT" type="DATE"/>
-            <column name="RTE_STAT_MDFN_DT" type="DATE"/>
+            <column name="APRV_DT" type="DATETIME"/>
+            <column name="FNL_DT" type="DATETIME"/>
+            <column name="RTE_STAT_MDFN_DT" type="DATETIME"/>
             <column name="TTL" type="VARCHAR(255)"/>
             <column name="APP_DOC_ID" type="VARCHAR(255)"/>
             <column name="DOC_VER_NBR" type="DECIMAL(8)">
@@ -812,8 +842,11 @@
                 <constraints nullable="false"/>
             </column>
             <column name="APP_DOC_STAT" type="VARCHAR(64)"/>
-            <column name="APP_DOC_STAT_MDFN_DT" type="DATE"/>
+            <column name="APP_DOC_STAT_MDFN_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00074">
         <createTable tableName="krew_doc_lnk_t">
@@ -839,12 +872,15 @@
             <column name="AUTH_PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CRT_DT" type="DATE">
+            <column name="CRT_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="TXT" type="VARCHAR(4000)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00077">
         <createTable tableName="krew_doc_typ_app_doc_stat_t">
@@ -1014,10 +1050,10 @@
             <column name="DOC_HDR_STAT_CD" type="CHAR(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="DOC_HDR_MDFN_DT" type="DATE">
+            <column name="DOC_HDR_MDFN_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="DOC_HDR_CRTE_DT" type="DATE">
+            <column name="DOC_HDR_CRTE_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="DOC_HDR_TTL" type="VARCHAR(255)"/>
@@ -1029,6 +1065,9 @@
             </column>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00088">
         <createTable tableName="krew_edl_fld_dmp_t">
@@ -1063,7 +1102,7 @@
             <column name="PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ASND_DT" type="DATE">
+            <column name="ASND_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="RQST_CD" type="CHAR(1)">
@@ -1096,6 +1135,9 @@
             <column name="DLGN_GRP_ID" type="VARCHAR(40)"/>
             <column name="RQST_LBL" type="VARCHAR(255)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00094">
         <createTable tableName="krew_ppl_flw_attr_t">
@@ -1439,19 +1481,22 @@
             </column>
             <column name="DOC_HDR_ID" type="VARCHAR(40)"/>
             <column name="TMPL_RULE_IND" type="DECIMAL(1)"/>
-            <column name="FRM_DT" type="DATE"/>
-            <column name="TO_DT" type="DATE"/>
-            <column name="DACTVN_DT" type="DATE"/>
+            <column name="FRM_DT" type="DATETIME"/>
+            <column name="TO_DT" type="DATETIME"/>
+            <column name="DACTVN_DT" type="DATETIME"/>
             <column defaultValueNumeric="0" name="CUR_IND" type="DECIMAL(1)"/>
             <column defaultValueNumeric="0" name="RULE_VER_NBR" type="DECIMAL(8)"/>
             <column name="DLGN_IND" type="DECIMAL(1)"/>
             <column name="PREV_VER_RULE_ID" type="VARCHAR(40)"/>
-            <column name="ACTVN_DT" type="DATE"/>
+            <column name="ACTVN_DT" type="DATETIME"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00121">
         <createTable tableName="krew_rule_tmpl_attr_t">
@@ -1575,8 +1620,11 @@
             <column name="NM" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00133">
         <createTable tableName="krim_afltn_typ_t">
@@ -1593,8 +1641,11 @@
             <column defaultValue="N" name="EMP_AFLTN_TYP_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00136">
         <createTable tableName="krim_attr_defn_t">
@@ -1628,8 +1679,11 @@
             <column name="NM" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00139">
         <createTable tableName="krim_dlgn_mbr_attr_data_t">
@@ -1664,11 +1718,14 @@
             <column name="DLGN_ID" type="VARCHAR(40)"/>
             <column name="MBR_ID" type="VARCHAR(40)"/>
             <column defaultValue="P" name="MBR_TYP_CD" type="CHAR(1)"/>
-            <column name="ACTV_FRM_DT" type="DATE"/>
-            <column name="ACTV_TO_DT" type="DATE"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="ACTV_FRM_DT" type="DATETIME"/>
+            <column name="ACTV_TO_DT" type="DATETIME"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
             <column name="ROLE_MBR_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00142">
         <createTable tableName="krim_dlgn_t">
@@ -1703,8 +1760,11 @@
             <column name="NM" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00144">
         <createTable tableName="krim_emp_stat_t">
@@ -1720,8 +1780,11 @@
             <column name="NM" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00145">
         <createTable tableName="krim_emp_typ_t">
@@ -1737,8 +1800,11 @@
             <column name="NM" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00146">
         <createTable tableName="krim_ent_nm_typ_t">
@@ -1754,8 +1820,11 @@
             <column name="NM" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00147">
         <createTable tableName="krim_ent_typ_t">
@@ -1796,14 +1865,17 @@
             <column name="POSTAL_CNTRY_CD" type="VARCHAR(2)"/>
             <column defaultValue="N" name="DFLT_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
             <column name="ATTN_LINE" type="VARCHAR(45)"/>
             <column name="ADDR_FMT" type="VARCHAR(256)"/>
-            <column name="MOD_DT" type="DATE"/>
-            <column name="VALID_DT" type="DATE"/>
+            <column name="MOD_DT" type="DATETIME"/>
+            <column name="VALID_DT" type="DATETIME"/>
             <column name="VALID_IND" type="VARCHAR(1)"/>
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00151">
         <createTable tableName="krim_entity_afltn_t">
@@ -1821,8 +1893,11 @@
             <column name="CAMPUS_CD" type="VARCHAR(2)"/>
             <column defaultValue="N" name="DFLT_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00152">
         <createTable tableName="krim_entity_bio_t">
@@ -1835,12 +1910,12 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="BIRTH_DT" type="DATE"/>
+            <column name="BIRTH_DT" type="DATETIME"/>
             <column name="GNDR_CD" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LAST_UPDT_DT" type="DATE"/>
-            <column name="DECEASED_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
+            <column name="DECEASED_DT" type="DATETIME"/>
             <column name="MARITAL_STATUS" type="VARCHAR(40)"/>
             <column name="PRIM_LANG_CD" type="VARCHAR(40)"/>
             <column name="SEC_LANG_CD" type="VARCHAR(40)"/>
@@ -1851,6 +1926,9 @@
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
             <column name="GNDR_CHG_CD" type="VARCHAR(20)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00153">
         <createTable tableName="krim_entity_cache_t">
@@ -1869,11 +1947,14 @@
             <column name="CAMPUS_CD" type="VARCHAR(40)"/>
             <column name="PRMRY_DEPT_CD" type="VARCHAR(40)"/>
             <column name="EMP_ID" type="VARCHAR(40)"/>
-            <column name="LAST_UPDT_TS" type="DATE"/>
+            <column name="LAST_UPDT_TS" type="DATETIME"/>
             <column name="OBJ_ID" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00155">
         <createTable tableName="krim_entity_ctznshp_t">
@@ -1889,11 +1970,14 @@
             <column name="ENTITY_ID" type="VARCHAR(40)"/>
             <column name="POSTAL_CNTRY_CD" type="VARCHAR(2)"/>
             <column name="CTZNSHP_STAT_CD" type="VARCHAR(40)"/>
-            <column name="STRT_DT" type="DATE"/>
-            <column name="END_DT" type="DATE"/>
+            <column name="STRT_DT" type="DATETIME"/>
+            <column name="END_DT" type="DATETIME"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00157">
         <createTable tableName="krim_entity_email_t">
@@ -1912,8 +1996,11 @@
             <column name="EMAIL_ADDR" type="VARCHAR(200)"/>
             <column defaultValue="N" name="DFLT_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00159">
         <createTable tableName="krim_entity_emp_info_t">
@@ -1933,11 +2020,14 @@
             <column name="BASE_SLRY_AMT" type="DECIMAL(15, 2)"/>
             <column name="PRMRY_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
             <column name="PRMRY_DEPT_CD" type="VARCHAR(40)"/>
             <column name="EMP_ID" type="VARCHAR(40)"/>
             <column name="EMP_REC_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00160">
         <createTable tableName="krim_entity_ent_typ_t">
@@ -1954,8 +2044,11 @@
                 <constraints nullable="false"/>
             </column>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00162">
         <createTable tableName="krim_entity_ethnic_t">
@@ -1987,8 +2080,11 @@
             <column name="ENTITY_ID" type="VARCHAR(40)"/>
             <column name="EXT_ID_TYP_CD" type="VARCHAR(40)"/>
             <column name="EXT_ID" type="VARCHAR(100)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00167">
         <createTable tableName="krim_entity_nm_t">
@@ -2010,11 +2106,14 @@
             <column name="PREFIX_NM" type="VARCHAR(20)"/>
             <column defaultValue="N" name="DFLT_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
             <column name="TITLE_NM" type="VARCHAR(20)"/>
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
-            <column name="NM_CHNG_DT" type="DATE"/>
+            <column name="NM_CHNG_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00169">
         <createTable tableName="krim_entity_phone_t">
@@ -2035,8 +2134,11 @@
             <column name="POSTAL_CNTRY_CD" type="VARCHAR(2)"/>
             <column defaultValue="N" name="DFLT_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00170">
         <createTable tableName="krim_entity_priv_pref_t">
@@ -2054,8 +2156,11 @@
             <column defaultValue="Y" name="SUPPRESS_ADDR_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="SUPPRESS_PHONE_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="SUPPRESS_PRSNL_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00172">
         <createTable tableName="krim_entity_residency_t">
@@ -2085,8 +2190,11 @@
                 <constraints nullable="false"/>
             </column>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00175">
         <createTable tableName="krim_entity_visa_t">
@@ -2120,8 +2228,11 @@
             <column defaultValue="N" name="ENCR_REQ_IND" type="VARCHAR(1)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00178">
         <createTable tableName="krim_grp_attr_data_t">
@@ -2187,10 +2298,13 @@
             <column defaultValue="P" name="MBR_TYP_CD" type="CHAR(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ACTV_FRM_DT" type="DATE"/>
-            <column name="ACTV_TO_DT" type="DATE"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="ACTV_FRM_DT" type="DATETIME"/>
+            <column name="ACTV_TO_DT" type="DATETIME"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00183">
         <createTable tableName="krim_grp_t">
@@ -2214,8 +2328,11 @@
                 <constraints nullable="false"/>
             </column>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00184">
         <createTable tableName="krim_perm_attr_data_t">
@@ -2321,8 +2438,11 @@
             <column name="PHONE_TYP_NM" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00192">
         <createTable tableName="krim_pnd_addr_mt">
@@ -2352,11 +2472,14 @@
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
             <column name="ATTN_LINE" type="VARCHAR(45)"/>
             <column name="ADDR_FMT" type="VARCHAR(256)"/>
-            <column name="MOD_DT" type="DATE"/>
-            <column name="VALID_DT" type="DATE"/>
+            <column name="MOD_DT" type="DATETIME"/>
+            <column name="VALID_DT" type="DATETIME"/>
             <column name="VALID_IND" type="VARCHAR(1)"/>
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00193">
         <createTable tableName="krim_pnd_afltn_mt">
@@ -2395,11 +2518,14 @@
             </column>
             <column name="POSTAL_CNTRY_CD" type="VARCHAR(2)"/>
             <column name="CTZNSHP_STAT_CD" type="VARCHAR(40)"/>
-            <column name="STRT_DT" type="DATE"/>
-            <column name="END_DT" type="DATE"/>
+            <column name="STRT_DT" type="DATETIME"/>
+            <column name="END_DT" type="DATETIME"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00195">
         <createTable tableName="krim_pnd_dlgn_mbr_attr_data_t">
@@ -2446,10 +2572,13 @@
                 <constraints nullable="false"/>
             </column>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="ACTV_FRM_DT" type="DATE"/>
-            <column name="ACTV_TO_DT" type="DATE"/>
+            <column name="ACTV_FRM_DT" type="DATETIME"/>
+            <column name="ACTV_TO_DT" type="DATETIME"/>
             <column name="ROLE_MBR_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00197">
         <createTable tableName="krim_pnd_dlgn_t">
@@ -2567,9 +2696,12 @@
             <column name="MBR_TYP_CD" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ACTV_FRM_DT" type="DATE"/>
-            <column name="ACTV_TO_DT" type="DATE"/>
+            <column name="ACTV_FRM_DT" type="DATETIME"/>
+            <column name="ACTV_TO_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00202">
         <createTable tableName="krim_pnd_grp_prncpl_mt">
@@ -2596,10 +2728,13 @@
             <column name="GRP_TYPE" type="VARCHAR(80)"/>
             <column name="KIM_TYP_ID" type="VARCHAR(40)"/>
             <column name="NMSPC_CD" type="VARCHAR(40)"/>
-            <column name="ACTV_FRM_DT" type="DATE"/>
-            <column name="ACTV_TO_DT" type="DATE"/>
+            <column name="ACTV_FRM_DT" type="DATETIME"/>
+            <column name="ACTV_TO_DT" type="DATETIME"/>
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00203">
         <createTable tableName="krim_pnd_nm_mt">
@@ -2626,8 +2761,11 @@
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
             <column name="TITLE_NM" type="VARCHAR(20)"/>
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
-            <column name="NM_CHNG_DT" type="DATE"/>
+            <column name="NM_CHNG_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00204">
         <createTable tableName="krim_pnd_phone_mt">
@@ -2716,10 +2854,13 @@
                 <constraints nullable="false"/>
             </column>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="ACTV_FRM_DT" type="DATE"/>
-            <column name="ACTV_TO_DT" type="DATE"/>
+            <column name="ACTV_FRM_DT" type="DATETIME"/>
+            <column name="ACTV_TO_DT" type="DATETIME"/>
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00208">
         <createTable tableName="krim_pnd_role_mt">
@@ -2830,8 +2971,11 @@
             <column name="ENTITY_ID" type="VARCHAR(40)"/>
             <column name="PRNCPL_PSWD" type="VARCHAR(400)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00214">
         <createTable tableName="krim_role_document_t">
@@ -2897,10 +3041,13 @@
             <column defaultValue="P" name="MBR_TYP_CD" type="CHAR(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ACTV_FRM_DT" type="DATE"/>
-            <column name="ACTV_TO_DT" type="DATE"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="ACTV_FRM_DT" type="DATETIME"/>
+            <column name="ACTV_TO_DT" type="DATETIME"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00220">
         <createTable tableName="krim_role_perm_t">
@@ -2979,8 +3126,11 @@
                 <constraints nullable="false"/>
             </column>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00226">
         <createTable tableName="krim_rsp_attr_data_t">
@@ -3975,11 +4125,14 @@
             <column name="PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LOOKUP_DT" type="DATE">
+            <column name="LOOKUP_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="SERIALZD_RSLTS" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00324">
         <createTable tableName="krns_lookup_sel_t">
@@ -3995,11 +4148,14 @@
             <column name="PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LOOKUP_DT" type="DATE">
+            <column name="LOOKUP_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="SEL_OBJ_IDS" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00325">
         <createTable tableName="krns_maint_doc_att_lst_t">
@@ -4088,7 +4244,7 @@
             <column name="AUTH_PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="POST_TS" type="DATE">
+            <column name="POST_TS" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="NTE_TYP_CD" type="VARCHAR(4)">
@@ -4098,6 +4254,9 @@
             <column name="PRG_CD" type="VARCHAR(1)"/>
             <column name="TPC_TXT" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00333">
         <createTable tableName="krns_nte_typ_t">
@@ -4129,7 +4288,7 @@
             <column name="DOC_HDR_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
             </column>
-            <column name="GNRT_DT" type="DATE">
+            <column name="GNRT_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="PRNCPL_ID" type="VARCHAR(40)">
@@ -4139,6 +4298,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00335">
         <createTable tableName="krns_sesn_doc_t">
@@ -4155,11 +4317,14 @@
                 <constraints nullable="false"/>
             </column>
             <column name="SERIALZD_DOC_FRM" type="LONGBLOB"/>
-            <column name="LAST_UPDT_DT" type="DATE"/>
+            <column name="LAST_UPDT_DT" type="DATETIME"/>
             <column defaultValue="N" name="CONTENT_ENCRYPTED_IND" type="CHAR(1)"/>
             <column name="OBJ_ID" type="VARCHAR(36)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00337">
         <createTable tableName="krsb_bam_parm_t">
@@ -4191,7 +4356,7 @@
             <column name="THRD_NM" type="VARCHAR(500)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CALL_DT" type="DATE">
+            <column name="CALL_DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="TGT_TO_STR" type="VARCHAR(2000)">
@@ -4203,6 +4368,9 @@
             <column name="EXCPN_TO_STR" type="VARCHAR(2000)"/>
             <column name="EXCPN_MSG" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00340">
         <createTable tableName="krsb_msg_pyld_t">
@@ -4219,10 +4387,10 @@
             <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
             </column>
-            <column name="DT" type="DATE">
+            <column name="DT" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="EXP_DT" type="DATE"/>
+            <column name="EXP_DT" type="DATETIME"/>
             <column name="PRIO" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
@@ -4244,6 +4412,9 @@
             <column name="APP_VAL_TWO" type="VARCHAR(2000)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="oracle">
+            <replace replace="TIMESTAMP" with="DATE"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00343">
         <createTable tableName="krsb_qrtz_blob_triggers">
