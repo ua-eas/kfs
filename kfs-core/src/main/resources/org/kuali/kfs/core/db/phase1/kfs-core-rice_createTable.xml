@@ -103,13 +103,13 @@
             <column name="PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LOOKUP_DT" type="DATETIME">
+            <column name="LOOKUP_DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="SERIALZD_RSLTS" type="LONGTEXT"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00324" context="bootstrap,demo,unit">
@@ -126,13 +126,13 @@
             <column name="PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LOOKUP_DT" type="DATETIME">
+            <column name="LOOKUP_DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="SEL_OBJ_IDS" type="LONGTEXT"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00325" context="bootstrap,demo,unit">
@@ -208,7 +208,7 @@
             <column name="AUTH_PRNCPL_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="POST_TS" type="DATETIME">
+            <column name="POST_TS" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="NTE_TYP_CD" type="VARCHAR(4)">
@@ -218,8 +218,8 @@
             <column name="PRG_CD" type="VARCHAR(1)"/>
             <column name="TPC_TXT" type="VARCHAR(40)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00333" context="bootstrap,demo,unit">
@@ -252,7 +252,7 @@
             <column name="DOC_HDR_ID" type="VARCHAR(14)">
                 <constraints nullable="false"/>
             </column>
-            <column name="GNRT_DT" type="DATETIME">
+            <column name="GNRT_DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="PRNCPL_ID" type="VARCHAR(40)">
@@ -262,8 +262,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00335" context="bootstrap,demo,unit">
@@ -281,13 +281,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="SERIALZD_DOC_FRM" type="LONGBLOB"/>
-            <column name="LAST_UPDT_DT" type="DATETIME"/>
+            <column name="LAST_UPDT_DT" type="DATE"/>
             <column defaultValue="N" name="CONTENT_ENCRYPTED_IND" type="CHAR(1)"/>
             <column name="OBJ_ID" type="VARCHAR(36)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00337" context="bootstrap,demo,unit">
@@ -320,7 +320,7 @@
             <column name="THRD_NM" type="VARCHAR(500)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CALL_DT" type="DATETIME">
+            <column name="CALL_DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="TGT_TO_STR" type="VARCHAR(2000)">
@@ -332,8 +332,8 @@
             <column name="EXCPN_TO_STR" type="VARCHAR(2000)"/>
             <column name="EXCPN_MSG" type="LONGTEXT"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00340" context="bootstrap,demo,unit">
@@ -351,10 +351,10 @@
             <column defaultValueNumeric="0" name="MSG_QUE_ID" type="DECIMAL(14)">
                 <constraints nullable="false"/>
             </column>
-            <column name="DT" type="DATETIME">
+            <column name="DT" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="EXP_DT" type="DATETIME"/>
+            <column name="EXP_DT" type="DATE"/>
             <column name="PRIO" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
@@ -376,8 +376,8 @@
             <column name="APP_VAL_TWO" type="VARCHAR(2000)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00343" context="bootstrap,demo,unit">
@@ -637,7 +637,7 @@
             <column defaultValue="" name="CMPNT_SET_ID" type="VARCHAR(40)">
                 <constraints nullable="false"/>
             </column>
-            <column name="LAST_UPDT_TS" type="DATETIME">
+            <column name="LAST_UPDT_TS" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="CHKSM" type="VARCHAR(40)">
@@ -647,8 +647,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00017" context="bootstrap,demo,unit">
