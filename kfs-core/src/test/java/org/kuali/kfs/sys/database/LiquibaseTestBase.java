@@ -107,19 +107,23 @@ public class LiquibaseTestBase {
             Element modifySqlElement = (Element)modifySql;
             String dbms = modifySqlElement.getAttribute("dbms");
             if ( ! "mysql".equals(dbms) ) {
+                System.out.println("dbms=\"mysql\" attribute missing in modifySql node");
                 return true;
             }
             Node replaceNode = getNodeByName(modifySql,"replace");
             if ( replaceNode == null ) {
+                System.out.println("replace node missing");
                 return false;
             }
             Element replaceNodeElement = (Element)replaceNode;
             String replace = replaceNodeElement.getAttribute("replace");
             String with = replaceNodeElement.getAttribute("with");
-            if ( ! "DATE".equals(replace) ) {
+            if ( ! "date".equals(replace) ) {
+                System.out.println("replace attribute value must be \"date\" (lower case)");
                 return true;
             }
-            if ( ! "DATETIME".equals(with) ) {
+            if ( ! "datetime".equals(with) ) {
+                System.out.println("with attribute value must be \"datetime\" (lower case)");
                 return true;
             }
         }
