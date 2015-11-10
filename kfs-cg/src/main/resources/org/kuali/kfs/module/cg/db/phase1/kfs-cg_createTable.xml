@@ -47,14 +47,14 @@
             <column name="CG_AGENCY_ADDR_INTL_PROV_NM" type="VARCHAR(45)"/>
             <column name="CG_AGENCY_INTL_MAIL_CD" type="VARCHAR(20)"/>
             <column name="CG_AGENCY_ADDR_TYPE_CD" type="VARCHAR(2)"/>
-            <column name="CG_AGENCY_ADDR_END_DT" type="DATETIME"/>
+            <column name="CG_AGENCY_ADDR_END_DT" type="DATE"/>
             <column name="CNTCT_NM" type="VARCHAR(40)"/>
             <column name="PHN_NBR" type="VARCHAR(40)"/>
             <column name="FAX_NBR" type="VARCHAR(40)"/>
             <column name="AGENCY_CNTCT_EMAIL_ADDR" type="VARCHAR(60)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2567" context="bootstrap,demo,unit">
@@ -125,11 +125,11 @@
                 <constraints nullable="false"/>
             </column>
             <column name="FNL_BILLED_IND" type="VARCHAR(1)"/>
-            <column name="CURR_LST_BILLED_DT" type="DATETIME"/>
-            <column name="PREV_LST_BILLED_DT" type="DATETIME"/>
+            <column name="CURR_LST_BILLED_DT" type="DATE"/>
+            <column name="PREV_LST_BILLED_DT" type="DATE"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2570" context="bootstrap,demo,unit">
@@ -255,26 +255,26 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CGAWD_BEG_DT" type="DATETIME"/>
-            <column name="CGAWD_END_DT" type="DATETIME"/>
+            <column name="CGAWD_BEG_DT" type="DATE"/>
+            <column name="CGAWD_END_DT" type="DATE"/>
             <column name="CGAWD_TOT_AMT" type="DECIMAL(19, 2)"/>
             <column name="CGAWD_ADDENDUM_NBR" type="VARCHAR(7)"/>
             <column name="CGAWD_ALOC_UCS_AMT" type="DECIMAL(19, 2)"/>
             <column name="CG_AGENCY_AWD_NBR" type="VARCHAR(27)"/>
             <column name="CG_FEDPT_FND_AMT" type="DECIMAL(19, 2)"/>
-            <column name="CGAWD_ENTRY_DT" type="DATETIME"/>
+            <column name="CGAWD_ENTRY_DT" type="DATE"/>
             <column name="CG_AGENCY_FUT1_AMT" type="DECIMAL(19, 2)"/>
             <column name="CG_AGENCY_FUT2_AMT" type="DECIMAL(19, 2)"/>
             <column name="CG_AGENCY_FUT3_AMT" type="DECIMAL(19, 2)"/>
             <column name="CGAWD_DOC_NBR" type="VARCHAR(12)"/>
-            <column name="CGAWD_LST_UPDT_DT" type="DATETIME"/>
+            <column name="CGAWD_LST_UPDT_DT" type="DATE"/>
             <column name="CG_FEDPT_IND" type="VARCHAR(1)"/>
             <column name="CG_OLD_PRPSL_NBR" type="VARCHAR(8)"/>
             <column name="CGAWD_DRCT_CST_AMT" type="DECIMAL(19, 2)"/>
             <column name="CGAWD_INDR_CST_AMT" type="DECIMAL(19, 2)"/>
             <column name="CG_FED_FNDED_AMT" type="DECIMAL(19, 2)"/>
-            <column name="CGAWD_CREATE_TS" type="DATETIME"/>
-            <column name="CGAWD_CLOSING_DT" type="DATETIME"/>
+            <column name="CGAWD_CREATE_TS" type="DATE"/>
+            <column name="CGAWD_CLOSING_DT" type="DATE"/>
             <column name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)"/>
             <column name="CGAWD_STAT_CD" type="VARCHAR(2)"/>
             <column name="CG_LTRCR_FNDGRP_CD" type="VARCHAR(4)"/>
@@ -296,7 +296,7 @@
             <column name="MIN_INV_AMT" type="DECIMAL(19, 2)"/>
             <column name="CG_LTRCR_FND_CD" type="VARCHAR(15)"/>
             <column name="AUTO_APPROVE_IND" type="VARCHAR(1)"/>
-            <column name="FUNDING_EXP_DT" type="DATETIME"/>
+            <column name="FUNDING_EXP_DT" type="DATE"/>
             <column name="INV_OPT_CD" type="VARCHAR(1)"/>
             <column name="EXCL_FRM_INV_REASON_TXT" type="VARCHAR(255)"/>
             <column name="STATE_TRNSFR_IND" type="VARCHAR(1)"/>
@@ -304,8 +304,8 @@
             <column defaultValue="N" name="STOP_WRK_IND" type="VARCHAR(1)"/>
             <column name="STOP_WRK_REASON_TXT" type="VARCHAR(120)"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2576" context="bootstrap,demo,unit">
@@ -407,14 +407,14 @@
             <column name="CG_LTRCR_FND_DESC" type="VARCHAR(60)"/>
             <column name="CG_LTRCR_FNDGRP_CD" type="VARCHAR(4)"/>
             <column name="CG_LTRCR_AMT" type="DECIMAL(19, 2)"/>
-            <column name="CG_LTRCR_START_DT" type="DATETIME"/>
-            <column name="CG_LTRCR_EXPIRATION_DT" type="DATETIME"/>
+            <column name="CG_LTRCR_START_DT" type="DATE"/>
+            <column name="CG_LTRCR_EXPIRATION_DT" type="DATE"/>
             <column name="ACTV_IND" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2582" context="bootstrap,demo,unit">
@@ -445,14 +445,14 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CG_LAST_CLOSED_DT" type="DATETIME"/>
+            <column name="CG_LAST_CLOSED_DT" type="DATE"/>
             <column name="CGAWD_CLOSED_CNT" type="DECIMAL(12)"/>
             <column name="CGPRPSL_CLOSED_CNT" type="DECIMAL(12)"/>
             <column name="PERSON_USER_ID" type="VARCHAR(40)"/>
-            <column name="CG_USR_INITIATE_DT" type="DATETIME"/>
+            <column name="CG_USR_INITIATE_DT" type="DATE"/>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2584" context="bootstrap,demo,unit">
@@ -587,20 +587,20 @@
             <column defaultValueNumeric="1" name="VER_NBR" type="DECIMAL(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CGPRPSL_BEG_DT" type="DATETIME"/>
-            <column name="CGPRPSL_END_DT" type="DATETIME"/>
+            <column name="CGPRPSL_BEG_DT" type="DATE"/>
+            <column name="CGPRPSL_END_DT" type="DATE"/>
             <column name="CGPRPSL_TOT_AMT" type="DECIMAL(19, 2)"/>
             <column name="CGPRPSL_DRCTCS_AMT" type="DECIMAL(19, 2)"/>
             <column name="CGPRPSL_INDRCS_AMT" type="DECIMAL(19, 2)"/>
-            <column name="CGPRPSL_REJECTD_DT" type="DATETIME"/>
-            <column name="CGPRPSL_LSTUPDT_DT" type="DATETIME"/>
-            <column name="CGPRPSL_DUE_DT" type="DATETIME"/>
+            <column name="CGPRPSL_REJECTD_DT" type="DATE"/>
+            <column name="CGPRPSL_LSTUPDT_DT" type="DATE"/>
+            <column name="CGPRPSL_DUE_DT" type="DATE"/>
             <column name="CGPRPSL_TOTPRJ_AMT" type="DECIMAL(19, 2)"/>
-            <column name="CGPRPSL_SUBMSSN_DT" type="DATETIME"/>
+            <column name="CGPRPSL_SUBMSSN_DT" type="DATE"/>
             <column name="CGPRPSL_FEDPT_IND" type="VARCHAR(1)"/>
             <column name="CG_OLD_PRPSL_NBR" type="VARCHAR(8)"/>
             <column name="CG_GRANT_NBR" type="VARCHAR(27)"/>
-            <column name="CGPRPSL_CLOSING_DT" type="DATETIME"/>
+            <column name="CGPRPSL_CLOSING_DT" type="DATE"/>
             <column name="CGPRPSL_AWD_TYP_CD" type="VARCHAR(1)"/>
             <column name="CG_AGENCY_NBR" type="VARCHAR(6)"/>
             <column name="CGPRPSL_STAT_CD" type="VARCHAR(2)"/>
@@ -613,8 +613,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql dbms="oracle">
-            <replace replace="TIMESTAMP" with="DATE"/>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2591" context="bootstrap,demo,unit">
