@@ -39,12 +39,11 @@
             <column name="ACTIVE_IND" type="VARCHAR(1)"/>
         </createTable>
     </changeSet>
-                   
 
     <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_PRIMARY_KEYS" context="bootstrap,demo,unit">
         <addPrimaryKey columnNames="FUNDS_TYPE_CD" constraintName="CA_SOURCE_OF_FUNDS_TP1" tableName="CA_SOURCE_OF_FUNDS_T"/>
      </changeSet>
-     
+
     <changeSet author="KFS601" id="KFSCD-26_SOURCE_OF_FUNDS_OBJ_ID_CONSTRAINTS" context="bootstrap,demo,unit">
         <addUniqueConstraint tableName="CA_SOURCE_OF_FUNDS_T" columnNames="OBJ_ID" constraintName="CA_SOURCE_OF_FUNDS_TC0" />
     </changeSet>
@@ -71,10 +70,10 @@
             <column name="FUNDS_TYPE_CD" type="VARCHAR(3)"/>
         </createIndex>
     </changeSet>
-  
+
     <changeSet author="KFS601" id="KFSCD-25_FUNDS_TYPE_CD_FOREIGN_KEYS" context="bootstrap,demo,unit">
         <addForeignKeyConstraint constraintName="CA_ACCOUNT_TR22" referencedTableName="CA_SOURCE_OF_FUNDS_T" baseColumnNames="FUNDS_TYPE_CD" baseTableName="CA_ACCOUNT_T"  referencedColumnNames="FUNDS_TYPE_CD" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" />
-     </changeSet>
+    </changeSet>
 
     <changeSet author="KFS601" id="KFSCD-25_ADD_SOURCE_OF_FUNDS_PARM" context="bootstrap,demo,unit">
         <insert tableName="KRCR_PARM_T">

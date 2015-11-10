@@ -74,6 +74,9 @@
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="102">
     <createTable tableName="AP_CRDT_MEMO_ACCT_T">
@@ -238,6 +241,9 @@
       <column name="VNDR_ATTN_NM" type="VARCHAR(45)"/>
       <column defaultValue="P" name="ACCT_DISTR_MTD_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="106">
     <createTable tableName="AP_ELCTRNC_INV_LOAD_SUM_T">
@@ -261,6 +267,9 @@
       <column name="INV_LOAD_FAIL_CNT" type="DECIMAL(4)"/>
       <column name="INV_LOAD_FAIL_AMT" type="DECIMAL(19, 4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="107">
     <createTable tableName="AP_ELCTRNC_INV_MAP_T">
@@ -393,6 +402,9 @@
       <column name="AP_APRVL_DT" type="DATE"/>
       <column name="PREQ_ID" type="DECIMAL(9)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="109">
     <createTable tableName="AP_ELCTRNC_INV_RJT_ITM_T">
@@ -540,6 +552,9 @@
       <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
       <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="114">
     <createTable tableName="AP_PMT_RQST_ACCT_T">
@@ -729,6 +744,9 @@
       <column defaultValue="P" name="ACCT_DISTR_MTD_IND" type="VARCHAR(1)"/>
       <column name="AUTO_APPROVED_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="118">
     <createTable tableName="AP_SUM_ACCT_T">
@@ -761,6 +779,9 @@
       <column name="CRDT_MEMO_ID" type="DECIMAL(9)"/>
       <column name="LST_UPDT_TS" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="124">
     <createTable tableName="PUR_AP_ITM_TYP_T">
@@ -974,6 +995,9 @@
       <column name="AP_PUR_DOC_LNK_ID" type="DECIMAL(10)"/>
       <column name="DLVY_BLDG_OTHR_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="132">
     <createTable tableName="PUR_CARI_T">
@@ -1149,6 +1173,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="141">
     <createTable tableName="PUR_PO_CPTL_AST_ITM_AST_T">
@@ -1310,6 +1337,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="148">
     <createTable tableName="PUR_PO_QT_LST_T">
@@ -1519,6 +1549,9 @@
       <column name="VNDR_DEBRD_REAS_TXT" type="VARCHAR(255)"/>
       <column name="BILL_EMAIL_ADDR" type="VARCHAR(100)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="153">
     <createTable tableName="PUR_PO_TRNS_MTHD_T">
@@ -1594,6 +1627,9 @@
       <column name="VNDR_CNTRY_CD" type="VARCHAR(2)"/>
       <column name="VNDR_ADDR_INTL_PROV_NM" type="VARCHAR(45)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="156">
     <createTable tableName="PUR_PO_VNDR_STPLTN_T">
@@ -1619,6 +1655,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="157">
     <createTable tableName="PUR_RCVNG_ADDR_T">
@@ -1761,6 +1800,9 @@
       <column name="AP_PUR_DOC_LNK_ID" type="DECIMAL(10)"/>
       <column name="DLVY_BLDG_OTHR_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="162">
     <createTable tableName="PUR_REQS_ACCT_T">
@@ -2074,6 +2116,9 @@
       <column name="VNDR_DEBRD_REAS_TXT" type="VARCHAR(255)"/>
       <column name="BILL_EMAIL_ADDR" type="VARCHAR(100)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="171">
     <createTable tableName="PUR_SNSTV_DTA_ASGN_DTL_T">
@@ -2109,6 +2154,9 @@
       <column name="SNSTV_DTA_ASGN_CHG_PRSN_ID" type="VARCHAR(40)"/>
       <column name="SNSTV_DTA_ASGN_CHG_DT" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" context="bootstrap,demo,unit" id="173">
     <createTable tableName="PUR_SNSTV_DTA_T">

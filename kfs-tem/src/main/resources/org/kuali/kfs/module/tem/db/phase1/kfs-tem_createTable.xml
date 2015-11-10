@@ -235,6 +235,9 @@
             <column name="COPIED_AGENCY_STAGING_ID" type="DECIMAL(22)"/>
             <column name="MANUAL_CRTD" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4255" context="bootstrap,demo,unit">
         <createTable tableName="TEM_AIRFARE_SRC_T">
@@ -464,6 +467,9 @@
             </column>
             <column name="PMT_GRP_ID" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4265" context="bootstrap,demo,unit">
         <createTable tableName="TEM_CTS_CARD_APP_DOC_T">
@@ -483,6 +489,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4266" context="bootstrap,demo,unit">
         <createTable tableName="TEM_EM_CONT_T">
@@ -545,6 +554,9 @@
             <column name="HOST_AS_PAYEE" type="VARCHAR(1)"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4268" context="bootstrap,demo,unit">
         <createTable tableName="TEM_ENT_PURPOSE_T">
@@ -670,6 +682,9 @@
             <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
             <column name="TRNENTR_PROCESS_TM" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4273" context="bootstrap,demo,unit">
         <createTable tableName="TEM_HIST_EXP_T">
@@ -705,6 +720,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4274" context="bootstrap,demo,unit">
         <createTable tableName="TEM_JOB_CLASS_T">
@@ -747,6 +765,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4276" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PER_DIEM_EXP_T">
@@ -784,6 +805,9 @@
             <column name="MILEAGE_RT_EXP_TYP_CD" type="VARCHAR(2)"/>
             <column name="PRI_DEST_ID" type="DECIMAL(22)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4277" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PER_DIEM_MIE_BREAK_DOWN_T">
@@ -805,6 +829,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4278" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PER_DIEM_REGION_T">
@@ -849,6 +876,9 @@
             </column>
             <column name="PRI_DEST_ID" type="DECIMAL(22)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4280" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PRI_DEST_T">
@@ -899,6 +929,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4282" context="bootstrap,demo,unit">
         <createTable tableName="TEM_PROFILE_ADDR_T">
@@ -1024,6 +1057,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4286" context="bootstrap,demo,unit">
         <createTable tableName="TEM_RELO_DOC_T">
@@ -1069,6 +1105,9 @@
             <column name="CORP_CARD_PMT_CNCL_DT" type="DATE"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4287" context="bootstrap,demo,unit">
         <createTable tableName="TEM_RELO_REASON_T">
@@ -1162,6 +1201,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4291" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRANS_MD_DTL_T">
@@ -1343,6 +1385,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4298" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRVL_ARRANGER_DOC_T">
@@ -1408,6 +1453,9 @@
             <column name="BLNKT_TRVL_IND" type="VARCHAR(1)"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4300" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRVL_AUTH_CLOSE_DOC_T">
@@ -1442,6 +1490,9 @@
             <column name="BLNKT_TRVL_IND" type="VARCHAR(1)"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4301" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRVL_AUTH_DOC_T">
@@ -1478,6 +1529,9 @@
             <column name="HOLD_RQSTR_PRNCPL_ID" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4302" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRVL_CARD_TYP_T">
@@ -1536,6 +1590,9 @@
             <column name="EXP_TYP_OBJ_CD_ID" type="DECIMAL(22)"/>
             <column name="EXP_TYP_CD" type="VARCHAR(2)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4304" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRVL_PMT_T">
@@ -1573,6 +1630,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 <changeSet author="kfs" id="4305" context="bootstrap,demo,unit">
         <createTable tableName="TEM_TRVL_REIMB_DOC_T">
@@ -1617,5 +1677,8 @@
             <column name="CORP_CARD_PMT_CNCL_DT" type="DATE"/>
             <column defaultValue="N" name="PRGNTR_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 </databaseChangeLog>

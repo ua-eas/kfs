@@ -153,6 +153,9 @@
             <column name="FDOC_INITIATOR_ID" type="VARCHAR(40)"/>
             <column name="FDOC_CREATE_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4044" context="bootstrap,demo,unit">
         <createTable tableName="LD_BCN_ACCT_BAL_T">
@@ -330,6 +333,9 @@
             <column name="EMPL_STATUS" type="VARCHAR(1)"/>
             <column name="DEPTID" type="VARCHAR(10)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4050" context="bootstrap,demo,unit">
         <createTable tableName="LD_BCN_ADM_POST_T">
@@ -1027,6 +1033,9 @@
             <column name="IU_DFLT_OBJ_CD" type="VARCHAR(4)"/>
             <column name="IU_POSITION_TYPE" type="VARCHAR(2)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4073" context="bootstrap,demo,unit">
         <createTable tableName="LD_BCN_POS_SEL_T">
@@ -1090,6 +1099,9 @@
             <column name="IU_POSITION_TYPE" type="VARCHAR(2)"/>
             <column name="POS_LOCK_USR_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4075" context="bootstrap,demo,unit">
         <createTable tableName="LD_BCN_PULLUP_T">

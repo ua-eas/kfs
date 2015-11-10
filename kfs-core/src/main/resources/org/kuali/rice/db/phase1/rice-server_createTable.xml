@@ -57,6 +57,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00017">
         <createTable tableName="krcr_cmpnt_t">
@@ -275,6 +278,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00033">
         <createTable tableName="kren_msg_t">
@@ -305,6 +311,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00035">
         <createTable tableName="kren_ntfctn_msg_deliv_t">
@@ -327,6 +336,9 @@
             </column>
             <column name="OBJ_ID" type="VARCHAR(36)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00037">
         <createTable tableName="kren_ntfctn_t">
@@ -367,6 +379,9 @@
             <column name="OBJ_ID" type="VARCHAR(36)"/>
             <column name="DOC_TYP_NM" type="VARCHAR(64)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00039">
         <createTable tableName="kren_prio_t">
@@ -559,6 +574,9 @@
             <column name="DLGN_GRP_ID" type="VARCHAR(40)"/>
             <column name="RQST_LBL" type="VARCHAR(255)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00058">
         <createTable tableName="krew_actn_rqst_t">
@@ -609,6 +627,9 @@
             <column name="GRP_ID" type="VARCHAR(40)"/>
             <column name="RQST_LBL" type="VARCHAR(255)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00060">
         <createTable tableName="krew_actn_tkn_t">
@@ -636,6 +657,9 @@
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
             <column name="DLGTR_GRP_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00061">
         <createTable tableName="krew_app_doc_stat_tran_t">
@@ -651,6 +675,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00062">
         <createTable tableName="krew_att_t">
@@ -733,6 +760,9 @@
             </column>
             <column name="VAL" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00068">
         <createTable tableName="krew_doc_hdr_ext_flt_t">
@@ -814,6 +844,9 @@
             <column name="APP_DOC_STAT" type="VARCHAR(64)"/>
             <column name="APP_DOC_STAT_MDFN_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00074">
         <createTable tableName="krew_doc_lnk_t">
@@ -845,6 +878,9 @@
             <column name="TXT" type="VARCHAR(4000)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00077">
         <createTable tableName="krew_doc_typ_app_doc_stat_t">
@@ -1029,6 +1065,9 @@
             </column>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00088">
         <createTable tableName="krew_edl_fld_dmp_t">
@@ -1096,6 +1135,9 @@
             <column name="DLGN_GRP_ID" type="VARCHAR(40)"/>
             <column name="RQST_LBL" type="VARCHAR(255)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00094">
         <createTable tableName="krew_ppl_flw_attr_t">
@@ -1452,6 +1494,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00121">
         <createTable tableName="krew_rule_tmpl_attr_t">
@@ -1577,6 +1622,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00133">
         <createTable tableName="krim_afltn_typ_t">
@@ -1595,6 +1643,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00136">
         <createTable tableName="krim_attr_defn_t">
@@ -1630,6 +1681,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00139">
         <createTable tableName="krim_dlgn_mbr_attr_data_t">
@@ -1669,6 +1723,9 @@
             <column name="LAST_UPDT_DT" type="DATE"/>
             <column name="ROLE_MBR_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00142">
         <createTable tableName="krim_dlgn_t">
@@ -1705,6 +1762,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00144">
         <createTable tableName="krim_emp_stat_t">
@@ -1722,6 +1782,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00145">
         <createTable tableName="krim_emp_typ_t">
@@ -1739,6 +1802,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00146">
         <createTable tableName="krim_ent_nm_typ_t">
@@ -1756,6 +1822,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00147">
         <createTable tableName="krim_ent_typ_t">
@@ -1804,6 +1873,9 @@
             <column name="VALID_IND" type="VARCHAR(1)"/>
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00151">
         <createTable tableName="krim_entity_afltn_t">
@@ -1823,6 +1895,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00152">
         <createTable tableName="krim_entity_bio_t">
@@ -1851,6 +1926,9 @@
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
             <column name="GNDR_CHG_CD" type="VARCHAR(20)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00153">
         <createTable tableName="krim_entity_cache_t">
@@ -1874,6 +1952,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00155">
         <createTable tableName="krim_entity_ctznshp_t">
@@ -1894,6 +1975,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00157">
         <createTable tableName="krim_entity_email_t">
@@ -1914,6 +1998,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00159">
         <createTable tableName="krim_entity_emp_info_t">
@@ -1938,6 +2025,9 @@
             <column name="EMP_ID" type="VARCHAR(40)"/>
             <column name="EMP_REC_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00160">
         <createTable tableName="krim_entity_ent_typ_t">
@@ -1956,6 +2046,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00162">
         <createTable tableName="krim_entity_ethnic_t">
@@ -1989,6 +2082,9 @@
             <column name="EXT_ID" type="VARCHAR(100)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00167">
         <createTable tableName="krim_entity_nm_t">
@@ -2015,6 +2111,9 @@
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
             <column name="NM_CHNG_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00169">
         <createTable tableName="krim_entity_phone_t">
@@ -2037,6 +2136,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00170">
         <createTable tableName="krim_entity_priv_pref_t">
@@ -2056,6 +2158,9 @@
             <column defaultValue="Y" name="SUPPRESS_PRSNL_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00172">
         <createTable tableName="krim_entity_residency_t">
@@ -2087,6 +2192,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00175">
         <createTable tableName="krim_entity_visa_t">
@@ -2122,6 +2230,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00178">
         <createTable tableName="krim_grp_attr_data_t">
@@ -2191,6 +2302,9 @@
             <column name="ACTV_TO_DT" type="DATE"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00183">
         <createTable tableName="krim_grp_t">
@@ -2216,6 +2330,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00184">
         <createTable tableName="krim_perm_attr_data_t">
@@ -2323,6 +2440,9 @@
             <column name="DISPLAY_SORT_CD" type="VARCHAR(2)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00192">
         <createTable tableName="krim_pnd_addr_mt">
@@ -2357,6 +2477,9 @@
             <column name="VALID_IND" type="VARCHAR(1)"/>
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00193">
         <createTable tableName="krim_pnd_afltn_mt">
@@ -2400,6 +2523,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00195">
         <createTable tableName="krim_pnd_dlgn_mbr_attr_data_t">
@@ -2450,6 +2576,9 @@
             <column name="ACTV_TO_DT" type="DATE"/>
             <column name="ROLE_MBR_ID" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00197">
         <createTable tableName="krim_pnd_dlgn_t">
@@ -2570,6 +2699,9 @@
             <column name="ACTV_FRM_DT" type="DATE"/>
             <column name="ACTV_TO_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00202">
         <createTable tableName="krim_pnd_grp_prncpl_mt">
@@ -2600,6 +2732,9 @@
             <column name="ACTV_TO_DT" type="DATE"/>
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00203">
         <createTable tableName="krim_pnd_nm_mt">
@@ -2628,6 +2763,9 @@
             <column name="NOTE_MSG" type="VARCHAR(1024)"/>
             <column name="NM_CHNG_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00204">
         <createTable tableName="krim_pnd_phone_mt">
@@ -2720,6 +2858,9 @@
             <column name="ACTV_TO_DT" type="DATE"/>
             <column defaultValue="N" name="EDIT_FLAG" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00208">
         <createTable tableName="krim_pnd_role_mt">
@@ -2832,6 +2973,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00214">
         <createTable tableName="krim_role_document_t">
@@ -2901,6 +3045,9 @@
             <column name="ACTV_TO_DT" type="DATE"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00220">
         <createTable tableName="krim_role_perm_t">
@@ -2981,6 +3128,9 @@
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
             <column name="LAST_UPDT_DT" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo,unit" id="rice00226">
         <createTable tableName="krim_rsp_attr_data_t">
@@ -3980,6 +4130,9 @@
             </column>
             <column name="SERIALZD_RSLTS" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00324">
         <createTable tableName="krns_lookup_sel_t">
@@ -4000,6 +4153,9 @@
             </column>
             <column name="SEL_OBJ_IDS" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00325">
         <createTable tableName="krns_maint_doc_att_lst_t">
@@ -4098,6 +4254,9 @@
             <column name="PRG_CD" type="VARCHAR(1)"/>
             <column name="TPC_TXT" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00333">
         <createTable tableName="krns_nte_typ_t">
@@ -4139,6 +4298,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00335">
         <createTable tableName="krns_sesn_doc_t">
@@ -4160,6 +4322,9 @@
             <column name="OBJ_ID" type="VARCHAR(36)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00337">
         <createTable tableName="krsb_bam_parm_t">
@@ -4203,6 +4368,9 @@
             <column name="EXCPN_TO_STR" type="VARCHAR(2000)"/>
             <column name="EXCPN_MSG" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00340">
         <createTable tableName="krsb_msg_pyld_t">
@@ -4244,6 +4412,9 @@
             <column name="APP_VAL_TWO" type="VARCHAR(2000)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" context="bootstrap,demo" id="rice00343">
         <createTable tableName="krsb_qrtz_blob_triggers">

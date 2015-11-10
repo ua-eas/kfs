@@ -176,7 +176,10 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
+</changeSet>
 <changeSet author="kfs" id="3985" context="bootstrap,demo,unit">
         <createTable tableName="LD_A21_RPT_EARN_PAY_T">
             <column defaultValueNumeric="0" name="UNIV_FISCAL_YR" type="DECIMAL(4)">
