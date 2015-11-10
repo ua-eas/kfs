@@ -154,7 +154,7 @@
             <column name="FDOC_CREATE_DT" type="DATE"/>
         </createTable>
         <modifySql dbms="mysql">
-            <replace replace="DATE" with="DATETIME"/>
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4044" context="bootstrap,demo,unit">
@@ -334,7 +334,7 @@
             <column name="DEPTID" type="VARCHAR(10)"/>
         </createTable>
         <modifySql dbms="mysql">
-            <replace replace="DATE" with="DATETIME"/>
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4050" context="bootstrap,demo,unit">
@@ -1034,7 +1034,7 @@
             <column name="IU_POSITION_TYPE" type="VARCHAR(2)"/>
         </createTable>
         <modifySql dbms="mysql">
-            <replace replace="DATE" with="DATETIME"/>
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4073" context="bootstrap,demo,unit">
@@ -1100,7 +1100,7 @@
             <column name="POS_LOCK_USR_ID" type="VARCHAR(40)"/>
         </createTable>
         <modifySql dbms="mysql">
-            <replace replace="DATE" with="DATETIME"/>
+            <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
     <changeSet author="kfs" id="4075" context="bootstrap,demo,unit">
