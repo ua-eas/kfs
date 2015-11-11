@@ -16,6 +16,10 @@
     padding: 20px;
 }
 
+.menuconfig {
+    padding: 20px;
+}
+
 ul#linkGroupsList,
 div#linkGroupLinksList {
     width: 50%;
@@ -40,69 +44,6 @@ div#linkGroupLinksList {
     text-transform: uppercase;
 }
 
-#linkGroupLinksList div.customLinkForm {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    z-index: 100;
-    background-color: #fff;
-    border: 1px solid #BBBBBB;
-    border-radius: 3px;
-    padding: 15px 20px;
-    color: #666666;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.20);
-}
-
-#linkGroupLinksList div.customLinkForm.hidden {
-    display: none;
-}
-
-#linkGroupLinksList div.customLinkForm div {
-    display: table;
-    width: 100%;
-}
-
-#linkGroupLinksList div.customLinkForm input,
-#linkGroupLinksList div.customLinkForm select {
-    margin-bottom: 25px;
-}
-
-#linkGroupLinksList div.customLinkForm select {
-    text-transform: uppercase;
-}
-
-#linkGroupLinksList div.customLinkForm input[type=text],
-#linkGroupLinksList div.customLinkForm select{
-    width: 330px;
-}
-
-#linkGroupLinksList div.customLinkForm input[type=radio] {
-    margin-right: 7px;
-}
-
-#linkGroupLinksList div.customLinkForm input.error {
-    border-color: #C47965;
-}
-
-#linkGroupLinksList div.customLinkForm ul.errorMessages {
-    color: #C47965;
-    padding-bottom: 10px;
-}
-
-#linkGroupLinksList div.customLinkForm ul.errorMessages li {
-    list-style: none;
-}
-
-#linkGroupLinksList div.customLinkForm label {
-    margin-right: 15px;
-    font-weight: 400;
-}
-
-#linkGroupLinksList div.customLinkForm button {
-    float: right;
-    margin-left: 10px;
-}
-
 #linkGroupsList li.linkgroup {
     background-color: #6B6B6B;
     text-transform: uppercase;
@@ -116,6 +57,7 @@ div#linkGroupLinksList {
     border-top: 1px solid #6B6B6B;
     border-left: 1px solid #6B6B6B;
     border-bottom: 1px solid #6B6B6B;
+    position: relative;
 }
 
 #linkGroupsList li.linkgroup.new {
@@ -199,19 +141,19 @@ div#linkGroupLinksList {
     padding: 0;
 }
 
-#linkGroupsList li.linkgroup .actions #editGroupLabelButton {
+#linkGroupsList li.linkgroup .actions button {
     padding-top: 6px;
 }
 
-#linkGroupsList li.linkgroup .actions #editGroupLabelButton .edit {
+#linkGroupsList li.linkgroup .actions button .edit {
     background-image: url("../static/images/edit.png");
 }
 
-#linkGroupsList li.linkgroup .actions #deleteGroupLabelButton .delete {
+#linkGroupsList li.linkgroup .actions button .delete {
     background-image: url("../static/images/trash.png");
 }
 
-#linkGroupsList li.linkgroup .actions #saveGroupLabelButton .save {
+#linkGroupsList li.linkgroup .actions button .save {
     width: inherit;
 }
 
@@ -282,7 +224,6 @@ div#linkGroupLinksList {
 .instconfig div.admin-sublinks li .list-group-item .actions {
     float: right;
     color: #767676;
-    cursor: pointer;
 }
 
 .instconfig div.admin-sublinks li .list-group-item .actions .editLink {
@@ -304,6 +245,60 @@ div#linkGroupLinksList {
     padding: 15px 45px;
 }
 
-.inst-config-sidebar {
-    padding-top: 30px;
+div.form {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid #BBBBBB;
+    border-radius: 3px;
+    padding: 15px 20px;
+    color: #666666;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.20);
+}
+
+div.form.hidden {
+    display: none;
+}
+
+div.form div {
+    display: table;
+    width: 100%;
+}
+
+div.form input,
+div.form select {
+    margin-bottom: 25px;
+}
+
+div.form input[type=text] {
+    width: 330px;
+}
+
+div.form input[type=radio] {
+    margin-right: 7px;
+}
+
+div.form input.error {
+    border-color: #C47965;
+}
+
+div.form label {
+    margin-right: 15px;
+    font-weight: 400;
+}
+
+div.form button {
+    float: right;
+    margin-left: 10px;
+}
+
+div.dialog {
+    width: 300px;
+}
+
+div.dialog.form input[type=text] {
+    width: 100% !important;
+    text-transform: none !important;
 }

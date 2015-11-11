@@ -162,7 +162,7 @@ let SubLinkGroup = React.createClass({
         } else {
             divClassName += ' active';
         }
-        let formClass = this.state.customLinkFormOpen ? 'customLinkForm' : 'customLinkForm hidden';
+        let formClass = this.state.customLinkFormOpen ? 'customLinkForm form' : 'customLinkForm form hidden';
         let labelClass = this.state.errors.indexOf('label') > -1 ? 'error' : '';
         let linkClass = this.state.errors.indexOf('link') > -1 ? 'error' : '';
 

@@ -61,6 +61,7 @@ let buildGroupSortableDropHandler = function(elementId, component, sortableEleme
     let ele = $("#"+elementId);
     if (ele) {
         ele.sortable({
+            items: ':not(.new)',
             start: function (event, ui) {
                 $(ui.item).data("startindex", ui.item.index());
             },
