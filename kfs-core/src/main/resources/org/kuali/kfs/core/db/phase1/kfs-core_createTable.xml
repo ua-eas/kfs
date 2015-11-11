@@ -128,6 +128,9 @@
       <column name="CG_ACCT_RESP_ID" type="DECIMAL(2)"/>
       <column defaultValue="--" name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="950" context="bootstrap,demo,unit">
     <createTable tableName="CA_ACCOUNT_TYPE_T">
@@ -198,6 +201,9 @@
       <column name="ACCT_SRCH_CRTA_TXT" type="VARCHAR(400)"/>
       <column name="LBR_BEN_RT_CAT_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="953" context="bootstrap,demo,unit">
     <createTable tableName="CA_ACCT_CHG_DTL_T">
@@ -257,6 +263,9 @@
       <column name="ACCT_DLGT_START_DT" type="DATE"/>
       <column name="FDOC_APRV_TO_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="956" context="bootstrap,demo,unit">
     <createTable tableName="CA_ACCT_DESC_T">
@@ -435,6 +444,9 @@
       <column name="ACCT_DLGT_PRMRT_CD" type="VARCHAR(1)"/>
       <column name="ACCT_DLGT_START_DT" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="965" context="bootstrap,demo,unit">
     <createTable tableName="CA_FEDERAL_FUNC_T">
@@ -878,6 +890,9 @@
       <column name="ORG_FSCL_APRVR_UID" type="VARCHAR(40)"/>
       <column name="LAST_UPDATE_DATE" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="984" context="bootstrap,demo,unit">
     <createTable tableName="CA_ORG_REVERSION_T">
@@ -959,6 +974,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="987" context="bootstrap,demo,unit">
     <createTable tableName="CA_ORG_RVRSN_CHG_DOC_T">
@@ -1096,6 +1114,9 @@
       <column name="ORG_PLNT_COA_CD" type="VARCHAR(2)"/>
       <column name="CMP_PLNT_COA_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="993" context="bootstrap,demo,unit">
     <createTable tableName="CA_ORG_TYPE_T">
@@ -1174,6 +1195,9 @@
       <column name="ACCT_OFF_CMP_IND" type="VARCHAR(1)"/>
       <column name="ACCT_CLOSED_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="995" context="bootstrap,demo,unit">
     <createTable tableName="CA_PRIOR_YR_ICR_ACCT_T">
@@ -1231,6 +1255,9 @@
       <column name="ORG_PLNT_COA_CD" type="VARCHAR(2)"/>
       <column name="CMP_PLNT_COA_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="997" context="bootstrap,demo,unit">
     <createTable tableName="CA_PROJECT_T">
@@ -1485,6 +1512,9 @@
       <column name="FDOC_REVERSAL_DT" type="DATE"/>
       <column name="FDOC_AV_TYP_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1010" context="bootstrap,demo,unit">
     <createTable tableName="FP_ADV_DPST_DTL_T">
@@ -1509,6 +1539,9 @@
       <column name="FDOC_ADV_DPST_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_BANK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1011" context="bootstrap,demo,unit">
     <createTable tableName="FP_BAL_BY_CONS_MT">
@@ -1733,6 +1766,9 @@
       <column name="ITM_CLOSED_DT" type="DATE"/>
       <column name="ITM_DESC" type="VARCHAR(200)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1019" context="bootstrap,demo,unit">
     <createTable tableName="FP_CASH_RCPT_DOC_T">
@@ -1767,6 +1803,9 @@
       <column name="FDOC_CNFRMD_COIN_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_BNK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1020" context="bootstrap,demo,unit">
     <createTable tableName="FP_CHECK_DTL_T">
@@ -1794,6 +1833,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1021" context="bootstrap,demo,unit">
     <createTable tableName="FP_COIN_DTL_T">
@@ -1928,6 +1970,9 @@
       <column name="FDOC_CCRD_DREF_NBR" type="VARCHAR(10)"/>
       <column name="FDOC_CCRD_DPST_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1026" context="bootstrap,demo,unit">
     <createTable tableName="FP_CR_CARD_TYP_T">
@@ -2052,6 +2097,9 @@
       <column name="FIDOC_CCRD_VNDR_NBR" type="VARCHAR(10)"/>
       <column name="CUST_CCRD_NTE_TXT" type="VARCHAR(2000)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1031" context="bootstrap,demo,unit">
     <createTable tableName="FP_DEPOSIT_DOC_T">
@@ -2073,6 +2121,9 @@
       <column name="FDOC_DPST_TKT_NBR" type="VARCHAR(20)"/>
       <column name="FDOC_DPST_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1032" context="bootstrap,demo,unit">
     <createTable tableName="FP_DEPOSIT_HDR_T">
@@ -2123,6 +2174,9 @@
       <column name="FS_CSHRCPT_PRCS_TS" type="DATE"/>
       <column name="FS_PRCS_OPR_ID" type="VARCHAR(10)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1034" context="bootstrap,demo,unit">
     <createTable tableName="FP_DISTRIB_DOC_T">
@@ -2228,6 +2282,9 @@
       </column>
       <column defaultValue="N" name="IMD_PMT_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1038" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_EXP_TYP_T">
@@ -2264,6 +2321,9 @@
       </column>
       <column name="DV_MLG_RT" type="DECIMAL(19, 4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1040" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_NONEMP_EXP_T">
@@ -2324,6 +2384,9 @@
       <column name="DV_TRVL_FRM_CNTRY_CD" type="VARCHAR(2)"/>
       <column name="DV_TRVL_TO_CNTRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1042" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_NRA_TAX_T">
@@ -2439,6 +2502,9 @@
       <column name="DV_CONF_TOT_AMT" type="DECIMAL(19, 2)"/>
       <column name="DV_EXP_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1047" context="bootstrap,demo,unit">
     <createTable tableName="FP_DV_TRVL_CO_NM_T">
@@ -2615,6 +2681,9 @@
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(1)"/>
       <column name="FIN_OBJ_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1056" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM1_LEVEL_MT">
@@ -2649,6 +2718,9 @@
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1057" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM1_OBJ_MT">
@@ -2681,6 +2753,9 @@
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="TIMESTAMP" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1058" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM2_CONS_MT">
@@ -2718,6 +2793,9 @@
       <column name="FIN_CONS_OBJ_CD" type="VARCHAR(4)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1059" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM2_LEVEL_MT">
@@ -2750,6 +2828,9 @@
       <column name="FIN_OBJ_LEVEL_CD" type="VARCHAR(4)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1060" context="bootstrap,demo,unit">
     <createTable tableName="FP_INTERIM2_OBJ_MT">
@@ -2781,6 +2862,9 @@
       <column name="FIN_REPORT_SORT_CD" type="VARCHAR(2)"/>
       <column name="ACCTG_CTGRY_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1061" context="bootstrap,demo,unit">
     <createTable tableName="FP_INT_BILL_DOC_T">
@@ -2821,6 +2905,9 @@
       <column name="FDOC_ITM_UNIT_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_UNIT_MSR_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1063" context="bootstrap,demo,unit">
     <createTable tableName="FP_JRNL_VCHR_DOC_T">
@@ -2839,6 +2926,9 @@
       <column name="FDOC_REVERSAL_DT" type="DATE"/>
       <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1064" context="bootstrap,demo,unit">
     <createTable tableName="FP_JV_ACCT_LINES_T">
@@ -3114,6 +3204,9 @@
       <column name="FDOC_CARD_STAT_CD" type="VARCHAR(2)"/>
       <column name="FDOC_CARD_NTE_TXT" type="VARCHAR(50)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1073" context="bootstrap,demo,unit">
     <createTable tableName="FP_PRCRMNT_DOC_T">
@@ -3163,6 +3256,9 @@
       <column name="TRN_CYCLE_END_DT" type="DATE"/>
       <column name="TRN_TOT_AMT" type="DECIMAL(19, 2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1075" context="bootstrap,demo,unit">
     <createTable tableName="FP_PRCRMNT_VNDR_T">
@@ -3206,6 +3302,9 @@
       <column name="FDOC_REVERSAL_DT" type="DATE"/>
       <column name="FDOC_NXT_DIS_NBR" type="DECIMAL(7)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1077" context="bootstrap,demo,unit">
     <createTable tableName="FP_RPT_CD_T">
@@ -3255,6 +3354,9 @@
       <column name="FDOC_TXBL_SALES_AMT" type="DECIMAL(19, 2)"/>
       <column name="FDOC_SALE_DT" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1079" context="bootstrap,demo,unit">
     <createTable tableName="FS_CLCTR_HDR_T">
@@ -3295,6 +3397,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1080" context="bootstrap,demo,unit">
     <createTable tableName="FS_DOC_HDRS_MSNG_IN_KEW_T">
@@ -3318,6 +3423,9 @@
       <column name="FDOC_TYP_NM" type="VARCHAR(64)"/>
       <column name="FDOC_CRTE_DT" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1082" context="bootstrap,demo,unit">
     <createTable tableName="FS_HOME_ORIGIN_T">
@@ -3504,6 +3612,9 @@
       </column>
       <column name="TAX_RATE" type="DECIMAL(9, 8)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1090" context="bootstrap,demo,unit">
     <createTable tableName="FS_TAX_REGION_T">
@@ -3628,6 +3739,9 @@
       <column name="ACLN_ENCUM_BAL_AMT" type="DECIMAL(19, 2)"/>
       <column name="TIMESTAMP" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="2716" context="bootstrap,demo,unit">
     <createTable tableName="GL_BALANCE_T">
@@ -3673,6 +3787,9 @@
       <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
       <column name="TIMESTAMP" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="2717" context="bootstrap,demo,unit">
     <createTable tableName="GL_COR_DOC_T">
@@ -3882,6 +3999,9 @@
       <column name="ACLN_ENCUM_PRG_CD" type="VARCHAR(1)"/>
       <column name="TIMESTAMP" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1102" context="bootstrap,demo,unit">
     <createTable tableName="GL_ENTRY_HIST_T">
@@ -3964,6 +4084,9 @@
       <column name="TRN_POST_DT" type="DATE"/>
       <column name="TIMESTAMP" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1104" context="bootstrap,demo,unit">
     <createTable tableName="GL_EXPEND_TRN_MT">
@@ -4063,6 +4186,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1106" context="bootstrap,demo,unit">
     <createTable tableName="GL_OFFSET_DEFN_T">
@@ -4200,6 +4326,9 @@
       <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
       <column name="TRNENTR_PROCESS_TM" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1111" context="bootstrap,demo,unit">
     <createTable tableName="GL_PENDING_ENTRY_T">
@@ -4245,6 +4374,9 @@
       <column name="TRN_ENTR_OFST_CD" type="VARCHAR(1)"/>
       <column name="TRNENTR_PROCESS_TM" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1112" context="bootstrap,demo,unit">
     <createTable tableName="GL_REVERSAL_T">
@@ -4303,6 +4435,9 @@
       <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
       <column name="TRN_POST_DT" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1113" context="bootstrap,demo,unit">
     <createTable tableName="GL_SF_BALANCES_T">
@@ -4324,6 +4459,9 @@
       <column name="ACCT_ENCUM_AMT" type="DECIMAL(19, 2)"/>
       <column name="TIMESTAMP" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1114" context="bootstrap,demo,unit">
     <createTable tableName="GL_SF_REBUILD_T">
@@ -4372,6 +4510,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1118" context="bootstrap,demo,unit">
     <createTable tableName="PDP_ACH_BNK_T">
@@ -4569,6 +4710,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1124" context="bootstrap,demo,unit">
     <createTable tableName="PDP_DISB_TYP_CD_T">
@@ -4604,6 +4748,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1126" context="bootstrap,demo,unit">
     <createTable tableName="PDP_FMT_PROC_T">
@@ -4622,6 +4769,9 @@
       </column>
       <column name="PMT_PROC_ID" type="DECIMAL(8)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1127" context="bootstrap,demo,unit">
     <createTable tableName="PDP_GL_PENDING_ENTRY_T">
@@ -4668,6 +4818,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1128" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PAYEE_ACH_ACCT_T">
@@ -4694,6 +4847,9 @@
       <column name="AUTO_INACTV_IND" type="VARCHAR(1)"/>
       <column name="LST_UPDT_TS" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1129" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PAYEE_TYP_T">
@@ -4750,6 +4906,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1131" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_ACCT_HIST_T">
@@ -4770,6 +4929,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1132" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_CHG_CD_T">
@@ -4829,6 +4991,9 @@
       <column name="FS_ORIGIN_CD" type="VARCHAR(2)"/>
       <column name="CUST_INST_NBR" type="VARCHAR(30)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1134" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_GRP_HIST_T">
@@ -4861,6 +5026,9 @@
       </column>
       <column name="ORIG_BNK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1135" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_GRP_T">
@@ -4917,6 +5085,9 @@
       <column name="PDP_EPIC_PMT_PD_EXTRT_TS" type="DATE"/>
       <column name="BNK_CD" type="VARCHAR(4)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1136" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_NTE_TXT_T">
@@ -4938,6 +5109,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1137" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PMT_STAT_CD_T">
@@ -5004,6 +5178,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1140" context="bootstrap,demo,unit">
     <createTable tableName="PDP_PROC_T">
@@ -5029,6 +5206,9 @@
       <column defaultValue="Y" name="EXTRACTED_IND" type="VARCHAR(1)"/>
       <column defaultValue="N" name="FORMATTED_IND" type="VARCHAR(1)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1141" context="bootstrap,demo,unit">
     <createTable tableName="PUR_ADDR_TYP_T">
@@ -5552,6 +5732,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1165" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_CUST_NBR_T">
@@ -5644,6 +5827,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1168" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_EXCL_MT">
@@ -5661,6 +5847,9 @@
       <column name="VNDR_EXCL_OTHR_NM" type="VARCHAR(1000)"/>
       <column name="VNDR_EXCL_DESC_TXT" type="VARCHAR(1000)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1169" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_EXCL_MTCH_T">
@@ -5690,6 +5879,9 @@
       <column name="LST_UPDT_TS" type="DATE"/>
       <column name="LST_UPDT_PRNCPL_NM" type="VARCHAR(100)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1170" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_HDR_T">
@@ -5725,6 +5917,9 @@
       <column name="VNDR_CHAP_3_STAT_CD" type="VARCHAR(2)"/>
       <column name="VNDR_CHAP_4_STAT_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1171" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_INACTV_REAS_T">
@@ -5834,6 +6029,9 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1176" context="bootstrap,demo,unit">
     <createTable tableName="PUR_VNDR_TYP_T">
@@ -6034,6 +6232,9 @@
       <column name="ACTV_FRM_DT" type="DATE"/>
       <column name="ACTV_TO_DT" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1184" context="bootstrap,demo,unit">
     <createTable tableName="SEC_SCRTY_MDL_T">
@@ -6125,6 +6326,9 @@
       <column name="BDGT_ROLLOVER_CD" type="VARCHAR(1)"/>
       <column name="UNIV_FSCPD_END_DT" type="DATE"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1188" context="bootstrap,demo,unit">
     <createTable tableName="SH_BUILDING_T">
@@ -6212,6 +6416,9 @@
       <column name="UNIV_FISCAL_YR" type="DECIMAL(4)"/>
       <column name="UNIV_FISCAL_PRD_CD" type="VARCHAR(2)"/>
     </createTable>
+    <modifySql dbms="mysql">
+      <replace replace="date" with="datetime"/>
+    </modifySql>
   </changeSet>
   <changeSet author="kfs" id="1192" context="bootstrap,demo,unit">
     <createTable tableName="SH_UOM_T">

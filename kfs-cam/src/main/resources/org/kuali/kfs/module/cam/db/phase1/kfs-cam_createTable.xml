@@ -126,6 +126,9 @@
             </column>
             <column name="TRN_LDGR_SUBMIT_AMT" type="DECIMAL(19, 2)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2355" context="bootstrap,demo,unit">
         <createTable tableName="CB_PRTG_DTL_T">
@@ -157,6 +160,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2356" context="bootstrap,demo,unit">
         <createTable tableName="CB_PRTG_T">
@@ -188,6 +194,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2357" context="bootstrap,demo,unit">
         <createTable tableName="CB_PUR_ACTN_HIST_T">
@@ -373,6 +382,9 @@
             <column name="CPTL_AST_NTL_STOCK_NBR" type="VARCHAR(25)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2364" context="bootstrap,demo,unit">
         <createTable tableName="CM_AST_CONDITION_T">
@@ -562,6 +574,9 @@
             <column name="AST_PRD12DEPR1_AMT" type="DECIMAL(19, 2)"/>
             <column name="AST_TRNFR_PMT_CD" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2373" context="bootstrap,demo,unit">
         <createTable tableName="CM_AST_PMT_AST_DTL_T">
@@ -665,6 +680,9 @@
             <column name="FDOC_OVERRIDE_CD" type="VARCHAR(100)"/>
             <column name="AST_TRNFR_PMT_CD" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2378" context="bootstrap,demo,unit">
         <createTable tableName="CM_AST_RETIRE_DOC_T">
@@ -699,6 +717,9 @@
             <column name="CPTLAST_BUYER_DESC" type="VARCHAR(25)"/>
             <column name="AST_PD_CASE_NBR" type="VARCHAR(14)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2379" context="bootstrap,demo,unit">
         <createTable tableName="CM_AST_RETIRE_DTL_T">
@@ -739,6 +760,9 @@
             <column name="AST_RPR_SOLN_DESC" type="VARCHAR(255)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2381" context="bootstrap,demo,unit">
         <createTable tableName="CM_AST_STATUS_T">
@@ -809,6 +833,9 @@
             <column name="AST_WRNTY_TXT" type="VARCHAR(40)"/>
             <column defaultValue="Y" name="ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="1007" context="bootstrap,demo,unit">
         <createTable tableName="CM_CPTLAST_T">
@@ -876,6 +903,9 @@
             <column name="FIN_OBJ_SUB_TYP_CD" type="VARCHAR(2)"/>
             <column name="AST_FABR_EST_RETN_YRS" type="DECIMAL(5)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2384" context="bootstrap,demo,unit">
         <createTable tableName="CM_CPTLAST_DOC_T">
@@ -916,6 +946,9 @@
             <column name="FDOC_POST_YR" type="DECIMAL(4)"/>
             <column name="FDOC_POST_PRD_CD" type="VARCHAR(2)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2385" context="bootstrap,demo,unit">
         <createTable tableName="CM_CPTLAST_DTL_T">
@@ -1030,6 +1063,9 @@
             <column name="AST_BORWRSTRPH_NBR" type="VARCHAR(13)"/>
             <column name="CPTLAST_NBR" type="DECIMAL(12)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2389" context="bootstrap,demo,unit">
         <createTable tableName="CM_FSCL_YR_END_DEPR_DTL_T">
@@ -1063,6 +1099,9 @@
             <column name="YEAR_END_DEPR_RUN_DATE" type="DATE"/>
             <column defaultValue="Y" name="YEAR_END_DEPR_ACTV_IND" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2391" context="bootstrap,demo,unit">
         <createTable tableName="CM_INVN_ERR_DOC_T">
@@ -1104,6 +1143,9 @@
             <column name="BLDG_SUB_ROOM_NBR" type="VARCHAR(2)"/>
             <column name="CPTLAST_COND_CD" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2393" context="bootstrap,demo,unit">
         <createTable tableName="CM_RETIRE_REAS_T">

@@ -1085,6 +1085,9 @@
             <column name="EFFDT" type="DATE"/>
             <column name="EFFSEQ" type="DECIMAL(3)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2760" context="bootstrap,demo,unit">
         <createTable tableName="LD_ERROR_CERT_T">
@@ -1204,6 +1207,9 @@
             <column name="FIN_BALANCE_TYP_CD" type="VARCHAR(2)"/>
             <column name="FDOC_OFST_TYP_CD" type="VARCHAR(4)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2765" context="bootstrap,demo,unit">
         <createTable tableName="LD_JRNL_VCHR_DTL_T">
@@ -1257,6 +1263,9 @@
             <column name="COMPANY" type="VARCHAR(3)"/>
             <column name="SETID" type="VARCHAR(5)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2766" context="bootstrap,demo,unit">
         <createTable tableName="LD_JULY1_POS_FND_T">
@@ -1397,6 +1406,9 @@
             <column name="FDOC_REVERSAL_DT" type="DATE"/>
             <column name="TRN_ENCUM_UPDT_CD" type="VARCHAR(1)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2770" context="bootstrap,demo,unit">
         <createTable tableName="LD_LBR_OBJ_BENE_T">
@@ -1533,6 +1545,9 @@
             <column name="MO13_ACCT_LN_AMT" type="DECIMAL(19, 2)"/>
             <column name="TIMESTAMP" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2773" context="bootstrap,demo,unit">
         <createTable tableName="LD_LDGR_ENTR_HIST_T">
@@ -1642,6 +1657,9 @@
             <column name="SETID" type="VARCHAR(5)"/>
             <column name="TIMESTAMP" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2775" context="bootstrap,demo,unit">
         <createTable tableName="LD_PND_LDGR_ENTR_T">
@@ -1707,6 +1725,9 @@
             <column name="SETID" type="VARCHAR(5)"/>
             <column name="TIMESTAMP" type="DATE"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="2776" context="bootstrap,demo,unit">
         <createTable tableName="LD_POS_OBJ_GRP_T">
@@ -1781,5 +1802,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
 </databaseChangeLog>

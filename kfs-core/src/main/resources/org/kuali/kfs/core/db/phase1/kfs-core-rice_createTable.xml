@@ -108,6 +108,9 @@
             </column>
             <column name="SERIALZD_RSLTS" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00324" context="bootstrap,demo,unit">
         <createTable tableName="krns_lookup_sel_t">
@@ -128,6 +131,9 @@
             </column>
             <column name="SEL_OBJ_IDS" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00325" context="bootstrap,demo,unit">
         <createTable tableName="krns_maint_doc_att_lst_t">
@@ -212,6 +218,9 @@
             <column name="PRG_CD" type="VARCHAR(1)"/>
             <column name="TPC_TXT" type="VARCHAR(40)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00333" context="bootstrap,demo,unit">
         <createTable tableName="krns_nte_typ_t">
@@ -253,6 +262,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00335" context="bootstrap,demo,unit">
         <createTable tableName="krns_sesn_doc_t">
@@ -274,6 +286,9 @@
             <column name="OBJ_ID" type="VARCHAR(36)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00337" context="bootstrap,demo,unit">
         <createTable tableName="krsb_bam_parm_t">
@@ -317,6 +332,9 @@
             <column name="EXCPN_TO_STR" type="VARCHAR(2000)"/>
             <column name="EXCPN_MSG" type="LONGTEXT"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00340" context="bootstrap,demo,unit">
         <createTable tableName="krsb_msg_pyld_t">
@@ -358,6 +376,9 @@
             <column name="APP_VAL_TWO" type="VARCHAR(2000)"/>
             <column defaultValueNumeric="0" name="VER_NBR" type="DECIMAL(8)"/>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00343" context="bootstrap,demo,unit">
         <createTable tableName="krsb_qrtz_blob_triggers">
@@ -626,6 +647,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="date" with="datetime"/>
+        </modifySql>
     </changeSet>
     <changeSet author="kfs" id="rice00017" context="bootstrap,demo,unit">
         <createTable tableName="krcr_cmpnt_t">
