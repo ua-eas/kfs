@@ -1,14 +1,12 @@
 {
   "updateFiles": [
-    {
-      "filename": "2015-08.json",
-      "filename": "2015-09.json",
-      "filename": "2015-10.json",
-      "filename": "FINP-126.json",
-      "filename": "FINP-55.json",
-      "filename": "FINI-98.json",
-      "filename": "FINP-164.json",
-      "filename": "FINP-159.json"
-    }
+    "2015-08.json",
+    "2015-09.json",
+    "2015-10.json",
+    "FINP-126.json",
+    "FINP-55.json",
+    "FINI-98.json",
+    "FINP-164.json",
+    "FINP-159.json"
   ]
 }
