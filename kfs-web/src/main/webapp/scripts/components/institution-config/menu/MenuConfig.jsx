@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import Immutable from 'immutable';
 import KfsUtils from '../../../sys/utils.js';
-import MenuItemList from './menuItemList.jsx';
+import MenuItemList from './MenuItemList.jsx';
 
 let MenuConfig = React.createClass({
     childContextTypes: {

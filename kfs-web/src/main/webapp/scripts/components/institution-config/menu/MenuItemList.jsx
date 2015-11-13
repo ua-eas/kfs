@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import Immutable from 'immutable';
-import MenuItem from  './menuItem.jsx';
-import {buildGroupSortableDropHandler, validateForm} from '../institutionconfigutils.js';
+import MenuItem from  './MenuItem.jsx';
+import {buildGroupSortableDropHandler, validateForm} from '../institutionConfigUtils.js';
 
 let MenuItemList = React.createClass({
     contextTypes: {
@@ -14,7 +14,7 @@ let MenuItemList = React.createClass({
     },
     componentDidMount() {
         let self = this;
-        buildGroupSortableDropHandler('linkGroupsList', self, 'menu', 'updateMenu');
+        buildGroupSortableDropHandler('item-list', self, 'menu', 'updateMenu');
     },
     openAddNewMenuItem() {
         this.setState({
@@ -81,9 +81,9 @@ let MenuItemList = React.createClass({
         }
 
         return (
-            <ul id="linkGroupsList">
+            <ul id="item-list">
                 {items}
-                <li className="linkgroup new">
+                <li className="item new">
                     <div className="add-new-button" onClick={this.openAddNewMenuItem}>
                         <span className="glyphicon glyphicon-plus"></span>Add New
                     </div>

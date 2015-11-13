@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import {validateForm} from '../institutionconfigutils.js';
+import {validateForm} from '../institutionConfigUtils.js';
 
 let MenuItem = React.createClass({
     contextTypes: {
@@ -87,7 +87,7 @@ let MenuItem = React.createClass({
             );
         }
         return (
-            <li className="linkgroup">
+            <li className="item">
                 <span className="move"></span>
                 <span>{this.props.item.get('label')}</span>
                 <div className="actions">

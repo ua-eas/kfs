@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import {buildLinkSortableDropHandler, isScrolledIntoView, validateForm} from '../institutionconfigutils.js';
+import {buildLinkSortableDropHandler, isScrolledIntoView, validateForm} from '../institutionConfigUtils.js';
 import {buildKeyFromLabel} from '../../../sys/utils.js';
 import Immutable from 'immutable';
 
@@ -20,7 +20,7 @@ let LinkGroupLinks = React.createClass({
                                  linkGroupLabels={linkGroupLabels}/>
         });
         let className = this.props.topGroupSelected ? 'top-selected' : '';
-        return <div id="linkGroupLinksList" className={className}>{linkGroupLinkElements}</div>;
+        return <div id="sub-item-list" className={className}>{linkGroupLinkElements}</div>;
     }
 });
 

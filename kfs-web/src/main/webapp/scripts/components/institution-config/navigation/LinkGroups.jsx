@@ -1,10 +1,10 @@
 import React from 'react/addons';
-import {buildGroupSortableDropHandler} from '../institutionconfigutils.js';
+import {buildGroupSortableDropHandler} from '../institutionConfigUtils.js';
 import {buildKeyFromLabel} from '../../../sys/utils.js';
 
 
 let determinePanelClassName = function(expandedLinkGroup, label) {
-    let panelClassName = "linkgroup";
+    let panelClassName = "item";
     if (expandedLinkGroup === label) {
         panelClassName += " active";
     }
@@ -30,7 +30,7 @@ let LinkGroups = React.createClass({
     },
     componentDidMount() {
         let self = this;
-        buildGroupSortableDropHandler('linkGroupsList', self, 'linkGroups', 'updateLinkGroups');
+        buildGroupSortableDropHandler('item-list', self, 'linkGroups', 'updateLinkGroups');
     },
     openDeleteGroup(label) {
         this.setState({'deleting': label});
@@ -48,9 +48,9 @@ let LinkGroups = React.createClass({
             );
         }
         return (
-            <ul id="linkGroupsList">
+            <ul id="item-list">
                 {linkGroupElements}
-                <li className="linkgroup new" onClick={this.context.addNewLinkGroup}>
+                <li className="item new" onClick={this.context.addNewLinkGroup}>
                     <div className="add-new-button"><span className="glyphicon glyphicon-plus"></span>Add New</div>
                 </li>
             </ul>

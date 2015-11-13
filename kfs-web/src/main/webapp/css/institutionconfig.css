@@ -20,12 +20,12 @@
     padding: 20px;
 }
 
-ul#linkGroupsList,
-div#linkGroupLinksList {
+ul#item-list,
+div#sub-item-list {
     width: 50%;
 }
 
-#linkGroupsList {
+#item-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -33,18 +33,18 @@ div#linkGroupLinksList {
     order: 2;
 }
 
-#linkGroupLinksList div.addCustomLink {
+#sub-item-list div.addCustomLink {
     height: 30px;
     position: relative;
 }
 
-#linkGroupLinksList div.addCustomLink>button {
+#sub-item-list div.addCustomLink>button {
     float: right;
     color: #555555;
     text-transform: uppercase;
 }
 
-#linkGroupsList li.linkgroup {
+#item-list li.item {
     background-color: #6B6B6B;
     text-transform: uppercase;
     color: #fff;
@@ -60,28 +60,28 @@ div#linkGroupLinksList {
     position: relative;
 }
 
-.menuconfig #linkGroupsList li.linkgroup {
+.menuconfig #item-list li.item {
     text-transform: none;
 }
 
-#linkGroupsList li.linkgroup.new {
+#item-list li.item.new {
     background-color: #A7A7A7;
     text-align: center;
     border: 1px solid #A7A7A7;
 }
 
-#linkGroupsList li.linkgroup.new div.add-new-button {
+#item-list li.item.new div.add-new-button {
     cursor: pointer;
 }
 
-#linkGroupsList li.linkgroup.ui-sortable-helper,
-#linkGroupsList li.linkgroup.ui-sortable-helper span.move {
+#item-list li.item.ui-sortable-helper,
+#item-list li.item.ui-sortable-helper span.move {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 
-#linkGroupsList li.linkgroup.active {
+#item-list li.item.active {
     background-color: #F4F4F4;
     color: #555555;
     border-top: 1px solid #ACACAC;
@@ -92,12 +92,12 @@ div#linkGroupLinksList {
 
 }
 
-#linkGroupsList li.linkgroup.active {
+#item-list li.item.active {
     margin-right: -1px;
     padding-right: 14px;
 }
 
-#linkGroupsList li.linkgroup span.move {
+#item-list li.item span.move {
     margin-right: 10px;
     margin-bottom: -8px;
     height: 23px;
@@ -111,17 +111,17 @@ div#linkGroupLinksList {
     cursor: grab;
 }
 
-#linkGroupsList li.linkgroup input[type=text] {
+#item-list li.item input[type=text] {
     color: #555555;
     text-transform: uppercase;
     width: 60%;
 }
 
-#linkGroupsList li.linkgroup .actions {
+#item-list li.item .actions {
     float: right;
 }
 
-#linkGroupsList li.linkgroup .actions button {
+#item-list li.item .actions button {
     background-color: #7C7C7C;
     border: 1px solid #757575;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -135,13 +135,13 @@ div#linkGroupLinksList {
     float: left;
 }
 
-#linkGroupsList li.linkgroup .actions #saveGroupLabelButton,
-#linkGroupsList li.linkgroup .actions #cancelGroupLabelButton {
+#item-list li.item .actions #saveGroupLabelButton,
+#item-list li.item .actions #cancelGroupLabelButton {
     padding: 2px 5px;
     margin-top: 0;
 }
 
-#linkGroupsList li.linkgroup .actions button span {
+#item-list li.item .actions button span {
     display: inline-block;
     width: 16px;
     height: 30px;
@@ -150,20 +150,20 @@ div#linkGroupLinksList {
     padding: 0;
 }
 
-#linkGroupsList li.linkgroup .actions button {
+#item-list li.item .actions button {
     padding-top: 6px;
 }
 
-#linkGroupsList li.linkgroup .actions button .edit {
+#item-list li.item .actions button .edit {
     background-image: url("../static/images/edit.png");
 }
 
-#linkGroupsList li.linkgroup .actions button .delete {
+#item-list li.item .actions button .delete {
     background-image: url("../static/images/trash.png");
 }
 
-#linkGroupsList li.linkgroup .actions button .save,
-#linkGroupsList li.linkgroup .actions button .cancel {
+#item-list li.item .actions button .save,
+#item-list li.item .actions button .cancel {
     width: inherit;
 }
 
