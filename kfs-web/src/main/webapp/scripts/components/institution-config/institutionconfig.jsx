@@ -4,7 +4,7 @@ import {Route, RouteHandler, DefaultRoute, NotFoundRoute} from 'react-router';
 
 import Header from '../../header.jsx';
 import Footer from '../../footer.jsx';
-import InstConfigSidebar from './InstitutionConfigSidebar.jsx';
+import InstitutionConfigSidebar from './InstitutionConfigSidebar.jsx';
 
 import NavigationConfig from './navigation/NavigationConfig.jsx';
 import MenuConfig from './menu/MenuConfig.jsx';

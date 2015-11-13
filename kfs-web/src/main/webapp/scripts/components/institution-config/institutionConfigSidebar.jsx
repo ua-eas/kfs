@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import KfsUtils from '../../sys/utils.js';
 
-var InstConfigSidebar = React.createClass({
+var InstitutionConfigSidebar = React.createClass({
     render() {
         let home = KfsUtils.getUrlPathPrefix();
         return (
@@ -18,8 +18,8 @@ var InstConfigSidebar = React.createClass({
 });
 
 React.render(
-    <InstConfigSidebar/>,
+    <InstitutionConfigSidebar/>,
     document.getElementById('sidebar')
 );
 
-export default InstConfigSidebar;
+export default InstitutionConfigSidebar;
