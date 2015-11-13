@@ -80,7 +80,7 @@ let MenuItem = React.createClass({
                 <div className="dialog form delete-form">
                     <div><label>Are you sure you want to delete {this.props.item.get('label')}?</label></div>
                     <div>
-                        <button className="btn btn-green" onClick={this.deleteMenuItem}>Delete</button>
+                        <button className="btn btn-red" onClick={this.deleteMenuItem}>Delete</button>
                         <button className="btn btn-default" onClick={this.openDeleteMenuItem}>Cancel</button>
                     </div>
                 </div>

@@ -648,19 +648,19 @@ footer {
 
 .btn-red,
 .btn-red:focus {
-    background-color: #e7e7e7;
+    background-color: #dc5f59;
     text-transform: uppercase;
-    color: #ff0000;
+    color: #ffffff;
 }
 
 .btn-red:hover {
-    background-color: #efefef;
-    color: #ff0000;
+    background-color: #b53f3a;
+    color: #ffffff;
 }
 
 .btn-red:active {
-    background-color: #e3e3e3 !important;
-    color: #ff0000;
+    background-color: #b33630 !important;
+    color: #ffffff;
 }
 
 .btn.disabled,
