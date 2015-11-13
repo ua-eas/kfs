@@ -93,7 +93,7 @@ let isScrolledIntoView = function (elem) {
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 };
 
-let validateForm = function(label, link, requireAbsoluteURL = true) {
+let validateForm = function(label, link) {
     let errors = [];
     let errorMessages = [];
     if (!label.trim()) {
@@ -106,7 +106,7 @@ let validateForm = function(label, link, requireAbsoluteURL = true) {
         errorMessages.push('URL cannot be blank');
     }
 
-    if (requireAbsoluteURL && link.indexOf('http://') != 0 && link.indexOf('https://') != 0) {
+    if (link.indexOf('http://') != 0 && link.indexOf('https://') != 0) {
         errors.push('link');
         errorMessages.push('URL must be an absolute path (i.e. http:// or https://)');
     }

@@ -24,7 +24,7 @@ let MenuItem = React.createClass({
         }
     },
     updateMenuItem() {
-        let errorObj = validateForm(this.state.updatedItem.get('label') || '', this.state.updatedItem.get('link') || '', false);
+        let errorObj = validateForm(this.state.updatedItem.get('label') || '', this.state.updatedItem.get('link') || '');
 
         if (errorObj.errors.length < 1) {
             this.setState({errors: [], errorMessages: []});
