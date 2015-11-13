@@ -100,6 +100,19 @@ public class PreferencesResource {
         return Response.ok(menu).build();
     }
 
+    @PUT
+    @Path("/config/menu")
+    public Response saveMenu(String menu) {
+        LOG.debug("saveMenu started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
+
+        List<Map<String, String>> menuResponse = getInstitutionPreferencesService().saveMenu(menu);
+        return Response.ok(menuResponse).build();
+    }
+
     @GET
     @Path("/users/{principalName}")
     public Response getUserPreferences(@PathParam("principalName")String principalName) {

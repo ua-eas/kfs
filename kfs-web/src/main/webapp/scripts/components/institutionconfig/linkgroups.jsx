@@ -36,7 +36,7 @@ let LinkGroups = React.createClass({
             <ul id="linkGroupsList">
                 {linkGroupElements}
                 <li className="linkgroup new" onClick={this.context.addNewLinkGroup}>
-                    <span className="glyphicon glyphicon-plus"></span>Add New
+                    <div className="add-new-button"><span className="glyphicon glyphicon-plus"></span>Add New</div>
                 </li>
             </ul>
         )

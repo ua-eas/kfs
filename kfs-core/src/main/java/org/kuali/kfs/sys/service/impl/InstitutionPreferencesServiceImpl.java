@@ -201,7 +201,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     protected List<Map<String, String>> getMenuItems(Map<String, Object> institutionPreferences) {
-        List<Map<String, String>> menuItems = (List<Map<String, String>>)institutionPreferences.get("menu");
+        List<Map<String, String>> menuItems = (List<Map<String, String>>)institutionPreferences.get(KFSPropertyConstants.MENU);
         if (!ObjectUtils.isNull(menuItems)) {
             return menuItems;
         }
@@ -463,9 +463,26 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     @Override
     public List<Map<String, String>> getMenu() {
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
-        return (List<Map<String, String>>)institutionPreferences.get("menu");
+        return (List<Map<String, String>>)institutionPreferences.get(KFSPropertyConstants.MENU);
     }
 
+    @Override
+    public List<Map<String, String>> saveMenu(String menuString) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<Map<String, String>> menu;
+        try {
+            menu = mapper.readValue(menuString, List.class);
+        } catch (IOException e) {
+            LOG.error("saveMenu Error parsing json", e);
+            throw new RuntimeException("Error parsing json");
+        }
+
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        institutionPreferences.put(KFSPropertyConstants.MENU, menu);
+        preferencesDao.saveInstitutionPreferences((String)institutionPreferences.get(KFSPropertyConstants.INSTITUTION_ID), institutionPreferences);
+        return menu;
+    }
 
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;

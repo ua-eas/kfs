@@ -199,7 +199,7 @@ let NavigationConfig = React.createClass({
                 this.setState({
                     hasChanges: false,
                     saveButtonText: <span style={spanStyle}><span className="glyphicon glyphicon-ok"></span>SAVED</span>
-                })
+                });
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {

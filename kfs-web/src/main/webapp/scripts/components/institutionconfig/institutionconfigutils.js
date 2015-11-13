@@ -93,7 +93,29 @@ let isScrolledIntoView = function (elem) {
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 };
 
+let validateForm = function(label, link, requireAbsoluteURL = true) {
+    let errors = [];
+    let errorMessages = [];
+    if (!label.trim()) {
+        errors.push('label');
+        errorMessages.push('Link Name cannot be blank');
+    }
+
+    if (!link.trim()) {
+        errors.push('link');
+        errorMessages.push('URL cannot be blank');
+    }
+
+    if (requireAbsoluteURL && link.indexOf('http://') != 0 && link.indexOf('https://') != 0) {
+        errors.push('link');
+        errorMessages.push('URL must be an absolute path (i.e. http:// or https://)');
+    }
+
+    return {errors: errors, errorMessages: errorMessages};
+};
+
 module.exports = {
     buildLinkSortableDropHandler: buildLinkSortableDropHandler,
     buildGroupSortableDropHandler: buildGroupSortableDropHandler,
-    isScrolledIntoView: isScrolledIntoView};
+    isScrolledIntoView: isScrolledIntoView, validateForm: validateForm
+};

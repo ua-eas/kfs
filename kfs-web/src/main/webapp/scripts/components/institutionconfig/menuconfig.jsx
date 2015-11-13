@@ -6,17 +6,30 @@ import MenuItemList from './menuItemList.jsx';
 let MenuConfig = React.createClass({
     childContextTypes: {
         addNewMenuItem: React.PropTypes.func,
-        updateMenu: React.PropTypes.func
+        updateMenu: React.PropTypes.func,
+        updateMenuItem: React.PropTypes.func,
+        openUpdateMenuItem: React.PropTypes.func,
+        deleteMenuItem: React.PropTypes.func,
+        openDeleteMenuItem: React.PropTypes.func,
+        openAddNewMenuItem: React.PropTypes.func
     },
     getChildContext() {
         return {
             addNewMenuItem: this.addNewMenuItem,
-            updateMenu: this.updateMenu
+            updateMenu: this.updateMenu,
+            updateMenuItem: this.updateMenuItem,
+            openUpdateMenuItem: this.openUpdateMenuItem,
+            deleteMenuItem: this.deleteMenuItem,
+            openDeleteMenuItem: this.openDeleteMenuItem,
+            openAddNewMenuItem: this.openAddNewMenuItem
         }
     },
     getInitialState() {
         return {
             menu: new Immutable.List(),
+            editing: null,
+            deleting: null,
+            addNew: false,
             hasChanges: false,
             saveButtonText: 'SAVE CHANGES'
         };
@@ -37,15 +50,65 @@ let MenuConfig = React.createClass({
             }.bind(this)
         });
     },
-    addNewMenuItem() {
-        console.log('Add New Menu Item clicked');
-    },
     updateMenu(updatedMenu) {
-        let newState = {'menu': updatedMenu, 'hasChanges': true};
-        this.setState(newState)
+        let newState = {
+            'menu': updatedMenu,
+            'hasChanges': true,
+            'editing': null,
+            'deleting': null,
+            'addNew': false
+        };
+        this.setState(newState);
+    },
+    openUpdateMenuItem(label) {
+        this.setState({'editing': label, 'deleting': null, 'addNew': false});
+    },
+    updateMenuItem(updatedItem, index) {
+        let updatedMenu = this.state.menu.set(index, updatedItem);
+        this.updateMenu(updatedMenu);
+    },
+    openDeleteMenuItem(label) {
+        this.setState({'editing': null, 'deleting': label, 'addNew': false});
+    },
+    deleteMenuItem(index) {
+        let updatedMenu = this.state.menu.delete(index);
+        this.updateMenu(updatedMenu);
+    },
+    openAddNewMenuItem(open) {
+        this.setState({'editing': null, 'deleting': null, 'addNew': open});
+    },
+    addNewMenuItem(newItem) {
+        let updatedMenu = this.state.menu.push(newItem);
+        this.updateMenu(updatedMenu);
     },
     saveChanges() {
         console.log('Save Changes clicked');
+        let menuPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/menu";
+        $.ajax({
+            url: menuPath,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'PUT',
+            data: JSON.stringify(this.state.menu),
+            success: function() {
+                let spanStyle = {
+                    color: '#6DA487'
+                };
+                this.setState({
+                    hasChanges: false,
+                    saveButtonText: <span style={spanStyle}><span className="glyphicon glyphicon-ok"></span>SAVED</span>
+                });
+                $.notify('Save Successful!', 'success');
+            }.bind(this),
+            error: function(xhr, status, err) {
+                let message = 'Save failed.';
+                if (err) {
+                    message = 'Save failed: ' + err;
+                }
+                $.notify(message, 'error');
+                console.error(status, err.toString());
+            }.bind(this)
+        });
     },
     render() {
         let saveDisabled;
@@ -64,7 +127,10 @@ let MenuConfig = React.createClass({
                 </div>
 
                 <div className="menuconfig">
-                    <MenuItemList menu={this.state.menu} updateMenu={this.updateMenu} addNewMenuItem={this.addNewMenuItem}/>
+                    <MenuItemList menu={this.state.menu}
+                                  editing={this.state.editing}
+                                  deleting={this.state.deleting}
+                                  addNew={this.state.addNew}/>
                 </div>
 
                 <div className="buttonbar">

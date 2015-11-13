@@ -60,10 +60,18 @@ div#linkGroupLinksList {
     position: relative;
 }
 
+.menuconfig #linkGroupsList li.linkgroup {
+    text-transform: none;
+}
+
 #linkGroupsList li.linkgroup.new {
     background-color: #A7A7A7;
     text-align: center;
     border: 1px solid #A7A7A7;
+}
+
+#linkGroupsList li.linkgroup.new div.add-new-button {
+    cursor: pointer;
 }
 
 #linkGroupsList li.linkgroup.ui-sortable-helper,
@@ -248,7 +256,7 @@ div#linkGroupLinksList {
 div.form {
     position: absolute;
     right: 0;
-    top: 50px;
+    top: 55px;
     z-index: 100;
     background-color: #fff;
     border: 1px solid #BBBBBB;
@@ -258,26 +266,84 @@ div.form {
     box-shadow: 0 5px 12px rgba(0,0,0,0.20);
 }
 
+div.form:after, div.form:before {
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    left: 50%;
+    position: absolute;
+    width: 0;
+}
+
+div.form:after {
+    border-width: 14px;
+    border-bottom-color: #fff;
+    top: -28px;
+}
+
+div.form:before {
+    border-width: 14px;
+    border-bottom-color: #BBB;
+    top: -29px;
+}
+
 div.form.hidden {
     display: none;
+}
+
+div.form.edit-form:after,
+div.form.edit-form:before {
+    left: 79%;
+}
+
+div.form.delete-form:after,
+div.form.delete-form:before {
+    left: 90%;
+}
+
+div.form.customLinkForm:after,
+div.form.customLinkForm:before {
+    left: 70%;
+}
+
+div.form.add-new-form {
+    right: calc(50% - 187px);
+}
+
+div.form {
+    width: 375px;
 }
 
 div.form div {
     display: table;
     width: 100%;
+    text-align: left;
 }
 
 div.form input,
 div.form select {
     margin-bottom: 25px;
+    text-transform: none !important;
 }
 
-div.form input[type=text] {
-    width: 330px;
+div.form input[type=text],
+div.form select {
+    width: 330px !important;
 }
 
 div.form input[type=radio] {
     margin-right: 7px;
+}
+
+div.form ul.errorMessages {
+    color: #C47965;
+    text-align: left;
+    padding: 0 0 10px 0;
+    text-transform: none;
+}
+
+div.form ul.errorMessages li {
+    list-style: none;
 }
 
 div.form input.error {
@@ -294,11 +360,6 @@ div.form button {
     margin-left: 10px;
 }
 
-div.dialog {
-    width: 300px;
-}
-
-div.dialog.form input[type=text] {
-    width: 100% !important;
-    text-transform: none !important;
+div.form.delete-form label {
+    padding-bottom: 15px;
 }
