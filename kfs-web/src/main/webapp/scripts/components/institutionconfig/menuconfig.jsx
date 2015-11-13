@@ -82,7 +82,6 @@ let MenuConfig = React.createClass({
         this.updateMenu(updatedMenu);
     },
     saveChanges() {
-        console.log('Save Changes clicked');
         let menuPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/menu";
         $.ajax({
             url: menuPath,

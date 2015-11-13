@@ -135,7 +135,8 @@ div#linkGroupLinksList {
     float: left;
 }
 
-#linkGroupsList li.linkgroup .actions #saveGroupLabelButton {
+#linkGroupsList li.linkgroup .actions #saveGroupLabelButton,
+#linkGroupsList li.linkgroup .actions #cancelGroupLabelButton {
     padding: 2px 5px;
     margin-top: 0;
 }
@@ -161,7 +162,8 @@ div#linkGroupLinksList {
     background-image: url("../static/images/trash.png");
 }
 
-#linkGroupsList li.linkgroup .actions button .save {
+#linkGroupsList li.linkgroup .actions button .save,
+#linkGroupsList li.linkgroup .actions button .cancel {
     width: inherit;
 }
 
@@ -213,6 +215,10 @@ div#linkGroupLinksList {
     border-style: dashed;
     background-color: inherit;
     cursor: default;
+}
+
+.instconfig div.admin-sublinks li .list-group-item .editLink {
+    cursor: pointer;
 }
 
 .instconfig div.admin-sublinks li span.move {
@@ -362,4 +368,5 @@ div.form button {
 
 div.form.delete-form label {
     padding-bottom: 15px;
+    text-transform: none;
 }

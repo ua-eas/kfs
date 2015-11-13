@@ -11,6 +11,7 @@ let NavigationConfig = React.createClass({
         updateLinkGroups: React.PropTypes.func,
         updateLinkGroupName: React.PropTypes.func,
         addNewLinkGroup: React.PropTypes.func,
+        cancelAddNewLinkGroup: React.PropTypes.func,
         deleteLinkGroup: React.PropTypes.func,
         addNewCustomLink: React.PropTypes.func,
         updateExistingCustomLink: React.PropTypes.func,
@@ -22,6 +23,7 @@ let NavigationConfig = React.createClass({
             updateLinkGroups: this.updateLinkGroups,
             updateLinkGroupName: this.updateLinkGroupName,
             addNewLinkGroup: this.addNewLinkGroup,
+            cancelAddNewLinkGroup: this.cancelAddNewLinkGroup,
             deleteLinkGroup: this.deleteLinkGroup,
             addNewCustomLink: this.addNewCustomLink,
             updateExistingCustomLink: this.updateExistingCustomLink,
@@ -78,6 +80,11 @@ let NavigationConfig = React.createClass({
         let linkGroups = this.state.linkGroups;
         let newLinkGroup = Immutable.fromJS({label: '', links: {}});
         let updatedLinkGroups = linkGroups.push(newLinkGroup);
+        this.setState({linkGroups: updatedLinkGroups})
+    },
+    cancelAddNewLinkGroup() {
+        let linkGroups = this.state.linkGroups;
+        let updatedLinkGroups = linkGroups.pop();
         this.setState({linkGroups: updatedLinkGroups})
     },
     deleteLinkGroup(index) {
