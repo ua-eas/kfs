@@ -1,6 +1,6 @@
 import React from 'react/addons';
 import Immutable from 'immutable';
-import KfsUtils from '../../sys/utils.js';
+import KfsUtils from '../../../sys/utils.js';
 import MenuItemList from './menuItemList.jsx';
 
 let MenuConfig = React.createClass({

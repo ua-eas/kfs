@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import Immutable from 'immutable';
 import MenuItem from  './menuItem.jsx';
-import {buildGroupSortableDropHandler, validateForm} from './institutionconfigutils.js';
+import {buildGroupSortableDropHandler, validateForm} from '../institutionconfigutils.js';
 
 let MenuItemList = React.createClass({
     contextTypes: {

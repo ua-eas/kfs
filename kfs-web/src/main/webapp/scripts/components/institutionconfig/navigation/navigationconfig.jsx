@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import LinkGroups from './linkgroups.jsx';
 import LinkGroupLinks from './linkgrouplinks.jsx';
-import {getUrlPathPrefix} from '../../sys/utils.js';
+import {getUrlPathPrefix} from '../../../sys/utils.js';
 import _ from 'lodash';
 import Immutable from 'immutable';
 

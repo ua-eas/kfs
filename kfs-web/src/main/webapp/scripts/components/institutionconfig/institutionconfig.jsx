@@ -6,8 +6,8 @@ import Header from '../../header.jsx';
 import Footer from '../../footer.jsx';
 import InstConfigSidebar from './institutionConfigSidebar.jsx';
 
-import NavigationConfig from './navigationconfig.jsx';
-import MenuConfig from './menuconfig.jsx';
+import NavigationConfig from './navigation/navigationconfig.jsx';
+import MenuConfig from './menu/menuconfig.jsx';
 
 let App = React.createClass({
     render: function() {
@@ -22,8 +22,8 @@ let App = React.createClass({
 let routes = (
     <Route handler={App} name="app" path="/">
         <DefaultRoute handler={NavigationConfig} />
-        <Route name="navigationconfig" path="/navigationconfig" handler={NavigationConfig}/>
-        <Route name="menuconfig" path="/menuconfig" handler={MenuConfig}/>
+        <Route name="navigationconfig" path="/navigation" handler={NavigationConfig}/>
+        <Route name="menuconfig" path="/menu" handler={MenuConfig}/>
         <NotFoundRoute handler={NavigationConfig}/>
     </Route>
 );

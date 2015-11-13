@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import {validateForm} from './institutionconfigutils.js';
+import {validateForm} from '../institutionconfigutils.js';
 
 let MenuItem = React.createClass({
     contextTypes: {

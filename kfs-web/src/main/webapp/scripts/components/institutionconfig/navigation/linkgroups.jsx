@@ -1,6 +1,6 @@
 import React from 'react/addons';
-import {buildGroupSortableDropHandler} from './institutionconfigutils.js';
-import {buildKeyFromLabel} from '../../sys/utils.js';
+import {buildGroupSortableDropHandler} from '../institutionconfigutils.js';
+import {buildKeyFromLabel} from '../../../sys/utils.js';
 
 
 let determinePanelClassName = function(expandedLinkGroup, label) {
@@ -153,7 +153,7 @@ let LinkGroup = React.createClass({
                     <div className="dialog form delete-form">
                         <div><label>You can only delete empty groups.</label></div>
                         <div>
-                            <button className="btn btn-default" onClick={this.openDeleteGroup}>Ok</button>
+                            <button className="btn btn-default" onClick={this.openDeleteGroup}>OK</button>
                         </div>
                     </div>
                 );
