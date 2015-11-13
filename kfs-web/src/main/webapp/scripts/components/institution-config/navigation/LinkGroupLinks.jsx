@@ -88,7 +88,7 @@ let SubLinkGroup = React.createClass({
             moveToGroupIndex: this.props.groupIndex,
             update: true
         });
-        if (!isScrolledIntoView($('.active .addCustomLink'))) {
+        if (!isScrolledIntoView($('.active .add-custom-link'))) {
             $('html,body').animate({scrollTop: 100}, 1000);
         }
     },
@@ -187,7 +187,7 @@ let SubLinkGroup = React.createClass({
 
         return (
             <div id={this.props.id + "-menu"} className={divClassName}>
-                <div className="addCustomLink">
+                <div className="add-custom-link">
                     <button className="btn btn-default" onClick={this.openAddCustomLink}><span className="glyphicon glyphicon-plus"></span>Add Custom Link</button>
                     <div className={formClass}>
                         {errorMessage}

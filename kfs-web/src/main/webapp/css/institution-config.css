@@ -6,6 +6,20 @@
     font-size: 22px;
 }
 
+.inst-config-sidebar {
+    padding-top: 50px;
+}
+
+#sidebar .nav li.panel div.indicator.active {
+    background-color: rgba(255,255,255,0.4);
+    width: 5px;
+    height: 100%;
+    margin-right: -1px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .instconfig {
     display: -webkit-box;
     display: -moz-box;
@@ -33,12 +47,12 @@ div#sub-item-list {
     order: 2;
 }
 
-#sub-item-list div.addCustomLink {
+#sub-item-list div.add-custom-link {
     height: 30px;
     position: relative;
 }
 
-#sub-item-list div.addCustomLink>button {
+#sub-item-list div.add-custom-link>button {
     float: right;
     color: #555555;
     text-transform: uppercase;
