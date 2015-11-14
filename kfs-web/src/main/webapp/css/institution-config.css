@@ -6,6 +6,20 @@
     font-size: 22px;
 }
 
+.inst-config-sidebar {
+    padding-top: 50px;
+}
+
+#sidebar .nav li.panel div.indicator.active {
+    background-color: rgba(255,255,255,0.4);
+    width: 5px;
+    height: 100%;
+    margin-right: -1px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .instconfig {
     display: -webkit-box;
     display: -moz-box;
@@ -16,12 +30,16 @@
     padding: 20px;
 }
 
-ul#linkGroupsList,
-div#linkGroupLinksList {
+.menuconfig {
+    padding: 20px;
+}
+
+ul#item-list,
+div#sub-item-list {
     width: 50%;
 }
 
-#linkGroupsList {
+#item-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -29,81 +47,18 @@ div#linkGroupLinksList {
     order: 2;
 }
 
-#linkGroupLinksList div.addCustomLink {
+#sub-item-list div.add-custom-link {
     height: 30px;
     position: relative;
 }
 
-#linkGroupLinksList div.addCustomLink>button {
+#sub-item-list div.add-custom-link>button {
     float: right;
     color: #555555;
     text-transform: uppercase;
 }
 
-#linkGroupLinksList div.customLinkForm {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    z-index: 100;
-    background-color: #fff;
-    border: 1px solid #BBBBBB;
-    border-radius: 3px;
-    padding: 15px 20px;
-    color: #666666;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.20);
-}
-
-#linkGroupLinksList div.customLinkForm.hidden {
-    display: none;
-}
-
-#linkGroupLinksList div.customLinkForm div {
-    display: table;
-    width: 100%;
-}
-
-#linkGroupLinksList div.customLinkForm input,
-#linkGroupLinksList div.customLinkForm select {
-    margin-bottom: 25px;
-}
-
-#linkGroupLinksList div.customLinkForm select {
-    text-transform: uppercase;
-}
-
-#linkGroupLinksList div.customLinkForm input[type=text],
-#linkGroupLinksList div.customLinkForm select{
-    width: 330px;
-}
-
-#linkGroupLinksList div.customLinkForm input[type=radio] {
-    margin-right: 7px;
-}
-
-#linkGroupLinksList div.customLinkForm input.error {
-    border-color: #C47965;
-}
-
-#linkGroupLinksList div.customLinkForm ul.errorMessages {
-    color: #C47965;
-    padding-bottom: 10px;
-}
-
-#linkGroupLinksList div.customLinkForm ul.errorMessages li {
-    list-style: none;
-}
-
-#linkGroupLinksList div.customLinkForm label {
-    margin-right: 15px;
-    font-weight: 400;
-}
-
-#linkGroupLinksList div.customLinkForm button {
-    float: right;
-    margin-left: 10px;
-}
-
-#linkGroupsList li.linkgroup {
+#item-list li.item {
     background-color: #6B6B6B;
     text-transform: uppercase;
     color: #fff;
@@ -112,26 +67,35 @@ div#linkGroupLinksList {
     padding: 13px 10px;
     margin: 0 3px 3px 3px;
     border-radius: 3px;
-    cursor: hand;
+    cursor: pointer;
     border-top: 1px solid #6B6B6B;
     border-left: 1px solid #6B6B6B;
     border-bottom: 1px solid #6B6B6B;
+    position: relative;
 }
 
-#linkGroupsList li.linkgroup.new {
+.menuconfig #item-list li.item {
+    text-transform: none;
+}
+
+#item-list li.item.new {
     background-color: #A7A7A7;
     text-align: center;
     border: 1px solid #A7A7A7;
 }
 
-#linkGroupsList li.linkgroup.ui-sortable-helper,
-#linkGroupsList li.linkgroup.ui-sortable-helper span.move {
+#item-list li.item.new div.add-new-button {
+    cursor: pointer;
+}
+
+#item-list li.item.ui-sortable-helper,
+#item-list li.item.ui-sortable-helper span.move {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 
-#linkGroupsList li.linkgroup.active {
+#item-list li.item.active {
     background-color: #F4F4F4;
     color: #555555;
     border-top: 1px solid #ACACAC;
@@ -142,12 +106,12 @@ div#linkGroupLinksList {
 
 }
 
-#linkGroupsList li.linkgroup.active {
+#item-list li.item.active {
     margin-right: -1px;
     padding-right: 14px;
 }
 
-#linkGroupsList li.linkgroup span.move {
+#item-list li.item span.move {
     margin-right: 10px;
     margin-bottom: -8px;
     height: 23px;
@@ -161,17 +125,17 @@ div#linkGroupLinksList {
     cursor: grab;
 }
 
-#linkGroupsList li.linkgroup input[type=text] {
+#item-list li.item input[type=text] {
     color: #555555;
     text-transform: uppercase;
     width: 60%;
 }
 
-#linkGroupsList li.linkgroup .actions {
+#item-list li.item .actions {
     float: right;
 }
 
-#linkGroupsList li.linkgroup .actions button {
+#item-list li.item .actions button {
     background-color: #7C7C7C;
     border: 1px solid #757575;
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -185,12 +149,13 @@ div#linkGroupLinksList {
     float: left;
 }
 
-#linkGroupsList li.linkgroup .actions #saveGroupLabelButton {
+#item-list li.item .actions #saveGroupLabelButton,
+#item-list li.item .actions #cancelGroupLabelButton {
     padding: 2px 5px;
     margin-top: 0;
 }
 
-#linkGroupsList li.linkgroup .actions button span {
+#item-list li.item .actions button span {
     display: inline-block;
     width: 16px;
     height: 30px;
@@ -199,19 +164,20 @@ div#linkGroupLinksList {
     padding: 0;
 }
 
-#linkGroupsList li.linkgroup .actions #editGroupLabelButton {
+#item-list li.item .actions button {
     padding-top: 6px;
 }
 
-#linkGroupsList li.linkgroup .actions #editGroupLabelButton .edit {
+#item-list li.item .actions button .edit {
     background-image: url("../static/images/edit.png");
 }
 
-#linkGroupsList li.linkgroup .actions #deleteGroupLabelButton .delete {
+#item-list li.item .actions button .delete {
     background-image: url("../static/images/trash.png");
 }
 
-#linkGroupsList li.linkgroup .actions #saveGroupLabelButton .save {
+#item-list li.item .actions button .save,
+#item-list li.item .actions button .cancel {
     width: inherit;
 }
 
@@ -265,6 +231,10 @@ div#linkGroupLinksList {
     cursor: default;
 }
 
+.instconfig div.admin-sublinks li .list-group-item .editLink {
+    cursor: pointer;
+}
+
 .instconfig div.admin-sublinks li span.move {
     margin-right: 10px;
     margin-bottom: -6px;
@@ -303,6 +273,114 @@ div#linkGroupLinksList {
     padding: 15px 45px;
 }
 
-.inst-config-sidebar {
-    padding-top: 30px;
+div.form {
+    position: absolute;
+    right: 0;
+    top: 55px;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid #BBBBBB;
+    border-radius: 3px;
+    padding: 15px 20px;
+    color: #666666;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.20);
+}
+
+div.form:after, div.form:before {
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    left: 50%;
+    position: absolute;
+    width: 0;
+}
+
+div.form:after {
+    border-width: 14px;
+    border-bottom-color: #fff;
+    top: -28px;
+}
+
+div.form:before {
+    border-width: 14px;
+    border-bottom-color: #BBB;
+    top: -29px;
+}
+
+div.form.hidden {
+    display: none;
+}
+
+div.form.edit-form:after,
+div.form.edit-form:before {
+    left: 79%;
+}
+
+div.form.delete-form:after,
+div.form.delete-form:before {
+    left: 90%;
+}
+
+div.form.customLinkForm:after,
+div.form.customLinkForm:before {
+    left: 70%;
+}
+
+div.form.add-new-form {
+    right: calc(50% - 187px);
+}
+
+div.form {
+    width: 375px;
+}
+
+div.form div {
+    display: table;
+    width: 100%;
+    text-align: left;
+}
+
+div.form input,
+div.form select {
+    margin-bottom: 25px;
+    text-transform: none !important;
+}
+
+div.form input[type=text],
+div.form select {
+    width: 330px !important;
+}
+
+div.form input[type=radio] {
+    margin-right: 7px;
+}
+
+div.form ul.errorMessages {
+    color: #C47965;
+    text-align: left;
+    padding: 0 0 10px 0;
+    text-transform: none;
+}
+
+div.form ul.errorMessages li {
+    list-style: none;
+}
+
+div.form input.error {
+    border-color: #C47965;
+}
+
+div.form label {
+    margin-right: 15px;
+    font-weight: 400;
+}
+
+div.form button {
+    float: right;
+    margin-left: 10px;
+}
+
+div.form.delete-form label {
+    padding-bottom: 15px;
+    text-transform: none;
 }

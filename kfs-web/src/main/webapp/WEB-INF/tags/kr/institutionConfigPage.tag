@@ -47,10 +47,7 @@
         <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
         <link href='${pageContext.request.contextPath}/css/newPortal.css' rel='stylesheet' type='text/css'>
         <link href='${pageContext.request.contextPath}/css/lookup.css' rel='stylesheet' type='text/css'>
-        <link href='${pageContext.request.contextPath}/css/institutionconfig.css' rel='stylesheet' type='text/css'/>
-        <script src="${pageContext.request.contextPath}/scripts/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/scripts/remodal.min.js"></script>
+        <link href='${pageContext.request.contextPath}/css/institution-config.css' rel='stylesheet' type='text/css'/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/remodal.min.css">
     </head>
     <body>
@@ -73,9 +70,11 @@
 
         <footer id="footer"></footer>
 
+        <script src="${pageContext.request.contextPath}/scripts/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
+
         <script src="${pageContext.request.contextPath}/scripts/polyfill.min.js"></script>
         <script src="${pageContext.request.contextPath}/scripts/notify.min.js"></script>
-        <script src="${pageContext.request.contextPath}/build/app.bundle.js"></script>
-        <script src="${pageContext.request.contextPath}/build/institutionconfigsidebar.bundle.js"></script>
     </body>
 </html:html>

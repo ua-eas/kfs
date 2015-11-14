@@ -116,7 +116,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         linkPermissionCheck(preferences, person);
         transformLinks(preferences, person);
 
-        preferencesDao.cacheInstitutionPreferences(person.getPrincipalName(),preferences);
+        preferencesDao.cacheInstitutionPreferences(person.getPrincipalName(), preferences);
         return preferences;
     }
 
@@ -144,7 +144,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
      */
     private void linkPermissionCheck(Map<String, Object> institutionPreferences, Person person) {
         getLinkGroups(institutionPreferences).forEach(linkGroup -> {
-            Map<String, List<Map<String, Object>>> links = (Map<String, List<Map<String, Object>>>)linkGroup.get(KFSPropertyConstants.LINKS);
+            Map<String, List<Map<String, Object>>> links = (Map<String, List<Map<String, Object>>>) linkGroup.get(KFSPropertyConstants.LINKS);
             links.replaceAll((String key, List<Map<String, Object>> value) -> linkPermissionCheckByType(value, person));
         });
     }
@@ -201,7 +201,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     protected List<Map<String, String>> getMenuItems(Map<String, Object> institutionPreferences) {
-        List<Map<String, String>> menuItems = (List<Map<String, String>>)institutionPreferences.get("menu");
+        List<Map<String, String>> menuItems = (List<Map<String, String>>)institutionPreferences.get(KFSPropertyConstants.MENU);
         if (!ObjectUtils.isNull(menuItems)) {
             return menuItems;
         }
@@ -393,12 +393,12 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         for (Map<String, Object> linkGroup : linkGroups) {
             Map<String, List<Map<String,String>>> updatedLinks = getLinks(linkGroup);
             updatedLinks.replaceAll((String linkType, List<Map<String, String>> links) ->
-                links.stream().map((Map<String, String> link) -> {
-                    if (link.containsKey(KFSPropertyConstants.DOCUMENT_TYPE_CODE) || link.containsKey(KFSPropertyConstants.BUSINESS_OBJECT_CLASS)) {
-                        link.remove(KFSPropertyConstants.LABEL);
-                    }
-                    return link;
-                }).collect(Collectors.toList()));
+                    links.stream().map((Map<String, String> link) -> {
+                        if (link.containsKey(KFSPropertyConstants.DOCUMENT_TYPE_CODE) || link.containsKey(KFSPropertyConstants.BUSINESS_OBJECT_CLASS)) {
+                            link.remove(KFSPropertyConstants.LABEL);
+                        }
+                        return link;
+                    }).collect(Collectors.toList()));
             linkGroup.put(KFSPropertyConstants.LINKS, updatedLinks);
         }
         return linkGroups;
@@ -458,6 +458,30 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, KFSConstants.ReactComponents.INSTITUTION_CONFIG);
 
         return getPermissionService().hasPermissionByTemplate(principalId, KFSConstants.CoreModuleNamespaces.KNS, KimConstants.PermissionTemplateNames.USE_SCREEN, permissionDetails);
+    }
+
+    @Override
+    public List<Map<String, String>> getMenu() {
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        return (List<Map<String, String>>)institutionPreferences.get(KFSPropertyConstants.MENU);
+    }
+
+    @Override
+    public List<Map<String, String>> saveMenu(String menuString) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<Map<String, String>> menu;
+        try {
+            menu = mapper.readValue(menuString, List.class);
+        } catch (IOException e) {
+            LOG.error("saveMenu Error parsing json", e);
+            throw new RuntimeException("Error parsing json");
+        }
+
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        institutionPreferences.put(KFSPropertyConstants.MENU, menu);
+        preferencesDao.saveInstitutionPreferences((String)institutionPreferences.get(KFSPropertyConstants.INSTITUTION_ID), institutionPreferences);
+        return menu;
     }
 
     public void setConfigurationService(ConfigurationService configurationService) {

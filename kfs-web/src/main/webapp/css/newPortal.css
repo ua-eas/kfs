@@ -115,6 +115,7 @@ header.navbar .navbar-brand .institution-name {
     margin-right: 7px;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
     padding: 0 5px;
+    width: inherit;
 }
 
 #test-header .test-info .column .btn {
@@ -642,6 +643,23 @@ footer {
 
 .btn-green:active {
     background-color: #648A77 !important;
+    color: #ffffff;
+}
+
+.btn-red,
+.btn-red:focus {
+    background-color: #dc5f59;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.btn-red:hover {
+    background-color: #b53f3a;
+    color: #ffffff;
+}
+
+.btn-red:active {
+    background-color: #b33630 !important;
     color: #ffffff;
 }
 

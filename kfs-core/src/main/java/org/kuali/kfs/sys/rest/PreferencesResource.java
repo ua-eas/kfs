@@ -18,6 +18,7 @@ import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Map;
 
 @Path("/preferences")
@@ -84,6 +85,32 @@ public class PreferencesResource {
 
         Map<String, Object> linkGroups = getInstitutionPreferencesService().getAllLinkGroups();
         return Response.ok(linkGroups).build();
+    }
+
+    @GET
+    @Path("/config/menu")
+    public Response getMenu() {
+        LOG.debug("getMenu started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
+
+        List<Map<String, String>> menu = getInstitutionPreferencesService().getMenu();
+        return Response.ok(menu).build();
+    }
+
+    @PUT
+    @Path("/config/menu")
+    public Response saveMenu(String menu) {
+        LOG.debug("saveMenu started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
+
+        List<Map<String, String>> menuResponse = getInstitutionPreferencesService().saveMenu(menu);
+        return Response.ok(menuResponse).build();
     }
 
     @GET

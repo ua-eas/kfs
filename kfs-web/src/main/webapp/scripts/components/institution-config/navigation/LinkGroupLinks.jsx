@@ -1,28 +1,8 @@
 import React from 'react/addons';
-import {buildLinkSortableDropHandler, isScrolledIntoView} from './institutionconfigutils.js';
-import {buildKeyFromLabel} from '../../sys/utils.js';
+import {buildLinkSortableDropHandler, isScrolledIntoView, validateForm} from '../institutionConfigUtils.js';
+import {buildKeyFromLabel} from '../../../sys/utils.js';
 import Immutable from 'immutable';
 
-let validateForm = function(label, link) {
-    let errors = [];
-    let errorMessages = [];
-    if (!label.trim()) {
-        errors.push('label');
-        errorMessages.push('Link Name cannot be blank');
-    }
-
-    if (!link.trim()) {
-        errors.push('link');
-        errorMessages.push('URL cannot be blank');
-    }
-
-    if (link.indexOf('http://') != 0 && link.indexOf('https://') != 0) {
-        errors.push('link');
-        errorMessages.push('URL must be an absolute path (i.e. http:// or https://)');
-    }
-
-    return {errors: errors, errorMessages: errorMessages};
-};
 
 let LinkGroupLinks = React.createClass({
     render() {
@@ -40,7 +20,7 @@ let LinkGroupLinks = React.createClass({
                                  linkGroupLabels={linkGroupLabels}/>
         });
         let className = this.props.topGroupSelected ? 'top-selected' : '';
-        return <div id="linkGroupLinksList" className={className}>{linkGroupLinkElements}</div>;
+        return <div id="sub-item-list" className={className}>{linkGroupLinkElements}</div>;
     }
 });
 
@@ -108,7 +88,7 @@ let SubLinkGroup = React.createClass({
             moveToGroupIndex: this.props.groupIndex,
             update: true
         });
-        if (!isScrolledIntoView($('.active .addCustomLink'))) {
+        if (!isScrolledIntoView($('.active .add-custom-link'))) {
             $('html,body').animate({scrollTop: 100}, 1000);
         }
     },
@@ -162,7 +142,7 @@ let SubLinkGroup = React.createClass({
         } else {
             divClassName += ' active';
         }
-        let formClass = this.state.customLinkFormOpen ? 'customLinkForm' : 'customLinkForm hidden';
+        let formClass = this.state.customLinkFormOpen ? 'customLinkForm form' : 'customLinkForm form hidden';
         let labelClass = this.state.errors.indexOf('label') > -1 ? 'error' : '';
         let linkClass = this.state.errors.indexOf('link') > -1 ? 'error' : '';
 
@@ -207,7 +187,7 @@ let SubLinkGroup = React.createClass({
 
         return (
             <div id={this.props.id + "-menu"} className={divClassName}>
-                <div className="addCustomLink">
+                <div className="add-custom-link">
                     <button className="btn btn-default" onClick={this.openAddCustomLink}><span className="glyphicon glyphicon-plus"></span>Add Custom Link</button>
                     <div className={formClass}>
                         {errorMessage}
