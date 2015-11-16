@@ -278,7 +278,7 @@
                         "templateNamespace": "KR-NS",
                         "templateName": "Upload Batch Input File(s)",
                         "details": {
-                          "beanName": "enterpriseFeederFileSetType  "
+                          "beanName": "enterpriseFeederFileSetType"
                         }
                       }
                     },
