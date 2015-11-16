@@ -1,15 +1,17 @@
-import LinkGroups from './linkgroups.jsx';
-import LinkGroupLinks from './linkgrouplinks.jsx';
-import {getUrlPathPrefix} from '../../sys/utils.js';
+import React from 'react/addons';
+import LinkGroups from './LinkGroups.jsx';
+import LinkGroupLinks from './LinkGroupLinks.jsx';
+import {getUrlPathPrefix} from '../../../sys/utils.js';
 import _ from 'lodash';
 import Immutable from 'immutable';
 
-let InstitutionConfig = React.createClass({
+let NavigationConfig = React.createClass({
     childContextTypes: {
         toggleLinkGroup: React.PropTypes.func,
         updateLinkGroups: React.PropTypes.func,
         updateLinkGroupName: React.PropTypes.func,
         addNewLinkGroup: React.PropTypes.func,
+        cancelAddNewLinkGroup: React.PropTypes.func,
         deleteLinkGroup: React.PropTypes.func,
         addNewCustomLink: React.PropTypes.func,
         updateExistingCustomLink: React.PropTypes.func,
@@ -21,6 +23,7 @@ let InstitutionConfig = React.createClass({
             updateLinkGroups: this.updateLinkGroups,
             updateLinkGroupName: this.updateLinkGroupName,
             addNewLinkGroup: this.addNewLinkGroup,
+            cancelAddNewLinkGroup: this.cancelAddNewLinkGroup,
             deleteLinkGroup: this.deleteLinkGroup,
             addNewCustomLink: this.addNewCustomLink,
             updateExistingCustomLink: this.updateExistingCustomLink,
@@ -77,6 +80,11 @@ let InstitutionConfig = React.createClass({
         let linkGroups = this.state.linkGroups;
         let newLinkGroup = Immutable.fromJS({label: '', links: {}});
         let updatedLinkGroups = linkGroups.push(newLinkGroup);
+        this.setState({linkGroups: updatedLinkGroups})
+    },
+    cancelAddNewLinkGroup() {
+        let linkGroups = this.state.linkGroups;
+        let updatedLinkGroups = linkGroups.pop();
         this.setState({linkGroups: updatedLinkGroups})
     },
     deleteLinkGroup(index) {
@@ -198,7 +206,7 @@ let InstitutionConfig = React.createClass({
                 this.setState({
                     hasChanges: false,
                     saveButtonText: <span style={spanStyle}><span className="glyphicon glyphicon-ok"></span>SAVED</span>
-                })
+                });
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
@@ -224,7 +232,7 @@ let InstitutionConfig = React.createClass({
         return (
             <div>
                 <div className="headerarea-small" id="headerarea-small">
-                    <h1><span class="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
+                    <h1><span className="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
                 </div>
 
                 <div className="instconfig">
@@ -245,9 +253,4 @@ let InstitutionConfig = React.createClass({
     }
 });
 
-React.render(
-    <InstitutionConfig/>,
-    document.getElementById('page-content')
-);
-
-export default InstitutionConfig;
+export default NavigationConfig;

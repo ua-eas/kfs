@@ -19,15 +19,8 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 <%@ taglib uri="/WEB-INF/tlds/institutionConfigWebFunctions.tld" prefix="icwf" %>
 
-<link href='${pageContext.request.contextPath}/css/institutionconfig.css' rel='stylesheet' type='text/css'>
+<kul:institutionConfigPage />
 
-<kul:page docTitle="Navigation Configuration" showDocumentInfo="false"
-          headerTitle="Navigation Configuration" transactionalDocument="false"
-          renderInnerDiv="true">
-
-</kul:page>
-
-<script src="${pageContext.request.contextPath}/scripts/jquery-ui.min.js"></script>
 <c:choose>
     <c:when test="${icwf:hasPermission()}">
         <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js"></script>
