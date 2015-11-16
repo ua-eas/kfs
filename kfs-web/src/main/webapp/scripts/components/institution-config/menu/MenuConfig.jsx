@@ -125,7 +125,7 @@ let MenuConfig = React.createClass({
                     <h1><span className="glyphicon glyphicon-cog"></span>Menu Configuration</h1>
                 </div>
 
-                <div className="menuconfig">
+                <div className="menu-config main">
                     <MenuItemList menu={this.state.menu}
                                   editing={this.state.editing}
                                   deleting={this.state.deleting}

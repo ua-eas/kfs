@@ -235,7 +235,7 @@ let NavigationConfig = React.createClass({
                     <h1><span className="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
                 </div>
 
-                <div className="instconfig">
+                <div className="nav-config main">
                     <LinkGroups linkGroups={this.state.linkGroups}
                                 expandedLinkGroup={this.state.expandedLinkGroup}/>
 
