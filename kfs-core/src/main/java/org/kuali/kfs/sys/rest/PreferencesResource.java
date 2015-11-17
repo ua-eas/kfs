@@ -1,5 +1,7 @@
 package org.kuali.kfs.sys.rest;
 
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -18,6 +21,7 @@ import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -111,6 +115,48 @@ public class PreferencesResource {
 
         List<Map<String, String>> menuResponse = getInstitutionPreferencesService().saveMenu(menu);
         return Response.ok(menuResponse).build();
+    }
+
+    @GET
+    @Path("/config/logo")
+    public Response getLogo() {
+        LOG.debug("getLogo started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
+
+        Map<String, String> logo = getInstitutionPreferencesService().getLogo();
+        return Response.ok(logo).build();
+    }
+
+    @POST
+    @Path("/config/logo")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadLogo(@FormDataParam("logo") InputStream fileInputStream,
+                               @FormDataParam("logo") FormDataContentDisposition contentDispositionHeader) {
+        LOG.debug("uploadLogo started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
+
+        String filename = contentDispositionHeader.getFileName();
+        Map<String, String> logoResponse = getInstitutionPreferencesService().uploadLogo(fileInputStream, filename);
+        return Response.ok(logoResponse).build();
+    }
+
+    @PUT
+    @Path("/config/logo")
+    public Response saveLogo(String logo) {
+        LOG.debug("saveLogo started");
+
+        if (!getInstitutionPreferencesService().hasConfigurationPermission(getPrincipalName())) {
+            return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
+        }
+
+        Map<String, String> logoResponse = getInstitutionPreferencesService().saveLogo(logo);
+        return Response.ok(logoResponse).build();
     }
 
     @GET

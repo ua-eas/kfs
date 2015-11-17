@@ -50,16 +50,16 @@ header.navbar .navbar-header {
 header.navbar .navbar-brand {
     height: 60px;
     font-size: 26px;
-    line-height: 31px;
+    line-height: 35px;
     width: 400px;
     padding: 14px 15px;
-    color: #516771;
+    color: #767676;
 }
 header.navbar .navbar-brand img {
     float: left;
 }
 header.navbar .navbar-brand .logo-right {
-    border-left: 1px solid #516771;
+    border-left: 1px solid #767676;
     margin-left: 15px;
     padding-left: 15px;
 }

@@ -210,10 +210,7 @@ let NavigationConfig = React.createClass({
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = 'Save failed.';
-                if (err) {
-                    message = 'Save failed: ' + err;
-                }
+                let message = err ? 'Save failed: ' + err : 'Save failed.';
                 $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)

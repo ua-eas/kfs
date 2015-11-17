@@ -20,8 +20,10 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
+import org.kuali.kfs.sys.service.FileStorageService;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
@@ -29,7 +31,12 @@ import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -50,6 +57,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private PermissionService permissionService;
     private IdentityService identityService;
     private DataDictionaryService dataDictionaryService;
+    private DateTimeService dateTimeService;
+    private FileStorageService fileStorageService;
 
     private Map<String, String> namespaceCodeToUrlName;
 
@@ -484,6 +493,85 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return menu;
     }
 
+    @Override
+    public Map<String, String> getLogo() {
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        String logoUrl = (String)institutionPreferences.get(KFSPropertyConstants.LOGO_URL);
+        Map<String, String> logo = new ConcurrentHashMap<>();
+        logo.put(KFSPropertyConstants.LOGO_URL, logoUrl);
+        return logo;
+    }
+
+    @Override
+    public Map<String, String> uploadLogo(InputStream uploadedInputStream, String filename) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(uploadedInputStream);
+            LOG.info(bufferedImage.getHeight() + "px");
+        } catch (IOException ioe) {
+            throw new RuntimeException("Error validating image");
+        }
+
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(dateTimeService.getCurrentDate());
+        String serverDirectory = "logos";
+        String serverLocation = serverDirectory + fileStorageService.separator() + timestamp + "-" + filename;
+
+        if (!fileStorageService.directoryExists(serverDirectory)) {
+            fileStorageService.mkdir(serverDirectory);
+        }
+
+        fileStorageService.open(serverLocation, fileStorageFile -> {
+            OutputStream outputStream = fileStorageFile.getOutputStream();
+            try {
+                int read = 0;
+                byte[] bytes = new byte[1024];
+
+                while ((read = uploadedInputStream.read(bytes)) != -1) {
+                    outputStream.write(bytes, 0, read);
+                }
+                outputStream.flush();
+            } catch (IOException e) {
+                LOG.error("Failed to upload logo", e);
+                throw new RuntimeException("Error uploading logo");
+            } finally {
+                try {
+                    if (outputStream != null) {
+                        outputStream.close();
+                    }
+                } catch (IOException e) {
+
+                }
+            }
+        });
+
+        Map<String, String> filePath = new ConcurrentHashMap<>();
+        filePath.put(KFSPropertyConstants.LOGO_URL, serverLocation);
+        return filePath;
+    }
+
+    @Override
+    public Map<String, String> saveLogo(String logoString) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        Map<String, String> logo;
+        try {
+            logo = mapper.readValue(logoString, Map.class);
+        } catch (IOException e) {
+            LOG.error("saveLogo Error parsing json", e);
+            throw new RuntimeException("Error parsing json");
+        }
+
+        if (!logo.containsKey(KFSPropertyConstants.LOGO_URL)) {
+            throw new RuntimeException("Invalid JSON. Should contain logoUrl.");
+        }
+
+        // TODO: image validation
+
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        institutionPreferences.put(KFSPropertyConstants.LOGO_URL, logo.get(KFSPropertyConstants.LOGO_URL));
+        preferencesDao.saveInstitutionPreferences((String)institutionPreferences.get(KFSPropertyConstants.INSTITUTION_ID), institutionPreferences);
+        return logo;
+    }
+
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
@@ -522,5 +610,21 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     public void setIdentityService(IdentityService identityService) {
         this.identityService = identityService;
+    }
+
+    public DateTimeService getDateTimeService() {
+        return dateTimeService;
+    }
+
+    public void setDateTimeService(DateTimeService dateTimeService) {
+        this.dateTimeService = dateTimeService;
+    }
+
+    public FileStorageService getFileStorageService() {
+        return fileStorageService;
+    }
+
+    public void setFileStorageService(FileStorageService fileStorageService) {
+        this.fileStorageService = fileStorageService;
     }
 }

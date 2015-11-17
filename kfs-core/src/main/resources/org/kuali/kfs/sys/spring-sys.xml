@@ -1285,6 +1285,8 @@
 		<property name="dataDictionaryService" ref="dataDictionaryService"/>
 		<property name="permissionService" ref="permissionService"/>
 		<property name="identityService" ref="identityService"/>
+    <property name="dateTimeService" ref="dateTimeService"/>
+    <property name="fileStorageService" ref="fileStorageService"/>
 	</bean>
 
 	<bean id="userPreferencesService" parent="userPreferencesService-parentBean"/>
