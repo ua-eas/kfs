@@ -185,7 +185,12 @@ let NavigationConfig = React.createClass({
             }
         });
         let updatedLinks = links.delete(index);
-        let updatedLinksType = linkTypes.set(type, updatedLinks);
+        let updatedLinksType;
+        if (updatedLinks.size < 1) {
+            updatedLinksType = linkTypes.delete(type);
+        } else {
+            updatedLinksType = linkTypes.set(type, updatedLinks);
+        }
         let updatedLinkGroup = linkGroup.set('links', updatedLinksType);
         let updatedLinkGroups = linkGroups.set(groupIndex, updatedLinkGroup);
         this.setState({'linkGroups': updatedLinkGroups, hasChanges: true});
