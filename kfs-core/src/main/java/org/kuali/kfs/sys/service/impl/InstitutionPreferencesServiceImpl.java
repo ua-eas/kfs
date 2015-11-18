@@ -1,6 +1,7 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.core.util.Base64;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
@@ -33,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -504,13 +506,6 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     @Override
     public Map<String, String> uploadLogo(InputStream uploadedInputStream, String filename) {
-        try {
-            BufferedImage bufferedImage = ImageIO.read(uploadedInputStream);
-            LOG.info(bufferedImage.getHeight() + "px");
-        } catch (IOException ioe) {
-            throw new RuntimeException("Error validating image");
-        }
-
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(dateTimeService.getCurrentDate());
         String serverDirectory = "logos";
         String serverLocation = serverDirectory + fileStorageService.separator() + timestamp + "-" + filename;
@@ -522,7 +517,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         fileStorageService.open(serverLocation, fileStorageFile -> {
             OutputStream outputStream = fileStorageFile.getOutputStream();
             try {
-                int read = 0;
+                int read;
                 byte[] bytes = new byte[1024];
 
                 while ((read = uploadedInputStream.read(bytes)) != -1) {
@@ -543,8 +538,37 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             }
         });
 
+        try {
+            InputStream inputStream = fileStorageService.getFileStream(serverLocation);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            if (bufferedImage.getHeight() < 70) {
+                throw new RuntimeException("Image must have a height of at least 70px");
+            }
+            LOG.info(bufferedImage.getHeight() + "px");
+        } catch (IOException ioe) {
+            throw new RuntimeException("Error validating image");
+        }
+
         Map<String, String> filePath = new ConcurrentHashMap<>();
-        filePath.put(KFSPropertyConstants.LOGO_URL, serverLocation);
+        byte[] imageBytes;
+
+        int read;
+        byte[] bytes = new byte[1024];
+        InputStream inputStream = fileStorageService.getFileStream(serverLocation);
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        try {
+            while ((read = inputStream.read(bytes)) != -1) {
+                buffer.write(bytes, 0, read);
+            }
+            buffer.flush();
+            imageBytes = buffer.toByteArray();
+            String imageBase64 = new String(Base64.encode(imageBytes));
+            String image = "data:image/gif;base64," + imageBase64;
+            filePath.put(KFSPropertyConstants.LOGO_URL, image);
+        } catch (IOException ioe) {
+            filePath.put(KFSPropertyConstants.LOGO_URL, null);
+        }
+
         return filePath;
     }
 
@@ -563,8 +587,6 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         if (!logo.containsKey(KFSPropertyConstants.LOGO_URL)) {
             throw new RuntimeException("Invalid JSON. Should contain logoUrl.");
         }
-
-        // TODO: image validation
 
         final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
         institutionPreferences.put(KFSPropertyConstants.LOGO_URL, logo.get(KFSPropertyConstants.LOGO_URL));

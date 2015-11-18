@@ -100,7 +100,7 @@ let MenuConfig = React.createClass({
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = err ? 'Save failed: ' + err : 'Save failed.';
+                let message = xhr.responseText ? 'Save failed: ' + xhr.responseText : 'Save failed.';
                 $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)

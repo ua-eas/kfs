@@ -42,24 +42,25 @@ let LogoUpload = React.createClass({
             processData: false,
             method: 'POST',
             data: data,
-            success: function() {
-                this.setState({hasChanges: true, logo: files[0]}); // TODO -> make this the path in response
+            success: function(logo) {
+                this.setState({hasChanges: true, logo: logo.logoUrl});
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = err ? 'Upload failed: ' + err : 'Upload failed.';
+                let message = xhr.responseText ? 'Upload failed: ' + xhr.responseText : 'Upload failed.';
                 $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)
         });
     },
     saveChanges() {
+        let data = {'logoUrl': this.state.logo};
         let logoPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/logo";
         $.ajax({
             url: logoPath,
             dataType: 'json',
             contentType: 'application/json',
             method: 'PUT',
-            data: JSON.stringify(this.state.logo),
+            data: JSON.stringify(data),
             success: function() {
                 let spanStyle = {
                     color: '#6DA487'
@@ -71,19 +72,15 @@ let LogoUpload = React.createClass({
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = err ? 'Save failed: ' + err : 'Save failed.';
+                let message = xhr.responseText ? 'Save failed: ' + xhr.responseText : 'Save failed.';
                 $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)
         });
     },
     render() {
-        let logo = this.state.logo;
-        let logoUrl;
-        // TODO -> get rid of preview check
-        if (logo && logo.preview) {
-            logoUrl = logo.preview;
-        } else if (logo && !logo.startsWith('http')) {
+        let logoUrl = this.state.logo;
+        if (logoUrl && logoUrl.indexOf('data:') !== 0 && !logoUrl.startsWith('http')) {
             logoUrl = KfsUtils.getUrlPathPrefix() + logo;
         }
 

@@ -141,8 +141,13 @@ public class PreferencesResource {
             return Response.status(Response.Status.FORBIDDEN).entity("User " + getPrincipalName() + " does not have access to InstitutionConfig").build();
         }
 
-        String filename = contentDispositionHeader.getFileName();
-        Map<String, String> logoResponse = getInstitutionPreferencesService().uploadLogo(fileInputStream, filename);
+        Map<String, String> logoResponse;
+        try {
+            String filename = contentDispositionHeader.getFileName();
+            logoResponse = getInstitutionPreferencesService().uploadLogo(fileInputStream, filename);
+        } catch (RuntimeException re) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(re.getMessage()).build();
+        }
         return Response.ok(logoResponse).build();
     }
 
