@@ -542,9 +542,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             InputStream inputStream = fileStorageService.getFileStream(serverLocation);
             BufferedImage bufferedImage = ImageIO.read(inputStream);
             if (bufferedImage.getHeight() < 70) {
-                throw new RuntimeException("Image must have a height of at least 70px");
+                throw new RuntimeException("Image must have a height of at least 70 pixels.");
             }
-            LOG.info(bufferedImage.getHeight() + "px");
         } catch (IOException ioe) {
             throw new RuntimeException("Error validating image");
         }

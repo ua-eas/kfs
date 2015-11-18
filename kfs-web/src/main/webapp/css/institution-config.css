@@ -128,7 +128,7 @@ div#sub-item-list {
 #item-list li.item input[type=text] {
     color: #555555;
     text-transform: uppercase;
-    width: 60%;
+    width: 59%;
 }
 
 #item-list li.item .actions {
@@ -310,6 +310,11 @@ div#sub-item-list {
 
 .logo-upload .dropzone p {
     margin: 0;
+}
+
+.logo-upload .error {
+    text-align: center;
+    color: #C47965;
 }
 
 .buttonbar {

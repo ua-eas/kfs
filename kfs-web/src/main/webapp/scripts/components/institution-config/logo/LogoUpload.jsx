@@ -32,7 +32,6 @@ let LogoUpload = React.createClass({
     onDrop: function (files) {
         let data = new FormData();
         data.append('logo', files[0]);
-        //data.append('test', 'a test string');
 
         let logoPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/logo";
         $.ajax({
@@ -43,11 +42,12 @@ let LogoUpload = React.createClass({
             method: 'POST',
             data: data,
             success: function(logo) {
-                this.setState({hasChanges: true, logo: logo.logoUrl});
+                this.setState({hasChanges: true, logo: logo.logoUrl, error: undefined});
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = xhr.responseText ? 'Upload failed: ' + xhr.responseText : 'Upload failed.';
+                let message = xhr.responseText ? xhr.responseText : 'Upload failed.';
                 $.notify(message, 'error');
+                this.setState({'error': message});
                 console.error(status, err.toString());
             }.bind(this)
         });
@@ -72,7 +72,7 @@ let LogoUpload = React.createClass({
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = xhr.responseText ? 'Save failed: ' + xhr.responseText : 'Save failed.';
+                let message = xhr.responseText ? xhr.responseText : 'Save failed.';
                 $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)
@@ -116,6 +116,8 @@ let LogoUpload = React.createClass({
                             <div>Drag &amp; drop logo here or click to select a logo to upload.</div>
                         </Dropzone>
                     </div>
+
+                    <div className="error">{this.state.error}</div>
 
                     <div className="buttonbar">
                         <button disabled={saveDisabled} className={saveButtonClass} onClick={this.saveChanges}>{saveButtonText}</button>
