@@ -84,7 +84,7 @@ public class DistributionOfIncomeAndExpenseElectronicPaymentClaimingHelperStrate
         url.append(URL_PREFIX);
         url.append(getUrlDocType());
         url.append(URL_MIDDLE);
-        url.append(KewApiConstants.ACTIONLIST_COMMAND);
+        url.append(KewApiConstants.DOCSEARCH_COMMAND);
         url.append(URL_SUFFIX);
         url.append(doc.getDocumentNumber());
         return url.toString();
