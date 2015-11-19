@@ -22,10 +22,8 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
-import org.kuali.kfs.sys.service.FileStorageService;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
@@ -60,8 +58,6 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private PermissionService permissionService;
     private IdentityService identityService;
     private DataDictionaryService dataDictionaryService;
-    private DateTimeService dateTimeService;
-    private FileStorageService fileStorageService;
 
     private Map<String, String> namespaceCodeToUrlName;
 
@@ -599,21 +595,5 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     public void setIdentityService(IdentityService identityService) {
         this.identityService = identityService;
-    }
-
-    public DateTimeService getDateTimeService() {
-        return dateTimeService;
-    }
-
-    public void setDateTimeService(DateTimeService dateTimeService) {
-        this.dateTimeService = dateTimeService;
-    }
-
-    public FileStorageService getFileStorageService() {
-        return fileStorageService;
-    }
-
-    public void setFileStorageService(FileStorageService fileStorageService) {
-        this.fileStorageService = fileStorageService;
     }
 }
