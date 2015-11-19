@@ -7,7 +7,6 @@ import Dropzone from 'react-dropzone';
 let LogoUpload = React.createClass({
     getInitialState() {
         return {
-            logo: new Immutable.Map(),
             logo: '',
             hasChanges: false,
             saveButtonText: 'SAVE CHANGES'

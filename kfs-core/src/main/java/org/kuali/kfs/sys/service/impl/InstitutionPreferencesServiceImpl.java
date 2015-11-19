@@ -3,6 +3,7 @@ package org.kuali.kfs.sys.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.core.util.Base64;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.service.DataDictionaryService;
@@ -33,12 +34,12 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -506,66 +507,33 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     @Override
     public Map<String, String> uploadLogo(InputStream uploadedInputStream, String filename) {
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(dateTimeService.getCurrentDate());
-        String serverDirectory = "logos";
-        String serverLocation = serverDirectory + fileStorageService.separator() + timestamp + "-" + filename;
+        Map<String, String> filePath = new ConcurrentHashMap<>();
 
-        if (!fileStorageService.directoryExists(serverDirectory)) {
-            fileStorageService.mkdir(serverDirectory);
-        }
-
-        fileStorageService.open(serverLocation, fileStorageFile -> {
-            OutputStream outputStream = fileStorageFile.getOutputStream();
-            try {
-                int read;
-                byte[] bytes = new byte[1024];
-
-                while ((read = uploadedInputStream.read(bytes)) != -1) {
-                    outputStream.write(bytes, 0, read);
-                }
-                outputStream.flush();
-            } catch (IOException e) {
-                LOG.error("Failed to upload logo", e);
-                throw new RuntimeException("Error uploading logo");
-            } finally {
-                try {
-                    if (outputStream != null) {
-                        outputStream.close();
-                    }
-                } catch (IOException e) {
-
-                }
-            }
-        });
-
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] bytes;
         try {
-            InputStream inputStream = fileStorageService.getFileStream(serverLocation);
+            IOUtils.copy(uploadedInputStream, outputStream);
+            bytes = outputStream.toByteArray();
+
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
             BufferedImage bufferedImage = ImageIO.read(inputStream);
             if (bufferedImage.getHeight() < 70) {
                 throw new RuntimeException("Image must have a height of at least 70 pixels.");
             }
-        } catch (IOException ioe) {
-            throw new RuntimeException("Error validating image");
-        }
-
-        Map<String, String> filePath = new ConcurrentHashMap<>();
-        byte[] imageBytes;
-
-        int read;
-        byte[] bytes = new byte[1024];
-        InputStream inputStream = fileStorageService.getFileStream(serverLocation);
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        try {
-            while ((read = inputStream.read(bytes)) != -1) {
-                buffer.write(bytes, 0, read);
+            if (bufferedImage.getRGB(0,0) != 0 && bufferedImage.getRGB(0,0) != Color.WHITE.hashCode()) {
+                throw new RuntimeException("Image background must be transparent or white.");
             }
-            buffer.flush();
-            imageBytes = buffer.toByteArray();
-            String imageBase64 = new String(Base64.encode(imageBytes));
+
+
+            String imageBase64 = new String(Base64.encode(bytes));
             String image = "data:image/gif;base64," + imageBase64;
             filePath.put(KFSPropertyConstants.LOGO_URL, image);
         } catch (IOException ioe) {
-            filePath.put(KFSPropertyConstants.LOGO_URL, null);
+            LOG.error("Failed to upload logo", ioe);
+            throw new RuntimeException("Error uploading logo");
+        } finally {
+            IOUtils.closeQuietly(outputStream);
+            IOUtils.closeQuietly(uploadedInputStream);
         }
 
         return filePath;
