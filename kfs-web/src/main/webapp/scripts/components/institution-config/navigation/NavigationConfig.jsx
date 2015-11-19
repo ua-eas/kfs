@@ -199,7 +199,7 @@ let NavigationConfig = React.createClass({
             contentType: 'application/json',
             type: 'PUT',
             data: JSON.stringify(this.state.linkGroups),
-            success: function(linkGroups) {
+            success: function() {
                 let spanStyle = {
                     color: '#6DA487'
                 };
@@ -210,10 +210,7 @@ let NavigationConfig = React.createClass({
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = 'Save failed.';
-                if (err) {
-                    message = 'Save failed: ' + err;
-                }
+                let message = xhr.responseText ? 'Save failed: ' + xhr.responseText : 'Save failed.';
                 $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)
@@ -235,7 +232,7 @@ let NavigationConfig = React.createClass({
                     <h1><span className="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
                 </div>
 
-                <div className="instconfig">
+                <div className="nav-config main">
                     <LinkGroups linkGroups={this.state.linkGroups}
                                 expandedLinkGroup={this.state.expandedLinkGroup}/>
 

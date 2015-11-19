@@ -20,18 +20,18 @@
     top: 0;
 }
 
-.instconfig {
+.main {
+    padding: 20px;
+}
+
+.nav-config {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
     flex-direction: row-reverse;
-    padding: 20px;
-}
 
-.menuconfig {
-    padding: 20px;
 }
 
 ul#item-list,
@@ -74,7 +74,7 @@ div#sub-item-list {
     position: relative;
 }
 
-.menuconfig #item-list li.item {
+.menu-config #item-list li.item {
     text-transform: none;
 }
 
@@ -82,6 +82,7 @@ div#sub-item-list {
     background-color: #A7A7A7;
     text-align: center;
     border: 1px solid #A7A7A7;
+    text-transform: uppercase;
 }
 
 #item-list li.item.new div.add-new-button {
@@ -128,7 +129,7 @@ div#sub-item-list {
 #item-list li.item input[type=text] {
     color: #555555;
     text-transform: uppercase;
-    width: 60%;
+    width: 59%;
 }
 
 #item-list li.item .actions {
@@ -181,35 +182,35 @@ div#sub-item-list {
     width: inherit;
 }
 
-.instconfig div.admin-sublinks {
+.nav-config div.admin-sublinks {
     background-color: #F4F4F4;
     border: 1px solid #ACACAC;
     border-radius: 3px;
     padding: 20px;
 }
 
-.instconfig .top-selected div.admin-sublinks {
+.nav-config .top-selected div.admin-sublinks {
     border-top-left-radius: 0;
 }
 
-.instconfig div.admin-sublinks ul {
+.nav-config div.admin-sublinks ul {
     padding: 0;
 }
 
-.instconfig div.admin-sublinks li {
+.nav-config div.admin-sublinks li {
     list-style: none;
     padding: 1px 0;
     cursor: hand;
 }
 
-.instconfig div.admin-sublinks li.ui-sortable-helper,
-.instconfig div.admin-sublinks li.ui-sortable-helper span.move {
+.nav-config div.admin-sublinks li.ui-sortable-helper,
+.nav-config div.admin-sublinks li.ui-sortable-helper span.move {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 
-.instconfig div.admin-sublinks h4 {
+.nav-config div.admin-sublinks h4 {
     padding-top: 15px;
     padding-bottom: 5px;
     color: #767676;
@@ -219,23 +220,23 @@ div#sub-item-list {
     text-transform: capitalize;
 }
 
-.instconfig div.admin-sublinks li .list-group-item {
+.nav-config div.admin-sublinks li .list-group-item {
     padding: 2px 8px;
     color: #555555;
 }
 
-.instconfig div.admin-sublinks li .list-group-item.empty {
+.nav-config div.admin-sublinks li .list-group-item.empty {
     height: 32px;
     border-style: dashed;
     background-color: inherit;
     cursor: default;
 }
 
-.instconfig div.admin-sublinks li .list-group-item .editLink {
+.nav-config div.admin-sublinks li .list-group-item .editLink {
     cursor: pointer;
 }
 
-.instconfig div.admin-sublinks li span.move {
+.nav-config div.admin-sublinks li span.move {
     margin-right: 10px;
     margin-bottom: -6px;
     height: 18px;
@@ -249,12 +250,12 @@ div#sub-item-list {
     cursor: grab;
 }
 
-.instconfig div.admin-sublinks li .list-group-item .actions {
+.nav-config div.admin-sublinks li .list-group-item .actions {
     float: right;
     color: #767676;
 }
 
-.instconfig div.admin-sublinks li .list-group-item .actions .editLink {
+.nav-config div.admin-sublinks li .list-group-item .actions .editLink {
     background-image: url('../static/images/small-edit.png');
     background-size: 13px 12px;
     background-position: 0 4px;
