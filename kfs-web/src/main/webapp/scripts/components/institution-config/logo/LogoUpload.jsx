@@ -81,7 +81,7 @@ let LogoUpload = React.createClass({
     render() {
         let logoUrl = this.state.logo;
         if (logoUrl && logoUrl.indexOf('data:') !== 0 && !logoUrl.startsWith('http')) {
-            logoUrl = KfsUtils.getUrlPathPrefix() + logo;
+            logoUrl = KfsUtils.getUrlPathPrefix() + logoUrl;
         }
 
         let saveDisabled;
