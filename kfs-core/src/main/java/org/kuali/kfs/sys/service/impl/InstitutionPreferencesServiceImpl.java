@@ -1,7 +1,7 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.core.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -539,7 +539,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             String[] fileParts = filename.split("\\.");
             String extension = fileParts[fileParts.length - 1];
 
-            String imageBase64 = new String(Base64.encode(bytes));
+            String imageBase64 = new String(Base64.encodeBase64(bytes));
             String image = "data:image/" + extension + ";base64," + imageBase64;
             filePath.put(KFSPropertyConstants.LOGO_URL, image);
         } catch (IOException ioe) {
