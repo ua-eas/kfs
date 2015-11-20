@@ -199,7 +199,7 @@ let NavigationConfig = React.createClass({
             contentType: 'application/json',
             type: 'PUT',
             data: JSON.stringify(this.state.linkGroups),
-            success: function(linkGroups) {
+            success: function() {
                 let spanStyle = {
                     color: '#6DA487'
                 };

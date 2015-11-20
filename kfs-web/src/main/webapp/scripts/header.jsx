@@ -83,8 +83,8 @@ var Header = React.createClass({
                 data: JSON.stringify({backdoorId: backdoorId}),
                 type: 'POST',
                 success: function () {
-                    $("#backdoorId").val("")
-                    window.location.replace(KfsUtils.getUrlPathPrefix())
+                    $("#backdoorId").val("");
+                    window.location.replace(KfsUtils.getUrlPathPrefix());
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.error(status, err.toString());
@@ -100,7 +100,7 @@ var Header = React.createClass({
             contentType: 'application/json',
             type: 'GET',
             success: function() {
-                window.location.replace(KfsUtils.getUrlPathPrefix())
+                window.location.replace(KfsUtils.getUrlPathPrefix());
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(status, err.toString());

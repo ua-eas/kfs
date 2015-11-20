@@ -3,7 +3,7 @@ import KfsUtils from '../../sys/utils.js';
 
 var InstitutionConfigSidebar = React.createClass({
     componentDidMount() {
-        if (window.location.hash === '#/') {
+        if (window.location.hash === '#/' || window.location.hash === '') {
             $('#sidebar a[href="#/navigation"]').siblings(' div.indicator').addClass('active');
         }
     },
