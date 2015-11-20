@@ -61,6 +61,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private Map<String, String> namespaceCodeToUrlName;
 
     private static final int LOGO_HEIGHT = 70;
+    private static final int MAX_LOGO_SIZE_KB = 100;
 
     public InstitutionPreferencesServiceImpl() {
         namespaceCodeToUrlName = new ConcurrentHashMap<>();
@@ -512,6 +513,10 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             IOUtils.copy(uploadedInputStream, outputStream);
             bytes = outputStream.toByteArray();
 
+            if (outputStream.size() / 1000 > MAX_LOGO_SIZE_KB) {
+                throw new RuntimeException("Image size must be less than " + MAX_LOGO_SIZE_KB + " KB.");
+            }
+
             ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
             BufferedImage bufferedImage = ImageIO.read(inputStream);
             if (bufferedImage.getHeight() < LOGO_HEIGHT) {
@@ -521,7 +526,6 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             int xPos = 0;
             boolean hasTransparency = false;
             while (xPos < bufferedImage.getWidth()) {
-                LOG.info("x: " + xPos);
                 if (bufferedImage.getRGB(xPos,0) == 0) {
                     hasTransparency = true;
                     break;
