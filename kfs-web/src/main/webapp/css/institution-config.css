@@ -31,7 +31,6 @@
     display: -webkit-flex;
     display: flex;
     flex-direction: row-reverse;
-
 }
 
 ul#item-list,
@@ -261,6 +260,66 @@ div#sub-item-list {
     background-position: 0 4px;
     background-repeat: no-repeat;
     padding-left: 14px;
+}
+
+.logo-upload {
+    color: #777;
+}
+
+.logo-upload h4 {
+    margin: 0 0 3px 0;
+    font-size: 16px;
+}
+
+.logo-upload .preview-box {
+    border: 1px solid #D7D7D7;
+    height: 60px;
+    font-size: 26px;
+    line-height: 35px;
+    padding: 13px 40px;
+    color: #767676;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.logo-upload .preview-box img {
+    float: left;
+}
+.logo-upload .preview-box .logo-right {
+    border-left: 1px solid #767676;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+
+.logo-upload .instructions {
+    width: 65%;
+    margin: 0 auto;
+    font-size: 16px;
+    text-align: center;
+}
+
+.logo-upload .dropzone>div {
+    width: 50% !important;
+    height: 100px !important;
+    border-color: #D7D7D7 !important;
+    margin: 40px auto 20px auto;
+    padding: 35px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.logo-upload .dropzone>div:hover {
+    background-color: #F8F8F8;
+}
+
+.logo-upload .dropzone p {
+    margin: 0;
+}
+
+.logo-upload .error {
+    text-align: center;
+    color: #C47965;
 }
 
 .buttonbar {

@@ -4,7 +4,7 @@ import KfsUtils from './sys/utils.js';
 
 var Header = React.createClass({
     getInitialState() {
-        return {preferences: {}, user: {}, environment: {}, backdoorId: ""}
+        return {preferences: {}, user: {}, environment: {}, backdoorId: ""};
     },
     componentWillMount() {
         let userPath = KfsUtils.getUrlPathPrefix() + "sys/authentication/loggedInUser";
@@ -119,11 +119,11 @@ var Header = React.createClass({
             menuLinks = prefs.menu.map(function (link, i) {
                 var target = "_blank";
                 return <li key={i}><Link url={link.link} label={link.label} target={target}/></li>;
-            })
+            });
         }
 
         let logoUrl = prefs.logoUrl;
-        if (logoUrl && !logoUrl.startsWith('http')) {
+        if (logoUrl && logoUrl.indexOf('data:') !== 0 && !logoUrl.startsWith('http')) {
             logoUrl = KfsUtils.getUrlPathPrefix() + logoUrl;
         }
 

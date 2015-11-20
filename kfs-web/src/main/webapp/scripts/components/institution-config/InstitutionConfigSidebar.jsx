@@ -16,6 +16,7 @@ var InstitutionConfigSidebar = React.createClass({
         let hash = window.location.hash;
         let linkObjs = [
             {'label': 'Dashboard', 'url': home},
+            {'label': 'Logo Upload', 'url': '#/logo'},
             {'label': 'Navigation Configuration', 'url': '#/navigation'},
             {'label': 'Menu Configuration', 'url': '#/menu'}
         ];

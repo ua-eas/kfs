@@ -1318,6 +1318,7 @@ public class KFSPropertyConstants {
     public static final String ADVANCE_DEPOSITS = "advanceDeposits";
     public static final String LINK_GROUPS = "linkGroups";
     public static final String MENU = "menu";
+    public static final String LOGO_URL = "logoUrl";
     public static final String PERMISSION = "permission";
     public static final String ACTION_LIST_URL = "actionListUrl";
     public static final String SIGNOUT_URL = "signoutUrl";
