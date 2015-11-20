@@ -306,6 +306,11 @@ div#sub-item-list {
     margin: 40px auto 20px auto;
     padding: 35px 0;
     text-align: center;
+    cursor: pointer;
+}
+
+.logo-upload .dropzone>div:hover {
+    background-color: #F8F8F8;
 }
 
 .logo-upload .dropzone p {
