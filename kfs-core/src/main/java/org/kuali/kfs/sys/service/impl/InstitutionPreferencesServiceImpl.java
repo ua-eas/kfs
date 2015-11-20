@@ -32,7 +32,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -60,6 +59,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private DataDictionaryService dataDictionaryService;
 
     private Map<String, String> namespaceCodeToUrlName;
+
+    private static final int LOGO_HEIGHT = 70;
 
     public InstitutionPreferencesServiceImpl() {
         namespaceCodeToUrlName = new ConcurrentHashMap<>();
@@ -513,16 +514,29 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
             ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
             BufferedImage bufferedImage = ImageIO.read(inputStream);
-            if (bufferedImage.getHeight() < 70) {
-                throw new RuntimeException("Image must have a height of at least 70 pixels.");
-            }
-            if (bufferedImage.getRGB(0,0) != 0 && bufferedImage.getRGB(0,0) != Color.WHITE.hashCode()) {
-                throw new RuntimeException("Image background must be transparent or white.");
+            if (bufferedImage.getHeight() < LOGO_HEIGHT) {
+                throw new RuntimeException("Image must have a height of at least " + LOGO_HEIGHT + " pixels.");
             }
 
+            int xPos = 0;
+            boolean hasTransparency = false;
+            while (xPos < bufferedImage.getWidth()) {
+                LOG.info("x: " + xPos);
+                if (bufferedImage.getRGB(xPos,0) == 0) {
+                    hasTransparency = true;
+                    break;
+                }
+                xPos++;
+            }
+            if (!hasTransparency) {
+                throw new RuntimeException("Image background must be transparent.");
+            }
+
+            String[] fileParts = filename.split("\\.");
+            String extension = fileParts[fileParts.length - 1];
 
             String imageBase64 = new String(Base64.encode(bytes));
-            String image = "data:image/gif;base64," + imageBase64;
+            String image = "data:image/" + extension + ";base64," + imageBase64;
             filePath.put(KFSPropertyConstants.LOGO_URL, image);
         } catch (IOException ioe) {
             LOG.error("Failed to upload logo", ioe);
