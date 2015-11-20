@@ -24,6 +24,7 @@ import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
 import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
@@ -753,6 +754,78 @@ public class InstitutionPreferencesServiceImplTest {
         Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink2));
 
         Assert.assertEquals("Link should be generated correctly", "http://tst.kfs.kuali.org/kfs-tst/kr/lookup.do?returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink2);
+    }
+
+    @Test
+    public void testRemoveGeneratedLabels() {
+        List<Map<String, String>> activitiesLinks = new ArrayList<>();
+        Map<String, String> baLink = new HashMap<>();
+        baLink.put(KFSPropertyConstants.DOCUMENT_TYPE_CODE, "BA");
+        baLink.put(KFSPropertyConstants.LABEL, "Budget Adjustment");
+        baLink.put(KFSPropertyConstants.LINK_TYPE, "kfs");
+        activitiesLinks.add(baLink);
+
+        Map<String, String> bcsLink = new HashMap<>();
+        bcsLink.put(KFSPropertyConstants.LINK, "budgetBudgetConstructionSelection.do?methodToCall=loadExpansionScreen");
+        bcsLink.put(KFSPropertyConstants.LABEL, "Budget Construction Selection");
+        bcsLink.put(KFSPropertyConstants.LINK_TYPE, "kfs");
+        activitiesLinks.add(bcsLink);
+
+        List<Map<String, String>> adminstrationLinks = new ArrayList<>();
+        Map<String, String> idcLink = new HashMap<>();
+        idcLink.put(KFSPropertyConstants.BUSINESS_OBJECT_CLASS, "org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail");
+        idcLink.put(KFSPropertyConstants.LABEL, "Indirect Cost Recovery Rate Detail");
+        idcLink.put(KFSPropertyConstants.LINK_TYPE, "kfs");
+        adminstrationLinks.add(idcLink);
+
+        Map<String, Object> links = new HashMap<>();
+        links.put("activities", activitiesLinks);
+        links.put("administration", adminstrationLinks);
+
+        Map<String, Object> group = new HashMap<>();
+        group.put(KFSPropertyConstants.LABEL, "My Test Group");
+        group.put(KFSPropertyConstants.LINKS, links);
+
+        List<Map<String, Object>> linkGroups = new ArrayList<>();
+        linkGroups.add(group);
+
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        List<Map<String, Object>> processedLinkGroups = preferencesServiceImpl.removeGeneratedLabels(linkGroups);
+
+        Map<String, Object> processedGroup = processedLinkGroups.get(0);
+        Map<String, Object> processedGroupLinks = (Map<String, Object>)processedGroup.get(KFSPropertyConstants.LINKS);
+        List<Map<String, String>> processedActivitiesLinks = (List<Map<String, String>>)processedGroupLinks.get("activities");
+        List<Map<String, String>> processedAdministrationLinks = (List<Map<String, String>>)processedGroupLinks.get("administration");
+
+        Assert.assertTrue(!processedActivitiesLinks.get(0).containsKey(KFSPropertyConstants.LABEL));
+        Assert.assertEquals("BA", processedActivitiesLinks.get(0).get(KFSPropertyConstants.DOCUMENT_TYPE_CODE));
+
+        Assert.assertTrue(processedActivitiesLinks.get(1).containsKey(KFSPropertyConstants.LABEL));
+        Assert.assertEquals("Budget Construction Selection", processedActivitiesLinks.get(1).get(KFSPropertyConstants.LABEL));
+
+        Assert.assertTrue(!processedAdministrationLinks.get(0).containsKey(KFSPropertyConstants.LABEL));
+        Assert.assertEquals("org.kuali.kfs.coa.businessobject.IndirectCostRecoveryRateDetail", processedAdministrationLinks.get(0).get(KFSPropertyConstants.BUSINESS_OBJECT_CLASS));
+    }
+
+    @Test
+    public void testGetMenu() {
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
+
+        List<Map<String, String>> menu = preferencesServiceImpl.getMenu();
+        Assert.assertEquals("Feedback", menu.get(0).get(KFSPropertyConstants.LABEL));
+        Assert.assertEquals("kr/kualiFeedbackReport.do", menu.get(0).get(KFSPropertyConstants.LINK));
+        Assert.assertEquals("Help", menu.get(1).get(KFSPropertyConstants.LABEL));
+        Assert.assertEquals("static/help/default.htm", menu.get(1).get(KFSPropertyConstants.LINK));
+    }
+
+    @Test
+    public void testGetLogo() {
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+
+        Map<String, String> logoUrl = preferencesServiceImpl.getLogo();
+        Assert.assertEquals("static/images/out-of-the-box-logo-rtna.png", logoUrl.get(KFSPropertyConstants.LOGO_URL));
     }
 
     protected class StubDocumentDictionaryService implements DocumentDictionaryService {

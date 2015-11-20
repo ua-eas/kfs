@@ -2,6 +2,11 @@ import React from 'react/addons';
 import KfsUtils from '../../sys/utils.js';
 
 var InstitutionConfigSidebar = React.createClass({
+    componentDidMount() {
+        if (window.location.hash === '#/' || window.location.hash === '') {
+            $('#sidebar a[href="#/navigation"]').siblings(' div.indicator').addClass('active');
+        }
+    },
     updateIndicator(event) {
         $('#sidebar div.active').removeClass('active');
         $(event.target).siblings('div.indicator').addClass('active');
@@ -11,6 +16,7 @@ var InstitutionConfigSidebar = React.createClass({
         let hash = window.location.hash;
         let linkObjs = [
             {'label': 'Dashboard', 'url': home},
+            {'label': 'Logo Upload', 'url': '#/logo'},
             {'label': 'Navigation Configuration', 'url': '#/navigation'},
             {'label': 'Menu Configuration', 'url': '#/menu'}
         ];

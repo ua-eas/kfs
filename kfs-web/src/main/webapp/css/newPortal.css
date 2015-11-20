@@ -50,22 +50,22 @@ header.navbar .navbar-header {
 header.navbar .navbar-brand {
     height: 60px;
     font-size: 26px;
-    line-height: 31px;
-    font-weight: 700;
-    width: 400px;
+    line-height: 35px;
     padding: 14px 15px;
-    color: #516771;
+    color: #767676;
 }
 header.navbar .navbar-brand img {
     float: left;
-    margin-right: 7px;
 }
-header.navbar .navbar-brand .institution-name {
-    font-weight: 300;
+header.navbar .navbar-brand .logo-right {
+    border-left: 1px solid #767676;
+    margin-left: 15px;
+    padding-left: 15px;
 }
 
-.dropdown.backdoor>a {
-    color: red !important;
+.navbar-nav>li>.dropdown-menu {
+    margin-top: -1px;
+    margin-right: -1px;
 }
 
 .dropdown-menu>li {

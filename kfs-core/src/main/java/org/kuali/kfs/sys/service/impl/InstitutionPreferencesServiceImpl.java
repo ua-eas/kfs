@@ -1,7 +1,9 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.service.DataDictionaryService;
@@ -29,7 +31,12 @@ import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -52,6 +59,9 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private DataDictionaryService dataDictionaryService;
 
     private Map<String, String> namespaceCodeToUrlName;
+
+    private static final int LOGO_HEIGHT = 70;
+    private static final int MAX_LOGO_SIZE_KB = 100;
 
     public InstitutionPreferencesServiceImpl() {
         namespaceCodeToUrlName = new ConcurrentHashMap<>();
@@ -482,6 +492,87 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         institutionPreferences.put(KFSPropertyConstants.MENU, menu);
         preferencesDao.saveInstitutionPreferences((String)institutionPreferences.get(KFSPropertyConstants.INSTITUTION_ID), institutionPreferences);
         return menu;
+    }
+
+    @Override
+    public Map<String, String> getLogo() {
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        String logoUrl = (String)institutionPreferences.get(KFSPropertyConstants.LOGO_URL);
+        Map<String, String> logo = new ConcurrentHashMap<>();
+        logo.put(KFSPropertyConstants.LOGO_URL, logoUrl);
+        return logo;
+    }
+
+    @Override
+    public Map<String, String> uploadLogo(InputStream uploadedInputStream, String filename) {
+        Map<String, String> filePath = new ConcurrentHashMap<>();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] bytes;
+        try {
+            IOUtils.copy(uploadedInputStream, outputStream);
+            bytes = outputStream.toByteArray();
+
+            if (outputStream.size() / 1000 > MAX_LOGO_SIZE_KB) {
+                throw new RuntimeException("Image size must be less than " + MAX_LOGO_SIZE_KB + " KB.");
+            }
+
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            if (bufferedImage.getHeight() < LOGO_HEIGHT) {
+                throw new RuntimeException("Image must have a height of at least " + LOGO_HEIGHT + " pixels.");
+            }
+
+            int xPos = 0;
+            boolean hasTransparency = false;
+            while (xPos < bufferedImage.getWidth()) {
+                if (bufferedImage.getRGB(xPos,0) == 0) {
+                    hasTransparency = true;
+                    break;
+                }
+                xPos++;
+            }
+            if (!hasTransparency) {
+                throw new RuntimeException("Image background must be transparent.");
+            }
+
+            String[] fileParts = filename.split("\\.");
+            String extension = fileParts[fileParts.length - 1];
+
+            String imageBase64 = new String(Base64.encodeBase64(bytes));
+            String image = "data:image/" + extension + ";base64," + imageBase64;
+            filePath.put(KFSPropertyConstants.LOGO_URL, image);
+        } catch (IOException ioe) {
+            LOG.error("Failed to upload logo", ioe);
+            throw new RuntimeException("Error uploading logo");
+        } finally {
+            IOUtils.closeQuietly(outputStream);
+            IOUtils.closeQuietly(uploadedInputStream);
+        }
+
+        return filePath;
+    }
+
+    @Override
+    public Map<String, String> saveLogo(String logoString) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        Map<String, String> logo;
+        try {
+            logo = mapper.readValue(logoString, Map.class);
+        } catch (IOException e) {
+            LOG.error("saveLogo Error parsing json", e);
+            throw new RuntimeException("Error parsing json");
+        }
+
+        if (!logo.containsKey(KFSPropertyConstants.LOGO_URL)) {
+            throw new RuntimeException("Invalid JSON. Should contain logoUrl.");
+        }
+
+        final Map<String, Object> institutionPreferences = preferencesDao.findInstitutionPreferences();
+        institutionPreferences.put(KFSPropertyConstants.LOGO_URL, logo.get(KFSPropertyConstants.LOGO_URL));
+        preferencesDao.saveInstitutionPreferences((String)institutionPreferences.get(KFSPropertyConstants.INSTITUTION_ID), institutionPreferences);
+        return logo;
     }
 
     public void setConfigurationService(ConfigurationService configurationService) {
