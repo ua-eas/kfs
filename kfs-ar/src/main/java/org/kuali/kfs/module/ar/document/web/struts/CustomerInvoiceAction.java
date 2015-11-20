@@ -529,7 +529,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
         Properties parameters = new Properties();
         parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, methodToCall);
         parameters.put(KFSConstants.PARAMETER_DOC_ID, docId);
-        parameters.put(KFSConstants.PARAMETER_COMMAND, KewApiConstants.ACTIONLIST_COMMAND);
+        parameters.put(KFSConstants.PARAMETER_COMMAND, KewApiConstants.DOCSEARCH_COMMAND);
 
         return UrlFactory.parameterizeUrl(baseUrl, parameters);
     }
