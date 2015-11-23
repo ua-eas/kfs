@@ -34,63 +34,47 @@
         <c:set var="isOpen" value="${(currentTab == 'OPEN')}" />
     </c:when>
 </c:choose>
-<%-- if the section has errors, override and set isOpen to true --%>
 <c:if test="${!empty tabErrorKey or !empty tabAuditKey}">
   <kul:checkErrors keyMatch="${tabErrorKey}" auditMatch="${tabAuditKey}"/>
   <c:set var="isOpen" value="${hasErrors ? true : isOpen}"/>
 </c:if>
 <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
-<!-- TAB -->
 
 <div id="workarea">
-
-<table width="100%" class="tab" cellpadding=0 cellspacing=0 summary="">
-	<tr>
-		<td class="tabtable1-left">
-		    <img src="${ConfigProperties.kr.externalizable.images.url}tab-topleft.gif" alt=""	width=12 height=29 align=middle>
+    <div class="main-panel">
+        <div class="headerarea-small">
+            <a name="${tabKey}"></a>
             <c:choose>
-              <c:when test="${not empty boClassName && not empty keyValues}">
-                <h2><kul:inquiry keyValues="${keyValues}" boClassName="${boClassName}" render="true"><c:out value="${tabTitle}" /></kul:inquiry></h2>
-              </c:when>
-              <c:otherwise>
-                <h2><c:out value="${tabTitle}" /></h2>
-              </c:otherwise>
+                <c:when test="${not empty boClassName && not empty keyValues}">
+                    <h2><kul:inquiry keyValues="${keyValues}" boClassName="${boClassName}" render="true"><c:out value="${tabTitle}" /></kul:inquiry></h2>
+                </c:when>
+                <c:otherwise>
+                    <h2><c:out value="${tabTitle}" /></h2>
+                </c:otherwise>
             </c:choose>
-		</td>
-		<td class="tabtable1-mid">
-            <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-			    <html:image property="methodToCall.toggleTab.tab${tabKey}"	src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" title="close ${tabTitle}" alt="close ${tabTitle}" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " tabindex="-1" />
-		    </c:if>
-		    <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			    <html:image property="methodToCall.toggleTab.tab${tabKey}"	src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" title="open ${tabTitle}" alt="open ${tabTitle}" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " tabindex="-1" />
-		    </c:if>
-		</td>
-		<td class="tabtable1-right">
-		    <img src="${ConfigProperties.kr.externalizable.images.url}tab-topright.gif" alt="" width="12" height="29" align="middle">
-		</td>
-	</tr>
-</table>
+            <div class="toggle-show-tab">
+                <span property="methodToCall.toggleTab.tab${tabKey}" title="Hide/Show ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); " tabindex="-1" class="glyphicon glyphicon-menu-up"></span>
+            </div>
+        </div>
 
+        <div id="tab-${tabKey}-div">
+            <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}"><div style="display: block;" id="tab-${tabKey}-div"></c:if>
+            <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}"><div style="display: none;" id="tab-${tabKey}-div"></c:if>
 
+            <c:if test="${! (empty tabAuditKey) or ! (empty tabErrorKey)}">
+                <div class="tab-container-error"><div class="left-errmsg-tab">
+                    <c:if test="${! (empty tabErrorKey)}">
+                        <kul:errors keyMatch="${tabErrorKey}" errorTitle="Errors found in this Section:" />
+                    </c:if>
+                    <c:if test="${! (empty tabAuditKey)}">
+                        <c:forEach items="${fn:split(auditCluster,',')}" var="cluster">
+                            <kul:auditErrors cluster="${cluster}" keyMatch="${tabAuditKey}" isLink="false" includesTitle="true"/>
+                        </c:forEach>
+                    </c:if>
+                </div></div>
+            </c:if>
+        </div>
 
-<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}"><div style="display: block;" id="tab-${tabKey}-div"></c:if>
-<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}"><div style="display: none;" id="tab-${tabKey}-div"></c:if>
-
-        <c:if test="${! (empty tabAuditKey) or ! (empty tabErrorKey)}">
-        	<%-- display errors for this tab --%>
-        	<div class="tab-container-error"><div class="left-errmsg-tab">
-				<c:if test="${! (empty tabErrorKey)}">
-					<kul:errors keyMatch="${tabErrorKey}" errorTitle="Errors found in this Section:" />
-				</c:if>
-				<c:if test="${! (empty tabAuditKey)}">
-					<c:forEach items="${fn:split(auditCluster,',')}" var="cluster">
-	        	   		<kul:auditErrors cluster="${cluster}" keyMatch="${tabAuditKey}" isLink="false" includesTitle="true"/>
-					</c:forEach>
-				</c:if>
-        	</div></div>
-      	</c:if>
-        <%-- Before the jsp:doBody of the kul:tab tag --%>
         <jsp:doBody/>
-        <%-- After the jsp:doBody of the kul:tab tag --%>
-
+    </div>
 </div>

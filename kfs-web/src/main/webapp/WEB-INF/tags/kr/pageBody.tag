@@ -69,7 +69,6 @@
         <c:otherwise>
             <c:choose>
                 <c:when test="${lookup}" >
-
                     <main class="content">
                         <div id="content-overlay"></div>
                         <c:if test="${param.mode eq 'modal'}">
@@ -107,11 +106,10 @@
                         </c:choose>
                 </c:when>
                 <c:otherwise>
-                    <main class="content">
+                    <main class="content doc">
                         <div id="content-overlay"></div>
                         <div id="view_div">
-                            <div class="main-panel">
-                                ${headerMenuBar}
+                            ${headerMenuBar}
 
                 </c:otherwise>
             </c:choose>

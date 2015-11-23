@@ -36,6 +36,7 @@
 <%@ attribute name="nowrap" required="false" description="add the 'nowrap' clause to the TH" %>
 <%@ attribute name="useShortLabel" required="false" description="indicate to use shortLabel or not and default to true" %>
 <%@ attribute name="headerLink" required="false" description="allows you to change the header lable to a link " %>
+<%@ attribute name="addClass" required="false" description="additional classes to add" %>
 
 <c:set var="scopeAttribute" value='scope="${scope}"'/>  <%-- this works for HTML output (but not for JSP execution) --%>
 <c:set var="alignAttribute" value='align="${align}"'/>
@@ -49,16 +50,14 @@
     ${empty align ? (!horizontal ? '' : 'align="right"') : alignAttribute}
     ${empty width ? '' : widthAttribute}
     ${empty nowrap ? '' : 'nowrap'}
-    >&nbsp;
+    ${empty addClass ? "" : "class='".concat(addClass).concat("'")}
+    >
     <c:if test="${not empty anchor}">
     	<a name="${anchor}"></a>
     </c:if>
-    <%-- Why does the alignment seem to default to center instead of left?  I don't see it in kuali.css.
-        Should this be done with a CSS style instead?  --%>
     <c:choose>
         <c:when test="${empty attributeEntry && empty attributeEntryName}">
-        <c:if test="${not empty labelFor}"><label for="${labelFor}"></c:if
->${literalLabel}
+        <c:if test="${not empty labelFor}"><label for="${labelFor}"></c:if>${literalLabel}
             <c:if test="${not empty labelFor}"></label></c:if>
         </c:when>
         <c:otherwise>
@@ -74,5 +73,5 @@
                 />
         </c:otherwise>
     </c:choose>
-    <jsp:doBody/>  <%-- accountingLineRow.tag puts hidden fields inside the <th> here to keep the HTML valid. --%>
+    <jsp:doBody/>
 </th>
