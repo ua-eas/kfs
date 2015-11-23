@@ -183,11 +183,11 @@
                                 </c:if>
                             </td>
                         </tr>
-                      </c:if>
                     </table>
                 </div>
 		    </td>
 	    </tr>
+      </c:if>
     </table>
 	</form>
 	</div>
