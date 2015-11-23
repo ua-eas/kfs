@@ -116,6 +116,7 @@
 	   	</c:if>
 	  </table>
 	</c:if>
+    <jsp:doBody/>
 </kul:documentOverview>
 
-<jsp:doBody/>
+
