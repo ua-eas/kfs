@@ -444,6 +444,34 @@ div.inquiry table.datatable th {
     margin-top: 0;
 }
 
+.doc #view_div>form>.headerbox {
+    float: right;
+    color: #767676;
+}
+
+.doc #view_div>form>.headerbox th {
+    text-align: right;
+    padding: 0 5px 0 30px;
+}
+
+.doc #view_div>form>.msg-excol {
+    margin-top: 15px;
+    clear: both;
+}
+
+.doc #view_div>form>.msg-excol>.right {
+    color: #999999;
+}
+
+.doc #view_div>form>.msg-excol>.right>.excol {
+    margin-right: 0;
+}
+
+.doc #view_div>form>.headerarea-small {
+    float: left;
+    margin-top: 15px;
+}
+
 .doc .main-panel .tab-container {
     padding: 0 20px;
     color: #555;
