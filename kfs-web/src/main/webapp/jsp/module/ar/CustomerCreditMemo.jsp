@@ -33,7 +33,6 @@
 	<!--  Display 1st screen -->
 	<c:if test="${displayInitTab}" >
 		<ar:customerCreditMemoInit />
-		<kul:panelFooter />
 	</c:if>
 
 	<!--  Display 2nd screen -->
@@ -47,7 +46,6 @@
 		<kul:adHocRecipients />
 		<kul:routeLog />
 		<kul:superUserActions />
-		<kul:panelFooter />
 	</c:if>
 
 	<c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>

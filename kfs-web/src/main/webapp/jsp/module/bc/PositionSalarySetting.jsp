@@ -31,7 +31,6 @@
     <html:hidden property="mainWindow" />
 
     <bc:positionSalarySetting readOnly="${readOnly}" accountsCanCrossCharts="${accountsCanCrossCharts}"/>
-	<kul:panelFooter />
 
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">

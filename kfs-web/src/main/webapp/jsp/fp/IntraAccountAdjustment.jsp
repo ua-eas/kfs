@@ -47,7 +47,6 @@
 	<kul:notes />
 	<kul:adHocRecipients />
 	<kul:routeLog />
-	<kul:panelFooter />
 	<sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}" />
 
 </kul:documentPage>

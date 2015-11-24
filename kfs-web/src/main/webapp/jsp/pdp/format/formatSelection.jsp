@@ -45,7 +45,6 @@
 	<pdp:formatCustomers
 		customerProfileAttributes="${customerProfileAttributes}"
 		dummyAttributes="${dummyAttributes}" />
-	<kul:panelFooter />
 	<div id="globalbuttons" class="globalbuttons">
 		<html:image
 			src="${ConfigProperties.externalizable.images.url}buttonsmall_beginformat.gif"

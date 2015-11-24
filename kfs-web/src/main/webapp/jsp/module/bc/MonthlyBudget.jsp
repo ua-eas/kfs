@@ -32,7 +32,6 @@
     <c:set var="readOnly" value="${KualiForm.monthlyReadOnly}" />
 
     <bc:monthlyBudget readOnly="${readOnly}" />
-	<kul:panelFooter />
 
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${!readOnly}">
