@@ -42,7 +42,7 @@
 
 <div id="workarea">
     <div class="main-panel">
-        <div class="headerarea-small">
+        <div class="headerarea-small clickable" property="methodToCall.toggleTab.tab${tabKey}" title="Hide/Show ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); " tabindex="-1">
             <a name="${tabKey}"></a>
             <c:choose>
                 <c:when test="${not empty boClassName && not empty keyValues}">
@@ -53,7 +53,7 @@
                 </c:otherwise>
             </c:choose>
             <div class="toggle-show-tab">
-                <span property="methodToCall.toggleTab.tab${tabKey}" title="Hide/Show ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); " tabindex="-1" class="glyphicon glyphicon-menu-up"></span>
+                <span class="glyphicon glyphicon-menu-up"></span>
             </div>
         </div>
 

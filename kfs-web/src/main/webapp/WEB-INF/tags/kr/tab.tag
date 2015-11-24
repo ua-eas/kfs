@@ -95,7 +95,22 @@
 </c:if>
 
 <div class="main-panel"<c:if test="${hidden}"> style="display:none;"</c:if>>
-    <div class="headerarea-small">
+    <c:choose>
+        <c:when test="${param.mode eq 'modal'}">
+            <c:set var="formId" value="kualiForm"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="formId" value="kualiFormModal"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
+        <div class="headerarea-small clickable" property="methodToCall.toggleTab.tab${tabKey}" title="close ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1">
+    </c:if>
+    <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
+        <div class="headerarea-small clickable" property="methodToCall.toggleTab.tab${tabKey}" title="open ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1">
+    </c:if>
+
       <c:if test="${not empty leftSideHtmlProperty and not empty leftSideHtmlAttribute}"><kul:htmlControlAttribute property="${leftSideHtmlProperty}" attributeEntry="${leftSideHtmlAttribute}" disabled="${leftSideHtmlDisabled}" /></c:if>
       <a name="${tabKey}" ></a>
       <c:choose>
@@ -117,19 +132,12 @@
       <div class="toggle-show-tab">
           <c:choose>
               <c:when test="${empty midTabClassReplacement}">
-                  <c:choose>
-                      <c:when test="${param.mode eq 'modal'}">
-                          <c:set var="formId" value="kualiForm"/>
-                      </c:when>
-                      <c:otherwise>
-                          <c:set var="formId" value="kualiFormModal"/>
-                      </c:otherwise>
-                  </c:choose>
+
                   <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
-                      <span property="methodToCall.toggleTab.tab${tabKey}" title="close ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1"  class="glyphicon glyphicon-menu-up"></span>
+                      <span class="glyphicon glyphicon-menu-up"></span>
                   </c:if>
                   <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
-                      <span property="methodToCall.toggleTab.tab${tabKey}" title="open ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1" class="glyphicon glyphicon-menu-down"></span>
+                      <span class="glyphicon glyphicon-menu-down"></span>
                   </c:if>
               </c:when>
               <c:otherwise>

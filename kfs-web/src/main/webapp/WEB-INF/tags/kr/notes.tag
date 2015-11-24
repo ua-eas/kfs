@@ -50,9 +50,9 @@
 
 <kul:tab tabTitle="${tabTitle}" defaultOpen="${!empty documentNotes or (not empty defaultOpen and defaultOpen)}" tabErrorKey="${Constants.DOCUMENT_NOTES_ERRORS},attachmentFile" tabItemCount="${fn:length(documentNotes)}" transparentBackground="${transparentBackground}" >
     <c:set var="notesAttributes" value="${DataDictionary.Note.attributes}" />
-    <div class="tab-container" align=center id="G4">
+    <div class="tab-container" id="G4">
         <jsp:doBody/>
-        <table class="datatable notes" summary="view/add notes">
+        <table class="datatable notes standard" summary="view/add notes">
             <tbody>
                 <c:if test="${ ((not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)) || kfunc:canAddNoteAttachment(KualiForm.document)}" >
                     <tr class="new-note">
@@ -97,31 +97,33 @@
                     </tr>
                 </c:if>
 
-                <tr class="header">
-                    <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="col" align="left"/>
-                    <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.notePostedTimestamp}" hideRequiredAsterisk="true" scope="col" align="left"/>
-                    <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.authorUniversalIdentifier}" hideRequiredAsterisk="true" scope="col" align="left"/>
+                <c:if test="${not empty documentNotes}">
+                    <tr class="header">
+                        <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="col" align="left"/>
+                        <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.notePostedTimestamp}" hideRequiredAsterisk="true" scope="col" align="left"/>
+                        <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.authorUniversalIdentifier}" hideRequiredAsterisk="true" scope="col" align="left"/>
 
-                    <c:if test="${displayTopicFieldInNotes eq true}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteTopicText}" labelFor="newNote.noteTopicText" hideRequiredAsterisk="${true}" scope="col" align="left" />
-                    </c:if>
+                        <c:if test="${displayTopicFieldInNotes eq true}">
+                            <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteTopicText}" labelFor="newNote.noteTopicText" hideRequiredAsterisk="${true}" scope="col" align="left" />
+                        </c:if>
 
-                    <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteText}" labelFor="newNote.noteText" hideRequiredAsterisk="${true}" scope="col" align="left"/>
+                        <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteText}" labelFor="newNote.noteText" hideRequiredAsterisk="${true}" scope="col" align="left"/>
 
-                    <c:if test="${allowsNoteAttachments eq true}">
-                      <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.attachment}" labelFor="attachmentFile" scope="col" align="left"/>
-                    </c:if>
+                        <c:if test="${allowsNoteAttachments eq true}">
+                          <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.attachment}" labelFor="attachmentFile" scope="col" align="left"/>
+                        </c:if>
 
-                    <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
-                      <kul:htmlAttributeHeaderCell literalLabel="Attachment Type" scope="col" align="left"/>
-                    </c:if>
+                        <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
+                          <kul:htmlAttributeHeaderCell literalLabel="Attachment Type" scope="col" align="left"/>
+                        </c:if>
 
-                    <c:if test="${allowsNoteFYI}" >
-                      <kul:htmlAttributeHeaderCell literalLabel="Notification Recipient" scope="col"/>
-                    </c:if>
+                        <c:if test="${allowsNoteFYI}" >
+                          <kul:htmlAttributeHeaderCell literalLabel="Notification Recipient" scope="col"/>
+                        </c:if>
 
-                    <kul:htmlAttributeHeaderCell literalLabel="Actions" scope="col"/>
-                </tr>
+                        <kul:htmlAttributeHeaderCell literalLabel="Actions" scope="col"/>
+                    </tr>
+                </c:if>
 
 				<html:hidden property="newNote.noteTypeCode" value="${noteType.code}"/>
 

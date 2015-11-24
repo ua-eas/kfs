@@ -1,3 +1,7 @@
+.clickable {
+    cursor: pointer;
+}
+
 #view_div {
     padding: 20px;
     background-color: #E5E5E5;
@@ -528,16 +532,19 @@ div.inquiry table.datatable th {
     margin-bottom: 15px;
 }
 
-.doc .main-panel .tab-container table.notes tr.header {
+.doc .main-panel .tab-container table.standard tr.header {
     background-color: inherit !important;
+}
+
+.doc .main-panel .tab-container table.standard tr.header th {
+    text-transform: uppercase;
+    font-size: 12px;
+    padding-bottom: 2px;
 }
 
 .doc .main-panel .tab-container table.notes tr.header th {
     border-top: 1px solid #C3C3C3;
     padding-top: 15px;
-    text-transform: uppercase;
-    font-size: 12px;
-    padding-bottom: 2px;
 }
 
 .doc .main-panel .tab-container table.notes td:first-child {
@@ -546,17 +553,30 @@ div.inquiry table.datatable th {
     text-align: right;
 }
 
-.doc .main-panel .tab-container table.notes th,
-.doc .main-panel .tab-container table.notes td {
+.doc .main-panel .tab-container table.standard th,
+.doc .main-panel .tab-container table.standard td {
     padding: 10px;
 }
 
-.doc .main-panel .tab-container table.notes td.note-text {
+.doc .main-panel .tab-container table.standard td.note-text {
     width: 30%;
 }
 
-.doc .main-panel .tab-container table.notes tr:nth-child(even) {
+.doc .main-panel .tab-container table.standard tr:nth-child(even) {
     background-color: #F9F9F9;
+}
+
+.doc .main-panel .tab-container table.adhoc td:first-child,
+.doc .main-panel .tab-container table.adhoc th:first-child {
+    padding-left: 20px;
+}
+
+.doc .main-panel .tab-container table.adhoc th {
+    width: 25%;
+}
+
+.doc .main-panel .tab-container table.adhoc.person th:first-child {
+    width: 50%;
 }
 
 .doc .main-panel .tab-container-error {
