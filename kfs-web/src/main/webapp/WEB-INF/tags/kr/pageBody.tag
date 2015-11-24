@@ -274,8 +274,7 @@
                                     <kul:errors keyMatch="${errorKey}" errorTitle=" "/>
                                 </c:if>
                                 <c:if test="${empty errorKey}">
-                                    <kul:errors keyMatch="${Constants.GLOBAL_ERRORS}"
-                                                errorTitle=" " />
+                                    <kul:errors keyMatch="${Constants.GLOBAL_ERRORS}" errorTitle=" " />
                                 </c:if>
                                 <kul:messages/>
                                 <kul:lockMessages/>

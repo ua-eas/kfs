@@ -42,7 +42,7 @@
 	  <c:if test="${includeBankCode}">
 	      <div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="${bankProperty}"/></div></div>
 	  </c:if>	  
-	  <table cellpadding="0" cellspacing="0" class="datatable" summary="KFS Detail Section">	  
+	  <table cellpadding="0" cellspacing="0" class="datatable min-100" summary="KFS Detail Section">
 	    <tr>
 	      <c:choose>
 	        <c:when test="${includePostingYear}">

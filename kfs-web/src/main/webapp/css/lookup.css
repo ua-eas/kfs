@@ -25,6 +25,15 @@
     cursor: pointer;
 }
 
+#view_div .msg-excol .error {
+    color: #C47965;
+    margin-left: 30px;
+}
+
+#view_div .left-errmsg {
+    color: #C47965;
+}
+
 #view_div .headerarea-small {
     height: 50px;
     padding-left: 30px;
@@ -186,6 +195,11 @@ input[type=text],
 select {
     height: 30px;
     width: 290px;
+}
+
+.doc .main-panel .tab-container table.min-100 th,
+.doc .main-panel .tab-container td {
+    min-width: 100px;
 }
 
 .doc input[type=text],
@@ -473,7 +487,6 @@ div.inquiry table.datatable th {
 }
 
 .doc .main-panel .tab-container {
-    padding: 0 20px;
     color: #555;
 }
 
@@ -484,17 +497,12 @@ div.inquiry table.datatable th {
     color: #777777;
     border-bottom: 1px solid #c3c3c3;
     padding: 0 30px 20px 30px;
-    margin-bottom: 30px;
+    margin: 20px 20px 30px 20px;
 }
 
 .doc .main-panel .tab-container table {
     width: 100%;
     margin-bottom: 30px;
-}
-
-.doc .main-panel .tab-container th,
-.doc .main-panel .tab-container td {
-    min-width: 100px;
 }
 
 .doc .main-panel .tab-container th {
@@ -514,4 +522,46 @@ div.inquiry table.datatable th {
 .doc .main-panel .tab-container label {
     font-weight: 400;
     margin-bottom: 0;
+}
+
+.doc .main-panel .tab-container table.notes tr.new-note td {
+    margin-bottom: 15px;
+}
+
+.doc .main-panel .tab-container table.notes tr.header {
+    background-color: inherit !important;
+}
+
+.doc .main-panel .tab-container table.notes tr.header th {
+    border-top: 1px solid #C3C3C3;
+    padding-top: 15px;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding-bottom: 2px;
+}
+
+.doc .main-panel .tab-container table.notes td:first-child {
+    font-weight: 700;
+    min-width: 20px;
+    text-align: right;
+}
+
+.doc .main-panel .tab-container table.notes th,
+.doc .main-panel .tab-container table.notes td {
+    padding: 10px;
+}
+
+.doc .main-panel .tab-container table.notes td.note-text {
+    width: 30%;
+}
+
+.doc .main-panel .tab-container table.notes tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+.doc .main-panel .tab-container-error {
+    margin: 0 auto;
+    width: 40%;
+    color: #C47965;
+    padding-top: 10px;
 }
