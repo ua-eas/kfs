@@ -22,8 +22,6 @@
 		
 	<ar:customerInvoiceWriteoffSummaryResults customerInvoiceDocumentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}"/>
 	
-	<kul:panelFooter />
-
 	<div id="globalbuttons" class="globalbuttons">
 		<c:if test="${KualiForm.sentToBatch}"> 
 		<html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" styleClass="globalbuttons" property="methodToCall.cancel" title="claim" alt="claim"/>

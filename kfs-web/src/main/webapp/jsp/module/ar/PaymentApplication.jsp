@@ -109,8 +109,6 @@ function toggle(id) {
 
 	<kul:superUserActions />
 	
-	<kul:panelFooter />
-
 	<sys:documentControls transactionalDocument="true"
 		extraButtons="${KualiForm.extraButtons}" />
 </kul:documentPage>

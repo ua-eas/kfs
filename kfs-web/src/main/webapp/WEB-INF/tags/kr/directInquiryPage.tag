@@ -62,7 +62,6 @@
 		  
 		  <c:set var="firstTab" value="${false}" /><%-- make the background opaque after first pass --%>
 		</c:forEach>
-		<kul:panelFooter />
 		</kul:tableWrapper>
 		
 

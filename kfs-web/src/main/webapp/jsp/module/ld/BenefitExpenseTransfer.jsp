@@ -164,6 +164,5 @@ read only then the javascript can not write value to the field. -->
 	<kul:adHocRecipients />
 	<kul:routeLog />
 	<kul:superUserActions />
-	<kul:panelFooter />
 	<sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}" />
 </kul:documentPage>

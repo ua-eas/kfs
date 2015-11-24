@@ -36,8 +36,6 @@
 	
     <bc:budgetConstructionReportDumpLines />
 
-	<kul:panelFooter />
-
     <div id="globalbuttons" class="globalbuttons">
 <%--
         <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_genpdf.gif" styleClass="globalbuttons" property="methodToCall.performReport" title="Perform Report" alt="Perform Report" onclick="excludeSubmitRestriction=true"/>

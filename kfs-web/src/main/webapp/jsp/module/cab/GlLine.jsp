@@ -163,7 +163,6 @@
 		</c:choose>
 	
 	</kul:tabTop>
-	<kul:panelFooter />
 	<div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">
         	<c:if test="${!empty allowSubmit}">	        
