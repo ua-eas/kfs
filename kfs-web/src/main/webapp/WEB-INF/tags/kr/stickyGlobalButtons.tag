@@ -18,48 +18,53 @@
 -->
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
+<%@ attribute name="bodySelector" required="false" description="The selector used to find the body element." %>
+<c:if test="${empty bodySelector}">
+    <c:set var="bodySelector" value="div.inquiry"/>
+</c:if>
+
 <script type="text/javascript">
-    var buttonSelector = "#globalbuttons"
-    var bodySelector = "div.inquiry"
+    var buttonSelector = "#globalbuttons";
+    var bodySelector = "${bodySelector}";
     $(document).ready(function() {
         // Set initial button state
-        var buttonsLocation = $(buttonSelector).offset().top + $(buttonSelector).outerHeight()
-        keepButtonsFixed()
+        var buttonsLocation = $(buttonSelector).offset().top + $(buttonSelector).outerHeight();
+        keepButtonsFixed();
 
         // Modify button state as we scroll
         $(window).scroll(function() {
-            keepButtonsFixed()
-        })
+            keepButtonsFixed();
+        });
 
         $(window).resize(function() {
-            keepButtonsFixed()
-        })
+            keepButtonsFixed();
+        });
 
         $('#expandAll, #collapseAll, .toggle-show-tab').click(function() {
-            tabsChanged()
-        })
+            tabsChanged();
+        });
 
         function keepButtonsFixed() {
-            var buttonContainerWidth = $(bodySelector).outerWidth()
-            $(buttonSelector).css('width', buttonContainerWidth + 40)
+            var buttonContainerWidth = $(bodySelector).outerWidth();
+            $(buttonSelector).css('width', buttonContainerWidth + 40);
 
-            var buttonsAreFixed = $(buttonSelector).hasClass('fixed')
-            var windowLocation = $(window).scrollTop() + $(window).height()
+            var buttonsAreFixed = $(buttonSelector).hasClass('fixed');
+            var windowLocation = $(window).scrollTop() + $(window).height();
             if (windowLocation < buttonsLocation && !buttonsAreFixed) {
-                $(buttonSelector).addClass('fixed')
-                $(bodySelector).addClass('fixedButtons')
+                $(buttonSelector).addClass('fixed');
+                $(bodySelector).addClass('fixedButtons');
             } else if (windowLocation >= buttonsLocation && buttonsAreFixed) {
-                $(buttonSelector).removeClass('fixed')
-                $(bodySelector).removeClass('fixedButtons')
+                $(buttonSelector).removeClass('fixed');
+                $(bodySelector).removeClass('fixedButtons');
             }
         }
 
         function tabsChanged() {
-            $(buttonSelector).removeClass('fixed')
-            $(bodySelector).removeClass('fixedButtons')
+            $(buttonSelector).removeClass('fixed');
+            $(bodySelector).removeClass('fixedButtons');
 
-            buttonsLocation = $(buttonSelector).offset().top + $(buttonSelector).outerHeight()
-            keepButtonsFixed()
+            buttonsLocation = $(buttonSelector).offset().top + $(buttonSelector).outerHeight();
+            keepButtonsFixed();
         }
     })
 </script>
