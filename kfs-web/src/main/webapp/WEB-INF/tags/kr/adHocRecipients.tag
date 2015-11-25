@@ -35,7 +35,7 @@
                             scope="col"
                             />
                 </tr>
-                <tr>
+                <tr class="highlight">
                     <kul:checkErrors keyMatch="newAdHocRoutePerson.id" />
                     <td class="infoline">
                         <kul:user userIdFieldName="newAdHocRoutePerson.id"
@@ -70,7 +70,7 @@
                     </td>
                 </tr>
                 <logic:iterate name="KualiForm" id="person" property="adHocRoutePersons" indexId="ctr">
-                    <tr>
+                    <tr class="${(ctr + 1) % 2 == 0 ? "highlight" : ""}">
                         <td class="datacell">
                             <kul:checkErrors keyMatch="adHocRoutePerson[${ctr}].id" />
                             <kul:user userIdFieldName="adHocRoutePerson[${ctr}].id"
@@ -120,7 +120,7 @@
                             scope="col"
                             />
                 </tr>
-                <tr>
+                <tr class="highlight">
                     <td class="infoline" >
                         <kul:htmlControlAttribute
                                 property="newAdHocRouteWorkgroup.recipientNamespaceCode"
@@ -151,7 +151,7 @@
                     </td>
                 </tr>
                 <logic:iterate name="KualiForm" id="workgroup" property="adHocRouteWorkgroups" indexId="ctr">
-                    <tr>
+                    <tr class="${(ctr + 1) % 2 == 0 ? "highlight" : ""}">
                         <td class="datacell">
                             <kul:htmlControlAttribute
                                     property="adHocRouteWorkgroup[${ctr}].recipientNamespaceCode"

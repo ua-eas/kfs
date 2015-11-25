@@ -68,6 +68,10 @@
     text-align: right;
 }
 
+#view_div .left {
+    text-align: left;
+}
+
 div.excol {
     color: #999999;
     font-size: 14px;
@@ -199,6 +203,11 @@ input[type=text],
 select {
     height: 30px;
     width: 290px;
+}
+
+.doc .datatable th,
+.doc .datatable td {
+    padding: 5px;
 }
 
 .doc .main-panel .tab-container table.min-100 th,
@@ -532,8 +541,9 @@ div.inquiry table.datatable th {
     margin-bottom: 0;
 }
 
-.doc .main-panel .tab-container table.notes tr.new-note td {
+.doc .main-panel .tab-container table.items tr.new-note td {
     margin-bottom: 15px;
+    border-bottom: 1px solid #C3C3C3;
 }
 
 .doc .main-panel .tab-container table.standard tr.header {
@@ -546,12 +556,12 @@ div.inquiry table.datatable th {
     padding-bottom: 2px;
 }
 
-.doc .main-panel .tab-container table.notes tr.header th {
-    border-top: 1px solid #C3C3C3;
+.doc .main-panel .tab-container table.items tr.header th {
     padding-top: 15px;
 }
 
-.doc .main-panel .tab-container table.notes td:first-child {
+.doc .main-panel .tab-container table.items td:first-child,
+.doc .main-panel .tab-container table.items th:first-child {
     font-weight: 700;
     min-width: 20px;
     text-align: right;
@@ -566,7 +576,7 @@ div.inquiry table.datatable th {
     width: 30%;
 }
 
-.doc .main-panel .tab-container table.standard tr:nth-child(even) {
+.doc .main-panel .tab-container table.standard tr.highlight {
     background-color: #F9F9F9;
 }
 

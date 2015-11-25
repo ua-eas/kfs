@@ -61,7 +61,7 @@
 		                readOnly="${readOnly or fiscalYearReadOnly}"
 		              />
 		          <c:if test="${!readOnly and includePostingYearRefresh}">
-		            <html:image property="methodToCall.refresh" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_refresh.gif" alt="refresh" title="refresh" styleClass="tinybutton"/>    
+		            <html:submit property="methodToCall.refresh" alt="refresh" title="refresh" styleClass="btn btn-default small" value="Refresh"/>
 		          </c:if>   
 		        </td>
 	        </c:when>

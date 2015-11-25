@@ -58,6 +58,5 @@
 	<kul:adHocRecipients />
 	<kul:routeLog />
 	<kul:superUserActions />
-	<sys:documentControls
-		transactionalDocument="${documentEntry.transactionalDocument}"  extraButtons="${KualiForm.extraButtons}" />
+	<sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}"  extraButtons="${KualiForm.extraButtons}" />
 </kul:documentPage>

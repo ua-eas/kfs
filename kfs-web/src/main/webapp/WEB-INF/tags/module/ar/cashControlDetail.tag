@@ -22,20 +22,16 @@
 	type="java.util.Map"
 	description="The DataDictionary entry containing attributes for cash control detail fields."%>
 
-<%@ attribute name="readOnly" required="true"
-	description="determines whether the cash control detail will be displayed readonly"%>
-<%@ attribute name="addLine" required="true"
-	description="determines whether the displayed line is the add line or not"%>
+<%@ attribute name="readOnly" required="true" description="determines whether the cash control detail will be displayed readonly"%>
+<%@ attribute name="addLine" required="true" description="determines whether the displayed line is the add line or not"%>
 <%@ attribute name="rowHeading" required="true"%>
-<%@ attribute name="propertyName" required="true"
-	description="name of form property containing the cash control document"%>
-<%@ attribute name="actionMethod" required="true"
-	description="methodToCall value for actionImage"%>
-<%@ attribute name="actionImage" required="true"
-	description="path to image to be displayed in Action column"%>
-<%@ attribute name="actionAlt" required="true"
-	description="alt value for actionImage"%>
+<%@ attribute name="propertyName" required="true" description="name of form property containing the cash control document"%>
+<%@ attribute name="actionMethod" required="true" description="methodToCall value for actionImage"%>
+<%@ attribute name="actionText" required="true" description="Text for the button in the Action column"%>
+<%@ attribute name="actionButtonClass" required="true" description="Class for the button in the Action column"%>
+<%@ attribute name="actionAlt" required="true" description="alt value for actionImage"%>
 <%@ attribute name="cssClass" required="true"%>
+<%@ attribute name="rowClass" required="false" description="Class added to the TR tag" %>
 
 <!--  this parameter is ignored now, as of KULAR-755 -->
 <%@ attribute name="editPaymentAppDoc" required="true"%>
@@ -61,12 +57,10 @@
 	</c:choose>
 </c:if>
 
-<tr>
-	<kul:htmlAttributeHeaderCell literalLabel="${rowHeading}:" scope="row"
-		rowspan="2">
-	</kul:htmlAttributeHeaderCell>
+<tr class="${rowClass}">
+	<kul:htmlAttributeHeaderCell literalLabel="${rowHeading}" scope="row" rowspan="2"/>
 
-	<td align=left class="${cssClass}">
+	<td class="${cssClass}">
 		<c:choose>
 			<c:when test="${addLine}"> <!--  we always make the link live now, as of KULAR-755 -->
 				<kul:htmlControlAttribute
@@ -85,14 +79,14 @@
 		</c:choose>
 	</td>
 
-	<td align=left class="${cssClass}">
+	<td class="${cssClass}">
 		<kul:htmlControlAttribute
 			attributeEntry="${cashControlDetailAttributes.status}"
 			property="${propertyName}.referenceFinancialDocument.documentHeader.workflowDocument.document.status"
 			tabindexOverride="${tabindexOverrideBase}"
 			readOnly="true" />
 	</td>
-	<td align=left class="${cssClass}">
+	<td class="${cssClass}">
 		<kul:htmlControlAttribute
 			attributeEntry="${cashControlDetailAttributes.customerNumber}"
 			property="${propertyName}.customerNumber" 
@@ -104,14 +98,14 @@
 				fieldConversions="customerNumber:${propertyName}.customerNumber" />
 		</c:if>
 	</td>
-	<td align=left class="${cssClass}">
+	<td class="${cssClass}">
 		<kul:htmlControlAttribute
 			attributeEntry="${cashControlDetailAttributes.customerPaymentMediumIdentifier}"
 			property="${propertyName}.customerPaymentMediumIdentifier"
 			tabindexOverride="${tabindexOverrideBase} + 10"
 			readOnly="${readOnly}" />
 	</td>
-	<td align=left class="${cssClass}">
+	<td class="${cssClass}">
 		<c:choose>
 			<c:when test="${readOnly}">
 				<kul:htmlControlAttribute
@@ -128,7 +122,7 @@
 			</c:otherwise>
 		</c:choose>
 	</td>
-	<td align=left class="${cssClass}">
+	<td class="${cssClass}">
 		<kul:htmlControlAttribute
 			attributeEntry="${cashControlDetailAttributes.financialDocumentLineAmount }"
 			property="${propertyName}.financialDocumentLineAmount"
@@ -138,18 +132,17 @@
 
 	<c:if test="${not readOnly}">
 		<td class="${cssClass}" rowspan="2">
-			<div align="center">
-				<html:image property="methodToCall.${actionMethod}"
-					src="${actionImage}" alt="${actionAlt}" title="${actionAlt}"
-					tabindex="${tabindexOverrideBase + 30}"
-					styleClass="tinybutton" />
-			</div>
+            <html:submit
+                    property="methodToCall.${actionMethod}"
+                    alt="${actionAlt}" title="${actionAlt}"
+                    tabindex="${tabindexOverrideBase + 30}"
+                    styleClass="btn ${actionButtonClass}"
+                    value="${actionText}"/>
 		</td>
 	</c:if>
 </tr>
-<tr>
-	<kul:htmlAttributeHeaderCell
-		attributeEntry="${cashControlDetailAttributes.customerPaymentDescription}" />
+<tr class="${rowClass}">
+	<kul:htmlAttributeHeaderCell attributeEntry="${cashControlDetailAttributes.customerPaymentDescription}" addClass="right"/>
 	<td colspan="5" class="${cssClass}">
 		<kul:htmlControlAttribute
 			attributeEntry="${cashControlDetailAttributes.customerPaymentDescription}"
