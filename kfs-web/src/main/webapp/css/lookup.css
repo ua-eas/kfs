@@ -2,6 +2,14 @@
     cursor: pointer;
 }
 
+input[type=radio]:not(:first-child) {
+    margin-left: 15px;
+}
+
+input[type=radio] {
+    margin-right: 5px;
+}
+
 #view_div {
     padding: 20px;
     background-color: #E5E5E5;
@@ -108,6 +116,7 @@ div.excol {
     border-radius: 3px;
     border: 1px solid transparent;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    overflow-x: auto;
 }
 
 #view_div .inquiry .main-panel {
@@ -224,10 +233,6 @@ select {
     height: 120px;
 }
 
-#lookup input[type=radio]:not(:first-child) {
-    margin-left: 15px;
-}
-
 .search-message {
     text-align: center;
     font-size: 15px;
@@ -242,8 +247,7 @@ select {
 }
 
 .search-results table {
-    display: block;
-    overflow-y: scroll;
+    width: 100%;
 }
 
 .search-results table.fixedHeader {
@@ -542,8 +546,7 @@ div.inquiry table.datatable th {
 }
 
 .doc .main-panel .tab-container table.items tr.new-note td {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #C3C3C3;
+    padding-bottom: 30px;
 }
 
 .doc .main-panel .tab-container table.standard tr.header {
@@ -578,6 +581,10 @@ div.inquiry table.datatable th {
 
 .doc .main-panel .tab-container table.standard tr.highlight {
     background-color: #F9F9F9;
+}
+
+.doc .main-panel .tab-container table.standard td.total-line {
+    border-top: 1px dashed #cccccc;
 }
 
 .doc .main-panel .tab-container table.adhoc td:first-child,

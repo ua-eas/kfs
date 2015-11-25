@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.module.ar;
 
+import com.lowagie.text.Font;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import com.lowagie.text.Font;
 
 
 public class ArConstants{
@@ -140,7 +140,7 @@ public class ArConstants{
     public static final String PRORATE_BUTTON_FILE_NAME = "buttonsmall_prorate.gif";
     public static final String PRORATE_BUTTON_ALT_TEXT = "Prorate Bill";
     public static final String TRANSMIT_GENERATE_BUTTON_FILE_NAME = "buttonsmall_transmitgenerate.gif";
-    public static final String TRANSMIT_GENERATE_BUTTON_ALT_TEXT = "transmit/generate print file";
+    public static final String TRANSMIT_GENERATE_BUTTON_ALT_TEXT = "Transmit/Generate Print File";
     public static final String MAPPING_PRINT_PDF = "arPrintPDF";
     public static final String ACTIONS_LABEL = "Actions";
 

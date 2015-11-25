@@ -26,11 +26,14 @@
 
 <kul:tab tabTitle="Award Information" defaultOpen="true" tabErrorKey="document.proposalNumber">
 	<div class="tab-container" align="center">
-		<h3>Award Information</h3>
 		<table width="100%" cellpadding="0" cellspacing="0" class="datatable">
 			<tr>
-				<kul:htmlAttributeHeaderCell width="50%"
-					attributeEntry="${ContractsGrantsCollectionActivityAttributes.proposalNumber}" useShortLabel="false" horizontal="true" />
+				<kul:htmlAttributeHeaderCell
+                        width="50%"
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.proposalNumber}"
+                        useShortLabel="false"
+                        horizontal="true"
+                        addClass="right"/>
 				<td>
 					<kul:htmlControlAttribute readOnly="true"
 						attributeEntry="${ContractsGrantsCollectionActivityAttributes.proposalNumber}"
@@ -44,7 +47,11 @@
 			</tr>
 
 			<tr>
-				<kul:htmlAttributeHeaderCell attributeEntry="${ContractsGrantsCollectionActivityAttributes.agencyNumber}" useShortLabel="false" horizontal="true"/>
+				<kul:htmlAttributeHeaderCell
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.agencyNumber}"
+                        useShortLabel="false"
+                        horizontal="true"
+                        addClass="right"/>
 				<td>
 					<div id="document.agencyNumber.div">
 						<kul:htmlControlAttribute readOnly="true"
@@ -54,7 +61,11 @@
 				</td>
 			</tr>
 			<tr>
-				<kul:htmlAttributeHeaderCell attributeEntry="${ContractsGrantsCollectionActivityAttributes.agencyName}" useShortLabel="false" horizontal="true"/>
+				<kul:htmlAttributeHeaderCell
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.agencyName}"
+                        useShortLabel="false"
+                        horizontal="true"
+                        addClass="right"/>
 				<td>
 					<div id="document.agencyName.div">
 						<kul:htmlControlAttribute readOnly="true"
@@ -65,7 +76,11 @@
 			</tr>
 
 			<tr>
-				<kul:htmlAttributeHeaderCell attributeEntry="${ContractsGrantsCollectionActivityAttributes.customerNumber}" useShortLabel="false" horizontal="true"/>
+				<kul:htmlAttributeHeaderCell
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.customerNumber}"
+                        useShortLabel="false"
+                        horizontal="true"
+                        addClass="right"/>
 				<td>
 					<div id="document.customerNumber.div">
 						<kul:htmlControlAttribute readOnly="true"
@@ -76,7 +91,11 @@
 			</tr>
 
 			<tr>
-				<kul:htmlAttributeHeaderCell attributeEntry="${ContractsGrantsCollectionActivityAttributes.customerName}" useShortLabel="false" horizontal="true" />
+				<kul:htmlAttributeHeaderCell
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.customerName}"
+                        useShortLabel="false"
+                        horizontal="true"
+                        addClass="right"/>
 				<td>
 					<div id="document.customerName.div">
 						<kul:htmlControlAttribute readOnly="true"
