@@ -58,7 +58,7 @@
             <html:submit styleClass="globalbuttons btn btn-default" property="methodToCall.${saveButtonValue}" title="save" alt="save" onclick="resetScrollPosition();" tabindex="${tabindex}" value="Save" />
         </c:if>
         <c:if test="${!empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_RELOAD]}">
-            <html:submit styleClass="globalbuttons" property="methodToCall.reload" title="reload" alt="reload" onclick="excludeSubmitRestriction=true;resetScrollPosition();" tabindex="${tabindex}" value="Reload" />
+            <html:submit styleClass="globalbuttons btn btn-default" property="methodToCall.reload" title="reload" alt="reload" onclick="excludeSubmitRestriction=true;resetScrollPosition();" tabindex="${tabindex}" value="Reload" />
         </c:if>
         <c:if test="${!empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_BLANKET_APPROVE] and not suppressRoutingControls}">
             <html:submit styleClass="globalbuttons btn btn-default" property="methodToCall.blanketApprove" title="blanket approve" alt="blanket approve" onclick="resetScrollPosition();" tabindex="${tabindex}" value="Blanket Approve"/>
@@ -89,6 +89,6 @@
         </c:if>
     </div>
 
-    <kul:stickyGlobalButtons bodySelector="main.doc"/>
+    <kul:stickyGlobalButtons bodySelector="main.doc #page-content"/>
 </c:if>
         

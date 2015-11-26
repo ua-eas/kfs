@@ -26,18 +26,16 @@
 <kul:tab tabTitle="Trip Overview" defaultOpen="true"
 	tabErrorKey="${TemKeyConstants.TRVL_AUTH_TRIP_OVERVIEW_ERRORS}">
 	<div class="tab-container" align="center">
-
 		<tem:traveler />
 		<tem:tripInformation>
 			<%-- if TAC doc exists, don't display checkbox--%>
 			<c:if test="${!isClose}">
 				<tr>
-					<th class="bord-l-b">
-						<div align="right">
-							<kul:htmlAttributeLabel
-								attributeEntry="${documentAttributes.finalReimbursement}" />
-						</div></th>
-					<td class="datacell" colspan="3"><kul:htmlControlAttribute
+					<th class="bord-l-b right">
+                        <kul:htmlAttributeLabel attributeEntry="${documentAttributes.finalReimbursement}" />
+                    </th>
+					<td class="datacell" colspan="3">
+                        <kul:htmlControlAttribute
 							attributeEntry="${documentAttributes.finalReimbursement}"
 							property="document.finalReimbursement"
 							readOnly="${!fullEntryMode}" />

@@ -20,7 +20,7 @@
 
 <c:set var="documentAttributes" value="${DataDictionary.TravelAuthorizationDocument.attributes}" />
 <kul:tab tabTitle="Trip Overview" defaultOpen="true" tabErrorKey="${TemKeyConstants.TRVL_AUTH_TRIP_OVERVIEW_ERRORS}">
-    <div class="tab-container" align="center">
+    <div class="tab-container">
 
     <tem:traveler/>
     <tem:tripInformation />

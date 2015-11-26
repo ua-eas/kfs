@@ -57,7 +57,7 @@
     </c:if>
     <c:choose>
         <c:when test="${empty attributeEntry && empty attributeEntryName}">
-        <c:if test="${not empty labelFor}"><label for="${labelFor}"></c:if>${literalLabel}
+            <c:if test="${not empty labelFor}"><label for="${labelFor}"></c:if>${literalLabel}
             <c:if test="${not empty labelFor}"></label></c:if>
         </c:when>
         <c:otherwise>

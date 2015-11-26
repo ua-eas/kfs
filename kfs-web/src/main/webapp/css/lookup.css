@@ -2,6 +2,14 @@
     cursor: pointer;
 }
 
+input[type=radio]:not(:first-child) {
+    margin-left: 15px;
+}
+
+input[type=radio] {
+    margin-right: 5px;
+}
+
 #view_div {
     padding: 20px;
     background-color: #E5E5E5;
@@ -68,6 +76,10 @@
     text-align: right;
 }
 
+#view_div .left {
+    text-align: left;
+}
+
 div.excol {
     color: #999999;
     font-size: 14px;
@@ -104,6 +116,7 @@ div.excol {
     border-radius: 3px;
     border: 1px solid transparent;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    overflow-x: auto;
 }
 
 #view_div .inquiry .main-panel {
@@ -201,6 +214,11 @@ select {
     width: 290px;
 }
 
+.doc .datatable th,
+.doc .datatable td {
+    padding: 5px;
+}
+
 .doc .main-panel .tab-container table.min-100 th,
 .doc .main-panel .tab-container td {
     min-width: 100px;
@@ -213,10 +231,6 @@ select {
 
 #lookup select[multiple=true] {
     height: 120px;
-}
-
-#lookup input[type=radio]:not(:first-child) {
-    margin-left: 15px;
 }
 
 .search-message {
@@ -233,8 +247,7 @@ select {
 }
 
 .search-results table {
-    display: block;
-    overflow-y: scroll;
+    width: 100%;
 }
 
 .search-results table.fixedHeader {
@@ -532,8 +545,8 @@ div.inquiry table.datatable th {
     margin-bottom: 0;
 }
 
-.doc .main-panel .tab-container table.notes tr.new-note td {
-    margin-bottom: 15px;
+.doc .main-panel .tab-container table.items tr.new-note td {
+    padding-bottom: 30px;
 }
 
 .doc .main-panel .tab-container table.standard tr.header {
@@ -546,12 +559,12 @@ div.inquiry table.datatable th {
     padding-bottom: 2px;
 }
 
-.doc .main-panel .tab-container table.notes tr.header th {
-    border-top: 1px solid #C3C3C3;
+.doc .main-panel .tab-container table.items tr.header th {
     padding-top: 15px;
 }
 
-.doc .main-panel .tab-container table.notes td:first-child {
+.doc .main-panel .tab-container table.items td:first-child,
+.doc .main-panel .tab-container table.items th:first-child {
     font-weight: 700;
     min-width: 20px;
     text-align: right;
@@ -566,8 +579,12 @@ div.inquiry table.datatable th {
     width: 30%;
 }
 
-.doc .main-panel .tab-container table.standard tr:nth-child(even) {
+.doc .main-panel .tab-container table.standard tr.highlight {
     background-color: #F9F9F9;
+}
+
+.doc .main-panel .tab-container table.standard td.total-line {
+    border-top: 1px dashed #cccccc;
 }
 
 .doc .main-panel .tab-container table.adhoc td:first-child,

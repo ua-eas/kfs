@@ -52,7 +52,7 @@
     <c:set var="notesAttributes" value="${DataDictionary.Note.attributes}" />
     <div class="tab-container" id="G4">
         <jsp:doBody/>
-        <table class="datatable notes standard" summary="view/add notes">
+        <table class="datatable items standard" summary="view/add notes">
             <tbody>
                 <c:if test="${ ((not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)) || kfunc:canAddNoteAttachment(KualiForm.document)}" >
                     <tr class="new-note">
@@ -131,7 +131,7 @@
                     <c:set var="authorUniversalIdentifier" value = "${note.authorUniversalIdentifier}" />
 
                     <c:if test="${kfunc:canViewNoteAttachment(KualiForm.document, null)}" >
-                        <tr>
+                        <tr class="${status.index % 2 == 0 ? "highlight" : ""}">
                             <td>${status.index + 1}</td>
                             <td class="datacell">
                                 <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].notePostedTimestamp"/>
