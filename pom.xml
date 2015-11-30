@@ -110,6 +110,7 @@
     <barcode4j.version>2.1</barcode4j.version>
     <cf.version>1.0.0-SNAPSHOT</cf.version>
     <commons-cli.version>1.0</commons-cli.version>
+    <commons-collections.version>3.2.2</commons-collections.version>
     <commons-digester.version>2.0</commons-digester.version>
     <commons.net.ftp.version>2.0</commons.net.ftp.version>
     <commons-transaction.version>1.2</commons-transaction.version>
@@ -234,9 +235,12 @@
                     <exclude>ojb</exclude>
                     <exclude>commons-logging</exclude>
                     <exclude>org.slf4j</exclude>
+                    <exclude>commons-collections:commons-collections</exclude>
+
                   </excludes>
                   <includes>
                     <include>org.slf4j:*:${slf4j.version}</include>
+                    <include>commons-collections:commons-collections:${commons-collections.version}</include>
                   </includes>
                 </bannedDependencies>
               </rules>
@@ -988,6 +992,11 @@
           <artifactId>log4j</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>${commons-collections.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp.jstl</groupId>
