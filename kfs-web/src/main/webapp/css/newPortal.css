@@ -271,7 +271,8 @@ nav ul.nav li {
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,.15);
 }
 
-#sidebar.collapsed ul>li.list-item {
+#sidebar.collapsed ul>li.list-item,
+#sidebar.collapsed .refresh {
     opacity: 0;
 }
 
@@ -311,6 +312,8 @@ nav ul.nav li {
     text-align: center;
     margin-top: 25px;
     margin-bottom: 25px;
+    transition: opacity 500ms;
+    opacity: 1;
 }
 
 #sidebar .refresh a {
