@@ -1,3 +1,4 @@
+import React from 'react/addons';
 import Link from './link.jsx';
 import UserPrefs from './sys/user_preferences.js';
 import KfsUtils from './sys/utils.js';
@@ -6,53 +7,116 @@ let animationTime = 250
 
 var Sidebar = React.createClass({
     getInitialState() {
-        return {institutionPreferences: {}, userPreferences: {}, expandedLinkGroup: "", checkedLinkFilters: ['activities', 'reference', 'administration']}
+        let userPreferences = {};
+        userPreferences.checkedLinkFilters = ["activities", "reference", "administration"];
+        return { principalName: "",
+            institutionPreferences: {},
+            userPreferences: userPreferences,
+            expandedLinkGroup: "",
+            expandedSearch: false,
+            search: '',
+            searchResults: undefined
+        };
     },
     componentWillMount() {
-        let institutionPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution"
-        $.ajax({
-            url: institutionPath,
-            dataType: 'json',
-            type: 'GET',
-            success: function(preferences) {
-                this.setState({institutionPreferences: preferences});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(status, err.toString());
-            }.bind(this)
+        let thisComponent = this
+        let found = false
+
+        UserPrefs.getPrincipalName(function(principalName) {
+            thisComponent.setState({principalName: principalName})
+            let preferencesString = localStorage.getItem("institutionPreferences")
+            if ( preferencesString != null ) {
+                let sessionId = KfsUtils.getKualiSessionId()
+                let prefs = JSON.parse(preferencesString)
+                if ( (prefs.sessionId == sessionId) && (prefs.principalName == principalName) ) {
+                    found = true
+                    thisComponent.setState({institutionPreferences: prefs})
+                } else {
+                    localStorage.removeItem("institutionPreferences")
+                }
+            }
+
+            if ( ! found ) {
+                let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName
+                $.ajax({
+                    url: institutionLinksPath,
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function (preferences) {
+                        thisComponent.setState({institutionPreferences: preferences});
+                        preferences.sessionId = KfsUtils.getKualiSessionId()
+                        localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                    }.bind(this),
+                    error: function (xhr, status, err) {
+                        console.error(status, err.toString());
+                    }.bind(this)
+                })
+            }
+        },function() {
+            console.error("Error retrieving principalName")
         })
 
-        let thisComponent = this;
         UserPrefs.getUserPreferences(function (userPreferences) {
             thisComponent.setState({userPreferences: userPreferences});
         }, function (error) {
             console.log("error getting preferences: " + error);
         });
     },
-    modifyLinkFilter(type) {
-        let newChecked = this.state.checkedLinkFilters
-        let index = newChecked.indexOf(type)
-        if (index === -1) {
-            newChecked.push(type)
-        } else {
-            newChecked.splice(index, 1)
+    componentDidUpdate() {
+        let newClass;
+        let activePanel = $('li.panel.active>.sublinks');
+
+        if (activePanel.offset()) {
+            let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            let panelHeight = activePanel.outerHeight();
+            let distanceFromTop = activePanel.offset().top - window.pageYOffset;
+            let distanceFromBottom = viewportHeight - (distanceFromTop + panelHeight);
+            let distanceFromBottomOfPage = $('body').height() - (activePanel.offset().top + panelHeight);
+            if (distanceFromTop - panelHeight / 2 > 60 && distanceFromBottom + panelHeight / 2 > 0 && distanceFromBottomOfPage + panelHeight / 2 > 60) {
+                newClass = 'flowCenter';
+            } else if ((distanceFromBottom < 60 && distanceFromTop - panelHeight > 60) || distanceFromBottomOfPage < 60) {
+                newClass = 'flowUp';
+            }
+
+            if (newClass) {
+                activePanel.addClass(newClass);
+                if (newClass === 'flowCenter') {
+                    let activeGroupAdjust = $('li.panel.active').outerHeight() / 2;
+                    activePanel.css('bottom', '-' + (panelHeight / 2 - activeGroupAdjust) + 'px');
+                }
+            }
         }
-        this.setState({checkedLinkFilters: newChecked})
+    },
+    modifyLinkFilter(type) {
+        let userPreferences = this.state.userPreferences;
+        let newChecked = userPreferences.checkedLinkFilters;
+        let index = newChecked.indexOf(type);
+        if (index === -1) {
+            newChecked.push(type);
+        } else {
+            newChecked.splice(index, 1);
+        }
+        this.setState({userPreferences: userPreferences});
+        UserPrefs.putUserPreferences(userPreferences);
     },
     toggleLinkGroup(label) {
         if (this.state.expandedLinkGroup === label) {
-            this.setState({expandedLinkGroup: ""})
-            $('#content-overlay').removeClass('visible')
-            $('html').off('click','**')
+            this.setState({expandedLinkGroup: ""});
+            $('li.panel.active>.sublinks').removeClass('flowUp flowCenter');
+            $('li.panel.active>.sublinks').css('bottom', '');
+            $('#content-overlay').removeClass('visible');
+            $('html').off('click','**');
         } else {
-            this.setState({expandedLinkGroup: label})
-            $('#content-overlay').addClass('visible')
-            let sidebar = this
+            this.setState({expandedLinkGroup: label});
+            $('#content-overlay').addClass('visible');
+            let sidebar = this;
             $('html').on('click',function(event) {
                 if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
-                    $('li.panel.active').removeClass('active')
-                    $('#content-overlay').removeClass('visible')
-                    sidebar.setState({expandedLinkGroup: ""})
+                    $('li.panel.active>.sublinks').removeClass('flowUp flowCenter');
+                    $('li.panel.active>.sublinks').css('bottom', '');
+                    $('li.panel.active').removeClass('active');
+                    $('#content-overlay').removeClass('visible');
+                    sidebar.setState({expandedLinkGroup: ""});
                 }
             });
         }
@@ -69,9 +133,93 @@ var Sidebar = React.createClass({
 
         UserPrefs.putUserPreferences(userPreferences);
     },
+    refreshLinks() {
+        let thisComponent = this
+        let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + thisComponent.state.principalName
+
+        $('.cover').show()
+        $('.sidebar-waiting').css('top',($(window).height() / 2) - 20).show()
+
+        $.ajax({
+            url: institutionLinksPath,
+            dataType: 'json',
+            type: 'GET',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('cache-control', 'must-revalidate')
+            },
+            success: function (preferences) {
+                thisComponent.setState({institutionPreferences: preferences});
+                preferences.sessionId = KfsUtils.getKualiSessionId();
+                localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                $('.cover').hide();
+                $('.sidebar-waiting').hide()
+            }.bind(this),
+            error: function (xhr, status, err) {
+                $('#sidebar').removeClass('sidebar-dim');
+                console.error(status, err.toString())
+            }.bind(this)
+        })
+    },
+    autocompleteSearch(event) {
+        let searchString = event.target.value;
+        let expandedSearch = searchString.length > 2;
+
+        let newState = {'search': searchString, 'expandedSearch': expandedSearch, expandedLinkGroup: ""};
+
+        if (!expandedSearch) {
+            $('#content-overlay').removeClass('visible');
+            $('html').off('click','**')
+        } else {
+            $('#content-overlay').addClass('visible');
+            $('html').on('click', event => {
+                if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
+                    $('li.panel.active').removeClass('active');
+                    $('#content-overlay').removeClass('visible');
+                    this.setState({expandedSearch: false});
+                }
+            });
+
+            let results = {};
+            let lowerSearchString = searchString.toLowerCase();
+            this.state.institutionPreferences.linkGroups.forEach(linkGroup => {
+                let groupResults = [];
+                let groupLinks = linkGroup.links;
+                for (let groupLinkType of Object.keys(groupLinks)) {
+                    let linksOfType = groupLinks[groupLinkType];
+                    let filteredLinks = linksOfType.filter(link => {
+                        return link.label.toLowerCase().indexOf(lowerSearchString) != -1;
+                    }).map(link => {
+                        let newLink = $.extend(true, {}, link);
+                        let searchPattern = new RegExp('('+searchString+')', 'ig');
+                        let splitLabel = newLink.label.split(searchPattern);
+                        newLink.label = splitLabel.map(piece => piece.toLowerCase() === lowerSearchString ? <strong>{piece}</strong> : piece);
+                        return newLink;
+                    });
+                    groupResults = groupResults.concat(filteredLinks);
+                }
+                if (groupResults.length > 0) {
+                    results[linkGroup.label] = groupResults;
+                }
+            });
+
+            newState.searchResults = results;
+        }
+
+        this.setState(newState);
+    },
+    clearSearch() {
+        this.refs.searchBox.getDOMNode().focus();
+        this.setState({'search': '', 'searchResults': undefined});
+    },
+    closeSearch() {
+        $('li.search.panel.active').removeClass('active');
+        $('#content-overlay').removeClass('visible');
+        $('html').off('click','**');
+        this.setState({expandedSearch: false});
+    },
     render() {
-        let rootPath = KfsUtils.getUrlPathPrefix()
-        let linkGroups = []
+        let rootPath = KfsUtils.getUrlPathPrefix();
+        let linkGroups = [];
         if (this.state.institutionPreferences.linkGroups) {
             let groups = this.state.institutionPreferences.linkGroups
             for (let i = 0; i < groups.length; i++) {
@@ -80,7 +228,7 @@ var Sidebar = React.createClass({
                         group={groups[i]}
                         handleClick={this.toggleLinkGroup}
                         expandedLinkGroup={this.state.expandedLinkGroup}
-                        checkedLinkFilters={this.state.checkedLinkFilters}/>
+                        checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}/>
                 )
             }
         }
@@ -91,66 +239,106 @@ var Sidebar = React.createClass({
             $('#sidebar').addClass('collapsed');
         }
 
+        let navSearchClass = "search list-item panel";
+        if (this.state.expandedSearch) {
+            navSearchClass += " active";
+        }
+
+        let searchResultsClass;
+        let searchResults = <div className="sublinks collapse">No results found</div>;
+        if (this.state.searchResults && Object.keys(this.state.searchResults).length > 0) {
+            let finalLinks = [];
+            let groupCount = 0;
+            for (let resultGroup of Object.keys(this.state.searchResults)) {
+                let displayLinks = convertLinks(this.state.searchResults[resultGroup], 'navSearch' + resultGroup);
+                finalLinks = finalLinks.concat(addHeading(displayLinks, resultGroup));
+                groupCount++;
+            }
+            searchResults = finalLinks;
+
+            if (groupCount > 0) {
+                groupCount--
+            }
+
+            searchResults.push(<button type="button" className="close" onClick={this.closeSearch}><span aria-hidden="true">&times;</span></button>);
+
+            searchResultsClass = determineSublinkClass(finalLinks, groupCount)
+        }
+
         return (
             <div>
+                <div className="cover"></div>
+                <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
                 <ul id="linkgroups" className="nav list-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
-                    <li className="list-item"><LinkFilter checkedLinkFilters={this.state.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
+                    <li className={navSearchClass}>
+                        <input type="search" placeholder="Search" onChange={this.autocompleteSearch} value={this.state.search} ref="searchBox" onFocus={this.autocompleteSearch} />
+                        <span className="glyphicon glyphicon-remove" onClick={this.clearSearch}></span>
+                        <div className={searchResultsClass}>
+                            {searchResults}
+                        </div>
+                    </li>
+                    <li className="list-item"><LinkFilter checkedLinkFilters={this.state.userPreferences.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                     <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                     {linkGroups}
                 </ul>
+                <div className="refresh">
+                    Missing something? <a href="#d" onClick={this.refreshLinks}><span> Refresh Menu </span></a> to make sure your permissions are up to date.
+                </div>
             </div>
         )
     }
 });
 
-var filterLinks = function(links, type) {
-    return links.filter(function(link) {
-        return link.type === type
-    }).map((link, i) => {
-        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item"/>
+
+var convertLinks = function(links, type) {
+    if (!links) {
+        return "";
+    }
+    return links.map((link, i) => {
+        let target = link.linkType === 'kfs' ? null : '_blank';
+        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item" target={target}/>
     })
 }
 
 var buildDisplayLinks = function(links, type, checkedLinkFilters) {
-    let displayLinks = []
-    if (checkedLinkFilters.indexOf(type) != -1) {
-        displayLinks = filterLinks(links, type)
+    let displayLinks = [];
+    if (links && links[type] && checkedLinkFilters && checkedLinkFilters.indexOf(type) != -1) {
+        displayLinks = convertLinks(links[type], type);
     }
-    return displayLinks
+    return displayLinks;
 }
 
 var addHeading = function(links, type) {
-    let newLinks = []
+    let newLinks = [];
     if (links.length > 0) {
-        newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links)
+        newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links);
     }
-    return newLinks
+    return newLinks;
 }
 
 var determineSublinkClass = function(links, headingCount) {
-    let sublinksClass = "sublinks collapse"
+    let sublinksClass = "sublinks collapse";
     if (links.length > (36 - headingCount)) {
-        sublinksClass += " col-3"
+        sublinksClass += " col-3";
     } else if (links.length > (18 - headingCount)) {
-        sublinksClass += " col-2"
+        sublinksClass += " col-2";
     }
-    return sublinksClass
+    return sublinksClass;
 }
 
 var determinePanelClassName = function(expandedLinkGroup, label) {
-    let panelClassName = "panel list-item"
+    let panelClassName = "panel list-item";
     if (expandedLinkGroup === label) {
-        panelClassName += " active"
+        panelClassName += " active";
     }
-    return panelClassName
+    return panelClassName;
 }
 
 var LinkGroup = React.createClass({
     render() {
         let label = this.props.group.label
-        let id = label.toLowerCase().replace(/\s+/g, "-")
-        id = id.replace('&', 'and')
+        let id = KfsUtils.buildKeyFromLabel(label)
 
         let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters)
         let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters)
@@ -188,9 +376,9 @@ var LinkGroup = React.createClass({
 
 var LinkFilter = React.createClass({
     render() {
-        let activitiesChecked = this.props.checkedLinkFilters.indexOf('activities') != -1
-        let referenceChecked = this.props.checkedLinkFilters.indexOf('reference') != -1
-        let administrationChecked = this.props.checkedLinkFilters.indexOf('administration') != -1
+        let activitiesChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('activities') != -1
+        let referenceChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('reference') != -1
+        let administrationChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('administration') != -1
         return (
             <div id="linkFilter">
                 <input onChange={this.props.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label htmlFor="activities">Activities</label>

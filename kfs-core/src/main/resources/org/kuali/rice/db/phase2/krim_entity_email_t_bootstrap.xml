@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet context="bootstrap" author="kfs" id="ricedata00064">
+    <insert tableName="krim_entity_email_t">
+      <column name="ENTITY_EMAIL_ID"><![CDATA[1200]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04066110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ENTITY_ID"><![CDATA[1100]]></column>
+      <column name="ENT_TYP_CD"><![CDATA[PERSON]]></column>
+      <column name="EMAIL_TYP_CD"><![CDATA[WRK]]></column>
+      <column name="EMAIL_ADDR"><![CDATA[test@email.edu]]></column>
+      <column name="DFLT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:55.0"/>
+    </insert>
+    <insert tableName="krim_entity_email_t">
+      <column name="ENTITY_EMAIL_ID"><![CDATA[1231]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04256110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="ENTITY_ID"><![CDATA[1131]]></column>
+      <column name="ENT_TYP_CD"><![CDATA[PERSON]]></column>
+      <column name="EMAIL_TYP_CD"><![CDATA[WRK]]></column>
+      <column name="EMAIL_ADDR"><![CDATA[test@email.edu]]></column>
+      <column name="DFLT_IND"><![CDATA[Y]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:00.0"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

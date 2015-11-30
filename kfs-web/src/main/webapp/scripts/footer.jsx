@@ -1,3 +1,5 @@
+import React from 'react/addons';
+
 var Footer = React.createClass({
     render() {
         var curYear = new Date().getFullYear();

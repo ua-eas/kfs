@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <changeSet context="bootstrap" author="kfs" id="ricedata00090">
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[1]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A16110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[WorkflowAdmin]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+      <column name="GRP_DESC"><![CDATA[WorkflowAdmin]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:21.0"/>
+    </insert>
+    <insert tableName="krim_grp_t">
+      <column name="GRP_ID"><![CDATA[2000]]></column>
+      <column name="OBJ_ID"><![CDATA[5B97C50B04A26110E0404F8189D85213]]></column>
+      <column name="VER_NBR"><![CDATA[1]]></column>
+      <column name="GRP_NM"><![CDATA[NotificationAdmin]]></column>
+      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
+      <column name="GRP_DESC"><![CDATA[Notification system admin group for automation.]]></column>
+      <column name="KIM_TYP_ID"><![CDATA[1]]></column>
+      <column name="ACTV_IND"><![CDATA[Y]]></column>
+      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:21.0"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

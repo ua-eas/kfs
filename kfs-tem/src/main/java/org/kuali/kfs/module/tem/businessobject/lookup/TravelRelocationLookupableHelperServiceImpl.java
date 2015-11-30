@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.Properties;
-
-import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
-import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.module.tem.document.TravelRelocationDocument;
+import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.Properties;
 
 @SuppressWarnings("deprecation")
 public class TravelRelocationLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl{
@@ -38,7 +38,7 @@ public class TravelRelocationLookupableHelperServiceImpl extends KualiLookupable
 
         String createUrl = UrlFactory.parameterizeUrl(KRADConstants.MAINTENANCE_ACTION, createParameters);
 
-        menuBar = "<a href=\"" + createUrl + "\"><img src=\"images/tinybutton-createnew.gif\" alt=\"refresh\"></a>&nbsp;" + menuBar;
+        menuBar = "<a href=\"" + createUrl + "\"><span class=\"tinybutton btn btn-default\">Create New</span></a>&nbsp;" + menuBar;
 
         return menuBar;
     }

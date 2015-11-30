@@ -32,6 +32,10 @@ public class KFSTestStartup {
 
     public static void initializeKfsTestContext() {
         long startInit = System.currentTimeMillis();
+
+        LOG.info( "Updating relational database." );
+        SpringContext.updateDatabase();
+
         LOG.info("Initializing Kuali Rice Application...");
 
         String bootstrapSpringBeans = "classpath:kfs-startup-test.xml";

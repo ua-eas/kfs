@@ -1648,7 +1648,7 @@
         </reference-descriptor>
 	</class-descriptor>
 	
-	<class-descriptor class="org.kuali.kfs.module.tem.document.TemCTSCardApplicationDocument" table="TEM_CTS_CARD_APP_DOC_T">
+	<class-descriptor class="org.kuali.kfs.module.tem.document.CTSCardApplicationDocument" table="TEM_CTS_CARD_APP_DOC_T">
         <field-descriptor name="documentNumber" primarykey="true" column="FDOC_NBR" jdbc-type="VARCHAR"/>
         <field-descriptor name="temProfileId" column="TEM_PROFILE_ID" jdbc-type="INTEGER"/>
         <field-descriptor name="bankAppliedDate" column="BNK_APPL_DT" jdbc-type="DATE"/> 

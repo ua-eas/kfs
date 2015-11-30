@@ -20,8 +20,7 @@
 
 <c:set var="award" value="${DataDictionary.Award.attributes}" />
 <c:set var="agency" value="${DataDictionary.Agency.attributes}" />
-<c:set var="organization"
-	value="${DataDictionary.OrganizationAccountingDefault.attributes}" />
+<c:set var="organization" value="${DataDictionary.OrganizationAccountingDefault.attributes}" />
 
 <kul:page showDocumentInfo="false"
 	headerTitle="Federal Financial Report Generation"
@@ -29,94 +28,83 @@
 	transactionalDocument="false" htmlFormAction="arFederalFinancialReport"
 	errorKey="foo">
 
-	<table cellpadding="0" cellspacing="0" class="datatable-80"
-		summary="Federal Financial Report Generation"">
+    <div id="lookup">
+        <table cellpadding="0" cellspacing="0" class="datatable-80" align="center" summary="Federal Financial Report Generation"">
+            <tr>
+                <th align=right valign=middle class="grid">
+                    <label for="federalForm">Federal Form:</label>
+                </th>
+                <td>
+                    <html-el:select property="federalForm">
+                        <html-el:option value=""></html-el:option>
+                        <html-el:option value="425">SF425</html-el:option>
+                        <html-el:option value="425A">SF425A</html-el:option>
+                    </html-el:select>
+                </td>
+            </tr>
 
-		<tr>
-			<th align=right valign=middle class="grid">
-				<div align="right">Federal Form:</div>
-			</th>
-			<td align=left valign=middle class="grid"><html-el:select
-					property="federalForm">
-					<html-el:option value=""></html-el:option>
-					<html-el:option value="425">SF425</html-el:option>
-					<html-el:option value="425A">SF425A</html-el:option>
-				</html-el:select>
-			</td>
-		</tr>
-
-		<tr>
-			<th align=right valign=middle class="grid" style="width: 25%;">
-				<div align="right">
-					<kul:htmlAttributeLabel attributeEntry="${award.proposalNumber}"
-						readOnly="true" />
-				</div></th>
-			<td align=left valign=middle class="grid" style="width: 25%;"><kul:htmlControlAttribute
-					attributeEntry="${award.proposalNumber}" property="proposalNumber" />
-				<kul:lookup
-					boClassName="org.kuali.kfs.module.cg.businessobject.Award" /></td>
-
-		</tr>
-		<tr>
-			<th align=right valign=middle class="grid" style="width: 25%;">
-				<div align="right">
-					<kul:htmlAttributeLabel attributeEntry="${agency.agencyNumber}"
-						readOnly="true" />
-				</div></th>
-			<td align=left valign=middle class="grid" style="width: 25%;"><kul:htmlControlAttribute
-					attributeEntry="${agency.agencyNumber}" property="agencyNumber" />
-				<kul:lookup
-					boClassName="org.kuali.kfs.module.cg.businessobject.Agency" /></td>
-
-		</tr>
-		<tr>
-			<th align=right valign=middle class="grid">
-				<div align="right">Print invoices for Calendar Year:</div></th>
-			<td align=left valign=middle class="grid"><kul:htmlControlAttribute
-					attributeEntry="${organization.universityFiscalYear}"
-					property="fiscalYear" /></td>
-
-		</tr>
-		<tr>
-			<th align=right valign=middle class="grid">
-				<div align="right">Reporting Period:</div>
-			</th>
-			<td align=left valign=middle class="grid"><html-el:select
-					property="reportingPeriod">
-					<html-el:option value=""></html-el:option>
-					<html-el:option value="q1">Quarter 1</html-el:option>
-					<html-el:option value="q2">Quarter 2</html-el:option>
-					<html-el:option value="q3">Quarter 3</html-el:option>
-					<html-el:option value="q4">Quarter 4</html-el:option>
-					<html-el:option value="sa">Semi Annually</html-el:option>
-					<html-el:option value="F">Final</html-el:option>
-				</html-el:select>
-			</td>
-		</tr>
-
-	</table>
-
-
-	<c:set var="extraButtons" value="${KualiForm.extraButtons}" />
-
-
-	<div id="globalbuttons" class="globalbuttons">
-
-		<c:if test="${!empty extraButtons}">
-			<c:forEach items="${extraButtons}" var="extraButton">
-				<html:image src="${extraButton.extraButtonSource}"
-					styleClass="globalbuttons"
-					property="${extraButton.extraButtonProperty}"
-					title="${extraButton.extraButtonAltText}"
-					alt="${extraButton.extraButtonAltText}" />
-			</c:forEach>
-		</c:if>
-	</div>
+            <tr>
+                <th>
+                    <label>
+                        <kul:htmlAttributeLabel attributeEntry="${award.proposalNumber}" readOnly="true" />
+                    </label>
+                </th>
+                <td>
+                    <kul:htmlControlAttribute attributeEntry="${award.proposalNumber}" property="proposalNumber" />
+                    <kul:lookup boClassName="org.kuali.kfs.module.cg.businessobject.Award" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label>
+                        <kul:htmlAttributeLabel attributeEntry="${agency.agencyNumber}" readOnly="true" />
+                    </label>
+                </th>
+                <td>
+                    <kul:htmlControlAttribute attributeEntry="${agency.agencyNumber}" property="agencyNumber" />
+                    <kul:lookup boClassName="org.kuali.kfs.module.cg.businessobject.Agency" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="fiscalYear">Print invoices for Calendar Year:</label>
+                </th>
+                <td>
+                    <kul:htmlControlAttribute attributeEntry="${organization.universityFiscalYear}" property="fiscalYear" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="reportingPeriod">Reporting Period:</label>
+                </th>
+                <td>
+                    <html-el:select property="reportingPeriod">
+                        <html-el:option value=""></html-el:option>
+                        <html-el:option value="q1">Quarter 1</html-el:option>
+                        <html-el:option value="q2">Quarter 2</html-el:option>
+                        <html-el:option value="q3">Quarter 3</html-el:option>
+                        <html-el:option value="q4">Quarter 4</html-el:option>
+                        <html-el:option value="sa">Semi Annually</html-el:option>
+                        <html-el:option value="F">Final</html-el:option>
+                    </html-el:select>
+                </td>
+            </tr>
+            <tr align="center">
+                <td height="30" colspan="4"  class="infoline">
+                    <c:set var="extraButtons" value="${KualiForm.extraButtons}"/>
+                    <c:if test="${!empty extraButtons}">
+                        <c:forEach items="${extraButtons}" var="extraButton">
+                            <html:submit styleClass="tinybutton btn btn-default" property="${extraButton.extraButtonProperty}" title="${extraButton.extraButtonAltText}" alt="${extraButton.extraButtonAltText}" value="${extraButton.extraButtonAltText}"/>
+                        </c:forEach>
+                    </c:if>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 	<div>
 		<c:if test="${!empty KualiForm.error }">
- 			${KualiForm.error }	
-      </c:if>
+ 			${KualiForm.error}
+        </c:if>
 	</div>
-
 </kul:page>

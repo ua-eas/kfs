@@ -266,49 +266,6 @@ public class SchedulerServiceImplTest extends KualiTestBase {
         assertEquals("job status not correct", SchedulerService.CANCELLED_JOB_STATUS_CODE, job.getStatus());
     }
 
-    public void test2ndExecutionOfJobAfterJobInterrupt() throws Exception {
-        JobDescriptor jd = SpringContext.getBean(JobDescriptor.class, "scrubberJob");
-        SchedulerService s = SpringContext.getBean(SchedulerService.class);
-        // need to ensure that the job does not already have a status
-//        s.updateStatus(jd.getJobDetail(), null);
-        // this will put scrubberJob into a Cancelled state
-
-        // We need to give this next part 30 seconds - scheduling this for a future execution
-        Date secondRunTime = new Date( System.currentTimeMillis() + 30000L );
-        scheduleJob(SchedulerService.SCHEDULED_GROUP, "scrubberJob", 0, 0, secondRunTime, null, null);
-
-        testJobInterrupt();
-
-        // Ensure it is properly cancelled
-        BatchJobStatus job = s.getJob(SchedulerService.SCHEDULED_GROUP, "scrubberJob");
-        assertEquals("job status not correct", SchedulerService.CANCELLED_JOB_STATUS_CODE, job.getStatus());
-
-        // now, wait until the next run is supposed to start
-        if ( secondRunTime.getTime() - System.currentTimeMillis() > 0 ) {
-            Thread.sleep( secondRunTime.getTime() - System.currentTimeMillis() );
-        }
-        // now, we try to run the job again, previously, this would result in the job being in a Cancelled state and refusing to run again
-        System.err.println( "Attempting to run the job a 2nd time" );
-        for (BatchJobStatus b : s.getJobs() ) {
-            if ( b.getName().equals( "scrubberJob" ) ) {
-                System.err.println(b);
-            }
-        }
-        System.err.println( "Waiting for it to enter running status" );
-        // provide an "out" in case things fail badly
-        int waitCount = 0;
-        while (!job.isRunning() && waitCount < 100) {
-            Thread.sleep(50);
-            waitCount++;
-        }
-        job = s.getJob(SchedulerService.SCHEDULED_GROUP, "scrubberJob");
-        if ( StringUtils.equals( SchedulerService.CANCELLED_JOB_STATUS_CODE, job.getStatus() ) ) {
-            fail( "Job should not have been in cancelled status");
-        }
-        assertEquals("job status not correct", SchedulerService.RUNNING_JOB_STATUS_CODE, job.getStatus());
-
-    }
-
     /**
      * Verify that dropDependenciesNotScheduled drops unscheduled dependencies. It's worthwhile to note that spring-sys-test-xml was altered to include a fake
      * dependency of purgeReportsAndStagingJob on dailyEmailJob. This fake dependency was added to have a scheduled job dependend on an unscheduled one so that

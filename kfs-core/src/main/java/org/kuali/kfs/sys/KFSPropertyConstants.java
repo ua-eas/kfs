@@ -1115,6 +1115,7 @@ public class KFSPropertyConstants {
     public static final String SOURCE_ACCOUNTING_LINES = "sourceAccountingLines";
     public static final String SOURCE_ACCOUNTING_LINES_SECTION_TITLE = "sourceAccountingLinesSectionTitle";
     public static final String SOURCE_CODE = "sourceCode";
+    public static final String SOURCE_OF_FUNDS_TYPE_CODE = "sourceOfFundsTypeCode";
     public static final String SOURCE_TOTAL = "sourceTotal";
     public static final String SPSI_USER = "spsiUser";
     public static final String STATE = "state";
@@ -1296,7 +1297,42 @@ public class KFSPropertyConstants {
     public static final String APPLICATION_DOCUMENT_STATUS = "applicationDocumentStatus";
     public static final String SALES_TAX = "salesTax";
     public static final String INVOICE_TEMPLATE_CODE = "invoiceTemplateCode";
+    public static final String MEMORY_MONITOR_THRESHOLD_KEY = "memory.monitor.threshold";
+    public static final String USE_QUARTZ_SCHEDULING_KEY = "use.quartz.scheduling";
+    public static final String DIRECTORIES_TO_CREATE_PATH = "directoriesToCreateOnStartup";
+    public static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
+    public static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
+    public static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
+    public static final String UPDATE_WORKFLOW_ON_STARTUP ="updateWorkflowOnStartup";
 
+    public static final String HAS_DOCUMENTATION = "hasDocumentation";
+    public static final String CHOSEN_ELECTRONIC_PAYMENT_CLAIMING_DOCUMENT_CODE = "chosenElectronicPaymentClaimingDocumentCode";
+    public static final String CLAIMS = "claims";
+    public static final String PAYMENT_CLAIM_STATUS_CODE = "paymentClaimStatusCode";
+    public static final String RANGE_LOWER_BOUND_KEY_PREFIX = "rangeLowerBoundKeyPrefix_";
+    public static final String GENERATING_ACCOUNTING_LINE = "generatingAccountingLine";
+    public static final String GENERATING_ADVANCE_DEPOSIT_DETAIL = "generatingAdvanceDepositDetail";
+    public static final String FINANCIAL_DOCUMENT_ADVANCE_DEPOSIT_DATE = "financialDocumentAdvanceDepositDate";
+    public static final String PAYMENT_CLAIM_AMOUNT_FROM = "amountFrom";
+    public static final String PAYMENT_CLAIM_AMOUNT_TO = "amountTo";
+    public static final String ADVANCE_DEPOSITS = "advanceDeposits";
+    public static final String LINK_GROUPS = "linkGroups";
+    public static final String MENU = "menu";
+    public static final String PERMISSION = "permission";
+    public static final String ACTION_LIST_URL = "actionListUrl";
+    public static final String SIGNOUT_URL = "signoutUrl";
+    public static final String DOC_SEARCH_URL = "docSearchUrl";
+    public static final String LABEL = "label";
+    public static final String LINK = "link";
+    public static final String LINKS = "links";
+    public static final String BUSINESS_OBJECT_CLASS = "businessObjectClass";
+    public static final String LINK_TYPE = "linkType";
+    public static final String TEMPLATE_NAMESPACE = "templateNamespace";
+    public static final String TEMPLATE_NAME = "templateName";
+    public static final String DETAILS = "details";
+    public static final String INSTITUTION_ID = "institutionId";
+    public static final String SIDEBAR_OUT = "sidebarOut";
+    public static final String CHECKED_LINK_FILTERS = "checkedLinkFilters";
 
     public static class SubAccountImport {
         public static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";

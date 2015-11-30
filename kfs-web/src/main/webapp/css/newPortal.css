@@ -115,6 +115,7 @@ header.navbar .navbar-brand .institution-name {
     margin-right: 7px;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
     padding: 0 5px;
+    width: inherit;
 }
 
 #test-header .test-info .column .btn {
@@ -134,6 +135,7 @@ header.navbar .navbar-brand .institution-name {
     -ms-flex: 1;
     flex: 1;
     width: 100%;
+    min-height: 1000px;
 }
 
 .body.test-env {
@@ -212,6 +214,18 @@ nav ul.nav li {
     order: -1;
 }
 
+.cover {
+    display: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index:1 !important;
+    background-color:black;
+    opacity: 0.40;
+}
+
 #sidebar.collapsed {
     -webkit-box-flex: 0 0 25px;
     -moz-box-flex: 0 0 25px;
@@ -239,6 +253,24 @@ nav ul.nav li {
     opacity: 1;
 }
 
+#sidebar ul>li.search>span {
+    margin-left: -45px;
+    color: #BCBCBC;
+    cursor: pointer;
+}
+
+#sidebar ul>li.search input {
+    margin: 15px 19px;
+    padding: 7px;
+    border-radius: 2px;
+    height: 36px;
+    width: 280px;
+    border: 1px solid #CCCCCC;
+    font-size: 16px;
+    color: #767676;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,.15);
+}
+
 #sidebar.collapsed ul>li.list-item {
     opacity: 0;
 }
@@ -251,6 +283,40 @@ nav ul.nav li {
 
 #sidebar.collapsed ul>li:first-child {
     padding: 13px 3px 13px 4px;
+}
+
+.sidebar-waiting {
+    position: fixed;
+    left: 140px;
+    z-index: 1001;
+    display: none;
+}
+
+.waiting-icon {
+    font-size: 40px;
+    color: #aaaaaa;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin
+{
+    from { transform: rotate(0deg);   opacity: 0.2; }
+    50%  { transform: rotate(180deg); opacity: 1.0; }
+    to   { transform: rotate(360deg); opacity: 0.2; }
+}
+
+
+#sidebar .refresh {
+    color: #aaaaaa;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#sidebar .refresh a {
+    color: #aaaaaa;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 #menu-toggle {
@@ -336,6 +402,8 @@ nav ul.nav li {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     max-height: 550px;
+    min-height: 75px;
+    overflow-x: auto;
 }
 
 #sidebar .nav li .sublinks.col-3 {
@@ -370,6 +438,18 @@ nav ul.nav li {
 
 #sidebar .nav li.panel.active .sublinks {
     display: block;
+}
+
+#sidebar .nav li.panel.active .sublinks.flowUp {
+    bottom: 0;
+    top: inherit;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 3px;
+}
+
+#sidebar .nav li.panel.active .sublinks.flowCenter {
+    top: inherit;
+    border-top-left-radius: 3px;
 }
 
 #sidebar .nav li .sublinks a,
@@ -497,6 +577,7 @@ footer {
     font-weight: 700;
 }
 
+.infoline a:not(:last-child),
 .btn:not(:last-child) {
     margin-right: 7px;
 }
@@ -508,40 +589,35 @@ footer {
 .btn {
     padding: 5px 15px 7px 15px;
     border: none;
-}
-
-.btn.disabled {
-    color: #bbb;
-    background-color: #eee;
-    box-shadow: none;
-    padding-top: 6px;
-    padding-bottom: 6px;
-}
-
-.btn-default {
-    background-color: #e7e7e7;
     box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.2);
+}
+
+.btn-default:hover {
+    border: none;
+}
+
+.btn:focus,
+.btn-default:active {
+    outline: none !important;
+}
+
+.btn-default,
+.btn-default:focus {
+    background-color: #e7e7e7;
     color: #333;
 }
 
 .btn-default:hover {
     background-color: #efefef;
-    border: none;
 }
 
 .btn-default:active {
     background-color: #e3e3e3;
-    outline: none !important;
 }
 
-.btn-default:focus {
-    background-color: #e7e7e7;
-    outline: none;
-}
-
-.btn-primary {
+.btn-primary,
+.btn-primary:focus {
     background-color: #5F7D8C;
-    box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.3);
     text-transform: uppercase;
 }
 
@@ -551,12 +627,50 @@ footer {
 
 .btn-primary:active {
     background-color: #567280 !important;
-    outline: none !important;
 }
 
-.btn-primary:focus {
-    background-color: #5F7D8C;
-    outline: none;
+.btn-green,
+.btn-green:focus {
+    background-color: #6DA487;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.btn-green:hover {
+    background-color: #79B797;
+    color: #ffffff;
+}
+
+.btn-green:active {
+    background-color: #648A77 !important;
+    color: #ffffff;
+}
+
+.btn-red,
+.btn-red:focus {
+    background-color: #dc5f59;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.btn-red:hover {
+    background-color: #b53f3a;
+    color: #ffffff;
+}
+
+.btn-red:active {
+    background-color: #b33630 !important;
+    color: #ffffff;
+}
+
+.btn.disabled,
+.btn[disabled],
+.btn[disabled]:hover,
+.btn[disabled]:focus,
+.btn[disabled]:active {
+    color: #bbb;
+    background-color: #eee;
+    box-shadow: none;
 }
 
 .remodal {

@@ -423,7 +423,7 @@
 		</property>
     	<property name="parameterService">
     	 <ref bean="parameterService" />
-		</property>		
+		</property>
 		<property name="dateTimeService">
 			<ref bean="dateTimeService" />
 		</property>
@@ -511,10 +511,10 @@
 		</property>
 		<property name="parameterService">
 			<ref bean="parameterService" />
-		</property>		
+		</property>
 	    <property name="kualiModuleService">
 			<ref bean="kualiModuleService" />
-		</property>		
+		</property>
 	</bean>
 
 	<bean id="FiscalYearMaker" parent="FiscalYearMaker-parentBean" abstract="true"/>
@@ -1269,18 +1269,26 @@
     	<property name="realNotificationsEnabled" value="${real.notifications.enabled}" />
 	</bean>
 
-	<mongo:mongo id="mongo" host="${kfs.datasource.mongo.host}" port="${kfs.datasource.mongo.port}"/>
+	<mongo:mongo id="mongo" replica-set="${kfs.datasource.mongo.url}"/>
 	<mongo:db-factory mongo-ref="mongo" dbname="${kfs.datasource.mongo.dbname}" username="${kfs.datasource.mongo.username}" password="${kfs.datasource.mongo.password}"/>
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongoDbFactory" />
 	</bean>
 
-	<bean id="preferencesService" parent="preferencesService-parentBean"/>
-	<bean id="preferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.PreferencesServiceImpl">
+	<bean id="institutionPreferencesService" parent="institutionPreferencesService-parentBean"/>
+	<bean id="institutionPreferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.InstitutionPreferencesServiceImpl">
 		<property name="configurationService" ref="configurationService"/>
 		<property name="documentDictionaryService" ref="documentDictionaryService" />
 		<property name="kualiModuleService" ref="kualiModuleService"/>
+		<property name="preferencesDao" ref="preferencesDao" />
+		<property name="dataDictionaryService" ref="dataDictionaryService"/>
+		<property name="permissionService" ref="permissionService"/>
+		<property name="identityService" ref="identityService"/>
+	</bean>
+
+	<bean id="userPreferencesService" parent="userPreferencesService-parentBean"/>
+	<bean id="userPreferencesService-parentBean" abstract="true" class="org.kuali.kfs.sys.service.impl.UserPreferencesServiceImpl">
 		<property name="preferencesDao" ref="preferencesDao" />
 	</bean>
 

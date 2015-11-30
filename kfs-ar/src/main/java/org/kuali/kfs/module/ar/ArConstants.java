@@ -512,7 +512,7 @@ public class ArConstants{
     }
 
     public static class MultipleValueReturnActions {
-        public static final String CONTRACTS_GRANTS_COLLECTION_ACTIVITY_INVOICES = "arContractsGrantsCollectionActivityDocument.do";
+        public static final String CONTRACTS_GRANTS_COLLECTION_ACTIVITY_INVOICES = "arContractsGrantsCollectionActivity.do";
         public static final String CONTRACTS_GRANTS_INVOICES = "arContractsGrantsInvoiceSummary.do";
         public static final String GENERATE_DUNNING_LETTERS_SUMMARY = "arGenerateDunningLettersSummary.do";
     }
@@ -521,10 +521,10 @@ public class ArConstants{
         public static final String ACCOUNTS_RECEIVABLE_DUNNING_LETTER_TEMPLATE_UPLOAD = "arAccountsReceivableDunningLetterTemplateUpload.do";
         public static final String ACCOUNTS_RECEIVABLE_INVOICE_TEMPLATE_UPLOAD = "arAccountsReceivableInvoiceTemplateUpload.do";
         public static final String CUSTOMER_OPEN_ITEM_REPORT_LOOKUP = "arCustomerOpenItemReportLookup.do";
-        public static final String CASH_CONTROL_DOCUMENT = "arCashControlDocument.do";
-        public static final String CUSTOMER_CREDIT_MEMO_DOCUMENT = "arCustomerCreditMemoDocument.do";
-        public static final String CUSTOMER_INVOICE_DOCUMENT = "arCustomerInvoiceDocument.do";
-        public static final String CONTRACTS_GRANTS_LETTER_OF_CREDIT_REVIEW_DOCUMENT = "arContractsGrantsLetterOfCreditReviewDocument.do";
+        public static final String CASH_CONTROL_DOCUMENT = "arCashControl.do";
+        public static final String CUSTOMER_CREDIT_MEMO_DOCUMENT = "arCustomerCreditMemo.do";
+        public static final String CUSTOMER_INVOICE_DOCUMENT = "arCustomerInvoice.do";
+        public static final String CONTRACTS_GRANTS_LETTER_OF_CREDIT_REVIEW_DOCUMENT = "arContractsGrantsLetterOfCreditReview.do";
         public static final String CUSTOMER_STATEMENT = "arCustomerStatement.do";
         public static final String FEDERAL_FINANCIAL_REPORT = "arFederalFinancialReport.do";
     }

@@ -53,4 +53,11 @@ function putUserPreferences(userPreferences) {
     });
 }
 
-module.exports = {getUserPreferences: getUserPreferences, putUserPreferences: putUserPreferences}
+const UserPrefs = {
+    getPrincipalName: getPrincipalName,
+    getUserPreferences: getUserPreferences,
+    putUserPreferences: putUserPreferences
+}
+
+module.exports = UserPrefs;
+export default UserPrefs;

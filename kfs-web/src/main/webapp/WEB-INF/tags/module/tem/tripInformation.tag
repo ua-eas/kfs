@@ -64,7 +64,7 @@
 		<td class="datacell" width="25%">
 			<kul:htmlControlAttribute attributeEntry="${documentAttributes.tripBegin}" property="document.tripBegin" readOnly="${!fullEntryMode}" />
             <c:if test="${fullEntryMode}">
-            	<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="document.tripBegin_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" onmouseover="this.style.backgroundColor='red';" onmouseout="this.style.backgroundColor='transparent';"	/>
+            	<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="document.tripBegin_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
             	<script type="text/javascript">
                 Calendar.setup(
                         {
@@ -86,7 +86,7 @@
 		<td class="datacell" width="25%">
 			<kul:htmlControlAttribute attributeEntry="${documentAttributes.tripEnd}" property="document.tripEnd" readOnly="${!fullEntryMode}" />
             <c:if test="${fullEntryMode}">
-            	<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="document.tripEnd_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" onmouseover="this.style.backgroundColor='red';" onmouseout="this.style.backgroundColor='transparent';"	/>
+            	<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="document.tripEnd_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
             	<script type="text/javascript">
                 Calendar.setup(
                         {

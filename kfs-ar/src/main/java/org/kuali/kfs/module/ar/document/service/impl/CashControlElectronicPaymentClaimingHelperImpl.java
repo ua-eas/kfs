@@ -140,7 +140,7 @@ public class CashControlElectronicPaymentClaimingHelperImpl implements Electroni
     protected String getURLForDocument(CashControlDocument doc) {
         Properties parameters = new Properties();
         parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, KFSConstants.DOC_HANDLER_METHOD);
-        parameters.put(KFSConstants.PARAMETER_COMMAND, KewApiConstants.ACTIONLIST_COMMAND);
+        parameters.put(KFSConstants.PARAMETER_COMMAND, KewApiConstants.DOCSEARCH_COMMAND);
         parameters.put(KFSConstants.PARAMETER_DOC_ID, doc.getDocumentNumber());
 
         return UrlFactory.parameterizeUrl(ArConstants.UrlActions.CASH_CONTROL_DOCUMENT, parameters);

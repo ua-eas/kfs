@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Layout;
 import org.apache.log4j.PatternLayout;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants.DisbursementVoucherEditMode;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.Config;
@@ -32,9 +32,9 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.KimConstants.PermissionTemplateNames;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to define global constants.
@@ -100,6 +100,7 @@ public class KFSConstants {
     public static final String EXTERNALIZABLE_HELP_URL_KEY = KRADConstants.EXTERNALIZABLE_HELP_URL_KEY;
     public static final String EXTERNALIZABLE_IMAGES_URL_KEY = "externalizable.images.url";
     public static final String RICE_EXTERNALIZABLE_IMAGES_URL_KEY = KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY;
+    public static final String RICE_SERVER_URL_KEY = "rice.server.url";
     public static final String KC_APPLICATION_URL_KEY = "kc.application.url";
     public static final String REPORTS_DIRECTORY_KEY = "reports.directory";
     public static final String WORKFLOW_URL_KEY = Config.KEW_URL;
@@ -181,7 +182,7 @@ public class KFSConstants {
     public static final String CHANGE_JOURNAL_VOUCHER_BALANCE_TYPE_METHOD = "changeBalanceType";
     @Deprecated
     public static final String CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME = KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE;
-    public static final String CONFIRMATION_QUESTION = "confirmationQuestion";
+    public static final String CONFIRMATION_QUESTION = "cf.confirmationQuestion";
     public static final String CONVERSION_FIELDS_PARAMETER = "conversionFields";
     public static final String LOOKUP_READ_ONLY_FIELDS = "readOnlyFields";
     public static final String LOOKUP_AUTO_SEARCH = "autoSearch";
@@ -467,7 +468,6 @@ public class KFSConstants {
     public static final String SUB_ACCOUNT_NUMBER_PROPERTY_NAME = KFSPropertyConstants.SUB_ACCOUNT_NUMBER;
     public static final String TARGET = "Target";
     public static final String TO = "To";
-    public static final String USER_SESSION_KEY = "UserSession";
     public static final String VERSION_NUMBER = "versionNumber";
 
     public static final String SEARCH_LIST_REQUEST_KEY = "searchResultKey";
@@ -1517,6 +1517,9 @@ public class KFSConstants {
     }
 
     public static final String ZERO = "0";
+    public static final String YEP = "yep";
+    public static final String CLAIM = "claim";
+    public static final String DELIMITER = ".";
 
     public static class BasicAccountingCategoryCodes {
         public static final String ASSETS = "AS";
@@ -1524,6 +1527,21 @@ public class KFSConstants {
         public static final String FUND_BALANCE = "FB";
         public static final String INCOME = "IN";
         public static final String LIABILITIES = "LI";
+    }
+
+    public static class ReactComponents {
+        public static final String INSTITUTION_CONFIG = "InstitutionConfig";
+    }
+
+    public static class NavigationLinkTypes {
+        public static final String KFS = "kfs";
+        public static final String RICE = "rice";
+    }
+
+    public static class NavigationLinkCategories {
+        public static final String ACTVITIES = "activities";
+        public static final String REFERENCE = "reference";
+        public static final String ADMINISTRATION = "administration";
     }
 
 }
