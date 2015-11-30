@@ -46,7 +46,7 @@
 						document.write('\n');
 						document.write('<a href="javascript:void(0)" onclick="setAllMultipleValueLookuResults(false);"><img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_deselectallfromthispage.png" alt="Deselect all rows from this page" title="Deselect all rows from this page" class="tinybutton" onclick="setAllMultipleValueLookuResults(false)"/></a>');
 					</script>
-					<input type="image" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" alt="Return selected results" title="Return selected results" class="tinybutton" name="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" value="Return selected results"/>						
+					<input type="submit" alt="Return selected results" title="Return selected results" class="btn btn-default" name="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" value="Return Selected"/>
 				</p>
 			</c:if>
 			<table cellpadding="0" class="datatable-100" cellspacing="0" id="row">
@@ -108,7 +108,7 @@
 						document.write('\n');
 						document.write('<a href="javascript:void(0)" onclick="setAllMultipleValueLookuResults(false);"><img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_deselectallfromthispage.png" alt="Deselect all rows from this page" title="Deselect all rows from this page" class="tinybutton" onclick="setAllMultipleValueLookuResults(false)"/></a>');
 					</script>
-					<input type="image" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" alt="Return selected results" title="Return selected results" class="tinybutton" name="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" value="Return selected results"/>						
+					<input type="submit" alt="Return selected results" title="Return selected results" class="btn btn-default" name="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" value="Return Selected"/>
 				</p>
 			</c:if>
 			<kul:multipleValueLookupExportBanner/>

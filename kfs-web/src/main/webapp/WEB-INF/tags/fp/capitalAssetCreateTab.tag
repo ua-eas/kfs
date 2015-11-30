@@ -38,7 +38,6 @@
 
 <kul:tab tabTitle="${KFSConstants.CapitalAssets.CREATE_CAPITAL_ASSETS_TAB_TITLE}" defaultOpen="${defaultOpen}" tabErrorKey="${KFSConstants.EDIT_CAPITAL_ASSET_INFORMATION_ERRORS}" >
      <div class="tab-container" align="center">
-	 	<h3>Create Capital Assets</h3>
 		 <table class="datatable" cellpadding="0" cellspacing="0" summary="Capital Asset Information">
 		     <c:if test="${createdCapitalAssets <= 0}">
 				<tr>

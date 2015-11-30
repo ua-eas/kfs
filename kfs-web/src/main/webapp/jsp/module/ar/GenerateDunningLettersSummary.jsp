@@ -35,7 +35,6 @@
 				<ar:documentSummaryResults lookupResultsProperty="generateDunningLettersLookupResults" lookupResultTitleProperties="proposalNumber" tabTitleName="Award">
 					<ar:generateDunningLettersSummaryResultContent/>
 				</ar:documentSummaryResults>
-				<kul:panelFooter />
 				<html:image
 					src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif"
 					styleClass="globalbuttons"

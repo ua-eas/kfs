@@ -43,8 +43,6 @@
     		
     <kul:superUserActions />
     		
-    <kul:panelFooter />
-	
   	<sys:documentControls transactionalDocument="true"  />
     
 </kul:documentPage>

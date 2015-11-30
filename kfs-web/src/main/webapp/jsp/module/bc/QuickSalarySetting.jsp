@@ -44,8 +44,6 @@
 		</div>
 	</kul:tabTop>
 
-	<kul:panelFooter />
-
     <%-- add another copy of the errors since this screen can get long --%>
     <kul:errors keyMatch="${Constants.GLOBAL_ERRORS}" errorTitle=" " />
     <kul:errors keyMatch="${BCConstants.ErrorKey.RETURNED_DETAIL_SALARY_SETTING_TAB_ERRORS}" errorTitle=" " />

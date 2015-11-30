@@ -72,7 +72,4 @@
          </table>
       </div>
 	</kul:tabTop>
-	
-	<kul:panelFooter />
-	
 </kul:page>

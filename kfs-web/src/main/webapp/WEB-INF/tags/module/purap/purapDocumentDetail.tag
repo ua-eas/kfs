@@ -58,26 +58,23 @@
 <h3><c:out value="${detailSectionLabel}"/> </h3>
 <div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="document.assignedUserPrincipalName,document.purchaseOrderPreviousIdentifier"/></div></div>		        
 
-
-
-<table cellpadding="0" cellspacing="0" class="datatable" summary="Detail Section">
-    <%-- only display on REQ and PO --%>
+<table class="datatable" summary="Detail Section">
     <c:if test="${not paymentRequest}">
 	    <tr>
-	        <th align=right valign=middle class="bord-l-b">
-	            <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.organizationCode}" /></div>
+	        <th class="right">
+	            <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.organizationCode}" /></label>
 	        </th>
-	        <td align=left valign=middle class="datacell">
+	        <td>
 	            <kul:htmlControlAttribute attributeEntry="${documentAttributes.chartOfAccountsCode}" property="document.chartOfAccountsCode" readOnly="true" />
 	            &nbsp;/&nbsp;<kul:htmlControlAttribute attributeEntry="${documentAttributes.organizationCode}" property="document.organizationCode"  readOnly="true"/>
 	            <c:if test="${(fullEntryMode or amendmentEntry) and not (contentReadOnly or internalPurchasingReadOnly)}" >
 	                <kul:lookup boClassName="org.kuali.kfs.coa.businessobject.Organization" fieldConversions="organizationCode:document.organizationCode,chartOfAccountsCode:document.chartOfAccountsCode" />
 	            </c:if>
 	        </td>
-	        <th align=right valign=middle class="bord-l-b">
-	            <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.documentFundingSourceCode}" /></div>
+	        <th class="right">
+	            <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.documentFundingSourceCode}" /></label>
 	        </th>
-	        <td align=left valign=middle class="datacell">
+	        <td>
 	            <kul:htmlControlAttribute
 	                property="document.documentFundingSourceCode"
 	                attributeEntry="${documentAttributes.documentFundingSourceCode}"
@@ -88,14 +85,13 @@
 	    </tr>
     </c:if>
 	
-	<%-- no need to display this row if both fields are hidden; when available, fields display on all doc types (REQ, PO, PREQ) --%>
 	<c:if test="${KualiForm.document.enableReceivingDocumentRequiredIndicator or KualiForm.document.enablePaymentRequestPositiveApprovalIndicator}">
 		<tr>
 		  <c:if test="${KualiForm.document.enableReceivingDocumentRequiredIndicator}">			
-	        <th align=right valign=middle class="bord-l-b">         
-	            <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.receivingDocumentRequiredIndicator}" /></div>
+	        <th class="right">
+	            <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.receivingDocumentRequiredIndicator}" /></label>
 	        </th>
-	        <td align=left valign=middle class="datacell">
+	        <td>
 	            <kul:htmlControlAttribute
 	                property="document.receivingDocumentRequiredIndicator"
 	                attributeEntry="${documentAttributes.receivingDocumentRequiredIndicator}"
@@ -107,14 +103,14 @@
 	        </td>
 	      </c:if>
 		  <c:if test="${not KualiForm.document.enableReceivingDocumentRequiredIndicator}">	
-		    <th align=right valign=middle class="bord-l-b">&nbsp;</th>
-		    <td align=left valign=middle class="datacell">&nbsp;</td>
+		    <th class="right">&nbsp;</th>
+		    <td >&nbsp;</td>
 		  </c:if>
 		  <c:if test="${KualiForm.document.enablePaymentRequestPositiveApprovalIndicator}">				        
-			<th align=right valign=middle class="bord-l-b">
-			  <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentRequestPositiveApprovalIndicator}" /></div>
+			<th class="right">
+			  <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentRequestPositiveApprovalIndicator}" /></label>
 			</th>
-			<td align=left valign=middle class="datacell">
+			<td>
 			  <kul:htmlControlAttribute
 			      property="document.paymentRequestPositiveApprovalIndicator"
 				  attributeEntry="${documentAttributes.paymentRequestPositiveApprovalIndicator}"
@@ -123,19 +119,18 @@
 			</td>
 		  </c:if>
 		  <c:if test="${not KualiForm.document.enablePaymentRequestPositiveApprovalIndicator}">
-		    <th align=right valign=middle class="bord-l-b">&nbsp;</th>
-		    <td align=left valign=middle class="datacell">&nbsp;</td>	          				        
+		    <th class="right">&nbsp;</th>
+		    <td>&nbsp;</td>
 	      </c:if>			  
 		</tr>  
 	</c:if>
 
-	<%-- the following rows only need to be displayed for the PO --%>
 	<c:if test="${purchaseOrder}">
 		<tr>
-            <th align=right valign=middle class="bord-l-b">
-                <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.contractManager}" /></div>
+            <th class="right">
+                <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.contractManager}" /></label>
             </th>
-            <td align=left valign=middle class="datacell">
+            <td>
                 <kul:htmlControlAttribute 
                     property="document.contractManager.contractManagerName" 
                     attributeEntry="${documentAttributes.contractManagerName}" 
@@ -146,10 +141,10 @@
                         fieldConversions="contractManagerName:document.contractManager.contractManagerName,contractManagerCode:document.contractManagerCode" />
                 </c:if>                     
             </td>
-		   	<th align=right valign=middle class="bord-l-b">
-		        <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderPreviousIdentifier}" /></div>
+		   	<th class="right">
+		        <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderPreviousIdentifier}" /></label>
 		    </th>
-		    <td align=left valign=middle class="datacell">
+		    <td>
 		       	<kul:htmlControlAttribute 
 		            property="document.purchaseOrderPreviousIdentifier" 
 		            attributeEntry="${documentAttributes.purchaseOrderPreviousIdentifier}" 
@@ -158,10 +153,10 @@
 		    </td>
 		</tr>
 	    <tr>
-            <th align=right valign=middle class="bord-l-b">
-                <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.assignedUserPrincipalName}" /></div>
+            <th class="right">
+                <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.assignedUserPrincipalName}" /></label>
             </th>
-            <td align=left valign=middle class="datacell">
+            <td>
              	<kul:htmlControlAttribute 
                     property="document.assignedUserPrincipalName" 
                     attributeEntry="${documentAttributes.assignedUserPrincipalName}" 
@@ -171,10 +166,10 @@
                     	fieldConversions="principalId:document.assignedUserPrincipalId,principalName:document.assignedUserPrincipalName" /></div>
                 </c:if>                     
             </td>
-            <th align=right valign=middle class="bord-l-b">
-                <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderConfirmedIndicator}" /></div>
+            <th class="right">
+                <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderConfirmedIndicator}" /></label>
             </th>
-            <td align=left valign=middle class="datacell">
+            <td>
                 <kul:htmlControlAttribute 
                     property="document.purchaseOrderConfirmedIndicator"
                     attributeEntry="${documentAttributes.purchaseOrderConfirmedIndicator}" 
@@ -184,14 +179,13 @@
 		</tr>		
 	</c:if>
 
-    <%-- row only needs to be displayed if tax is enabled or if the doc is a PO --%>
     <c:if test="${purapTaxEnabled or purchaseOrder}">
 	    <tr>
 	        <c:if test="${purapTaxEnabled}">
-		        <th align=right valign=middle class="bord-l-b">
-		            <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.useTaxIndicator}" /></div>
+		        <th class="right">
+		            <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.useTaxIndicator}" /></label>
 		        </th>
-		        <td align=left valign=middle class="datacell">
+		        <td>
 		            <kul:htmlControlAttribute
 		                property="document.useTaxIndicator"
 		                attributeEntry="${documentAttributes.useTaxIndicator}"
@@ -202,14 +196,14 @@
 		        </td>
 	        </c:if>
 	        <c:if test="${not purapTaxEnabled}">
-	            <th align=right valign=middle class="bord-l-b">&nbsp;</th>
-	            <td align=left valign=middle class="datacell">&nbsp;</td>
+	            <th class="right">&nbsp;</th>
+	            <td>&nbsp;</td>
 	        </c:if>
 			<c:if test="${purchaseOrder}">
-	            <th align=right valign=middle class="bord-l-b">
-	                <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.requisitionSource}" /></div>
+	            <th class="right">
+	                <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.requisitionSource}" /></label>
 	            </th>
-	            <td align=left valign=middle class="datacell">
+	            <td>
 	                <kul:htmlControlAttribute 
 	                    property="document.requisitionSource.requisitionSourceDescription" 
 	                    attributeEntry="${documentAttributes.requisitionSource}" 
@@ -217,26 +211,25 @@
 	            </td>                   
 			</c:if>
 	        <c:if test="${not purchaseOrder}">
-	            <th align=right valign=middle class="bord-l-b">&nbsp;</th>
-	            <td align=left valign=middle class="datacell">&nbsp;</td>
+	            <th class="right">&nbsp;</th>
+	            <td>&nbsp;</td>
 	        </c:if>
 	    </tr>
 	  </c:if>
 
-      <%-- always display this row --%>
 	  <tr>
-	      <th align=right valign=middle class="bord-l-b">
-	          <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.accountDistributionMethod}" /></div>
+	      <th class="right">
+	          <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.accountDistributionMethod}" /></label>
 	      </th>
-	      <td align=left valign=middle class="datacell">
+	      <td>
 	          <kul:htmlControlAttribute
 	              property="document.accountDistributionMethod"
 	              attributeEntry="${documentAttributes.accountDistributionMethod}"
 	              readOnly="${editableAccountDistributionMethod or not(fullEntryMode or amendmentEntry)}"
 	              tabindexOverride="${tabindexOverrideBase + 0}"/>
 	      </td>
-          <th align=right valign=middle class="bord-l-b">&nbsp;</th>
-          <td align=left valign=middle class="datacell">&nbsp;</td>
+          <th class="right">&nbsp;</th>
+          <td>&nbsp;</td>
 	  </tr>  
 
 
@@ -247,10 +240,10 @@
 		
 	<table cellpadding="0" cellspacing="0" class="datatable" summary="Status Changes Section">
 		<tr>
-			<th align=right valign=middle class="bord-l-b">
-	            <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.statusChange}" /></div>
+			<th class="right">
+	            <label><kul:htmlAttributeLabel attributeEntry="${documentAttributes.statusChange}" /></label>
 	        </th>
-	        <td align=left valign=middle class="datacell">&nbsp;
+	        <td>
 		        <html:radio title="${documentAttributes.statusChange.label} - None" property="statusChange" value="${PurapConstants.PurchaseOrderStatuses.APPDOC_IN_PROCESS}" tabindex="${tabindexOverrideBase + 9}" />&nbsp;None&nbsp;
 				<html:radio title="${documentAttributes.statusChange.label} - Department" property="statusChange" value="${PurapConstants.PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT}" tabindex="${tabindexOverrideBase + 9}" />&nbsp;Department&nbsp;
 				<html:radio title="${documentAttributes.statusChange.label} - Vendor" property="statusChange" value="${PurapConstants.PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR}" tabindex="${tabindexOverrideBase + 9}" />&nbsp;Vendor&nbsp;

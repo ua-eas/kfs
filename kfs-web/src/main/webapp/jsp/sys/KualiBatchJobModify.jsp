@@ -164,5 +164,4 @@
 		</table>
 	  </div>		
 	</kul:tab>
-	<kul:panelFooter />
 </kul:page>

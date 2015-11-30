@@ -69,14 +69,13 @@
         <c:otherwise>
             <c:choose>
                 <c:when test="${lookup}" >
-
                     <main class="content">
                         <div id="content-overlay"></div>
                         <c:if test="${param.mode eq 'modal'}">
-                        <div class="modal-header">
-                            <div id="breadcrumbs"></div>
-                            <button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button>
-                        </div>
+                            <div class="modal-header">
+                                <div id="breadcrumbs"></div>
+                                <button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button>
+                            </div>
                         </c:if>
 
                         <div id="view_div">
@@ -107,38 +106,103 @@
                         </c:choose>
                 </c:when>
                 <c:otherwise>
-                    <main class="content">
+                    <main class="content doc">
                         <div id="content-overlay"></div>
                         <div id="view_div">
-                            <div class="main-panel">
-                                ${headerMenuBar}
+                            ${headerMenuBar}
 
                 </c:otherwise>
             </c:choose>
         </c:otherwise>
     </c:choose>
 
-        <c:set var="encoding" value=""/>
-        <c:if test="${not empty renderMultipart and renderMultipart eq true}">
-            <c:set var="encoding" value="multipart/form-data"/>
-        </c:if>
+    <c:set var="encoding" value=""/>
+    <c:if test="${not empty renderMultipart and renderMultipart eq true}">
+        <c:set var="encoding" value="multipart/form-data"/>
+    </c:if>
 
-        <c:choose>
-            <c:when test="${not empty htmlFormAction}">
-                <c:choose>
-                    <c:when test="${param.mode eq 'modal'}">
-                        <c:set var="formId" value="kualiForm"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="formId" value="kualiFormModal"/>
-                    </c:otherwise>
-                </c:choose>
-                <html:form styleId="${formId}" action="/${htmlFormAction}.do"
-                           method="post" enctype="${encoding}"
-                           onsubmit="return hasFormAlreadyBeenSubmitted();">
-                    <c:if test="${not lookup}" >
-                        <a name="topOfForm"></a>
-                        <div class="headerarea-small" id="headerarea-small">
+    <c:choose>
+        <c:when test="${not empty htmlFormAction}">
+            <c:choose>
+                <c:when test="${param.mode eq 'modal'}">
+                    <c:set var="formId" value="kualiForm"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="formId" value="kualiFormModal"/>
+                </c:otherwise>
+            </c:choose>
+            <html:form styleId="${formId}" action="/${htmlFormAction}.do"
+                       method="post" enctype="${encoding}"
+                       onsubmit="return hasFormAlreadyBeenSubmitted();">
+
+                <!-- DOCUMENT INFO HEADER BOX -->
+                <c:set var="docHeaderAttributes" value="${DataDictionary.DocumentHeader.attributes}" />
+                <c:if test="${showDocumentInfo}">
+                    <c:set var="KualiForm" value="${KualiForm}" />
+                    <jsp:useBean id="KualiForm" type="org.kuali.kfs.kns.web.struts.form.KualiForm" />
+
+                    <c:set var="numberOfHeaderRows" value="<%=new Integer((int) java.lang.Math.ceil((double) KualiForm.getDocInfo().size()/KualiForm.getNumColumns()))%>" />
+                    <c:set var="headerFieldCount" value="<%=new Integer(KualiForm.getDocInfo().size())%>" />
+                    <c:set var="headerFields" value="${KualiForm.docInfo}" />
+                    <c:set var="fieldCounter" value="0" />
+
+                    <div class="headerbox">
+                        <c:choose>
+                            <c:when test="${lookup}" >
+                                <table summary="document header: general information" cellpadding="0" cellspacing="0">
+                            </c:when>
+                            <c:otherwise>
+                                <table class="headerinfo" summary="document header: general information" cellpadding="0" cellspacing="0">
+                            </c:otherwise>
+                        </c:choose>
+
+                            <c:forEach var="i" begin="1" end="${numberOfHeaderRows}" varStatus="status">
+                                <tr>
+                                    <c:forEach var="j" begin="1" end="<%=KualiForm.getNumColumns()%>" varStatus="innerStatus">
+                                        <c:choose>
+                                            <c:when test="${headerFieldCount > fieldCounter}">
+                                                <c:set var="headerField" value="${headerFields[fieldCounter]}" />
+                                                <c:choose>
+                                                    <c:when test="${(empty headerField) or (empty headerField.ddAttributeEntryName)}">
+                                                        <kul:htmlAttributeHeaderCell />
+                                                        <td>&nbsp;</td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <kul:htmlAttributeHeaderCell attributeEntryName="${headerField.ddAttributeEntryName}" horizontal="true" scope="row" />
+                                                        <td>
+                                                            <c:if test="${empty headerField.nonLookupValue and empty headerField.displayValue}">
+                                                                &nbsp;
+                                                            </c:if>
+                                                            <c:choose>
+                                                                <c:when test="${headerField.lookupAware and (not lookup)}" >
+                                                                    ${headerField.nonLookupValue}
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    ${headerField.displayValue}
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <kul:htmlAttributeHeaderCell />
+                                                <td>&nbsp;</td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:if test="${headerFieldCount > fieldCounter}">
+                                        </c:if>
+                                        <c:set var="fieldCounter" value="${fieldCounter+1}" />
+                                    </c:forEach>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </c:if>
+
+                <c:if test="${not lookup}" >
+                    <a name="topOfForm"></a>
+                    <div class="headerarea-small" id="headerarea-small">
                         <h1 class="${docTitleClass}">
                             ${docTitle}&nbsp;
                             <c:choose>
@@ -155,215 +219,148 @@
                         <c:if test="${!empty defaultMethodToCall}">
                             <kul:enterKey methodToCall="${defaultMethodToCall}" />
                         </c:if>
-                    </c:if>
+                </c:if>
 
-                    <!-- DOCUMENT INFO HEADER BOX -->
-                    <c:set var="docHeaderAttributes" value="${DataDictionary.DocumentHeader.attributes}" />
-                    <c:if test="${showDocumentInfo}">
-                        <c:set var="KualiForm" value="${KualiForm}" />
-                        <jsp:useBean id="KualiForm" type="org.kuali.kfs.kns.web.struts.form.KualiForm" />
-
-                        <c:set var="numberOfHeaderRows" value="<%=new Integer((int) java.lang.Math.ceil((double) KualiForm.getDocInfo().size()/KualiForm.getNumColumns()))%>" />
-                        <c:set var="headerFieldCount" value="<%=new Integer(KualiForm.getDocInfo().size())%>" />
-                        <c:set var="headerFields" value="${KualiForm.docInfo}" />
-                        <c:set var="fieldCounter" value="0" />
-
-                        <div class="headerbox">
-                            <c:choose>
-                                <c:when test="${lookup}" >
-                                    <table summary="document header: general information" cellpadding="0" cellspacing="0">
-                                </c:when>
-                                <c:otherwise>
-                                    <table class="headerinfo" summary="document header: general information" cellpadding="0" cellspacing="0">
-                                </c:otherwise>
-                            </c:choose>
-
-                                <c:forEach var="i" begin="1" end="${numberOfHeaderRows}" varStatus="status">
-                                    <tr>
-                                        <c:forEach var="j" begin="1" end="<%=KualiForm.getNumColumns()%>" varStatus="innerStatus">
-                                            <c:choose>
-                                                <c:when test="${headerFieldCount > fieldCounter}">
-                                                    <c:set var="headerField" value="${headerFields[fieldCounter]}" />
-                                                    <c:choose>
-                                                        <c:when test="${(empty headerField) or (empty headerField.ddAttributeEntryName)}">
-                                                            <kul:htmlAttributeHeaderCell />
-                                                            <td>&nbsp;</td>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <kul:htmlAttributeHeaderCell attributeEntryName="${headerField.ddAttributeEntryName}" horizontal="true" scope="row" />
-                                                            <td>
-                                                                <c:if test="${empty headerField.nonLookupValue and empty headerField.displayValue}">
-                                                                    &nbsp;
-                                                                </c:if>
-                                                                <c:choose>
-                                                                    <c:when test="${headerField.lookupAware and (not lookup)}" >
-                                                                        ${headerField.nonLookupValue}
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        ${headerField.displayValue}
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </td>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <kul:htmlAttributeHeaderCell />
-                                                    <td>&nbsp;</td>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <c:if test="${headerFieldCount > fieldCounter}">
-                                            </c:if>
-                                            <c:set var="fieldCounter" value="${fieldCounter+1}" />
-                                        </c:forEach>
-                                    </tr>
-                                </c:forEach>
-                            </table>
+                <c:choose>
+                    <c:when test="${lookup}" >
+                        <c:if test="${showTabButtons != '' && showTabButtons == true}">
+                            <div class="right">
+                                <div class="excol">
+                                    <div class="lookupcreatenew">
+                                        <html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab('${formId}');" tabindex="-1" value="expand all" />
+                                        <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab('${formId}');" tabindex="-1" value="collapse all" />
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
                         </div>
-                    </c:if>
-
-                    <c:choose>
-                        <c:when test="${lookup}" >
-                            <%-- Display the expand/collapse buttons for the lookup/inquiry, if specified. --%>
-                            <c:if test="${showTabButtons != '' && showTabButtons == true}">
-                                <div class="right">
-                                    <div class="excol">
-                                        <div class="lookupcreatenew">
-                                            <html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab('${formId}');" tabindex="-1" value="expand all" />
-                                            <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab('${formId}');" tabindex="-1" value="collapse all" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            </div>
-                            <c:if test="${not empty KualiForm.headerNavigationTabs}">
-                                <div class="horz-links-bkgrnd" id="horz-links">
-                                    <div id="tabs">
-                                        <dl class="tabul">
-                                            <c:choose>
-                                                <c:when test="${empty headerDispatch}">
-                                                    <c:forEach var="headerTab" items="${KualiForm.headerNavigationTabs}" varStatus="status">
-                                                        <c:set var="currentTab" value="${headerTabActive eq headerTab.headerTabNavigateTo}" /> <!-- ${headerTab.headerTabNavigateTo}; ${headerTabActive}; ${currentTab} -->
-                                                        <c:choose>
-                                                            <c:when test="${currentTab}"><dt class="licurrent"></c:when>
-                                                            <c:otherwise><dt></c:otherwise>
-                                                        </c:choose>
-                                            <span class="tabright ${currentTab ? 'tabcurrent' : ''}">
-                                                <html:submit value="${headerTab.headerTabDisplayName}" property="methodToCall.headerTab.headerDispatch.${headerDispatch}.navigateTo.${headerTab.headerTabNavigateTo}"  alt="${headerTab.headerTabDisplayName}" disabled="true" />
-                                            </span></dt>
-                                                    </c:forEach>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:forEach var="headerTab" items="${KualiForm.headerNavigationTabs}" varStatus="status">
-                                                        <c:set var="currentTab" value="${headerTabActive eq headerTab.headerTabNavigateTo}" /> <!-- ${headerTab.headerTabNavigateTo}; ${headerTabActive}; ${currentTab} -->
-                                                        <c:choose><c:when test="${currentTab}"><dt class="licurrent"></c:when><c:otherwise><dt></c:otherwise></c:choose>
-                                            <span class="tabright ${currentTab ? 'tabcurrent' : ''}">
-                                                <html:submit value="${headerTab.headerTabDisplayName}" property="methodToCall.headerTab.headerDispatch.${headerDispatch}.navigateTo.${headerTab.headerTabNavigateTo}"  alt="${headerTab.headerTabDisplayName}" disabled="${headerTab.disabled}"  />
-                                            </span></dt>
-                                                    </c:forEach>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </c:if>
-                            <div class="msg-excol">
-                                <div class="left-errmsg">
-                                    <kul:errorCount auditCount="${auditCount}"/>
-                                    <c:if test="${!empty errorKey}">
-                                        <kul:errors keyMatch="${errorKey}" errorTitle=" "/>
-                                    </c:if>
-                                    <c:if test="${empty errorKey}">
-                                        <kul:errors keyMatch="${Constants.GLOBAL_ERRORS}"
-                                                    errorTitle=" " />
-                                    </c:if>
-                                    <kul:messages/>
-                                    <kul:lockMessages/>
-                                </div>
-                                <div class="right">
-                                    <div class="excol">
-                                        <c:if test="${!empty extraTopButtons}">
-                                            <c:forEach items="${extraTopButtons}" var="extraButton">
-                                                <html:button styleClass="btn btn-default" property="${extraButton.extraButtonProperty}" alt="${extraButton.extraButtonAltText}" onclick="${extraButton.extraButtonOnclick}"/> &nbsp;&nbsp;
-                                            </c:forEach>
-                                        </c:if>
-                                        <c:if test="${showTabButtons != '' && showTabButtons == true}">
-                                            <html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab('${formId}');" tabindex="-1" value="expand all" />
-                                            <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab('${formId}');" tabindex="-1" value="collapse all" />
-                                        </c:if>
-                                        <c:if test="${renderRequiredFieldsLabel}" >
-                                            <br>* Required Field
-                                        </c:if>
-                                    </div>
+                        <c:if test="${not empty KualiForm.headerNavigationTabs}">
+                            <div class="horz-links-bkgrnd" id="horz-links">
+                                <div id="tabs">
+                                    <dl class="tabul">
+                                        <c:choose>
+                                            <c:when test="${empty headerDispatch}">
+                                                <c:forEach var="headerTab" items="${KualiForm.headerNavigationTabs}" varStatus="status">
+                                                    <c:set var="currentTab" value="${headerTabActive eq headerTab.headerTabNavigateTo}" /> <!-- ${headerTab.headerTabNavigateTo}; ${headerTabActive}; ${currentTab} -->
+                                                    <c:choose>
+                                                        <c:when test="${currentTab}"><dt class="licurrent"></c:when>
+                                                        <c:otherwise><dt></c:otherwise>
+                                                    </c:choose>
+                                        <span class="tabright ${currentTab ? 'tabcurrent' : ''}">
+                                            <html:submit value="${headerTab.headerTabDisplayName}" property="methodToCall.headerTab.headerDispatch.${headerDispatch}.navigateTo.${headerTab.headerTabNavigateTo}"  alt="${headerTab.headerTabDisplayName}" disabled="true" />
+                                        </span></dt>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach var="headerTab" items="${KualiForm.headerNavigationTabs}" varStatus="status">
+                                                    <c:set var="currentTab" value="${headerTabActive eq headerTab.headerTabNavigateTo}" /> <!-- ${headerTab.headerTabNavigateTo}; ${headerTabActive}; ${currentTab} -->
+                                                    <c:choose><c:when test="${currentTab}"><dt class="licurrent"></c:when><c:otherwise><dt></c:otherwise></c:choose>
+                                        <span class="tabright ${currentTab ? 'tabcurrent' : ''}">
+                                            <html:submit value="${headerTab.headerTabDisplayName}" property="methodToCall.headerTab.headerDispatch.${headerDispatch}.navigateTo.${headerTab.headerTabNavigateTo}"  alt="${headerTab.headerTabDisplayName}" disabled="${headerTab.disabled}"  />
+                                        </span></dt>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </dl>
                                 </div>
                             </div>
-                            <table class="page-main" width="100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td width="1%">
-                                        <img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20" height="20" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <jsp:doBody/>
-
-                    <c:choose>
-                        <c:when test="${lookup}" >
-                            <kul:footer lookup="true"/>
-                            <!-- So that JS expandAllTab / collapseAllTab know the tabStates size. Subtract 1 because currentTabIndex = size + 1. -->
-                            <html:hidden property="tabStatesSize" value="${KualiForm.currentTabIndex - 1}" />
-                        </c:when>
-                        <c:otherwise>
+                        </c:if>
+                        <div class="msg-excol">
                             <div class="left-errmsg">
-                                <kul:errors displayRemaining="true"
-                                            errorTitle="Other errors:"
-                                            warningTitle="Other warnings:"
-                                            infoTitle="Other informational messages:"/>
+                                <kul:errorCount auditCount="${auditCount}"/>
+                                <c:if test="${!empty errorKey}">
+                                    <kul:errors keyMatch="${errorKey}" errorTitle=" "/>
+                                </c:if>
+                                <c:if test="${empty errorKey}">
+                                    <kul:errors keyMatch="${Constants.GLOBAL_ERRORS}" errorTitle=" " />
+                                </c:if>
+                                <kul:messages/>
+                                <kul:lockMessages/>
                             </div>
-                            <kul:footer feedbackKey="${feedbackKey}" />
+                            <div class="right">
+                                <div class="excol">
+                                    <c:if test="${!empty extraTopButtons}">
+                                        <c:forEach items="${extraTopButtons}" var="extraButton">
+                                            <html:button styleClass="btn btn-default" property="${extraButton.extraButtonProperty}" alt="${extraButton.extraButtonAltText}" onclick="${extraButton.extraButtonOnclick}"/> &nbsp;&nbsp;
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${showTabButtons != '' && showTabButtons == true}">
+                                        <html:button styleId="expandAll" property="methodToCall.showAllTabs" title="show all panel content" alt="show all panel content" styleClass="btn btn-primary" onclick="return expandAllTab('${formId}');" tabindex="-1" value="expand all" />
+                                        <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab('${formId}');" tabindex="-1" value="collapse all" />
+                                    </c:if>
+                                </div>
+                                <c:if test="${renderRequiredFieldsLabel}" >
+                                    <span>* Required Field</span>
+                                </c:if>
+                            </div>
+                        </div>
+                        <table class="page-main" width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="1%">
+                                    <img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20" height="20" />
+                                </td>
+                            </tr>
+                        </table>
+                    </c:otherwise>
+                </c:choose>
 
-                            <!-- So that JS expandAllTab / collapseAllTab know the tabStates size. Subtract 1 because currentTabIndex = size + 1. -->
-                            <html:hidden property="tabStatesSize"
-                                         value="${KualiForm.currentTabIndex - 1}" />
-
-
-                            <!-- state maintenance for returning the user to the action list if they started there -->
-                            <logic:present name="KualiForm"
-                                           property="returnToActionList">
-                                <html:hidden name="KualiForm"
-                                             property="returnToActionList" />
-                            </logic:present>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:if test="${transactionalDocument || maintenanceDocument}">
-                        <html:hidden property="documentWebScope" value="session"/>
-                        <html:hidden property="formKey" value="${KualiForm.formKey}" />
-                        <html:hidden property="docFormKey" value="${KualiForm.formKey}" />
-                        <html:hidden property="docNum" value="${KualiForm.document.documentNumber}" />
-                    </c:if>
-                    <kul:editablePropertiesGuid />
-
-                </html:form>
-            </c:when>
-            <c:when test="${renderInnerDiv}">
                 <jsp:doBody/>
-            </c:when>
-        </c:choose>
 
-        <div id="formComplete"></div>
+                <c:choose>
+                    <c:when test="${lookup}" >
+                        <kul:footer lookup="true"/>
+                        <!-- So that JS expandAllTab / collapseAllTab know the tabStates size. Subtract 1 because currentTabIndex = size + 1. -->
+                        <html:hidden property="tabStatesSize" value="${KualiForm.currentTabIndex - 1}" />
+                    </c:when>
+                    <c:otherwise>
+                        <div class="left-errmsg">
+                            <kul:errors displayRemaining="true"
+                                        errorTitle="Other errors:"
+                                        warningTitle="Other warnings:"
+                                        infoTitle="Other informational messages:"/>
+                        </div>
+                        <kul:footer feedbackKey="${feedbackKey}" />
 
-        <c:if test="${not empty htmlFormAction or renderInnerDiv}">
-            </div>
-        </c:if>
-    </main>
-    <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
-        <div id="sidebar">
+                        <!-- So that JS expandAllTab / collapseAllTab know the tabStates size. Subtract 1 because currentTabIndex = size + 1. -->
+                        <html:hidden property="tabStatesSize"
+                                     value="${KualiForm.currentTabIndex - 1}" />
+
+
+                        <!-- state maintenance for returning the user to the action list if they started there -->
+                        <logic:present name="KualiForm"
+                                       property="returnToActionList">
+                            <html:hidden name="KualiForm"
+                                         property="returnToActionList" />
+                        </logic:present>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${transactionalDocument || maintenanceDocument}">
+                    <html:hidden property="documentWebScope" value="session"/>
+                    <html:hidden property="formKey" value="${KualiForm.formKey}" />
+                    <html:hidden property="docFormKey" value="${KualiForm.formKey}" />
+                    <html:hidden property="docNum" value="${KualiForm.document.documentNumber}" />
+                </c:if>
+                <kul:editablePropertiesGuid />
+
+            </html:form>
+        </c:when>
+        <c:when test="${renderInnerDiv}">
+            <jsp:doBody/>
+        </c:when>
+    </c:choose>
+
+    <div id="formComplete"></div>
+
+    <c:if test="${not empty htmlFormAction or renderInnerDiv}">
         </div>
     </c:if>
+</main>
+<c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
+    <div id="sidebar">
+    </div>
+</c:if>
 
 </div>
 </div>

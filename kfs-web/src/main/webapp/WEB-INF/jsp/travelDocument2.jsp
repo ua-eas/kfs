@@ -93,7 +93,6 @@
 	<kul:notes />
 	<kul:adHocRecipients />
 	<kul:routeLog />
-	<kul:panelFooter />
 	<kul:documentControls transactionalDocument="false" />
 
 </kul:documentPage>

@@ -73,8 +73,6 @@
 
 	<kul:superUserActions />
 
-	<kul:panelFooter />
-
 	<c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
 	
 	<sys:documentControls transactionalDocument="true" extraButtons="${extraButtons}"/>

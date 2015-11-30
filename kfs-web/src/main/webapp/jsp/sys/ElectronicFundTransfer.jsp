@@ -78,7 +78,6 @@
       </table>
     </div>
   </kul:tab>
-  <kul:panelFooter />
   <div id="globalbuttons" class="globalbuttons">
     <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_claim.gif" styleClass="globalbuttons" property="methodToCall.claim" title="claim" alt="claim"/>
     <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" styleClass="globalbuttons" property="methodToCall.cancel" title="cancel" alt="cancel"/>

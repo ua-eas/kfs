@@ -68,6 +68,5 @@
     <kul:adHocRecipients />
     <kul:routeLog />
     <kul:superUserActions />
-    <kul:panelFooter />
     <sys:documentControls transactionalDocument="false" />
 </kul:documentPage>

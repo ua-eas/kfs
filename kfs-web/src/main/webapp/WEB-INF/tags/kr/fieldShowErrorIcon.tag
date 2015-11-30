@@ -13,5 +13,5 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 --%>
-<img src="${ConfigProperties.kr.externalizable.images.url}errormark.gif" alt="error" />
+<img src="${ConfigProperties.kr.externalizable.images.url}errormark.png" alt="error" />
 

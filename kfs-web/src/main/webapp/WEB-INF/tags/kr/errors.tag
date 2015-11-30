@@ -55,7 +55,6 @@
                  
                   <%-- render title if this is the first error --%>
                   <c:if test="${!errorTitleRendered}">
-                    <img src="${ConfigProperties.kr.externalizable.images.url}errormark.gif" alt="error" />
 					<strong>${errorTitle}</strong>
                     <c:set var="errorTitleRendered" value="true"/>
                   </c:if>

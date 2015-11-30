@@ -100,8 +100,13 @@
                                         <span class="tinybutton btn btn-default"><c:out value="${KualiForm.extraAltText}"/></span>
                                     </a>
                                 </c:if>
-                               <html:image tabindex="${tabindex}" property="methodToCall.prepareToReturnSelectedResults"
-                                src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" alt="Return selected results" title="Return selected results" border="0" styleClass="tinybutton"/>
+                               <html:submit
+                                       tabindex="${tabindex}"
+                                       property="methodToCall.prepareToReturnSelectedResults"
+                                       alt="Return selected results"
+                                       title="Return selected results"
+                                       styleClass="btn btn-default"
+                                       value="Return Selected"/>
                             </td>
                         </tr>
                     </table>
