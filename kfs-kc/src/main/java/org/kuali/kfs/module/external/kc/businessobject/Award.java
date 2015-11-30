@@ -19,11 +19,6 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
@@ -34,6 +29,11 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a financial award object.
@@ -115,6 +115,9 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String dunningCampaign;
     private boolean stopWorkIndicator;
     private String stopWorkReason;
+
+    private String sequenceNumber;
+    private String sequenceStatus;
 
     /**
      * Default no-args constructor.
@@ -812,6 +815,22 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     public void setInvoicingOptionDescription(String invoicingOptionDescription) {
         this.invoicingOptionDescription = invoicingOptionDescription;
+    }
+
+    public String getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(String sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public String getSequenceStatus() {
+        return sequenceStatus;
+    }
+
+    public void setSequenceStatus(String sequenceStatus) {
+        this.sequenceStatus = sequenceStatus;
     }
 }
 

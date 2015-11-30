@@ -18,19 +18,20 @@
  */
 package org.kuali.kfs.module.external.kc.dto;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "awardDTO", propOrder = {
     "awardId",
     "awardNumber",
+    "accountNumber",
     "proposal",
     "awardStartDate",
     "awardEndDate",
@@ -61,7 +62,10 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
     "methodOfPayment",
     "invoiceBillingFrequency",
     "excludedFromInvoicing",
-    "excludedFromInvoicingReason"
+    "excludedFromInvoicingReason",
+    "sequenceNumber",
+    "sequenceStatus",
+    "awardAccounts"
 })
 public class AwardDTO implements Serializable {
 
@@ -69,6 +73,7 @@ public class AwardDTO implements Serializable {
 
 	private Long awardId;
 	private String awardNumber;
+    private String accountNumber;
     private ProposalDTO proposal;
 	private Date awardStartDate;
 	private Date awardEndDate;
@@ -100,6 +105,9 @@ public class AwardDTO implements Serializable {
     private KualiDecimal minInvoiceAmount;
     private AwardMethodOfPaymentDTO methodOfPayment;
     private FrequencyDto invoiceBillingFrequency;
+    private String sequenceNumber;
+    private String sequenceStatus;
+    private List<AwardAccountDTO> awardAccounts;
 
 	public Long getAwardId() {
 		return awardId;
@@ -299,4 +307,36 @@ public class AwardDTO implements Serializable {
 	public void setExcludedFromInvoicingReason(String excludedFromInvoicingReason) {
 		this.excludedFromInvoicingReason = excludedFromInvoicingReason;
 	}
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(String sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public String getSequenceStatus() {
+        return sequenceStatus;
+    }
+
+    public void setSequenceStatus(String sequenceStatus) {
+        this.sequenceStatus = sequenceStatus;
+    }
+
+    public List<AwardAccountDTO> getAwardAccounts() {
+        return awardAccounts;
+    }
+
+    public void setAwardAccounts(List<AwardAccountDTO> awardAccounts) {
+        this.awardAccounts = awardAccounts;
+    }
 }
