@@ -116,7 +116,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     private boolean stopWorkIndicator;
     private String stopWorkReason;
 
-    private String sequenceNumber;
+    private Integer sequenceNumber;
     private String sequenceStatus;
 
     /**
@@ -817,11 +817,11 @@ public class Award implements ContractsAndGrantsBillingAward {
         this.invoicingOptionDescription = invoicingOptionDescription;
     }
 
-    public String getSequenceNumber() {
+    public Integer getSequenceNumber() {
         return sequenceNumber;
     }
 
-    public void setSequenceNumber(String sequenceNumber) {
+    public void setSequenceNumber(Integer sequenceNumber) {
         this.sequenceNumber = sequenceNumber;
     }
 

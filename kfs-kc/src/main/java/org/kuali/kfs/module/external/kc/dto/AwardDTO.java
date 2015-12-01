@@ -105,7 +105,7 @@ public class AwardDTO implements Serializable {
     private KualiDecimal minInvoiceAmount;
     private AwardMethodOfPaymentDTO methodOfPayment;
     private FrequencyDto invoiceBillingFrequency;
-    private String sequenceNumber;
+    private Integer sequenceNumber;
     private String sequenceStatus;
     private List<AwardAccountDTO> awardAccounts;
 
@@ -316,11 +316,11 @@ public class AwardDTO implements Serializable {
         this.accountNumber = accountNumber;
     }
 
-    public String getSequenceNumber() {
+    public Integer getSequenceNumber() {
         return sequenceNumber;
     }
 
-    public void setSequenceNumber(String sequenceNumber) {
+    public void setSequenceNumber(Integer sequenceNumber) {
         this.sequenceNumber = sequenceNumber;
     }
 

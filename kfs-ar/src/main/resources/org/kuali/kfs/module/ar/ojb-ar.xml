@@ -1380,6 +1380,8 @@
 		<field-descriptor name="dunningLetterTemplateAssigned" column="DUN_LTR_TMPLT_ASND" jdbc-type="VARCHAR" />
 		<field-descriptor name="dunningLetterTemplateSentDate" column="DUN_LTR_TMPLT_SNT_DT" jdbc-type="DATE" />
 		<field-descriptor name="proposalNumber" column="PRPSL_NBR" jdbc-type="BIGINT" index="true" />
+    <field-descriptor name="awardNumber" column="AWARD_NUMBER" jdbc-type="VARCHAR" />
+    <field-descriptor name="sequenceNumber" column="SEQUENCE_NUMBER" jdbc-type="INTEGER" />
 		<field-descriptor name="letterOfCreditCreationType" column="LTRCR_CRTN_TYP" jdbc-type="VARCHAR" />
 		<field-descriptor name="letterOfCreditFundGroupCode" column="LTRCR_FNDGRP_CD" jdbc-type="VARCHAR" />
 		<field-descriptor name="letterOfCreditFundCode" column="LTRCR_FND_CD" jdbc-type="VARCHAR" />
