@@ -50,7 +50,7 @@
 		          rowspan="2"
                   addClass="right top"
                   />
-		      <td>
+		      <td rowspan="2">
                   <kul:htmlControlAttribute
                       property="document.documentHeader.explanation"
                       attributeEntry="${docHeaderAttributes.explanation}"
