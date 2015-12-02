@@ -21,23 +21,19 @@
 <c:set var="tabindexOverrideBase" value="8" />
 <kul:tab tabTitle="Traveler Section" defaultOpen="true" tabErrorKey="${TemKeyConstants.TRVL_ARRGR_TRAVELER_ERRORS}">
     <div class="tab-container" align="center">
-    <h3>Traveler </h3>
-    <table cellpadding="0" cellspacing="0" class="datatable" summary="Traveler Section">
-        
-        <tr>
-            <th class="bord-l-b"><div align="left">Traveler Lookup:</div></th>
-            <td class="datacell">
-				<kul:htmlControlAttribute attributeEntry="${profileAttributes.travelerName}" property="document.profile.name" readOnly="true"/>
-				<c:if test="${fullEntryMode}">
-					<kul:lookup boClassName="org.kuali.kfs.module.tem.businessobject.TemProfile"
-									lookupParameters="document.profileId:profileId" />
-				</c:if>
-            </td>
-        </tr>
-        
-    </table> 
-    
-   
+        <h3>Traveler</h3>
+        <table cellpadding="0" cellspacing="0" class="datatable" summary="Traveler Section">
+            <tr>
+                <th class="right">Traveler Lookup:</th>
+                <td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${profileAttributes.travelerName}" property="document.profile.name" readOnly="true"/>
+                    <c:if test="${fullEntryMode}">
+                        <kul:lookup boClassName="org.kuali.kfs.module.tem.businessobject.TemProfile"
+                                        lookupParameters="document.profileId:profileId" />
+                    </c:if>
+                </td>
+            </tr>
+        </table>
     </div>
 </kul:tab>
        

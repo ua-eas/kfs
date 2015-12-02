@@ -265,7 +265,7 @@
 
             <tr>
                 <c:if test="${displayRequisitionFields or displayPurchaseOrderFields}">
-                    <th class="right" rowspan="3">
+                    <th class="right top" rowspan="3">
                         <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorNoteText}" />
                     </th>
                     <td class="datacell" rowspan="3">

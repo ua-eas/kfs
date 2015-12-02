@@ -43,7 +43,13 @@ input[type=radio] {
 }
 
 #view_div .left-errmsg {
+    color: #6DA487;
+    margin-left: 30px;
+}
+
+#view_div .left-errmsg>.error {
     color: #C47965;
+    margin-left: 0;
 }
 
 #view_div .headerarea-small {
@@ -216,7 +222,7 @@ select {
 
 .doc .datatable th,
 .doc .datatable td {
-    padding: 5px;
+    padding: 3px;
 }
 
 .doc .main-panel .tab-container table.min-100 th,
@@ -226,7 +232,8 @@ select {
 
 .doc input[type=text],
 .doc select {
-    width: inherit;
+    width: initial;
+    max-width: 90%;
 }
 
 #lookup select[multiple=true] {
@@ -479,6 +486,14 @@ div.inquiry table.datatable th {
     margin-top: 0;
 }
 
+.doc #page-content {
+    padding-top: 20px;
+}
+
+.doc #view_div .headerarea-small img[alt=changed] {
+    margin: 20px 0 0 10px;
+}
+
 .doc #view_div>form>.headerbox {
     float: right;
     color: #767676;
@@ -605,4 +620,40 @@ div.inquiry table.datatable th {
     width: 40%;
     color: #C47965;
     padding-top: 10px;
+}
+
+.doc .main-panel .tab-container table.old-new tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+.doc .main-panel .tab-container table.old-new tr.header th.old {
+    color: #C47965;
+    font-size: 14px;
+}
+
+.doc .main-panel .tab-container table.old-new tr.header th.new {
+    color: #6DA487;
+    font-size: 14px;
+}
+
+.doc .main-panel .tab-container table.old-new td:nth-child(2) {
+    border-left: 1px solid rgba(196,121,101, 0.2);
+}
+
+.doc .main-panel .tab-container table.old-new td:last-child {
+    border-left: 1px solid rgba(109,164,135, 0.2);
+}
+
+.doc .main-panel .tab-container table.old-new tr:not(:first-child):hover {
+    background-color: #E9E9E9;
+}
+
+#uploadDiv {
+    float: right;
+    text-align: left;
+}
+
+#uploadDiv input {
+    padding-bottom: 7px;
+    display: inline;
 }
