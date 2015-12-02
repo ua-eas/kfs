@@ -540,6 +540,10 @@ div.inquiry table.datatable th {
     width: 100%;
     margin-bottom: 30px;
 }
+.doc .main-panel .tab-container table.side-margins {
+    width: calc(100% - 40px);
+    margin: 0 20px 30px 20px;
+}
 
 .doc .main-panel .tab-container th {
     color: #767676;
