@@ -296,13 +296,6 @@
                                 </c:if>
                             </div>
                         </div>
-                        <table class="page-main" width="100%" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td width="1%">
-                                    <img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" width="20" height="20" />
-                                </td>
-                            </tr>
-                        </table>
                     </c:otherwise>
                 </c:choose>
 

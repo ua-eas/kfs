@@ -23,11 +23,10 @@
 
 <kul:tab tabTitle="Group Travel" defaultOpen="false" tabErrorKey="${TemKeyConstants.TRVL_GROUP_TRVL_ERRORS}">
 	<div class="tab-container" align=center>
-		<h3>Group Travel Section <a href="${KualiForm.uploadParserInstructionsUrl}" target="helpWindow"><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Group Traveler Import Help" src="Group Traveler Import Help" hspace="5" border="0" align="middle" class="help" /></a></h3>
-		<table cellpadding="0" cellspacing="0" class="datatable" summary="Group Traveler Section">
+		<table cellpadding="0" cellspacing="0" class="datatable items standard" summary="Group Traveler Section">
 			<c:if test="${fullEntryMode}">
 				<tr>
-					<td colspan="7" class="tab-subhead" align="right" nowrap="nowrap">
+					<td colspan="7" class="tab-subhead import-lines" align="right" nowrap="nowrap">
 						<SCRIPT type="text/javascript">
 	                		<!--
 	                  		function hideImport() {
@@ -40,39 +39,46 @@
 	                  		}
 	                  		document.write(
 	                    		'<a id="showLink" href="#" onclick="showImport();return false;">' +
-	                      		'<img src="${ConfigProperties.externalizable.images.url}tinybutton-importlines.gif" title="import items from file" alt="import items from file"' +
-	                      		'     width=72 height=15 border=0 align="right" class="det-button">' +
+	                      		'<button title="import items from file" class="btn btn-default" alt="import items from file">' +
+                                        'Import Lines' +
+                                '<\/button>' +
 	                    		'<\/a>' +
 	                    		'<div id="uploadDiv" style="display:none; float:right;" >' +
 	                      		'<html:file size="30" property="groupTravelerImportFile" />' +
-	                      		'<html:image property="methodToCall.uploadGroupTravelerImportFile" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-	                                    styleClass="tinybutton" alt="add imported items" title="add imported items" />' +
-	                      		'<html:image property="methodToCall.cancel" src="${ConfigProperties.externalizable.images.url}tinybutton-cancelimport.gif"
-	                                    styleClass="tinybutton" alt="cancel import" title="cancel import" onclick="hideImport();return false;" />' +
+	                      		'<html:submit property="methodToCall.uploadGroupTravelerImportFile"
+	                                    styleClass="btn btn-green" alt="add imported items" title="add imported items" value="Add"/>' +
+	                      		'<html:submit property="methodToCall.cancel"
+	                                    styleClass="btn btn-default" alt="cancel import" title="cancel import" onclick="hideImport();return false;" value="Cancel" />' +
 	                    		'<\/div>');
 	                		//-->
 	            		</SCRIPT>
 						<NOSCRIPT>
 							Import lines
 							<html:file size="30" property="groupTravelerImportFile" style="font:10px;height:16px;" />
-							<html:image property="methodToCall.uploadGroupTravelerImportFile" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="add imported group traveler" title="add imported group traveler" />
+							<html:submit property="methodToCall.uploadGroupTravelerImportFile" alt="add imported group traveler" title="add imported group traveler" styleClass="btn btn-green" value="Add" />
 						</NOSCRIPT>
 					</td>
-				</tr>			
-				<tr>
-					<th class="bord-l-b">
-						<div align="right"><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.groupTravelerTypeCode}" /></div>
-					</th>
+				</tr>
+                <tr class="header">
+                    <th>&nbsp;</th>
+                    <th><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.groupTravelerTypeCode}" noColon="${true}" /></th>
+                    <th>
+                        <div style="display:block;" id="personLabel"><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.groupTravelerEmpId}" noColon="${true}" /></div>
+                        <div style="display:none;" id="customerLabel"><kul:htmlAttributeLabel attributeEntry="${customerAttributes.customerNumber}" noColon="${true}" /></div>
+                    </th>
+                    <th><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.name}" noColon="${true}" /></th>
+                    <c:if test="${fullEntryMode}">
+                        <th>Actions</th>
+                    </c:if>
+                </tr>
+				<tr class="highlight">
+                    <td>&nbsp;</td>
 					<td class="datacell">
-						<kul:htmlControlAttribute
-						attributeEntry="${groupTravelerAttributes.groupTravelerTypeCode}"
-						property="newGroupTravelerLine.groupTravelerTypeCode" 
-						readOnly="${!empty param['newGroupTravelerLine.groupTravelerEmpId']}" />
+                        <kul:htmlControlAttribute
+                                attributeEntry="${groupTravelerAttributes.groupTravelerTypeCode}"
+                                property="newGroupTravelerLine.groupTravelerTypeCode"
+                                readOnly="${!empty param['newGroupTravelerLine.groupTravelerEmpId']}" />
 					</td>
-					<th class="bord-l-b">
-						<div align="right" style="display:block;" id="personLabel"><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.groupTravelerEmpId}" /></div>
-						<div align="right" style="display:none;" id="customerLabel"><kul:htmlAttributeLabel attributeEntry="${customerAttributes.customerNumber}" /></div>
-					</th>
 					<td class="datacell">
 						<kul:htmlControlAttribute attributeEntry="${groupTravelerAttributes.groupTravelerEmpId}" property="newGroupTravelerLine.groupTravelerEmpId" readOnly="true" />
 						<div style="display:inline;" id="personLookupButton">
@@ -81,73 +87,53 @@
 										lookupParameters="newGroupTravelerLine.groupTravelerEmpId:principalId" />
 						</div>
 					</td>
-					<th class="bord-l-b">
-						<div align="right"><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.name}" /></div>
-					</th>
 					<td class="datacell">
 						<kul:htmlControlAttribute attributeEntry="${groupTravelerAttributes.name}" property="newGroupTravelerLine.name" readOnly="${!empty param['newGroupTravelerLine.groupTravelerEmpId']}"/>
 					</td>
 					<td class="infoline">
-						<div align=center>
-							<html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-							styleClass="tinybutton" property="methodToCall.addGroupTravelerLine"
-							alt="Add Group Traveler Line" title="Add Group Traveler Line" />
-						</div>
+                        <html:submit
+                                styleClass="btn btn-green"
+                                property="methodToCall.addGroupTravelerLine"
+                                alt="Add Group Traveler Line"
+                                title="Add Group Traveler Line"
+                                value="Add"/>
 					</td>
 				</tr>
 			</c:if>
 			<c:if test="${fn:length(KualiForm.document.groupTravelers) > 0}">
-				<tr>
-					<td colspan="7">
-					<table cellpadding="0" cellspacing="0" class="datatable">
-						<logic:iterate indexId="ctr" name="KualiForm" property="document.groupTravelers" id="currentLine">
-							<tr>
-								<kul:htmlAttributeHeaderCell literalLabel="${ctr+1}" scope="row" align="right"></kul:htmlAttributeHeaderCell>
-								<th class="bord-l-b">
-									<div align="right"><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.groupTravelerTypeCode}" /></div>
-								</th>
-								<td valign=top>
-									<kul:htmlControlAttribute
-									attributeEntry="${groupTravelerAttributes.groupTravelerTypeCode}"
-									property="document.groupTravelers[${ctr}].groupTravelerTypeCode"
-									readOnly="true" />
-								</td>
-								<th class="bord-l-b">
-									<div align="right"><bean:write name="KualiForm" property="document.groupTravelers[${ctr}].travelerLabel" />:</div>
-								</th>
-								<td valign=top>
-									<kul:htmlControlAttribute
-									attributeEntry="${groupTravelerAttributes.groupTravelerEmpId}"
-									property="document.groupTravelers[${ctr}].groupTravelerEmpId"
-									readOnly="true" />
-								</td>
-								<th class="bord-l-b">
-									<div align="right"><kul:htmlAttributeLabel attributeEntry="${groupTravelerAttributes.name}" /></div>
-								</th>
-								<td valign=top nowrap>
-									<div align="left">
-										<kul:htmlControlAttribute
-										attributeEntry="${groupTravelerAttributes.name}"
-										property="document.groupTravelers[${ctr}].name"
-										readOnly="true" />
-									</div>
-								</td>
-								<c:if test="${fullEntryMode}">
-									<td>
-										<div align=center>
-											<html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
-											styleClass="tinybutton"
-											property="methodToCall.deleteGroupTravelerLine.line${ctr}"
-											alt="Delete Group Traveler Line"
-											title="Delete Group Traveler Line" />
-										</div>
-									</td>
-								</c:if>
-							</tr>
-						</logic:iterate>
-					</table>
-					</td>
-				</tr>
+                <logic:iterate indexId="ctr" name="KualiForm" property="document.groupTravelers" id="currentLine">
+                    <tr class="${(ctr + 1) % 2 == 0 ? "highlight" : ""}">
+                        <kul:htmlAttributeHeaderCell literalLabel="${ctr+1}" scope="row" align="right"/>
+                        <td>
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${groupTravelerAttributes.groupTravelerTypeCode}"
+                                    property="document.groupTravelers[${ctr}].groupTravelerTypeCode"
+                                    readOnly="true" />
+                        </td>
+                        <td>
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${groupTravelerAttributes.groupTravelerEmpId}"
+                                    property="document.groupTravelers[${ctr}].groupTravelerEmpId"
+                                    readOnly="true" />
+                        </td>
+                        <td>
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${groupTravelerAttributes.name}"
+                                    property="document.groupTravelers[${ctr}].name"
+                                    readOnly="true" />
+                        </td>
+                        <c:if test="${fullEntryMode}">
+                            <td>
+                                <html:submit
+                                        styleClass="btn btn-red"
+                                        property="methodToCall.deleteGroupTravelerLine.line${ctr}"
+                                        alt="Delete Group Traveler Line"
+                                        title="Delete Group Traveler Line"
+                                        value="Delete"/>
+                            </td>
+                        </c:if>
+                    </tr>
+                </logic:iterate>
 			</c:if>
 		</table>
 	</div>

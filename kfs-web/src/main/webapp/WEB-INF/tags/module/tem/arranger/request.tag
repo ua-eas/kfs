@@ -21,56 +21,51 @@
 <c:set var="tabindexOverrideBase" value="8" />
 <kul:tab tabTitle="Edit Request" defaultOpen="true" tabErrorKey="${TemKeyConstants.TRVL_ARRGR_REQUEST_ERRORS}">
     <div class="tab-container" align="center">
-    <h3>Edit Request </h3>
-    <table cellpadding="0" cellspacing="0" class="datatable" summary="Edit Request">
-        
-        <tr>
-            <th class="bord-l-b" colspan="2" width="35%">
-                <div align="left">
-                    <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.resign}" />
-                </div>
-            </th>
-            <td class="datacell">
-                <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.resign}" property="document.resign" readOnly="${!fullEntryMode}"/>          
-            </td>
-        </tr>
-        <tr>
-            <th class="bord-l-b" rowspan="3" width="35%">
-                <div align="left">
-                    Request to become an arranger:
-                </div>
-            </th>
-            
-            <th  class="bord-l-b">
-            <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.taInd}" noColon="true"/>
-            </th>
-            <td class="datacell">
-                <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.taInd}" property="document.taInd" readOnly="${!(fullEntryMode || travelerEntryMode)}"/>          
-            </td>
-            
-        </tr>
-        <tr>
-            <th  class="bord-l-b" width="25%">
-            <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.trInd}" noColon="true"/>
-            </th>
-            <td class="datacell">
-                <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.trInd}" property="document.trInd" readOnly="${!(fullEntryMode || travelerEntryMode)}"/>          
-            </td>
-            
-        </tr>
-        <tr>
-            <th  class="bord-l-b">
-            <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.primaryInd}" noColon="true"/>
-            </th>
-            <td class="datacell">
-                <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.primaryInd}" property="document.primaryInd" readOnly="${!(fullEntryMode || travelerEntryMode)}"/>          
-            </td>
-            
-        </tr>
-        
-    </table> 
-    
-   
+        <h3>Edit Request</h3>
+        <table cellpadding="0" cellspacing="0" class="datatable" summary="Edit Request">
+            <tr>
+                <th class="bord-l-b" colspan="2" width="35%">
+                    <div align="left">
+                        <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.resign}" />
+                    </div>
+                </th>
+                <td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.resign}" property="document.resign" readOnly="${!fullEntryMode}"/>
+                </td>
+            </tr>
+            <tr>
+                <th class="bord-l-b" rowspan="3" width="35%">
+                    <div align="left">
+                        Request to become an arranger:
+                    </div>
+                </th>
+
+                <th  class="bord-l-b">
+                    <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.taInd}" noColon="true"/>
+                </th>
+                <td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.taInd}" property="document.taInd" readOnly="${!(fullEntryMode || travelerEntryMode)}"/>
+                </td>
+
+            </tr>
+            <tr>
+                <th  class="bord-l-b" width="25%">
+                    <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.trInd}" noColon="true"/>
+                </th>
+                <td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.trInd}" property="document.trInd" readOnly="${!(fullEntryMode || travelerEntryMode)}"/>
+                </td>
+
+            </tr>
+            <tr>
+                <th  class="bord-l-b">
+                    <kul:htmlAttributeLabel attributeEntry="${arrangerAttributes.primaryInd}" noColon="true"/>
+                </th>
+                <td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${arrangerAttributes.primaryInd}" property="document.primaryInd" readOnly="${!(fullEntryMode || travelerEntryMode)}"/>
+                </td>
+            </tr>
+        </table>
     </div>
 </kul:tab>
        

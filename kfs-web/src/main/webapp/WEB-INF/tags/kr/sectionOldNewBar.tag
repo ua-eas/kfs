@@ -21,36 +21,19 @@
               description="What's the colspan for each header column?" %>
 <%@ attribute name="depth" required="true"
 		description="What level of recursion are we on?  Avoids putting 'New' on container contents." %>
-<%--
-	############################################################################################################################# 
-	SHOW THE OLD/NEW BAR
-	#############################################################################################################################
-	--%>
-
-<!--
-<c:out value="action is ${action}, colspan is ${colspan}, <br/>" escapeXml="false" />
--->
 
 <c:choose>
 
     <c:when test="${Constants.MAINTENANCE_COPY_ACTION eq action || Constants.MAINTENANCE_EDIT_ACTION eq action}">
         <c:set var="isCopyActionNotEditAction" value="${Constants.MAINTENANCE_COPY_ACTION eq action}"/>
-		<td colspan="${colspan}" class="tab-subhead" width="50%">
-			<div class="tab-subhead-r">
-                ${isCopyActionNotEditAction ? 'Original' : 'Old'}
-			</div>
-		</td>
-		<td colspan="${colspan}" class="tab-subhead" width="50%">
-            ${isCopyActionNotEditAction ? 'New Copy' : 'New'}
-		</td>
+            <th colspan="${colspan}" class="center" width="50%">Previous</th>
+            <th colspan="${colspan}" class="center" width="50%">Proposed</th>
         </tr><tr>
 	</c:when>
 	
 	<c:when test="${depth eq 0}">
 		<%-- Show just one section header that goes all the way across. --%>
-		<td colspan="${colspan}" class="tab-subhead">
-			New
-		</td>
+		<th colspan="${colspan}" class="center">New</th>
         </tr><tr>
     </c:when>
     

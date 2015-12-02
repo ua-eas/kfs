@@ -43,7 +43,7 @@
 	lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}" auditCount="0" renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
 
 <%-- Put the header on the page. --%>
-			<table width="100%" cellpadding="0" cellspacing="0" class="tab" id="ryansHeader">
+			<table width="100%" cellpadding="0" cellspacing="0" class="tab">
 			    <tr>
 			        <td>
 			        
@@ -80,7 +80,7 @@
 
 	  <kul:tab tabTitle="${section.sectionTitle}" defaultOpen="${section.defaultOpen}" tabErrorKey="${section.errorKey}" highlightTab="${tabHighlight}" extraButtonSource="${section.extraButtonSource}" hidden="${section.hidden}" helpUrl="${section.helpUrl }"> 
 	    <div class="tab-container" align="center" <c:if test="${section.hidden}">style="display:none;"</c:if> >
-	      <table width="100%" cellpadding="0" cellspacing="0" class="datatable">
+	      <table width="100%" cellpadding="0" cellspacing="0" class="datatable standard old-new">
 		     <kul:rowDisplay rows="${section.rows}" numberOfColumns="${section.numberOfColumns}" rowsReadOnly="${section.readOnly}"/>
 		  </table>   
         </div>
