@@ -71,7 +71,7 @@
             <c:set var="isFieldAContainer" value="${field.fieldType eq field.CONTAINER}" />
             <c:set var="isFieldAddingToACollection" value="${fn:contains(field.propertyName, 'add.')}" />
 
-            <c:set var="headerColspan" value="${numberOfColumns * 2}" />
+            <c:set var="headerColspan" value="${numberOfColumns}" />
             <c:set var="dataCellWidth" value="${100 / (numberOfColumns * ((isMaintenance || requestedAction eq 'addLine') ? 4 : 2))}" />
 
             <c:set var="tabIndex" value="0"/>

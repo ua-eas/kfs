@@ -26,14 +26,17 @@
 
     <c:when test="${Constants.MAINTENANCE_COPY_ACTION eq action || Constants.MAINTENANCE_EDIT_ACTION eq action}">
         <c:set var="isCopyActionNotEditAction" value="${Constants.MAINTENANCE_COPY_ACTION eq action}"/>
-            <th colspan="${colspan}" class="center" width="50%">Previous</th>
-            <th colspan="${colspan}" class="center" width="50%">Proposed</th>
+            <th>&nbsp;</th>
+            <th colspan="${colspan}" class="old" width="25%">Previous</th>
+            <th>&nbsp;</th>
+            <th colspan="${colspan}" class="new" width="25%">Proposed</th>
         </tr><tr>
 	</c:when>
 	
 	<c:when test="${depth eq 0}">
 		<%-- Show just one section header that goes all the way across. --%>
-		<th colspan="${colspan}" class="center">New</th>
+        <th>&nbsp;</th>
+		<th colspan="${colspan}" class="new">New</th>
         </tr><tr>
     </c:when>
     
