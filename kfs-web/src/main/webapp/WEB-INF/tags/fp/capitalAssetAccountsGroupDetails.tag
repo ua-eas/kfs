@@ -30,8 +30,8 @@
 <c:set var="attributes" value="${DataDictionary.CapitalAssetAccountsGroupDetails.attributes}" />		
 
 <c:if test="${not empty capitalAssetAccountsGroupDetails}">
-	<table datatable style="border-top: 1px solid rgb(153, 153, 153); width: 78%;" cellpadding="0" cellspacing="0" summary="Asset for Accounting Lines">
-		<tr>
+	<table class="datatable" cellpadding="0" cellspacing="0" summary="Asset for Accounting Lines">
+		<tr class="header">
 			<kul:htmlAttributeHeaderCell
 				attributeEntry="${attributes.capitalAssetAccountLineNumber}"
 				useShortLabel="true" />
@@ -68,38 +68,32 @@
 				useShortLabel="true" />
 		</tr>
 		<c:forEach items="${capitalAssetAccountsGroupDetails}" var="assetAccountsGroupLine" varStatus="status">
-			<tr>
-				<td class="datacell center">
-					<div align="center" valign="middle">
-						<kul:htmlControlAttribute attributeEntry="${attributes.capitalAssetAccountLineNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].capitalAssetAccountLineNumber" readOnly="true"/>					
-					</div>		            
+			<tr class="${status.index % 2 == 0 ? "highlight" : ""}">
+				<td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${attributes.capitalAssetAccountLineNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].capitalAssetAccountLineNumber" readOnly="true"/>
 				</td>
-				<td class="datacell center">
-					<div align="center" valign="middle">
-						<kul:htmlControlAttribute attributeEntry="${attributes.sequenceNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].sequenceNumber" readOnly="true"/>					
-					</div>		            
+				<td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${attributes.sequenceNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].sequenceNumber" readOnly="true"/>
 				</td>
-				<td class="datacell center"><div>
-					<c:set var="lineType" value="${assetAccountsGroupLine.financialDocumentLineTypeCode}" />
-					<c:if test="${lineType eq KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE}">
-						<c:out value="${KFSConstants.SOURCE}" />
-					</c:if>
-					<c:if test="${lineType eq KFSConstants.TARGET_ACCT_LINE_TYPE_CODE}">
-						<c:out value="${KFSConstants.TARGET}" />
-					</c:if>
-					</div></td>
-					<td class="datacell center"><kul:htmlControlAttribute attributeEntry="${attributes.chartOfAccountsCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].chartOfAccountsCode" readOnly="true"/></td>
-					<td class="datacell center"><kul:htmlControlAttribute attributeEntry="${attributes.accountNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].accountNumber" readOnly="true"/></td>
-					<td class="datacell center"><kul:htmlControlAttribute attributeEntry="${attributes.subAccountNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].subAccountNumber" readOnly="true"/></td>
-					<td class="datacell center"><kul:htmlControlAttribute attributeEntry="${attributes.financialObjectCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].financialObjectCode" readOnly="true"/></td>
-					<td class="datacell center"><kul:htmlControlAttribute attributeEntry="${attributes.financialSubObjectCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].financialSubObjectCode" readOnly="true"/></td>
-					<td class="datacell center"><kul:htmlControlAttribute attributeEntry="${attributes.projectCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].projectCode" readOnly="true"/></td>
-					<td class="datacell center"><kul:htmlControlAttribute attributeEntry="${attributes.organizationReferenceId}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].organizationReferenceId" readOnly="true"/></td>
-					<td class="datacell center">
-						<div align="right" valign="middle">
-							<kul:htmlControlAttribute attributeEntry="${attributes.amount}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].amount" readOnly="true"/>
-						</div>							
-					</td>
+				<td class="datacell">
+                    <c:set var="lineType" value="${assetAccountsGroupLine.financialDocumentLineTypeCode}" />
+                    <c:if test="${lineType eq KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE}">
+                        <c:out value="${KFSConstants.SOURCE}" />
+                    </c:if>
+                    <c:if test="${lineType eq KFSConstants.TARGET_ACCT_LINE_TYPE_CODE}">
+                        <c:out value="${KFSConstants.TARGET}" />
+                    </c:if>
+                </td>
+                <td class="datacell"><kul:htmlControlAttribute attributeEntry="${attributes.chartOfAccountsCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].chartOfAccountsCode" readOnly="true"/></td>
+                <td class="datacell"><kul:htmlControlAttribute attributeEntry="${attributes.accountNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].accountNumber" readOnly="true"/></td>
+                <td class="datacell"><kul:htmlControlAttribute attributeEntry="${attributes.subAccountNumber}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].subAccountNumber" readOnly="true"/></td>
+                <td class="datacell"><kul:htmlControlAttribute attributeEntry="${attributes.financialObjectCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].financialObjectCode" readOnly="true"/></td>
+                <td class="datacell"><kul:htmlControlAttribute attributeEntry="${attributes.financialSubObjectCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].financialSubObjectCode" readOnly="true"/></td>
+                <td class="datacell"><kul:htmlControlAttribute attributeEntry="${attributes.projectCode}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].projectCode" readOnly="true"/></td>
+                <td class="datacell"><kul:htmlControlAttribute attributeEntry="${attributes.organizationReferenceId}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].organizationReferenceId" readOnly="true"/></td>
+                <td class="datacell">
+                    <kul:htmlControlAttribute attributeEntry="${attributes.amount}" property="${capitalAssetAccountsGroupDetailsName}[${status.index}].amount" readOnly="true"/>
+                </td>
 			</tr>
 		</c:forEach>
 	</table>
