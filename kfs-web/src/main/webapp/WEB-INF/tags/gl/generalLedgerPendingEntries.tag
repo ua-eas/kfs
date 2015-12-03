@@ -18,9 +18,8 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<!--  BEGIN RSMART CUSTOMIZATION -->
 <%@ taglib uri="/WEB-INF/tlds/sec.tld" prefix="sec" %>
-<!--  END RSMART CUSTOMIZATION -->
+
 <%@ attribute name="generalLedgerPendingEntries" required="false" type="java.util.List" %>
 <%@ attribute name="generalLedgerPendingEntriesProperty" required="false" %>
 <%@ attribute name="generalLedgerPendingEntryProperty" required="false" %>
@@ -73,9 +72,7 @@
                 <kul:htmlAttributeHeaderCell attributeEntry="${entryAttributes.transactionDebitCreditCode}" hideRequiredAsterisk="true" scope="col"/>
             </tr>
             <logic:iterate id="generalLedgerPendingEntry" name="KualiForm" property="${generalLedgerPendingEntriesProperty}" indexId="ctr">
-                <!--  BEGIN RSMART CUSTOMIZATION -->
                 <c:if test="${sec:canViewGLPE(KualiForm.document, generalLedgerPendingEntry)}">
-                <!--  END RSMART CUSTOMIZATION -->
                     <tr class="${ctr % 2 == 0 ? "highlight" : ""}">
                         <th class="datacell"><html:hidden property="${generalLedgerPendingEntryProperty}[${ctr}].transactionLedgerEntrySequenceNumber" write="true" value="${generalLedgerPendingEntry.transactionLedgerEntrySequenceNumber}" /></th>
                         <td class="datacell">
@@ -134,9 +131,7 @@
                         </td>
                         <td class="datacell"><html:hidden property="${generalLedgerPendingEntryProperty}[${ctr}].transactionDebitCreditCode" write="true" value="${generalLedgerPendingEntry.transactionDebitCreditCode}" />&nbsp;</td>
                     </tr>
-                <!--  BEGIN RSMART CUSTOMIZATION -->
                 </c:if>
-                <!--  END RSMART CUSTOMIZATION -->
             </logic:iterate>
         </c:if>
 	</table>
