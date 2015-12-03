@@ -46,12 +46,12 @@
 </c:if>
 
 <kul:tab tabTitle="General Ledger Pending Entries" defaultOpen="false" tabErrorKey="${KFSConstants.GENERAL_LEDGER_PENDING_ENTRIES_TAB_ERRORS}">
-<div class="tab-container" align=center>
-    <h3>General Ledger Pending Entries <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry" lookupParameters="document.documentNumber:documentNumber" hideReturnLink="true" suppressActions="true"/></h3>
+<div class="tab-container">
+    <div style="padding: 5px 30px;"><kul:lookup boClassName="org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry" lookupParameters="document.documentNumber:documentNumber" hideReturnLink="true" suppressActions="true"/></div>
 	 <table cellpadding="0" cellspacing="0" class="datatable standard side-margins" summary="view/edit pending entries">
         <c:if test="${empty generalLedgerPendingEntriesList}">
             <tr>
-                <td class="datacell" height="50"colspan="12"><div align="center">There are currently no General Ledger Pending Entries associated with this Transaction Processing document.</div></td>
+                <td class="datacell" height="50" colspan="12"><div align="center">There are currently no General Ledger Pending Entries associated with this Transaction Processing document.</div></td>
             </tr>
         </c:if>
         <c:if test="${!empty generalLedgerPendingEntriesList}">
