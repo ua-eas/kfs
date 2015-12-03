@@ -118,9 +118,7 @@
 		
 					    	<tr class="${status.index % 2 == 0 ? "highlight" : ""}">
 					            <td class="datacell">
-									<div>
-										<kul:htmlControlAttribute attributeEntry="${capitalAccountingLinesAttributes.sequenceNumber}" property="document.capitalAccountingLines[${ctr}].sequenceNumber" readOnly="true"/>					
-									</div>		            
+                                    <kul:htmlControlAttribute attributeEntry="${capitalAccountingLinesAttributes.sequenceNumber}" property="document.capitalAccountingLines[${ctr}].sequenceNumber" readOnly="true"/>
 					            </td>
 					            <td class="datacell"><kul:htmlControlAttribute attributeEntry="${capitalAccountingLinesAttributes.lineType}" property="document.capitalAccountingLines[${ctr}].lineType" readOnly="true"/></td>
 					            <td class="datacell"><kul:htmlControlAttribute attributeEntry="${capitalAccountingLinesAttributes.chartOfAccountsCode}" property="document.capitalAccountingLines[${ctr}].chartOfAccountsCode" readOnly="true"/></td>
