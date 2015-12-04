@@ -36,7 +36,7 @@
     <c:set var="batchUploadAttributes" value="${DataDictionary.BatchUpload.attributes}" />
 
 	<kul:tabTop tabTitle="Manage Batch Files" defaultOpen="true" tabErrorKey="">
-        <div class="tab-container" align="center">
+        <div class="tab-container">
             <div class="tab-container-error">
                 <div class="left-errmsg-tab">
                     <div>
