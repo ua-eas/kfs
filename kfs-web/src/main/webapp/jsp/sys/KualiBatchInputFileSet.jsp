@@ -48,14 +48,14 @@
             <table class="standard" summary="" cellpadding="0" cellspacing="0">
                 <tr class="header">
                     <th>&nbsp;</th>
-                    <th>Browse File</th>
-                    <th><label for="batchUpload.fileUserIdentifer">File Set Identifier</label></th>
+                    <th>${KFSConstants.REQUIRED_FIELD_SYMBOL}Browse File</th>
+                    <th><label for="batchUpload.fileUserIdentifer">${KFSConstants.REQUIRED_FIELD_SYMBOL}File Set Identifier</label></th>
                     <th>Actions</th>
                 </tr>
 
                 <c:forEach items="${KualiForm.batchInputFileSetType.fileTypes}" var="fileType" varStatus="loopStatus">
                     <tr>
-                        <th></th>
+                        <th class="right"><c:out value="${KualiForm.batchInputFileSetType.fileTypeDescription[fileType]}"/>:</th>
                         <td class="infoline">
                             <html:file title="Browse File" property="uploadedFiles(${fileType})"/>
                             <span class="fineprint"></span>
