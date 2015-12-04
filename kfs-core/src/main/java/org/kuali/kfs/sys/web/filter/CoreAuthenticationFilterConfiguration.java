@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.web.filter;
 
 import co.kuali.core.auth.AuthConfiguration;
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
@@ -32,7 +33,12 @@ public class CoreAuthenticationFilterConfiguration implements AuthConfiguration 
 
     @Override
     public Long getSecondsToCacheAuthTokenResponse() {
-        return Long.parseLong(getConfigurationService().getPropertyValueAsString("core.authentication.filter.secondsToCacheAuthTokenResponse"));
+        String value = getConfigurationService().getPropertyValueAsString("core.authentication.filter.secondsToCacheAuthTokenResponse");
+        if (StringUtils.isEmpty(value) ) {
+            return 300L;
+        } else {
+            return Long.parseLong(value);
+        }
     }
 
     protected ConfigurationService getConfigurationService() {
