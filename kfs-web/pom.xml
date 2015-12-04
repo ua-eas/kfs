@@ -193,11 +193,6 @@
       <artifactId>kfs-tem</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>org.kuali.kfs</groupId>-->
-      <!--<artifactId>kfs-kns</artifactId>-->
-      <!--<version>${project.version}</version>-->
-    <!--</dependency>-->
   </dependencies>
 
 </project>
