@@ -2,6 +2,10 @@
     cursor: pointer;
 }
 
+.nowrap {
+    white-space: nowrap;
+}
+
 input[type=radio]:not(:first-child) {
     margin-left: 15px;
 }
@@ -536,9 +540,17 @@ div.inquiry table.datatable th {
     margin: 20px 20px 30px 20px;
 }
 
+.doc .main-panel  .tab-container td h3 {
+    margin: 0;
+}
+
 .doc .main-panel .tab-container table {
     width: 100%;
     margin-bottom: 30px;
+}
+.doc .main-panel .tab-container table.side-margins {
+    width: calc(100% - 40px);
+    margin: 0 20px 30px 20px;
 }
 
 .doc .main-panel .tab-container th {
