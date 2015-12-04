@@ -207,7 +207,7 @@
                             ${docTitle}&nbsp;
                             <c:choose>
                                 <c:when test="${!empty alternativeHelp}">
-                                    <kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help" />
+                                    <kul:help alternativeHelp="${alternativeHelp}" altText="document help" />
                                 </c:when>
                                 <c:otherwise>
                                     <c:if test="${showDocumentInfo}">

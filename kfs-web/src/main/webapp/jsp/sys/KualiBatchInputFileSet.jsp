@@ -18,58 +18,67 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<kul:page showDocumentInfo="false"
-	headerTitle="Batch File Set Upload" docTitle="" renderMultipart="true"
-	transactionalDocument="false" htmlFormAction="batchUploadFileSet" errorKey="foo">
-	<html:hidden property="batchUpload.batchInputTypeName" />
-	
+<c:set var="docTitle">
+    <bean:message key="${KualiForm.titleKey}"/>
+</c:set>
+
+<kul:page
+        showDocumentInfo="false"
+	    headerTitle="Batch File Set Upload"
+        docTitle="${docTitle}"
+        renderMultipart="true"
+	    transactionalDocument="false"
+        htmlFormAction="batchUploadFileSet"
+        errorKey="foo"
+        alternativeHelp="${ConfigProperties.externalizable.help.url}default.htm?turl=WordDocuments%2Fbatch.htm">
+
+    <html:hidden property="batchUpload.batchInputTypeName" />
     <c:set var="batchUploadAttributes" value="${DataDictionary.BatchUpload.attributes}" />
 
-	<strong><h2>	
-	  <bean:message key="${KualiForm.titleKey}"/> <a href="${ConfigProperties.externalizable.help.url}default.htm?turl=WordDocuments%2Fbatch.htm" tabindex="${KualiForm.nextArbitrarilyHighIndex}" target="helpWindow"  title="[Help]Upload">
-	                                        <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="[Help] Upload" alt="[Help] Upload" hspace=5 border=0  align="middle" class="help"></a>
-	  </h2></strong>
-	</br>
-	
-	<table width="100%" border="0"><tr><td>	
-	  <kul:errors keyMatch="*" errorTitle="Errors Found On Page:"/>
-	</td></tr></table>  
-	</br>
-		
 	<kul:tabTop tabTitle="Manage Batch Files" defaultOpen="true" tabErrorKey="">
-      <div class="tab-container" align="center">
-          <h3>Add Batch File Set</h3>
-          <table width="100%" summary="" cellpadding="0" cellspacing="0">
-            <tr>
-              <th width="120">&nbsp;</th>
-              <th> <div align="left">Browse File</div></th>
-              <th> <div align="left"><label for="batchUpload.fileUserIdentifer">File Set Identifier</label></div></th>
-              <th width="150"> <div align="center">Actions</div></th>
-            </tr>
-            
-            <c:forEach items="${KualiForm.batchInputFileSetType.fileTypes}" var="fileType" varStatus="loopStatus">
-              <tr>
-                <th scope="row"><div align="right">add <c:out value="${KualiForm.batchInputFileSetType.fileTypeDescription[fileType]}"/>:</div></th>
-                <td class="infoline"><html:file title="Browse File" property="uploadedFiles(${fileType})"/>
-                  <span class="fineprint"></span>
-                </td>
-                <td class="infoline">
-                  <c:if test="${loopStatus.first}">
-                    <div align="left">
-                      <kul:htmlControlAttribute attributeEntry="${batchUploadAttributes.fileUserIdentifer}" property="batchUpload.fileUserIdentifer"/>
+        <div class="tab-container" align="center">
+            <div class="tab-container-error">
+                <div class="left-errmsg-tab">
+                    <div>
+                        <kul:errors keyMatch="*" errorTitle="Errors Found In File:" warningTitle="Warnings Found In File:"/>
                     </div>
-                  </c:if>
-                  <span class="fineprint">&nbsp;</span>
-                </td>
-                <td class="infoline"><div align="center">
-                  <c:if test="${loopStatus.first}">
-                    <html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" styleClass="globalbuttons" property="methodToCall.save" title="Upload Batch File" alt="Upload Batch File" />
-                  </c:if>
-                  &nbsp;
-                </td>
-              </tr>
-            </c:forEach>
-         </table>
-      </div>
+                </div>
+            </div>
+
+            <table class="standard" summary="" cellpadding="0" cellspacing="0">
+                <tr class="header">
+                    <th>&nbsp;</th>
+                    <th>Browse File</th>
+                    <th><label for="batchUpload.fileUserIdentifer">File Set Identifier</label></th>
+                    <th>Actions</th>
+                </tr>
+
+                <c:forEach items="${KualiForm.batchInputFileSetType.fileTypes}" var="fileType" varStatus="loopStatus">
+                    <tr>
+                        <th></th>
+                        <td class="infoline">
+                            <html:file title="Browse File" property="uploadedFiles(${fileType})"/>
+                            <span class="fineprint"></span>
+                        </td>
+                        <td class="infoline">
+                            <c:if test="${loopStatus.first}">
+                                <kul:htmlControlAttribute attributeEntry="${batchUploadAttributes.fileUserIdentifer}" property="batchUpload.fileUserIdentifer"/>
+                            </c:if>
+                            <span class="fineprint">&nbsp;</span>
+                        </td>
+                        <td class="infoline">
+                            <c:if test="${loopStatus.first}">
+                                <html:submit
+                                        styleClass="btn btn-green"
+                                        property="methodToCall.save"
+                                        title="Upload Batch File"
+                                        alt="Upload Batch File"
+                                        value="Add"/>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
 	</kul:tabTop>
 </kul:page>

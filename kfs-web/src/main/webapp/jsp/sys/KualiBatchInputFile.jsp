@@ -18,48 +18,60 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<kul:page showDocumentInfo="false"
-	headerTitle="Batch File Upload" docTitle="" renderMultipart="true"
-	transactionalDocument="false" htmlFormAction="batchUpload" errorKey="foo">
-	<html:hidden property="batchUpload.batchInputTypeName" />
-	
+<c:set var="docTitle">
+    <bean:message key="${KualiForm.titleKey}"/>
+</c:set>
+
+<kul:page
+        showDocumentInfo="false"
+	    headerTitle="Batch File Upload"
+        docTitle="${docTitle}"
+        renderMultipart="true"
+	    transactionalDocument="false"
+        htmlFormAction="batchUpload"
+        errorKey="foo"
+        alternativeHelp="${ConfigProperties.externalizable.help.url}${KualiForm.url}">
+
+    <html:hidden property="batchUpload.batchInputTypeName" />
     <c:set var="batchUploadAttributes" value="${DataDictionary.BatchUpload.attributes}" />
 
-	<strong><h2>	
-	  <bean:message key="${KualiForm.titleKey}"/> <a href="${ConfigProperties.externalizable.help.url}${KualiForm.url}" tabindex="${KualiForm.nextArbitrarilyHighIndex}" target="helpWindow"  title="[Help]Upload">
-	                                        <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" alt="[Help]Upload" hspace=5 border=0  align="middle" class="help"></a>
-	  </h2></strong>
-	</br>
-	
-	<table width="100%" border="0"><tr><td>	
-	  <kul:errors keyMatch="*" errorTitle="Errors Found In File:" warningTitle="Warnings Found In File:"/>
-	</td></tr></table>  
-	</br>
-		
-	<kul:tabTop tabTitle="Manage Batch Files" defaultOpen="true" tabErrorKey="">
-      <div class="tab-container" align="center">
-          <h3>Add Batch Files</h3>
-          <table width="100%" summary="" cellpadding="0" cellspacing="0">
-            <tr>
-              <th width="120">&nbsp;</th>
-              <th> <div align="left"><label for="uploadFile"><font color="">${KFSConstants.REQUIRED_FIELD_SYMBOL}&nbsp;</font>Browse File</label></div></th>
-              <th> <div align="left"><label for="batchUpload.fileUserIdentifer"><font color="">${KFSConstants.REQUIRED_FIELD_SYMBOL}&nbsp;</font>File Identifier</label></div></th>
-              <th width="150"> <div align="center">Actions</div></th>
-            </tr>
-            
-            <tr>
-              <th scope="row"><div align="center">add:</div></th>
-              <td class="infoline"><html:file styleId="uploadFile" property="uploadFile"/>
-                <span class="fineprint"></span> </td>
-              <td class="infoline"><div align="left">
-                  <kul:htmlControlAttribute attributeEntry="${batchUploadAttributes.fileUserIdentifer}" property="batchUpload.fileUserIdentifer"/>
-              </div>
-                <span class="fineprint"></span> </td>
-              <td class="infoline"><div align="center">
-              		<html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" styleClass="globalbuttons" property="methodToCall.save" title="Upload Batch File" alt="Upload Batch File" />
-              </td>
-            </tr>
-         </table>
-      </div>
+    <kul:tabTop tabTitle="Manage Batch Files" defaultOpen="true" tabErrorKey="">
+        <div class="tab-container">
+            <div class="tab-container-error">
+                <div class="left-errmsg-tab">
+                    <div>
+                        <kul:errors keyMatch="*" errorTitle="Errors Found In File:" warningTitle="Warnings Found In File:"/>
+                    </div>
+                </div>
+            </div>
+
+            <table class="standard" summary="" cellpadding="0" cellspacing="0">
+                <tr class="header">
+                    <th>&nbsp;</th>
+                    <th><label for="uploadFile">${KFSConstants.REQUIRED_FIELD_SYMBOL}Browse File</label></th>
+                    <th><label for="batchUpload.fileUserIdentifer">${KFSConstants.REQUIRED_FIELD_SYMBOL}File Identifier</label></th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <th scope="row"></th>
+                    <td class="infoline">
+                        <html:file styleId="uploadFile" property="uploadFile"/>
+                        <span class="fineprint"></span>
+                    </td>
+                    <td class="infoline">
+                        <kul:htmlControlAttribute attributeEntry="${batchUploadAttributes.fileUserIdentifer}" property="batchUpload.fileUserIdentifer"/>
+                        <span class="fineprint"></span>
+                    </td>
+                    <td class="infoline">
+                        <html:submit
+                                styleClass="btn btn-green"
+                                property="methodToCall.save"
+                                title="Upload Batch File"
+                                alt="Upload Batch File"
+                                value="Add"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
 	</kul:tabTop>
 </kul:page>
