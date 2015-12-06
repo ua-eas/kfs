@@ -20,11 +20,15 @@
 package org.kuali.kfs.module.external.kc.businessobject;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.module.external.kc.dto.AwardAccountDTO;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
@@ -193,7 +197,6 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param account The account to set.
      */
-    @Deprecated
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -253,6 +256,13 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         m.put("newCollectionRecord", this.newCollectionRecord);
 
         return m;
+    }
+
+    public Map<String, Object> getPrimaryKeys() {
+        HashMap<String, Object> pks = new HashMap<>(2);
+        pks.put("chartOfAccountsCode", this.chartOfAccountsCode);
+        pks.put("accountNumber", this.accountNumber);
+        return pks;
     }
 
     public Award getAward() {

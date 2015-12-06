@@ -109,7 +109,7 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
                 }
 
                 ResultRow subResultRow = new ResultRow(subResultColumns, "", "");
-                subResultRow.setObjectId(((PersistableBusinessObjectBase) award).getObjectId());
+                subResultRow.setObjectId(award.getObjectId());
                 subResultRows.add(subResultRow);
             }
 

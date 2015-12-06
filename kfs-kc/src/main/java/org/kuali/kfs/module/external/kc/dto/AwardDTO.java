@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.external.kc.dto;
 
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -77,11 +76,11 @@ public class AwardDTO implements Serializable {
     private ProposalDTO proposal;
 	private Date awardStartDate;
 	private Date awardEndDate;
-	private KualiDecimal awardTotalAmount;
+	private BigDecimal awardTotalAmount;
     private String awardDocumentNumber;
     private Date awardLastUpdateDate;
-    private KualiDecimal awardDirectCostAmount;
-    private KualiDecimal awardIndirectCostAmount;
+    private BigDecimal awardDirectCostAmount;
+    private BigDecimal awardIndirectCostAmount;
     private Date awardCreateTimestamp;
     private String proposalAwardTypeCode;
     private String awardStatusCode;
@@ -102,7 +101,7 @@ public class AwardDTO implements Serializable {
     private String stopWorkReason;
     private boolean excludedFromInvoicing;
     private String excludedFromInvoicingReason;
-    private KualiDecimal minInvoiceAmount;
+    private BigDecimal minInvoiceAmount;
     private AwardMethodOfPaymentDTO methodOfPayment;
     private FrequencyDto invoiceBillingFrequency;
     private Integer sequenceNumber;
@@ -133,10 +132,10 @@ public class AwardDTO implements Serializable {
 	public void setAwardEndDate(Date awardEndDate) {
 		this.awardEndDate = awardEndDate;
 	}
-	public KualiDecimal getAwardTotalAmount() {
+	public BigDecimal getAwardTotalAmount() {
 		return awardTotalAmount;
 	}
-	public void setAwardTotalAmount(KualiDecimal awardTotalAmount) {
+	public void setAwardTotalAmount(BigDecimal awardTotalAmount) {
 		this.awardTotalAmount = awardTotalAmount;
 	}
 	public String getAwardDocumentNumber() {
@@ -151,16 +150,16 @@ public class AwardDTO implements Serializable {
 	public void setAwardLastUpdateDate(Date awardLastUpdateDate) {
 		this.awardLastUpdateDate = awardLastUpdateDate;
 	}
-	public KualiDecimal getAwardDirectCostAmount() {
+	public BigDecimal getAwardDirectCostAmount() {
 		return awardDirectCostAmount;
 	}
-	public void setAwardDirectCostAmount(KualiDecimal awardDirectCostAmount) {
+	public void setAwardDirectCostAmount(BigDecimal awardDirectCostAmount) {
 		this.awardDirectCostAmount = awardDirectCostAmount;
 	}
-	public KualiDecimal getAwardIndirectCostAmount() {
+	public BigDecimal getAwardIndirectCostAmount() {
 		return awardIndirectCostAmount;
 	}
-	public void setAwardIndirectCostAmount(KualiDecimal awardIndirectCostAmount) {
+	public void setAwardIndirectCostAmount(BigDecimal awardIndirectCostAmount) {
 		this.awardIndirectCostAmount = awardIndirectCostAmount;
 	}
 	public Date getAwardCreateTimestamp() {
@@ -265,10 +264,10 @@ public class AwardDTO implements Serializable {
 	public void setAutoApproveInvoice(boolean autoApproveInvoice) {
 		this.autoApproveInvoice = autoApproveInvoice;
 	}
-	public KualiDecimal getMinInvoiceAmount() {
+	public BigDecimal getMinInvoiceAmount() {
 		return minInvoiceAmount;
 	}
-	public void setMinInvoiceAmount(KualiDecimal minInvoiceAmount) {
+	public void setMinInvoiceAmount(BigDecimal minInvoiceAmount) {
 		this.minInvoiceAmount = minInvoiceAmount;
 	}
 	public String getAwardNumber() {

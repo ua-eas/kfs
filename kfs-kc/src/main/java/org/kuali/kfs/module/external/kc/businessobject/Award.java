@@ -87,7 +87,6 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String awardPurposeCode;
     private boolean active;
     private String kimGroupNames;
-    private List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts;
     private String routingOrg;
     private String routingChart;
     private boolean stateTransferIndicator;
@@ -134,6 +133,11 @@ public class Award implements ContractsAndGrantsBillingAward {
     @Override
     public Long getProposalNumber() {
         return proposalNumber;
+    }
+
+    @Override
+    public String getObjectId() {
+        return proposalNumber.toString();
     }
 
     /**
@@ -783,11 +787,13 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     @Override
     public List<ContractsAndGrantsBillingAwardAccount> getActiveAwardAccounts() {
+        List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts = new ArrayList<>();
+        for (AwardAccount awardAccount : awardAccounts) {
+            if (awardAccount.isActive()) {
+                activeAwardAccounts.add(awardAccount);
+            }
+        }
         return activeAwardAccounts;
-    }
-
-    public void setActiveAwardAccounts(List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts) {
-        this.activeAwardAccounts = activeAwardAccounts;
     }
 
     @Override

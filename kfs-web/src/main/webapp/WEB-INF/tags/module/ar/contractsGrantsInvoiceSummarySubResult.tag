@@ -32,7 +32,7 @@
 			readOnly="true" /></td>
 	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.instrumentTypeCode}" property="${propertyName}.instrumentTypeCode" readOnly="true" />
 	</td>
-	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.invoicingOptionCode}" property="${propertyName}.invoicingOptionDescription" readOnly="true" />
+	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.invoicingOptionDescription}" property="${propertyName}.invoicingOptionDescription" readOnly="true" />
 	</td>
 	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.awardTotalAmount}" property="${propertyName}.awardTotalAmount" readOnly="true" />
 	</td>
