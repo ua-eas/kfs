@@ -24,12 +24,14 @@ package org.kuali.kfs.sys.document.web;
 public class AccountingLineViewAction {
     private String actionMethod;
     private String actionLabel;
-    private String imageName;
+    private String buttonStyle;
+    private String buttonLabel;
     
-    public AccountingLineViewAction(String actionMethod, String actionLabel, String imageName) {
+    public AccountingLineViewAction(String actionMethod, String actionLabel, String buttonStyle, String buttonLabel) {
         this.actionMethod = actionMethod;
         this.actionLabel = actionLabel;
-        this.imageName = imageName;
+        this.buttonStyle = buttonStyle;
+        this.buttonLabel = buttonLabel;
     }
     
     /**
@@ -61,17 +63,25 @@ public class AccountingLineViewAction {
         this.actionMethod = actionMethod;
     }
     /**
-     * Gets the imageName attribute. 
-     * @return Returns the imageName.
+     * Gets the buttonStyle attribute.
+     * @return Returns the buttonStyle.
      */
-    public String getImageName() {
-        return imageName;
+    public String getButtonStyle() {
+        return buttonStyle;
     }
     /**
      * Sets the imageName attribute value.
-     * @param imageName The imageName to set.
+     * @param buttonStyle The imageName to set.
      */
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setButtonStyle(String buttonStyle) {
+        this.buttonStyle = buttonStyle;
+    }
+
+    public String getButtonLabel() {
+        return buttonLabel;
+    }
+
+    public void setButtonLabel(String buttonLabel) {
+        this.buttonLabel = buttonLabel;
     }
 }

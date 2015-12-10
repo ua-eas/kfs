@@ -18,12 +18,7 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.service.AccountingLineRenderingService;
@@ -31,7 +26,11 @@ import org.kuali.kfs.sys.document.web.renderers.AccountingLineTableFooterRendere
 import org.kuali.kfs.sys.document.web.renderers.AccountingLineTableHeaderRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This tag...how to describe what it does?  It takes these groups of accounting lines and, you know,
@@ -70,7 +69,7 @@ public class AccountingLinesTag extends BodyTagSupport {
      */
     public void addGroupToRender(AccountingLineGroup group) {
         if (groupsToRender == null) {
-            groupsToRender = new ArrayList<AccountingLineGroup>();
+            groupsToRender = new ArrayList<>();
         }
         groupsToRender.add(group);
     }
@@ -154,7 +153,6 @@ public class AccountingLinesTag extends BodyTagSupport {
      */
     protected void renderGroups() throws JspException {
         final KualiDocumentFormBase form = getForm();
-        final int startingTabIndex = form.getCurrentTabIndex();
         final int arbitrarilyHighIndex = form.getNextArbitrarilyHighIndex();
         for (AccountingLineGroup group : groupsToRender) {
             group.setArbitrarilyHighIndex(arbitrarilyHighIndex);

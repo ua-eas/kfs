@@ -85,7 +85,7 @@ public class AccountingLineViewSequenceNumberField extends FieldTableJoiningWith
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
         if (renderingContext.isNewLine()) {
             StringRenderer renderer = new StringRenderer();
-            renderer.setStringToRender(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(newLineLabelProperty));
+            renderer.setStringToRender("");
             renderer.render(pageContext, parentTag);
             renderer.clear();
         } else {

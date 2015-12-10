@@ -530,7 +530,7 @@ div.inquiry table.datatable th {
     color: #555;
 }
 
-.doc .main-panel  .tab-container h3 {
+.doc .main-panel .tab-container h3 {
     font-size: 15px;
     text-transform: uppercase;
     text-align: left;
@@ -540,8 +540,18 @@ div.inquiry table.datatable th {
     margin: 20px 20px 30px 20px;
 }
 
-.doc .main-panel  .tab-container td h3 {
+.doc .main-panel .tab-container td h3 {
     margin: 0;
+}
+
+.doc .main-panel .tab-container td.border-bottom {
+    border-bottom: 1px solid #c3c3c3;
+}
+
+.doc .main-panel .tab-container td.border-bottom h3 {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-top: 20px;
 }
 
 .doc .main-panel .tab-container table {
@@ -590,7 +600,7 @@ div.inquiry table.datatable th {
     padding-top: 15px;
 }
 
-.doc .main-panel .tab-container table.items td:first-child,
+.doc .main-panel .tab-container table.items td:not('.subhead'):first-child,
 .doc .main-panel .tab-container table.items th:first-child {
     font-weight: 700;
     min-width: 20px;
@@ -665,7 +675,8 @@ div.inquiry table.datatable th {
     text-align: left;
 }
 
-#uploadDiv input {
+#uploadDiv input,
+.uploadDiv input {
     padding-bottom: 7px;
     display: inline;
 }

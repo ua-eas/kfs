@@ -38,13 +38,14 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
 
     private static final String RECALCULATE_METHOD_NAME = "recalculateSourceLine";
     private static final String RECALCULATE_LABEL = "Recalculate Source Accounting Line";
-    private static final String RECALCULATE_BUTTON_IMAGE = "tinybutton-recalculate.gif";
+    private static final String RECALCULATE_BUTTON_LABEL = "Recalculate";
     private static final String DISCOUNT_METHOD_NAME = "discountSourceLine";
     private static final String DISCOUNT_LABEL = "Discount a Source Accounting Line";
-    private static final String DISCOUNT_BUTTON_IMAGE = "tinybutton-discount.gif";
+    private static final String DISCOUNT_BUTTON_LABEL = "Discount";
     private static final String REFRESH_METHOD_NAME = "refreshNewSourceLine";
     private static final String REFRESH_LABEL = "Refresh New Source Line";
-    private static final String REFRESH_BUTTON_IMAGE = "tinybutton-refresh.gif";
+    private static final String REFRESH_BUTTON_LABEL = "Refresh";
+    private static final String DEFAULT_BUTTON_STYLE = "default";
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionMap(org.kuali.kfs.sys.businessobject.AccountingLine,
@@ -56,23 +57,20 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
 
         CustomerInvoiceDetail invoiceLine = (CustomerInvoiceDetail) accountingLineRenderingContext.getAccountingLine();
 
-        // get the images base directory
-        String kfsImagesPath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("externalizable.images.url");
-
         // show the Refresh button on the New Line Actions
         if (isNewLine(accountingLineIndex)) {
-            actionMap.put(REFRESH_METHOD_NAME, new AccountingLineViewAction(REFRESH_METHOD_NAME, REFRESH_LABEL, kfsImagesPath + REFRESH_BUTTON_IMAGE));
+            actionMap.put(REFRESH_METHOD_NAME, new AccountingLineViewAction(REFRESH_METHOD_NAME, REFRESH_LABEL, DEFAULT_BUTTON_STYLE, REFRESH_BUTTON_LABEL));
         }
         else {
             // always add the Recalculate button if its in edit mode
             String groupName = super.getActionInfixForExtantAccountingLine(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName);
             String methodName = methodName(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName, accountingLineIndex, RECALCULATE_METHOD_NAME);
-            actionMap.put(methodName, new AccountingLineViewAction(methodName, RECALCULATE_LABEL, kfsImagesPath + RECALCULATE_BUTTON_IMAGE));
+            actionMap.put(methodName, new AccountingLineViewAction(methodName, RECALCULATE_LABEL, DEFAULT_BUTTON_STYLE, RECALCULATE_BUTTON_LABEL));
 
             // only add the Discount button if its not a Discount Line or a Discount Line Parent
             if (showDiscountButton(invoiceLine)) {
                 methodName = methodName(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName, accountingLineIndex, DISCOUNT_METHOD_NAME);
-                actionMap.put(methodName, new AccountingLineViewAction(methodName, DISCOUNT_LABEL, kfsImagesPath + DISCOUNT_BUTTON_IMAGE));
+                actionMap.put(methodName, new AccountingLineViewAction(methodName, DISCOUNT_LABEL, DEFAULT_BUTTON_STYLE, DISCOUNT_BUTTON_LABEL));
             }
         }
 

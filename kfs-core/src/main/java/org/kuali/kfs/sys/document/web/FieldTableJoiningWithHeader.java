@@ -35,6 +35,7 @@ public abstract class FieldTableJoiningWithHeader extends FieldTableJoining impl
         if (!isHidden()) {
             AccountingLineTableCell headerCell = createHeaderLabelTableCell();
             rows.get(0).addCell(headerCell);
+            rows.get(0).setIsHeader(true);
             rowsTaken += 1;
         }
         // 2. add field cell
