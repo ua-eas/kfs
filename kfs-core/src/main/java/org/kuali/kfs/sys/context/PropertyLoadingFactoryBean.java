@@ -42,6 +42,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
     private static final String KFS_DEFAULT_CONFIGURATION_FILE_NAME = "kfs-default-config";
     private static final String KFS_RICE_DEFAULT_CONFIGURATION_FILE_NAME = "kfs-rice-default-config";
     private static final String KFS_SECURITY_DEFAULT_CONFIGURATION_FILE_NAME = "kfs-security-default-config";
+    private static final String INSTITUTIONAL_CONFIGURATION_FILE_NAME = "institutional-config.properties";
     private static final Properties BASE_PROPERTIES = new Properties();
     private static final String HTTP_URL_PROPERTY_NAME = "http.url";
     private static final String KSB_REMOTING_URL_PROPERTY_NAME = "ksb.remoting.url";
@@ -138,6 +139,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
             loadProperties(BASE_PROPERTIES, new StringBuilder("classpath:").append(KFS_DEFAULT_CONFIGURATION_FILE_NAME).append(".properties").toString());
             loadProperties(BASE_PROPERTIES, new StringBuilder("classpath:").append(KFS_RICE_DEFAULT_CONFIGURATION_FILE_NAME).append(".properties").toString());
             loadProperties(BASE_PROPERTIES, new StringBuilder("classpath:").append(KFS_SECURITY_DEFAULT_CONFIGURATION_FILE_NAME).append(".properties").toString());
+            loadProperties(BASE_PROPERTIES, new StringBuilder("classpath:").append(INSTITUTIONAL_CONFIGURATION_FILE_NAME).append(".properties").toString());
 
             loadExternalProperties(BASE_PROPERTIES, ADDITIONAL_KFS_CONFIG_LOCATIONS_PARAM);
             loadExternalProperties(BASE_PROPERTIES, ADDITIONAL_KFS_TEST_CONFIG_LOCATIONS_PARAM);
@@ -156,7 +158,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
             for (String f: files) { 
                 if (StringUtils.isNotEmpty(f)) { 
                     LOG.info("Loading properties from " + f);
-                    loadProperties(props, new StringBuffer("file:").append(f).toString()); 
+                    loadProperties(props, new StringBuffer("file:").append(f).toString());
                 } 
             }
         }
