@@ -38,8 +38,9 @@ public abstract class FieldTableJoiningWithHeader extends FieldTableJoining impl
             rowsTaken += 1;
 
             for (int i = 0; i < rows.size(); i++) {
-                if (rows.get(i).getCells().size() > 0) {
-                    if (rows.get(i).getCells().get(0).isRendersAsHeader()) {
+                int numberOfCells = rows.get(i).getCells().size();
+                if (numberOfCells > 0) {
+                    if (rows.get(i).getCells().get(numberOfCells - 1).isRendersAsHeader()) {
                         rows.get(i).setIsHeader(true);
                     }
                 }
