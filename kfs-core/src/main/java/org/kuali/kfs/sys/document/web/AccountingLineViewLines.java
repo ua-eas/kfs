@@ -50,7 +50,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
     }
     
     /**
-     * @see org.kuali.kfs.sys.document.web.AccountingLineViewRenderableElementContainer#getName()
+     * @see org.kuali.kfs.sys.document.web.AccountingLineViewLines#getName()
      */
     public String getName() {
         return definition.getElementName();
@@ -64,7 +64,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
     }
     /**
      * Sets the elements attribute value.
-     * @param elements The elements to set.
+     * @param lines The elements to set.
      */
     public void setElements(List<AccountingLineViewLineFillingElement> lines) {
         this.elements = lines;
@@ -73,7 +73,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
     /**
      * The interesting implementation...how many does it need?  Let's see here...one for each child row...
      * yes...that's right, one table row for each child row
-     * @see org.kuali.kfs.sys.document.web.AccountingLineViewRenderableElement#getRequestedRowCount()
+     * @see org.kuali.kfs.sys.document.web.AccountingLineViewLines#getRequestedRowCount()
      */
     public int getRequestedRowCount() {
         int sum = 0;
@@ -85,7 +85,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
     
     /**
      * Throws an exception - lines should never be asked to join rows
-     * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow)
+     * @see org.kuali.kfs.sys.document.web.TableJoining#joinRow(org.kuali.kfs.sys.document.web.AccountingLineTableRow, AccountingLineTableRow)
      */
     public void joinRow(AccountingLineTableRow headerRow, AccountingLineTableRow row) {
         throw new IllegalStateException("Error in line rendering algorithm - lines cannot join a single row.");
@@ -184,7 +184,7 @@ public class AccountingLineViewLines implements TableJoining, ReadOnlyable {
     }
     
     /**
-     * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformation(org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
+     * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformation(org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map)
      */
     public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
         for (AccountingLineViewLineFillingElement line : elements) {

@@ -20,7 +20,7 @@ package org.kuali.kfs.sys.document.web.renderers;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.taglib.html.HiddenTag;
-import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSSubmitTag;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
@@ -37,7 +37,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
     private int cellCount;
     private boolean hideDetails;
     private String accountingLineImportInstructionsUrl;
-    private KNSImageTag showHideTag = new KNSImageTag();
+    private KNSSubmitTag showHideTag = new KNSSubmitTag();
     private HiddenTag hideStateTag = new HiddenTag();
     
     /**
@@ -63,8 +63,8 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         showHideTag.setProperty(null);
         showHideTag.setAlt(null);
         showHideTag.setTitle(null);
-        showHideTag.setSrc(null);
-        
+        showHideTag.setValue(null);
+
         hideStateTag.setPageContext(null);
         hideStateTag.setParent(null);
     }
@@ -101,7 +101,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
      * @return the very start of the table expressed as HTML
      */
     protected String buildTableStart() {
-        return "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"datatable\">\n";
+        return "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"datatable standard\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
     }
     
     /**
@@ -131,7 +131,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         
         StringBuilder subheading = new StringBuilder();
 
-        subheading.append("Accounting Lines <a href=\"");
+        subheading.append("<a href=\"");
         subheading.append(accountingLineImportInstructionsUrl);
         subheading.append("\" target=\"helpWindow\">");
         subheading.append("<img src=\"");
@@ -156,13 +156,15 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         hideStateTag.doEndTag();
         
         String toggle = hideDetails ? "show" : "hide";
+        String displayToggle = hideDetails ? "Show" : "Hide";
         
         showHideTag.setPageContext(pageContext);
         showHideTag.setParent(parentTag);
         showHideTag.setProperty("methodToCall."+toggle+"Details");
-        showHideTag.setSrc(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("kr.externalizable.images.url")+"det-"+toggle+".gif");
+        showHideTag.setStyleClass("btn btn-default small");
         showHideTag.setAlt(toggle+" transaction details");
         showHideTag.setTitle(toggle+" transaction details");
+        showHideTag.setValue(displayToggle + " Details");
         
         showHideTag.doStartTag();
         showHideTag.doEndTag();

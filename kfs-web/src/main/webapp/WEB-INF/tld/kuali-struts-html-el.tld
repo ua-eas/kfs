@@ -3395,7 +3395,7 @@
             </description>
         </attribute>
         <attribute>
-            <name>imageName</name>
+            <name>buttonStyle</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <description>

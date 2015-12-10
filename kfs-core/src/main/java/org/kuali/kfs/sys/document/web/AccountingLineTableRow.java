@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.sys.document.web.renderers.TableRowRenderer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.document.web.renderers.TableRowRenderer;
-import org.kuali.kfs.kns.web.ui.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a table row to display in an accounting view table.
@@ -34,12 +33,13 @@ import org.kuali.kfs.kns.web.ui.Field;
 public class AccountingLineTableRow implements RenderableElement {
     private List<AccountingLineTableCell> cells;
     private AccountingLineRenderingContext renderingContext;
+    private boolean isHeader;
     
     /**
      * Constructs a AccountingLineTableRow
      */
     public AccountingLineTableRow() {
-        cells = new ArrayList<AccountingLineTableCell>();
+        cells = new ArrayList<>();
     }
 
     /**
@@ -99,7 +99,7 @@ public class AccountingLineTableRow implements RenderableElement {
     }
 
     /**
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, AccountingLineRenderingContext)
      */
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
         TableRowRenderer renderer = new TableRowRenderer();
@@ -114,8 +114,6 @@ public class AccountingLineTableRow implements RenderableElement {
      * Requests that the row renders all of its children cells
      * @param pageContext the page contex to render to
      * @param parentTag the tag requesting all this rendering
-     * @param accountingLine the accounting line to render
-     * @param accountingLineProperty the property from the form to the accounting line
      * @throws JspException exception thrown when...something...goes, I don't know...wrong or somethin'
      */
     public void renderChildrenCells(PageContext pageContext, Tag parentTag) throws JspException {
@@ -145,7 +143,7 @@ public class AccountingLineTableRow implements RenderableElement {
     
     /**
      * Dutifully appends the names of any fields it knows about to the given List of field names
-     * @param fieldNames a List of field names to append other names to
+     * @param fields a List of field names to append other names to
      * 
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
@@ -156,7 +154,7 @@ public class AccountingLineTableRow implements RenderableElement {
     }
 
     /**
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int[], int)
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int)
      */
     public void populateWithTabIndexIfRequested(int reallyHighIndex) {
         for (AccountingLineTableCell cell : cells) {
@@ -173,5 +171,13 @@ public class AccountingLineTableRow implements RenderableElement {
             if (!cell.safeToRemove()) return false;
         }
         return true;
+    }
+
+    public boolean isHeader() {
+        return isHeader;
+    }
+
+    public void setIsHeader(boolean isHeader) {
+        this.isHeader = isHeader;
     }
 }

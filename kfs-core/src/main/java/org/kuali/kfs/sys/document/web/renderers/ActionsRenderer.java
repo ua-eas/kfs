@@ -18,35 +18,28 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.taglib.html.KNSSubmitTag;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
-import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Renders an action for the accounting line view.
  */
 public class ActionsRenderer implements Renderer {
     private List<AccountingLineViewAction> actions;
-    private KNSImageTag actionButton = new KNSImageTag();
+    private KNSSubmitTag actionButton = new KNSSubmitTag();
     private int tabIndex;
-    private String postButtonSpacing;
-    private String tagBeginning;
-    private String tagEnding;
-    
-    /**
-     * Constructs a ActionsRenderer, which sets values on the actionButton tag that never change
-     */
+
     public ActionsRenderer() {
-        actionButton.setStyleClass("tinybutton"); // this never changes
+        actionButton.setStyleClass("btn btn-default");
     }
 
     /**
@@ -66,10 +59,11 @@ public class ActionsRenderer implements Renderer {
      */
     protected void resetButton() {
         actionButton.setProperty(null);
-        actionButton.setSrc(null);
         actionButton.setTitle(null);
         actionButton.setAlt(null);
         actionButton.setTabindex(null);
+        actionButton.setValue(null);
+        actionButton.setStyleClass(null);
     }
 
     /**
@@ -83,13 +77,10 @@ public class ActionsRenderer implements Renderer {
         
         try {
             if (actions != null && actions.size() > 0) {
-                out.write(this.getTagBeginning());
                 for (AccountingLineViewAction action : actions) {
                     renderAction(action);
-                    out.write(this.getPostButtonSpacing());
                 }
-                out.write(this.getTagEnding());
-            } 
+            }
             else {
                 out.write(buildNonBreakingSpace());
             }
@@ -106,47 +97,16 @@ public class ActionsRenderer implements Renderer {
      */
     protected void renderAction(AccountingLineViewAction action) throws JspException {
         actionButton.setProperty(KFSConstants.DISPATCH_REQUEST_PARAMETER+"."+action.getActionMethod());
-        actionButton.setSrc(action.getImageName());
         actionButton.setTitle(action.getActionLabel());
         actionButton.setAlt(action.getActionLabel());
+        actionButton.setStyleClass("btn btn-" + action.getButtonStyle());
+        actionButton.setValue(action.getButtonLabel());
         if (!StringUtils.isBlank(getTabIndex())) {
             actionButton.setTabindex(getTabIndex());
         }
         actionButton.doStartTag();
         actionButton.doEndTag();
         resetButton();
-    }
-    
-    /**
-     * Builds the opening of the centering div tag
-     * @return the opening of the centering div tag in HTML
-     */
-    protected String buildCenteringDivBeginning() {
-        return "<div style=\"text-align: center;\">";
-    }
-    
-    /**
-     * Builds the close of the centering div tag
-     * @return the close of the centering div tag in HTML
-     */
-    protected String buildCenteringDivEnding() {
-        return "</div>";
-    }
-    
-    /**
-     * Builds spacing for after the button is displayed
-     * @return a String of HTML that will space after the button
-     */
-    public String getPostButtonSpacing() {
-        return postButtonSpacing == null ? "<br />" : postButtonSpacing;
-    }
-    
-    /**
-     * Sets the postButtonSpacing attribute value.
-     * @param postButtonSpacing The postButtonSpacing to set.
-     */
-    public void setPostButtonSpacing(String postButtonSpacing) {
-        this.postButtonSpacing = postButtonSpacing;
     }
 
     /**
@@ -159,7 +119,7 @@ public class ActionsRenderer implements Renderer {
 
     /**
      * Sets the action attribute value.
-     * @param action The action to set.
+     * @param actions The list of actions to set.
      */
     public void setActions(List<AccountingLineViewAction> actions) {
         this.actions = actions;
@@ -189,35 +149,4 @@ public class ActionsRenderer implements Renderer {
         return "&nbsp;";
     }
 
-    /**
-     * Gets the tagBeginning attribute. 
-     * @return Returns the tagBeginning.
-     */
-    public String getTagBeginning() {
-        return tagBeginning == null ? this.buildCenteringDivBeginning() : tagBeginning;
-    }
-
-    /**
-     * Sets the tagBeginning attribute value.
-     * @param tagBeginning The tagBeginning to set.
-     */
-    public void setTagBeginning(String tagBeginning) {
-        this.tagBeginning = tagBeginning;
-    }
-
-    /**
-     * Gets the tagEnding attribute. 
-     * @return Returns the tagEnding.
-     */
-    public String getTagEnding() {
-        return tagEnding == null ? this.buildCenteringDivEnding() : tagEnding;
-    }
-
-    /**
-     * Sets the tagEnding attribute value.
-     * @param tagEnding The tagEnding to set.
-     */
-    public void setTagEnding(String tagEnding) {
-        this.tagEnding = tagEnding;
-    }
 }
