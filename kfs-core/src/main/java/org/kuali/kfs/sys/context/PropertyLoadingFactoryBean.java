@@ -42,7 +42,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
     private static final String KFS_DEFAULT_CONFIGURATION_FILE_NAME = "kfs-default-config";
     private static final String KFS_RICE_DEFAULT_CONFIGURATION_FILE_NAME = "kfs-rice-default-config";
     private static final String KFS_SECURITY_DEFAULT_CONFIGURATION_FILE_NAME = "kfs-security-default-config";
-    private static final String INSTITUTIONAL_CONFIGURATION_FILE_NAME = "institutional-config.properties";
+    private static final String INSTITUTIONAL_CONFIGURATION_FILE_NAME = "institutional-config";
     private static final Properties BASE_PROPERTIES = new Properties();
     private static final String HTTP_URL_PROPERTY_NAME = "http.url";
     private static final String KSB_REMOTING_URL_PROPERTY_NAME = "ksb.remoting.url";
