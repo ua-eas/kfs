@@ -18,22 +18,23 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<%@ attribute name="awardAttributes" required="true" type="java.util.Map"
-	description="The DataDictionary entry containing attributes for this row's fields."%>
+<%@ attribute name="awardAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields."%>
 <%@ attribute name="propertyName" required="true" description="The DataDictionary entry containing attributes for this row's fields."%>
+<%@ attribute name="highlight" required="false" description="Boolean to determine if the row should have be highlighted" %>
 
-<tr>
+<c:choose>
+    <c:when test="${highlight}">
+        <tr class="highlight">
+    </c:when>
+    <c:otherwise>
+        <tr>
+    </c:otherwise>
+</c:choose>
 	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.proposalNumber}" property="${propertyName}.proposalNumber" readOnly="true" /></td>
-	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.awardBeginningDate}" property="${propertyName}.awardBeginningDate"
-			readOnly="true" /></td>
-	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.awardEndingDate}" property="${propertyName}.awardEndingDate" readOnly="true" />
-	</td>
-	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.billingFrequencyCode}" property="${propertyName}.billingFrequencyCode"
-			readOnly="true" /></td>
-	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.instrumentTypeCode}" property="${propertyName}.instrumentTypeCode" readOnly="true" />
-	</td>
-	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.invoicingOptionDescription}" property="${propertyName}.invoicingOptionDescription" readOnly="true" />
-	</td>
-	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.awardTotalAmount}" property="${propertyName}.awardTotalAmount" readOnly="true" />
-	</td>
+	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.awardBeginningDate}" property="${propertyName}.awardBeginningDate" readOnly="true" /></td>
+	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.awardEndingDate}" property="${propertyName}.awardEndingDate" readOnly="true" /></td>
+	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.billingFrequencyCode}" property="${propertyName}.billingFrequencyCode" readOnly="true" /></td>
+	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.instrumentTypeCode}" property="${propertyName}.instrumentTypeCode" readOnly="true" /></td>
+	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.invoicingOptionDescription}" property="${propertyName}.invoicingOptionDescription" readOnly="true" /></td>
+	<td><kul:htmlControlAttribute attributeEntry="${awardAttributes.awardTotalAmount}" property="${propertyName}.awardTotalAmount" readOnly="true" /></td>
 </tr>

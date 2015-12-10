@@ -25,26 +25,32 @@
 
 	<div>
 		<c:if test="${KualiForm.awardInvoiced}">
-			<html:image
-				src="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif"
-				styleClass="globalbuttons" property="methodToCall.cancel"
-				title="return" alt="return" />
+			<html:submit
+                    styleClass="btn btn-default"
+                    property="methodToCall.cancel"
+				    title="return"
+                    alt="return"
+                    value="Return"/>
 		</c:if>
 
 		<c:if test="${!KualiForm.awardInvoiced}">
-
 			<ar:documentSummaryResults lookupResultsProperty="contractsGrantsInvoiceLookupResults" lookupResultTitleProperties="agencyNumber;agencyFullName">
 				<ar:contractsGrantsInvoiceSummaryResultContent/>
+                <div class="center" style="padding: 10px 0 20px 0;">
+                    <html:submit
+                            styleClass="btn btn-default"
+                            property="methodToCall.createInvoices.number${KualiForm.lookupResultsSequenceNumber}"
+                            title="create Invoices"
+                            alt="create Invoices"
+                            value="Create"/>
+                    <html:submit
+                            styleClass="btn btn-default"
+                            property="methodToCall.cancel"
+                            title="cancel"
+                            alt="cancel"
+                            value="Cancel"/>
+                </div>
 			</ar:documentSummaryResults>
-			<html:image
-					src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif"
-					styleClass="globalbuttons"
-					property="methodToCall.createInvoices.number${KualiForm.lookupResultsSequenceNumber}"
-					title="create Invoices" alt="create Invoices" />
-			<html:image
-					src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif"
-					styleClass="globalbuttons" property="methodToCall.cancel"
-					title="cancel" alt="cancel" />
 		</c:if>
 	</div>
 </kul:page>
