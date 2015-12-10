@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
 import org.kuali.kfs.module.external.kc.dto.ProposalDTO;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * See functional documentation.
@@ -63,9 +63,15 @@ public class Proposal implements ContractAndGrantsProposal {
         setProposalNumber(kcProposal.getProposalNumber() == null ? null : Long.valueOf(kcProposal.getProposalNumber()));
         setProposalBeginningDate(new Date(kcProposal.getRequestedStartDateTotal().getDate()));
         setProposalEndingDate(new Date(kcProposal.getRequestedEndDateTotal().getDate()));
-        setProposalTotalAmount(kcProposal.getProposalTotalAmount());
-        setProposalDirectCostAmount(kcProposal.getTotalDirectCostTotal());
-        setProposalIndirectCostAmount(kcProposal.getTotalIndirectCostTotal());
+        if (kcProposal.getProposalTotalAmount() != null) {
+            setProposalTotalAmount(new KualiDecimal(kcProposal.getProposalTotalAmount()));
+        }
+        if (kcProposal.getTotalDirectCostTotal() != null) {
+            setProposalDirectCostAmount(new KualiDecimal(kcProposal.getTotalDirectCostTotal()));
+        }
+        if (kcProposal.getTotalIndirectCostTotal() != null) {
+            setProposalIndirectCostAmount(new KualiDecimal(kcProposal.getTotalIndirectCostTotal()));
+        }
         setProposalLastUpdateDate(new Timestamp(kcProposal.getProposalLastUpdateDate().getDate()));
         setProposalAwardTypeCode(kcProposal.getAwardTypeCode().toString());
         setAgencyNumber(kcProposal.getSponsorCode());
