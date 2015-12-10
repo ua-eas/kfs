@@ -26,7 +26,7 @@
 <%@ attribute name="image" required ="false" 
 			  description="name of the image file" %>
 
-<c:set var="imageName" value="${empty image ? 'tinybutton-load.gif' : image}"/>
+<c:set var="buttonStyle" value="${empty image ? 'tinybutton-load.gif' : image}"/>
 
 <table cellpadding="0" cellspacing="0" class="datatable" summary="Effort Detail Importing">
 	
@@ -103,9 +103,16 @@
         <td height="30" class="infoline">
 		<c:set var="loadDetailLineButtonName" value="methodToCall.loadDetailLine" />
 		  	   ${kfunc:registerEditableProperty(KualiForm, loadDetailLineButtonName)}
-			<input type="image" tabindex="${tabindex}" name="${loadDetailLineButtonName}"
-   				   src="${ConfigProperties.externalizable.images.url}${imageName}" 
-			   	   alt="Import Detail Lines" title="Import Detail Lines" border="0" class="tinybutton" valign="middle"/>
+			<input
+                    type="submit"
+                    tabindex="${tabindex}"
+                    name="${loadDetailLineButtonName}"
+			   	    alt="Import Detail Lines"
+                    title="Import Detail Lines"
+                    border="0"
+                    class="btn btn-default"
+                    valign="middle"
+                    value="Import Detail Lines"/>
         </td>
 	</tr>
 	</c:if>	

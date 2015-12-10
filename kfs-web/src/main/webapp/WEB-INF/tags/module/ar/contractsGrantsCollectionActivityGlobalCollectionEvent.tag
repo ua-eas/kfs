@@ -30,8 +30,12 @@
 		<h3>New</h3>
 		<table width="100%" cellpadding="0" cellspacing="0" class="datatable">
 			<tr>
-				<kul:htmlAttributeHeaderCell width="50%"
-					attributeEntry="${ContractsGrantsCollectionActivityAttributes.activityCode}" horizontal="true" useShortLabel="false"/>
+				<kul:htmlAttributeHeaderCell
+                        width="50%"
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.activityCode}"
+                        horizontal="true"
+                        useShortLabel="false"
+                        addClass="right"/>
 				<td>
 					<div id="document.activityCode.div">
 						<c:choose>
@@ -51,8 +55,12 @@
 				</td>
 			</tr>
 			<tr>
-				<kul:htmlAttributeHeaderCell width="50%"
-					attributeEntry="${ContractsGrantsCollectionActivityAttributes.activityDate}" horizontal="true" useShortLabel="false"/>
+				<kul:htmlAttributeHeaderCell
+                        width="50%"
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.activityDate}"
+                        horizontal="true"
+                        useShortLabel="false"
+                        addClass="right"/>
 				<td>
 					<div id="document.activityDate.div">
 						<c:choose>
@@ -68,8 +76,12 @@
 				</td>
 			</tr>
 			<tr>
-				<kul:htmlAttributeHeaderCell width="50%"
-					attributeEntry="${ContractsGrantsCollectionActivityAttributes.activityText}" horizontal="true" useShortLabel="false"/>
+				<kul:htmlAttributeHeaderCell
+                        width="50%"
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.activityText}"
+                        horizontal="true"
+                        useShortLabel="false"
+                        addClass="right"/>
 				<td>
 					<div id="document.activityText.div">
 						<c:choose>
@@ -85,8 +97,12 @@
 				</td>
 			</tr>
 			<tr>
-				<kul:htmlAttributeHeaderCell width="50%"
-					attributeEntry="${ContractsGrantsCollectionActivityAttributes.followupDate}" horizontal="true" useShortLabel="false"/>
+				<kul:htmlAttributeHeaderCell
+                        width="50%"
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.followupDate}"
+                        horizontal="true"
+                        useShortLabel="false"
+                        addClass="right"/>
 				<td>
 					<div id="document.followupDate.div">
 						<c:choose>
@@ -102,8 +118,12 @@
 				</td>
 			</tr>
 			<tr>
-				<kul:htmlAttributeHeaderCell width="50%"
-					attributeEntry="${ContractsGrantsCollectionActivityAttributes.completedDate}" horizontal="true" useShortLabel="false"/>
+				<kul:htmlAttributeHeaderCell
+                        width="50%"
+                        attributeEntry="${ContractsGrantsCollectionActivityAttributes.completedDate}"
+                        horizontal="true"
+                        useShortLabel="false"
+                        addClass="right"/>
 				<td>
 					<div id="document.completedDate.div">
 						<c:choose>

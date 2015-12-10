@@ -34,22 +34,19 @@
 <c:if test="${not empty attributeEntryName}">
     <dd:evalNameToMap mapName="${attributeEntryName}" returnVar="attributeEntry"/>
 </c:if>
-
-<%-- There are no spaces between the tags in the middle of this file,
-    to make effective the non-breaking space after the REQUIRED_FIELD_SYMBOL,
-    and to eliminate any space before the colon. --%>
-<c:if test="${not empty labelFor}"><label for="${labelFor}"></c:if
-><c:if test="${(attributeEntry.required == true || forceRequired) && readOnly != true}">
-  <font color="">${Constants.REQUIRED_FIELD_SYMBOL}&nbsp;</font></c:if
-><c:if test="${not empty labelLink && includeHelpUrl || (!skipHelpUrl && KualiForm.fieldLevelHelpEnabled)}"><a
-        href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=${attributeEntry.fullClassName}&amp;attributeName=${attributeEntry.name}"
-        tabindex="${KualiForm.nextArbitrarilyHighIndex}" target="helpWindow" title="[Help] ${attributeEntry.label}"></c:if
->
+<c:if test="${not empty labelFor}"><label for="${labelFor}"></c:if>
+<c:if test="${(attributeEntry.required == true || forceRequired) && readOnly != true}">
+  ${Constants.REQUIRED_FIELD_SYMBOL}
+</c:if>
+<c:if test="${not empty labelLink && includeHelpUrl || (!skipHelpUrl && KualiForm.fieldLevelHelpEnabled)}">
+    <a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=${attributeEntry.fullClassName}&amp;attributeName=${attributeEntry.name}"
+        tabindex="${KualiForm.nextArbitrarilyHighIndex}" target="helpWindow" title="[Help] ${attributeEntry.label}">
+</c:if>
 <c:if test="${not empty labelLink}">
     <a href="${labelLink}" tabindex="${KualiForm.nextArbitrarilyHighIndex}" title="${attributeEntry.label}">
 </c:if>
-<c:if test="${useShortLabel == true}"><c:out value="${attributeEntry.shortLabel}" /></c:if
-><c:if test="${useShortLabel != true}"><c:out value="${attributeEntry.label}" /></c:if
-><c:if test="${!noColon}">:</c:if>
-<c:if test="${includeHelpUrl || (!skipHelpUrl && KualiForm.fieldLevelHelpEnabled)}"></a></c:if>
+<c:if test="${useShortLabel == true}"><c:out value="${attributeEntry.shortLabel}" /></c:if>
+<c:if test="${useShortLabel != true}"><c:out value="${attributeEntry.label}" /></c:if>
+<c:if test="${!noColon}">:</c:if>
+<c:if test="${not empty labelLink && includeHelpUrl || (!skipHelpUrl && KualiForm.fieldLevelHelpEnabled)}"></a></c:if>
 <c:if test="${not empty labelFor}"></label></c:if>

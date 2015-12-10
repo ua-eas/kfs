@@ -40,6 +40,7 @@
 <%@ attribute name="boClassName" required="false" description="If present, makes the tab title an inquiry link using the business object class declared here.  Used with the keyValues attribute." %>
 <%@ attribute name="keyValues" required="false" description="If present, makes the tab title an inquiry link using the primary key values declared here.  Used with the boClassName attribute." %>
 <%@ attribute name="alwaysOpen" required="false" description="allows a tab to always stay open" %>
+<%@ attribute name="simple" required="false" description="Determines whether it should look like a tab or just be a simple sub-area" %>
 
 <%@ variable name-given="tabKey" scope="NESTED" description="forces the tabKey variable to nested scope" %>
 
@@ -94,8 +95,34 @@
 	<c:set var="tabTitleSpan" value="${tabTitleSpan + 1}" />
 </c:if>
 
-<div class="main-panel"<c:if test="${hidden}"> style="display:none;"</c:if>>
-    <div class="headerarea-small">
+<c:if test="${!simple}">
+    <c:set var="mainClass" value="main-panel"/>
+</c:if>
+
+<div class="${mainClass}"<c:if test="${hidden}"> style="display:none;"</c:if>>
+    <c:choose>
+        <c:when test="${param.mode eq 'modal'}">
+            <c:set var="formId" value="kualiForm"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="formId" value="kualiFormModal"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${!simple}">
+            <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
+                <div class="headerarea-small clickable" property="methodToCall.toggleTab.tab${tabKey}" title="close ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1">
+            </c:if>
+            <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
+                <div class="headerarea-small clickable" property="methodToCall.toggleTab.tab${tabKey}" title="open ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1">
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <div>
+        </c:otherwise>
+    </c:choose>
+
       <c:if test="${not empty leftSideHtmlProperty and not empty leftSideHtmlAttribute}"><kul:htmlControlAttribute property="${leftSideHtmlProperty}" attributeEntry="${leftSideHtmlAttribute}" disabled="${leftSideHtmlDisabled}" /></c:if>
       <a name="${tabKey}" ></a>
       <c:choose>
@@ -103,7 +130,14 @@
               <h2><kul:inquiry keyValues="${keyValues}" boClassName="${boClassName}" render="true"><c:out value="${tabTitle}" /></kul:inquiry></h2>
           </c:when>
           <c:otherwise>
-              <h2><c:out value="${tabTitle}" /></h2>
+              <c:choose>
+                  <c:when test="${!simple}">
+                      <h2><c:out value="${tabTitle}" /></h2>
+                  </c:when>
+                  <c:otherwise>
+                      <h3><c:out value="${tabTitle}" /></h3>
+                  </c:otherwise>
+              </c:choose>
           </c:otherwise>
       </c:choose>
       <c:if test="${not empty helpUrl }">
@@ -114,29 +148,24 @@
           &nbsp;<img src="${ConfigProperties.kr.externalizable.images.url}asterisk_orange.png" alt="changed"/>
       </c:if>
 
-      <div class="toggle-show-tab">
-          <c:choose>
-              <c:when test="${empty midTabClassReplacement}">
-                  <c:choose>
-                      <c:when test="${param.mode eq 'modal'}">
-                          <c:set var="formId" value="kualiForm"/>
-                      </c:when>
-                      <c:otherwise>
-                          <c:set var="formId" value="kualiFormModal"/>
-                      </c:otherwise>
-                  </c:choose>
-                  <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
-                      <span property="methodToCall.toggleTab.tab${tabKey}" title="close ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1"  class="glyphicon glyphicon-menu-up"></span>
-                  </c:if>
-                  <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
-                      <span property="methodToCall.toggleTab.tab${tabKey}" title="open ${tabTitle}" id="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${formId}', '${tabKey}'); " tabindex="-1" class="glyphicon glyphicon-menu-down"></span>
-                  </c:if>
-              </c:when>
-              <c:otherwise>
-                  ${midTabClassReplacement}
-              </c:otherwise>
-          </c:choose>
-      </div>
+      <c:if test="${!simple}">
+          <div class="toggle-show-tab">
+              <c:choose>
+                  <c:when test="${empty midTabClassReplacement}">
+
+                      <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
+                          <span class="glyphicon glyphicon-menu-up"></span>
+                      </c:if>
+                      <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
+                          <span class="glyphicon glyphicon-menu-down"></span>
+                      </c:if>
+                  </c:when>
+                  <c:otherwise>
+                      ${midTabClassReplacement}
+                  </c:otherwise>
+              </c:choose>
+          </div>
+      </c:if>
     </div>
 
 

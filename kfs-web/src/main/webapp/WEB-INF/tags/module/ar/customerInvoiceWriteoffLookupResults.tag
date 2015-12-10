@@ -39,9 +39,9 @@
 	${kfunc:registerEditableProperty(KualiForm, Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM)}
 	
 	<p>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectall.gif" alt="Select all rows" title="Select all rows" styleClass="tinybutton" property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All Rows"/>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_unselall.gif" alt="Unselect all rows" title="Unselect all rows" styleClass="tinybutton" property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All Rows"/>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" styleClass="tinybutton" property="methodToCall.prepareToReturnSelectedResults.x" alt="Return selected results" title="Return selected results"/>
+		<html:submit alt="Select all rows" title="Select all rows" styleClass="btn btn-default" property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All"/>
+		<html:submit alt="Unselect all rows" title="Unselect all rows" styleClass="btn btn-default" property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All"/>
+		<html:submit alt="Return selected rows" title="Return selected rows" styleClass="btn btn-default" property="methodToCall.prepareToReturnSelectedResults.x" value="Return Selected"/>
 	</p>
 
 	<c:set var="numOfColumns" value="${fn:length(resultsList[0].columns)}" />
@@ -86,8 +86,8 @@
 	</table>
 	
 	<p>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectall.gif" alt="Select all rows" title="Select all rows" styleClass="tinybutton" property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All Rows"/>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_unselall.gif" alt="Unselect all rows" title="Unselect all rows" styleClass="tinybutton" property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All Rows"/>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_retselected.gif" styleClass="tinybutton" property="methodToCall.prepareToReturnSelectedResults.x" alt="Return selected results" title="Return selected results"/>
+		<html:submit alt="Select all rows" title="Select all rows" styleClass="btn btn-default" property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All"/>
+		<html:submit alt="Unselect all rows" title="Unselect all rows" styleClass="btn btn-default" property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All"/>
+		<html:submit alt="Return selected results" title="Return selected results" styleClass="btn btn-default" property="methodToCall.prepareToReturnSelectedResults.x" value="Return Selected"/>
 	</p>
 </c:if>

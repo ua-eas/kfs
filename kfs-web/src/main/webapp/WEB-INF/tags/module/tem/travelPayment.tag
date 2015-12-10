@@ -34,9 +34,8 @@
 <c:set var="canEdit" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}"/>
 <c:set var="immediateDisbursementEntryMode" value="${canEdit && KualiForm.editingMode['immediateDisbursementEntryMode']}"/>
 
-<kul:tab tabTitle="${travelPaymentLabel}" defaultOpen="${KualiForm.defaultOpenPaymentInfoTab}" tabErrorKey="${tabErrorKey}">
+<kul:tab simple="${true}" tabTitle="${travelPaymentLabel}" defaultOpen="${KualiForm.defaultOpenPaymentInfoTab}" tabErrorKey="${tabErrorKey}">
     <div class="tab-container" align=center > 
-        <h3>Payment Information</h3>
 		<table cellpadding=0 class="datatable" summary="Payment Section">
             <tr>
               <th width="20%"  class="bord-l-b">

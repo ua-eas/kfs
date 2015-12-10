@@ -25,6 +25,6 @@
     <c:set var="align" value="right" />
   </c:if>
 
-  <kul:htmlAttributeHeaderCell attributeEntry="${DataDictionary.Bank.attributes.bankCode}" align="${align}"/>
+  <kul:htmlAttributeHeaderCell attributeEntry="${DataDictionary.Bank.attributes.bankCode}" align="${align}" addClass="right" horizontal="${true}"/>
 
 </c:if>

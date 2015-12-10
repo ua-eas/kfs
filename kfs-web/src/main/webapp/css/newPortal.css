@@ -150,6 +150,10 @@ header.navbar .navbar-brand .logo-right {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    -webkit-box-ordinal-group: 3;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
 }
 
 #content-overlay {
@@ -199,19 +203,19 @@ nav ul.nav li {
 }
 
 #sidebar {
-    -webkit-box-flex: 0 0 320px;
-    -moz-box-flex: 0 0 320px;
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
     -webkit-flex: 0 0 320px;
     -ms-flex: 0 0 320px;
     flex: 0 0 320px;
     background-color: #5b5b5b;
     position: relative;
     transition:500ms all;
-    -webkit-box-ordinal-group: -1;
-    -moz-box-ordinal-group: -1;
-    -ms-flex-order: -1;
-    -webkit-order: -1;
-    order: -1;
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
 }
 
 .cover {
@@ -227,8 +231,8 @@ nav ul.nav li {
 }
 
 #sidebar.collapsed {
-    -webkit-box-flex: 0 0 25px;
-    -moz-box-flex: 0 0 25px;
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
     -webkit-flex: 0 0 25px;
     -ms-flex: 0 0 25px;
     flex: 0 0 25px;
@@ -271,7 +275,8 @@ nav ul.nav li {
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,.15);
 }
 
-#sidebar.collapsed ul>li.list-item {
+#sidebar.collapsed ul>li.list-item,
+#sidebar.collapsed .refresh {
     opacity: 0;
 }
 
@@ -311,6 +316,8 @@ nav ul.nav li {
     text-align: center;
     margin-top: 25px;
     margin-bottom: 25px;
+    transition: opacity 500ms;
+    opacity: 1;
 }
 
 #sidebar .refresh a {
@@ -590,6 +597,10 @@ footer {
     padding: 5px 15px 7px 15px;
     border: none;
     box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.2);
+}
+
+.btn.small {
+    padding: 0px 7px 2px 7px;
 }
 
 .btn-default:hover {

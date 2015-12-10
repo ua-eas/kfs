@@ -26,40 +26,36 @@
 <h3>Trip Information Section</h3>
 <table cellpadding="0" cellspacing="0" class="datatable" summary="Trip Information Section">
 	<tr>
-		<th class="bord-l-b" width="25%">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${documentAttributes.tripTypeCode}" />
-			</div>
+		<th class="right" width="25%">
+            <kul:htmlAttributeLabel attributeEntry="${documentAttributes.tripTypeCode}" />
 		</th>
 		<td class="datacell"  width="25%">
 			<kul:htmlControlAttribute
-			attributeEntry="${documentAttributes.tripTypeCode}"
-			property="document.tripTypeCode" 
-			onchange="document.getElementById('refreshPage').click();"
-			readOnly="${!fullEntryMode}"/>
-			<html:image property="methodToCall.recalculate" src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif" alt="calculate" styleClass="tinybutton" styleId="refreshPage" style="display:none; visibility:hidden;"/>			
+                attributeEntry="${documentAttributes.tripTypeCode}"
+                property="document.tripTypeCode"
+                onchange="document.getElementById('refreshPage').click();"
+                readOnly="${!fullEntryMode}"/>
+			<html:submit property="methodToCall.recalculate" alt="calculate" styleClass="tinybutton btn btn-default small" styleId="refreshPage" style="display:none; visibility:hidden;" value="Calculate"/>
 		</td>
 		<c:choose>
 			<c:when test="${blanketTravelEntryMode || blanketTravelViewMode}">
-				<th class="bord-l-b" width="25%">
-				<div align="right"><kul:htmlAttributeLabel
-					attributeEntry="${documentAttributes.blanketTravel}" /></div>
+				<th class="right" width="25%">
+				    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.blanketTravel}" />
 				</th>
-				<td class="datacell" width="25%"><kul:htmlControlAttribute
-					attributeEntry="${documentAttributes.blanketTravel}"
-					property="document.blanketTravel" readOnly="${blanketTravelViewMode}"/>
+				<td class="datacell" width="25%">
+                    <kul:htmlControlAttribute
+					    attributeEntry="${documentAttributes.blanketTravel}"
+					    property="document.blanketTravel" readOnly="${blanketTravelViewMode}"/>
 				</td>
 			</c:when>
 			<c:otherwise>
-				<th class="bord-l-b" width="25%">&nbsp;</th><td class="datacell" width="25%">&nbsp;</td>
+				<th width="25%">&nbsp;</th><td class="datacell" width="25%">&nbsp;</td>
 			</c:otherwise>
 		</c:choose>
 	</tr>
 	<tr>
-		<th class="bord-l-b" width="25%">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${documentAttributes.tripBegin}" />
-			</div>
+		<th class="right" width="25%">
+            <kul:htmlAttributeLabel attributeEntry="${documentAttributes.tripBegin}" />
 		</th>
 		<td class="datacell" width="25%">
 			<kul:htmlControlAttribute attributeEntry="${documentAttributes.tripBegin}" property="document.tripBegin" readOnly="${!fullEntryMode}" />
@@ -78,10 +74,8 @@
             	</script>
             </c:if> 
 		</td>
-		<th class="bord-l-b" width="25%">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${documentAttributes.tripEnd}" />
-			</div>
+		<th class="right" width="25%">
+            <kul:htmlAttributeLabel attributeEntry="${documentAttributes.tripEnd}" />
 		</th>
 		<td class="datacell" width="25%">
 			<kul:htmlControlAttribute attributeEntry="${documentAttributes.tripEnd}" property="document.tripEnd" readOnly="${!fullEntryMode}" />
@@ -102,15 +96,15 @@
 		</td>
 	</tr>
 	<tr>
-        <th class="bord-l-b">
-        <div align="right"><kul:htmlAttributeLabel
-            attributeEntry="${primaryDestinationAttributes.primaryDestinationName}" /></div>
+        <th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${primaryDestinationAttributes.primaryDestinationName}" />
         </th>
-        <td class="datacell" colspan="3"><kul:htmlControlAttribute
-            attributeEntry="${primaryDestinationAttributes.primaryDestinationName}"
-            property="document.primaryDestinationName"
-            onchange="document.getElementById('refreshPage').click();"
-            readOnly="${!fullEntryMode || !destinationNotFound}" />
+        <td class="datacell" colspan="3">
+            <kul:htmlControlAttribute
+                attributeEntry="${primaryDestinationAttributes.primaryDestinationName}"
+                property="document.primaryDestinationName"
+                onchange="document.getElementById('refreshPage').click();"
+                readOnly="${!fullEntryMode || !destinationNotFound}" />
             <c:if test="${fullEntryMode}">
                 <kul:lookup boClassName="org.kuali.kfs.module.tem.businessobject.PrimaryDestination"
                             fieldConversions="id:document.primaryDestinationId"
@@ -118,9 +112,7 @@
             </c:if>
         
             <c:if test="${fullEntryMode && enablePrimaryDestination}">
-                <br />  
-                <br />  
-                <html:image property="methodToCall.enablePrimaryDestinationFields" src="${ConfigProperties.externalizable.images.url}tinybutton-destinationnotfound.gif" alt="destination not found" styleClass="tinybutton" />             
+                <html:submit property="methodToCall.enablePrimaryDestinationFields" alt="destination not found" styleClass="tinybutton btn btn-default small" value="Destination Not Found" />
             </c:if>
             <c:if test="${enablePerDiemLookupLinks}">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.fp.businessobject.TravelPerDiem&docFormKey=88888888" target="_BLANK">Per Diem Links</a>
@@ -128,40 +120,42 @@
         </td>
     </tr>
 	<tr>
-        <th class="bord-l-b">
-            <div align="right"><kul:htmlAttributeLabel
-            attributeEntry="${documentAttributes.primaryDestinationCountryState}" /></div>
+        <th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${documentAttributes.primaryDestinationCountryState}" />
         </th>
-        <td class="datacell"><kul:htmlControlAttribute
-            attributeEntry="${documentAttributes.primaryDestinationCountryState}"
-            property="document.primaryDestinationCountryState" readOnly="${!fullEntryMode || !destinationNotFound}" /></td>
-        <th class="bord-l-b">
-            <div align="right"><kul:htmlAttributeLabel
-            attributeEntry="${documentAttributes.primaryDestinationCounty}" /></div>
+        <td class="datacell">
+            <kul:htmlControlAttribute
+                attributeEntry="${documentAttributes.primaryDestinationCountryState}"
+                property="document.primaryDestinationCountryState" readOnly="${!fullEntryMode || !destinationNotFound}" /></td>
+        <th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${documentAttributes.primaryDestinationCounty}" />
         </th>
-        <td class="datacell"><kul:htmlControlAttribute
-            attributeEntry="${documentAttributes.primaryDestinationCounty}"
-            property="document.primaryDestinationCounty" readOnly="${!fullEntryMode || !destinationNotFound}"  /></td>
+        <td class="datacell">
+            <kul:htmlControlAttribute
+                attributeEntry="${documentAttributes.primaryDestinationCounty}"
+                property="document.primaryDestinationCounty" readOnly="${!fullEntryMode || !destinationNotFound}"  />
+        </td>
     </tr>
 	<tr>
-		<th class="bord-l-b">
-		<div align="right"><kul:htmlAttributeLabel
-			attributeEntry="${documentAttributes.tripDescription}" /></div>
+		<th class="right">
+		    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.tripDescription}" />
 		</th>
-		<td class="datacell" colspan="3"><kul:htmlControlAttribute
-			attributeEntry="${documentAttributes.tripDescription}"
-			property="document.tripDescription"
-			readOnly="${!fullEntryMode}" /></td>
+		<td class="datacell" colspan="3">
+            <kul:htmlControlAttribute
+                attributeEntry="${documentAttributes.tripDescription}"
+                property="document.tripDescription"
+                readOnly="${!fullEntryMode}" />
+        </td>
 	</tr>
 	<c:if test="${(docType == 'TA' || docType == 'TR') && travelManager}">
 	<tr>
-		<th class="bord-l-b">
-		<div align="right"><kul:htmlAttributeLabel
-			attributeEntry="${documentAttributes.delinquentTRException}" /></div>
+		<th class="right">
+		    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.delinquentTRException}" />
 		</th>
-		<td class="datacell" colspan="3"><kul:htmlControlAttribute
-			attributeEntry="${documentAttributes.delinquentTRException}"
-			property="document.delinquentTRException" />
+		<td class="datacell" colspan="3">
+            <kul:htmlControlAttribute
+                attributeEntry="${documentAttributes.delinquentTRException}"
+                property="document.delinquentTRException" />
 		</td>
 	</tr>
 	</c:if>	

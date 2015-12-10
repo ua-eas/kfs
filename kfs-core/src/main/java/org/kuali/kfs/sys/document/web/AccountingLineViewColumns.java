@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewColumnsDefinition;
+import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewColumnsDefinition;
-import org.kuali.kfs.sys.document.service.AccountingLineFieldRenderingTransformation;
 
 /**
  * A layout element that renders elements 
@@ -62,7 +62,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * This element should be stretched
-     * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#stretchToFillLine()
+     * @see org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement#shouldStretchToFillLine()
      */
     public boolean shouldStretchToFillLine() {
         return true;
@@ -89,7 +89,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
      * @return a List of created AccountingLineTableRows
      */
     protected List<AccountingLineTableRow> createRowsForFields() {
-        List<AccountingLineTableRow> rows = new ArrayList<AccountingLineTableRow>();
+        List<AccountingLineTableRow> rows = new ArrayList<>();
         
         int countForThisRow = 0;
         AccountingLineTableRow row = new AccountingLineTableRow();
@@ -159,7 +159,7 @@ public class AccountingLineViewColumns implements AccountingLineViewLineFillingE
 
     /**
      * Has fields perform the transformations
-     * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformations(java.util.List, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map, java.util.Map)
+     * @see org.kuali.kfs.sys.document.web.TableJoining#performFieldTransformations(java.util.List, org.kuali.kfs.sys.businessobject.AccountingLine, java.util.Map)
      */
     public void performFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations, AccountingLine accountingLine, Map unconvertedValues) {
         int count = 0;

@@ -42,7 +42,7 @@
 	  <c:if test="${includeBankCode}">
 	      <div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="${bankProperty}"/></div></div>
 	  </c:if>	  
-	  <table cellpadding="0" cellspacing="0" class="datatable" summary="KFS Detail Section">	  
+	  <table cellpadding="0" cellspacing="0" class="datatable min-100" summary="KFS Detail Section">
 	    <tr>
 	      <c:choose>
 	        <c:when test="${includePostingYear}">
@@ -50,6 +50,7 @@
 		                labelFor="document.postingYear"
 		                attributeEntry="${postingYearAttributes.postingYear}"
 		                horizontal="true"
+                        addClass="right"
 		              />
 		
 		        <td class="datacell-nowrap">
@@ -60,26 +61,22 @@
 		                readOnly="${readOnly or fiscalYearReadOnly}"
 		              />
 		          <c:if test="${!readOnly and includePostingYearRefresh}">
-		            <html:image property="methodToCall.refresh" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_refresh.gif" alt="refresh" title="refresh" styleClass="tinybutton"/>    
+		            <html:submit property="methodToCall.refresh" alt="refresh" title="refresh" styleClass="btn btn-default small" value="Refresh"/>
 		          </c:if>   
 		        </td>
 	        </c:when>
 	        <c:when test="${includeBankCode}">
 	            <sys:bankLabel align="right"/>
 	            <sys:bankControl property="${bankProperty}" objectProperty="${bankObjectProperty}" depositOnly="${depositOnly}" disbursementOnly="${disbursementOnly}" readOnly="${readOnly}"/>
-	        </c:when>	        
-	        <c:otherwise>
-	          <th colspan="2">
-	             &nbsp;
-	          </th>
-	        </c:otherwise>
+	        </c:when>
 	      </c:choose>
 	      <c:choose>
 	        <c:when test="${includeTotalAmount}">
 	          <kul:htmlAttributeHeaderCell
 	                  labelFor="document.documentHeader.financialDocumentTotalAmount"
 	                  attributeEntry="${financialDocHeaderAttributes.financialDocumentTotalAmount}"
-	                  horizontal="true"/>
+	                  horizontal="true"
+                      addClass="right"/>
 	
 	          <td align="left" valign="middle">
 	            <kul:htmlControlAttribute 
@@ -88,15 +85,9 @@
 	                  readOnly="true"/>
 	          </td>
 	        </c:when>
-	        <c:otherwise>
-	          <th colspan="2">
-	             &nbsp;
-	          </th>
-	        </c:otherwise>
 	      </c:choose>
 	    </tr>
 	    
-	    <!-- need to display bank code in a new row if it was not displayed above -->
 	    <c:if test="${includePostingYear and includeBankCode}">
 	      <tr>
 		     <sys:bankLabel align="right"/>
@@ -104,9 +95,7 @@
 	      </tr>
 	    </c:if>
 	   
-	   	<!-- CSU 6702 BEGIN -->
-	   	<!-- rSmart-jkneal-KFSCSU-199-begin mod for displaying accounting period field -->	   	 
-	   	<c:if test="${!empty KualiForm.documentActions[KFSConstants.YEAR_END_ACCOUNTING_PERIOD_VIEW_DOCUMENT_ACTION]}">	   
+	   	<c:if test="${!empty KualiForm.documentActions[KFSConstants.YEAR_END_ACCOUNTING_PERIOD_VIEW_DOCUMENT_ACTION]}">
 	      	<c:set var="accountingPeriodAttribute" value="${DataDictionary.LedgerPostingDocumentBase.attributes.accountingPeriodCompositeString}" />
 	      	<tr>	      
 			  	<kul:htmlAttributeHeaderCell
@@ -123,13 +112,11 @@
 		                	${KualiForm.document.accountingPeriod.universityFiscalPeriodName}
 		           	</kul:htmlControlAttribute>      
 		      	</td>
-		      	<th colspan="2">&nbsp;</th>       
 	      	</tr>
 	   	</c:if>
-	   	<!-- rSmart-jkneal-KFSCSU-199-end mod --> 
-	   	<!-- CSU 6702 END -->
-	   	   
 	  </table>
 	</c:if>
-	<jsp:doBody/>
+    <jsp:doBody/>
 </kul:documentOverview>
+
+

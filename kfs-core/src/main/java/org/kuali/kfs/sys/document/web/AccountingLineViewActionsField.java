@@ -18,18 +18,17 @@
  */
 package org.kuali.kfs.sys.document.web;
 
-import java.util.List;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
-
+import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.renderers.ActionsRenderer;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.ui.Field;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+import java.util.List;
 
 /**
  * A field that can join tables and also be rendered, this represents a table cell
@@ -99,7 +98,7 @@ public class AccountingLineViewActionsField extends FieldTableJoiningWithHeader 
     }
 
     /**
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, AccountingLineRenderingContext)
      */
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
         ActionsRenderer renderer = new ActionsRenderer();
@@ -117,7 +116,7 @@ public class AccountingLineViewActionsField extends FieldTableJoiningWithHeader 
 
     /**
      * This doesn't hold a field, so this implementation does nothing
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFieldNames(java.util.List)
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#appendFields(java.util.List)
      * 
      * KRAD Conversion: Customization of the fields - No use of data dictionary
      */
@@ -125,7 +124,7 @@ public class AccountingLineViewActionsField extends FieldTableJoiningWithHeader 
 
     /**
      * Doesn't do anything
-     * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int[], int)
+     * @see org.kuali.kfs.sys.document.web.RenderableElement#populateWithTabIndexIfRequested(int)
      */
     public void populateWithTabIndexIfRequested(int reallyHighIndex) {}
     

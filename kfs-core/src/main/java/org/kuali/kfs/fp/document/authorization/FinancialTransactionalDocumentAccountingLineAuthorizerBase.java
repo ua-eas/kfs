@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Map;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
+
+import java.util.Map;
 
 /**
  * The default implementation of AccountingLineAuthorizer
@@ -62,9 +62,7 @@ public class FinancialTransactionalDocumentAccountingLineAuthorizerBase extends 
         String actionMethod = this.getRefreshLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_REFRESH_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        String actionImageName = getRiceImagePath() + "tinybutton-refresh.gif";
-
-        return new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        return new AccountingLineViewAction(actionMethod, actionLabel, "default", "Refresh");
     }
     
     /**

@@ -137,7 +137,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
     /**
      * collection the actions that are allowed for the given accounting line
      *
-     * @param accountingLine the given accounting line
+     * @param accountingLineRenderingContext the given accounting line rendering context
      * @param accountingLinePropertyName the property name of the given account line, typically, the form name
      * @param accountingLineIndex the index of the given accounting line in its accounting line group
      * @param groupTitle the title of the accounting line group
@@ -204,7 +204,6 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * @param accountingLine the accounting line to test
      * @param accountingLineCollectionProperty the property that the accounting line lives in
      * @param fieldName the name of the field we are testing
-     * @param editableLine whether the parent line of this field is editable
      * @param editablePage whether the parent page of this field is editable
      * @return true if the field can be edited (subject to subsequence KIM check); false otherwise
      */
@@ -329,7 +328,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
     /**
      * Gathers together all the information for a permission detail attribute set
      *
-     * @param documentTypeName the document
+     * @param document the document
      * @param fieldName the given field name
      * @return all the information for a permission detail attribute set
      */
@@ -381,7 +380,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
     }
 
     /**
-     * @param field AccountingLineViewField to find KIM-happy property name for
+     * @param convertedName AccountingLineViewField to find KIM-happy property name for
      * @return a property name that KIM will like
      */
     protected String getKimHappyPropertyNameForField(String convertedName) {
@@ -453,9 +452,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         String actionMethod = this.getBalanceInquiryMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_BALANCE_INQUIRY_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        String actionImageName = getKFSImagePath() + "tinybutton-balinquiry.gif";
-
-        return new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        return new AccountingLineViewAction(actionMethod, actionLabel, "default", "Balance Inquiry");
     }
 
     /**
@@ -471,9 +468,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         String actionMethod = this.getDeleteLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_DELETE_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        String actionImageName = getRiceImagePath() + "tinybutton-delete1.gif";
-
-        return new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        return new AccountingLineViewAction(actionMethod, actionLabel, "red", "Delete");
     }
 
     /**
@@ -481,7 +476,6 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      *
      * @param accountingLine the given accounting line
      * @param accountingLinePropertyName the property name of the given account line, typically, the form name
-     * @param accountingLineIndex the index of the given accounting line in its accounting line group
      * @param groupTitle the title of the accounting line group
      * @return the add action for the given accounting line
      */
@@ -489,9 +483,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         String actionMethod = this.getAddMethod(accountingLine, accountingLinePropertyName);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_ADD_ACTION_LABEL, groupTitle);
 
-        String actionImageName = getRiceImagePath() + "tinybutton-add1.gif";
-
-        return new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        return new AccountingLineViewAction(actionMethod, actionLabel, "green", "Add");
     }
 
     /**
@@ -511,7 +503,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * Builds the action method name of the method that adds accounting lines for this group
      *
      * @param accountingLine the accounting line an action is being checked for
-     * @param accountingLinePropertyName the property name of the accounting line
+     * @param accountingLineProperty the property name of the accounting line
      * @return the action method name of the method that adds accounting lines for this group
      */
     protected String getAddMethod(AccountingLine accountingLine, String accountingLineProperty) {
@@ -523,7 +515,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * Builds the action method name of the method that deletes accounting lines for this group
      *
      * @param accountingLine the accounting line an action is being checked for
-     * @param accountingLinePropertyName the property name of the accounting line
+     * @param accountingLineProperty the property name of the accounting line
      * @param accountingLineIndex the index of the given accounting line within the the group being rendered
      * @return the action method name of the method that deletes accounting lines for this group
      */
@@ -536,7 +528,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * Builds the action method name of the method that performs a balance inquiry on accounting lines for this group
      *
      * @param accountingLine the accounting line an action is being checked for
-     * @param accountingLinePropertyName the property name of the accounting line
+     * @param accountingLineProperty the property name of the accounting line
      * @param accountingLineIndex the index of the given accounting line within the the group being rendered
      * @return the action method name of the method that performs a balance inquiry on accounting lines for this group
      */

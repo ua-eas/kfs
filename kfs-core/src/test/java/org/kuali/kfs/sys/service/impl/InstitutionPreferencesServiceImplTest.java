@@ -4,7 +4,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.kuali.kfs.coa.businessobject.OrganizationReversionGlobal;
 import org.kuali.kfs.fp.businessobject.CreditCardType;
 import org.kuali.kfs.fp.document.ServiceBillingDocument;
@@ -46,6 +48,9 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InstitutionPreferencesServiceImplTest {
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     abstract class PreferencesDaoInstitutionPreferences implements PreferencesDao {
         public Integer cacheLength = null;
 
@@ -820,12 +825,72 @@ public class InstitutionPreferencesServiceImplTest {
     }
 
     @Test
+    public void testSaveMenu() {
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+
+        String newMenu = "[{\"label\": \"Help\", \"link\": \"myhelp.html\"}, {\"label\": \"Feedback\", \"link\": \"feedback.html\"}]";
+        List<Map<String, String>> savedMenu = preferencesServiceImpl.saveMenu(newMenu);
+        Assert.assertTrue(savedMenu.get(0).containsKey(KFSPropertyConstants.LABEL));
+        Assert.assertEquals("Help", savedMenu.get(0).get(KFSPropertyConstants.LABEL));
+        Assert.assertTrue(savedMenu.get(0).containsKey(KFSPropertyConstants.LINK));
+        Assert.assertEquals("myhelp.html", savedMenu.get(0).get(KFSPropertyConstants.LINK));
+    }
+
+    @Test
+    public void testSaveMenuInvalidJson() {
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+
+        String newMenu = "[\"not\": \"valid\"}]";
+
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Error parsing json");
+        preferencesServiceImpl.saveMenu(newMenu);
+    }
+
+    @Test
     public void testGetLogo() {
         InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
         preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
 
         Map<String, String> logoUrl = preferencesServiceImpl.getLogo();
         Assert.assertEquals("static/images/out-of-the-box-logo-rtna.png", logoUrl.get(KFSPropertyConstants.LOGO_URL));
+    }
+
+    @Test
+    public void testSaveLogo() {
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+
+        String newLogo = "{\"logoUrl\": \"mytestimage.png\"}";
+        Map<String, String> savedLogo = preferencesServiceImpl.saveLogo(newLogo);
+        Assert.assertTrue(savedLogo.containsKey(KFSPropertyConstants.LOGO_URL));
+        Assert.assertEquals("mytestimage.png", savedLogo.get(KFSPropertyConstants.LOGO_URL));
+    }
+
+    @Test
+    public void testSaveLogoMissingLogoUrlKey() {
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+
+        String newLogo = "{\"notLogoUrl\": \"mytestimage.png\"}";
+
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Invalid JSON. Should contain logoUrl.");
+        preferencesServiceImpl.saveLogo(newLogo);
+    }
+
+    @Test
+    public void testSaveLogoInvalidJSON() {
+        InstitutionPreferencesServiceImpl preferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
+        preferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferences());
+
+        String newLogo = "\"notLogoUrl\": \"mytestimage.png\"}";
+
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Error parsing json");
+        preferencesServiceImpl.saveLogo(newLogo);
     }
 
     protected class StubDocumentDictionaryService implements DocumentDictionaryService {

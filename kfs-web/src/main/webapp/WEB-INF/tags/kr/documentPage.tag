@@ -51,10 +51,23 @@
 </c:if>
 <c:set var="renderRequiredFieldsLabel" value="${(KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]
 ||KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_ADHOC_REQUESTS]) && (not KualiForm.suppressAllButtons)}" />
-<kul:page docTitle="${documentTitle}" transactionalDocument="${documentEntry.transactionalDocument}"
-  headerMenuBar="${headerMenuBar}" showDocumentInfo="${showDocumentInfo}" headerTitle="${headerTitle}" 
-  htmlFormAction="${htmlFormAction}" alternativeHelp="${alternativeHelp}" renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}" 
-  extraTopButtons="${extraTopButtons}" headerDispatch="${headerDispatch}" headerTabActive="${headerTabActive}" 
-  feedbackKey="${feedbackKey}" auditCount="${auditCount}" additionalScriptFiles="${additionalScriptFiles}" renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
+<kul:page
+        docTitle="${documentTitle}"
+        transactionalDocument="${documentEntry.transactionalDocument}"
+        headerMenuBar="${headerMenuBar}"
+        showDocumentInfo="${showDocumentInfo}"
+        headerTitle="${headerTitle}"
+        htmlFormAction="${htmlFormAction}"
+        alternativeHelp="${alternativeHelp}"
+        renderMultipart="${renderMultipart}"
+        showTabButtons="${showTabButtons}"
+        extraTopButtons="${extraTopButtons}"
+        headerDispatch="${headerDispatch}"
+        headerTabActive="${headerTabActive}"
+        feedbackKey="${feedbackKey}"
+        auditCount="${auditCount}"
+        additionalScriptFiles="${additionalScriptFiles}"
+        renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
+
     <jsp:doBody/>
 </kul:page>

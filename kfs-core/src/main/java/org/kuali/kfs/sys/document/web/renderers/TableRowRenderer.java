@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.kuali.kfs.sys.document.web.AccountingLineTableRow;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.document.web.AccountingLineTableRow;
+import java.io.IOException;
 
 /**
  * Renders a row within a table
@@ -49,7 +48,11 @@ public class TableRowRenderer implements Renderer {
         JspWriter out = pageContext.getOut();
         try {
             if (row.getChildCellCount() > 0) {
-                out.write(buildBeginningRowTag());
+                if (row.isHeader()) {
+                    out.write(buildBeginningRowTag("header"));
+                } else {
+                    out.write(buildBeginningRowTag());
+                }
                 row.renderChildrenCells(pageContext, parentTag);
                 out.write(buildEndingRowTag());
             }
@@ -59,18 +62,14 @@ public class TableRowRenderer implements Renderer {
         }
     }
     
-    /**
-     * 
-     * @return
-     */
     protected String buildBeginningRowTag() {
         return "<tr>";
     }
+
+    protected String buildBeginningRowTag(String styleClass) {
+        return "<tr class=\"" + styleClass + "\">";
+    }
     
-    /**
-     * 
-     * @return
-     */
     protected String buildEndingRowTag() {
         return "</tr>";
     }

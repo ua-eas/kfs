@@ -28,20 +28,16 @@
     documentTypeName="TravelArrangerDocument"
     htmlFormAction="temTravelArranger" renderMultipart="true"
     showTabButtons="true">
-       
+
     <sys:documentOverview editingMode="${KualiForm.editingMode}" />
     <tem-arranger:traveler/>
     <tem-arranger:request/>
-    
-    
+
     <kul:adHocRecipients />
 
     <kul:routeLog />
     <kul:superUserActions />
-    <kul:panelFooter />
-    
-    <sys:documentControls
-    transactionalDocument="${documentEntry.transactionalDocument}"
-    extraButtons="${KualiForm.extraButtons}" />
+
+    <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}" extraButtons="${KualiForm.extraButtons}" />
 
 </kul:documentPage>

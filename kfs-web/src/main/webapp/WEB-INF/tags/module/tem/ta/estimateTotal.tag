@@ -20,65 +20,61 @@
 <c:set var="documentAttributes" value="${DataDictionary.TravelAuthorizationDocument.attributes}" />
 	<kul:tab tabTitle="Trip Detail Estimate Total" defaultOpen="true" tabErrorKey="${TemKeyConstants.TRVL_AUTH_TRVL_EXPENSES_TOTAL_ERRORS}">
 	    <div id="TravelExpenseTotal" class="tab-container" align=center > 
-	        <h3>Travel Expense Total</h3>
 			<table border="0">
 				<tbody>
 					<tr>
-						<th width="80%"><div align="right"><strong>Total Estimated</strong>:</div></th>
+						<th width="80%" class="right"><strong>Total Estimated</strong>:</th>
 						<td width="20%"><bean:write name="KualiForm" property="document.documentGrandTotal" /></td>
 					</tr>
 					<tr>
-						<th><div align="right">Less Manual Per Diem Adjustment: -</div></th>
-						<td align="left" valign="middle"><kul:htmlControlAttribute
-							attributeEntry="${documentAttributes.perDiemAdjustment}"
-							property="document.perDiemAdjustment" readOnly="${!fullEntryMode}" /></td>							
+						<th class="right">Less Manual Per Diem Adjustment:</th>
+						<td>
+                            -
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${documentAttributes.perDiemAdjustment}"
+                                    property="document.perDiemAdjustment"
+                                    readOnly="${!fullEntryMode}" />
+                        </td>
 					</tr>
 					<tr>
-						<th class="bord-l-b"><div align="right">Less CTS Charges: -</div></th>
-					    <td><bean:write name="KualiForm" property="document.fullCTSTotal" /></td>
+						<th class="right">Less CTS Charges:</th>
+					    <td>-<bean:write name="KualiForm" property="document.fullCTSTotal" /></td>
 					</tr>
 					<c:if test="${KualiForm.showCorporateCardTotal}">
 						<tr>
-						    <th class="bord-l-b"><div align="right">Amount due Corporate Credit Card: -</div></th>
-						    <td><bean:write name="KualiForm" property="document.corporateCardTotal" /></td>
+						    <th class="right">Amount due Corporate Credit Card:</th>
+						    <td>-<bean:write name="KualiForm" property="document.corporateCardTotal" /></td>
 						</tr>
 					</c:if>
 					<tr>
-			             <th class="bord-l-b"><div align="right">Less Non-Reimbursable: -</div></th>
-			             <td><bean:write name="KualiForm" property="document.nonReimbursableTotal" /></td>
+			             <th class="right">Less Non-Reimbursable:</th>
+			             <td>-<bean:write name="KualiForm" property="document.nonReimbursableTotal" /></td>
 		           </tr>
-<!-- 					<tr> -->
-<!-- 						<th> -->
-<!-- 							<div align="right">Calculated Encumbrance:</div> -->
-<!-- 						</th> -->
-<%-- 						<td align="left" valign="middle"><bean:write --%>
-<!-- 							name="KualiForm" property="document.encumbranceTotal" /></td> -->
-<!-- 					</tr> -->
 					<tr>
-						<th>
-							<div align="right">Travel Expense Limit:</div>
-						</th>
+						<th class="right">Travel Expense Limit:</th>
 						<c:choose>
 							<c:when test="${(KualiForm.document.expenseLimit) == null}">
-								<td align="left" valign="middle">N/A</td>
+								<td>N/A</td>
 							</c:when>
 							<c:otherwise>
-								<td align="left" valign="middle"><bean:write
-									name="KualiForm" property="document.expenseLimit" /></td>
+								<td><bean:write name="KualiForm" property="document.expenseLimit" /></td>
 							</c:otherwise>
 						</c:choose>
 					</tr>
 					<tr>
-						<th>
-							<div align="right">Actual Encumbrance:</div>
-						</th>
-						<td width="20%" align="left" valign="middle"><bean:write name="KualiForm" property="document.encumbranceTotal" /></td>
+						<th class="right">Actual Encumbrance:</th>
+						<td><bean:write name="KualiForm" property="document.encumbranceTotal" /></td>
 					</tr>
 					<c:if test="${fullEntryMode}">
 						<tr>
 							<td colspan="2">
 								<div align="center">
-									<html:image  property="methodToCall.recalculate" src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif" styleClass="tinybutton" alt="recalculate total" title="recalculate total" />
+									<html:submit
+                                            property="methodToCall.recalculate"
+                                            styleClass="btn btn-default small"
+                                            alt="recalculate total"
+                                            title="recalculate total"
+                                            value="Recalculate"/>
 	                            </div>							
 							</td>
 						</tr>
