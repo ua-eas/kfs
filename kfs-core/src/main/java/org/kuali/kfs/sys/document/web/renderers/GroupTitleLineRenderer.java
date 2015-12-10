@@ -251,7 +251,6 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
 
         if (!viewActions.isEmpty()) {
             ActionsRenderer actionsRenderer = new ActionsRenderer();
-            actionsRenderer.setPostButtonSpacing(" ");
             actionsRenderer.setActions(viewActions);
             actionsRenderer.render(pageContext, parentTag);
             actionsRenderer.clear();

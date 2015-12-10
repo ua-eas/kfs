@@ -600,7 +600,7 @@ div.inquiry table.datatable th {
     padding-top: 15px;
 }
 
-.doc .main-panel .tab-container table.items td:not('.subhead'):first-child,
+.doc .main-panel .tab-container table.items td:first-child,
 .doc .main-panel .tab-container table.items th:first-child {
     font-weight: 700;
     min-width: 20px;
