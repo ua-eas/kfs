@@ -1887,7 +1887,11 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                 for (Object al : contractsGrantsInvoiceDocument.getSourceAccountingLines()) {
                     final CustomerInvoiceDetail customerInvoiceDetail = (CustomerInvoiceDetail)al;
                     final String accountKey = StringUtils.join(new String[] { customerInvoiceDetail.getChartOfAccountsCode(), customerInvoiceDetail.getAccountNumber() }, "-");
-                    customerInvoiceDetail.setAmount(accountExpenditureAmounts.get(accountKey));
+                    if (accountExpenditureAmounts.containsKey(accountKey)) {
+                        customerInvoiceDetail.setAmount(accountExpenditureAmounts.get(accountKey));
+                    } else {
+                        customerInvoiceDetail.setAmount(KualiDecimal.ZERO);
+                    }
                 }
             }
         }

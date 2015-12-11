@@ -48,6 +48,7 @@ import org.kuali.kra.external.award.AwardWebService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
@@ -100,7 +101,13 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
     @Override
     public ExternalizableBusinessObject findByPrimaryKey(Map primaryKeys) {
         //use the proposal number as its the awardId on the KC side.
-        AwardDTO dto  = this.getWebService().getAward(Long.parseLong((String)primaryKeys.get("proposalNumber")));
+        Long proposalNumber;
+        if (primaryKeys.get("proposalNumber") instanceof String) {
+            proposalNumber = Long.parseLong((String)primaryKeys.get("proposalNumber"));
+        } else {
+            proposalNumber = (Long)primaryKeys.get("proposalNumber");
+        }
+        AwardDTO dto  = this.getWebService().getAward(proposalNumber);
         return awardFromDTO(dto);
     }
 
@@ -117,7 +124,8 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         criteria.setAwardNumber((String) fieldValues.get("awardNumber"));
         criteria.setChartOfAccounts((String) fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE));
         criteria.setAccountNumber((String) fieldValues.get(KFSPropertyConstants.ACCOUNT_NUMBER));
-        criteria.setPrincipalInvestigatorId((String) fieldValues.get("principalId"));
+        criteria.setPrincipalInvestigatorId((String) fieldValues.get(KimConstants.AttributeConstants.PRINCIPAL_ID));
+        criteria.setFundManagerId((String) fieldValues.get(KcConstants.FUND_MANAGER_ID));
 
         try {
           result  = this.getWebService().getMatchingAwards(criteria);
@@ -185,6 +193,7 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         award.setAwardCreateTimestamp(kcAward.getAwardCreateTimestamp() == null ? null : new java.sql.Timestamp(kcAward.getAwardCreateTimestamp().getDate()));
         award.setProposalAwardTypeCode(kcAward.getProposalAwardTypeCode());
         award.setAwardStatusCode(kcAward.getAwardStatusCode());
+        award.setActive(kcAward.isActive());
         award.setAgencyNumber(kcAward.getSponsorCode());
         award.setAwardTitle(kcAward.getTitle());
         award.setAgency(new Agency(kcAward.getSponsor()));

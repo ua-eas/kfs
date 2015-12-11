@@ -31,6 +31,7 @@ import java.util.List;
     "awardId",
     "awardNumber",
     "accountNumber",
+    "chartOfAccountsCode",
     "proposal",
     "awardStartDate",
     "awardEndDate",
@@ -42,6 +43,7 @@ import java.util.List;
     "awardCreateTimestamp",
     "proposalAwardTypeCode",
     "awardStatusCode",
+    "active",
     "sponsorCode",
     "title",
     "awardCommentText",
@@ -73,6 +75,7 @@ public class AwardDTO implements Serializable {
 	private Long awardId;
 	private String awardNumber;
     private String accountNumber;
+    private String chartOfAccountsCode;
     private ProposalDTO proposal;
 	private Date awardStartDate;
 	private Date awardEndDate;
@@ -84,6 +87,7 @@ public class AwardDTO implements Serializable {
     private Date awardCreateTimestamp;
     private String proposalAwardTypeCode;
     private String awardStatusCode;
+    private boolean active;
     private String sponsorCode;
     private String title;
     private String awardCommentText;
@@ -180,7 +184,16 @@ public class AwardDTO implements Serializable {
 	public void setAwardStatusCode(String awardStatusCode) {
 		this.awardStatusCode = awardStatusCode;
 	}
-	public String getUnitNumber() {
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getUnitNumber() {
 		return unitNumber;
 	}
 	public void setUnitNumber(String unitNumber) {
@@ -313,6 +326,14 @@ public class AwardDTO implements Serializable {
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public String getChartOfAccountsCode() {
+        return chartOfAccountsCode;
+    }
+
+    public void setChartOfAccountsCode(String chartOfAccountsCode) {
+        this.chartOfAccountsCode = chartOfAccountsCode;
     }
 
     public Integer getSequenceNumber() {

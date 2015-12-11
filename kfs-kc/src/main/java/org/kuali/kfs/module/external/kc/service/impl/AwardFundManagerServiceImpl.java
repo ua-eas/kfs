@@ -19,8 +19,10 @@
 package org.kuali.kfs.module.external.kc.service.impl;
 
 import org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager;
+import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.Award;
 import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
+import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class AwardFundManagerServiceImpl implements ExternalizableBusinessObject
 
     @Override
     public Collection findMatching(Map fieldValues) {
+        fieldValues.put(KcConstants.FUND_MANAGER_ID, fieldValues.get(KimConstants.AttributeConstants.PRINCIPAL_ID));
+        fieldValues.remove(KimConstants.AttributeConstants.PRINCIPAL_ID);
         Collection<Award> awards = awardService.findMatching(fieldValues);
         List<ContractsAndGrantsFundManager> managers = new ArrayList<>();
         for (Award award : awards) {
