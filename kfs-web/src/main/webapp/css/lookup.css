@@ -612,6 +612,10 @@ div.inquiry table.datatable th {
     padding: 10px;
 }
 
+.doc .main-panel .tab-container table.standard tr.top {
+    vertical-align: top;
+}
+
 .doc .main-panel .tab-container table.standard td.note-text {
     width: 30%;
 }
