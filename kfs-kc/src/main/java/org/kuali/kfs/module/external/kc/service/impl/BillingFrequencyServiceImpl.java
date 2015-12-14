@@ -30,7 +30,7 @@ import javax.xml.ws.WebServiceException;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.BillingFrequency;
 import org.kuali.kfs.module.external.kc.businessobject.BillingFrequencyMapping;
-import org.kuali.kfs.module.external.kc.dto.FrequencyDto;
+import org.kuali.kra.external.frequency.FrequencyDto;
 import org.kuali.kfs.module.external.kc.service.BillingFrequencyService;
 import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
 import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;

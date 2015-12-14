@@ -16,27 +16,36 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.sponsor;
 
 import java.io.Serializable;
 
-public class AwardMethodOfPaymentDTO implements Serializable {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
-	private static final long serialVersionUID = 492600544085327507L;
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "sponsorCriteriaDto", propOrder = {
+    "sponsorCode",
+    "customerNumber"
+})
+public class SponsorCriteriaDto implements Serializable {
 
-	private String methodOfPaymentCode;
-    private String description;
+	private static final long serialVersionUID = -2460442390785148763L;
 
-	public String getMethodOfPaymentCode() {
-		return methodOfPaymentCode;
+	private String sponsorCode;
+	private String customerNumber;
+
+	public String getSponsorCode() {
+		return sponsorCode;
 	}
-	public void setMethodOfPaymentCode(String methodOfPaymentCode) {
-		this.methodOfPaymentCode = methodOfPaymentCode;
+	public void setSponsorCode(String sponsorCode) {
+		this.sponsorCode = sponsorCode;
 	}
-	public String getDescription() {
-		return description;
+	public String getCustomerNumber() {
+		return customerNumber;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setCustomerNumber(String customerNumber) {
+		this.customerNumber = customerNumber;
 	}
 }

@@ -23,7 +23,7 @@ import java.sql.Date;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgencyAddress;
 import org.kuali.kfs.module.ar.ArConstants;
-import org.kuali.kfs.module.external.kc.dto.RolodexDTO;
+import org.kuali.kra.external.sponsor.RolodexDTO;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.services.LocationApiServiceLocator;
 

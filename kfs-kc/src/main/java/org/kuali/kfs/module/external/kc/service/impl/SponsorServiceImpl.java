@@ -28,8 +28,8 @@ import javax.xml.ws.WebServiceException;
 
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.Agency;
-import org.kuali.kfs.module.external.kc.dto.SponsorCriteriaDto;
-import org.kuali.kfs.module.external.kc.dto.SponsorDTO;
+import org.kuali.kra.external.sponsor.SponsorCriteriaDto;
+import org.kuali.kra.external.sponsor.SponsorDTO;
 import org.kuali.kfs.module.external.kc.service.ExternalizableLookupableBusinessObjectService;
 import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;
 import org.kuali.kfs.module.external.kc.webService.SponsorWebSoapService;

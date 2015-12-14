@@ -29,7 +29,7 @@ import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund;
-import org.kuali.kfs.module.external.kc.dto.AwardMethodOfPaymentDTO;
+import org.kuali.kra.external.awardpayment.AwardMethodOfPaymentDTO;
 import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
 import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;
 import org.kuali.kfs.module.external.kc.webService.AwardPaymentWebSoapService;

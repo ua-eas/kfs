@@ -18,15 +18,14 @@
  */
 package org.kuali.kra.external.award;
 
+import org.kuali.kfs.module.external.kc.KcConstants;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
-
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.dto.AwardAccountDTO;
 
 @WebService(targetNamespace = KcConstants.KC_NAMESPACE_URI, name = KcConstants.AwardAccount.SOAP_SERVICE_NAME)
 public interface AwardAccountService {
