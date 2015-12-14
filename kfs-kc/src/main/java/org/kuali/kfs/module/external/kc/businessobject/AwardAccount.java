@@ -20,7 +20,9 @@
 package org.kuali.kfs.module.external.kc.businessobject;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -29,7 +31,6 @@ import org.kuali.kfs.module.external.kc.dto.AwardAccountDTO;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
@@ -55,16 +56,12 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
     private Person projectDirector;
     private Award award;
 
-    /**
-     * Default constructor.
-     */
+
     public AwardAccount() {
-        // Struts needs this instance to populate the secondary key, principalName.
-        try {
-            //projectDirector = (Person) SpringContext.getBean(PersonService.class).getPersonImplementationClass().newInstance();
-        }
-        catch (Exception e) {
-        }
+    }
+
+    public AwardAccount(AwardAccountDTO awardAccountDTO) {
+        this(awardAccountDTO, awardAccountDTO.getAccountNumber(), awardAccountDTO.getChartOfAcccountsCode(), "");
     }
 
     /**
@@ -74,55 +71,45 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      * @param cfdaNumber
      */
     public AwardAccount(AwardAccountDTO awardAccountDTO, String accountNumber, String chartOfAccountsCode, String cfdaNumber) {
-        // Struts needs this instance to populate the secondary key, principalName.
-        try {
-            projectDirector = SpringContext.getBean(PersonService.class).getPersonImplementationClass().newInstance();
+        setAccountNumber(accountNumber);
+        setChartOfAccountsCode(chartOfAccountsCode);
+        setPrincipalId(awardAccountDTO.getProjectDirector());
+        setProposalNumber(awardAccountDTO.getAwardId());
+        setActive(true);
+        setFederalSponsor(awardAccountDTO.isFederalSponsor());
+        setFinalBilledIndicator(awardAccountDTO.isFinalBill());
+        if (ObjectUtils.isNotNull(awardAccountDTO.getLastBilledDate())) {
+            setCurrentLastBilledDate(new Date(awardAccountDTO.getLastBilledDate().getTime()));
         }
-        catch (Exception e) {
+        if (ObjectUtils.isNotNull(awardAccountDTO.getPreviousLastBilledDate())) {
+            setPreviousLastBilledDate(new Date(awardAccountDTO.getPreviousLastBilledDate().getTime()));
         }
 
-
-        // setup this class from DTO
-        Proposal proposal = new Proposal();
         Award award = new Award();
-        Agency agency = new Agency();
-        Agency primeAgency = new Agency();
-
-        this.setAccountNumber(accountNumber);
-        this.setChartOfAccountsCode(chartOfAccountsCode);
-        this.setPrincipalId(awardAccountDTO.getProjectDirector());
-        this.setProposalNumber(awardAccountDTO.getAwardId());
-        this.setActive(true);
-        this.setFederalSponsor(awardAccountDTO.isFederalSponsor());
-
-        award.setAwardNumber(awardAccountDTO.getProposalNumber());
+        award.setAwardNumber(awardAccountDTO.getAwardNumber());
         award.setProposalNumber(awardAccountDTO.getAwardId());
         award.setAgencyNumber(awardAccountDTO.getSponsorCode());
         award.setAwardTitle(awardAccountDTO.getAwardTitle());
         award.setGrantNumber(awardAccountDTO.getGrantNumber());
         award.setCfdaNumber(cfdaNumber);
 
+        Proposal proposal = new Proposal();
         proposal.setFederalPassThroughAgencyNumber(awardAccountDTO.getProposalFederalPassThroughAgencyNumber());
         proposal.setProposalNumber(awardAccountDTO.getAwardId());
-
         proposal.setAward(award);
-        this.setAward(award);
-        this.getAward().setProposal(proposal);
+        award.setProposal(proposal);
 
+        Agency agency = new Agency();
         agency.setAgencyNumber(awardAccountDTO.getSponsorCode());
         agency.setReportingName(awardAccountDTO.getSponsorName());
+        award.setAgency(agency);
+
+        Agency primeAgency = new Agency();
         primeAgency.setAgencyNumber(awardAccountDTO.getPrimeSponsorCode());
         primeAgency.setReportingName(awardAccountDTO.getPrimeSponsorName());
-        this.getAward().setAgency(agency);
-        this.getAward().setPrimeAgency(primeAgency);
+        award.setPrimeAgency(primeAgency);
 
-        finalBilledIndicator = awardAccountDTO.isFinalBill();
-        currentLastBilledDate = (!ObjectUtils.isNull(awardAccountDTO.getLastBilledDate())) ?
-                new Date(awardAccountDTO.getLastBilledDate().getTime())
-                : null;
-        previousLastBilledDate = (!ObjectUtils.isNull(awardAccountDTO.getPreviousLastBilledDate())) ?
-                new Date(awardAccountDTO.getPreviousLastBilledDate().getTime())
-                : null;
+        setAward(award);
     }
 
     /**
@@ -208,7 +195,6 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param account The account to set.
      */
-    @Deprecated
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -268,6 +254,13 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         m.put("newCollectionRecord", this.newCollectionRecord);
 
         return m;
+    }
+
+    public Map<String, Object> getPrimaryKeys() {
+        HashMap<String, Object> pks = new HashMap<>(2);
+        pks.put("chartOfAccountsCode", this.chartOfAccountsCode);
+        pks.put("accountNumber", this.accountNumber);
+        return pks;
     }
 
     public Award getAward() {
@@ -340,13 +333,25 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         return currentLastBilledDate;
     }
 
+    public void setCurrentLastBilledDate(Date currentLastBilledDate) {
+        this.currentLastBilledDate = currentLastBilledDate;
+    }
+
     @Override
     public Date getPreviousLastBilledDate() {
         return previousLastBilledDate;
     }
 
+    public void setPreviousLastBilledDate(Date previousLastBilledDate) {
+        this.previousLastBilledDate = previousLastBilledDate;
+    }
+
     @Override
     public boolean isFinalBilledIndicator() {
         return finalBilledIndicator;
+    }
+
+    public void setFinalBilledIndicator(boolean finalBilledIndicator) {
+        this.finalBilledIndicator = finalBilledIndicator;
     }
 }

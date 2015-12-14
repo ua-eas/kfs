@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.module.external.kc;
 
+import javax.xml.namespace.QName;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.xml.namespace.QName;
 
 public class KcConstants {
 
@@ -31,6 +30,7 @@ public class KcConstants {
     public static final String FEDERAL_SPONSOR_TYPE_CODES= "FEDERAL_SPONSOR_TYPE_CODES";
     public static final String ACCOUNT_CREATE_DEFAULT_IDENTIFIER = "accountDefaultId";
     public static final String WEBSERVICE_UNREACHABLE = "Access to the web service is unreachable: ";
+    public static final String FUND_MANAGER_ID = "fundManagerId";
 
     public static class AccountCreationDefaults {
         public static final String CHART_OF_ACCOUNT_CODE = "chartOfAccountsCode";

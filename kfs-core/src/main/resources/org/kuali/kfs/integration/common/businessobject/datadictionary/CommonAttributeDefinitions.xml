@@ -64,6 +64,23 @@
 			<bean parent="TextControlDefinition" p:size="5" />
 		</property>
 	</bean>
+
+  <bean id="CommonAttributes-instrumentTypeCode" parent="CommonAttributes-instrumentTypeCode-parentBean" />
+
+  <bean id="CommonAttributes-instrumentTypeCode-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="name" value="instrumentTypeCode" />
+    <property name="forceUppercase" value="true" />
+    <property name="label" value="Instrument Type Code" />
+    <property name="shortLabel" value="Code" />
+    <property name="maxLength" value="10" />
+    <property name="validationPattern">
+      <ref bean="AnyCharacterValidation" />
+    </property>
+    <property name="required" value="true" />
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="12" />
+    </property>
+  </bean>
 	
 	<bean id="RoutingAttribute-proposalNumber" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute" >
     	<property name="qualificationAttributeName" value="proposalNumber" />
