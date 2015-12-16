@@ -334,7 +334,8 @@
                                     class="${field.styleClass}" tabindex="${tabIndex}"/>
 
                                 <c:if test="${field.datePicker eq true}">
-                                    <img src="${ConfigProperties.kr.externalizable.images.url}cal.gif"
+                                    <img src="${ConfigProperties.kr.externalizable.images.url}cal.png"
+                                         width="24"
                                         id="${field.propertyName}_datepicker"
                                         style="cursor: pointer;"
                                         title="Date selector"
