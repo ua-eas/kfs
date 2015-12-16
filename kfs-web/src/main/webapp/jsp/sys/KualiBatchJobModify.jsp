@@ -17,56 +17,39 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
-<style type="text/css">
-	TABLE.positioningTable {
-		border: 0!important;
- 		margin : 0!important;
-		padding : 0!important;
-		empty-cells : show;
-		border-collapse : collapse;
- 	}
-	TABLE.positioningTable TD {
-		border: 0!important;
- 		margin : 0!important;
-		padding : 0!important;
- 	}
-</style>
-<!--[if IE]>
-<style>
-	#workarea div.tab-container {
-		width:100%;
-	}
-</style>
-<![endif]-->
+
 <kul:page showDocumentInfo="false"
 	headerTitle="Modify Batch Job" docTitle="Modify Batch Job"
 	transactionalDocument="false" htmlFormAction="batchModify"
 	errorKey="*">
-	<div style="text-align: right;">
-		<a href="kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&conversionFields=name:name,group:group">Return to Lookup</a>
+	<div style="text-align: right; margin: -75px 10px 50px 0;">
+		<a class="btn btn-primary" href="kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchJobStatus&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&conversionFields=name:name,group:group">Return to Lookup</a>
 	</div>
 	<html:hidden property="refreshCaller" />
 	<input type="hidden" name="name" value="${job.name}" />
 	<input type="hidden" name="group" value="${job.group}" />
 	<kul:tabTop tabTitle="Job Info" defaultOpen="true">
 		<div class="tab-container" align="center">
-	      <table width="100%" cellpadding=0 cellspacing=0 class="datatable">
-			<tr>
-				<td colspan="4" class="tab-subhead">Job Info</td>
+	      <table width="100%" cellpadding=0 cellspacing=0 class="datatable standard">
+			<tr class="header">
+				<th><kul:htmlAttributeLabel attributeEntryName="DataDictionary.BatchJobStatus.attributes.name" noColon="${true}" /></td>
+                <th><kul:htmlAttributeLabel attributeEntryName="DataDictionary.BatchJobStatus.attributes.group" noColon="${true}" /></th>
+                <th><kul:htmlAttributeLabel attributeEntryName="DataDictionary.BatchJobStatus.attributes.status" noColon="${true}" /></th>
+                <th>More Info</th>
 				<c:if test="${canRunJob}">
-					<td colspan="1" class="tab-subhead">Running</td>
+					<th>Running</th>
 				</c:if>
 				<c:if test="${canSchedule || canUnschedule || canStopJob}">
-					<td colspan="1" class="tab-subhead">Other Commands</td>
+					<th>Other Commands</td>
 				</c:if>
 			</tr>
 	      	<tr>
-				<td><kul:htmlAttributeLabel attributeEntryName="DataDictionary.BatchJobStatus.attributes.name" /></td>
-				<td>${job.name}&nbsp;</td>
-				<td><kul:htmlAttributeLabel attributeEntryName="DataDictionary.BatchJobStatus.attributes.group" /></td>
-				<td>${job.group}&nbsp;</td>
+				<td>${job.name}</td>
+				<td>${job.group}</td>
+                <td>${job.status}</td>
+                <td><sys:backdoorAwareLink displayTitle="true" title="Batch File lookup (to retrieve logs and reports)" url="${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchFile&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></td>
 				<c:if test="${canRunJob}">
-					<td rowspan="2">
+					<td>
 						<c:if test="${job.group == 'unscheduled' && !job.running}">
 							<table class="positioningTable">
 								<tr>
@@ -114,40 +97,49 @@
 				<c:if test="${canSchedule || canUnschedule || canStopJob}">
 					<td rowspan="2">
 						<c:if test="${canSchedule && !job.scheduled}">
-							<html:image src="${ConfigProperties.externalizable.images.url}tinybutton-schedule.gif" styleClass="globalbuttons" property="methodToCall.schedule" title="Add to Standard Schedule" alt="Add to Standard Schedule" />
+							<html:submit
+                                    styleClass="btn btn-green"
+                                    property="methodToCall.schedule"
+                                    title="Add to Standard Schedule"
+                                    alt="Add to Standard Schedule"
+                                    value="Schedule"/>
 							<br />
 						</c:if>				
 						<c:if test="${canUnschedule && job.scheduled}">
-							<html:image src="${ConfigProperties.externalizable.images.url}tinybutton-unschedule.gif" styleClass="globalbuttons" property="methodToCall.unschedule" title="Remove From Standard Schedule" alt="Remove From Standard Schedule" />
+							<html:submit
+                                    styleClass="btn btn-red"
+                                    property="methodToCall.unschedule"
+                                    title="Remove From Standard Schedule"
+                                    alt="Remove From Standard Schedule"
+                                    value="Unschedule"/>
 							<br />
 						</c:if>
 						<c:if test="${canStopJob && job.running}">
-							<html:image src="${ConfigProperties.externalizable.images.url}tinybutton-stop.gif" styleClass="globalbuttons" property="methodToCall.stopJob" title="Stop Running Job" alt="Stop Running Job" />
+							<html:submit
+                                    styleClass="btn btn-red"
+                                    property="methodToCall.stopJob"
+                                    title="Stop Running Job"
+                                    alt="Stop Running Job"
+                                    value="Stop"/>
 							<br />
 						</c:if>
-						&nbsp;
 					</td>
 				</c:if>
-			</tr>
-			<tr>
-				<td><kul:htmlAttributeLabel attributeEntryName="DataDictionary.BatchJobStatus.attributes.status" /></td>
-				<td>${job.status}&nbsp;</td>
-				<td colspan="2"><sys:backdoorAwareLink displayTitle="true" title="Batch File lookup (to retrieve logs and reports)" url="${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.sys.batch.BatchFile&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></td>
 			</tr>
 		</table>
 	  </div>		
 	</kul:tabTop>
 	<kul:tab tabTitle="Steps" defaultOpen="true">
 		<div class="tab-container" align="center">
-	      <table width="100%" cellpadding=0 cellspacing=0 class="datatable">
-			<tr>
-				<th class="tab-subhead">#</th>
-				<td class="tab-subhead">Name</td>
+	      <table class="datatable standard">
+			<tr class="header">
+				<th>#</th>
+				<th>Name</td>
 			</tr>
 	      	<c:forEach items="${job.steps}" var="step" varStatus="status">
-		      	<tr>
+		      	<tr class="${status.index % 2 == 0 ? 'highlight' : ''}">
 		      		<th>${status.count}</th>
-					<td>${step.name}&nbsp;</td>
+					<td>${step.name}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -155,10 +147,10 @@
 	</kul:tab>
 	<kul:tab tabTitle="Dependencies" defaultOpen="true">
 		<div class="tab-container" align="center">
-	      <table width="100%" cellpadding=0 cellspacing=0 class="datatable">
-	      	<c:forEach items="${job.dependencies}" var="dep">
-		      	<tr>
-					<td>${dep.key} (${dep.value})&nbsp;</td>
+	      <table class="datatable standard">
+	      	<c:forEach items="${job.dependencies}" var="dep" varStatus="status">
+		      	<tr class="${(status.index + 1) % 2 == 0 ? 'highlight' : ''}">
+					<td>${dep.key} (${dep.value})</td>
 				</tr>
 			</c:forEach>
 		</table>
