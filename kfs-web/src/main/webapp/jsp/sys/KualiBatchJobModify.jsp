@@ -43,7 +43,7 @@
 					<th>Other Commands</td>
 				</c:if>
 			</tr>
-	      	<tr>
+	      	<tr class="top">
 				<td>${job.name}</td>
 				<td>${job.group}</td>
                 <td>${job.status}</td>
@@ -51,17 +51,17 @@
 				<c:if test="${canRunJob}">
 					<td>
 						<c:if test="${job.group == 'unscheduled' && !job.running}">
-							<table class="positioningTable">
+							<table>
 								<tr>
-									<td><label for="startStep">Start Step</label>: </td>
+									<th class="right"><label for="startStep">Start Step</label>: </th>
 									<td><input type="text" id="startStep" name="startStep" value="1" size="3" /></td>
 								</tr>
 								<tr>
-									<td><label for="endStep">End Step</label>: </td>
+									<th class="right"><label for="endStep">End Step</label>: </td>
 									<td><input type="text" id="endStep" name="endStep" value="${job.numSteps}" size="3" /></td>
 								</tr>
 								<tr>
-									<td><label for="startTime">Start Date/Time</label>: </td>
+									<th class="right"><label for="startTime">Start Date/Time</label>: </td>
 									<td>
 										<input type="text" id="startTime" name="startTime" id="startTime" value="" maxlength="20" size="20" onchange="" onblur="" style="" class="">
 										<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="startTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
@@ -79,15 +79,29 @@
 									</td>
 								</tr>
 								<tr>
-									<td><label for="emailAddress">Results Email Address</label>: </td>
+									<th class="right"><label for="emailAddress">Results Email Address</label>: </td>
 									<td>
 										<input type="text" id="emailAddress" name="emailAddress" id="emailAddress" value="" />
-										<img src="${ConfigProperties.externalizable.images.url}tinybutton-mailtome.gif" onclick="document.getElementById('emailAddress').value = '${userEmailAddress}';" styleClass="globalbuttons" title="Mail To Me" alt="Mail To Me" />
+										<button
+                                                onclick="document.getElementById('emailAddress').value = '${userEmailAddress}';"
+                                                class="btn btn-default"
+                                                title="Mail To Me"
+                                                alt="Mail To Me">
+
+                                            Mail to Me
+                                        </button>
 									</td>
 								</tr>
 								<tr>
 									<td></td>
-									<td><html:image src="${ConfigProperties.externalizable.images.url}tinybutton-run.gif" styleClass="globalbuttons" property="methodToCall.runJob" title="Run Job" alt="Run Job" /></td>
+									<td>
+                                        <html:submit
+                                                styleClass="btn btn-green"
+                                                property="methodToCall.runJob"
+                                                title="Run Job"
+                                                alt="Run Job"
+                                                value="Run"/>
+                                    </td>
 								</tr>
 							</table>
 						</c:if>	
@@ -95,7 +109,7 @@
 					</td>
 				</c:if>
 				<c:if test="${canSchedule || canUnschedule || canStopJob}">
-					<td rowspan="2">
+					<td>
 						<c:if test="${canSchedule && !job.scheduled}">
 							<html:submit
                                     styleClass="btn btn-green"
@@ -103,8 +117,7 @@
                                     title="Add to Standard Schedule"
                                     alt="Add to Standard Schedule"
                                     value="Schedule"/>
-							<br />
-						</c:if>				
+						</c:if>
 						<c:if test="${canUnschedule && job.scheduled}">
 							<html:submit
                                     styleClass="btn btn-red"
@@ -112,7 +125,6 @@
                                     title="Remove From Standard Schedule"
                                     alt="Remove From Standard Schedule"
                                     value="Unschedule"/>
-							<br />
 						</c:if>
 						<c:if test="${canStopJob && job.running}">
 							<html:submit
