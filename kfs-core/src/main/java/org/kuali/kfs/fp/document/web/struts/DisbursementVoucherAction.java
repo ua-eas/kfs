@@ -35,6 +35,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeExpense;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeTravel;
+import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPreConferenceRegistrant;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants.TabByReasonCode;
@@ -46,12 +47,24 @@ import org.kuali.kfs.fp.document.service.DisbursementVoucherTravelService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.service.PaymentSourceExtractionService;
 import org.kuali.kfs.sys.businessobject.WireCharge;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.PayeeACHService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
 import org.kuali.kfs.vnd.businessobject.VendorAddress;
@@ -64,17 +77,6 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
 
 /**
  * This class handles Actions for the DisbursementVoucher.
@@ -134,11 +136,25 @@ public class DisbursementVoucherAction extends KualiAccountingDocumentActionBase
                         clearTravelPerDiem(dvNet);
                     }
                 }
+                
+                updateAchSignupStatusFlagForPayee(dvDoc);
             }
         }
 
         return dest;
     }
+
+	private void updateAchSignupStatusFlagForPayee(
+			DisbursementVoucherDocument dvDoc) {
+		DisbursementVoucherPayeeDetail dvPayee = dvDoc.getDvPayeeDetail();
+		boolean signedupForACH = false;
+		if (dvPayee != null) {
+			String payeeTypeCode = dvPayee.getDisbursementVoucherPayeeTypeCode();
+			String payeeIdNumber = dvPayee.getDisbVchrPayeeIdNumber();
+			signedupForACH = SpringContext.getBean(PayeeACHService.class).isPayeeSignedUpForACH(payeeTypeCode, payeeIdNumber);
+		}
+		dvDoc.setAchSignUpStatusFlag(signedupForACH);
+	}
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#approve(org.apache.struts.action.ActionMapping,
