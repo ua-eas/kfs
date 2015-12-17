@@ -67,6 +67,7 @@
         <ref bean="DisbursementVoucherDocument-disbVchrPdpBankCode"/>
         <ref bean="DisbursementVoucherDocument-disbExcptAttachedIndicator"/>
         <ref bean="DisbursementVoucherDocument-immediatePaymentIndicator"/>
+		<ref bean="DisbursementVoucherDocument-achSignUpStatusFlag" />
       </list>
     </property>
     
@@ -425,6 +426,19 @@
       <bean parent="CheckboxControlDefinition"/>
     </property>
   </bean>
+  
+	<bean id="DisbursementVoucherDocument-achSignUpStatusFlag" parent="DisbursementVoucherDocument-achSignUpStatusFlag-parentBean" />
+
+	<bean id="DisbursementVoucherDocument-achSignUpStatusFlag-parentBean" abstract="true" parent="AttributeDefinition">
+		<property name="name" value="achSignUpStatusFlag" />
+		<property name="forceUppercase" value="true" />
+		<property name="label" value="ACH Signup Status" />
+		<property name="shortLabel" value="ACH Signup" />
+		<property name="maxLength" value="1" />
+		<property name="control">
+			<bean parent="CheckboxControlDefinition" />
+		</property>
+	</bean>	
   
 	<!-- Exported Workflow Attributes -->
   	<bean id="DisbursementVoucherDocument-workflowAttributes" parent="DisbursementVoucherDocument-workflowAttributes-parentBean"/>

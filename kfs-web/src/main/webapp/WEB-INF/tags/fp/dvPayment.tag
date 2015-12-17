@@ -22,6 +22,7 @@
 <c:set var="dvAttributes" value="${DataDictionary.DisbursementVoucherDocument.attributes}" />
 <c:set var="payeeAttributes" value="${DataDictionary.DisbursementVoucherPayeeDetail.attributes}" />
 <c:set var="paymentReasonEditMode" value="${(not empty KualiForm.editingMode['paymentReasonEditMode'])}" />
+<c:set var="achAccountInfoDisplayed" value="${(not empty KualiForm.editingMode['achAccountInfoDisplayed'])}" />
 
 <kul:tab tabTitle="Payment Information" defaultOpen="true" tabErrorKey="${KFSConstants.DV_PAYMENT_TAB_ERRORS},document.disbVchrPaymentMethodCode,${KFSConstants.DV_PAYEE_TAB_ERRORS},document.dvPayeeDetail.disbursementVoucherPayeeTypeCode">
     <div class="tab-container" align=center > 
@@ -274,8 +275,18 @@
             </tr>
             <tr>
               <th scope="row"><div align="right"><kul:htmlAttributeLabel attributeEntry="${dvAttributes.disbVchrCheckStubText}"/></div></th>
-              <td colspan="3"><kul:htmlControlAttribute attributeEntry="${dvAttributes.disbVchrCheckStubText}" property="document.disbVchrCheckStubText" readOnly="${!fullEntryMode && !paymentHandlingEntryMode}"/></td>
-            </tr>
+              <td><kul:htmlControlAttribute attributeEntry="${dvAttributes.disbVchrCheckStubText}" property="document.disbVchrCheckStubText" readOnly="${!fullEntryMode && !paymentHandlingEntryMode}"/></td>
+				<c:choose>
+					<c:when test="${achAccountInfoDisplayed}">
+						<th align=right valign=middle class="bord-l-b"><div align="right"><kul:htmlAttributeLabel attributeEntry="${dvAttributes.achSignUpStatusFlag}" useShortLabel="true" /></div></th>
+						<td align=left valign=middle class="datacell"><kul:htmlControlAttribute property="document.achSignUpStatusFlag" attributeEntry="${dvAttributes.achSignUpStatusFlag}" readOnly="true" /></td>
+					</c:when>
+					<c:otherwise>
+						<th align=right valign=middle class="bord-l-b">&nbsp;</th>
+						<td align=left valign=middle class="datacell">&nbsp;</td>
+					</c:otherwise>
+				</c:choose>
+			</tr>
         </table>
      </div>
 </kul:tab>

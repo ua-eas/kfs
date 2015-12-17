@@ -1298,4 +1298,9 @@
 	</bean>
 
 	<import resource="spring-sys-bus-exports.xml"/>
+	
+	<bean id="payeeACHService" parent="payeeACHService-parentBean"/>
+	<bean id="payeeACHService-parentBean" class="org.kuali.kfs.sys.service.impl.PayeeACHServiceImpl" abstract="true">
+		<property name="businessObjectService" ref="businessObjectService" />
+	</bean>
 </beans>
