@@ -57,8 +57,6 @@
 
 	<kul:routeLog />
 
-	<kul:panelFooter />
-
 	<sys:documentControls transactionalDocument="false"
 		suppressRoutingControls="true" />
 

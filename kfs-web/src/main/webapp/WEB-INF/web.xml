@@ -47,27 +47,15 @@
         <filter-name>monitoring</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <listener>
         <listener-class>net.bull.javamelody.SessionListener</listener-class>
     </listener>
 
     <filter>
-        <filter-name>DummyLoginFilter</filter-name>
-        <filter-class>org.kuali.kfs.sys.web.filter.DevelopmentLoginFilter</filter-class>
-        <init-param>
-            <param-name>loginUser</param-name>
-            <param-value>khuntley</param-value>
-        </init-param>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>org.kuali.kfs.sys.web.filter.DelegatingAuthenticationFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>DummyLoginFilter</filter-name>
-        <servlet-name>action</servlet-name>
-        <servlet-name>dwr-invoker</servlet-name>
-        <servlet-name>batchFileUpload</servlet-name>
-        <url-pattern>/purap/*</url-pattern>
-        <url-pattern>/app/*</url-pattern>
-        <url-pattern>/index.jsp</url-pattern>
-    </filter-mapping>
 
     <filter>
         <filter-name>HideWebInfFilter</filter-name>
@@ -113,9 +101,17 @@
         <filter-class>org.kuali.kfs.sys.web.filter.SessionExpirationFilter</filter-class>
     </filter>
 
-
     <!--  FILTER MAPPINGS  -->
 
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <servlet-name>action</servlet-name>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-name>batchFileUpload</servlet-name>
+        <url-pattern>/purap/*</url-pattern>
+        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
 
     <filter-mapping>
         <filter-name>HideWebInfFilter</filter-name>
@@ -204,7 +200,7 @@
         <servlet-class>org.kuali.kfs.kns.web.struts.action.KualiActionServlet</servlet-class>
         <init-param>
             <param-name>config</param-name>
-            <param-value>/WEB-INF/struts-config.xml</param-value>
+            <param-value>/WEB-INF/struts-config.xml,/WEB-INF/institutional-struts-config.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config/core</param-name>
@@ -295,7 +291,7 @@
         <servlet-name>attachment</servlet-name>
         <url-pattern>/kew/attachment/*</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>krad</servlet-name>
         <url-pattern>/kr-krad/*</url-pattern>

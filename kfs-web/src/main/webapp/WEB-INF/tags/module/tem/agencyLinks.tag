@@ -21,8 +21,7 @@
 <c:if test="${KualiForm.shouldDisplayAgencyLinks}">
 	<kul:tab tabTitle="Agency Links" defaultOpen="false">
 		<div class="tab-container" align="center">
-			<h3><bean:message key="${TemKeyConstants.TAB_NAME_AGENCY_LINKS}"/></h3>
-			<table cellpadding="0" cellspacing="0" class="datatable" summary="Agency Links Section">
+			<table cellpadding="0" cellspacing="0" class="datatable" summary="Agency Links Section" style="margin: 30px 50px; width: calc(100% - 100px);">
 				<logic:iterate id="agencyLink" name="KualiForm" property="agencyLinks">
 					<tr>
 						<td width="100%">

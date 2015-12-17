@@ -27,13 +27,10 @@
 
 
 
-<table cellpadding="0" cellspacing="0" class="datatable"
-	summary="Travel Advance Section">
+<table cellpadding="0" cellspacing="0" class="datatable" summary="Travel Advance Section">
 	<tr>
-		<th class="bord-l-b">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.travelAdvanceRequested}" />
-			</div>
+		<th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.travelAdvanceRequested}" />
 		</th>
 		<td class="datacell">
 			<kul:htmlControlAttribute
@@ -43,10 +40,8 @@
 		</td>
 	</tr>
 	<tr>
-		<th class="bord-l-b">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.arCustomerId}" />
-			</div>
+		<th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.arCustomerId}" />
 		</th>
 		<td class="datacell">
 			<kul:htmlControlAttribute
@@ -55,10 +50,8 @@
 		</td>
 	</tr>
 	<tr>
-		<th class="bord-l-b">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.arInvoiceDocNumber}" />
-			</div>
+		<th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.arInvoiceDocNumber}" />
 		</th>
 		<td class="datacell">
 			<kul:htmlControlAttribute
@@ -68,10 +61,8 @@
 		</td>
 	</tr>
 	<tr>
-		<th class="bord-l-b">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.dueDate}" />
-			</div>
+		<th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.dueDate}" />
 		</th>
 		<td class="datacell">
 			<kul:htmlControlAttribute
@@ -81,10 +72,8 @@
 		</td>
 	</tr>
 	<tr>
-		<th class="bord-l-b">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.advancePaymentReasonCode}" />
-			</div>
+		<th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.advancePaymentReasonCode}" />
 		</th>
 		<td class="datacell">
 			<kul:htmlControlAttribute
@@ -94,11 +83,8 @@
 		</td>
 	</tr>
 	<tr>
-		<th class="bord-l-b">
-			<div align="right">
-				<kul:htmlAttributeLabel
-					attributeEntry="${travelAdvanceAttributes.travelAdvancePolicy}" />
-			</div>
+		<th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.travelAdvancePolicy}" />
 		</th>
 		<td class="datacell"><kul:htmlControlAttribute
 				attributeEntry="${travelAdvanceAttributes.travelAdvancePolicy}"
@@ -106,10 +92,8 @@
 				readOnly="${!advancePolicyMode}" />${KualiForm.policyURL}</td>
 	</tr>
 	<tr>
-		<th class="bord-l-b">
-			<div align="right">
-				<kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.additionalJustification}" />
-			</div>
+		<th class="right">
+            <kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.additionalJustification}" />
 		</th>
 		<td class="datacell">
 			<kul:htmlControlAttribute
@@ -121,7 +105,7 @@
 	<c:if test="${clearAdvanceMode}">
 		<tr>
 			<td class="datacell" colspan="2">
-				<div align="center"><html:image property="methodToCall.clearAdvance" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-clear1.gif" title="Clear Advance" alt="Clear Advance" styleClass="tinybutton" /></div>
+				<html:submit property="methodToCall.clearAdvance" title="Clear Advance" alt="Clear Advance" styleClass="btn btn-default" value="Clear" />
 			</td>
 		</tr>
 	</c:if>

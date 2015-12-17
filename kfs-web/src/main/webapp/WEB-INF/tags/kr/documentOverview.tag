@@ -30,17 +30,17 @@
 <dd:evalNameToMap mapName="DataDictionary.${KualiForm.docTypeName}.attributes" returnVar="documentAttributes"/>
 <kul:tabTop tabTitle="Document Overview" defaultOpen="true" tabErrorKey="${Constants.DOCUMENT_ERRORS}" >
 	<div class="tab-container" align=center>
-		  <!-- DOC OVERVIEW TABLE -->
 		  <html:hidden property="document.documentHeader.documentNumber" />
-		  <h3>Document Overview</h3>
-		  <table cellpadding="0" cellspacing="0" class="datatable" title="view/edit document overview information" summary="view/edit document overview information">
+		  <h3>Overview</h3>
+		  <table class="datatable" title="view/edit document overview information" summary="view/edit document overview information">
 		    <tr>
 		      <kul:htmlAttributeHeaderCell
 		          labelFor="document.documentHeader.documentDescription"
 		          attributeEntry="${docHeaderAttributes.documentDescription}"
 		          horizontal="true"
+                  addClass="right"
 		          />
-		      <td align="left" valign="middle">
+		      <td>
 		      	<kul:htmlControlAttribute property="document.documentHeader.documentDescription" attributeEntry="${docHeaderAttributes.documentDescription}" readOnly="${readOnly}"/>
 		      </td>
 		      <kul:htmlAttributeHeaderCell
@@ -48,8 +48,9 @@
                   attributeEntry="${docHeaderAttributes.explanation}"
                   horizontal="true"
 		          rowspan="2"
+                  addClass="right top"
                   />
-		      <td align="left" valign="middle" rowspan="2">
+		      <td rowspan="2">
                   <kul:htmlControlAttribute
                       property="document.documentHeader.explanation"
                       attributeEntry="${docHeaderAttributes.explanation}"
@@ -63,12 +64,13 @@
 		        labelFor="document.documentHeader.organizationDocumentNumber"
 		        attributeEntry="${docHeaderAttributes.organizationDocumentNumber}"
 		        horizontal="true"
+                addClass="right"
 		      />			  
-              <td align="left" valign="middle">
+              <td>
               	<kul:htmlControlAttribute property="document.documentHeader.organizationDocumentNumber" attributeEntry="${docHeaderAttributes.organizationDocumentNumber}" readOnly="${readOnly}"/>
               </td>
             </tr>
           </table>
-          <jsp:doBody/>            
+          <jsp:doBody/>
         </div>
 </kul:tabTop>

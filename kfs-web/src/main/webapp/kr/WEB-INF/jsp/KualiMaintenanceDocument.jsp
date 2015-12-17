@@ -42,64 +42,60 @@
 	defaultMethodToCall="${defaultMethodToCall}" additionalScriptFiles="${additionalScriptFiles}"
 	lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}" auditCount="0" renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
 
-<%-- Put the header on the page. --%>
-			<table width="100%" cellpadding="0" cellspacing="0" class="tab" id="ryansHeader">
-			    <tr>
-			        <td>
-			        
-						<%-- this line must stay above the set of hidden fields --%>
-						<c:set var="FieldSections" value="${KualiForm.sections}" />
-						<html:hidden property="document.documentNumber" />
-						
-						<c:forEach items="${additionalScriptFiles}" varStatus="status" >
-							<html:hidden property="additionalScriptFile[${status.index}]" />
-						</c:forEach>
-						<c:forEach items="${KualiForm.editingMode}" var="mode">
-							<html:hidden property="editingMode(${mode.key})" />
-						</c:forEach>
-						<c:forEach items="${KualiForm.document.newMaintainableObject.inactiveRecordDisplay}" var="inactiveDisplay">
-							<html:hidden property="document.newMaintainableObject.inactiveRecordDisplay(${fn:replace(inactiveDisplay.key,'.','_')})" />
-							<html:hidden property="document.oldMaintainableObject.inactiveRecordDisplay(${fn:replace(inactiveDisplay.key,'.','_')})" />
-						</c:forEach>
-						
-						<html:hidden property="fieldNameToFocusOnAfterSubmit"/>
-						
-						<kul:documentOverview editingMode="${KualiForm.editingMode}" />
+    <table width="100%" cellpadding="0" cellspacing="0" class="tab">
+        <tr>
+            <td>
+                <%-- this line must stay above the set of hidden fields --%>
+                <c:set var="FieldSections" value="${KualiForm.sections}" />
+                <html:hidden property="document.documentNumber" />
 
-	<script type="text/javascript"><!--
-	    var kualiForm = document.forms['KualiForm'];
-	    var kualiElements = kualiForm.elements;
-	    // -->
-	</script>
-	
+                <c:forEach items="${additionalScriptFiles}" varStatus="status" >
+                    <html:hidden property="additionalScriptFile[${status.index}]" />
+                </c:forEach>
+                <c:forEach items="${KualiForm.editingMode}" var="mode">
+                    <html:hidden property="editingMode(${mode.key})" />
+                </c:forEach>
+                <c:forEach items="${KualiForm.document.newMaintainableObject.inactiveRecordDisplay}" var="inactiveDisplay">
+                    <html:hidden property="document.newMaintainableObject.inactiveRecordDisplay(${fn:replace(inactiveDisplay.key,'.','_')})" />
+                    <html:hidden property="document.oldMaintainableObject.inactiveRecordDisplay(${fn:replace(inactiveDisplay.key,'.','_')})" />
+                </c:forEach>
 
-    <%-- Show the information about the business object. --%>
-	<c:forEach items="${FieldSections}" var="section">
-	  <%-- call helper tag to look ahead through fields for old to new changes, and highlight tab if so --%>
-      <kul:checkTabHighlight rows="${section.rows}" addHighlighting="${isMaintenance && (Constants.MAINTENANCE_EDIT_ACTION eq KualiForm.maintenanceAction)}" />
+                <html:hidden property="fieldNameToFocusOnAfterSubmit"/>
 
-	  <kul:tab tabTitle="${section.sectionTitle}" defaultOpen="${section.defaultOpen}" tabErrorKey="${section.errorKey}" highlightTab="${tabHighlight}" extraButtonSource="${section.extraButtonSource}" hidden="${section.hidden}" helpUrl="${section.helpUrl }"> 
-	    <div class="tab-container" align="center" <c:if test="${section.hidden}">style="display:none;"</c:if> >
-	      <table width="100%" cellpadding="0" cellspacing="0" class="datatable">
-		     <kul:rowDisplay rows="${section.rows}" numberOfColumns="${section.numberOfColumns}" rowsReadOnly="${section.readOnly}"/>
-		  </table>   
-        </div>
-	  </kul:tab>
-	</c:forEach>
-	<c:if test="${!empty KualiForm.additionalSectionsFile}">
-		<jsp:include page="${KualiForm.additionalSectionsFile}" />
-	</c:if>
-    <%-- Put the footer on the page. --%>
-    <kul:notes displayTopicFieldInNotes="${_displayTopicFieldInNotes}"/>
-	
-	<kul:adHocRecipients />
-	<kul:routeLog />
-	<kul:superUserActions />
-	<kul:panelFooter />
-	<kul:documentControls transactionalDocument="false" />
-	</td>
-	</tr>
-	</table>
+                <kul:documentOverview editingMode="${KualiForm.editingMode}" />
+
+                <script type="text/javascript"><!--
+                    var kualiForm = document.forms['KualiForm'];
+                    var kualiElements = kualiForm.elements;
+                    // -->
+                </script>
+
+                <%-- Show the information about the business object. --%>
+                <c:forEach items="${FieldSections}" var="section">
+                  <%-- call helper tag to look ahead through fields for old to new changes, and highlight tab if so --%>
+                  <kul:checkTabHighlight rows="${section.rows}" addHighlighting="${isMaintenance && (Constants.MAINTENANCE_EDIT_ACTION eq KualiForm.maintenanceAction)}" />
+
+                  <kul:tab tabTitle="${section.sectionTitle}" defaultOpen="${section.defaultOpen}" tabErrorKey="${section.errorKey}" highlightTab="${tabHighlight}" extraButtonSource="${section.extraButtonSource}" hidden="${section.hidden}" helpUrl="${section.helpUrl }">
+                    <div class="tab-container" align="center" <c:if test="${section.hidden}">style="display:none;"</c:if> >
+                      <table width="100%" cellpadding="0" cellspacing="0" class="datatable standard old-new">
+                         <kul:rowDisplay rows="${section.rows}" numberOfColumns="${section.numberOfColumns}" rowsReadOnly="${section.readOnly}"/>
+                      </table>
+                    </div>
+                  </kul:tab>
+                </c:forEach>
+                <c:if test="${!empty KualiForm.additionalSectionsFile}">
+                    <jsp:include page="${KualiForm.additionalSectionsFile}" />
+                </c:if>
+                <%-- Put the footer on the page. --%>
+                <kul:notes displayTopicFieldInNotes="${_displayTopicFieldInNotes}"/>
+
+                <kul:adHocRecipients />
+                <kul:routeLog />
+                <kul:superUserActions />
+                <kul:documentControls transactionalDocument="false" />
+            </td>
+        </tr>
+    </table>
 
 </kul:page>
 

@@ -18,25 +18,22 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.taglib.html.KNSFileTag;
+import org.kuali.kfs.kns.web.taglib.html.KNSSubmitTag;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.document.AccountingDocument;
+import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
+import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewActionDefinition;
+import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
-import org.kuali.kfs.sys.document.datadictionary.AccountingLineViewActionDefinition;
-import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.taglib.html.KNSFileTag;
-import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Renders the standard group header/import line
@@ -49,8 +46,8 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
     private String lineCollectionProperty;
     private KNSFileTag scriptFileTag = new KNSFileTag();
     private KNSFileTag noscriptFileTag = new KNSFileTag();
-    private KNSImageTag uploadButtonTag = new KNSImageTag();
-    private KNSImageTag cancelButtonTag = new KNSImageTag();
+    private KNSSubmitTag uploadButtonTag = new KNSSubmitTag();
+    private KNSSubmitTag cancelButtonTag = new KNSSubmitTag();
     private boolean shouldUpload = true;
     private boolean canEdit = false;
 
@@ -62,12 +59,11 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
     public GroupTitleLineRenderer() {
         scriptFileTag.setSize("30");
         noscriptFileTag.setSize("30");
-        noscriptFileTag.setStyle("font:10px;height:16px;");
-        uploadButtonTag.setSrc(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("externalizable.images.url") + "tinybutton-add1.gif");
-        uploadButtonTag.setStyleClass("tinybutton");
+        uploadButtonTag.setStyleClass("btn btn-green");
+        uploadButtonTag.setValue("Add");
         cancelButtonTag.setProperty("methodToCall.cancel");
-        cancelButtonTag.setSrc(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("externalizable.images.url") + "tinybutton-cancelimport.gif");
-        cancelButtonTag.setStyleClass("tinybutton");
+        cancelButtonTag.setStyleClass("btn btn-default");
+        cancelButtonTag.setValue("Cancel");
     }
 
     /**
@@ -108,8 +104,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
     }
 
     /**
-     * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag,
-     *      org.kuali.core.bo.BusinessObject)
+     * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         try {
@@ -175,7 +170,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
             groupActionsBeginning.append(Integer.toString(width));
             groupActionsBeginning.append("\" ");
 
-            groupActionsBeginning.append("class=\"tab-subhead-import\" ");
+            groupActionsBeginning.append("class=\"tab-subhead-import border-bottom\" ");
             groupActionsBeginning.append("align=\"right\" ");
             groupActionsBeginning.append("nowrap=\"nowrap\" ");
             groupActionsBeginning.append("style=\"border-right: none;\"");
@@ -201,7 +196,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      *
      * @return the String with the HTML for the title cell
      */
-    protected String buildTitleCell() {
+    protected String buildTitleCell() throws JspException{
         StringBuilder titleCell = new StringBuilder();
         int colSpan = (this.canUpload() || this.isGroupActionsRendered()) ? titleCellSpan : cellCount;
 
@@ -211,15 +206,19 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
         titleCell.append(colSpan);
         titleCell.append("\" ");
 
-        titleCell.append("class=\"tab-subhead\" ");
+        titleCell.append("class=\"tab-subhead border-bottom\" ");
 
         titleCell.append("style=\"border-right: none;\"");
 
         titleCell.append(">");
 
+        titleCell.append("<h3>");
+
         titleCell.append(buildGroupAnchor());
 
         titleCell.append(accountingLineGroupDefinition.getGroupLabel());
+
+        titleCell.append("</h3>");
 
         titleCell.append("</td>");
 
@@ -241,21 +240,17 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
             return;
         }
 
-        List<AccountingLineViewAction> viewActions = new ArrayList<AccountingLineViewAction>();
+        List<AccountingLineViewAction> viewActions = new ArrayList<>();
         for (AccountingLineViewActionDefinition action : accountingLineGroupActions) {
             String actionMethod = action.getActionMethod();
             String actionLabel = action.getActionLabel();
-            String imageName = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("externalizable.images.url") + action.getImageName();
 
-            AccountingLineViewAction viewAction = new AccountingLineViewAction(actionMethod, actionLabel, imageName);
+            AccountingLineViewAction viewAction = new AccountingLineViewAction(actionMethod, actionLabel, action.getButtonStyle(), action.getButtonLabel());
             viewActions.add(viewAction);
         }
 
         if (!viewActions.isEmpty()) {
             ActionsRenderer actionsRenderer = new ActionsRenderer();
-            actionsRenderer.setTagBeginning(" ");
-            actionsRenderer.setTagEnding(" ");
-            actionsRenderer.setPostButtonSpacing(" ");
             actionsRenderer.setActions(viewActions);
             actionsRenderer.render(pageContext, parentTag);
             actionsRenderer.clear();
@@ -301,11 +296,8 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
                 out.write("\t\tdocument.getElementById(uploadDivId).style.display=\"inline\";\n");
                 out.write("\t}\n");
                 out.write("\tdocument.write(\n");
-                out.write("\t\t'<a id=\"" + showLink + "\" href=\"#\" onclick=\"" + showImport + "(\\\'" + showLink + "\\\',\\\'" + uploadDiv + "\\\');return false;\">' +\n");
-                out.write("\t\t'<img src=\"" + SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("externalizable.images.url") + "tinybutton-importlines.gif\" title=\"import file\" alt=\"import file\"' +\n");
-                out.write("\t\t'width=\"72\" border=\"0\">' +\n");
-                out.write("\t\t'</a>' +\n");
-                out.write("\t\t'<div id=\"" + uploadDiv + "\" style=\"display:none;\" >' +\n");
+                out.write("\t\t'<a class=\"btn btn-default\" id=\"" + showLink + "\" href=\"#\" onclick=\"" + showImport + "(\\\'" + showLink + "\\\',\\\'" + uploadDiv + "\\\');return false;\">Import Lines</a>'+\n");
+                out.write("\t\t'<div class=\"uploadDiv\" id=\"" + uploadDiv + "\" style=\"display:none;\" >' +\n");
 
                 out.write("\t\t'");
 
@@ -524,7 +516,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
     /**
      * Sets the groupActionsRendered attribute value.
      *
-     * @param groupActionsRendered The groupActionsRendered to set.
+     * @param groupActionsRenderred The groupActionsRendered to set.
      */
     public void setGroupActionsRendered(boolean groupActionsRenderred) {
         this.groupActionsRendered = groupActionsRenderred;

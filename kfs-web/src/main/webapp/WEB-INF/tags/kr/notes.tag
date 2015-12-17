@@ -50,176 +50,184 @@
 
 <kul:tab tabTitle="${tabTitle}" defaultOpen="${!empty documentNotes or (not empty defaultOpen and defaultOpen)}" tabErrorKey="${Constants.DOCUMENT_NOTES_ERRORS},attachmentFile" tabItemCount="${fn:length(documentNotes)}" transparentBackground="${transparentBackground}" >
     <c:set var="notesAttributes" value="${DataDictionary.Note.attributes}" />
-    <div class="tab-container" align=center id="G4">
-    <p align=left><jsp:doBody/>
-  <h3>${tabTitle}</h3>
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="view/add notes">
+    <div class="tab-container" id="G4">
+        <jsp:doBody/>
+        <table class="datatable items standard" summary="view/add notes">
             <tbody>
-
-                <tr>
-                    <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="col" align="left"/>
-                    <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.notePostedTimestamp}" hideRequiredAsterisk="true" scope="col" align="left"/>
-                    <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.authorUniversalIdentifier}" hideRequiredAsterisk="true" scope="col" align="left"/>
-
-<%-- NEED TO ADD THIS TOPIC FIELD TO DATABASE REMOVE THIS COMMENT ONCE FIELD IS THERE--%>
-
-                    <c:if test="${displayTopicFieldInNotes eq true}">
-            <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteTopicText}" forceRequired="true" labelFor="newNote.noteTopicText" scope="col" align="left" />
-          </c:if>
-                     <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteText}" labelFor="newNote.noteText" scope="col" align="left"/>
-                    <c:if test="${allowsNoteAttachments eq true}">
-                      <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.attachment}" labelFor="attachmentFile" scope="col" align="left"/>
-                    </c:if>
-                    <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
-                      <kul:htmlAttributeHeaderCell literalLabel="Attachment Type" scope="col" align="left"/>
-                    </c:if>
-                    <c:if test="${allowsNoteFYI}" >
-                      <kul:htmlAttributeHeaderCell literalLabel="Notification Recipient" scope="col"/>
-                    </c:if>
-                    <kul:htmlAttributeHeaderCell literalLabel="Actions" scope="col"/>
-                </tr>
-				<html:hidden property="newNote.noteTypeCode" value="${noteType.code}"/>
-				<c:if test="${ ((not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)) || kfunc:canAddNoteAttachment(KualiForm.document)}" >
-                  <tr>
-                      <kul:htmlAttributeHeaderCell literalLabel="add:" scope="row"/>
-                      <td class="infoline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                      <td class="infoline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                      <c:if test="${displayTopicFieldInNotes eq true}">
-                       <td class="infoline"><kul:htmlControlAttribute attributeEntry="${notesAttributes.noteTopicText}" property="newNote.noteTopicText" forceRequired="true" /></td>
-                      </c:if>
-                      <td class="infoline"><kul:htmlControlAttribute attributeEntry="${notesAttributes.noteText}" property="newNote.noteText" forceRequired="${notesAttributes.noteText.required}" /></td>
-                      <c:if test="${allowsNoteAttachments eq true}">
-                        <td class="infoline">
-                          <div align="center"><br />
-                          <html:file property="attachmentFile" size="30" styleId="attachmentFile" value="" /><br /><br />
-                          <html:image property="methodToCall.cancelBOAttachment" src="${ConfigProperties.kr.externalizable.images.url}tinygrey-cancel.gif" title="Cancel Attachment" alt="Cancel Attachment" styleClass="tinybutton"/>
-                          </div>
-                        </td>
-                     </c:if>
-                     <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
-                        <c:set var="finderClass" value="${fn:replace(attachmentTypesValuesFinderClass,'.','|')}"/>
-                        <td class="infoline">
-                            <html:select property="newNote.attachment.attachmentTypeCode">
-                                <html:optionsCollection property="actionFormUtilMap.getOptionsMap${Constants.ACTION_FORM_UTIL_MAP_METHOD_PARM_DELIMITER}${finderClass}" label="value" value="key"/>
-                            </html:select>
-                        </td>
-                     </c:if>
-                     <c:if test="${allowsNoteFYI}" >
-                      <td>&nbsp;</td>
-                     </c:if>
-                     <td class="infoline"><div align="center"><html:image property="methodToCall.insertBONote" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="Add a Note" title="Add a Note" styleClass="tinybutton"/></div></td>	 
-			       </tr>
-			   </c:if>
-
-  <c:forEach var="note" items="${documentNotes}" varStatus="status">
-
-	<c:set var="authorUniversalIdentifier" value = "${note.authorUniversalIdentifier}" />
-	<c:if test="${kfunc:canViewNoteAttachment(KualiForm.document, null)}" >
-      <tr>
-            <kul:htmlAttributeHeaderCell literalLabel="${status.index + 1}" scope="row"/>
-            <td class="datacell center">
-			<bean:write name="KualiForm" property="${propPrefix}note[${status.index}].notePostedTimestamp"/>
-            &nbsp;</td>
-
-                        <td class="datacell center">
-                        <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].authorUniversal.name"/>
-<%-- NEED TO ADD THIS TOPIC FIELD TO DATABASE --%>
+                <c:if test="${ ((not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)) || kfunc:canAddNoteAttachment(KualiForm.document)}" >
+                    <tr class="new-note">
+                        <td class="infoline">&nbsp;</td>
+                        <td class="infoline">&nbsp;</td>
+                        <td class="infoline">&nbsp;</td>
                         <c:if test="${displayTopicFieldInNotes eq true}">
-                          <td class="datacell center">
-                          <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].noteTopicText"/></td>
+                            <td class="infoline">
+                                <kul:htmlAttributeLabel attributeEntry="${notesAttributes.noteTopicText}" forceRequired="true" />
+                                <br/>
+                                <kul:htmlControlAttribute attributeEntry="${notesAttributes.noteTopicText}" property="newNote.noteTopicText" forceRequired="true" />
+                            </td>
+                        </c:if>
+                        <td class="infoline">
+                            <kul:htmlAttributeLabel attributeEntry="${notesAttributes.noteText}" forceRequired="${true}"/>
+                            <br/>
+                            <kul:htmlControlAttribute attributeEntry="${notesAttributes.noteText}" property="newNote.noteText" forceRequired="${notesAttributes.noteText.required}" />
+                        </td>
+                        <c:if test="${allowsNoteAttachments eq true}">
+                            <td class="infoline">
+                                <kul:htmlAttributeLabel attributeEntry="${notesAttributes.attachment}" />
+                                <br/>
+                                <html:file property="attachmentFile" size="30" styleId="attachmentFile" value="" />
+                                <br/>
+                                <html:submit property="methodToCall.cancelBOAttachment" title="Cancel Attachment" alt="Remove Attachment" styleClass="tinybutton btn btn-default small" value="Remove Attachment"/>
+                            </td>
+                        </c:if>
+                        <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
+                            <c:set var="finderClass" value="${fn:replace(attachmentTypesValuesFinderClass,'.','|')}"/>
+                            <td class="infoline">
+                                <html:select property="newNote.attachment.attachmentTypeCode">
+                                    <html:optionsCollection property="actionFormUtilMap.getOptionsMap${Constants.ACTION_FORM_UTIL_MAP_METHOD_PARM_DELIMITER}${finderClass}" label="value" value="key"/>
+                                </html:select>
+                            </td>
+                        </c:if>
+                        <td class="infoline">
+                            <html:submit property="methodToCall.insertBONote" alt="Add a Note" title="Add a Note" styleClass="tinybutton btn btn-green" value="Add"/>
+                        </td>
+                        <c:if test="${allowsNoteFYI}" >
+                            <td>&nbsp;</td>
+                        </c:if>
+                    </tr>
+                </c:if>
+
+                <c:if test="${not empty documentNotes}">
+                    <tr class="header">
+                        <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="col" align="left"/>
+                        <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.notePostedTimestamp}" hideRequiredAsterisk="true" scope="col" align="left"/>
+                        <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.authorUniversalIdentifier}" hideRequiredAsterisk="true" scope="col" align="left"/>
+
+                        <c:if test="${displayTopicFieldInNotes eq true}">
+                            <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteTopicText}" labelFor="newNote.noteTopicText" hideRequiredAsterisk="${true}" scope="col" align="left" />
                         </c:if>
 
-                        <td class="datacell center">
-                        <%-- 
-     					 * Modified the display of the contents of a note to preserve the
-     					 * whitespace by default.  If the preserveWhitespace attribute is 
-     					 * set to false then this behavior is suppressed. 
-     					 --%>
-     					 <c:if test="${empty preserveWhitespace or preserveWhitespace}">
-                           <kul:preserveWhitespace><bean:write name="KualiForm" property="${propPrefix}note[${status.index}].noteText" /></kul:preserveWhitespace>
-                         </c:if>
-                         <c:if test="${not empty preserveWhitespace and not preserveWhitespace}">
-                           <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].noteText" />
-                         </c:if></td>
+                        <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.noteText}" labelFor="newNote.noteText" hideRequiredAsterisk="${true}" scope="col" align="left"/>
+
+                        <c:if test="${allowsNoteAttachments eq true}">
+                          <kul:htmlAttributeHeaderCell attributeEntry="${notesAttributes.attachment}" labelFor="attachmentFile" scope="col" align="left"/>
+                        </c:if>
+
+                        <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
+                          <kul:htmlAttributeHeaderCell literalLabel="Attachment Type" scope="col" align="left"/>
+                        </c:if>
+
+                        <c:if test="${allowsNoteFYI}" >
+                          <kul:htmlAttributeHeaderCell literalLabel="Notification Recipient" scope="col"/>
+                        </c:if>
+
+                        <kul:htmlAttributeHeaderCell literalLabel="Actions" scope="col"/>
+                    </tr>
+                </c:if>
+
+				<html:hidden property="newNote.noteTypeCode" value="${noteType.code}"/>
+
+                <c:forEach var="note" items="${documentNotes}" varStatus="status">
+                    <c:set var="authorUniversalIdentifier" value = "${note.authorUniversalIdentifier}" />
+
+                    <c:if test="${kfunc:canViewNoteAttachment(KualiForm.document, null)}" >
+                        <tr class="${status.index % 2 == 0 ? "highlight" : ""}">
+                            <td>${status.index + 1}</td>
+                            <td class="datacell">
+                                <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].notePostedTimestamp"/>
+                                &nbsp;
+                            </td>
+
+                            <td class="datacell">
+                                <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].authorUniversal.name"/>
+                            </td>
+
+                            <c:if test="${displayTopicFieldInNotes eq true}">
+                                <td class="datacell">
+                                    <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].noteTopicText"/>
+                                </td>
+                            </c:if>
+
+                            <td class="datacell note-text">
+                                <c:if test="${empty preserveWhitespace or preserveWhitespace}">
+                                    <kul:preserveWhitespace><bean:write name="KualiForm" property="${propPrefix}note[${status.index}].noteText" /></kul:preserveWhitespace>
+                                </c:if>
+                                <c:if test="${not empty preserveWhitespace and not preserveWhitespace}">
+                                    <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].noteText" />
+                                </c:if>
+                            </td>
                          
-            <%-- use caution if you rename either of these two variables.  It seems that the properties are not read in sequentially
-                 but instead in some other arbitrary way (sorted alphabetically?) and therefore you may end up with a reference to a null authorUniversal object --%>
-                        <%--<html:hidden property="${propPrefix}boNote[${status.index}].authorUniversal.principalId" />--%>
-
-<%-- won't work until I add attachment logic to action --%>
-
                             <c:choose>
                                 <c:when test="${(!empty note.attachment) and (note.attachment.complete)}">
-                                  <td class="datacell center">
-                                    
-                                    <c:if test="${allowsNoteAttachments eq true}">
-                                      <c:if test="${(!empty note.attachment)}">
-										<c:set var="attachmentTypeCode" value ="${note.attachment.attachmentTypeCode}" />
-                    <c:set var="mimeTypeCode" value="${note.attachment.attachmentMimeTypeCode}" />
-									  </c:if>
-                                      <c:if test="${kfunc:canViewNoteAttachment(KualiForm.document, attachmentTypeCode)}" >
-                                        <html:image property="methodToCall.downloadBOAttachment.attachment[${status.index}]" src="${ConfigProperties.kr.externalizable.images.url}${kfunc:getAttachmentImageForUrl(mimeTypeCode)}" title="download attachment" alt="download attachment" style="padding:5px" onclick="excludeSubmitRestriction=true"/>
-                                      </c:if>
-                                      <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].attachment.attachmentFileName"/>
-                                      &nbsp;
-                                      &nbsp;
-                                      <span style="white-space: nowrap">
-                                        <kul:fileSize byteSize="${note.attachment.attachmentFileSize}">
-                                            (<c:out value="${fileSize} ${fileSizeUnits}" />,  <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].attachment.attachmentMimeTypeCode"/>)
-                                        </kul:fileSize>
-                                      </span>
+                                    <td class="datacell">
+                                        <c:if test="${allowsNoteAttachments eq true}">
+                                            <c:if test="${(!empty note.attachment)}">
+                                                <c:set var="attachmentTypeCode" value ="${note.attachment.attachmentTypeCode}" />
+                                                <c:set var="mimeTypeCode" value="${note.attachment.attachmentMimeTypeCode}" />
+                                            </c:if>
+                                            <span style="white-space: nowrap">
+                                                <c:if test="${kfunc:canViewNoteAttachment(KualiForm.document, attachmentTypeCode)}" >
+                                                    <html:image property="methodToCall.downloadBOAttachment.attachment[${status.index}]" src="${ConfigProperties.kr.externalizable.images.url}${kfunc:getAttachmentImageForUrl(mimeTypeCode)}" title="download attachment" alt="download attachment" style="padding:5px;margin-bottom:-10px;" onclick="excludeSubmitRestriction=true"/>
+                                                </c:if>
+                                                <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].attachment.attachmentFileName"/>
+                                                &nbsp;
+                                                <kul:fileSize byteSize="${note.attachment.attachmentFileSize}">
+                                                    (<c:out value="${fileSize} ${fileSizeUnits}" />,  <bean:write name="KualiForm" property="${propPrefix}note[${status.index}].attachment.attachmentMimeTypeCode"/>)
+                                                </kul:fileSize>
+                                            </span>
+                                        </c:if>
+                                    </td>
+
+                                    <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
+                                        <td class="datacell">
+                                            &nbsp;
+									        <c:set var="mapKey" value = "getOptionsMap${Constants.ACTION_FORM_UTIL_MAP_METHOD_PARM_DELIMITER}${finderClass}" />
+									        <c:set var="attachmentTypeFinderMap" value="${KualiForm.actionFormUtilMap[mapKey]}"  />
+                                            <c:forEach items="${attachmentTypeFinderMap}" var="type">
+                                                <c:if test="${type.key eq note.attachment.attachmentTypeCode}">${type.value}</c:if>
+                                            </c:forEach>
+                                        </td>
                                     </c:if>
-                                  </td>
-                                  <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
-                                     <td class="datacell center">
-                                     &nbsp;
-									 <c:set var="mapKey" value = "getOptionsMap${Constants.ACTION_FORM_UTIL_MAP_METHOD_PARM_DELIMITER}${finderClass}" />
-									 <c:set var="attachmentTypeFinderMap" value="${KualiForm.actionFormUtilMap[mapKey]}"  />
-                                       <c:forEach items="${attachmentTypeFinderMap}" var="type">
-                                         <c:if test="${type.key eq note.attachment.attachmentTypeCode}">${type.value}</c:if>
-                                       </c:forEach>
-                                     </td>
-                                  </c:if>
                                 </c:when>
                                 <c:otherwise>
-                                    <td class="datacell center">&nbsp;</td>
+                                    <td class="datacell">&nbsp;</td>
                                     <c:if test="${(not empty attachmentTypesValuesFinderClass) and (allowsNoteAttachments eq true)}">
-                                        <td class="datacell center">&nbsp;</td>
+                                        <td class="datacell">&nbsp;</td>
                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
 
                             <c:if test="${allowsNoteFYI}" >
-                              <td class="infoline">
-                                <c:if test="${!empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}">
-                             <kul:user userIdFieldName="${propPrefix}note[${status.index}].adHocRouteRecipient.id" 
-                              userId="${note.adHocRouteRecipient.id}" 
-                              universalIdFieldName=""
-                              universalId=""
-                              userNameFieldName="${propPrefix}note[${status.index}].adHocRouteRecipient.name"
-                              userName="${note.adHocRouteRecipient.name}"
-                              readOnly="false" 
-                              fieldConversions="principalName:${propPrefix}note[${status.index}].adHocRouteRecipient.id,name:${propPrefix}note[${status.index}].adHocRouteRecipient.name" 
-                              lookupParameters="${propPrefix}note[${status.index}].adHocRouteRecipient.id:principalName" />
+                                <td class="infoline">
+                                    <c:if test="${!empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}">
+                                         <kul:user userIdFieldName="${propPrefix}note[${status.index}].adHocRouteRecipient.id"
+                                          userId="${note.adHocRouteRecipient.id}"
+                                          universalIdFieldName=""
+                                          universalId=""
+                                          userNameFieldName="${propPrefix}note[${status.index}].adHocRouteRecipient.name"
+                                          userName="${note.adHocRouteRecipient.name}"
+                                          readOnly="false"
+                                          fieldConversions="principalName:${propPrefix}note[${status.index}].adHocRouteRecipient.id,name:${propPrefix}note[${status.index}].adHocRouteRecipient.name"
+                                          lookupParameters="${propPrefix}note[${status.index}].adHocRouteRecipient.id:principalName" />
+                                    </c:if>
+                                    <c:if test="${empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}">
+                                        &nbsp;
+                                    </c:if>
+                                </td>
                             </c:if>
-                            <c:if test="${empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}">
-                              &nbsp;
-                            </c:if>
-                             </td>
-                           </c:if>
                            
-                        <td class="datacell center"><div align="center">
-                          <c:if test="${kfunc:canDeleteNoteAttachment(KualiForm.document, attachmentTypeCode, authorUniversalIdentifier)}">
-                            <html:image property="methodToCall.deleteBONote.line${status.index}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" title="Delete a Note" alt="Delete a Note" styleClass="tinybutton"/>
-                          </c:if> &nbsp;
-                          <c:if test="${allowsNoteFYI && !empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}" >
-                              <html:image property="methodToCall.sendNoteWorkflowNotification.line${status.index}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-send.gif" title="Send FYI" alt="Send FYI" styleClass="tinybutton"/>
-                          </c:if>  
-                        </div></td>
-                    </tr>
-	</c:if>
-  </c:forEach>
-              </tbody>
+                            <td class="datacell">
+                                <c:if test="${kfunc:canDeleteNoteAttachment(KualiForm.document, attachmentTypeCode, authorUniversalIdentifier)}">
+                                    <html:submit property="methodToCall.deleteBONote.line${status.index}" title="Delete a Note" alt="Delete a Note" styleClass="tinybutton btn btn-red" value="Delete"/>
+                                </c:if> &nbsp;
+                                <c:if test="${allowsNoteFYI && !empty KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}" >
+                                    <html:submit property="methodToCall.sendNoteWorkflowNotification.line${status.index}" title="Send FYI" alt="Send FYI" styleClass="tinybutton btn btn-default" value="Send"/>
+                                </c:if>
+                            </td>
+                        </tr>
+	                </c:if>
+                </c:forEach>
+            </tbody>
         </table>
     </div>
 </kul:tab>

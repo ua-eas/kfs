@@ -175,8 +175,6 @@
 	</c:otherwise>
 	</c:choose>
 
-    <kul:panelFooter />
-
 	<c:choose>
 		<c:when test="${KualiForm.document.assigningSensitiveData}">
     		<sys:documentControls 

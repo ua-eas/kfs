@@ -39,7 +39,6 @@
 		disbursementNumberRangeAttributes="${disbursementNumberRangeAttributes}"
 		customerProfileAttributes="${customerProfileAttributes}"
 		formatResultAttributes="${formatResultAttributes}" />
-	<kul:panelFooter />
 	<div id="globalbuttons" class="globalbuttons">
 		<html:image
 			src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_continue.gif"

@@ -73,9 +73,7 @@
 	
 	<cab:purApItemLines activeIndicator="true" title="Active Line Items" defaultOpen="true" tabErrorKey="purApDocs*,merge*" readOnly="${readOnly}"/>
 	<cab:purApItemLines activeIndicator="false" title="Submitted Line Items" defaultOpen="false"/>
-	<kul:panelFooter />
-	
-	
+
 	<div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">
 	        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_save.gif" styleClass="globalbuttons" 

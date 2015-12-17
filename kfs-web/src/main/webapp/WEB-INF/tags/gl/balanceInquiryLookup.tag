@@ -24,20 +24,19 @@
 <%@ attribute name="lookupParameters" required="false" %>
 <%@ attribute name="hideReturnLink" required="false" %>
 <%@ attribute name="tabindexOverride" required="false" %>
-<%@ attribute name="image" required="false"%>
+<%@ attribute name="buttonText" required="false"%>
 
-<c:set var="imageName" value="${empty image ? 'searchicon.png' : image}"/>
+<c:set var="buttonText" value="${empty buttonText ? 'Search' : buttonText}"/>
 
 <c:choose>
-  <c:when test="${!empty tabindexOverride}">
-    <c:set var="tabindex" value="${tabindexOverride}"/>
-  </c:when>
-  <c:otherwise>
-    <c:set var="tabindex" value="${KualiForm.nextArbitrarilyHighIndex}"/>
-  </c:otherwise>
+    <c:when test="${!empty tabindexOverride}">
+        <c:set var="tabindex" value="${tabindexOverride}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="tabindex" value="${KualiForm.nextArbitrarilyHighIndex}"/>
+    </c:otherwise>
 </c:choose>
 
 <c:set var="balanceInquiryLookupButtonName" value="methodToCall.performBalanceInquiryLookup.(!!${boClassName}!!).(((${fieldConversions}))).((#${lookupParameters}#)).((<${hideReturnLink}>)).(([${actionPath}]))" />
 ${kfunc:registerEditableProperty(KualiForm, balanceInquiryLookupButtonName)}
-<input type="image" tabindex="${tabindex}" name="${balanceInquiryLookupButtonName}"
-   src="${ConfigProperties.kr.externalizable.images.url}${imageName}" alt="search" title="search" border="0" class="tinybutton" valign="middle"/>
+<input type="submit" tabindex="${tabindex}" name="${balanceInquiryLookupButtonName}" alt="search" title="search" border="0" class="btn btn-default" value="${buttonText}"/>

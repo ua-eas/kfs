@@ -18,10 +18,9 @@
  */
 package org.kuali.kfs.fp.document.authorization;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -34,9 +33,10 @@ import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DataDictionaryService;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Authorizer which deals with financial processing document issues, specifically sales tax lines on documents
@@ -107,9 +107,7 @@ public class FinancialProcessingAccountingLineAuthorizer extends AccountingLineA
         String actionMethod = this.getRefreshLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_REFRESH_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        String actionImageName = getRiceImagePath() + "tinybutton-refresh.gif";
-
-        return new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        return new AccountingLineViewAction(actionMethod, actionLabel, "default", "Refresh");
     }
     
     /**

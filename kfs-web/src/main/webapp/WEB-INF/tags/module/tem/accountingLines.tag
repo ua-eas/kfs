@@ -22,11 +22,20 @@
 	<c:if test="${fullEntryMode }">
 		<div class="tab-container" align="left">
 	    	<c:if test="${fn:length(KualiForm.document.sourceAccountingLines) > 0}" >
-	    		<html:image property="methodToCall.resetAccountingLines" src="${ConfigProperties.externalizable.images.url}tinybutton-restartaccountinglines.gif" alt="Restart Accounting Lines" title="Restart Accounting Lines" styleClass="tinybutton" />    		
+	    		<html:submit
+                        property="methodToCall.resetAccountingLines"
+                        alt="Restart Accounting Lines"
+                        title="Restart Accounting Lines"
+                        styleClass="btn btn-default"
+                        value="Restart Accounting Lines"/>
 			</c:if>
 		</div>
 	</c:if>
 	<sys-java:accountingLines>
-		<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
+		<sys-java:accountingLineGroup
+                newLinePropertyName="newSourceLine"
+                collectionPropertyName="document.sourceAccountingLines"
+                collectionItemPropertyName="document.sourceAccountingLine"
+                attributeGroupName="source" />
 	</sys-java:accountingLines>
 </kul:tab>

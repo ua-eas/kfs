@@ -26,7 +26,8 @@ import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 public class AccountingLineViewActionDefinition extends DataDictionaryDefinitionBase implements AccountingLineViewRenderableElementDefinition {
     private String actionMethod;
     private String actionLabel;
-    private String imageName;
+    private String buttonStyle;
+    private String buttonLabel;
     
     /**
      * Gets the actionLabel attribute. 
@@ -57,18 +58,26 @@ public class AccountingLineViewActionDefinition extends DataDictionaryDefinition
         this.actionMethod = actionMethod;
     }
     /**
-     * Gets the imageName attribute. 
-     * @return Returns the imageName.
+     * Gets the buttonStyle attribute.
+     * @return Returns the buttonStyle.
      */
-    public String getImageName() {
-        return imageName;
+    public String getButtonStyle() {
+        return buttonStyle;
     }
     /**
-     * Sets the imageName attribute value.
-     * @param imageName The imageName to set.
+     * Sets the buttonStyle attribute value.
+     * @param buttonStyle The buttonStyle to set.
      */
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setButtonStyle(String buttonStyle) {
+        this.buttonStyle = buttonStyle;
+    }
+
+    public String getButtonLabel() {
+        return buttonLabel;
+    }
+
+    public void setButtonLabel(String buttonLabel) {
+        this.buttonLabel = buttonLabel;
     }
 
     /**

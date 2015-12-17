@@ -100,10 +100,7 @@ let MenuConfig = React.createClass({
                 $.notify('Save Successful!', 'success');
             }.bind(this),
             error: function(xhr, status, err) {
-                let message = 'Save failed.';
-                if (err) {
-                    message = 'Save failed: ' + err;
-                }
+                let message = xhr.responseText ? 'Save failed: ' + xhr.responseText : 'Save failed.';
                 $.notify(message, 'error');
                 console.error(status, err.toString());
             }.bind(this)
@@ -125,7 +122,7 @@ let MenuConfig = React.createClass({
                     <h1><span className="glyphicon glyphicon-cog"></span>Menu Configuration</h1>
                 </div>
 
-                <div className="menuconfig">
+                <div className="menu-config main">
                     <MenuItemList menu={this.state.menu}
                                   editing={this.state.editing}
                                   deleting={this.state.deleting}

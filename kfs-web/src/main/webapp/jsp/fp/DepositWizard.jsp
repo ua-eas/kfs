@@ -385,8 +385,6 @@ function checkCheckAllOrNone() {
     </c:if>
     
     </div>
-			<kul:panelFooter />
-
 			<div id="globalbuttons" class="globalbuttons"><html:image
 				property="methodToCall.createDeposit"
 				src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif" alt="create" title="create"

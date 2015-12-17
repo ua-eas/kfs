@@ -28,40 +28,30 @@
 	<table cellpadding="0" cellspacing="0" class="datatable" summary="Traveler Section">
      	<c:if test="${fullEntryMode && travelArranger}">
         <tr>
-            <th class="bord-l-b"><div align="right">Traveler Lookup:</div></th>
+            <th class="right">Traveler Lookup:</th>
             <td class="datacell" colspan="3">
-            	<div align="left">
-			    	<kul:lookup boClassName="org.kuali.kfs.module.tem.businessobject.TravelerProfileForLookup" lookupParameters="document.traveler.travelerTypeCode:travelerTypeCode" />
-				</div>
+                <kul:lookup boClassName="org.kuali.kfs.module.tem.businessobject.TravelerProfileForLookup" lookupParameters="document.traveler.travelerTypeCode:travelerTypeCode" />
             </td>
         </tr>
         </c:if>
 		<tr>
-            <th class="bord-l-b">
-	            <div align="right">
-	            	<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.travelerTypeCode}" />
-	           	</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.travelerTypeCode}" />
             </th>
             <td class="datacell" colspan="3">
-            	<div align="left">
-            		<kul:htmlControlAttribute attributeEntry="${DataDictionary.TravelerType.attributes.name}" property="document.traveler.travelerType.name" readOnly="true"/>
-            	</div>                 
+                <kul:htmlControlAttribute attributeEntry="${DataDictionary.TravelerType.attributes.name}" property="document.traveler.travelerType.name" readOnly="true"/>
             </td>
        </tr>
        <c:if test="${KualiForm.document.traveler.travelerTypeCode == 'EMP'}">
        <tr>
-			<th class="bord-l-b">
-				<div align="right">
-					<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.principalId}" />
-				</div>
+			<th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.principalId}" />
 			</th>
 			<td class="datacell">
 				<kul:htmlControlAttribute attributeEntry="${travelerAttributes.principalId}" property="document.traveler.principalId" readOnly="true"/>
 			</td>
-            <th>
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.principalName}" readOnly="true" />
-           		</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.principalName}" readOnly="true" />
             </th>
             <td class="datacell">
             	<kul:htmlControlAttribute attributeEntry="${travelerAttributes.principalName}" property="document.traveler.principalName" readOnly="true"/>
@@ -69,18 +59,14 @@
 		</tr>
         </c:if>
 		<tr>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.firstName}" />
-           		</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.firstName}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.firstName}" property="document.traveler.firstName" readOnly="true"/>           
             </td>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.lastName}" />
-           		</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.lastName}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.lastName}" property="document.traveler.lastName" readOnly="true"/>          
@@ -88,64 +74,50 @@
         </tr> 
         <c:if test="${fullEntryMode}">
         <tr>
-            <th class="bord-l-b"><div align="right">Address Lookup:</div></th>
+            <th class="right">Address Lookup:</th>
             <td class="datacell" colspan="3">
-            	<div align="left">
-			    	<kul:lookup boClassName="org.kuali.kfs.module.tem.businessobject.TemProfileAddress" lookupParameters="document.traveler.principalId:principalId,document.traveler.customerNumber:customerNumber"
+                <kul:lookup boClassName="org.kuali.kfs.module.tem.businessobject.TemProfileAddress" lookupParameters="document.traveler.principalId:principalId,document.traveler.customerNumber:customerNumber"
 			    	fieldConversions="streetAddressLine1:document.traveler.streetAddressLine1,streetAddressLine2:document.traveler.streetAddressLine2,zipCode:document.traveler.zipCode,countryCode:document.traveler.countryCode,stateCode:document.traveler.stateCode,cityName:document.traveler.cityName" />
-				</div>
             </td>
         </tr>
         </c:if>       
         <tr>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.streetAddressLine1}" />
-                </div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.streetAddressLine1}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.streetAddressLine1}" property="document.traveler.streetAddressLine1" readOnly="true"/>           
             </td>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.streetAddressLine2}" />
-            	</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.streetAddressLine2}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.streetAddressLine2}" property="document.traveler.streetAddressLine2" readOnly="true"/>            
             </td>
         </tr>
         <tr>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.cityName}" />
-           		</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.cityName}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.cityName}" property="document.traveler.cityName" readOnly="true"/>           
             </td>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.stateCode}" />
-            	</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.stateCode}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.stateCode}" property="document.traveler.stateCode" readOnly="true" tabindexOverride="${tabindexOverrideBase + 5}"/>
             </td>
         </tr>
         <tr>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.countryCode}" />
-           		</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.countryCode}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.countryCode}" property="document.traveler.countryCode" readOnly="true" onchange="javascript: getAllStates();" tabindexOverride="${tabindexOverrideBase + 4}"/>           
             </td>
-            <th class="bord-l-b">
-            	<div align="right">
-            		<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.zipCode}" />
-           		</div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.zipCode}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.zipCode}" property="document.traveler.zipCode" readOnly="true"/>
@@ -156,31 +128,25 @@
             </td>
         </tr>
         <tr>
-            <th class="bord-l-b">
-            <div align="right">
-            	<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.emailAddress}" /></div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.emailAddress}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.emailAddress}" property="document.traveler.emailAddress" readOnly="true"/>            
             </td>
-            <th class="bord-l-b">
-            <div align="right">
-            	<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.phoneNumber}" /></div>
+            <th class="right">
+            	<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.phoneNumber}" />
             </th>
             <td class="datacell">
                 <kul:htmlControlAttribute attributeEntry="${travelerAttributes.phoneNumber}" property="document.traveler.phoneNumber" readOnly="true"/>           
             </td>
         </tr>
         <tr>
-            <th class="bord-l-b">
-	            <div align="right">
-	            	<kul:htmlAttributeLabel attributeEntry="${travelerAttributes.liabilityInsurance}" />
-                </div>
+            <th class="right">
+                <kul:htmlAttributeLabel attributeEntry="${travelerAttributes.liabilityInsurance}" />
             </th>
             <td class="datacell" colspan="3">
-            	<div align="left">
-            		<kul:htmlControlAttribute attributeEntry="${travelerAttributes.liabilityInsurance}" property="document.traveler.liabilityInsurance" readOnly="${!fullEntryMode}"/>
-            	</div>                 
+                <kul:htmlControlAttribute attributeEntry="${travelerAttributes.liabilityInsurance}" property="document.traveler.liabilityInsurance" readOnly="${!fullEntryMode}"/>
             </td>
         </tr>                      
 	</table>

@@ -32,8 +32,6 @@
 
     <bc:incumbentSalarySetting readOnly="${readOnly}" accountsCanCrossCharts="${accountsCanCrossCharts}"/>	
     
-	<kul:panelFooter />
-
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">
 	        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_save.gif" 

@@ -6,6 +6,7 @@ import Header from '../../header.jsx';
 import Footer from '../../footer.jsx';
 import InstitutionConfigSidebar from './InstitutionConfigSidebar.jsx';
 
+import LogoUpload from './logo/LogoUpload.jsx';
 import NavigationConfig from './navigation/NavigationConfig.jsx';
 import MenuConfig from './menu/MenuConfig.jsx';
 
@@ -22,6 +23,7 @@ let App = React.createClass({
 let routes = (
     <Route handler={App} name="app" path="/">
         <DefaultRoute handler={NavigationConfig} />
+        <Route name="logo-upload" path="/logo" handler={LogoUpload}/>
         <Route name="navigation-config" path="/navigation" handler={NavigationConfig}/>
         <Route name="menu-config" path="/menu" handler={MenuConfig}/>
         <NotFoundRoute handler={NavigationConfig}/>

@@ -36,7 +36,6 @@
 			<ar:documentSummaryResults lookupResultsProperty="contractsGrantsInvoiceLookupResults" lookupResultTitleProperties="agencyNumber;agencyFullName">
 				<ar:contractsGrantsInvoiceSummaryResultContent/>
 			</ar:documentSummaryResults>
-			<kul:panelFooter />
 			<html:image
 					src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif"
 					styleClass="globalbuttons"

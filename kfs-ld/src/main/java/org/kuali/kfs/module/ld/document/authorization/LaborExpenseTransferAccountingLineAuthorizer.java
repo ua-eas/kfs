@@ -85,11 +85,7 @@ public class LaborExpenseTransferAccountingLineAuthorizer extends AccountingLine
         String actionMethod = this.getCopyLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_COPY_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        ConfigurationService kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
-        String imagesPath = kualiConfigurationService.getPropertyValueAsString(KRADConstants.APPLICATION_EXTERNALIZABLE_IMAGES_URL_KEY);
-        String actionImageName = imagesPath + "tinybutton-copy2.gif";
-
-        return new AccountingLineViewAction(actionMethod, actionLabel, actionImageName);
+        return new AccountingLineViewAction(actionMethod, actionLabel, "default", "Copy");
     }
 
     /**

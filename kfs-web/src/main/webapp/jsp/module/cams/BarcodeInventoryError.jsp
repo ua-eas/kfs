@@ -34,8 +34,6 @@ renderMultipart="true"  showTabButtons="true">
     
     <kul:superUserActions />
     
-    <kul:panelFooter />
-    
     <sys:documentControls transactionalDocument="${documentEntry.transactionalDocument}"/>
     
 </kul:documentPage>

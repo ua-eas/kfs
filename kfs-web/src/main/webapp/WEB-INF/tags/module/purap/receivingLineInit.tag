@@ -22,49 +22,45 @@
               description="The DataDictionary entry containing attributes for this row's fields." %>
               
 <kul:tabTop tabTitle="Line Item Receiving Initiation" defaultOpen="true" tabErrorKey="${PurapConstants.RECEIVING_LINE_INIT_TAB_ERRORS}">
-	
     <div class="tab-container" align=center>
-            <h3>Line Item Receiving Initiation</h3>
-
         <table cellpadding="0" cellspacing="0" class="datatable" summary="Receiving Line Init Section">
-
             <tr>
-                <th align=right valign=middle class="bord-l-b" style="width: 50%;">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderIdentifier}" /></div>
+                <th class="right" style="width:50%;">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderIdentifier}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderIdentifier}" property="document.purchaseOrderIdentifier" readOnly="${KualiForm.fromPurchaseOrder}" />
                 </td>
             </tr>
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentReceivedDate}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentReceivedDate}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentReceivedDate}" property="document.shipmentReceivedDate" datePicker="true" />
                 </td>
             </tr>
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentPackingSlipNumber}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentPackingSlipNumber}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentPackingSlipNumber}" property="document.shipmentPackingSlipNumber" />
                 </td>
             </tr>                
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentBillOfLadingNumber}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentBillOfLadingNumber}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentBillOfLadingNumber}" property="document.shipmentBillOfLadingNumber" />
                 </td>
             </tr>                
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.carrierCode}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.carrierCode}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.carrierCode}" property="document.carrierCode" />
                 </td>
             </tr>

@@ -68,8 +68,6 @@
 		</c:if>       
     </c:if>
 
-	<kul:panelFooter/>
-	
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${!empty KualiForm.selectionSubTreeOrgs && KualiForm.operatingMode == BCConstants.OrgSelOpMode.PULLUP}">
              <html:image property="methodToCall.performPullUp" src="${ConfigProperties.externalizable.images.url}buttonsmall_pullup.gif" title="Perform Pullup" alt="Perform Pullup" styleClass="globalbuttons" />
