@@ -128,6 +128,7 @@
     <jstl-api.version>1.2</jstl-api.version>
     <jta.version>1.1</jta.version>
     <junit.version>4.9</junit.version>
+    <easymock.version>3.4</easymock.version>
     <kfs.help.version>5.4.0</kfs.help.version>
     <datatools.version>1.0.0-SNAPSHOT</datatools.version>
     <maven.compiler.version>3.3</maven.compiler.version>
@@ -980,6 +981,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <version>${easymock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>${db.groupId}</groupId>
       <artifactId>${db.artifactId}</artifactId>
       <version>${db.version}</version>
@@ -1168,6 +1175,12 @@
         <artifactId>datatools</artifactId>
         <version>${datatools.version}</version>
     </dependency>
+      <dependency>
+      	<groupId>org.kuali.kfs</groupId>
+      	<artifactId>kfs</artifactId>
+      	<version>6.0.1-SNAPSHOT</version>
+      	<type>pom</type>
+      </dependency>
   </dependencies>
 
   <repositories>

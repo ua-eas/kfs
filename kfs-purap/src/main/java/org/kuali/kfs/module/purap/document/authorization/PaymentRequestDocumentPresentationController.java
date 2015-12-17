@@ -24,6 +24,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.PaymentRequestEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
@@ -33,13 +37,12 @@ import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
+import org.kuali.kfs.sys.KfsAuthorizationConstants.DisbursementVoucherEditMode;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 
 
 public class PaymentRequestDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {
@@ -237,10 +240,21 @@ public class PaymentRequestDocumentPresentationController extends PurchasingAcco
         if (paymentRequestDocument.isExtracted()) {
             editModes.remove(KFSConstants.BANK_ENTRY_EDITABLE_EDITING_MODE);
         }
+        
+        addACHSignUpInfoMode(document, editModes);
 
         return editModes;
     }
 
+	protected void addACHSignUpInfoMode(Document document, Set<String> editModes) {
+		WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
+		// If document is not final, processed or disapproved, then we can show ACH signup flag.
+        if(!(workflowDocument.isFinal() ||
+        workflowDocument.isProcessed() ||
+        workflowDocument.isDisapproved()))
+        	editModes.add(PaymentRequestEditMode.ACH_ACCOUNT_INFO_DISPLAYED);
+	}
+	
     protected boolean canProcessorInit(PaymentRequestDocument paymentRequestDocument) {
         // if Payment Request is in INITIATE status or NULL returned from getAppDocStatus
         String status = paymentRequestDocument.getApplicationDocumentStatus();

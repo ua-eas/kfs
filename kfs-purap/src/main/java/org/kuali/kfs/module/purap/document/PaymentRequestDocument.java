@@ -112,6 +112,7 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     protected String recurringPaymentTypeCode;
     protected boolean receivingDocumentRequiredIndicator;
     protected boolean paymentRequestPositiveApprovalIndicator;
+    private boolean achSignUpStatusFlag;
 
     //KFSCNTRB-1207 - UMD - Muddu -- start
     //the indicator which tells if the preq has been auto approved and this value will be used
@@ -1377,6 +1378,20 @@ public class PaymentRequestDocument extends AccountsPayableDocumentBase {
     }
 
     /**
+	 * @return the achSignUpStatusFlag
+	 */
+	public boolean isAchSignUpStatusFlag() {
+		return achSignUpStatusFlag;
+	}
+
+	/**
+	 * @param achSignUpStatusFlag the achSignUpStatusFlag to set
+	 */
+	public void setAchSignUpStatusFlag(boolean achSignUpStatusFlag) {
+		this.achSignUpStatusFlag = achSignUpStatusFlag;
+	}
+
+	/**
      * @return the receiving document required indicator
      */
     public boolean getReceivingDocumentRequiredIndicatorForSearching() {

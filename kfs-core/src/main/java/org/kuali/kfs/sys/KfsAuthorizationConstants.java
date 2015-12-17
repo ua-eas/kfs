@@ -37,6 +37,7 @@ public class KfsAuthorizationConstants  {
         public static final String SPECIAL_HANDLING_CHANGING_ENTRY = "specialHandlingChangingEntry";
         public static final String PAYMENT_REASON_EDIT_MODE = "paymentReasonEditMode";
         public static final String EXTRACT_NOW = "extractNow";
+		public static final String ACH_ACCOUNT_INFO_DISPLAYED = "achAccountInfoDisplayed";
     }
 
     public static class DistributionOfIncomeAndExpenseEditMode {
