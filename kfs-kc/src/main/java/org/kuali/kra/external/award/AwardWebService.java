@@ -19,11 +19,6 @@
 package org.kuali.kra.external.award;
 
 import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.dto.AwardBillingUpdateDto;
-import org.kuali.kfs.module.external.kc.dto.AwardBillingUpdateStatusDto;
-import org.kuali.kfs.module.external.kc.dto.AwardDTO;
-import org.kuali.kfs.module.external.kc.dto.AwardFieldValuesDto;
-import org.kuali.kfs.module.external.kc.dto.AwardSearchCriteriaDto;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;

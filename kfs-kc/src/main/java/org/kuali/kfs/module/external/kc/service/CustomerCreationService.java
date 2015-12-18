@@ -27,7 +27,7 @@ import javax.jws.soap.SOAPBinding;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.dto.CustomerCreationStatusDto;
 import org.kuali.kfs.module.external.kc.dto.CustomerTypeDto;
-import org.kuali.kfs.module.external.kc.dto.SponsorDTO;
+import org.kuali.kra.external.sponsor.SponsorDTO;
 
 @WebService(name = KcConstants.CustomerCreationService.WEB_SERVICE_NAME,
             targetNamespace = KcConstants.KFS_NAMESPACE_URI)

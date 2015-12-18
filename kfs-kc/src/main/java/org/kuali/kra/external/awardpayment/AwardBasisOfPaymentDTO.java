@@ -16,28 +16,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.awardpayment;
 
 import java.io.Serializable;
 
-public class AwardTypeDTO implements Serializable {
+public class AwardBasisOfPaymentDTO implements Serializable {
 
-	private static final long serialVersionUID = 1728984743819678819L;
+	private static final long serialVersionUID = -7293109685985758125L;
 
-	private Integer awardTypeCode;
-	private String description;
+	private String basisOfPaymentCode;
+    private String description;
 
+	public String getBasisOfPaymentCode() {
+		return basisOfPaymentCode;
+	}
+	public void setBasisOfPaymentCode(String basisOfPaymentCode) {
+		this.basisOfPaymentCode = basisOfPaymentCode;
+	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getAwardTypeCode() {
-		return awardTypeCode;
-	}
-	public void setAwardTypeCode(Integer awardTypeCode) {
-		this.awardTypeCode = awardTypeCode;
-	}
-
 }

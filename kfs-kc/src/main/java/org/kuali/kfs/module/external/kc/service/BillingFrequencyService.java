@@ -19,7 +19,7 @@
 package org.kuali.kfs.module.external.kc.service;
 
 import org.kuali.kfs.module.external.kc.businessobject.BillingFrequency;
-import org.kuali.kfs.module.external.kc.dto.FrequencyDto;
+import org.kuali.kra.external.frequency.FrequencyDto;
 
 public interface BillingFrequencyService {
 

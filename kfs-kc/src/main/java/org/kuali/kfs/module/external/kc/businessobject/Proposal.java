@@ -20,7 +20,7 @@
 package org.kuali.kfs.module.external.kc.businessobject;
 
 import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
-import org.kuali.kfs.module.external.kc.dto.ProposalDTO;
+import org.kuali.kra.external.award.ProposalDTO;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;

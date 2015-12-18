@@ -16,7 +16,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.award;
+
+import org.kuali.kra.external.awardpayment.AwardMethodOfPaymentDTO;
+import org.kuali.kra.external.frequency.FrequencyDto;
+import org.kuali.kra.external.sponsor.SponsorDTO;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

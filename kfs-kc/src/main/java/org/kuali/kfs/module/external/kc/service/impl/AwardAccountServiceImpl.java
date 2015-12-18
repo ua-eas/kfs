@@ -30,7 +30,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.AwardAccount;
-import org.kuali.kfs.module.external.kc.dto.AwardAccountDTO;
+import org.kuali.kra.external.award.AwardAccountDTO;
 import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
 import org.kuali.kfs.module.external.kc.webService.AwardAccountSoapService;
 import org.kuali.kfs.sys.KFSPropertyConstants;

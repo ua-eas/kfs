@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.award;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -52,8 +51,6 @@ public class AwardAccountDTO implements Serializable {
     private boolean finalBill;
     private Date lastBilledDate;
     private Date previousLastBilledDate;
-    private BigDecimal amountToDraw;
-    private boolean letterOfCreditReviewIndicator;
 
     public String getPrimeSponsorTypeCode() {
         return primeSponsorTypeCode;
@@ -217,22 +214,4 @@ public class AwardAccountDTO implements Serializable {
 	public void setPreviousLastBilledDate(Date previousLastBilledDate) {
 		this.previousLastBilledDate = previousLastBilledDate;
 	}
-
-	public BigDecimal getAmountToDraw() {
-		return amountToDraw;
-	}
-
-	public void setAmountToDraw(BigDecimal amountToDraw) {
-		this.amountToDraw = amountToDraw;
-	}
-
-	public boolean isLetterOfCreditReviewIndicator() {
-		return letterOfCreditReviewIndicator;
-	}
-
-	public void setLetterOfCreditReviewIndicator(
-			boolean letterOfCreditReviewIndicator) {
-		this.letterOfCreditReviewIndicator = letterOfCreditReviewIndicator;
-	}
-
 }

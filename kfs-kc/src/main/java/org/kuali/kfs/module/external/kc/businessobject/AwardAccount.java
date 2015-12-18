@@ -27,7 +27,7 @@ import java.util.Map;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.module.external.kc.dto.AwardAccountDTO;
+import org.kuali.kra.external.award.AwardAccountDTO;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
