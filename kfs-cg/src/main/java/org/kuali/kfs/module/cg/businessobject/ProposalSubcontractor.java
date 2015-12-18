@@ -32,7 +32,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  */
 public class ProposalSubcontractor extends PersistableBusinessObjectBase implements MutableInactivatable {
     private String proposalSubcontractorNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String subcontractorNumber;
     private KualiDecimal proposalSubcontractorAmount;
     private String proposalSubcontractorDescription;
@@ -64,7 +64,7 @@ public class ProposalSubcontractor extends PersistableBusinessObjectBase impleme
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -73,7 +73,7 @@ public class ProposalSubcontractor extends PersistableBusinessObjectBase impleme
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
