@@ -18,23 +18,12 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<%@ attribute name="documentAttributes" required="true" type="java.util.Map"
-              description="The DataDictionary entry containing attributes for this row's fields." %>
-
-<%@ attribute name="displayRequisitionFields" required="false"
-              description="Boolean to indicate if REQ specific fields should be displayed" %>
-
-<%@ attribute name="displayPurchaseOrderFields" required="false"
-              description="Boolean to indicate if PO specific fields should be displayed" %>
-              
-<%@ attribute name="displayPaymentRequestFields" required="false"
-              description="Boolean to indicate if PREQ specific fields should be displayed" %>              
-              
-<%@ attribute name="displayCreditMemoFields" required="false"
-              description="Boolean to indicate if CM specific fields should be displayed" %>              
-              
-<%@ attribute name="purchaseOrderAwarded" required="false"
-              description="Boolean to indicate if this is a PO that has been awarded" %>              
+<%@ attribute name="documentAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields." %>
+<%@ attribute name="displayRequisitionFields" required="false" description="Boolean to indicate if REQ specific fields should be displayed" %>
+<%@ attribute name="displayPurchaseOrderFields" required="false" description="Boolean to indicate if PO specific fields should be displayed" %>
+<%@ attribute name="displayPaymentRequestFields" required="false" description="Boolean to indicate if PREQ specific fields should be displayed" %>
+<%@ attribute name="displayCreditMemoFields" required="false" description="Boolean to indicate if CM specific fields should be displayed" %>
+<%@ attribute name="purchaseOrderAwarded" required="false" description="Boolean to indicate if this is a PO that has been awarded" %>
 
 <c:set var="fullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] && (empty KualiForm.editingMode['restrictFiscalEntry'])}" />
 <c:set var="vendorReadOnly" value="${(not empty KualiForm.editingMode['lockVendorEntry'])}" />
@@ -47,6 +36,7 @@
 <!--  this is a temporary workaround until release 3, where this is fixed more generally -->
 <c:set var="fullDocEntryCompleted" value="${(not empty KualiForm.editingMode['fullDocumentEntryCompleted'])}" />
 <c:set var="readOnlyForPREQ" value="${(displayPaymentRequestFields) and (fullDocEntryCompleted)}" />
+<c:set var="achAccountInfoDisplayed" value="${(not empty KualiForm.editingMode['achAccountInfoDisplayed'])}" />
 
 <c:choose> 
   <c:when test="${displayPurchaseOrderFields or displayPaymentRequestFields}" > 
@@ -85,77 +75,95 @@
 </c:choose>  
 
 <kul:tab tabTitle="Vendor" defaultOpen="true" tabErrorKey="${PurapConstants.VENDOR_ERRORS}">
-    <div class="tab-container">
-        <h3>Vendor Address</h3>
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="Vendor Section">
+    <div class="tab-container" align=center>
+		<h3>Vendor Address</h3>
+        <table class="datatable standard" summary="Vendor Section">
             <tr>
-                <th class="right" width="25%">
+                <th class="right top" width="25%">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorName}" />
                 </th>
                 <td class="datacell" width="25%">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorName}" property="document.vendorName" 
-                    	readOnly="${not (fullEntryMode or amendmentEntry) or vendorReadOnly or displayPaymentRequestFields or displayCreditMemoFields or purchaseOrderAwarded or lockB2BEntry}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                    <kul:htmlControlAttribute
+                            attributeEntry="${documentAttributes.vendorName}"
+                            property="document.vendorName"
+                    	    readOnly="${not (fullEntryMode or amendmentEntry) or vendorReadOnly or displayPaymentRequestFields or displayCreditMemoFields or purchaseOrderAwarded or lockB2BEntry}"
+                            tabindexOverride="${tabindexOverrideBase + 0}"/>
                     <c:if test="${(fullEntryMode or amendmentEntry) and (displayRequisitionFields or displayPurchaseOrderFields) and !purchaseOrderAwarded and !lockB2BEntry}" >
-                        <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail" 
-                        	lookupParameters="'Y':activeIndicator, 'PO':vendorHeader.vendorTypeCode"
-                        	fieldConversions="vendorHeaderGeneratedIdentifier:document.vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:document.vendorDetailAssignedIdentifier,defaultAddressLine1:document.vendorLine1Address,defaultAddressLine2:document.vendorLine2Address,defaultAddressCity:document.vendorCityName,defaultAddressPostalCode:document.vendorPostalCode,defaultAddressStateCode:document.vendorStateCode,defaultAddressInternationalProvince:document.vendorAddressInternationalProvinceName,defaultAddressCountryCode:document.vendorCountryCode"/>
+                        <kul:lookup
+                                boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail"
+                        	    lookupParameters="'Y':activeIndicator, 'PO':vendorHeader.vendorTypeCode"
+                        	    fieldConversions="vendorHeaderGeneratedIdentifier:document.vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:document.vendorDetailAssignedIdentifier,defaultAddressLine1:document.vendorLine1Address,defaultAddressLine2:document.vendorLine2Address,defaultAddressCity:document.vendorCityName,defaultAddressPostalCode:document.vendorPostalCode,defaultAddressStateCode:document.vendorStateCode,defaultAddressInternationalProvince:document.vendorAddressInternationalProvinceName,defaultAddressCountryCode:document.vendorCountryCode"/>
                         <c:if test="${displayRequisitionFields}">
-                            <html:submit property="methodToCall.clearVendor" alt="clear vendor" styleClass="btn btn-default small" value="Clear Vendor"/>
+                            <html:submit
+                                    property="methodToCall.clearVendor"
+                                    alt="clear vendor"
+                                    styleClass="btn btn-default small"
+                                    value="Clear Vendor"/>
                         </c:if>
                     </c:if>
                     <c:if test="${lockB2BEntry or (displayRequisitionFields or displayPurchaseOrderFields) and KualiForm.document.hasB2BVendor}">
-                        &nbsp;&nbsp;<sys:backdoorAwareLink displayTitle="true" title="Shop Catalogs" url="b2b.do?methodToCall=shopCatalogs" />
+                        <sys:backdoorAwareLink displayTitle="true" title="Shop Catalogs" url="b2b.do?methodToCall=shopCatalogs" />
                     </c:if>
                 </td>
                 <th class="right" width="25%">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCityName}" />
                 </th>
                 <td class="datacell" width="25%">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorCityName}" property="document.vendorCityName" 
-                    	readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 3}"/>
+                    <kul:htmlControlAttribute
+                            attributeEntry="${documentAttributes.vendorCityName}"
+                            property="document.vendorCityName"
+                    	    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 3}"/>
                 </td>
             </tr>
-
             <tr>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorNumber}" />
                 </th>
                 <td class="datacell">
 	                <c:if test="${not empty KualiForm.document.vendorHeaderGeneratedIdentifier}">
-		                <kul:inquiry boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail" keyValues="vendorHeaderGeneratedIdentifier=${KualiForm.document.vendorHeaderGeneratedIdentifier}&vendorDetailAssignedIdentifier=${KualiForm.document.vendorDetailAssignedIdentifier}" render="true">
-		                    <kul:htmlControlAttribute 
-		                    	attributeEntry="${documentAttributes.vendorNumber}" property="document.vendorDetail.vendorNumber" 
-		                    	readOnly="true" tabindexOverride="${tabindexOverrideBase + 0}"/>
+		                <kul:inquiry
+                                boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail"
+                                keyValues="vendorHeaderGeneratedIdentifier=${KualiForm.document.vendorHeaderGeneratedIdentifier}&vendorDetailAssignedIdentifier=${KualiForm.document.vendorDetailAssignedIdentifier}"
+                                render="true">
+
+                            <kul:htmlControlAttribute
+		                    	    attributeEntry="${documentAttributes.vendorNumber}"
+                                    property="document.vendorDetail.vendorNumber"
+		                    	    readOnly="true"
+                                    tabindexOverride="${tabindexOverrideBase + 0}"/>
 		                </kul:inquiry>
 	                </c:if>
                 </td>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorStateCode}" />
-                    	<c:if test="${displayPurchaseOrderFields}"><br> *required for US</c:if>
-                    </div>
+                    <c:if test="${displayPurchaseOrderFields}"><br> *required for US</c:if>
                 </th>
                 <td class="datacell">
                     <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorStateCode}" property="document.vendorStateCode" 
-                    	readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 3}"/>
+                    	    attributeEntry="${documentAttributes.vendorStateCode}"
+                            property="document.vendorStateCode"
+                    	    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 3}"/>
                 </td>
             </tr>
-
             <tr>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorLine1Address}" />
                 </th>
-                <td class="datacell">
+                <td class="datacell nowrap">
                     <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorLine1Address}" property="document.vendorLine1Address" 
-                    	readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                    	    attributeEntry="${documentAttributes.vendorLine1Address}"
+                            property="document.vendorLine1Address"
+                    	    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 0}"/>
                     <c:if test="${(fullEntryMode or amendmentEntry) and vendorReadOnly and !lockB2BEntry}">
-                        <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorAddress" 
-                        	readOnlyFields="active, vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier" autoSearch="yes"
-                        	lookupParameters="'Y':active,document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier" 
-                        	fieldConversions="vendorAddressGeneratedIdentifier:document.vendorAddressGeneratedIdentifier"/>
+                        <kul:lookup
+                                boClassName="org.kuali.kfs.vnd.businessobject.VendorAddress"
+                        	    readOnlyFields="active, vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier"
+                                autoSearch="yes"
+                        	    lookupParameters="'Y':active,document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier"
+                        	    fieldConversions="vendorAddressGeneratedIdentifier:document.vendorAddressGeneratedIdentifier"/>
                     </c:if>
                 </td>
                 <th class="right">
@@ -163,68 +171,75 @@
                 </th>
                 <td class="datacell">
                     <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorAddressInternationalProvinceName}" property="document.vendorAddressInternationalProvinceName" 
-                    	readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 3}"/>
+                    	    attributeEntry="${documentAttributes.vendorAddressInternationalProvinceName}"
+                            property="document.vendorAddressInternationalProvinceName"
+                    	    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 3}"/>
                 </td>
             </tr>
-
             <tr>
-            
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorLine2Address}" />
                 </th>
                 <td class="datacell">
                     <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorLine2Address}" property="document.vendorLine2Address" 
-                    	readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                    	    attributeEntry="${documentAttributes.vendorLine2Address}"
+                            property="document.vendorLine2Address"
+                    	    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
-                    
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorPostalCode}" />
-                    	<c:if test="${displayPurchaseOrderFields}"> <br> *required for US</c:if>
-					</div>
+                    <c:if test="${displayPurchaseOrderFields}"> <br> *required for US</c:if>
                 </th>
 				<td class="datacell">
 					<kul:htmlControlAttribute 
-						attributeEntry="${documentAttributes.vendorPostalCode}" property="document.vendorPostalCode" 
-						readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 3}"/>
+						    attributeEntry="${documentAttributes.vendorPostalCode}"
+                            property="document.vendorPostalCode"
+						    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 3}"/>
 				</td>
             </tr>
-            
             <tr>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorAttentionName}" />
                 </th>
                 <td class="datacell">
                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorAttentionName}" property="document.vendorAttentionName" 
-                    	readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                    	    attributeEntry="${documentAttributes.vendorAttentionName}"
+                            property="document.vendorAttentionName"
+                    	    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
-                
             	<th class="right">
             		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCountryCode}" />
             	</th>
             	<td class="datacell">
                     <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorCountryCode}" property="document.vendorCountryCode" extraReadOnlyProperty="document.vendorCountry.name" 
-                    	readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}" tabindexOverride="${tabindexOverrideBase + 3}"/>
+                    	    attributeEntry="${documentAttributes.vendorCountryCode}"
+                            property="document.vendorCountryCode"
+                            extraReadOnlyProperty="document.vendorCountry.name"
+                    	    readOnly="${(readOnlyForPREQ) or not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or (lockB2BEntry and (displayRequisitionFields or displayPurchaseOrderFields))}"
+                            tabindexOverride="${tabindexOverrideBase + 3}"/>
             	</td>
             </tr>
             <c:if test="${(not empty KualiForm.document.vendorDetail) and KualiForm.document.vendorDetail.vendorHeader.vendorDebarredIndicator}">
-            <tr>
-            	<th class="right" >
-            		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.justification}" />
-            	</th>
-            	<td class="datacell">
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.justification}" property="document.justification" tabindexOverride="${tabindexOverrideBase + 0}"/>
-            	</td>
-            </tr>
+                <tr>
+                    <th class="right" >
+                        <kul:htmlAttributeLabel attributeEntry="${documentAttributes.justification}" />
+                    </th>
+                    <td class="datacell">
+                        <kul:htmlControlAttribute
+                                attributeEntry="${documentAttributes.justification}"
+                                property="document.justification"
+                                tabindexOverride="${tabindexOverrideBase + 0}"/>
+                    </td>
+                </tr>
             </c:if>
-    </table>
+        </table>
 
-    <h3>Vendor Information</h3>
-    <table cellpadding="0" cellspacing="0" class="datatable" summary="Vendor Section">
+        <h3>Vendor Info</h3>
+        <table class="datatable standard" summary="Vendor Info Section">
             <c:if test="${displayPurchaseOrderFields}">
                 <tr>
                     <th class="right">
@@ -232,9 +247,11 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.purchaseOrderVendorChoiceCode}" property="document.purchaseOrderVendorChoiceCode" 
-                        	extraReadOnlyProperty="document.purchaseOrderVendorChoice.purchaseOrderVendorChoiceDescription"
-                        	readOnly="${not (fullEntryMode or amendmentEntry) or lockB2BEntry}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.purchaseOrderVendorChoiceCode}"
+                                property="document.purchaseOrderVendorChoiceCode"
+                        	    extraReadOnlyProperty="document.purchaseOrderVendorChoice.purchaseOrderVendorChoiceDescription"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry) or lockB2BEntry}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                     <th class="right">&nbsp;</th>
                     <td class="datacell">&nbsp;</td>
@@ -245,33 +262,35 @@
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCustomerNumber}" />
                 </th>
-
-                <td class="datacell">
+                <td class="datacell nowrap">
                     <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.vendorCustomerNumber}" property="document.vendorCustomerNumber" 
-                    	readOnly="${not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or lockB2BEntry}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                    	    attributeEntry="${documentAttributes.vendorCustomerNumber}"
+                            property="document.vendorCustomerNumber"
+                    	    readOnly="${not (fullEntryMode or amendmentEntry) or displayCreditMemoFields or lockB2BEntry}"
+                            tabindexOverride="${tabindexOverrideBase + 4}"/>
                     <c:if test="${(fullEntryMode or amendmentEntry) and vendorReadOnly and !lockB2BEntry}">
-                        <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorCustomerNumber" 
-                        	readOnlyFields="vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier" autoSearch="yes"
-                        	lookupParameters="document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier" 
-                        	fieldConversions="vendorCustomerNumber:document.vendorCustomerNumber"/>
+                        <kul:lookup
+                                boClassName="org.kuali.kfs.vnd.businessobject.VendorCustomerNumber"
+                        	    readOnlyFields="vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier"
+                                autoSearch="yes"
+                        	    lookupParameters="document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier"
+                        	    fieldConversions="vendorCustomerNumber:document.vendorCustomerNumber"/>
                     </c:if>
                 </td>
-
             	<th class="right">&nbsp;</th>
             	<td class="datacell">&nbsp;</td>
-            	
             </tr>
-
             <tr>
                 <c:if test="${displayRequisitionFields or displayPurchaseOrderFields}">
-                    <th class="right top" rowspan="3">
+                    <th class="right top" rowspan="2">
                         <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorNoteText}" />
                     </th>
-                    <td class="datacell" rowspan="3">
+                    <td class="datacell" rowspan="2">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.vendorNoteText}" property="document.vendorNoteText" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry) or lockB2BEntry}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.vendorNoteText}"
+                                property="document.vendorNoteText"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry) or lockB2BEntry}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                 </c:if>                                                 
                 <c:if test="${displayPaymentRequestFields or displayCreditMemoFields}">
@@ -280,8 +299,10 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.noteLine1Text}" property="document.noteLine1Text" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.noteLine1Text}"
+                                property="document.noteLine1Text"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry or editPreExtract)}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                 </c:if>
                 <c:if test="${not displayCreditMemoFields}">                                                 
@@ -290,9 +311,11 @@
 	                </th>
 	                <td class="datacell">
 	                    <kul:htmlControlAttribute 
-	                    	attributeEntry="${documentAttributes.vendorPaymentTermsCode}" property="document.vendorPaymentTermsCode" 
-	                    	extraReadOnlyProperty="${extraPrefix}.vendorPaymentTerms.vendorPaymentTermsDescription"
-	                    	readOnly="${not (fullEntryMode or amendmentEntry) or displayRequisitionFields}" tabindexOverride="${tabindexOverrideBase + 6}"/>
+	                    	    attributeEntry="${documentAttributes.vendorPaymentTermsCode}"
+                                property="document.vendorPaymentTermsCode"
+	                    	    extraReadOnlyProperty="${extraPrefix}.vendorPaymentTerms.vendorPaymentTermsDescription"
+	                    	    readOnly="${not (fullEntryMode or amendmentEntry) or displayRequisitionFields}"
+                                tabindexOverride="${tabindexOverrideBase + 6}"/>
 	                </td>
 				</c:if>	
 				<c:if test="${displayCreditMemoFields}">
@@ -300,14 +323,14 @@
                     <td class="datacell">&nbsp;</td>
                 </c:if>                    
             </tr> 
-
             <tr>
-                <!-- left column populated by note row span for PUR docs-->
                 <c:if test="${displayPaymentRequestFields or displayCreditMemoFields}">
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.noteLine2Text}" property="document.noteLine2Text" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.noteLine2Text}"
+                                property="document.noteLine2Text"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry or editPreExtract)}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                 </c:if>                                                 
                 <c:if test="${not displayCreditMemoFields}">
@@ -316,9 +339,11 @@
 	                </th>	             
 	                <td class="datacell">
 	                    <kul:htmlControlAttribute 
-	                    	attributeEntry="${documentAttributes.vendorShippingTitleCode}" property="document.vendorShippingTitleCode" 
-	                    	extraReadOnlyProperty="${extraPrefixShippingTitle}.vendorShippingTitle.vendorShippingTitleDescription"
-	                    	readOnly="${not (fullEntryMode or amendmentEntry) or not displayPurchaseOrderFields}" tabindexOverride="${tabindexOverrideBase + 6}"/>
+	                    	    attributeEntry="${documentAttributes.vendorShippingTitleCode}"
+                                property="document.vendorShippingTitleCode"
+	                    	    extraReadOnlyProperty="${extraPrefixShippingTitle}.vendorShippingTitle.vendorShippingTitleDescription"
+	                    	    readOnly="${not (fullEntryMode or amendmentEntry) or not displayPurchaseOrderFields}"
+                                tabindexOverride="${tabindexOverrideBase + 6}"/>
 	                </td>		            			            
                 </c:if>
                 <c:if test="${displayCreditMemoFields}">
@@ -326,14 +351,14 @@
                     <td class="datacell">&nbsp;</td>
                 </c:if>    
             </tr> 
-
             <tr>
-                <!-- left column populated by note row span for PUR docs-->
                 <c:if test="${displayPaymentRequestFields or displayCreditMemoFields}">
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.noteLine3Text}" property="document.noteLine3Text" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.noteLine3Text}"
+                                property="document.noteLine3Text"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry or editPreExtract)}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                 </c:if> 
                 <c:if test="${not displayCreditMemoFields}">                                                
@@ -358,46 +383,58 @@
                     <th class="right">
                         <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorContractName}" />
                     </th>
-                    <td class="datacell">
+                    <td class="datacell nowrap">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.vendorContractName}" property="document.vendorContractName" 
-                        	readOnly="true" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.vendorContractName}"
+                                property="document.vendorContractName"
+                        	    readOnly="true"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                         <c:if test="${(fullEntryMode or amendmentEntry) and !lockB2BEntry}">
-                            <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorContract" 
-                            	autoSearch="yes" readOnlyFields="vendorCampusCode" 
-                            	lookupParameters="'${currentUserCampusCode}':vendorCampusCode" 
-                            	fieldConversions="vendorContractGeneratedIdentifier:document.vendorContractGeneratedIdentifier" />
+                            <kul:lookup
+                                    boClassName="org.kuali.kfs.vnd.businessobject.VendorContract"
+                            	    autoSearch="yes"
+                                    readOnlyFields="vendorCampusCode"
+                            	    lookupParameters="'${currentUserCampusCode}':vendorCampusCode"
+                            	    fieldConversions="vendorContractGeneratedIdentifier:document.vendorContractGeneratedIdentifier" />
                         </c:if>
                     </td>
                     <th class="right">
                         <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorContactsLabel}" />
                     </th>
-                    <td class="datacell">
+                    <td class="datacell nowrap">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.vendorContactsLabel}" property="document.vendorContactsLabel" 
-                        	readOnly="true" tabindexOverride="${tabindexOverrideBase + 6}"/>                    
+                        	    attributeEntry="${documentAttributes.vendorContactsLabel}"
+                                property="document.vendorContactsLabel"
+                        	    readOnly="true"
+                                tabindexOverride="${tabindexOverrideBase + 6}"/>
                         <c:if test="${vendorReadOnly}" >
-                            <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorContact" 
-                            	readOnlyFields="vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier" autoSearch="yes" 
-                            	lookupParameters="document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier" 
-                            	hideReturnLink="true" extraButtonSource="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" />
+                            <kul:lookup
+                                    boClassName="org.kuali.kfs.vnd.businessobject.VendorContact"
+                            	    readOnlyFields="vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier"
+                                    autoSearch="yes"
+                            	    lookupParameters="document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier"
+                            	    hideReturnLink="true"
+                                    extraButtonSource="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" />
                         </c:if>
                     </td>
                 </tr>            
-
                 <tr>
                     <th class="right">
                         <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorPhoneNumber}" />
                     </th>
-                    <td class="datacell">
+                    <td class="datacell nowrap">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.vendorPhoneNumber}" property="document.vendorPhoneNumber" 
-                        	readOnly="true" tabindexOverride="${tabindexOverrideBase + 4}"/>                    
+                        	    attributeEntry="${documentAttributes.vendorPhoneNumber}"
+                                property="document.vendorPhoneNumber"
+                        	    readOnly="true"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                         <c:if test="${vendorReadOnly}" >
-                            <kul:lookup  boClassName="org.kuali.kfs.vnd.businessobject.VendorPhoneNumber" 
-                            	readOnlyFields="vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier" autoSearch="yes" 
-                            	lookupParameters="document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier" 
-                            	hideReturnLink="true" extraButtonSource="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" />                    
+                            <kul:lookup
+                                    boClassName="org.kuali.kfs.vnd.businessobject.VendorPhoneNumber"
+                                    readOnlyFields="vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier"
+                                    autoSearch="yes"
+                            	    lookupParameters="document.vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,document.vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier"
+                            	    hideReturnLink="true" extraButtonSource="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" />
                         </c:if>
                     </td>
                     <th class="right" rowspan="2">
@@ -408,7 +445,7 @@
                               <c:forEach var="item" items="${KualiForm.document.vendorDetail.vendorHeader.vendorSupplierDiversities}" varStatus="status">
                                   <c:if test="${!(status.first)}"><br></c:if>${item.vendorSupplierDiversity.vendorSupplierDiversityDescription}
                               </c:forEach>
-                          </c:if>&nbsp;
+                          </c:if>
                     </td>
                 </tr>
                 <tr>
@@ -417,8 +454,10 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.vendorFaxNumber}" property="document.vendorFaxNumber" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry) or lockB2BEntry}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.vendorFaxNumber}"
+                                property="document.vendorFaxNumber"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry) or lockB2BEntry}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                 </tr>
             </c:if>
@@ -430,8 +469,38 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.specialHandlingInstructionLine1Text}" property="document.specialHandlingInstructionLine1Text" 
-                        	readOnly="${not (fullEntryMode or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.specialHandlingInstructionLine1Text}"
+                                property="document.specialHandlingInstructionLine1Text"
+                        	    readOnly="${not (fullEntryMode or editPreExtract)}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
+                    </td>
+                    <c:choose>
+	            		<c:when test="${achAccountInfoDisplayed}">                 
+	                    	<th class="right">
+                                <kul:htmlAttributeLabel
+                                        attributeEntry="${documentAttributes.achSignUpStatusFlag}"
+                                        useShortLabel="true" />
+                            </th>
+                    		<td class="datacell">
+                                <kul:htmlControlAttribute
+                                        property="document.achSignUpStatusFlag"
+                                        attributeEntry="${documentAttributes.achSignUpStatusFlag}"
+                                        readOnly="true" />
+                            </td>
+	                    </c:when>
+						<c:otherwise>
+							<th class="right">&nbsp;</th>
+                    		<td class="datacell">&nbsp;</td>
+						</c:otherwise>
+					</c:choose>
+                </tr>
+                <tr>
+                    <td class="datacell">
+                        <kul:htmlControlAttribute 
+                        	    attributeEntry="${documentAttributes.specialHandlingInstructionLine2Text}"
+                                property="document.specialHandlingInstructionLine2Text"
+                        	    readOnly="${not (fullEntryMode or editPreExtract)}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                     <th class="right">&nbsp;</th>
                     <td class="datacell">&nbsp;</td>
@@ -440,121 +509,124 @@
                 <tr>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.specialHandlingInstructionLine2Text}" property="document.specialHandlingInstructionLine2Text" 
-                        	readOnly="${not (fullEntryMode or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 4}"/>
-                    </td>
-                    <th class="right">&nbsp;</th>
-                    <td class="datacell">&nbsp;</td>
-                </tr> 
-    
-                <tr>
-                    <td class="datacell">
-                        <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.specialHandlingInstructionLine3Text}" property="document.specialHandlingInstructionLine3Text" 
-                        	readOnly="${not (fullEntryMode or editPreExtract)}" tabindexOverride="${tabindexOverrideBase + 4}"/>
+                        	    attributeEntry="${documentAttributes.specialHandlingInstructionLine3Text}"
+                                property="document.specialHandlingInstructionLine3Text"
+                        	    readOnly="${not (fullEntryMode or editPreExtract)}"
+                                tabindexOverride="${tabindexOverrideBase + 4}"/>
                     </td>
                     <th class="right">&nbsp;</th>
                     <td class="datacell">&nbsp;</td>
                 </tr> 
             </c:if>
-            
-			<c:choose> 				
-			
-            <c:when test="${displayPurchaseOrderFields}">                 
-            <c:if test="${(fullEntryMode or amendmentEntry) or ( (not(fullEntryMode or amendmentEntry)) and (not empty KualiForm.document.alternateVendorHeaderGeneratedIdentifier) )}">
-                <!-- display search and remove alternate vendor if on purchase order document -->               
-                <tr>
-            	<th class="right">&nbsp;</th>
-                <td class="datacell">&nbsp;</td>
-            
-                <th class="right">
-                    Alternate Vendor For Non-Primary Vendor Payment:
-                </th>
-                <td class="datacell">
-					<!-- -<input type="image" name="methodToCall." src="${ConfigProperties.externalizable.images.url}tinybutton-searchaltvend.gif" class="tinybutton" title="Search for alternate vendor" alt="Search for alternate vendor">-->
-					<c:if test="${fullEntryMode or amendmentEntry}">
-					<div align="left">
-					<b>Search for alternate vendor</b> 						
-					<kul:lookup 
-						boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail" 
-						fieldConversions="vendorHeaderGeneratedIdentifier:document.alternateVendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:document.alternateVendorDetailAssignedIdentifier" 
-						lookupParameters="'Y':activeIndicator, 'PO':vendorHeader.vendorTypeCode"
-						fieldLabel="Search for alternate vendor"/>
-					</div>
-					<br/>
-					</c:if>
-											
-					<div align="left">						
-					<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.alternateVendorName}" /></b>
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.alternateVendorName}" property="document.alternateVendorName" 
-                    	readOnly="true" tabindexOverride="${tabindexOverrideBase + 8}"/>
-                    </div>
-        
-                    <div align="left">
-                    <b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.alternateVendorNumber}" /></b>
-                    <kul:htmlControlAttribute 
-                    	attributeEntry="${documentAttributes.alternateVendorNumber}" property="document.alternateVendorNumber" 
-                    	readOnly="true" tabindexOverride="${tabindexOverrideBase + 8}"/>
-                    </div>						
-					
-					<c:if test="${fullEntryMode or amendmentEntry}">
-					<br/>
-					<html:submit property="methodToCall.removeAlternateVendor" alt="Remove alternate vendor" title="Remove alternate vendor" styleClass="btn btn-default small" value="Remove Alt Vendor"/>
-					</c:if>
-                </td>      
-                </tr>
-            </c:if>          
-            </c:when>
-			
-            <c:when test="${displayPaymentRequestFields and (not empty KualiForm.document.alternateVendorHeaderGeneratedIdentifier)}">
-                <!-- display use alternate or original vendor if on payment request document and there is an alternate to select from -->
-                <tr>
-                <th class="right">
-                    Alternate Vendor For Non-Primary Vendor Payment:
-                </th>
-                <td class="datacell">
-                <c:choose>
-                <c:when test="${fullEntryMode}">
-                <div align="left">
-                	<html:image property="methodToCall.useAlternateVendor" src="${ConfigProperties.externalizable.images.url}tinybutton-usealtvendor.gif" alt="Use alternate vendor" title="Use alternate vendor" styleClass="tinybutton"/>
-                </div>
-                <br>
-				<div align="left">
-					<html:image property="methodToCall.useOriginalVendor" src="${ConfigProperties.externalizable.images.url}tinybutton-useorigvendor.gif" alt="Use original vendor" title="Use original vendor" styleClass="tinybutton"/>
-				</div>
-				</c:when>
-				<c:otherwise>
-					&nbsp;
-				</c:otherwise>
-				</c:choose>
-                </td>
-                    
-                <th class="right">Primary Vendor Name:</th>
-                <td class="datacell">
-                	<kul:htmlControlAttribute 
-                		attributeEntry="${documentAttributes.primaryVendorName}" property="document.primaryVendorName" 
-                		readOnly="true" tabindexOverride="${tabindexOverrideBase + 8}"/>
-                </td>
-                </tr>
-			</c:when>
 
+			<c:choose>
+                <c:when test="${displayPurchaseOrderFields}">
+                    <c:if test="${(fullEntryMode or amendmentEntry) or ( (not(fullEntryMode or amendmentEntry)) and (not empty KualiForm.document.alternateVendorHeaderGeneratedIdentifier) )}">
+                        <tr>
+                            <th class="right">&nbsp;</th>
+                            <td class="datacell">&nbsp;</td>
+
+                            <th class="right">Alternate Vendor For Non-Primary Vendor Payment:</th>
+                            <td class="datacell">
+                                <c:if test="${fullEntryMode or amendmentEntry}">
+                                    <div align="left">
+                                        <b>Search for alternate vendor</b>
+                                        <kul:lookup
+                                                boClassName="org.kuali.kfs.vnd.businessobject.VendorDetail"
+                                                fieldConversions="vendorHeaderGeneratedIdentifier:document.alternateVendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:document.alternateVendorDetailAssignedIdentifier"
+                                                lookupParameters="'Y':activeIndicator, 'PO':vendorHeader.vendorTypeCode"
+                                                fieldLabel="Search for alternate vendor"/>
+                                    </div>
+                                    <br/>
+                                </c:if>
+
+                                <div align="left">
+                                    <b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.alternateVendorName}" /></b>
+                                    <kul:htmlControlAttribute
+                                            attributeEntry="${documentAttributes.alternateVendorName}"
+                                            property="document.alternateVendorName"
+                                            readOnly="true"
+                                            tabindexOverride="${tabindexOverrideBase + 8}"/>
+                                </div>
+                                <div align="left">
+                                    <b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.alternateVendorNumber}" /></b>
+                                    <kul:htmlControlAttribute
+                                            attributeEntry="${documentAttributes.alternateVendorNumber}"
+                                            property="document.alternateVendorNumber"
+                                            readOnly="true"
+                                            tabindexOverride="${tabindexOverrideBase + 8}"/>
+                                </div>
+
+                                <c:if test="${fullEntryMode or amendmentEntry}">
+                                    <br/>
+                                    <html:submit
+                                            property="methodToCall.removeAlternateVendor"
+                                            alt="Remove alternate vendor"
+                                            title="Remove alternate vendor"
+                                            styleClass="btn btn-default small"
+                                            value="Remove Alternate Vendor"/>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:when>
+			
+                <c:when test="${displayPaymentRequestFields and (not empty KualiForm.document.alternateVendorHeaderGeneratedIdentifier)}">
+                    <tr>
+                        <th class="right">Alternate Vendor For Non-Primary Vendor Payment:</th>
+                        <td class="datacell">
+                            <c:choose>
+                                <c:when test="${fullEntryMode}">
+                                    <div align="left">
+                                        <html:submit
+                                                property="methodToCall.useAlternateVendor"
+                                                alt="Use alternate vendor"
+                                                title="Use alternate vendor"
+                                                styleClass="btn btn-default small"
+                                                value="Use Alternate Vendor"/>
+                                    </div>
+                                    <br/>
+                                    <div align="left">
+                                        <html:submit
+                                                property="methodToCall.useOriginalVendor"
+                                                alt="Use original vendor"
+                                                title="Use original vendor"
+                                                styleClass="btn btn-default small"
+                                                value="Use Original Vendor"/>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    &nbsp;
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+
+                        <th class="right">Primary Vendor Name:</th>
+                        <td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${documentAttributes.primaryVendorName}"
+                                    property="document.primaryVendorName"
+                                    readOnly="true"
+                                    tabindexOverride="${tabindexOverrideBase + 8}"/>
+                        </td>
+                    </tr>
+                </c:when>
 			</c:choose>
-
         </table>
 
         <c:if test="${displayRequisitionFields and !lockB2BEntry}">
-                <h3>Additional Suggested Vendor Names</h3>
-
-            <table cellpadding="0" cellspacing="0" class="datatable" summary="Additional Vendor Section">
+            <h3>Additional Suggested Vendor Names</h3>
+            <table class="datatable standard" summary="Additional Vendor Section">
                 <tr>
                     <th class="right">
                         <kul:htmlAttributeLabel attributeEntry="${documentAttributes.alternate1VendorName}" />
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.alternate1VendorName}" property="document.alternate1VendorName" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry)}" tabindexOverride="${tabindexOverrideBase + 8}"/>
+                        	    attributeEntry="${documentAttributes.alternate1VendorName}"
+                                property="document.alternate1VendorName"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry)}"
+                                tabindexOverride="${tabindexOverrideBase + 8}"/>
                     </td>
                 </tr>
                 <tr>
@@ -563,8 +635,10 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.alternate2VendorName}" property="document.alternate2VendorName" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry)}" tabindexOverride="${tabindexOverrideBase + 8}"/>
+                        	    attributeEntry="${documentAttributes.alternate2VendorName}"
+                                property="document.alternate2VendorName"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry)}"
+                                tabindexOverride="${tabindexOverrideBase + 8}"/>
                     </td>
                 </tr>
                 <tr>
@@ -573,8 +647,10 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.alternate3VendorName}" property="document.alternate3VendorName" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry)}" tabindexOverride="${tabindexOverrideBase + 8}"/>
+                        	    attributeEntry="${documentAttributes.alternate3VendorName}"
+                                property="document.alternate3VendorName"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry)}"
+                                tabindexOverride="${tabindexOverrideBase + 8}"/>
                     </td>
                 </tr>
                 <tr>    
@@ -583,8 +659,10 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.alternate4VendorName}" property="document.alternate4VendorName" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry)}" tabindexOverride="${tabindexOverrideBase + 8}"/>
+                        	    attributeEntry="${documentAttributes.alternate4VendorName}"
+                                property="document.alternate4VendorName"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry)}"
+                                tabindexOverride="${tabindexOverrideBase + 8}"/>
                     </td>
                 </tr>
                 <tr>    
@@ -593,8 +671,10 @@
                     </th>
                     <td class="datacell">
                         <kul:htmlControlAttribute 
-                        	attributeEntry="${documentAttributes.alternate5VendorName}" property="document.alternate5VendorName" 
-                        	readOnly="${not (fullEntryMode or amendmentEntry)}" tabindexOverride="${tabindexOverrideBase + 8}"/>
+                        	    attributeEntry="${documentAttributes.alternate5VendorName}"
+                                property="document.alternate5VendorName"
+                        	    readOnly="${not (fullEntryMode or amendmentEntry)}"
+                                tabindexOverride="${tabindexOverrideBase + 8}"/>
                     </td>                                                
                 </tr>
             </table>

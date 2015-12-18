@@ -200,7 +200,7 @@
         <servlet-class>org.kuali.kfs.kns.web.struts.action.KualiActionServlet</servlet-class>
         <init-param>
             <param-name>config</param-name>
-            <param-value>/WEB-INF/struts-config.xml</param-value>
+            <param-value>/WEB-INF/struts-config.xml,/WEB-INF/institutional-struts-config.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config/core</param-name>

@@ -23,13 +23,13 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants.DisbursementVoucherEditMode;
 import org.kuali.kfs.sys.document.authorization.AccountingDocumentPresentationControllerBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 
@@ -93,9 +93,19 @@ public class DisbursementVoucherDocumentPresentationController extends Accountin
         if (canExtractNow(document)) {
             editModes.add(DisbursementVoucherEditMode.EXTRACT_NOW);
         }
+        
+        addACHSignUpInfoMode(document, editModes);
 
         return editModes;
     }
+
+	protected void addACHSignUpInfoMode(Document document, Set<String> editModes) {
+		WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
+        if(!(workflowDocument.isFinal() ||
+        workflowDocument.isProcessed() ||
+        workflowDocument.isDisapproved()))
+        	editModes.add(DisbursementVoucherEditMode.ACH_ACCOUNT_INFO_DISPLAYED);
+	}
 
     protected void addPaymentReasonEditMode(Document document, Set<String> editModes) {
         if (isAtNode(document, DisbursementVoucherConstants.RouteLevelNames.CAMPUS) && document.getDocumentHeader().getWorkflowDocument().isApprovalRequested()) {

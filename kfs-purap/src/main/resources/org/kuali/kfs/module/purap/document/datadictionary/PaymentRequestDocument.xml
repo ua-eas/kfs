@@ -143,6 +143,8 @@
 		<ref bean="PaymentRequestDocument-accountDistributionMethod"/>
         <ref bean="PaymentRequestDocument-justification"/>
         <ref bean="PaymentRequestDocument-autoApprovedIndicator"/>
+        <ref bean="PaymentRequestDocument-achSignUpStatusFlag"/>
+        
       </list>
     </property>
     <property name="validationMap" ref="PaymentRequestDocument-validations"/>    
@@ -1018,6 +1020,19 @@
       <ref bean="HiddenControl" />
     </property>
   </bean>
+  
+	<bean id="PaymentRequestDocument-achSignUpStatusFlag" parent="PaymentRequestDocument-achSignUpStatusFlag-parentBean" />
+	
+	<bean id="PaymentRequestDocument-achSignUpStatusFlag-parentBean" abstract="true" parent="AttributeDefinition">
+		<property name="name" value="achSignUpStatusFlag" />
+		<property name="forceUppercase" value="true" />
+		<property name="label" value="ACH Signup Status" />
+		<property name="shortLabel" value="ACH Signup" />
+		<property name="maxLength" value="1" />
+		<property name="control">
+			<bean parent="CheckboxControlDefinition" />
+		</property>
+	</bean>	
   
   
   <!--Payment Request accountingInformation -->
