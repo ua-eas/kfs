@@ -83,8 +83,6 @@ public abstract class PurchasingFormBase extends PurchasingAccountsPayableFormBa
 
         this.setNewPurchasingCapitalAssetLocationLine(this.setupNewPurchasingCapitalAssetLocationLine());
 
-        setFormatterType("document.vendorFaxNumber",PhoneNumberFormatter.class);
-
         calculated = false;
     }
 
