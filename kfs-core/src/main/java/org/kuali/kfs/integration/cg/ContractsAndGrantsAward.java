@@ -24,7 +24,7 @@ import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 public interface ContractsAndGrantsAward extends ExternalizableBusinessObject {
 
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     public ContractAndGrantsProposal getProposal();
     

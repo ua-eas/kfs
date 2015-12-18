@@ -45,10 +45,10 @@ public class PredeterminedBillingScheduleMaintenanceServiceImpl implements Prede
      * @see org.kuali.kfs.module.ar.document.service.PredeterminedBillingScheduleMaintenanceService#hasBillBeenCopiedToInvoice(java.lang.Long, java.lang.String)
      */
     @Override
-    public boolean hasBillBeenCopiedToInvoice(Long proposalNumber, String billId) {
-        Collection<InvoiceBill> invoiceBills = new ArrayList<InvoiceBill>();
+    public boolean hasBillBeenCopiedToInvoice(String proposalNumber, String billId) {
+        Collection<InvoiceBill> invoiceBills = new ArrayList<>();
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put(ArPropertyConstants.BillFields.BILL_IDENTIFIER, billId);
         invoiceBills = getBusinessObjectService().findMatching(InvoiceBill.class, map);
         // but skip documents which have been canceled, disapproved, or where the document was error corrected

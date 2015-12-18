@@ -33,7 +33,7 @@ public interface ContractsAndGrantsAccountAwardInformation extends Externalizabl
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the chartOfAccountsCode attribute.

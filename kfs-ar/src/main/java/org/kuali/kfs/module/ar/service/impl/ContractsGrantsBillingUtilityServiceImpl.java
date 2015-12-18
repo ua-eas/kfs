@@ -94,7 +94,7 @@ public class ContractsGrantsBillingUtilityServiceImpl implements ContractsGrants
      * @see org.kuali.kfs.module.ar.service.ContractsGrantsBillingUtilityService#getActiveBillsForProposalNumber(java.lang.Long)
      */
     @Override
-    public List<Bill> getActiveBillsForProposalNumber(Long proposalNumber) {
+    public List<Bill> getActiveBillsForProposalNumber(String proposalNumber) {
         if (proposalNumber == null) {
             throw new IllegalArgumentException("proposalNumber may not be null");
         }
@@ -110,7 +110,7 @@ public class ContractsGrantsBillingUtilityServiceImpl implements ContractsGrants
      * @see org.kuali.kfs.module.ar.service.ContractsGrantsBillingUtilityService#getActiveMilestonesForProposalNumber(java.lang.Long)
      */
     @Override
-    public List<Milestone> getActiveMilestonesForProposalNumber(Long proposalNumber) {
+    public List<Milestone> getActiveMilestonesForProposalNumber(String proposalNumber) {
         if (proposalNumber == null) {
             throw new IllegalArgumentException("proposalNumber may not be null");
         }

@@ -23,14 +23,16 @@
 	htmlFormAction="arContractsGrantsInvoiceSummary"
 	docTitle="Contracts & Grants Invoice Summary">
 
-	<div>
+	<div class="main-panel">
 		<c:if test="${KualiForm.awardInvoiced}">
-			<html:submit
-                    styleClass="btn btn-default"
-                    property="methodToCall.cancel"
-				    title="return"
-                    alt="return"
-                    value="Return"/>
+			<div class="center" style="margin:30px 0;">
+                <html:submit
+                        styleClass="btn btn-default"
+                        property="methodToCall.cancel"
+                        title="return"
+                        alt="return"
+                        value="Return"/>
+            </div>
 		</c:if>
 
 		<c:if test="${!KualiForm.awardInvoiced}">

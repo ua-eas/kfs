@@ -36,7 +36,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
  */
 public class ContractsGrantsInvoiceDocumentErrorLog extends PersistableBusinessObjectBase {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private Long errorLogIdentifier;
     private String accounts;
     private Date awardBeginningDate;
@@ -57,11 +57,11 @@ public class ContractsGrantsInvoiceDocumentErrorLog extends PersistableBusinessO
         errorMessages = new ArrayList<ContractsGrantsInvoiceDocumentErrorMessage>();
     }
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

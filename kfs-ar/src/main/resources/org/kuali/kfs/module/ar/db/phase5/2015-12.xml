@@ -27,4 +27,29 @@
       <column name="SEQUENCE_NUMBER" type="DECIMAL(4)"/>
     </addColumn>
   </changeSet>
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMAL" context="bootstrap,demo,unit">
+    <dropForeignKeyConstraint baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"/>
+    <dropForeignKeyConstraint baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"/>
+
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_CSH_CTRL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_CGB_CLCTN_ACTVY_DOC_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_APPLICATION_DOC_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_GNRL_DTL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_ACCT_DTL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_LTRCR_RVW_DTL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_MLSTN_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_MLSTN_SCHDL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_BILL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_DOC_ERROR_LOG_T"/>
+
+    <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"
+                             deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="PRPSL_NBR" referencedTableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"
+                             deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="PRPSL_NBR" referencedTableName="AR_MLSTN_SCHDL_T"/>
+  </changeSet>
 </databaseChangeLog>

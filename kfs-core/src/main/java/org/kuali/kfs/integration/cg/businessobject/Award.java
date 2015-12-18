@@ -46,7 +46,7 @@ import java.util.List;
  */
 public class Award implements ContractsAndGrantsBillingAward {
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date awardBeginningDate;
     private Date awardEndingDate;
     private Date lastBilledDate;
@@ -151,7 +151,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -160,7 +160,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

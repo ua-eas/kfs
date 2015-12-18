@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -35,7 +35,7 @@ import org.kuali.kfs.krad.service.KualiModuleService;
 public class ContractsGrantsInvoiceReport extends TransientBusinessObjectBase {
 
     private String documentNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String invoiceType;
     private Date invoiceDate;
     private Date invoiceDueDate;
@@ -127,7 +127,7 @@ public class ContractsGrantsInvoiceReport extends TransientBusinessObjectBase {
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -136,7 +136,7 @@ public class ContractsGrantsInvoiceReport extends TransientBusinessObjectBase {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

@@ -51,7 +51,7 @@ public class InvoiceGeneralDetail extends PersistableBusinessObjectBase {
     private Date lastBilledDate;
     private String dunningLetterTemplateAssigned;
     private Date dunningLetterTemplateSentDate;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String awardNumber;
     private Integer sequenceNumber;
     private String letterOfCreditCreationType;// To categorize the CG Invoices based on Award LOC Type
@@ -403,11 +403,11 @@ public class InvoiceGeneralDetail extends PersistableBusinessObjectBase {
         this.dunningLetterTemplateSentDate = dunningLetterTemplateSentDate;
     }
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

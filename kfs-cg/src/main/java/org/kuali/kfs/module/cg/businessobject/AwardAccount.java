@@ -40,7 +40,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class AwardAccount extends PersistableBusinessObjectBase implements CGProjectDirector, MutableInactivatable, ContractsAndGrantsBillingAwardAccount {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AwardAccount.class);
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private String principalId;
@@ -93,7 +93,7 @@ public class AwardAccount extends PersistableBusinessObjectBase implements CGPro
      * @see org.kuali.kfs.integration.businessobject.cg.ContractsAndGrantsAccountAwardInformation#getProposalNumber()
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -103,7 +103,7 @@ public class AwardAccount extends PersistableBusinessObjectBase implements CGPro
      * @param proposalNumber The proposalNumber to set.
      */
     @Override
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

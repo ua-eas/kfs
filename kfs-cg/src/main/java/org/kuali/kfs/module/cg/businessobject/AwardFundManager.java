@@ -36,7 +36,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 public class AwardFundManager extends PersistableBusinessObjectBase implements Primaryable, MutableInactivatable, ContractsAndGrantsFundManager {
 
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean primaryFundManagerIndicator;
     private String projectTitle;
     private boolean active = true;
@@ -59,11 +59,11 @@ public class AwardFundManager extends PersistableBusinessObjectBase implements P
      * @see org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager#getProposalNumber()
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

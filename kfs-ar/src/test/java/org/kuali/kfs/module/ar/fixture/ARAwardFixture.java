@@ -18,12 +18,9 @@
  */
 package org.kuali.kfs.module.ar.fixture;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.DunningCampaign;
 import org.kuali.kfs.module.cg.businessobject.Agency;
@@ -32,43 +29,46 @@ import org.kuali.kfs.module.cg.businessobject.AwardAccount;
 import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
 import org.kuali.kfs.module.cg.businessobject.BillingFrequency;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fixture class for CG Award
  */
 public enum ARAwardFixture {
 
-    CG_AWARD1(new Long(11), "2011-10-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, null, true, null),
-    CG_AWARD2(new Long(11), "2011-07-01", "1969-06-30", Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, null, true, null),
-    CG_AWARD3(new Long(1234), "2011-01-01", "2011-09-22", Date.valueOf("2011-10-01"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, null, true, null),
-    CG_AWARD4(new Long(11), "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
-    CG_AWARD5(new Long(11), "2011-07-01", "1969-06-30", Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
-    CG_AWARD6(new Long(11), "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), new KualiDecimal(1000000.00), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
-    CG_AWARD7(new Long(11), "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), null, false, null, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
-    CG_AWARD8(new Long(11), "2011-07-01", "1969-06-30", Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, null),
-    CG_AWARD9(new Long(11), "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
-    CG_AWARD10(new Long(11), "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(100000.00), KualiDecimal.ZERO, KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
-    CG_AWARD_INV_AWARD(new Long(11), "2011-10-01", "2011-09-22", Date.valueOf("2011-10-01"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, null),
-    CG_AWARD_INV_ACCOUNT(new Long(11), "2011-10-01", "2011-09-22", Date.valueOf("2011-10-01"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INCOME_ACCOUNT, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
-    CG_AWARD_INV_CCA(new Long(11), "2011-10-01", "2011-09-22", Date.valueOf("2011-10-01"), null, null, null, false, ArConstants.INV_CONTRACT_CONTROL_ACCOUNT, true, null),
-    CG_AWARD_MONTHLY_BILLED_DATE_NULL(new Long(11), "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
-    CG_AWARD_MILESTONE_BILLED_DATE_NULL(new Long(111), "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MS.createBillingFrequency()),
-    CG_AWARD_PREDETERMINED_BILLED_DATE_NULL(new Long(111), "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency()),
-    CG_AWARD_QUAR_BILLED_DATE_NULL(new Long(111), "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_QUAR.createBillingFrequency()),
-    CG_AWARD_SEMI_ANN_BILLED_DATE_NULL(new Long(111), "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_SEMI_ANN.createBillingFrequency()),
-    CG_AWARD_ANNUAL_BILLED_DATE_NULL(new Long(111), "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_ANNUALLY.createBillingFrequency()),
-    CG_AWARD_LOCB_BILLED_DATE_NULL(new Long(111), "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
-    CG_AWARD_MONTHLY_BILLED_DATE_VALID(new Long(111), "2011-01-01", "2011-09-22", Date.valueOf("2011-09-30"), new KualiDecimal(1000), new KualiDecimal(1000), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
-    CG_AWARD_MILESTONE_BILLED_DATE_VALID(new Long(111), "2011-01-01", "2011-09-22", Date.valueOf("2011-09-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MS.createBillingFrequency()),
-    CG_AWARD_PREDETERMINED_BILLED_DATE_VALID(new Long(111), "2011-01-01", "2011-09-22", Date.valueOf("2011-09-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency()),
-    CG_AWARD_QUAR_BILLED_DATE_VALID(new Long(111), "2011-01-01", "2011-09-22", Date.valueOf("2011-06-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_QUAR.createBillingFrequency()),
-    CG_AWARD_SEMI_ANN_BILLED_DATE_VALID(new Long(111), "2011-01-01", "2011-09-22", Date.valueOf("2011-06-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_SEMI_ANN.createBillingFrequency()),
-    CG_AWARD_ANNUAL_BILLED_DATE_VALID(new Long(111), "2011-01-01", "2011-09-22", Date.valueOf("2010-06-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_ANNUALLY.createBillingFrequency()),
-    CG_AWARD_LOCB_BILLED_DATE_VALID(new Long(111), "2011-01-01", "2011-09-22", Date.valueOf("2010-12-13"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
-    CG_AWARD_MONTHLY_INVALID_DATES(new Long(11), "2012-01-01", "2011-09-22", new Date(System.currentTimeMillis() + 604800000), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency());
+    CG_AWARD1("11", "2011-10-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, null, true, null),
+    CG_AWARD2("11", "2011-07-01", "1969-06-30", Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, null, true, null),
+    CG_AWARD3("1234", "2011-01-01", "2011-09-22", Date.valueOf("2011-10-01"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, null, true, null),
+    CG_AWARD4("11", "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
+    CG_AWARD5("11", "2011-07-01", "1969-06-30", Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
+    CG_AWARD6("11", "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), new KualiDecimal(1000000.00), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
+    CG_AWARD7("11", "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), null, false, null, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
+    CG_AWARD8("11", "2011-07-01", "1969-06-30", Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, null),
+    CG_AWARD9("11", "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(7708.00), new KualiDecimal(2016.00), KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
+    CG_AWARD10("11", "2011-07-01", new Date(System.currentTimeMillis() + 604800000).toString(), Date.valueOf("1969-01-01"), new KualiDecimal(100000.00), KualiDecimal.ZERO, KualiDecimal.ZERO, false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
+    CG_AWARD_INV_AWARD("11", "2011-10-01", "2011-09-22", Date.valueOf("2011-10-01"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, null),
+    CG_AWARD_INV_ACCOUNT("11", "2011-10-01", "2011-09-22", Date.valueOf("2011-10-01"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INCOME_ACCOUNT, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
+    CG_AWARD_INV_CCA("11", "2011-10-01", "2011-09-22", Date.valueOf("2011-10-01"), null, null, null, false, ArConstants.INV_CONTRACT_CONTROL_ACCOUNT, true, null),
+    CG_AWARD_MONTHLY_BILLED_DATE_NULL("11", "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
+    CG_AWARD_MILESTONE_BILLED_DATE_NULL("111", "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MS.createBillingFrequency()),
+    CG_AWARD_PREDETERMINED_BILLED_DATE_NULL("111", "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency()),
+    CG_AWARD_QUAR_BILLED_DATE_NULL("111", "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_QUAR.createBillingFrequency()),
+    CG_AWARD_SEMI_ANN_BILLED_DATE_NULL("111", "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_SEMI_ANN.createBillingFrequency()),
+    CG_AWARD_ANNUAL_BILLED_DATE_NULL("111", "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_ANNUALLY.createBillingFrequency()),
+    CG_AWARD_LOCB_BILLED_DATE_NULL("111", "2011-01-01", "2011-09-22", null, new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
+    CG_AWARD_MONTHLY_BILLED_DATE_VALID("111", "2011-01-01", "2011-09-22", Date.valueOf("2011-09-30"), new KualiDecimal(1000), new KualiDecimal(1000), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency()),
+    CG_AWARD_MILESTONE_BILLED_DATE_VALID("111", "2011-01-01", "2011-09-22", Date.valueOf("2011-09-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MS.createBillingFrequency()),
+    CG_AWARD_PREDETERMINED_BILLED_DATE_VALID("111", "2011-01-01", "2011-09-22", Date.valueOf("2011-09-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency()),
+    CG_AWARD_QUAR_BILLED_DATE_VALID("111", "2011-01-01", "2011-09-22", Date.valueOf("2011-06-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_QUAR.createBillingFrequency()),
+    CG_AWARD_SEMI_ANN_BILLED_DATE_VALID("111", "2011-01-01", "2011-09-22", Date.valueOf("2011-06-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_SEMI_ANN.createBillingFrequency()),
+    CG_AWARD_ANNUAL_BILLED_DATE_VALID("111", "2011-01-01", "2011-09-22", Date.valueOf("2010-06-30"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_ANNUALLY.createBillingFrequency()),
+    CG_AWARD_LOCB_BILLED_DATE_VALID("111", "2011-01-01", "2011-09-22", Date.valueOf("2010-12-13"), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_LOCB.createBillingFrequency()),
+    CG_AWARD_MONTHLY_INVALID_DATES("11", "2012-01-01", "2011-09-22", new Date(System.currentTimeMillis() + 604800000), new KualiDecimal(0), new KualiDecimal(0), new KualiDecimal(0), false, ArConstants.INV_AWARD, true, BillingFrequencyFixture.BILL_FREQ_MON.createBillingFrequency());
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String awardBeginningDate;
     private String awardEndingDate;
     private Date lastBilledDate;
@@ -82,7 +82,7 @@ public enum ARAwardFixture {
     private boolean active;
     private BillingFrequency billingFrequency;
 
-    private ARAwardFixture(Long proposalNumber, String awardBeginningDate, String awardEndingDate, Date lastBilledDate, KualiDecimal awardDirectCostAmount, KualiDecimal awardIndirectCostAmount, KualiDecimal minInvoiceAmount, boolean excludedFromInvoicing, String invoicingOptionCode, boolean active, BillingFrequency billingFrequency) {
+    private ARAwardFixture(String proposalNumber, String awardBeginningDate, String awardEndingDate, Date lastBilledDate, KualiDecimal awardDirectCostAmount, KualiDecimal awardIndirectCostAmount, KualiDecimal minInvoiceAmount, boolean excludedFromInvoicing, String invoicingOptionCode, boolean active, BillingFrequency billingFrequency) {
 
         this.proposalNumber = proposalNumber;
         this.awardBeginningDate = awardBeginningDate;

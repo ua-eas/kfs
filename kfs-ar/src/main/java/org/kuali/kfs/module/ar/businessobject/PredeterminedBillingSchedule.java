@@ -42,7 +42,7 @@ public class PredeterminedBillingSchedule extends PersistableBusinessObjectBase 
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PredeterminedBillingSchedule.class);
 
     private static final String PREDETERMINED_BILLING_SCHEDULE_INQUIRY_TITLE_PROPERTY = "message.inquiry.predetermined.billing.schedule.title";
-    private Long proposalNumber;
+    private String proposalNumber;
 
     private String predeterminedBillingScheduleInquiryTitle;
 
@@ -71,7 +71,7 @@ public class PredeterminedBillingSchedule extends PersistableBusinessObjectBase 
      * @return Returns the proposalNumber.
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -81,7 +81,7 @@ public class PredeterminedBillingSchedule extends PersistableBusinessObjectBase 
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
 
         this.proposalNumber = proposalNumber;
     }

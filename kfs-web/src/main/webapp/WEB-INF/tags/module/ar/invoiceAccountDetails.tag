@@ -25,9 +25,8 @@
 		<c:set var="contractsGrantsInvoiceDocumentAttributes" value="${DataDictionary.ContractsGrantsInvoiceDocument.attributes}"/>
 
 		<div class="tab-container" align="center">
-			<h3>Account Summary</h3>
-			<table cellpadding=0 class="datatable" summary="Invoice Account Details section">
-				<tr>
+			<table cellpadding=0 class="datatable standard" summary="Invoice Account Details section">
+				<tr class="header">
 					<kul:htmlAttributeHeaderCell attributeEntry="${invoiceAccountDetailsAttributes.chartOfAccountsCode}" useShortLabel="false" />
 					<kul:htmlAttributeHeaderCell attributeEntry="${invoiceAccountDetailsAttributes.accountNumber}" useShortLabel="false" />
 					<kul:htmlAttributeHeaderCell attributeEntry="${invoiceAccountDetailsAttributes.totalBudget}" useShortLabel="false" />
@@ -37,24 +36,52 @@
 					<kul:htmlAttributeHeaderCell attributeEntry="${invoiceAccountDetailsAttributes.totalAmountBilledToDate}" useShortLabel="false" />
 				</tr>
 				<logic:iterate indexId="ctr" name="KualiForm" property="document.accountDetails" id="accountDetail">
-					<tr>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceAccountDetailsAttributes.chartOfAccountsCode}"
-								property="document.accountDetails[${ctr}].chartOfAccountsCode" readOnly="true" /></td>
-						<td class="datacell"><a
-							href="${ConfigProperties.application.url}/kr/inquiry.do?chartOfAccountsCode=${KualiForm.document.accountDetails[ctr].chartOfAccountsCode}&businessObjectClassName=org.kuali.kfs.coa.businessobject.Account&methodToCall=start&accountNumber=${KualiForm.document.accountDetails[ctr].accountNumber}"
-							target="_blank"> <kul:htmlControlAttribute attributeEntry="${invoiceAccountDetailsAttributes.accountNumber}"
-									property="document.accountDetails[${ctr}].accountNumber" readOnly="true" />
-						</a></td>						
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceAccountDetailsAttributes.totalBudget}"
-								property="document.accountDetails[${ctr}].totalBudget" readOnly="true" /></td>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceAccountDetailsAttributes.invoiceAmount}"
-								property="document.accountDetails[${ctr}].invoiceAmount" readOnly="true" /></td>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceAccountDetailsAttributes.cumulativeExpenditures}"
-								property="document.accountDetails[${ctr}].cumulativeExpenditures" readOnly="true" /></td>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceAccountDetailsAttributes.budgetRemaining}"
-								property="document.accountDetails[${ctr}].budgetRemaining" readOnly="true" /></td>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceAccountDetailsAttributes.totalAmountBilledToDate}"
-								property="document.accountDetails[${ctr}].totalAmountBilledToDate" readOnly="true" /></td>
+					<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceAccountDetailsAttributes.chartOfAccountsCode}"
+								    property="document.accountDetails[${ctr}].chartOfAccountsCode"
+                                    readOnly="true" />
+                        </td>
+						<td class="datacell">
+                            <a
+                                    href="${ConfigProperties.application.url}/kr/inquiry.do?chartOfAccountsCode=${KualiForm.document.accountDetails[ctr].chartOfAccountsCode}&businessObjectClassName=org.kuali.kfs.coa.businessobject.Account&methodToCall=start&accountNumber=${KualiForm.document.accountDetails[ctr].accountNumber}"
+							        target="_blank"> <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceAccountDetailsAttributes.accountNumber}"
+									property="document.accountDetails[${ctr}].accountNumber"
+                                    readOnly="true" />
+						    </a>
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceAccountDetailsAttributes.totalBudget}"
+								    property="document.accountDetails[${ctr}].totalBudget"
+                                    readOnly="true" />
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceAccountDetailsAttributes.invoiceAmount}"
+								    property="document.accountDetails[${ctr}].invoiceAmount"
+                                    readOnly="true" />
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceAccountDetailsAttributes.cumulativeExpenditures}"
+								    property="document.accountDetails[${ctr}].cumulativeExpenditures"
+                                    readOnly="true" />
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceAccountDetailsAttributes.budgetRemaining}"
+								    property="document.accountDetails[${ctr}].budgetRemaining"
+                                    readOnly="true" />
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceAccountDetailsAttributes.totalAmountBilledToDate}"
+								    property="document.accountDetails[${ctr}].totalAmountBilledToDate"
+                                    readOnly="true" />
+                        </td>
 					</tr>
 				</logic:iterate>
 				<c:if test="${fn:length(KualiForm.document.accountDetails) gt 1}">

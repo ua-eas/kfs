@@ -45,7 +45,7 @@ public class ContractsAndGrantsAgingReport extends TransientBusinessObjectBase {
     private String accountChartOfAccountsCode;
     private String accountNumber;
     private String fundManager;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String awardDocumentNumber;
     private boolean markedAsFinal;
     private Date awardEndDate;
@@ -192,7 +192,7 @@ public class ContractsAndGrantsAgingReport extends TransientBusinessObjectBase {
      * @return Returns the proposalNumber
      */
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -201,7 +201,7 @@ public class ContractsAndGrantsAgingReport extends TransientBusinessObjectBase {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

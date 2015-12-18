@@ -28,7 +28,6 @@ import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.ResultRow;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.lookup.LookupUtils;
 import org.kuali.kfs.krad.util.BeanPropertyComparator;
@@ -72,11 +71,10 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
     /**
      * This method performs the lookup and returns a collection of lookup items
      *
-     * @param lookupForm
-     * @param kualiLookupable
-     * @param resultTable
-     * @param bounded
-     * @return
+     * @param lookupForm struts form
+     * @param resultTable table to add the result rows to
+     * @param bounded boolean whether the results should be bounded or not
+     * @return collection of search results
      */
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
@@ -99,10 +97,10 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
 
             BusinessObjectRestrictions businessObjectRestrictions = getBusinessObjectAuthorizationService().getLookupResultRestrictions(result, user);
             // add list of awards to sub Result rows
-            List<ResultRow> subResultRows = new ArrayList<ResultRow>();
+            List<ResultRow> subResultRows = new ArrayList<>();
             for (ContractsAndGrantsBillingAward award : result.getAwards()) {
 
-                List<Column> subResultColumns = new ArrayList<Column>();
+                List<Column> subResultColumns = new ArrayList<>();
 
                 for (String propertyName : awardAttributesForDisplay) {
                     subResultColumns.add(setupResultsColumn(award, propertyName, businessObjectRestrictions));
@@ -126,7 +124,7 @@ public class ContractsGrantsInvoiceLookupableHelperServiceImpl extends AccountsR
     /**
      * overriding this method to convert the list of awards to a list of ContratcsGrantsInvoiceLookupResult
      *
-     * @see org.kuali.core.lookup.Lookupable#getSearchResults(java.util.Map)
+     * @see org.kuali.kfs.kns.lookup.Lookupable#getSearchResultsUnbounded(java.util.Map)
      */
     @Override
     public List<? extends BusinessObject> getSearchResultsUnbounded(Map<String, String> fieldValues) {

@@ -265,7 +265,7 @@ public class ContractsAndGrantsModuleServiceImpl implements ContractsAndGrantsMo
                     StringUtils.trimToEmpty(projectDirectorId))) {
 
                 if(ObjectUtils.isNotNull(awardAccount.getAward())){
-                    proposalNumber = awardAccount.getAward().getAwardNumber();
+                    proposalNumber = awardAccount.getAward().getProposalNumber();
                 }
             }
         }

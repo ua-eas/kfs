@@ -29,7 +29,7 @@ public interface AccountsReceivablePredeterminedBillingSchedule extends External
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the predeterminedBillingScheduleInquiryTitle attribute.

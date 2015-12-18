@@ -35,7 +35,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 public class InvoiceDetailAccountObjectCode extends PersistableBusinessObjectBase {
 
     private String documentNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String accountNumber;
     private String chartOfAccountsCode;
     private String financialObjectCode;
@@ -70,7 +70,7 @@ public class InvoiceDetailAccountObjectCode extends PersistableBusinessObjectBas
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -79,7 +79,7 @@ public class InvoiceDetailAccountObjectCode extends PersistableBusinessObjectBas
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

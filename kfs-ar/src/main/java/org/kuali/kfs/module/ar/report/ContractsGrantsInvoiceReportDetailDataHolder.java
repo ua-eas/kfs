@@ -26,7 +26,7 @@ import java.sql.Date;
  * Defines a data holder class for the Contracts & Grants Invoice Report.
  */
 public class ContractsGrantsInvoiceReportDetailDataHolder {
-    private Long proposalNumber;
+    private String proposalNumber;
     private String documentNumber;
     private String invoiceType;
     private Date invoiceDate;
@@ -49,7 +49,7 @@ public class ContractsGrantsInvoiceReportDetailDataHolder {
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -58,7 +58,7 @@ public class ContractsGrantsInvoiceReportDetailDataHolder {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

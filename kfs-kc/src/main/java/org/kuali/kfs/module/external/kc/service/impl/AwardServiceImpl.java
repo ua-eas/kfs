@@ -100,14 +100,13 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
 
     @Override
     public ExternalizableBusinessObject findByPrimaryKey(Map primaryKeys) {
-        //use the proposal number as its the awardId on the KC side.
-        Long proposalNumber;
-        if (primaryKeys.get("proposalNumber") instanceof String) {
-            proposalNumber = Long.parseLong((String)primaryKeys.get("proposalNumber"));
-        } else {
-            proposalNumber = (Long)primaryKeys.get("proposalNumber");
+        AwardFieldValuesDto awardFieldValuesDto = new AwardFieldValuesDto();
+        awardFieldValuesDto.setAwardNumber((String) primaryKeys.get(KFSPropertyConstants.PROPOSAL_NUMBER));
+        List<AwardDTO> dtos  = this.getWebService().getMatchingAwards(awardFieldValuesDto);
+        AwardDTO dto = null;
+        if (dtos.size() > 0) {
+            dto = dtos.get(0);
         }
-        AwardDTO dto  = this.getWebService().getAward(proposalNumber);
         return awardFromDTO(dto);
     }
 
@@ -115,13 +114,8 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
     public Collection findMatching(Map fieldValues) {
         List<AwardDTO> result = null;
         AwardFieldValuesDto criteria = new AwardFieldValuesDto();
-        Object awardId = fieldValues.get(KFSPropertyConstants.PROPOSAL_NUMBER);
-        if (awardId instanceof String) {
-            criteria.setAwardId(Long.parseLong((String) awardId));
-        } else {
-            criteria.setAwardId((Long) awardId);
-        }
-        criteria.setAwardNumber((String) fieldValues.get("awardNumber"));
+        criteria.setAwardId((Long) fieldValues.get("awardId"));
+        criteria.setAwardNumber((String) fieldValues.get(KFSPropertyConstants.PROPOSAL_NUMBER));
         criteria.setChartOfAccounts((String) fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE));
         criteria.setAccountNumber((String) fieldValues.get(KFSPropertyConstants.ACCOUNT_NUMBER));
         criteria.setPrincipalInvestigatorId((String) fieldValues.get(KimConstants.AttributeConstants.PRINCIPAL_ID));
@@ -149,8 +143,8 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
         List<AwardDTO> result = null;
         AwardSearchCriteriaDto criteria = new AwardSearchCriteriaDto();
-        criteria.setAwardId(fieldValues.get(KFSPropertyConstants.PROPOSAL_NUMBER));
-        criteria.setAwardNumber(fieldValues.get("awardNumber"));
+        criteria.setAwardNumber(fieldValues.get(KFSPropertyConstants.PROPOSAL_NUMBER));
+        criteria.setAwardId(fieldValues.get("awardId"));
         criteria.setChartOfAccounts(fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE));
         criteria.setAccountNumber(fieldValues.get(KFSPropertyConstants.ACCOUNT_NUMBER));
         criteria.setPrincipalInvestigatorId(fieldValues.get("principalId"));
@@ -181,8 +175,9 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
 
     protected Award awardFromDTO(AwardDTO kcAward) {
         Award award = new Award();
-        award.setProposalNumber(kcAward.getAwardId());
+        award.setProposalNumber(kcAward.getAwardNumber());
         award.setAwardNumber(kcAward.getAwardNumber());
+        award.setAwardId(kcAward.getAwardId());
         award.setAwardBeginningDate(kcAward.getAwardStartDate() == null ? null : new java.sql.Date(kcAward.getAwardStartDate().getDate()));
         award.setAwardEndingDate(kcAward.getAwardEndDate() == null ? null : new java.sql.Date(kcAward.getAwardEndDate().getDate()));
         award.setAwardTotalAmount(new KualiDecimal(kcAward.getAwardTotalAmount()));
@@ -260,7 +255,7 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         AwardProjectDirector director = new AwardProjectDirector();
         director.setPrincipalId(kcAward.getPrincipalInvestigatorId());
         director.setProjectDirector(getPersonService().getPerson(kcAward.getPrincipalInvestigatorId()));
-        director.setProposalNumber(kcAward.getAwardId());
+        director.setProposalNumber(kcAward.getAwardNumber());
         return director;
     }
 

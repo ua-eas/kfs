@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  */
 public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, MutableInactivatable {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private String principalId;
@@ -74,7 +74,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         setAccountNumber(accountNumber);
         setChartOfAccountsCode(chartOfAccountsCode);
         setPrincipalId(awardAccountDTO.getProjectDirector());
-        setProposalNumber(awardAccountDTO.getAwardId());
+        setProposalNumber(awardAccountDTO.getAwardNumber());
         setActive(true);
         setFederalSponsor(awardAccountDTO.isFederalSponsor());
         setFinalBilledIndicator(awardAccountDTO.isFinalBill());
@@ -86,8 +86,8 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         }
 
         Award award = new Award();
-        award.setAwardNumber(awardAccountDTO.getAwardNumber());
-        award.setProposalNumber(awardAccountDTO.getAwardId());
+        award.setAwardId(awardAccountDTO.getAwardId());
+        award.setProposalNumber(awardAccountDTO.getAwardNumber());
         award.setAgencyNumber(awardAccountDTO.getSponsorCode());
         award.setAwardTitle(awardAccountDTO.getAwardTitle());
         award.setGrantNumber(awardAccountDTO.getGrantNumber());
@@ -95,7 +95,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
 
         Proposal proposal = new Proposal();
         proposal.setFederalPassThroughAgencyNumber(awardAccountDTO.getProposalFederalPassThroughAgencyNumber());
-        proposal.setProposalNumber(awardAccountDTO.getAwardId());
+        proposal.setProposalNumber(awardAccountDTO.getAwardNumber());
         proposal.setAward(award);
         award.setProposal(proposal);
 
@@ -116,7 +116,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      * @see org.kuali.kfs.integration.businessobject.cg.ContractsAndGrantsAccountAwardInformation#getProposalNumber()
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -125,7 +125,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -244,7 +244,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
         if (this.proposalNumber != null) {
-            m.put("proposalNumber", this.proposalNumber.toString());
+            m.put("proposalNumber", this.proposalNumber);
         }
         m.put("chartOfAccountsCode", this.chartOfAccountsCode);
         m.put("accountNumber", this.accountNumber);

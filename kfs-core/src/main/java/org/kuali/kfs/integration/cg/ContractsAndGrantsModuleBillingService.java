@@ -45,7 +45,7 @@ public interface ContractsAndGrantsModuleBillingService {
      * @param currentAward
      * @return
      */
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(Long proposalNumber, ContractsAndGrantsBillingAward currentAward);
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward);
 
     /**
      * This method sets last Billed Date to award Account.
@@ -62,7 +62,7 @@ public interface ContractsAndGrantsModuleBillingService {
      * @param proposalNumber
      * @param lastBilledDate
      */
-    public void setLastBilledDateToAward(Long proposalNumber, java.sql.Date lastBilledDate);
+    public void setLastBilledDateToAward(String proposalNumber, java.sql.Date lastBilledDate);
 
     /**
      * This method sets final billed to award Account.

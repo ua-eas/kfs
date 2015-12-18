@@ -24,7 +24,7 @@ import java.sql.Date;
 
 public class ContractsGrantsMilestoneReportDetailDataHolder {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private Long milestoneNumber;
@@ -41,7 +41,7 @@ public class ContractsGrantsMilestoneReportDetailDataHolder {
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -50,7 +50,7 @@ public class ContractsGrantsMilestoneReportDetailDataHolder {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

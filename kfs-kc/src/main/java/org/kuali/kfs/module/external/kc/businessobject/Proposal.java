@@ -31,7 +31,7 @@ import java.sql.Timestamp;
  */
 public class Proposal implements ContractAndGrantsProposal {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean proposalFederalPassThroughIndicator;
     private String grantNumber;
     private String federalPassThroughAgencyNumber;
@@ -60,7 +60,7 @@ public class Proposal implements ContractAndGrantsProposal {
     private String proposalProjectTitle;
 
     public Proposal(ProposalDTO kcProposal) {
-        setProposalNumber(kcProposal.getProposalNumber() == null ? null : Long.valueOf(kcProposal.getProposalNumber()));
+        setProposalNumber(kcProposal.getProposalNumber());
         setProposalBeginningDate(new Date(kcProposal.getRequestedStartDateTotal().getDate()));
         setProposalEndingDate(new Date(kcProposal.getRequestedEndDateTotal().getDate()));
         if (kcProposal.getProposalTotalAmount() != null) {
@@ -90,7 +90,7 @@ public class Proposal implements ContractAndGrantsProposal {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -99,7 +99,7 @@ public class Proposal implements ContractAndGrantsProposal {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

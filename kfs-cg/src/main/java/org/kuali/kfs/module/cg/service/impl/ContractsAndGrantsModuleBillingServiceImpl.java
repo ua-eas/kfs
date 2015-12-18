@@ -95,13 +95,13 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
     }
 
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(Long proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
         ContractsAndGrantsBillingAward award = currentAward;
 
         if ( ObjectUtils.isNull(proposalNumber)) {
             award = null;
         } else {
-            if ( ObjectUtils.isNull(currentAward) || !currentAward.getProposalNumber().equals(proposalNumber))  {
+            if ( ObjectUtils.isNull(currentAward) || !StringUtils.equals(currentAward.getProposalNumber(), proposalNumber))  {
                 award = awardService.getByPrimaryId(proposalNumber);
             }
         }
@@ -141,7 +141,7 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
      * @param lastBilledDate
      */
     @Override
-    public void setLastBilledDateToAward(Long proposalNumber, Date lastBilledDate) {
+    public void setLastBilledDateToAward(String proposalNumber, Date lastBilledDate) {
         // This is a No-Op since getLastBilledDate on the CG Award is deriving the value from the AwardAccounts
     }
 

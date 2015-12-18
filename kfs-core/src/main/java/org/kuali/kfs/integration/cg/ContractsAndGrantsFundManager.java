@@ -42,7 +42,7 @@ public interface ContractsAndGrantsFundManager extends ExternalizableBusinessObj
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
 
     /**

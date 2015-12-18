@@ -19,20 +19,15 @@
 
 package org.kuali.kfs.module.ar.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.AwardAccountObjectCodeTotalBilled;
@@ -65,10 +60,15 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.util.ReflectionMap;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 /**
  * This class tests the ContractsGrantsInvoiceDocument class
@@ -230,9 +230,9 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
      * This method sets values to Award respective to junit testing
      *
      * @param proposalNumber
-     * @param fieldValues
+     * @param awardAccounts
      */
-    private void setAwardAccountsToAward(Long proposalNumber, List<ContractsAndGrantsBillingAwardAccount> awardAccounts) {
+    private void setAwardAccountsToAward(String proposalNumber, List<ContractsAndGrantsBillingAwardAccount> awardAccounts) {
 
         // Award and proposal is being saved
         Proposal proposal = businessObjectService.findBySinglePrimaryKey(Proposal.class, proposalNumber);
@@ -442,7 +442,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
     public void testBeanMapVersionOfDocument() {
         ContractsGrantsInvoiceDocument cinvDoc = new ContractsGrantsInvoiceDocument();
         InvoiceGeneralDetail invoiceGeneralDetail = InvoiceGeneralDetailFixture.INV_GNRL_DTL1.createInvoiceGeneralDetail();
-        invoiceGeneralDetail.setProposalNumber(new Long(80075L));
+        invoiceGeneralDetail.setProposalNumber("80075");
         cinvDoc.setInvoiceGeneralDetail(invoiceGeneralDetail);
         InvoiceAccountDetail invoiceAccountDetail = InvoiceAccountDetailFixture.INV_ACCT_DTL1.createInvoiceAccountDetail();
         List<InvoiceAccountDetail> accountDetails = new ArrayList<>();
@@ -450,7 +450,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
         cinvDoc.setAccountDetails(accountDetails);
 
         Map<String, Object> map = new ReflectionMap(cinvDoc);
-        assertEquals(new Long(80075L), map.get(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.PROPOSAL_NUMBER));
+        assertEquals("80075", map.get(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.PROPOSAL_NUMBER));
         assertEquals("MILE", map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL+"." + ArPropertyConstants.BILLING_FREQUENCY_CODE));
         assertEquals("9000000", map.get("accountDetails[0]."+KFSPropertyConstants.ACCOUNT_NUMBER));
         assertNull(map.get("zebra"));

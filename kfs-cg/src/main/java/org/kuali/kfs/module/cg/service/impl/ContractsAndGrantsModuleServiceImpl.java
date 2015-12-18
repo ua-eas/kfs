@@ -108,7 +108,7 @@ public class ContractsAndGrantsModuleServiceImpl implements ContractsAndGrantsMo
     /**
      * get the primary award account for the given account
      *
-     * @param account the given account
+     * @param chartOfAccountsCode the chart of accounts code for the given account
      * @return the primary award account for the given account
      */
     protected AwardAccount getPrimaryAwardAccount(String chartOfAccountsCode, String accountNumber) {
@@ -121,7 +121,7 @@ public class ContractsAndGrantsModuleServiceImpl implements ContractsAndGrantsMo
 
         for (Object awardAccountAsObject : getBusinessObjectService().findMatching(AwardAccount.class, accountKeyValues)) {
             AwardAccount awardAccount = (AwardAccount) awardAccountAsObject;
-            Long proposalNumber = awardAccount.getProposalNumber();
+            Long proposalNumber = Long.parseLong(awardAccount.getProposalNumber());
 
             if (proposalNumber >= highestProposalNumber) {
                 highestProposalNumber = proposalNumber;

@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector;
 import org.kuali.kfs.module.external.kc.businessobject.Award;
 import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class AwardProjectDirectorServiceImpl implements ExternalizableBusinessObjectService {
 
@@ -34,7 +34,7 @@ public class AwardProjectDirectorServiceImpl implements ExternalizableBusinessOb
 
     @Override
     public ExternalizableBusinessObject findByPrimaryKey(Map primaryKeys) {
-        Award award = (Award) awardService.findByPrimaryKey(primaryKeys);
+        Award award = (Award) awardService.findMatching(primaryKeys);
         if (award == null) {
             return null;
         } else {

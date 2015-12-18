@@ -36,7 +36,7 @@ public class AwardFundManagerServiceImpl implements ExternalizableBusinessObject
 
     @Override
     public ExternalizableBusinessObject findByPrimaryKey(Map primaryKeys) {
-        Award award = (Award) awardService.findByPrimaryKey(primaryKeys);
+        Award award = (Award) awardService.findMatching(primaryKeys);
         if (award == null) {
             return null;
         } else {

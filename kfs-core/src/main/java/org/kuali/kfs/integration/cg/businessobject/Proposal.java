@@ -19,20 +19,20 @@
 
 package org.kuali.kfs.integration.cg.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * See functional documentation.
  */
 public class Proposal implements ContractAndGrantsProposal {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date proposalBeginningDate;
     private Date proposalEndingDate;
 
@@ -63,7 +63,7 @@ public class Proposal implements ContractAndGrantsProposal {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -72,7 +72,7 @@ public class Proposal implements ContractAndGrantsProposal {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

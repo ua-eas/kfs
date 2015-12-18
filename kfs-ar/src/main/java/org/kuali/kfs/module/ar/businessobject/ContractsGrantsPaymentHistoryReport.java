@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Defines an entry in the Contracts & Grants Invoice Payment History Report.
@@ -38,7 +38,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
     private KualiDecimal paymentAmount;
     private String invoiceNumber;
     private KualiDecimal invoiceAmount;
-    private Long awardNumber;
+    private String awardNumber;
     private boolean reversedIndicator;
     private boolean appliedIndicator;
     private Customer customer;
@@ -200,7 +200,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
      * @return Returns the awardNumber
      */
 
-    public Long getAwardNumber() {
+    public String getAwardNumber() {
         return awardNumber;
     }
 
@@ -209,7 +209,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
      *
      * @param awardNumber The awardNumber to set.
      */
-    public void setAwardNumber(Long awardNumber) {
+    public void setAwardNumber(String awardNumber) {
         this.awardNumber = awardNumber;
     }
 

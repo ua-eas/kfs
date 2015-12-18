@@ -30,13 +30,8 @@ import java.util.List;
  */
 public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward {
 
-    /**
-     * Gets the proposalNumber attribute.
-     *
-     * @return Returns the proposalNumber.
-     */
     @Override
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the proposal attribute.

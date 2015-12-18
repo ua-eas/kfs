@@ -41,7 +41,8 @@ import java.util.List;
 public class Award implements ContractsAndGrantsBillingAward {
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
 
-    private Long proposalNumber;
+    private String proposalNumber;
+    private Long awardId;
     private String awardNumber;
     private String agencyNumber;
     private String primeAgencyNumber;
@@ -131,7 +132,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -145,7 +146,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -238,12 +239,12 @@ public class Award implements ContractsAndGrantsBillingAward {
         this.primeAgency = primeAgency;
     }
 
-    public String getAwardNumber() {
-        return awardNumber;
+    public Long getAwardId() {
+        return awardId;
     }
 
-    public void setAwardNumber(String awardNumber) {
-        this.awardNumber = awardNumber;
+    public void setAwardId(Long awardId) {
+        this.awardId = awardId;
     }
 
     public String getGrantNumber() {
@@ -837,6 +838,14 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     public void setSequenceStatus(String sequenceStatus) {
         this.sequenceStatus = sequenceStatus;
+    }
+
+    public String getAwardNumber() {
+        return awardNumber;
+    }
+
+    public void setAwardNumber(String awardNumber) {
+        this.awardNumber = awardNumber;
     }
 }
 
