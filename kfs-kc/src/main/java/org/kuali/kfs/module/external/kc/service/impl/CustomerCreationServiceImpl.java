@@ -33,7 +33,7 @@ import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.Agency;
 import org.kuali.kfs.module.external.kc.dto.CustomerCreationStatusDto;
 import org.kuali.kfs.module.external.kc.dto.CustomerTypeDto;
-import org.kuali.kfs.module.external.kc.dto.SponsorDTO;
+import org.kuali.kra.external.sponsor.SponsorDTO;
 import org.kuali.kfs.module.external.kc.service.CustomerCreationService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;

@@ -18,13 +18,9 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
@@ -33,7 +29,11 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Business object for the Generate Dunning Letters Lookup Result.
@@ -41,7 +41,7 @@ import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 public class GenerateDunningLettersLookupResult extends TransientBusinessObjectBase {
 
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String accountNumber;
     private String agencyNumber;
     private String customerNumber;
@@ -169,7 +169,7 @@ public class GenerateDunningLettersLookupResult extends TransientBusinessObjectB
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -179,7 +179,7 @@ public class GenerateDunningLettersLookupResult extends TransientBusinessObjectB
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

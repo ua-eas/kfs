@@ -98,7 +98,7 @@ public class PaymentApplicationDocument extends GeneralLedgerPostingDocumentBase
     protected AccountsReceivableDocumentHeader accountsReceivableDocumentHeader;
     protected String invoiceDocumentType;// this document type variable would help in differentiating Customer and CG Invoices
     protected String letterOfCreditCreationType;// To categorize the CG Invoices based on Award LOC Type
-    protected Long proposalNumber;// For loc creation type = Award
+    protected String proposalNumber;// For loc creation type = Award
     protected String letterOfCreditFundGroupCode;// for loc creation type = LOC fund
     protected String letterOfCreditFundCode;// for loc creation type = LOC fund group
     protected transient PaymentApplicationDocumentService paymentApplicationDocumentService;
@@ -1521,7 +1521,7 @@ public class PaymentApplicationDocument extends GeneralLedgerPostingDocumentBase
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -1530,7 +1530,7 @@ public class PaymentApplicationDocument extends GeneralLedgerPostingDocumentBase
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

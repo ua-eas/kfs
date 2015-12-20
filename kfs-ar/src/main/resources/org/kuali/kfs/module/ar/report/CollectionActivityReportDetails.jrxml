@@ -52,7 +52,7 @@
 	<field name="activityComment" class="java.lang.String"/>
 	<field name="agencyNumber" class="java.lang.String"/>
 	<field name="chartOfAccountsCode" class="java.lang.String"/>
-	<field name="proposalNumber" class="java.lang.Long"/>
+	<field name="proposalNumber" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -213,7 +213,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="SansSerif" size="7" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

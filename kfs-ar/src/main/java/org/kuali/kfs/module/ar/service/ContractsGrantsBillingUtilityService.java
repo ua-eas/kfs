@@ -61,13 +61,13 @@ public interface ContractsGrantsBillingUtilityService {
      * @param proposalNumber the proposal number to lookup active bills for
      * @return a List of active bills, or an empty List of naught could be found
      */
-    public List<Bill> getActiveBillsForProposalNumber(Long proposalNumber);
+    public List<Bill> getActiveBillsForProposalNumber(String proposalNumber);
 
     /**
      * Retrieves all active milestones associated with the given proposal number
      * @param proposalNumber the proposal number to retrieve milestones for
      * @return a List of active milestones, or an empty List if BusinessObjectService couldn't turn any up
      */
-    public List<Milestone> getActiveMilestonesForProposalNumber(Long proposalNumber);
+    public List<Milestone> getActiveMilestonesForProposalNumber(String proposalNumber);
 
 }

@@ -26,14 +26,14 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
  */
 public enum InvoiceAccountDetailFixture {
 
-    INV_ACCT_DTL1("5030", new Long(80072), "IN", "9000000", "", new KualiDecimal(300), KualiDecimal.ZERO, KualiDecimal.ZERO, new KualiDecimal(300), KualiDecimal.ZERO),
-    INV_ACCT_DTL2("5030", new Long(80072), "IN", "9000001", "", new KualiDecimal(120), KualiDecimal.ZERO, KualiDecimal.ZERO, new KualiDecimal(120), KualiDecimal.ZERO),
-    INV_ACCT_DTL3("5030", new Long(80072), "BL", "2336320", "0142900", new KualiDecimal(120), new KualiDecimal(1), KualiDecimal.ZERO, new KualiDecimal(120), KualiDecimal.ZERO),
-    INV_ACCT_DTL4("5030", new Long(80072), "IN", "1292016", "2336320", new KualiDecimal(120), new KualiDecimal(1), KualiDecimal.ZERO, new KualiDecimal(120), KualiDecimal.ZERO),
-    INV_ACCT_DTL5("5030", new Long(80072), "IN", "9000000", "", new KualiDecimal(300), KualiDecimal.ZERO, new KualiDecimal(300), new KualiDecimal(300), KualiDecimal.ZERO);
+    INV_ACCT_DTL1("5030", "80072", "IN", "9000000", "", new KualiDecimal(300), KualiDecimal.ZERO, KualiDecimal.ZERO, new KualiDecimal(300), KualiDecimal.ZERO),
+    INV_ACCT_DTL2("5030", "80072", "IN", "9000001", "", new KualiDecimal(120), KualiDecimal.ZERO, KualiDecimal.ZERO, new KualiDecimal(120), KualiDecimal.ZERO),
+    INV_ACCT_DTL3("5030", "80072", "BL", "2336320", "0142900", new KualiDecimal(120), new KualiDecimal(1), KualiDecimal.ZERO, new KualiDecimal(120), KualiDecimal.ZERO),
+    INV_ACCT_DTL4("5030", "80072", "IN", "1292016", "2336320", new KualiDecimal(120), new KualiDecimal(1), KualiDecimal.ZERO, new KualiDecimal(120), KualiDecimal.ZERO),
+    INV_ACCT_DTL5("5030", "80072", "IN", "9000000", "", new KualiDecimal(300), KualiDecimal.ZERO, new KualiDecimal(300), new KualiDecimal(300), KualiDecimal.ZERO);
 
     private String documentNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private String contractControlAccountNumber;
@@ -43,7 +43,7 @@ public enum InvoiceAccountDetailFixture {
     private KualiDecimal balanceAmount = KualiDecimal.ZERO;
     private KualiDecimal billedAmount = KualiDecimal.ZERO;
 
-    private InvoiceAccountDetailFixture(String documentNumber, Long proposalNumber, String chartOfAccountsCode, String accountNumber, String contractControlAccountNumber, KualiDecimal budgetAmount, KualiDecimal expenditureAmount, KualiDecimal cumulativeAmount, KualiDecimal balanceAmount, KualiDecimal billedAmount) {
+    private InvoiceAccountDetailFixture(String documentNumber, String proposalNumber, String chartOfAccountsCode, String accountNumber, String contractControlAccountNumber, KualiDecimal budgetAmount, KualiDecimal expenditureAmount, KualiDecimal cumulativeAmount, KualiDecimal balanceAmount, KualiDecimal billedAmount) {
         this.documentNumber = documentNumber;
         this.proposalNumber = proposalNumber;
         this.chartOfAccountsCode = chartOfAccountsCode;

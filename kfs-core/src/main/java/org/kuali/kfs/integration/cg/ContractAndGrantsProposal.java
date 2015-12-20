@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.integration.cg;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 
 public interface ContractAndGrantsProposal extends ExternalizableBusinessObject {
@@ -42,7 +42,7 @@ public interface ContractAndGrantsProposal extends ExternalizableBusinessObject 
      * 
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the proposalBeginningDate attribute.

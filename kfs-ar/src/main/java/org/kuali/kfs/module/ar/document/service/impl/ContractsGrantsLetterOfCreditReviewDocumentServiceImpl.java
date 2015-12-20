@@ -121,9 +121,9 @@ public class ContractsGrantsLetterOfCreditReviewDocumentServiceImpl implements C
 
     @Override
     public void generateContractsGrantsInvoiceDocuments(ContractsGrantsLetterOfCreditReviewDocument locReviewDoc) {
-        List<ContractsAndGrantsBillingAward> awards = new ArrayList<ContractsAndGrantsBillingAward>();
+        List<ContractsAndGrantsBillingAward> awards = new ArrayList<>();
         // 1. compare the hiddenamountodraw and amount to draw field.
-        Set<Long> proposalNumberSet = new HashSet<>();
+        Set<String> proposalNumberSet = new HashSet<>();
         for (ContractsGrantsLetterOfCreditReviewDetail detail : locReviewDoc.getHeaderReviewDetails()) {
             if (!proposalNumberSet.contains(detail.getProposalNumber())) {
                 awards.add(retrieveAward(detail.getProposalNumber()));
@@ -151,7 +151,7 @@ public class ContractsGrantsLetterOfCreditReviewDocumentServiceImpl implements C
      * @param proposalNumber the proposal number to look up the award for
      * @return the award
      */
-    protected ContractsAndGrantsBillingAward retrieveAward(Long proposalNumber) {
+    protected ContractsAndGrantsBillingAward retrieveAward(String proposalNumber) {
         Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
         ContractsAndGrantsBillingAward awd = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(ContractsAndGrantsBillingAward.class).getExternalizableBusinessObject(ContractsAndGrantsBillingAward.class, map);

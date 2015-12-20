@@ -36,7 +36,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 public class AwardProjectDirector extends PersistableBusinessObjectBase implements Primaryable, CGProjectDirector, MutableInactivatable, ContractsAndGrantsProjectDirector {
 
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean awardPrimaryProjectDirectorIndicator;
     private String awardProjectDirectorProjectTitle;
     private boolean active = true;
@@ -67,15 +67,15 @@ public class AwardProjectDirector extends PersistableBusinessObjectBase implemen
      * @see org.kuali.kfs.module.cg.businessobject.CGProjectDirector#getProposalNumber()
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
     /**
-     * @see org.kuali.kfs.module.cg.businessobject.CGProjectDirector#setProposalNumber(java.lang.Long)
+     * @see org.kuali.kfs.module.cg.businessobject.CGProjectDirector#setProposalNumber(java.lang.String)
      */
     @Override
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -202,7 +202,7 @@ public class AwardProjectDirector extends PersistableBusinessObjectBase implemen
         LinkedHashMap m = new LinkedHashMap();
         m.put(KFSPropertyConstants.KUALI_USER_PERSON_UNIVERSAL_IDENTIFIER, this.principalId);
         if (this.proposalNumber != null) {
-            m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber.toString());
+            m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber);
         }
         return m;
     }

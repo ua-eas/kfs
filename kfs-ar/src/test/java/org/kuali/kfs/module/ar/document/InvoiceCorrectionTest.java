@@ -100,7 +100,7 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
         documentService.saveDocument(document);
 
         String documentNumber = document.getDocumentNumber();
-        Long proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
+        String proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
 
         setupMilestones(documentNumber, proposalNumber, true);
 
@@ -138,7 +138,7 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
         documentService.saveDocument(document);
 
         String documentNumber = document.getDocumentNumber();
-        Long proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
+        String proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
 
         setupBills(documentNumber, proposalNumber, true);
 

@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cg.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.service.AwardService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementation of the Award service.
@@ -37,11 +37,11 @@ public class AwardServiceImpl implements AwardService {
      * @see org.kuali.kfs.module.cg.service.AwardService#getByPrimaryId(String)
      */
     @Override
-    public Award getByPrimaryId(Long proposalNumber) {
+    public Award getByPrimaryId(String proposalNumber) {
         return businessObjectService.findByPrimaryKey(Award.class, mapPrimaryKeys(proposalNumber));
     }
 
-    protected Map<String, Object> mapPrimaryKeys(Long proposalNumber) {
+    protected Map<String, Object> mapPrimaryKeys(String proposalNumber) {
         Map<String, Object> primaryKeys = new HashMap();
         primaryKeys.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
         return primaryKeys;

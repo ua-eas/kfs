@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 public class ProposalOrganization extends PersistableBusinessObjectBase implements Primaryable, MutableInactivatable {
     private String chartOfAccountsCode;
     private String organizationCode;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean proposalPrimaryOrganizationIndicator;
     private boolean active = true;
 
@@ -83,7 +83,7 @@ public class ProposalOrganization extends PersistableBusinessObjectBase implemen
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -92,7 +92,7 @@ public class ProposalOrganization extends PersistableBusinessObjectBase implemen
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

@@ -24,20 +24,26 @@
 		<c:set var="invoiceSuspensionCategoriesAttributes" value="${DataDictionary.InvoiceSuspensionCategory.attributes}" />
 		<c:set var="suspensionCategoriesAttributes" value="${DataDictionary.SuspensionCategory.attributes}" />
 		<div class="tab-container" align="center">
-			<h3>Invoice Suspension Categories</h3>
- 			<table cellpadding=0 class="datatable" summary="Invoice Suspension Categories section">
-				<tr>
+ 			<table cellpadding=0 class="datatable standard side-margins" summary="Invoice Suspension Categories section">
+				<tr class="header">
 					<kul:htmlAttributeHeaderCell attributeEntry="${invoiceSuspensionCategoriesAttributes.suspensionCategoryCode}" useShortLabel="false" />
 					<kul:htmlAttributeHeaderCell attributeEntry="${suspensionCategoriesAttributes.suspensionCategoryDescription}" useShortLabel="false" />
 				</tr>
 				<c:if test="${!empty KualiForm.document.invoiceSuspensionCategories}">
 					<logic:iterate indexId="ctr" name="KualiForm" property="document.invoiceSuspensionCategories" id="SuspensionCategory">
 						<tr>
-							<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceSuspensionCategoriesAttributes.suspensionCategoryCode}"
-									property="document.invoiceSuspensionCategories[${ctr}].suspensionCategoryCode" readOnly="true" /></td>
-							<td class="datacell" width="75%"><kul:htmlControlAttribute
-									attributeEntry="${invoiceSuspensionCategoriesAttributes['suspensionCategoryDescription']}"
-									property="document.invoiceSuspensionCategories[${ctr}].suspensionCategoryDescription" readOnly="true" /></td>
+							<td class="datacell">
+                                <kul:htmlControlAttribute
+                                        attributeEntry="${invoiceSuspensionCategoriesAttributes.suspensionCategoryCode}"
+									    property="document.invoiceSuspensionCategories[${ctr}].suspensionCategoryCode"
+                                        readOnly="true" />
+                            </td>
+							<td class="datacell">
+                                <kul:htmlControlAttribute
+                                        attributeEntry="${invoiceSuspensionCategoriesAttributes['suspensionCategoryDescription']}"
+									    property="document.invoiceSuspensionCategories[${ctr}].suspensionCategoryDescription"
+                                        readOnly="true" />
+                            </td>
 						</tr>
 					</logic:iterate>
 				</c:if>

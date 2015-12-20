@@ -18,24 +18,24 @@
  */
 package org.kuali.kfs.module.ar.fixture;
 
-import java.sql.Date;
-
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.InvoiceGeneralDetail;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
 
 /**
  * Fixture class for ContractsGrantsInvoiceDocument
  */
 public enum ContractsGrantsInvoiceDocumentFixture {
-    CG_INV_DOC1(new Long(11),  "2011-12-23"), CG_INV_DOC2(new Long(1234), "2011-12-23");
+    CG_INV_DOC1("11",  "2011-12-23"), CG_INV_DOC2("1234", "2011-12-23");
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String billingDate;
 
-    private ContractsGrantsInvoiceDocumentFixture(Long proposalNumber, String billingDate) {
+    private ContractsGrantsInvoiceDocumentFixture(String proposalNumber, String billingDate) {
         this.billingDate = billingDate;
         this.proposalNumber = proposalNumber;
     }

@@ -24,7 +24,7 @@ import org.kuali.rice.kim.api.identity.Person;
 public class AwardProjectDirector implements ContractsAndGrantsProjectDirector {
 
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private Person projectDirector;
 
     @Override
@@ -41,12 +41,12 @@ public class AwardProjectDirector implements ContractsAndGrantsProjectDirector {
     }
 
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
     @Override
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

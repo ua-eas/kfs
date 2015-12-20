@@ -48,14 +48,14 @@ public interface ContractsAndGrantsProjectDirector extends ExternalizableBusines
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Sets the proposalNumber attribute.
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber);
+    public void setProposalNumber(String proposalNumber);
 
     /**
      * Gets the project director attribute.

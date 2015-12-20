@@ -158,6 +158,7 @@ public class DisbursementVoucherDocument extends AccountingDocumentBase implemen
     protected boolean payeeAssigned = false;
     protected boolean editW9W8BENbox = false;
     protected boolean immediatePaymentIndicator = false;
+	protected boolean achSignUpStatusFlag;
 
     protected DocumentHeader financialDocument;
     protected PaymentDocumentationLocation disbVchrDocumentationLoc;
@@ -1557,6 +1558,22 @@ public class DisbursementVoucherDocument extends AccountingDocumentBase implemen
     }
 
     /**
+	 * @return the achSignUpStatusFlag
+	 */
+	public boolean isAchSignUpStatusFlag() {
+		return achSignUpStatusFlag;
+	}
+
+
+	/**
+	 * @param achSignUpStatusFlag the achSignUpStatusFlag to set
+	 */
+	public void setAchSignUpStatusFlag(boolean achSignUpStatusFlag) {
+		this.achSignUpStatusFlag = achSignUpStatusFlag;
+	}
+
+
+	/**
      * @see org.kuali.rice.kns.document.DocumentBase#getDocumentTitle()
      */
     @Override

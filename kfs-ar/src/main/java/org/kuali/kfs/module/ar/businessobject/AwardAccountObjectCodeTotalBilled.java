@@ -32,7 +32,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
  */
 public class AwardAccountObjectCodeTotalBilled extends PersistableBusinessObjectBase {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String accountNumber;
     private String chartOfAccountsCode;
     private String financialObjectCode;
@@ -48,7 +48,7 @@ public class AwardAccountObjectCodeTotalBilled extends PersistableBusinessObject
      * 
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -58,7 +58,7 @@ public class AwardAccountObjectCodeTotalBilled extends PersistableBusinessObject
      * 
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

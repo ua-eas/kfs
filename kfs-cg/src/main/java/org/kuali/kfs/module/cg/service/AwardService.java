@@ -32,6 +32,6 @@ public interface AwardService {
      * @param proposalNumber
      * @return
      */
-    public Award getByPrimaryId(Long proposalNumber);
+    public Award getByPrimaryId(String proposalNumber);
 
 }

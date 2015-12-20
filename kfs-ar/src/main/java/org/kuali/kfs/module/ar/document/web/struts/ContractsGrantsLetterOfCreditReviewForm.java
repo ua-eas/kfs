@@ -18,13 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsLetterOfCreditReviewDetail;
@@ -33,9 +30,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Form Class for Contracts & Grants LetterOfCredit Review Document.
@@ -117,16 +117,16 @@ public class ContractsGrantsLetterOfCreditReviewForm extends FinancialSystemTran
      *
      * @return Returns the proposalNumbers.
      */
-    public List<Long> getProposalNumbers() {
+    public List<String> getProposalNumbers() {
         // To get the list of all proposal numbers from the review details.
         ContractsGrantsLetterOfCreditReviewDocument contractsGrantsLetterOfCreditReviewDocument = (ContractsGrantsLetterOfCreditReviewDocument) getDocument();
-        Set<Long> pps = new HashSet<Long>();
+        Set<String> pps = new HashSet<>();
 
         for (ContractsGrantsLetterOfCreditReviewDetail detail : contractsGrantsLetterOfCreditReviewDocument.getAccountReviewDetails()) {
             pps.add(detail.getProposalNumber());
         }
 
-        List<Long> ppNos = new ArrayList<Long>(pps);
+        List<String> ppNos = new ArrayList<>(pps);
         Collections.sort(ppNos);
         return ppNos;
     }

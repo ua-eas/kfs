@@ -56,5 +56,5 @@ public interface ContractsGrantsInvoiceDocumentDao {
      * @param excludedInvoiceNumbers Collection of invoice numbers to exclude from the result set.
      * @return Returns the invoices which matches the given field values.
      */
-    public Collection<ContractsGrantsInvoiceDocument> getCollectionEligibleContractsGrantsInvoicesByProposalNumber(Long proposalNumber);
+    public Collection<ContractsGrantsInvoiceDocument> getCollectionEligibleContractsGrantsInvoicesByProposalNumber(String proposalNumber);
 }

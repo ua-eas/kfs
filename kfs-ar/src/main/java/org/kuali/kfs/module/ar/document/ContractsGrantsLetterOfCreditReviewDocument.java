@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
@@ -373,7 +374,7 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
         }
 
         // To sum up amount to draw values.
-        Set<Long> proposalNumberSet = new HashSet<Long>();
+        Set<String> proposalNumberSet = new HashSet<>();
         for (ContractsGrantsLetterOfCreditReviewDetail detail : getHeaderReviewDetails()) {
             // Adding the awards to a set, to get unique values.
             proposalNumberSet.add(detail.getProposalNumber());
@@ -383,16 +384,16 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
         // 2. create invoices. - independent whether the amounts were changed or not.
 
         // To get the list of awards from the proposal Number set.
-        for (Long proposalNumber : proposalNumberSet) {
+        for (String proposalNumber : proposalNumberSet) {
             KualiDecimal totalAmountToDraw = KualiDecimal.ZERO;
             for (ContractsGrantsLetterOfCreditReviewDetail detail : getAccountReviewDetails()) {// To identify the header row
-                if (ObjectUtils.isNotNull(detail.getAccountDescription()) && detail.getProposalNumber().equals(proposalNumber)) {
+                if (ObjectUtils.isNotNull(detail.getAccountDescription()) && StringUtils.equals(detail.getProposalNumber(), proposalNumber)) {
                     totalAmountToDraw = totalAmountToDraw.add(detail.getAmountToDraw());
                 }
             }
 
             for (ContractsGrantsLetterOfCreditReviewDetail detail : getHeaderReviewDetails()) {// To identify the header row
-                if (ObjectUtils.isNotNull(detail.getAgencyNumber()) && ObjectUtils.isNull(detail.getAccountDescription()) && detail.getProposalNumber().equals(proposalNumber)) {
+                if (ObjectUtils.isNotNull(detail.getAgencyNumber()) && ObjectUtils.isNull(detail.getAccountDescription()) && StringUtils.equals(detail.getProposalNumber(), proposalNumber)) {
                     detail.setAmountToDraw(totalAmountToDraw);
                 }
             }

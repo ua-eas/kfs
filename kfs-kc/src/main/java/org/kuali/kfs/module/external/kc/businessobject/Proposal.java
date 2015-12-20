@@ -19,19 +19,19 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
+import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
+import org.kuali.kra.external.award.ProposalDTO;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.sql.Timestamp;
-
-import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
-import org.kuali.kfs.module.external.kc.dto.ProposalDTO;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * See functional documentation.
  */
 public class Proposal implements ContractAndGrantsProposal {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean proposalFederalPassThroughIndicator;
     private String grantNumber;
     private String federalPassThroughAgencyNumber;
@@ -60,12 +60,18 @@ public class Proposal implements ContractAndGrantsProposal {
     private String proposalProjectTitle;
 
     public Proposal(ProposalDTO kcProposal) {
-        setProposalNumber(kcProposal.getProposalNumber() == null ? null : Long.valueOf(kcProposal.getProposalNumber()));
+        setProposalNumber(kcProposal.getProposalNumber());
         setProposalBeginningDate(new Date(kcProposal.getRequestedStartDateTotal().getDate()));
         setProposalEndingDate(new Date(kcProposal.getRequestedEndDateTotal().getDate()));
-        setProposalTotalAmount(kcProposal.getProposalTotalAmount());
-        setProposalDirectCostAmount(kcProposal.getTotalDirectCostTotal());
-        setProposalIndirectCostAmount(kcProposal.getTotalIndirectCostTotal());
+        if (kcProposal.getProposalTotalAmount() != null) {
+            setProposalTotalAmount(new KualiDecimal(kcProposal.getProposalTotalAmount()));
+        }
+        if (kcProposal.getTotalDirectCostTotal() != null) {
+            setProposalDirectCostAmount(new KualiDecimal(kcProposal.getTotalDirectCostTotal()));
+        }
+        if (kcProposal.getTotalIndirectCostTotal() != null) {
+            setProposalIndirectCostAmount(new KualiDecimal(kcProposal.getTotalIndirectCostTotal()));
+        }
         setProposalLastUpdateDate(new Timestamp(kcProposal.getProposalLastUpdateDate().getDate()));
         setProposalAwardTypeCode(kcProposal.getAwardTypeCode().toString());
         setAgencyNumber(kcProposal.getSponsorCode());
@@ -84,7 +90,7 @@ public class Proposal implements ContractAndGrantsProposal {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -93,7 +99,7 @@ public class Proposal implements ContractAndGrantsProposal {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

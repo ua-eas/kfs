@@ -27,14 +27,14 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 public enum InvoiceDetailAccountObjectCodeFixture {
 
 
-    DETAIL_ACC_OBJ_CD1("6320", new Long(80072), "9000000", "IN", "2008", "SAL", KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO),
-    DETAIL_ACC_OBJ_CD2("6320", new Long(80072), "9000001", "IN", "2408", "EMPB", KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO),
-    DETAIL_ACC_OBJ_CD3("6320", new Long(80072), "6044901", "BA", "2408", "EMPB", KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO),
-    DETAIL_ACC_OBJ_CD4("6320", new Long(80072), "2336320", "BL", "2008", "SAL", new KualiDecimal(5.0), KualiDecimal.ZERO, KualiDecimal.ZERO),
-    DETAIL_ACC_OBJ_CD5("6320", new Long(80072), "1292016", "IN", "2408", "EMPB", new KualiDecimal(7.0), KualiDecimal.ZERO, KualiDecimal.ZERO);
+    DETAIL_ACC_OBJ_CD1("6320", "80072", "9000000", "IN", "2008", "SAL", KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO),
+    DETAIL_ACC_OBJ_CD2("6320", "80072", "9000001", "IN", "2408", "EMPB", KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO),
+    DETAIL_ACC_OBJ_CD3("6320", "80072", "6044901", "BA", "2408", "EMPB", KualiDecimal.ZERO, KualiDecimal.ZERO, KualiDecimal.ZERO),
+    DETAIL_ACC_OBJ_CD4("6320", "80072", "2336320", "BL", "2008", "SAL", new KualiDecimal(5.0), KualiDecimal.ZERO, KualiDecimal.ZERO),
+    DETAIL_ACC_OBJ_CD5("6320", "80072", "1292016", "IN", "2408", "EMPB", new KualiDecimal(7.0), KualiDecimal.ZERO, KualiDecimal.ZERO);
 
     private String documentNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String accountNumber;
     private String chartOfAccountsCode;
     private String financialObjectCode;
@@ -43,7 +43,7 @@ public enum InvoiceDetailAccountObjectCodeFixture {
     private KualiDecimal cumulativeExpenditures = KualiDecimal.ZERO;
     private KualiDecimal totalBilled = KualiDecimal.ZERO;
 
-    private InvoiceDetailAccountObjectCodeFixture(String documentNumber, Long proposalNumber, String accountNumber, String chartOfAccountsCode, String financialObjectCode, String categoryCode, KualiDecimal currentExpenditures, KualiDecimal cumulativeExpenditures, KualiDecimal totalBilled) {
+    private InvoiceDetailAccountObjectCodeFixture(String documentNumber, String proposalNumber, String accountNumber, String chartOfAccountsCode, String financialObjectCode, String categoryCode, KualiDecimal currentExpenditures, KualiDecimal cumulativeExpenditures, KualiDecimal totalBilled) {
         this.documentNumber = documentNumber;
         this.proposalNumber = proposalNumber;
         this.accountNumber = accountNumber;

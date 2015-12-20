@@ -16,21 +16,26 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.award;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.kuali.kra.external.awardpayment.AwardMethodOfPaymentDTO;
+import org.kuali.kra.external.frequency.FrequencyDto;
+import org.kuali.kra.external.sponsor.SponsorDTO;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "awardDTO", propOrder = {
     "awardId",
     "awardNumber",
+    "accountNumber",
+    "chartOfAccountsCode",
     "proposal",
     "awardStartDate",
     "awardEndDate",
@@ -42,6 +47,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
     "awardCreateTimestamp",
     "proposalAwardTypeCode",
     "awardStatusCode",
+    "active",
     "sponsorCode",
     "title",
     "awardCommentText",
@@ -61,7 +67,10 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
     "methodOfPayment",
     "invoiceBillingFrequency",
     "excludedFromInvoicing",
-    "excludedFromInvoicingReason"
+    "excludedFromInvoicingReason",
+    "sequenceNumber",
+    "sequenceStatus",
+    "awardAccounts"
 })
 public class AwardDTO implements Serializable {
 
@@ -69,17 +78,20 @@ public class AwardDTO implements Serializable {
 
 	private Long awardId;
 	private String awardNumber;
+    private String accountNumber;
+    private String chartOfAccountsCode;
     private ProposalDTO proposal;
 	private Date awardStartDate;
 	private Date awardEndDate;
-	private KualiDecimal awardTotalAmount;
+	private BigDecimal awardTotalAmount;
     private String awardDocumentNumber;
     private Date awardLastUpdateDate;
-    private KualiDecimal awardDirectCostAmount;
-    private KualiDecimal awardIndirectCostAmount;
+    private BigDecimal awardDirectCostAmount;
+    private BigDecimal awardIndirectCostAmount;
     private Date awardCreateTimestamp;
     private String proposalAwardTypeCode;
     private String awardStatusCode;
+    private boolean active;
     private String sponsorCode;
     private String title;
     private String awardCommentText;
@@ -97,9 +109,12 @@ public class AwardDTO implements Serializable {
     private String stopWorkReason;
     private boolean excludedFromInvoicing;
     private String excludedFromInvoicingReason;
-    private KualiDecimal minInvoiceAmount;
+    private BigDecimal minInvoiceAmount;
     private AwardMethodOfPaymentDTO methodOfPayment;
     private FrequencyDto invoiceBillingFrequency;
+    private Integer sequenceNumber;
+    private String sequenceStatus;
+    private List<AwardAccountDTO> awardAccounts;
 
 	public Long getAwardId() {
 		return awardId;
@@ -125,10 +140,10 @@ public class AwardDTO implements Serializable {
 	public void setAwardEndDate(Date awardEndDate) {
 		this.awardEndDate = awardEndDate;
 	}
-	public KualiDecimal getAwardTotalAmount() {
+	public BigDecimal getAwardTotalAmount() {
 		return awardTotalAmount;
 	}
-	public void setAwardTotalAmount(KualiDecimal awardTotalAmount) {
+	public void setAwardTotalAmount(BigDecimal awardTotalAmount) {
 		this.awardTotalAmount = awardTotalAmount;
 	}
 	public String getAwardDocumentNumber() {
@@ -143,16 +158,16 @@ public class AwardDTO implements Serializable {
 	public void setAwardLastUpdateDate(Date awardLastUpdateDate) {
 		this.awardLastUpdateDate = awardLastUpdateDate;
 	}
-	public KualiDecimal getAwardDirectCostAmount() {
+	public BigDecimal getAwardDirectCostAmount() {
 		return awardDirectCostAmount;
 	}
-	public void setAwardDirectCostAmount(KualiDecimal awardDirectCostAmount) {
+	public void setAwardDirectCostAmount(BigDecimal awardDirectCostAmount) {
 		this.awardDirectCostAmount = awardDirectCostAmount;
 	}
-	public KualiDecimal getAwardIndirectCostAmount() {
+	public BigDecimal getAwardIndirectCostAmount() {
 		return awardIndirectCostAmount;
 	}
-	public void setAwardIndirectCostAmount(KualiDecimal awardIndirectCostAmount) {
+	public void setAwardIndirectCostAmount(BigDecimal awardIndirectCostAmount) {
 		this.awardIndirectCostAmount = awardIndirectCostAmount;
 	}
 	public Date getAwardCreateTimestamp() {
@@ -173,7 +188,16 @@ public class AwardDTO implements Serializable {
 	public void setAwardStatusCode(String awardStatusCode) {
 		this.awardStatusCode = awardStatusCode;
 	}
-	public String getUnitNumber() {
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getUnitNumber() {
 		return unitNumber;
 	}
 	public void setUnitNumber(String unitNumber) {
@@ -257,10 +281,10 @@ public class AwardDTO implements Serializable {
 	public void setAutoApproveInvoice(boolean autoApproveInvoice) {
 		this.autoApproveInvoice = autoApproveInvoice;
 	}
-	public KualiDecimal getMinInvoiceAmount() {
+	public BigDecimal getMinInvoiceAmount() {
 		return minInvoiceAmount;
 	}
-	public void setMinInvoiceAmount(KualiDecimal minInvoiceAmount) {
+	public void setMinInvoiceAmount(BigDecimal minInvoiceAmount) {
 		this.minInvoiceAmount = minInvoiceAmount;
 	}
 	public String getAwardNumber() {
@@ -299,4 +323,44 @@ public class AwardDTO implements Serializable {
 	public void setExcludedFromInvoicingReason(String excludedFromInvoicingReason) {
 		this.excludedFromInvoicingReason = excludedFromInvoicingReason;
 	}
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getChartOfAccountsCode() {
+        return chartOfAccountsCode;
+    }
+
+    public void setChartOfAccountsCode(String chartOfAccountsCode) {
+        this.chartOfAccountsCode = chartOfAccountsCode;
+    }
+
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public String getSequenceStatus() {
+        return sequenceStatus;
+    }
+
+    public void setSequenceStatus(String sequenceStatus) {
+        this.sequenceStatus = sequenceStatus;
+    }
+
+    public List<AwardAccountDTO> getAwardAccounts() {
+        return awardAccounts;
+    }
+
+    public void setAwardAccounts(List<AwardAccountDTO> awardAccounts) {
+        this.awardAccounts = awardAccounts;
+    }
 }

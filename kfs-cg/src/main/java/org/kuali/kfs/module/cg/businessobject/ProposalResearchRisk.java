@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
  */
 public class ProposalResearchRisk extends PersistableBusinessObjectBase implements MutableInactivatable {
     private String researchRiskTypeCode;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean active;
 
     private Proposal proposal;
@@ -106,7 +106,7 @@ public class ProposalResearchRisk extends PersistableBusinessObjectBase implemen
      *
      * @return the id of the {@link Proposal} related to the {@link ResearchRisk}.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -115,7 +115,7 @@ public class ProposalResearchRisk extends PersistableBusinessObjectBase implemen
      *
      * @param the id of the {@link Proposal} related to the {@link ResearchRisk}.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

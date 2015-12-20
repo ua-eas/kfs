@@ -42,7 +42,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 
-	<field name="proposalNumber" class="java.lang.Long"/>
+	<field name="proposalNumber" class="java.lang.String"/>
 	<field name="invoiceType" class="java.lang.String"/>
 	<field name="invoiceDate" class="java.util.Date"/>
 	<field name="invoiceDueDate" class="java.util.Date"/>
@@ -302,7 +302,7 @@
 					<textElement>
 						<font fontName="SansSerif" size="7" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

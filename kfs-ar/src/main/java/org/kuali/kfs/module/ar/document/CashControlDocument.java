@@ -69,7 +69,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
     protected static Logger LOG = org.apache.log4j.Logger.getLogger(CashControlDocument.class);
 
     protected String referenceFinancialDocumentNumber;
-    protected Long proposalNumber;// When LOC Type = Award
+    protected String proposalNumber;// When LOC Type = Award
     protected Integer universityFiscalYear;
     protected String universityFiscalPeriodCode;
     protected String customerPaymentMediumCode;
@@ -759,7 +759,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -768,7 +768,7 @@ public class CashControlDocument extends GeneralLedgerPostingDocumentBase implem
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

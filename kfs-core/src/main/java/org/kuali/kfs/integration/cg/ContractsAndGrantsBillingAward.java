@@ -18,25 +18,20 @@
  */
 package org.kuali.kfs.integration.cg;
 
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.identity.Person;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kim.api.identity.Person;
 
 /**
  * Integration interface for Award (specific to CGB functionality)
  */
 public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward {
 
-    /**
-     * Gets the proposalNumber attribute.
-     *
-     * @return Returns the proposalNumber.
-     */
     @Override
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the proposal attribute.
@@ -45,6 +40,8 @@ public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward 
      */
     @Override
     public ContractAndGrantsProposal getProposal();
+
+    public String getObjectId();
 
     /**
      * Gets the awardInquiryTitle attribute.

@@ -376,10 +376,10 @@ public class DunningLetterServiceImpl implements DunningLetterService {
      * @param invoices the invoices to Map to agency number
      * @return the Map of the invoices
      */
-    protected Map<Long, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices) {
-        Map<Long, List<ContractsGrantsInvoiceDocument>> invoicesByAward = new HashMap<Long, List<ContractsGrantsInvoiceDocument>>();
+    protected Map<String, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices) {
+        Map<String, List<ContractsGrantsInvoiceDocument>> invoicesByAward = new HashMap<>();
         for (ContractsGrantsInvoiceDocument invoice : invoices) {
-            Long proposalNumber = invoice.getInvoiceGeneralDetail().getProposalNumber();
+            String proposalNumber = invoice.getInvoiceGeneralDetail().getProposalNumber();
             if (invoicesByAward.containsKey(proposalNumber)) {
                 invoicesByAward.get(proposalNumber).add(invoice);
             }

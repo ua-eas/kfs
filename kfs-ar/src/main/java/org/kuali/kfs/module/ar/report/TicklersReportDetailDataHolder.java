@@ -18,12 +18,12 @@
  */
 package org.kuali.kfs.module.ar.report;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.TicklersReport;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.sql.Date;
 
 /**
  * Data holder class for Ticklers Report.
@@ -32,7 +32,7 @@ public class TicklersReportDetailDataHolder {
 
     private Date followupDate;
     private String activityCode;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String agencyNumber;
     private String accountNumber;
 
@@ -117,7 +117,7 @@ public class TicklersReportDetailDataHolder {
      *
      * @return Returns the proposal number.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -126,7 +126,7 @@ public class TicklersReportDetailDataHolder {
      *
      * @param proposalNumber The proposal number to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

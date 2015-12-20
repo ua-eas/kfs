@@ -180,7 +180,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
             addAwardHeaders(table);
             if (CollectionUtils.isNotEmpty(locDocument.getHeaderReviewDetails()) && CollectionUtils.isNotEmpty(locDocument.getAccountReviewDetails())) {
                 for (ContractsGrantsLetterOfCreditReviewDetail item : locDocument.getHeaderReviewDetails()) {
-                    table.addCell(Long.toString(item.getProposalNumber()));
+                    table.addCell(item.getProposalNumber());
                     table.addCell(item.getAwardDocumentNumber());
                     table.addCell(item.getAgencyNumber());
                     table.addCell(item.getCustomerNumber());

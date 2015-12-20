@@ -16,36 +16,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.frequency;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
+public class FrequencyDto implements Serializable {
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sponsorCriteriaDto", propOrder = {
-    "sponsorCode",
-    "customerNumber"
-})
-public class SponsorCriteriaDto implements Serializable {
+    private static final long serialVersionUID = -115792438972874644L;
 
-	private static final long serialVersionUID = -2460442390785148763L;
+	private String frequencyCode;
+	private String description;
 
-	private String sponsorCode;
-	private String customerNumber;
-
-	public String getSponsorCode() {
-		return sponsorCode;
+	public String getFrequencyCode() {
+		return frequencyCode;
 	}
-	public void setSponsorCode(String sponsorCode) {
-		this.sponsorCode = sponsorCode;
+	public void setFrequencyCode(String frequencyCode) {
+		this.frequencyCode = frequencyCode;
 	}
-	public String getCustomerNumber() {
-		return customerNumber;
+	public String getDescription() {
+		return description;
 	}
-	public void setCustomerNumber(String customerNumber) {
-		this.customerNumber = customerNumber;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

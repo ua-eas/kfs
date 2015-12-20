@@ -27,7 +27,7 @@ public interface CollectionsReport {
 
     public Long getEventId();
 
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     public String getInvoiceNumber();
 

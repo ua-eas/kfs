@@ -59,7 +59,7 @@
 		<property name="name" value="proposalNumber" />
 		<property name="maxLength" value="12" />
 		<property name="validationPattern">
-			<ref bean="NumericValidation" />
+      <bean parent="AlphaNumericValidation" p:allowDash="true" />
 		</property>
 		<property name="control">
 			<ref bean="HiddenControl" />

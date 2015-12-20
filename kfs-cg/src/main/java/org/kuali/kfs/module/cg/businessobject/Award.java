@@ -53,7 +53,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  */
 public class Award extends PersistableBusinessObjectBase implements MutableInactivatable, ContractsAndGrantsBillingAward {
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date awardBeginningDate;
     private Date awardEndingDate;
     private Date lastBilledDate;
@@ -251,7 +251,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
                 AwardOrganization awardOrg = new AwardOrganization();
                 // newCollectionRecord is set to true to allow deletion of this record after being populated from proposal
                 awardOrg.setNewCollectionRecord(true);
-                awardOrg.setProposalNumber(pOrg.getProposalNumber());
+                awardOrg.setProposalNumber(pOrg.getProposalNumber().toString());
                 awardOrg.setChartOfAccountsCode(pOrg.getChartOfAccountsCode());
                 awardOrg.setOrganizationCode(pOrg.getOrganizationCode());
                 awardOrg.setAwardPrimaryOrganizationIndicator(pOrg.isProposalPrimaryOrganizationIndicator());
@@ -303,7 +303,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -312,7 +312,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -417,8 +417,6 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      * CGAWD_TOT_AMT, a denormalized column that Kuali does not use but needs to maintain with this method because OJB bypasses the
      * getter.
      *
-     * @param persistenceBroker from OJB
-     * @throws PersistenceBrokerException Thrown by call to super.prePersist();
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#beforeInsert(org.apache.ojb.broker.PersistenceBroker)
      */
     @Override protected void prePersist() {
@@ -430,8 +428,6 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      * OJB calls this method as the first operation before this BO is updated to the database. The database contains CGAWD_TOT_AMT,
      * a denormalized column that Kuali does not use but needs to maintain with this method because OJB bypasses the getter.
      *
-     * @param persistenceBroker from OJB
-     * @throws PersistenceBrokerException Thrown by call to super.preUpdate();
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#beforeUpdate(org.apache.ojb.broker.PersistenceBroker)
      */
     @Override protected void preUpdate() {
@@ -1820,5 +1816,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
     public void setBoNotes(List boNotes) {
         this.boNotes = boNotes;
     }
+
+
 
 }

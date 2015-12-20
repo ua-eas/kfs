@@ -33,7 +33,7 @@ public class InvoiceAccountDetail extends PersistableBusinessObjectBase {
 
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InvoiceAccountDetail.class);
     private String documentNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private String contractControlAccountNumber;
@@ -68,7 +68,7 @@ public class InvoiceAccountDetail extends PersistableBusinessObjectBase {
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -77,7 +77,7 @@ public class InvoiceAccountDetail extends PersistableBusinessObjectBase {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

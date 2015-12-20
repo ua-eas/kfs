@@ -189,7 +189,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
     /**
      * Generates and saves a single Contracts & Grants Invoice Document based on the given award
      * @param awd the award to generate a Contracts & Grants Invoice Document for
-     * @param errLines a holder for error messages
+     * @param errorMessages a holder for error messages
      * @param accountDetails letter of credit details if we're creating via loc
      * @param locCreationType letter of credit creation type if we're creating via loc
      */
@@ -240,7 +240,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
     /**
      * Generates and saves Contracts & Grants Invoice Documents based on the given award's contract control accounts
      * @param awd the award with contract control accounts to build Contracts & Grants Invoice Documents from
-     * @param errLines a holder for error messages
+     * @param errorMessages a holder for error messages
      * @param accountDetails letter of credit details if we're creating via loc
      * @param locCreationType letter of credit creation type if we're creating via loc
      */
@@ -307,7 +307,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
     /**
      * Generates and saves Contracts & Grants Invoice Documents based on the award accounts of the passed in award
      * @param awd the award to build Contracts & Grants Invoice Documents from the award accounts on
-     * @param errLines a holder for error messages
+     * @param errorMessages a holder for error messages
      * @param accountDetails letter of credit details if we're creating via loc
      * @param locCreationType letter of credit creation type if we're creating via loc
      */
@@ -337,7 +337,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
      * @param validAwardAccounts the award accounts which should appear on the document
      * @param coaCode the chart code for the document
      * @param orgCode the organization code for the document
-     * @param errLines a List of error messages, to be appended to if there are errors in document generation
+     * @param errorMessages a List of error messages, to be appended to if there are errors in document generation
      * @param accountDetails letter of credit details if we're creating via loc
      * @param locCreationType letter of credit creation type if we're creating via loc
      */
@@ -575,7 +575,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
      * @param document the CINV document we're generating
      * @param balance the balance to update amounts by
      * @param award the award on the CINV document we're generating
-     * @param invoiceDetailAccountObjectsCodes the List of invoiceDetailObjectCodes to update one of
+     * @param invoiceDetailAccountObjectCodes the List of invoiceDetailObjectCodes to update one of
      * @param firstFiscalPeriod whether we're generating the CINV document in the fiscal fiscal period or not
      */
     protected void updateCategoryActualAmountsByBalance(ContractsGrantsInvoiceDocument document, Balance balance, ContractsAndGrantsBillingAward award, List<InvoiceDetailAccountObjectCode> invoiceDetailAccountObjectCodes, boolean firstFiscalPeriod) {
@@ -749,7 +749,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
     /**
      * Builds a list of InvoiceAddressDetails based on the customer associated with an Agency
      * @param agency the agency associated with the proposal we're building a CINV document for
-     * @param documentNumber the document number of the CINV document we're creating
+     * @param document the CINV document we're creating
      * @return a List of the generated invoice address details
      */
     protected List<InvoiceAddressDetail> buildInvoiceAddressDetailsFromAgency(ContractsAndGrantsBillingAgency agency, ContractsGrantsInvoiceDocument document) {
@@ -1137,10 +1137,10 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
      * @param bal the balance to get the account object code from
      * @param documentNumber the document number of the CINV doc being created
      * @param proposalNumber the proposal number associated with the award on the CINV document we're currently building
-     * @param costCategory the cost category associated with the balance
+     * @param category the cost category associated with the balance
      * @return the retrieved or constructed (if nothing was found in the database) InvoiceDetailAccountObjectCode object
      */
-    protected InvoiceDetailAccountObjectCode getInvoiceDetailAccountObjectCodeByBalanceAndCategory(List<InvoiceDetailAccountObjectCode> invoiceDetailAccountObjectCodes, Balance bal, String documentNumber, final Long proposalNumber, CostCategory category) {
+    protected InvoiceDetailAccountObjectCode getInvoiceDetailAccountObjectCodeByBalanceAndCategory(List<InvoiceDetailAccountObjectCode> invoiceDetailAccountObjectCodes, Balance bal, String documentNumber, final String proposalNumber, CostCategory category) {
         // Check if there is an existing invoice detail account object code existing (if there are more than one fiscal years)
         InvoiceDetailAccountObjectCode invoiceDetailAccountObjectCode = lookupInvoiceDetailAccountObjectCode(invoiceDetailAccountObjectCodes, bal, proposalNumber);
 
@@ -1168,7 +1168,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
      * @param proposalNumber the proposal number to match
      * @return the matching invoice detail account object code record, or null if no matching record can be found
      */
-    protected InvoiceDetailAccountObjectCode lookupInvoiceDetailAccountObjectCode(List<InvoiceDetailAccountObjectCode> invoiceDetailAccountObjectsCodes, Balance bal, final Long proposalNumber) {
+    protected InvoiceDetailAccountObjectCode lookupInvoiceDetailAccountObjectCode(List<InvoiceDetailAccountObjectCode> invoiceDetailAccountObjectsCodes, Balance bal, final String proposalNumber) {
         for (InvoiceDetailAccountObjectCode invoiceDetailAccountObjectCode : invoiceDetailAccountObjectsCodes) {
             if (StringUtils.equals(bal.getChartOfAccountsCode(), invoiceDetailAccountObjectCode.getChartOfAccountsCode())
                     && StringUtils.equals(bal.getAccountNumber(), invoiceDetailAccountObjectCode.getAccountNumber())
@@ -1414,11 +1414,11 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImpl implements Contract
      */
     @Override
     public Collection<ContractsAndGrantsBillingAward> validateAwards(Collection<ContractsAndGrantsBillingAward> awards, Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs, String errOutputFile, String creationProcessTypeCode) {
-        Map<ContractsAndGrantsBillingAward, List<String>> invalidGroup = new HashMap<ContractsAndGrantsBillingAward, List<String>>();
+        Map<ContractsAndGrantsBillingAward, List<String>> invalidGroup = new HashMap<>();
         List<ContractsAndGrantsBillingAward> qualifiedAwards = new ArrayList<ContractsAndGrantsBillingAward>();
 
         if (ObjectUtils.isNull(contractsGrantsInvoiceDocumentErrorLogs)) {
-            contractsGrantsInvoiceDocumentErrorLogs = new ArrayList<ContractsGrantsInvoiceDocumentErrorLog>();
+            contractsGrantsInvoiceDocumentErrorLogs = new ArrayList<>();
         }
 
         performAwardValidation(awards, invalidGroup, qualifiedAwards);

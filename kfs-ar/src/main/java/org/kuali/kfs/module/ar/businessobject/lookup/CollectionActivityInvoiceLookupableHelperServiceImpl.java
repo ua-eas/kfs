@@ -65,7 +65,7 @@ public class CollectionActivityInvoiceLookupableHelperServiceImpl extends KualiL
         List<CollectionActivityInvoiceLookup> results = new ArrayList<CollectionActivityInvoiceLookup>();
         setBackLocation((String) fieldValues.get(KFSConstants.BACK_LOCATION));
         setDocFormKey((String) fieldValues.get(KFSConstants.DOC_FORM_KEY));
-        Long proposalNumber = new Long((String) fieldValues.get(KFSPropertyConstants.PROPOSAL_NUMBER));
+        String proposalNumber = (String) fieldValues.get(KFSPropertyConstants.PROPOSAL_NUMBER);
         Collection<ContractsGrantsInvoiceDocument> cgInvoices = getContractsGrantsCollectionActivityDocumentService().retrieveCollectionActivityEligibleContractsGrantsInvoicesByProposalNumber(proposalNumber);
 
         for (ContractsGrantsInvoiceDocument invoiceDocument : cgInvoices) {

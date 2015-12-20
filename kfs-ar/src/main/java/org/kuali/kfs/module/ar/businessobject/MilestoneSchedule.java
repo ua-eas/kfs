@@ -42,7 +42,7 @@ public class MilestoneSchedule extends PersistableBusinessObjectBase implements 
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MilestoneSchedule.class);
 
     private static final String MILESTONE_SCHEDULE_INQUIRY_TITLE_PROPERTY = "message.inquiry.milestone.schedule.title";
-    private Long proposalNumber;
+    private String proposalNumber;
 
     private String milestoneScheduleInquiryTitle;
 
@@ -71,7 +71,7 @@ public class MilestoneSchedule extends PersistableBusinessObjectBase implements 
      * @return Returns the proposalNumber.
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -81,7 +81,7 @@ public class MilestoneSchedule extends PersistableBusinessObjectBase implements 
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
 
         this.proposalNumber = proposalNumber;
     }

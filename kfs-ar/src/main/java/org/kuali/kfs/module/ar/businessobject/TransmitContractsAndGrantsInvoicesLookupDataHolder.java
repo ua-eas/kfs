@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.Date;
-
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.Date;
 
 /**
  * Lookup Data Holder class for Transmit Contracts & Grants Invoices.
@@ -36,7 +36,7 @@ public class TransmitContractsAndGrantsInvoicesLookupDataHolder extends Transien
     private String invoiceInitiatorPrincipalName;
     private Date invoicePrintDate;
     private String invoiceTransmissionMethodCode;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String invoiceAmount;
     private String documentNumber;
 
@@ -85,11 +85,11 @@ public class TransmitContractsAndGrantsInvoicesLookupDataHolder extends Transien
         this.invoiceTransmissionMethodCode = invoiceTransmissionMethodCode;
     }
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

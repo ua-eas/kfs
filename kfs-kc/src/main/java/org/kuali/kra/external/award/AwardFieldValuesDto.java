@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.award;
 
 public class AwardFieldValuesDto {
 
@@ -25,6 +25,7 @@ public class AwardFieldValuesDto {
 	private String chartOfAccounts;
 	private String accountNumber;
 	private String principalInvestigatorId;
+    private String fundManagerId;
 
 	public Long getAwardId() {
 		return awardId;
@@ -56,4 +57,10 @@ public class AwardFieldValuesDto {
 	public void setPrincipalInvestigatorId(String principalInvestigatorId) {
 		this.principalInvestigatorId = principalInvestigatorId;
 	}
+    public String getFundManagerId() {
+        return fundManagerId;
+    }
+    public void setFundManagerId(String fundManagerId) {
+        this.fundManagerId = fundManagerId;
+    }
 }

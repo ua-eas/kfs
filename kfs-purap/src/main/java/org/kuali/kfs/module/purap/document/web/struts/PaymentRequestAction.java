@@ -28,6 +28,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PREQDocumentsStrings;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
@@ -46,23 +53,19 @@ import org.kuali.kfs.module.purap.document.validation.event.AttributedContinuePu
 import org.kuali.kfs.module.purap.document.validation.event.AttributedPreCalculateAccountsPayableEvent;
 import org.kuali.kfs.module.purap.service.PurapAccountingService;
 import org.kuali.kfs.module.purap.util.PurQuestionCallback;
+import org.kuali.kfs.pdp.PdpConstants.PayeeIdTypeCodes;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.PayeeACHService;
 import org.kuali.kfs.sys.service.UniversityDateService;
+import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Struts Action for Payment Request document.
@@ -185,10 +188,26 @@ public class PaymentRequestAction extends AccountsPayableActionBase {
 
         // update the counts on the form
         preqForm.updateItemCounts();
+        
+        // determine what is the ACH flag for the vendor. 
+        updateAchSignupStatusFlagForPayee(paymentRequestDocument);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
+	private void updateAchSignupStatusFlagForPayee(PaymentRequestDocument preqDoc) {
+		VendorDetail vendorDetail = preqDoc.getVendorDetail();
+
+		boolean signedupForACH = false;
+		if (vendorDetail != null) {
+			vendorDetail.getVendorNumber();
+			String payeeTypeCode = PayeeIdTypeCodes.VENDOR_ID;
+			String payeeIdNumber = vendorDetail.getVendorNumber();
+			signedupForACH = SpringContext.getBean(PayeeACHService.class).isPayeeSignedUpForACH(payeeTypeCode, payeeIdNumber);
+		}
+		
+		preqDoc.setAchSignUpStatusFlag(signedupForACH);
+	}
 
     /**
      * Clears the initial fields on the <code>PaymentRequestDocument</code> which should be accessible from the given form.

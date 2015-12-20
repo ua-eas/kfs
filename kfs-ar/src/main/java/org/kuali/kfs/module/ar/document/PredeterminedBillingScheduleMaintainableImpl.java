@@ -18,13 +18,14 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT;
-import static org.kuali.kfs.sys.KFSPropertyConstants.NEW_MAINTAINABLE_OBJECT;
-
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -36,13 +37,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT;
+import static org.kuali.kfs.sys.KFSPropertyConstants.NEW_MAINTAINABLE_OBJECT;
 
 /**
  * Methods for the Predetermined Billing Schedule maintenance document UI.
@@ -118,7 +118,7 @@ public class PredeterminedBillingScheduleMaintainableImpl extends FinancialSyste
     @Override
     public List getSections(MaintenanceDocument document, Maintainable oldMaintainable) {
         List<Section> sections = super.getSections(document, oldMaintainable);
-        Long proposalNumber = getPredeterminedBillingSchedule().getProposalNumber();
+        String proposalNumber = getPredeterminedBillingSchedule().getProposalNumber();
 
         for (Section section : sections) {
             String sectionId = section.getSectionId();
@@ -132,11 +132,10 @@ public class PredeterminedBillingScheduleMaintainableImpl extends FinancialSyste
 
     /**
      * Sets the Bill in the passed in section to be readonly if it has been copied to a CG Invoice doc.
-     *
-     * @param section Bill section to review and possibly set readonly
+     *  @param section Bill section to review and possibly set readonly
      * @param proposalNumber used to look for CG Invoice docs
      */
-    protected void prepareBillsTab(Section section, Long proposalNumber) {
+    protected void prepareBillsTab(Section section, String proposalNumber) {
         for (Row row : section.getRows()) {
             for (Field field : row.getFields()) {
                 if (field.getCONTAINER().equalsIgnoreCase(field.getFieldType())) {

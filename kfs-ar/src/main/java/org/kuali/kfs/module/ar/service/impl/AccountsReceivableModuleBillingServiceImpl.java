@@ -76,7 +76,7 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
      * @return
      */
     @Override
-    public KualiDecimal calculateTotalPaymentsToDateByAward(Long proposalNumber) {
+    public KualiDecimal calculateTotalPaymentsToDateByAward(String proposalNumber) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
@@ -110,8 +110,8 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasPredeterminedBillingSchedule(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasPredeterminedBillingSchedule(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         PredeterminedBillingSchedule schedule = getBusinessObjectService().findByPrimaryKey(PredeterminedBillingSchedule.class, map);
@@ -119,8 +119,8 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasMilestoneSchedule(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasMilestoneSchedule(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         MilestoneSchedule schedule = getBusinessObjectService().findByPrimaryKey(MilestoneSchedule.class, map);
@@ -128,8 +128,8 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasActiveBills(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasActiveBills(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         PredeterminedBillingSchedule schedule = getBusinessObjectService().findByPrimaryKey(PredeterminedBillingSchedule.class, map);
@@ -145,8 +145,8 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
     }
 
     @Override
-    public boolean hasActiveMilestones(Long proposalNumber) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public boolean hasActiveMilestones(String proposalNumber) {
+        Map<String, Object> map = new HashMap<>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
         MilestoneSchedule schedule = getBusinessObjectService().findByPrimaryKey(MilestoneSchedule.class, map);

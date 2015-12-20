@@ -56,14 +56,15 @@
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsInstrumentType" value="org.kuali.kfs.module.external.kc.businessobject.InstrumentType"/>
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency" value="org.kuali.kfs.module.external.kc.businessobject.BillingFrequency"/>
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector" value="org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector" />
+                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager" value="org.kuali.kfs.module.external.kc.businessobject.AwardFundManager" />
              </map>
         </property>
         <property name="externalizableBusinessObjectServiceImplementations">
              <map>
-	            <entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO" value="institutionalUnitService"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.BudgetCategoryDTO" value="budgetCategoryService"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO" value="cfdaNumberService"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.AwardAccount" value="awardAccountService"/>       			
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO" value="institutionalUnitService"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.BudgetCategoryDTO" value="budgetCategoryService"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO" value="cfdaNumberService"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.AwardAccount" value="awardAccountService"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.Agency" value="sponsorWebService"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.AgencyAddress" value="sponsorAddressWebService"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.Award" value="awardWebService"/>
@@ -72,17 +73,17 @@
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="letterOfCreditFundService"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.BillingFrequency" value="billingFrequencyService" />
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector" value="awardProjectDirectorService" />
-
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.AwardFundManager" value="awardFundManagerService" />
              </map>
         </property>
         <property name="kfsToKcInquiryUrlClassMapping">
              <map>
-	            <entry key="org.kuali.kfs.module.external.kc.businessobject.Award" value="org.kuali.kra.award.home.Award"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.Proposal" value="org.kuali.kra.institutionalproposal.home.InstitutionalProposal"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.Agency" value="org.kuali.kra.bo.Sponsor"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.AgencyAddress" value="org.kuali.kra.bo.Rolodex"/>
-      			<entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO" value="org.kuali.kra.bo.Unit"/>
-      			<entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO" value="org.kuali.kra.award.home.CFDA"/>
+	              <entry key="org.kuali.kfs.module.external.kc.businessobject.Award" value="org.kuali.kra.award.home.Award"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.Proposal" value="org.kuali.kra.institutionalproposal.home.InstitutionalProposal"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.Agency" value="org.kuali.kra.bo.Sponsor"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.AgencyAddress" value="org.kuali.kra.bo.Rolodex"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO" value="org.kuali.kra.bo.Unit"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO" value="org.kuali.kra.award.home.CFDA"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.InstrumentType" value="org.kuali.kra.award.home.AwardType"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFundGroup" value="org.kuali.kra.award.home.AwardBasisOfPayment"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="org.kuali.kra.award.home.AwardMethodOfPayment"/>
@@ -92,13 +93,13 @@
         </property>        
         <property name="kfsToKcInquiryUrlParameterMapping">
              <map>
-	            <entry key="org.kuali.kfs.module.external.kc.businessobject.Award.proposalNumber" value="awardId"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.Proposal.proposalNumber" value="proposalId"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.Agency.agencyNumber" value="sponsorCode"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.Agency.primeAgencyNumber" value="sponsorCode"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.AgencyAddress.agencyAddressIdentifier" value="rolodexId"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO.unitNumber" value="unitNumber"/>
-       			<entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO.cfdaNumber" value="cfdaNumber"/>
+	              <entry key="org.kuali.kfs.module.external.kc.businessobject.Award.proposalNumber" value="awardId"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.Proposal.proposalNumber" value="proposalId"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.Agency.agencyNumber" value="sponsorCode"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.Agency.primeAgencyNumber" value="sponsorCode"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.AgencyAddress.agencyAddressIdentifier" value="rolodexId"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO.unitNumber" value="unitNumber"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO.cfdaNumber" value="cfdaNumber"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.InstrumentType.instrumentTypeCode" value="awardTypeCode"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFundGroup" value="basisOfPaymentCode"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="methodOfPaymentCode"/>    
@@ -218,6 +219,7 @@
       <property name="configurationService" ref="configurationService"/>
       <property name="parameterService" ref="parameterService"/>
       <property name="personService" ref="personService" />
+      <property name="businessObjectService" ref="businessObjectService"/>
     </bean>
 
     <bean id="awardTypeWebService" parent="awardTypeWebService-parentBean"/>
@@ -245,6 +247,11 @@
     <bean id="awardProjectDirectorService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AwardProjectDirectorServiceImpl" abstract="true">
     	<property name="awardService" ref="awardWebService"/>
     </bean>
+
+  <bean id="awardFundManagerService" parent="awardFundManagerService-parentBean"/>
+  <bean id="awardFundManagerService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.AwardFundManagerServiceImpl" abstract="true">
+    <property name="awardService" ref="awardWebService"/>
+  </bean>
     
     <bean id="contractsAndGrantsModuleBillingService" parent="contractsAndGrantsModuleBillingService-parentBean"/>
     <bean id="contractsAndGrantsModuleBillingService-parentBean" abstract="true" class="org.kuali.kfs.module.external.kc.service.impl.ContractsAndGrantsModuleBillingServiceImpl">

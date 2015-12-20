@@ -36,7 +36,7 @@ public class AwardOrganization extends PersistableBusinessObjectBase implements 
 
     private String chartOfAccountsCode;
     private String organizationCode;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean awardPrimaryOrganizationIndicator;
     private boolean active = true;
 
@@ -87,7 +87,7 @@ public class AwardOrganization extends PersistableBusinessObjectBase implements 
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -96,7 +96,7 @@ public class AwardOrganization extends PersistableBusinessObjectBase implements 
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

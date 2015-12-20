@@ -42,7 +42,7 @@ public class ContractsGrantsAwardBalancesReport extends TransientBusinessObjectB
 
     private KualiDecimal awardTotalAmountForReport;
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date awardBeginningDate;
     private Date awardEndingDate;
 
@@ -145,11 +145,11 @@ public class ContractsGrantsAwardBalancesReport extends TransientBusinessObjectB
         this.awardTotalAmountForReport = awardTotalAmountForReport;
     }
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
