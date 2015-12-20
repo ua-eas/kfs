@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.cg.fixture;
 
-import java.sql.Date;
-
 import org.kuali.kfs.module.cg.businessobject.AwardAccount;
+
+import java.sql.Date;
 
 /**
  * Fixture class for AwardAccount
  */
 public enum AwardAccountFixture {
 
-    AWD_ACCT_1(new Long(111), "BL", "1031400", false, null, null),
-    AWD_ACCT_2(new Long(111), "BL", "0142900", false, null, null);
+    AWD_ACCT_1("111", "BL", "1031400", false, null, null),
+    AWD_ACCT_2("111", "BL", "0142900", false, null, null);
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private boolean active = true;
@@ -38,7 +38,7 @@ public enum AwardAccountFixture {
     private Date currentLastBilledDate;
     private Date previousLastBilledDate;
 
-    private AwardAccountFixture(Long proposalNumber, String chartOfAccountsCode, String accountNumber, boolean finalBilledIndicator, Date currentLastBilledDate, Date previousLastBilledDate) {
+    private AwardAccountFixture(String proposalNumber, String chartOfAccountsCode, String accountNumber, boolean finalBilledIndicator, Date currentLastBilledDate, Date previousLastBilledDate) {
         this.proposalNumber = proposalNumber;
         this.chartOfAccountsCode = chartOfAccountsCode;
         this.accountNumber = accountNumber;

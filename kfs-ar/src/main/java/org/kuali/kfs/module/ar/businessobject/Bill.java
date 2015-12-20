@@ -31,7 +31,7 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
  */
 public class Bill extends BillBase implements MutableInactivatable {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean billed = false;
     private boolean active;
 
@@ -42,7 +42,7 @@ public class Bill extends BillBase implements MutableInactivatable {
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -51,7 +51,7 @@ public class Bill extends BillBase implements MutableInactivatable {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

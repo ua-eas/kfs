@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.module.cg.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.sql.Date;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Vector;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.Proposal;
 import org.kuali.kfs.module.cg.businessobject.defaultvalue.NextProposalNumberFinder;
@@ -37,11 +35,13 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Vector;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CloseServiceTest extends KualiTestBase {
@@ -389,7 +389,7 @@ public class CloseServiceTest extends KualiTestBase {
     private Proposal createProposal(Date proposalBeginningDate, Date proposalEndingDate, Date proposalSubmissionDate, Date proposalClosingDate) {
         // Create and save a proposal
         Proposal proposal = new Proposal();
-        proposal.setProposalNumber(NextProposalNumberFinder.getLongValue());
+        proposal.setProposalNumber(NextProposalNumberFinder.getLongValue().toString());
         // set required fields
         proposal.setAgencyNumber("12851");
         proposal.setProposalProjectTitle("Testing CG Close Process");

@@ -31,18 +31,18 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
  */
 public class Milestone extends MilestoneBase implements MutableInactivatable {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date milestoneExpectedCompletionDate;
     private boolean billed = false;
     private boolean active;
 
     private ContractsAndGrantsBillingAward award;
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

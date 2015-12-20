@@ -18,26 +18,27 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.net.MalformedURLException;
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.module.external.kc.businessobject.Award;
-import org.kuali.kfs.module.external.kc.dto.AwardBillingUpdateDto;
-import org.kuali.kfs.module.external.kc.dto.AwardBillingUpdateStatusDto;
-import org.kuali.kfs.module.external.kc.dto.AwardFieldValuesDto;
+import org.kuali.kra.external.award.AwardBillingUpdateDto;
+import org.kuali.kra.external.award.AwardBillingUpdateStatusDto;
+import org.kuali.kra.external.award.AwardFieldValuesDto;
 import org.kuali.kfs.module.external.kc.service.ExternalizableLookupableBusinessObjectService;
 import org.kuali.kfs.module.external.kc.webService.AwardWebSoapService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kra.external.award.AwardWebService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.net.MalformedURLException;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of Contracts & Grants module billing service which will allow AR to utilize KC functionality to perform CGB actions.
@@ -53,16 +54,19 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
     }
 
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(Long proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
         ContractsAndGrantsBillingAward award = currentAward;
 
         if (ObjectUtils.isNull(proposalNumber)) {
             award = null;
         } else {
-            if (ObjectUtils.isNull(currentAward) || !currentAward.getProposalNumber().equals(proposalNumber))  {
-                Map<String, Long> primaryKeys = new HashMap<>();
-                primaryKeys.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
-                award = (Award)awardService.findByPrimaryKey(primaryKeys);
+            if (ObjectUtils.isNull(currentAward) || !StringUtils.equals(currentAward.getProposalNumber(), proposalNumber))  {
+                Map<String, String> criteria = new HashMap<>();
+                criteria.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
+                List<Award> awards = (List<Award>)awardService.findMatching(criteria);
+                if (awards.size() > 0) {
+                    award = awards.get(0);
+                }
             }
         }
         return award;
@@ -101,12 +105,12 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
     }
 
     @Override
-    public void setLastBilledDateToAward(Long proposalNumber, Date lastBilledDate) {
+    public void setLastBilledDateToAward(String proposalNumber, Date lastBilledDate) {
         AwardBillingUpdateDto updateDto = new AwardBillingUpdateDto();
         updateDto.setDoLastBillDateUpdate(true);
         updateDto.setLastBillDate(lastBilledDate);
         AwardFieldValuesDto searchDto = new AwardFieldValuesDto();
-        searchDto.setAwardId(proposalNumber);
+        searchDto.setAwardId(Long.parseLong(proposalNumber));
         handleBillingStatusResult(getAwardWebService().updateAwardBillingStatus(searchDto, updateDto));
     }
 

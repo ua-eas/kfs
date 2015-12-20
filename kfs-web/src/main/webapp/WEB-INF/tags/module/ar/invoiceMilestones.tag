@@ -27,9 +27,8 @@
 		<c:set var="milestoneAttributes" value="${DataDictionary.Milestone.attributes}" />
 
 		<div class="tab-container" align="center">
-			<h3>Milestones</h3>
-			<table cellpadding=0 class="datatable" summary="Milestonessection">
-				<tr>
+			<table cellpadding=0 class="datatable standard" summary="Milestonessection">
+				<tr class="header">
 					<kul:htmlAttributeHeaderCell attributeEntry="${milestoneAttributes.milestoneNumber}" useShortLabel="false" />
 					<kul:htmlAttributeHeaderCell attributeEntry="${milestoneAttributes.milestoneDescription}" useShortLabel="false" />
 					<kul:htmlAttributeHeaderCell attributeEntry="${milestoneAttributes.milestoneActualCompletionDate}" useShortLabel="false" />
@@ -37,30 +36,44 @@
 				</tr>
 
 				<logic:iterate indexId="ctr" name="KualiForm" property="document.invoiceMilestones" id="milestone">
-					<tr>
-						<td class="datacell"><a
-							href="${ConfigProperties.application.url}/kr/inquiry.do?businessObjectClassName=org.kuali.kfs.module.ar.businessobject.Milestone&proposalNumber=${KualiForm.document.invoiceGeneralDetail.proposalNumber}&milestoneIdentifier=${KualiForm.document.invoiceMilestones[ctr].milestoneIdentifier}&methodToCall=start"
-							target="_blank"> <kul:htmlControlAttribute attributeEntry="${invoiceMilestoneAttributes.milestoneNumber}"
-									property="document.invoiceMilestones[${ctr}].milestoneNumber" readOnly="true" />
-						</a></td>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceMilestoneAttributes.milestoneDescription}"
-								property="document.invoiceMilestones[${ctr}].milestoneDescription" readOnly="true" /></td>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${milestoneAttributes.milestoneActualCompletionDate}"
-								property="document.invoiceMilestones[${ctr}].milestoneActualCompletionDate" readOnly="true" /></td>
-						<td class="datacell"><kul:htmlControlAttribute attributeEntry="${invoiceMilestoneAttributes.milestoneAmount}"
-								property="document.invoiceMilestones[${ctr}].milestoneAmount" readOnly="true" /></td>
-					</tr>
+					<tr class="${ctr % 2  == 0 ? 'highlight' : ''}">
+						<td class="datacell">
+                            <a
+                                href="${ConfigProperties.application.url}/kr/inquiry.do?businessObjectClassName=org.kuali.kfs.module.ar.businessobject.Milestone&proposalNumber=${KualiForm.document.invoiceGeneralDetail.proposalNumber}&milestoneIdentifier=${KualiForm.document.invoiceMilestones[ctr].milestoneIdentifier}&methodToCall=start"
+                                target="_blank">
 
+                                <kul:htmlControlAttribute
+                                        attributeEntry="${invoiceMilestoneAttributes.milestoneNumber}"
+									    property="document.invoiceMilestones[${ctr}].milestoneNumber"
+                                        readOnly="true" />
+						    </a>
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceMilestoneAttributes.milestoneDescription}"
+								    property="document.invoiceMilestones[${ctr}].milestoneDescription"
+                                    readOnly="true" />
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${milestoneAttributes.milestoneActualCompletionDate}"
+								    property="document.invoiceMilestones[${ctr}].milestoneActualCompletionDate"
+                                    readOnly="true" />
+                        </td>
+						<td class="datacell">
+                            <kul:htmlControlAttribute
+                                    attributeEntry="${invoiceMilestoneAttributes.milestoneAmount}"
+								    property="document.invoiceMilestones[${ctr}].milestoneAmount"
+                                    readOnly="true" />
+                        </td>
+					</tr>
 				</logic:iterate>
 
 				<tr>
-
 					<td colspan="3" style="text-align: right" class="datacell"><b>Total</b></td>
 					<td class="datacell"><b>${KualiForm.currentTotal }</b></td>
 				</tr>
-
 			</table>
 		</div>
 	</kul:tab>
-
 </c:if>

@@ -39,10 +39,10 @@ public class ContractsAndGrantsModuleBillingServiceNoOp implements ContractsAndG
     }
 
     /**
-     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService#updateAwardIfNecessary(java.lang.Long, org.kuali.kfs.integration.cg.ContractsAndGrantsAward)
+     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService#updateAwardIfNecessary(String, ContractsAndGrantsBillingAward)
      */
     @Override
-    public ContractsAndGrantsBillingAward updateAwardIfNecessary(Long proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
+    public ContractsAndGrantsBillingAward updateAwardIfNecessary(String proposalNumber, ContractsAndGrantsBillingAward currentAward ) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
         return null;
     }
@@ -58,11 +58,10 @@ public class ContractsAndGrantsModuleBillingServiceNoOp implements ContractsAndG
     }
 
     /**
-     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleUpdateService#setLastBilledDateToAward(java.lang.Long,
-     *      java.sql.Date)
+     * @see org.kuali.kfs.integration.cg.ContractsAndGrantsModuleUpdateService#setLastBilledDateToAward(String, java.sql.Date)
      */
     @Override
-    public void setLastBilledDateToAward(Long proposalNumber, Date lastBilledDate) {
+    public void setLastBilledDateToAward(String proposalNumber, Date lastBilledDate) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
 
     }

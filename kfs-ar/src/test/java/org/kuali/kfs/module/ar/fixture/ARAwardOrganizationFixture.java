@@ -25,18 +25,18 @@ import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
  */
 public enum ARAwardOrganizationFixture {
 
-    AWD_ORG1("BL", "PSY", new Long(11), true),
-    AWD_ORG2("BL", "AAAM", new Long(11), true),
-    AWD_ORG3("UA", "VPIT", new Long(11), true),
-    AWD_ORG4("BL", "MOTR", new Long(11), true);
+    AWD_ORG1("BL", "PSY", "11", true),
+    AWD_ORG2("BL", "AAAM", "11", true),
+    AWD_ORG3("UA", "VPIT", "11", true),
+    AWD_ORG4("BL", "MOTR", "11", true);
 
     private String chartOfAccountsCode;
     private String organizationCode;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean awardPrimaryOrganizationIndicator;
     private boolean active = true;
 
-    private ARAwardOrganizationFixture(String chartOfAccountsCode, String organizationCode, Long proposalNumber, boolean awardPrimaryOrganizationIndicator) {
+    private ARAwardOrganizationFixture(String chartOfAccountsCode, String organizationCode, String proposalNumber, boolean awardPrimaryOrganizationIndicator) {
         this.chartOfAccountsCode = chartOfAccountsCode;
         this.organizationCode = organizationCode;
         this.proposalNumber = proposalNumber;

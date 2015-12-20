@@ -164,7 +164,7 @@ public abstract class CGInvoiceDocumentTestBase extends KualiTestBase {
         this.document = document;
     }
 
-    protected void setupBills(String documentNumber, Long proposalNumber, boolean billed) {
+    protected void setupBills(String documentNumber, String proposalNumber, boolean billed) {
         List<InvoiceBill> invoiceBills = new ArrayList<InvoiceBill>();
         InvoiceBill invBill_1 = InvoiceBillFixture.INV_BILL_1.createInvoiceBill();
         invBill_1.setDocumentNumber(documentNumber);
@@ -191,7 +191,7 @@ public abstract class CGInvoiceDocumentTestBase extends KualiTestBase {
         boService.save(bill);
     }
 
-    protected void setupMilestones(String documentNumber, Long proposalNumber, boolean billed) {
+    protected void setupMilestones(String documentNumber, String proposalNumber, boolean billed) {
         List<InvoiceMilestone> invoiceMilestones = new ArrayList<InvoiceMilestone>();
         InvoiceMilestone invMilestone_1 = InvoiceMilestoneFixture.INV_MLSTN_1.createInvoiceMilestone();
         invMilestone_1.setDocumentNumber(documentNumber);

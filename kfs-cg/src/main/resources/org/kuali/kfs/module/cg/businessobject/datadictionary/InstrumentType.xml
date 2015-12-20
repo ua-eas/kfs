@@ -47,23 +47,8 @@
 
 	<!-- Attribute Definitions -->
 
-	<bean id="InstrumentType-instrumentTypeCode" parent="InstrumentType-instrumentTypeCode-parentBean" />
+	<bean id="InstrumentType-instrumentTypeCode" parent="CommonAttributes-instrumentTypeCode-parentBean" />
 
-	<bean id="InstrumentType-instrumentTypeCode-parentBean"
-		abstract="true" parent="AttributeDefinition">
-		<property name="name" value="instrumentTypeCode" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Instrument Type Code" />
-		<property name="shortLabel" value="Code" />
-		<property name="maxLength" value="10" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterValidation" />
-		</property>
-		<property name="required" value="true" />
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="12" />
-		</property>
-	</bean>
 	<bean id="InstrumentType-instrumentTypeDescription"
 		parent="InstrumentType-instrumentTypeDescription-parentBean" />
 

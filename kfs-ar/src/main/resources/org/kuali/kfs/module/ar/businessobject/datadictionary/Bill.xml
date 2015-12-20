@@ -51,8 +51,7 @@
 				<bean parent="RelationshipDefinition" p:objectAttributeName="award" p:targetClass="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward">
 					<property name="primitiveAttributes">
 						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber"
-								p:targetName="proposalNumber" />
+							<bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber" p:targetName="proposalNumber" />
 						</list>
 					</property>
 				</bean>
@@ -71,7 +70,7 @@
 		<property name="name" value="proposalNumber" />
 		<property name="maxLength" value="12" />
 		<property name="validationPattern">
-			<ref bean="NumericValidation" />
+			<bean parent="AlphaNumericValidation" p:allowDash="true" />
 		</property>
 		<property name="control">
 			<ref bean="HiddenControl" />

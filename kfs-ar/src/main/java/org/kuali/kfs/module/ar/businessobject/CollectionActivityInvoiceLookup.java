@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * Defines an entry in the Contracts & Grants Invoice Lookup Result.
@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase {
 
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private Long agencyNumber;
     private String agencyName;
     private Long customerNumber;
@@ -57,7 +57,7 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -67,7 +67,7 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

@@ -35,7 +35,7 @@ public class AwardSubcontractor extends PersistableBusinessObjectBase implements
     private String awardSubcontractorAmendmentNumber;
     private String awardSubcontractorNumber;
     private String subcontractorNumber;
-    private Long proposalNumber;
+    private String proposalNumber;
     private KualiDecimal subcontractorAmount;
     private String subcontractorContactFirstName;
     private String subcontractorContactLastName;
@@ -107,7 +107,7 @@ public class AwardSubcontractor extends PersistableBusinessObjectBase implements
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -116,7 +116,7 @@ public class AwardSubcontractor extends PersistableBusinessObjectBase implements
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

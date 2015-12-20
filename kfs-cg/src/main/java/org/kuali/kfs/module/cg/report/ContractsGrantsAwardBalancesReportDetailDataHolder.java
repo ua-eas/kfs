@@ -27,7 +27,7 @@ import java.sql.Date;
  */
 public class ContractsGrantsAwardBalancesReportDetailDataHolder {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String agencyName;
     private String awardProjectTitle;
     private String awardStatusCode;
@@ -46,11 +46,11 @@ public class ContractsGrantsAwardBalancesReportDetailDataHolder {
 
     public boolean displaySubtotal;
 
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

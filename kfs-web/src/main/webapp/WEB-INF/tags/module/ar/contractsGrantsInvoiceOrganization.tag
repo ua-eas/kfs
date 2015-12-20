@@ -28,42 +28,46 @@
 <c:if test="${!empty KualiForm.document.invoiceGeneralDetail.proposalNumber}">
 	<kul:tab tabTitle="Organization" defaultOpen="true" tabErrorKey="${KFSConstants.CUSTOMER_INVOICE_DOCUMENT_ORGANIZATION_ERRORS}">
 		<div class="tab-container" align=center>
-			<table cellpadding="0" cellspacing="0" class="datatable" summary="Invoice Section">
+			<table cellpadding="0" cellspacing="0" class="datatable standard" summary="Invoice Section">
 				<tr>
-					<td colspan="4" class="subhead">Organization</td>
+					<th class="right" style="width: 25%;">
+                        <kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.processingChartOfAccountCode}" />
+					</th>
+					<td class="datacell" style="width: 25%;">
+                        <kul:htmlControlAttribute
+                                attributeEntry="${arDocHeaderAttributes.processingChartOfAccountCode}"
+                                property="document.accountsReceivableDocumentHeader.processingChartOfAccountCode"
+                                readOnly="true" />
+                    </td>
+					<th class="right" style="width: 25%;">
+                        <kul:htmlAttributeLabel attributeEntry="${documentAttributes.billByChartOfAccountCode}" />
+					</th>
+					<td class="datacell" style="width: 25%;">
+                        <kul:htmlControlAttribute
+                                attributeEntry="${documentAttributes.billByChartOfAccountCode}"
+                                property="document.billByChartOfAccountCode"
+                                readOnly="true" />
+                    </td>
 				</tr>
 				<tr>
-					<th align=right valign=middle class="bord-l-b" style="width: 25%;">
-						<div align="right">
-							<kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.processingChartOfAccountCode}" />
-						</div>
+					<th class="right">
+                        <kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.processingOrganizationCode}" />
 					</th>
-					<td align=left valign=middle class="datacell" style="width: 25%;"><kul:htmlControlAttribute
-							attributeEntry="${arDocHeaderAttributes.processingChartOfAccountCode}"
-							property="document.accountsReceivableDocumentHeader.processingChartOfAccountCode" readOnly="true" /></td>
-					<th align=right valign=middle class="bord-l-b" style="width: 25%;">
-						<div align="right">
-							<kul:htmlAttributeLabel attributeEntry="${documentAttributes.billByChartOfAccountCode}" />
-						</div>
+					<td class="datacell">
+                        <kul:htmlControlAttribute
+                                attributeEntry="${arDocHeaderAttributes.processingOrganizationCode}"
+							    property="document.accountsReceivableDocumentHeader.processingOrganizationCode"
+                                readOnly="true" />
+                    </td>
+					<th class="right">
+                        <kul:htmlAttributeLabel attributeEntry="${documentAttributes.billedByOrganizationCode}" />
 					</th>
-					<td align=left valign=middle class="datacell" style="width: 25%;"><kul:htmlControlAttribute
-							attributeEntry="${documentAttributes.billByChartOfAccountCode}" property="document.billByChartOfAccountCode" readOnly="true" /></td>
-				</tr>
-				<tr>
-					<th align=right valign=middle class="bord-l-b">
-						<div align="right">
-							<kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.processingOrganizationCode}" />
-						</div>
-					</th>
-					<td align=left valign=middle class="datacell"><kul:htmlControlAttribute attributeEntry="${arDocHeaderAttributes.processingOrganizationCode}"
-							property="document.accountsReceivableDocumentHeader.processingOrganizationCode" readOnly="true" /></td>
-					<th align=right valign=middle class="bord-l-b">
-						<div align="right">
-							<kul:htmlAttributeLabel attributeEntry="${documentAttributes.billedByOrganizationCode}" />
-						</div>
-					</th>
-					<td align=left valign=middle class="datacell"><kul:htmlControlAttribute attributeEntry="${documentAttributes.billedByOrganizationCode}"
-							property="document.billedByOrganizationCode" readOnly="true" /> </td>
+					<td class="datacell">
+                        <kul:htmlControlAttribute
+                                attributeEntry="${documentAttributes.billedByOrganizationCode}"
+							    property="document.billedByOrganizationCode"
+                                readOnly="true" />
+                    </td>
 				</tr>
 			</table>
 		</div>

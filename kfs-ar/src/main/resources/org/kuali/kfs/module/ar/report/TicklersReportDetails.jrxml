@@ -42,7 +42,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 
-	<field name="proposalNumber" class="java.lang.Long"/>
+	<field name="proposalNumber" class="java.lang.String"/>
 	<field name="invoiceNumber" class="java.lang.String"/>
 	<field name="agencyName" class="java.lang.String"/>
 	<field name="activityDescription" class="java.lang.String"/>
@@ -85,7 +85,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="SansSerif" size="7" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

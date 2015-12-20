@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
-import org.kuali.kfs.module.external.kc.dto.SponsorDTO;
+import org.kuali.kra.external.sponsor.SponsorDTO;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 

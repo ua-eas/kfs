@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2015 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+  <changeSet author="KFS601" id="FINI-299_ADD_AWARD_NUMBER_SEQUENCE_NUMBER_TO_INVOICE_GENERAL_DETAIL_TABLE" context="bootstrap,demo,unit">
+    <addColumn tableName="AR_INV_GNRL_DTL_T">
+      <column name="AWARD_NUMBER" type="VARCHAR(12)"/>
+      <column name="SEQUENCE_NUMBER" type="DECIMAL(4)"/>
+    </addColumn>
+  </changeSet>
+  <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMAL" context="bootstrap,demo,unit">
+    <dropForeignKeyConstraint baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"/>
+    <dropForeignKeyConstraint baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"/>
+
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_CSH_CTRL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_CGB_CLCTN_ACTVY_DOC_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_APPLICATION_DOC_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_AWD_ACCT_OBJ_TOT_BLLD_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_GNRL_DTL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_DTL_ACCT_OBJ_CD_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_ACCT_DTL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_LTRCR_RVW_DTL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_MLSTN_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_MLSTN_SCHDL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_BILL_T"/>
+    <modifyDataType columnName="PRPSL_NBR" newDataType="VARCHAR(12)" tableName="AR_INV_DOC_ERROR_LOG_T"/>
+
+    <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"
+                             deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="PRPSL_NBR" referencedTableName="AR_PRDTRMND_BILL_SCHDL_T"/>
+    <addForeignKeyConstraint baseColumnNames="PRPSL_NBR" baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"
+                             deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="PRPSL_NBR" referencedTableName="AR_MLSTN_SCHDL_T"/>
+  </changeSet>
+  <changeSet author="KFS601" id="FINI-319_CHANGE_CGPRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMAL" context="bootstrap,demo,unit">
+    <dropForeignKeyConstraint baseTableName="CG_AWD_ACCT_T" constraintName="CG_AWD_ACCT_TR4"/>
+    <dropForeignKeyConstraint baseTableName="CG_AWD_FNDMGR_T" constraintName="CG_AWD_FNDMGR_TR1"/>
+    <dropForeignKeyConstraint baseTableName="CG_AWD_ORG_T" constraintName="CG_AWD_ORG_TR3"/>
+    <dropForeignKeyConstraint baseTableName="CG_AWD_PRJDR_T" constraintName="CG_AWD_PRJDR_TR2"/>
+    <dropForeignKeyConstraint baseTableName="CG_AWD_SUBCN_T" constraintName="CG_AWD_SUBCN_TR2"/>
+    <dropForeignKeyConstraint baseTableName="CG_AWD_T" constraintName="CG_AWD_TR1"/>
+    <dropForeignKeyConstraint baseTableName="CG_PRPSL_ORG_T" constraintName="CG_PRPSL_ORG_TR3"/>
+    <dropForeignKeyConstraint baseTableName="CG_PRPSL_PRJDR_T" constraintName="CG_PRPSL_PRJDR_TR2"/>
+    <dropForeignKeyConstraint baseTableName="CG_PRPSL_RSRCH_RSK_T" constraintName="CG_PRPSL_RSRCH_RSK_TR1"/>
+    <dropForeignKeyConstraint baseTableName="CG_PRPSL_SUBCN_T" constraintName="CG_PRPSL_SUBCN_TR2"/>
+
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_PRPSL_RSRCH_RSK_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_PRPSL_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_PRPSL_SUBCN_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_PRPSL_ORG_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_PRPSL_PRJDR_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_AWD_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_AWD_PRJDR_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_AWD_FNDMGR_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_AWD_ACCT_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_AWD_ORG_T"/>
+    <modifyDataType columnName="CGPRPSL_NBR" newDataType="VARCHAR(12)" tableName="CG_AWD_SUBCN_T"/>
+
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_ACCT_T"
+                             constraintName="CG_AWD_ACCT_TR4" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_AWD_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_FNDMGR_T"
+                             constraintName="CG_AWD_FNDMGR_TR1" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_AWD_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_ORG_T"
+                             constraintName="CG_AWD_ORG_TR3" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_AWD_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_PRJDR_T"
+                             constraintName="CG_AWD_PRJDR_TR2" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_AWD_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_SUBCN_T"
+                             constraintName="CG_AWD_SUBCN_TR2" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_AWD_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_AWD_T" constraintName="CG_AWD_TR1"
+                             deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="CGPRPSL_NBR" referencedTableName="CG_PRPSL_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_ORG_T"
+                             constraintName="CG_PRPSL_ORG_TR3" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_PRPSL_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_PRJDR_T"
+                             constraintName="CG_PRPSL_PRJDR_TR2" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_PRPSL_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_RSRCH_RSK_T"
+                             constraintName="CG_PRPSL_RSRCH_RSK_TR1" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_PRPSL_T"/>
+    <addForeignKeyConstraint baseColumnNames="CGPRPSL_NBR" baseTableName="CG_PRPSL_SUBCN_T"
+                             constraintName="CG_PRPSL_SUBCN_TR2" deferrable="false" initiallyDeferred="false"
+                             onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CGPRPSL_NBR"
+                             referencedTableName="CG_PRPSL_T"/>
+  </changeSet>
+</databaseChangeLog>

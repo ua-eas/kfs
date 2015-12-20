@@ -47,7 +47,7 @@ public interface ContractsAndGrantsOrganization extends ExternalizableBusinessOb
      *
      * @return Returns the proposalNumber
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the awardPrimaryOrganizationIndicator attribute.

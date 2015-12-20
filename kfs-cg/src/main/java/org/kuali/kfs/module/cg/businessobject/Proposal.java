@@ -42,7 +42,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  * See functional documentation.
  */
 public class Proposal extends PersistableBusinessObjectBase implements MutableInactivatable, ContractAndGrantsProposal {
-    private Long proposalNumber;
+    private String proposalNumber;
     private Date proposalBeginningDate;
     private Date proposalEndingDate;
 
@@ -152,7 +152,7 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -161,7 +161,7 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -834,7 +834,7 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap<String, String> m = new LinkedHashMap<String, String>();
         if (this.proposalNumber != null) {
-            m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber.toString());
+            m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber);
         }
         return m;
     }

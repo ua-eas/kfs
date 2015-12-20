@@ -783,7 +783,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService#getAwardBilledToDateAmountByProposalNumber(java.lang.Long)
      */
     @Override
-    public KualiDecimal getAwardBilledToDateAmountByProposalNumber(Long proposalNumber) {
+    public KualiDecimal getAwardBilledToDateAmountByProposalNumber(String proposalNumber) {
         Map<String, Object> keys = new HashMap<String, Object>();
         keys.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
 
@@ -939,7 +939,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService#getMilestonesBilledToDateAmount(java.lang.Long)
      */
     @Override
-    public KualiDecimal getMilestonesBilledToDateAmount(Long proposalNumber) {
+    public KualiDecimal getMilestonesBilledToDateAmount(String proposalNumber) {
         Map<String, Object> totalBilledKeys = new HashMap<String, Object>();
         totalBilledKeys.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
         KualiDecimal billedToDateAmount = KualiDecimal.ZERO;
@@ -961,7 +961,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService#getPredeterminedBillingBilledToDateAmount(java.lang.Long)
      */
     @Override
-    public KualiDecimal getPredeterminedBillingBilledToDateAmount(Long proposalNumber) {
+    public KualiDecimal getPredeterminedBillingBilledToDateAmount(String proposalNumber) {
         Map<String, Object> totalBilledKeys = new HashMap<String, Object>();
         totalBilledKeys.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
         KualiDecimal billedToDateAmount = KualiDecimal.ZERO;
@@ -1389,7 +1389,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
         }
 
         // 2. Set last Billed to Award = least of last billed date of award account.
-        Long proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
+        String proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(KFSPropertyConstants.PROPOSAL_NUMBER, proposalNumber);
         ContractsAndGrantsBillingAward award = kualiModuleService.getResponsibleModuleService(ContractsAndGrantsBillingAward.class).getExternalizableBusinessObject(ContractsAndGrantsBillingAward.class, map);
@@ -1444,7 +1444,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * @param lastBilledDate
      * @param proposalNumber
      */
-    protected void calculateAwardAccountLastBilledDate(InvoiceAccountDetail id, boolean invoiceReversal, java.sql.Date lastBilledDate, Long proposalNumber) {
+    protected void calculateAwardAccountLastBilledDate(InvoiceAccountDetail id, boolean invoiceReversal, java.sql.Date lastBilledDate, String proposalNumber) {
         Map<String, Object> mapKey = new HashMap<String, Object>();
         mapKey.put(KFSPropertyConstants.ACCOUNT_NUMBER, id.getAccountNumber());
         mapKey.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, id.getChartOfAccountsCode());
@@ -1552,7 +1552,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * @param value
      * @param proposalNumber
      */
-    protected void setAwardAccountFinalBilledValue(InvoiceAccountDetail id, boolean value, Long proposalNumber) {
+    protected void setAwardAccountFinalBilledValue(InvoiceAccountDetail id, boolean value, String proposalNumber) {
         Map<String, Object> mapKey = new HashMap<String, Object>();
         mapKey.put(KFSPropertyConstants.ACCOUNT_NUMBER, id.getAccountNumber());
         mapKey.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, id.getChartOfAccountsCode());
@@ -1572,7 +1572,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * @param invoiceStatus
      * @param lastBilledDate
      */
-    protected void setAwardAccountFinalBilledValueAndLastBilledDate(InvoiceAccountDetail id, boolean finalBilled, Long proposalNumber, boolean invoiceReversal, java.sql.Date lastBilledDate) {
+    protected void setAwardAccountFinalBilledValueAndLastBilledDate(InvoiceAccountDetail id, boolean finalBilled, String proposalNumber, boolean invoiceReversal, java.sql.Date lastBilledDate) {
         Map<String, Object> mapKey = new HashMap<String, Object>();
         mapKey.put(KFSPropertyConstants.ACCOUNT_NUMBER, id.getAccountNumber());
         mapKey.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, id.getChartOfAccountsCode());
@@ -1586,7 +1586,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * This method updates AwardAccounts
      */
     @Override
-    public void updateUnfinalizationToAwardAccount(List<InvoiceAccountDetail> accountDetails, Long proposalNumber) {
+    public void updateUnfinalizationToAwardAccount(List<InvoiceAccountDetail> accountDetails, String proposalNumber) {
         Iterator iterator = accountDetails.iterator();
         while (iterator.hasNext()) {
             InvoiceAccountDetail id = (InvoiceAccountDetail) iterator.next();
@@ -1855,10 +1855,10 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService#getInvoicesByAward(java.util.Collection)
      */
     @Override
-    public Map<Long, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices) {
-        Map<Long, List<ContractsGrantsInvoiceDocument>> invoicesByAward = new HashMap<>();
+    public Map<String, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices) {
+        Map<String, List<ContractsGrantsInvoiceDocument>> invoicesByAward = new HashMap<>();
         for (ContractsGrantsInvoiceDocument invoice : invoices) {
-            Long proposalNumber = invoice.getInvoiceGeneralDetail().getProposalNumber();
+            String proposalNumber = invoice.getInvoiceGeneralDetail().getProposalNumber();
             if (invoicesByAward.containsKey(proposalNumber)) {
                 invoicesByAward.get(proposalNumber).add(invoice);
             }
@@ -1887,7 +1887,11 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                 for (Object al : contractsGrantsInvoiceDocument.getSourceAccountingLines()) {
                     final CustomerInvoiceDetail customerInvoiceDetail = (CustomerInvoiceDetail)al;
                     final String accountKey = StringUtils.join(new String[] { customerInvoiceDetail.getChartOfAccountsCode(), customerInvoiceDetail.getAccountNumber() }, "-");
-                    customerInvoiceDetail.setAmount(accountExpenditureAmounts.get(accountKey));
+                    if (accountExpenditureAmounts.containsKey(accountKey)) {
+                        customerInvoiceDetail.setAmount(accountExpenditureAmounts.get(accountKey));
+                    } else {
+                        customerInvoiceDetail.setAmount(KualiDecimal.ZERO);
+                    }
                 }
             }
         }

@@ -16,27 +16,28 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.awardtype;
 
 import java.io.Serializable;
 
-public class FrequencyDto implements Serializable {
+public class AwardTypeDTO implements Serializable {
 
-    private static final long serialVersionUID = -115792438972874644L;
+	private static final long serialVersionUID = 1728984743819678819L;
 
-	private String frequencyCode;
+	private Integer awardTypeCode;
 	private String description;
 
-	public String getFrequencyCode() {
-		return frequencyCode;
-	}
-	public void setFrequencyCode(String frequencyCode) {
-		this.frequencyCode = frequencyCode;
-	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Integer getAwardTypeCode() {
+		return awardTypeCode;
+	}
+	public void setAwardTypeCode(Integer awardTypeCode) {
+		this.awardTypeCode = awardTypeCode;
+	}
+
 }

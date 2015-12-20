@@ -26,12 +26,12 @@ import org.kuali.rice.kim.api.identity.Person;
 public class AwardFundManager implements ContractsAndGrantsFundManager {
 
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String projectTitle;
     private Person fundManager;
 
     public AwardFundManager() { }
-    public AwardFundManager(Long proposalNumber, String principalId) {
+    public AwardFundManager(String proposalNumber, String principalId) {
         this.proposalNumber = proposalNumber;
         this.principalId = principalId;
         this.projectTitle = KcConstants.DEFAULT_AWARD_FUND_MANAGER_TITLE;
@@ -66,11 +66,11 @@ public class AwardFundManager implements ContractsAndGrantsFundManager {
     }
 
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

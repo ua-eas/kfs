@@ -199,7 +199,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
             fieldValuesForInvoice.put(ArPropertyConstants.CustomerInvoiceDocumentFields.BILLING_DATE, billingDateCriteria);
         }
 
-        final Set<Long> awardIds = lookupBillingAwards(awardDocumentNumber, awardEndFromDate, awardEndToDate, fundManager);
+        final Set<String> awardIds = lookupBillingAwards(awardDocumentNumber, awardEndFromDate, awardEndToDate, fundManager);
 
         // here put all criterias and find the docs
         contractsGrantsInvoiceDocs.addAll(getLookupService().findCollectionBySearch(ContractsGrantsInvoiceDocument.class, fieldValuesForInvoice));
@@ -212,10 +212,10 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
     /**
      * Removes contracts & grants invoice documents from the given collection if they do not match the given award ids or if the collector permissions do not allow viewing of the document
      * @param contractsGrantsInvoiceDocs a Collection of ContractsGrantsInvoiceDocuments
-     * @param collectorPrincName the principal name of the collector
+     * @param collectorPrincipalId the principal name of the collector
      * @param awardIds a Set of proposal numbers of awards which match given criteria
      */
-    protected void filterContractsGrantsInvoiceDocumentsByAwardAndCollector(Collection<ContractsGrantsInvoiceDocument> contractsGrantsInvoiceDocs, String collectorPrincipalId, Set<Long> awardIds) {
+    protected void filterContractsGrantsInvoiceDocumentsByAwardAndCollector(Collection<ContractsGrantsInvoiceDocument> contractsGrantsInvoiceDocs, String collectorPrincipalId, Set<String> awardIds) {
         // filter by collector and user performing the search
         Person user = GlobalVariables.getUserSession().getPerson();
 
@@ -270,7 +270,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
      * @param fundManager the principal name of the fund manager
      * @return a Set of Award ids to filter on, or null if no search was actually completed
      */
-    protected Set<Long> lookupBillingAwards(String awardDocumentNumber, String awardEndFromDate, String awardEndToDate, String fundManager) {
+    protected Set<String> lookupBillingAwards(String awardDocumentNumber, String awardEndFromDate, String awardEndToDate, String fundManager) {
         if (StringUtils.isBlank(awardDocumentNumber) && StringUtils.isBlank(awardEndFromDate) && StringUtils.isBlank(awardEndToDate) && StringUtils.isBlank(fundManager)) {
             return null; // nothing to search on?  then return null to note that no search was completed
         }
@@ -290,7 +290,7 @@ public class ContractsGrantsAgingReportServiceImpl implements ContractsGrantsAgi
 
         final List<? extends ContractsAndGrantsAward> awards = getContractsAndGrantsModuleBillingService().lookupAwards(fieldValues, true);
 
-        Set<Long> billingAwardIds = new HashSet<>();
+        Set<String> billingAwardIds = new HashSet<>();
         for (ContractsAndGrantsAward award : awards) {
             if (award instanceof ContractsAndGrantsBillingAward) {
                 final ContractsAndGrantsBillingAward cgbAward = (ContractsAndGrantsBillingAward)award;

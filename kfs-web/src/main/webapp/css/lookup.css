@@ -261,6 +261,11 @@ select {
     width: 100%;
 }
 
+.search-results table table {
+    width: 90%;
+    margin: 0 auto;
+}
+
 .search-results table.fixedHeader {
     margin-top: 50px;
 }

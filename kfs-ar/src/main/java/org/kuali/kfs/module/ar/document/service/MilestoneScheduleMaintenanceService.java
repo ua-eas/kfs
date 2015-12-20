@@ -29,5 +29,5 @@ public interface MilestoneScheduleMaintenanceService {
      * @param milestoneId milestoneId to check
      * @return true if the Milestone has been copied, false if otherwise
      */
-    public boolean hasMilestoneBeenCopiedToInvoice(Long proposalNumber, String milestoneId);
+    public boolean hasMilestoneBeenCopiedToInvoice(String proposalNumber, String milestoneId);
 }

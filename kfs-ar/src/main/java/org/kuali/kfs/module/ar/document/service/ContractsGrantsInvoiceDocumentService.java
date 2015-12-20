@@ -78,7 +78,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param proposalNumber
      * @return
      */
-    public KualiDecimal getMilestonesBilledToDateAmount(Long proposalNumber);
+    public KualiDecimal getMilestonesBilledToDateAmount(String proposalNumber);
 
     /**
      * Returns the billed to date amount for the given Proposal Number for Predetermined Billing.
@@ -86,7 +86,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param proposalNumber
      * @return
      */
-    public KualiDecimal getPredeterminedBillingBilledToDateAmount(Long proposalNumber);
+    public KualiDecimal getPredeterminedBillingBilledToDateAmount(String proposalNumber);
 
     /**
      * Returns the total amount billed to date for an Award.
@@ -94,7 +94,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param proposalNumber used to find the AwardAccountObjectCodeTotalBilled
      * @return billed to date amount
      */
-    public KualiDecimal getAwardBilledToDateAmountByProposalNumber(Long proposalNumber);
+    public KualiDecimal getAwardBilledToDateAmountByProposalNumber(String proposalNumber);
 
     /**
      * This method retrieves CG invoice documents that match the given field values
@@ -194,7 +194,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param accountDetails
      * @param proposalNumber
      */
-    public void updateUnfinalizationToAwardAccount(List<InvoiceAccountDetail> accountDetails,Long proposalNumber);
+    public void updateUnfinalizationToAwardAccount(List<InvoiceAccountDetail> accountDetails, String proposalNumber);
 
     /**
      * Corrects the Contracts & Grants Invoice Document.
@@ -266,7 +266,7 @@ public interface ContractsGrantsInvoiceDocumentService {
      * @param invoices The list of invoices for which filtering to be done by proposal number
      * @return Returns the map of invoices based on key of proposal number.
      */
-    public Map<Long, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices);
+    public Map<String, List<ContractsGrantsInvoiceDocument>> getInvoicesByAward(Collection<ContractsGrantsInvoiceDocument> invoices);
 
     /**
      * Recalculates the totals - based on the invoice detail account object codes which have categories - for all accounting lines on the given

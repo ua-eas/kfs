@@ -37,7 +37,7 @@ public class ContractsGrantsCollectionActivityDocument extends FinancialSystemTr
 
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ContractsGrantsCollectionActivityDocument.class);
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String agencyNumber;
     private String agencyName;
     private String customerNumber;
@@ -63,7 +63,7 @@ public class ContractsGrantsCollectionActivityDocument extends FinancialSystemTr
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -72,7 +72,7 @@ public class ContractsGrantsCollectionActivityDocument extends FinancialSystemTr
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

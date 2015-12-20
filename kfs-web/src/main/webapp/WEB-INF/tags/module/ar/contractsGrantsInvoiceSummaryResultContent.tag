@@ -23,9 +23,9 @@
 
 <div class="tab-container" align="center">
 	<h3>Awards to be Invoiced</h3>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable standard">
 		<thead>
-			<tr>
+			<tr class="header">
 				<kul:htmlAttributeHeaderCell attributeEntry="${awardAttributes.proposalNumber}" useShortLabel="false" hideRequiredAsterisk="true" />
 				<kul:htmlAttributeHeaderCell attributeEntry="${awardAttributes.awardBeginningDate}" useShortLabel="false" hideRequiredAsterisk="true" />
 				<kul:htmlAttributeHeaderCell attributeEntry="${awardAttributes.awardEndingDate}" useShortLabel="false" hideRequiredAsterisk="true" />
@@ -36,7 +36,8 @@
 			</tr>
 		</thead>
 		<logic:iterate id="awards" name="KualiForm" property="${requestScope.propertyName}.awards" indexId="ctr">
-			<ar:contractsGrantsInvoiceSummarySubResult awardAttributes="${awardAttributes}" propertyName="${requestScope.propertyName}.awards[${ctr}]" />
+            <c:set var="highlight" value="${ctr % 2 == 0}"/>
+			<ar:contractsGrantsInvoiceSummarySubResult highlight="${highlight}" awardAttributes="${awardAttributes}" propertyName="${requestScope.propertyName}.awards[${ctr}]" />
 		</logic:iterate>
 	</table>
 </div>

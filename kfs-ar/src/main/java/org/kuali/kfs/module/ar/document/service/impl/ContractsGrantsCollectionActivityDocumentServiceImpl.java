@@ -151,11 +151,11 @@ public class ContractsGrantsCollectionActivityDocumentServiceImpl implements Con
     }
 
     /**
-     * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsCollectionActivityDocumentService#retrieveAwardByProposalNumber(java.lang.Long)
+     * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsCollectionActivityDocumentService#retrieveAwardByProposalNumber(String)
      */
     @Override
     @Transactional
-    public ContractsAndGrantsBillingAward retrieveAwardByProposalNumber(Long proposalNumber) {
+    public ContractsAndGrantsBillingAward retrieveAwardByProposalNumber(String proposalNumber) {
         ContractsAndGrantsBillingAward award = null;
         if (ObjectUtils.isNotNull(proposalNumber)) {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -196,7 +196,7 @@ public class ContractsGrantsCollectionActivityDocumentServiceImpl implements Con
      */
     @Override
     @Transactional
-    public Collection<ContractsGrantsInvoiceDocument> retrieveCollectionActivityEligibleContractsGrantsInvoicesByProposalNumber(Long proposalNumber) {
+    public Collection<ContractsGrantsInvoiceDocument> retrieveCollectionActivityEligibleContractsGrantsInvoicesByProposalNumber(String proposalNumber) {
         Collection<ContractsGrantsInvoiceDocument> cgInvoices = contractsGrantsInvoiceDocumentDao.getCollectionEligibleContractsGrantsInvoicesByProposalNumber(proposalNumber);
         if (CollectionUtils.isEmpty(cgInvoices)) {
             return cgInvoices;

@@ -45,7 +45,7 @@
 		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
 	</parameter>
 
-	<field name="proposalNumber" class="java.lang.Long"/>
+	<field name="proposalNumber" class="java.lang.String"/>
 	<field name="accounts" class="java.lang.String"/>
 	<field name="awardBeginningDate" class="java.sql.Date"/>
 	<field name="awardEndingDate" class="java.sql.Date"/>
@@ -85,7 +85,7 @@
 					<textElement>
 						<font fontName="SansSerif" size="7" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{proposalNumber}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

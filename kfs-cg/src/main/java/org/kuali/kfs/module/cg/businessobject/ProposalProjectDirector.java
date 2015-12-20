@@ -34,7 +34,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  */
 public class ProposalProjectDirector extends PersistableBusinessObjectBase implements Primaryable, CGProjectDirector, MutableInactivatable {
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean proposalPrimaryProjectDirectorIndicator;
     private String proposalProjectDirectorProjectTitle;
     private boolean active = true;
@@ -64,7 +64,7 @@ public class ProposalProjectDirector extends PersistableBusinessObjectBase imple
      * @see org.kuali.kfs.module.cg.businessobject.CGProjectDirector#getProposalNumber()
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -72,7 +72,7 @@ public class ProposalProjectDirector extends PersistableBusinessObjectBase imple
      * @see org.kuali.kfs.module.cg.businessobject.CGProjectDirector#setProposalNumber(java.lang.Long)
      */
     @Override
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

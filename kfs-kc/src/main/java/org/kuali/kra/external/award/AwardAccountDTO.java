@@ -16,12 +16,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.external.kc.dto;
+package org.kuali.kra.external.award;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * This class is the DTO to be sent over to the financial system
@@ -36,7 +34,7 @@ public class AwardAccountDTO implements Serializable {
     private String errorMessage;
     private String grantNumber;
     private String projectDirector;
-    private String proposalNumber;
+    private String awardNumber;
     private String sponsorName;
     private boolean isFederalSponsor;
     private Long awardId;
@@ -53,8 +51,6 @@ public class AwardAccountDTO implements Serializable {
     private boolean finalBill;
     private Date lastBilledDate;
     private Date previousLastBilledDate;
-    private KualiDecimal amountToDraw;
-    private boolean letterOfCreditReviewIndicator;
 
     public String getPrimeSponsorTypeCode() {
         return primeSponsorTypeCode;
@@ -127,12 +123,12 @@ public class AwardAccountDTO implements Serializable {
         this.projectDirector = projectDirector;
     }
 
-    public String getProposalNumber() {
-        return proposalNumber;
+    public String getAwardNumber() {
+        return awardNumber;
     }
 
-    public void setProposalNumber(String proposalNumber) {
-        this.proposalNumber = proposalNumber;
+    public void setAwardNumber(String awardNumber) {
+        this.awardNumber = awardNumber;
     }
 
     public String getSponsorName() {
@@ -218,22 +214,4 @@ public class AwardAccountDTO implements Serializable {
 	public void setPreviousLastBilledDate(Date previousLastBilledDate) {
 		this.previousLastBilledDate = previousLastBilledDate;
 	}
-
-	public KualiDecimal getAmountToDraw() {
-		return amountToDraw;
-	}
-
-	public void setAmountToDraw(KualiDecimal amountToDraw) {
-		this.amountToDraw = amountToDraw;
-	}
-
-	public boolean isLetterOfCreditReviewIndicator() {
-		return letterOfCreditReviewIndicator;
-	}
-
-	public void setLetterOfCreditReviewIndicator(
-			boolean letterOfCreditReviewIndicator) {
-		this.letterOfCreditReviewIndicator = letterOfCreditReviewIndicator;
-	}
-
 }

@@ -19,11 +19,6 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
@@ -35,13 +30,19 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Defines a financial award object.
  */
 public class Award implements ContractsAndGrantsBillingAward {
     private static final String AWARD_INQUIRY_TITLE_PROPERTY = "message.inquiry.award.title";
 
-    private Long proposalNumber;
+    private String proposalNumber;
+    private Long awardId;
     private String awardNumber;
     private String agencyNumber;
     private String primeAgencyNumber;
@@ -87,7 +88,6 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String awardPurposeCode;
     private boolean active;
     private String kimGroupNames;
-    private List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts;
     private String routingOrg;
     private String routingChart;
     private boolean stateTransferIndicator;
@@ -116,6 +116,9 @@ public class Award implements ContractsAndGrantsBillingAward {
     private boolean stopWorkIndicator;
     private String stopWorkReason;
 
+    private Integer sequenceNumber;
+    private String sequenceStatus;
+
     /**
      * Default no-args constructor.
      */
@@ -129,8 +132,13 @@ public class Award implements ContractsAndGrantsBillingAward {
      * @return Returns the proposalNumber
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
+    }
+
+    @Override
+    public String getObjectId() {
+        return proposalNumber.toString();
     }
 
     /**
@@ -138,7 +146,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
@@ -231,12 +239,12 @@ public class Award implements ContractsAndGrantsBillingAward {
         this.primeAgency = primeAgency;
     }
 
-    public String getAwardNumber() {
-        return awardNumber;
+    public Long getAwardId() {
+        return awardId;
     }
 
-    public void setAwardNumber(String awardNumber) {
-        this.awardNumber = awardNumber;
+    public void setAwardId(Long awardId) {
+        this.awardId = awardId;
     }
 
     public String getGrantNumber() {
@@ -780,11 +788,13 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     @Override
     public List<ContractsAndGrantsBillingAwardAccount> getActiveAwardAccounts() {
+        List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts = new ArrayList<>();
+        for (AwardAccount awardAccount : awardAccounts) {
+            if (awardAccount.isActive()) {
+                activeAwardAccounts.add(awardAccount);
+            }
+        }
         return activeAwardAccounts;
-    }
-
-    public void setActiveAwardAccounts(List<ContractsAndGrantsBillingAwardAccount> activeAwardAccounts) {
-        this.activeAwardAccounts = activeAwardAccounts;
     }
 
     @Override
@@ -812,6 +822,30 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     public void setInvoicingOptionDescription(String invoicingOptionDescription) {
         this.invoicingOptionDescription = invoicingOptionDescription;
+    }
+
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public String getSequenceStatus() {
+        return sequenceStatus;
+    }
+
+    public void setSequenceStatus(String sequenceStatus) {
+        this.sequenceStatus = sequenceStatus;
+    }
+
+    public String getAwardNumber() {
+        return awardNumber;
+    }
+
+    public void setAwardNumber(String awardNumber) {
+        this.awardNumber = awardNumber;
     }
 }
 

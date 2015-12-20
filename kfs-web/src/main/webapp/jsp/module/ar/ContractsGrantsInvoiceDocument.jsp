@@ -69,7 +69,6 @@
 	
 	<kul:superUserActions />
 
-	<sys:documentControls transactionalDocument="true"
-		extraButtons="${KualiForm.extraButtons}" />
+	<sys:documentControls transactionalDocument="true" extraButtons="${KualiForm.extraButtons}" />
 
 </kul:documentPage>

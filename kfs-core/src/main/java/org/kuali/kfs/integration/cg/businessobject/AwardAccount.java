@@ -34,7 +34,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  */
 public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, MutableInactivatable {
 
-    private Long proposalNumber;
+    private String proposalNumber;
     private String chartOfAccountsCode;
     private String accountNumber;
     private String principalId;
@@ -111,7 +111,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      * @see org.kuali.kfs.integration.businessobject.cg.ContractsAndGrantsAccountAwardInformation#getProposalNumber()
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -120,7 +120,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
      *
      * @param proposalNumber The proposalNumber to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 

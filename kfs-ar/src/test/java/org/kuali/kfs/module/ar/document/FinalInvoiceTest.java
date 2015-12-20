@@ -18,16 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.InvoiceAccountDetail;
 import org.kuali.kfs.module.ar.businessobject.Milestone;
@@ -37,8 +31,14 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 /**
  * This class tests the Final Invoicing Process
@@ -59,7 +59,7 @@ public class FinalInvoiceTest extends CGInvoiceDocumentTestBase {
         documentService.saveDocument(document);
 
         String documentNumber = document.getDocumentNumber();
-        Long proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
+        String proposalNumber = document.getInvoiceGeneralDetail().getProposalNumber();
 
         setupMilestones(documentNumber, proposalNumber, false);
         setupBills(documentNumber, proposalNumber, false);

@@ -18,6 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.ar.ArPropertyConstants;
+import org.kuali.kfs.module.ar.businessobject.InvoiceMilestone;
+import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
+import org.kuali.kfs.module.ar.document.service.MilestoneScheduleMaintenanceService;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,13 +32,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
-import org.kuali.kfs.module.ar.businessobject.InvoiceMilestone;
-import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
-import org.kuali.kfs.module.ar.document.service.MilestoneScheduleMaintenanceService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * Default implementation of the Milestone Schedule maintenance service
@@ -41,7 +41,7 @@ public class MilestoneScheduleMaintenanceServiceImpl implements MilestoneSchedul
     protected ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService;
 
     @Override
-    public boolean hasMilestoneBeenCopiedToInvoice(Long proposalNumber, String milestoneId) {
+    public boolean hasMilestoneBeenCopiedToInvoice(String proposalNumber, String milestoneId) {
         Collection<InvoiceMilestone> invoiceMilestones = new ArrayList<InvoiceMilestone>();
 
         Map<String, Object> map = new HashMap<String, Object>();

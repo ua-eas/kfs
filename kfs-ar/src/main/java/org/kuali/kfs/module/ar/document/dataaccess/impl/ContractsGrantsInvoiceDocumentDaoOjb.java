@@ -59,7 +59,7 @@ public class ContractsGrantsInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOj
      *      Retrieve CG Invoices that are in final, with some additional field values passed.
      */
     @Override
-    public Collection<ContractsGrantsInvoiceDocument> getCollectionEligibleContractsGrantsInvoicesByProposalNumber(Long proposalNumber) {
+    public Collection<ContractsGrantsInvoiceDocument> getCollectionEligibleContractsGrantsInvoicesByProposalNumber(String proposalNumber) {
         if (proposalNumber == null) {
             throw new IllegalArgumentException("Cannot find Contracts & Grants Invoices for blank proposal number");
         }

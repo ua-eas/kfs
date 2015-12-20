@@ -34,27 +34,21 @@
 
 	<kul:tab tabTitle="Customer Information" defaultOpen="true" tabErrorKey="${KFSConstants.CUSTOMER_INVOICE_DOCUMENT_GENERAL_ERRORS}">
 		<div class="tab-container" align=center>
-			<table cellpadding="0" cellspacing="0" class="datatable" summary="Invoice Section">
+            <h3>Customer Information</h3>
+			<table cellpadding="0" cellspacing="0" class="datatable standard" summary="Invoice Section">
 				<tr>
-					<td colspan="4" class="subhead">Customer Information</td>
-				</tr>
-				<tr>
-					<th align=right valign=middle class="bord-l-b" style="width: 25%;">
-						<div align="right">
-							<kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerNumber}"
-								labelFor="document.accountsReceivableDocumentHeader.customerNumber" />
-						</div>
+					<th class="right" style="width: 25%;">
+                        <kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerNumber}"
+                            labelFor="document.accountsReceivableDocumentHeader.customerNumber" />
 					</th>
-					<td align=left valign=middle class="datacell" style="width: 25%;">
+					<td class="datacell left" style="width: 25%;">
 						<kul:htmlControlAttribute attributeEntry="${arDocHeaderAttributes.customerNumber}"
 							property="document.accountsReceivableDocumentHeader.customerNumber" readOnly="true" />
 					</td>
-					<th align=right valign=middle class="bord-l-b" style="width: 25%;">
-						<div align="right">
-							<kul:htmlAttributeLabel attributeEntry="${documentAttributes.customerName}" />
-						</div>
+					<th class="right" style="width: 25%;">
+                        <kul:htmlAttributeLabel attributeEntry="${documentAttributes.customerName}" />
 					</th>
-					<td align=left valign=middle class="datacell" style="width: 25%;">
+					<td class="datacell left" style="width: 25%;">
 						<div id="document.accountsReceivableDocumentHeader.customer.customerName.div">
 							<kul:htmlControlAttribute attributeEntry="${documentAttributes.customerName}"
 								property="document.accountsReceivableDocumentHeader.customer.customerName" readOnly="true" />

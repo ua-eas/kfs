@@ -25,14 +25,14 @@ import org.kuali.kfs.module.cg.businessobject.AwardFundManager;
  */
 public enum ARAwardFundManagerFixture {
 
-    AWD_FND_MGR1("1137304513", new Long(11), true, null);
+    AWD_FND_MGR1("1137304513", "11", true, null);
 
     private String principalId;
-    private Long proposalNumber;
+    private String proposalNumber;
     private boolean primaryFundManagerIndicator;
     private String projectTitle;
 
-    private ARAwardFundManagerFixture(String principalId, Long proposalNumber, boolean primaryFundManagerIndicator, String projectTitle) {
+    private ARAwardFundManagerFixture(String principalId, String proposalNumber, boolean primaryFundManagerIndicator, String projectTitle) {
         this.principalId = principalId;
         this.proposalNumber = proposalNumber;
         this.primaryFundManagerIndicator = primaryFundManagerIndicator;

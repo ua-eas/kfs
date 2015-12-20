@@ -29,7 +29,7 @@ public interface AccountsReceivableMilestoneSchedule extends ExternalizableBusin
      *
      * @return Returns the proposalNumber.
      */
-    public Long getProposalNumber();
+    public String getProposalNumber();
 
     /**
      * Gets the milestoneScheduleInquiryTitle attribute.

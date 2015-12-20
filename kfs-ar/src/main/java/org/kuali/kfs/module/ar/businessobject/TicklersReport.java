@@ -38,7 +38,7 @@ public class TicklersReport extends TransientBusinessObjectBase implements Colle
     private String principalId;
     private Date followupDate;
     private String activityCode;
-    private Long proposalNumber;
+    private String proposalNumber;
     private String agencyNumber;
     private boolean completed;
     private Date completedDate;
@@ -166,7 +166,7 @@ public class TicklersReport extends TransientBusinessObjectBase implements Colle
      * @return Returns the proposal number.
      */
     @Override
-    public Long getProposalNumber() {
+    public String getProposalNumber() {
         return proposalNumber;
     }
 
@@ -175,7 +175,7 @@ public class TicklersReport extends TransientBusinessObjectBase implements Colle
      *
      * @param proposalNumber The proposal number to set.
      */
-    public void setProposalNumber(Long proposalNumber) {
+    public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
 
