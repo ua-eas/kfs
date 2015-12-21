@@ -621,12 +621,20 @@ div.inquiry table.datatable th {
     vertical-align: top;
 }
 
+.doc .main-panel .tab-container table.standard tr.middle {
+    vertical-align: middle;
+}
+
 .doc .main-panel .tab-container table.standard td.note-text {
     width: 30%;
 }
 
 .doc .main-panel .tab-container table.standard tr.highlight {
     background-color: #F9F9F9;
+}
+
+.doc .main-panel .tab-container table.standard tr.highlight tr.highlight {
+    background-color: rgba(0,0,0,.1);
 }
 
 .doc .main-panel .tab-container table.standard td.total-line {

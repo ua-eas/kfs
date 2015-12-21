@@ -18,91 +18,31 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 <%@ taglib uri="/WEB-INF/tlds/temfunc.tld" prefix="temfunc"%>
-<%@ attribute name="lineNumber" required="false"
-	description="Line number for the record."%>
-<%@ attribute name="detailObject" required="true"
-	description="The actual object"
-	type="org.kuali.kfs.module.tem.businessobject.ActualExpense"%>
+<%@ attribute name="lineNumber" required="false" description="Line number for the record."%>
+<%@ attribute name="detailObject" required="true" description="The actual object" type="org.kuali.kfs.module.tem.businessobject.ActualExpense"%>
 
 <c:set var="otherExpenseAttributes"	value="${DataDictionary.ActualExpense.attributes}" />
 <c:set var="temExtension" value="${DataDictionary.ExpenseTypeObjectCode.attributes}" />
 
-
-<tr>
+<tr class="header">
 	<c:choose>
 		<c:when test="${lineNumber == null }">
 			<th>&nbsp;</th>
 		</c:when>
 		<c:otherwise>
 			<th scope="row" class="infoline" rowspan="4">
-				<div align="center">${lineNumber}</div></th>
+				<div>${lineNumber}</div></th>
 		</c:otherwise>
 	</c:choose>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.expenseDate}"
-				noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.expenseTypeCode}"
-				noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.travelCompanyCodeName}"
-				noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.expenseAmount}"
-				noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.currencyRate}"
-				noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.nonReimbursable}"
-				noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.taxable}" noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${temExtension.receiptRequired}" noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-					attributeEntry="${otherExpenseAttributes.missingReceipt}"
-				noColon="true" />
-		</div>
-	</th>
-	<th>
-		<div align="left">$US</div>
-	</th>
-	<th>
-		<div align="center">Actions</div>
-	</th>
+	<th><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.expenseDate}" noColon="true" /></th>
+	<th><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.expenseTypeCode}" noColon="true" /></th>
+	<th><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.travelCompanyCodeName}" noColon="true" /></th>
+	<th><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.expenseAmount}" noColon="true" /></th>
+	<th><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.currencyRate}" noColon="true" /></th>
+	<th class="center"><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.nonReimbursable}" noColon="true" /></th>
+	<th class="center"><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.taxable}" noColon="true" /></th>
+	<th class="center"><kul:htmlAttributeLabel attributeEntry="${temExtension.receiptRequired}" noColon="true" /></th>
+	<th class="center"><kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.missingReceipt}" noColon="true" /></th>
+	<th>$US</th>
+	<th>Actions</th>
 </tr>

@@ -19,10 +19,14 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 
-<kul:documentPage showDocumentInfo="true" documentTypeName="${KualiForm.docTitle}"
-	htmlFormAction="${KualiForm.htmlFormAction}"
-	renderMultipart="true" showTabButtons="true">
-  <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
+<kul:documentPage
+        showDocumentInfo="true"
+        documentTypeName="${KualiForm.docTitle}"
+	    htmlFormAction="${KualiForm.htmlFormAction}"
+	    renderMultipart="true"
+        showTabButtons="true">
+
+    <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
 
   <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
@@ -54,6 +58,7 @@
       </div>
     </kul:tab>
   </c:if>
+
   <kul:tab tabTitle="Summary" defaultOpen="true" tabErrorKey="summary">
     <c:if test="${KualiForm.document.correctionTypeCode ne 'R' and (not (KualiForm.persistedOriginEntriesMissing && KualiForm.inputGroupIdFromLastDocumentLoad eq KualiForm.inputGroupId)) && ((KualiForm.dataLoadedFlag and !KualiForm.restrictedFunctionalityMode) or KualiForm.document.correctionOutputFileName != null or !KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT])}" >
       
@@ -128,17 +133,13 @@
     </c:if>
   </kul:tab>
 
-<%-- ------------------------------------------------------------ This is read/write mode --------------------------------------------------- --%>
   <c:if test="${readOnly == false}">
     <kul:tab tabTitle="Correction Process" defaultOpen="true" tabErrorKey="systemAndEditMethod">
       <div class="tab-container" align="center" >
-        <table cellpadding=0 class="datatable" summary=""> 
+        <table class="datatable standard" summary="Correction Process">
           <tr>
-            <td align="left" valign="middle" class="subhead"><span class="subhead-left"></span><label for="chooseSystem">Select System</label> and <label for"editMethod">Edit Method</label></td>
-          </tr>
-          <tr>
+            <th class="right"><label for="chooseSystem">Select System</label> and <label for="editMethod">Edit Method</label>:</th>
             <td>
-              <center>
                 <html:select property="chooseSystem" styleId="chooseSystem" title="Select System">
                   <html:optionsCollection property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|CorrectionChooseSystemValuesFinder" label="value" value="key"/>
                 </html:select>
@@ -146,8 +147,13 @@
                 <html:select property="editMethod" styleId="editMethod" title="Edit Method">
                   <html:optionsCollection property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|CorrectionEditMethodValuesFinder" label="value" value="key"/>
                 </html:select>
-                <html:image property="methodToCall.selectSystemEditMethod.anchor${currentTabIndex}" src="${ConfigProperties.externalizable.images.url}tinybutton-select.gif" styleClass="tinybutton" alt="Select System and Edit Method" title="Select System and Edit Method"/>
-              </center>
+
+                <html:submit
+                        property="methodToCall.selectSystemEditMethod.anchor${currentTabIndex}"
+                        styleClass="btn btn-default"
+                        alt="Select System and Edit Method"
+                        title="Select System and Edit Method"
+                        value="Select"/>
             </td>
           </tr>
         </table>
@@ -156,13 +162,9 @@
     <kul:tab tabTitle="Documents in System" defaultOpen="true" tabErrorKey="documentsInSystem">
       <c:if test="${KualiForm.chooseSystem == 'D'}" >
         <div class="tab-container" align="center" > 
-          <table cellpadding=0 class="datatable" summary="">
+          <table class="datatable standard" summary="Documents in System">
             <tr>
-              <td align="left" valign="middle" class="subhead"><span class="subhead-left"></span>Documents in System</td>
-            </tr>
-            <tr>
-              <td colspan="2" class="bord-l-b" style="padding: 4px; vertical-align: top;"> 
-                <center>
+              <td colspan="2" class="center">
                   <label for="inputGroupId"><strong>Origin Entry Group</strong></label><br/><br/>
                   <html:select property="document.correctionInputFileName" size="10" styleId="inputGroupId" title="Origin Entry Group" >
                     <c:if test="${KualiForm.inputGroupIdFromLastDocumentLoadIsMissing and KualiForm.inputGroupId eq KualiForm.inputGroupIdFromLastDocumentLoad}">
@@ -195,13 +197,28 @@
                   
                   <br/><br/>
                   <c:if test="${KualiForm.editMethod eq 'R'}">
-                    <html:image property="methodToCall.confirmDeleteDocument.anchor${currentTabIndex}" src="${ConfigProperties.externalizable.images.url}tinybutton-remgrpproc.gif" styleClass="tinybutton" alt="Remove Group From Processing" title="Remove Group From Processing" />
+                    <html:submit
+                            property="methodToCall.confirmDeleteDocument.anchor${currentTabIndex}"
+                            styleClass="btn btn-default"
+                            alt="Remove Group From Processing"
+                            title="Remove Group From Processing"
+                            value="Remove Group From Processing"/>
                   </c:if>
                   <c:if test="${KualiForm.editMethod eq 'M' or KualiForm.editMethod eq 'C'}">
-                    <html:image property="methodToCall.loadGroup.anchor${currentTabIndex}" src="${ConfigProperties.externalizable.images.url}tinybutton-loadgroup.gif" styleClass="tinybutton" alt="Show All Entries" title="Show All Entries"/>
+                    <html:submit
+                            property="methodToCall.loadGroup.anchor${currentTabIndex}"
+                            styleClass="btn btn-default"
+                            alt="Show All Entries"
+                            title="Show All Entries"
+                            value="Load Group"/>
                   </c:if>
-                  <html:image property="methodToCall.saveToDesktop.anchor${currentTabIndex}" src="${ConfigProperties.externalizable.images.url}tinybutton-cpygrpdesk.gif" styleClass="tinybutton" alt="Save To Desktop" title="Save To Desktop" onclick="excludeSubmitRestriction=true" />
-                </center> 
+                  <html:submit
+                          property="methodToCall.saveToDesktop.anchor${currentTabIndex}"
+                          styleClass="btn btn-default"
+                          alt="Save To Desktop"
+                          title="Save To Desktop"
+                          onclick="excludeSubmitRestriction=true"
+                          value="Copy Group To Desktop"/>
               </td>
             </tr>
           </table>
@@ -210,16 +227,25 @@
     </kul:tab>
     <kul:tab tabTitle="Correction File Upload" defaultOpen="true" tabErrorKey="fileUpload">
       <c:if test="${KualiForm.chooseSystem == 'U'}" >
-        <div class="tab-container" align="center"> 
-            <h3>Corrections <label for="sourceFile">File Upload</upload></h3>
-          <table cellpadding=0 class="datatable" summary=""> 
+        <div class="tab-container">
+          <table cellpadding=0 class="datatable standard" summary="Correction File Upload">
             <tr>
-              <td class="bord-l-b" style="padding: 4px;">
-              	
-                <html:file size="30" property="sourceFile" styleId="sourceFile" title="File Upload" />
-                <html:image property="methodToCall.uploadFile.anchor${currentTabIndex}" src="${ConfigProperties.externalizable.images.url}tinybutton-loaddoc.gif" styleClass="tinybutton" alt="upload file" title="upload file"/>
-              </td>
+                <th class="right">Corrections <label for="sourceFile">File Upload</label>:</th>
+                  <td>
+                    <html:file size="30" property="sourceFile" styleId="sourceFile" title="File Upload" />
+                  </td>
             </tr>
+              <tr>
+                  <th></th>
+                  <td>
+                      <html:submit
+                              property="methodToCall.uploadFile.anchor${currentTabIndex}"
+                              styleClass="btn btn-default"
+                              alt="upload file"
+                              title="upload file"
+                              value="Load Document"/>
+                  </td>
+              </tr>
           </table>
         </div>
       </c:if>
