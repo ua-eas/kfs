@@ -53,20 +53,16 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
             documentActionsToReturn.remove(KFSConstants.KFS_ACTION_CAN_EDIT_BANK);
         }
 
-        // CSU 6702 BEGIN
-        // rSmart-jkneal-KFSCSU-199-begin mod for adding accounting period edit action
         if (documentActionsToReturn.contains(KRADConstants.KUALI_ACTION_CAN_EDIT) && documentActionsToReturn.contains(KFSConstants.YEAR_END_ACCOUNTING_PERIOD_VIEW_DOCUMENT_ACTION)) {
             // check KIM permission for view, approvers always have permission to view
-            if (!document.getDocumentHeader().getWorkflowDocument().isApprovalRequested() && !super.isAuthorized(document, KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.YEAR_END_ACCOUNTING_PERIOD_VIEW_PERMISSION, user.getPrincipalId())) {
+            if (!canViewAccountingDropDown(document, user)) {
                 documentActionsToReturn.remove(KFSConstants.YEAR_END_ACCOUNTING_PERIOD_VIEW_DOCUMENT_ACTION);
             }
             // check KIM permission for edit
-            else if (super.isAuthorized(document, KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.YEAR_END_ACCOUNTING_PERIOD_EDIT_PERMISSION, user.getPrincipalId())) {
+            else if (canEditAccountingDropDown(document, user)) {
                 documentActionsToReturn.add(KFSConstants.YEAR_END_ACCOUNTING_PERIOD_EDIT_DOCUMENT_ACTION);
             }
         }
-        // rSmart-jkneal-KFSCSU-199-end mod
-        // CSU 6702 END
         return documentActionsToReturn;
     }
 
@@ -90,6 +86,26 @@ public class FinancialSystemTransactionalDocumentAuthorizerBase extends Transact
      */
     public boolean canEditBankCode(Document document, Person user) {
         return isAuthorizedByTemplate(document, KFSConstants.CoreModuleNamespaces.KFS, PermissionTemplate.EDIT_BANK_CODE.name, user.getPrincipalId());
+    }
+
+    /**
+     * Determines if given user can view the accounting period select control
+     * @param document the document to verify against
+     * @param user the user to check if has the ability to view accounting period select
+     * @return true if user can view accounting period, false otherwise
+     */
+    protected boolean canViewAccountingDropDown(Document document, Person user) {
+        return document.getDocumentHeader().getWorkflowDocument().isApprovalRequested() || super.isAuthorized(document, KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.YEAR_END_ACCOUNTING_PERIOD_VIEW_PERMISSION, user.getPrincipalId());
+    }
+
+    /**
+     * Determines if given usre can edit the accounting period select control
+     * @param document the document to verify against
+     * @param user the user to check if has the ability to edit accounting period select
+     * @return true if user can edit accounting period, false otherwise
+     */
+    protected boolean canEditAccountingDropDown(Document document, Person user) {
+        return isAuthorized(document, KFSConstants.CoreModuleNamespaces.KFS, KFSConstants.YEAR_END_ACCOUNTING_PERIOD_EDIT_PERMISSION, user.getPrincipalId());
     }
 
 }
