@@ -66,7 +66,7 @@
               <td valign=top><kul:htmlControlAttribute attributeEntry="${nonEmplTravelAttributes.dvTravelFromCountryCode}" property="document.dvNonEmployeeTravel.dvTravelFromCountryCode" readOnly="${!fullEntryMode&&!travelEntryMode}"/></td>
               <td valign=top><kul:htmlControlAttribute attributeEntry="${nonEmplTravelAttributes.perDiemStartDateTime}" property="document.dvNonEmployeeTravel.perDiemStartDateTime" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
               <c:if test="${fullEntryMode||travelEntryMode}">
-              <img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="document.dvNonEmployeeTravel.perDiemStartDateTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
+              <img src="${ConfigProperties.kr.externalizable.images.url}cal.png" width="24" id="document.dvNonEmployeeTravel.perDiemStartDateTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
                 <script type="text/javascript">
                   Calendar.setup(
                           {
@@ -90,7 +90,7 @@
               <td valign=top><kul:htmlControlAttribute attributeEntry="${nonEmplTravelAttributes.disbVchrTravelToCountryCode}" property="document.dvNonEmployeeTravel.disbVchrTravelToCountryCode" readOnly="${!fullEntryMode&&!travelEntryMode}"/></td>
               <td valign=top><kul:htmlControlAttribute attributeEntry="${nonEmplTravelAttributes.perDiemStartDateTime}" property="document.dvNonEmployeeTravel.perDiemEndDateTime" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
               <c:if test="${fullEntryMode||travelEntryMode}">
-              <img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="document.dvNonEmployeeTravel.perDiemEndDateTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
+              <img src="${ConfigProperties.kr.externalizable.images.url}cal.png" width="24" id="document.dvNonEmployeeTravel.perDiemEndDateTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
                 <script type="text/javascript">
                   Calendar.setup(
                           {

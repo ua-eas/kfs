@@ -20,66 +20,73 @@
 
 <%@ attribute name="accountPrefix" required="false" description="an optional prefix to specify a different location for acocunting lines rather than just on the document."%>
 <%@ attribute name="itemColSpan" required="true" description="item columns to span"%>
+<%@ attribute name="rowStyle" required="false" description="custom styling for the row"%>
 
-    <c:if test="${!accountingLineScriptsLoaded}">
-        <script language="JavaScript" type="text/javascript" src="scripts/sys/objectInfo.js"></script>
-        <c:set var="accountingLineScriptsLoaded" value="true" scope="request" />
-    </c:if>
-    
-    <%-- add extra columns count for the "Action" button and/or dual amounts --%>
+<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
+<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
+<c:set var="tabTitle" value="AccountingLines-${currentTabIndex}" />
+<c:set var="tabKey" value="${kfunc:generateTabKey(tabTitle)}"/>
+<c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
+<c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
 
-    <c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-    <c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-    <c:set var="tabTitle" value="AccountingLines-${currentTabIndex}" />
-    <c:set var="tabKey" value="${kfunc:generateTabKey(tabTitle)}"/>
-    <!--  hit form method to increment tab index -->
-    <c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
-    <c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
+<c:choose>
+    <c:when test="${empty currentTab}">
+        <c:set var="isOpen" value="false" />
+    </c:when>
+    <c:when test="${!empty currentTab}">
+        <c:set var="isOpen" value="${currentTab == 'OPEN'}" />
+    </c:when>
+</c:choose>
 
-	<%-- default to closed --%>
-	<c:choose>
-		<c:when test="${empty currentTab}">
-			<c:set var="isOpen" value="false" />
-		</c:when>
-		<c:when test="${!empty currentTab}">
-			<c:set var="isOpen" value="${currentTab == 'OPEN'}" />
-		</c:when>
-	</c:choose>
+<tr style="${rowStyle}">
+    <td colspan="${itemColSpan}">
+        <c:if test="${!accountingLineScriptsLoaded}">
+            <script language="JavaScript" type="text/javascript" src="scripts/sys/objectInfo.js"></script>
+            <c:set var="accountingLineScriptsLoaded" value="true" scope="request" />
+        </c:if>
 
-    <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
+        <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 
-	<tr>
-	<td colspan="${itemColSpan}">
-	<table border="0" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<th style="padding: 0px; border-right: none;">
-		    <div align=left>
-		  	    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-		         <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" alt="hide" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-		     </c:if>
-		     <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-		         <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" alt="show" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-		     </c:if>
-		    	Accounting Lines
-		    </div>
-		</th>
-	</tr>
+        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <th class="left">
+                    Accounting Lines
+                    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+                         <html:submit
+                                 property="methodToCall.toggleTab.tab${tabKey}"
+                                 alt="hide"
+                                 title="toggle"
+                                 styleClass="btn btn-default small"
+                                 styleId="tab-${tabKey}-imageToggle"
+                                 onclick="javascript: return toggleTab(document, '${tabKey}'); "
+                                 value="Hide"/>
+                     </c:if>
+                     <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+                         <html:submit
+                                 property="methodToCall.toggleTab.tab${tabKey}"
+                                 alt="show"
+                                 title="toggle"
+                                 styleClass="btn btn-default small"
+                                 styleId="tab-${tabKey}-imageToggle"
+                                 onclick="javascript: return toggleTab(document, '${tabKey}'); "
+                                 value="Show"/>
+                     </c:if>
+                </th>
+            </tr>
 
-	<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-	    <tr style="display: none;"  id="tab-${tabKey}-div">
-	</c:if>   
-        <th style="padding:0;">              
-            <sys-java:accountingLines>
-			    <sys-java:accountingLineGroup newLinePropertyName="${accountPrefix}newSourceLine" collectionPropertyName="${accountPrefix}sourceAccountingLines" collectionItemPropertyName="${accountPrefix}sourceAccountingLine" attributeGroupName="source" />
-		    </sys-java:accountingLines>
-        </th>
-    
-	<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-	    </tr>
-	</c:if>
-
-</table>
-</td>
+            <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+                <tr style="display: none;"  id="tab-${tabKey}-div">
+            </c:if>
+                <th style="padding:0;">
+                    <sys-java:accountingLines>
+                        <sys-java:accountingLineGroup newLinePropertyName="${accountPrefix}newSourceLine" collectionPropertyName="${accountPrefix}sourceAccountingLines" collectionItemPropertyName="${accountPrefix}sourceAccountingLine" attributeGroupName="source" />
+                    </sys-java:accountingLines>
+                </th>
+            <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+                </tr>
+            </c:if>
+        </table>
+    </td>
 </tr>
 
 

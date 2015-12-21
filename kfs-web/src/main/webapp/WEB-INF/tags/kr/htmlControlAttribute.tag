@@ -400,7 +400,7 @@ if (attributeEntry == null) {
   </c:if>
   <%-- datePicker icon --%>
   	<c:if test="${attributeEntry.control.text == true && (datePicker == true || (attributeEntry.control.datePicker == true && datePicker != false))}">
-        <img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="${property}_datepicker" style="cursor: pointer;"
+        <img src="${ConfigProperties.kr.externalizable.images.url}cal.png" width="24" id="${property}_datepicker" style="cursor: pointer;"
              title="Date selector" alt="Date selector" />
              <script type="text/javascript">
              	//<![CDATA[

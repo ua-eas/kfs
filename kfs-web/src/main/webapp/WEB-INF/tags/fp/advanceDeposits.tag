@@ -24,11 +24,10 @@
 <kul:tab tabTitle="Advance Deposits" defaultOpen="true" tabErrorKey="${KFSConstants.ADVANCE_DEPOSITS_LINE_ERRORS}">
 <c:set var="adAttributes" value="${DataDictionary.AdvanceDepositDetail.attributes}" />
  <div class="tab-container" align=center>
-	<h3>Advance Deposits</h3>
-	<table cellpadding=0 class="datatable" summary="Advance Deposits">
-		<tr>
+	<table cellpadding=0 class="datatable standard" summary="Advance Deposits">
+		<tr class="header">
             <kul:htmlAttributeHeaderCell literalLabel="&nbsp;"/>
-            <sys:bankLabel align="center"/>
+            <sys:bankLabel align="left" addClass="left" horizontal="${false}"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${adAttributes.financialDocumentAdvanceDepositDate}"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${adAttributes.financialDocumentAdvanceDepositReferenceNumber}"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${adAttributes.financialDocumentAdvanceDepositDescription}"/>
@@ -38,9 +37,9 @@
             </c:if>
 		</tr>
         <c:if test="${not readOnly}">
-            <tr>
-                <kul:htmlAttributeHeaderCell literalLabel="add:" scope="row"/>
-                <sys:bankControl property="newAdvanceDeposit.financialDocumentBankCode" objectProperty="newAdvanceDeposit.bank" depositOnly="true" readOnly="${readOnly}" style="infoline"/>
+            <tr class="highlight">
+                <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="row"/>
+                <sys:bankControl property="newAdvanceDeposit.financialDocumentBankCode" objectProperty="newAdvanceDeposit.bank" depositOnly="true" readOnly="${readOnly}" style="infoline left"/>
                 <td class="infoline">    
                     <kul:dateInput attributeEntry="${adAttributes.financialDocumentAdvanceDepositDate}" property="newAdvanceDeposit.financialDocumentAdvanceDepositDate"/>
                 </td>
@@ -54,16 +53,32 @@
                 	<kul:htmlControlAttribute attributeEntry="${adAttributes.financialDocumentAdvanceDepositAmount}" property="newAdvanceDeposit.financialDocumentAdvanceDepositAmount" styleClass="amount"/>
                 </td>
                 <td class="infoline">
-                	<div align="center">
-                		<html:image property="methodToCall.addAdvanceDeposit" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="Add an Advance Deposit" title="Add an Advance Deposit" styleClass="tinybutton"/>
-                	</div>
+                    <html:submit
+                            property="methodToCall.addAdvanceDeposit"
+                            alt="Add an Advance Deposit"
+                            title="Add an Advance Deposit"
+                            styleClass="btn btn-green"
+                            value="Add"/>
                 </td>
             </tr>
         </c:if>
         <logic:iterate id="advanceDepositDetail" name="KualiForm" property="document.advanceDeposits" indexId="ctr">
-            <tr>
-                <kul:htmlAttributeHeaderCell literalLabel="${ctr+1}:" scope="row">
-                </kul:htmlAttributeHeaderCell>
+            <c:set var="rowClass" value=""/>
+            <c:choose>
+                <c:when test="${not readOnly}">
+                    <c:if test="${(ctr + 1) % 2 == 0}">
+                        <c:set var="rowClass" value="highlight"/>
+                    </c:if>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${ctr % 2 == 0}">
+                        <c:set var="rowClass" value="highlight"/>
+                    </c:if>
+                </c:otherwise>
+            </c:choose>
+
+            <tr class="${rowClass}">
+                <kul:htmlAttributeHeaderCell literalLabel="${ctr+1}" scope="row"/>
                 <sys:bankControl property="document.advanceDepositDetail[${ctr}].financialDocumentBankCode" objectProperty="document.advanceDepositDetail[${ctr}].bank" depositOnly="true" readOnly="${readOnly}"/>
                 <td class="datacell">
                 	<c:choose>
@@ -86,9 +101,12 @@
                 </td>
                 <c:if test="${not readOnly}">
                     <td class="datacell">
-                    	<div align="center">
-                    		<html:image property="methodToCall.deleteAdvanceDeposit.line${ctr}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" alt="Delete an Advance Deposit" title="Delete an Advance Deposit" styleClass="tinybutton"/>
-                    	</div>
+                        <html:submit
+                                property="methodToCall.deleteAdvanceDeposit.line${ctr}"
+                                alt="Delete an Advance Deposit"
+                                title="Delete an Advance Deposit"
+                                styleClass="btn btn-red"
+                                value="Delete"/>
                     </td>
                 </c:if>
             </tr>
