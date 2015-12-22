@@ -553,7 +553,7 @@ public class AssetGlobalMaintainableImpl extends LedgerPostingMaintainable {
         AssetGlobal assetGlobal = (AssetGlobal) getBusinessObject();
         assetGlobal.refresh();
         assetGlobal.refreshReferenceObject(CamsPropertyConstants.AssetGlobal.SEPARATE_SOURCE_CAPITAL_ASSET);
-        if (ObjectUtils.isNotNull(assetGlobal.getSeparateSourceCapitalAsset())) {
+        if (ObjectUtils.isNotNull(assetGlobal.getSeparateSourceCapitalAsset()) && ObjectUtils.isNotNull(assetGlobal.getSeparateSourceCapitalAsset().getLastInventoryDate())) {
             assetGlobal.setLastInventoryDate(new java.sql.Date(assetGlobal.getSeparateSourceCapitalAsset().getLastInventoryDate().getTime()));
             // CSU 6702 BEGIN
             //year end logic
