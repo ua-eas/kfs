@@ -21,48 +21,66 @@
 <c:set var="pullupOrgAttributes" value="${DataDictionary.BudgetConstructionPullup.attributes}" />
 <c:set var="organizationAttributes" value="${DataDictionary.Organization.attributes}" />
 
-    <table cellpadding=0 cellspacing="0"  summary="">
-      <tr>
-        <td class="subhead" colspan="4">Previous Branches</td>
-      </tr>
-      <tr>
+<h3>Previous Branches</h3>
+<table class="standard" summary="Previous Branches">
+    <tr class="header">
         <th>&nbsp;</th>
         <th>Chart/Org</th>
         <th>Organization</th>
         <th>&nbsp;</th>
-      </tr>
-      <%-- previous branches --%>
-      <c:forEach items="${KualiForm.previousBranchOrgs}" var="item" varStatus="status" >
-      <tr>
-        <td>
-          <div align="center">
-            <html:image property="methodToCall.navigateUp.line${status.index}.anchorpreviousBranchOrgsAnchor${status.index}" src="${ConfigProperties.externalizable.images.url}purap-up.gif" title="Return Previous" alt="Return Previous" styleClass="tinybutton" />
-          </div>
-        </td>
-        <td>
-          <kul:htmlControlAttribute property="previousBranchOrgs[${status.index}].chartOfAccountsCode" attributeEntry="${pullupOrgAttributes.chartOfAccountsCode}" readOnly="true" readOnlyBody="true">
-            <kul:inquiry  boClassName="org.kuali.kfs.coa.businessobject.Chart" keyValues="chartOfAccountsCode=${item.chartOfAccountsCode}" render="${!empty KualiForm.previousBranchOrgs[0].chartOfAccountsCode}">
-            ${KualiForm.previousBranchOrgs[status.index].chartOfAccountsCode}
-            </kul:inquiry>&nbsp;
-          </kul:htmlControlAttribute>
-      		-
-          <kul:htmlControlAttribute property="previousBranchOrgs[${status.index}].organizationCode" attributeEntry="${pullupOrgAttributes.organizationCode}" readOnly="true" readOnlyBody="true">
-            <kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.Organization" keyValues="chartOfAccountsCode=${item.chartOfAccountsCode}&amp;organizationCode=${item.organizationCode}" render="${!empty KualiForm.previousBranchOrgs[0].organizationCode}">
-            ${KualiForm.previousBranchOrgs[status.index].organizationCode}
-	        </kul:inquiry>&nbsp;
-          </kul:htmlControlAttribute>
-        </td>
-        <td>
-          <kul:htmlControlAttribute
-            property="previousBranchOrgs[${status.index}].organization.organizationName"
-            attributeEntry="${organizationAttributes.organizationName}"
-            readOnly="true"
-            readOnlyBody="true">
-            ${KualiForm.previousBranchOrgs[status.index].organization.organizationName}&nbsp;
-          </kul:htmlControlAttribute>
-        </td>
-        <td>&nbsp;
-        </td>
-      </tr>
-      </c:forEach>
-    </table> 
+    </tr>
+    <c:forEach items="${KualiForm.previousBranchOrgs}" var="item" varStatus="status">
+        <tr>
+            <td class="center">
+                <html:image
+                        property="methodToCall.navigateUp.line${status.index}.anchorpreviousBranchOrgsAnchor${status.index}"
+                        src="${ConfigProperties.externalizable.images.url}purap-up.gif"
+                        title="Return Previous"
+                        alt="Return Previous"
+                        styleClass="tinybutton"/>
+            </td>
+            <td>
+                <kul:htmlControlAttribute
+                        property="previousBranchOrgs[${status.index}].chartOfAccountsCode"
+                        attributeEntry="${pullupOrgAttributes.chartOfAccountsCode}"
+                        readOnly="true"
+                        readOnlyBody="true">
+
+                    <kul:inquiry
+                            boClassName="org.kuali.kfs.coa.businessobject.Chart"
+                            keyValues="chartOfAccountsCode=${item.chartOfAccountsCode}"
+                            render="${!empty KualiForm.previousBranchOrgs[0].chartOfAccountsCode}">
+
+                        ${KualiForm.previousBranchOrgs[status.index].chartOfAccountsCode}
+                    </kul:inquiry>
+                </kul:htmlControlAttribute>
+                -
+                <kul:htmlControlAttribute
+                        property="previousBranchOrgs[${status.index}].organizationCode"
+                        attributeEntry="${pullupOrgAttributes.organizationCode}"
+                        readOnly="true"
+                        readOnlyBody="true">
+
+                    <kul:inquiry
+                            boClassName="org.kuali.kfs.coa.businessobject.Organization"
+                            keyValues="chartOfAccountsCode=${item.chartOfAccountsCode}&amp;organizationCode=${item.organizationCode}"
+                            render="${!empty KualiForm.previousBranchOrgs[0].organizationCode}">
+
+                        ${KualiForm.previousBranchOrgs[status.index].organizationCode}
+                    </kul:inquiry>
+                </kul:htmlControlAttribute>
+            </td>
+            <td>
+                <kul:htmlControlAttribute
+                        property="previousBranchOrgs[${status.index}].organization.organizationName"
+                        attributeEntry="${organizationAttributes.organizationName}"
+                        readOnly="true"
+                        readOnlyBody="true">
+
+                    ${KualiForm.previousBranchOrgs[status.index].organization.organizationName}
+                </kul:htmlControlAttribute>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </c:forEach>
+</table>

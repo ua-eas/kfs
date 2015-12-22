@@ -20,66 +20,83 @@
 
 <c:set var="pointOfViewOrgAttributes" value="${DataDictionary.BudgetConstructionOrganizationReports.attributes}" />
 
- <table border="0" cellpadding="0" cellspacing="0" class="datatable" summary="">
- <tbody>
- 	<tr>
- 		<td class="subhead">Current Point of View Organization Selection</td>
- 	</tr>
- 	<tr>
-	 	<td>
-		 	<div align=center><br>   
-				<table style="width:auto" border="0" cellpadding="0" cellspacing="0" class="nobord">
-			    	<tr>
-						<td width="200" style="border-style:solid; border-color:#999999; border-width:1px; padding:6px; background-color:#EAE9E9">
-			            	<div align="center">
-			                     <strong>Select Point of View: <br><br>
-			                        <kul:htmlControlAttribute property="currentPointOfViewKeyCode" attributeEntry="${pointOfViewOrgAttributes.selectionKeyCode}" onchange="refreshPointOfView(this.form)" readOnly="false" styleClass="grid" />
-			                      	<br>
-			                     </strong>
-			                </div>
-			            </td>
-			            <c:if test="${!empty KualiForm.pointOfViewOrg.chartOfAccountsCode}"> 	                    
-			            <td width="30" class="nobord" >&nbsp;</td>
-				        <td class="nobord" >
-			    			<div align="left">
-			            		 <p align="center"><strong>Currently Selected:</strong><strong><br><br></strong>
-				                 <kul:htmlControlAttribute property="pointOfViewOrg.chartOfAccountsCode" attributeEntry="${pointOfViewOrgAttributes.chartOfAccountsCode}" readOnly="true" readOnlyBody="true">
-				    	             <kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.Chart" keyValues="chartOfAccountsCode=${pointOfViewOrg.chartOfAccountsCode}" render="${!empty KualiForm.pointOfViewOrg.chartOfAccountsCode}">
-				    	             ${KualiForm.pointOfViewOrg.chartOfAccountsCode}
-				    	         	 </kul:inquiry>
-			        	         </kul:htmlControlAttribute>
-			            	     -
-			                	 <kul:htmlControlAttribute property="pointOfViewOrg.organizationCode" attributeEntry="${pointOfViewOrgAttributes.organizationCode}" readOnly="true" readOnlyBody="true">
-			                   	 	<kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.Organization" keyValues="chartOfAccountsCode=${KualiForm.pointOfViewOrg.chartOfAccountsCode}&amp;organizationCode=${KualiForm.pointOfViewOrg.organizationCode}" render="${!empty KualiForm.pointOfViewOrg.organizationCode}">
-				    	             ${KualiForm.pointOfViewOrg.organizationCode}
-			      			        </kul:inquiry>
-				                 </kul:htmlControlAttribute>
-				                 <span class="fineprint">
-				                 	(
-				                 		<kul:htmlControlAttribute 
-				                 				property="pointOfViewOrg.organizationCode" 
-				                 				attributeEntry="${pointOfViewOrgAttributes.organizationCode}"				                 				 
-				                 				readOnly="true" 
-				                 				readOnlyBody="true">${KualiForm.pointOfViewOrg.organization.organizationName}&nbsp;</kul:htmlControlAttribute>
-				                 	)
-			    	             </span>
-			        		</div>
-			            </td>
-			            </c:if>
-			        </tr>
-			    </table><br/>
-	        </div>
-	 	</td>
-	</tr>
- <tbody>	
-</table>
+<div class="tab-container">
+    <h3>Current Point of View Organization Selection</h3>
+    <table class="datatable standard" summary="Current Point of View Organization Selection">
+        <tr>
+            <td class="center">
+                <table style="width:auto; margin:0 auto;">
+                    <tr>
+                        <td width="200" class="center" style="border-style:solid; border-color:#999999; border-width:1px; padding:6px; background-color:#EAE9E9; font-weight: 700;">
+                            Select Point of View:
+                            <br/><br/>
+                            <kul:htmlControlAttribute
+                                    property="currentPointOfViewKeyCode"
+                                    attributeEntry="${pointOfViewOrgAttributes.selectionKeyCode}"
+                                    onchange="refreshPointOfView(this.form)"
+                                    readOnly="false"
+                                    styleClass="grid" />
+                        </td>
+                        <c:if test="${!empty KualiForm.pointOfViewOrg.chartOfAccountsCode}">
+                            <td width="30" class="nobord" >&nbsp;</td>
+                            <td class="center">
+                                <strong>Currently Selected:</strong>
+                                <br/><br/>
+                                <kul:htmlControlAttribute
+                                        property="pointOfViewOrg.chartOfAccountsCode"
+                                        attributeEntry="${pointOfViewOrgAttributes.chartOfAccountsCode}"
+                                        readOnly="true"
+                                        readOnlyBody="true">
 
-<c:if test="${!empty KualiForm.previousBranchOrgs}">
-	<bc:budgetConstructionOrgSelectionPreviousBranches />
-</c:if>
-		
-<c:if test="${!empty KualiForm.selectionSubTreeOrgs}">
-	<bc:budgetConstructionOrgSelectionSubTreeOrgs />
-</c:if>  
-  
+                                    <kul:inquiry
+                                            boClassName="org.kuali.kfs.coa.businessobject.Chart"
+                                            keyValues="chartOfAccountsCode=${pointOfViewOrg.chartOfAccountsCode}"
+                                            render="${!empty KualiForm.pointOfViewOrg.chartOfAccountsCode}">
 
+                                        ${KualiForm.pointOfViewOrg.chartOfAccountsCode}
+                                    </kul:inquiry>
+                                </kul:htmlControlAttribute>
+                                -
+                                <kul:htmlControlAttribute
+                                        property="pointOfViewOrg.organizationCode"
+                                        attributeEntry="${pointOfViewOrgAttributes.organizationCode}"
+                                        readOnly="true"
+                                        readOnlyBody="true">
+
+                                    <kul:inquiry
+                                            boClassName="org.kuali.kfs.coa.businessobject.Organization"
+                                            keyValues="chartOfAccountsCode=${KualiForm.pointOfViewOrg.chartOfAccountsCode}&amp;organizationCode=${KualiForm.pointOfViewOrg.organizationCode}"
+                                            render="${!empty KualiForm.pointOfViewOrg.organizationCode}">
+
+                                        ${KualiForm.pointOfViewOrg.organizationCode}
+                                    </kul:inquiry>
+                                </kul:htmlControlAttribute>
+
+                                <span class="fineprint">
+                                    (
+                                    <kul:htmlControlAttribute
+                                            property="pointOfViewOrg.organizationCode"
+                                            attributeEntry="${pointOfViewOrgAttributes.organizationCode}"
+                                            readOnly="true"
+                                            readOnlyBody="true">
+
+                                        ${KualiForm.pointOfViewOrg.organization.organizationName}&nbsp;
+                                    </kul:htmlControlAttribute>
+                                    )
+                                </span>
+                            </td>
+                        </c:if>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <c:if test="${!empty KualiForm.previousBranchOrgs}">
+        <bc:budgetConstructionOrgSelectionPreviousBranches />
+    </c:if>
+
+    <c:if test="${!empty KualiForm.selectionSubTreeOrgs}">
+        <bc:budgetConstructionOrgSelectionSubTreeOrgs />
+    </c:if>
+</div>

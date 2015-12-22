@@ -27,30 +27,34 @@
 </c:if>
 
 <kul:tab tabTitle="${tabTitle}" defaultOpen="true" tabErrorKey="reportSel">
-	<div class="tab-container" align="center" id="G02" style="display: block;">
-    		<h3>${tabTitle}</h3>
-
-        <table width="100%" cellpadding="0" cellspacing="0">
+	<div class="tab-container" id="G02" style="display: block;">
+        <table class="standard">
       		<c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.PULLUP}">
-      		 <tr>
-                <td width="200">
-                  <div align="center">
-                    <html:image property="methodToCall.performShowPullUpBudgetDocs" src="${ConfigProperties.externalizable.images.url}tinybutton-view.gif" title="Show Documents" alt="Show Documents" styleClass="tinybutton" />
-                  </div>
-                </td>
-                <td>List Pullup Candidate Documents </td>
-             </tr>
-           </c:if>
-           <c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.PUSHDOWN}">
-              <tr>
-                <td width="200">
-                  <div align="center">
-                    <html:image property="methodToCall.performShowPushDownBudgetDocs" src="${ConfigProperties.externalizable.images.url}tinybutton-view.gif" title="Show Documents" alt="Show Documents" styleClass="tinybutton" />
-                  </div>
-                </td>
-                <td>List Pushdown Candidate Documents </td>
-             </tr>
-           </c:if>
+                <tr>
+                    <td width="200" class="right">
+                        <html:submit
+                                property="methodToCall.performShowPullUpBudgetDocs"
+                                title="Show Documents"
+                                alt="Show Documents"
+                                styleClass="btn btn-default"
+                                value="View"/>
+                    </td>
+                    <td>List Pullup Candidate Documents </td>
+                </tr>
+            </c:if>
+            <c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.PUSHDOWN}">
+                <tr>
+                    <td width="200" class="right">
+                        <html:submit
+                                property="methodToCall.performShowPushDownBudgetDocs"
+                                title="Show Documents"
+                                alt="Show Documents"
+                                styleClass="btn btn-default"
+                                value="View"/>
+                    </td>
+                    <td>List Pushdown Candidate Documents </td>
+                </tr>
+            </c:if>
       </table>
   </div>
 </kul:tab>  
