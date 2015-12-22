@@ -64,7 +64,7 @@
 									<th class="right"><label for="startTime">Start Date/Time</label>: </td>
 									<td>
 										<input type="text" id="startTime" name="startTime" id="startTime" value="" maxlength="20" size="20" onchange="" onblur="" style="" class="">
-										<img src="${ConfigProperties.kr.externalizable.images.url}cal.gif" id="startTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
+										<img src="${ConfigProperties.kr.externalizable.images.url}cal.png" width="24" id="startTime_datepicker" style="cursor: pointer;" title="Date selector" alt="Date selector" />
 						                <script type="text/javascript">
 						                  Calendar.setup(
 						                          {
@@ -83,7 +83,7 @@
 									<td>
 										<input type="text" id="emailAddress" name="emailAddress" id="emailAddress" value="" />
 										<button
-                                                onclick="document.getElementById('emailAddress').value = '${userEmailAddress}';"
+                                                onclick="document.getElementById('emailAddress').value = '${userEmailAddress}'; return false;"
                                                 class="btn btn-default"
                                                 title="Mail To Me"
                                                 alt="Mail To Me">
