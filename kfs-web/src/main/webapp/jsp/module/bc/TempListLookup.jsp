@@ -112,27 +112,33 @@
                         <tr align=center>
                             <td height="30" colspan=2 class="infoline">
                             <c:if test="${KualiForm.tempListLookupMode == BCConstants.TempListLookupMode.ACCOUNT_SELECT_ABOVE_POV}">
-                              <html:image
-                                  property="methodToCall.submitReport" value="submit"
-                                  src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_submit.gif" styleClass="tinybutton"
-                                  alt="submit" title="submit" border="0" onblur="formHasAlreadyBeenSubmitted = false"/>
+                              <html:submit
+                                      property="methodToCall.submitReport"
+                                      value="Submit"
+                                      styleClass="btn btn-default"
+                                      alt="submit"
+                                      title="submit"
+                                      onblur="formHasAlreadyBeenSubmitted = false"/>
                             </c:if>
                             <c:if test="${KualiForm.tempListLookupMode != BCConstants.TempListLookupMode.SHOW_BENEFITS}">
                                 <html:submit
                                         property="methodToCall.search" value="Search"
-                                        styleClass="tinybutton btn btn-default"
+                                        styleClass="btn btn-default"
                                         alt="Search" title="Search" />
                                 <html:submit
                                         property="methodToCall.clearValues" value="Clear"
-                                        styleClass="tinybutton btn btn-default"
+                                        styleClass="btn btn-default"
                                         alt="Clear" title="Clear" />
                             </c:if>
                             <c:choose>
                                 <c:when test="${KualiForm.tempListLookupMode == BCConstants.TempListLookupMode.CSF_TRACKER_POSITION_LOOKUP}" >
-                                    <html:image
-                                    property="methodToCall.refresh" value="cancel"
-                                    src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" styleClass="tinybutton"
-                                    onclick="window.close()" alt="cancel" title="cancel" border="0" />
+                                    <html:submit
+                                            property="methodToCall.refresh"
+                                            value="Cancel"
+                                            styleClass="tinybutton"
+                                            onclick="window.close()"
+                                            alt="cancel"
+                                            title="cancel"/>
                                 </c:when>
                                 <c:otherwise>
                                     <html:submit
@@ -142,25 +148,31 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:if test="${KualiForm.tempListLookupMode == BCConstants.TempListLookupMode.POSITION_SELECT}">
-                              <html:image
-                                  property="methodToCall.performExtendedPositionSearch" value="submit"
-                                  src="${ConfigProperties.externalizable.images.url}buttonsmall_extended.gif" styleClass="tinybutton"
-                                  alt="perform extended search" title="perform extended search" border="0"/>
+                              <html:submit
+                                    property="methodToCall.performExtendedPositionSearch"
+                                    value="Extended"
+                                    styleClass="btn btn-default"
+                                    alt="perform extended search"
+                                    title="perform extended search"/>
                             </c:if>
 
                             <c:if test="${KualiForm.tempListLookupMode == BCConstants.TempListLookupMode.INTENDED_INCUMBENT_SELECT}">
-                              <html:image
-                                  property="methodToCall.performExtendedIncumbentSearch" value="submit"
-                                  src="${ConfigProperties.externalizable.images.url}buttonsmall_extended.gif" styleClass="tinybutton"
-                                  alt="perform extended search" title="perform extended search" border="0"/>
+                              <html:submit
+                                    property="methodToCall.performExtendedIncumbentSearch"
+                                    value="Extended"
+                                    styleClass="btn btn-default"
+                                    alt="perform extended search"
+                                    title="perform extended search"/>
                             </c:if>
 
                             <c:if test="${KualiForm.tempListLookupMode == BCConstants.TempListLookupMode.BUDGET_POSITION_LOOKUP}">
                               <c:if test="${KualiForm.getNewPositionEnabled}">
-                                <html:image
-                                    property="methodToCall.getNewPosition" value="submit"
-                                    src="${ConfigProperties.externalizable.images.url}buttonsmall_getnew.gif" styleClass="tinybutton"
-                                    alt="get new position" title="get new position" border="0"/>
+                                <html:submit
+                                        property="methodToCall.getNewPosition"
+                                        value="Get New"
+                                        styleClass="btn btn-default"
+                                        alt="get new position"
+                                        title="get new position"/>
                               </c:if>
                               <c:if test="${KualiForm.addLine}">
                                 <html-el:hidden name="KualiForm" property="chartOfAccountsCode" />
@@ -173,10 +185,12 @@
 
                             <c:if test="${KualiForm.tempListLookupMode == BCConstants.TempListLookupMode.INTENDED_INCUMBENT}">
                               <c:if test="${KualiForm.getNewIncumbentEnabled}">
-                                <html:image
-                                    property="methodToCall.getNewIncumbent" value="submit"
-                                    src="${ConfigProperties.externalizable.images.url}buttonsmall_getnew.gif" styleClass="tinybutton"
-                                    alt="get new incumbent" title="get new incumbent" border="0"/>
+                                <html:submit
+                                        property="methodToCall.getNewIncumbent"
+                                        value="Get New"
+                                        styleClass="btn btn-default"
+                                        alt="get new incumbent"
+                                        title="get new incumbent"/>
                               </c:if>
                               <c:if test="${KualiForm.addLine}">
                                 <html-el:hidden name="KualiForm" property="chartOfAccountsCode" />

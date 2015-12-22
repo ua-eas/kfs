@@ -41,8 +41,8 @@
 </c:if>
 
 <c:if test="${displayTitle}" >
-  <a class="portal_link" href="${prefix}portal.do?channelTitle=${title}&channelUrl=${url}${backdoorMainUrlAddition}"  title="${title}">${title}</a>
+  <a class="portal_link" href="${prefix}${url}${backdoorMainUrlAddition}"  title="${title}">${title}</a>
 </c:if>
 <c:if test="${! displayTitle}" >
-  <a class="portal_link" href="${prefix}portal.do?channelTitle=${title}&channelUrl=${url}${backdoorMainUrlAddition}" title="${title}"><jsp:doBody/></a>
+  <a class="portal_link" href="${prefix}${url}${backdoorMainUrlAddition}" title="${title}"><jsp:doBody/></a>
 </c:if>

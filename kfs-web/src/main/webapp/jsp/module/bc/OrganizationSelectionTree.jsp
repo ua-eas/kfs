@@ -18,65 +18,67 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<script language="JavaScript" type="text/javascript" src="scripts/module/bc/organizationSelectionTree.js"></script>
-
 <c:set var="pointOfViewOrgAttributes" value="${DataDictionary.BudgetConstructionOrganizationReports.attributes}" />
 <c:set var="pullupOrgAttributes" value="${DataDictionary.BudgetConstructionPullup.attributes}" />
 <c:set var="organizationAttributes" value="${DataDictionary.Organization.attributes}" />
 
-<kul:page showDocumentInfo="false"
-	htmlFormAction="budgetOrganizationSelectionTree" renderMultipart="true"
-	docTitle="Organization Selection"
-    transactionalDocument="false" showTabButtons="true">
-    
-    <!--[if IE]> 
-      <style>
-        #workarea div.tab-container {
-          width:100%;
-        }
-      </style> 
-    <![endif]-->
-    	    
+<kul:page
+        showDocumentInfo="false"
+	    htmlFormAction="budgetOrganizationSelectionTree"
+        renderMultipart="true"
+	    docTitle="Organization Selection"
+        transactionalDocument="false"
+        showTabButtons="true">
+
+    <script language="JavaScript" type="text/javascript" src="scripts/module/bc/organizationSelectionTree.js"></script>
+
     <kul:errors keyMatch="pointOfViewOrg" errorTitle="Errors found in Organization Selection:" />
     <c:forEach items="${KualiForm.messages}" var="message">
-	   ${message}
+	   <div class="error" style="color:#C47965;">${message}</div>
 	</c:forEach>
 
-	<br/><br/>	
-
 	<kul:tabTop tabTitle="${KualiForm.operatingModeTitle}" defaultOpen="true" tabErrorKey="orgSel,selectionSubTreeOrgs">
-	<div class="tab-container" align=center>
-		<bc:budgetConstructionOrgSelection />
-	</div>
+        <bc:budgetConstructionOrgSelection />
 	</kul:tabTop>
 	
 	<c:if test="${!empty KualiForm.selectionSubTreeOrgs}">		
 		<c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.REPORTS}">
 			<bc:budgetConstructionOrgSelectionReport />
 		</c:if>
-		
 	    <c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.ACCOUNT}">
 			<bc:budgetConstructionOrgSelectionAccount />
 		</c:if>
-		
 	    <c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.SALSET}">
 			<bc:budgetConstructionOrgSelectionSalset />
 		</c:if>
-		
-		<c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.PULLUP or KualiForm.operatingMode == BCConstants.OrgSelOpMode.PUSHDOWN}">    
+		<c:if test="${KualiForm.operatingMode == BCConstants.OrgSelOpMode.PULLUP or KualiForm.operatingMode == BCConstants.OrgSelOpMode.PUSHDOWN}">
 			<bc:budgetConstructionOrgSelectionPushOrPull />     
 		</c:if>       
     </c:if>
 
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${!empty KualiForm.selectionSubTreeOrgs && KualiForm.operatingMode == BCConstants.OrgSelOpMode.PULLUP}">
-             <html:image property="methodToCall.performPullUp" src="${ConfigProperties.externalizable.images.url}buttonsmall_pullup.gif" title="Perform Pullup" alt="Perform Pullup" styleClass="globalbuttons" />
+             <html:submit
+                     property="methodToCall.performPullUp"
+                     title="Perform Pullup"
+                     alt="Perform Pullup"
+                     styleClass="btn btn-default"
+                     value="Pull Up"/>
         </c:if>
-        
         <c:if test="${!empty KualiForm.selectionSubTreeOrgs && KualiForm.operatingMode == BCConstants.OrgSelOpMode.PUSHDOWN}">
-             <html:image property="methodToCall.performPushDown" src="${ConfigProperties.externalizable.images.url}buttonsmall_pushdown.gif" title="Perform Pushdown" alt="Perform Pushdown" styleClass="globalbuttons" />
+             <html:submit
+                     property="methodToCall.performPushDown"
+                     title="Perform Pushdown"
+                     alt="Perform Pushdown"
+                     styleClass="btn btn-default"
+                     value="Push Down"/>
         </c:if>
-        
-        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" styleClass="globalbuttons" property="methodToCall.returnToCaller" title="close" alt="close"/>
+        <html:submit
+                styleClass="btn btn-default"
+                property="methodToCall.returnToCaller"
+                title="close"
+                alt="close"
+                value="Close"/>
     </div>
+    <kul:stickyGlobalButtons bodySelector="div#page-content"/>
 </kul:page>
