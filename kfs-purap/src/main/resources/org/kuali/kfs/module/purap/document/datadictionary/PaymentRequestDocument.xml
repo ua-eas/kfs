@@ -1026,8 +1026,8 @@
 	<bean id="PaymentRequestDocument-achSignUpStatusFlag-parentBean" abstract="true" parent="AttributeDefinition">
 		<property name="name" value="achSignUpStatusFlag" />
 		<property name="forceUppercase" value="true" />
-		<property name="label" value="ACH Signup Status" />
-		<property name="shortLabel" value="ACH Signup" />
+		<property name="label" value="Active ACH Payee" />
+		<property name="shortLabel" value="Active ACH" />
 		<property name="maxLength" value="1" />
 		<property name="control">
 			<bean parent="CheckboxControlDefinition" />

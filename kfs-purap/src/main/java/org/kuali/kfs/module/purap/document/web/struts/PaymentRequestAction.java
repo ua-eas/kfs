@@ -188,24 +188,40 @@ public class PaymentRequestAction extends AccountsPayableActionBase {
 
         // update the counts on the form
         preqForm.updateItemCounts();
-        
-        // determine what is the ACH flag for the vendor. 
-        updateAchSignupStatusFlagForPayee(paymentRequestDocument);
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
+	/* (non-Javadoc)
+	 * @see org.kuali.kfs.module.purap.document.web.struts.AccountsPayableActionBase#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public ActionForward execute(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		ActionForward dest = super.execute(mapping, form, request, response);
+
+		PaymentRequestForm preqForm = (PaymentRequestForm) form;
+		if(ObjectUtils.isNull(preqForm)) return dest;
+		
+		PaymentRequestDocument preqDoc = (PaymentRequestDocument) preqForm.getDocument();
+		if(ObjectUtils.isNull(preqDoc)) return dest;
+		
+        // determine what is the ACH flag for the vendor. 
+        updateAchSignupStatusFlagForPayee(preqDoc);
+		
+		return dest;
+	}
+
 	private void updateAchSignupStatusFlagForPayee(PaymentRequestDocument preqDoc) {
 		VendorDetail vendorDetail = preqDoc.getVendorDetail();
+		if (ObjectUtils.isNull(vendorDetail)) return;
 
 		boolean signedupForACH = false;
-		if (vendorDetail != null) {
-			vendorDetail.getVendorNumber();
-			String payeeTypeCode = PayeeIdTypeCodes.VENDOR_ID;
-			String payeeIdNumber = vendorDetail.getVendorNumber();
-			signedupForACH = SpringContext.getBean(PayeeACHService.class).isPayeeSignedUpForACH(payeeTypeCode, payeeIdNumber);
-		}
-		
+		String payeeTypeCode = PayeeIdTypeCodes.VENDOR_ID;
+		String payeeIdNumber = vendorDetail.getVendorNumber();
+		signedupForACH = SpringContext.getBean(PayeeACHService.class).isPayeeSignedUpForACH(payeeTypeCode, payeeIdNumber);
+
 		preqDoc.setAchSignUpStatusFlag(signedupForACH);
 	}
 
