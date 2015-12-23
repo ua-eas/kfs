@@ -21,50 +21,57 @@
 	value="${DataDictionary['BudgetConstructionDocument'].attributes}" />
 
 <c:if test="${KualiForm.pickListClose}">
-<kul:page showDocumentInfo="false"
-	htmlFormAction="budgetBudgetConstruction" renderMultipart="false"
-	showTabButtons="false"
-	docTitle="Budget Construction Document"
-    transactionalDocument="true"
-	>
-    <div id="globalbuttons" class="globalbuttons">
-	    <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" styleClass="globalbuttons" 
-	        onclick="window.close();return true;" property="methodToCall.performLost" title="close the window" alt="close the window"/>		
-    </div>
-</kul:page>
+    <kul:page
+            showDocumentInfo="false"
+            htmlFormAction="budgetBudgetConstruction"
+            renderMultipart="false"
+            showTabButtons="false"
+            docTitle="Budget Construction Document"
+            transactionalDocument="true">
+
+        <div id="globalbuttons" class="globalbuttons">
+            <html:submit
+                    styleClass="btn btn-default"
+                    onclick="window.close();return true;"
+                    property="methodToCall.performLost"
+                    title="close the window"
+                    alt="close the window"
+                    value="Close"/>
+        </div>
+    </kul:page>
 </c:if>
 
 <c:if test="${!KualiForm.pickListClose}">
-<kul:page showDocumentInfo="true"
-	htmlFormAction="budgetBudgetConstruction" renderMultipart="true"
-	showTabButtons="true"
-	docTitle="Budget Construction Document"
-    transactionalDocument="true"
-	>
-    <html:hidden property="mainWindow" />
+    <kul:page
+            showDocumentInfo="true"
+            htmlFormAction="budgetBudgetConstruction"
+            renderMultipart="true"
+            showTabButtons="true"
+            docTitle="Budget Construction Document"
+            transactionalDocument="true">
 
-	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
+        <html:hidden property="mainWindow" />
 
-    <c:if test="${!KualiForm.securityNoAccess}">
-    <bc:systemInformation />
+        <sys:documentOverview editingMode="${KualiForm.editingMode}" />
 
-    <bc:budgetConstructionRevenueLines />
+        <c:if test="${!KualiForm.securityNoAccess}">
+            <bc:systemInformation />
 
-    <bc:budgetConstructionExpenditureLines />
-    
-	<kul:notes />
-    </c:if>
+            <bc:budgetConstructionRevenueLines />
 
-	<kul:routeLog />
+            <bc:budgetConstructionExpenditureLines />
 
-	<sys:documentControls transactionalDocument="false"
-		suppressRoutingControls="true" />
+            <kul:notes />
+        </c:if>
 
-<%-- Need these here to override and initialize vars used by objectinfo.js to BC specific --%>
-<SCRIPT type="text/javascript">
-  subObjectCodeNameSuffix = ".financialSubObject.financialSubObjectCdshortNm";
-  var kualiForm = document.forms['KualiForm'];
-  var kualiElements = kualiForm.elements;
-</SCRIPT>
-</kul:page>
+        <kul:routeLog />
+
+        <sys:documentControls transactionalDocument="false" suppressRoutingControls="true" />
+
+        <script type="text/javascript">
+            subObjectCodeNameSuffix = ".financialSubObject.financialSubObjectCdshortNm";
+            var kualiForm = document.forms['KualiForm'];
+            var kualiElements = kualiForm.elements;
+        </script>
+    </kul:page>
 </c:if>
