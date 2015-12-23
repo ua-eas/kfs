@@ -69,27 +69,27 @@ import org.springframework.transaction.annotation.Transactional;
 public class LaborPosterServiceImpl implements LaborPosterService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborPosterServiceImpl.class);
 
-    private LaborOriginEntryService laborOriginEntryService;
-    private OriginEntryGroupService originEntryGroupService;
-    private LaborTransactionDescriptionService laborTransactionDescriptionService;
+    protected LaborOriginEntryService laborOriginEntryService;
+    protected OriginEntryGroupService originEntryGroupService;
+    protected LaborTransactionDescriptionService laborTransactionDescriptionService;
 
-    private ReportWriterService reportWriterService;
-    private ReportWriterService errorListingReportWriterService;
-    private ReportWriterService ledgerSummaryReportWriterService;
-    private ReportWriterService laborGlEntryStatisticsReportWriterService;
+    protected ReportWriterService reportWriterService;
+    protected ReportWriterService errorListingReportWriterService;
+    protected ReportWriterService ledgerSummaryReportWriterService;
+    protected ReportWriterService laborGlEntryStatisticsReportWriterService;
 
-    private DateTimeService dateTimeService;
-    private VerifyTransaction laborPosterTransactionValidator;
-    private ParameterService parameterService;
+    protected DateTimeService dateTimeService;
+    protected VerifyTransaction laborPosterTransactionValidator;
+    protected ParameterService parameterService;
 
-    private PostTransaction laborLedgerEntryPoster;
-    private PostTransaction laborLedgerBalancePoster;
-    private PostTransaction laborGLLedgerEntryPoster;
+    protected PostTransaction laborLedgerEntryPoster;
+    protected PostTransaction laborLedgerBalancePoster;
+    protected PostTransaction laborGLLedgerEntryPoster;
 
-    private int numberOfErrorOriginEntry;
+    protected int numberOfErrorOriginEntry;
 
-    private String batchFileDirectoryName;
-    private PrintStream POSTER_OUTPUT_ERR_FILE_ps;
+    protected String batchFileDirectoryName;
+    protected PrintStream POSTER_OUTPUT_ERR_FILE_ps;
     
     /**
      * @see org.kuali.kfs.module.ld.batch.service.LaborPosterService#postMainEntries()
