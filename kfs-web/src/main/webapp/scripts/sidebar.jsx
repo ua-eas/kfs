@@ -66,7 +66,7 @@ var Sidebar = React.createClass({
         let newClass;
         let activePanel = $('li.panel.active>.sublinks');
 
-        if (activePanel.offset()) {
+        if (!activePanel.parent().hasClass('search') && activePanel.offset()) {
             let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
             let panelHeight = activePanel.outerHeight();
             let distanceFromTop = activePanel.offset().top - window.pageYOffset;

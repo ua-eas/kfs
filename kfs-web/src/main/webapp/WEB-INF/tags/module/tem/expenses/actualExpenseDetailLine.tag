@@ -23,6 +23,7 @@
 <%@ attribute name="detailLineNumber" required="false" description="Detail line number"%>
 <%@ attribute name="detailObject"     required="true"  description="The actual object" type="org.kuali.kfs.module.tem.businessobject.ActualExpense"%>
 <%@ attribute name="parentObject"     required="true"  description="The parent object" type="org.kuali.kfs.module.tem.businessobject.ActualExpense"%>
+<%@ attribute name="highlight" required="false" description="Whether the row should be highlighted or not." %>
 
 <c:set var="otherExpenseAttributes" value="${DataDictionary.ActualExpense.attributes}" />
 <jsp:useBean id="paramMap" class="java.util.HashMap" />
@@ -31,24 +32,21 @@
 <c:set target="${paramMap}" property="documentType" value="${KualiForm.docTypeName}" />
 <c:set var="calcColspan" value="6" />
 
-<tr>
+
+<tr class="top ${highlight ? 'highlight' : ''}">
 	<c:choose>
 		<c:when test="${detailLineNumber == null }">
-			<th scope="row" class="infoline" rowspan="2">
-				<div align="right">add:</div>
-			</th>
+			<th scope="row" class="infoline" rowspan="2"></th>
 		</c:when>
 		<c:otherwise>
-			<th scope="row" class="infoline" rowspan="2">
-				<div align="center">${detailLineNumber+1}</div>
-			</th>
+			<th scope="row" class="infoline center" style="vertical-align: middle;" rowspan="2">${detailLineNumber+1}</th>
 		</c:otherwise>
 	</c:choose>
 	<td valign="top" class="infoline"><kul:htmlControlAttribute
 			attributeEntry="${otherExpenseAttributes.expenseDate}"
 			property="${detail}.expenseDate" readOnly="${!fullEntryMode}" />
 	</td>
-	<td valign="top" class="infoline">
+	<td class="infoline">
 		<c:out value="${detailObject.expenseType.name}" />
 		<c:set var="strKey" value="${detail}.expenseTypeCode" /> 
 		<c:forEach items="${ErrorPropertyList}" var="key">
@@ -57,77 +55,74 @@
 			</c:if>
 		</c:forEach>
 	</td>
-	<%-- Show Mileage --%>
 	<c:if test="${parentObject.mileageIndicator}">
 		<c:set var="calcColspan" value="${calcColspan+2 }" />
-		<td valign="top" class="infoline" align="center"><kul:htmlControlAttribute
-				attributeEntry="${otherExpenseAttributes.miles}"
-				property="${detail}.miles" readOnly="${!fullEntryMode}" onchange="updateMileage(this.id)" /></td>
-		<td valign="top" class="infoline" align="center">
+		<td class="infoline">
+            <kul:htmlControlAttribute
+                    attributeEntry="${otherExpenseAttributes.miles}"
+				    property="${detail}.miles"
+                    readOnly="${!fullEntryMode}"
+                    onchange="updateMileage(this.id)" />
+        </td>
+		<td class="infoline">
 			<c:out value="${detailObject.contextlessMileageRate.rate}" />
 		</td>
 	</c:if>
-	<td valign="top" nowrap class="infoline">
-		<div align="center" id="div_${detail}.expenseAmount">
+	<td class="infoline">
+		<div id="div_${detail}.expenseAmount">
 			<kul:htmlControlAttribute
-				attributeEntry="${otherExpenseAttributes.expenseAmount}"
-				property="${detail}.expenseAmount"
-				readOnly="${!fullEntryMode || parentObject.mileage}" />
-		</div></td>
-	<td valign="top" class="infoline">
-		<div align="center" id="div_${detail}.convertedAmount">
+                    attributeEntry="${otherExpenseAttributes.expenseAmount}"
+                    property="${detail}.expenseAmount"
+                    readOnly="${!fullEntryMode || parentObject.mileage}" />
+		</div>
+    </td>
+	<td class="infoline">
+		<div id="div_${detail}.convertedAmount">
 			<kul:htmlControlAttribute
-				attributeEntry="${otherExpenseAttributes.convertedAmount}"
-				property="${detail}.convertedAmount"
-				readOnly="true" />
+                    attributeEntry="${otherExpenseAttributes.convertedAmount}"
+                    property="${detail}.convertedAmount"
+                    readOnly="true" />
 		</div>
 	</td>
-	<td valign="top" nowrap class="infoline">
-		<div align="center">
-			<kul:htmlControlAttribute
+	<td class="infoline center">
+        <kul:htmlControlAttribute
 				attributeEntry="${otherExpenseAttributes.nonReimbursable}"
 				property="${detail}.nonReimbursable" readOnly="${!fullEntryMode || parentObject.nonReimbursable}" />
-		</div>
 	</td>
-	<td valign="top" nowrap class="infoline">
-		<div align="center">
-			<kul:htmlControlAttribute
+	<td class="infoline center">
+        <kul:htmlControlAttribute
 				attributeEntry="${otherExpenseAttributes.taxable}"
 				property="${detail}.taxable"
 				readOnly="${!expenseTaxableMode}" />
-    	</div>
     </td>
 	<c:if test="${!empty detailObject.expenseTypeObjectCode && detailObject.expenseTypeObjectCode.receiptRequired}">
-		<td valign="top" nowrap class="infoline">
-            <div align="center">
-				<kul:htmlControlAttribute
+		<td class="infoline center">
+            <kul:htmlControlAttribute
 					attributeEntry="${DataDictionary.ExpenseTypeObjectCode.attributes.receiptRequired}"
 					property="${detail}.expenseTypeObjectCode.receiptRequired" readOnly="true" />
-			</div>
 		</td>
 	</c:if>
-	<td valign="top" class="infoline">
-		<div align="center">
-			<c:if test="${!empty detailObject.expenseTypeObjectCode && detailObject.expenseTypeObjectCode.receiptRequired}">
-				<kul:htmlControlAttribute
-					attributeEntry="${otherExpenseAttributes.missingReceipt}"
-					property="${detail}.missingReceipt"
-					readOnly="${!fullEntryMode}" />
-			</c:if>
-			<c:if test="${empty detailObject.expenseTypeObjectCode || !detailObject.expenseTypeObjectCode.receiptRequired}">
-				N/A
-			</c:if>
+	<td class="infoline center">
+        <c:if test="${!empty detailObject.expenseTypeObjectCode && detailObject.expenseTypeObjectCode.receiptRequired}">
+            <kul:htmlControlAttribute
+                    attributeEntry="${otherExpenseAttributes.missingReceipt}"
+                    property="${detail}.missingReceipt"
+                    readOnly="${!fullEntryMode}" />
+        </c:if>
+        <c:if test="${empty detailObject.expenseTypeObjectCode || !detailObject.expenseTypeObjectCode.receiptRequired}">
+            N/A
+        </c:if>
 		</div>
 	</td>
-	<%-- Show Airfare --%>
 	<c:if test="${parentObject.airfareIndicator}">
 		<c:set var="calcColspan" value="${calcColspan+2 }" />
-		<td valign="top" class="infoline">
+		<td class="infoline">
 			<kul:htmlControlAttribute
-				attributeEntry="${otherExpenseAttributes.airfareSourceCode}"
-				property="${detail}.airfareSourceCode" readOnly="${!fullEntryMode}" />
+                    attributeEntry="${otherExpenseAttributes.airfareSourceCode}"
+                    property="${detail}.airfareSourceCode"
+                    readOnly="${!fullEntryMode}" />
 		</td>
-		<td valign="top" class="infoline">
+		<td class="infoline">
 			<c:choose>
 				<c:when test="${fullEntryMode}">
 					<c:set target="${paramMap}" property="expenseTypeMetaCategoryCode" value="${parentObject.expenseType.expenseTypeMetaCategoryCode}" />
@@ -145,8 +140,8 @@
 		</td>
 	</c:if>
 	<c:if test="${parentObject.rentalCarIndicator}">
-	<c:set var="calcColspan" value="${calcColspan+2 }" />
-		<td valign="top" class="infoline">
+	    <c:set var="calcColspan" value="${calcColspan+2 }" />
+		<td class="infoline">
 			<c:choose>
 				<c:when test="${fullEntryMode}">
 					<c:set target="${paramMap}" property="expenseTypeMetaCategoryCode" value="${parentObject.expenseType.expenseTypeMetaCategoryCode}" />
@@ -162,12 +157,11 @@
 				</c:otherwise>
 			</c:choose>
 		</td>
-		<td valign="top" class="infoline">
-			<div align="center">
-				<kul:htmlControlAttribute
+		<td class="infoline">
+            <kul:htmlControlAttribute
 					attributeEntry="${otherExpenseAttributes.rentalCarInsurance}"
-					property="${detail}.rentalCarInsurance" readOnly="${!fullEntryMode}" />
-			</div>		
+					property="${detail}.rentalCarInsurance"
+                    readOnly="${!fullEntryMode}" />
 		</td>
 	</c:if>
 	<c:set var="notesTabIndex" value="${KualiForm.currentTabIndex}" />
@@ -176,39 +170,36 @@
 		<c:choose>
 			<c:when test="${detailLineNumber != null}">
 				<c:if test="${fullEntryMode}">
-					<div align="center">
-						<html:image
-							src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
-							styleClass="tinybutton"
+                    <html:submit
+							styleClass="btn btn-red"
 							property="methodToCall.deleteActualExpenseDetailLine.line${lineNumber}-${detailLineNumber}"
 							alt="Delete Actual Expense Line"
-							title="Delete Actual Expense Detail Line" />
-					</div>
+							title="Delete Actual Expense Detail Line"
+                            value="Delete"/>
 				</c:if>
-				<c:if test="${!fullEntryMode}"> &nbsp; </c:if>
+				<c:if test="${!fullEntryMode}">&nbsp;</c:if>
 			</c:when>
 			<c:otherwise>
 				<c:set var="tabindex" value="${KualiForm.currentTabIndex}" />
 				<c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
-				<div align="center">
-					<html:image
-						src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-						styleClass="tinybutton" tabindex="${tabindex}"
+                <html:submit
+						styleClass="btn btn-green"
+                        tabindex="${tabindex}"
 						property="methodToCall.addActualExpenseDetailLine.line${lineNumber}"
 						alt="Add Actual Expense Detail Line"
-						title="Add Actual Expense Detail Line" />
-				</div>
+						title="Add Actual Expense Detail Line"
+                        value="Add"/>
 			</c:otherwise>
 		</c:choose>
 	</td>
 </tr>
-<tr>
+<tr class="${highlight ? 'highlight' : ''}">
 	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.description}" noColon="true" />
+		<div class="right">
+			<kul:htmlAttributeLabel attributeEntry="${otherExpenseAttributes.description}" noColon="false" />
 		</div>
 	</th>
-	<td valign="top" class="infoline" colspan="${calcColspan}">
+	<td class="infoline" colspan="${calcColspan}">
 		<kul:htmlControlAttribute attributeEntry="${otherExpenseAttributes.description}" property="${detail}.description" readOnly="${!fullEntryMode }" tabindexOverride="${notesTabIndex}" />
 	</td>
 </tr>
