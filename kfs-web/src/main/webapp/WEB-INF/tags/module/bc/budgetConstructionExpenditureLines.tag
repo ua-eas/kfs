@@ -36,8 +36,8 @@
 <fmt:formatNumber value="${KualiForm.document.expenditureAccountLineAnnualBalanceAmountTotal}" var="formattedExpReqTotal" type="number" groupingUsed="true" />
         		
 <kul:tab tabTitle="Expenditure" defaultOpen="false" tabErrorKey="${BCConstants.BUDGET_CONSTRUCTION_EXPENDITURE_TAB_ERRORS}" tabItemCount="${formattedExpReqTotal}">
-    <div class="tab-container" align=center>
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
+    <div class="tab-container">
+        <table class="datatable standard">
             <bc:subheadingWithDetailToggleRow
                     columnCount="7"
                     subheading="Expenditure"
@@ -57,7 +57,7 @@
                 <c:set var="valuesMap" value="${KualiForm.newExpenditureLine.valuesMap}"/>
 
                 <tr>
-                    <kul:htmlAttributeHeaderCell literalLabel="Add:" scope="row" rowspan="1">
+                    <td>
                         <html:hidden property="newExpenditureLine.documentNumber"/>
                         <html:hidden property="newExpenditureLine.universityFiscalYear"/>
                         <html:hidden property="newExpenditureLine.chartOfAccountsCode"/>
@@ -67,7 +67,7 @@
                         <html:hidden property="newExpenditureLine.financialObjectTypeCode"/>
                         <html:hidden property="newExpenditureLine.versionNumber"/>
                         <html:hidden property="newExpenditureLine.financialBeginningBalanceLineAmount"/>
-                    </kul:htmlAttributeHeaderCell>
+                    </td>
 
                     <bc:pbglLineDataCell
                             dataCellCssClass="infoline"

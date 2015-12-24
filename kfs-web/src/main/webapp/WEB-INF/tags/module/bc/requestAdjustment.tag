@@ -19,18 +19,13 @@
 
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<%@ attribute name="attributes" required="true" type="java.util.Map"
-	description="The DataDictionary entry containing attributes for all detail line fields."%>
-<%@ attribute name="adjustmentAmountFieldName" required="true"
-	description="The name of the adjustment amount field"%>
-<%@ attribute name="methodToCall" required="true"
-	description="The name of the action method that adjusts by amount/percent"%>
-<%@ attribute name="lineIndex" required="false"
-	description="the index of the line to be adjusted"%>
-<%@ attribute name="anchor" required="false"
-    description="The anchor to go to after refresh" %>
+<%@ attribute name="attributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for all detail line fields."%>
+<%@ attribute name="adjustmentAmountFieldName" required="true" description="The name of the adjustment amount field"%>
+<%@ attribute name="methodToCall" required="true" description="The name of the action method that adjusts by amount/percent"%>
+<%@ attribute name="lineIndex" required="false" description="the index of the line to be adjusted"%>
+<%@ attribute name="anchor" required="false" description="The anchor to go to after refresh" %>
 
-<div style="nowrap">
+<div class="nowrap">
 	<kul:htmlAttributeLabel attributeEntry="${attributes.adjustmentAmount}" forceRequired="false" useShortLabel="true" />
 	
 	<kul:htmlControlAttribute styleClass="amount" attributeEntry="${attributes.adjustmentAmount}" property="${adjustmentAmountFieldName}"/>			
@@ -39,7 +34,10 @@
 	<c:if test="${!empty anchor}">
 	    <c:set var="anchorString" value=".${anchor}"/>
 	</c:if>
-	<html:image property="methodToCall.${methodToCall}.line${lineIndex}${anchorString}" 
-		src="${ConfigProperties.externalizable.images.url}tinybutton-apply.gif" 
-		title="Percent Adjustment For Line ${lineIndex}" alt="Percent Adjustment For Line ${lineIndex}" styleClass="tinybutton" />
+	<html:submit
+            property="methodToCall.${methodToCall}.line${lineIndex}${anchorString}"
+		    title="Percent Adjustment For Line ${lineIndex}"
+            alt="Percent Adjustment For Line ${lineIndex}"
+            styleClass="btn btn-default"
+            value="Apply"/>
 </div>	

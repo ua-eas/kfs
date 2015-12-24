@@ -169,92 +169,93 @@
 <c:set var="specialRequiredField" value="${(field eq 'referenceOriginCode') || (field eq 'referenceNumber') || (field eq 'referenceTypeCode')}" />
 <td class="${dataCellCssClass}" valign="top" rowspan="${rowSpan}" colspan="${colSpan}">
 <div align="${fieldAlign}">
-    <c:if test="${not empty anchor}">
-    	<a name="${anchor}"></a>
-    </c:if>
-<span class="nowrap">
-    <c:if test="${!empty labelFontWeight}">
-        <span style="font-weight: ${labelFontWeight}">
-            <kul:htmlAttributeLabel
-                attributeEntry="${attributes[field]}"
-                useShortLabel="true"
-                forceRequired="${specialRequiredField}"
-                />
-        </span>
-        <%-- The following nbsp has breakable space around it, but nevertheless it accomplishes something,
-            by preventing this label from touching its input control (consistent with the cellpadding for
-            labels that are not in the same cell as their input control).  --%>
-        &nbsp;
-    </c:if>
-
-    <c:choose>
-        <c:when test="${useXmlHttp}">
-            <c:set var="onblur" value="${detailFunction}(${detailFunctionExtraParam} this.name, '${accountingLine}.${detailField}');"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="onblur" value=""/>
-        </c:otherwise>
-    </c:choose>
-    <c:if test="${csfInquiry == 'true'}">
-    	<a href="${ConfigProperties.application.url}/budgetTempListLookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.bc.businessobject.CalculatedSalaryFoundationTracker&universityFiscalYear=${KualiForm.universityFiscalYear}&chartOfAccountsCode=${KualiForm.chartOfAccountsCode}&accountNumber=${KualiForm.accountNumber}&subAccountNumber=${KualiForm.subAccountNumber}&hideReturnLink=true&suppressActions=true&tempListLookupMode=6&showInitialResults=true&docFormKey=${KualiForm.returnFormKey}&backLocation=${KualiForm.backLocation}"  target="_blank">
-    </c:if>
-    <c:if test="${!excludedFromTotal}">
-    <div id="${divId}" >
-    	<kul:htmlControlAttribute
-        property="${cellProperty}"
-        attributeEntry="${attributes[field]}"
-        onblur="${onblur}"
-        readOnly="${readOnly}"
-        readOnlyBody="true"
-        disabled="${disabled}"
-        styleClass="${dataFieldCssClass}"
-        >
-        <bc:pbglLineReadOnlyCellProperty
-            property="${cellProperty}"
-            textStyle="${textStyle}"
-            inquiry="${inquiry}"
-            boClassName="${boClassName}"
-            field="${field}"
-            conversionField="${conversionField}"
-            inquiryKeys="${lookupOrInquiryKeys}"
-            accountingLineValuesMap="${accountingLineValuesMap}"
-            inquiryExtraKeyValues="${inquiryExtraKeyValues}"
-            formattedNumberValue="${formattedNumberValue}"
-            />
-    </div>
-    </kul:htmlControlAttribute>
-    </c:if>
-    <c:if test="${excludedFromTotal}">
-      *
-    </c:if>
-    <c:if test="${csfInquiry == 'true'}">
-    	</a>
-    </c:if>${fieldTrailerValue}
-
-    <%-- lookup control --%>
-    <c:if test="${!readOnly}">
-        <c:if test="${lookup}">
-            <c:if test="${empty lookupAnchor}">
-                <c:set var="lookupAnchor" value="${anchor}"/>
-            </c:if>
-            <c:set var="fieldConversions" value="${lookupUnkeyedFieldConversions}"/>
-            <c:forTokens var="key" items="${lookupOrInquiryKeys}" delims=",">
-                <c:set var="withAccountingLine" value="${accountingLine}.${key}"/>
-                <c:if test="${!empty lookupParameters}">
-                    <c:set var="lookupParameters" value="${lookupParameters},"/>
-                </c:if>
-                <c:set var="lookupParameters" value="${lookupParameters}${withAccountingLine}:${key}"/>
-                <c:set var="fieldConversions" value="${fieldConversions}${key}:${withAccountingLine},"/>
-            </c:forTokens>
-            <kul:lookup
-                boClassName="${boClassName}"
-                fieldConversions="${fieldConversions}${conversionField}:${qualifiedField}"
-                lookupParameters="${lookupParameters}" fieldLabel="${attributes[field].shortLabel}"
-                anchor="${lookupAnchor}"
-                />
+    <span class="nowrap">
+        <c:if test="${!empty labelFontWeight}">
+            <span style="font-weight: ${labelFontWeight}">
+                <kul:htmlAttributeLabel
+                    attributeEntry="${attributes[field]}"
+                    useShortLabel="true"
+                    forceRequired="${specialRequiredField}"
+                    />
+            </span>
+            <%-- The following nbsp has breakable space around it, but nevertheless it accomplishes something,
+                by preventing this label from touching its input control (consistent with the cellpadding for
+                labels that are not in the same cell as their input control).  --%>
+            &nbsp;
         </c:if>
+
+        <c:choose>
+            <c:when test="${useXmlHttp}">
+                <c:set var="onblur" value="${detailFunction}(${detailFunctionExtraParam} this.name, '${accountingLine}.${detailField}');"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="onblur" value=""/>
+            </c:otherwise>
+        </c:choose>
+        <c:if test="${csfInquiry == 'true'}">
+            <a href="${ConfigProperties.application.url}/budgetTempListLookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.bc.businessobject.CalculatedSalaryFoundationTracker&universityFiscalYear=${KualiForm.universityFiscalYear}&chartOfAccountsCode=${KualiForm.chartOfAccountsCode}&accountNumber=${KualiForm.accountNumber}&subAccountNumber=${KualiForm.subAccountNumber}&hideReturnLink=true&suppressActions=true&tempListLookupMode=6&showInitialResults=true&docFormKey=${KualiForm.returnFormKey}&backLocation=${KualiForm.backLocation}"  target="_blank">
+        </c:if>
+        <c:if test="${!excludedFromTotal}">
+        <div id="${divId}" >
+            <kul:htmlControlAttribute
+            property="${cellProperty}"
+            attributeEntry="${attributes[field]}"
+            onblur="${onblur}"
+            readOnly="${readOnly}"
+            readOnlyBody="true"
+            disabled="${disabled}"
+            styleClass="${dataFieldCssClass}"
+            >
+            <bc:pbglLineReadOnlyCellProperty
+                property="${cellProperty}"
+                textStyle="${textStyle}"
+                inquiry="${inquiry}"
+                boClassName="${boClassName}"
+                field="${field}"
+                conversionField="${conversionField}"
+                inquiryKeys="${lookupOrInquiryKeys}"
+                accountingLineValuesMap="${accountingLineValuesMap}"
+                inquiryExtraKeyValues="${inquiryExtraKeyValues}"
+                formattedNumberValue="${formattedNumberValue}"
+                />
+        </div>
+        </kul:htmlControlAttribute>
+        </c:if>
+        <c:if test="${excludedFromTotal}">
+          *
+        </c:if>
+        <c:if test="${csfInquiry == 'true'}">
+            </a>
+        </c:if>${fieldTrailerValue}
+
+        <%-- lookup control --%>
+        <c:if test="${!readOnly}">
+            <c:if test="${lookup}">
+                <c:if test="${empty lookupAnchor}">
+                    <c:set var="lookupAnchor" value="${anchor}"/>
+                </c:if>
+                <c:set var="fieldConversions" value="${lookupUnkeyedFieldConversions}"/>
+                <c:forTokens var="key" items="${lookupOrInquiryKeys}" delims=",">
+                    <c:set var="withAccountingLine" value="${accountingLine}.${key}"/>
+                    <c:if test="${!empty lookupParameters}">
+                        <c:set var="lookupParameters" value="${lookupParameters},"/>
+                    </c:if>
+                    <c:set var="lookupParameters" value="${lookupParameters}${withAccountingLine}:${key}"/>
+                    <c:set var="fieldConversions" value="${fieldConversions}${key}:${withAccountingLine},"/>
+                </c:forTokens>
+                <kul:lookup
+                    boClassName="${boClassName}"
+                    fieldConversions="${fieldConversions}${conversionField}:${qualifiedField}"
+                    lookupParameters="${lookupParameters}" fieldLabel="${attributes[field].shortLabel}"
+                    anchor="${lookupAnchor}"
+                    />
+            </c:if>
+        </c:if>
+    </span>
+
+    <c:if test="${not empty anchor}">
+        <a name="${anchor}"></a>
     </c:if>
-</span>
 </div>
 <c:if test="${!empty baselineAccountingLine}">
     <bc:hiddenPbglLineField
@@ -279,5 +280,5 @@
     accountingLine="${accountingLine}"
     detailFields="${detailFields}"
     />
-    <jsp:doBody></jsp:doBody>
+    <jsp:doBody/>
 </td>
