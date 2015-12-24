@@ -98,7 +98,7 @@
                             inquiryExtraKeyValues="universityFiscalYear=${KualiForm.document.universityFiscalYear}"
                             lookupAnchor="revenuenewLineLineAnchor" />
 
-                    <td class="infoline right nowrap">&nbsp;</td>
+                    <td class="infoline">&nbsp;</td>
 
                     <bc:pbglLineDataCell
                             dataCellCssClass="datacell"
@@ -106,11 +106,11 @@
                             cellProperty="newRevenueLine.accountLineAnnualBalanceAmount"
                             attributes="${pbglRevenueAttributes}"
                             field="accountLineAnnualBalanceAmount"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="false"
                             rowSpan="1" dataFieldCssClass="amount" />
 
-                    <td class="infoline right">&nbsp;</td>
+                    <td class="infoline">&nbsp;</td>
 
                     <c:set var="addTabIndex" value="${KualiForm.currentTabIndex}" />
                     <c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
@@ -195,7 +195,7 @@
                             cellProperty="document.pendingBudgetConstructionGeneralLedgerRevenueLines[${status.index}].financialBeginningBalanceLineAmount"
                             attributes="${pbglRevenueAttributes}"
                             field="financialBeginningBalanceLineAmount"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="true"
                             fieldTrailerValue="${fieldTrailerValue}"
                             rowSpan="1" dataFieldCssClass="amount" />
@@ -206,7 +206,7 @@
                             cellProperty="document.pendingBudgetConstructionGeneralLedgerRevenueLines[${status.index}].accountLineAnnualBalanceAmount"
                             attributes="${pbglRevenueAttributes}"
                             field="accountLineAnnualBalanceAmount"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="${!lineIsEditable}"
                             rowSpan="1" dataFieldCssClass="amount" />
 
@@ -225,11 +225,11 @@
                             field="percentChange"
                             formattedNumberValue="${formattedNumber}"
                             fieldTrailerValue="${fieldTrailerValue}"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="true"
                             rowSpan="1" dataFieldCssClass="amount" />
 
-                    <td class="datacell nowrap center" rowspan="${rowspan}">
+                    <td class="datacell nowrap" rowspan="${rowspan}">
                         <c:choose>
                             <c:when test="${empty item.budgetConstructionMonthly[0]}" >
                                 <c:if test="${lineIsEditable && KualiForm.budgetableDocument}">
@@ -283,7 +283,7 @@
 
                 <c:if test="${rowspan == 2}">
                     <tr>
-                        <td class="datacell nowrap" colspan = "3">
+                        <td class="datacell center nowrap" colspan="3">
                             <bc:requestAdjustment
                                     attributes="${pbglRevenueAttributes}"
                                     adjustmentAmountFieldName="${itemLineName}.adjustmentAmount"

@@ -394,11 +394,10 @@
                     </td>
                 </tr>
             </c:if>
-            <tr>
-                <td colspan="4" class="subhead">
-                    <span class="subhead-left">Approval Level Data</span>
-                </td>
-            </tr>
+        </table>
+
+        <h3>Approval Level Data</h3>
+        <table class="datatable standard side-margins" title="Approval Level Data" summary="Approval Level Data">
             <tr>
                 <kul:htmlAttributeHeaderCell
                         labelFor="document.organizationLevelCode"

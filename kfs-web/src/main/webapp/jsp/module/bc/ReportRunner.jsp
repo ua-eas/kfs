@@ -18,29 +18,35 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<kul:page showDocumentInfo="false"
-	htmlFormAction="budgetReportRunner" renderMultipart="true"
-	showTabButtons="false"
-	docTitle="Document Reports and Exports"
-    transactionalDocument="false"
-	>
-              <html:hidden property="returnAnchor" />
-              <html:hidden property="returnFormKey" />
-              <html-el:hidden name="KualiForm" property="backLocation" />
-              <html:hidden property="documentNumber" />
-              <html:hidden property="universityFiscalYear" />
-              <html:hidden property="chartOfAccountsCode" />
-              <html:hidden property="accountNumber" />
-              <html:hidden property="subAccountNumber" />
+<kul:page
+        showDocumentInfo="false"
+	    htmlFormAction="budgetReportRunner"
+        renderMultipart="true"
+        showTabButtons="false"
+        docTitle="Document Reports and Exports"
+        transactionalDocument="false">
+
+    <html:hidden property="returnAnchor" />
+    <html:hidden property="returnFormKey" />
+    <html-el:hidden name="KualiForm" property="backLocation" />
+    <html:hidden property="documentNumber" />
+    <html:hidden property="universityFiscalYear" />
+    <html:hidden property="chartOfAccountsCode" />
+    <html:hidden property="accountNumber" />
+    <html:hidden property="subAccountNumber" />
     <html:hidden property="mainWindow" />
 	
     <bc:budgetConstructionReportDumpLines />
 
     <div id="globalbuttons" class="globalbuttons">
-<%--
-        <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_genpdf.gif" styleClass="globalbuttons" property="methodToCall.performReport" title="Perform Report" alt="Perform Report" onclick="excludeSubmitRestriction=true"/>
---%>
-        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" styleClass="globalbuttons" property="methodToCall.close" onclick="excludeSubmitRestriction=true" title="close" alt="close"/>
+        <html:submit
+                styleClass="btn btn-default"
+                property="methodToCall.close"
+                onclick="excludeSubmitRestriction=true"
+                title="close"
+                alt="close"
+                value="Close"/>
     </div>
+    <kul:stickyGlobalButtons bodySelector="main.content"/>
 
 </kul:page>
