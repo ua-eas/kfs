@@ -37,7 +37,7 @@
         		
 <kul:tab tabTitle="Expenditure" defaultOpen="false" tabErrorKey="${BCConstants.BUDGET_CONSTRUCTION_EXPENDITURE_TAB_ERRORS}" tabItemCount="${formattedExpReqTotal}">
     <div class="tab-container">
-        <table class="datatable standard">
+        <table class="datatable standard side-margins">
             <bc:subheadingWithDetailToggleRow
                     columnCount="7"
                     subheading="Expenditure"
@@ -113,7 +113,7 @@
                             cellProperty="newExpenditureLine.accountLineAnnualBalanceAmount"
                             attributes="${pbglExpenditureAttributes}"
                             field="accountLineAnnualBalanceAmount"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="false"
                             rowSpan="1"
                             dataFieldCssClass="amount" />
@@ -122,7 +122,7 @@
 
                     <c:set var="addTabIndex" value="${KualiForm.currentTabIndex}" />
                     <c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
-                    <td class="infoline center">
+                    <td class="infoline">
                         <html:submit
                                 property="methodToCall.insertExpenditureLine.anchorexpenditurenewLineLineAnchor"
                                 title="Add an Expenditure Line"
@@ -200,7 +200,7 @@
                             cellProperty="document.pendingBudgetConstructionGeneralLedgerExpenditureLines[${status.index}].financialBeginningBalanceLineAmount"
                             attributes="${pbglExpenditureAttributes}"
                             field="financialBeginningBalanceLineAmount"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="true"
                             fieldTrailerValue="${fieldTrailerValue}"
                             rowSpan="1" dataFieldCssClass="amount" />
@@ -211,7 +211,7 @@
                             cellProperty="document.pendingBudgetConstructionGeneralLedgerExpenditureLines[${status.index}].accountLineAnnualBalanceAmount"
                             attributes="${pbglExpenditureAttributes}"
                             field="accountLineAnnualBalanceAmount"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="${!lineIsEditable}"
                             rowSpan="1" dataFieldCssClass="amount" />
 
@@ -230,11 +230,11 @@
                             field="percentChange"
                             formattedNumberValue="${formattedNumber}"
                             fieldTrailerValue="${fieldTrailerValue}"
-                            fieldAlign="right"
+                            fieldAlign="left"
                             readOnly="true"
                             rowSpan="1" dataFieldCssClass="amount" />
 
-                    <td class="datacell center nowrap" rowspan="${rowspan}">
+                    <td class="datacell nowrap" rowspan="${rowspan}">
                         <c:choose>
                             <c:when test="${empty item.budgetConstructionMonthly[0]}" >
                                 <c:if test="${lineIsEditable && KualiForm.budgetableDocument}">
@@ -324,19 +324,19 @@
                         dataCellCssClass="infoline"
                         cellProperty="document.expenditureFinancialBeginningBalanceLineAmountTotal"
                         textStyle="${textStyle}"
-                        fieldAlign="right"
+                        fieldAlign="left"
                         colSpan="1" />
                 <bc:columnTotalCell
                         dataCellCssClass="infoline"
                         cellProperty="document.expenditureAccountLineAnnualBalanceAmountTotal"
                         textStyle="${textStyle}"
-                        fieldAlign="right"
+                        fieldAlign="left"
                         colSpan="1" />
                 <bc:columnTotalCell
                         dataCellCssClass="infoline"
                         cellProperty="document.expenditurePercentChangeTotal"
                         textStyle="${textStyle}"
-                        fieldAlign="right"
+                        fieldAlign="left"
                         colSpan="1" />
                 <td class="infoline">&nbsp;</td>
             </tr>
