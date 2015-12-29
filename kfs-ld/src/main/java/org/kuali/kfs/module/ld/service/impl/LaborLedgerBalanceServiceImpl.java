@@ -47,8 +47,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborLedgerBalanceServiceImpl.class);
 
-    private LaborLedgerBalanceDao laborLedgerBalanceDao;
-    private LaborCalculatedSalaryFoundationTrackerService laborCalculatedSalaryFoundationTrackerService;
+    protected LaborLedgerBalanceDao laborLedgerBalanceDao;
+    protected LaborCalculatedSalaryFoundationTrackerService laborCalculatedSalaryFoundationTrackerService;
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#findBalancesForFiscalYear(java.lang.Integer)
@@ -328,5 +328,13 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
     @NonTransactional
     public void setLaborCalculatedSalaryFoundationTrackerService(LaborCalculatedSalaryFoundationTrackerService laborCalculatedSalaryFoundationTrackerService) {
         this.laborCalculatedSalaryFoundationTrackerService = laborCalculatedSalaryFoundationTrackerService;
+    }
+
+    public LaborLedgerBalanceDao getLaborLedgerBalanceDao() {
+        return laborLedgerBalanceDao;
+    }
+
+    public LaborCalculatedSalaryFoundationTrackerService getLaborCalculatedSalaryFoundationTrackerService() {
+        return laborCalculatedSalaryFoundationTrackerService;
     }
 }

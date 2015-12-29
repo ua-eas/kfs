@@ -62,7 +62,6 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableHelperServiceImpl {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CurrentFundsLookupableHelperServiceImpl.class);
     private LaborDao laborDao;
-    private LaborLedgerBalanceService balanceService;
     private LaborInquiryOptionsService laborInquiryOptionsService;
     private BusinessObjectService businessObjectService;
 
@@ -326,15 +325,6 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
             LOG.debug("using " + fieldValues.keySet());
         }
         return (KualiDecimal) laborDao.getEncumbranceTotal(fieldValues);
-    }
-
-    /**
-     * Sets the balanceService attribute value.
-     *
-     * @param balanceService The balanceService to set.
-     */
-    public void setBalanceService(LaborLedgerBalanceService balanceService) {
-        this.balanceService = balanceService;
     }
 
     /**
