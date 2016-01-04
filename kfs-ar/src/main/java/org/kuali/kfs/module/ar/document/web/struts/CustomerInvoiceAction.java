@@ -408,16 +408,18 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
             }
 
         } else {
-            customerBillToAddress = SpringContext.getBean(CustomerAddressService.class).getPrimaryAddress(customerInvoiceDocument.getAccountsReceivableDocumentHeader().getCustomerNumber());
+            if (!ObjectUtils.isNull(customerInvoiceDocument.getAccountsReceivableDocumentHeader()) && !ObjectUtils.isNull(customerInvoiceDocument.getAccountsReceivableDocumentHeader().getCustomerNumber())) {
+                customerBillToAddress = SpringContext.getBean(CustomerAddressService.class).getPrimaryAddress(customerInvoiceDocument.getAccountsReceivableDocumentHeader().getCustomerNumber());
 
-            if (ObjectUtils.isNotNull(customerBillToAddress)) {
-                customerInvoiceDocument.setCustomerBillToAddress(customerBillToAddress);
-                customerInvoiceDocument.setCustomerBillToAddressOnInvoice(customerBillToAddress);
-                customerInvoiceDocument.setCustomerBillToAddressIdentifier(customerBillToAddress.getCustomerAddressIdentifier());
-            } else {
-                customerInvoiceDocument.setCustomerBillToAddress(null);
-                customerInvoiceDocument.setCustomerBillToAddressOnInvoice(null);
-                customerInvoiceDocument.setCustomerBillToAddressIdentifier(null);
+                if (ObjectUtils.isNotNull(customerBillToAddress)) {
+                    customerInvoiceDocument.setCustomerBillToAddress(customerBillToAddress);
+                    customerInvoiceDocument.setCustomerBillToAddressOnInvoice(customerBillToAddress);
+                    customerInvoiceDocument.setCustomerBillToAddressIdentifier(customerBillToAddress.getCustomerAddressIdentifier());
+                } else {
+                    customerInvoiceDocument.setCustomerBillToAddress(null);
+                    customerInvoiceDocument.setCustomerBillToAddressOnInvoice(null);
+                    customerInvoiceDocument.setCustomerBillToAddressIdentifier(null);
+                }
             }
         }
 
@@ -447,7 +449,7 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
                 customerInvoiceDocument.setCustomerShipToAddressIdentifier(customerShipToAddressIdentifier);
             }
         }
-        if (ObjectUtils.isNull(customerInvoiceDocument.getCustomerShipToAddressIdentifier()) | ObjectUtils.isNull(customerShipToAddress)) {
+        if ((ObjectUtils.isNull(customerInvoiceDocument.getCustomerShipToAddressIdentifier()) || ObjectUtils.isNull(customerShipToAddress)) && !ObjectUtils.isNull(customerInvoiceDocument.getAccountsReceivableDocumentHeader())) {
             customerInvoiceDocument.setCustomerShipToAddress(null);
             customerInvoiceDocument.setCustomerShipToAddressOnInvoice(null);
             customerInvoiceDocument.setCustomerShipToAddressIdentifier(null);
