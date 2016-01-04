@@ -110,7 +110,9 @@
  		<property name="dataDictionaryPackages">
 			<list>
                 <value>classpath:org/kuali/kfs/module/external/kc/businessobject/datadictionary/*.xml</value>
+                <value>classpath:org/kuali/kfs/module/external/kc/businessobject/datadictionary/overrides/*.xml</value>
                 <value>classpath:org/kuali/kfs/module/external/kc/document/datadictionary/*.xml</value>
+                <value>classpath:org/kuali/kfs/module/external/kc/document/datadictionary/overrides/*.xml</value>
 			</list>
 		</property> 	
 		<property name="databaseRepositoryFilePaths">
