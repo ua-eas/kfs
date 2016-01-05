@@ -33,7 +33,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.impl.KfsMaintenanceDocumentRuleBase;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
@@ -111,7 +110,7 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
      * @param args
      * @return
      */
-    protected boolean checkICRCollectionExistWithErrorMessage(boolean expectFilled, String errorMessage, String args) {
+    protected boolean checkICRCollectionExistWithErrorMessage(boolean expectFilled, String errorMessage, String... args) {
         boolean success = true;
         success = checkICRCollectionExist(expectFilled);
         if (!success){
@@ -183,18 +182,16 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
      * 1. Check each account with rule: checkIndirectCostRecoveryAccount
      * 2. Total distributions from all the account should be 100
      * 
+     * @param activeIndirectCostRecoveryAccountList
      * @param document
      * @return
      */
     protected boolean checkIndirectCostRecoveryAccountDistributions() {
-        
         boolean result = true;
         if (ObjectUtils.isNull(activeIndirectCostRecoveryAccountList) || (activeIndirectCostRecoveryAccountList.size() == 0)) {
             return result;
         }
-        
-        DictionaryValidationService dvService = super.getDictionaryValidationService();
-        
+
         int i=0;
         BigDecimal totalDistribution = BigDecimal.ZERO;
        
@@ -203,8 +200,10 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
             GlobalVariables.getMessageMap().addToErrorPath(errorPath);
             checkIndirectCostRecoveryAccount(icra);
             GlobalVariables.getMessageMap().removeFromErrorPath(errorPath);
-            
-            totalDistribution = totalDistribution.add(icra.getAccountLinePercent());
+
+            if (!ObjectUtils.isNull(icra.getAccountLinePercent())) {
+                totalDistribution = totalDistribution.add(icra.getAccountLinePercent());
+            }
         }
         
         //check the total distribution is 100
@@ -215,7 +214,7 @@ abstract public class IndirectCostRecoveryAccountsRule extends KfsMaintenanceDoc
         
         return result;
     }
-    
+
     /**
      * Get the attribute label from DataDictionary
      * @param attribute
