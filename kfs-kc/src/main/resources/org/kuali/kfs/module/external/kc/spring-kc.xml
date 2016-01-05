@@ -259,7 +259,21 @@
     <bean id="contractsAndGrantsModuleBillingService-parentBean" abstract="true" class="org.kuali.kfs.module.external.kc.service.impl.ContractsAndGrantsModuleBillingServiceImpl">
     	<property name="awardService" ref="awardWebService"/>
     </bean>
-    
+
+    <bean id="contractsGrantsInvoiceLookupableHelperService"
+          class="org.kuali.kfs.module.external.kc.businessobject.lookup.ContractsGrantsAwardLookupableHelperServiceImpl"
+          scope="prototype" parent="cf.lookupableHelperService">
+      <property name="contractsGrantsInvoiceReportService">
+        <ref bean="contractsGrantsInvoiceReportService"/>
+      </property>
+      <property name="contractsAndGrantsModuleBillingService">
+        <ref bean="contractsAndGrantsModuleBillingService"/>
+      </property>
+      <property name="contractsGrantsReportHelperService">
+        <ref bean="contractsGrantsReportHelperService"/>
+      </property>
+    </bean>
+
     <bean id="externalLookupableHelperService" abstract="true" parent="externalLookupableHelperService-parentBean" />
     <bean id="externalLookupableHelperService-parentBean" abstract="true" parent="cf.lookupableHelperService"
     	class="org.kuali.kfs.module.external.kc.service.impl.ExternalizableLookupableHelperServiceImpl"/>    
