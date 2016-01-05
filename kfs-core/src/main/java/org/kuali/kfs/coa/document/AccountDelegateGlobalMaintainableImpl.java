@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
@@ -35,6 +36,7 @@ import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
 import org.kuali.kfs.coa.service.AccountDelegateService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemGlobalMaintainable;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
@@ -109,6 +111,8 @@ public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobal
                 }
             }
         }
+
+        refreshAccounts();
     }
 
     @Override
@@ -202,11 +206,11 @@ public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobal
                     lockRep = new StringBuilder();
                     lockRep.append(AccountDelegateGlobal.class.getName());
                     lockRep.append(KFSConstants.Maintenance.AFTER_CLASS_DELIM);
-                    lockRep.append("chartOfAccountsCode");
+                    lockRep.append(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
                     lockRep.append(KFSConstants.Maintenance.AFTER_FIELDNAME_DELIM);
                     lockRep.append(accountGlobalDetail.getChartOfAccountsCode());
                     lockRep.append(KFSConstants.Maintenance.AFTER_VALUE_DELIM);
-                    lockRep.append("accountNumber");
+                    lockRep.append(KFSPropertyConstants.ACCOUNT_NUMBER);
                     lockRep.append(KFSConstants.Maintenance.AFTER_FIELDNAME_DELIM);
                     lockRep.append(accountGlobalDetail.getAccountNumber());
 
@@ -242,5 +246,41 @@ public class AccountDelegateGlobalMaintainableImpl extends FinancialSystemGlobal
         accountDelegateService.saveChangesForGlobalMaintenanceDocument(accountDelegateGlobal.generateGlobalChangesToPersist());
         
         accountDelegateService.updateDelegationRole();
+
+        refreshAccounts();
+    }
+
+    @Override
+    public void addNewLineToCollection(String collectionName) {
+        super.addNewLineToCollection(collectionName);
+        if (StringUtils.equals(collectionName, KFSPropertyConstants.ACCOUNT_CHANGE_DETAILS)) {
+            refreshAccounts();
+        }
+    }
+
+    @Override
+    public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
+        super.processAfterCopy(document, parameters);
+        refreshAccounts();
+    }
+
+    @Override
+    public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> requestParameters) {
+        super.processAfterEdit(document, requestParameters);
+        refreshAccounts();
+    }
+
+    @Override
+    public void processAfterRetrieve() {
+        super.processAfterRetrieve();
+        refreshAccounts();
+    }
+
+    protected void refreshAccounts() {
+        if (!ObjectUtils.isNull(getBusinessObject()) && !CollectionUtils.isEmpty(((AccountDelegateGlobal) getBusinessObject()).getAccountGlobalDetails())) {
+            for (AccountGlobalDetail accountGlobalDetail : ((AccountDelegateGlobal) getBusinessObject()).getAccountGlobalDetails()) {
+                accountGlobalDetail.refreshReferenceObject(KFSPropertyConstants.ACCOUNT);
+            }
+        }
     }
 }
