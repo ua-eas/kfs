@@ -29,8 +29,6 @@
 	
 
     <div class="tab-container" align=center>
-            <h3>Payment Request Initiation</h3>
-
         <table cellpadding="0" cellspacing="0" class="datatable" summary="Payment Request Initiation Section">
 
             <tr>
@@ -84,9 +82,6 @@
                 </th>
             </tr>
 		</table> 
-		
-		
-
     </div>
 
 </kul:tabTop>
