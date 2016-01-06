@@ -26,6 +26,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.FundGroup;
+import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.gl.service.BalanceService;
@@ -346,10 +347,10 @@ public class AccountAutoCreateDefaultsRule extends org.kuali.kfs.coa.document.va
             if (getSubFundGroupService().isForContractsAndGrants(newAccountAutoCreateDefaults.getSubFundGroup())) {
 
                 // check the ICR collection exists
-                result &= checkICRCollectionExistWithErrorMessage(true, KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_CHART_CODE_CANNOT_BE_EMPTY, replaceTokens(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_CHART_CODE_CANNOT_BE_EMPTY));
+                result &= checkICRCollectionExistWithErrorMessage(true, KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_CHART_CODE_CANNOT_BE_EMPTY, getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel(), getSubFundGroupService().getContractsAndGrantsDenotingValueForMessage());
             } else {
                 // this is not a C&G fund group. So users should not fill in any fields in the C&G tab.
-                result &= checkICRCollectionExistWithErrorMessage(false, KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_CG_FIELDS_FILLED_FOR_NON_CG_ACCOUNT, replaceTokens(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_CG_FIELDS_FILLED_FOR_NON_CG_ACCOUNT));
+                result &= checkICRCollectionExistWithErrorMessage(false, KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_CG_FIELDS_FILLED_FOR_NON_CG_ACCOUNT, getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel(), getSubFundGroupService().getContractsAndGrantsDenotingValueForMessage());
             }
         }
         return result;
@@ -487,16 +488,15 @@ public class AccountAutoCreateDefaultsRule extends org.kuali.kfs.coa.document.va
 
     /**
      * @see org.kuali.kfs.coa.document.validation.impl.IndirectCostRecoveryAccountsRule#checkIndirectCostRecoveryAccountDistributions()
+     * @param activeIndirectCostRecoveryAccountList
      */
     @Override
     protected boolean checkIndirectCostRecoveryAccountDistributions() {
-        boolean result = true;
         List<IndirectCostRecoveryAutoDefAccount> indirectCostRecoveryAccountList = newAccountAutoCreateDefaults.getActiveIndirectCostRecoveryAccounts();
+        boolean result = true;
         if (ObjectUtils.isNull(indirectCostRecoveryAccountList) || (indirectCostRecoveryAccountList.size() == 0)) {
             return result;
         }
-
-        DictionaryValidationService dvService = super.getDictionaryValidationService();
 
         int i=0;
         BigDecimal totalDistribution = BigDecimal.ZERO;
@@ -506,7 +506,9 @@ public class AccountAutoCreateDefaultsRule extends org.kuali.kfs.coa.document.va
             GlobalVariables.getMessageMap().addToErrorPath(errorPath);
             checkIndirectCostRecoveryAccount(icra);
             GlobalVariables.getMessageMap().removeFromErrorPath(errorPath);
-            totalDistribution = totalDistribution.add(icra.getAccountLinePercent());
+            if (!ObjectUtils.isNull(icra.getAccountLinePercent())) {
+                totalDistribution = totalDistribution.add(icra.getAccountLinePercent());
+            }
         }
 
         //check the total distribution is 100

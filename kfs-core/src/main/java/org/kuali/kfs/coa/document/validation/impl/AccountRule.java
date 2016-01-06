@@ -793,11 +793,11 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
         // Certain C&G fields are required if the Account belongs to the CG Fund Group
         if (ObjectUtils.isNotNull(newAccount.getSubFundGroup())) {
             if (getSubFundGroupService().isForContractsAndGrants(newAccount.getSubFundGroup())) {
-                result &= checkEmptyBOField("acctIndirectCostRcvyTypeCd", newAccount.getAcctIndirectCostRcvyTypeCd(), replaceTokens(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_TYPE_CODE_CANNOT_BE_EMPTY));
-                result &= checkEmptyBOField("financialIcrSeriesIdentifier", newAccount.getFinancialIcrSeriesIdentifier(), replaceTokens(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_SERIES_IDENTIFIER_CANNOT_BE_EMPTY));
+                result &= checkEmptyBOField("acctIndirectCostRcvyTypeCd", newAccount.getAcctIndirectCostRcvyTypeCd(), getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel());
+                result &= checkEmptyBOField("financialIcrSeriesIdentifier", newAccount.getFinancialIcrSeriesIdentifier(), getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel());
 
                 // Validation for financialIcrSeriesIdentifier
-                if (checkEmptyBOField(KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER, newAccount.getFinancialIcrSeriesIdentifier(), replaceTokens(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_SERIES_IDENTIFIER_CANNOT_BE_EMPTY))) {
+                if (checkEmptyBOField(KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER, newAccount.getFinancialIcrSeriesIdentifier(), getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel())) {
                     String fiscalYear = StringUtils.EMPTY + SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();
                     String icrSeriesId = newAccount.getFinancialIcrSeriesIdentifier();
 
@@ -824,7 +824,7 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
 
               //check the ICR collection exists
                 result &= checkICRCollectionExistWithErrorMessage(true, KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_CHART_CODE_CANNOT_BE_EMPTY,
-                        replaceTokens(KFSKeyConstants.ERROR_DOCUMENT_ACCMAINT_ICR_CHART_CODE_CANNOT_BE_EMPTY));
+                        getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel(), getSubFundGroupService().getContractsAndGrantsDenotingValueForMessage());
                 result &= checkContractControlAccountNumberRequired(newAccount);
 
             }
@@ -838,21 +838,6 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
 
             }
         }
-        return result;
-    }
-
-    /**
-     * This method is a helper method that replaces error tokens with values for contracts and grants labels
-     *
-     * @param errorConstant
-     * @return error string that has had tokens "{0}" and "{1}" replaced
-     */
-    protected String replaceTokens(String errorConstant) {
-        String cngLabel = getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel();
-        String cngValue = getSubFundGroupService().getContractsAndGrantsDenotingValueForMessage();
-        String result = getConfigService().getPropertyValueAsString(errorConstant);
-        result = StringUtils.replace(result, "{0}", cngLabel);
-        result = StringUtils.replace(result, "{1}", cngValue);
         return result;
     }
 
