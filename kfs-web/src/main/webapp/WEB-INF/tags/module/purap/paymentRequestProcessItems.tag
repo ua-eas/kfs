@@ -100,12 +100,7 @@
 			overrideTitle="Additional Charges" 
 			showAmount="${fullDocumentEntryCompleted}"
 			showInvoiced="${showInvoiced}"
-			specialItemTotalType="DISC" 
-			mainColumnCount="${mainColumnCount}"
-			colSpanItemType="${colSpanItemType}" 
-			colSpanDescription="${colSpanDescription}" 
-			colSpanExtendedPrice="${colSpanExtendedPrice}"
-			colSpanAmountPaid="0">
+			specialItemTotalType="DISC">
 			<jsp:attribute name="specialItemTotalOverride">
 				<tr>
 					<td align=right width='75%' scope="row" class="datacell" colspan="${colSpanTotalLabel}">
