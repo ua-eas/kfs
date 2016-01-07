@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.sec.service.impl;
 
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.sec.document.validation.impl.AccessSecurityAccountingDocumentRuleBase;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -27,6 +29,7 @@ import org.kuali.kfs.krad.service.impl.DocumentDictionaryServiceImpl;
 
 public class SecDocumentDictionaryServiceImpl extends DocumentDictionaryServiceImpl {
     private AccessSecurityService accessSecurityService;
+    private DataDictionaryService secDocumentDictionaryDataDictionaryService;
 
     protected AccessSecurityService getAccessSecurityService() {
         if ( accessSecurityService == null ) {
@@ -47,5 +50,17 @@ public class SecDocumentDictionaryServiceImpl extends DocumentDictionaryServiceI
         }
 
         return super.getBusinessRulesClass(document);
+    }
+
+    /**
+     * Overridden because it is impossible to inject kns services into services which are overriding other kns services currently
+     * @return the data dictionary service
+     */
+    @Override
+    public DataDictionaryService getDataDictionaryService() {
+        if (secDocumentDictionaryDataDictionaryService == null) {
+            secDocumentDictionaryDataDictionaryService = KNSServiceLocator.getDataDictionaryService();
+        }
+        return secDocumentDictionaryDataDictionaryService;
     }
 }
