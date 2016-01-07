@@ -342,10 +342,10 @@
                       "link": "arCustomerInvoiceWriteoffLookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ar.businessobject.CustomerInvoiceWriteoffLookupResult&docFormKey=88888888&hideReturnLink=true",
                       "linkType": "kfs",
                       "permission": {
-                        "templateNamespace": "KR-NS",
-                        "templateName": "Look Up Records",
+                        "templateNamespace": "KR-SYS",
+                        "templateName": "Initiate Document",
                         "details": {
-                          "namespaceCode": "KFS*"
+                          "documentTypeName": "INVW"
                         }
                       }
                     },
