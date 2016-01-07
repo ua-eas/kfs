@@ -22,7 +22,7 @@
 
   <bean id="EffortCertificationPeriodStatusCode-parentBean" abstract="true" parent="BusinessObjectEntry">
     <property name="businessObjectClass" value="org.kuali.kfs.module.ec.businessobject.EffortCertificationPeriodStatusCode"/>
-    <property name="objectLabel" value="Effort Certification Period Status Code"/>
+    <property name="objectLabel" value="Report Period Status Code"/>
     
     <property name="inquiryDefinition">
       <ref bean="EffortCertificationPeriodStatusCode-inquiryDefinition"/>
@@ -83,7 +83,7 @@
   <bean id="EffortCertificationPeriodStatusCode-inquiryDefinition" parent="EffortCertificationPeriodStatusCode-inquiryDefinition-parentBean"/>
 
   <bean id="EffortCertificationPeriodStatusCode-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
-    <property name="title" value="Effort Certification Period Status Code Inquiry"/>
+    <property name="title" value="Report Period Status Code Inquiry"/>
     <property name="inquirySections">
       <list>
          <ref bean="EffortCertificationPeriodStatusCode-inquirySectionDefinition"/>

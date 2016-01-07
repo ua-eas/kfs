@@ -86,7 +86,7 @@
         LDSM
       </parent>
       <label>
-        Labor Object Code Benefits Maintenance Document
+        Labor Object Code Benefits
       </label>
       <helpDefinitionURL>
       	${kfs.externalizable.help.url}/default.htm?turl=WordDocuments%2Flaborobjectcodebenefits.htm
@@ -106,7 +106,7 @@
         LDSM
       </parent>
       <label>
-        Labor Position Object Group Code Maintenance Document
+        Labor Position Object Group Code
       </label>
       <helpDefinitionURL>
         default.htm?turl=WordDocuments%2Flaborpositionobjectgroupcode.htm

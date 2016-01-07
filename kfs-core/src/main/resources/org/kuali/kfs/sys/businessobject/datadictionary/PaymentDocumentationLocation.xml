@@ -119,7 +119,7 @@
 
 	<bean id="PaymentDocumentationLocation-lookupDefinition" parent="PaymentDocumentationLocation-lookupDefinition-parentBean" />
 	<bean id="PaymentDocumentationLocation-lookupDefinition-parentBean"	abstract="true" parent="LookupDefinition">
-		<property name="title" value="Disbursement Voucher Documentation Location Lookup" />
+		<property name="title" value="Payment Documentation Location Lookup" />
 
 		<property name="defaultSort">
 			<bean parent="SortDefinition">
