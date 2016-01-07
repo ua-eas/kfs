@@ -280,12 +280,21 @@
 				</c:when><c:otherwise><c:choose><c:when test="${empty column.columnAnchor.target}"><c:set var="anchorTarget" value="_blank" /></c:when><c:otherwise><c:set var="anchorTarget" value="${column.columnAnchor.target}" />
 				</c:otherwise></c:choose>
 					<div class="link-wrapper">
-						<a href="<c:out value="${column.columnAnchor.href}&mode=modal"/>" title="${column.columnAnchor.title}" data-label="${column.columnAnchor.objectLabel}" data-remodal-target="modal">
-							<c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if>
-						</a>
-						<a href="<c:out value="${column.columnAnchor.href}&mode=standalone"/>" target='<c:out value="${anchorTarget}"/>' title="Open in new tab" class="new-window">
-							<span class="glyphicon glyphicon-new-window"></span>
-						</a>
+                        <c:choose>
+                            <c:when test="${fn:contains(column.columnAnchor.href, 'businessObjectClassName=org.kuali.kfs.module.external.kc')}">
+                                <a href="<c:out value="${column.columnAnchor.href}&mode=standalone"/>" target='<c:out value="${anchorTarget}"/>' title="${column.columnAnchor.title} (open in new tab)">
+                                    <c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="<c:out value="${column.columnAnchor.href}&mode=modal"/>" title="${column.columnAnchor.title}" data-label="${column.columnAnchor.objectLabel}" data-remodal-target="modal">
+                                    <c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}" escapeXml="${column.escapeXMLValue}"/><c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if>
+                                </a>
+                                <a href="<c:out value="${column.columnAnchor.href}&mode=standalone"/>" target='<c:out value="${anchorTarget}"/>' title="Open in new tab" class="new-window">
+                                    <span class="glyphicon glyphicon-new-window"></span>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
 					</div>
 				</c:otherwise></c:choose></display:column>
 				</c:when>
