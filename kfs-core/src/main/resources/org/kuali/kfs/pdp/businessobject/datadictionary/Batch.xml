@@ -29,7 +29,7 @@
       <ref bean="Batch-lookupDefinition"/>
     </property>
     <property name="titleAttribute" value="id"/>
-    <property name="objectLabel" value="Batch"/>
+    <property name="objectLabel" value="Search for Batch"/>
     <property name="attributes">
       <list>
         <ref bean="Batch-customerProfile.chartCode"/>

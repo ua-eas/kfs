@@ -30,7 +30,7 @@
 			<ref bean="DebarredVendorUnmatched-lookupDefinition" />
 		</property>
 		<property name="titleAttribute" value="vendorName" />
-		<property name="objectLabel" value="Debarred Unmatched Vendors" />
+		<property name="objectLabel" value="Vendor Exclusion Unmatched" />
 		<property name="attributes">
 			<list>
 				<ref bean="DebarredVendorUnmatched-vendorHeaderGeneratedIdentifier"/>
@@ -127,7 +127,7 @@
 
 	<bean id="DebarredVendorUnmatched-lookupDefinition-parentBean" abstract="true"
 		parent="LookupDefinition">
-		<property name="title" value="Debarred Unmatched Vendor Lookup" />
+		<property name="title" value="Vendor Exclusion Unmatched Lookup" />
 		<property name="lookupableID" value="debarredVendorUnmatchedLookupable" />
 		<property name="lookupFields">
 			<list>

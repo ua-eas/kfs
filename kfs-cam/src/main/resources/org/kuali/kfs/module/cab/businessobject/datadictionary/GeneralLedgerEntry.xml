@@ -32,7 +32,7 @@
 		<property name="lookupDefinition">
 			<ref bean="GeneralLedgerEntry-lookupDefinition" />
 		</property>
-		<property name="objectLabel" value="Capital Asset General Ledger Entry" />
+		<property name="objectLabel" value="General Ledger Transactions" />
 		<property name="attributes">
 			<list>
 				<ref bean="GeneralLedgerEntry-generalLedgerAccountIdentifier" />
@@ -306,7 +306,7 @@
 	<bean id="GeneralLedgerEntry-lookupDefinition" parent="GeneralLedgerEntry-lookupDefinition-parentBean" />
 	<bean id="GeneralLedgerEntry-lookupDefinition-parentBean"
 		abstract="true" parent="LookupDefinition">
-		<property name="title" value="CAB General Ledger Entry Lookup" />
+		<property name="title" value="General Ledger Transactions Lookup" />
 		<property name="lookupableID" value="cabGlEntryLookupable" />
 
 		<property name="defaultSort">

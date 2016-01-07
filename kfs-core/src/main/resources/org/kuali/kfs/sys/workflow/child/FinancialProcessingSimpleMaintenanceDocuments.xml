@@ -301,7 +301,7 @@
     <documentType>
       <name>PCDM</name>
       <parent>FPSM</parent>
-      <label>Procurement Card Default</label>
+      <label>Procurement Cardholder Defaults</label>
 	  <helpDefinitionURL>default.htm?turl=WordDocuments%2Fcreditcardtype.htm</helpDefinitionURL>
       <active>true</active>
       <routingVersion>2</routingVersion>
