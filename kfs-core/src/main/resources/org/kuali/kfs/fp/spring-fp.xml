@@ -149,6 +149,9 @@
 		<property name="vendorService">
 			<ref bean="vendorService" />
 		</property>		
+		<property name="personService">
+			<ref bean="personService" />
+		</property>
 	</bean>
 	
 	<bean id="disbursementVoucherExtractionHelperService" parent="disbursementVoucherExtractionHelperService-parentBean"/>
