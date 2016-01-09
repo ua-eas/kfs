@@ -38,39 +38,36 @@
 </c:choose>
 
 <purap:loadOnOpenTab tabTitle="View Related Documents" defaultOpen="false" tabErrorKey="${PurapConstants.RELATED_DOCS_TAB_ERRORS}">
-    <div class="tab-container" align=center>
-
-		<h3>Related Documents</h3>
-		<br/>
+    <div class="tab-container">
 		<c:if test="${kfunc:getTabState(KualiForm, tabKey) == 'OPEN'}">
-		<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
-			viewList="document.relatedViews.relatedRequisitionViews" /> 
-		
-		<purap:relatedPurchaseOrderDocumentsDetail documentAttributes="${documentAttributes}"
-			groupList="document.relatedViews.groupedRelatedPurchaseOrderViews"
-			limitByPoId="${limitByPoId}" /> 
+			<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
+				viewList="document.relatedViews.relatedRequisitionViews" />
 
-		<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
-			viewList="document.relatedViews.relatedBulkReceivingViews" 
-			limitByPoId="${limitByPoId}" /> 
+			<purap:relatedPurchaseOrderDocumentsDetail documentAttributes="${documentAttributes}"
+				groupList="document.relatedViews.groupedRelatedPurchaseOrderViews"
+				limitByPoId="${limitByPoId}" />
 
-		<purap:relatedReceivingDocumentsDetail documentAttributes="${documentAttributes}"
-			groupList="document.relatedViews.groupedRelatedReceivingViews" 
-			limitByPoId="${limitByPoId}" /> 
-			 
-		<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
-			viewList="document.relatedViews.relatedPaymentRequestViews"
-			limitByPoId="${limitByPoId}" /> 
+			<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
+				viewList="document.relatedViews.relatedBulkReceivingViews"
+				limitByPoId="${limitByPoId}" />
 
-		<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
-			viewList="document.relatedViews.relatedCreditMemoViews"
-			limitByPoId="${limitByPoId}" /> 
-			
-		<c:if test="${!isATypeOfPurAPRecDoc}">
-			<purap:relatedElectronicRejectDocumentsDetail documentAttributes="${documentAttributes}"
-				viewList="document.relatedViews.relatedRejectViews"
-				limitByPoId="${limitByPoId}" /> 	
-		</c:if>
+			<purap:relatedReceivingDocumentsDetail documentAttributes="${documentAttributes}"
+				groupList="document.relatedViews.groupedRelatedReceivingViews"
+				limitByPoId="${limitByPoId}" />
+
+			<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
+				viewList="document.relatedViews.relatedPaymentRequestViews"
+				limitByPoId="${limitByPoId}" />
+
+			<purap:relatedDocumentsDetail documentAttributes="${documentAttributes}"
+				viewList="document.relatedViews.relatedCreditMemoViews"
+				limitByPoId="${limitByPoId}" />
+
+			<c:if test="${!isATypeOfPurAPRecDoc}">
+				<purap:relatedElectronicRejectDocumentsDetail documentAttributes="${documentAttributes}"
+					viewList="document.relatedViews.relatedRejectViews"
+					limitByPoId="${limitByPoId}" />
+			</c:if>
 		</c:if>
     </div>
 </purap:loadOnOpenTab>

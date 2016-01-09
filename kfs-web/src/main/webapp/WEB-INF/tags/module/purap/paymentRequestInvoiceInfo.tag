@@ -31,10 +31,8 @@
 <c:set var="tabindexOverrideBase" value="40" />
 
 <kul:tab tabTitle="Invoice Info" defaultOpen="true" tabErrorKey="${PurapConstants.PAYMENT_REQUEST_INVOICE_TAB_ERRORS}">
-    <div class="tab-container" align=center>
-            <h3>Invoice Info</h3>
-
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="Invoice Info Section">
+    <div class="tab-container">
+        <table class="datatable standard" summary="Invoice Info Section">
 
             <tr>
                 <th align=right valign=middle class="bord-l-b">

@@ -61,13 +61,19 @@ function showTab(doc, formId, tabKey) {
     // replaced 'block' with '' to make budgetExpensesRow.tag happy.
     doc.getElementById('tab-' + tabKey + '-div').style.display = '';
     doc.getElementById(formId).elements['tabStates(' + tabKey + ')'].value = 'OPEN';
-    var div = doc.getElementById('tab-' + tabKey + '-imageToggle');
-    var toggleDiv = div.lastElementChild;
-    var span = toggleDiv.firstElementChild;
-	$(span).removeClass('glyphicon-menu-down');
-	$(span).addClass('glyphicon-menu-up');
-	span.title = span.title.replace(/^show/, 'hide');
-	span.title = span.title.replace(/^open/, 'close');
+    var toggler = doc.getElementById('tab-' + tabKey + '-imageToggle');
+    var toggleDiv = toggler.lastElementChild;
+    if (toggleDiv == null) {
+        toggler.value = 'Hide';
+        toggler.title = 'close';
+        toggler.alt = 'close';
+    } else {
+        var span = toggleDiv.firstElementChild;
+        $(span).removeClass('glyphicon-menu-down');
+        $(span).addClass('glyphicon-menu-up');
+        span.title = span.title.replace(/^show/, 'hide');
+        span.title = span.title.replace(/^open/, 'close');
+    }
     return false;
 }
 
@@ -78,13 +84,19 @@ function hideTab(doc, formId, tabKey) {
 
     doc.getElementById('tab-' + tabKey + '-div').style.display = 'none';
 	doc.getElementById(formId).elements['tabStates(' + tabKey + ')'].value = 'CLOSE';
-    var div = doc.getElementById('tab-' + tabKey + '-imageToggle');
-    var toggleDiv = div.lastElementChild;
-    var span = toggleDiv.firstElementChild;
-	$(span).removeClass('glyphicon-menu-up');
-	$(span).addClass('glyphicon-menu-down');
-	span.title = span.title.replace(/^hide/, 'show');
-	span.title = span.title.replace(/^close/, 'open');
+    var toggler = doc.getElementById('tab-' + tabKey + '-imageToggle');
+    var toggleDiv = toggler.lastElementChild;
+    if (toggleDiv == null) {
+        toggler.value = 'Show';
+        toggler.title = 'open';
+        toggler.alt = 'open';
+    } else {
+        var span = toggleDiv.firstElementChild;
+        $(span).removeClass('glyphicon-menu-up');
+        $(span).addClass('glyphicon-menu-down');
+        span.title = span.title.replace(/^hide/, 'show');
+        span.title = span.title.replace(/^close/, 'open');
+    }
     return false;
 }
 

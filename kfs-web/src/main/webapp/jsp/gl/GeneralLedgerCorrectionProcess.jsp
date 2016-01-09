@@ -310,13 +310,13 @@
             </tr>
             <c:if test="${KualiForm.editMethod == 'M' and KualiForm.editableFlag == true}">
               <tr>
-                <td align="left" valign="middle" class="subhead"><span class="subhead-left">Manual Editing</span></td>
+                <td align="left" valign="middle" class="subhead"><h3>Manual Editing</h3></td>
               </tr>
               <tr>                
                 <td>
-                  <table id="eachEntryForManualEdit">
+                  <table id="eachEntryForManualEdit" class="standard">
                     <thead>
-                      <tr>
+                      <tr class="header">
                         <th>Manual Edit</th>
                         
                         <c:forEach items="${KualiForm.tableRenderColumnMetadata}" var="column">
