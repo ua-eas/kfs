@@ -87,18 +87,11 @@
 	                   		'<\/a>' +
 	                   		'<div id="uploadDiv" style="display:none;" >' +
 	                     		'<html:file size="30" property="attendeesImportFile" />' +
-	                     		'<html:image property="methodToCall.importAttendees" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-	                                   styleClass="tinybutton" alt="add imported Attendees" title="add imported Attendees" />' +
-	                     		'<html:image property="methodToCall.cancel" src="${ConfigProperties.externalizable.images.url}tinybutton-cancelimport.gif"
-	                                   styleClass="tinybutton" alt="cancel import" title="cancel import" onclick="hideImport();return false;" />' +
+	                     		'<html:submit property="methodToCall.importAttendees" styleClass="btn btn-green" alt="add imported Attendees" title="add imported Attendees" value="Add" />' +
+	                     		'<html:submit property="methodToCall.cancel" styleClass="btn btn-default" alt="cancel import" title="cancel import" onclick="hideImport();return false;" value="Cancel Import" />' +
 	                   		'<\/div>');
 	               		//-->
 	           			</SCRIPT>
-						<NOSCRIPT>
-							Import Attendees
-							<html:file size="30" property="attendeesImportFile" style="font:10px;height:16px;" />
-							<html:image property="methodToCall.importAttendees" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="add imported items" title="add imported items" />
-						</NOSCRIPT>					
 					</td>
 				</tr>
 				<tr>

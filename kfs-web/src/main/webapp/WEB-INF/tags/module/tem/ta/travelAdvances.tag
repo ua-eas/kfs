@@ -139,13 +139,14 @@
 				<tr>
 					<td colspan="2" class="infoline">
 						<c:if test="${fullEntryMode}">
-							<div align=center>
-								<html:image
-									src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-									styleClass="tinybutton"
+
+							<html:submit
+									styleClass="btn btn-green"
 									property="methodToCall.addTravelAdvanceLine"
-									alt="Add Travel Advance Line" title="Add Travel Advance Line" />
-							</div>
+									alt="Add Travel Advance Line"
+									title="Add Travel Advance Line"
+									value="Add"/>
+
 						</c:if>
 					</td>
 				</tr>

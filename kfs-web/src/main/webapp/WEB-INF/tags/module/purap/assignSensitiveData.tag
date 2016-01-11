@@ -131,8 +131,12 @@
         				property="newSensitiveDataLine.sensitiveDataCode" />
         		</div></td>
         		<td class="datacell"><div align="center">
-        			<html:image property="methodToCall.addSensitiveData" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" 
-        				alt="Add New Sensitive Data Entry" title="Add New Sensitive Data Entry" styleClass="tinybutton" />
+        			<html:submit
+							property="methodToCall.addSensitiveData"
+        					alt="Add New Sensitive Data Entry"
+							title="Add New Sensitive Data Entry"
+							styleClass="btn btn-green"
+							value="Add"/>
         		</div></td>
         	</tr>
         </table>

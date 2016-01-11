@@ -139,7 +139,12 @@
 
 			<td class="infoline">
 			    <div align="center">
-			        <html:image property="methodToCall.addItem" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="Insert an Item" title="Add an Item" styleClass="tinybutton" />
+			        <html:submit
+							property="methodToCall.addItem"
+							alt="Insert an Item"
+							title="Add an Item"
+							styleClass="btn btn-green"
+							value="Add"/>
 			    </div>
 			</td>						
 		</tr>
