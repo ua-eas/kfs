@@ -29,82 +29,101 @@
 
 		<!-- Line Item Receiving View -->
 	    <c:choose>
-		<c:when test="${group.isLineItemViewCurrentDocument}">			
-    	   	<h3><c:out value="${group.lineItemView.documentLabel}"/></h3>
-		</c:when>		
+			<c:when test="${group.isLineItemViewCurrentDocument}">
+				<h3><c:out value="${group.lineItemView.documentLabel}"/></h3>
+			</c:when>
+			<c:when test="${(empty limitByPoId) or (limitByPoId eq group.lineItemView.purchaseOrderIdentifier)}">
+				<%--Setting tab vars for show/hide button, for each lineItemView --%>
+				<c:set var="documentTitle" value="${group.lineItemView.documentLabel}${group.lineItemView.documentIdentifierString}"/>
+				<c:set var="tabKey" value="${kfunc:generateTabKey(documentTitle)}" />
+				<c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}" />
 
-		<c:when test="${(empty limitByPoId) or (limitByPoId eq group.lineItemView.purchaseOrderIdentifier)}">	
-			<%--Setting tab vars for show/hide button, for each lineItemView --%>			    			
-			<c:set var="documentTitle" value="${group.lineItemView.documentLabel}${group.lineItemView.documentIdentifierString}"/>
-			<c:set var="tabKey" value="${kfunc:generateTabKey(documentTitle)}" />
-			<c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}" />
-			<%-- default to close --%>
-			<c:choose>
-				<c:when test="${empty currentTab}">
-					<c:set var="isOpen" value="false" />
-				</c:when>
-				<c:when test="${!empty currentTab}">
-					<c:set var="isOpen" value="${currentTab == 'OPEN'}" />
-				</c:when>
-			</c:choose>
-                <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
-			<c:choose>
-			<c:when test="${isRequisition}">
-		    	<h3>${group.lineItemView.documentLabel} - <a href="<c:out value="${group.lineItemView.url}" />" style="color: #FFF" target="_BLANK"><c:out value="${group.lineItemView.documentIdentifierString}" /></a>
-		    		&nbsp;(Purchase Order - ${group.lineItemView.purchaseOrderIdentifier})
-		    </c:when>			
-			<c:otherwise>
-				<h3>${group.lineItemView.documentLabel} - <a href="<c:out value="${group.lineItemView.url}" />" style="color: #FFF" target="_BLANK"><c:out value="${group.lineItemView.documentIdentifierString}" /></a>
-			</c:otherwise>
-			</c:choose>
-			<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-				<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" alt="hide" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-							onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-			</c:if>
-			<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-				<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" alt="show" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-							onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-			</c:if>
-			</h3>
-
-			<!--  Line Item Receiving View notes -->
-			<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-				<div style="display: block;" id="tab-${tabKey}-div">
-			</c:if>
-			<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
-				<div style="display: none;" id="tab-${tabKey}-div">
-			</c:if>			
-			<table cellpadding="0" cellspacing="0" class="datatable" summary="Notes">
 				<c:choose>
-		    	<c:when test="${!empty group.lineItemView.notes}">
-					<tr>
-						<kul:htmlAttributeHeaderCell scope="col" width="15%">Date</kul:htmlAttributeHeaderCell>
-						<kul:htmlAttributeHeaderCell scope="col" width="15%">User</kul:htmlAttributeHeaderCell>
-						<kul:htmlAttributeHeaderCell scope="col" width="70%">Note</kul:htmlAttributeHeaderCell>
-		       		</tr>
-					<c:forEach items="${group.lineItemView.notes}" var="note" >
-		       		<tr>
-		       			<td align="center" valign="middle" class="datacell">
-		       				<c:out value="${note.notePostedTimestamp}" />
-			       		</td>
-			       		<td align="center" valign="middle" class="datacell">
-		       				<c:out value="${note.authorUniversal.name}" />
-			       		</td>
-			       		<td align="left" valign="middle" class="datacell">
-		       				<c:out value="${note.noteText}" />
-			       		</td>
-			       	</tr>
-					</c:forEach>
-				</c:when>	
-		    	<c:otherwise>
-					<tr>
-			    		<th align="center" valign="middle" class="bord-l-b">No Notes</th>
-			    	</tr>
-				</c:otherwise>	
+					<c:when test="${empty currentTab}">
+						<c:set var="isOpen" value="false" />
+					</c:when>
+					<c:when test="${!empty currentTab}">
+						<c:set var="isOpen" value="${currentTab == 'OPEN'}" />
+					</c:when>
 				</c:choose>
-		    </table>
-			</div>	
-		</c:when>
+
+				<html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
+
+				<h3>
+					<c:choose>
+						<c:when test="${isRequisition}">
+							${group.lineItemView.documentLabel} -
+							<a href="<c:out value="${group.lineItemView.url}" />" target="_BLANK">
+								<c:out value="${group.lineItemView.documentIdentifierString}" />
+							</a>
+							&nbsp;(Purchase Order - ${group.lineItemView.purchaseOrderIdentifier})
+						</c:when>
+						<c:otherwise>
+							${group.lineItemView.documentLabel} -
+							<a href="<c:out value="${group.lineItemView.url}" />" target="_BLANK">
+								<c:out value="${group.lineItemView.documentIdentifierString}" />
+							</a>
+						</c:otherwise>
+					</c:choose>
+					<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+						<html:button
+								property="methodToCall.toggleTab.tab${tabKey}"
+								alt="hide"
+								title="toggle"
+								styleClass="btn btn-default small"
+								styleId="tab-${tabKey}-imageToggle"
+								onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+								value="Hide"/>
+					</c:if>
+					<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+						<html:button
+								property="methodToCall.toggleTab.tab${tabKey}"
+								alt="show"
+								title="toggle"
+								styleClass="btn btn-default small"
+								styleId="tab-${tabKey}-imageToggle"
+								onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+								value="Show"/>
+					</c:if>
+				</h3>
+
+				<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+					<div style="display: block;" id="tab-${tabKey}-div">
+				</c:if>
+				<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
+					<div style="display: none;" id="tab-${tabKey}-div">
+				</c:if>
+					<table class="datatable standard side-margins" summary="Notes">
+						<c:choose>
+						<c:when test="${!empty group.lineItemView.notes}">
+							<tr class="header">
+								<kul:htmlAttributeHeaderCell scope="col" width="15%">Date</kul:htmlAttributeHeaderCell>
+								<kul:htmlAttributeHeaderCell scope="col" width="15%">User</kul:htmlAttributeHeaderCell>
+								<kul:htmlAttributeHeaderCell scope="col" width="70%">Note</kul:htmlAttributeHeaderCell>
+							</tr>
+							<c:forEach items="${group.lineItemView.notes}" var="note" >
+							<tr>
+								<td class="datacell">
+									<c:out value="${note.notePostedTimestamp}" />
+								</td>
+								<td class="datacell">
+									<c:out value="${note.authorUniversal.name}" />
+								</td>
+								<td class="datacell">
+									<c:out value="${note.noteText}" />
+								</td>
+							</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<th>No Notes</th>
+							</tr>
+						</c:otherwise>
+						</c:choose>
+					</table>
+				</div>
+			</c:when>
 		</c:choose>
 		
 		<!-- Correction Receiving Views (grouped and indented) associated with the Line Item Receiving View -->

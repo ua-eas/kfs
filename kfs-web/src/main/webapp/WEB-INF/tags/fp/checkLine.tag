@@ -22,9 +22,10 @@
 <%@ attribute name="rowHeading" required="true" %>
 <%@ attribute name="propertyName" required="true" description="name of form property containing the Check" %>
 <%@ attribute name="baselinePropertyName" description="name of form property containing the baselineCheck" %>
-<%@ attribute name="actionMethod" required="true" description="methodToCall value for actionImage" %>
-<%@ attribute name="actionImage" required="true" description="path to image to be displayed in Action column" %>
-<%@ attribute name="actionAlt" required="true" description="alt value for actionImage" %>
+<%@ attribute name="actionMethod" required="true" description="methodToCall value for action button" %>
+<%@ attribute name="actionAlt" required="true" description="alt value for action button" %>
+<%@ attribute name="actionLabel" required="true" description="button value for action button" %>
+<%@ attribute name="actionClass" required="false" description="css class for action button" %>
 <%@ attribute name="cssClass" required="true" %>
 <%@ attribute name="displayHidden" required="true" %>
 
@@ -115,9 +116,17 @@
     
     <c:if test="${!readOnly}">
         <td class="${cssClass}" nowrap>
-            <div align="center">
-                <html:image property="methodToCall.${actionMethod}" tabindex="${tabindexOverrideBase} + 20" styleClass="tinybutton" src="${actionImage}" title="${actionAlt}" alt="${actionAlt}"/>
-            </div>
+            <c:if test="${empty actionClass}">
+                <c:set var="actionClass" value="btn-default"/>
+            </c:if>
+
+            <html:submit
+                    property="methodToCall.${actionMethod}"
+                    tabindex="${tabindexOverrideBase} + 20"
+                    styleClass="btn ${actionClass}"
+                    title="${actionAlt}"
+                    alt="${actionAlt}"
+                    value="${actionLabel}"/>
         </td>
     </c:if>
 </tr>

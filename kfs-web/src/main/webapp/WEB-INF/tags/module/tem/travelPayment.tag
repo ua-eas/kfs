@@ -152,7 +152,7 @@
         </table>
 		<%-- SPECIAL HANDLING --%>
 		<kul:subtab width="100%" subTabTitle="Special Handling" open="false" noShowHideButton="false">
-			<table cellpadding=0 class="datatable" summary="Special Handling Section">          
+			<table cellpadding=0 class="datatable standard" summary="Special Handling Section">
 				<tr>
 				  <th align=right valign=middle class="bord-l-b"><div align="right"><kul:htmlAttributeLabel attributeEntry="${travelPaymentAttributes.specialHandlingPersonName}"/></div></th>
 				  <td align=left valign=middle class="datacell">

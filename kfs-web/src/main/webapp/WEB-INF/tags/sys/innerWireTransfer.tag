@@ -20,7 +20,7 @@
 
 <c:set var="wireTransAttributes" value="${DataDictionary.PaymentSourceWireTransfer.attributes}" />
 
-<table cellpadding=0 class="datatable" summary="Wire Transfer Section">
+<table cellpadding=0 class="datatable standard" summary="Wire Transfer Section">
 	<tbody>
 		<tr>
 			<td colspan="4" align="left" valign="middle" class="datacell"><bean:write name="KualiForm" property="wireChargeMessage" /></td>

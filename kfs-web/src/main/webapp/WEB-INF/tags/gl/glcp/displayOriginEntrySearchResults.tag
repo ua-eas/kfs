@@ -69,8 +69,18 @@
                 <tr class="${rowclass}">
                     <c:if test="${KualiForm.editableFlag == true and KualiForm.editMethod == 'M'}">
                         <td>
-                            <html:image property="methodToCall.editManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-edit1.gif" styleClass="tinybutton" alt="edit" title="edit" />
-                            <html:image property="methodToCall.deleteManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" styleClass="tinybutton" alt="delete" title="delete" />
+                            <html:submit
+                                    property="methodToCall.editManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}"
+                                    styleClass="btn btn-default small"
+                                    alt="edit"
+                                    title="edit"
+                                    value="Edit"/>
+                            <html:submit
+                                    property="methodToCall.deleteManualEntry.entryId${originEntry.entryId}.anchor${currentTabIndex}"
+                                    styleClass="btn btn-red small"
+                                    alt="delete"
+                                    title="delete"
+                                    value="Delete"/>
                         </td>
                     </c:if>
                     <td class="infocell"><c:out value="${originEntry.universityFiscalYear}" />&nbsp;</td>

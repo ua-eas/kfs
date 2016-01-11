@@ -52,10 +52,10 @@
                     </c:if>
                 </tr>
     			<c:if test="${!readOnly}">
-                <fp:checkLine readOnly="${readOnly}" rowHeading="add" propertyName="newCheck" actionImage="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" actionAlt="add" actionMethod="addCheck" cssClass="infoline" displayHidden="${displayHidden}" />
+                <fp:checkLine readOnly="${readOnly}" rowHeading="add" propertyName="newCheck" actionClass="btn-green" actionLabel="Add" actionAlt="add" actionMethod="addCheck" cssClass="infoline" displayHidden="${displayHidden}" />
                 </c:if> 
                 <logic:iterate id="check" name="KualiForm" property="document.checks" indexId="ctr">
-                    <fp:checkLine readOnly="${readOnly}" rowHeading="${ctr + 1}" propertyName="document.check[${ctr}]" baselinePropertyName="baselineCheck[${ctr}]" actionImage="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" actionAlt="delete" actionMethod="deleteCheck.line${ctr}" cssClass="datacell" displayHidden="${displayHidden}" />
+                    <fp:checkLine readOnly="${readOnly}" rowHeading="${ctr + 1}" propertyName="document.check[${ctr}]" baselinePropertyName="baselineCheck[${ctr}]" actionClass="btn-red" actionLabel="Delete" actionAlt="delete" actionMethod="deleteCheck.line${ctr}" cssClass="datacell" displayHidden="${displayHidden}" />
                 </logic:iterate>
     
                 <c:if test="${!empty totalAmount}">
@@ -85,9 +85,9 @@
                     <kul:htmlAttributeHeaderCell attributeEntry="${checkBaseAttributes.amount}" />
                     <kul:htmlAttributeHeaderCell literalLabel="Action" />
                 </tr>
-                <fp:checkLine readOnly="false" rowHeading="add" propertyName="newConfirmedCheck" actionImage="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" actionAlt="add" actionMethod="addConfirmedCheck" cssClass="infoline" displayHidden="${displayHidden}" />
+                <fp:checkLine readOnly="false" rowHeading="add" propertyName="newConfirmedCheck" actionClass="btn-green" actionLabel="Add" actionAlt="add" actionMethod="addConfirmedCheck" cssClass="infoline" displayHidden="${displayHidden}" />
                 <logic:iterate id="confirmedCheck" name="KualiForm" property="document.confirmedChecks" indexId="ct">
-                    <fp:checkLine readOnly="false" rowHeading="${ct + 1}" propertyName="document.confirmedCheck[${ct}]" actionImage="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" actionAlt="delete" actionMethod="deleteConfirmedCheck.line${ct}" cssClass="datacell" displayHidden="${displayHidden}" />
+                    <fp:checkLine readOnly="false" rowHeading="${ct + 1}" propertyName="document.confirmedCheck[${ct}]" actionClass="btn-red" actionLabel="Delete" actionAlt="delete" actionMethod="deleteConfirmedCheck.line${ct}" cssClass="datacell" displayHidden="${displayHidden}" />
                 </logic:iterate>	
                 	
                 <c:if test="${!empty totalConfirmedAmount}">

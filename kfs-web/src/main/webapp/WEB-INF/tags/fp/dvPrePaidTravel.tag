@@ -88,7 +88,12 @@
               </span></div></td>
               <c:if test="${fullEntryMode||travelEntryMode}">
 	              <td class="infoline"><div align=center>
-	                   <html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" styleClass="tinybutton" property="methodToCall.addPreConfRegistrantLine"  title="Add Pre-Conference Registrant Line" alt="Add Pre-Conference Registrant Line"/>
+	                   <html:submit
+                               styleClass="btn btn-green"
+                               property="methodToCall.addPreConfRegistrantLine"
+                               title="Add Pre-Conference Registrant Line"
+                               alt="Add Pre-Conference Registrant Line"
+                               value="Add"/>
 	              </div></td>
               </c:if>
             </tr>

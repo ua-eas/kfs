@@ -57,12 +57,24 @@
 	<td colspan="${mainColumnCount}" class="subhead">
 		<span class="subhead-left"><c:out value="${overrideTitle}" /> &nbsp;</span>
 		<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-			<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" alt="hide" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-				onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+			<html:button
+					property="methodToCall.toggleTab.tab${tabKey}"
+					alt="hide"
+					title="toggle"
+					styleClass="btn btn-default small"
+					styleId="tab-${tabKey}-imageToggle"
+					onclick="javascript: return toggleTab(document, '${tabKey}'); "
+					value="Hide"/>
 		</c:if>
 		<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" alt="show" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-				onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+			<html:button
+					property="methodToCall.toggleTab.tab${tabKey}"
+					alt="show"
+					title="toggle"
+					styleClass="btn btn-default small"
+					styleId="tab-${tabKey}-imageToggle"
+					onclick="javascript: return toggleTab(document, '${tabKey}'); "
+					value="Show"/>
 		</c:if>
 	</td>
 </tr>
@@ -92,15 +104,11 @@
 				readOnly="true" /> 
 		</tr>
 		<tr>
-			<td class="infoline" colspan="${colSpanItemType + 4}">
-			    <div align="right">
-			        <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemTypeCode}" property="document.item[${ctr}].itemType.itemTypeDescription" readOnly="true" />:&nbsp;
-			    </div>
+			<td class="infoline right" colspan="${colSpanItemType + 4}">
+				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemTypeCode}" property="document.item[${ctr}].itemType.itemTypeDescription" readOnly="true" />:&nbsp;
 			</td>
-			<td class="infoline" colspan="${colSpanExtendedPrice}">
-				<div align="right">
-					<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="document.item[${ctr}].itemUnitPrice" readOnly="true" styleClass="amount" />
-				</div>
+			<td class="infoline right" colspan="${colSpanExtendedPrice}">
+				<kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="document.item[${ctr}].itemUnitPrice" readOnly="true" styleClass="amount" />
 			</td>
 			<c:if test="${colSpanBlank > 0}">					
 			<td colspan="${colSpanBlank}" class="infoline">

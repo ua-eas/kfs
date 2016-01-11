@@ -21,45 +21,32 @@
 <%@ attribute name="documentAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields." %>
 <%@ attribute name="mainColumnCount" required="true" %>
 
-<tr>
-	<td colspan="${mainColumnCount}" class="subhead">
-	    <span class="subhead-left">Purchase Order Line Item Totals</span>
-	</td>
-</tr>
 
 <tr>
-	<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmount}" colspan="4"/>
-	<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmountRelieved}" colspan="4"/>
-	<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoPaidAmount}" colspan="${mainColumnCount-8}"/>
+    <td colspan="3"><h3>Purchase Order Line Item Totals</h3></td>
 </tr>
-
-<tr>
-	<td class="infoline" colspan="4">
-	    <div align="right">
-	    <kul:htmlControlAttribute
-		    attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmount}"
-		    property="document.itemTotalPoEncumbranceAmount"
-		    readOnly="true" />
-		</div>
-	</td>
-	<td class="infoline" colspan="4">
-		<div align="right">
-	    <kul:htmlControlAttribute
-		    attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmountRelieved}"
-		    property="document.itemTotalPoEncumbranceAmountRelieved"
-		    readOnly="true" />
-		</div>
-	</td>
-	<td class="infoline" colspan="${mainColumnCount-8}">
-		<div align="right">
-	    <kul:htmlControlAttribute
-		    attributeEntry="${documentAttributes.itemTotalPoPaidAmount}"
-		    property="document.itemTotalPoPaidAmount"
-		    readOnly="true" />	
-		</div>
-	</td>				    
+<tr class="header">
+    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmount}" addClass="center"/>
+    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmountRelieved}" addClass="center"/>
+    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoPaidAmount}" addClass="center"/>
 </tr>
-
 <tr>
-	<th height=30 colspan="${mainColumnCount}">&nbsp;</th>
+    <td class="infoline center">
+        <kul:htmlControlAttribute
+            attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmount}"
+            property="document.itemTotalPoEncumbranceAmount"
+            readOnly="true" />
+    </td>
+    <td class="infoline center">
+        <kul:htmlControlAttribute
+            attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmountRelieved}"
+            property="document.itemTotalPoEncumbranceAmountRelieved"
+            readOnly="true" />
+    </td>
+    <td class="infoline center">
+        <kul:htmlControlAttribute
+            attributeEntry="${documentAttributes.itemTotalPoPaidAmount}"
+            property="document.itemTotalPoPaidAmount"
+            readOnly="true" />
+    </td>
 </tr>

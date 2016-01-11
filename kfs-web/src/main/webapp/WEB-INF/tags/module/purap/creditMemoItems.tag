@@ -40,7 +40,6 @@
 </tr>
 
 <c:set var="usePO" value="true" />
-<!--  replace literal with PurapConstants once exported -->
 <c:if test="${KualiForm.document.creditMemoType eq 'PREQ'}" >
   <c:set var="usePO" value="false" />
 </c:if>
@@ -83,7 +82,6 @@
 </c:if>
 
 <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
-
 	<c:if test="${itemLine.itemType.lineItemIndicator == true}">
 		<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
 		<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
@@ -267,11 +265,12 @@
 <c:if test="${(fullEntryMode) and (clearAllTaxes) and (purapTaxEnabled)}">
 	<tr>
 		<th height=30 colspan="${mainColumnCount}">
-			<html:image 
-			    property="methodToCall.clearAllTaxes" 
-			    src="${ConfigProperties.externalizable.images.url}tinybutton-clearalltax.gif" 
-			    alt="Clear all tax" 
-			    title="Clear all tax" styleClass="tinybutton" />
+			<html:submit
+					property="methodToCall.clearAllTaxes"
+					alt="Clear all tax"
+					title="Clear all tax"
+					styleClass="btn btn-default"
+					value="Clear All Tax"/>
 			 </div>
 	 	</th>
 	 </tr>

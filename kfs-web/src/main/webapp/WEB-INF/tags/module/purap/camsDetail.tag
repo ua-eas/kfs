@@ -59,7 +59,12 @@
 					
 	      	&nbsp;
 	      	<c:if test="${(fullEntryMode or amendmentEntry) and !poItemInactive}">
-			    <html:image property="${addItemAssetUrl}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="Insert an Item Capital Asset" title="Add an Item Capital Asset" styleClass="tinybutton" />
+			    <html:submit
+						property="${addItemAssetUrl}"
+						alt="Insert an Item Capital Asset"
+						title="Add an Item Capital Asset"
+						styleClass="btn btn-green"
+						value="Add"/>
 			</c:if>
 		  </td>
 	    </tr>
@@ -76,7 +81,12 @@
 	                 </td>
 	                 <td class="datacell" align="left">
 	                     <c:if test="${(fullEntryMode or amendmentEntry) and !poItemInactive}">
-	                         <html:image property="${deleteItemAssetUrl}.((#${idx}#))" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" alt="Delete an Asset Number" title="Delete an Asset Number" styleClass="tinybutton" />
+	                         <html:submit
+									 property="${deleteItemAssetUrl}.((#${idx}#))"
+									 alt="Delete an Asset Number"
+									 title="Delete an Asset Number"
+									 styleClass="btn btn-red"
+									 value="Delete"/>
 	                     </c:if>
 	                 </td>
 	               </tr>
