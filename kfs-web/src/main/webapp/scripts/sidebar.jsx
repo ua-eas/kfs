@@ -15,46 +15,50 @@ var Sidebar = React.createClass({
             expandedLinkGroup: "",
             expandedSearch: false,
             search: '',
-            searchResults: undefined
+            searchResults: undefined,
+            backdoorId: ''
         };
     },
     componentWillMount() {
         let thisComponent = this
         let found = false
 
-        UserPrefs.getPrincipalName(function(principalName) {
-            thisComponent.setState({principalName: principalName})
-            let preferencesString = localStorage.getItem("institutionPreferences")
-            if ( preferencesString != null ) {
-                let sessionId = KfsUtils.getKualiSessionId()
-                let prefs = JSON.parse(preferencesString)
-                if ( (prefs.sessionId == sessionId) && (prefs.principalName == principalName) ) {
-                    found = true
-                    thisComponent.setState({institutionPreferences: prefs})
-                } else {
-                    localStorage.removeItem("institutionPreferences")
+        UserPrefs.getBackdoorId((backdoorId) => {
+            UserPrefs.getPrincipalName(function (principalName) {
+                thisComponent.setState({principalName: principalName})
+                let preferencesString = localStorage.getItem("institutionPreferences")
+                if (preferencesString != null) {
+                    let sessionId = KfsUtils.getKualiSessionId()
+                    let prefs = JSON.parse(preferencesString)
+                    if ((prefs.sessionId == sessionId) && (prefs.principalName == principalName)) {
+                        found = true
+                        thisComponent.setState({backdoorId: backdoorId, institutionPreferences: prefs})
+                    } else {
+                        localStorage.removeItem("institutionPreferences")
+                    }
                 }
-            }
 
-            if ( ! found ) {
-                let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName
-                $.ajax({
-                    url: institutionLinksPath,
-                    dataType: 'json',
-                    type: 'GET',
-                    success: function (preferences) {
-                        thisComponent.setState({institutionPreferences: preferences});
-                        preferences.sessionId = KfsUtils.getKualiSessionId()
-                        localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
-                    }.bind(this),
-                    error: function (xhr, status, err) {
-                        console.error(status, err.toString());
-                    }.bind(this)
-                })
-            }
-        },function() {
-            console.error("Error retrieving principalName")
-        })
+                if (!found) {
+                    let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName
+                    $.ajax({
+                        url: institutionLinksPath,
+                        dataType: 'json',
+                        type: 'GET',
+                        success: function (preferences) {
+                            thisComponent.setState({backdoorId: backdoorId, institutionPreferences: preferences});
+                            preferences.sessionId = KfsUtils.getKualiSessionId()
+                            localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
+                        }.bind(this),
+                        error: function (xhr, status, err) {
+                            console.error(status, err.toString());
+                        }.bind(this)
+                    })
+                }
+
+            }, function () {
+                console.error("Error retrieving principalName")
+            })
+        }, (status, message) => {console.error(status, message.toString());})
 
         UserPrefs.getUserPreferences(function (userPreferences) {
             thisComponent.setState({userPreferences: userPreferences});
@@ -228,7 +232,8 @@ var Sidebar = React.createClass({
                         group={groups[i]}
                         handleClick={this.toggleLinkGroup}
                         expandedLinkGroup={this.state.expandedLinkGroup}
-                        checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}/>
+                        checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}
+                        backdoorId={this.state.backdoorId}/>
                 )
             }
         }
@@ -250,7 +255,7 @@ var Sidebar = React.createClass({
             let finalLinks = [];
             let groupCount = 0;
             for (let resultGroup of Object.keys(this.state.searchResults)) {
-                let displayLinks = convertLinks(this.state.searchResults[resultGroup], 'navSearch' + resultGroup);
+                let displayLinks = convertLinks(this.state.searchResults[resultGroup], 'navSearch' + resultGroup, this.state.backdoorId);
                 finalLinks = finalLinks.concat(addHeading(displayLinks, resultGroup));
                 groupCount++;
             }
@@ -291,20 +296,22 @@ var Sidebar = React.createClass({
 });
 
 
-var convertLinks = function(links, type) {
+var convertLinks = function(links, type, backdoorId) {
     if (!links) {
         return "";
     }
+    let backdoorIdAppender = KfsUtils.buildBackdoorIdAppender(backdoorId);
     return links.map((link, i) => {
         let target = link.linkType === 'kfs' ? null : '_blank';
-        return <Link key={type + "_" + i} url={link.link} label={link.label} className="list-group-item" target={target}/>
+        let url = link.linkType === 'rice' ? backdoorIdAppender(link.link) : link.link;
+        return <Link key={type + "_" + i} url={url} label={link.label} className="list-group-item" target={target}/>
     })
 }
 
-var buildDisplayLinks = function(links, type, checkedLinkFilters) {
+var buildDisplayLinks = function(links, type, checkedLinkFilters, backdoorId) {
     let displayLinks = [];
     if (links && links[type] && checkedLinkFilters && checkedLinkFilters.indexOf(type) != -1) {
-        displayLinks = convertLinks(links[type], type);
+        displayLinks = convertLinks(links[type], type, backdoorId);
     }
     return displayLinks;
 }
@@ -340,9 +347,9 @@ var LinkGroup = React.createClass({
         let label = this.props.group.label
         let id = KfsUtils.buildKeyFromLabel(label)
 
-        let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters)
-        let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters)
-        let administrationLinks = buildDisplayLinks(this.props.group.links, 'administration', this.props.checkedLinkFilters)
+        let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters, this.props.backdoorId)
+        let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters, this.props.backdoorId)
+        let administrationLinks = buildDisplayLinks(this.props.group.links, 'administration', this.props.checkedLinkFilters, this.props.backdoorId)
 
         let links = addHeading(activitiesLinks, 'Activities')
         links = links.concat(addHeading(referenceLinks, 'Reference'))
