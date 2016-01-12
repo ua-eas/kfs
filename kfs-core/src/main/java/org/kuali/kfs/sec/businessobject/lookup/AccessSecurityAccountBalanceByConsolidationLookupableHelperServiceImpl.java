@@ -60,7 +60,7 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
     @Override
     public List<? extends BusinessObject> getSearchResults(Map fieldValues) {
         AccountBalanceByConsolidationLookupableHelperServiceImpl helperServiceImpl = new AccountBalanceByConsolidationLookupableHelperServiceImpl();
-        helperServiceImpl.setAccountBalanceService(SpringContext.getBean(AccountBalanceService.class));
+        helperServiceImpl.setAccountBalanceService(accountBalanceService);
         List<? extends BusinessObject> results = helperServiceImpl.getSearchResults(fieldValues);
 
         // first 7 items of results are total lines, so we need to check any detail lines after than
@@ -216,5 +216,4 @@ public class AccessSecurityAccountBalanceByConsolidationLookupableHelperServiceI
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
         this.kualiConfigurationService = kualiConfigurationService;
     }
-
 }

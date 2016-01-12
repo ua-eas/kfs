@@ -45,7 +45,10 @@
 		</property>
 		<property name="configurationService">
 			<ref bean="kualiConfigurationService" />
-		</property>		
+		</property>
+		<property name="accountBalanceService">
+			<ref bean="glAccountBalanceService"/>
+		</property>
 	</bean>
 	<bean id="glAccountBalanceByConsolidationLookupable" parent="glAccountBalanceByConsolidationLookupable-parentBean"/>
 	
