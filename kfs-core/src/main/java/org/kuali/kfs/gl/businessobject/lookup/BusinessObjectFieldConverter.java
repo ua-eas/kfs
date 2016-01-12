@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 
 /**
@@ -197,8 +198,10 @@ public class BusinessObjectFieldConverter {
             String propertyName = (String) propsIter.next();
             String propertyValue = (String) fieldValues.get(propertyName);
 
-            String propertyValueAfterEscaped = propertyValue.replaceAll(specialCharacter, replacement);
-            fieldValues.put(propertyName, propertyValueAfterEscaped);
+            if (!StringUtils.isBlank(propertyValue)) {
+                String propertyValueAfterEscaped = propertyValue.replaceAll(specialCharacter, replacement);
+                fieldValues.put(propertyName, propertyValueAfterEscaped);
+            }
         }
     }
 
