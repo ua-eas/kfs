@@ -40,27 +40,36 @@
 
 <tr>
 	<td colspan="${mainColumnCount}" class="subhead">
-		<span class="subhead-left">Items</span>
+		<h3>
+			Items
+			<c:if test="${fullEntryMode && KualiForm.ableToShowClearAndLoadQtyButtons}">
+				<div style="float: right; margin-top: -10px;">
+					<html:submit
+							property="methodToCall.loadQty"
+							alt="load qty invoiced"
+							title="load qty invoiced"
+							styleClass="btn btn-default"
+							value="Load Qty Invoiced"/>
+					<html:submit
+							property="methodToCall.clearQty"
+							alt="clear qty invoiced"
+							title="clear qty invoiced"
+							styleClass="btn btn-default"
+							value="Clear Qty Invoiced"/>
+				</div>
+			</c:if>
+		</h3>
 	</td>
 </tr>
 
-<c:if test="${fullEntryMode}">
-		<tr>
-			<td colspan="${mainColumnCount}" class="datacell" align="right" nowrap="nowrap">
-				<div align="right">
-					<c:if test="${KualiForm.ableToShowClearAndLoadQtyButtons}">
-						<html:image property="methodToCall.loadQty" src="${ConfigProperties.externalizable.images.url}tinybutton-loadqtyinvoiced.gif" alt="load qty invoiced" title="load qty invoiced" styleClass="tinybutton" />
-						<html:image property="methodToCall.clearQty" src="${ConfigProperties.externalizable.images.url}tinybutton-clearqtyinvoiced.gif" alt="clear qty invoiced" title="clear qty invoiced" styleClass="tinybutton" />
-					</c:if>
-				</div>
-			</td>
-		</tr>
-</c:if>
-		
-		
 <%-- temporary workaround due to removing discount item --%>
 <c:if test="${KualiForm.countOfAboveTheLine>=1}">
-	<tr>
+	<tr class="header">
+		<c:set var="descWidth" value="45%"/>
+		<c:if test="${fullEntryMode}">
+			<c:set var="descWidth" value="25%"/>
+		</c:if>
+
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemLineNumber}" width="2%"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.poOutstandingQuantity}" width="2%" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" width="5%" />
@@ -76,9 +85,9 @@
 
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemCatalogNumber}" width="5%" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" width="2%" />		
-		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" width="45%"  colspan="${colSpanDescription}"/>
+		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" width="${descWidth}"  colspan="${colSpanDescription}"/>
 		<c:if test="${fullEntryMode}">
-			<kul:htmlAttributeHeaderCell literalLabel="Actions"/>
+			<kul:htmlAttributeHeaderCell literalLabel="Actions" width="20%"/>
 		</c:if>
 		
 	</tr>
@@ -91,7 +100,6 @@
 </c:if>
 
 <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
-	
 	<c:if test="${itemLine.itemType.lineItemIndicator == true}">
 		<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
 		<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
@@ -120,7 +128,7 @@
 		</c:when>
 		</c:choose>
 
-		<tr>
+		<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
 			<td class="infoline" nowrap="nowrap" rowspan="2">
 				  &nbsp;<b><bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/></b> 
 			</td>
@@ -225,18 +233,21 @@
 			</td>	
 			
 			<c:if test="${fullEntryMode}">
-				<td class="infoline"> 
-					<div style="text-align: center;">
-						<html:image property="methodToCall.recalculateItemAccountsAmounts.line${ctr}.Anchor" 
-							src="${ConfigProperties.externalizable.images.url}tinybutton-calculate.gif" 
+				<td class="infoline">
+					<html:submit
+							property="methodToCall.recalculateItemAccountsAmounts.line${ctr}.Anchor"
 							title="Recalculate Item's accounts amounts distributions"
-							alt="Recalculate Item's accounts amounts distributions" styleClass="tinybutton" />&nbsp;	
-						<html:image property="methodToCall.restoreItemAccountsAmounts.line${ctr}.Anchor" 
-							src="${ConfigProperties.externalizable.images.url}tinybutton-restore.gif" 
+							alt="Recalculate Item's accounts amounts distributions"
+							styleClass="btn btn-default"
+							style="margin-bottom: 5px;"
+							value="Calculate"/>
+					<html:submit
+							property="methodToCall.restoreItemAccountsAmounts.line${ctr}.Anchor"
 							title="Restore Item's accounts percents/amounts from Purchase Order"
-							alt="Restore Item's accounts percents/amounts from Purchase Order" styleClass="tinybutton" />
-					</div>
-				</td>										
+							alt="Restore Item's accounts percents/amounts from Purchase Order"
+							styleClass="btn btn-default"
+							value="Restore"/>
+				</td>
 		</c:if>		
 					
 		</tr>
@@ -246,8 +257,9 @@
 			<c:set var="hideFields" value="" />
 		</c:if>		
 		<purap:purapGeneralAccounting
-			accountPrefix="document.item[${ctr}]." 
-			itemColSpan="${mainColumnCount-1}" />	
+				accountPrefix="document.item[${ctr}]."
+				itemColSpan="${mainColumnCount-1}"
+				rowClass="${ctr % 2 == 0 ? 'highlight' : ''}"/>
 		<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
 			</tbody>
 		</c:if>
@@ -257,12 +269,12 @@
 <c:if test="${(fullEntryMode) and (clearAllTaxes) and (purapTaxEnabled)}">
 	<tr>
 		<th height=30 colspan="${mainColumnCount}">
-			<html:image 
-			    property="methodToCall.clearAllTaxes" 
-			    src="${ConfigProperties.externalizable.images.url}tinybutton-clearalltax.gif" 
-			    alt="Clear all tax" 
-			    title="Clear all tax" styleClass="tinybutton" />
-			 </div>
+            <html:submit
+                    property="methodToCall.clearAllTaxes"
+                    alt="Clear all tax"
+                    title="Clear all tax"
+                    styleClass="btn btn-default"
+                    value="Clear All Tax"/>
 	 	</th>
 	 </tr>
 </c:if>	

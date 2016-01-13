@@ -41,7 +41,7 @@
             	<c:if test="${!noShowHideButton}">
                 	<a name="${KualiForm.currentTabIndex}"></a>
                 </c:if>
-                <span class="left">
+                <h3>
                     ${subTabTitle}
 
                     <c:if test="${highlightTab}">
@@ -65,17 +65,17 @@
                         <c:set var="isOpen" value="${(empty currentTab ? true : (currentTab == 'OPEN')) && open}"/>
 
                         <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
-                        <html:submit
+                        <html:button
                                 property="methodToCall.toggleTab.tab${tabKey}"
                                 title="${isOpen ? 'close' : 'open'} ${buttonAlt}"
                                 alt="${isOpen ? 'close' : 'open'} ${buttonAlt}"
-                                styleClass="btn btn-default small"
+                                styleClass="btn btn-default"
                                 styleId="tab-${tabKey}-imageToggle"
-                                onclick="javascript: return toggleTab(document, '${tabKey}'); "
+                                onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); "
                                 tabindex="-1"
                                 value="${isOpen ? 'Hide' : 'Show'}"/>
                     </c:if>
-                </span>
+                </h3>
                 <c:if test="${!empty boClassName}">
 	                <span class="right">
     	            	<kul:multipleValueLookup

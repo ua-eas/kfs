@@ -163,12 +163,13 @@
 							<c:set var="tabindex" value="${KualiForm.currentTabIndex}"/>
 							<c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
 							<div align="center">
-								<html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-									styleClass="tinybutton" 
-									tabindex="${tabindex}" 
-									property="methodToCall.addImportedExpenseLine"
-									alt="Add Imported Expense Line" 
-									title="Add Imported Expense Line" />
+								<html:submit
+										styleClass="btn btn-green"
+										tabindex="${tabindex}"
+										property="methodToCall.addImportedExpenseLine"
+										alt="Add Imported Expense Line"
+										title="Add Imported Expense Line"
+										value="Add"/>
 							</div>
 						</c:otherwise>
 					</c:choose>

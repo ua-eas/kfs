@@ -47,7 +47,12 @@
                         	fieldConversions="vendorStipulationDescription:document.vendorStipulationDescription" /></div>
                     </td>
                     <td class="infoline">
-                		<div align="center"><html:image property="methodToCall.addStipulation" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" alt="Insert a Stipulation" title="Add a Stipulation" styleClass="tinybutton"/></div>
+                		<html:submit
+                                property="methodToCall.addStipulation"
+                                alt="Insert a Stipulation"
+                                title="Add a Stipulation"
+                                styleClass="btn btn-green"
+                                value="Add"/>
     				</td>
                 </tr>
             </c:if>
@@ -63,7 +68,14 @@
 		                        tabindexOverride="${tabindexOverrideBase + 0}" />
 		                </td>
 		                <c:if test="${(fullEntryMode or (!empty KualiForm.editingMode['amendmentEntry']))}" >		                
-		                	<td class="infoline"><div align="center"><html:image property="methodToCall.deleteStipulation.line${ctr}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" alt="Delete Stipulation ${ctr+1}" title="Delete Stipulation ${ctr+1}" styleClass="tinybutton"/></div></td>
+		                	<td class="infoline">
+                                    <html:submit
+                                            property="methodToCall.deleteStipulation.line${ctr}"
+                                            alt="Delete Stipulation ${ctr+1}"
+                                            title="Delete Stipulation ${ctr+1}"
+                                            styleClass="btn btn-red"
+                                            value="Delete"/>
+                            </td>
 						</c:if>
 		            </tr>
 	        	</logic:iterate>

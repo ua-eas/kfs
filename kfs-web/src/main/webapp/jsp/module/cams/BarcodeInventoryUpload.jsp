@@ -76,7 +76,12 @@
                 </td>
                 <td class="infoline"><div align="center">
                   <c:if test="${loopStatus.first}">
-                    <html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" styleClass="globalbuttons" property="methodToCall.save" title="Upload Batch File" alt="Upload Batch File" />
+                    <html:submit
+                            styleClass="btn btn-green"
+                            property="methodToCall.save"
+                            title="Upload Batch File"
+                            alt="Upload Batch File"
+                            value="Add"/>
                   </c:if>
                   &nbsp;
                 </td>

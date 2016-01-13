@@ -43,27 +43,38 @@
 
             <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 
-			<c:choose>
-				<c:when test="${isRequisition}">
-		    		<h3>${view.documentLabel} - <a href="<c:out value="${view.url}" />" style="color: #FFF" target="_BLANK"><c:out value="${view.documentIdentifierString}" /></a>
-		    			&nbsp;(Purchase Order - ${view.purchaseOrderIdentifier})
-		    	</c:when>
-		    	<c:otherwise>
-		    		<h3>${view.documentLabel} - <a href="<c:out value="${view.url}" />" style="color: #FFF" target="_BLANK"><c:out value="${view.documentIdentifierString}" /></a>
-		    	</c:otherwise>
-		    </c:choose>		    
-			<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-			<html:image property="methodToCall.toggleTab.tab${tabKey}" 
-				src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" 
-				alt="hide" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-				onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-			</c:if>
-			<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			<html:image property="methodToCall.toggleTab.tab${tabKey}" 
-				src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" 
-				alt="show" title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle"
-				onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-			</c:if>
+			<h3>
+				<c:choose>
+					<c:when test="${isRequisition}">
+						${view.documentLabel} -
+						<a href="<c:out value="${view.url}" />" target="_BLANK"><c:out value="${view.documentIdentifierString}" /></a>
+						&nbsp;(Purchase Order - ${view.purchaseOrderIdentifier})
+					</c:when>
+					<c:otherwise>
+						${view.documentLabel} -
+						<a href="<c:out value="${view.url}" />" target="_BLANK"><c:out value="${view.documentIdentifierString}" /></a>
+					</c:otherwise>
+				</c:choose>
+				<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+				<html:button
+						property="methodToCall.toggleTab.tab${tabKey}"
+						alt="hide"
+						title="toggle"
+						styleClass="btn btn-default small"
+						styleId="tab-${tabKey}-imageToggle"
+						onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+						value="Hide"/>
+				</c:if>
+				<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+				<html:button
+						property="methodToCall.toggleTab.tab${tabKey}"
+						alt="show"
+						title="toggle"
+						styleClass="btn btn-default small"
+						styleId="tab-${tabKey}-imageToggle"
+						onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+						value="Show"/>
+				</c:if>
 			</h3>
             
 			<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
@@ -72,43 +83,39 @@
 			<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
 				<div style="display: none;" id="tab-${tabKey}-div">
 			</c:if>
-		    <table cellpadding="0" cellspacing="0" class="datatable" summary="Notes">
-		    	<c:if test="${!empty view.notes}">
-					<tr>
-						<kul:htmlAttributeHeaderCell scope="col" width="15%">Date</kul:htmlAttributeHeaderCell>
-						<kul:htmlAttributeHeaderCell scope="col" width="15%">User</kul:htmlAttributeHeaderCell>
-						<kul:htmlAttributeHeaderCell scope="col" width="70%">Note</kul:htmlAttributeHeaderCell>
-		        	</tr>
-					<c:forEach items="${view.notes}" var="note" >
-		        		<tr>
-		        			<td align="center" valign="middle" class="datacell">
-		        				<c:out value="${note.notePostedTimestamp}" />
-			        		</td>
-			        		<td align="center" valign="middle" class="datacell">
-		        				<c:out value="${note.authorUniversal.name}" />
-			        		</td>
-			        		<td align="left" valign="middle" class="datacell">
-		        				<c:out value="${note.noteText}" />
-			        		</td>
-			        	</tr>
-					</c:forEach>
-				</c:if>	
-		    	<c:if test="${empty view.notes}">
-			        <tr>
-			            <th align="center" valign="middle" class="bord-l-b">No Notes</th>
-			        </tr>
-				</c:if>	
-	    	</table>
+
+				<table class="datatable standard side-margins" summary="Notes">
+					<c:if test="${!empty view.notes}">
+						<tr class="header">
+							<kul:htmlAttributeHeaderCell scope="col" width="15%">Date</kul:htmlAttributeHeaderCell>
+							<kul:htmlAttributeHeaderCell scope="col" width="15%">User</kul:htmlAttributeHeaderCell>
+							<kul:htmlAttributeHeaderCell scope="col" width="70%">Note</kul:htmlAttributeHeaderCell>
+						</tr>
+						<c:forEach items="${view.notes}" var="note" >
+							<tr>
+								<td class="datacell">
+									<c:out value="${note.notePostedTimestamp}" />
+								</td>
+								<td class="datacell">
+									<c:out value="${note.authorUniversal.name}" />
+								</td>
+								<td class="datacell">
+									<c:out value="${note.noteText}" />
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${empty view.notes}">
+						<tr>
+							<th>No Notes</th>
+						</tr>
+					</c:if>
+				</table>
 			</div>
 			
 	    	<c:set var="viewShown" value="true"/>
 	    </c:if>		
 	</logic:iterate>
-	
-	<c:if test="${viewShown}">
-		<br />
-		<br />
-	</c:if>
 </logic:notEmpty>
 
 
