@@ -478,8 +478,8 @@
 	            		<c:when test="${achAccountInfoDisplayed}">                 
 	                    	<th class="right">
                                 <kul:htmlAttributeLabel
-									attributeEntry="${documentAttributes.achSignUpStatusFlag}"/>
-							</th>
+                                        attributeEntry="${documentAttributes.achSignUpStatusFlag}"/>
+                            </th>
                     		<td class="datacell">
                                 <kul:htmlControlAttribute
                                         property="document.achSignUpStatusFlag"
