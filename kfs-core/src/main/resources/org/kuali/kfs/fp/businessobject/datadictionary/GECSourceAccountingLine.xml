@@ -142,7 +142,9 @@
   <bean id="GECSourceAccountingLine-financialObjectCode" parent="GECSourceAccountingLine-financialObjectCode-parentBean"/>
 
   <bean id="GECSourceAccountingLine-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="6"/>
+    </property>
   </bean>
   <bean id="GECSourceAccountingLine-accountNumber" parent="GECSourceAccountingLine-accountNumber-parentBean"/>
 
@@ -191,7 +193,7 @@
     </property>
     <property name="required" value="false"/>
     <property name="control">
-      <ref bean="FourCharacterTextControl" />
+      <bean parent="TextControlDefinition" p:size="14"/>
     </property>
     
     
@@ -213,8 +215,9 @@
   <bean id="GECSourceAccountingLine-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
     <property name="label" value="Sub-Account Code"/>
     <property name="required" value="false"/>
-    
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="12"/>
+    </property>
   </bean>
   <bean id="GECSourceAccountingLine-referenceTypeCode" parent="GECSourceAccountingLine-referenceTypeCode-parentBean"/>
 
@@ -225,14 +228,17 @@
   <bean id="GECSourceAccountingLine-projectCode-parentBean" abstract="true" parent="ProjectCode-code">
     <property name="name" value="projectCode"/>
     <property name="required" value="false"/>
-    
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="11"/>
+    </property>
   </bean>
   <bean id="GECSourceAccountingLine-financialSubObjectCode" parent="GECSourceAccountingLine-financialSubObjectCode-parentBean"/>
 
   <bean id="GECSourceAccountingLine-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="required" value="false"/>
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="8"/>
+    </property>
   </bean>
   <bean id="GECSourceAccountingLine-documentNumber" parent="GECSourceAccountingLine-documentNumber-parentBean"/>
 
@@ -331,7 +337,7 @@
     <property name="maxLength" value="40"/>
     <property name="required" value="false"/>
     <property name="control">
-      <ref bean="StandardNameTextControl" />
+        <bean parent="TextControlDefinition" p:size="16"/>
     </property>
     
     
