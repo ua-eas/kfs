@@ -278,7 +278,7 @@
               <td><kul:htmlControlAttribute attributeEntry="${dvAttributes.disbVchrCheckStubText}" property="document.disbVchrCheckStubText" readOnly="${!fullEntryMode && !paymentHandlingEntryMode}"/></td>
 				<c:choose>
 					<c:when test="${achAccountInfoDisplayed}">
-						<th align=right valign=middle class="bord-l-b"><div align="right"><kul:htmlAttributeLabel attributeEntry="${dvAttributes.achSignUpStatusFlag}" useShortLabel="true" /></div></th>
+						<th align=right valign=middle class="bord-l-b"><div align="right"><kul:htmlAttributeLabel attributeEntry="${dvAttributes.achSignUpStatusFlag}" /></div></th>
 						<td align=left valign=middle class="datacell"><kul:htmlControlAttribute property="document.achSignUpStatusFlag" attributeEntry="${dvAttributes.achSignUpStatusFlag}" readOnly="true" /></td>
 					</c:when>
 					<c:otherwise>
