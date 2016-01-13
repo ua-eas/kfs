@@ -541,8 +541,8 @@ div.inquiry table.datatable th {
     text-align: left;
     color: #777777;
     border-bottom: 1px solid #c3c3c3;
-    padding: 0 30px 20px 30px;
-    margin: 20px 20px 30px 20px;
+    padding: 0 30px 10px 30px;
+    margin: 20px 20px 15px 20px;
 }
 
 .doc .main-panel .tab-container td h3 {
@@ -614,11 +614,15 @@ div.inquiry table.datatable th {
 
 .doc .main-panel .tab-container table.standard th,
 .doc .main-panel .tab-container table.standard td {
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .doc .main-panel .tab-container table.standard tr.top {
     vertical-align: top;
+}
+
+.doc .main-panel .tab-container table.standard tr.middle {
+    vertical-align: middle;
 }
 
 .doc .main-panel .tab-container table.standard td.note-text {
@@ -627,6 +631,10 @@ div.inquiry table.datatable th {
 
 .doc .main-panel .tab-container table.standard tr.highlight {
     background-color: #F9F9F9;
+}
+
+.doc .main-panel .tab-container table.standard tr.highlight tr.highlight {
+    background-color: rgba(0,0,0,.1);
 }
 
 .doc .main-panel .tab-container table.standard td.total-line {

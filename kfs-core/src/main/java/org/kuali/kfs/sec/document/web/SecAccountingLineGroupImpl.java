@@ -81,7 +81,6 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
             }
 
             if (lineHasError || container.isNewLine()) {
-                container.setEditableLine(true);
                 continue;
             }
 

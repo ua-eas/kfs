@@ -28,7 +28,7 @@
     <property name="lookupDefinition">
       <ref bean="PaymentProcess-lookupDefinition"/>
     </property>
-    <property name="objectLabel" value="Payment Process"/>
+    <property name="objectLabel" value="Format Summary"/>
     <property name="attributes">
       <list>
         <ref bean="PaymentProcess-id"/>

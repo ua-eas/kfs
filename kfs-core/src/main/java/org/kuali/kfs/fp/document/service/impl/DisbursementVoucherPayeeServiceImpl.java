@@ -44,6 +44,7 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
@@ -65,6 +66,7 @@ public class DisbursementVoucherPayeeServiceImpl implements DisbursementVoucherP
     protected DocumentService documentService;
     protected ParameterService parameterService;
     protected VendorService vendorService;
+    protected PersonService personService;
 
     public final static String addressPattern = "{0}, {1}, {2} {3}";
 
@@ -395,7 +397,11 @@ public class DisbursementVoucherPayeeServiceImpl implements DisbursementVoucherP
         }
 
         // Add FYI for initiator
-        adHocRoutePersons.add(buildFyiRecipient(initiatorUserId));
+        Person initiator = personService.getPerson(initiatorUserId);
+        if (initiator != null && documentAuthorizer.canReceiveAdHoc(dvDoc, initiator, KewApiConstants.ACTION_REQUEST_FYI_REQ)) {
+        	String initiatorName = initiator.getPrincipalName();
+        	adHocRoutePersons.add(buildFyiRecipient(initiatorName));
+        }
     }
 
     /**
@@ -509,5 +515,14 @@ public class DisbursementVoucherPayeeServiceImpl implements DisbursementVoucherP
      */
     public void setVendorService(VendorService vendorService) {
         this.vendorService = vendorService;
+    }
+    
+    /**
+     * Sets the personService attribute value.
+     * 
+     * @param personService
+     */
+    public void setPersonService(PersonService personService) {
+    	this.personService = personService;
     }
 }

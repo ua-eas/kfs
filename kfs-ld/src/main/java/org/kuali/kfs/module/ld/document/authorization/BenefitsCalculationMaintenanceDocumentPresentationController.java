@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.batch.LaborEnterpriseFeedStep;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.kns.inquiry.InquiryPresentationController;
@@ -38,9 +38,9 @@ public class BenefitsCalculationMaintenanceDocumentPresentationController extend
     public Set<String> getConditionallyHiddenPropertyNames(BusinessObject businessObject) {
         Set<String> fields = super.getConditionallyHiddenPropertyNames(businessObject);
         
-        String offsetParmValue = getParameterService().getParameterValueAsString(LaborEnterpriseFeedStep.class, LaborConstants.BenefitCalculation.LABOR_BENEFIT_CALCULATION_OFFSET_IND);
+        final Boolean offsetParmValue = getParameterService().getParameterValueAsBoolean(LaborEnterpriseFeedStep.class, LaborConstants.BenefitCalculation.LABOR_BENEFIT_CALCULATION_OFFSET_IND);
         
-        if(offsetParmValue.equalsIgnoreCase("n")) {
+        if(!offsetParmValue.booleanValue()) {
             fields.add(LaborConstants.BenefitCalculation.ACCOUNT_CODE_OFFSET_PROPERTY_NAME);
             fields.add(LaborConstants.BenefitCalculation.OBJECT_CODE_OFFSET_PROPERTY_NAME);
         } else {
@@ -57,7 +57,7 @@ public class BenefitsCalculationMaintenanceDocumentPresentationController extend
      */
     public ParameterService getParameterService() {
         if(parameterService == null){
-            parameterService = (ParameterService)GlobalResourceLoader.getService( "parameterService" );
+            parameterService = SpringContext.getBean(ParameterService.class);
         }
         return parameterService;
     }

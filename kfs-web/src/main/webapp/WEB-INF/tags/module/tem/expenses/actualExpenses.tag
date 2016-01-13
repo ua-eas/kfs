@@ -30,32 +30,48 @@
   	
 	<div class="tab-container" align="center">
 	    <h3>${KualiForm.expenseLabel}</h3>
-	    <table cellpadding="0" cellspacing="0" class="datatable" summary="Actual Expenses">
+	    <table class="datatable standard" summary="Actual Expenses">
 			<tr>
-				<td colspan="12" class="tab-subhead">* All fields required if section is used</td>
+                <th></th>
+				<td colspan="11" class="tab-subhead">* All fields required if section is used</td>
 			</tr>
-					
-	        <c:if test="${fullEntryMode}">
-	        	<tem-exp:actualExpenseHeader detailObject="${KualiForm.newActualExpenseLine }" />
-				<tem-exp:actualExpenseLine expense="newActualExpenseLine" detailObject="${KualiForm.newActualExpenseLine}" />
-	        </c:if>
-	        
-			<logic:iterate indexId="ctr" name="KualiForm" property="document.actualExpenses" id="currentLine">
-				<c:set var="lineCounter" value="${lineCounter + 1}" />
-				<tr>
-	       			<td class="infoline" colspan="12"><div align="center">&nbsp;</div></td>
-	       		</tr>
-	        	<tem-exp:actualExpenseHeader lineNumber="${lineCounter}" detailObject="${KualiForm.document.actualExpenses[ctr]}" />
-	        	<tem-exp:actualExpenseLine lineNumber="${lineCounter}" expense="document.actualExpenses[${ctr}]" detailObject="${KualiForm.document.actualExpenses[ctr]}" />
 
-			  	<%-- Expense Details SubTab --%>
-				<tr>
-				  	<td colspan="12">
-			  			<kul:subtab lookedUpCollectionName="expenseDetails${ctr}" width="${tableWidth}" 
-			  				subTabTitle="${KualiForm.expenseLabel} Details - ${KualiForm.document.actualExpenses[ctr].expenseTypeObjectCode.expenseType.name} - ${lineCounter}" 
-			  				noShowHideButton="false" 
-			  				open="${KualiForm.document.actualExpenses[ctr].defaultTabOpen}">
-			  				<table cellpadding="0" cellspacing="0" class="datatable">
+            <tem-exp:actualExpenseHeader detailObject="${KualiForm.newActualExpenseLine}"/>
+
+	        <c:if test="${fullEntryMode}">
+				<tem-exp:actualExpenseLine
+                        expense="newActualExpenseLine"
+                        detailObject="${KualiForm.newActualExpenseLine}"
+                        highlight="${true}" />
+	        </c:if>
+
+			<logic:iterate indexId="ctr" name="KualiForm" property="document.actualExpenses" id="currentLine">
+				<c:set var="lineCounter" value="${ctr + 1}" />
+                <c:choose>
+                    <c:when test="${fullEntryMode}">
+                        <c:set var="highlight" value="${ctr % 2 != 0}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="highlight" value="${ctr % 2 == 0}"/>
+                    </c:otherwise>
+                </c:choose>
+
+	        	<tem-exp:actualExpenseLine
+                        lineNumber="${lineCounter}"
+                        expense="document.actualExpenses[${ctr}]"
+                        detailObject="${KualiForm.document.actualExpenses[ctr]}"
+                        highlight="${highlight}"/>
+
+				<tr class="${highlight ? 'highlight' : ''}">
+                    <td colspan="11">
+			  			<kul:subtab
+                                lookedUpCollectionName="expenseDetails${ctr}"
+                                width="${tableWidth}"
+			  				    subTabTitle="${KualiForm.expenseLabel} Details - ${KualiForm.document.actualExpenses[ctr].expenseTypeObjectCode.expenseType.name} - ${lineCounter}"
+			  				    noShowHideButton="false"
+			  				    open="${KualiForm.document.actualExpenses[ctr].defaultTabOpen}">
+
+			  				<table class="datatable standard">
 								<c:set var="detailLineCounter" value="0" />
 							    <tr>
 							    	<th colspan="1">&nbsp;</th>
@@ -64,19 +80,31 @@
 	          								<tem-exp:actualExpenseDetailHeader detailObject="${KualiForm.document.actualExpenses[ctr]}" />
 	          								<c:if test="${fullEntryMode}">
 												<tem-exp:actualExpenseDetailLine 
-													lineNumber="${ctr}" 
-													detail="newActualExpenseLines[${ctr}]" 
-													detailObject="${KualiForm.document.actualExpenses[ctr]}"
-													parentObject="${KualiForm.document.actualExpenses[ctr]}"  />
+                                                        lineNumber="${ctr}"
+                                                        detail="newActualExpenseLines[${ctr}]"
+                                                        detailObject="${KualiForm.document.actualExpenses[ctr]}"
+                                                        parentObject="${KualiForm.document.actualExpenses[ctr]}"
+                                                        highlight="${true}"/>
 											</c:if>
 											<logic:iterate indexId="ctrDetail" name="currentLine" property="expenseDetails" id="currentLineDetails">
 												<c:set var="lineCounterDetails" value="${lineCounterDetails + 1}" />
+
+                                                <c:choose>
+                                                    <c:when test="${fullEntryMode}">
+                                                        <c:set var="highlight" value="${ctrDetail % 2 != 0}"/>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="highlight" value="${ctrDetail % 2 == 0}"/>
+                                                    </c:otherwise>
+                                                </c:choose>
+
 												<tem-exp:actualExpenseDetailLine
-													detail="document.actualExpenses[${ctr}].expenseDetails[${ctrDetail}]" 
-													lineNumber="${ctr}" 
-													detailLineNumber="${ctrDetail}"
-													detailObject="${KualiForm.document.actualExpenses[ctr].expenseDetails[ctrDetail]}"
-													parentObject="${KualiForm.document.actualExpenses[ctr]}" />							           
+                                                        detail="document.actualExpenses[${ctr}].expenseDetails[${ctrDetail}]"
+                                                        lineNumber="${ctr}"
+                                                        detailLineNumber="${ctrDetail}"
+                                                        detailObject="${KualiForm.document.actualExpenses[ctr].expenseDetails[ctrDetail]}"
+                                                        parentObject="${KualiForm.document.actualExpenses[ctr]}"
+                                                        highlight="${highlight}"/>
 											</logic:iterate>
 	          							</table>
 	          						</td>

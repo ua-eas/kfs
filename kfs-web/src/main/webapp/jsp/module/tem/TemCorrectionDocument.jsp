@@ -477,17 +477,24 @@
 
 											<c:choose>
 												<c:when test="${KualiForm.entryForManualEdit.entryId == 0}">
-													<td><html:image
-															property="methodToCall.addManualEntry.anchor${currentTabIndex}"
-															src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-															styleClass="tinybutton" alt="edit" title="edit" />
+													<td>
+														<html:submit
+																property="methodToCall.addManualEntry.anchor${currentTabIndex}"
+																styleClass="btn btn-green"
+																alt="add"
+																title="add"
+																value="Add"/>
 													</td>
 												</c:when>
 												<c:otherwise>
-													<td><html:image
-															property="methodToCall.saveManualEntry.anchor${currentTabIndex}"
-															src="${ConfigProperties.kr.externalizable.images.url}tinybutton-edit1.gif"
-															styleClass="tinybutton" alt="edit" title="edit" /></td>
+													<td>
+														<html:submit
+																property="methodToCall.saveManualEntry.anchor${currentTabIndex}"
+																styleClass="btn btn-default"
+																alt="edit"
+																title="edit"
+																value="Edit"/>
+													</td>
 												</c:otherwise>
 											</c:choose>
 											<td><html:text

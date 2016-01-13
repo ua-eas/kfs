@@ -135,9 +135,12 @@
 	                            property="nonInvoicedAddLine.financialDocumentLineAmount"/>
 	                    </td>
 	                    <td>
-	                    	<html:image property="methodToCall.applyAllAmounts"
-		                        src="${ConfigProperties.externalizable.images.url}tinybutton-add1.gif"
-		                        alt="Add" title="Add" styleClass="tinybutton" />
+	                    	<html:submit
+                                    property="methodToCall.applyAllAmounts"
+                                    alt="Add"
+                                    title="Add"
+                                    styleClass="btn btn-green"
+                                    value="Add"/>
 		                </td>
 	                </tr>
                 </c:if>

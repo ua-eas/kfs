@@ -49,10 +49,12 @@
 
 					<td class="infoline">
 						<div align="center">
-							<html:image property="methodToCall.save"
-								src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
-								alt="Add ${KualiForm.templateType} Template" title="Add ${KualiForm.templateType} Template"
-								styleClass="tinybutton" />
+							<html:submit
+									property="methodToCall.save"
+									alt="Add ${KualiForm.templateType} Template"
+									title="Add ${KualiForm.templateType} Template"
+									styleClass="btn btn-green"
+									value="Add"/>
 						</div>
 					</td>
 				</tr>

@@ -28,7 +28,7 @@
 		<property name="lookupDefinition">
 			<ref bean="PurchasingAccountsPayableProcessingReport-lookupDefinition" />
 		</property>
-		<property name="objectLabel" value="Purchasing Accounts Payable Processing Report" />
+		<property name="objectLabel" value="Purchasing/Accounts Payable Transactions" />
 		<property name="attributes">
 			<list>
 				<ref
@@ -310,7 +310,7 @@
 		id="PurchasingAccountsPayableProcessingReport-lookupDefinition-parentBean"
 		abstract="true" parent="LookupDefinition">
 		<property name="title"
-			value="CAB Purchasing Accounts Payable Report and Lookup" />
+			value="Purchasing/Accounts Payable Transactions Lookup" />
 		<property name="lookupableID" value="cabPurApReportLookupable" />
 		<property name="defaultSort">
 			<bean parent="SortDefinition">

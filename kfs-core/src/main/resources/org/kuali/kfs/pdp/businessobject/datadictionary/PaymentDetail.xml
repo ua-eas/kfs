@@ -29,7 +29,7 @@
       <ref bean="PaymentDetail-lookupDefinition"/>
     </property>
     <property name="titleAttribute" value="custPaymentDocNbr"/>
-    <property name="objectLabel" value="Payment Detail"/>
+    <property name="objectLabel" value="Search for Payment"/>
     <property name="attributes">
       <list>
         <ref bean="PaymentDetail-paymentGroup.payeeName"/>

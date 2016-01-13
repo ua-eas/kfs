@@ -54,6 +54,7 @@
                 <entry key="org.kuali.kfs.integration.ar.AccountsReceivableOrganizationOptions" value="org.kuali.kfs.module.ar.businessobject.OrganizationOptions" />
 				        <entry key="org.kuali.kfs.integration.ar.AccountsReceivablePredeterminedBillingSchedule" value="org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule" />
                 <entry key="org.kuali.kfs.integration.ar.AccountsReceivableSystemInformation" value="org.kuali.kfs.module.ar.businessobject.SystemInformation" />
+				<entry key="org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoiceRecurrenceDetails" value="org.kuali.kfs.module.ar.businessobject.CustomerInvoiceRecurrenceDetails" />
             </map>
         </property>  
 		<property name="dataDictionaryPackages">

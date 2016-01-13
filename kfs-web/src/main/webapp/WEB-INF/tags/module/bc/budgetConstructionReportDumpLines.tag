@@ -19,29 +19,25 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <kul:tabTop tabTitle="Report/Export" defaultOpen="true" tabErrorKey="${BCConstants.BUDGET_CONSTRUCTION_REPORTDUMP_TAB_ERRORS}">
-<div class="tab-container" align=center>
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
-    <tr>
-        <td colspan="2" class="subhead">
-		    <span class="subhead-left">Report/Export</span>
-		</td>
-    </tr>
-
-    <c:forEach items="${KualiForm.budgetConstructionDocumentReportModes}" var="item" varStatus="status" >
-        <tr>
-            <td class="datacell" nowrap>
-                <div align="center">
-                  <html:image property="methodToCall.performReportDump.line${status.index}" src="${ConfigProperties.externalizable.images.url}tinybutton-view.gif" title="Run Report/Dump For Line ${status.index}" onclick="excludeSubmitRestriction=true" alt="Run Report/Dump Line ${status.index}" styleClass="tinybutton" />
-                </div>
-            </td>
-            <td class="datacell" nowrap>
-                <div align="left">
+<div class="tab-container">
+    <table class="datatable standard">
+        <c:forEach items="${KualiForm.budgetConstructionDocumentReportModes}" var="item" varStatus="status" >
+            <tr>
+                <td class="datacell nowrap right">
+                    <html:submit
+                            property="methodToCall.performReportDump.line${status.index}"
+                            title="Run Report/Dump For Line ${status.index}"
+                            onclick="excludeSubmitRestriction=true"
+                            alt="Run Report/Dump Line ${status.index}"
+                            styleClass="btn btn-default"
+                            value="View"/>
+                </td>
+                <td class="datacell nowrap left">
                     ${item.reportDesc}
-                </div>
-            </td>
-        </tr>
-    
-    </c:forEach>
+                </td>
+            </tr>
+
+        </c:forEach>
     </table>
 </div>
 </kul:tabTop>

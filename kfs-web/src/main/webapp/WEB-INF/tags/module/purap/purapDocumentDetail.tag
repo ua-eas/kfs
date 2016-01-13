@@ -191,7 +191,13 @@
 		                attributeEntry="${documentAttributes.useTaxIndicator}"
 		                readOnly="true"/>&nbsp;
 		            <c:if test="${fullEntryMode and paymentRequest}">          
-		                <html:image property="methodToCall.changeUseTaxIndicator" src="${ConfigProperties.externalizable.images.url}tinybutton-${useTaxIndicatorButton}.gif" alt="Change Use Tax Indicator" title="Change Use Tax Indicator" styleClass="tinybutton"  tabindex="${tabindexOverrideBase + 0}" />
+		                <html:submit
+                                property="methodToCall.changeUseTaxIndicator"
+                                alt="Change Use Tax Indicator"
+                                title="Change Use Tax Indicator"
+                                styleClass="btn btn-default small"
+                                tabindex="${tabindexOverrideBase + 0}"
+                                value="Change to Use Tax"/>
 		            </c:if>
 		        </td>
 	        </c:if>

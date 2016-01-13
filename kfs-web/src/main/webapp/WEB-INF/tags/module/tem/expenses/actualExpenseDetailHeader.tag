@@ -35,103 +35,76 @@
 <c:set target="${paramMap}" property="documentType"
 	value="${KualiForm.docTypeName}" />
 
-<tr>
+<tr class="header">
 	<th scope="row">&nbsp;</th>
 	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
-				attributeEntry="${otherExpenseAttributes.expenseDate}"
-				noColon="true" />
-		</div>
+        <kul:htmlAttributeLabel
+                attributeEntry="${otherExpenseAttributes.expenseDate}"
+                noColon="true" />
 	</th>
 	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
+        <kul:htmlAttributeLabel
 				attributeEntry="${otherExpenseAttributes.expenseTypeCode}"
 				noColon="true" />
-		</div>
 	</th>
-	<%-- Show Mileage --%>
 	<c:if test="${detailObject.mileageIndicator}">
 		<th>
-			<div align=center>
-				<kul:htmlAttributeLabel
+            <kul:htmlAttributeLabel
 					attributeEntry="${otherExpenseAttributes.miles}"
 					noColon="true" />
-			</div></th>
+        </th>
 		<th>
-			<div align=center>
-				<kul:htmlAttributeLabel
+            <kul:htmlAttributeLabel
 					attributeEntry="${otherExpenseAttributes['mileageRate.rate']}"
 					noColon="true" />
-			</div>
 		</th>
 	</c:if>
 	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
+        <kul:htmlAttributeLabel
 				attributeEntry="${otherExpenseAttributes.expenseAmount}"
 				noColon="true" />
-		</div>
 	</th>
-	<th>
-		<div align="left">$US</div>
-	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
+	<th>$US</th>
+	<th class="center">
+        <kul:htmlAttributeLabel
 				attributeEntry="${otherExpenseAttributes.nonReimbursable}"
 				noColon="true" />
-		</div>
 	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
+	<th class="center">
+        <kul:htmlAttributeLabel
 				attributeEntry="${otherExpenseAttributes.taxable}"
 				noColon="true" />
-		</div>
 	</th>
-	<th>
-		<div align="left">
-			<kul:htmlAttributeLabel
+	<th class="center">
+        <kul:htmlAttributeLabel
 				attributeEntry="${otherExpenseAttributes.missingReceipt}"
 				noColon="true" />
-		</div>
 	</th>
-	<%-- Show Airfare --%>
 	<c:if test="${detailObject.airfareIndicator}">
 		<th>
-			<div align=left>
-				<kul:htmlAttributeLabel
+            <kul:htmlAttributeLabel
 					attributeEntry="${otherExpenseAttributes.airfareSourceCode}"
 					noColon="true" />
-			</div></th>
+        </th>
 		<th>
-			<div align=left>
-				<kul:htmlAttributeLabel
+            <kul:htmlAttributeLabel
 					attributeEntry="${otherExpenseAttributes.classOfServiceCode}"
 					noColon="true" />
-			</div>
 		</th>
 	</c:if>
-
-	<%-- Show Car Rental--%>
 	<c:if test="${detailObject.rentalCarIndicator}">
 		<th>
-			<div align=left>
-				<kul:htmlAttributeLabel
+            <kul:htmlAttributeLabel
 					attributeEntry="${otherExpenseAttributes.classOfServiceCode}"
 					noColon="true" />
-			</div></th>
+        </th>
 		<th>
-			<div align=left>
-				<kul:htmlAttributeLabel
+            <kul:htmlAttributeLabel
 					attributeEntry="${otherExpenseAttributes.rentalCarInsurance}"
 					noColon="true" />
-			</div>
 		</th>
 	</c:if>
 	<th>
-		<div align="center">Actions</div>
+		<div>Actions</div>
 	</th>
 </tr>

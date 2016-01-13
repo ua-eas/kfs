@@ -28,7 +28,7 @@
     <property name="lookupDefinition">
       <ref bean="FormatProcess-lookupDefinition"/>
     </property>
-    <property name="objectLabel" value="Format Process"/>
+    <property name="objectLabel" value="Format Reset"/>
     <property name="attributes">
       <list>
         <ref bean="FormatProcess-physicalCampusProcessCode"/>

@@ -25,68 +25,60 @@
               description="Boolean to indicate if PO specific fields should be displayed" %>
 
 <kul:tabTop tabTitle="Payment Request Initiation" defaultOpen="true" tabErrorKey="*">
-	
-	
-
     <div class="tab-container" align=center>
-            <h3>Payment Request Initiation</h3>
-
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="Payment Request Initiation Section">
-
+        <table class="datatable standard" summary="Payment Request Initiation Section">
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderIdentifier}" /></div>
+                <th class="right" width="25%">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderIdentifier}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell" width="25%">
                    <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.purchaseOrderIdentifier}" property="document.purchaseOrderIdentifier"/>
+                   		attributeEntry="${documentAttributes.purchaseOrderIdentifier}"
+                        property="document.purchaseOrderIdentifier"/>
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceNumber}" /></div>
+                <th class="right" width="25%">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceNumber}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell" width="25%">
                    <kul:htmlControlAttribute 
                    		attributeEntry="${documentAttributes.invoiceNumber}" property="document.invoiceNumber" />
                 </td>
             </tr>
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceDate}" /></div>
+                <th class="right" width="25%">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceDate}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell" width="25%">
                    <kul:htmlControlAttribute 
                    		attributeEntry="${documentAttributes.invoiceDate}" property="document.invoiceDate" datePicker="true" />
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel  attributeEntry="${documentAttributes.vendorInvoiceAmount}" /></div>
+                <th class="right" width="25%">
+                   <kul:htmlAttributeLabel  attributeEntry="${documentAttributes.vendorInvoiceAmount}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell" width="25%">
                    <kul:htmlControlAttribute 
                    		attributeEntry="${documentAttributes.vendorInvoiceAmount}" property="document.vendorInvoiceAmount" />
                 </td>
             </tr>
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.specialHandlingInstructionLine1Text}" /></div>
+                <th class="right top" width="25%">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.specialHandlingInstructionLine1Text}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell" width="25%">
                    <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.specialHandlingInstructionLine1Text}" property="document.specialHandlingInstructionLine1Text"  />
+                   		attributeEntry="${documentAttributes.specialHandlingInstructionLine1Text}"
+                        property="document.specialHandlingInstructionLine1Text"  />
                    <br/> 
                    <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.specialHandlingInstructionLine2Text}" property="document.specialHandlingInstructionLine2Text" />
+                   		attributeEntry="${documentAttributes.specialHandlingInstructionLine2Text}"
+                        property="document.specialHandlingInstructionLine2Text" />
                    <br/>
                    <kul:htmlControlAttribute 
-                   		attributeEntry="${documentAttributes.specialHandlingInstructionLine3Text}" property="document.specialHandlingInstructionLine3Text" />
+                   		attributeEntry="${documentAttributes.specialHandlingInstructionLine3Text}"
+                        property="document.specialHandlingInstructionLine3Text" />
                 </td>
-                <th align=right valign=middle class="bord-l-b" colspan="2">
-                   <div align="right">&nbsp;</div>
-                </th>
             </tr>
 		</table> 
-		
-		
-
     </div>
 
 </kul:tabTop>

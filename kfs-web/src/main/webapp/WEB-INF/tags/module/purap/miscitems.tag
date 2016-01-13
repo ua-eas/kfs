@@ -167,13 +167,13 @@
                             </td>
 
                             <c:if test="${purapTaxEnabled and itemLine.itemType.taxableIndicator}">
-                                <td class="infoline right">
+                                <td class="infoline">
                                     <kul:htmlControlAttribute
                                         attributeEntry="${itemAttributes.itemTaxAmount}"
                                         property="document.item[${ctr}].itemTaxAmount" readOnly="${lockTaxAmountEntry}"
                                         tabindexOverride="${tabindexOverrideBase + 0}"/>
                                 </td>
-                                <td class="infoline right">
+                                <td class="infoline">
                                     <kul:htmlControlAttribute
                                         attributeEntry="${itemAttributes.totalAmount}"
                                         property="document.item[${ctr}].totalAmount" readOnly="true"
@@ -190,14 +190,14 @@
                             </c:if>
                         </c:when>
                         <c:otherwise>
-                            <td class="infoline right">
+                            <td class="infoline">
                                 <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="document.item[${ctr}].itemUnitPrice" readOnly="${not (fullEntryMode or amendmentEntry)}" styleClass="amount" tabindexOverride="${tabindexOverrideBase + 0}"/>
                             </td>
 
                             <c:if test="${purapTaxEnabled}">
                                 <c:choose>
                                     <c:when test="${itemLine.itemType.taxableIndicator}">
-                                        <td class="infoline right">
+                                        <td class="infoline">
                                             <kul:htmlControlAttribute
                                                 attributeEntry="${itemAttributes.itemTaxAmount}"
                                                 property="document.item[${ctr}].itemTaxAmount" readOnly="${lockTaxAmountEntry}"

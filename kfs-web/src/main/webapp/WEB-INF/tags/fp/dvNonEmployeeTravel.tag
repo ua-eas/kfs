@@ -195,9 +195,14 @@
               <td valign=top nowrap class="infoline"><div align="center">
                   <kul:htmlControlAttribute attributeEntry="${travelExpenseAttributes.disbVchrExpenseAmount}" property="newNonEmployeeExpenseLine.disbVchrExpenseAmount" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
               </div></td>
-	              <td class="infoline"><div align=center>
-		               <html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" styleClass="tinybutton" property="methodToCall.addNonEmployeeExpenseLine" alt="Add Expense Line" title="Add Expense Line"/>
-	              </div></td>
+	              <td class="infoline">
+		               <html:submit
+                               styleClass="btn btn-green"
+                               property="methodToCall.addNonEmployeeExpenseLine"
+                               alt="Add Expense Line"
+                               title="Add Expense Line"
+                               value="Add"/>
+	              </td>
             </tr>
             </c:if>
             

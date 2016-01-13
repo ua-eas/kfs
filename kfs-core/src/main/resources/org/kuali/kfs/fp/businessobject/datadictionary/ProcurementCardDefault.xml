@@ -300,7 +300,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
   <bean id="ProcurementCardDefault-lookupDefinition" parent="ProcurementCardDefault-lookupDefinition-parentBean" />
   
   <bean id="ProcurementCardDefault-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
-    <property name="title" value="Procurement Cardholder Lookup" />
+    <property name="title" value="Procurement Cardholder Defaults Lookup" />
     <!-- property name="instructions" value="Lookup a Procurement Cardholder" / -->
     <property name="defaultSort" >
       <bean parent="SortDefinition">

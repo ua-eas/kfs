@@ -21,6 +21,7 @@
 <%@ attribute name="accountPrefix" required="false" description="an optional prefix to specify a different location for acocunting lines rather than just on the document."%>
 <%@ attribute name="itemColSpan" required="true" description="item columns to span"%>
 <%@ attribute name="rowStyle" required="false" description="custom styling for the row"%>
+<%@ attribute name="rowClass" required="false" description="custom class for the row"%>
 
 <c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
 <c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
@@ -38,7 +39,7 @@
     </c:when>
 </c:choose>
 
-<tr style="${rowStyle}">
+<tr style="${rowStyle}" class="${rowClass}">
     <td colspan="${itemColSpan}">
         <c:if test="${!accountingLineScriptsLoaded}">
             <script language="JavaScript" type="text/javascript" src="scripts/sys/objectInfo.js"></script>

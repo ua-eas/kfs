@@ -37,9 +37,12 @@
 	<c:if test="${not readOnly}">
 		<kul:subtab lookedUpCollectionName="fundingLine" width="${tableWidth}" subTabTitle="Add Funding">      
 			<bc:appointmentFundingLineForIncumbent fundingLine="${KualiForm.newBCAFLine}" fundingLineName="newBCAFLine" countOfMajorColumns="11" isKeyFieldsLocked="${isKeyFieldsLocked}" hasBeenAdded="false" accountsCanCrossCharts="${accountsCanCrossCharts}">
-				<html:image property="methodToCall.addAppointmentFundingLine.anchorsalarynewLineLineAnchor" 
-			       	src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" 
-			       	title="Add a Salary Setting Line" alt="Add a Salary Setting Line" styleClass="tinybutton"/>
+				<html:submit
+						property="methodToCall.addAppointmentFundingLine.anchorsalarynewLineLineAnchor"
+						title="Add a Salary Setting Line"
+						alt="Add a Salary Setting Line"
+						styleClass="btn btn-green"
+						value="Add"/>
 			</bc:appointmentFundingLineForIncumbent>
 		</kul:subtab>
 	</c:if>

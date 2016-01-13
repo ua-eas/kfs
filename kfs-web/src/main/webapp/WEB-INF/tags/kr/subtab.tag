@@ -34,54 +34,55 @@
    <c:set var="open" value="true" />
 </c:if>
 
-<table class="datatable" cellpadding="0" cellspacing="0" align="center"
-       style="width: ${width}; text-align: left; margin-left: auto; margin-right: auto;">
+<table class="datatable standard" style="width: ${width}; text-align: left; margin-left: auto; margin-right: auto;">
     <tbody>
         <tr>
             <td class="tab-subhead">
             	<c:if test="${!noShowHideButton}">
                 	<a name="${KualiForm.currentTabIndex}"></a>
                 </c:if>
-                <span class="left">
-<c:if test="${!noShowHideButton}">
-    <c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request"/>
-    
-    <c:choose>
-        <c:when test="${(useCurrentTabIndexAsKey)}">
-            <c:set var="tabKey" value="${currentTabIndex}"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="tabKey" value="${kfunc:generateTabKey(subTabTitle)}"/>
-        </c:otherwise>
-    </c:choose>
-
-    <!--  hit form method to increment tab index -->
-    <c:set var="doINeedThis" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
-    <c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
-
-    <%-- c:set var="currentTab" value="${KualiForm.tabStateJstl}"/ --%>
-    <%-- getting tabStateJstl increments KualiForm.currentTabIndex as a side-effect --%>
-    <c:set var="isOpen" value="${(empty currentTab ? true : (currentTab == 'OPEN')) && open}"/>
-    <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
-                        <html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-${isOpen ? 'hide' : 'show'}.gif"
-                                    property="methodToCall.toggleTab.tab${tabKey}"
-                                    title="${isOpen ? 'close' : 'open'} ${buttonAlt}"
-                                    alt="${isOpen ? 'close' : 'open'} ${buttonAlt}"
-                                    styleClass="tinybutton"
-                                    styleId="tab-${tabKey}-imageToggle"
-                                    onclick="javascript: return toggleTab(document, '${tabKey}'); "
-                                    tabindex="-1" />
-</c:if>
-                    <%-- display the title anyway --%>
+                <h3>
                     ${subTabTitle}
+
                     <c:if test="${highlightTab}">
-                      &nbsp;<img src="${ConfigProperties.kr.externalizable.images.url}asterisk_orange.png" alt="changed"/>
+                        &nbsp;<img src="${ConfigProperties.kr.externalizable.images.url}asterisk_orange.png" alt="changed"/>
                     </c:if>
-                </span>
+
+                    <c:if test="${!noShowHideButton}">
+                        <c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request"/>
+    
+                        <c:choose>
+                            <c:when test="${(useCurrentTabIndexAsKey)}">
+                                <c:set var="tabKey" value="${currentTabIndex}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="tabKey" value="${kfunc:generateTabKey(subTabTitle)}"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:set var="doINeedThis" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
+                        <c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
+                        <c:set var="isOpen" value="${(empty currentTab ? true : (currentTab == 'OPEN')) && open}"/>
+
+                        <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
+                        <html:button
+                                property="methodToCall.toggleTab.tab${tabKey}"
+                                title="${isOpen ? 'close' : 'open'} ${buttonAlt}"
+                                alt="${isOpen ? 'close' : 'open'} ${buttonAlt}"
+                                styleClass="btn btn-default"
+                                styleId="tab-${tabKey}-imageToggle"
+                                onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); "
+                                tabindex="-1"
+                                value="${isOpen ? 'Hide' : 'Show'}"/>
+                    </c:if>
+                </h3>
                 <c:if test="${!empty boClassName}">
 	                <span class="right">
-    	            	<kul:multipleValueLookup boClassName="${boClassName}" lookedUpBODisplayName="${lookedUpBODisplayName}"
-        	        			lookedUpCollectionName="${lookedUpCollectionName}" anchor="${tabKey}" />
+    	            	<kul:multipleValueLookup
+                                boClassName="${boClassName}"
+                                lookedUpBODisplayName="${lookedUpBODisplayName}"
+        	        			lookedUpCollectionName="${lookedUpCollectionName}"
+                                anchor="${tabKey}" />
             	    </span>
             	</c:if>
             </td>
@@ -90,7 +91,6 @@
 </table>
 
 <c:if test="${!noShowHideButton}">
-    <%-- these divs are taken from tab.tag --%>
     <div style="display: ${isOpen ? 'block' : 'none'};" id="tab-${tabKey}-div">
 </c:if>
 

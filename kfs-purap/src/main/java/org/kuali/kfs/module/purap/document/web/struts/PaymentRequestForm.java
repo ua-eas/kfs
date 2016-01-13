@@ -18,10 +18,14 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.PaymentRequestEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
@@ -33,15 +37,10 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Struts Action Form for Payment Request document.
@@ -139,15 +138,15 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.REMOVE_HOLD) && paymentRequestDocument.isHoldIndicator()) {
-                addExtraButton("methodToCall.removeHoldFromPayment", appExternalImageURL + "buttonsmall_removehold.gif", "Remove");
+                addExtraButton("methodToCall.removeHoldFromPayment", appExternalImageURL + "buttonsmall_removehold.gif", "Remove Hold");
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.REQUEST_CANCEL)) {
-                addExtraButton("methodToCall.requestCancelOnPayment", appExternalImageURL + "buttonsmall_requestcancel.gif", "Cancel");
+                addExtraButton("methodToCall.requestCancelOnPayment", appExternalImageURL + "buttonsmall_requestcancel.gif", "Request Cancel");
             }
 
             if (getEditingMode().containsKey(PaymentRequestEditMode.REMOVE_REQUEST_CANCEL) && paymentRequestDocument.isPaymentRequestedCancelIndicator()) {
-                addExtraButton("methodToCall.removeCancelRequestFromPayment", appExternalImageURL + "buttonsmall_remreqcanc.gif", "Remove");
+                addExtraButton("methodToCall.removeCancelRequestFromPayment", appExternalImageURL + "buttonsmall_remreqcanc.gif", "Remove Request Cancel");
             }
 
             if (canCalculate()) {
@@ -159,7 +158,7 @@ public class PaymentRequestForm extends AccountsPayableFormBase {
                 if (PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED.equals(paymentRequestDocument.getPurchaseOrderDocument().getApplicationDocumentStatus())) {
                     //if the PO is CLOSED, show the 'open order' button; but only if there are no pending actions on the PO
                     if (!paymentRequestDocument.getPurchaseOrderDocument().isPendingActionIndicator()) {
-                        addExtraButton("methodToCall.reopenPo", appExternalImageURL + "buttonsmall_openorder.gif", "Reopen PO");
+                        addExtraButton("methodToCall.reopenPo", appExternalImageURL + "buttonsmall_openorder.gif", "Open Order");
                     }
                 }
                 else {

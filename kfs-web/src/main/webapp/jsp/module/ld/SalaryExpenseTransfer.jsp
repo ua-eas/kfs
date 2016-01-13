@@ -95,7 +95,7 @@
 	                       actionPath="glBalanceInquiryLookup.do"
 	                       lookupParameters="universityFiscalYear:universityFiscalYear,document.emplid:emplid,financialBalanceTypeCode:financialBalanceTypeCode"
 	                       tabindexOverride="KualiForm.currentTabIndex"
-	                       hideReturnLink="false" image="buttonsmall_search.gif"/>
+	                       hideReturnLink="false" buttonText="Search"/>
 	                </c:if>
 				</td>
 			</tr>

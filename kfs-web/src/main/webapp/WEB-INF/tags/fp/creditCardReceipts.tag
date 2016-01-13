@@ -73,10 +73,13 @@
                 	property="newCreditCardReceipt.creditCardAdvanceDepositAmount" styleClass="amount" />
                 </td>
                 <td class="infoline">
-                	<div align="center">
-                		<html:image property="methodToCall.addCreditCardReceipt" tabindex="${tabindexOverrideBase} + 25"
-                		src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif" title="Add a Credit Card Receipt" alt="Add a Credit Card Receipt" styleClass="tinybutton"/>
-                	</div>
+                    <html:submit
+                            property="methodToCall.addCreditCardReceipt"
+                            tabindex="${tabindexOverrideBase} + 25"
+                            title="Add a Credit Card Receipt"
+                            alt="Add a Credit Card Receipt"
+                            styleClass="btn btn-green"
+                            value="Add"/>
                 </td>
             </tr>
         </c:if>

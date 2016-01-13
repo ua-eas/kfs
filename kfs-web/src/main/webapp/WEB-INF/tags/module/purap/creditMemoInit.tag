@@ -25,8 +25,6 @@
 <kul:tabTop tabTitle="Credit Memo Initiation" defaultOpen="true" tabErrorKey="*">
 
     <div class="tab-container" align=center>
-            <h3>Credit Memo Initiation</h3>
-        
         <table cellpadding="0" cellspacing="0" class="datatable" summary="Credit Memo Init Section" >
             <tr>
                 <th align=right valign=middle class="bord-l-b">
@@ -86,5 +84,4 @@
             </tr>
 		</table> 
     </div>
-
 </kul:tabTop>
