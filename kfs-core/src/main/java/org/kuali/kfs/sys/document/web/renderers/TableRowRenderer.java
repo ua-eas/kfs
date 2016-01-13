@@ -50,8 +50,10 @@ public class TableRowRenderer implements Renderer {
             if (row.getChildCellCount() > 0) {
                 if (row.isHeader()) {
                     out.write(buildBeginningRowTag("header"));
+                } else if (row.isNew()) {
+                    out.write(buildBeginningRowTag("new"));
                 } else {
-                    out.write(buildBeginningRowTag());
+                    out.write(buildBeginningRowTag("line"));
                 }
                 row.renderChildrenCells(pageContext, parentTag);
                 out.write(buildEndingRowTag());

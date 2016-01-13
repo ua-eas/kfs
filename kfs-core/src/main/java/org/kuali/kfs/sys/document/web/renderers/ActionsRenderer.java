@@ -19,7 +19,7 @@
 package org.kuali.kfs.sys.document.web.renderers;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.kns.web.taglib.html.KNSSubmitTag;
+import org.kuali.kfs.kns.web.taglib.html.KFSButtonTag;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ActionsRenderer implements Renderer {
     private List<AccountingLineViewAction> actions;
-    private KNSSubmitTag actionButton = new KNSSubmitTag();
+    private KFSButtonTag actionButton = new KFSButtonTag();
     private int tabIndex;
 
     public ActionsRenderer() {
@@ -63,6 +63,7 @@ public class ActionsRenderer implements Renderer {
         actionButton.setAlt(null);
         actionButton.setTabindex(null);
         actionButton.setValue(null);
+        actionButton.setInnerHTML(null);
         actionButton.setStyleClass(null);
     }
 
@@ -77,9 +78,11 @@ public class ActionsRenderer implements Renderer {
         
         try {
             if (actions != null && actions.size() > 0) {
+                out.write("<div class=\"actions\">");
                 for (AccountingLineViewAction action : actions) {
                     renderAction(action);
                 }
+                out.write("</div>");
             }
             else {
                 out.write(buildNonBreakingSpace());
@@ -99,13 +102,19 @@ public class ActionsRenderer implements Renderer {
         actionButton.setProperty(KFSConstants.DISPATCH_REQUEST_PARAMETER+"."+action.getActionMethod());
         actionButton.setTitle(action.getActionLabel());
         actionButton.setAlt(action.getActionLabel());
-        actionButton.setStyleClass("btn btn-" + action.getButtonStyle());
-        actionButton.setValue(action.getButtonLabel());
+        actionButton.setStyleClass(action.getButtonStyle());
+        if (StringUtils.isNotBlank(action.getButtonIcon())) {
+            actionButton.setValue(action.getButtonLabel());
+            actionButton.setInnerHTML("<span class=\"" + action.getButtonIcon() + "\"></span>");
+        } else {
+            actionButton.setValue(action.getButtonLabel());
+        }
         if (!StringUtils.isBlank(getTabIndex())) {
             actionButton.setTabindex(getTabIndex());
         }
         actionButton.doStartTag();
         actionButton.doEndTag();
+
         resetButton();
     }
 

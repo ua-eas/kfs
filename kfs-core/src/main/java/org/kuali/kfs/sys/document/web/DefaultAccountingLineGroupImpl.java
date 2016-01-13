@@ -27,6 +27,7 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.Tag;
 
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
 import org.kuali.kfs.sys.document.datadictionary.TotalDefinition;
@@ -36,6 +37,7 @@ import org.kuali.kfs.sys.document.web.renderers.GroupErrorsRenderer;
 import org.kuali.kfs.sys.document.web.renderers.GroupTitleLineRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
 import org.kuali.kfs.sys.document.web.renderers.RepresentedCellCurious;
+import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
@@ -92,9 +94,9 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
      * @param parentTag the AccountingLinesTag that is requesting this rendering
      */
     @Override
-    public void renderEverything(PageContext pageContext, Tag parentTag) throws JspException {
+    public void renderEverything(PageContext pageContext, Tag parentTag, KualiDocumentFormBase form) throws JspException {
         if (groupDefinition.isHeaderRendering()) {
-            renderGroupHeader(pageContext, parentTag);
+            renderGroupHeader(pageContext, parentTag, form);
         }
         renderAccountingLineContainers(pageContext, parentTag);
 
@@ -147,7 +149,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
      * @param rows the rows to render
      * @throws JspException thrown if something goes wrong in rendering the header
      */
-    protected void renderGroupHeader(PageContext pageContext, Tag parentTag) throws JspException {
+    protected void renderGroupHeader(PageContext pageContext, Tag parentTag, KualiDocumentFormBase form) throws JspException {
         if (importLineOverride != null) {
             try {
                 importLineOverride.invoke(pageContext.getOut());
@@ -163,6 +165,8 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
             groupTitleLineRenderer.setLineCollectionProperty(collectionPropertyName);
             groupTitleLineRenderer.setAccountingDocument(accountingDocument);
             groupTitleLineRenderer.setCanEdit(canEdit);
+
+            groupTitleLineRenderer.setHideDetails(((KualiAccountingDocumentFormBase)form).getHideDetails());
 
             boolean isGroupEditable = groupDefinition.getAccountingLineAuthorizer().isGroupEditable(accountingDocument, containers, GlobalVariables.getUserSession().getPerson());
             groupTitleLineRenderer.overrideCanUpload(groupDefinition.isImportingAllowed() && isGroupEditable);

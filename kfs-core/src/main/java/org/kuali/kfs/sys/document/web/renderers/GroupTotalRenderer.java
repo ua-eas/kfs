@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.struts.taglib.bean.WriteTag;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.struts.taglib.bean.WriteTag;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
+import java.io.IOException;
 
 /**
  * The standard renderer of totals for an accounting line group
@@ -99,18 +98,19 @@ public class GroupTotalRenderer extends TotalRendererBase {
         JspWriter out = pageContext.getOut();
         
         try {
-            out.write("<tr>");
+            out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 1;
-            out.write("<td  class=\"total-line\" colspan=\"");
+            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 2;
+            out.write("<td colspan=\"");
             out.write(Integer.toString(emptyCellSpanBefore));
             out.write("\">&nbsp;</td>");
             
-            out.write("<td class=\"total-line\" style=\"border-left: 0px;\">");
+            out.write("<td colspan=\"3\">");
             
-            out.write("<strong>");
+            out.write("<span class=\"label\">");
             
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(totalLabelProperty));
+            out.write("</span>");
             out.write("&nbsp;");
             
             writeTag.setPageContext(pageContext);
@@ -119,13 +119,11 @@ public class GroupTotalRenderer extends TotalRendererBase {
             writeTag.doStartTag();
             writeTag.doEndTag();
             
-            out.write("</strong>");
-            
             out.write("</td>");
             
-            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell();
+            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell() - 1;
             if(emptyCellSpanAfter > 0) {
-                out.write("<td class=\"total-line\" style=\"border-left: 0px;\" colspan=\"");
+                out.write("<td colspan=\"");
                 out.write(Integer.toString(emptyCellSpanAfter));
                 out.write("\">&nbsp;</td>");
             }

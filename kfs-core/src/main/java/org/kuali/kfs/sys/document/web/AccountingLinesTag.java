@@ -141,9 +141,6 @@ public class AccountingLinesTag extends BodyTagSupport {
     protected void renderHeader(int cellCount) throws JspException {
         AccountingLineTableHeaderRenderer renderer = new AccountingLineTableHeaderRenderer();
         renderer.setCellCount(cellCount);
-        KualiAccountingDocumentFormBase form = (KualiAccountingDocumentFormBase)getForm();
-        renderer.setHideDetails(form.getHideDetails());
-        renderer.setAccountingLineImportInstructionsUrl(form.getAccountingLineImportInstructionsUrl());
         renderer.render(pageContext, this);
     }
     
@@ -156,7 +153,8 @@ public class AccountingLinesTag extends BodyTagSupport {
         final int arbitrarilyHighIndex = form.getNextArbitrarilyHighIndex();
         for (AccountingLineGroup group : groupsToRender) {
             group.setArbitrarilyHighIndex(arbitrarilyHighIndex);
-            group.renderEverything(pageContext, this);
+
+            group.renderEverything(pageContext, this, form);
         }
     }
     

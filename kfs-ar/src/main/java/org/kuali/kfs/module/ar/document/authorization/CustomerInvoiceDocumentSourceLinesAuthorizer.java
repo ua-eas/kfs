@@ -45,7 +45,10 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
     private static final String REFRESH_METHOD_NAME = "refreshNewSourceLine";
     private static final String REFRESH_LABEL = "Refresh New Source Line";
     private static final String REFRESH_BUTTON_LABEL = "Refresh";
-    private static final String DEFAULT_BUTTON_STYLE = "default";
+    private static final String REFRESH_BUTTON_ICON = "fa fa-refresh";
+    private static final String DEFAULT_BUTTON_STYLE = "btn btn-default";
+    private static final String ICON_BUTTON_STYLE = "btn clean";
+
 
     /**
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionMap(org.kuali.kfs.sys.businessobject.AccountingLine,
@@ -59,7 +62,7 @@ public class CustomerInvoiceDocumentSourceLinesAuthorizer extends FinancialProce
 
         // show the Refresh button on the New Line Actions
         if (isNewLine(accountingLineIndex)) {
-            actionMap.put(REFRESH_METHOD_NAME, new AccountingLineViewAction(REFRESH_METHOD_NAME, REFRESH_LABEL, DEFAULT_BUTTON_STYLE, REFRESH_BUTTON_LABEL));
+            actionMap.put(REFRESH_METHOD_NAME, new AccountingLineViewAction(REFRESH_METHOD_NAME, REFRESH_LABEL, ICON_BUTTON_STYLE, REFRESH_BUTTON_LABEL, REFRESH_BUTTON_ICON));
         }
         else {
             // always add the Recalculate button if its in edit mode

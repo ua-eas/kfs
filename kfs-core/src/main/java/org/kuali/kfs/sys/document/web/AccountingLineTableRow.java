@@ -34,7 +34,7 @@ public class AccountingLineTableRow implements RenderableElement {
     private List<AccountingLineTableCell> cells;
     private AccountingLineRenderingContext renderingContext;
     private boolean isHeader;
-    
+
     /**
      * Constructs a AccountingLineTableRow
      */
@@ -179,5 +179,9 @@ public class AccountingLineTableRow implements RenderableElement {
 
     public void setIsHeader(boolean isHeader) {
         this.isHeader = isHeader;
+    }
+
+    public boolean isNew() {
+        return renderingContext.isNewLine();
     }
 }

@@ -171,7 +171,7 @@ public class AccountingLineGroupTag extends TagSupport {
     public int doEndTag() throws JspException {
         super.doEndTag();
         if (!(getParent() instanceof AccountingLinesTag)) {
-            group.renderEverything(pageContext, getParent());
+            group.renderEverything(pageContext, getParent(), null);
             resetTag();
         }
         return Tag.EVAL_PAGE;
@@ -275,7 +275,7 @@ public class AccountingLineGroupTag extends TagSupport {
         List<AccountingLine> lines = getAccountingLineCollection();
         Collections.sort(lines, getGroupDefinition().getAccountingLineComparator());
         for (AccountingLine accountingLine : lines) {
-            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), (addedTopLine ? false : true));
+            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), false);
             containers.add(container);
             anyEditableLines = anyEditableLines || container.isEditableLine() || isMessageMapContainingErrorsOnLine(container.getAccountingLinePropertyPath());
             count += 1;

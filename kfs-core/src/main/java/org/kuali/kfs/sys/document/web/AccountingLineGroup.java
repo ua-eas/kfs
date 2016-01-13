@@ -18,6 +18,8 @@
  */
 package org.kuali.kfs.sys.document.web;
 
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+
 import java.util.List;
 
 import javax.servlet.jsp.JspException;
@@ -34,7 +36,7 @@ public interface AccountingLineGroup {
      * @param pageContext the page context to render to
      * @param parentTag the AccountingLinesTag that is requesting this rendering
      */
-    public abstract void renderEverything(PageContext pageContext, Tag parentTag) throws JspException;
+    public abstract void renderEverything(PageContext pageContext, Tag parentTag, KualiDocumentFormBase form) throws JspException;
 
     /**
      * Determines if the totals for the accounting line group should be rendered
