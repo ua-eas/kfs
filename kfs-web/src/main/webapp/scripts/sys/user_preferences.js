@@ -53,10 +53,26 @@ function putUserPreferences(userPreferences) {
     });
 }
 
+function getBackdoorId(success, fail) {
+    let backdoorIdPath = KfsUtils.getUrlPathPrefix() + "sys/backdoor/id";
+    $.ajax({
+        url: backdoorIdPath,
+        dataType: 'json',
+        type: 'GET',
+        success(backdoorIdJson) {
+            success(backdoorIdJson['backdoorId']);
+        },
+        error(xhr, status, err) {
+            fail(status, err);
+        }
+    })
+}
+
 const UserPrefs = {
     getPrincipalName: getPrincipalName,
     getUserPreferences: getUserPreferences,
-    putUserPreferences: putUserPreferences
+    putUserPreferences: putUserPreferences,
+    getBackdoorId: getBackdoorId
 }
 
 module.exports = UserPrefs;
