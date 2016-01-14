@@ -26,9 +26,8 @@
 <c:set var="tabindexOverrideBase" value="20" />
 
  <div class="tab-container" align=center>
-	<h3>Credit Card Receipts</h3>
-	<table cellpadding=0 class="datatable" summary="Credit Card Receipts section">
-		<tr>
+	<table class="datatable standard items" summary="Credit Card Receipts section">
+		<tr class="header">
             <kul:htmlAttributeHeaderCell literalLabel="&nbsp;"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${ccrAttributes.financialDocumentCreditCardTypeCode}"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${ccrAttributes.financialDocumentCreditCardVendorNumber}"/>
@@ -41,7 +40,7 @@
 		</tr>
         <c:if test="${not readOnly}">
             <tr>
-                <kul:htmlAttributeHeaderCell literalLabel="add:" scope="row"/>
+                <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="row"/>
                 
                 <td class="infoline">
                 	<kul:htmlControlAttribute attributeEntry="${ccrAttributes.financialDocumentCreditCardTypeCode}" 
@@ -84,9 +83,9 @@
             </tr>
         </c:if>
         <logic:iterate id="creditCardReceipt" name="KualiForm" property="document.creditCardReceipts" indexId="ctr">
-            <tr>
+            <tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
                 <th>
-					<c:out value="${ctr + 1}" />:
+					<c:out value="${ctr + 1}" />
 				</th>
 				
                 <td class="datacell">
@@ -121,9 +120,12 @@
                 </td>
                 <c:if test="${not readOnly}">
                     <td class="datacell">
-                    	<div align="center">
-                    		<html:image property="methodToCall.deleteCreditCardReceipt.line${ctr}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" title="Delete a Credit Card Receipt" alt="Delete a Credit Card Receipt" styleClass="tinybutton"/>
-                    	</div>
+                        <html:submit
+                                property="methodToCall.deleteCreditCardReceipt.line${ctr}"
+                                title="Delete a Credit Card Receipt"
+                                alt="Delete a Credit Card Receipt"
+                                styleClass="btn btn-red"
+                                value="Delete"/>
                     </td>
                 </c:if>
             </tr>

@@ -32,16 +32,16 @@
 <c:set var="tabindexOverrideBase" value="100" />
 
 <kul:tab tabTitle="General" defaultOpen="true" tabErrorKey="${KFSConstants.CUSTOMER_INVOICE_DOCUMENT_GENERAL_ERRORS}">
-    <div class="tab-container" align=center>	
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="Invoice Section">
+    <div class="tab-container">
+        <table class="standard" style="table-layout: fixed;" summary="Invoice Section">
             <tr>
-                <td colspan="4" class="subhead">Customer Information</td>
+                <td colspan="4" class="subhead"><h3>Customer Information</h3></td>
             </tr>
 			<tr>
-				<th align=right valign=middle class="bord-l-b" style="width: 25%;">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerNumber}" labelFor="document.accountsReceivableDocumentHeader.customerNumber" forceRequired="true" /></div>
+				<th class="right" style="width: 25%;">
+                    <kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerNumber}" labelFor="document.accountsReceivableDocumentHeader.customerNumber" forceRequired="true" />
                 </th>
-                <td align=left valign=middle class="datacell" style="width: 25%;">
+                <td class="datacell" style="width: 25%;">
                 
 				    <c:choose>
 				        <c:when test="${!readOnly}">
@@ -67,10 +67,10 @@
 	                    <kul:lookup boClassName="org.kuali.kfs.module.ar.businessobject.Customer" fieldConversions="customerNumber:document.accountsReceivableDocumentHeader.customerNumber" lookupParameters="document.accountsReceivableDocumentHeader.customerNumber:customerNumber" />
                     </c:if>
                 </td>			
-                <th align=right valign=middle class="bord-l-b" style="width: 25%;"> 
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerName}" labelFor="document.accountsReceivableDocumentHeader.customer.customerName" /></div>
+                <th class="right" style="width: 25%;">
+                    <kul:htmlAttributeLabel attributeEntry="${arDocHeaderAttributes.customerName}" labelFor="document.accountsReceivableDocumentHeader.customer.customerName" />
                 </th>
-                <td align=left valign=middle class="datacell" style="width: 25%;">
+                <td class="datacell" style="width: 25%;">
                 	<div id="document.accountsReceivableDocumentHeader.customer.customerName.div">
                 		<kul:htmlControlAttribute attributeEntry="${documentAttributes.customerName}"
                 		 property="document.customer.customerName" 
@@ -80,19 +80,19 @@
                 </td>
             </tr>    
             <tr>        
-				<th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.customerPurchaseOrderNumber}" /></div>
+				<th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.customerPurchaseOrderNumber}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.customerPurchaseOrderNumber}"
                     property="document.customerPurchaseOrderNumber" 
                     tabindexOverride="${tabindexOverrideBase} + 10"
                     readOnly="${readOnly}"/>
 				</td>    
-                <th align=right valign=middle class="bord-l-b" style="width: 25%;"> 
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.customerPurchaseOrderDate}" /></div>
+                <th class="right" style="width: 25%;">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.customerPurchaseOrderDate}" />
                 </th>
-                <td align=left valign=middle class="datacell" style="width: 25%;">
+                <td class="datacell" style="width: 25%;">
 	               	<c:choose>
 	                    <c:when test="${readOnly}">
 	                        <kul:htmlControlAttribute attributeEntry="${documentAttributes.customerPurchaseOrderDate}" 
@@ -107,12 +107,12 @@
                 </td>          
             </tr>         
             <tr>
-                <td colspan="4" class="subhead">Detail Information</td>
+                <td colspan="4" class="subhead"><h3>Detail Information</h3></td>
             </tr>
             
             <tr>
-				<th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.billingDateForDisplay}" /></div>
+				<th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.billingDateForDisplay}" />
                 </th>     
                 <td>
 					<kul:htmlControlAttribute attributeEntry="${documentAttributes.billingDateForDisplay}"
@@ -120,8 +120,8 @@
 					 tabindexOverride="${tabindexOverrideBase} + 25"
 					 readOnly="true" />
                 </td>  
-				<th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceDueDate }" /></div>
+				<th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceDueDate }" />
                 </th>
                 <td>
 	               	<c:choose>
@@ -139,19 +139,19 @@
             </tr>
             
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceTermsText}" /></div>
+                <th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceTermsText}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.invoiceTermsText}" 
                     property="document.invoiceTermsText" 
                     tabindexOverride="${tabindexOverrideBase} + 40"
                     readOnly="${readOnly}"/>
                 </td>     
-                <th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.openInvoiceIndicator}" /></div>
+                <th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.openInvoiceIndicator}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.openInvoiceIndicator}" 
                     tabindexOverride="${tabindexOverrideBase} + 45"
                     property="document.openInvoiceIndicator" readOnly="true"/>
@@ -159,22 +159,22 @@
             </tr>
             
 			<tr>
-                <td colspan="4" class="subhead">Statement Information</td>
+                <td colspan="4" class="subhead"><h3>Statement Information</h3></td>
             </tr>
 			<tr>
-                <th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceHeaderText}" /></div>
+                <th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceHeaderText}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.invoiceHeaderText}" 
                     property="document.invoiceHeaderText" 
                     tabindexOverride="${tabindexOverrideBase} + 50"
                     readOnly="${readOnly}"/>
                 </td> 	
-				<th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceAttentionLineText }" /></div>
+				<th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.invoiceAttentionLineText }" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.invoiceAttentionLineText }" 
                     property="document.invoiceAttentionLineText" 
                     tabindexOverride="${tabindexOverrideBase} + 55"
@@ -183,10 +183,10 @@
             </tr>
             
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.printInvoiceIndicator }" /></div>
+                <th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.printInvoiceIndicator }" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
 					<c:choose>
 						<c:when test="${not readOnly}">
 							<kul:htmlControlAttribute attributeEntry="${documentAttributes.printInvoiceIndicator }" 
@@ -201,10 +201,10 @@
 						</c:otherwise>
 					</c:choose>
                 </td>
-				<th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${ documentAttributes.printDate }" /></div>
+				<th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${ documentAttributes.printDate }" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.printDate }" 
                     property="document.printDate" 
                     tabindexOverride="${tabindexOverrideBase} + 65"

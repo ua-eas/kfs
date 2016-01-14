@@ -32,9 +32,8 @@
 	<kul:tab tabTitle="Labor Distribution Journal Voucher Details" defaultOpen="true"
 		tabErrorKey="${KFSConstants.EDIT_JOURNAL_VOUCHER_ERRORS}">
 		<div class="tab-container" align="center">
-		<h3>Labor Distribution Journal Voucher Details</h3>
-		
-		<table cellpadding=0 class="datatable" summary="Labor Distribution Journal Voucher Details">
+
+		<table cellpadding=0 class="standard" summary="Labor Distribution Journal Voucher Details">
 			<tbody>
 				<tr>
 					<th width="35%" class="bord-l-b">
@@ -107,7 +106,7 @@
 				<tr>
 					<kul:htmlAttributeHeaderCell
 						attributeEntry="${journalVoucherAttributes.offsetTypeCode}"
-						horizontal="true" width="35%" />
+						horizontal="true" width="35%" addClass="right" />
 					<td class="datacell-nowrap"><kul:htmlControlAttribute
 						attributeEntry="${journalVoucherAttributes.offsetTypeCode}"
 						property="document.offsetTypeCode"

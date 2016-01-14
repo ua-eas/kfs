@@ -26,9 +26,7 @@
     tabErrorKey="${KFSConstants.EDIT_PRE_ENCUMBRANCE_ERRORS}"
     >
     <div class="tab-container" align=center>
-<h3>Pre-Encumbrance Details</h3>
-        <table cellpadding=0 class="datatable"
-               summary="view/edit pre-encumbrance specific fields">
+        <table cellpadding=0 class="datatable standard" summary="view/edit pre-encumbrance specific fields">
             <tbody>
                 
                 <tr>
@@ -36,6 +34,7 @@
                         attributeEntry="${DataDictionary.PreEncumbranceDocument.attributes.reversalDate}"
                         horizontal="true"
                         width="35%"
+                        addClass="right"
                         />
                     <td class="datacell-nowrap"><kul:htmlControlAttribute
                         attributeEntry="${DataDictionary.PreEncumbranceDocument.attributes.reversalDate}"

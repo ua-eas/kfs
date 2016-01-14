@@ -58,7 +58,7 @@ public class DynamicNameLabelRenderer implements Renderer {
         JspWriter out = pageContext.getOut();
         try {
             out.write("<br />");
-            out.write("<div id=\""+fieldName+".div\" class=\"fineprint\">");
+            out.write("<div id=\""+fieldName+".div\" class=\"fineprint\" title=\"" + fieldValue + "\">");
             if (!StringUtils.isBlank(fieldValue)) {
                 out.write(fieldValue);
             }

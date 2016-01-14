@@ -649,7 +649,7 @@ div.inquiry table.datatable th {
 }
 
 .doc .main-panel .tab-container table.standard td.total-line {
-    border-top: 1px dashed #cccccc;
+    border-top: 1px solid rgba(204,204,204,0.3);
 }
 
 .doc .main-panel .tab-container table.adhoc td:first-child,
@@ -703,6 +703,16 @@ div.inquiry table.datatable th {
     min-width: 1000px;
 }
 
+.doc .main-panel .tab-container table.acct-lines input.amount,
+.doc .main-panel .tab-container table.acct-lines td.amount {
+    text-align: right;
+}
+
+.doc .main-panel .tab-container table.acct-lines td.amount,
+.doc .main-panel .tab-container table.acct-lines tr.total-line td.right {
+    padding-right: 15px;
+}
+
 .doc .main-panel .tab-container table.acct-lines th,
 .doc .main-panel .tab-container table.acct-lines td {
     min-width: 50px;
@@ -718,7 +728,12 @@ div.inquiry table.datatable th {
     padding-top: 20px;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr .actions {
+.doc .main-panel .tab-container table.acct-lines tr.title .actions {
+    padding-bottom: 5px;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.line .actions,
+.doc .main-panel .tab-container table.acct-lines tr.new .actions {
     border-left: 1px solid #BBBBBB;
     padding: 6px 10px;
     white-space: nowrap;

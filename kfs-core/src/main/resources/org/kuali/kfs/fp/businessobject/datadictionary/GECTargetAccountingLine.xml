@@ -346,7 +346,7 @@
     <property name="maxLength" value="40"/>
     <property name="required" value="false"/>
     <property name="control">
-      <bean parent="TextControlDefinition" p:size="16"/>
+      <ref bean="StandardNameTextControl" />
     </property>
     
     

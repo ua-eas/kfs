@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.document.web.AccountingLineTableCell;
+import org.kuali.kfs.sys.document.web.AccountingLineViewField;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.document.web.AccountingLineTableCell;
+import java.io.IOException;
 
 /**
  * Renders a cell within a table
@@ -88,7 +88,7 @@ public class TableCellRenderer implements Renderer {
             builder.append(cell.getExtraStyle());
             builder.append("\"");
         } else {
-            builder.append(" class=\""+getStyleClass()+"\"");
+            builder.append(" class=\""+getStyleClass() + "\"");
         }
         builder.append(">\n");
         return builder.toString();
@@ -99,7 +99,12 @@ public class TableCellRenderer implements Renderer {
      * @return the styleClassOverride if it exists, otherwise "infoline"
      */
     protected String getStyleClass() {
-        return !StringUtils.isBlank(cell.getStyleClassOverride()) ? cell.getStyleClassOverride() : "infoline";
+        String styleClass = !StringUtils.isBlank(cell.getStyleClassOverride()) ? cell.getStyleClassOverride() : "infoline";
+        String fieldClass = findFieldStyleClass();
+        if (fieldClass != null) {
+            styleClass += " " + fieldClass;
+        }
+        return styleClass;
     }
     
     /**
@@ -144,5 +149,12 @@ public class TableCellRenderer implements Renderer {
      */
     protected boolean verticallyAlignTowardsTop() {
         return true;
+    }
+
+    private String findFieldStyleClass() {
+        if (this.cell.getRenderableElement().size() > 0 && this.cell.getRenderableElement().get(0) instanceof AccountingLineViewField) {
+            return ((AccountingLineViewField) this.cell.getRenderableElement().get(0)).getField().getStyleClass();
+        }
+        return null;
     }
 }

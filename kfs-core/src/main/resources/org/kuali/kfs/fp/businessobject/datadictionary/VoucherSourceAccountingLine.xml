@@ -142,7 +142,9 @@
   <bean id="VoucherSourceAccountingLine-financialObjectCode" parent="VoucherSourceAccountingLine-financialObjectCode-parentBean"/>
 
   <bean id="VoucherSourceAccountingLine-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="6"/>
+    </property>
   </bean>
   <bean id="VoucherSourceAccountingLine-accountNumber" parent="VoucherSourceAccountingLine-accountNumber-parentBean"/>
 
@@ -191,7 +193,7 @@
     </property>
     <property name="required" value="false"/>
     <property name="control">
-      <ref bean="FourCharacterTextControl" />
+      <bean parent="TextControlDefinition" p:size="14"/>
     </property>
     
     
@@ -213,8 +215,9 @@
   <bean id="VoucherSourceAccountingLine-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
     <property name="label" value="Sub-Account Code"/>
     <property name="required" value="false"/>
-    
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="12"/>
+    </property>
   </bean>
   <bean id="VoucherSourceAccountingLine-referenceTypeCode" parent="VoucherSourceAccountingLine-referenceTypeCode-parentBean"/>
 
@@ -225,14 +228,17 @@
   <bean id="VoucherSourceAccountingLine-projectCode-parentBean" abstract="true" parent="ProjectCode-code">
     <property name="name" value="projectCode"/>
     <property name="required" value="false"/>
-    
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="11"/>
+    </property>
   </bean>
   <bean id="VoucherSourceAccountingLine-financialSubObjectCode" parent="VoucherSourceAccountingLine-financialSubObjectCode-parentBean"/>
 
   <bean id="VoucherSourceAccountingLine-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="required" value="false"/>
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="8"/>
+    </property>
   </bean>
   <bean id="VoucherSourceAccountingLine-documentNumber" parent="VoucherSourceAccountingLine-documentNumber-parentBean"/>
 
@@ -279,6 +285,9 @@
   <bean id="VoucherSourceAccountingLine-objectTypeCode-parentBean" abstract="true" parent="ObjectType-code">
     <property name="name" value="objectTypeCode"/>
     <property name="required" value="false"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="8"/>
+    </property>
   </bean>
   <bean id="VoucherSourceAccountingLine-accountExpiredOverride" parent="VoucherSourceAccountingLine-accountExpiredOverride-parentBean"/>
 

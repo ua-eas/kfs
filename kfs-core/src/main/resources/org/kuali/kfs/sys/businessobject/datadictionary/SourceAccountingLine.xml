@@ -170,7 +170,9 @@
   <bean id="SourceAccountingLine-financialObjectCode" parent="SourceAccountingLine-financialObjectCode-parentBean"/>
 
   <bean id="SourceAccountingLine-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="6"/>
+    </property>
   </bean>
   <bean id="SourceAccountingLine-accountNumber" parent="SourceAccountingLine-accountNumber-parentBean"/>
 
@@ -219,7 +221,7 @@
     </property>
     <property name="required" value="false"/>
     <property name="control">
-      <ref bean="FourCharacterTextControl" />
+      <bean parent="TextControlDefinition" p:size="14"/>
     </property>
     
     
@@ -251,8 +253,9 @@
   <bean id="SourceAccountingLine-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
     <property name="label" value="Sub-Account Code"/>
     <property name="required" value="false"/>
-    
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="12"/>
+    </property>
   </bean>
   <bean id="SourceAccountingLine-referenceTypeCode" parent="SourceAccountingLine-referenceTypeCode-parentBean"/>
 
@@ -263,14 +266,17 @@
   <bean id="SourceAccountingLine-projectCode-parentBean" abstract="true" parent="ProjectCode-code">
     <property name="name" value="projectCode"/>
     <property name="required" value="false"/>
-    
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="11"/>
+    </property>
   </bean>
   <bean id="SourceAccountingLine-financialSubObjectCode" parent="SourceAccountingLine-financialSubObjectCode-parentBean"/>
 
   <bean id="SourceAccountingLine-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="required" value="false"/>
-    
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="8"/>
+    </property>
   </bean>
   <bean id="SourceAccountingLine-documentNumber" parent="SourceAccountingLine-documentNumber-parentBean"/>
 

@@ -21,20 +21,7 @@
 <%@ page import="org.kuali.kfs.coa.service.AccountService" %>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<c:if test="${!accountingLineScriptsLoaded}">
-       <script type='text/javascript' src="dwr/interface/ChartService.js"></script>
-       <script type='text/javascript' src="dwr/interface/AccountService.js"></script>
-       <script type='text/javascript' src="dwr/interface/SubAccountService.js"></script>
-       <script type='text/javascript' src="dwr/interface/ObjectCodeService.js"></script>
-       <script type='text/javascript' src="dwr/interface/ObjectTypeService.js"></script>
-       <script type='text/javascript' src="dwr/interface/SubObjectCodeService.js"></script>
-       <script type='text/javascript' src="dwr/interface/ProjectCodeService.js"></script>
-       <script type='text/javascript' src="dwr/interface/OriginationCodeService.js"></script>
-       <script language="JavaScript" type="text/javascript" src="scripts/sys/objectInfo.js"></script>
-       <c:set var="accountingLineScriptsLoaded" value="true" scope="request" />
-</c:if>     
-       
-<c:set var="accountsCanCrossCharts" value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>" />       
+<c:set var="accountsCanCrossCharts" value="<%=SpringContext.getBean(AccountService.class).accountsCanCrossCharts()%>" />
 <c:set var="readOnly" value="${!KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" />
 
 <kul:documentPage showDocumentInfo="true"
@@ -42,30 +29,39 @@
 	htmlFormAction="arCustomerInvoice" renderMultipart="true"
 	showTabButtons="true">
 
-	<sys:hiddenDocumentFields />
+
+    <c:if test="${!accountingLineScriptsLoaded}">
+        <script type='text/javascript' src="dwr/interface/ChartService.js"></script>
+        <script type='text/javascript' src="dwr/interface/AccountService.js"></script>
+        <script type='text/javascript' src="dwr/interface/SubAccountService.js"></script>
+        <script type='text/javascript' src="dwr/interface/ObjectCodeService.js"></script>
+        <script type='text/javascript' src="dwr/interface/ObjectTypeService.js"></script>
+        <script type='text/javascript' src="dwr/interface/SubObjectCodeService.js"></script>
+        <script type='text/javascript' src="dwr/interface/ProjectCodeService.js"></script>
+        <script type='text/javascript' src="dwr/interface/OriginationCodeService.js"></script>
+        <script language="JavaScript" type="text/javascript" src="scripts/sys/objectInfo.js"></script>
+        <c:set var="accountingLineScriptsLoaded" value="true" scope="request" />
+    </c:if>
 
 	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
-	
-    <ar:customerInvoiceOrganization documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}"  readOnly="${readOnly}"/>	
-	
-    <ar:customerInvoiceRecurrenceDetails
-        documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
-        
-    <ar:customerInvoiceGeneral
-        documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
-        
-    <ar:customerInvoiceAddresses
-        documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
-     
+
+    <ar:customerInvoiceOrganization documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}"  readOnly="${readOnly}"/>
+
+    <ar:customerInvoiceRecurrenceDetails documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
+
+    <ar:customerInvoiceGeneral documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
+
+    <ar:customerInvoiceAddresses documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}" readOnly="${readOnly}" />
+
 	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}">
 		<sys-java:accountingLines>
 			<sys-java:accountingLineGroup newLinePropertyName="newSourceLine" collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
 		</sys-java:accountingLines>
 	</kul:tab>
-	    
+
 	<gl:generalLedgerPendingEntries />
-		            
-	<kul:notes /> 
+
+	<kul:notes />
 
 	<kul:adHocRecipients />
 

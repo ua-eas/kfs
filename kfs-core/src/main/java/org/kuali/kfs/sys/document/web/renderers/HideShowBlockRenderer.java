@@ -18,19 +18,16 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.taglib.html.HiddenTag;
+import org.kuali.kfs.kns.web.taglib.html.KFSButtonTag;
+import org.kuali.kfs.sys.document.web.HideShowBlock;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.taglib.html.HiddenTag;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.web.HideShowBlock;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
+import java.io.IOException;
 
 /**
  * Renders a hide show block
@@ -38,10 +35,8 @@ import org.kuali.kfs.kns.web.taglib.html.KNSImageTag;
 public class HideShowBlockRenderer implements Renderer {
     private HideShowBlock hideShowBlock;
     private HiddenTag tabStateTag = new HiddenTag();
-    private KNSImageTag showHideButton = new KNSImageTag();
+    private KFSButtonTag showHideButton = new KFSButtonTag();
     
-    protected String riceImageURLProperty = "kr.externalizable.images.url";
-
     /**
      * 
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
@@ -68,9 +63,10 @@ public class HideShowBlockRenderer implements Renderer {
     protected void cleanShowHideButton() {
         showHideButton.setPageContext(null);
         showHideButton.setParent(null);
-        showHideButton.setSrc(null);
         showHideButton.setAlt(null);
         showHideButton.setTitle(null);
+        showHideButton.setValue(null);
+        showHideButton.setInnerHTML(null);
         showHideButton.setProperty(null);
         showHideButton.setStyleClass(null);
         showHideButton.setStyleId(null);
@@ -140,19 +136,20 @@ public class HideShowBlockRenderer implements Renderer {
         showHideButton.setPageContext(pageContext);
         showHideButton.setParent(parentTag);
         showHideButton.setProperty("methodToCall.toggleTab.tab"+hideShowBlock.getTabKey());
-        showHideButton.setStyleClass("tinybutton");
+        showHideButton.setStyleClass("btn btn-default small");
         showHideButton.setStyleId("tab-"+hideShowBlock.getTabKey()+"-imageToggle");
-        showHideButton.setOnclick("javascript: return toggleTab(document, '"+hideShowBlock.getTabKey()+"'); ");
+        showHideButton.setOnclick("javascript: return toggleTab(document, '"+hideShowBlock.getTabKey()+"');");
         
-        String riceImageDir = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(riceImageURLProperty);
         if (hideShowBlock.isShowing()) {
-            showHideButton.setSrc(riceImageDir+"tinybutton-hide.gif");
             showHideButton.setAlt("Hide "+hideShowBlock.getFullLabel());
             showHideButton.setTitle("Hide "+hideShowBlock.getFullLabel());
+            showHideButton.setValue("Hide");
+            showHideButton.setInnerHTML("Hide");
         } else {
-            showHideButton.setSrc(riceImageDir+"tinybutton-show.gif");
             showHideButton.setAlt("Show "+hideShowBlock.getFullLabel());
             showHideButton.setTitle("Show "+hideShowBlock.getFullLabel());
+            showHideButton.setValue("Show");
+            showHideButton.setInnerHTML("Show");
         }
         
         showHideButton.doStartTag();

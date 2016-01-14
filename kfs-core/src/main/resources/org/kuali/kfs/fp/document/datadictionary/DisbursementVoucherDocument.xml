@@ -642,19 +642,12 @@
 				<property name="lines">
 					<list>
 						<ref bean="accountingInformation"/>
-						<bean parent="AccountingLineView-line">
-							<property name="elementName" value="lineDescription"/>
-							<property name="fields">
-								<list>
-									<bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription" p:overrideColSpan="2"/>
-								</list>
-							</property>
-						</bean>
-						<ref bean="salesTaxInformation" />						
+						<ref bean="salesTaxInformation" />
 					</list>
 				</property>
 			</bean>
 			<bean parent="AccountingLineView-field" p:name="amount" p:required="true"/>
+            <bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription" p:overrideColSpan="2"/>
 			<bean parent="AccountingLineView-actions"/>
 		</list>
 	</property>

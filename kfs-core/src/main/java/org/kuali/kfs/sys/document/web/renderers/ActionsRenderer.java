@@ -108,6 +108,7 @@ public class ActionsRenderer implements Renderer {
             actionButton.setInnerHTML("<span class=\"" + action.getButtonIcon() + "\"></span>");
         } else {
             actionButton.setValue(action.getButtonLabel());
+            actionButton.setInnerHTML(action.getButtonLabel());
         }
         if (!StringUtils.isBlank(getTabIndex())) {
             actionButton.setTabindex(getTabIndex());

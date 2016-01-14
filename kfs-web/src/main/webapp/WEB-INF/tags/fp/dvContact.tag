@@ -21,8 +21,7 @@
 <kul:tab tabTitle="Contact Information" defaultOpen="true" tabErrorKey="${KFSConstants.DV_CONTACT_TAB_ERRORS}">
   	<c:set var="dvAttributes" value="${DataDictionary.DisbursementVoucherDocument.attributes}" />
     <div class="tab-container" align=center > 
-		<h3>Contact Information</h3>
-		<table class="datatable" summary="Contact Information" cellpadding="0">
+		<table class="datatable standard" summary="Contact Information">
              <tbody>
                <tr>
                  <th width="25%"><div align="right"><kul:htmlAttributeLabel attributeEntry="${dvAttributes.disbVchrContactPersonName}"/></div></th>

@@ -185,8 +185,8 @@
 	              <property name="elementName" value="accountingInformation"/>
 	              <property name="fields">
 	                <list>
-	                  <bean parent="AccountingLineView-field" p:name="chartOfAccountsCode" p:required="true" p:webUILeaveFieldFunction="loadChartInfo" p:dynamicLabelProperty="chart.finChartOfAccountDescription"/>
-	                  <bean parent="AccountingLineView-field" p:name="accountNumber" p:required="true" p:webUILeaveFieldFunction="loadAccountInfo" p:dynamicLabelProperty="account.accountName">
+	                  <bean parent="AccountingLineView-field" p:name="chartOfAccountsCode" p:required="true" p:webUILeaveFieldFunction="loadChartInfo" p:dynamicLabelProperty="chart.finChartOfAccountDescription" p:useShortLabel="true"/>
+	                  <bean parent="AccountingLineView-field" p:name="accountNumber" p:required="true" p:webUILeaveFieldFunction="loadAccountInfo" p:dynamicLabelProperty="account.accountName" p:useShortLabel="true">
 	                  	<property name="overrideFields">
 	                  		<list>
 	                  			<bean parent="AccountingLineView-overrideField" p:name="accountExpiredOverride"/>
@@ -194,22 +194,14 @@
 	                  		</list>
 	                  	</property>
 	                  </bean>
-	                  <bean parent="AccountingLineView-field" p:name="subAccountNumber" p:webUILeaveFieldFunction="loadSubAccountInfo" p:dynamicLabelProperty="subAccount.subAccountName"/>
-	                  <bean parent="AccountingLineView-field" p:name="financialObjectCode" p:required="true" p:dynamicNameLabelGeneratorBeanName="objectCodeDynamicNameLabelGenerator" p:overrideLookupParameters="document.postingYear:universityFiscalYear">
-	                  <!--  	<property name="overrideFields">
-	                  		<list>
-	                  			<bean parent="AccountingLineView-overrideField" p:name="objectBudgetOverride"/>
-	                  		</list>
-	                  	</property>-->
-	                  </bean>
-	                  <bean parent="AccountingLineView-field" p:name="financialSubObjectCode" p:dynamicNameLabelGeneratorBeanName="subObjectCodeDynamicNameLabelGenerator" />
-	                  <bean parent="AccountingLineView-field" p:name="projectCode" p:webUILeaveFieldFunction="loadProjectInfo" p:dynamicLabelProperty="project.projectDescription"/>
-	                  <bean parent="AccountingLineView-field" p:name="organizationReferenceId"/>
+	                  <bean parent="AccountingLineView-field" p:name="subAccountNumber" p:webUILeaveFieldFunction="loadSubAccountInfo" p:dynamicLabelProperty="subAccount.subAccountName" p:useShortLabel="true"/>
+	                  <bean parent="AccountingLineView-field" p:name="financialObjectCode" p:required="true" p:dynamicNameLabelGeneratorBeanName="objectCodeDynamicNameLabelGenerator" p:overrideLookupParameters="document.postingYear:universityFiscalYear" p:useShortLabel="true"/>
+	                  <bean parent="AccountingLineView-field" p:name="financialSubObjectCode" p:dynamicNameLabelGeneratorBeanName="subObjectCodeDynamicNameLabelGenerator" p:useShortLabel="true"/>
+	                  <bean parent="AccountingLineView-field" p:name="projectCode" p:webUILeaveFieldFunction="loadProjectInfo" p:dynamicLabelProperty="project.projectDescription" p:useShortLabel="true"/>
+	                  <bean parent="AccountingLineView-field" p:name="organizationReferenceId" p:useShortLabel="true"/>
 	                </list>
 	              </property>
 	            </bean>
-	            
-	            <ref bean="AccountingLineView-lineDescription"/>
 	            
 	            <bean parent="AccountingLineView-showHideLines" p:label="Monthly Lines" p:name="monthlyLinesHideShow">
 	            	<property name="lines">
@@ -239,6 +231,7 @@
 	        </property>
 	      </bean>
 	      <bean parent="AccountingLineView-currentBaseAmountField" p:useShortLabels="true"/>
+			<bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription"/>
 	      <bean parent="AccountingLineView-actions"/>
 	    </list>
 	  </property>

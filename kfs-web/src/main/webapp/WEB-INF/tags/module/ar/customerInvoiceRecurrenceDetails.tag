@@ -30,11 +30,8 @@
 <c:set var="tabindexOverrideBase" value="20" />
 
 <kul:tab tabTitle="Recurrence Details" defaultOpen="true" tabErrorKey="${KFSConstants.CUSTOMER_INVOICE_DOCUMENT_RECURRENCE_DETAILS_ERRORS}">
-    <div class="tab-container" align=center>	
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="Invoice Section">
-            <tr>
-                <td colspan="4" class="subhead">Recurrence Details</td>
-            </tr>
+    <div class="tab-container">
+        <table class="standard" summary="Invoice Section">
 			<tr>
                 <th align=right valign=middle class="bord-l-b" style="width: 25%;"> 
                     <div align="right"><kul:htmlAttributeLabel attributeEntry="${customerInvoiceRecurrenceAttributes.documentRecurrenceIntervalCode}" /></div>

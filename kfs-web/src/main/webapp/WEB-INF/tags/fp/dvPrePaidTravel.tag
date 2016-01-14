@@ -23,12 +23,9 @@
 	<c:set var="prePaidRegistrantAttributes" value="${DataDictionary.DisbursementVoucherPreConferenceRegistrant.attributes}" />
   
     <div class="tab-container" align=center > 
-<h3>Pre-Paid Travel Expenses</h3>
-    	<table cellpadding=0 class="datatable" summary="Pre-Paid Travel Section">
-
-            
+    	<table cellpadding=0 class="datatable standard" summary="Pre-Paid Travel Section">
             <tr>
-              <td colspan="2" class="tab-subhead">Overview</td>
+              <td colspan="2" class="tab-subhead"><h3>Overview</h3></td>
             </tr>
             
             <tr>
@@ -50,75 +47,80 @@
               <th><div align="right"><kul:htmlAttributeLabel attributeEntry="${prePaidConfAttributes.disbVchrConferenceEndDate}"/></div></th>
               <td><kul:htmlControlAttribute attributeEntry="${prePaidConfAttributes.disbVchrConferenceEndDate}" datePicker="true" property="document.dvPreConferenceDetail.disbVchrConferenceEndDate" readOnly="${!fullEntryMode&&!travelEntryMode}"/></td>
             </tr> 
-          </table>
+        </table>
             
-           <table cellpadding=0 class="datatable" summary="Expenses">
+        <table cellpadding=0 class="datatable standard items" summary="Expenses">
             <tr>
-              <td colspan="6" class="tab-subhead">Expenses</td>
+              <td colspan="6" class="tab-subhead"><h3>Expenses</h3></td>
             </tr>
             
-            <tr>
+            <tr class="header">
               <th>&nbsp;</th>
-              <th> <div align="center"><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.dvConferenceRegistrantName}"/></div></th>
-              <th> <div align="center"><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.disbVchrPreConfDepartmentCd}"/></div></th>
-              <th> <div align="center"><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.dvPreConferenceRequestNumber}"/></div></th>
-              <th> <div align="center"><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.disbVchrExpenseAmount}"/></div></th>
+              <th><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.dvConferenceRegistrantName}"/></th>
+              <th><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.disbVchrPreConfDepartmentCd}"/></th>
+              <th><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.dvPreConferenceRequestNumber}"/></th>
+              <th><kul:htmlAttributeLabel attributeEntry="${prePaidRegistrantAttributes.disbVchrExpenseAmount}"/></th>
               <c:if test="${fullEntryMode||travelEntryMode}">
-	              <th> <div align=center>Actions</div></th>
+	              <th>Actions</th>
 	          </c:if>
             </tr>
             
             <tr>
-              <th scope="row"><div align="center">&nbsp;
-	              <c:if test="${fullEntryMode||travelEntryMode}">
-    		          add:
-            	  </c:if>
-              </div></th>
-              <td valign=top nowrap class="infoline"><div align="center"><span>
+              <th scope="row">
+                  &nbsp;
+              </th>
+              <td valign=top nowrap class="infoline">
                   <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.dvConferenceRegistrantName}" property="newPreConferenceRegistrantLine.dvConferenceRegistrantName" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
-              <td valign=top nowrap class="infoline"><div align="center"><span>
+              </td>
+              <td valign=top nowrap class="infoline">
                   <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.disbVchrPreConfDepartmentCd}" property="newPreConferenceRegistrantLine.disbVchrPreConfDepartmentCd" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
-              <td valign=top nowrap class="infoline"><div align="center"><span>
+              </td>
+              <td valign=top nowrap class="infoline">
                   <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.dvPreConferenceRequestNumber}" property="newPreConferenceRegistrantLine.dvPreConferenceRequestNumber" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
-              <td valign=top nowrap class="infoline"><div align="center"><span>
+              </td>
+              <td valign=top nowrap class="infoline">
                   <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.disbVchrExpenseAmount}" property="newPreConferenceRegistrantLine.disbVchrExpenseAmount" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
+              </td>
               <c:if test="${fullEntryMode||travelEntryMode}">
-	              <td class="infoline"><div align=center>
+	              <td class="infoline">
 	                   <html:submit
                                styleClass="btn btn-green"
                                property="methodToCall.addPreConfRegistrantLine"
                                title="Add Pre-Conference Registrant Line"
                                alt="Add Pre-Conference Registrant Line"
                                value="Add"/>
-	              </div></td>
+	              </td>
               </c:if>
             </tr>
   
             <logic:iterate indexId="ctr" name="KualiForm" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants" id="currentLine">
-            <tr>
-              <th scope="row"><div align="center"><kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.financialDocumentLineNumber}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].financialDocumentLineNumber" readOnly="true"/></div></th>
-              <td valign=top nowrap><div align="center"><span>
-                  <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.dvConferenceRegistrantName}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].dvConferenceRegistrantName" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
-              <td valign=top nowrap><div align="center"><span>
-                  <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.disbVchrPreConfDepartmentCd}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].disbVchrPreConfDepartmentCd" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
-              <td valign=top nowrap><div align="center"><span>
-                  <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.dvPreConferenceRequestNumber}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].dvPreConferenceRequestNumber" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
-              <td valign=top nowrap><div align="center"><span>
-                  <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.disbVchrExpenseAmount}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].disbVchrExpenseAmount" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
-              </span></div></td>
-              <c:if test="${fullEntryMode||travelEntryMode}">
-	              <td><div align=center>
-	                   <html:image src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" styleClass="tinybutton" property="methodToCall.deletePreConfRegistrantLine.line${ctr}" title="Delete Pre-Conference Registrant Line" alt="Delete Pre-Conference Registrant Line"/>
-	              </div></td>
-              </c:if>
-            </tr>
+                <tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+                    <th scope="row">
+                        <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.financialDocumentLineNumber}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].financialDocumentLineNumber" readOnly="true"/>
+                    </th>
+                    <td valign=top nowrap>
+                        <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.dvConferenceRegistrantName}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].dvConferenceRegistrantName" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
+                    </td>
+                    <td valign=top nowrap>
+                        <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.disbVchrPreConfDepartmentCd}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].disbVchrPreConfDepartmentCd" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
+                    </td>
+                    <td valign=top nowrap>
+                        <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.dvPreConferenceRequestNumber}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].dvPreConferenceRequestNumber" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
+                    </td>
+                    <td valign=top nowrap>
+                        <kul:htmlControlAttribute attributeEntry="${prePaidRegistrantAttributes.disbVchrExpenseAmount}" property="document.dvPreConferenceDetail.dvPreConferenceRegistrants[${ctr}].disbVchrExpenseAmount" readOnly="${!fullEntryMode&&!travelEntryMode}"/>
+                    </td>
+                    <c:if test="${fullEntryMode||travelEntryMode}">
+                        <td>
+                            <html:submit
+                                    styleClass="btn btn-red"
+                                    property="methodToCall.deletePreConfRegistrantLine.line${ctr}"
+                                    title="Delete Pre-Conference Registrant Line"
+                                    alt="Delete Pre-Conference Registrant Line"
+                                    value="Delete"/>
+                        </td>
+                    </c:if>
+                </tr>
             </logic:iterate>
             
             <tr>
@@ -129,7 +131,5 @@
               	</c:if>
             </tr>
           </table>
-          
-        
         </div>
 </kul:tab>

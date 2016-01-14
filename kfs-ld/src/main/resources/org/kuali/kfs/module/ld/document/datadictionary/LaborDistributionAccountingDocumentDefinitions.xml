@@ -25,8 +25,8 @@
  	<bean id="ExpenseTransferDocument-sourceGroupActions" class="org.springframework.beans.factory.config.ListFactoryBean">
 		<property name="sourceList">
 			<list>
-				<bean parent="AccountingLineView-action" p:actionMethod="copyAllAccountingLines" p:actionLabel="copy all" p:buttonStyle="default" p:buttonLabel="Copy All"/>
-				<bean parent="AccountingLineView-action" p:actionMethod="deleteAllSourceAccountingLines" p:actionLabel="delete all" p:buttonStyle="red" p:buttonLabel="Delete All"/>
+				<bean parent="AccountingLineView-action" p:actionMethod="copyAllAccountingLines" p:actionLabel="copy all" p:buttonStyle="btn btn-default uppercase" p:buttonLabel="Copy All"/>
+				<bean parent="AccountingLineView-action" p:actionMethod="deleteAllSourceAccountingLines" p:actionLabel="delete all" p:buttonStyle="btn btn-red" p:buttonLabel="Delete All"/>
 			</list>
 		</property>
 	</bean>
@@ -34,7 +34,7 @@
 	<bean id="ExpenseTransferDocument-targetGroupActions" class="org.springframework.beans.factory.config.ListFactoryBean">
 		<property name="sourceList">
 			<list>
-				<bean parent="AccountingLineView-action" p:actionMethod="deleteAllTargetAccountingLines" p:actionLabel="delete all" p:buttonStyle="red" p:buttonLabel="Delete All"/>
+				<bean parent="AccountingLineView-action" p:actionMethod="deleteAllTargetAccountingLines" p:actionLabel="delete all" p:buttonStyle="btn btn-red" p:buttonLabel="Delete All"/>
 			</list>
 		</property>
 	</bean>      

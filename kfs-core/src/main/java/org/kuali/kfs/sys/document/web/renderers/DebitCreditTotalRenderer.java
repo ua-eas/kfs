@@ -98,7 +98,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             
             out.write("</td>");
             
-            out.write("<td colspan=\"3\">");
+            out.write("<td colspan=\"2\" class=\"right\">");
             out.write("<span class=\"label\">");
             
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(creditTotalLabelProperty));
@@ -113,7 +113,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             
             out.write("</td>");
             
-            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell() - 2;
+            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell() - 1;
             if(emptyCellSpanAfter > 0) {
                 out.write("<td colspan=\"");
                 out.write(Integer.toString(emptyCellSpanAfter - 1));
