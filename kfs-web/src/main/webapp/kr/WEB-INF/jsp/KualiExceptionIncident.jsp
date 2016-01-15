@@ -86,117 +86,83 @@
 	htmlFormAction="kualiExceptionIncidentReport"
 	defaultMethodToCall="notify"
 	errorKey="*">
-  <html:hidden property="documentId"       write="false" value="${documentId}" />
-  <html:hidden property="userEmail"        write="false" value="${userEmail}" />
-  <html:hidden property="userName"         write="false" value="${userName}" />
-  <html:hidden property="principalName"         write="false" value="${principalName}" />
-  <html:hidden property="componentName"    write="false" value="${componentName}" />
-  <html:hidden property="exceptionReportSubject" write="false" value="${exceptionReportSubject}" />
-  <html:hidden property="exceptionMessage" write="false" value="${exceptionMessage}" />
-  <html:hidden property="displayMessage"   write="false" value="${displayMessage}" />
-  <html:hidden property="stackTrace"       write="false" value="${stackTrace}" />
-  <html:hidden property="exceptionHideIncidentReport" write="false" value="${exceptionHideIncidentReport}" />
 
-<c:if test="${exceptionHideIncidentReport eq false}">
-  <div align="center">
-    <font color="blue" size="3">Please use the Incident Report form below to report the problems</font>
-  </div>
-  <br/>
-</c:if>
-	<div class="topblurb">
-		<div align="center">
-			<table cellpadding="10" cellspacing="0" border="0" class="container2">
-			  <c:if test="${exceptionHideIncidentReport eq false}">	
-				 <tr>
-					<td colspan="2" class="infoline">
-						<div align="left">
-							<font color="blue">This information will be forwarded to
+	<html:hidden property="documentId"       write="false" value="${documentId}" />
+	<html:hidden property="userEmail"        write="false" value="${userEmail}" />
+	<html:hidden property="userName"         write="false" value="${userName}" />
+	<html:hidden property="principalName"         write="false" value="${principalName}" />
+	<html:hidden property="componentName"    write="false" value="${componentName}" />
+	<html:hidden property="exceptionReportSubject" write="false" value="${exceptionReportSubject}" />
+	<html:hidden property="exceptionMessage" write="false" value="${exceptionMessage}" />
+	<html:hidden property="displayMessage"   write="false" value="${displayMessage}" />
+	<html:hidden property="stackTrace"       write="false" value="${stackTrace}" />
+	<html:hidden property="exceptionHideIncidentReport" write="false" value="${exceptionHideIncidentReport}" />
+
+	<c:set var="tabTitle" value="${exceptionHideIncidentReport eq false ? 'Please use the Incident Report form below to report the problems' : ''}"/>
+
+	<kul:tab tabTitle="${tabTitle}" defaultOpen="true">
+		<div class="tab-container">
+			<table class="standard" style="width: calc(100% - 200px); margin:0 100px;">
+				<c:if test="${exceptionHideIncidentReport eq false}">
+					<tr>
+						<td colspan="2" class="center">
+							<h4>This information will be forwarded to
 								our support team. Please describe what action you were taking
-								when the problem occurred</font>
-						</div>
-					</td>
-				 </tr>
+								when the problem occurred.</h4>
+						</td>
+					</tr>
+					<tr>
+						<th style="width: 150px;" class="right top">Document Id
+						</th>
+						<td>${documentId}</td>
+					</tr>
+				</c:if>
 				<tr>
-					<td>
-						<div align="left" valign="top">
-							<strong>Document Id</strong>
-						</div>
-					</td>
-					<td align="left" valign="top">
-						<div align="left">
-							<font color="green">${documentId}</font>
-						</div>
-					</td>
+					<th class="right top">Error Message</th>
+					<td style="color: #C47965;"><c:out value="${displayMessage}"/></td>
 				</tr>
-               </c:if>
+				<c:if test="${exceptionHideIncidentReport eq false}">
+					<tr>
+						<th class="right top">User Input</th>
+						<td><textarea name='description' rows='5' cols='100' maxlength='1000'></textarea></td>
+					</tr>
+				</c:if>
 				<tr>
+					<th>&nbsp;</th>
 					<td>
-						<div align="left" valign="top">
-							<strong>Error Message</strong>
-						</div>
-					</td>
-					<td align="left">
-						<div align="left">
-							<font color="red"><c:out value="${displayMessage}"/></font>
-						</div>
-					</td>
-				</tr>
-			  <c:if test="${exceptionHideIncidentReport eq false}">		
-				<tr>
-					<td valign="top" align="left">
-						<div align="left">
-							<strong>User Input</strong>
-						</div>
-					</td>
-					<td align="left" valign="top">
-						<textarea name='description' rows='5' cols='100' maxlength='1000'></textarea>
-					</td>
-				</tr>
-			  </c:if>
-				<tr>
-					<td>
-						&nbsp;
-					</td>
-					<td align="left">
 						<div>
-							<c:if test="${exceptionHideIncidentReport eq false}">	
-								<input type="image" name="submit" class="tinybutton"
-								src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_submit.gif"
-								class="globalbuttons" title="submit" alt="Submit Incident">
+							<c:if test="${exceptionHideIncidentReport eq false}">
+								<input type="submit" name="submit" class="btn btn-default" title="submit"
+									   alt="Submit Incident" value="Submit">
 							</c:if>
-							<input type="image" name="cancel" value="true" class="tinybutton"
-								src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
-								class="globalbuttons" title="close" alt="Close Without Submitting Incident">
+							<button name="cancel" value="true" class="btn btn-default" title="close"
+									alt="Close Without Submitting Incident">
+								Close
+							</button>
 						</div>
 					</td>
 				</tr>
 			</table>
+
+			<br />
+			<c:if test="${exceptionHideIncidentReport eq false && !kfunc:isProductionEnvironment()}">
+				<table class="standard side-margins">
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<strong>******************Stack Trace-Only shown when not in production*****************</strong>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<pre><c:out value="${stackTrace}"/></pre>
+						</td>
+					</tr>
+				</table>
+			</c:if>
 		</div>
-	</div>
-	<br />
-	<c:if test="${exceptionHideIncidentReport eq false && !kfunc:isProductionEnvironment()}">
-		<table>
-			<tr>
-				<td>
-					&nbsp;
-				</td>
-			</tr>
-			<tr>
-				<td valign="top" colspan="2">
-					<div align="left" valign="top">
-						<strong>******************Stack Trace-Only shown when not
-							in production*****************</strong>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td align="left" valign="top" colspan="2">
-					<div align="left">
-						<pre><c:out value="${stackTrace}"/></pre>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</c:if>
+	</kul:tab>
 </kul:page>
 
