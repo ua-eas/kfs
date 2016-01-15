@@ -28,6 +28,8 @@
 	htmlFormAction="arCustomerInvoice" renderMultipart="true"
 	showTabButtons="true">
 
+    <sys:hiddenDocumentFields />
+
 	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
 
     <ar:customerInvoiceOrganization documentAttributes="${DataDictionary.CustomerInvoiceDocument.attributes}"  readOnly="${readOnly}"/>
