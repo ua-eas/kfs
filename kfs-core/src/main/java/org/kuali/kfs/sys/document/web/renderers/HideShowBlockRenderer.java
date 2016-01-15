@@ -166,7 +166,7 @@ public class HideShowBlockRenderer implements Renderer {
         opening.append(hideShowBlock.isShowing() ? "block" : "none");
         opening.append("\">");
         
-        opening.append("<table class=\"datatable\" style=\"width: 100%;\">");
+        opening.append("<table class=\"standard\" style=\"width: 100%;\">");
         
         return opening.toString();
     }

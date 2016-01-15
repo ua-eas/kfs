@@ -18,14 +18,13 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.kuali.kfs.sys.document.web.AccountingLineTable;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.kuali.kfs.sys.document.web.AccountingLineTable;
+import java.io.IOException;
 
 /**
  * Renders a table
@@ -58,11 +57,11 @@ public class TableRenderer implements Renderer {
     }
     
     /**
-     * Builds the opening tag of the table, ie <table class="datatable">
+     * Builds the opening tag of the table, ie <table class="standard">
      * @return the String for the opening tag
      */
     protected String buildBeginningTableTag() {
-        return "<table class=\"datatable\">";
+        return "<table class=\"standard\">";
     }
     
     /**

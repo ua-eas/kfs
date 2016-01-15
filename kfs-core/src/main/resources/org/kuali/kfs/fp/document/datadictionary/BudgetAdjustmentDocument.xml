@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dd="http://rice.kuali.org/dd" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -26,7 +26,7 @@
     <property name="documentClass" value="org.kuali.kfs.fp.document.BudgetAdjustmentDocument"/>
     <property name="baseDocumentClass" value="org.kuali.kfs.fp.document.BudgetAdjustmentDocument"/>
     <property name="businessRulesClass" value="org.kuali.kfs.sys.document.validation.impl.AccountingRuleEngineRuleBase"/>
-    <property name="documentPresentationControllerClass" value="org.kuali.kfs.fp.document.authorization.BudgetAdjustmentDocumentPresentationController"/>    
+    <property name="documentPresentationControllerClass" value="org.kuali.kfs.fp.document.authorization.BudgetAdjustmentDocumentPresentationController"/>
     <property name="promptBeforeValidationClass" value="org.kuali.kfs.fp.document.validation.impl.BudgetAdjustmentDocumentPreRules"/>
     <property name="importedLineParserClass" value="org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLineParser" />
     <property name="sessionDocument" value="true"/>
@@ -75,8 +75,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="BudgetAdjustmentDocument-nextPositionTargetLineNumber" parent="BudgetAdjustmentDocument-nextPositionTargetLineNumber-parentBean"/>
 
@@ -93,8 +93,8 @@
     <property name="control">
       <ref bean="TenCharacterTextControl" />
     </property>
-    
-    
+
+
   </bean>
   <bean id="BudgetAdjustmentDocument-postingYear" parent="BudgetAdjustmentDocument-postingYear-parentBean"/>
 
@@ -105,11 +105,11 @@
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.fp.businessobject.options.BudgetAdjustmentFiscalYearValuesFinder" p:includeKeyInLabel="false"/>
     </property>
   </bean>
-  
+
   <!-- validations -->
-  
+
   <bean id="BudgetAdjustmentDocument-validations" parent="BudgetAdjustmentDocument-validations-parentBean"/>
-  
+
   <bean id="BudgetAdjustmentDocument-validations-parentBean" abstract="true" class="org.springframework.beans.factory.config.MapFactoryBean">
   	<property name="sourceMap">
 		<map key-type="java.lang.Class">
@@ -148,10 +148,10 @@
     	</map>
     </property>
   </bean>
-  
+
   <!-- accounting line groups -->
   <bean id="BudgetAdjustment-sourceAccountingLineGroup" parent="BudgetAdjustment-sourceAccountingLineGroup-parentBean"/>
-  
+
   <bean id="BudgetAdjustment-sourceAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="BudgetAdjustment-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.BudgetAdjustmentSourceAccountingLine"/>
@@ -160,9 +160,9 @@
 	  <property name="importedLinePropertyPrefix" value="source"/>
 	  <property name="errorKey" value="document.sourceAccounting*,sourceAccountingLines,newSourceLine*"/>
 	</bean>
-	
+
 	<bean id="BudgetAdjustment-targetAccountingLineGroup" parent="BudgetAdjustment-targetAccountingLineGroup-parentBean"/>
-	
+
 	<bean id="BudgetAdjustment-targetAccountingLineGroup-parentBean" parent="AccountingLineGroup" abstract="true">
 	  <property name="accountingLineView" ref="BudgetAdjustment-accountingLineView"/>
 	  <property name="accountingLineClass" value="org.kuali.kfs.fp.businessobject.BudgetAdjustmentTargetAccountingLine"/>
@@ -171,9 +171,9 @@
 	  <property name="importedLinePropertyPrefix" value="target"/>
 	  <property name="errorKey" value="document.targetAccounting*,targetAccountingLines,newTargetLine*"/>
 	</bean>
-	
+
 	<bean id="BudgetAdjustment-accountingLineView" parent="BudgetAdjustment-accountingLineView-parent"/>
-	
+
 	<bean id="BudgetAdjustment-accountingLineView-parent" parent="AccountingLineView" abstract="true">
 	  <property name="elements">
 	    <list>
@@ -202,11 +202,11 @@
 	                </list>
 	              </property>
 	            </bean>
-	            
+
 	            <bean parent="AccountingLineView-showHideLines" p:label="Monthly Lines" p:name="monthlyLinesHideShow">
 	            	<property name="lines">
 	            		<list>
-	            			<bean parent="AccountingLineView-columns" p:columnCount="2" p:name="monthlyLines">
+	            			<bean parent="AccountingLineView-columns" p:columnCount="3" p:name="monthlyLines">
 	            				<property name="fields">
 	            					<list>
 	            						<bean parent="AccountingLineView-field" p:name="financialDocumentMonth1LineAmount"/>
@@ -230,18 +230,19 @@
 	          </list>
 	        </property>
 	      </bean>
-	      <bean parent="AccountingLineView-currentBaseAmountField" p:useShortLabels="true"/>
-			<bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription"/>
-	      <bean parent="AccountingLineView-actions"/>
+
+            <bean parent="AccountingLineView-currentBaseAmountField" p:useShortLabels="true"/>
+            <bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription"/>
+            <bean parent="AccountingLineView-actions"/>
 	    </list>
 	  </property>
 	</bean>
-	
+
 	<!-- workflow attributes for routing -->
 	<bean id="BudgetAdjustmentDocument-workflowAttributes" parent="BudgetAdjustmentDocument-workflowAttributes-parentBean"/>
-	
+
 	<bean id="BudgetAdjustmentDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">
-    	
+
     	<property name="routingTypeDefinitions">
     		<map>
     			<entry key="Account" value-ref="RoutingType-AccountingDocument-Account"/>

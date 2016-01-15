@@ -76,7 +76,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
      * @return the very start of the table expressed as HTML
      */
     protected String buildTableStart() {
-        return "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"datatable standard acct-lines\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
+        return "<table class=\"datatable standard acct-lines\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
     }
     
     /**
