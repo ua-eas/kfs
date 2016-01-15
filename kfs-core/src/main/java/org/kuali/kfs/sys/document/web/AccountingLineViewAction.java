@@ -26,14 +26,23 @@ public class AccountingLineViewAction {
     private String actionLabel;
     private String buttonStyle;
     private String buttonLabel;
-    
+    private String buttonIcon;
+
     public AccountingLineViewAction(String actionMethod, String actionLabel, String buttonStyle, String buttonLabel) {
         this.actionMethod = actionMethod;
         this.actionLabel = actionLabel;
         this.buttonStyle = buttonStyle;
         this.buttonLabel = buttonLabel;
     }
-    
+
+    public AccountingLineViewAction(String actionMethod, String actionLabel, String buttonStyle, String buttonLabel, String buttonIcon) {
+        this.actionMethod = actionMethod;
+        this.actionLabel = actionLabel;
+        this.buttonStyle = buttonStyle;
+        this.buttonLabel = buttonLabel;
+        this.buttonIcon = buttonIcon;
+    }
+
     /**
      * Gets the actionLabel attribute. 
      * @return Returns the actionLabel.
@@ -83,5 +92,13 @@ public class AccountingLineViewAction {
 
     public void setButtonLabel(String buttonLabel) {
         this.buttonLabel = buttonLabel;
+    }
+
+    public String getButtonIcon() {
+        return buttonIcon;
+    }
+
+    public void setButtonIcon(String buttonIcon) {
+        this.buttonIcon = buttonIcon;
     }
 }

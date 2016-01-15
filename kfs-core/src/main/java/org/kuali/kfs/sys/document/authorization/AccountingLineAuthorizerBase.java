@@ -452,7 +452,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         String actionMethod = this.getBalanceInquiryMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_BALANCE_INQUIRY_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        return new AccountingLineViewAction(actionMethod, actionLabel, "default", "Balance Inquiry");
+        return new AccountingLineViewAction(actionMethod, actionLabel, "btn clean", "Balance Inquiry", "fa fa-balance-scale");
     }
 
     /**
@@ -468,7 +468,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         String actionMethod = this.getDeleteLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_DELETE_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        return new AccountingLineViewAction(actionMethod, actionLabel, "red", "Delete");
+        return new AccountingLineViewAction(actionMethod, actionLabel, "btn clean", "Delete", "fa fa-trash");
     }
 
     /**
@@ -483,7 +483,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         String actionMethod = this.getAddMethod(accountingLine, accountingLinePropertyName);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_ADD_ACTION_LABEL, groupTitle);
 
-        return new AccountingLineViewAction(actionMethod, actionLabel, "green", "Add");
+        return new AccountingLineViewAction(actionMethod, actionLabel, "btn btn-green skinny", "Add", "fa fa-plus");
     }
 
     /**

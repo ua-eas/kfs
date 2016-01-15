@@ -87,7 +87,7 @@ public class QuickFinderRenderer extends FieldRendererBase {
         
         quickFinderHtml.append("border=\"0\" ");
         
-        quickFinderHtml.append("class=\"tinybutton searchicon\" ");
+        quickFinderHtml.append("class=\"tinybutton searchicon embed\" ");
         
         quickFinderHtml.append("valign=\"middle\" ");
         

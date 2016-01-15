@@ -27,13 +27,14 @@
 <%@ attribute name="actionLabel" required="true" description="button value for action button" %>
 <%@ attribute name="actionClass" required="false" description="css class for action button" %>
 <%@ attribute name="cssClass" required="true" %>
+<%@ attribute name="rowClass" required="false" %>
 <%@ attribute name="displayHidden" required="true" %>
 
 <c:set var="checkBaseAttributes" value="${DataDictionary.CheckBase.attributes}" />
 <c:set var="tabindexOverrideBase" value="200" />
 
-<tr>
-    <kul:htmlAttributeHeaderCell literalLabel="${rowHeading}:" scope="row">
+<tr class="${rowClass}">
+    <kul:htmlAttributeHeaderCell literalLabel="${rowHeading}" scope="row">
         <c:if test="${displayHidden}" >
 			 <bean:write  name="KualiForm" property="${propertyName}.documentNumber" />
         	 <bean:write  name="KualiForm" property="${propertyName}.sequenceId" />

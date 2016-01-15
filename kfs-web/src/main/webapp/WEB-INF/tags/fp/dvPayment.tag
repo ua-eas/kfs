@@ -25,9 +25,8 @@
 <c:set var="achAccountInfoDisplayed" value="${(not empty KualiForm.editingMode['achAccountInfoDisplayed'])}" />
 
 <kul:tab tabTitle="Payment Information" defaultOpen="true" tabErrorKey="${KFSConstants.DV_PAYMENT_TAB_ERRORS},document.disbVchrPaymentMethodCode,${KFSConstants.DV_PAYEE_TAB_ERRORS},document.dvPayeeDetail.disbursementVoucherPayeeTypeCode">
-    <div class="tab-container" align=center > 
-        <h3>Payment Information</h3>
-		<table cellpadding=0 class="datatable" summary="Payment Section">			            
+    <div class="tab-container">
+		<table class="datatable standard" summary="Payment Section">
             <tr>
               <th class="bord-l-b"><div align="right">
               	<kul:htmlAttributeLabel attributeEntry="${payeeAttributes.disbVchrPaymentReasonCode}"/>

@@ -28,7 +28,7 @@
 	htmlFormAction="arCustomerInvoice" renderMultipart="true"
 	showTabButtons="true">
 
-	<sys:hiddenDocumentFields />
+    <sys:hiddenDocumentFields />
 
 	<sys:documentOverview editingMode="${KualiForm.editingMode}" />
 

@@ -171,7 +171,7 @@ public class AccountingLineGroupTag extends TagSupport {
     public int doEndTag() throws JspException {
         super.doEndTag();
         if (!(getParent() instanceof AccountingLinesTag)) {
-            group.renderEverything(pageContext, getParent());
+            group.renderEverything(pageContext, getParent(), null);
             resetTag();
         }
         return Tag.EVAL_PAGE;
@@ -272,10 +272,11 @@ public class AccountingLineGroupTag extends TagSupport {
         // add all existing lines
         int count = 0;
         boolean anyEditableLines = false;
+        final boolean pageIsEditable = getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
         List<AccountingLine> lines = getAccountingLineCollection();
         Collections.sort(lines, getGroupDefinition().getAccountingLineComparator());
         for (AccountingLine accountingLine : lines) {
-            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), (addedTopLine ? false : true));
+            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), pageIsEditable ? false : !addedTopLine, pageIsEditable);
             containers.add(container);
             anyEditableLines = anyEditableLines || container.isEditableLine() || isMessageMapContainingErrorsOnLine(container.getAccountingLinePropertyPath());
             count += 1;
@@ -283,7 +284,7 @@ public class AccountingLineGroupTag extends TagSupport {
         }
         // add the new line
         if (StringUtils.isNotBlank(newLinePropertyName) && ((getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT) && groupDefinition.getAccountingLineAuthorizer().renderNewLine(document, collectionPropertyName)) || anyEditableLines)) {
-            containers.add(0, buildContainerForLine(groupDefinition, document, getNewAccountingLine(), currentUser, null, true));
+            containers.add(0, buildContainerForLine(groupDefinition, document, getNewAccountingLine(), currentUser, null, true, pageIsEditable));
         }
         
         return containers;
@@ -310,12 +311,11 @@ public class AccountingLineGroupTag extends TagSupport {
      * @param count the count of this line within the collection represented by the group; null if this is a new line for the group
      * @return the container created
      */
-    protected RenderableAccountingLineContainer buildContainerForLine(AccountingLineGroupDefinition groupDefinition, AccountingDocument accountingDocument, AccountingLine accountingLine, Person currentUser, Integer count, boolean topLine) {
+    protected RenderableAccountingLineContainer buildContainerForLine(AccountingLineGroupDefinition groupDefinition, AccountingDocument accountingDocument, AccountingLine accountingLine, Person currentUser, Integer count, boolean topLine, boolean pageIsEditable) {
         final String accountingLinePropertyName = count == null ? newLinePropertyName : collectionItemPropertyName+"["+count.toString()+"]";
         final boolean newLine = (count == null);
         final List<AccountingLineTableRow> rows = getRenderableElementsForLine(groupDefinition, accountingLine, newLine, topLine, accountingLinePropertyName);
 
-        final boolean pageIsEditable = getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
         return new RenderableAccountingLineContainer(getForm(), accountingLine, accountingLinePropertyName, rows, count, groupDefinition.getGroupLabel(), getErrors(), groupDefinition.getAccountingLineAuthorizer(), groupDefinition.getAccountingLineAuthorizer().hasEditPermissionOnAccountingLine(getDocument(), accountingLine, collectionPropertyName, currentUser, pageIsEditable));
     }
 

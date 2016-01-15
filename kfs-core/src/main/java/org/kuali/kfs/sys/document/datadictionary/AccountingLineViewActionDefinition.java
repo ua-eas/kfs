@@ -28,6 +28,7 @@ public class AccountingLineViewActionDefinition extends DataDictionaryDefinition
     private String actionLabel;
     private String buttonStyle;
     private String buttonLabel;
+    private String buttonIcon;
     
     /**
      * Gets the actionLabel attribute. 
@@ -78,6 +79,14 @@ public class AccountingLineViewActionDefinition extends DataDictionaryDefinition
 
     public void setButtonLabel(String buttonLabel) {
         this.buttonLabel = buttonLabel;
+    }
+
+    public String getButtonIcon() {
+        return buttonIcon;
+    }
+
+    public void setButtonIcon(String buttonIcon) {
+        this.buttonIcon = buttonIcon;
     }
 
     /**

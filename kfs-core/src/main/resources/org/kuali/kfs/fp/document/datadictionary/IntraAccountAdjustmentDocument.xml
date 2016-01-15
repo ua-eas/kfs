@@ -124,28 +124,17 @@
 					<property name="lines">
 						<list>
 							<ref bean="accountingInformation" />
-							<ref bean="IAAccountingLineView-lineReferenceNumber"/>
 						</list>
 					</property>
 				</bean>
 				<bean parent="AccountingLineView-field" p:name="amount" p:required="true" />
+				<bean parent="AccountingLineView-field" p:name="referenceNumber"  p:required="true" p:useShortLabel="true" />
+				<bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription"  />
 				<bean parent="AccountingLineView-actions" />
 			</list>
 		</property>
 	</bean>
-	 
-	<bean id="IAAccountingLineView-lineReferenceNumber" parent="AccountingLineView-line">
- 	     <property name="elementName" value="ReferenceNoLineDescInfo" />
-            <property name="fields">
-               <list>
-                   <bean parent="AccountingLineView-field" p:name="referenceNumber"  p:required="true" />
-                   <bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription"  />
-               </list>          
-            </property>
-     </bean>
 
-	
-		 	
 	<bean id="IntraAccountAdjustmentDocument-workflowAttributes" parent="IntraAccountAdjustmentDocument-workflowAttributes-parentBean"/>
 	
 	<bean id="IntraAccountAdjustmentDocument-workflowAttributes-parentBean" abstract="true" parent="WorkflowAttributes">

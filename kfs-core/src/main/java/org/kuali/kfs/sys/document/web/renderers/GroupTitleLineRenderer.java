@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.document.web.renderers;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.struts.taglib.html.HiddenTag;
 import org.kuali.kfs.kns.web.taglib.html.KNSFileTag;
 import org.kuali.kfs.kns.web.taglib.html.KNSSubmitTag;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -47,11 +48,15 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
     private KNSFileTag scriptFileTag = new KNSFileTag();
     private KNSFileTag noscriptFileTag = new KNSFileTag();
     private KNSSubmitTag uploadButtonTag = new KNSSubmitTag();
+    private KNSSubmitTag showHideTag = new KNSSubmitTag();
+    private HiddenTag hideStateTag = new HiddenTag();
     private KNSSubmitTag cancelButtonTag = new KNSSubmitTag();
     private boolean shouldUpload = true;
     private boolean canEdit = false;
 
     private boolean groupActionsRendered = false;
+
+    private boolean hideDetails;
 
     /**
      * Constructs a ImportLineRenderer, setting defaults on the tags that will always exist
@@ -64,6 +69,10 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
         cancelButtonTag.setProperty("methodToCall.cancel");
         cancelButtonTag.setStyleClass("btn btn-default");
         cancelButtonTag.setValue("Cancel");
+
+        showHideTag.setStyleClass("btn btn-default uppercase");
+        hideStateTag.setName("KualiForm");
+        hideStateTag.setProperty("hideDetails");
     }
 
     /**
@@ -101,6 +110,18 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
         cancelButtonTag.setAlt(null);
         cancelButtonTag.setTitle(null);
         cancelButtonTag.setOnclick(null);
+
+        showHideTag.setPageContext(null);
+        showHideTag.setParent(null);
+        showHideTag.setProperty(null);
+        showHideTag.setAlt(null);
+        showHideTag.setTitle(null);
+        showHideTag.setValue(null);
+
+        hideStateTag.setPageContext(null);
+        hideStateTag.setParent(null);
+
+        hideDetails = false;
     }
 
     /**
@@ -110,6 +131,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
         try {
             pageContext.getOut().write(buildRowBeginning());
 
+            pageContext.getOut().write(buildBlankCell());
             pageContext.getOut().write(buildTitleCell());
             this.renderGroupLevelActions(pageContext, parentTag);
 
@@ -126,7 +148,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      * @returns the String with the HTML for the row opening
      */
     protected String buildRowBeginning() {
-        return "<tr>";
+        return "<tr class=\"title\">";
     }
 
     /**
@@ -145,6 +167,8 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
             out.write(this.buildGroupActionsBeginning());
 
             this.renderGroupActions(pageContext, parentTag);
+
+            this.renderHideDetails(pageContext, parentTag);
 
             this.renderUploadCell(pageContext, parentTag);
 
@@ -170,7 +194,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
             groupActionsBeginning.append(Integer.toString(width));
             groupActionsBeginning.append("\" ");
 
-            groupActionsBeginning.append("class=\"tab-subhead-import border-bottom\" ");
+            groupActionsBeginning.append("class=\"tab-subhead-import\" ");
             groupActionsBeginning.append("align=\"right\" ");
             groupActionsBeginning.append("nowrap=\"nowrap\" ");
             groupActionsBeginning.append("style=\"border-right: none;\"");
@@ -200,28 +224,37 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
         StringBuilder titleCell = new StringBuilder();
         int colSpan = (this.canUpload() || this.isGroupActionsRendered()) ? titleCellSpan : cellCount;
 
+        // subtract one for the blank cell before the title
+        colSpan--;
+
         titleCell.append("<td ");
 
         titleCell.append("colspan=\"");
         titleCell.append(colSpan);
         titleCell.append("\" ");
 
-        titleCell.append("class=\"tab-subhead border-bottom\" ");
+        titleCell.append("class=\"tab-subhead\" ");
 
         titleCell.append("style=\"border-right: none;\"");
 
         titleCell.append(">");
 
-        titleCell.append("<h3>");
+        titleCell.append("<h2>");
 
         titleCell.append(buildGroupAnchor());
 
         titleCell.append(accountingLineGroupDefinition.getGroupLabel());
 
-        titleCell.append("</h3>");
+        titleCell.append("</h2>");
 
         titleCell.append("</td>");
 
+        return titleCell.toString();
+    }
+
+    protected String buildBlankCell() throws JspException{
+        StringBuilder titleCell = new StringBuilder();
+        titleCell.append("<th style=\"visibility:hidden;\"></th>");
         return titleCell.toString();
     }
 
@@ -245,7 +278,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
             String actionMethod = action.getActionMethod();
             String actionLabel = action.getActionLabel();
 
-            AccountingLineViewAction viewAction = new AccountingLineViewAction(actionMethod, actionLabel, action.getButtonStyle(), action.getButtonLabel());
+            AccountingLineViewAction viewAction = new AccountingLineViewAction(actionMethod, actionLabel, action.getButtonStyle(), action.getButtonLabel(), action.getButtonIcon());
             viewActions.add(viewAction);
         }
 
@@ -265,6 +298,34 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
     protected String getGroupInfix() {
         Class accountingLineClass = accountingLineGroupDefinition.getAccountingLineClass();
         return (accountingLineClass.isAssignableFrom(SourceAccountingLine.class) ? "source" : "target");
+    }
+
+    /**
+     * Renders the show/hide button
+     * @param pageContext the page context to render to
+     * @param parentTag the tag requesting all this rendering
+     * @throws JspException thrown under terrible circumstances when the rendering failed and had to be left behind like so much refuse
+     */
+    protected void renderHideDetails(PageContext pageContext, Tag parentTag) throws JspException {
+        hideStateTag.setPageContext(pageContext);
+        hideStateTag.setParent(parentTag);
+
+        hideStateTag.doStartTag();
+        hideStateTag.doEndTag();
+
+        String toggle = hideDetails ? "show" : "hide";
+        String displayToggle = hideDetails ? "Show" : "Hide";
+
+        showHideTag.setPageContext(pageContext);
+        showHideTag.setParent(parentTag);
+        showHideTag.setProperty("methodToCall."+toggle+"Details");
+        showHideTag.setStyleClass("btn btn-default uppercase");
+        showHideTag.setAlt(toggle+" transaction details");
+        showHideTag.setTitle(toggle+" transaction details");
+        showHideTag.setValue(displayToggle + " Details");
+
+        showHideTag.doStartTag();
+        showHideTag.doEndTag();
     }
 
     /**
@@ -296,7 +357,7 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
                 out.write("\t\tdocument.getElementById(uploadDivId).style.display=\"inline\";\n");
                 out.write("\t}\n");
                 out.write("\tdocument.write(\n");
-                out.write("\t\t'<a class=\"btn btn-default\" id=\"" + showLink + "\" href=\"#\" onclick=\"" + showImport + "(\\\'" + showLink + "\\\',\\\'" + uploadDiv + "\\\');return false;\">Import Lines</a>'+\n");
+                out.write("\t\t'<a class=\"btn btn-default uppercase\" id=\"" + showLink + "\" href=\"#\" onclick=\"" + showImport + "(\\\'" + showLink + "\\\',\\\'" + uploadDiv + "\\\');return false;\">Import Lines</a>'+\n");
                 out.write("\t\t'<div class=\"uploadDiv\" id=\"" + uploadDiv + "\" style=\"display:none;\" >' +\n");
 
                 out.write("\t\t'");
@@ -528,6 +589,22 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      */
     public void setCanEdit(boolean canEdit) {
         this.canEdit = canEdit;
+    }
+
+    /**
+     * Gets the hideDetails attribute.
+     * @return Returns the hideDetails.
+     */
+    public boolean getHideDetails() {
+        return hideDetails;
+    }
+
+    /**
+     * Sets the hideDetails attribute value.
+     * @param hideDetails The hideDetails to set.
+     */
+    public void setHideDetails(boolean hideDetails) {
+        this.hideDetails = hideDetails;
     }
 
 }

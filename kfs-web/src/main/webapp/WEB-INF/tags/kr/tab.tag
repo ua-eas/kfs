@@ -141,7 +141,7 @@
           </c:otherwise>
       </c:choose>
       <c:if test="${not empty helpUrl }">
-          <kul:help alternativeHelp="${helpUrl}" />
+          <kul:help alternativeHelp="${helpUrl}" onClick="event.stopPropagation()" />
       </c:if>
 
       <c:if test="${highlightTab}">

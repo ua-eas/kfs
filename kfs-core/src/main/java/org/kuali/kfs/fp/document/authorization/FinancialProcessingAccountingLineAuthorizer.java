@@ -107,7 +107,7 @@ public class FinancialProcessingAccountingLineAuthorizer extends AccountingLineA
         String actionMethod = this.getRefreshLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_REFRESH_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        return new AccountingLineViewAction(actionMethod, actionLabel, "default", "Refresh");
+        return new AccountingLineViewAction(actionMethod, actionLabel, "btn clean", "Refresh", "fa fa-refresh");
     }
     
     /**

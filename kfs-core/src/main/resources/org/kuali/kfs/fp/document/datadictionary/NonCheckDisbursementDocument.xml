@@ -107,19 +107,12 @@
 				<property name="lines">
 					<list>
 						<ref bean="accountingInformation"/>
-						<bean parent="AccountingLineView-line">
-							<property name="elementName" value="lineDescription"/>
-							<property name="fields">
-								<list>
-									<bean parent="AccountingLineView-field" p:name="referenceNumber" p:required="true"/>
-									<bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription" p:overrideColSpan="2"/>
-								</list>
-							</property>
-						</bean>
 					</list>
 				</property>
 			</bean>
 			<bean parent="AccountingLineView-field" p:name="amount" p:required="true"/>
+			<bean parent="AccountingLineView-field" p:name="referenceNumber" p:required="true" p:useShortLabel="true"/>
+			<bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription" />
 			<bean parent="AccountingLineView-actions"/>
 		</list>
 	</property>

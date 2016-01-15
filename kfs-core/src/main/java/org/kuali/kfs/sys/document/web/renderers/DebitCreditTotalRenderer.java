@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
-import java.io.IOException;
+import org.apache.struts.taglib.bean.WriteTag;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.struts.taglib.bean.WriteTag;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
+import java.io.IOException;
 
 public class DebitCreditTotalRenderer extends TotalRendererBase {
     private String debitTotalProperty;
@@ -77,17 +76,18 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
         JspWriter out = pageContext.getOut();
         
         try {
-            out.write("<tr>");
+            out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 1;
-            out.write("<td  class=\"total-line\" colspan=\"");
-            out.write(Integer.toString(emptyCellSpanBefore));
+            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 2;
+            out.write("<td colspan=\"");
+            out.write(Integer.toString(emptyCellSpanBefore) + 2);
             out.write("\">&nbsp;</td>");
             
-            out.write("<td class=\"total-line\" style=\"border-left: 0px; white-space:nowrap;\">");            
-            out.write("<strong>");
+            out.write("<td colspan=\"3\">");
+            out.write("<span class=\"label\">");
             
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(debitTotalLabelProperty));
+            out.write("</span>");
             out.write("&nbsp;");
             
             debitWriteTag.setPageContext(pageContext);
@@ -96,13 +96,13 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             debitWriteTag.doStartTag();
             debitWriteTag.doEndTag();
             
-            out.write("</strong>");            
             out.write("</td>");
             
-            out.write("<td class=\"total-line\" style=\"border-left: 0px; white-space:nowrap;\">");            
-            out.write("<strong>");
+            out.write("<td colspan=\"2\" class=\"right\">");
+            out.write("<span class=\"label\">");
             
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(creditTotalLabelProperty));
+            out.write("</span>");
             out.write("&nbsp;");
             
             creditWriteTag.setPageContext(pageContext);
@@ -111,13 +111,12 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             creditWriteTag.doStartTag();
             creditWriteTag.doEndTag();
             
-            out.write("</strong>");            
             out.write("</td>");
             
             final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell() - 1;
             if(emptyCellSpanAfter > 0) {
-                out.write("<td class=\"total-line\" style=\"border-left: 0px;\" colspan=\"");
-                out.write(Integer.toString(emptyCellSpanAfter));
+                out.write("<td colspan=\"");
+                out.write(Integer.toString(emptyCellSpanAfter - 1));
                 out.write("\">&nbsp;</td>");
             }
             
