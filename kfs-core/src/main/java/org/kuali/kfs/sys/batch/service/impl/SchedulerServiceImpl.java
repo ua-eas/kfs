@@ -525,6 +525,7 @@ public class SchedulerServiceImpl implements SchedulerService {
             LOG.info("dependencyJobName:::::" + dependencyJobName);
             JobDetail dependencyJobDetail = getScheduledJobDetail(dependencyJobName);
             if (isDependencySatisfiedNegatively(jobDetail, dependencyJobDetail)) {
+                LOG.info("cancelling "+jobDetail.getFullName()+" because dependency "+dependencyJobName+" was \"satisfied negatively\"");
                 return true;
             }
         }
