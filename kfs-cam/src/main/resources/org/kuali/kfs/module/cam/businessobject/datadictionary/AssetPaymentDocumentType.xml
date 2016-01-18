@@ -114,7 +114,7 @@
   <bean id="AssetPaymentDocumentType-lookupDefinition" parent="AssetPaymentDocumentType-lookupDefinition-parentBean"/>
 
   <bean id="AssetPaymentDocumentType-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
-    <property name="title" value="Payment Document Type Lookup"/>
+    <property name="title" value="Asset Payment Document Type Lookup"/>
     
     <property name="defaultSort">
       <bean parent="SortDefinition">
