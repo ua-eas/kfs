@@ -22,7 +22,7 @@
 	
 <kul:page  showDocumentInfo="false" 
 	headerTitle="Customer Invoice Generation" docTitle="Customer Invoice Generation" renderMultipart="true"
-	transactionalDocument="false" htmlFormAction="arCustomerInvoice" errorKey="foo">
+	transactionalDocument="false" htmlFormAction="arCustomerInvoiceGeneration" errorKey="foo">
 
     <div id="lookup">
         <table cellpadding="0" cellspacing="0" class="datatable-80" align="center" summary="Invoice Section">
