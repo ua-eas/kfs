@@ -1,8 +1,8 @@
 {
   "changeLog": [
     {
-      "jira": "FINI-408b",
-      "id": "Correct navigation labels and links for FINI-408 part b",
+      "jira": "FINI-584",
+      "id": "Correct navigation labels and links for Capital Asset Retirement Global and Capital Asset Global",
       "changes": [
         {
           "changeType": "updateDocuments",
@@ -566,11 +566,11 @@
                 "links": {
                   "activities": [
                     {
-                      "businessObjectClass": "org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry",
+                      "businessObjectClass": "org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableProcessingReport",
                       "linkType": "kfs"
                     },
                     {
-                      "businessObjectClass": "org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableProcessingReport",
+                      "businessObjectClass": "org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry",
                       "linkType": "kfs"
                     }
                   ],
