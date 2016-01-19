@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service.impl;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -31,6 +24,10 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OffsetDefinitionService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -56,10 +53,13 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants.CAPITAL_ASSETS_BATCH;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class AssetGlobalServiceImpl implements AssetGlobalService {
 
@@ -337,10 +337,17 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
         }
         // adjust source asset amounts
         KualiDecimalUtils kualiDecimalUtils = new KualiDecimalUtils();
-        double separateRatio = 1 - (assetGlobal.getSeparateSourceTotalAmount().doubleValue() / assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount().doubleValue());
-        separateSourceCapitalAsset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
-        separateSourceCapitalAsset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
-        separateSourceCapitalAsset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+        KualiDecimal divisor = assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount();
+        if ( divisor.isZero() ) {
+            separateSourceCapitalAsset.setSalvageAmount(KualiDecimal.ZERO);
+            separateSourceCapitalAsset.setReplacementAmount(KualiDecimal.ZERO);
+            separateSourceCapitalAsset.setFabricationEstimatedTotalAmount(KualiDecimal.ZERO);
+        } else {
+            double separateRatio = 1 - (assetGlobal.getSeparateSourceTotalAmount().doubleValue() / divisor.doubleValue());
+            separateSourceCapitalAsset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
+            separateSourceCapitalAsset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
+            separateSourceCapitalAsset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+        }
 
         Integer maxSequenceNumber = assetPaymentService.getMaxSequenceNumber(separateSourceCapitalAsset.getCapitalAssetNumber());
         // Add to the save list
@@ -383,10 +390,17 @@ public class AssetGlobalServiceImpl implements AssetGlobalService {
 
         // set specific values for new assets if document is Asset Separate
         if (separate) {
-            double separateRatio = assetGlobalDetail.getSeparateSourceAmount().doubleValue() / assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount().doubleValue();
-            asset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
-            asset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
-            asset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+            KualiDecimal divisor = assetGlobal.getSeparateSourceCapitalAsset().getTotalCostAmount();
+            if ( divisor.isZero() ) {
+                asset.setSalvageAmount(KualiDecimal.ZERO);
+                asset.setReplacementAmount(KualiDecimal.ZERO);
+                asset.setFabricationEstimatedTotalAmount(KualiDecimal.ZERO);
+            } else {
+                double separateRatio = assetGlobalDetail.getSeparateSourceAmount().doubleValue() / divisor.doubleValue();
+                asset.setSalvageAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getSalvageAmount(), separateRatio));
+                asset.setReplacementAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getReplacementAmount(), separateRatio));
+                asset.setFabricationEstimatedTotalAmount(kualiDecimalUtils.safeMultiply(assetGlobal.getSeparateSourceCapitalAsset().getFabricationEstimatedTotalAmount(), separateRatio));
+            }
             Date lastInventoryDate = assetGlobal.getLastInventoryDate();
             if (lastInventoryDate != null) {
                 asset.setLastInventoryDate(new Timestamp(lastInventoryDate.getTime()));
