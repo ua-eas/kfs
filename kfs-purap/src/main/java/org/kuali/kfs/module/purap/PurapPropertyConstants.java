@@ -192,7 +192,9 @@ public class PurapPropertyConstants {
     public static final String GRAND_TOTAL = "grandTotal";
     public static final String PAYMENT_REQUEST = "paymentRequest";
     public static final String RECURRING_PAYMENT_TYPE = "recurringPaymentType";
+    public static final String HOLD_INDICATOR = "holdIndicator";
     public static final String HOLD_INDICATOR_FOR_SEARCHING= "holdIndicatorForSearching";
+    public static final String PAYMENT_REQUEST_CANCEL_INDICATOR = "paymentRequestedCancelIndicator";
     public static final String PAYMENT_REQUEST_CANCEL_INDICATOR_FOR_SEARCHING = "paymentRequestedCancelIndicatorForSearching";
 
     // tax tab fields
