@@ -34,6 +34,7 @@ import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.dataaccess.PaymentRequestDao;
 import org.kuali.kfs.module.purap.util.VendorGroupingHelper;
+import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
@@ -368,9 +369,9 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
     @Override
     public List<PaymentRequestDocument> getPaymentRequestInReceivingStatus() {
         Criteria criteria = new Criteria();
-        criteria.addNotEqualTo("holdIndicator", "Y");
-        criteria.addNotEqualTo("paymentRequestedCancelIndicator", "Y");
-        criteria.addEqualTo("documentHeader.applicationDocumentStatus", PaymentRequestStatuses.APPDOC_AWAITING_RECEIVING_REVIEW);
+        criteria.addNotEqualTo(PurapPropertyConstants.HOLD_INDICATOR, "Y");
+        criteria.addNotEqualTo(PurapPropertyConstants.PAYMENT_REQUEST_CANCEL_INDICATOR, "Y");
+        criteria.addEqualTo(KFSConstants.DOCUMENT_HEADER_PROPERTY_NAME + "." + KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS, PaymentRequestStatuses.APPDOC_AWAITING_RECEIVING_REVIEW);
 
         QueryByCriteria qbc = new QueryByCriteria(PaymentRequestDocument.class, criteria);
         return this.getPaymentRequestsByQueryByCriteria(qbc);
