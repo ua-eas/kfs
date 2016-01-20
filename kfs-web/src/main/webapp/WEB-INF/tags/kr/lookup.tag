@@ -29,6 +29,7 @@
 <%@ attribute name="autoSearch" required="false" description="Determines whether auto-search will be used in the lookup." %>
 <%@ attribute name="searchIconOverride" required="false" description="If present, changes the url of the icon image from the default Kuali magnifying glass to the image given here." %>
 <%@ attribute name="baseLookupUrl" required="false" description="The url the lookup will direct itself to." %>
+<%@ attribute name="addClass" required="false" description="Additional class(es) to add to the input" %>
 
 <c:choose>
   <c:when test="${!empty tabindexOverride}">
@@ -49,5 +50,13 @@
 
 <c:set var="epMethodToCallAttribute" value="methodToCall.performLookup.(!!${boClassName}!!).(((${fieldConversions}))).((`${lookupParameters}`)).((<${hideReturnLink}>)).(([${extraButtonSource}])).((*${extraButtonParams}*)).((^${suppressActions}^)).((&${readOnlyFields}&)).((/${referencesToRefresh}/)).((~${autoSearch}~)).(::::;${baseLookupUrl};::::).anchor${anchor}"/>
 ${kfunc:registerEditableProperty(KualiForm, epMethodToCallAttribute)} 
-<input type="image" tabindex="${tabindex}" name="${epMethodToCallAttribute}"
-   src="${lookupicon}" border="0" class="tinybutton searchicon" valign="middle" alt="Search ${fieldLabel}" title="Search ${fieldLabel}" />
+<input
+        type="image"
+        tabindex="${tabindex}"
+        name="${epMethodToCallAttribute}"
+        src="${lookupicon}"
+        border="0"
+        class="searchicon ${addClass}"
+        valign="middle"
+        alt="Search ${fieldLabel}"
+        title="Search ${fieldLabel}" />

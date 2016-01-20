@@ -36,9 +36,8 @@
         tabErrorKey="${KFSConstants.PaymentApplicationTabErrorCodes.NON_AR_TAB}">
 
         <div class="tab-container" align="center">
-			<h3>Non-AR</h3>
-            <table width="100%" cellpadding="0" cellspacing="0" class="datatable">
-                <tr>
+            <table class="standard">
+                <tr class="header">
                     <kul:htmlAttributeHeaderCell literalLabel=" "/>             
                     <kul:htmlAttributeHeaderCell
 	                    attributeEntry="${nonInvoicedAttributes.chartOfAccountsCode}" />
@@ -58,9 +57,7 @@
                 </tr>
 				<c:if test="${readOnly ne true}">
 	                <tr>
-	                    <td>
-	                        add
-	                    </td>
+	                    <td>&nbsp;</td>
 	                    <td>
 			                <c:if test="${!accountsCanCrossCharts}">	
 	    		            	<span id="nonInvoicedAddLine.chartOfAccountsCode.div"><bean:write name="KualiForm" property="nonInvoicedAddLine.chartOfAccountsCode"/></span> 
@@ -144,9 +141,8 @@
 		                </td>
 	                </tr>
                 </c:if>
-                <logic:iterate id="nonInvoiced" name="KualiForm"
-	                   property="paymentApplicationDocument.nonInvoiceds" indexId="ctr">
-                    <tr>
+                <logic:iterate id="nonInvoiced" name="KualiForm" property="paymentApplicationDocument.nonInvoiceds" indexId="ctr">
+                    <tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
                         <td>
                             <c:out value="${nonInvoiced.financialDocumentLineNumber}" />
                         </td>
@@ -215,9 +211,12 @@
                         <c:choose>
                         <c:when test="${readOnly ne true}">
                             <td>
-	                    	    <html:image property="methodToCall.deleteNonArLine.line${nonInvoiced.financialDocumentLineNumber}"
-		                            src="${ConfigProperties.externalizable.images.url}tinybutton-delete1.gif"
-		                            alt="Delete" title="Delete" styleClass="tinybutton" />
+	                    	    <html:submit
+                                        property="methodToCall.deleteNonArLine.line${nonInvoiced.financialDocumentLineNumber}"
+                                        alt="Delete"
+                                        title="Delete"
+                                        styleClass="btn btn-red"
+                                        value="Delete"/>
                             </td>
                         </c:when>
                         <c:otherwise>

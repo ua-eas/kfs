@@ -185,25 +185,21 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      * @returns the String with the HTML for the row opening
      */
     protected String buildGroupActionsBeginning() {
-        if (this.canUpload() || this.isGroupActionsRendered()) {
-            StringBuilder groupActionsBeginning = new StringBuilder();
-            final int width = cellCount - titleCellSpan;
+        StringBuilder groupActionsBeginning = new StringBuilder();
+        final int width = cellCount - titleCellSpan;
 
-            groupActionsBeginning.append("<td ");
-            groupActionsBeginning.append("colspan=\"");
-            groupActionsBeginning.append(Integer.toString(width));
-            groupActionsBeginning.append("\" ");
+        groupActionsBeginning.append("<td ");
+        groupActionsBeginning.append("colspan=\"");
+        groupActionsBeginning.append(Integer.toString(width));
+        groupActionsBeginning.append("\" ");
 
-            groupActionsBeginning.append("class=\"tab-subhead-import\" ");
-            groupActionsBeginning.append("align=\"right\" ");
-            groupActionsBeginning.append("nowrap=\"nowrap\" ");
-            groupActionsBeginning.append("style=\"border-right: none;\"");
-            groupActionsBeginning.append(">");
+        groupActionsBeginning.append("class=\"tab-subhead-import\" ");
+        groupActionsBeginning.append("align=\"right\" ");
+        groupActionsBeginning.append("nowrap=\"nowrap\" ");
+        groupActionsBeginning.append("style=\"border-right: none;\"");
+        groupActionsBeginning.append(">");
 
-            return groupActionsBeginning.toString();
-        }
-
-        return StringUtils.EMPTY;
+        return groupActionsBeginning.toString();
     }
 
     /**
@@ -222,10 +218,12 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      */
     protected String buildTitleCell() throws JspException{
         StringBuilder titleCell = new StringBuilder();
-        int colSpan = (this.canUpload() || this.isGroupActionsRendered()) ? titleCellSpan : cellCount;
+        int colSpan = titleCellSpan;
 
         // subtract one for the blank cell before the title
-        colSpan--;
+        if (colSpan > 0) {
+            colSpan--;
+        }
 
         titleCell.append("<td ");
 

@@ -1066,7 +1066,7 @@
 		<property name="fields">
 			<list>
 				<bean parent="AccountingLineView-field" p:name="chartOfAccountsCode" p:required="true" p:webUILeaveFieldFunction="loadChartInfo" p:dynamicLabelProperty="chart.finChartOfAccountDescription" p:useShortLabel="true"/>
-				<bean parent="AccountingLineView-field" p:name="accountNumber" p:required="true" p:webUILeaveFieldFunction="loadAccountInfo" p:dynamicLabelProperty="account.accountName">
+				<bean parent="AccountingLineView-field" p:name="accountNumber" p:required="true" p:webUILeaveFieldFunction="loadAccountInfo" p:dynamicLabelProperty="account.accountName" p:useShortLabel="true">
 					<property name="overrideFields">
 						<list>
 							<bean parent="AccountingLineView-overrideField" p:name="accountExpiredOverride"/>

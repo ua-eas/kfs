@@ -15,157 +15,165 @@
     limitations under the License.
 
 --%>
-<%@ page import="org.kuali.kfs.kns.web.struts.action.KualiAction,org.kuali.kfs.krad.util.KRADConstants"%>
-<%@ include file="tldHeader.jsp"%>
+<%@ page import="org.kuali.kfs.kns.web.struts.action.KualiAction,org.kuali.kfs.krad.util.KRADConstants" %>
+<%@ include file="tldHeader.jsp" %>
 <html:html>
 
-<%
-String textAreaFieldLabel = request.getParameter(KualiAction.TEXT_AREA_FIELD_LABEL);
-if (textAreaFieldLabel == null) {
-    textAreaFieldLabel = (String) request.getAttribute(KualiAction.TEXT_AREA_FIELD_LABEL);
-}
-%>
-<c:if test="${empty textAreaFieldName}">
-	<c:set var="textAreaFieldName"
-		value="<%=request.getParameter(KualiAction.TEXT_AREA_FIELD_NAME)%>" />
-</c:if>
+    <%
+        String textAreaFieldLabel = request.getParameter(KualiAction.TEXT_AREA_FIELD_LABEL);
+        if (textAreaFieldLabel == null) {
+            textAreaFieldLabel = (String) request.getAttribute(KualiAction.TEXT_AREA_FIELD_LABEL);
+        }
+    %>
+    <c:if test="${empty textAreaFieldName}">
+        <c:set var="textAreaFieldName"
+               value="<%=request.getParameter(KualiAction.TEXT_AREA_FIELD_NAME)%>"/>
+    </c:if>
 
-<head>
-<link href="${pageContext.request.contextPath}/kr/css/kuali.css" rel="stylesheet" type="text/css" />
-<script language="javascript" src="${pageContext.request.contextPath}/kr/scripts/core.js"></script>
-</head>
-<body onload="setTextArea('${textAreaFieldName}')">
-<div class="headerarea" id="headerarea-small">
-<h1><%=textAreaFieldLabel%></h1>
-</div>
+    <head>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
+        <link href='${pageContext.request.contextPath}/css/newPortal.css' rel='stylesheet' type='text/css'>
+        <link href='${pageContext.request.contextPath}/css/lookup.css' rel='stylesheet' type='text/css'>
+        <script language="javascript" src="${pageContext.request.contextPath}/kr/scripts/core.js"></script>
+    </head>
+    <body onload="setTextArea('${textAreaFieldName}')">
+        <div id="view_div">
+            <div class="main-panel">
 
-<c:set var="parameters"	value="<%=request.getParameterMap()%>" />
 
-<c:set var="textAreaAttributes"
-	value="${DataDictionary.AttributeReferenceElements.attributes}" />
-<c:if test="${empty textAreaFieldName}">
-	<c:set var="textAreaFieldName"
-		value="<%=request.getAttribute(KualiAction.TEXT_AREA_FIELD_NAME)%>" />
-</c:if>
+                <div class="headerarea-small" id="headerarea-small">
+                    <h2><%=textAreaFieldLabel%></h2>
+                </div>
 
-<c:if test="${empty htmlFormAction}">
-	<c:set var="htmlFormAction"
-		value="<%=request.getAttribute(KualiAction.FORM_ACTION)%>" />
-</c:if>
-<c:if test="${empty htmlFormAction}">
-	<c:set var="htmlFormAction"
-		value="<%=request.getParameter(KualiAction.FORM_ACTION)%>" />
-</c:if>
-<c:if test="${empty documentWebScope}">
-	<c:set var="documentWebScope"
-		value="<%=request.getAttribute(KRADConstants.DOCUMENT_WEB_SCOPE)%>" />
-</c:if>
-<c:if test="${empty documentWebScope}">
-	<c:set var="documentWebScope"
-		value="<%=request.getParameter(KRADConstants.DOCUMENT_WEB_SCOPE)%>" />
-</c:if>
-<c:if test="${empty documentWebScope}">
-	<c:set var="documentWebScope" value="request" />
-</c:if>
-<c:if test="${empty docFormKey}">
-	<c:set var="docFormKey"
-		value="<%=request.getAttribute(KRADConstants.DOC_FORM_KEY)%>" />
-</c:if>
-<c:if test="${empty docFormKey}">
-	<c:set var="docFormKey"
-		value="<%=request.getParameter(KRADConstants.DOC_FORM_KEY)%>" />
-</c:if>
-<c:if test="${empty docFormKey}">
-	<c:set var="docFormKey"	value="88888888" />
-</c:if>
-<c:if test="${empty textAreaFieldAnchor}">
-	<c:set var="textAreaFieldAnchor"
-		value="<%=request.getAttribute(KualiAction.TEXT_AREA_FIELD_ANCHOR)%>" />
-</c:if>
-<c:if test="${empty textAreaFieldAnchor}">
-	<c:set var="textAreaFieldAnchor"
-		value="<%=request.getParameter(KualiAction.TEXT_AREA_FIELD_ANCHOR)%>" />
-</c:if>
-<c:if test="${empty textAreaReadOnly}">
-	<c:set var="textAreaReadOnly"
-		value="<%=request.getParameter(KualiAction.TEXT_AREA_READ_ONLY)%>" />
-</c:if>
+                <c:set var="parameters" value="<%=request.getParameterMap()%>"/>
 
-<c:if test="${empty textAreaMaxLength}">
-	<c:set var="textAreaMaxLength"
-		value="<%=request.getParameter(KualiAction.TEXT_AREA_MAX_LENGTH)%>" />
-</c:if>
+                <c:set var="textAreaAttributes" value="${DataDictionary.AttributeReferenceElements.attributes}"/>
+                <c:if test="${empty textAreaFieldName}">
+                    <c:set var="textAreaFieldName" value="<%=request.getAttribute(KualiAction.TEXT_AREA_FIELD_NAME)%>"/>
+                </c:if>
 
-<html:form styleId="kualiForm" method="post"
-	action="/${htmlFormAction}.do" enctype=""
-	onsubmit="return hasFormAlreadyBeenSubmitted();">
+                <c:if test="${empty htmlFormAction}">
+                    <c:set var="htmlFormAction" value="<%=request.getAttribute(KualiAction.FORM_ACTION)%>"/>
+                </c:if>
+                <c:if test="${empty htmlFormAction}">
+                    <c:set var="htmlFormAction" value="<%=request.getParameter(KualiAction.FORM_ACTION)%>"/>
+                </c:if>
+                <c:if test="${empty documentWebScope}">
+                    <c:set var="documentWebScope" value="<%=request.getAttribute(KRADConstants.DOCUMENT_WEB_SCOPE)%>"/>
+                </c:if>
+                <c:if test="${empty documentWebScope}">
+                    <c:set var="documentWebScope" value="<%=request.getParameter(KRADConstants.DOCUMENT_WEB_SCOPE)%>"/>
+                </c:if>
+                <c:if test="${empty documentWebScope}">
+                    <c:set var="documentWebScope" value="request"/>
+                </c:if>
+                <c:if test="${empty docFormKey}">
+                    <c:set var="docFormKey" value="<%=request.getAttribute(KRADConstants.DOC_FORM_KEY)%>"/>
+                </c:if>
+                <c:if test="${empty docFormKey}">
+                    <c:set var="docFormKey" value="<%=request.getParameter(KRADConstants.DOC_FORM_KEY)%>"/>
+                </c:if>
+                <c:if test="${empty docFormKey}">
+                    <c:set var="docFormKey" value="88888888"/>
+                </c:if>
+                <c:if test="${empty textAreaFieldAnchor}">
+                    <c:set var="textAreaFieldAnchor" value="<%=request.getAttribute(KualiAction.TEXT_AREA_FIELD_ANCHOR)%>"/>
+                </c:if>
+                <c:if test="${empty textAreaFieldAnchor}">
+                    <c:set var="textAreaFieldAnchor" value="<%=request.getParameter(KualiAction.TEXT_AREA_FIELD_ANCHOR)%>"/>
+                </c:if>
+                <c:if test="${empty textAreaReadOnly}">
+                    <c:set var="textAreaReadOnly" value="<%=request.getParameter(KualiAction.TEXT_AREA_READ_ONLY)%>"/>
+                </c:if>
 
-	<table>
-		<tr>
-			<td>
-			  <div>
-			    <c:set var="attributeEntry" value="${textAreaAttributes.extendedTextArea}"/>
-			    <%-- cannot use struts form tags here b/c some id values will not be valid properties --%>
-			    <c:choose>
-			    	<c:when test="${textAreaReadOnly == 'true'}" >
-			            <textarea id="${textAreaFieldName}" name="${textAreaFieldName}"
-                        	rows="${attributeEntry.control.rows}"
-                            cols="${attributeEntry.control.cols}"
-                            readonly="readonly"
-                            ><%-- if it's a valid property then get the value...this is kind of hacky --%><c:catch><bean:write name="KualiForm" property="${textAreaFieldName}"/></c:catch></textarea>
-			    	</c:when>
-			    	<c:otherwise>
-			    		${kfunc:registerEditableProperty(KualiForm, field.propertyName)}
-			            <textarea id="${textAreaFieldName}" name="${textAreaFieldName}"
-                        	rows="${attributeEntry.control.rows}"
-                            cols="${attributeEntry.control.cols}"
-                            maxlength="${textAreaMaxLength}"
-                            onkeyup="textLimit(this, ${textAreaMaxLength});"
-                            ><%-- if it's a valid property then get the value...this is kind of hacky --%><c:catch><bean:write name="KualiForm" property="${textAreaFieldName}"/></c:catch></textarea>
-					</c:otherwise>
-				</c:choose>
-			  </div>
-			</td>
-		</tr>
+                <c:if test="${empty textAreaMaxLength}">
+                    <c:set var="textAreaMaxLength" value="<%=request.getParameter(KualiAction.TEXT_AREA_MAX_LENGTH)%>"/>
+                </c:if>
 
-		<tr>
-			<td>
-			  <div id="globalbuttons" class="globalbuttons">
-			  	<c:choose>
-				    <c:when test="${textAreaReadOnly == 'true'}">
-						<html:image
-							onclick="javascript:window.close();"
-							src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
-							styleClass="globalbuttons" title="close" alt="close" />
-					</c:when>
-					<c:otherwise>
-						<html:image
-							property="methodToCall.postTextAreaToParent.anchor${textAreaFieldAnchor}"
-							onclick="javascript:postValueToParentWindow('${textAreaFieldName}');return false"
-							src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_continue.gif"
-							styleClass="globalbuttons" title="return" alt="return" />
-					</c:otherwise>
-				</c:choose>	
-			  </div>
-			</td>
-		</tr>
-	</table>
 
-	<html:hidden property="documentWebScope" value="${documentWebScope}"/>
-	<html:hidden property="formKey" value="${formKey}"/>
-	<html:hidden property="docFormKey" value="${docFormKey}"/>
-	<html:hidden property="refreshCaller" value="TextAreaRefresh"/>
+                <html:form styleId="kualiForm" method="post"
+                           action="/${htmlFormAction}.do" enctype=""
+                           onsubmit="return hasFormAlreadyBeenSubmitted();">
 
-    <c:if test="${not empty parameters}">
-      <c:forEach items="${parameters}" var="mapEntry" >
-        <c:if test="${not fn:contains(mapEntry.key,'methodToCall')}">
-        <html:hidden property="${mapEntry.key}" value="${mapEntry.value[0]}"/>
-        </c:if>
-      </c:forEach>
-	</c:if>
+                    <table style="margin: 10px auto;">
+                        <tr>
+                            <td>
+                                <div>
+                                    <c:set var="attributeEntry" value="${textAreaAttributes.extendedTextArea}"/>
+                                        <%-- cannot use struts form tags here b/c some id values will not be valid properties --%>
+                                    <c:choose>
+                                        <c:when test="${textAreaReadOnly == 'true'}">
+                                        <textarea id="${textAreaFieldName}" name="${textAreaFieldName}"
+                                                  rows="21"
+                                                  cols="60"
+                                                  readonly="readonly"
+                                                ><%-- if it's a valid property then get the value...this is kind of hacky --%>
+                                            <c:catch>
+                                                <bean:write name="KualiForm" property="${textAreaFieldName}"/>
+                                            </c:catch></textarea>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${kfunc:registerEditableProperty(KualiForm, field.propertyName)}
+                                        <textarea id="${textAreaFieldName}" name="${textAreaFieldName}"
+                                                  rows="21"
+                                                  cols="60"
+                                                  maxlength="${textAreaMaxLength}"
+                                                  onkeyup="textLimit(this, ${textAreaMaxLength});"
+                                                ><%-- if it's a valid property then get the value...this is kind of hacky --%>
+                                            <c:catch>
+                                                <bean:write name="KualiForm" property="${textAreaFieldName}"/>
+                                            </c:catch></textarea>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </td>
+                        </tr>
 
-</html:form>
-<div id="formComplete"></div>
-</body>
+                        <tr>
+                            <td>
+                                <div class="center" style="margin-top: 10px;">
+                                    <c:choose>
+                                        <c:when test="${textAreaReadOnly == 'true'}">
+                                            <html:button
+                                                    property="methodToCall.postTextAreaToParent.anchor${textAreaFieldAnchor}"
+                                                    onclick="javascript:window.close();"
+                                                    styleClass="btn btn-default"
+                                                    title="close"
+                                                    alt="close"
+                                                    value="Close"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <html:submit
+                                                    property="methodToCall.postTextAreaToParent.anchor${textAreaFieldAnchor}"
+                                                    onclick="javascript:postValueToParentWindow('${textAreaFieldName}');return false"
+                                                    styleClass="btn btn-default"
+                                                    title="return"
+                                                    alt="return"
+                                                    value="Continue"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
 
+                    <html:hidden property="documentWebScope" value="${documentWebScope}"/>
+                    <html:hidden property="formKey" value="${formKey}"/>
+                    <html:hidden property="docFormKey" value="${docFormKey}"/>
+                    <html:hidden property="refreshCaller" value="TextAreaRefresh"/>
+
+                    <c:if test="${not empty parameters}">
+                        <c:forEach items="${parameters}" var="mapEntry">
+                            <c:if test="${not fn:contains(mapEntry.key,'methodToCall')}">
+                                <html:hidden property="${mapEntry.key}" value="${mapEntry.value[0]}"/>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+
+                </html:form>
+                <div id="formComplete"></div>
+            </div>
+        </div>
+    </body>
 </html:html>

@@ -46,7 +46,7 @@
 
 <c:set var="tabindexOverrideBase" value="50" />
 
-<c:set var="mainColumnCount" value="15"/>
+<c:set var="mainColumnCount" value="16"/>
 <c:set var="colSpanItemType" value="6"/>
 <c:set var="colSpanDescription" value="2"/>
 <c:set var="colSpanExtendedPrice" value="1"/>
@@ -77,52 +77,59 @@
             </div>
         </c:if>
 
-        <c:if test="${(fullEntryMode or amendmentEntry) and !lockB2BEntry}">
-        <h3>
-            Add Item
-            <a href="${KualiForm.lineItemImportInstructionsUrl}" target="helpWindow">
-                <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Line Item Import Help" src="Line Item Import Help" hspace="5" border="0" align="middle" class="help" />
-            </a>
-            <div class="tab-subhead import-lines" style="float:right;">
-                <SCRIPT type="text/javascript">
-                    <!--
-                    function hideImport() {
-                        document.getElementById("showLink").style.display="inline";
-                        document.getElementById("uploadDiv").style.display="none";
-                    }
-                    function showImport() {
-                        document.getElementById("showLink").style.display="none";
-                        document.getElementById("uploadDiv").style.display="inline";
-                    }
-                    document.write(
-                            '<a id="showLink" href="#" onclick="showImport();return false;">' +
-                            '<button title="import items from file" class="btn btn-default" alt="import items from file">' +
-                            'Import Lines' +
-                            '<\/button>' +
-                            '<\/a>' +
-                            '<div id="uploadDiv" style="display:none; float:right;" >' +
-                            '<html:file size="30" property="itemImportFile" />' +
-                            '<html:submit property="methodToCall.importItems" styleClass="btn btn-green" alt="add imported items" title="add imported items" value="Add"/>' +
-                            '<html:submit property="methodToCall.cancel" styleClass="btn btn-default" alt="cancel import" title="cancel import" onclick="hideImport();return false;" value="Cancel" />' +
-                            '<\/div>');
-                    //-->
-                </SCRIPT>
-                <NOSCRIPT>
-                    Import lines
-                    <html:file size="30" property="itemImportFile" style="font:10px;height:16px;" />
-                    <html:submit property="methodToCall.importItems" alt="add imported items" title="add imported items" styleClass="btn btn-green" value="Add" />
-                </NOSCRIPT>
-            </div>
-        </h3>
-        </c:if>
-        <table class="datatable standard" summary="Items Section">
+
+        <table class="standard side-margins acct-lines" summary="Items Section">
+            <c:if test="${(fullEntryMode or amendmentEntry) and !lockB2BEntry}">
+                <tr class="title">
+                    <th style="visibility: hidden;"></th>
+                    <td colspan="3">
+                        <h2>
+                            Add Item
+                            <a href="${KualiForm.lineItemImportInstructionsUrl}" target="helpWindow">
+                                <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Line Item Import Help" src="Line Item Import Help" hspace="5" border="0" align="middle" class="help" />
+                            </a>
+                        </h2>
+                    </td>
+                    <td colspan="11" class="right nowrap">
+                        <SCRIPT type="text/javascript">
+                            <!--
+                            function hideImport() {
+                                document.getElementById("showLink").style.display="inline";
+                                document.getElementById("uploadDiv").style.display="none";
+                            }
+                            function showImport() {
+                                document.getElementById("showLink").style.display="none";
+                                document.getElementById("uploadDiv").style.display="inline";
+                            }
+                            document.write(
+                                    '<a id="showLink" href="#" onclick="showImport();return false;">' +
+                                    '<button title="import items from file" class="btn btn-default uppercase" alt="import items from file">' +
+                                    'Import Lines' +
+                                    '<\/button>' +
+                                    '<\/a>' +
+                                    '<div id="uploadDiv" style="display:none; float:right;" >' +
+                                    '<html:file size="30" property="itemImportFile" />' +
+                                    '<html:submit property="methodToCall.importItems" styleClass="btn btn-green" alt="add imported items" title="add imported items" value="Add"/>' +
+                                    '<html:submit property="methodToCall.cancel" styleClass="btn btn-default" alt="cancel import" title="cancel import" onclick="hideImport();return false;" value="Cancel" />' +
+                                    '<\/div>');
+                            //-->
+                        </SCRIPT>
+                        <NOSCRIPT>
+                            Import lines
+                            <html:file size="30" property="itemImportFile" style="font:10px;height:16px;" />
+                            <html:submit property="methodToCall.importItems" alt="add imported items" title="add imported items" styleClass="btn btn-green" value="Add" />
+                        </NOSCRIPT>
+                    </td>
+                </tr>
+            </c:if>
+
             <c:if test="${(fullEntryMode or amendmentEntry) and !lockB2BEntry}">
                 <tr class="header top">
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemLineNumber}" />
+                    <th></th>
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTypeCode}" />
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemQuantity}"/>
                     <kul:htmlAttributeHeaderCell>
-                        <kul:htmlAttributeLabel attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" useShortLabel="true"/>
+                        <kul:htmlAttributeLabel attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" useShortLabel="true" noColon="true"/>
                     </kul:htmlAttributeHeaderCell>
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemCatalogNumber}" colspan="${colSpanCatlogNumber}" />
 
@@ -130,27 +137,24 @@
                         <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.purchasingCommodityCode}" />
                     </c:if>
 
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" forceRequired="true"/>
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitPrice}" forceRequired="true"/>
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" />
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}"  colspan="${colSpanDescription}" forceRequired="true"/>
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitPrice}" forceRequired="true" addClass="right"/>
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" addClass="right" />
 
-                    <c:set var="colSpanAction" value="5" />
 
                     <c:if test="${purapTaxEnabled}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" />
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" />
-                        <c:set var="colSpanAction" value="${colSpanAction - 2 }" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" addClass="right"/>
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" addClass="right"/>
                     </c:if>
 
                     <c:if test="${displayRequisitionFields}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemRestrictedIndicator}" />
-                        <c:set var="colSpanAction" value="${colSpanAction - 1 }" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemRestrictedIndicator}" addClass="center" />
                     </c:if>
 
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" />
-                    <kul:htmlAttributeHeaderCell literalLabel="Action" colspan="${colSpanAction}" />
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" addClass="center" />
+                    <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="2" />
                 </tr>
-                <tr class="top">
+                <tr class="top new">
                     <td class="infoline">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemLineNumber}" property="newPurchasingItemLine.itemLineNumber" readOnly="true"/>
                     </td>
@@ -169,9 +173,11 @@
                                 readOnly="${readOnly}"
                                 onblur="loadItemUnitOfMeasureInfo( '${itemUnitOfMeasureCodeField}', '${itemUnitOfMeasureDescriptionField}' );${onblur}"
                                 tabindexOverride="${tabindexOverrideBase + 0}"/>
-                        <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure"
-                            fieldConversions="itemUnitOfMeasureCode:newPurchasingItemLine.itemUnitOfMeasureCode"
-                            lookupParameters="'Y':active"/>
+                        <kul:lookup
+                                boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure"
+                                fieldConversions="itemUnitOfMeasureCode:newPurchasingItemLine.itemUnitOfMeasureCode"
+                                lookupParameters="'Y':active"
+                                addClass="embed"/>
                         <div id="newPurchasingItemLine.itemUnitOfMeasure.itemUnitOfMeasureDescription.div" class="fineprint">
                             <html:hidden write="true" property="${itemUnitOfMeasureDescriptionField}"/>
                         </div>
@@ -192,18 +198,20 @@
                             <kul:lookup
                                     boClassName="org.kuali.kfs.vnd.businessobject.CommodityCode"
                                     fieldConversions="purchasingCommodityCode:newPurchasingItemLine.purchasingCommodityCode"
-                                    lookupParameters="'Y':active"/>
+                                    lookupParameters="'Y':active"
+                                    addClass="embed"/>
                             <div id="newPurchasingItemLine.commodityCode.commodityDescription.div" class="fineprint">
                                 <html:hidden write="true" property="${commodityDescriptionField}"/>
                             </div>
                         </td>
                     </c:if>
-                    <td class="infoline nowrap">
+                    <td class="infoline nowrap" colspan="${colSpanDescription}">
                        <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDescription}" property="newPurchasingItemLine.itemDescription" tabindexOverride="${tabindexOverrideBase + 0}"/>
                        <kul:expandedTextArea
-                            textAreaFieldName="newPurchasingItemLine.itemDescription"
-                            action="purapRequisition"
-                            textAreaLabel="description" />
+                                textAreaFieldName="newPurchasingItemLine.itemDescription"
+                                action="purapRequisition"
+                                textAreaLabel="description"
+                                addClass="embed"/>
                     </td>
                     <td class="infoline right">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="newPurchasingItemLine.itemUnitPrice" tabindexOverride="${tabindexOverrideBase + 0}"/>
@@ -227,34 +235,43 @@
                     <td class="infoline center">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" property="newPurchasingItemLine.itemAssignedToTradeInIndicator" tabindexOverride="${tabindexOverrideBase + 0}"/>
                     </td>
-                    <td class="infoline" colspan="${colSpanAction}">
-                        <html:submit
-                                property="methodToCall.addItem"
-                                alt="Insert an Item"
-                                title="Add an Item"
-                                styleClass="btn btn-green"
-                                tabindex="${tabindexOverrideBase + 0}"
-                                value="Add"/>
+                    <td class="infoline" colspan="2">
+                        <div class="actions">
+                            <button
+                                    property="methodToCall.addItem"
+                                    alt="Insert an Item"
+                                    title="Add an Item"
+                                    class="btn btn-green skinny"
+                                    tabindex="${tabindexOverrideBase + 0}"
+                                    value="Add">
+
+                                <span class="fa fa-plus"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </c:if>
-            <tr>
-                <th height=30 colspan="${mainColumnCount}">
-                    <purap:accountdistribution
-                            accountingLineAttributes="${accountingLineAttributes}"
-                            itemAttributes="${itemAttributes}"
-                            displayCommodityCodeFields="${displayCommodityCodeFields}" />
-                </th>
-            </tr>
-        </table>
-    </div>
+            <c:if test="${(fullEntryMode or amendmentEntry)}">
+                <tr>
+                    <th height=30 colspan="${mainColumnCount}" style="border-bottom: 1px solid #BBBBBB; padding-bottom: 20px;">
+                        <purap:accountdistribution
+                                accountingLineAttributes="${accountingLineAttributes}"
+                                itemAttributes="${itemAttributes}"
+                                displayCommodityCodeFields="${displayCommodityCodeFields}" />
+                    </th>
+                </tr>
+            </c:if>
 
-    <div class="tab-container" style="overflow:auto;">
-        <h3>Current Items</h3>
-        <table class="datatable standard items" summary="Items Section">
+            <tr class="title">
+                <th style="visibility: hidden;"></th>
+                <td colspan="3" style="padding-top: 20px;">
+                    <h2>Current Items</h2>
+                </td>
+            </tr>
+
             <c:if test="${!lockB2BEntry and hasLineItems or lockB2BEntry and hasItems}">
-                <tr class="header" style="border-bottom:1px solid #c3c3c3;">
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemLineNumber}" />
+                <tr class="header">
+                    <th></th>
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTypeCode}" hideRequiredAsterisk="true" />
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemQuantity}" />
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" />
@@ -264,42 +281,37 @@
                         <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.purchasingCommodityCode}" />
                     </c:if>
 
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitPrice}" />
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" />
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" colspan="2" />
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitPrice}" addClass="right" />
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" addClass="right" />
 
-                    <c:set var="colSpanAction" value="6" />
 
                     <c:if test="${purapTaxEnabled}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" />
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" />
-                        <c:set var="colSpanAction" value="${colSpanAction - 2 }" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" addClass="right" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" addClass="right" />
                     </c:if>
 
                     <c:if test="${displayRequisitionFields and !lockB2BEntry}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemRestrictedIndicator}" />
-                        <c:set var="colSpanAction" value="${colSpanAction - 1 }" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemRestrictedIndicator}" addClass="center" />
                     </c:if>
 
                     <c:if test="${!lockB2BEntry}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" />
-                        <c:set var="colSpanAction" value="${colSpanAction - 1 }" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" addClass="center" />
                     </c:if>
 
                     <c:if test="${isATypeOfPODoc}">
-                        <c:set var="colSpanAction" value="${colSpanAction - 1 }" />
+                        <kul:htmlAttributeHeaderCell literalLabel="Amount Paid" addClass="right" />
                         <c:choose>
                             <c:when test="${(documentType != 'PO' && !(fullEntryMode or amendmentEntry))}">
-                                <kul:htmlAttributeHeaderCell literalLabel="Inactive" colspan="${colSpanAction}"/>
+                                <kul:htmlAttributeHeaderCell literalLabel="Inactive"/>
                             </c:when>
                             <c:otherwise>
-                                <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${colSpanAction}"/>
+                                <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="2"/>
                             </c:otherwise>
                         </c:choose>
-                        <kul:htmlAttributeHeaderCell literalLabel="Amount Paid" />
                     </c:if>
                     <c:if test="${!isATypeOfPODoc}">
-                        <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${colSpanAction}"/>
+                        <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="2"/>
                     </c:if>
                 </tr>
             </c:if>
@@ -310,6 +322,12 @@
                 </tr>
             </c:if>
 
+            <c:set var="itemCount" value="0"/>
+            <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
+                <c:if test="${itemLine.itemType.lineItemIndicator == true}">
+                    <c:set var="itemCount" value="${itemCount + 1}"/>
+                </c:if>
+            </logic:iterate>
             <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
                 <c:if test="${itemLine.itemType.lineItemIndicator == true}">
                     <c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
@@ -341,24 +359,42 @@
                         <tbody style="display: none;" id="tab-${tabKey}-div">
                     </c:if>
 
-                    <tr class="top">
-                        <td class="infoline" nowrap="nowrap" rowspan="2">
-                            <bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/>
-                            <c:if test="${(fullEntryMode and !amendmentEntry) and !lockB2BEntry}">
+                    <tr class="top line">
+                        <th class="infoline" nowrap="nowrap" rowspan="2" style="position: relative;">
+                            <c:if test="${(fullEntryMode and !amendmentEntry) and !lockB2BEntry and ctr != 0}">
+                                <button
+                                        type="submit"
+                                        name="methodToCall.upItem.line${ctr}"
+                                        alt="Move Item Up"
+                                        title="Move Item Up"
+                                        class="btn clean move"
+                                        value="Move Up"
+                                        style="position:absolute; top:0; right:1px;">
+                                    <span class="fa fa-angle-up"></span>
+                                </button>
                                 <html:image
                                         property="methodToCall.upItem.line${ctr}"
                                         src="${ConfigProperties.externalizable.images.url}purap-up.gif"
-                                        alt="Move Item Up"
-                                        title="Move Item Up"
-                                        styleClass="tinybutton" />
+                                        style="display: none;"/>
+                            </c:if>
+                            <bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/>
+                            <c:if test="${(fullEntryMode and !amendmentEntry) and !lockB2BEntry and ctr != itemCount - 1}">
                                 <html:image
                                         property="methodToCall.downItem.line${ctr}"
                                         src="${ConfigProperties.externalizable.images.url}purap-down.gif"
+                                        style="display: none;"/>
+                                <button
+                                        type="submit"
+                                        name="methodToCall.downItem.line${ctr}"
                                         alt="Move Item Down"
                                         title="Move Item Down"
-                                        styleClass="tinybutton" />
+                                        class="btn clean move"
+                                        value="Move Down"
+                                        style="position:absolute; bottom:0; right:1px;">
+                                    <span class="fa fa-angle-down"></span>
+                                </button>
                             </c:if>
-                        </td>
+                        </th>
                         <td class="infoline">
                             <kul:htmlControlAttribute
                                 attributeEntry="${itemAttributes.itemTypeCode}"
@@ -382,9 +418,11 @@
                                 readOnly="${not ((fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment)))) or lockB2BEntry}"
                                 tabindexOverride="${tabindexOverrideBase + 0}"/>
                             <c:if test="${!(not ((fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment)))) or lockB2BEntry)}">
-                                <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure"
-                                    fieldConversions="itemUnitOfMeasureCode:document.item[${ctr}].itemUnitOfMeasureCode"
-                                    lookupParameters="'Y':active"/>
+                                <kul:lookup
+                                        boClassName="org.kuali.kfs.sys.businessobject.UnitOfMeasure"
+                                        fieldConversions="itemUnitOfMeasureCode:document.item[${ctr}].itemUnitOfMeasureCode"
+                                        lookupParameters="'Y':active"
+                                        addClass="embed"/>
                             </c:if>
                             <div id="document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription.div" class="fineprint">
                                 <html:hidden write="true" property="document.item[${ctr}].itemUnitOfMeasure.itemUnitOfMeasureDescription"/>&nbsp;
@@ -407,9 +445,11 @@
                                     readOnly="${not ( (fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment))))}"
                                     tabindexOverride="${tabindexOverrideBase + 0}"/>
                                 <c:if test="${(fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment)))}">
-                                    <kul:lookup boClassName="org.kuali.kfs.vnd.businessobject.CommodityCode"
-                                        fieldConversions="purchasingCommodityCode:document.item[${ctr}].purchasingCommodityCode"
-                                        lookupParameters="'Y':active"/>
+                                    <kul:lookup
+                                            boClassName="org.kuali.kfs.vnd.businessobject.CommodityCode"
+                                            fieldConversions="purchasingCommodityCode:document.item[${ctr}].purchasingCommodityCode"
+                                            lookupParameters="'Y':active"
+                                            addClass="embed"/>
                                 </c:if>
                                 <div id="document.item[${ctr}].commodityCode.commodityDescription.div" class="fineprint">
                                     <html:hidden write="true" property="document.item[${ctr}].commodityCode.commodityDescription"/>&nbsp;
@@ -417,7 +457,7 @@
                             </td>
                         </c:if>
 
-                        <td class="infoline nowrap">
+                        <td class="infoline nowrap" colspan="2">
                              <kul:htmlControlAttribute
                                 attributeEntry="${itemAttributes.itemDescription}"
                                 property="document.item[${ctr}].itemDescription"
@@ -425,9 +465,10 @@
                                 tabindexOverride="${tabindexOverrideBase + 0}"/>
                             <c:if test="${!(not ( (fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment)))) or lockB2BEntry)}">
                                 <kul:expandedTextArea
-                                    textAreaFieldName="document.item[${ctr}].itemDescription"
-                                    action="purapRequisition"
-                                    textAreaLabel="description" />
+                                        textAreaFieldName="document.item[${ctr}].itemDescription"
+                                        action="purapRequisition"
+                                        textAreaLabel="description"
+                                        addClass="embed"/>
                             </c:if>
                         </td>
                         <td class="infoline right">
@@ -478,48 +519,54 @@
                             </td>
                         </c:if>
 
-                        <td class="infoline" rowspan="2" colspan="${colSpanAction}">
-                            <c:choose>
-                                <c:when test="${(fullEntryMode and !amendmentEntry) or (amendmentEntry and (itemLine.itemInvoicedTotalAmount == null or itemLine.itemInvoicedTotalAmount == 0.00)or itemLine.newItemForAmendment)}">
-                                    <html:submit
-                                            property="methodToCall.deleteItem.line${ctr}"
-                                            alt="Delete Item ${ctr+1}"
-                                            title="Delete Item ${ctr+1}"
-                                            styleClass="btn btn-red"
-                                            value="Delete"/>
-                                </c:when>
-                                <c:when test="${amendmentEntry and itemLine.canInactivateItem and itemLine.itemInvoicedTotalAmount != null}">
-                                    <html:submit
-                                            property="methodToCall.inactivateItem.line${ctr}"
-                                            alt="Inactivate Item ${ctr+1}"
-                                            title="Inactivate Item ${ctr+1}"
-                                            styleClass="btn btn-default"
-                                            value="Inactivate"/>
-                                </c:when>
-                                <c:when test="${isATypeOfPODoc and !itemLine.itemActiveIndicator}">
-                                    Inactive
-                                </c:when>
-                                <c:otherwise>
-                                    &nbsp;
-                                </c:otherwise>
-                            </c:choose>
+                        <c:if test="${isATypeOfPODoc}">
+                            <td class="infoline right">
+                                <kul:htmlControlAttribute
+                                        attributeEntry="${itemAttributes.itemInvoicedTotalAmount}"
+                                        property="document.item[${ctr}].itemInvoicedTotalAmount" readOnly="${true}"/>
+                            </td>
+                            <c:set var="accountColumnCount" value="${accountColumnCount + 1}"/>
+                        </c:if>
+
+                        <td class="infoline" colspan="2">
+                            <div class="actions">
+                                <c:choose>
+                                    <c:when test="${(fullEntryMode and !amendmentEntry) or (amendmentEntry and (itemLine.itemInvoicedTotalAmount == null or itemLine.itemInvoicedTotalAmount == 0.00)or itemLine.newItemForAmendment)}">
+                                        <button
+                                                type="submit"
+                                                name="methodToCall.deleteItem.line${ctr}"
+                                                alt="Delete Item ${ctr+1}"
+                                                title="Delete Item ${ctr+1}"
+                                                class="btn clean"
+                                                value="Delete">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </c:when>
+                                    <c:when test="${amendmentEntry and itemLine.canInactivateItem and itemLine.itemInvoicedTotalAmount != null}">
+                                        <html:submit
+                                                property="methodToCall.inactivateItem.line${ctr}"
+                                                alt="Inactivate Item ${ctr+1}"
+                                                title="Inactivate Item ${ctr+1}"
+                                                styleClass="btn btn-default"
+                                                value="Inactivate"/>
+                                    </c:when>
+                                    <c:when test="${isATypeOfPODoc and !itemLine.itemActiveIndicator}">
+                                        Inactive
+                                    </c:when>
+                                    <c:otherwise>
+                                        &nbsp;
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:set var="toggleTabIndex" value="${KualiForm.currentTabIndex}"/>
+                                <purap:accountingLinesToggle currentTabIndex="${toggleTabIndex}" accountPrefix="document.item[${ctr}]."/>
+                            </div>
                         </td>
 
-                        <c:if test="${isATypeOfPODoc}">
-                            <td class="infoline" rowspan="2">
-                                <kul:htmlControlAttribute
-                                    attributeEntry="${itemAttributes.itemInvoicedTotalAmount}"
-                                    property="document.item[${ctr}].itemInvoicedTotalAmount" readOnly="${true}"/>
-                            </td>
-                        </c:if>
+
                     </tr>
 
-                    <c:set var="accountColumnCount" value="${mainColumnCount - colSpanAction - 1}"/>
-                    <c:if test="${isATypeOfPODoc}">
-                        <c:set var="accountColumnCount" value="${accountColumnCount - 1}"/>
-                    </c:if>
-
-                    <c:set var="rowStyle" value="border-bottom:1px dashed #c3c3c3;"/>
+                    <c:set var="accountColumnCount" value="${mainColumnCount - 1}"/>
+                    <c:set var="rowStyle" value="border-bottom:1px solid #BBBBBB;"/>
                     <c:choose>
                         <c:when test="${amendmentEntry}">
                             <c:choose>
@@ -528,14 +575,18 @@
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
                                             itemColSpan="${accountColumnCount}"
-                                            rowStyle="${rowStyle}"/>
+                                            rowStyle="${rowStyle}"
+                                            currentTabIndex="${toggleTabIndex}"
+                                            showToggle="false"/>
                                 </c:when>
                                 <c:otherwise>
                                     <c:set target="${KualiForm.editingMode}" property="viewOnly" value="true" />
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
                                             itemColSpan="${accountColumnCount}"
-                                            rowStyle="${rowStyle}"/>
+                                            rowStyle="${rowStyle}"
+                                            currentTabIndex="${toggleTabIndex}"
+                                            showToggle="false"/>
                                 </c:otherwise>
                             </c:choose>
                         </c:when>
@@ -544,7 +595,9 @@
                             <purap:purapGeneralAccounting
                                     accountPrefix="document.item[${ctr}]."
                                     itemColSpan="${accountColumnCount}"
-                                    rowStyle="${rowStyle}"/>
+                                    rowStyle="${rowStyle}"
+                                    currentTabIndex="${toggleTabIndex}"
+                                    showToggle="false"/>
                         </c:when>
                         <c:when test="${(!amendmentEntry)}">
                             <c:if test="${!empty KualiForm.editingMode['allowItemEntry'] && (KualiForm.editingMode['allowItemEntry'] == itemLine.itemIdentifier)}" >
@@ -553,7 +606,9 @@
                             <purap:purapGeneralAccounting
                                     accountPrefix="document.item[${ctr}]."
                                     itemColSpan="${accountColumnCount}"
-                                    rowStyle="${rowStyle}"/>
+                                    rowStyle="${rowStyle}"
+                                    currentTabIndex="${toggleTabIndex}"
+                                    showToggle="false"/>
                         </c:when>
                     </c:choose>
 
@@ -574,64 +629,58 @@
 
     <div class="tab-container">
         <h3>Totals</h3>
-        <table class="datatable standard" summary="Items Section">
+        <table class="standard" summary="Items Section">
             <c:set var="colSpanTotalLabel" value="${colSpanItemType+colSpanDescription}"/>
             <c:set var="colSpanTotalAmount" value="${colSpanExtendedPrice}"/>
             <c:set var="colSpanTotalBlank" value="${mainColumnCount-colSpanTotalLabel-colSpanTotalAmount}"/>
 
             <c:if test="${purapTaxEnabled}">
-            <c:set var="colSpanTotalBlank" value="${colSpanTotalBlank-2}"/>
-            <c:set var="colSpanTotalAmount" value="1"/>
-            <c:set var="colSpanTotalLabel" value="${mainColumnCount-colSpanTotalBlank-colSpanTotalAmount}"/>
+                <c:set var="colSpanTotalBlank" value="${colSpanTotalBlank-2}"/>
+                <c:set var="colSpanTotalAmount" value="1"/>
+                <c:set var="colSpanTotalLabel" value="${mainColumnCount-colSpanTotalBlank-colSpanTotalAmount}"/>
 
-            <tr>
-                <th class="right" width='75%' colspan="${colSpanTotalLabel}" scope="row">
-                    <kul:htmlAttributeLabel attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalPreTaxDollarAmount}" />
-                </th>
-                <td valign=middle class="datacell right" colspan="${colSpanTotalAmount}">
-                    <b>
+                <tr>
+                    <th class="right" width='62%' colspan="${colSpanTotalLabel}" scope="row">
+                        <kul:htmlAttributeLabel attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalPreTaxDollarAmount}" />
+                    </th>
+                    <td valign=middle class="datacell right heavy" colspan="${colSpanTotalAmount}" width="150px">
                         <kul:htmlControlAttribute
-                            attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalPreTaxDollarAmount}"
-                            property="document.totalPreTaxDollarAmount"
-                            readOnly="true" />
-                    </b>
-                </td>
-                <td class="datacell" colspan="${colSpanTotalBlank}">&nbsp;</td>
-            </tr>
+                                attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalPreTaxDollarAmount}"
+                                property="document.totalPreTaxDollarAmount"
+                                readOnly="true" />
+                    </td>
+                    <td class="datacell" colspan="${colSpanTotalBlank}">&nbsp;</td>
+                </tr>
 
-            <tr>
-                <th class="right" width='75%' colspan="${colSpanTotalLabel}" scope="row">
-                    <kul:htmlAttributeLabel attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalTaxAmount}" />
-                </th>
-                <td valign=middle class="datacell right" colspan="${colSpanTotalAmount}">
-                    <b>
+                <tr>
+                    <th class="right" colspan="${colSpanTotalLabel}" scope="row">
+                        <kul:htmlAttributeLabel attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalTaxAmount}" />
+                    </th>
+                    <td valign=middle class="datacell right heavy" colspan="${colSpanTotalAmount}">
                         <kul:htmlControlAttribute
-                            attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalTaxAmount}"
-                            property="document.totalTaxAmount"
-                            readOnly="true" />
-                    </b>
-                </td>
-                <td class="datacell" colspan="${colSpanTotalBlank}">&nbsp;</td>
-            </tr>
+                                attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalTaxAmount}"
+                                property="document.totalTaxAmount"
+                                readOnly="true" />
+                    </td>
+                    <td class="datacell" colspan="${colSpanTotalBlank}">&nbsp;</td>
+                </tr>
             </c:if>
 
             <tr>
-                <th class="right" width='75%' colspan="${colSpanTotalLabel}" scope="row">
+                <th class="right" colspan="${colSpanTotalLabel}" scope="row">
                     <kul:htmlAttributeLabel attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalDollarAmount}" />
                 </th>
-                <td valign=middle class="datacell right"  colspan="${colSpanTotalAmount}">
-                    <b>
-                        <kul:htmlControlAttribute
+                <td valign=middle class="datacell right heavy"  colspan="${colSpanTotalAmount}">
+                    <kul:htmlControlAttribute
                             attributeEntry="${DataDictionary.RequisitionDocument.attributes.totalDollarAmount}"
                             property="document.totalDollarAmount"
                             readOnly="true" />
-                    </b>
                 </td>
                 <td class="datacell" colspan="${colSpanTotalBlank}">&nbsp;</td>
             </tr>
 
             <tr>
-                <th class="right" width='75%' colspan="${colSpanTotalLabel}" scope="row">
+                <th class="right" colspan="${colSpanTotalLabel}" scope="row">
                     <c:if test="${displayRequisitionFields}">
                         <kul:htmlAttributeLabel attributeEntry="${DataDictionary.RequisitionDocument.attributes.organizationAutomaticPurchaseOrderLimit}" />
                     </c:if>
