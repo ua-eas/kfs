@@ -23,8 +23,17 @@
 <%@ attribute name="rowStyle" required="false" description="custom styling for the row"%>
 <%@ attribute name="rowClass" required="false" description="custom class for the row"%>
 
-<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
+<%@ attribute name="currentTabIndex" required="false" description="current tab index"%>
+<%@ attribute name="showToggle" required="false" description="whether or not to show the hide/show toggle button"%>
+
+<c:if test="${empty currentTabIndex}">
+    <c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}"/>
+</c:if>
+
+<c:if test="${empty showToggle}">
+    <c:set var="showToggle" value="true"/>
+</c:if>
+
 <c:set var="tabTitle" value="AccountingLines-${currentTabIndex}" />
 <c:set var="tabKey" value="${kfunc:generateTabKey(tabTitle)}"/>
 <c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
@@ -48,41 +57,45 @@
 
         <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 
-        <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tr>
-                <th class="left">
-                    Accounting Lines
-                    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-                         <html:submit
-                                 property="methodToCall.toggleTab.tab${tabKey}"
-                                 alt="hide"
-                                 title="toggle"
-                                 styleClass="btn btn-default small"
-                                 styleId="tab-${tabKey}-imageToggle"
-                                 onclick="javascript: return toggleTab(document, '${tabKey}'); "
-                                 value="Hide"/>
-                     </c:if>
-                     <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-                         <html:submit
-                                 property="methodToCall.toggleTab.tab${tabKey}"
-                                 alt="show"
-                                 title="toggle"
-                                 styleClass="btn btn-default small"
-                                 styleId="tab-${tabKey}-imageToggle"
-                                 onclick="javascript: return toggleTab(document, '${tabKey}'); "
-                                 value="Show"/>
-                     </c:if>
-                </th>
-            </tr>
+        <table class="standard">
+            <c:if test="${showToggle}">
+                <tr>
+                    <th class="left">
+                        Accounting Lines
+                        <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+                             <html:submit
+                                     property="methodToCall.toggleTab.tab${tabKey}"
+                                     alt="hide"
+                                     title="toggle"
+                                     styleClass="btn btn-default small"
+                                     styleId="tab-${tabKey}-imageToggle"
+                                     onclick="javascript: return toggleTab(document, '${tabKey}'); "
+                                     value="Hide"/>
+                         </c:if>
+                         <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+                             <html:submit
+                                     property="methodToCall.toggleTab.tab${tabKey}"
+                                     alt="show"
+                                     title="toggle"
+                                     styleClass="btn btn-default small"
+                                     styleId="tab-${tabKey}-imageToggle"
+                                     onclick="javascript: return toggleTab(document, '${tabKey}'); "
+                                     value="Show"/>
+                         </c:if>
+                    </th>
+                </tr>
+            </c:if>
 
             <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
                 <tr style="display: none;"  id="tab-${tabKey}-div">
             </c:if>
-                <th style="padding:0;">
-                    <sys-java:accountingLines>
-                        <sys-java:accountingLineGroup newLinePropertyName="${accountPrefix}newSourceLine" collectionPropertyName="${accountPrefix}sourceAccountingLines" collectionItemPropertyName="${accountPrefix}sourceAccountingLine" attributeGroupName="source" />
-                    </sys-java:accountingLines>
-                </th>
+
+            <th style="padding:0;">
+                <sys-java:accountingLines>
+                    <sys-java:accountingLineGroup newLinePropertyName="${accountPrefix}newSourceLine" collectionPropertyName="${accountPrefix}sourceAccountingLines" collectionItemPropertyName="${accountPrefix}sourceAccountingLine" attributeGroupName="source" />
+                </sys-java:accountingLines>
+            </th>
+
             <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
                 </tr>
             </c:if>

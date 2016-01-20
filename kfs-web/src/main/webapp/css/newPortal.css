@@ -39,6 +39,11 @@ input.searchicon.embed {
     margin-left: -27px;
 }
 
+input.editicon.embed {
+    margin-left: -30px;
+    margin-bottom: 3px;
+}
+
 div.fineprint {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -631,7 +636,26 @@ footer {
     box-shadow: none;
     background-color: inherit;
     padding: 5px;
-    font-size: 16px;
+    font-size: inherit;
+}
+
+.btn.clean .fa {
+    font-size: 18px;
+    vertical-align: bottom;
+}
+
+.btn.clean:hover {
+    color: inherit;
+}
+
+.btn.clean.move {
+    color: rgba(215,215,215,0.7);
+    font-size: 18px;
+    margin: 0;
+}
+
+.btn.clean.move .fa {
+    font-weight: 700;
 }
 
 .btn-default:hover {

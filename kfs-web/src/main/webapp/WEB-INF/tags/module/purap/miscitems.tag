@@ -61,39 +61,46 @@
 <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 
 <div class="tab-container">
-    <h3>
-        <c:out value="${overrideTitle}" />
-        <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-            <html:submit
-                    property="methodToCall.toggleTab.tab${tabKey}"
-                    alt="hide"
-                    title="toggle"
-                    styleClass="btn btn-default"
-                    styleId="tab-${tabKey}-imageToggle"
-                    onclick="javascript: return true; "
-                    value="Hide"/>
-        </c:if>
-        <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-            <html:submit
-                    property="methodToCall.toggleTab.tab${tabKey}"
-                    alt="show"
-                    title="toggle"
-                    styleClass="btn btn-default"
-                    styleId="tab-${tabKey}-imageToggle"
-                    onclick="javascript: return true; "
-                    value="Show"/>
-        </c:if>
-    </h3>
 
-    <table class="datatable standard side-margins" summary="Items Section">
+
+    <table class="standard side-margins acct-lines" summary="Items Section">
+        <tr class="title">
+            <th></th>
+            <td colspan="3">
+                <h2>
+                    <c:out value="${overrideTitle}" />&nbsp;&nbsp;
+                    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+                        <html:submit
+                                property="methodToCall.toggleTab.tab${tabKey}"
+                                alt="hide"
+                                title="toggle"
+                                styleClass="btn btn-default"
+                                styleId="tab-${tabKey}-imageToggle"
+                                onclick="javascript: return true; "
+                                value="Hide"/>
+                    </c:if>
+                    <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+                        <html:submit
+                                property="methodToCall.toggleTab.tab${tabKey}"
+                                alt="show"
+                                title="toggle"
+                                styleClass="btn btn-default"
+                                styleId="tab-${tabKey}-imageToggle"
+                                onclick="javascript: return true; "
+                                value="Show"/>
+                    </c:if>
+                </h2>
+            </td>
+        </tr>
         <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
             <tbody style="display: none;" id="tab-${tabKey}-div">
         </c:if>
 
-        <c:set var="accountingLineWidth" value="0"/>
+        <c:set var="accountingLineWidth" value="5"/>
 
         <tr class="header">
-            <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTypeCode}" />
+            <th></th>
+            <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTypeCode}" colspan="2"/>
 
             <c:if test="${showInvoiced}">
                 <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.originalAmountfromPO}" />
@@ -105,28 +112,30 @@
                 <c:when test="${descriptionFirst}">
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" />
+                    <c:set var="accountingLineWidth" value="${accountingLineWidth + 2}"/>
                     <c:if test="${purapTaxEnabled}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" />
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" addClass="right" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" addClass="right" />
                         <c:set var="accountingLineWidth" value="${accountingLineWidth + 2}"/>
                     </c:if>
                     <c:if test="${isATypeOfPODoc}">
-                        <kul:htmlAttributeHeaderCell literalLabel="Amount Paid" />
+                        <kul:htmlAttributeHeaderCell literalLabel="Amount Paid" addClass="right"/>
                         <c:set var="accountingLineWidth" value="${accountingLineWidth + 1}"/>
                     </c:if>
-                    <c:set var="accountingLineWidth" value="${accountingLineWidth + 2}"/>
                 </c:when>
                 <c:otherwise>
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" />
                     <c:if test="${purapTaxEnabled}">
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" />
-                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" addClass="right" />
+                        <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.totalAmount}" addClass="right" />
                         <c:set var="accountingLineWidth" value="${accountingLineWidth + 2}"/>
                     </c:if>
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />
                     <c:set var="accountingLineWidth" value="${accountingLineWidth + 2}"/>
                 </c:otherwise>
             </c:choose>
+            <td></td>
+            <kul:htmlAttributeHeaderCell literalLabel="Actions"/>
         </tr>
 
         <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
@@ -137,8 +146,9 @@
                     </c:if>
                 </c:if>
 
-                <tr class="top" style="border-top:1px dashed #c3c3c3;">
-                    <td class="infoline" rowspan="2">
+                <tr class="top line">
+                    <td></td>
+                    <td class="infoline heavy" colspan="2">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemTypeCode}" property="document.item[${ctr}].itemType.itemTypeDescription" readOnly="${true}" />
                     </td>
 
@@ -167,17 +177,19 @@
                             </td>
 
                             <c:if test="${purapTaxEnabled and itemLine.itemType.taxableIndicator}">
-                                <td class="infoline">
+                                <td class="infoline right">
                                     <kul:htmlControlAttribute
-                                        attributeEntry="${itemAttributes.itemTaxAmount}"
-                                        property="document.item[${ctr}].itemTaxAmount" readOnly="${lockTaxAmountEntry}"
-                                        tabindexOverride="${tabindexOverrideBase + 0}"/>
+                                            attributeEntry="${itemAttributes.itemTaxAmount}"
+                                            property="document.item[${ctr}].itemTaxAmount"
+                                            readOnly="${lockTaxAmountEntry}"
+                                            tabindexOverride="${tabindexOverrideBase + 0}"/>
                                 </td>
-                                <td class="infoline">
+                                <td class="infoline right">
                                     <kul:htmlControlAttribute
-                                        attributeEntry="${itemAttributes.totalAmount}"
-                                        property="document.item[${ctr}].totalAmount" readOnly="true"
-                                        tabindexOverride="${tabindexOverrideBase + 0}"/>
+                                            attributeEntry="${itemAttributes.totalAmount}"
+                                            property="document.item[${ctr}].totalAmount"
+                                            readOnly="true"
+                                            tabindexOverride="${tabindexOverrideBase + 0}"/>
                                 </td>
                             </c:if>
 
@@ -226,23 +238,39 @@
                             </td>
                         </c:otherwise>
                     </c:choose>
+
+                    <td></td>
+                    <td class="infoline">
+                        <div class="actions">
+                            <c:set var="toggleTabIndex" value="${KualiForm.currentTabIndex}"/>
+                            <purap:accountingLinesToggle currentTabIndex="${toggleTabIndex}" accountPrefix="document.item[${ctr}]."/>
+                        </div>
+                    </td>
                 </tr>
 
                 <c:if test="${amendmentEntry}">
                     <purap:purapGeneralAccounting
                             accountPrefix="document.item[${ctr}]."
-                            itemColSpan="${accountingLineWidth}"/>
+                            itemColSpan="${accountingLineWidth}"
+                            currentTabIndex="${toggleTabIndex}"
+                            showToggle="false"/>
                 </c:if>
 
                 <c:if test="${!empty KualiForm.editingMode['allowItemEntry'] && !empty itemLine.itemUnitPrice || empty KualiForm.editingMode['allowItemEntry']}">
                     <c:if test="${!amendmentEntry && KualiForm.document.applicationDocumentStatus!='Awaiting Fiscal Officer Approval' || KualiForm.document.applicationDocumentStatus =='Awaiting Fiscal Officer Approval' && !empty KualiForm.document.items[ctr].itemUnitPrice}">
                         <purap:purapGeneralAccounting
                                 accountPrefix="document.item[${ctr}]."
-                                itemColSpan="${accountingLineWidth}"/>
+                                itemColSpan="${accountingLineWidth}"
+                                currentTabIndex="${toggleTabIndex}"
+                                showToggle="false"/>
                     </c:if>
                 </c:if>
+
+
             </c:if>
         </logic:iterate>
+
+        <tr class="line"><td></td></tr>
 
         <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
             </tbody>

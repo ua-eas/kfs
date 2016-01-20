@@ -23,6 +23,7 @@
 <%@ attribute name="title" required="false" description="The title of the text area window." %>
 <%@ attribute name="readOnly" required="false" description="Whether this field should be rendered as read only." %>
 <%@ attribute name="maxLength" required="false" description="The maximum length of the text that can be entered into the text area." %>
+<%@ attribute name="addClass" required="false" description="Additional class(es) to add to the image." %>
 
 <c:if test="${empty formKey}">
   <c:set var="formKey" value="88888888" />
@@ -51,7 +52,7 @@
        <html:image property="methodToCall.updateTextArea.((`${textAreaFieldName}:${action}:${textAreaLabel}:${readOnly}:${maxLength}`))"
                    src="${srcImage}"
                    onclick="javascript: textAreaPop('${textAreaFieldName}','${action}','${textAreaLabel}','${formKey}','${readOnly}','${maxLength}');return false"
-                   styleClass="tinybutton"
+                   styleClass="editicon ${addClass}"
                    title="${title}"
                    alt="${altMsg}"/>
     </c:otherwise>

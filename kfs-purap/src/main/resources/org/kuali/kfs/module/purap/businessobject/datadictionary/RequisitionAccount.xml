@@ -130,6 +130,9 @@
   <bean id="RequisitionAccount-financialObjectCode" parent="RequisitionAccount-financialObjectCode-parentBean"/>
 
   <bean id="RequisitionAccount-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="6"/>
+    </property>
   </bean>
   <bean id="RequisitionAccount-accountNumber" parent="RequisitionAccount-accountNumber-parentBean"/>
 
@@ -196,17 +199,26 @@
   <bean id="RequisitionAccount-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
     <property name="label" value="Sub-Account Code"/>
     <property name="required" value="false"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="12"/>
+    </property>
   </bean>
   <bean id="RequisitionAccount-projectCode" parent="RequisitionAccount-projectCode-parentBean"/>
 
   <bean id="RequisitionAccount-projectCode-parentBean" abstract="true" parent="ProjectCode-code">
     <property name="name" value="projectCode"/>
     <property name="required" value="false"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="11"/>
+    </property>
   </bean>
   <bean id="RequisitionAccount-financialSubObjectCode" parent="RequisitionAccount-financialSubObjectCode-parentBean"/>
 
   <bean id="RequisitionAccount-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="required" value="false"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="8"/>
+    </property>
   </bean>
   <bean id="RequisitionAccount-documentNumber" parent="RequisitionAccount-documentNumber-parentBean"/>
 
