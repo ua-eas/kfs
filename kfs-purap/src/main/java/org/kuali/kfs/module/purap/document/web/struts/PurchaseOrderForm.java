@@ -42,7 +42,6 @@ import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItemCapitalAsset;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorQuote;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderVendorStipulation;
-import org.kuali.kfs.module.purap.businessobject.RequisitionCapitalAssetLocation;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveDataAssignment;
 import org.kuali.kfs.module.purap.document.PurchaseOrderAmendmentDocument;
@@ -214,7 +213,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
 
     @Override
     public CapitalAssetLocation setupNewPurchasingCapitalAssetLocationLine() {
-        CapitalAssetLocation location = new RequisitionCapitalAssetLocation();
+        CapitalAssetLocation location = new PurchaseOrderCapitalAssetLocation();
         return location;
     }
 
