@@ -1941,28 +1941,18 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     @NonTransactional
     public void processPaymentRequestInReceivingStatus() {
         List<PaymentRequestDocument> preqs = paymentRequestDao.getPaymentRequestInReceivingStatus();
-       // docNumbers = filterPaymentRequestByAppDocStatus(docNumbers, PurapConstants.PaymentRequestStatuses.APPDOC_AWAITING_RECEIVING_REVIEW);
 
-        List<PaymentRequestDocument> preqsAwaitingReceiving = new ArrayList<PaymentRequestDocument>();
-        for (PaymentRequestDocument preq : preqs) {
-            //PaymentRequestDocument preq = getPaymentRequestByDocumentNumber(docNumber);
-            if (ObjectUtils.isNotNull(preq)) {
-                preqsAwaitingReceiving.add(preq);
-            }
-        }
-        //if (ObjectUtils.isNotNull(preqsAwaitingReceiving)) {
-            for (PaymentRequestDocument preqDoc : preqsAwaitingReceiving) {
-                if (preqDoc.isReceivingRequirementMet() && preqDoc.getApplicationDocumentStatus().equals(PaymentRequestStatuses.APPDOC_AWAITING_RECEIVING_REVIEW)) {
-                    try {
-                        documentService.approveDocument(preqDoc, "Approved by Receiving Required PREQ job", null);
-                    }
-                    catch (WorkflowException e) {
-                        LOG.error("processPaymentRequestInReceivingStatus() Error approving payment request document from awaiting receiving", e);
-                        throw new RuntimeException("Error approving payment request document from awaiting receiving", e);
-                    }
+        for (PaymentRequestDocument preqDoc : preqs) {
+            if (ObjectUtils.isNotNull(preqDoc) && preqDoc.isReceivingRequirementMet()) {
+                try {
+                    documentService.approveDocument(preqDoc, "Approved by Receiving Required PREQ job", null);
+                }
+                catch (WorkflowException e) {
+                    LOG.error("processPaymentRequestInReceivingStatus() Error approving payment request document from awaiting receiving", e);
+                    throw new RuntimeException("Error approving payment request document from awaiting receiving", e);
                 }
             }
-       // }
+        }
     }
 
     /**
