@@ -54,7 +54,6 @@
                             property="universityFiscalYear" forceRequired="true" readOnly="${readOnly}"/>
 
                         <c:if test="${!readOnly}">
-                            <!-- KULLAB-709 Force field conversions -->
                             <kul:lookup boClassName="org.kuali.kfs.sys.businessobject.SystemOptions"
                                         lookupParameters="universityFiscalYear:universityFiscalYear"
                                         fieldConversions="universityFiscalYear:universityFiscalYear"

@@ -735,6 +735,8 @@ div.inquiry table.datatable th {
 
 .doc .main-panel .tab-container table.acct-lines tr.title .actions {
     padding-bottom: 5px;
+    padding-right: 5px;
+    display: inline;
 }
 
 .doc .main-panel .tab-container table.acct-lines tr.line .actions,
@@ -777,7 +779,7 @@ div.inquiry table.datatable th {
     color: #555555;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.total-line span.label {
+.doc .main-panel .tab-container table.acct-lines tr.total-line .total-label {
     color: #999999;
     text-transform: uppercase;
     font-size: 14px;
