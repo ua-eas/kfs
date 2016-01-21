@@ -615,6 +615,7 @@ div.inquiry table.datatable th {
     text-transform: uppercase;
     font-size: 11px;
     padding-bottom: 2px;
+    vertical-align: bottom;
 }
 
 .doc .main-panel .tab-container table.items tr.header th {
@@ -802,8 +803,26 @@ div.inquiry table.datatable th {
     font-weight: 700;
 }
 
-.doc .main-panel .tab-container table.acct-lines.multiline tr.header {
+.doc .main-panel .tab-container table.acct-lines tr.header.multiline,
+.doc .main-panel .tab-container table.acct-lines tr.line.multiline {
+    border: none;
+}
 
+.doc .main-panel .tab-container table.acct-lines tr.multiline.first {
+    border-top: 1px solid #BBBBBB;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.multiline.last {
+    border-bottom: 1px solid #BBBBBB;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.new.multiline.last {
+    border-bottom: none;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.header.multiline th,
+.doc .main-panel .tab-container table.acct-lines tr.line.multiline th {
+    padding-bottom: 0;
 }
 
 .doc .main-panel .tab-container table.acct-lines table.acct-lines {
