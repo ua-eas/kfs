@@ -202,7 +202,12 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
      * @see org.kuali.kfs.sys.document.web.RenderableElement#renderElement(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag, org.kuali.kfs.sys.document.web.AccountingLineRenderingContext)
      */
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
-        for (AccountingLineTableRow row : rows) {
+        int numRows = rows.size();
+        for (int i = 0; i < numRows; i++) {
+            AccountingLineTableRow row = rows.get(i);
+            if (numRows > 2 && i % 2 == 0) {
+                row.setIsHeader(true);
+            }
             row.renderElement(pageContext, parentTag, renderingContext);
         }
     }
