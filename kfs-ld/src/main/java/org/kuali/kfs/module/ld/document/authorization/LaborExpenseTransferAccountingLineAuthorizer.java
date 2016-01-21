@@ -85,7 +85,7 @@ public class LaborExpenseTransferAccountingLineAuthorizer extends AccountingLine
         String actionMethod = this.getCopyLineMethod(accountingLine, accountingLinePropertyName, accountingLineIndex);
         String actionLabel = this.getActionLabel(KFSKeyConstants.AccountingLineViewRendering.ACCOUNTING_LINE_COPY_ACTION_LABEL, groupTitle, accountingLineIndex + 1);
 
-        return new AccountingLineViewAction(actionMethod, actionLabel, "btn btn-default", "Copy", null);
+        return new AccountingLineViewAction(actionMethod, actionLabel, "btn clean", "Copy", "fa fa-files-o");
     }
 
     /**
