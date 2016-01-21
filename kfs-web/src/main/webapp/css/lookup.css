@@ -671,10 +671,8 @@ div.inquiry table.datatable th {
 }
 
 .doc .main-panel .tab-container-error {
-    margin: 0 auto;
-    width: 40%;
     color: #C47965;
-    padding-top: 10px;
+    padding: 10px 40px;
 }
 
 .doc .main-panel .tab-container table.old-new tr:nth-child(even) {

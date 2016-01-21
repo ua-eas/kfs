@@ -237,16 +237,14 @@
                     </td>
                     <td class="infoline" colspan="2">
                         <div class="actions">
-                            <button
+                            <html:html-button
                                     property="methodToCall.addItem"
                                     alt="Insert an Item"
                                     title="Add an Item"
-                                    class="btn btn-green skinny"
+                                    styleClass="btn btn-green skinny"
                                     tabindex="${tabindexOverrideBase + 0}"
-                                    value="Add">
-
-                                <span class="fa fa-plus"></span>
-                            </button>
+                                    value="Add"
+                                    innerHTML="<span class=\"fa fa-plus\"></span>"/>
                         </div>
                     </td>
                 </tr>
@@ -362,37 +360,25 @@
                     <tr class="top line">
                         <th class="infoline" nowrap="nowrap" rowspan="2" style="position: relative;">
                             <c:if test="${(fullEntryMode and !amendmentEntry) and !lockB2BEntry and ctr != 0}">
-                                <button
-                                        type="submit"
-                                        name="methodToCall.upItem.line${ctr}"
+                                <html:html-button
+                                        property="methodToCall.upItem.line${ctr}"
                                         alt="Move Item Up"
                                         title="Move Item Up"
-                                        class="btn clean move"
+                                        styleClass="btn clean move"
                                         value="Move Up"
-                                        style="position:absolute; top:0; right:1px;">
-                                    <span class="fa fa-angle-up"></span>
-                                </button>
-                                <html:image
-                                        property="methodToCall.upItem.line${ctr}"
-                                        src="${ConfigProperties.externalizable.images.url}purap-up.gif"
-                                        style="display: none;"/>
+                                        style="position:absolute; top:0; right:1px;"
+                                        innerHTML="<span class=\"fa fa-angle-up\"></span>"/>
                             </c:if>
                             <bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/>
                             <c:if test="${(fullEntryMode and !amendmentEntry) and !lockB2BEntry and ctr != itemCount - 1}">
-                                <html:image
+                                <html:html-button
                                         property="methodToCall.downItem.line${ctr}"
-                                        src="${ConfigProperties.externalizable.images.url}purap-down.gif"
-                                        style="display: none;"/>
-                                <button
-                                        type="submit"
-                                        name="methodToCall.downItem.line${ctr}"
                                         alt="Move Item Down"
                                         title="Move Item Down"
-                                        class="btn clean move"
+                                        styleClass="btn clean move"
                                         value="Move Down"
-                                        style="position:absolute; bottom:0; right:1px;">
-                                    <span class="fa fa-angle-down"></span>
-                                </button>
+                                        style="position:absolute; bottom:0; right:1px;"
+                                        innerHTML="<span class=\"fa fa-angle-down\"></span>"/>
                             </c:if>
                         </th>
                         <td class="infoline">
