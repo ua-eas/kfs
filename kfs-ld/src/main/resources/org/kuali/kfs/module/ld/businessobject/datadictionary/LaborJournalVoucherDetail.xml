@@ -193,9 +193,10 @@
 	<bean id="LaborJournalVoucherDetail-financialObjectCode"
 		parent="LaborJournalVoucherDetail-financialObjectCode-parentBean" />
 
-	<bean id="LaborJournalVoucherDetail-financialObjectCode-parentBean"
-		abstract="true" parent="ObjectCode-financialObjectCode">
-
+	<bean id="LaborJournalVoucherDetail-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="6"/>
+		</property>
 	</bean>
 	<bean id="LaborJournalVoucherDetail-accountNumber" parent="LaborJournalVoucherDetail-accountNumber-parentBean" />
 
@@ -336,6 +337,9 @@
 		abstract="true" parent="ObjectType-code">
 		<property name="name" value="objectTypeCode" />
 		<property name="required" value="false" />
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="4"/>
+		</property>
 	</bean>
 
 	<bean id="LaborJournalVoucherDetail-accountExpiredOverride"
@@ -636,6 +640,9 @@
 		<property name="name" value="payrollEndDateFiscalYear" />
 		<property name="label" value="Payroll Date Fiscal Year" />
 		<property name="shortLabel" value="Pay Fiscal Year" />
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="6"/>
+		</property>
 	</bean>
 	<bean id="LaborJournalVoucherDetail-positionNumber" parent="LaborJournalVoucherDetail-positionNumber-parentBean" />
 

@@ -31,6 +31,9 @@ import java.io.IOException;
  */
 public class TableRowRenderer implements Renderer {
     private AccountingLineTableRow row;
+    private boolean isMultiline = false;
+    private boolean isLastLine = false;
+    private boolean isFirstLine = false;
 
     /**
      * Resets the table row.
@@ -38,6 +41,9 @@ public class TableRowRenderer implements Renderer {
      */
     public void clear() {
         row = null;
+        isMultiline = false;
+        isFirstLine = false;
+        isLastLine = false;
     }
 
     /**
@@ -48,13 +54,27 @@ public class TableRowRenderer implements Renderer {
         JspWriter out = pageContext.getOut();
         try {
             if (row.getChildCellCount() > 0) {
+                String styleClass = "line";
                 if (row.isHeader()) {
-                    out.write(buildBeginningRowTag("header"));
+                    styleClass = "header";
                 } else if (row.isNew()) {
-                    out.write(buildBeginningRowTag("new"));
-                } else {
-                    out.write(buildBeginningRowTag("line"));
+                    styleClass = "new";
                 }
+
+                if (isMultiline) {
+                    styleClass += " multiline";
+                }
+
+                if (isFirstLine) {
+                    styleClass += " first";
+                }
+
+                if (isLastLine) {
+                    styleClass += " last";
+                }
+
+                out.write(buildBeginningRowTag(styleClass));
+
                 row.renderChildrenCells(pageContext, parentTag);
                 out.write(buildEndingRowTag());
             }
@@ -90,5 +110,29 @@ public class TableRowRenderer implements Renderer {
      */
     public void setRow(AccountingLineTableRow row) {
         this.row = row;
+    }
+
+    public boolean isMultiline() {
+        return isMultiline;
+    }
+
+    public void setIsMultiline(boolean isMultiline) {
+        this.isMultiline = isMultiline;
+    }
+
+    public boolean isLastLine() {
+        return isLastLine;
+    }
+
+    public void setIsLastLine(boolean isLastLine) {
+        this.isLastLine = isLastLine;
+    }
+
+    public boolean isFirstLine() {
+        return isFirstLine;
+    }
+
+    public void setIsFirstLine(boolean isFirstLine) {
+        this.isFirstLine = isFirstLine;
     }
 }
