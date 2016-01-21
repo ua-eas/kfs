@@ -78,12 +78,12 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
         try {
             out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 2;
+            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() / 2;
             out.write("<td colspan=\"");
-            out.write(Integer.toString(emptyCellSpanBefore) + 2);
+            out.write(Integer.toString(emptyCellSpanBefore));
             out.write("\">&nbsp;</td>");
             
-            out.write("<td colspan=\"3\">");
+            out.write("<td colspan=\"2\">");
             out.write("<span class=\"label\">");
             
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(debitTotalLabelProperty));
@@ -113,10 +113,10 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             
             out.write("</td>");
             
-            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell() - 1;
+            final int emptyCellSpanAfter = this.getCellCount() - (emptyCellSpanBefore + 4);
             if(emptyCellSpanAfter > 0) {
                 out.write("<td colspan=\"");
-                out.write(Integer.toString(emptyCellSpanAfter - 1));
+                out.write(Integer.toString(emptyCellSpanAfter));
                 out.write("\">&nbsp;</td>");
             }
             

@@ -100,18 +100,16 @@ public class GroupTotalRenderer extends TotalRendererBase {
         try {
             out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 2;
+            final int emptyCellSpanBefore = this.getCellCount() - 3;
             out.write("<td colspan=\"");
             out.write(Integer.toString(emptyCellSpanBefore));
             out.write("\">&nbsp;</td>");
-            
-            out.write("<td colspan=\"2\" class=\"right\">");
-            
-            out.write("<span class=\"label\">");
-            
+
+            out.write("<td colspan=\"1\" class=\"right total-label\">");
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(totalLabelProperty));
-            out.write("</span>");
-            out.write("&nbsp;");
+            out.write("</td>");
+
+            out.write("<td colspan=\"1\" class=\"right\">");
             
             writeTag.setPageContext(pageContext);
             writeTag.setParent(parentTag);
@@ -121,7 +119,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
             
             out.write("</td>");
             
-            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell();
+            final int emptyCellSpanAfter = 1;
             if(emptyCellSpanAfter > 0) {
                 out.write("<td colspan=\"");
                 out.write(Integer.toString(emptyCellSpanAfter));

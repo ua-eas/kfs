@@ -219,7 +219,9 @@ public class AccountingLineGroupTag extends TagSupport {
         AccountingLineRenderingService renderingService = SpringContext.getBean(AccountingLineRenderingService.class);
         renderingService.performPreTablificationTransformations(layoutElements, groupDefinition, getDocument(), accountingLine, newLine, getForm().getUnconvertedValues(), accountingLinePropertyName);
         List<AccountingLineTableRow> renderableElements = renderingService.tablify(layoutElements);
-        removeTopRowIfNecessary(groupDefinition, topLine, renderableElements);
+        if (renderableElements.size() < 3) {
+            removeTopRowIfNecessary(groupDefinition, topLine, renderableElements);
+        }
         renderingService.performPostTablificationTransformations(renderableElements, groupDefinition, getDocument(), accountingLine, newLine);
         return renderableElements;
     }
