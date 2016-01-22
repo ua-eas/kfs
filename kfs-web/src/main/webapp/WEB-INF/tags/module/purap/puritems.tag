@@ -47,14 +47,14 @@
 <c:set var="tabindexOverrideBase" value="50" />
 
 <c:set var="mainColumnCount" value="16"/>
+<c:if test="${not purapTaxEnabled}">
+    <c:set var="mainColumnCount" value="14"/>
+</c:if>
 <c:set var="colSpanItemType" value="6"/>
 <c:set var="colSpanDescription" value="2"/>
 <c:set var="colSpanExtendedPrice" value="1"/>
 
 <c:set var="actionColSpan" value="2"/>
-<c:if test="${not purapTaxEnabled}">
-    <c:set var="actionColSpan" value="4"/>
-</c:if>
 
 <c:choose>
     <c:when test="${displayRequisitionFields}">
@@ -95,7 +95,7 @@
                             </a>
                         </h2>
                     </td>
-                    <td colspan="11" class="right nowrap">
+                    <td colspan="${mainColumnCount - 4}" class="right nowrap">
                         <SCRIPT type="text/javascript">
                             <!--
                             function hideImport() {
@@ -565,7 +565,7 @@
                                     <c:set target="${KualiForm.accountingLineEditingMode}" property="fullEntry" value="true" />
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
-                                            itemColSpan="${accountColumnCount}"
+                                            itemColSpan="${mainColumnCount}"
                                             rowStyle="${rowStyle}"
                                             currentTabIndex="${toggleTabIndex}"
                                             showToggle="false"/>
@@ -574,7 +574,7 @@
                                     <c:set target="${KualiForm.editingMode}" property="viewOnly" value="true" />
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
-                                            itemColSpan="${accountColumnCount}"
+                                            itemColSpan="${mainColumnCount}"
                                             rowStyle="${rowStyle}"
                                             currentTabIndex="${toggleTabIndex}"
                                             showToggle="false"/>
