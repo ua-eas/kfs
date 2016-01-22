@@ -29,10 +29,8 @@
 <c:set var="attributes" value="${DataDictionary.CapitalAssetInformation.attributes}" />	
 <c:set var="dataCellCssClass" value="datacell" />
 <c:set var="capitalAssetInfoName" value="document.capitalAssetInformation" />
-<c:set var="amountReadOnly" value="${readOnly}" />
-<c:if test="${KualiForm.distributeEqualAmount}">
-	<c:set var="amountReadOnly" value="true" />
-</c:if>
+<c:set var="amountReadOnly" value="${readOnly or KualiForm.distributeEqualAmount}" />
+
 <c:set var="totalColumnSpan" value="7"/>
 
 <table class="datatable standard side-margins" cellpadding="0" cellspacing="0" summary="Capital Asset Information">
@@ -73,11 +71,11 @@
 		<c:set var="distributionAmountCode" value="${detailLine.distributionAmountCode}" />
 		<c:if test="${distributionAmountCode eq KFSConstants.CapitalAssets.DISTRIBUTE_COST_EQUALLY_CODE}">
 			<c:set var="distributionAmountDescription" value="${KFSConstants.CapitalAssets.DISTRIBUTE_COST_EQUALLY_DESCRIPTION}" />
-			<c:set var="amountReadOnly" value="true" />			
+			<c:set var="amountReadOnly" value="true" />
 		</c:if>
 		<c:if test="${distributionAmountCode eq KFSConstants.CapitalAssets.DISTRIBUTE_COST_BY_INDIVIDUAL_ASSET_AMOUNT_CODE}">
 			<c:set var="distributionAmountDescription" value="${KFSConstants.CapitalAssets.DISTRIBUTE_COST_BY_INDIVIDUAL_ASSET_AMOUNT_DESCRIPTION}" />
-			<c:set var="amountReadOnly" value="false" />			
+			<c:set var="amountReadOnly" value="${readOnly}" />
 		</c:if>
 
 		<c:if test="${detailLine.capitalAssetActionIndicator == KFSConstants.CapitalAssets.CAPITAL_ASSET_MODIFY_ACTION_INDICATOR}">
