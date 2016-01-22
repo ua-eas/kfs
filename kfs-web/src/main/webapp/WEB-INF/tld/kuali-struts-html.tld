@@ -450,6 +450,361 @@
         </attribute>
     </tag>
     <tag>
+        <name>html-button</name>
+        <tag-class>org.kuali.kfs.kns.web.taglib.html.KFSButtonTag</tag-class>
+        <description>
+            <![CDATA[
+            <p><strong>Render A HTML Button</strong></p>
+
+            <p>
+                Renders an HTML &lt;button&gt; element, populated from the specified value or the
+                content of this tag body. This tag is only valid when nested
+                inside a form tag body.
+            </p>
+            <p>
+             If a graphical button is needed (a button with an image), then the
+             <code>&lt;html:image&gt;</code> tag is more appropriate.
+            </p>
+        ]]>
+        </description>
+        <attribute>
+            <name>accesskey</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                <p>The keyboard character used to move focus immediately to this
+                element.</p>
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>alt</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                <p>The alternate text for this element.</p>
+                ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>altKey</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                <p>The message resources key of the alternate text for this
+                element.</p>
+                ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>bundle</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                    <p>The servlet context attributes key for the MessageResources
+                    instance to use.  If not specified, defaults to the
+                    application resources configured for our action servlet.</p>
+
+            <dl><dt><b>Since:</b></dt>
+            <dd>Struts 1.2.5</dd></dl>
+          ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>dir</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                <p>The direction for weak/neutral text for this element.</p>
+                <dl><dt><b>Since:</b></dt>
+                <dd>Struts 1.3.6</dd></dl>
+                ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>boolean</type>
+            <description>
+                <![CDATA[
+          <p>Set to <code>true</code> if this input field should be
+          disabled.</p>
+          ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>indexed</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>boolean</type>
+            <description>
+                <![CDATA[
+                <p>Valid only inside of <code>logic:iterate</code> tag.
+                If <code>true</code> then name of the html tag will be rendered as
+                "propertyName[34]". Number in brackets will be generated for
+                every iteration and taken from ancestor logic:iterate tag.</p>
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>innerHTML</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                <p>The markup that will render inside the button.</p>
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>lang</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                <p>The language code for this element.</p>
+                <dl><dt><b>Since:</b></dt>
+                <dd>Struts 1.3.6</dd></dl>
+                ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onblur</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element loses input
+                focus.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onchange</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element loses input
+                focus and its value has changed.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element receives a
+                mouse click.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>ondblclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element receives a
+                mouse double click.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onfocus</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element receives input
+                focus.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onkeydown</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element has focus and a
+                key is depressed.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onkeypress</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element has focus and a
+                key is depressed and released.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onkeyup</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element has focus and a
+                key is released.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onmousedown</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element is under the mouse
+                pointer and a mouse button is depressed.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onmousemove</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element is under the
+                mouse pointer and the pointer is moved.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onmouseout</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element was under the
+                mouse pointer but the pointer was moved outside the element.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onmouseover</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element was not under
+                the mouse pointer but the pointer is moved inside the element.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>onmouseup</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                JavaScript event handler executed when this element is under the
+                mouse pointer and a mouse button is released.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>property</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                Name of the request parameter that will be included with this
+                submission, set to the specified value.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                CSS styles to be applied to this HTML element.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                CSS stylesheet class to be applied to this HTML element
+                (renders a "class" attribute).
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                Identifier to be assigned to this HTML element (renders
+                an "id" attribute).
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>tabindex</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                The tab order (ascending positive integers) for this element.
+            ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                  <p>The advisory title for this element.</p>
+                  ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>titleKey</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                  <p>The message resources key for the advisory title
+                  for this element.</p>
+                  ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                Value of the label to be placed on this button. This value will
+                also be submitted as the value of the specified request parameter.
+                [Body of this tag (if any), or "Click"]
+            ]]>
+            </description>
+        </attribute>
+    </tag>
+    <tag>
         <name>cancel</name>
         <!--<tag-class>org.apache.struts.taglib.html.CancelTag</tag-class>-->
         <tag-class>org.kuali.kfs.kns.web.taglib.html.KNSCancelTag</tag-class>
