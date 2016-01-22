@@ -100,7 +100,7 @@ public class HideShowBlockRenderer implements Renderer {
      * @return the HTML for the opening of the button table
      */
     protected String buildLabelButtonTableOpening() {
-        return "<table class=\"datatable\" style=\"padding: 0px\"><tr><td class=\"tab-subhead\">";
+        return "<table class=\"datatable\" style=\"padding: 0px;\"><tr><td class=\"tab-subhead\">";
     }
     
     /**

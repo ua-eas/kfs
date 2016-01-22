@@ -199,9 +199,12 @@
 	                  <bean parent="AccountingLineView-field" p:name="financialSubObjectCode" p:dynamicNameLabelGeneratorBeanName="subObjectCodeDynamicNameLabelGenerator" p:useShortLabel="true"/>
 	                  <bean parent="AccountingLineView-field" p:name="projectCode" p:webUILeaveFieldFunction="loadProjectInfo" p:dynamicLabelProperty="project.projectDescription" p:useShortLabel="true"/>
 	                  <bean parent="AccountingLineView-field" p:name="organizationReferenceId" p:useShortLabel="true"/>
+					  <bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription"/>
 	                </list>
 	              </property>
 	            </bean>
+
+
 
 	            <bean parent="AccountingLineView-showHideLines" p:label="Monthly Lines" p:name="monthlyLinesHideShow">
 	            	<property name="lines">
@@ -232,7 +235,6 @@
 	      </bean>
 
             <bean parent="AccountingLineView-currentBaseAmountField" p:useShortLabels="true"/>
-            <bean parent="AccountingLineView-field" p:name="financialDocumentLineDescription"/>
             <bean parent="AccountingLineView-actions"/>
 	    </list>
 	  </property>
