@@ -51,6 +51,11 @@
 <c:set var="colSpanDescription" value="2"/>
 <c:set var="colSpanExtendedPrice" value="1"/>
 
+<c:set var="actionColSpan" value="2"/>
+<c:if test="${not purapTaxEnabled}">
+    <c:set var="actionColSpan" value="4"/>
+</c:if>
+
 <c:choose>
     <c:when test="${displayRequisitionFields}">
         <c:set var="colSpanAmountPaid" value="0"/>
@@ -152,7 +157,7 @@
                     </c:if>
 
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" addClass="center" />
-                    <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="2" />
+                    <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}" />
                 </tr>
                 <tr class="top new">
                     <td class="infoline">
@@ -235,7 +240,7 @@
                     <td class="infoline center">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" property="newPurchasingItemLine.itemAssignedToTradeInIndicator" tabindexOverride="${tabindexOverrideBase + 0}"/>
                     </td>
-                    <td class="infoline" colspan="2">
+                    <td class="infoline" colspan="${actionColSpan}">
                         <div class="actions">
                             <html:html-button
                                     property="methodToCall.addItem"
@@ -304,12 +309,12 @@
                                 <kul:htmlAttributeHeaderCell literalLabel="Inactive"/>
                             </c:when>
                             <c:otherwise>
-                                <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="2"/>
+                                <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}"/>
                             </c:otherwise>
                         </c:choose>
                     </c:if>
                     <c:if test="${!isATypeOfPODoc}">
-                        <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="2"/>
+                        <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}"/>
                     </c:if>
                 </tr>
             </c:if>
@@ -514,7 +519,7 @@
                             <c:set var="accountColumnCount" value="${accountColumnCount + 1}"/>
                         </c:if>
 
-                        <td class="infoline" colspan="2">
+                        <td class="infoline" colspan="${actionColSpan}">
                             <div class="actions">
                                 <c:choose>
                                     <c:when test="${(fullEntryMode and !amendmentEntry) or (amendmentEntry and (itemLine.itemInvoicedTotalAmount == null or itemLine.itemInvoicedTotalAmount == 0.00)or itemLine.newItemForAmendment)}">
