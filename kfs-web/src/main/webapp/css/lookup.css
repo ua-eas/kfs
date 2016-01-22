@@ -611,7 +611,7 @@ div.inquiry table.datatable th {
     background-color: inherit !important;
 }
 
-.doc .main-panel .tab-container table.standard tr.header th {
+.doc .main-panel .tab-container table.standard tr.header>th {
     text-transform: uppercase;
     font-size: 11px;
     padding-bottom: 2px;
@@ -747,18 +747,14 @@ div.inquiry table.datatable th {
 
 .doc .main-panel .tab-container table.acct-lines tr.line td.multi-row,
 .doc .main-panel .tab-container table.acct-lines tr.new td.multi-row {
-    position: relative;
+    vertical-align: middle;
+    border-left: 1px solid #BBBBBB;
 }
 
 .doc .main-panel .tab-container table.acct-lines tr.line td.multi-row .actions,
 .doc .main-panel .tab-container table.acct-lines tr.new td.multi-row .actions {
-    border-left: 1px solid #BBBBBB;
-    padding: 125% 10px 6px 10px;
+    border-left: none;
     white-space: nowrap;
-    height: calc(100% - 10px);
-    position: absolute;
-    top: 5px;
-    left: 5px;
 }
 
 .doc .main-panel .tab-container table.acct-lines tr.line .actions .acct-lines-toggle {
@@ -810,6 +806,10 @@ div.inquiry table.datatable th {
     border-top: 1px solid #BBBBBB;
 }
 
+.doc .main-panel .tab-container table.acct-lines tr.multiline.header.first th:last-child {
+    border-left: 1px solid #BBBBBB;
+}
+
 .doc .main-panel .tab-container table.acct-lines tr.multiline.last {
     border-bottom: 1px solid #BBBBBB;
 }
@@ -821,6 +821,30 @@ div.inquiry table.datatable th {
 .doc .main-panel .tab-container table.acct-lines tr.header.multiline th,
 .doc .main-panel .tab-container table.acct-lines tr.line.multiline th {
     padding-bottom: 0;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line {
+    border-top: none;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line table {
+    margin-top: -10px;
+    color: #767676;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line table table th:first-child {
+    width: initial;
+    background-color: inherit;
+    border-top: none;
+    color: inherit;
+    font-size: inherit;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line table .tab-subhead button {
+    margin-left: 5px;
+    color: #6c6c6c;
 }
 
 .doc .main-panel .tab-container table.acct-lines table.acct-lines {
