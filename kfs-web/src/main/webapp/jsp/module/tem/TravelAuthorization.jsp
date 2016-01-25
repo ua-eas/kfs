@@ -78,7 +78,7 @@
 		<kul:tab tabTitle="Travel Advance" defaultOpen="${KualiForm.defaultTravelAdvanceTab}" tabErrorKey="${TemKeyConstants.TRVL_AUTH_TRVL_ADVANCE_ERRORS}">
 			<div class="tab-container" align="left">
 				<tem-ta:travelAdvance travelAdvanceProperty="document.travelAdvance" />
-				<kul:tab simple="${true}" tabTitle="Travel Advance Accounting Lines" defaultOpen="true" tabErrorKey="${TemKeyConstants.TRVL_AUTH_ADV_ACCT_LINES_ERRORS}">
+				<kul:tab simple="${true}" tabTitle="" defaultOpen="true" tabErrorKey="${TemKeyConstants.TRVL_AUTH_ADV_ACCT_LINES_ERRORS}">
 					<sys-java:accountingLines>
 						<sys-java:accountingLineGroup newLinePropertyName="newAdvanceAccountingLine" collectionPropertyName="document.advanceAccountingLines" collectionItemPropertyName="document.advanceAccountingLine" attributeGroupName="advance" />
 					</sys-java:accountingLines>
