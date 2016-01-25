@@ -26,8 +26,9 @@
 <c:set var="isATypeOfPODoc" value="${KualiForm.document.isATypeOfPODoc}" />
 
 <c:if test="${KualiForm.document.needWarningRelatedPOs}">
-	<font color="black"><bean:message key="${PurapConstants.WARNING_PURCHASEORDER_NUMBER_DONT_DISCLOSE}" /></font>
-    <br>
+	<div style="margin-left: 20px; font-style:italic;">
+		<bean:message key="${PurapConstants.WARNING_PURCHASEORDER_NUMBER_DONT_DISCLOSE}" />
+	</div>
 </c:if>
 	
 <logic:notEmpty name="KualiForm" property="${groupList}">	   		
@@ -69,7 +70,7 @@
 										title="toggle"
 										styleClass="btn btn-default small"
 										styleId="tab-${tabKey}-imageToggle"
-										onclick="javascript: return toggleTab(document, 'kualiFormModal', ${tabKey}');"
+										onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}');"
 										value="Hide"/>
 							</c:if>
 							<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
