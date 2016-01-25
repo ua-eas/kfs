@@ -37,16 +37,16 @@
 			<html:hidden property="${detailLineFormName}.${accountExpiredOverride}" />
 		</c:when>
 		<c:otherwise>
-			<kul:htmlAttributeLabel 
-				attributeEntry="${attributes[accountExpiredOverride]}"
-				useShortLabel="true" 
-				labelFor="${detailLineFormName}.${accountExpiredOverride}" forceRequired="true" />
-		            
 		    <kul:htmlControlAttribute
 				property="${detailLineFormName}.${accountExpiredOverride}"
 				attributeEntry="${attributes[accountExpiredOverride]}"
 				readOnly="false" forceRequired="true"
 				readOnlyBody="false"/>
+			&nbsp;
+			<kul:htmlAttributeLabel
+					attributeEntry="${attributes[accountExpiredOverride]}"
+					useShortLabel="true"
+					labelFor="${detailLineFormName}.${accountExpiredOverride}" forceRequired="true" />
 		</c:otherwise>
 	</c:choose>
 	
