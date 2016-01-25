@@ -27,15 +27,18 @@
 	headerTitle="Lookup" docTitle="" transactionalDocument="false"
 	htmlFormAction="glBalanceInquiryLookup">
 
-  <SCRIPT type="text/javascript">
-    var kualiForm = document.forms['KualiForm'];
-    var kualiElements = kualiForm.elements;
-  </SCRIPT>
+    <SCRIPT type="text/javascript">
+        var kualiForm = document.forms['KualiForm'];
+        var kualiElements = kualiForm.elements;
+    </SCRIPT>
 
 	<div class="headerarea-small" id="headerarea-small">
-	<h1><c:out value="${KualiForm.lookupable.title}" /><kul:help
-		resourceKey="lookupHelpText" altText="lookup help" /></h1>
+        <h1>
+            <c:out value="${KualiForm.lookupable.title}" />
+            <kul:help resourceKey="lookupHelpText" altText="lookup help" />
+        </h1>
 	</div>
+
 	<kul:enterKey methodToCall="search" />
 
 	<html-el:hidden name="KualiForm" property="backLocation" />

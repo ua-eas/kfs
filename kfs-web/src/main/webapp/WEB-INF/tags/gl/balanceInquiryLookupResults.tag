@@ -45,12 +45,27 @@
 			<p>
 				<c:set var="balanceInquirySelectAllButtonName" value="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" />
 					${kfunc:registerEditableProperty(KualiForm, balanceInquirySelectAllButtonName)}
-					<input type="image" tabindex="${tabindex}" name="${balanceInquirySelectAllButtonName}"
-   						src="${ConfigProperties.kr.externalizable.images.url}${imageSelectAll}" alt="Select all rows" title="Select all rows" border="0" class="tinybutton" valign="middle"/>
+					<input
+							type="submit"
+							tabindex="${tabindex}"
+							name="${balanceInquirySelectAllButtonName}"
+							alt="Select all rows"
+							title="Select all rows"
+							border="0" class="btn btn-default"
+							valign="middle"
+							value="Select All"/>
 				<c:set var="balanceInquiryUnselectAllButtonName" value="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" />
 					${kfunc:registerEditableProperty(KualiForm, balanceInquiryUnselectAllButtonName)}
-					<input type="image" tabindex="${tabindex}" name="${balanceInquiryUnselectAllButtonName}"
-   						src="${ConfigProperties.kr.externalizable.images.url}${imageUnselectAll}" alt="Unselect all rows" title="Unselect all rows" border="0" class="tinybutton" valign="middle"/>
+					<input
+							type="submit"
+							tabindex="${tabindex}"
+							name="${balanceInquiryUnselectAllButtonName}"
+							alt="Unselect all rows"
+							title="Unselect all rows"
+							border="0"
+							class="btn btn-default"
+							valign="middle"
+							value="Unselect All"/>
 			</p>
 			
             <c:set var="numOfMonthField" value="14" scope="request" />            
@@ -62,17 +77,16 @@
 			    		<c:forEach items="${resultsList[0].columns}" var="column" begin="0" end="${numOfNonMonthField}" varStatus="columnLoopStatus">
 							<th class="sortable">
 								${column.columnTitle}
-							</th>
-						</c:forEach>
-					</tr>
-					<tr>
-						<c:forEach items="${resultsList[0].columns}" var="column" begin="0" end="${numOfNonMonthField}" varStatus="columnLoopStatus">
-							<th class="sortable" align="center">
-							<c:set var="sortButtonName" value="methodToCall.sort.${columnLoopStatus.index}.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" />
-								   ${kfunc:registerEditableProperty(KualiForm, sortButtonName)}
-								   <input type="image" tabindex="${tabindex}" name="${sortButtonName}"
-										  src="${ConfigProperties.kr.externalizable.images.url}${imageSort}" alt="Sort column ${column.columnTitle}" 
-										  title="Sort column ${column.columnTitle}" border="0" valign="middle"/>
+								<c:set var="sortButtonName" value="methodToCall.sort.${columnLoopStatus.index}.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" />
+								${kfunc:registerEditableProperty(KualiForm, sortButtonName)}
+								<input
+										type="image"
+										tabindex="${tabindex}"
+										name="${sortButtonName}"
+									   	src="${ConfigProperties.krad.externalizable.images.url}sort_both_kns.png"
+										alt="Sort column ${column.columnTitle}"
+									   	title="Sort column ${column.columnTitle}"
+										style="margin-bottom:-5px;"/>
 							</th>
 						</c:forEach>
 					</tr>
@@ -152,12 +166,28 @@
 			<p>
 				<c:set var="balanceInquirySelectAllButtonName" value="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" />
 					${kfunc:registerEditableProperty(KualiForm, balanceInquirySelectAllButtonName)}
-					<input type="image" tabindex="${tabindex}" name="${balanceInquirySelectAllButtonName}"
-   						src="${ConfigProperties.kr.externalizable.images.url}${imageSelectAll}" alt="Select all rows" title="Select all rows" border="0" class="tinybutton" valign="middle"/>
+					<input
+							type="submit"
+							tabindex="${tabindex}"
+							name="${balanceInquirySelectAllButtonName}"
+							alt="Select all rows"
+							title="Select all rows"
+							border="0"
+							class="btn btn-default"
+							valign="middle"
+							value="Select All"/>
 				<c:set var="balanceInquiryUnselectAllButtonName" value="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" />
 					${kfunc:registerEditableProperty(KualiForm, balanceInquiryUnselectAllButtonName)}
-					<input type="image" tabindex="${tabindex}" name="${balanceInquiryUnselectAllButtonName}"
-   						src="${ConfigProperties.kr.externalizable.images.url}${imageUnselectAll}" alt="Unselect all rows" title="Unselect all rows" border="0" class="tinybutton" valign="middle"/>
+					<input
+							type="submit"
+							tabindex="${tabindex}"
+							name="${balanceInquiryUnselectAllButtonName}"
+							alt="Unselect all rows"
+							title="Unselect all rows"
+							border="0"
+							class="btn btn-default"
+							valign="middle"
+							value="Unselect All"/>
 			
 			</p>
 			<kul:multipleValueLookupExportBanner/>
