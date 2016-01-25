@@ -118,9 +118,11 @@
 <div class="main-panel">
     <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
         <c:set var="tabAction" value="close"/>
+            <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" title="close ${tabTitle}" alt="close ${tabTitle}" styleClass="tinybutton"  styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1" />
     </c:if>
     <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
         <c:set var="tabAction" value="open"/>
+            <html:image  property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" title="open ${tabTitle}" alt="open ${tabTitle}" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1"/>
     </c:if>
 
     <div class="headerarea-small clickable"
@@ -129,7 +131,7 @@
          alt="${tabAction} ${tabTitle}"
          styleClass="tinybutton"
          id="tab-${tabKey}-imageToggle"
-         onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+         onclick="$('#tab-${tabKey}-imageToggle').click();"
          tabindex="-1">
 
         <c:if test="${not empty leftSideHtmlProperty and not empty leftSideHtmlAttribute}">
@@ -159,14 +161,14 @@
     </div>
 
     <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-        <div style="display: block;" id="tab-${tabKey}-div">
+        <div style="display: block; margin: 20px 0;" id="tab-${tabKey}-div">
     </c:if>
     <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
         <div style="display: none;" id="tab-${tabKey}-div">
     </c:if>
 
         <c:if test="${! (empty tabErrorKey)}">
-          <div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="${tabErrorKey}"/></div></div>
+            <div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="${tabErrorKey}"/></div></div>
         </c:if>
 
         <c:if test="${! (empty tabAuditKey) && (useRiceAuditMode == 'true')}">
