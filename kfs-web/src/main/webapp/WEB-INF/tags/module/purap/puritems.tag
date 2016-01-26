@@ -523,15 +523,13 @@
                             <div class="actions">
                                 <c:choose>
                                     <c:when test="${(fullEntryMode and !amendmentEntry) or (amendmentEntry and (itemLine.itemInvoicedTotalAmount == null or itemLine.itemInvoicedTotalAmount == 0.00)or itemLine.newItemForAmendment)}">
-                                        <button
-                                                type="submit"
-                                                name="methodToCall.deleteItem.line${ctr}"
+                                        <html:html-button
+                                                property="methodToCall.deleteItem.line${ctr}"
                                                 alt="Delete Item ${ctr+1}"
                                                 title="Delete Item ${ctr+1}"
-                                                class="btn clean"
-                                                value="Delete">
-                                            <span class="fa fa-trash"></span>
-                                        </button>
+                                                styleClass="btn clean"
+                                                value="Delete"
+                                                innerHTML="<span class=\"fa fa-trash\"></span>"/>
                                     </c:when>
                                     <c:when test="${amendmentEntry and itemLine.canInactivateItem and itemLine.itemInvoicedTotalAmount != null}">
                                         <html:submit
