@@ -59,20 +59,24 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         
         try {
             out.write(buildDivStart());
-            String tableClass = null;
-            if (parentTag instanceof AccountingLinesTag) {
-                int sourceSize = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines().size();
-                int targetSize = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines().size();
-                if (sourceSize > 99 || targetSize > 99) {
-                    tableClass = "large-seq";
-                }
-            }
-
+            String tableClass = decideTableClass(parentTag);
             out.write(buildTableStart(tableClass));
         }
         catch (IOException ioe) {
             throw new JspException("Difficulty rendering AccountingLineTableHeader", ioe);
         }
+    }
+
+    protected String decideTableClass(Tag parentTag) {
+        String tableClass = null;
+        if (parentTag instanceof AccountingLinesTag) {
+            int sourceSize = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines().size();
+            int targetSize = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines().size();
+            if (sourceSize > 99 || targetSize > 99) {
+                tableClass = "large-seq";
+            }
+        }
+        return tableClass;
     }
     
     /**
