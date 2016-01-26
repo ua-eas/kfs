@@ -768,6 +768,10 @@ div.inquiry table.datatable th {
     width: 24px;
 }
 
+.doc .main-panel .tab-container table.acct-lines.large-seq tr th:first-child {
+    width: 45px;
+}
+
 .doc .main-panel .tab-container table.acct-lines tr.line th:first-child {
     width: 24px;
     background-color: #3D7599;
@@ -845,6 +849,10 @@ div.inquiry table.datatable th {
 .doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line table .tab-subhead button {
     margin-left: 5px;
     color: #6c6c6c;
+}
+
+.doc .main-panel .tab-container table.acct-lines.large-seq .btn.move {
+    right: 11px !important;
 }
 
 .doc .main-panel .tab-container table.acct-lines table.acct-lines {
