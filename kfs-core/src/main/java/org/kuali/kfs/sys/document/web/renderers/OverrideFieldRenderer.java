@@ -206,7 +206,6 @@ public class OverrideFieldRenderer extends FieldRendererBase {
     protected void renderOverrideAsNonHidden(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
         try {
-            out.write(buildLineBreak());
             openNoWrapSpan(pageContext, parentTag);
 
             overrideFieldRenderer =  readOnly ? new ReadOnlyRenderer() : SpringContext.getBean(AccountingLineRenderingService.class).getFieldRendererForField(getField(), accountingLine);
