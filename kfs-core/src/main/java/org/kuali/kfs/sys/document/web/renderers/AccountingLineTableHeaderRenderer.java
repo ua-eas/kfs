@@ -59,8 +59,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         
         try {
             out.write(buildDivStart());
-            String tableClass = decideTableClass(parentTag);
-            out.write(buildTableStart(tableClass));
+            out.write(buildTableStart(decideTableClass(parentTag)));
         }
         catch (IOException ioe) {
             throw new JspException("Difficulty rendering AccountingLineTableHeader", ioe);
