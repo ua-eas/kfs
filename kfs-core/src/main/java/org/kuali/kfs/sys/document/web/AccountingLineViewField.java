@@ -201,11 +201,11 @@ public class AccountingLineViewField extends FieldTableJoiningWithHeader impleme
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
         renderField(pageContext, parentTag, renderingContext);
 
-        if (getOverrideFields() != null && getOverrideFields().size() > 0) {
-            renderOverrideFields(pageContext, parentTag, renderingContext);
-        }
         if (shouldRenderDynamicFeldLabel() && renderingContext.fieldsCanRenderDynamicLabels()) {
             renderDynamicNameLabel(pageContext, parentTag, renderingContext);
+        }
+        if (getOverrideFields() != null && getOverrideFields().size() > 0) {
+            renderOverrideFields(pageContext, parentTag, renderingContext);
         }
     }
 
