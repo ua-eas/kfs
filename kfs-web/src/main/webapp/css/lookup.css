@@ -851,6 +851,10 @@ div.inquiry table.datatable th {
     color: #6c6c6c;
 }
 
+.doc .main-panel .tab-container table.acct-lines.large-seq .btn.move {
+    right: 11px !important;
+}
+
 .doc .main-panel .tab-container table.acct-lines table.acct-lines {
     margin: 0 0 0 50px !important;
     width: calc(100% - 45px) !important;
