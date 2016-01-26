@@ -768,6 +768,10 @@ div.inquiry table.datatable th {
     width: 24px;
 }
 
+.doc .main-panel .tab-container table.acct-lines.large-seq tr th:first-child {
+    width: 45px;
+}
+
 .doc .main-panel .tab-container table.acct-lines tr.line th:first-child {
     width: 24px;
     background-color: #3D7599;

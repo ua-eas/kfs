@@ -18,6 +18,9 @@
  */
 package org.kuali.kfs.sys.document.web.renderers;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.document.web.AccountingLinesTag;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -56,7 +59,15 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         
         try {
             out.write(buildDivStart());
-            out.write(buildTableStart());
+            if (parentTag instanceof AccountingLinesTag) {
+                int sourceSize = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines().size();
+                int targetSize = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines().size();
+                if (sourceSize > 99 || targetSize > 99) {
+                    out.write(buildTableStart("large-seq"));
+                }
+            } else {
+                out.write(buildTableStart());
+            }
         }
         catch (IOException ioe) {
             throw new JspException("Difficulty rendering AccountingLineTableHeader", ioe);
@@ -76,7 +87,15 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
      * @return the very start of the table expressed as HTML
      */
     protected String buildTableStart() {
-        return "<table class=\"datatable standard acct-lines\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
+        return buildTableStart(null);
+    }
+
+    protected String buildTableStart(String styleClass) {
+        String tableClass = "datatable standard acct-lines";
+        if (StringUtils.isNotBlank(styleClass)) {
+            tableClass += " " + styleClass;
+        }
+        return "<table class=\"" + tableClass + "\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
     }
     
     /**
