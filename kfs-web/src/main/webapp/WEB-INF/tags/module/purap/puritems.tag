@@ -46,7 +46,7 @@
 
 <c:set var="tabindexOverrideBase" value="50" />
 
-<c:set var="mainColumnCount" value="16"/>
+<c:set var="mainColumnCount" value="15"/>
 <c:if test="${not purapTaxEnabled}">
     <c:set var="mainColumnCount" value="14"/>
 </c:if>
@@ -54,7 +54,7 @@
 <c:set var="colSpanDescription" value="2"/>
 <c:set var="colSpanExtendedPrice" value="1"/>
 
-<c:set var="actionColSpan" value="2"/>
+<c:set var="actionColSpan" value="1"/>
 
 <c:choose>
     <c:when test="${displayRequisitionFields}">
