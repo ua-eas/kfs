@@ -104,6 +104,18 @@ public class AccountingLineTableRow implements RenderableElement {
     public void renderElement(PageContext pageContext, Tag parentTag, AccountingLineRenderingContext renderingContext) throws JspException {
         TableRowRenderer renderer = new TableRowRenderer();
         this.renderingContext = renderingContext;
+
+        List<AccountingLineTableRow> rows = renderingContext.getRows();
+        if (rows.size() > 2) {
+            renderer.setIsMultiline(true);
+        }
+
+        if (rows.get(0).equals(this)) {
+            renderer.setIsFirstLine(true);
+        } else if (rows.get(rows.size() - 1).equals(this)) {
+            renderer.setIsLastLine(true);
+        }
+
         renderer.setRow(this);
         renderer.render(pageContext, parentTag);
         renderer.clear();

@@ -31,10 +31,7 @@
 <c:set var="capitalAssetInfoName" value="document.capitalAssetInformation" />
 
 <c:set var="totalColumnSpan" value="8"/>
-<c:set var="amountReadOnly" value="${readOnly}" />
-<c:if test="${KualiForm.distributeEqualAmount}">
-	<c:set var="amountReadOnly" value="true" />
-</c:if>
+<c:set var="amountReadOnly" value="${readOnly or KualiForm.distributeEqualAmount}" />
 
 <table class="datatable standard side-margins" cellpadding="0" cellspacing="0" summary="Capital Asset Redistribution">
 	<tr>
@@ -72,7 +69,7 @@
 		</c:if>
 		<c:if test="${distributionAmountCode eq KFSConstants.CapitalAssets.DISTRIBUTE_COST_BY_INDIVIDUAL_ASSET_AMOUNT_CODE}">
 			<c:set var="distributionAmountDescription" value="${KFSConstants.CapitalAssets.DISTRIBUTE_COST_BY_INDIVIDUAL_ASSET_AMOUNT_DESCRIPTION}" />
-			<c:set var="amountReadOnly" value="false" />
+			<c:set var="amountReadOnly" value="${readOnly}" />
 		</c:if>
 
 		<c:if test="${detailLine.capitalAssetActionIndicator == KFSConstants.CapitalAssets.CAPITAL_ASSET_CREATE_ACTION_INDICATOR}">

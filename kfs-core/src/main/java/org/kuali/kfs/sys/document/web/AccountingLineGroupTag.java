@@ -219,9 +219,9 @@ public class AccountingLineGroupTag extends TagSupport {
         AccountingLineRenderingService renderingService = SpringContext.getBean(AccountingLineRenderingService.class);
         renderingService.performPreTablificationTransformations(layoutElements, groupDefinition, getDocument(), accountingLine, newLine, getForm().getUnconvertedValues(), accountingLinePropertyName);
         List<AccountingLineTableRow> renderableElements = renderingService.tablify(layoutElements);
-        if (renderableElements.size() < 3) {
-            removeTopRowIfNecessary(groupDefinition, topLine, renderableElements);
-        }
+
+        removeTopRowIfNecessary(groupDefinition, topLine, renderableElements);
+
         renderingService.performPostTablificationTransformations(renderableElements, groupDefinition, getDocument(), accountingLine, newLine);
         return renderableElements;
     }
@@ -277,17 +277,19 @@ public class AccountingLineGroupTag extends TagSupport {
         final boolean pageIsEditable = getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
         List<AccountingLine> lines = getAccountingLineCollection();
         Collections.sort(lines, getGroupDefinition().getAccountingLineComparator());
+        // add the new line
+        if (StringUtils.isNotBlank(newLinePropertyName) && ((getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT) && groupDefinition.getAccountingLineAuthorizer().renderNewLine(document, collectionPropertyName)) || anyEditableLines)) {
+            containers.add(0, buildContainerForLine(groupDefinition, document, getNewAccountingLine(), currentUser, null, true, pageIsEditable));
+            addedTopLine = true;
+        }
         for (AccountingLine accountingLine : lines) {
-            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), pageIsEditable ? false : !addedTopLine, pageIsEditable);
+            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), !addedTopLine, pageIsEditable);
             containers.add(container);
             anyEditableLines = anyEditableLines || container.isEditableLine() || isMessageMapContainingErrorsOnLine(container.getAccountingLinePropertyPath());
             count += 1;
             addedTopLine = true;
         }
-        // add the new line
-        if (StringUtils.isNotBlank(newLinePropertyName) && ((getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT) && groupDefinition.getAccountingLineAuthorizer().renderNewLine(document, collectionPropertyName)) || anyEditableLines)) {
-            containers.add(0, buildContainerForLine(groupDefinition, document, getNewAccountingLine(), currentUser, null, true, pageIsEditable));
-        }
+
         
         return containers;
     }

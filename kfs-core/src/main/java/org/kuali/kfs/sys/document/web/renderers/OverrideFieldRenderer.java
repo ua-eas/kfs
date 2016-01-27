@@ -206,16 +206,8 @@ public class OverrideFieldRenderer extends FieldRendererBase {
     protected void renderOverrideAsNonHidden(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
         try {
-            out.write(buildLineBreak());
             openNoWrapSpan(pageContext, parentTag);
-            out.write(buildLabelSpanOpening());
-            overrideLabelRenderer.setLabel(getField().getFieldLabel());
-            overrideLabelRenderer.setRequired(true);
-            overrideLabelRenderer.setReadOnly(false);
-            overrideLabelRenderer.setLabelFor(getField().getPropertyPrefix()+"."+getField().getPropertyName());
-            overrideLabelRenderer.render(pageContext, parentTag);
-            out.write(buildLabelSpanClosing());
-            out.write(buildNonBreakingSpace());
+
             overrideFieldRenderer =  readOnly ? new ReadOnlyRenderer() : SpringContext.getBean(AccountingLineRenderingService.class).getFieldRendererForField(getField(), accountingLine);
             if (overrideFieldRenderer instanceof ReadOnlyRenderer) {
                 ((ReadOnlyRenderer)overrideFieldRenderer).setShouldRenderInquiry(false);
@@ -226,6 +218,17 @@ public class OverrideFieldRenderer extends FieldRendererBase {
             overrideFieldRenderer.setField(getField());
             overrideFieldRenderer.setArbitrarilyHighTabIndex(getQuickfinderTabIndex());
             overrideFieldRenderer.render(pageContext, parentTag);
+
+            out.write(buildNonBreakingSpace());
+
+            out.write(buildLabelSpanOpening());
+            overrideLabelRenderer.setLabel(getField().getFieldLabel());
+            overrideLabelRenderer.setRequired(true);
+            overrideLabelRenderer.setReadOnly(false);
+            overrideLabelRenderer.setLabelFor(getField().getPropertyPrefix()+"."+getField().getPropertyName());
+            overrideLabelRenderer.render(pageContext, parentTag);
+
+            out.write(buildLabelSpanClosing());
             closeNoWrapSpan(pageContext, parentTag);
         }
         catch (IOException ioe) {

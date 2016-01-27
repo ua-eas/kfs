@@ -33,7 +33,7 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
  * Labor business object for special case <code>{@link SourceAccountingLine}</code> type for
  * <code>{@link org.kuali.module.labor.document.ExpenseTransferDocument}</code>
  */
-public class ExpenseTransferSourceAccountingLine extends SourceAccountingLine implements ExpenseTransferAccountingLine, LaborLedgerExpenseTransferSourceAccountingLine, Comparable<ExpenseTransferSourceAccountingLine> {
+public class ExpenseTransferSourceAccountingLine extends SourceAccountingLine implements LaborLedgerExpenseTransferSourceAccountingLine, ExpenseTransferAccountingLine, Comparable<ExpenseTransferSourceAccountingLine> {
     private String positionNumber;
     private BigDecimal payrollTotalHours;
     private Integer payrollEndDateFiscalYear;

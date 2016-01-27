@@ -78,45 +78,46 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
         try {
             out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() / 2;
-            out.write("<td colspan=\"");
-            out.write(Integer.toString(emptyCellSpanBefore));
-            out.write("\">&nbsp;</td>");
-            
-            out.write("<td colspan=\"2\">");
-            out.write("<span class=\"label\">");
+            final int emptyCellSpanBeforeAfter = (this.getCellCount() / 2) - 3;
+            if (emptyCellSpanBeforeAfter > 0) {
+                out.write("<td colspan=\"");
+                out.write(Integer.toString(emptyCellSpanBeforeAfter));
+                out.write("\">&nbsp;</td>");
+            }
+
+            out.write("<td colspan=\"3\">");
+            out.write("<span class=\"total-label\">");
             
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(debitTotalLabelProperty));
             out.write("</span>");
             out.write("&nbsp;");
-            
+
             debitWriteTag.setPageContext(pageContext);
             debitWriteTag.setParent(parentTag);
             debitWriteTag.setProperty(debitTotalProperty);
             debitWriteTag.doStartTag();
             debitWriteTag.doEndTag();
-            
+
             out.write("</td>");
             
-            out.write("<td colspan=\"2\" class=\"right\">");
-            out.write("<span class=\"label\">");
+            out.write("<td colspan=\"3\" class=\"right\">");
+            out.write("<span class=\"total-label\">");
             
             out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(creditTotalLabelProperty));
             out.write("</span>");
             out.write("&nbsp;");
-            
+
             creditWriteTag.setPageContext(pageContext);
             creditWriteTag.setParent(parentTag);
             creditWriteTag.setProperty(creditTotalProperty);
             creditWriteTag.doStartTag();
             creditWriteTag.doEndTag();
-            
+
             out.write("</td>");
             
-            final int emptyCellSpanAfter = this.getCellCount() - (emptyCellSpanBefore + 4);
-            if(emptyCellSpanAfter > 0) {
+            if(emptyCellSpanBeforeAfter > 0) {
                 out.write("<td colspan=\"");
-                out.write(Integer.toString(emptyCellSpanAfter));
+                out.write(Integer.toString(emptyCellSpanBeforeAfter));
                 out.write("\">&nbsp;</td>");
             }
             
