@@ -55,8 +55,7 @@
                 id="tab-${tabKey}-imageToggle"
                 onclick="javascript: return toggleTab(document, '${tabKey}'); "
                 value="Hide">
-            <span class="heavy" style="padding-right: 3px;">Accounting Lines</span>
-            <span class="fa fa-angle-up heavy"></span>
+            <img src="${ConfigProperties.kr.externalizable.images.url}acct-lines.png" width="18px"/>
         </button>
     </c:if>
     <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
@@ -69,8 +68,7 @@
                 id="tab-${tabKey}-imageToggle"
                 onclick="javascript: return toggleTab(document, '${tabKey}'); "
                 value="Show">
-            <span class="heavy" style="padding-right: 3px;">Accounting Lines</span>
-            <span class="fa fa-angle-down heavy"></span>
+            <img src="${ConfigProperties.kr.externalizable.images.url}acct-lines.png" width="18px"/>
         </button>
     </c:if>
 </div>
