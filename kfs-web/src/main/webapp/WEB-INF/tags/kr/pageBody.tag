@@ -69,7 +69,7 @@
         <c:otherwise>
             <c:choose>
                 <c:when test="${lookup}" >
-                    <main class="content">
+                    <main class="content fullwidth">
                         <div id="content-overlay"></div>
                         <c:if test="${param.mode eq 'modal'}">
                             <div class="modal-header">
@@ -106,7 +106,7 @@
                         </c:choose>
                 </c:when>
                 <c:otherwise>
-                    <main class="content doc">
+                    <main class="content doc fullwidth">
                         <div id="content-overlay"></div>
                         <div id="view_div">
                             ${headerMenuBar}
@@ -351,7 +351,10 @@
     </c:if>
 </main>
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
-    <div id="sidebar">
+    <c:if test="${not empty htmlFormAction or renderInnerDiv}">
+        <c:set var="sidebarClass" value="collapsed"/>
+    </c:if>
+    <div id="sidebar" class="${sidebarClass}">
     </div>
 </c:if>
 
@@ -359,8 +362,6 @@
 </div>
 
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
-    <footer id="footer"></footer>
-
     <script src="${pageContext.request.contextPath}/scripts/polyfill.min.js"></script>
     <script src="${pageContext.request.contextPath}/scripts/notify.min.js"></script>
     <script src="${pageContext.request.contextPath}/build/app.bundle.js"></script>
