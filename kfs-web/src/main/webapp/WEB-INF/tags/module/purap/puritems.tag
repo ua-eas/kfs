@@ -210,7 +210,7 @@
                             </div>
                         </td>
                     </c:if>
-                    <td class="infoline nowrap" colspan="${colSpanDescription}">
+                    <td class="infoline" colspan="${colSpanDescription}">
                        <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDescription}" property="newPurchasingItemLine.itemDescription" tabindexOverride="${tabindexOverrideBase + 0}"/>
                        <kul:expandedTextArea
                                 textAreaFieldName="newPurchasingItemLine.itemDescription"
@@ -448,7 +448,7 @@
                             </td>
                         </c:if>
 
-                        <td class="infoline nowrap" colspan="2">
+                        <td class="infoline" colspan="2">
                              <kul:htmlControlAttribute
                                 attributeEntry="${itemAttributes.itemDescription}"
                                 property="document.item[${ctr}].itemDescription"
