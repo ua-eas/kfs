@@ -29,9 +29,8 @@
 	type="java.util.Map"
 	description="The DataDictionary entry containing attributes for format result."%>
 <kul:tabTop tabTitle="Payments Selected for Format Process" defaultOpen="true" tabErrorKey="ranges*">
-	<div id="disbursementRanges" class="tab-container" align=center>
-		<table cellpadding="0" cellspacing="0" class="datatable"
-			summary="Payments Selected for Format Process">
+	<div id="disbursementRanges" class="tab-container">
+		<table class="standard" summary="Payments Selected for Format Process">
 			<tr>
 				<td colspan="4" class="subhead">
 					Your Default Campus Code is <kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.physCampusProcCode}" property="campus" readOnly="true" />

@@ -62,6 +62,10 @@
 
     <c:set var="rowHidden" value="${rowsHidden || row.hidden}" />
 
+    <c:if test="${row.fields[0].fieldType ne row.fields[0].LOOKUP_READONLY}">
+        <c:set var="rowClass" value=""/>
+    </c:if>
+
     <c:choose>
 		<c:when test="${rowHidden}"><tr class="${rowClass}" style="display: none;"></c:when>
 		<c:otherwise><tr class="${rowClass}"></c:otherwise>
@@ -192,10 +196,12 @@
 
                 <c:when test="${not isActionNew && fieldVarStatus.count eq 1 && isFieldAddingToACollection && not isFieldAContainer}">
                     <%-- Don't show anything --%>
+                    <c:set var="rowClass" value=""/>
                 </c:when>
 
                 <c:when test="${not isActionNew && not (requestedAction eq Constants.SAVE_METHOD and isFieldAddingToACollection) && (not isActionNew && requestedAction ne Constants.ADD_LINE_METHOD && fieldVarStatus.count eq 1 && isFieldAddingToACollection && not isFieldAContainer)}">
                     <%-- Don't show anything --%>
+                    <c:set var="rowClass" value=""/>
                 </c:when>
 
                 <c:when test="${empty field.fieldType}">
@@ -666,7 +672,13 @@
                                 </c:if>
                                 <c:if test="${not empty fieldValue}" >
                                     <c:if test="${(isInquiry or isLookup)}">
-                                      <html:image property="methodToCall.downloadAttachment${lineNum}" src="${ConfigProperties.kr.externalizable.images.url}${field.imageSrc}" alt="download attachment" style="padding:5px" onclick="excludeSubmitRestriction=true"/>
+                                      <html:submit
+                                              property="methodToCall.downloadAttachment${lineNum}"
+                                              alt="download attachment"
+                                              style="padding:5px"
+                                              onclick="excludeSubmitRestriction=true"
+                                              styleClass="btn btn-default"
+                                              value="Download Attachment"/>
                                     </c:if>
                                     <kul:fieldShowReadOnly field="${field}" addHighlighting="${addHighlighting}" isLookup="${isLookup}" />
                                 </c:if>
@@ -686,7 +698,13 @@
 
                                           <div id="replaceDiv" style="display:block;">
 
-                                            <html:image property="methodToCall.downloadAttachment${lineNum}" src="${ConfigProperties.kr.externalizable.images.url}${field.imageSrc}" alt="download attachment" style="padding:5px" onclick="excludeSubmitRestriction=true"/>
+                                            <html:submit
+                                                    property="methodToCall.downloadAttachment${lineNum}"
+                                                    alt="download attachment"
+                                                    style="padding:5px"
+                                                    styleClass="btn btn-default small"
+                                                    onclick="excludeSubmitRestriction=true"
+                                                    value="Download Attachment"/>
                                             <c:out value="${fieldValue}"/>
                                             &nbsp;&nbsp;
                                                                                         <input type="hidden" name='methodToCall' />
@@ -770,12 +788,15 @@
                         <%-- when deleting, we have to anchor back to the top level tab, rather than the sub tab that we were viewing --%>
                         <c:set var="anchorTabIndex" value="${topLevelTabIndex}"/>
                     </c:if>
-                    <th class="grid" colspan="4" align="${cellAlign}" >
+                    <th class="grid ${cellAlign}" colspan="4">
                         <c:set var="imageButtonName" value="${field.propertyName}.${Constants.METHOD_TO_CALL_PARM13_LEFT_DEL}${currentTabIndex}${Constants.METHOD_TO_CALL_PARM13_RIGHT_DEL}.anchor${anchorTabIndex}" />
                         ${kfunc:registerEditableProperty(KualiForm, imageButtonName)}
-                        <input type="image"
-                            id='${field.propertyName}' name='${imageButtonName}'
-                            src='<c:out value="${fieldValue}"/>' tabIndex="${tabIndex}"/>
+                        <input type="submit"
+                                id='${field.propertyName}'
+                                name='${imageButtonName}'
+                                class="${field.styleClass}"
+                                tabIndex="${tabIndex}"
+                                value="${fieldValue}"/>
                         <kul:fieldShowIcons isReadOnly="${isFieldReadOnly}" field="${field}" addHighlighting="false"/>
                     </th>
                 </c:when>
@@ -794,11 +815,11 @@
                         </c:if>
 
                         <td class="grid" style="width:${dataCellWidth}%;">
-                        <html:image
-                            src="${ConfigProperties.externalizable.images.url}${field.imageSrc}"
-                            styleClass="${field.styleClass}"
-                            property="${Constants.DISPATCH_REQUEST_PARAMETER}.${Constants.RETURN_METHOD_TO_CALL}.${Constants.METHOD_TO_CALL_PARM1_LEFT_DEL}${Constants.CUSTOM_ACTION}.${fn:substringAfter(field.propertyName, Constants.MAINTENANCE_NEW_MAINTAINABLE)}${Constants.METHOD_TO_CALL_PARM1_RIGHT_DEL}"
-                            title="${field.fieldLabel}" alt="${field.fieldLabel}" />
+                        <html:submit
+                                styleClass="${field.styleClass} btn btn-default"
+                                property="${Constants.DISPATCH_REQUEST_PARAMETER}.${Constants.RETURN_METHOD_TO_CALL}.${Constants.METHOD_TO_CALL_PARM1_LEFT_DEL}${Constants.CUSTOM_ACTION}.${fn:substringAfter(field.propertyName, Constants.MAINTENANCE_NEW_MAINTAINABLE)}${Constants.METHOD_TO_CALL_PARM1_RIGHT_DEL}"
+                                title="${field.fieldLabel}" alt="${field.fieldLabel}"
+                                value="${field.fieldLabel}"/>
                         </td>
                     </c:when>
                     <c:otherwise>
