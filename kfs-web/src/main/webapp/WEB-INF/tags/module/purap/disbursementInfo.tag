@@ -18,15 +18,15 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<%@ attribute name="sourceDocumentNumber" required="true"
-              description="Document number to get disbursement info for" %>
-<%@ attribute name="sourceDocumentType" required="true"
-              description="Document type to get disbursement info for" %>   
+<%@ attribute name="sourceDocumentNumber" required="true" description="Document number to get disbursement info for" %>
+<%@ attribute name="sourceDocumentType" required="true" description="Document type to get disbursement info for" %>
               
 <c:url var="page" value="${KualiForm.disbursementInfoUrl}">
   <c:param name="custPaymentDocNbr" value="${sourceDocumentNumber}"/>
   <c:param name="financialDocumentTypeCode" value="${sourceDocumentType}"/>
 </c:url>
-<c:url var="image" value="${ConfigProperties.externalizable.images.url}tinybutton-disbursinfo.gif"/>
-							  
-&nbsp;<a href="${page}" target="_pdp"><img src="${image}" border="0"/></a>              
+
+&nbsp;
+<a href="${page}" target="_pdp">
+    <button class="btn btn-default small" alt="disbursement info" title="Disbursement Info">Disbursement Info</button>
+</a>
