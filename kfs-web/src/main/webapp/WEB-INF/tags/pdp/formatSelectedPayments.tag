@@ -30,31 +30,26 @@
 	description="The DataDictionary entry containing attributes for format result."%>
 <kul:tabTop tabTitle="Payments Selected for Format Process" defaultOpen="true" tabErrorKey="ranges*">
 	<div id="disbursementRanges" class="tab-container">
-		<table class="standard" summary="Payments Selected for Format Process">
+		<table class="standard side-margins" summary="Payments Selected for Format Process">
 			<tr>
 				<td colspan="4" class="subhead">
 					Your Default Campus Code is <kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.physCampusProcCode}" property="campus" readOnly="true" />
 				</td>
 			</tr>
-			<tr>
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${formatResultAttributes.sortGroupName}" />
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${customerProfileAttributes.customerShortName}" />
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${formatResultAttributes.payments}" />
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${formatResultAttributes.amount}" />
-				
+			<tr class="header">
+				<kul:htmlAttributeHeaderCell attributeEntry="${formatResultAttributes.sortGroupName}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${customerProfileAttributes.customerShortName}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${formatResultAttributes.payments}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${formatResultAttributes.amount}" />
 			</tr>
 			
 			<logic:iterate id="result" name="KualiForm" property="formatProcessSummary.processSummaryList" indexId="ctr">
-            <tr>
-               <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.sortGroupName}" property="formatProcessSummary.processSummary[${ctr}].sortGroupName" readOnly="true" /></td>
-               <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${customerProfileAttributes.customerShortName}" property="formatProcessSummary.processSummary[${ctr}].customer.customerShortName" readOnly="true" /></td>
-               <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.payments}" property="formatProcessSummary.processSummary[${ctr}].processTotalCount" readOnly="true" /></td>
-               <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.amount}" property="formatProcessSummary.processSummary[${ctr}].processTotalAmount" readOnly="true" /></td>
-            </tr>
+               <tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+                  <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.sortGroupName}" property="formatProcessSummary.processSummary[${ctr}].sortGroupName" readOnly="true" /></td>
+                  <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${customerProfileAttributes.customerShortName}" property="formatProcessSummary.processSummary[${ctr}].customer.customerShortName" readOnly="true" /></td>
+                  <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.payments}" property="formatProcessSummary.processSummary[${ctr}].processTotalCount" readOnly="true" /></td>
+                  <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${formatResultAttributes.amount}" property="formatProcessSummary.processSummary[${ctr}].processTotalAmount" readOnly="true" /></td>
+               </tr>
             </logic:iterate>
             
          <tr>
