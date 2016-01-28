@@ -796,7 +796,7 @@
                                 name='${imageButtonName}'
                                 class="${field.styleClass}"
                                 tabIndex="${tabIndex}"
-                                value="${fieldValue}"/>
+                                value="${field.fieldShortLabel}"/>
                         <kul:fieldShowIcons isReadOnly="${isFieldReadOnly}" field="${field}" addHighlighting="false"/>
                     </th>
                 </c:when>
@@ -816,10 +816,10 @@
 
                         <td class="grid" style="width:${dataCellWidth}%;">
                         <html:submit
-                                styleClass="${field.styleClass} btn btn-default"
+                                styleClass="${field.styleClass}"
                                 property="${Constants.DISPATCH_REQUEST_PARAMETER}.${Constants.RETURN_METHOD_TO_CALL}.${Constants.METHOD_TO_CALL_PARM1_LEFT_DEL}${Constants.CUSTOM_ACTION}.${fn:substringAfter(field.propertyName, Constants.MAINTENANCE_NEW_MAINTAINABLE)}${Constants.METHOD_TO_CALL_PARM1_RIGHT_DEL}"
                                 title="${field.fieldLabel}" alt="${field.fieldLabel}"
-                                value="${field.fieldLabel}"/>
+                                value="${field.fieldShortLabel}"/>
                         </td>
                     </c:when>
                     <c:otherwise>
