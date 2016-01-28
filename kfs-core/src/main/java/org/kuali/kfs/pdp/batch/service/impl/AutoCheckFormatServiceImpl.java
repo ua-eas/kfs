@@ -14,6 +14,7 @@ import org.kuali.kfs.pdp.service.FormatService;
 import org.kuali.kfs.pdp.service.impl.exception.FormatException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+import org.kuali.rice.kim.api.identity.Person;
 
 public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AutoCheckFormatServiceImpl.class);
@@ -23,13 +24,13 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	@Override
 	public boolean processChecks() {
 		
-		AutoCheckFormat autoFormat = new AutoCheckFormat();
+		Person person = GlobalVariables.getUserSession().getPerson();
 		
+		AutoCheckFormat autoFormat = new AutoCheckFormat();
+		autoFormat.setCampus(person.getCampusCode());
+        
 		//Prepare check data
-        FormatSelection formatSelection = formatService.getDataForFormat(GlobalVariables.getUserSession().getPerson());
-        
-        autoFormat.setCampus("IR");
-        
+        FormatSelection formatSelection = formatService.getDataForFormat(person);
         if (formatSelection.getStartDate() != null) {
         	LOG.error("ERROR AutoCheckFormatStep: The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
             return false;

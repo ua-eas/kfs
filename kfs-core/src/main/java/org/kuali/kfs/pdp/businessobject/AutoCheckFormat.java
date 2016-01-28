@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.kuali.rice.kns.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class AutoCheckFormat extends PersistableBusinessObjectBase {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6222944228281142059L;
 	private String campus;
     private String paymentDate;
     private String paymentTypes;
@@ -18,7 +22,6 @@ public class AutoCheckFormat extends PersistableBusinessObjectBase {
     private List<DisbursementNumberRange> ranges;
     
     public AutoCheckFormat(){
-    	this.campus = "IR";
     	this.paymentTypes = "all";
     	customers = new ArrayList<CustomerProfile>();
         ranges = new ArrayList<DisbursementNumberRange>();  
@@ -72,7 +75,6 @@ public class AutoCheckFormat extends PersistableBusinessObjectBase {
 		this.formatProcessSummary = formatProcessSummary;
 	}
 
-	@Override
 	protected LinkedHashMap toStringMapper() {
 		// TODO Auto-generated method stub
 		return null;
