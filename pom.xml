@@ -79,8 +79,8 @@
     <!-- build properties -->
     <build.environment>dev</build.environment>
 
-<!--     <rice.web.sources>${project.build.directory}/generated-web-sources/rice-web-sources</rice.web.sources> -->
-<!--     <help.web.sources>${project.build.directory}/generated-web-sources/help-web-sources</help.web.sources> -->
+    <rice.web.sources>${project.build.directory}/generated-web-sources/rice-web-sources</rice.web.sources>
+    <help.web.sources>${project.build.directory}/generated-web-sources/help-web-sources</help.web.sources>
     <rice.web.excludes>
       kr/,
       krad/,

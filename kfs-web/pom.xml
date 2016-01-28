@@ -44,47 +44,47 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
-<!--           <execution> -->
-<!--             <id>unpack-rice-web-sources</id> -->
-<!--             <phase>generate-sources</phase> -->
-<!--             <goals> -->
-<!--               <goal>unpack</goal> -->
-<!--             </goals> -->
-<!--             <configuration> -->
-<!--               <artifactItems> -->
-<!--                 <artifactItem> -->
-<!--                   <groupId>org.kuali.rice</groupId> -->
-<!--                   <artifactId>rice-standalone</artifactId> -->
-<!--                   <version>${rice.version}</version> -->
-<!--                   <type>war</type> -->
-<!--                   <overWrite>false</overWrite> -->
-<!--                   <outputDirectory>${rice.web.sources}</outputDirectory> -->
-<!--                 </artifactItem> -->
-<!--               </artifactItems> -->
-<!--               <includes>*/**</includes> -->
-<!--               <excludes>${rice.web.excludes}</excludes> -->
-<!--             </configuration> -->
-<!--           </execution> -->
-<!--           <execution> -->
-<!--             <id>unpack-help</id> -->
-<!--             <phase>generate-sources</phase> -->
-<!--             <goals> -->
-<!--               <goal>unpack</goal> -->
-<!--             </goals> -->
-<!--             <configuration> -->
-<!--               <artifactItems> -->
-<!--                 <artifactItem> -->
-<!--                   <groupId>org.kuali.kfs</groupId> -->
-<!--                   <artifactId>kfs-help</artifactId> -->
-<!--                   <version>${kfs.help.version}</version> -->
-<!--                   <type>jar</type> -->
-<!--                   <overWrite>false</overWrite> -->
-<!--                   <outputDirectory>${help.web.sources}/static/help</outputDirectory> -->
-<!--                 </artifactItem> -->
-<!--               </artifactItems> -->
-<!--               <includes>*/**</includes> -->
-<!--             </configuration> -->
-<!--           </execution> -->
+          <execution>
+            <id>unpack-rice-web-sources</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.kuali.rice</groupId>
+                  <artifactId>rice-standalone</artifactId>
+                  <version>${rice.version}</version>
+                  <type>war</type>
+                  <overWrite>false</overWrite>
+                  <outputDirectory>${rice.web.sources}</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+              <includes>*/**</includes>
+              <excludes>${rice.web.excludes}</excludes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-help</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.kuali.kfs</groupId>
+                  <artifactId>kfs-help</artifactId>
+                  <version>${kfs.help.version}</version>
+                  <type>jar</type>
+                  <overWrite>false</overWrite>
+                  <outputDirectory>${help.web.sources}/static/help</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+              <includes>*/**</includes>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -92,12 +92,12 @@
         <version>2.1.1</version>
         <configuration>
           <webResources>
-<!--             <resource> -->
-<!--               <directory>${rice.web.sources}</directory> -->
-<!--             </resource> -->
-<!--             <resource> -->
-<!--               <directory>${help.web.sources}</directory> -->
-<!--             </resource> -->
+            <resource>
+              <directory>${rice.web.sources}</directory>
+            </resource>
+            <resource>
+              <directory>${help.web.sources}</directory>
+            </resource>
           </webResources>
         </configuration>
       </plugin>
