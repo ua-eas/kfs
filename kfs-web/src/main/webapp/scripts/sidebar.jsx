@@ -438,7 +438,10 @@ var LinkGroupSublinks = React.createClass({
         if (links.length > 0) {
             return (
                 <div id={id + "-menu"} className={sublinksClass}>
-                    {links}
+                    <h3>{label}</h3>
+                    <div className="links-container">
+                        {links}
+                    </div>
                     <button type="button" className="close" onClick={this.props.handleClick.bind(null, label, id + '-menu')}><span aria-hidden="true">&times;</span></button>
                 </div>
             )
