@@ -35,17 +35,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             return false;
         }
 
-        List<CustomerProfile> customers = formatSelection.getCustomerList();
-
-        for (CustomerProfile element : customers) {
-
-            if (formatSelection.getCampus().equals(element.getDefaultPhysicalCampusProcessingCode())) {
-                element.setSelectedForFormat(Boolean.TRUE);
-            }
-            else {
-                element.setSelectedForFormat(Boolean.FALSE);
-            }
-        }
+        List<CustomerProfile> customers = markPaymentsForFormat(formatSelection);
 
         autoFormat.setPaymentDate(getDateTimeService().toDateString(getDateTimeService().getCurrentTimestamp()));
         autoFormat.setPaymentTypes(PdpConstants.PaymentTypes.ALL);
@@ -53,21 +43,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         autoFormat.setRanges(formatSelection.getRangeList());
         
         // Mark payments for format
-		try {
-			Date paymentDate = getDateTimeService().convertToSqlDate(autoFormat.getPaymentDate());
-			FormatProcessSummary formatProcessSummary = formatService.startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
-			
-			if (formatProcessSummary.getProcessSummaryList().size() == 0) {
-				LOG.error("Warning AutoCheckFormatStep: There are no payments that match your selection for format process.");
-				return true;
-			}
-			
-			autoFormat.setFormatProcessSummary(formatProcessSummary);
-			
-		} catch (Exception e) {
-			LOG.error("ERROR AutoCheckFormatStep: " + e.getMessage(), e);
-			return false;
-		}
+		generateFormatProcesSummaryForPayments(autoFormat);
 
 		// Format checks
 		KualiInteger processId = autoFormat.getFormatProcessSummary().getProcessId();
@@ -82,6 +58,48 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		
         // You have reached the end. success!
 		return true;
+	}
+
+	/**
+	 * @param formatSelection
+	 * @return
+	 */
+	private List<CustomerProfile> markPaymentsForFormat(
+			FormatSelection formatSelection) {
+		List<CustomerProfile> customers = formatSelection.getCustomerList();
+
+        for (CustomerProfile element : customers) {
+
+            if (formatSelection.getCampus().equals(element.getDefaultPhysicalCampusProcessingCode())) {
+                element.setSelectedForFormat(Boolean.TRUE);
+            }
+            else {
+                element.setSelectedForFormat(Boolean.FALSE);
+            }
+        }
+		return customers;
+	}
+
+	/**
+	 * @param autoFormat
+	 */
+	private void generateFormatProcesSummaryForPayments(
+			AutoCheckFormat autoFormat) {
+		try {
+			Date paymentDate = getDateTimeService().convertToSqlDate(autoFormat.getPaymentDate());
+			FormatProcessSummary formatProcessSummary = formatService.startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
+			
+			if (formatProcessSummary.getProcessSummaryList().size() == 0) {
+				LOG.error("Warning AutoCheckFormatStep: There are no payments that match your selection for format process.");
+				return;
+			}
+			
+			autoFormat.setFormatProcessSummary(formatProcessSummary);
+			
+		} catch (Exception e) {
+			LOG.error("ERROR AutoCheckFormatStep: " + e.getMessage(), e);
+			return;
+		}
 	}
 
 	/**
