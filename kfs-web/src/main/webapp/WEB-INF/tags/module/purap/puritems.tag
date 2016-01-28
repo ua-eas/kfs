@@ -46,7 +46,7 @@
 
 <c:set var="tabindexOverrideBase" value="50" />
 
-<c:set var="mainColumnCount" value="16"/>
+<c:set var="mainColumnCount" value="15"/>
 <c:if test="${not purapTaxEnabled}">
     <c:set var="mainColumnCount" value="14"/>
 </c:if>
@@ -54,7 +54,7 @@
 <c:set var="colSpanDescription" value="2"/>
 <c:set var="colSpanExtendedPrice" value="1"/>
 
-<c:set var="actionColSpan" value="2"/>
+<c:set var="actionColSpan" value="1"/>
 
 <c:choose>
     <c:when test="${displayRequisitionFields}">
@@ -210,7 +210,7 @@
                             </div>
                         </td>
                     </c:if>
-                    <td class="infoline nowrap" colspan="${colSpanDescription}">
+                    <td class="infoline" colspan="${colSpanDescription}">
                        <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDescription}" property="newPurchasingItemLine.itemDescription" tabindexOverride="${tabindexOverrideBase + 0}"/>
                        <kul:expandedTextArea
                                 textAreaFieldName="newPurchasingItemLine.itemDescription"
@@ -448,7 +448,7 @@
                             </td>
                         </c:if>
 
-                        <td class="infoline nowrap" colspan="2">
+                        <td class="infoline" colspan="2">
                              <kul:htmlControlAttribute
                                 attributeEntry="${itemAttributes.itemDescription}"
                                 property="document.item[${ctr}].itemDescription"
