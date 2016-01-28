@@ -424,6 +424,11 @@ nav ul.nav li {
 }
 
 #sidebar .sublinks.col-3 {
+    right: -1080px;
+    width: 1080px;
+}
+
+#sidebar .sublinks.col-3>div.links-container {
     -webkit-column-count: 3;
     -moz-column-count: 3;
     column-count: 3;
@@ -432,6 +437,11 @@ nav ul.nav li {
 }
 
 #sidebar .sublinks.col-2 {
+    right: -720px;
+    width: 720px;
+}
+
+#sidebar .sublinks.col-2>div.links-container {
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;
@@ -443,6 +453,12 @@ nav ul.nav li {
     position: absolute;
     right: 12px;
     top: 5px;
+}
+
+#sidebar .sublinks h3 {
+    text-align: center;
+    margin-top: 0;
+    color: #969696;
 }
 
 #sidebar .nav li.panel.active,
