@@ -322,12 +322,6 @@ var Sidebar = React.createClass({
                     <div className="refresh">
                         Missing something? <a href="#d" onClick={this.refreshLinks}><span> Refresh Menu </span></a> to make sure your permissions are up to date.
                     </div>
-                    <footer id="footer">
-                        <div>
-                            <div className="center">Copyright 2005-{curYear} Kuali, Inc. All rights reserved.</div>
-                            <div className="center">Portions of this software are copyrighted by other parties as described in the <a target="_ack" href="acknowledgements.jsp">Acknowledgments</a> screen.</div>
-                        </div>
-                    </footer>
                 </div>
                 <div>
                     {linkGroupSublinks}
