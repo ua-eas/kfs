@@ -456,8 +456,8 @@ nav ul.nav li {
 }
 
 #sidebar .sublinks h3 {
-    text-align: center;
     margin-top: 0;
+    margin-left: 20px;
     color: #969696;
 }
 
@@ -520,19 +520,6 @@ nav ul.nav li {
 
 #sidebar .nav li.panel {
     border-radius: 0;
-}
-
-footer {
-    text-align: center;
-    padding-top: 10px;
-    color: #DDDDDD;
-    font-size: 12px;
-}
-
-footer a {
-    font-size: 12px !important;
-    text-transform: none !important;
-    text-decoration: underline;
 }
 
 #dashboard {
