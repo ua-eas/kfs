@@ -18,6 +18,7 @@ import org.kuali.rice.kim.api.identity.Person;
 
 public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AutoCheckFormatServiceImpl.class);
+	
 	private FormatService formatService;
 	private DateTimeService dateTimeService;
 	
@@ -30,7 +31,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		autoFormat.setCampus(person.getCampusCode());
         
 		//Prepare check data
-        FormatSelection formatSelection = formatService.getDataForFormat(person);
+        FormatSelection formatSelection = getFormatService().getDataForFormat(person);
         if (formatSelection.getStartDate() != null) {
         	LOG.error("ERROR AutoCheckFormatStep: The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
             return false;
@@ -50,7 +51,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		KualiInteger processId = autoFormat.getFormatProcessSummary().getProcessId();
 
         try {
-            formatService.performFormat(processId.intValue());
+            getFormatService().performFormat(processId.intValue());
         }
         catch (FormatException e) {
         	LOG.error("ERROR AutoCheckFormatStep: " + e.getMessage(), e);
@@ -88,7 +89,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 			AutoCheckFormat autoFormat) {
 		try {
 			Date paymentDate = getDateTimeService().convertToSqlDate(autoFormat.getPaymentDate());
-			FormatProcessSummary formatProcessSummary = formatService.startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
+			FormatProcessSummary formatProcessSummary = getFormatService().startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
 			
 			if (formatProcessSummary.getProcessSummaryList().size() == 0) {
 				LOG.error("Warning AutoCheckFormatStep: There are no payments that match your selection for format process.");
@@ -101,6 +102,20 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 			LOG.error("ERROR AutoCheckFormatStep: " + e.getMessage(), e);
 			return;
 		}
+	}
+
+	/**
+	 * @return the formatService
+	 */
+	public FormatService getFormatService() {
+		return formatService;
+	}
+
+	/**
+	 * @param formatService the formatService to set
+	 */
+	public void setFormatService(FormatService formatService) {
+		this.formatService = formatService;
 	}
 
 	/**

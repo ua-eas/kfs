@@ -772,7 +772,7 @@
 	<import resource="spring-pdp-bus-exports.xml"/>
 	
 	<bean id="autoCheckFormatService" parent="autoCheckFormatService-parentBean"/>
-	<bean id="autoCheckFormatService-parentBean" class="org.kuali.kfs.pdp.batch.service.impl.AutoCheckFormatServiceImpl"abstract="true">
+	<bean id="autoCheckFormatService-parentBean" class="org.kuali.kfs.pdp.batch.service.impl.AutoCheckFormatServiceImpl" abstract="true">
 		<property name="formatService" ref="pdpFormatService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
 	</bean>
