@@ -18,103 +18,104 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<table align="center" cellpadding="0" cellspacing="0"
-	class="datatable-100">
-	<tr>
-		<th class="grid" colspan="6" align="left">
-			<br>
-			${KualiForm.operatingModeTitle}
-			<br>
-			<br>
-		</th>
-	</tr>
+<kul:tab tabTitle="${KualiForm.operatingModeTitle}" defaultOpen="true">
+	<div class="tab-container">
+		<table class="standard">
+			<c:if test="${empty KualiForm.subFundPickList}">
+				<tr>
+					<th class="grid" colspan="6" align="left">
+						<bean:message
+							key="${BCConstants.Report.SUB_FUND_LIST_EMPTY_MESSAGE_KEY}" />
+					</th>
+				</tr>
 
-	<c:if test="${empty KualiForm.subFundPickList}">
-		<tr>
-			<th class="grid" colspan="6" align="left">
-				<bean:message
-					key="${BCConstants.Report.SUB_FUND_LIST_EMPTY_MESSAGE_KEY}" />
-			</th>
-		</tr>
-</table>
+				</table>
 
-<div id="globalbuttons" class="globalbuttons">
-	<html:image
-		src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
-		styleClass="globalbuttons" property="methodToCall.returnToCaller"
-		title="close" alt="close" />
-</div>
-</c:if>
+				<div id="globalbuttons" class="globalbuttons">
+					<html:submit
+							styleClass="btn btn-default"
+							property="methodToCall.returnToCaller"
+							title="close"
+							alt="close"
+							value="Close"/>
+				</div>
+			</c:if>
 
-<c:if test="${!empty KualiForm.subFundPickList}">
-	<c:set var="subFundAttribute"
-		value="${DataDictionary.BudgetConstructionSubFundPick.attributes}" />
+			<c:if test="${!empty KualiForm.subFundPickList}">
+				<c:set var="subFundAttribute" value="${DataDictionary.BudgetConstructionSubFundPick.attributes}" />
+				<tr class="header">
+					<th class="grid">
+						Select
+					</th>
+					<th class="grid">
+						<kul:htmlAttributeLabel
+							attributeEntry="${subFundAttribute.subFundGroupCode}"
+							useShortLabel="false" noColon="true" />
+					</th>
+					<th class="grid">
+						<kul:htmlAttributeLabel
+							attributeEntry="${subFundAttribute['subFundGroup.subFundGroupDescription']}"
+							useShortLabel="false" noColon="true"/>
+					</th>
+				</tr>
 
-	<tr>
-		<th class="grid">
-			Select
-		</th>
-		<th class="grid">
-			<kul:htmlAttributeLabel
-				attributeEntry="${subFundAttribute.subFundGroupCode}"
-				useShortLabel="false" />
-		</th>
-		<th class="grid">
-			<kul:htmlAttributeLabel
-				attributeEntry="${subFundAttribute['subFundGroup.subFundGroupDescription']}"
-				useShortLabel="false" />
-		</th>
-	</tr>
+				<logic:iterate name="KualiForm" id="subFundPick"
+					property="subFundPickList" indexId="ctr">
+					<html-el:hidden name="KualiForm"
+						property="subFundPickList[${ctr}].principalId" />
+					<html-el:hidden name="KualiForm"
+						property="subFundPickList[${ctr}].versionNumber" />
 
-	<logic:iterate name="KualiForm" id="subFundPick"
-		property="subFundPickList" indexId="ctr">
-		<html-el:hidden name="KualiForm"
-			property="subFundPickList[${ctr}].principalId" />
-		<html-el:hidden name="KualiForm"
-			property="subFundPickList[${ctr}].versionNumber" />
+					<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+						<td class="center">
+							<html:checkbox property="subFundPickList[${ctr}].reportFlag" value="1" />
+						</td>
+						<td class="center">
+							<kul:htmlControlAttribute
+								property="subFundPickList[${ctr}].subFundGroupCode"
+								attributeEntry="${subFundAttribute.subFundGroupCode}"
+								readOnly="true" />
+						</td>
+						<td class="center">
+							<kul:htmlControlAttribute
+								property="subFundPickList[${ctr}].subFundGroup.subFundGroupDescription"
+								attributeEntry="${subFundAttribute['subFundGroup.subFundGroupDescription']}"
+								readOnly="true" />
+						</td>
+					</tr>
+				</logic:iterate>
 
-		<tr align="center">
-			<td class="grid" valign="center">
-				<html:checkbox property="subFundPickList[${ctr}].reportFlag"
-					value="1" />
-			</td>
-			<td class="grid" valign="center">
-				<kul:htmlControlAttribute
-					property="subFundPickList[${ctr}].subFundGroupCode"
-					attributeEntry="${subFundAttribute.subFundGroupCode}"
-					readOnly="true" />
-			</td>
-			<td class="grid" valign="center">
-				<kul:htmlControlAttribute
-					property="subFundPickList[${ctr}].subFundGroup.subFundGroupDescription"
-					attributeEntry="${subFundAttribute['subFundGroup.subFundGroupDescription']}"
-					readOnly="true" />
-			</td>
-		</tr>
-	</logic:iterate>
+				</table>
 
-	</table>
-
-	<div id="globalbuttons" class="globalbuttons">
-		<html:image
-			src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectall.gif"
-			property="methodToCall.selectAllSubFunds" title="Select"
-			alt="Select All Codes" styleClass="smallbutton" />
-		<html:image
-			src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_unselall.gif"
-			property="methodToCall.unselectAllSubFunds" title="Unselect"
-			alt="Unselect All Codes" styleClass="smallbutton" />
-		<html:image
-			src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_submit.gif"
-			styleClass="globalbuttons" property="methodToCall.performReport"
-			title="Perform Report" alt="submit"
-			onclick="excludeSubmitRestriction=true" />
-		<html:image
-			src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
-			styleClass="globalbuttons" property="methodToCall.returnToCaller"
-			title="close" alt="close" />
+				<div id="globalbuttons" class="globalbuttons">
+					<html:submit
+							property="methodToCall.selectAllSubFunds"
+							title="Select"
+							alt="Select All Codes"
+							styleClass="btn btn-default"
+							value="Select All"/>
+					<html:submit
+							property="methodToCall.unselectAllSubFunds"
+							title="Unselect"
+							alt="Unselect All Codes"
+							styleClass="btn btn-default"
+							value="Unselect All"/>
+					<html:submit
+							styleClass="btn btn-default"
+							property="methodToCall.performReport"
+							title="Perform Report"
+							alt="submit"
+							onclick="excludeSubmitRestriction=true"
+							value="Submit"/>
+					<html:submit
+							styleClass="btn btn-default"
+							property="methodToCall.returnToCaller"
+							title="close"
+							alt="close"
+							value="Close"/>
+				</div>
+			</c:if>
 	</div>
-
-</c:if>
+</kul:tab>
 
 
