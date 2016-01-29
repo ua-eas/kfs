@@ -35,9 +35,21 @@
 
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${!readOnly}">
-	        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_save.gif" styleClass="globalbuttons" property="methodToCall.save" title="save" alt="save"/>
+	        <html:submit
+                    styleClass="btn btn-default"
+                    property="methodToCall.save"
+                    title="save"
+                    alt="save"
+                    value="Save"/>
 	    </c:if>
-        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" styleClass="globalbuttons" property="methodToCall.close" title="close" alt="close"/>
+        <html:submit
+                styleClass="btn btn-default"
+                property="methodToCall.close"
+                title="close"
+                alt="close"
+                value="Close"/>
     </div>
+
+    <kul:stickyGlobalButtons bodySelector="main.content"/>
 
 </kul:page>
