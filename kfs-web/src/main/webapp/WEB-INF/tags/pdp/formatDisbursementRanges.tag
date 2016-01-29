@@ -27,33 +27,26 @@
 	description="The DataDictionary entry containing attributes for bank."%>
 <kul:tabTop tabTitle="Disbursement Ranges" defaultOpen="true" tabErrorKey="ranges*">
 	<div id="disbursementRanges" class="tab-container" align=center>
-		<table cellpadding="0" cellspacing="0" class="datatable"
-			summary="Disbursement Ranges">
+		<table class="standard side-margins" summary="Disbursement Ranges">
 			<tr>
 				<td colspan="4" class="subhead">
 					Your Default Campus Code is <kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.physCampusProcCode}" property="campus" readOnly="true" />
 				</td>
 			</tr>
-			<tr>
-				
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${disbursementNumberRangeAttributes.physCampusProcCode}" />
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${bankAttributes.bankName}" />
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${disbursementNumberRangeAttributes.disbursementTypeCode}" />					
-				<kul:htmlAttributeHeaderCell
-					attributeEntry="${disbursementNumberRangeAttributes.lastAssignedDisbNbr}" />
-				
+			<tr class="header">
+				<kul:htmlAttributeHeaderCell attributeEntry="${disbursementNumberRangeAttributes.physCampusProcCode}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${bankAttributes.bankName}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${disbursementNumberRangeAttributes.disbursementTypeCode}" />
+				<kul:htmlAttributeHeaderCell attributeEntry="${disbursementNumberRangeAttributes.lastAssignedDisbNbr}" />
 			</tr>
 			
 			<logic:iterate id="range" name="KualiForm" property="ranges" indexId="ctr">
-              <tr>
-                <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.physCampusProcCode}" property="range[${ctr}].physCampusProcCode" readOnly="true" /></th>
-                <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${bankAttributes.bankName}" property="range[${ctr}].bank.bankName" readOnly="true" /></td>
-                <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.disbursementTypeCode}" property="range[${ctr}].disbursementTypeCode" readOnly="true" /></th>
-                <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.lastAssignedDisbNbr}" property="range[${ctr}].lastAssignedDisbNbr" readOnly="true" /></td>
-              </tr>
+				<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+					<td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.physCampusProcCode}" property="range[${ctr}].physCampusProcCode" readOnly="true" /></td>
+					<td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${bankAttributes.bankName}" property="range[${ctr}].bank.bankName" readOnly="true" /></td>
+					<td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.disbursementTypeCode}" property="range[${ctr}].disbursementTypeCode" readOnly="true" /></td>
+					<td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${disbursementNumberRangeAttributes.lastAssignedDisbNbr}" property="range[${ctr}].lastAssignedDisbNbr" readOnly="true" /></td>
+				</tr>
             </logic:iterate>
 
 		</table>

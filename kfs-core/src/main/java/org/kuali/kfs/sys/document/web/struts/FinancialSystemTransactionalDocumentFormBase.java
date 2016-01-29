@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.sys.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.web.struts.form.KualiTransactionalDocumentFormBase;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is a Financial System specific transactional document form base
@@ -125,7 +125,7 @@ public class FinancialSystemTransactionalDocumentFormBase extends KualiTransacti
     protected ExtraButton generateErrorCorrectionButton() {
         if ( errorCorrectionButton == null ) {
             ExtraButton button = new ExtraButton();
-            button.setExtraButtonAltText("Create error correction document from current document");
+            button.setExtraButtonAltText("Error Correction");
             button.setExtraButtonProperty("methodToCall.correct");
             button.setExtraButtonSource(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("kr.externalizable.images.url")+"buttonsmall_errcorr.gif");
             errorCorrectionButton = button;

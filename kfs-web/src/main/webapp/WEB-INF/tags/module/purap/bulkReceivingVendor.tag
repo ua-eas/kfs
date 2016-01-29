@@ -26,20 +26,18 @@
 <c:set var="tabindexOverrideBase" value="10" />
 
 <kul:tab tabTitle="Vendor" defaultOpen="${true}" tabErrorKey="${PurapConstants.BULK_RECEIVING_VENDOR_TAB_ERRORS}">
-    <div class="tab-container" align=center>
-        
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="Vendor Section">
+    <div class="tab-container">
+        <table class="standard" summary="Vendor Section">
             <tr>
-                <td colspan="4" class="subhead">Vendor</td>
+                <td colspan="4" class="subhead"><h3>Vendor</h3></td>
             </tr>
 		
-			<%-- If PO available, display the available vendor and alternate vendor details --%>
-	        <c:if test="${isPOAvailable}" > 
+	        <c:if test="${isPOAvailable}" >
         		<tr>
-	        		<th align=right valign=middle  class="bord-l-b">
-	                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorName}" /></div>
+	        		<th class="right top">
+	                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorName}" />
 	                </th>
-	                <td align=left valign=middle class="datacell"> 
+	                <td>
 	                	<kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorName}" property="document.vendorName" readOnly="true" /><br>
 	                   	<kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorLine1Address}" property="document.vendorLine1Address" readOnly="true" /><br>
 	                   	<c:if test="${! empty KualiForm.document.vendorLine2Address}">                   	
@@ -62,10 +60,10 @@
 	                   	</c:if>
 	            	</td>
 	            	
-	            	<th align=right valign=middle  class="bord-l-b">
-	                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.alternateVendorName}" /></div>
+	            	<th class="right top">
+	                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.alternateVendorName}" />
 	                </th>
-	                <td align=left valign=middle class="datacell"> 
+	                <td>
 	                	<kul:htmlControlAttribute attributeEntry="${documentAttributes.alternateVendorName}" property="document.alternateVendorName" readOnly="true" /><br>
 	                	<c:if test="${! empty KualiForm.document.alternateVendorNumber}">
 		                   	<kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorLine1Address}" property="document.alternateVendorDetail.defaultAddressLine1" readOnly="true" /><br>
@@ -91,10 +89,10 @@
 	            	</td>
             	</tr>
             	<tr>
-            		<th align=right valign=middle class="bord-l-b">
-                        <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorContact}" /></div>
+            		<th class="right">
+                        <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorContact}" />
                     </th>
-                    <td align=left valign=middle class="datacell">
+                    <td>
                         <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorContact}" 
                         						  property="document.vendorContact" 
                         						  readOnly="true"/>   
@@ -107,10 +105,10 @@
 	                        	        extraButtonSource="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" />     
 	                    </c:if>    	                        
                     </td>
-                    <th align=right valign=middle class="bord-l-b">
-   	                    <div align="right"><bean:message key="${KualiForm.goodsDeliveredByLabel}" /></div>
+                    <th class="right">
+   	                    <bean:message key="${KualiForm.goodsDeliveredByLabel}" />:
        	            </th>
-       	            <td align=left valign=middle class="datacell" width="25%">
+       	            <td width="25%">
         	          <c:if test="${(not empty KualiForm.document.alternateVendorNumber) and fullEntryMode}" >
             	 			<html:radio property="document.goodsDeliveredVendorNumber" 
 		            		    		value="${KualiForm.document.vendorNumber}"> 
@@ -127,14 +125,12 @@
                  </tr>
 			</c:if>
 
-			<%-- If PO not available, display all the vendor editable fields to allow the user to key --%>
-
-            <c:if test="${!isPOAvailable}" > 
+            <c:if test="${!isPOAvailable}" >
 	            <tr>
-	                <th align=right valign=middle class="bord-l-b" width="25%">
-	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorName}" /></div>
+	                <th class="right" width="25%">
+	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorName}" />
 	                </th>
-	                <td align=left valign=middle class="datacell" width="25%">
+	                <td width="25%">
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorName}" 
 	                    						  property="document.vendorName" 
 	                    						  readOnly="${not (fullEntryMode) or vendorReadOnly}" 
@@ -145,34 +141,32 @@
 	                        			 fieldConversions="vendorNumber:document.vendorNumber,vendorHeaderGeneratedIdentifier:document.vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:document.vendorDetailAssignedIdentifier,defaultAddressLine1:document.vendorLine1Address,defaultAddressLine2:document.vendorLine2Address,defaultAddressCity:document.vendorCityName,defaultAddressPostalCode:document.vendorPostalCode,defaultAddressStateCode:document.vendorStateCode,defaultAddressInternationalProvince:document.vendorAddressInternationalProvinceName,defaultAddressCountryCode:document.vendorCountryCode"/>
 	                    </c:if>
                 	</td>
-	                <th align=right valign=middle class="bord-l-b" width="25%">
-	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCityName}" /></div>
+	                <th class="right" width="25%">
+	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCityName}" />
 	                </th>
-	                <td align=left valign=middle class="datacell" width="25%">
+	                <td width="25%">
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorCityName}" property="document.vendorCityName" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 5}"/>
 	                </td>
 	            </tr>
-	
 	            <tr>
-	                <th align=right valign=middle class="bord-l-b">
-	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorNumber}" /></div>
+	                <th class="right">
+	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorNumber}" />
 	                </th>
-	                <td align=left valign=middle class="datacell">
+	                <td>
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorNumber}" property="document.vendorNumber" readOnly="true" />
 	                </td>
-	                <th align=right valign=middle class="bord-l-b">
-	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorStateCode}" /></div>
+	                <th class="right">
+	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorStateCode}" />
 	                </th>
-	                <td align=left valign=middle class="datacell">
+	                <td>
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorStateCode}" property="document.vendorStateCode" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 5}"/>
 	                </td>
 	            </tr>
-	
 	            <tr>
-	                <th align=right valign=middle class="bord-l-b">
-	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorLine1Address}" /></div>
+	                <th class="right">
+	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorLine1Address}" />
 	                </th>
-	                <td align=left valign=middle class="datacell">
+	                <td>
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorLine1Address}" 
 	                    						  property="document.vendorLine1Address" 
 	                    						  readOnly="${not fullEntryMode}" 
@@ -184,34 +178,32 @@
 	                        			 fieldConversions="vendorAddressGeneratedIdentifier:document.vendorAddressGeneratedIdentifier"/>
 	                    </c:if>
 	                </td>
-	                <th align=right valign=middle class="bord-l-b">
+	                <th class="right">
 						<kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorAddressInternationalProvinceName}" />
 	                </th>
-	                <td align=left valign=middle class="datacell">
+	                <td>
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorAddressInternationalProvinceName}" property="document.vendorAddressInternationalProvinceName" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 5}"/>
 	                </td>
 	            </tr>
-	
 	            <tr>
-	                <th align=right valign=middle class="bord-l-b">
-	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorLine2Address}" /></div>
+	                <th class="right">
+	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorLine2Address}" />
 	                </th>
-	                <td align=left valign=middle class="datacell">
+	                <td>
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorLine2Address}" property="document.vendorLine2Address" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 0}"/>
 	                </td>
-	                <th align=right valign=middle class="bord-l-b">
-	                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorPostalCode}" /></div>
+	                <th class="right">
+	                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorPostalCode}" />
 	                </th>
-					<td align=left valign=middle class="datacell">
+					<td>
 						<kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorPostalCode}" property="document.vendorPostalCode" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 5}"/>
 					</td>
 	            </tr>
-	            
 	            <tr>
-	            	<th align=right valign=middle class="bord-l-b">
-                        <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorContact}" /></div>
+	            	<th class="right">
+                        <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorContact}" />
                     </th>
-                    <td align=left valign=middle class="datacell">
+                    <td>
                         <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorContact}" 
                         						  property="document.vendorContact" 
                         						  readOnly="true"/>   
@@ -224,81 +216,77 @@
 	                        	        extraButtonSource="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" />     
 	                    </c:if>    	                        
                     </td>
-	            	<th align=right valign=middle class="bord-l-b">
-	            		<div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCountryCode}" /></div>
+	            	<th class="right">
+	            		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCountryCode}" />
 	            	</th>
-	            	<td align=left valign=middle class="datacell">
+	            	<td>
 	                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorCountryCode}" property="document.vendorCountryCode"
 	                    extraReadOnlyProperty="document.vendorCountry.name" 
 	                    readOnly="${not fullEntryMode}" 
 	                    tabindexOverride="${tabindexOverrideBase + 5}"/>
 	            	</td>
 	            </tr>
-            
 			</c:if>
 
-			<%-- This is common if PO is available or not --%>
-			
 			<tr>
-                <td colspan="4" class="subhead">Shipment Information</td>
+                <td colspan="4" class="subhead"><h3>Shipment Information</h3></td>
             </tr> 
-	           
 			<tr>
-				 <th align=right valign=middle class="bord-l-b">
-                   	 <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.trackingNumber}" /></div>
+				 <th class="right">
+                   	 <kul:htmlAttributeLabel attributeEntry="${documentAttributes.trackingNumber}" />
                  </th>
-                 <td align=left valign=middle class="datacell">
+                 <td>
                    	 <kul:htmlControlAttribute attributeEntry="${documentAttributes.trackingNumber}" property="document.trackingNumber" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                  </td>
-				 <th align=right valign=middle class="bord-l-b">
-	                 <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentReceivedDate}" /></div>
+				 <th class="right">
+	                 <kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentReceivedDate}" />
 	             </th>
-	             <td align=left valign=middle class="datacell">
+	             <td>
 	                 <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentReceivedDate}" property="document.shipmentReceivedDate" datePicker="true" readOnly="${not fullEntryMode}"/>
 	             </td>
             </tr>
 			<tr>
-            	<th align=right valign=middle class="bord-l-b">
-                  		<div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentPackingSlipNumber}" /></div>
+            	<th class="right">
+                  		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentPackingSlipNumber}" />
                 </th>
-   	            <td align=left valign=middle class="datacell">
+   	            <td>
        	           <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentPackingSlipNumber}" property="document.shipmentPackingSlipNumber" readOnly="${not fullEntryMode}"/>
            	    </td>
-           	    <th align=right valign=middle class="bord-l-b">
-                  		<div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentReferenceNumber}" /></div>
+           	    <th class="right">
+                  		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentReferenceNumber}" />
                 </th>
-   	            <td align=left valign=middle class="datacell">
+   	            <td>
        	           <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentReferenceNumber}" property="document.shipmentReferenceNumber" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 5}"/>
            	    </td>
             </tr>
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentBillOfLadingNumber}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentBillOfLadingNumber}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td>
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentBillOfLadingNumber}" property="document.shipmentBillOfLadingNumber" readOnly="${not fullEntryMode}"/>
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                  		<div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.carrierCode}" /></div>
+                <th class="right">
+                  		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.carrierCode}" />
                	</th>
-               	<td align=left valign=middle class="datacell">
+               	<td>
                   		<kul:htmlControlAttribute attributeEntry="${documentAttributes.carrierCode}" property="document.carrier.carrierDescription" readOnly="true"/>
                	</td>
             </tr>     
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentWeight}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.shipmentWeight}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td>
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.shipmentWeight}" property="document.shipmentWeight" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 0}"/>
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                  		<div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.noOfCartons}" /></div>
+                <th class="right">
+                  		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.noOfCartons}" />
                	</th>
-               	<td align=left valign=middle class="datacell">
+               	<td>
                   		<kul:htmlControlAttribute attributeEntry="${documentAttributes.noOfCartons}" property="document.noOfCartons" readOnly="${not fullEntryMode}" tabindexOverride="${tabindexOverrideBase + 5}"/>
                	</td>
             </tr>    
-      </table> <%-- If PO not available --%>
+      	</table>
     </div>
 </kul:tab>

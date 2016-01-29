@@ -27,13 +27,13 @@
 
 <kul:tabTop tabTitle="Monthly Budget Construction" defaultOpen="true" tabErrorKey="${BCConstants.BUDGET_CONSTRUCTION_MONTHLY_BUDGET_ERRORS}">
 <div class="tab-container" align=center>
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
+    <table class="standard side-margins">
 
       <bc:subheadingWithDetailToggleRow
         columnCount="9"
         subheading="Monthly Amounts"/>
 
-      <tr>
+      <tr class="header">
           <kul:htmlAttributeHeaderCell align="left" attributeEntry="${pbglAttributes.universityFiscalYear}" >
           </kul:htmlAttributeHeaderCell>
           <kul:htmlAttributeHeaderCell attributeEntry="${pbglAttributes.chartOfAccountsCode}" />
@@ -117,22 +117,21 @@
               rowSpan="1" dataFieldCssClass="amount" />
       </tr>
     </table>
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
+    <table class="standard side-margins">
 
       <tr>
           <kul:htmlAttributeHeaderCell colspan="2" />
           
       </tr>
       
-      <tr>
-          <kul:htmlAttributeHeaderCell align="right" literalLabel="Period" scope="col">
-          </kul:htmlAttributeHeaderCell>
-          <kul:htmlAttributeHeaderCell align="left" literalLabel="Amount" scope="col" />
+      <tr class="header">
+          <kul:htmlAttributeHeaderCell addClass="right" width="50%" literalLabel="Period" scope="col"/>
+          <kul:htmlAttributeHeaderCell align="left" width="50%" literalLabel="Amount" scope="col" />
       </tr>
 
       <c:if test="${monthlyBudget != null}">
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth1LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth1LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth1LineAmount"
@@ -144,7 +143,7 @@
                 anchor="monthlyBudgetLineLineAnchor" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth2LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth2LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth2LineAmount"
@@ -155,7 +154,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth3LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth3LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth3LineAmount"
@@ -166,7 +165,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth4LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth4LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth4LineAmount"
@@ -177,7 +176,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth5LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth5LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth5LineAmount"
@@ -188,7 +187,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth6LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth6LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth6LineAmount"
@@ -199,7 +198,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth7LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth7LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth7LineAmount"
@@ -210,7 +209,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth8LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth8LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth8LineAmount"
@@ -221,7 +220,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth9LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth9LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth9LineAmount"
@@ -232,7 +231,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth10LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth10LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth10LineAmount"
@@ -243,7 +242,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth11LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth11LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth11LineAmount"
@@ -254,7 +253,7 @@
                 rowSpan="1" dataFieldCssClass="amount" />
         </tr>
         <tr>
-			<kul:htmlAttributeHeaderCell align="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth12LineAmount}" />
+			<kul:htmlAttributeHeaderCell addClass="right" attributeEntry="${monthlyBudgetAttributes.financialDocumentMonth12LineAmount}" />
             <bc:pbglLineDataCell dataCellCssClass="datacell"
                 accountingLine="budgetConstructionMonthly"
                 cellProperty="budgetConstructionMonthly.financialDocumentMonth12LineAmount"
@@ -271,11 +270,27 @@
               <div align="center"><span>
               <c:if test="${!readOnly}">
                 <c:if test="${KualiForm.budgetableDocument}">
-                  <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_monthspread.gif" styleClass="tinybutton" property="methodToCall.performMonthlySpread.anchormonthlyBudgetLineLineAnchor" title="Spread Evenly To Months" alt="Spread Evenly To Months"/>
-                  <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_clear.gif" styleClass="tinybutton" property="methodToCall.performMonthlyZero.anchormonthlyBudgetLineLineAnchor" title="Set Months To Zero" alt="Set Months To Zero"/>
+                  <html:submit
+                          styleClass="btn btn-default"
+                          property="methodToCall.performMonthlySpread.anchormonthlyBudgetLineLineAnchor"
+                          title="Spread Evenly To Months"
+                          alt="Spread Evenly To Months"
+                          value="Month Spread"/>
+                  <html:submit
+                          styleClass="btn btn-default"
+                          property="methodToCall.performMonthlyZero.anchormonthlyBudgetLineLineAnchor"
+                          title="Set Months To Zero"
+                          alt="Set Months To Zero"
+                          value="Clear"/>
                 </c:if>
                 <c:if test="${KualiForm.monthlyPersisted}">
-                  <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_monthdel.gif" styleClass="tinybutton" property="methodToCall.performMonthlyDelete.anchormonthlyBudgetLineLineAnchor" title="Delete Monthly" alt="Delete Monthly"/>
+                  <html:submit
+                          src="${ConfigProperties.externalizable.images.url}buttonsmall_monthdel.gif"
+                          styleClass="btn btn-red"
+                          property="methodToCall.performMonthlyDelete.anchormonthlyBudgetLineLineAnchor"
+                          title="Delete Monthly"
+                          alt="Delete Monthly"
+                          value="Month Delete"/>
                 </c:if>
               </c:if>
               &nbsp;

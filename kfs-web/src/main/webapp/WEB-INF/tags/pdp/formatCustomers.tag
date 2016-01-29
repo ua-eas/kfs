@@ -27,31 +27,22 @@
 	description="The DataDictionary entry containing attributes for disbursement number range."%>	
 
 <kul:tab tabTitle="Customers" defaultOpen="true" tabErrorKey="customer*">
-	<div id="formatCustomer" class="tab-container" align=center>
-		<table cellpadding="0" cellspacing="0" class="datatable"
-			summary="Customers">
-			<tr>
-				<td colspan="3" class="subhead">
-					Customers
-				</td>
-			</tr>
-			<tr>
-			
-			 <tr>
-            <logic:iterate id="customer" name="KualiForm" property="customers" indexId="ctr">
-	                    <tr>
-	                      <td class="${dataCell}">
-                            <kul:htmlControlAttribute property="customer[${ctr}].selectedForFormat" attributeEntry="${dummyAttributes.genericBoolean}" />
-	                      </td>
-	                      <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${customerProfileAttributes.customerShortName}" property="customer[${ctr}].customerShortName" readOnly="true" /></td>
-	                      <td class="${dataCell}"><kul:htmlControlAttribute attributeEntry="${customerProfileAttributes.customerDescription}" property="customer[${ctr}].customerDescription" readOnly="true" /></td>
-	                    </tr>
-	         </logic:iterate>
-          </tr>
-
+	<div id="formatCustomer" class="tab-container">
+		<table class="standard side-margins" summary="Customers">
+			<logic:iterate id="customer" name="KualiForm" property="customers" indexId="ctr">
+				<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+					<td class="${dataCell}">
+						<kul:htmlControlAttribute property="customer[${ctr}].selectedForFormat" attributeEntry="${dummyAttributes.genericBoolean}" />
+					</td>
+					<td class="${dataCell}">
+						<kul:htmlControlAttribute attributeEntry="${customerProfileAttributes.customerShortName}" property="customer[${ctr}].customerShortName" readOnly="true" />
+					</td>
+					<td class="${dataCell}">
+						<kul:htmlControlAttribute attributeEntry="${customerProfileAttributes.customerDescription}" property="customer[${ctr}].customerDescription" readOnly="true" />
+					</td>
+				</tr>
+			 </logic:iterate>
 		</table>
-
-		
 	</div>
 </kul:tab>
     

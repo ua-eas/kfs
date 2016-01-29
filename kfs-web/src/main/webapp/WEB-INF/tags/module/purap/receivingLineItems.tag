@@ -34,11 +34,11 @@
 <c:set var="tabindexOverrideBase" value="20" />
 
 <kul:tab tabTitle="Items" defaultOpen="true" tabErrorKey="${PurapConstants.LINEITEM_TAB_ERRORS}">
-	<div class="tab-container" align=center>
-	<table cellpadding="0" cellspacing="0" class="datatable" summary="Items Section">
+	<div class="tab-container">
+	<table class="standard" summary="Items Section">
 		<tr>
 			<td colspan="${colCount}" class="subhead">
-			    <span class="subhead-left">Receiving Line Items</span>
+			    <h3>Receiving Line Items</h3>
 			</td>
 		</tr>
 
@@ -47,26 +47,38 @@
 			<td colspan="${colCount}" class="datacell" align="right" nowrap="nowrap">
 				<div align="right">
 					<c:if test="${KualiForm.ableToShowClearAndLoadQtyButtons}">
-						<html:image property="methodToCall.loadQty" src="${ConfigProperties.externalizable.images.url}tinybutton-loadqtyreceived.gif" alt="load qty received" title="load qty received" styleClass="tinybutton" />
-						<html:image property="methodToCall.clearQty" src="${ConfigProperties.externalizable.images.url}tinybutton-clearqtyreceived.gif" alt="clear qty received" title="clear qty received" styleClass="tinybutton" />
+						<html:submit
+								property="methodToCall.loadQty"
+								alt="load qty received"
+								title="load qty received"
+								styleClass="btn btn-default"
+								value="Load Qty Received"/>
+						<html:submit
+								property="methodToCall.clearQty"
+								alt="clear qty received"
+								title="clear qty received"
+								styleClass="btn btn-default"
+								value="Clear Qty Received"/>
 					</c:if>
 					<c:if test="${KualiForm.hideAddUnorderedItem}">
-						<html:image property="methodToCall.showAddUnorderedItem"
-							src="${ConfigProperties.externalizable.images.url}tinybutton-addunorditem.gif"
-							alt="add unordered item" title="add unordered item"
-							styleClass="tinybutton" />
+						<html:submit
+								property="methodToCall.showAddUnorderedItem"
+								alt="add unordered item"
+								title="add unordered item"
+								styleClass="btn btn-default"
+								value="Add Unordered Item"/>
 					</c:if>
 					<c:if test="${!KualiForm.hideAddUnorderedItem}">
-						<img src="${ConfigProperties.externalizable.images.url}tinybutton-addunorditem-grey.gif"
-							alt="add unordered item" border="0" styleClass="tinybutton" />
+						<button alt="add unordered item" border="0" class="btn btn-default disabled" disabled>
+							Add Unordered Item
+						</button>
 					</c:if>
 				</div>
 			</td>
 		</tr>
 		</c:if>
 		
-		<!--  Column Names -->
-		<tr>
+		<tr class="header">
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemLineNumber}" />
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemCatalogNumber}" />
 			<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />
@@ -180,23 +192,23 @@
 				</c:when>
 			</c:choose>
 
-		<tr>
-			<td colspan="${colCount}" class="tab-subhead" style="border-right: none;">				 
+		<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+			<td colspan="${colCount}" class="tab-subhead" style="border-right: none;">
 		    <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-			    <html:image
+			    <html:submit
 				    property="methodToCall.toggleTab.tab${tabKey}"
-				    src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif"
-				    alt="hide" title="toggle" styleClass="tinybutton"
+				    alt="hide" title="toggle" styleClass="btn btn-default small"
 				    styleId="tab-${tabKey}-imageToggle"
-				    onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-		    </c:if> 
+				    onclick="javascript: return toggleTab(document, '${tabKey}'); "
+						value="Hide"/>
+		    </c:if>
 		    <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-			    <html:image
+			    <html:submit
 	  			    property="methodToCall.toggleTab.tab${tabKey}"
-				    src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif"
-				    alt="show" title="toggle" styleClass="tinybutton"
+				    alt="show" title="toggle" styleClass="btn btn-default small"
 				    styleId="tab-${tabKey}-imageToggle"
-				    onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+				    onclick="javascript: return toggleTab(document, '${tabKey}'); "
+						value="Show"/>
 			</c:if>
 			</td>
 		</tr>
@@ -205,7 +217,7 @@
 			<tbody style="display: none;" id="tab-${tabKey}-div">
 		</c:if>
 
-		<tr>			
+		<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
 			<td class="infoline" nowrap="nowrap">
 				    &nbsp;<b><bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/></b>&nbsp; 
 			</td>		

@@ -26,9 +26,9 @@
 
 <div class="tab-container" align="center">
 	<h3>Invoices to Writeoff</h3>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
+	<table class="standard side-margins">
 		<thead>
-			<tr>
+			<tr class="heading">
 				<kul:htmlAttributeHeaderCell attributeEntry="${customerInvoiceDocumentAttributes.documentNumber}" />
 				<kul:htmlAttributeHeaderCell attributeEntry="${customerInvoiceDocumentAttributes.age}" />
 				<kul:htmlAttributeHeaderCell attributeEntry="${customerInvoiceDocumentAttributes.billingDate}" />
@@ -36,18 +36,18 @@
 				<kul:htmlAttributeHeaderCell attributeEntry="${customerInvoiceDocumentAttributes.openAmount}" />
 			</tr>
 		</thead>
-		<logic:iterate id="customerInvoiceDocument" name="KualiForm"
-				property="${propertyName}.customerInvoiceDocuments" indexId="ctr">
+		<logic:iterate id="customerInvoiceDocument" name="KualiForm" property="${propertyName}.customerInvoiceDocuments" indexId="ctr">
 			<ar:customerInvoiceWriteoffSummarySubResult
-				customerInvoiceDocumentAttributes="${customerInvoiceDocumentAttributes}"
-				propertyName="${propertyName}.customerInvoiceDocument[${ctr}]" />
+					customerInvoiceDocumentAttributes="${customerInvoiceDocumentAttributes}"
+					propertyName="${propertyName}.customerInvoiceDocument[${ctr}]"
+					rowClass="${ctr % 2 == 0 ? 'highlight' : ''}"/>
 		</logic:iterate>
 	</table>
 	<h3>Customer Note</h3>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
+	<table class="standard side-margins">
 		<tr>
-			<th align=right valign=middle class="bord-l-b">
-				<div align="right"><kul:htmlAttributeLabel attributeEntry="${customerInvoiceWriteoffLookupResultAttributes.customerNote}" /></div>
+			<th class="right">
+				<kul:htmlAttributeLabel attributeEntry="${customerInvoiceWriteoffLookupResultAttributes.customerNote}" />
 			</th>
 			<td>
 				<c:if test="${KualiForm.sentToBatch}">

@@ -23,7 +23,9 @@
 <%@ attribute name="propertyName" required="true"
               description="The DataDictionary entry containing attributes for this row's fields." %>
 
-<tr>
+<%@ attribute name="rowClass" required="false" description="class for the table row" %>
+
+<tr class="${rowClass}">
 	<td><kul:htmlControlAttribute attributeEntry="${customerInvoiceDocumentAttributes.documentNumber}" property="${propertyName}.documentNumber" readOnly="true" /></td>
 	<td><kul:htmlControlAttribute attributeEntry="${customerInvoiceDocumentAttributes.age}" property="${propertyName}.age" readOnly="true" /></td>
 	<td><kul:htmlControlAttribute attributeEntry="${customerInvoiceDocumentAttributes.billingDate}" property="${propertyName}.billingDate" readOnly="true" /></td>
