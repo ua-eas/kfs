@@ -22,7 +22,6 @@
 
 <kul:tabTop tabTitle="Customer Invoice Writeoff Initiation" defaultOpen="true" tabErrorKey="${KFSConstants.CUSTOMER_INVOICE_WRITEOFF_INIT_ERRORS}">
     <div class="tab-container" align=center>
-            <h3>Customer Invoice Writeoff Initiation</h3>
         <table cellpadding="0" cellspacing="0" class="datatable" summary="Customer Invoice Writeoff Init Section" >
             <tr>
                 <th align="right" valign="middle" class="bord-l-b" >

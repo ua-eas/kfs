@@ -1029,9 +1029,9 @@
   <bean id="Asset-lastInventoryDateUpdateButton-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="lastInventoryDateUpdateButton"/>
     <property name="label" value="Update Last Inventory Date"/>
-    <property name="shortLabel" value="Update Last Inventory Date"/>
+    <property name="shortLabel" value="Update"/>
     <property name="control">
-      <bean parent="ButtonControlDefinition" p:imageSrc="buttonsmall_update.gif" p:styleClass="globalbuttons"/>
+      <bean parent="ButtonControlDefinition" p:styleClass="btn btn-default small"/>
     </property>
  </bean>
   

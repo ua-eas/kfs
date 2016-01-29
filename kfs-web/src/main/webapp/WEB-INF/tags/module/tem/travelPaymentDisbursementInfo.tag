@@ -27,6 +27,5 @@
   <c:param name="custPaymentDocNbr" value="${sourceDocumentNumber}"/>
   <c:param name="financialDocumentTypeCode" value="${sourceDocumentType}"/>
 </c:url>
-<c:url var="image" value="${ConfigProperties.externalizable.images.url}tinybutton-disbursinfo.gif"/>
 							  
-&nbsp;<a href="${page}" target="_pdp"><img src="${image}" border="0"/></a>              
+&nbsp;<a href="${page}" target="_pdp"><button title="Disbursement Info" class="btn btn-default small">Disbursement Info</button></a>
