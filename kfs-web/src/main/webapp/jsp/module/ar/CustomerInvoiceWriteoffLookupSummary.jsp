@@ -24,11 +24,26 @@
 	
 	<div id="globalbuttons" class="globalbuttons">
 		<c:if test="${KualiForm.sentToBatch}"> 
-		<html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif" styleClass="globalbuttons" property="methodToCall.cancel" title="claim" alt="claim"/>
+		<html:submit
+                styleClass="btn btn-default"
+                property="methodToCall.cancel"
+                title="claim"
+                alt="claim"
+                value="Return"/>
 		</c:if>
 		<c:if test="${!KualiForm.sentToBatch}">
-		<html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif" styleClass="globalbuttons" property="methodToCall.createCustomerInvoiceWriteoffs" title="claim" alt="claim"/>
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" styleClass="globalbuttons" property="methodToCall.cancel" title="cancel" alt="cancel"/>
+		<html:submit
+                styleClass="btn btn-default"
+                property="methodToCall.createCustomerInvoiceWriteoffs"
+                title="claim"
+                alt="claim"
+                value="Create"/>
+		<html:submit
+                styleClass="btn btn-default"
+                property="methodToCall.cancel"
+                title="cancel"
+                alt="cancel"
+                value="Cancel"/>
 		</c:if>
 	</div>
 </kul:page>
