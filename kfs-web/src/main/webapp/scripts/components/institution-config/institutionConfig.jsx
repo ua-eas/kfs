@@ -3,7 +3,6 @@ import Router from 'react-router';
 import {Route, RouteHandler, DefaultRoute, NotFoundRoute} from 'react-router';
 
 import Header from '../../header.jsx';
-import Footer from '../../footer.jsx';
 import InstitutionConfigSidebar from './InstitutionConfigSidebar.jsx';
 
 import LogoUpload from './logo/LogoUpload.jsx';

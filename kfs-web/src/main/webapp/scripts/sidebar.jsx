@@ -3,12 +3,11 @@ import Link from './link.jsx';
 import UserPrefs from './sys/user_preferences.js';
 import KfsUtils from './sys/utils.js';
 
-let animationTime = 250
-
 var Sidebar = React.createClass({
     getInitialState() {
         let userPreferences = {};
         userPreferences.checkedLinkFilters = ["activities", "reference", "administration"];
+        let sidebarOut = !$('#sidebar').hasClass('collapsed');
         return { principalName: "",
             institutionPreferences: {},
             userPreferences: userPreferences,
@@ -16,49 +15,50 @@ var Sidebar = React.createClass({
             expandedSearch: false,
             search: '',
             searchResults: undefined,
-            backdoorId: ''
+            backdoorId: '',
+            sidebarOut: sidebarOut
         };
     },
     componentWillMount() {
-        let thisComponent = this
-        let found = false
+        let thisComponent = this;
+        let found = false;
 
         UserPrefs.getBackdoorId((backdoorId) => {
             UserPrefs.getPrincipalName(function (principalName) {
-                thisComponent.setState({principalName: principalName})
-                let preferencesString = localStorage.getItem("institutionPreferences")
+                thisComponent.setState({principalName: principalName});
+                let preferencesString = localStorage.getItem("institutionPreferences");
                 if (preferencesString != null) {
-                    let sessionId = KfsUtils.getKualiSessionId()
-                    let prefs = JSON.parse(preferencesString)
+                    let sessionId = KfsUtils.getKualiSessionId();
+                    let prefs = JSON.parse(preferencesString);
                     if ((prefs.sessionId == sessionId) && (prefs.principalName == principalName)) {
-                        found = true
-                        thisComponent.setState({backdoorId: backdoorId, institutionPreferences: prefs})
+                        found = true;
+                        thisComponent.setState({backdoorId: backdoorId, institutionPreferences: prefs});
                     } else {
-                        localStorage.removeItem("institutionPreferences")
+                        localStorage.removeItem("institutionPreferences");
                     }
                 }
 
                 if (!found) {
-                    let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName
+                    let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName;
                     $.ajax({
                         url: institutionLinksPath,
                         dataType: 'json',
                         type: 'GET',
                         success: function (preferences) {
                             thisComponent.setState({backdoorId: backdoorId, institutionPreferences: preferences});
-                            preferences.sessionId = KfsUtils.getKualiSessionId()
+                            preferences.sessionId = KfsUtils.getKualiSessionId();
                             localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
                         }.bind(this),
                         error: function (xhr, status, err) {
                             console.error(status, err.toString());
                         }.bind(this)
-                    })
+                    });
                 }
 
             }, function () {
-                console.error("Error retrieving principalName")
+                console.error("Error retrieving principalName");
             })
-        }, (status, message) => {console.error(status, message.toString());})
+        }, (status, message) => {console.error(status, message.toString());});
 
         UserPrefs.getUserPreferences(function (userPreferences) {
             thisComponent.setState({userPreferences: userPreferences});
@@ -68,25 +68,38 @@ var Sidebar = React.createClass({
     },
     componentDidUpdate() {
         let newClass;
-        let activePanel = $('li.panel.active>.sublinks');
+        let activePanelId = KfsUtils.buildKeyFromLabel(this.state.expandedLinkGroup) + "-menu";
+        let activePanel = $('#' + activePanelId);
 
         if (!activePanel.parent().hasClass('search') && activePanel.offset()) {
-            let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
             let panelHeight = activePanel.outerHeight();
-            let distanceFromTop = activePanel.offset().top - window.pageYOffset;
-            let distanceFromBottom = viewportHeight - (distanceFromTop + panelHeight);
-            let distanceFromBottomOfPage = $('body').height() - (activePanel.offset().top + panelHeight);
-            if (distanceFromTop - panelHeight / 2 > 60 && distanceFromBottom + panelHeight / 2 > 0 && distanceFromBottomOfPage + panelHeight / 2 > 60) {
-                newClass = 'flowCenter';
-            } else if ((distanceFromBottom < 60 && distanceFromTop - panelHeight > 60) || distanceFromBottomOfPage < 60) {
-                newClass = 'flowUp';
-            }
+            if ($('#sidebar-scroll').outerHeight() < $('#linkgroups').outerHeight()) {
+                let sidebarMiddle = ($('#sidebar-scroll').outerHeight() + 170) / 2;
+                let topPosition = sidebarMiddle - (panelHeight / 2);
+                activePanel.css('top', topPosition);
+                activePanel.addClass('floating');
+            } else {
+                let activeLink = $('#linkgroups .active');
+                let sidebarHeight = $('#sidebar>div').outerHeight();
+                let distanceFromTop = activeLink.offset().top - $('#sidebar>div').offset().top;
+                let distanceFromBottom = sidebarHeight - distanceFromTop;
+                if (distanceFromBottom < distanceFromTop && distanceFromBottom < panelHeight) {
+                    if (distanceFromTop > distanceFromBottom && distanceFromBottom > (activeLink.outerHeight() / 2 + panelHeight / 2)) {
+                        newClass = 'flowCenter';
+                    } else {
+                        newClass = 'flowUp';
+                    }
+                }
 
-            if (newClass) {
-                activePanel.addClass(newClass);
-                if (newClass === 'flowCenter') {
-                    let activeGroupAdjust = $('li.panel.active').outerHeight() / 2;
-                    activePanel.css('bottom', '-' + (panelHeight / 2 - activeGroupAdjust) + 'px');
+                if (newClass) {
+                    activePanel.addClass(newClass);
+                    if (newClass === 'flowCenter') {
+                        activePanel.css('top', (distanceFromTop + activeLink.outerHeight() / 2 - panelHeight / 2));
+                    } else if (newClass === 'flowUp') {
+                        activePanel.css('bottom', distanceFromBottom - activeLink.outerHeight() + 1);
+                    }
+                } else {
+                    activePanel.css('top', distanceFromTop);
                 }
             }
         }
@@ -103,11 +116,12 @@ var Sidebar = React.createClass({
         this.setState({userPreferences: userPreferences});
         UserPrefs.putUserPreferences(userPreferences);
     },
-    toggleLinkGroup(label) {
+    toggleLinkGroup(label, sublinksId) {
         if (this.state.expandedLinkGroup === label) {
             this.setState({expandedLinkGroup: ""});
-            $('li.panel.active>.sublinks').removeClass('flowUp flowCenter');
-            $('li.panel.active>.sublinks').css('bottom', '');
+            let sublinks = $('#' + sublinksId);
+            sublinks.removeClass('flowUp flowCenter');
+            sublinks.css({'bottom': 'inherit', 'top': 'inherit'});
             $('#content-overlay').removeClass('visible');
             $('html').off('click','**');
         } else {
@@ -115,10 +129,12 @@ var Sidebar = React.createClass({
             $('#content-overlay').addClass('visible');
             let sidebar = this;
             $('html').on('click',function(event) {
-                if (!$(event.target).closest('li.panel.active').length && !$(event.target).closest('#linkFilter').length) {
-                    $('li.panel.active>.sublinks').removeClass('flowUp flowCenter');
-                    $('li.panel.active>.sublinks').css('bottom', '');
-                    $('li.panel.active').removeClass('active');
+                if (!$(event.target).closest('.sublinks').length &&
+                    !$(event.target).closest('li.panel.active').length &&
+                    !$(event.target).closest('#linkFilter').length) {
+                    let sublinks = $('#' + sublinksId);
+                    sublinks.removeClass('flowUp flowCenter');
+                    sublinks.css({'bottom': 'inherit', 'top': 'inherit'});
                     $('#content-overlay').removeClass('visible');
                     sidebar.setState({expandedLinkGroup: ""});
                 }
@@ -128,41 +144,38 @@ var Sidebar = React.createClass({
     toggleSidebar() {
         $('#menu-toggle').toggleClass('rotated');
         $('#sidebar').toggleClass('collapsed');
-
-        let userPreferences = this.state.userPreferences;
-        let sidebarOutValue = ! userPreferences.sidebarOut;
-
-        userPreferences.sidebarOut = sidebarOutValue;
-        this.setState({ userPreferences: userPreferences, expandedLinkGroup: "" });
-
-        UserPrefs.putUserPreferences(userPreferences);
+        $('main.content').toggleClass('fullwidth');
+        if (!this.state.sidebarOut) {
+            $('li.search>input').focus();
+        }
+        this.setState({ sidebarOut: !this.state.sidebarOut, expandedLinkGroup: "" });
     },
     refreshLinks() {
-        let thisComponent = this
-        let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + thisComponent.state.principalName
+        let thisComponent = this;
+        let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + thisComponent.state.principalName;
 
-        $('.cover').show()
-        $('.sidebar-waiting').css('top',($(window).height() / 2) - 20).show()
+        $('.cover').show();
+        $('.sidebar-waiting').css('top',($(window).height() / 2) - 20).show();
 
         $.ajax({
             url: institutionLinksPath,
             dataType: 'json',
             type: 'GET',
             beforeSend: function(xhr) {
-                xhr.setRequestHeader('cache-control', 'must-revalidate')
+                xhr.setRequestHeader('cache-control', 'must-revalidate');
             },
             success: function (preferences) {
                 thisComponent.setState({institutionPreferences: preferences});
                 preferences.sessionId = KfsUtils.getKualiSessionId();
                 localStorage.setItem("institutionPreferences", JSON.stringify(preferences));
                 $('.cover').hide();
-                $('.sidebar-waiting').hide()
+                $('.sidebar-waiting').hide();
             }.bind(this),
             error: function (xhr, status, err) {
                 $('#sidebar').removeClass('sidebar-dim');
-                console.error(status, err.toString())
+                console.error(status, err.toString());
             }.bind(this)
-        })
+        });
     },
     autocompleteSearch(event) {
         let searchString = event.target.value;
@@ -172,7 +185,7 @@ var Sidebar = React.createClass({
 
         if (!expandedSearch) {
             $('#content-overlay').removeClass('visible');
-            $('html').off('click','**')
+            $('html').off('click','**');
         } else {
             $('#content-overlay').addClass('visible');
             $('html').on('click', event => {
@@ -213,9 +226,12 @@ var Sidebar = React.createClass({
     },
     clearSearch() {
         this.refs.searchBox.getDOMNode().focus();
-        this.setState({'search': '', 'searchResults': undefined});
+        this.setState({'search': '', 'searchResults': undefined, 'expandedSearch': false});
+        $('#content-overlay').removeClass('visible');
+        $('html').off('click','**');
     },
     closeSearch() {
+        $('li.search.panel.active div.sublinks.active').removeClass('active');
         $('li.search.panel.active').removeClass('active');
         $('#content-overlay').removeClass('visible');
         $('html').off('click','**');
@@ -224,23 +240,32 @@ var Sidebar = React.createClass({
     render() {
         let rootPath = KfsUtils.getUrlPathPrefix();
         let linkGroups = [];
+        let linkGroupSublinks = [];
         if (this.state.institutionPreferences.linkGroups) {
-            let groups = this.state.institutionPreferences.linkGroups
+            let groups = this.state.institutionPreferences.linkGroups;
             for (let i = 0; i < groups.length; i++) {
                 linkGroups.push(
                     <LinkGroup key={i}
                         group={groups[i]}
                         handleClick={this.toggleLinkGroup}
-                        expandedLinkGroup={this.state.expandedLinkGroup}
                         checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}
-                        backdoorId={this.state.backdoorId}/>
+                        expandedLinkGroup={this.state.expandedLinkGroup}/>
+                )
+
+                linkGroupSublinks.push(
+                    <LinkGroupSublinks key={i}
+                               group={groups[i]}
+                               handleClick={this.toggleLinkGroup}
+                               checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}
+                               backdoorId={this.state.backdoorId}
+                               expandedLinkGroup={this.state.expandedLinkGroup}/>
                 )
             }
         }
 
-        let menuToggleClassName = "glyphicon glyphicon-menu-left"
-        if (this.state.userPreferences.sidebarOut === false) {
-            menuToggleClassName += " rotated"
+        let menuToggleClassName = "glyphicon glyphicon-menu-left";
+        if (this.state.sidebarOut === false) {
+            menuToggleClassName += " rotated";
             $('#sidebar').addClass('collapsed');
         }
 
@@ -250,7 +275,7 @@ var Sidebar = React.createClass({
         }
 
         let searchResultsClass;
-        let searchResults = <div className="sublinks collapse">No results found</div>;
+        let searchResults = undefined;
         if (this.state.searchResults && Object.keys(this.state.searchResults).length > 0) {
             let finalLinks = [];
             let groupCount = 0;
@@ -262,19 +287,23 @@ var Sidebar = React.createClass({
             searchResults = finalLinks;
 
             if (groupCount > 0) {
-                groupCount--
+                groupCount--;
             }
 
             searchResults.push(<button type="button" className="close" onClick={this.closeSearch}><span aria-hidden="true">&times;</span></button>);
 
-            searchResultsClass = determineSublinkClass(finalLinks, groupCount)
+            searchResultsClass = determineSublinkClass(finalLinks, groupCount, this.state.expandedSearch);
+        } else if (this.state.expandedSearch) {
+            searchResults = <div className="sublinks collapse active center">No results found</div>;
         }
+
+        var curYear = new Date().getFullYear();
 
         return (
             <div>
                 <div className="cover"></div>
                 <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
-                <ul id="linkgroups" className="nav list-group">
+                <ul id="filters" className="nav list-group">
                     <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
                     <li className={navSearchClass}>
                         <input type="search" placeholder="Search" onChange={this.autocompleteSearch} value={this.state.search} ref="searchBox" onFocus={this.autocompleteSearch} />
@@ -284,11 +313,18 @@ var Sidebar = React.createClass({
                         </div>
                     </li>
                     <li className="list-item"><LinkFilter checkedLinkFilters={this.state.userPreferences.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
-                    <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
-                    {linkGroups}
                 </ul>
-                <div className="refresh">
-                    Missing something? <a href="#d" onClick={this.refreshLinks}><span> Refresh Menu </span></a> to make sure your permissions are up to date.
+                <div id="sidebar-scroll">
+                    <ul id="linkgroups" className="nav list-group">
+                        <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
+                        {linkGroups}
+                    </ul>
+                    <div className="refresh">
+                        Missing something? <a href="#d" onClick={this.refreshLinks}><span> Refresh Menu </span></a> to make sure your permissions are up to date.
+                    </div>
+                </div>
+                <div>
+                    {linkGroupSublinks}
                 </div>
             </div>
         )
@@ -306,7 +342,7 @@ var convertLinks = function(links, type, backdoorId) {
         let url = link.linkType === 'rice' ? backdoorIdAppender(link.link) : link.link;
         return <Link key={type + "_" + i} url={url} label={link.label} className="list-group-item" target={target}/>
     })
-}
+};
 
 var buildDisplayLinks = function(links, type, checkedLinkFilters, backdoorId) {
     let displayLinks = [];
@@ -314,7 +350,7 @@ var buildDisplayLinks = function(links, type, checkedLinkFilters, backdoorId) {
         displayLinks = convertLinks(links[type], type, backdoorId);
     }
     return displayLinks;
-}
+};
 
 var addHeading = function(links, type) {
     let newLinks = [];
@@ -322,17 +358,20 @@ var addHeading = function(links, type) {
         newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links);
     }
     return newLinks;
-}
+};
 
-var determineSublinkClass = function(links, headingCount) {
+var determineSublinkClass = function(links, headingCount, expanded) {
     let sublinksClass = "sublinks collapse";
     if (links.length > (36 - headingCount)) {
         sublinksClass += " col-3";
     } else if (links.length > (18 - headingCount)) {
         sublinksClass += " col-2";
     }
+    if (expanded) {
+        sublinksClass += " active";
+    }
     return sublinksClass;
-}
+};
 
 var determinePanelClassName = function(expandedLinkGroup, label) {
     let panelClassName = "panel list-item";
@@ -340,40 +379,65 @@ var determinePanelClassName = function(expandedLinkGroup, label) {
         panelClassName += " active";
     }
     return panelClassName;
-}
+};
 
 var LinkGroup = React.createClass({
     render() {
-        let label = this.props.group.label
-        let id = KfsUtils.buildKeyFromLabel(label)
+        let label = this.props.group.label;
+        let id = KfsUtils.buildKeyFromLabel(label);
+        let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label);
 
-        let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters, this.props.backdoorId)
-        let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters, this.props.backdoorId)
-        let administrationLinks = buildDisplayLinks(this.props.group.links, 'administration', this.props.checkedLinkFilters, this.props.backdoorId)
+        let links = this.props.group.links;
+        let linksCount = 0;
+        this.props.checkedLinkFilters.forEach(function(filter) {
+            if (links[filter]) {
+                linksCount += links[filter].length;
+            }
+        });
 
-        let links = addHeading(activitiesLinks, 'Activities')
-        links = links.concat(addHeading(referenceLinks, 'Reference'))
-        links = links.concat(addHeading(administrationLinks, 'Administration'))
+        if (linksCount > 0) {
+            return (
+                <li className={panelClassName}>
+                    <a href="#d" onClick={this.props.handleClick.bind(null, label, id + '-menu')}>
+                        <span>{label}</span>
+                    </a>
+                </li>
+            )
+        } else {
+            return null
+        }
+    }
+});
 
-        let headingCount = links.length - (activitiesLinks.length + referenceLinks.length + administrationLinks.length)
+var LinkGroupSublinks = React.createClass({
+    render() {
+        let label = this.props.group.label;
+        let id = KfsUtils.buildKeyFromLabel(label);
+
+        let activitiesLinks = buildDisplayLinks(this.props.group.links, 'activities', this.props.checkedLinkFilters, this.props.backdoorId);
+        let referenceLinks = buildDisplayLinks(this.props.group.links, 'reference', this.props.checkedLinkFilters, this.props.backdoorId);
+        let administrationLinks = buildDisplayLinks(this.props.group.links, 'administration', this.props.checkedLinkFilters, this.props.backdoorId);
+
+        let links = addHeading(activitiesLinks, 'Activities');
+        links = links.concat(addHeading(referenceLinks, 'Reference'));
+        links = links.concat(addHeading(administrationLinks, 'Administration'));
+
+        let headingCount = links.length - (activitiesLinks.length + referenceLinks.length + administrationLinks.length);
         if (headingCount > 0) {
-            headingCount--
+            headingCount--;
         }
 
-        let sublinksClass = determineSublinkClass(links, headingCount)
-        let panelClassName = determinePanelClassName(this.props.expandedLinkGroup, label)
+        let sublinksClass = determineSublinkClass(links, headingCount, this.props.expandedLinkGroup === label);
 
         if (links.length > 0) {
             return (
-                <li className={panelClassName}>
-                    <a href="#d" onClick={this.props.handleClick.bind(null, label)}>
-                        <span>{label}</span>
-                    </a>
-                    <div id={id + "-menu"} className={sublinksClass}>
+                <div id={id + "-menu"} className={sublinksClass}>
+                    <h3>{label}</h3>
+                    <div className="links-container">
                         {links}
-                        <button type="button" className="close" onClick={this.props.handleClick.bind(null, label)}><span aria-hidden="true">&times;</span></button>
                     </div>
-                </li>
+                    <button type="button" className="close" onClick={this.props.handleClick.bind(null, label, id + '-menu')}><span aria-hidden="true">&times;</span></button>
+                </div>
             )
         } else {
             return null
@@ -383,9 +447,9 @@ var LinkGroup = React.createClass({
 
 var LinkFilter = React.createClass({
     render() {
-        let activitiesChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('activities') != -1
-        let referenceChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('reference') != -1
-        let administrationChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('administration') != -1
+        let activitiesChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('activities') != -1;
+        let referenceChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('reference') != -1;
+        let administrationChecked = !this.props.checkedLinkFilters || this.props.checkedLinkFilters.indexOf('administration') != -1;
         return (
             <div id="linkFilter">
                 <input onChange={this.props.modifyLinkFilter.bind(null, 'activities')} type="checkbox" id="activities" value="activities" name="linkFilter" checked={activitiesChecked}/><label htmlFor="activities">Activities</label>
