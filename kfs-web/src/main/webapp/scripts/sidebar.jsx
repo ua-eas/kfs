@@ -73,7 +73,7 @@ var Sidebar = React.createClass({
 
         if (!activePanel.parent().hasClass('search') && activePanel.offset()) {
             let panelHeight = activePanel.outerHeight();
-            if ($('#sidebar-scroll').outerHeight() < $('#linkgroups').outerHeight()) {
+            if ($('#sidebar-scroll').outerHeight() < ($('#linkgroups').outerHeight() + $('#sidebar-scroll>div.refresh').outerHeight(true))) {
                 let sidebarMiddle = ($('#sidebar-scroll').outerHeight() + 170) / 2;
                 let topPosition = sidebarMiddle - (panelHeight / 2);
                 activePanel.css('top', topPosition);
