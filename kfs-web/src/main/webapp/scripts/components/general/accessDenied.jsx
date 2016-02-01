@@ -1,3 +1,5 @@
+import React from 'react/addons';
+
 let AccessDenied = React.createClass({
     render() {
         return <div>Sorry. Access Denied</div>
