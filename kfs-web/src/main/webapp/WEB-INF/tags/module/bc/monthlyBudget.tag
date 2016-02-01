@@ -285,7 +285,6 @@
                 </c:if>
                 <c:if test="${KualiForm.monthlyPersisted}">
                   <html:submit
-                          src="${ConfigProperties.externalizable.images.url}buttonsmall_monthdel.gif"
                           styleClass="btn btn-red"
                           property="methodToCall.performMonthlyDelete.anchormonthlyBudgetLineLineAnchor"
                           title="Delete Monthly"
