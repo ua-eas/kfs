@@ -29,6 +29,10 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	@Override
 	public boolean processChecks() {
 		Person kualiUser = GlobalVariables.getUserSession().getPerson();
+		if (ObjectUtils.isNull(kualiUser)){
+			LOG.error("ERROR AutoCheckFormatStep: kualiUser cannot be null");
+			return false;
+		}
 		String campusCode = kualiUser.getCampusCode();
 		
 		FormatSelection formatSelection = getFormatService().getDataForFormat(kualiUser);
@@ -68,6 +72,10 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         }
 	}
 
+	/**
+	 * @param autoFormat
+	 * @return
+	 */
 	private boolean markPaymentsForFormat(AutoCheckFormat autoFormat) {
 		try {
 			Date paymentDate = getDateTimeService().convertToSqlDate(autoFormat.getPaymentDate());
@@ -87,6 +95,10 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		}
 	}
 
+	/**
+	 * @param formatSelection
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	private AutoCheckFormat createAutoCheckFormat(FormatSelection formatSelection) {
 
