@@ -231,11 +231,16 @@
                 </td>
             </c:when>
             <c:when test="${field.fieldType eq field.TEXT_AREA}">
-                <kul:fieldDefaultLabel isLookup="${isLookup}" isRequired="${field.fieldRequired}"
-                                       isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
-                                       fieldLabel="${field.fieldLabel}" />
+                <kul:fieldDefaultLabel isLookup="${isLookup}"
+                                       isRequired="${field.fieldRequired}"
+                                       isReadOnly="${isFieldReadOnly}"
+                                       cellWidth="${dataCellWidth}%"
+                                       fieldName="${field.propertyName}"
+                                       fieldType="${field.fieldType}"
+                                       fieldLabel="${field.fieldLabel}"
+                                       cellClass="top"/>
 
-                <td class="grid" style="width:${dataCellWidth}%;">
+                <td class="grid" style="width:${dataCellWidth}%; line-height: 20px;">
                     <kul:fieldShowReadOnly field="${field}" addHighlighting="${addHighlighting}" isLookup="${isLookup}" />
                 </td>
             </c:when>
