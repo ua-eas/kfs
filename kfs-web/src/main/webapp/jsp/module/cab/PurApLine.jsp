@@ -32,9 +32,6 @@
 		<div class="tab-container">
 			<c:set var="cabPurApDocumentAttributes"	value="${DataDictionary.PurchasingAccountsPayableDocument.attributes}" />
 			<table class="standard side-margins">
-				<tr>
-        			<td colspan="2" class="subhead"><h3>Purchase Order Processing</h3></td>
-   				</tr>
    				<tr>
    					<th class="grid right" width="25%">
 						<kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purchaseOrderIdentifier}" readOnly="true" />

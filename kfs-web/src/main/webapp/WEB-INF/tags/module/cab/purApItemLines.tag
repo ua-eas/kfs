@@ -68,7 +68,13 @@
 					<c:set var="linePos" value="${linePos+1}" />
 					<c:if test="${(assetLine.active && activeIndicator=='true') || (!assetLine.active && activeIndicator == 'false')}">
 
-						<cab:purApLineDetail chkcount="${chkcount}" docPos="${docPos}" linePos="${linePos}" itemLine="${assetLine}" purApDocLine="${purApDoc}" />
+						<cab:purApLineDetail
+								chkcount="${chkcount}"
+								docPos="${docPos}"
+								linePos="${linePos}"
+								itemLine="${assetLine}"
+								purApDocLine="${purApDoc}"
+								rowClass="${assetLine.index % 2 == 0? 'highlight' : ''}"/>
 
 						<c:if test="${!assetLine.additionalChargeNonTradeInIndicator}">
 							<c:set var="chkcount" value="${chkcount+1}" />
@@ -78,7 +84,7 @@
 			</c:forEach>
 			<c:if test="${activeIndicator == 'true' && !readOnly}">
 			<tr>
-				<th class="grid" align="right" colspan="6">How Many Assets</th>
+				<th class="grid right" colspan="6">How Many Assets</th>
 				<td class="infoline" colspan="2"><kul:htmlControlAttribute property="mergeQty" attributeEntry="${purApItemAssetAttributes.accountsPayableItemQuantity}"/></td>
 				<td class="grid" colspan="5" rowspan="2">&nbsp;&nbsp;
 					<html:submit
@@ -90,7 +96,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th class="grid" align="right" colspan="6">System Description</th>
+				<th class="grid right" colspan="6">System Description</th>
 				<td class="infoline" colspan="2"><kul:htmlControlAttribute property="mergeDesc" attributeEntry="${purApItemAssetAttributes.accountsPayableLineItemDescription}"/></td>
 			</tr>
 			</c:if>
