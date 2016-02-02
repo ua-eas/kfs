@@ -16,37 +16,45 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <c:set var="benefitInq"
-	value="${DataDictionary.BenefitInquiry.attributes}" />
+       value="${DataDictionary.BenefitInquiry.attributes}"/>
 
 <kul:page showDocumentInfo="false" showTabButtons="false"
-	headerTitle="Fringe Benefit Inquiry" docTitle="Fringe Benefit Inquiry"
-	transactionalDocument="false" htmlFormAction="fringeBenefitInquiry">
-	<kul:tabTop tabTitle="Fringe Benefit Detail" defaultOpen="true">
+          headerTitle="Fringe Benefit Inquiry" docTitle="Fringe Benefit Inquiry"
+          transactionalDocument="false" htmlFormAction="fringeBenefitInquiry">
+    <kul:tabTop tabTitle="Fringe Benefit Detail" defaultOpen="true">
         <div id="workarea">
-          <table cellpadding="0" cellspacing="0" class="datatable" summary="" width="50%">
-            <tr>
-              <kul:htmlAttributeHeaderCell literalLabel="Object Code" scope="col"/>
-              <kul:htmlAttributeHeaderCell literalLabel="Amount" scope="col" />
-            </tr>
+            <table class="standard" summary="Fringe Benefit Detail">
+                <tr class="header">
+                    <th width="25%"></th>
+                    <kul:htmlAttributeHeaderCell literalLabel="Object Code" scope="col"/>
+                    <kul:htmlAttributeHeaderCell literalLabel="Amount" scope="col" addClass="right"/>
+                    <th width="25%"></th>
+                </tr>
 
-            <logic:iterate name="KualiForm" id="benefitInquiry" property="benefitInquiry" indexId="ctr">
-              <tr>
-                 <td>
-                 <bean:write name="benefitInquiry" property="fringeBenefitObjectCode" />
-                </td>
-                <td>
-                  <bean:write name="benefitInquiry" property="benefitAmount" />
-                </td>
-              </tr>
-            </logic:iterate>
-          </table>
+                <logic:iterate name="KualiForm" id="benefitInquiry" property="benefitInquiry" indexId="ctr">
+                    <tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
+                        <td width="25%"></td>
+                        <td>
+                            <bean:write name="benefitInquiry" property="fringeBenefitObjectCode"/>
+                        </td>
+                        <td class="right">
+                            <bean:write name="benefitInquiry" property="benefitAmount"/>
+                        </td>
+                        <td width="25%"></td>
+                    </tr>
+                </logic:iterate>
+            </table>
         </div>
         <div id="globalbuttons" class="globalbuttons">
-	    <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" styleClass="globalbuttons" 
-	        onclick="window.close();return false;" title="close the window" alt="close the window"/>		
-		</div>
-      </kul:tabTop>
-	    
+            <html:submit
+                    styleClass="btn btn-default"
+                    onclick="window.close();return false;"
+                    title="close the window"
+                    alt="close the window"
+                    value="Close"/>
+        </div>
+    </kul:tabTop>
+
 </kul:page>

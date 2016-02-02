@@ -13,64 +13,72 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 --%>
-<%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp" %>
 
-<%@ attribute name="editingMode" required="true" description="used to decide editability of overview fields" type="java.util.Map"%>
-<c:set var="isMaintenanceForm" value='false' />
+<%@ attribute name="editingMode" required="true" description="used to decide editability of overview fields"
+              type="java.util.Map" %>
+<c:set var="isMaintenanceForm" value='false'/>
 <c:if test='<%= jspContext.findAttribute("KualiForm") != null %>'>
-	<c:set var="isMaintenanceForm" value='<%= jspContext.findAttribute("KualiForm").getClass() == org.kuali.kfs.kns.web.struts.form.KualiMaintenanceForm.class %>' />
+    <c:set var="isMaintenanceForm"
+           value='<%= jspContext.findAttribute("KualiForm").getClass() == org.kuali.kfs.kns.web.struts.form.KualiMaintenanceForm.class %>'/>
 </c:if>
-<c:set var="isMaintenance" value="${isMaintenanceForm || maintenanceViewMode eq Constants.PARAM_MAINTENANCE_VIEW_MODE_MAINTENANCE}" />
-<c:set var="readOnly" value="${ ! KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT_DOCUMENT_OVERVIEW]}" />
+<c:set var="isMaintenance"
+       value="${isMaintenanceForm || maintenanceViewMode eq Constants.PARAM_MAINTENANCE_VIEW_MODE_MAINTENANCE}"/>
+<c:set var="readOnly" value="${ ! KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT_DOCUMENT_OVERVIEW]}"/>
 
-<c:set var="docHeaderAttributes" value="${DataDictionary.DocumentHeader.attributes}" />
-<c:set var="documentTypeName" value="${KualiForm.docTypeName}" />
-<c:set var="documentEntry" value="${DataDictionary[documentTypeName]}" />
+<c:set var="docHeaderAttributes" value="${DataDictionary.DocumentHeader.attributes}"/>
+<c:set var="documentTypeName" value="${KualiForm.docTypeName}"/>
+<c:set var="documentEntry" value="${DataDictionary[documentTypeName]}"/>
 
 <dd:evalNameToMap mapName="DataDictionary.${KualiForm.docTypeName}.attributes" returnVar="documentAttributes"/>
-<kul:tabTop tabTitle="Document Overview" defaultOpen="true" tabErrorKey="${Constants.DOCUMENT_ERRORS}" >
-	<div class="tab-container" align=center>
-		  <html:hidden property="document.documentHeader.documentNumber" />
-		  <h3>Overview</h3>
-		  <table class="datatable" title="view/edit document overview information" summary="view/edit document overview information">
-		    <tr>
-		      <kul:htmlAttributeHeaderCell
-		          labelFor="document.documentHeader.documentDescription"
-		          attributeEntry="${docHeaderAttributes.documentDescription}"
-		          horizontal="true"
-                  addClass="right"
-		          />
-		      <td>
-		      	<kul:htmlControlAttribute property="document.documentHeader.documentDescription" attributeEntry="${docHeaderAttributes.documentDescription}" readOnly="${readOnly}"/>
-		      </td>
-		      <kul:htmlAttributeHeaderCell
-                  labelFor="document.documentHeader.explanation"
-                  attributeEntry="${docHeaderAttributes.explanation}"
-                  horizontal="true"
-		          rowspan="2"
-                  addClass="right top"
-                  />
-		      <td rowspan="2">
-                  <kul:htmlControlAttribute
-                      property="document.documentHeader.explanation"
-                      attributeEntry="${docHeaderAttributes.explanation}"
-                      readOnly="${readOnly}"
-                      readOnlyAlternateDisplay="${fn:replace(fn:escapeXml(KualiForm.document.documentHeader.explanation), Constants.NEWLINE, '<br/>')}"
-                      />
-              </td>
-		    </tr>
-		    <tr>
-			  <kul:htmlAttributeHeaderCell
-		        labelFor="document.documentHeader.organizationDocumentNumber"
-		        attributeEntry="${docHeaderAttributes.organizationDocumentNumber}"
-		        horizontal="true"
-                addClass="right"
-		      />			  
-              <td>
-              	<kul:htmlControlAttribute property="document.documentHeader.organizationDocumentNumber" attributeEntry="${docHeaderAttributes.organizationDocumentNumber}" readOnly="${readOnly}"/>
-              </td>
+<kul:tabTop tabTitle="Document Overview" defaultOpen="true" tabErrorKey="${Constants.DOCUMENT_ERRORS}">
+    <div class="tab-container" align=center>
+        <html:hidden property="document.documentHeader.documentNumber"/>
+        <h3>Overview</h3>
+        <table class="standard side-margins" title="view/edit document overview information"
+               summary="view/edit document overview information">
+            <tr>
+                <kul:htmlAttributeHeaderCell
+                        labelFor="document.documentHeader.documentDescription"
+                        attributeEntry="${docHeaderAttributes.documentDescription}"
+                        horizontal="true"
+                        addClass="right"
+                        />
+                <td>
+                    <kul:htmlControlAttribute property="document.documentHeader.documentDescription"
+                                              attributeEntry="${docHeaderAttributes.documentDescription}"
+                                              readOnly="${readOnly}"/>
+                </td>
+                <kul:htmlAttributeHeaderCell
+                        labelFor="document.documentHeader.explanation"
+                        attributeEntry="${docHeaderAttributes.explanation}"
+                        horizontal="true"
+                        rowspan="2"
+                        addClass="right top"
+                        />
+                <td rowspan="2">
+                    <kul:htmlControlAttribute
+                            property="document.documentHeader.explanation"
+                            attributeEntry="${docHeaderAttributes.explanation}"
+                            readOnly="${readOnly}"
+                            readOnlyAlternateDisplay="${fn:replace(fn:escapeXml(KualiForm.document.documentHeader.explanation), Constants.NEWLINE, '<br/>')}"
+                            />
+                </td>
             </tr>
-          </table>
-          <jsp:doBody/>
-        </div>
+            <tr>
+                <kul:htmlAttributeHeaderCell
+                        labelFor="document.documentHeader.organizationDocumentNumber"
+                        attributeEntry="${docHeaderAttributes.organizationDocumentNumber}"
+                        horizontal="true"
+                        addClass="right"
+                        />
+                <td>
+                    <kul:htmlControlAttribute property="document.documentHeader.organizationDocumentNumber"
+                                              attributeEntry="${docHeaderAttributes.organizationDocumentNumber}"
+                                              readOnly="${readOnly}"/>
+                </td>
+            </tr>
+        </table>
+        <jsp:doBody/>
+    </div>
 </kul:tabTop>

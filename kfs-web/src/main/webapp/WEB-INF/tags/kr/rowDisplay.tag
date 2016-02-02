@@ -30,6 +30,8 @@
 <%@ attribute name="sessionDocument" required="false"
               description="boolean that indicates whether the sessionDocument declared in DD" %>
 
+<%@ attribute name="subtable" required="false" description="boolean that indicates if this table will be embedded in a rowdisplay" %>
+
 <c:if test="${empty depth}">
     <c:set var="depth" value="0" />
 </c:if>
@@ -225,7 +227,7 @@
                 </c:when>
 
                 <c:when test="${isFieldAContainer}">
-                    <td colspan="${headerColspan * 2}" class="tab-subhead" style="${depth eq 0 ? '' : 'padding-top: 20px; padding-bottom: 20px;'}">
+                    <td colspan="${headerColspan * 4}" class="container-tab-subhead" style="${depth eq 0 ? '' : 'padding-top: 20px; padding-bottom: 20px;'}">
                         <%-- Set the width for the collection container. --%>
                         <c:set var="width" value="${depth eq 0 ? '100%' : '85%'}" />
                         <c:set var="subTabTitle">
@@ -247,8 +249,7 @@
                                     lookedUpBODisplayName="${field.multipleValueLookupClassLabel}"
                                     lookedUpCollectionName="${field.multipleValueLookedUpCollectionName}"
                                     useCurrentTabIndexAsKey="true">
-                            <table style="width: ${width}; text-align: left; margin-left: auto; margin-right: auto;"
-                                   class="datatable standard" cellpadding="0" cellspacing="0" align="center">
+                            <table class="standard">
                                 <%-- cannot refer to recursive tag (containerRowDisplay) using kul alias or Jetty 7 will have jsp compilation errors on Linux --%>
     							<%-- this tag ends up being recursive b/c it calls rowDisplay--%>
                                 <%@ taglib tagdir="/WEB-INF/tags/kr" prefix="kul2"%>
@@ -262,7 +263,8 @@
 
 
                 <c:when test="${field.fieldType eq field.SUB_SECTION_SEPARATOR}">
-                    <td colspan="${headerColspan}" class="tab-subhead">
+                    <td></td>
+                    <td colspan="${headerColspan}" class="tab-subhead heavy">
                         <c:out value="${field.fieldLabel}" />&nbsp;
                     </td>
                 </c:when>

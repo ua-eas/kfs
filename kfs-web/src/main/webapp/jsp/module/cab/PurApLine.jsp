@@ -29,19 +29,18 @@
 	transactionalDocument="false" headerDispatch="true" headerTabActive="true"
 	sessionDocument="false" headerMenuBar="" feedbackKey="true" defaultMethodToCall="refresh" >
 	<kul:tabTop tabTitle="Purchase Order Processing" defaultOpen="true">
-		<div class="tab-container" align=center>
+		<div class="tab-container">
 			<c:set var="cabPurApDocumentAttributes"	value="${DataDictionary.PurchasingAccountsPayableDocument.attributes}" />
-			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable">
-				<tr>
-        			<td colspan="2" class="subhead">Purchase Order Processing</td>
-   				</tr>
+			<table class="standard side-margins">
    				<tr>
-   					<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purchaseOrderIdentifier}" readOnly="true" /></th>
+   					<th class="grid right" width="25%">
+						<kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purchaseOrderIdentifier}" readOnly="true" />
+					</th>
         			<td class="grid" width="75%">
         				<c:choose>
         				<c:when test="${!empty KualiForm.purchaseOrderInquiryUrl }">
 							<a href="${ConfigProperties.application.url}/${KualiForm.purchaseOrderInquiryUrl }" target="_blank"> 
-							${KualiForm.purchaseOrderIdentifier}							
+								${KualiForm.purchaseOrderIdentifier}
 							</a>
 						</c:when>
 						<c:otherwise>
@@ -51,11 +50,15 @@
         			</td>								
     			</tr>
     			<tr>
-   					<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purApContactEmailAddress}" readOnly="true" /></th>
+   					<th class="grid right" width="25%">
+						<kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purApContactEmailAddress}" readOnly="true" />
+					</th>
         			<td class="grid" width="75%">${KualiForm.purApContactEmailAddress}</td>								
     			</tr>
     			<tr>
-   					<th class="grid" width="25%" align="right"><kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purApContactPhoneNumber}" readOnly="true" /></th>
+   					<th class="grid right" width="25%">
+						<kul:htmlAttributeLabel attributeEntry="${cabPurApDocumentAttributes.purApContactPhoneNumber}" readOnly="true" />
+					</th>
         			<td class="grid" width="75%">${KualiForm.purApContactPhoneNumber}</td>
         		</tr>
     		</table>
@@ -65,9 +68,9 @@
 	<c:set var="readOnly" value="true" />
 	<c:forEach items="${KualiForm.purApDocs}" var="purApDoc" >
 		<c:forEach items="${purApDoc.purchasingAccountsPayableItemAssets}" var="assetLine" >
-		<c:if test="${assetLine.active}" >
-			<c:set var="readOnly" value="false" />
-		</c:if>
+			<c:if test="${assetLine.active}" >
+				<c:set var="readOnly" value="false" />
+			</c:if>
 		</c:forEach>
 	</c:forEach>
 	
@@ -75,13 +78,33 @@
 	<cab:purApItemLines activeIndicator="false" title="Submitted Line Items" defaultOpen="false"/>
 
 	<div id="globalbuttons" class="globalbuttons">
-        <c:if test="${not readOnly}">
-	        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_save.gif" styleClass="globalbuttons" 
-	        	property="methodToCall.save" title="save" alt="save"/>
-	        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" styleClass="globalbuttons" 
-	        	property="methodToCall.close" title="close" alt="close"/>
-        </c:if>
-	    <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_reload.gif" styleClass="globalbuttons" property="methodToCall.reload" title="reload" alt="reload"/>
-        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" styleClass="globalbuttons" property="methodToCall.cancel" title="Cancel" alt="Cancel"/>		
+		<c:if test="${not readOnly}">
+			<html:submit
+					styleClass="btn btn-default"
+					property="methodToCall.save"
+					title="save"
+					alt="save"
+					value="Save"/>
+			<html:submit
+					styleClass="btn btn-default"
+					property="methodToCall.close"
+					title="close"
+					alt="close"
+					value="Close"/>
+		</c:if>
+		<html:submit
+				styleClass="btn btn-default"
+				property="methodToCall.reload"
+				title="reload"
+				alt="reload"
+				value="Reload"/>
+		<html:submit
+				styleClass="btn btn-default"
+				property="methodToCall.cancel"
+				title="Cancel"
+				alt="Cancel"
+				value="Cancel"/>
     </div>
+
+	<kul:stickyGlobalButtons bodySelector="main.content"/>
 </kul:page>

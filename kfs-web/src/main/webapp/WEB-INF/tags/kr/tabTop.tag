@@ -75,8 +75,9 @@
                     </div>
                 </div>
             </c:if>
+            <div class="tab-container">
+                <jsp:doBody/>
+            </div>
         </div>
-
-        <jsp:doBody/>
     </div>
 </div>
