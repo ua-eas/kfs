@@ -16,34 +16,36 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <%@ attribute name="capitalAssetNumber" type="java.lang.Long" required="true" description="Capital Asset Number" %>
 <%@ attribute name="isTransactionalDocument" required="false" %>
 
 <c:if test="${empty isTransactionalDocument}">
-    <c:set var="isTransactionalDocument" value="true" />
+    <c:set var="isTransactionalDocument" value="true"/>
 </c:if>
 
-<kul:tab tabTitle="Payments Lookup" defaultOpen="false" useCurrentTabIndexAsKey="true"> 
-    <div class="tab-container" align="center">
-      <table width="100%" cellpadding="0" cellspacing="0" class="datatable">
-      	<tr>
-            <td class="tab-subhead">Payments Lookup</td>
-		</tr>	
-		<tr>
-            <td>
-			  <c:choose>
-				<c:when test="${isTransactionalDocument}">
-				  <html:link target="_blank" styleClass="portal_link" title="Payment Information" href="kr/lookup.do?methodToCall=search&businessObjectClassName=org.kuali.kfs.module.cam.businessobject.AssetPayment&docFormKey=88888888&returnLocation=portal.do&hideReturnLink=true&capitalAssetNumber=${capitalAssetNumber}">Click here</html:link>
-				</c:when>
-				<c:otherwise>
-				  <html:link target="_blank" styleClass="portal_link" title="Payment Information" href="lookup.do?methodToCall=search&businessObjectClassName=org.kuali.kfs.module.cam.businessobject.AssetPayment&docFormKey=88888888&returnLocation=portal.do&hideReturnLink=true&capitalAssetNumber=${capitalAssetNumber}">Click here</html:link>				
-				</c:otherwise>
-			  </c:choose>
-              to view the payment lookup for this asset.
-            </td>
-		</tr>
-	</table>
-	</div>
+<kul:tab tabTitle="Payments Lookup" defaultOpen="false" useCurrentTabIndexAsKey="true">
+    <div class="tab-container">
+        <table class="standard side-margins">
+            <tr>
+                <td class="tab-subhead"><h3>Payments Lookup</h3></td>
+            </tr>
+            <tr>
+                <td>
+                    <c:choose>
+                        <c:when test="${isTransactionalDocument}">
+                            <html:link target="_blank" styleClass="portal_link" title="Payment Information"
+                                       href="kr/lookup.do?methodToCall=search&businessObjectClassName=org.kuali.kfs.module.cam.businessobject.AssetPayment&docFormKey=88888888&returnLocation=portal.do&hideReturnLink=true&capitalAssetNumber=${capitalAssetNumber}">Click here</html:link>
+                        </c:when>
+                        <c:otherwise>
+                            <html:link target="_blank" styleClass="portal_link" title="Payment Information"
+                                       href="lookup.do?methodToCall=search&businessObjectClassName=org.kuali.kfs.module.cam.businessobject.AssetPayment&docFormKey=88888888&returnLocation=portal.do&hideReturnLink=true&capitalAssetNumber=${capitalAssetNumber}">Click here</html:link>
+                        </c:otherwise>
+                    </c:choose>
+                    to view the payment lookup for this asset.
+                </td>
+            </tr>
+        </table>
+    </div>
 </kul:tab>
