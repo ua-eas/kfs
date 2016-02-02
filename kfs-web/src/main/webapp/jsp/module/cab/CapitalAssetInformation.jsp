@@ -133,7 +133,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="11">
+						<td colspan="12">
 							<cab:groupAccountingLinesDetails capitalAssetInformation="${detailLine}" capitalAssetPosition="${capitalAssetPosition}" showViewButton="true"/>
 						</td>
 					</tr>
