@@ -48,7 +48,7 @@
 									styleId="tab-${tabKey}-imageToggle"
 									onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); "
 									value="Show"/>
-								Payments
+								View Payments
 							</td>
 						</tr>
 						<tbody  style="display: none;" id="tab-${tabKey}-div">
