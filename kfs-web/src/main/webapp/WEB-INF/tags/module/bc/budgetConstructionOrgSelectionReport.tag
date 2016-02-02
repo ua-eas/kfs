@@ -20,8 +20,7 @@
 
 <kul:tab tabTitle="Reports And Exports" defaultOpen="true" tabErrorKey="reportSel">
 	<div class="tab-container">
-        <h3>Reports</h3>
-        <table class="datatable standard">
+        <table class="standard">
             <tr>
                 <td width="200" class="right">
                     <html:submit

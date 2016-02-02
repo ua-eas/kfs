@@ -23,15 +23,6 @@
 <kul:page showDocumentInfo="false" docTitle="Quick Salary Setting" transactionalDocument="false"
 	htmlFormAction="budgetQuickSalarySetting" renderMultipart="true" showTabButtons="true">
 	
-<%--
-    <c:forEach items="${KualiForm.documentActions}" var="action">
-      <html:hidden property="documentActions(${action.key})"/>
-    </c:forEach>
-    
-	<c:forEach items="${KualiForm.editingMode}" var="mode">
-  		<html:hidden property="editingMode(${mode.key})"/>
-	</c:forEach>
---%>
     <html:hidden property="mainWindow" />
     
 	<kul:tabTop tabTitle="Quick Salary Setting" defaultOpen="true" tabErrorKey="${BCConstants.ErrorKey.QUICK_SALARY_SETTING_TAB_ERRORS}">
@@ -50,12 +41,19 @@
     
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">
-	        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_save.gif" 
-	        	styleClass="globalbuttons" property="methodToCall.save" title="save" alt="save"/>
+	        <html:submit
+	        	    styleClass="btn btn-default"
+                    property="methodToCall.save"
+                    title="Save"
+                    alt="save"
+                    value="Save"/>
 	    </c:if>    	
 	        	
-        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" 
-       		styleClass="globalbuttons" property="methodToCall.close" title="close" alt="close"/>	
-
+        <html:submit
+       		    styleClass="btn btn-default"
+                property="methodToCall.close"
+                title="Close"
+                alt="close"
+                value="Close"/>
     </div>
 </kul:page>

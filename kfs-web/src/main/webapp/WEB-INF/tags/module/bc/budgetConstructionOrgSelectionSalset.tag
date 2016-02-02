@@ -20,7 +20,6 @@
 
 <kul:tab tabTitle="Select Operation" defaultOpen="true" tabErrorKey="reportSel">
 	<div class="tab-container" id="G02" style="display: block;">
-        <h3>Select Operation</h3>
       	<table class="standard">
       		 <tr>
                 <td width="200" class="right">

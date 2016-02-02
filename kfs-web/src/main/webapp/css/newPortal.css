@@ -18,6 +18,12 @@ p {
     font-weight: 400;
 }
 
+h3 .btn.small {
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+}
+
 input.searchicon {
     height: 18px;
     width: 18px;
