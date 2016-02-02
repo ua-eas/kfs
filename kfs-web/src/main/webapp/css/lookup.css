@@ -607,6 +607,10 @@ div.inquiry table.datatable th {
     padding-bottom: 30px;
 }
 
+.doc .main-panel .tab-container table.standard {
+    font-size: 14px;
+}
+
 .doc .main-panel .tab-container table.standard tr.header {
     background-color: inherit !important;
 }
