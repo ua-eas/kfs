@@ -607,6 +607,15 @@ div.inquiry table.datatable th {
     padding-bottom: 30px;
 }
 
+.main-panel table.questionTable {
+    margin: 0 auto;
+}
+
+.main-panel table.questionTable td {
+    padding-right: 15px;
+    font-weight: 400;
+}
+
 .main-panel .tab-container table.standard tr.header {
     background-color: inherit !important;
 }
