@@ -680,14 +680,16 @@ div.inquiry table.datatable th {
     background-color: #F9F9F9;
 }
 
-.doc .main-panel .tab-container table.old-new tr.header th.old {
+.doc .main-panel .tab-container table.old-new th.old {
     color: #C47965;
     font-size: 14px;
+    text-transform: uppercase;
 }
 
-.doc .main-panel .tab-container table.old-new tr.header th.new {
+.doc .main-panel .tab-container table.old-new th.new {
     color: #6DA487;
     font-size: 14px;
+    text-transform: uppercase;
 }
 
 .doc .main-panel .tab-container table.old-new td:nth-child(2) {
@@ -866,6 +868,15 @@ div.inquiry table.datatable th {
 
 .doc .main-panel .tab-container table.acct-lines table.acct-lines tr th:first-child {
     width: inherit;
+}
+
+.doc .main-panel .tab-container table.standard .container-tab-subhead,
+.doc .main-panel .tab-container table.standard .container-tab-subhead:hover {
+    background-color: #FFFFFF;
+}
+
+.doc .main-panel .tab-container table.standard .container-tab-subhead .tab-subhead {
+    border-left: none;
 }
 
 #uploadDiv {
