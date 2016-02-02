@@ -135,7 +135,9 @@
                             attributeEntry="${organizationAttributes.organizationCode}" readOnly="true"/>
                     </td>
                 </tr>
+            </table>
 
+            <table class="standard">
                 <tr>
                     <td class="tab-subhead" colspan="4" width="100%"><h3>Interdepartmental Sale</h3></td>
                 </tr>
@@ -316,11 +318,12 @@
 
     <kul:tab tabTitle="Organization Information" defaultOpen="true" tabErrorKey="document.assetRepresentative.principalName">
         <div class="tab-container" >
-            <table class="standard side-margins">
+            <table class="standard old-new side-margins">
                 <tr>
-                    <td></td>
-                    <td class="tab-subhead heavy" width="25%">Current</td>
-                    <td class="tab-subhead heavy" width="25%">New</td>
+                    <th></th>
+                    <th class="old" width="25%">Current</th>
+                    <th></th>
+                    <th class="new" width="25%">New</th>
                 </tr>
                 <tr>
                     <th class="gridright " width="25%">
