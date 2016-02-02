@@ -39,6 +39,20 @@ input.editicon.embed {
     margin-bottom: 3px;
 }
 
+input.embed.textarea {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+}
+
+textarea.fullwidth {
+    width: 100%;
+}
+
+.relative {
+    position: relative;
+}
+
 div.fineprint {
     text-overflow: ellipsis;
     white-space: nowrap;
