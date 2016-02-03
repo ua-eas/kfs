@@ -175,7 +175,7 @@
                 <%-- Don't show anything. --%>
             </c:when>
             <c:when test="${isFieldAContainer}">
-                <td colspan="${headerColspan * 2}" class="tab-subhead" style="${depth eq 0 ? '' : 'padding-top: 20px; padding-bottom: 20px;'} background-color: #E6E6E6;">
+                <td colspan="${headerColspan * 2}" class="tab-subhead">
                         <%-- Set the width for the collection container. --%>
                     <c:set var="width" value="${depth eq 0 ? '100%' : '85%'}" />
                     <c:set var="subTabTitle">
@@ -192,7 +192,7 @@
                         contain data (i.e. those that aren't adding --%>
                     <kul:subtab noShowHideButton="${isFieldAddingToACollection or empty field.containerRows}" subTabTitle="${kfunc:scrubWhitespace(subTabTitle)}" buttonAlt="${kfunc:scrubWhitespace(subTabButtonAlt)}" width="${width}" highlightTab="${tabHighlight}"
                                 boClassName="${field.multipleValueLookupClassName}" lookedUpBODisplayName="${field.multipleValueLookupClassLabel}" lookedUpCollectionName="${field.multipleValueLookedUpCollectionName}" useCurrentTabIndexAsKey="true">
-                        <table style="width: ${width}; text-align: left; margin-left: auto; margin-right: auto;" class="datatable" cellpadding="0" cellspacing="0" align="center">
+                        <table style="width: ${width};" class="standard">
                                 <%-- cannot refer to recursive tag (containerRowDisplay) using kul alias or Jetty 7 will have jsp compilation errors on Linux --%>
                                 <%-- this tag ends up being recursive b/c it calls rowDisplay--%>
                             <%@ taglib tagdir="/WEB-INF/tags/kr" prefix="kul2"%>
@@ -231,11 +231,16 @@
                 </td>
             </c:when>
             <c:when test="${field.fieldType eq field.TEXT_AREA}">
-                <kul:fieldDefaultLabel isLookup="${isLookup}" isRequired="${field.fieldRequired}"
-                                       isReadOnly="${isFieldReadOnly}" cellWidth="${dataCellWidth}%" fieldName="${field.propertyName}" fieldType="${field.fieldType}"
-                                       fieldLabel="${field.fieldLabel}" />
+                <kul:fieldDefaultLabel isLookup="${isLookup}"
+                                       isRequired="${field.fieldRequired}"
+                                       isReadOnly="${isFieldReadOnly}"
+                                       cellWidth="${dataCellWidth}%"
+                                       fieldName="${field.propertyName}"
+                                       fieldType="${field.fieldType}"
+                                       fieldLabel="${field.fieldLabel}"
+                                       cellClass="top"/>
 
-                <td class="grid" style="width:${dataCellWidth}%;">
+                <td class="grid" style="width:${dataCellWidth}%; line-height: 20px;">
                     <kul:fieldShowReadOnly field="${field}" addHighlighting="${addHighlighting}" isLookup="${isLookup}" />
                 </td>
             </c:when>

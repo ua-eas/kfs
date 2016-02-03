@@ -210,13 +210,17 @@
                             </div>
                         </td>
                     </c:if>
-                    <td class="infoline" colspan="${colSpanDescription}">
-                       <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDescription}" property="newPurchasingItemLine.itemDescription" tabindexOverride="${tabindexOverrideBase + 0}"/>
+                    <td class="infoline relative" colspan="${colSpanDescription}">
+                       <kul:htmlControlAttribute
+                               attributeEntry="${itemAttributes.itemDescription}"
+                               property="newPurchasingItemLine.itemDescription"
+                               tabindexOverride="${tabindexOverrideBase + 0}"
+                               styleClass="fullwidth"/>
                        <kul:expandedTextArea
                                 textAreaFieldName="newPurchasingItemLine.itemDescription"
                                 action="purapRequisition"
                                 textAreaLabel="description"
-                                addClass="embed"/>
+                                addClass="embed textarea"/>
                     </td>
                     <td class="infoline right">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="newPurchasingItemLine.itemUnitPrice" tabindexOverride="${tabindexOverrideBase + 0}"/>
@@ -448,18 +452,19 @@
                             </td>
                         </c:if>
 
-                        <td class="infoline" colspan="2">
+                        <td class="infoline relative" colspan="2">
                              <kul:htmlControlAttribute
-                                attributeEntry="${itemAttributes.itemDescription}"
-                                property="document.item[${ctr}].itemDescription"
-                                readOnly="${not ( (fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment)))) or lockB2BEntry}"
-                                tabindexOverride="${tabindexOverrideBase + 0}"/>
+                                    attributeEntry="${itemAttributes.itemDescription}"
+                                    property="document.item[${ctr}].itemDescription"
+                                    readOnly="${not ( (fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment)))) or lockB2BEntry}"
+                                    tabindexOverride="${tabindexOverrideBase + 0}"
+                                    styleClass="fullwidth"/>
                             <c:if test="${!(not ( (fullEntryMode and !amendmentEntry) or (amendmentEntry and itemLine.itemActiveIndicator and (not (amendmentEntryWithUnpaidPreqOrCM and itemLine.itemInvoicedTotalAmount != null and itemLine.itemInvoicedTotalAmount != 0.00 and !itemLine.newItemForAmendment)))) or lockB2BEntry)}">
                                 <kul:expandedTextArea
                                         textAreaFieldName="document.item[${ctr}].itemDescription"
                                         action="purapRequisition"
                                         textAreaLabel="description"
-                                        addClass="embed"/>
+                                        addClass="embed textarea"/>
                             </c:if>
                         </td>
                         <td class="infoline right">

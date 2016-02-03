@@ -503,50 +503,50 @@ div.inquiry table.datatable th {
     padding-top: 20px;
 }
 
-.doc #view_div .headerarea-small img[alt=changed] {
+#view_div .headerarea-small img[alt=changed] {
     margin: 20px 0 0 10px;
 }
 
-.doc #view_div>form>.headerbox {
+#view_div>form>.headerbox {
     float: right;
     color: #767676;
 }
 
-.doc #view_div>form>.headerbox th {
+#view_div>form>.headerbox th {
     text-align: right;
     padding: 0 5px 0 30px;
 }
 
-.doc #view_div>form>.msg-excol {
+#view_div>form>.msg-excol {
     margin-top: 15px;
     clear: both;
 }
 
-.doc #view_div>form>.msg-excol>.right {
+#view_div>form>.msg-excol>.right {
     color: #999999;
 }
 
-.doc #view_div>form>.msg-excol>.right>.excol {
+#view_div>form>.msg-excol>.right>.excol {
     margin-right: 0;
 }
 
-.doc #view_div>form>.headerarea-small {
+#view_div>form>.headerarea-small {
     float: left;
     margin-top: 15px;
 }
 
-.doc .main-panel .tab-container {
+.main-panel .tab-container {
     color: #555;
 }
 
-.doc .main-panel .tab-container h2 {
+.main-panel .tab-container h2 {
     font-size: 24px;
     text-transform: uppercase;
     color: #767676;
     margin-top: 0;
 }
 
-.doc .main-panel .tab-container h3 {
+.main-panel .tab-container h3 {
     font-size: 15px;
     text-transform: uppercase;
     text-align: left;
@@ -556,229 +556,238 @@ div.inquiry table.datatable th {
     margin: 20px 20px 15px 20px;
 }
 
-.doc .main-panel .tab-container td h3 {
+.main-panel .tab-container td h3 {
     margin: 0;
 }
 
-.doc .main-panel .tab-container td.border-bottom {
+.main-panel .tab-container td.border-bottom {
     border-bottom: 1px solid #c3c3c3;
 }
 
-.doc .main-panel .tab-container td.border-bottom h3 {
+.main-panel .tab-container td.border-bottom h3 {
     border-bottom: none;
     padding-bottom: 0;
     margin-top: 20px;
 }
 
-.doc .main-panel .tab-container table {
+.main-panel .tab-container table {
     width: 100%;
     margin-bottom: 30px;
 }
 
-.doc .main-panel .tab-container table table {
+.main-panel .tab-container table table {
     margin-bottom: 0;
 }
 
-.doc .main-panel .tab-container table.side-margins {
+.main-panel .tab-container table.side-margins {
     width: calc(100% - 40px);
     margin: 0 20px 30px 20px;
 }
 
-.doc .main-panel .tab-container th {
+.main-panel .tab-container th {
     color: #767676;
     font-weight: 400;
 }
 
-.doc .main-panel .tab-container th.right {
+.main-panel .tab-container th.right {
     padding: 0 10px 0 15px;
 }
 
-.doc .main-panel .tab-container th.top {
+.main-panel .tab-container th.top {
     vertical-align: top;
     padding-top: 5px;
 }
 
-.doc .main-panel .tab-container label {
+.main-panel .tab-container label {
     font-weight: 400;
     margin-bottom: 0;
 }
 
-.doc .main-panel .tab-container table.items tr.new-note td {
+.main-panel .tab-container table.items tr.new-note td {
     padding-bottom: 30px;
 }
 
-.doc .main-panel .tab-container table.standard {
+.main-panel table.questionTable {
+    margin: 0 auto;
+}
+
+.main-panel table.questionTable td {
+    padding-right: 15px;
+    font-weight: 400;
+}
+
+.main-panel .tab-container table.standard {
     font-size: 14px;
 }
 
-.doc .main-panel .tab-container table.standard tr.header {
+.main-panel .tab-container table.standard tr.header {
     background-color: inherit !important;
 }
 
-.doc .main-panel .tab-container table.standard tr.header>th {
+.main-panel .tab-container table.standard tr.header>th {
     text-transform: uppercase;
     font-size: 11px;
     padding-bottom: 2px;
     vertical-align: bottom;
 }
 
-.doc .main-panel .tab-container table.items tr.header th {
+.main-panel .tab-container table.items tr.header th {
     padding-top: 15px;
 }
 
-.doc .main-panel .tab-container table.items td:first-child,
-.doc .main-panel .tab-container table.items th:first-child {
+.main-panel .tab-container table.items td:first-child,
+.main-panel .tab-container table.items th:first-child {
     font-weight: 700;
     min-width: 20px;
     text-align: right;
 }
 
-.doc .main-panel .tab-container table.standard th,
-.doc .main-panel .tab-container table.standard td {
+.main-panel .tab-container table.standard th,
+.main-panel .tab-container table.standard td {
     padding: 5px 10px;
 }
 
-.doc .main-panel .tab-container table.standard tr.top {
+.main-panel .tab-container table.standard tr.top {
     vertical-align: top;
 }
 
-.doc .main-panel .tab-container table.standard tr.middle {
+.main-panel .tab-container table.standard tr.middle {
     vertical-align: middle;
 }
 
-.doc .main-panel .tab-container table.standard td.note-text {
+.main-panel .tab-container table.standard td.note-text {
     width: 30%;
 }
 
-.doc .main-panel .tab-container table.standard tr.highlight {
+.main-panel .tab-container table.standard tr.highlight {
     background-color: #F9F9F9;
 }
 
-.doc .main-panel .tab-container table.standard tr.highlight tr.highlight {
+.main-panel .tab-container table.standard tr.highlight tr.highlight {
     background-color: rgba(0,0,0,.1);
 }
 
-.doc .main-panel .tab-container table.standard td.total-line {
+.main-panel .tab-container table.standard td.total-line {
     border-top: 1px solid rgba(204,204,204,0.3);
 }
 
-.doc .main-panel .tab-container table.adhoc td:first-child,
-.doc .main-panel .tab-container table.adhoc th:first-child {
+.main-panel .tab-container table.adhoc td:first-child,
+.main-panel .tab-container table.adhoc th:first-child {
     padding-left: 20px;
 }
 
-.doc .main-panel .tab-container table.adhoc th {
+.main-panel .tab-container table.adhoc th {
     width: 25%;
 }
 
-.doc .main-panel .tab-container table.adhoc.person th:first-child {
+.main-panel .tab-container table.adhoc.person th:first-child {
     width: 50%;
 }
 
-.doc .main-panel .tab-container-error {
+.main-panel .tab-container-error {
     color: #C47965;
     padding: 10px 40px;
 }
 
-.doc .main-panel .tab-container table.old-new tr:nth-child(even) {
+.main-panel .tab-container table.old-new tr:nth-child(even) {
     background-color: #F9F9F9;
 }
 
-.doc .main-panel .tab-container table.old-new th.old {
+.main-panel .tab-container table.old-new th.old {
     color: #C47965;
     font-size: 14px;
     text-transform: uppercase;
 }
 
-.doc .main-panel .tab-container table.old-new th.new {
+.main-panel .tab-container table.old-new th.new {
     color: #6DA487;
     font-size: 14px;
     text-transform: uppercase;
 }
 
-.doc .main-panel .tab-container table.old-new td:nth-child(2) {
+.main-panel .tab-container table.old-new td:nth-child(2) {
     border-left: 1px solid rgba(196,121,101, 0.2);
 }
 
-.doc .main-panel .tab-container table.old-new td:last-child {
+.main-panel .tab-container table.old-new td:last-child {
     border-left: 1px solid rgba(109,164,135, 0.2);
 }
 
-.doc .main-panel .tab-container table.old-new tr:not(:first-child):hover {
+.main-panel .tab-container table.old-new tr:not(:first-child):hover {
     background-color: #E9E9E9;
 }
 
-.doc .main-panel .tab-container table.acct-lines {
+.main-panel .tab-container table.acct-lines {
     table-layout: fixed;
     min-width: 1000px;
 }
 
-.doc .main-panel .tab-container table.acct-lines input.amount,
-.doc .main-panel .tab-container table.acct-lines td.amount {
+.main-panel .tab-container table.acct-lines input.amount,
+.main-panel .tab-container table.acct-lines td.amount {
     text-align: right;
 }
 
-.doc .main-panel .tab-container table.acct-lines td.amount,
-.doc .main-panel .tab-container table.acct-lines tr.total-line td.right {
+.main-panel .tab-container table.acct-lines td.amount,
+.main-panel .tab-container table.acct-lines tr.total-line td.right {
     padding-right: 15px;
 }
 
-.doc .main-panel .tab-container table.acct-lines th,
-.doc .main-panel .tab-container table.acct-lines td {
+.main-panel .tab-container table.acct-lines th,
+.main-panel .tab-container table.acct-lines td {
     min-width: 50px;
     padding: 10px 5px;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.header {
+.main-panel .tab-container table.acct-lines tr.header {
     border-bottom: 1px solid #BBBBBB;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr:not(:first-child) td.tab-subhead,
-.doc .main-panel .tab-container table.acct-lines tr:not(:first-child) td.tab-subhead-import {
+.main-panel .tab-container table.acct-lines tr:not(:first-child) td.tab-subhead,
+.main-panel .tab-container table.acct-lines tr:not(:first-child) td.tab-subhead-import {
     padding-top: 20px;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.title .actions {
+.main-panel .tab-container table.acct-lines tr.title .actions {
     padding-bottom: 5px;
     padding-right: 5px;
     display: inline;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.line .actions,
-.doc .main-panel .tab-container table.acct-lines tr.new .actions {
+.main-panel .tab-container table.acct-lines tr.line .actions,
+.main-panel .tab-container table.acct-lines tr.new .actions {
     border-left: 1px solid #BBBBBB;
     padding: 6px 10px;
     white-space: nowrap;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.line td.multi-row,
-.doc .main-panel .tab-container table.acct-lines tr.new td.multi-row {
+.main-panel .tab-container table.acct-lines tr.line td.multi-row,
+.main-panel .tab-container table.acct-lines tr.new td.multi-row {
     vertical-align: middle;
     border-left: 1px solid #BBBBBB;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.line td.multi-row .actions,
-.doc .main-panel .tab-container table.acct-lines tr.new td.multi-row .actions {
+.main-panel .tab-container table.acct-lines tr.line td.multi-row .actions,
+.main-panel .tab-container table.acct-lines tr.new td.multi-row .actions {
     border-left: none;
     white-space: nowrap;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.line .actions .acct-lines-toggle {
+.main-panel .tab-container table.acct-lines tr.line .actions .acct-lines-toggle {
     font-size: 12px;
     color: #999999;
     font-weight: 700;
     display: inline;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr th:first-child {
+.main-panel .tab-container table.acct-lines tr th:first-child {
     width: 24px;
 }
 
-.doc .main-panel .tab-container table.acct-lines.large-seq tr th:first-child {
+.main-panel .tab-container table.acct-lines.large-seq tr th:first-child {
     width: 45px;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.line th:first-child {
+.main-panel .tab-container table.acct-lines tr.line th:first-child {
     width: 24px;
     background-color: #3D7599;
     border-top: 1px solid #FFFFFF;
@@ -789,60 +798,60 @@ div.inquiry table.datatable th {
     padding: 0;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.line {
+.main-panel .tab-container table.acct-lines tr.line {
     border-top: 1px solid #BBBBBB;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.total-line {
+.main-panel .tab-container table.acct-lines tr.total-line {
     border-top: 1px solid #BBBBBB;
     font-size: 16px;
     font-weight: 700;
     color: #555555;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.total-line .total-label {
+.main-panel .tab-container table.acct-lines tr.total-line .total-label {
     color: #999999;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.header.multiline,
-.doc .main-panel .tab-container table.acct-lines tr.line.multiline {
+.main-panel .tab-container table.acct-lines tr.header.multiline,
+.main-panel .tab-container table.acct-lines tr.line.multiline {
     border: none;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.multiline.first {
+.main-panel .tab-container table.acct-lines tr.multiline.first {
     border-top: 1px solid #BBBBBB;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.multiline.header.first th:last-child {
+.main-panel .tab-container table.acct-lines tr.multiline.header.first th:last-child {
     border-left: 1px solid #BBBBBB;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.multiline.last {
+.main-panel .tab-container table.acct-lines tr.multiline.last {
     border-bottom: 1px solid #BBBBBB;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.new.multiline.last {
+.main-panel .tab-container table.acct-lines tr.new.multiline.last {
     border-bottom: none;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.header.multiline th,
-.doc .main-panel .tab-container table.acct-lines tr.line.multiline th {
+.main-panel .tab-container table.acct-lines tr.header.multiline th,
+.main-panel .tab-container table.acct-lines tr.line.multiline th {
     padding-bottom: 0;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line {
+.main-panel .tab-container table.acct-lines tr.multiline td.total-line {
     border-top: none;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line table {
+.main-panel .tab-container table.acct-lines tr.multiline td.total-line table {
     margin-top: -10px;
     color: #767676;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line table table th:first-child {
+.main-panel .tab-container table.acct-lines tr.multiline td.total-line table table th:first-child {
     width: initial;
     background-color: inherit;
     border-top: none;
@@ -852,34 +861,34 @@ div.inquiry table.datatable th {
     text-align: left;
 }
 
-.doc .main-panel .tab-container table.acct-lines tr.multiline td.total-line table .tab-subhead button {
+.main-panel .tab-container table.acct-lines tr.multiline td.total-line table .tab-subhead button {
     margin-left: 5px;
     color: #6c6c6c;
 }
 
-.doc .main-panel .tab-container table.acct-lines.large-seq .btn.move {
+.main-panel .tab-container table.acct-lines.large-seq .btn.move {
     right: 11px !important;
 }
 
-.doc .main-panel .tab-container table.acct-lines table.acct-lines {
+.main-panel .tab-container table.acct-lines table.acct-lines {
     margin: 0 0 0 50px !important;
     width: calc(100% - 45px) !important;
 }
 
-.doc .main-panel .tab-container table.acct-lines table.acct-lines tr.title {
+.main-panel .tab-container table.acct-lines table.acct-lines tr.title {
     display: none;
 }
 
-.doc .main-panel .tab-container table.acct-lines table.acct-lines tr th:first-child {
+.main-panel .tab-container table.acct-lines table.acct-lines tr th:first-child {
     width: inherit;
 }
 
-.doc .main-panel .tab-container table.standard .container-tab-subhead,
-.doc .main-panel .tab-container table.standard .container-tab-subhead:hover {
+.main-panel .tab-container table.standard .container-tab-subhead,
+.main-panel .tab-container table.standard .container-tab-subhead:hover {
     background-color: #FFFFFF;
 }
 
-.doc .main-panel .tab-container table.standard .container-tab-subhead .tab-subhead {
+.main-panel .tab-container table.standard .container-tab-subhead .tab-subhead {
     border-left: none;
 }
 
