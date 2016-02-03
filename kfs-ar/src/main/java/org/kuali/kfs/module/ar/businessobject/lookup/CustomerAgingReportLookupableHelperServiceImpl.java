@@ -415,10 +415,10 @@ public class CustomerAgingReportLookupableHelperServiceImpl extends KualiLookupa
                 startDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -90)).toString();
                 endDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -61)).toString();
             } else if (StringUtils.equals(columnTitle, cutoffdate91toSYSPRlabel)) {
-                startDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -120)).toString();
+                startDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -Integer.parseInt(nbrDaysForLastBucket))).toString();
                 endDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -91)).toString();
             } else if (StringUtils.equals(columnTitle, cutoffdateSYSPRplus1orMorelabel)) {
-                endDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -121)).toString();
+                endDate = dateFormatter.format(DateUtils.addDays(reportRunDate, -1 - Integer.parseInt(nbrDaysForLastBucket))).toString();
                 columnTitle = Integer.toString((Integer.parseInt(nbrDaysForLastBucket)) + 1) + " days and older";
             }else {
                 endDate = dateFormatter.format(reportRunDate).toString();
