@@ -43,6 +43,7 @@ var Sidebar = React.createClass({
                     $.ajax({
                         url: institutionLinksPath,
                         dataType: 'json',
+                        cache: false,
                         type: 'GET',
                         success: function (preferences) {
                             thisComponent.setState({backdoorId: backdoorId, institutionPreferences: preferences});
@@ -160,6 +161,7 @@ var Sidebar = React.createClass({
         $.ajax({
             url: institutionLinksPath,
             dataType: 'json',
+            cache: false,
             type: 'GET',
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('cache-control', 'must-revalidate');
