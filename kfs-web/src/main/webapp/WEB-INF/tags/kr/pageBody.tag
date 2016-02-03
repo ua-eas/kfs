@@ -338,6 +338,7 @@
                 <kul:editablePropertiesGuid />
 
             </html:form>
+            </div>
         </c:when>
         <c:when test="${renderInnerDiv}">
             <jsp:doBody/>
@@ -358,7 +359,6 @@
     </div>
 </c:if>
 
-</div>
 </div>
 
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">

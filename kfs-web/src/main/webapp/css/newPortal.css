@@ -13,6 +13,10 @@ p {
     margin: 10px;
 }
 
+table.fixed {
+    table-layout: fixed;
+}
+
 .close {
     font-size: 28px;
     font-weight: 400;
@@ -661,7 +665,7 @@ nav ul.nav li {
 
 .btn.clean {
     box-shadow: none;
-    background-color: inherit;
+    background-color: transparent;
     padding: 5px;
     font-size: inherit;
 }
