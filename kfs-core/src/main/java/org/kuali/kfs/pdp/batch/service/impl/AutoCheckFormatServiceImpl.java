@@ -38,7 +38,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 			String campusCode = campus.getCode();
 			
 			// Create FormatSelection object for current campus
-	        FormatSelection formatSelection = generateFormatSelectionForCampus(campusCode);
+	        FormatSelection formatSelection = getFormatService().getDataForFormat(campusCode);
 	        
 	        // Using the formatSelection object, create a
 			AutoCheckFormat autoFormat = createAutoCheckFormat(formatSelection);
@@ -58,6 +58,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	 * @return
 	 */
 	protected FormatSelection generateFormatSelectionForCampus(String campusCode) {
+		
 		Date formatStartDate = getFormatService().getFormatProcessStartDate(campusCode);
 
 		// create new FormatSelection object an set the campus code and the start date
@@ -109,7 +110,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 			FormatProcessSummary formatProcessSummary = getFormatService().startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
 			
 			if (formatProcessSummary.getProcessSummaryList().size() == 0) {
-				LOG.error("Warning AutoCheckFormatStep: There are no payments that match your selection for format process.");
+				LOG.error("Warning AutoCheckFormatStep: There are no payments that match your selection for format process.(Campus Code="+autoFormat.getCampus()+")");
 				return false;
 			}
 			

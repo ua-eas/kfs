@@ -55,7 +55,14 @@ public interface FormatService {
      * @return FormatSelection
      */
     public FormatSelection getDataForFormat(Person user);
-
+    
+    /**
+     * This method gets the data for the format process based on the campus code
+     * @param campusCode
+     * @return FormatSelection
+     */
+    public FormatSelection getDataForFormat(String campusCode);
+    
     /**
      * This method formats the data for check printing.
      * @param procId

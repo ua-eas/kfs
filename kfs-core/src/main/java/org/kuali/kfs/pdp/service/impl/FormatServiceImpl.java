@@ -83,7 +83,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public class FormatServiceImpl implements FormatService {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FormatServiceImpl.class);
+	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FormatServiceImpl.class);
 
     protected PaymentDetailDao paymentDetailDao;
     protected PaymentGroupDao paymentGroupDao;
@@ -111,8 +111,16 @@ public class FormatServiceImpl implements FormatService {
      */
     @Override
     public FormatSelection getDataForFormat(Person user) {
-
         String campusCode = user.getCampusCode();
+        
+        return getDataForFormat(campusCode);
+    }
+    
+    /**
+	 * @see org.kuali.kfs.pdp.service.FormatService#getDataForFormat(java.lang.String)
+	 */
+	@Override
+	public FormatSelection getDataForFormat(String campusCode) {
         Date formatStartDate = getFormatProcessStartDate(campusCode);
 
         // create new FormatSelection object an set the campus code and the start date
@@ -127,7 +135,7 @@ public class FormatServiceImpl implements FormatService {
         }
 
         return formatSelection;
-    }
+	}
 
     /**
      * @see org.kuali.kfs.pdp.service.FormatService#getFormatProcessStartDate(java.lang.String)
