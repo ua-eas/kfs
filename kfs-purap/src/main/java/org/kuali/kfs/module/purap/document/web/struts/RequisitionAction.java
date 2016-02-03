@@ -48,6 +48,7 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.kfs.kns.datadictionary.KNSDocumentEntry;
 import org.kuali.kfs.kns.question.ConfirmationQuestion;
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
@@ -163,6 +164,13 @@ public class RequisitionAction extends PurchasingActionBase {
         }
         request.getSession().removeAttribute("docId");
         request.getSession().removeAttribute("multipleB2BRequisitions");
+        
+        // attach any extra JS from the data dictionary
+        if (reqForm.getAdditionalScriptFiles().isEmpty()) {
+            KNSDocumentEntry docEntry = (KNSDocumentEntry) getDataDictionaryService().getDataDictionary().getDocumentEntry(reqForm.getDocument().getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
+            reqForm.getAdditionalScriptFiles().addAll(docEntry.getWebScriptFiles());
+        }
+        
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
