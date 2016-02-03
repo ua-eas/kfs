@@ -775,6 +775,7 @@
 	<bean id="autoCheckFormatService-parentBean" class="org.kuali.kfs.pdp.batch.service.impl.AutoCheckFormatServiceImpl" abstract="true">
 		<property name="formatService" ref="pdpFormatService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
+    	<property name="campusService" ref="campusService" />
 	</bean>
 	<bean id="pdpFormatCheckACHJob" parent="scheduledJobDescriptor">
 		<property name="steps">

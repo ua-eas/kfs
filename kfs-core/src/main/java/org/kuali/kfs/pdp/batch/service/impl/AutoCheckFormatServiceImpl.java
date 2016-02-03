@@ -15,35 +15,62 @@ import org.kuali.kfs.pdp.service.FormatService;
 import org.kuali.kfs.pdp.service.impl.exception.FormatException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.location.api.campus.Campus;
+import org.kuali.rice.location.api.campus.CampusService;
 
 public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AutoCheckFormatServiceImpl.class);
 	
 	private FormatService formatService;
 	private DateTimeService dateTimeService;
+	private CampusService campusService;
 	
 	/* (non-Javadoc)
 	 * @see edu.uci.kfs.pdp.batch.service.AutoCheckFormatService#processChecks()
 	 */
 	@Override
 	public boolean processChecks() {
-		Person kualiUser = GlobalVariables.getUserSession().getPerson();
-		if (ObjectUtils.isNull(kualiUser)){
-			LOG.error("ERROR AutoCheckFormatStep: kualiUser cannot be null");
-			return false;
-		}
-		String campusCode = kualiUser.getCampusCode();
-		
-		FormatSelection formatSelection = getFormatService().getDataForFormat(kualiUser);
-		AutoCheckFormat autoFormat = createAutoCheckFormat(formatSelection);
-		
-		if(ObjectUtils.isNull(autoFormat))
-			return false;
 
-		autoFormat.setCampus(campusCode);
+		List<Campus> findAllCampuses = getCampusService().findAllCampuses();
 		
-		return formatChecks(autoFormat);
+		// Go through all the campuses and process the checks ready for format
+		for(Campus campus : findAllCampuses){
+			String campusCode = campus.getCode();
+			
+			// Create FormatSelection object for current campus
+	        FormatSelection formatSelection = generateFormatSelectionForCampus(campusCode);
+	        
+	        // Using the formatSelection object, create a
+			AutoCheckFormat autoFormat = createAutoCheckFormat(formatSelection);
+			
+			if(ObjectUtils.isNull(autoFormat))
+				return false;
+	
+			formatChecks(autoFormat);
+		}
+		
+		return true; 
+	}
+
+
+	/**
+	 * @param campusCode
+	 * @return
+	 */
+	protected FormatSelection generateFormatSelectionForCampus(String campusCode) {
+		Date formatStartDate = getFormatService().getFormatProcessStartDate(campusCode);
+
+		// create new FormatSelection object an set the campus code and the start date
+		FormatSelection formatSelection = new FormatSelection();
+		formatSelection.setCampus(campusCode);
+		formatSelection.setStartDate(formatStartDate);
+
+		// if format process not started yet, populate the other data as well
+		if (formatStartDate == null) {
+		    formatSelection.setCustomerList(getFormatService().getAllCustomerProfiles());
+		    formatSelection.setRangeList(getFormatService().getAllDisbursementNumberRanges());
+		}
+		return formatSelection;
 	}
 
 	
@@ -52,7 +79,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	 * @param autoFormat
 	 * @return
 	 */
-	private boolean  formatChecks(AutoCheckFormat autoFormat) {
+	protected boolean  formatChecks(AutoCheckFormat autoFormat) {
 		
 	    // Mark payments for format, if there are no payments for format then end the job
 		if (!markPaymentsForFormat(autoFormat))
@@ -76,7 +103,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	 * @param autoFormat
 	 * @return
 	 */
-	private boolean markPaymentsForFormat(AutoCheckFormat autoFormat) {
+	protected boolean markPaymentsForFormat(AutoCheckFormat autoFormat) {
 		try {
 			Date paymentDate = getDateTimeService().convertToSqlDate(autoFormat.getPaymentDate());
 			FormatProcessSummary formatProcessSummary = getFormatService().startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
@@ -100,7 +127,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private AutoCheckFormat createAutoCheckFormat(FormatSelection formatSelection) {
+	protected AutoCheckFormat createAutoCheckFormat(FormatSelection formatSelection) {
 
         AutoCheckFormat autoFormat = new AutoCheckFormat();
         
@@ -120,7 +147,8 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
                     element.setSelectedForFormat(Boolean.FALSE);
                 }
             }
-
+            
+            autoFormat.setCampus(formatSelection.getCampus());
             autoFormat.setPaymentDate(getDateTimeService().toDateString(getDateTimeService().getCurrentTimestamp()));
             autoFormat.setPaymentTypes(PdpConstants.PaymentTypes.ALL);
             autoFormat.setCustomers(customers);
@@ -156,6 +184,22 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	 */
 	public void setDateTimeService(DateTimeService dateTimeService) {
 		this.dateTimeService = dateTimeService;
+	}
+
+
+	/**
+	 * @return the campusService
+	 */
+	public CampusService getCampusService() {
+		return campusService;
+	}
+
+
+	/**
+	 * @param campusService the campusService to set
+	 */
+	public void setCampusService(CampusService campusService) {
+		this.campusService = campusService;
 	}
 
 }
