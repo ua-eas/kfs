@@ -36,13 +36,13 @@
             modalBody.load(href, function(response, status, xhr) {
                 if ( status == "error" ) {
                     var msg = "Sorry but there was an error: ";
-                    var html = '<div class="fullwidth inquirymodal body"><main class="content">'
-                        html += '<div class="modal-header"><div id="breadcrumbs"></div><button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button></div>'
-                        html += '<div id="view_div"><div class="inquiry"><div class="main-panel">'
-                        html += '<div class="headerarea-small"><h2>Error</h2></div>'
-                        html += '<div style="padding: 30px 0;">' + msg + xhr.status + " " + xhr.statusText + '</div>'
-                        html += '</div></div></div>'
-                        html += '</main></div>'
+                    var html = '<div class="fullwidth inquirymodal body"><main class="content">';
+                        html += '<div class="modal-header"><div id="breadcrumbs"></div><button type="button" data-remodal-action="close" class="close remodal-close"><span aria-hidden="true">&times;</span></button></div>';
+                        html += '<div id="view_div"><div class="inquiry"><div class="main-panel">';
+                        html += '<div class="headerarea-small"><h2>Error</h2></div>';
+                        html += '<div style="padding: 30px 0;">' + msg + xhr.status + " " + xhr.statusText + '</div>';
+                        html += '</div></div></div>';
+                        html += '</main></div>';
                     modalBody.html(html);
                     myModal.remodal();
                 } else {
@@ -54,7 +54,7 @@
                         breadcrumbs = breadcrumbs.slice(0, stackIndex);
                     }
 
-                    breadcrumbs.push({title: title, href: href})
+                    breadcrumbs.push({title: title, href: href});
 
                     var crumbs = '';
                     for (var i = 0; i < breadcrumbs.length; i++) {
@@ -67,14 +67,14 @@
                             crumbs += breadcrumbs[i].title;
                         }
                     }
-                    $('#breadcrumbs').html(crumbs)
+                    $('#breadcrumbs').html(crumbs);
                 }
             });
         });
 
         $(document).on('closed', '.remodal', function () {
             breadcrumbs = [];
-            $('#remodal .remodal-content').html('')
+            $('#remodal .remodal-content').html('');
         });
     });
 </script>

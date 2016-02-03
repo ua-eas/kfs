@@ -183,7 +183,7 @@ public class CustomerAgingReportServiceImpl implements CustomerAgingReportServic
 
     @Override
     public HashMap<String, KualiDecimal> findDiscountAmountByAccount(String chart, String account, java.sql.Date begin, java.sql.Date end) {
-        return getCustomerAgingReportDao().findInvoiceAmountByAccount(chart, account, begin, end);
+        return getCustomerAgingReportDao().findDiscountAmountByAccount(chart, account, begin, end);
     }
 
     @Override

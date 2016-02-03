@@ -616,6 +616,10 @@ div.inquiry table.datatable th {
     font-weight: 400;
 }
 
+.main-panel .tab-container table.standard {
+    font-size: 14px;
+}
+
 .main-panel .tab-container table.standard tr.header {
     background-color: inherit !important;
 }

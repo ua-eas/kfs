@@ -28,7 +28,7 @@
 <c:set var="docPos" value="${docPos+1}" />
 
 <div class="tab-container">
-	<table class="standard center" style="width: 85%; text-align: left;">
+	<table class="standard" style="width: calc(100% - 60px); margin-left: 60px;">
 		<tr>
 			<td class="tab-subhead"  width="100%" colspan="15"><h3>Accounting Lines Amount Distributions</h3></td>
 		</tr>
@@ -48,7 +48,7 @@
 									styleId="tab-${tabKey}-imageToggle"
 									onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); "
 									value="Show"/>
-								Payments
+								View Payments
 							</td>
 						</tr>
 						<tbody  style="display: none;" id="tab-${tabKey}-div">

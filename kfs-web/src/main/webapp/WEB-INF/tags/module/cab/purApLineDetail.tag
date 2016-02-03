@@ -22,6 +22,8 @@
 <%@ attribute name="linePos" required="true" description="The index of CAB PurAp item asset"%>
 <%@ attribute name="itemLine" required="true" type="org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableItemAsset" %>
 <%@ attribute name="purApDocLine" required="true" type="org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument" %>
+<%@ attribute name="rowClass" required="false" description="Class to add to the row" %>
+
 <script language="JavaScript" type="text/javascript" src="scripts/module/cab/selectCheckBox.js"></script>
 
 <c:set var="purApDocumentAttributes" value="${DataDictionary.PurchasingAccountsPayableDocument.attributes}" />
@@ -49,7 +51,7 @@
 	</c:otherwise>
 </c:choose>
 <c:set var="assetItemStr" value="purApDoc[${docPos-1}].purchasingAccountsPayableItemAsset[${linePos-1}]" />
-<tr style="color:${color}">
+<tr class="${rowClass}" style="color:${color}">
 	<c:choose>
 	<c:when test="${itemLine.active && !itemLine.additionalChargeNonTradeInIndicator && !itemLine.tradeInAllowance}">
 		<td rowspan="2"><html:checkbox styleId="systemCheckbox" property="${assetItemStr}.selectedValue" /></td>
@@ -140,10 +142,11 @@
 	</c:choose>
 	<c:choose>
 		<c:when test="${itemLine.active }">
-			<td class="infoline" align="center">
+			<td class="infoline">
 				<c:if test="${!itemLine.tradeInAllowance}">
 					<html:submit
-							styleClass="btn btn-default"
+							styleClass="btn btn-default small"
+							style="margin-bottom: 2px;"
 							property="methodToCall.split.doc${docPos-1}.line${linePos-1}"
 							title="Split"
 							alt="Split"
@@ -151,7 +154,8 @@
 					<br>
 					<c:if test="${itemLine.accountsPayableItemQuantity < 1 }">
 						<html:submit
-								styleClass="btn btn-default"
+								styleClass="btn btn-default small"
+								style="margin-bottom: 2px;"
 								property="methodToCall.percentPayment.doc${docPos-1}.line${linePos-1}"
 								title="Percent Payment"
 								alt="Percent Payment"
@@ -160,7 +164,8 @@
 					</c:if>
 				</c:if>
 				<html:submit
-						styleClass="btn btn-default"
+						styleClass="btn btn-default small"
+						style="margin-bottom: 2px;"
 						property="methodToCall.allocate.doc${docPos-1}.line${linePos-1}"
 						title="Allocate"
 						alt="allocate"
@@ -168,7 +173,8 @@
 				<br>
 				<c:if test="${itemLine.createAssetIndicator}">
 					<html:submit
-							styleClass="btn btn-default"
+							styleClass="btn btn-default small"
+							style="margin-bottom: 2px;"
 							property="methodToCall.createAsset.doc${docPos-1}.line${linePos-1}"
 							title="Create Asset"
 							alt="createAsset"
@@ -177,7 +183,7 @@
 				</c:if>
 				<c:if test="${itemLine.applyPaymentIndicator}">
 					<html:submit
-							styleClass="btn btn-default"
+							styleClass="btn btn-default small"
 							property="methodToCall.applyPayment.doc${docPos-1}.line${linePos-1}"
 							title="applyPayment"
 							alt="applyPayment"
@@ -187,7 +193,7 @@
 		</c:when>
 	</c:choose>
 </tr>
-<tr>
+<tr class="${rowClass}">
 	<c:set var="tabKey" value="payment-${docPos}-${linePos}"/>
 	<html:hidden property="tabStates(${tabKey})" value="CLOSE" />
 	<td colspan="13" style="padding:0px; border-style:none;">
@@ -198,7 +204,7 @@
 						property="methodToCall.toggleTab.tab${tabKey}"
 						title="toggle"
 						alt="show"
-						styleClass="btn btn-default"
+						styleClass="btn btn-default small"
 						styleId="tab-${tabKey}-imageToggle"
 						value="Show"
 						onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); "/>
@@ -256,7 +262,7 @@
 					</tr>
 				</c:forEach>
 				<th colspan="13" style="text-align: right;">Total:</th>
-				<th>${itemLine.totalCost}</th>
+				<th class="right">${itemLine.totalCost}</th>
 			</tbody>
 		</table>
 	</td>

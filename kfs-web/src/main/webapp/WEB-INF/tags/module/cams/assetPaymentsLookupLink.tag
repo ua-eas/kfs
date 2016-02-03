@@ -29,9 +29,6 @@
     <div class="tab-container">
         <table class="standard side-margins">
             <tr>
-                <td class="tab-subhead"><h3>Payments Lookup</h3></td>
-            </tr>
-            <tr>
                 <td>
                     <c:choose>
                         <c:when test="${isTransactionalDocument}">
