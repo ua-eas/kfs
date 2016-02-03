@@ -64,7 +64,7 @@
 			<c:forEach items="${KualiForm.purApDocs}" var="purApDoc" >
 				<c:set var="docPos" value="${docPos+1}" />
 				<c:set var="linePos" value="0" />
-				<c:forEach items="${purApDoc.purchasingAccountsPayableItemAssets}" var="assetLine" >
+				<c:forEach items="${purApDoc.purchasingAccountsPayableItemAssets}" var="assetLine" varStatus="iterStatus">
 					<c:set var="linePos" value="${linePos+1}" />
 					<c:if test="${(assetLine.active && activeIndicator=='true') || (!assetLine.active && activeIndicator == 'false')}">
 
@@ -74,7 +74,7 @@
 								linePos="${linePos}"
 								itemLine="${assetLine}"
 								purApDocLine="${purApDoc}"
-								rowClass="${assetLine.index % 2 == 0? 'highlight' : ''}"/>
+								rowClass="${iterStatus.index % 2 == 0? 'highlight' : ''}"/>
 
 						<c:if test="${!assetLine.additionalChargeNonTradeInIndicator}">
 							<c:set var="chkcount" value="${chkcount+1}" />
