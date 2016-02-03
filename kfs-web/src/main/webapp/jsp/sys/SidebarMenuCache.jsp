@@ -43,7 +43,7 @@
                             <td>
                                 <table>
                                     <tr>
-                                        <th class="grid" style="width:50.0%;" align="right">
+                                        <th class="grid right" style="width:50.0%;">
                                             <label id="cacheLength.label" for="cacheLength">
                                                 Cache Expiration Time (in seconds)*:
                                             </label>

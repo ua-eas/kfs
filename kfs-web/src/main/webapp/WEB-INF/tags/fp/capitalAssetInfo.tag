@@ -142,7 +142,7 @@
                         <c:if test="${readOnly}">
                             <c:set var="assetDescription" value="${detailLine.capitalAssetDescription}" />
                             <tr>
-                                <th class="grid" width="5%" align="right"><kul:htmlAttributeLabel attributeEntry="${attributes.capitalAssetDescription}" readOnly="true" /></th>
+                                <th class="grid right" width="5%"><kul:htmlAttributeLabel attributeEntry="${attributes.capitalAssetDescription}" readOnly="true" /></th>
                                 <td class="grid" width="95%" colspan="7"><kul:htmlControlAttribute property="${capitalAssetInfoName}[${status.index}].capitalAssetDescription" attributeEntry="${attributes.capitalAssetDescription}" readOnly="true"/></td>
                             </tr>
                         </c:if>
