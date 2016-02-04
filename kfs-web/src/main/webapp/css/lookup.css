@@ -593,6 +593,7 @@ div.inquiry table.datatable th {
     padding: 0 10px 0 15px;
 }
 
+.main-panel .tab-container td.top,
 .main-panel .tab-container th.top {
     vertical-align: top;
     padding-top: 5px;
