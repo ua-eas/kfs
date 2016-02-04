@@ -1,6 +1,9 @@
 package org.kuali.kfs.pdp.batch.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -95,6 +98,7 @@ public class AutoCheckFormatServiceImplTest {
 	
 	@Test
 	public void testCreateAutoCheckFormatHasSetFormatSelectionData() throws Exception {
+		// start date is null, so can proceed
 		EasyMock.expect(fs.getStartDate()).andReturn(null);
 		EasyMock.expect(fs.getCampus()).andReturn("BL");
 		
@@ -119,13 +123,6 @@ public class AutoCheckFormatServiceImplTest {
 		
 		EasyMock.reset(fs);
 	}
-	
-	
-	
-	@Test
-	public void testCreationOfAutoCheckFormatWhenFormatSelectionHasNullStartDate() throws Exception {
-		
-		assertTrue(true);
-	}
+
 	
 }
