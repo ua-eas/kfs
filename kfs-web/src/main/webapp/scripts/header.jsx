@@ -11,6 +11,7 @@ var Header = React.createClass({
         $.ajax({
             url: userPath,
             dataType: 'json',
+            cache: false,
             type: 'GET',
             success: function(user) {
                 this.setState({user: user});
@@ -24,6 +25,7 @@ var Header = React.createClass({
         $.ajax({
             url: preferencesPath,
             dataType: 'json',
+            cache: false,
             type: 'GET',
             success: function(preferences) {
                 this.setState({preferences: preferences});
@@ -37,6 +39,7 @@ var Header = React.createClass({
         $.ajax({
             url: environmentPath,
             dataType: 'json',
+            cache: false,
             type: 'GET',
             success: function(env) {
                 this.setState({environment: env});
@@ -56,6 +59,7 @@ var Header = React.createClass({
             url: backdoorPath,
             dataType: 'json',
             contentType: 'application/json',
+            cache: false,
             type: 'GET',
             success: function(backdoorJson) {
                 this.setState({backdoorId: backdoorJson.backdoorId});
@@ -80,6 +84,7 @@ var Header = React.createClass({
                 url: path,
                 dataType: 'json',
                 contentType: 'application/json',
+                cache: false,
                 data: JSON.stringify({backdoorId: backdoorId}),
                 type: 'POST',
                 success: function () {
@@ -98,6 +103,7 @@ var Header = React.createClass({
             url: path,
             dataType: 'json',
             contentType: 'application/json',
+            cache: false,
             type: 'GET',
             success: function() {
                 window.location.replace(KfsUtils.getUrlPathPrefix());

@@ -124,7 +124,7 @@
 			">
 		</c:when>
 		<c:otherwise>
-			<body onKeyPress="return isReturnKeyAllowed('${Constants.DISPATCH_REQUEST_PARAMETER}.' , event);">
+			<body onload="restoreScrollPosition();" onKeyPress="return isReturnKeyAllowed('${Constants.DISPATCH_REQUEST_PARAMETER}.' , event);">
 		</c:otherwise>
 	</c:choose>
 

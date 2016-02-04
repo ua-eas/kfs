@@ -4,6 +4,7 @@ function getPrincipalName(success,fail) {
     $.ajax({
         url: KfsUtils.getUrlPathPrefix() + "sys/authentication/id",
         dataType: 'json',
+        cache: false,
         type: 'GET',
         success: function (principalName) {
             success(principalName.principalName);
@@ -21,6 +22,7 @@ function getUserPreferences(success,fail) {
         $.ajax({
             url: KfsUtils.getUrlPathPrefix() + "sys/preferences/users/" + principalName,
             dataType: 'json',
+            cache: false,
             type: 'GET',
             success: function (userPreferences) {
                 success(userPreferences);
@@ -43,6 +45,7 @@ function putUserPreferences(userPreferences) {
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify(userPreferences),
+            cache: false,
             type: 'PUT',
             error: function (xhr, status, err) {
                 console.error(status, err.toString());
@@ -58,6 +61,7 @@ function getBackdoorId(success, fail) {
     $.ajax({
         url: backdoorIdPath,
         dataType: 'json',
+        cache: false,
         type: 'GET',
         success(backdoorIdJson) {
             success(backdoorIdJson['backdoorId']);

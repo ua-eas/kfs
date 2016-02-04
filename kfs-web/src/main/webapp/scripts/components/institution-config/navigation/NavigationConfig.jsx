@@ -44,6 +44,7 @@ let NavigationConfig = React.createClass({
         $.ajax({
             url: linkGroupPath,
             dataType: 'json',
+            cache: false,
             type: 'GET',
             success: function(preferences) {
                 this.setState({
@@ -202,6 +203,7 @@ let NavigationConfig = React.createClass({
             url: linkGroupPath,
             dataType: 'json',
             contentType: 'application/json',
+            cache: false,
             type: 'PUT',
             data: JSON.stringify(this.state.linkGroups),
             success: function() {

@@ -39,6 +39,7 @@ let MenuConfig = React.createClass({
         $.ajax({
             url: menuPath,
             dataType: 'json',
+            cache: false,
             type: 'GET',
             success: function(menu) {
                 this.setState({
@@ -87,6 +88,7 @@ let MenuConfig = React.createClass({
             url: menuPath,
             dataType: 'json',
             contentType: 'application/json',
+            cache: false,
             type: 'PUT',
             data: JSON.stringify(this.state.menu),
             success: function() {
