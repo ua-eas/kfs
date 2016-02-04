@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <%@ attribute name="cellProperty" required="true"
               description="the fully qualified name of the property being displayed by this cell.
@@ -34,7 +34,7 @@
 <%@ attribute name="formattedNumberValue" required="false"
               description="number to format instead of property" %>
 <%@ attribute name="disableHiddenField" required="false"
-              description="determine whether the hidden field is needed for the given cell property" %>              
+              description="determine whether the hidden field is needed for the given cell property" %>
 
 
 <c:if test="${empty fieldAlign}">
@@ -43,10 +43,7 @@
 <c:set var="rowSpan" value="${empty rowSpan ? 1 : rowSpan}"/>
 <c:set var="colSpan" value="${empty colSpan ? 1 : colSpan}"/>
 
-<td class="${dataCellCssClass}" valign="top" rowspan="${rowSpan}" colspan="${colSpan}">
-<div style="text-align: ${fieldAlign};">
-<strong>
-<span class="nowrap">
+<td class="${dataCellCssClass} ${fieldAlign} nowrap heavy" valign="top" rowspan="${rowSpan}" colspan="${colSpan}">
     <c:choose>
         <c:when test="${empty formattedNumberValue}">
             <bean:write name="KualiForm" property="${cellProperty}"/>&nbsp;
@@ -55,7 +52,4 @@
             ${formattedNumberValue}
         </c:otherwise>
     </c:choose>
-</span>
-</strong>
-</div>
 </td>

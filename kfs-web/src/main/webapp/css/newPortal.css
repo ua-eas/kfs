@@ -18,6 +18,12 @@ p {
     font-weight: 400;
 }
 
+h3 .btn.small {
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+}
+
 input.searchicon {
     height: 18px;
     width: 18px;
@@ -31,6 +37,20 @@ input.searchicon.embed {
 input.editicon.embed {
     margin-left: -30px;
     margin-bottom: 3px;
+}
+
+input.embed.textarea {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+}
+
+textarea.fullwidth {
+    width: 100%;
+}
+
+.relative {
+    position: relative;
 }
 
 div.fineprint {
