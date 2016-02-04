@@ -30,14 +30,17 @@
 <%@ attribute name="lineIndex" required="false"
 	description="the index of the line to be adjuested"%>
 
-<div style="nowrap">
+<div class="nowrap">
 	<kul:htmlAttributeLabel attributeEntry="${attributes.adjustmentMeasurement}" forceRequired="false" useShortLabel="true" />
 	
 	<kul:htmlControlAttribute attributeEntry="${attributes.adjustmentMeasurement}" property="${adjustmentMeasurementFieldName}"/>
 
 	<kul:htmlControlAttribute attributeEntry="${attributes.adjustmentAmount}" property="${adjustmentAmountFieldName}"/>			
 	
-	<html:image property="methodToCall.${methodToCall}.line${lineIndex}.anchorsalaryexistingLineLineAnchor${lineIndex}" 
-		src="${ConfigProperties.externalizable.images.url}tinybutton-apply.gif" 
-		title="Percent Adjustment For Line ${lineIndex}" alt="Percent Adjustment For Line ${lineIndex}" styleClass="tinybutton" />
+	<html:submit
+            property="methodToCall.${methodToCall}.line${lineIndex}.anchorsalaryexistingLineLineAnchor${lineIndex}"
+            title="Percent Adjustment For Line ${lineIndex}"
+            alt="Percent Adjustment For Line ${lineIndex}"
+            styleClass="btn btn-default"
+            value="Apply"/>
 </div>	

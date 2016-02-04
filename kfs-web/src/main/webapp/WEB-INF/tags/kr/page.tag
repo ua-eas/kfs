@@ -124,16 +124,7 @@
 			">
 		</c:when>
 		<c:otherwise>
-			<c:if test="${not empty KualiForm.anchor}">
-				<c:if test="${ConfigProperties.test.mode ne 'true'}">
-					<c:set var="anchorScript" value="jumpToAnchor('${KualiForm.anchor}');" />
-				</c:if>
-			</c:if>
-			<c:if test="${empty anchorScript}">
-				<c:set var="anchorScript" value="placeFocus();" />
-			</c:if>
-			<body onload="if ( !restoreScrollPosition() ) { ${anchorScript} }"
-			onKeyPress="return isReturnKeyAllowed('${Constants.DISPATCH_REQUEST_PARAMETER}.' , event);">
+			<body onKeyPress="return isReturnKeyAllowed('${Constants.DISPATCH_REQUEST_PARAMETER}.' , event);">
 		</c:otherwise>
 	</c:choose>
 

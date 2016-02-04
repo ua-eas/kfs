@@ -326,7 +326,7 @@
                     <th class="new" width="25%">New</th>
                 </tr>
                 <tr>
-                    <th class="gridright " width="25%">
+                    <th class="grid right" width="25%">
                         <kul:htmlAttributeLabel attributeEntry="${assetTransferAttributes.organizationInventoryName}"/>
                     </th>
                     <td class="grid" width="25%">

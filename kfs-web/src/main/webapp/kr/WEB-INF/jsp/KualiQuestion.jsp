@@ -39,7 +39,7 @@
         <div class="center" style="margin: 30px 0;">${QuestionPromptForm.questionText}</div>
 
         <c:if test="${QuestionPromptForm.showReasonField}">
-            <table class="datatable standard" style="margin: 20px;">
+            <table class="standard" style="margin: 0 auto;">
                 <tr>
                     <td>
                         <div class="left"><font color="red">*</font>Please enter the reason below:</div>

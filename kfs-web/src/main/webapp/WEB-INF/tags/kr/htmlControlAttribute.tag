@@ -246,11 +246,10 @@ if (attributeEntry == null) {
 
     <%-- textarea --%>
     <c:when test="${attributeEntry.control.textarea == true}">
-            <html:textarea property="${property}" style="${textStyle}" title="${accessibleTitle}" tabindex="${tabindex}"
-                           rows="${attributeEntry.control.rows}" cols="${attributeEntry.control.cols}"
-                           styleId="${property}" disabled="${disableField}" styleClass="${styleClass}"
-                           onkeyup="textLimit(this, ${attributeEntry.maxLength});" />
-
+        <html:textarea property="${property}" style="${textStyle}" title="${accessibleTitle}" tabindex="${tabindex}"
+                       rows="${attributeEntry.control.rows}" cols="${attributeEntry.control.cols}"
+                       styleId="${property}" disabled="${disableField}" styleClass="${styleClass}"
+                       onkeyup="textLimit(this, ${attributeEntry.maxLength});" />
     </c:when>
 
     <%-- select --%>

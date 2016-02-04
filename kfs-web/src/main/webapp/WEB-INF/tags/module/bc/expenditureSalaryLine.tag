@@ -26,15 +26,15 @@
 <c:set var="accountingLine" value="salarySettingExpansion" />
 <c:set var="colSpan" value="7" />
 
-<table cellpadding="0" cellspacing="0" class="datatable" summary="Expenditure Salary Line">
+<table class="standard side-margins" summary="Expenditure Salary Line">
 <tbody>
 	<tr>
 		<td colspan="${colSpan}" class="subhead">
-			<span class="subhead-left">Expenditure Salary Line</span>
+			<span class="subhead-left"><h3>Expenditure Salary Line</h3></span>
 		</td>
 	</tr>
 
-	<tr>
+	<tr class="header">
 		<kul:htmlAttributeHeaderCell attributeEntry="${sseAttributes.chartOfAccountsCode}" hideRequiredAsterisk="true"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${sseAttributes.accountNumber}" hideRequiredAsterisk="true"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${sseAttributes.subAccountNumber}" hideRequiredAsterisk="true"/>
@@ -99,7 +99,7 @@
 			accountingLineValuesMap="${KualiForm.salarySettingExpansion.valuesMap}" />
 
 		<%-- Sub-Fund Group Code  --%>
-		<td align="center" valign="middle">
+		<td>
 			<kul:htmlControlAttribute property="salarySettingExpansion.account.subFundGroupCode" 
 				attributeEntry="${accountAttributes.subFundGroupCode}" readOnly="true" readOnlyBody="true">
 				
@@ -112,7 +112,7 @@
 		</td>
 
 		<%-- organization Code  --%>
-		<td align="center" valign="middle">
+		<td>
 			<kul:htmlControlAttribute property="salarySettingExpansion.account.organizationCode" 
 				attributeEntry="${accountAttributes.organizationCode}" readOnly="true" readOnlyBody="true">
 				
@@ -125,20 +125,23 @@
 		</td>
 	</tr>
 
-	<%-- Row for Add Position and Add Incumbent Buttons --%>
 	<c:if test="${not readOnly}">
 	<tr>
-		<td class="infoline" colspan="${colSpan}"><center>			
-			<html:image src="${ConfigProperties.externalizable.images.url}tinybutton-addposition.gif" 
-				property="methodToCall.addPosition" title="Add Position" 
-				alt="Add Position" styleClass="tinybutton" />
+		<td class="infoline center" colspan="${colSpan}">
+			<html:submit
+					property="methodToCall.addPosition"
+					title="Add Position"
+					alt="Add Position"
+					styleClass="btn btn-default"
+					value="Add Position"/>
 				
-			&nbsp;&nbsp;&nbsp;	   			
-	   		<html:image src="${ConfigProperties.externalizable.images.url}tinybutton-addincumbent.gif" 
-	   			property="methodToCall.addIncumbent" title="Add Incumbent" 
-	   			alt="Add Incumbent" styleClass="tinybutton" />
+	   		<html:submit
+					property="methodToCall.addIncumbent"
+					title="Add Incumbent"
+					alt="Add Incumbent"
+					styleClass="btn btn-default"
+					value="Add Incumbent"/>
 	          
-	   		</center>
 		</td>
 	</tr>	
 	</c:if>

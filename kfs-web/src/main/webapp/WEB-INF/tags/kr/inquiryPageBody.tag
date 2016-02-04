@@ -43,7 +43,7 @@
 
     <kul:tab tabTitle="${section.sectionTitle}" defaultOpen="${section.defaultOpen}" tabErrorKey="${section.errorKey}" highlightTab="${tabHighlight}" transparentBackground="${firstTab}" extraButtonSource="${section.extraButtonSource}">
         <div class="tab-container" align="center">
-            <table width="100%" cellpadding=0 cellspacing=0 class="datatable">
+            <table class="standard">
                 <kul:inquiryRowDisplay rows="${section.rows}" numberOfColumns="${section.numberOfColumns}" />
             </table>
         </div>
