@@ -2,6 +2,7 @@ package org.kuali.kfs.pdp.batch.service.impl;
 
 import static org.junit.Assert.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +12,9 @@ import org.easymock.TestSubject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.pdp.businessobject.AutoCheckFormat;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
+import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.FormatSelection;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 
@@ -81,6 +84,7 @@ public class AutoCheckFormatServiceImplTest {
 		
 		DateTimeService dtService = EasyMock.createMock(DateTimeService.class);
 		EasyMock.expect(dtService.toDateTimeString(fs.getStartDate())).andReturn("date time");
+		EasyMock.replay(dtService);
 		autoCheckFormatServ.setDateTimeService(dtService);
 		
 		// the method should return a null
@@ -88,6 +92,35 @@ public class AutoCheckFormatServiceImplTest {
 		
 		EasyMock.reset(fs);
 	}
+	
+	@Test
+	public void testCreateAutoCheckFormatHasSetFormatSelectionData() throws Exception {
+		EasyMock.expect(fs.getStartDate()).andReturn(null);
+		EasyMock.expect(fs.getCampus()).andReturn("BL");
+		
+		DateTimeService dtService = EasyMock.createMock(DateTimeService.class);
+		long currentTimeMillis = System.currentTimeMillis();
+		EasyMock.expect(dtService.getCurrentTimestamp()).andReturn(new Timestamp(currentTimeMillis));
+		EasyMock.expect(dtService.toDateString(new Timestamp(currentTimeMillis))).andReturn(new Date().toString());
+		EasyMock.replay(dtService);
+		autoCheckFormatServ.setDateTimeService(dtService);
+		
+		EasyMock.expect(fs.getRangeList()).andReturn(new ArrayList<DisbursementNumberRange>());
+		EasyMock.expect(fs.getCustomerList()).andReturn(null);
+		EasyMock.replay(fs);
+		
+		AutoCheckFormat autoCheckFormat = autoCheckFormatServ.createAutoCheckFormat(fs);
+		
+		assertEquals(autoCheckFormat.getCampus(), "BL");
+		assertEquals(autoCheckFormat.getPaymentTypes(), "all");
+		assertEquals(autoCheckFormat.getRanges().size(), 0);
+		assertEquals(autoCheckFormat.getCustomers().size(), 0);
+		
+		
+		EasyMock.reset(fs);
+	}
+	
+	
 	
 	@Test
 	public void testCreationOfAutoCheckFormatWhenFormatSelectionHasNullStartDate() throws Exception {
