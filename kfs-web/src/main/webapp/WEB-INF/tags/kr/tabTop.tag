@@ -35,8 +35,8 @@
     </c:when>
 </c:choose>
 <c:if test="${!empty tabErrorKey or !empty tabAuditKey}">
-  <kul:checkErrors keyMatch="${tabErrorKey}" auditMatch="${tabAuditKey}"/>
-  <c:set var="isOpen" value="${hasErrors ? true : isOpen}"/>
+    <kul:checkErrors keyMatch="${tabErrorKey}" auditMatch="${tabAuditKey}"/>
+    <c:set var="isOpen" value="${hasErrors ? true : isOpen}"/>
 </c:if>
 <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 
@@ -57,10 +57,13 @@
             </div>
         </div>
 
-        <div id="tab-${tabKey}-div">
-            <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}"><div style="display: block;" id="tab-${tabKey}-div"></c:if>
-            <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}"><div style="display: none;" id="tab-${tabKey}-div"></c:if>
-
+        <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+            <c:set var="tabDisplay" value="block"/>
+        </c:if>
+        <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
+            <c:set var="tabDisplay" value="none"/>
+        </c:if>
+        <div style="display: ${tabDisplay};" id="tab-${tabKey}-div">
             <c:if test="${! (empty tabAuditKey) or ! (empty tabErrorKey)}">
                 <div class="tab-container-error">
                     <div class="left-errmsg-tab">
@@ -80,4 +83,3 @@
             </div>
         </div>
     </div>
-</div>

@@ -71,7 +71,7 @@
             <c:set var="numOfMonthField" value="14" scope="request" />            
             <c:set var="numOfNonMonthField" value="${fn:length(resultsList[0].columns) - numOfMonthField}" scope="request" />
             
-			<table cellpadding="0" class="datatable-100" cellspacing="1" id="row">
+			<table class="fixed" width="100%" id="row">
 				<thead>
 					<tr>
 			    		<c:forEach items="${resultsList[0].columns}" var="column" begin="0" end="${numOfNonMonthField}" varStatus="columnLoopStatus">

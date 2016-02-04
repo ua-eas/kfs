@@ -17,6 +17,7 @@ let LogoUpload = React.createClass({
         $.ajax({
             url: logoPath,
             dataType: 'json',
+            cache: false,
             method: 'GET',
             success: function(logo) {
                 this.setState({
@@ -38,6 +39,7 @@ let LogoUpload = React.createClass({
             dataType: 'json',
             contentType: false,
             processData: false,
+            cache: false,
             method: 'POST',
             data: data,
             success: function(logo) {
@@ -58,6 +60,7 @@ let LogoUpload = React.createClass({
             url: logoPath,
             dataType: 'json',
             contentType: 'application/json',
+            cache: false,
             method: 'PUT',
             data: JSON.stringify(data),
             success: function() {
