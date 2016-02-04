@@ -151,9 +151,9 @@
     <wstx-asl.version>3.2.9</wstx-asl.version>
     <xapool.version>1.5.0-patch4</xapool.version>
 
-    <db.groupId>${oracle.groupId}</db.groupId>
-    <db.artifactId>${oracle.artifactId}</db.artifactId>
-    <db.version>${oracle.version}</db.version>
+    <db.groupId>${mysql.groupId}</db.groupId>
+    <db.artifactId>${mysql.artifactId}</db.artifactId>
+    <db.version>${mysql.version}</db.version>
 
     <project.java.version>1.7</project.java.version>
 
@@ -843,12 +843,12 @@
         </exclusion>
       </exclusions>
     </dependency>
-<!--     <dependency> -->
-<!--       <groupId>org.kuali.kfs</groupId> -->
-<!--       <artifactId>kfs-help</artifactId> -->
-<!--       <version>${kfs.help.version}</version> -->
-<!--       <scope>provided</scope> -->
-<!--     </dependency> -->
+    <dependency>
+      <groupId>org.kuali.kfs</groupId>
+      <artifactId>kfs-help</artifactId>
+      <version>${kfs.help.version}</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>net.sf.barcode4j</groupId>
       <artifactId>barcode4j</artifactId>
