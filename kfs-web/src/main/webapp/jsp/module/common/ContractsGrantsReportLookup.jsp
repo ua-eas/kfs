@@ -117,7 +117,7 @@
                         <c:if test="${numberOfColumns > 1}">
                             <c:set var="tableClass" value="multi-column-table"/>
                         </c:if>
-                        <table align="center" cellpadding="0" cellspacing="0" class="datatable-100 ${tableClass}">
+                        <table align="center" class="${tableClass}">
                             <c:set var="FormName" value="KualiForm" scope="request" />
                             <c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
                             <c:set var="ActionName" value="${KualiForm.htmlFormAction}" scope="request" />
@@ -188,8 +188,7 @@
             <bean-el:message key="lookup.no.returnable.rows" />
         </c:if>
 
-        <display:table class="datatable-100" cellspacing="0"
-            requestURIcontext="false" cellpadding="0"
+        <display:table class="datatable-100" requestURIcontext="false"
             name="${reqSearchResults}" id="row" export="true" pagesize="100"
             varTotals="totals"
             excludedParams="methodToCall reqSearchResultsActualSize searchResultKey searchUsingOnlyPrimaryKeyValues actionUrlsExist"

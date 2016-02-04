@@ -41,14 +41,14 @@
 
 	<kul:errors errorTitle="Errors found in Search Criteria:" />
 
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table width="100%">
 		<tr>
 			<td>
                 <div id="lookup" align="center">
                     <c:if test="${numberOfColumns > 1}">
                         <c:set var="tableClass" value="multi-column-table"/>
                     </c:if>
-                    <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
+                    <table class="${tableClass}" align="center">
                         <c:set var="FormName" value="KualiForm" scope="request" />
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
                         <c:set var="ActionName" value="glModifiedInquiry.do" scope="request" />
@@ -88,8 +88,7 @@
 
 			<c:if test="${!empty reqSearchResultsSize }">
 			<c:set var="offset" value="0" />
-			<display:table class="datatable-100" 
-				cellspacing="0" cellpadding="0" name="${reqSearchResults}" id="row"
+			<display:table class="datatable-100" name="${reqSearchResults}" id="row"
 				export="true" pagesize="100" offset="${offset}"
 				requestURI="glAccountBalanceByConsolidationLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
 				<c:forEach items="${row.columns}" var="column" varStatus="status">
@@ -116,8 +115,7 @@
 			</display:table>
 
 			<c:if test="${not empty totalsTable}">
-				<div style="float: right; width: 70%;">
-                <table class="datatable-100" id="row" cellpadding="0" cellspacing="0">
+                <table class="datatable-80" id="row" align="center">
                   <caption style="text-align: left; font-weight: bold;">Totals</caption>
                   <thead>
                     <tr>

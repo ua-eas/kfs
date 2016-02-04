@@ -49,7 +49,7 @@
 					<input type="submit" alt="Return selected results" title="Return selected results" class="btn btn-default" name="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" value="Return Selected"/>
 				</p>
 			</c:if>
-			<table cellpadding="0" class="datatable-100" cellspacing="0" id="row">
+			<table class="datatable-100" id="row">
 				<thead>
 					<tr>
 											<th>
@@ -114,8 +114,8 @@
 			<kul:multipleValueLookupExportBanner/>
 		</c:when>
 		<c:otherwise>
-			<display:table class="datatable-100" cellspacing="0"
-				requestURIcontext="false" cellpadding="0" name="${reqSearchResults}"
+			<display:table class="datatable-100"
+				requestURIcontext="false" name="${reqSearchResults}"
 				id="row" export="true" pagesize="100">
 				<c:forEach items="${row.columns}" var="column" varStatus="loopStatus">
 					<display:column class="${colClass}" sortable="${column.sortable}"

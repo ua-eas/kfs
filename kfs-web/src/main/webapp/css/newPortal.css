@@ -17,6 +17,14 @@ table.fixed {
     table-layout: fixed;
 }
 
+.datatable-100 {
+    width: 100%;
+}
+
+.datatable-80 {
+    width: 80%;
+}
+
 .close {
     font-size: 28px;
     font-weight: 400;

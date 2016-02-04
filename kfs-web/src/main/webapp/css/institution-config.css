@@ -391,7 +391,7 @@ div.form.add-new-form {
 }
 
 div.form {
-    width: 375px;
+    width: 390px;
 }
 
 div.form div {
@@ -408,7 +408,7 @@ div.form select {
 
 div.form input[type=text],
 div.form select {
-    width: 330px !important;
+    width: 345px !important;
 }
 
 div.form input[type=radio] {

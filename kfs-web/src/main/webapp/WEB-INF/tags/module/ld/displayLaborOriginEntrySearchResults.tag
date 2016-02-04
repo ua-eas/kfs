@@ -32,7 +32,7 @@
     <input type="hidden" name="originEntrySearchResultTableMetadata.${Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM}" value="${KualiForm.originEntrySearchResultTableMetadata.columnToSortIndex}"/>
     <input type="hidden" name="originEntrySearchResultTableMetadata.sortDescending" value="${KualiForm.originEntrySearchResultTableMetadata.sortDescending}"/>
     <input type="hidden" name="originEntrySearchResultTableMetadata.viewedPageNumber" value="${KualiForm.originEntrySearchResultTableMetadata.viewedPageNumber}"/>
-    <table class="datatable-100" id="laborOriginEntry" cellpadding="0" cellspacing="0">
+    <table class="datatable-100" id="laborOriginEntry">
         <thead>
             <tr class="header">
                 <c:if test="${KualiForm.editableFlag == true}">

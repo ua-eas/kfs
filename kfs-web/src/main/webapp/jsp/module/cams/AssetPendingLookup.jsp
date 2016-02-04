@@ -26,7 +26,7 @@
 <c:if test="${!fabricationOn }" >
 <kul:tab tabTitle="View Purchasing/Financial Asset Documents" defaultOpen="false">
 	<div class="tab-container" align=center>
-		<table cellpadding="0" cellspacing="0" class="datatable" summary="view/edit pending entries">
+		<table class="datatable" summary="view/edit pending entries">
     	<c:if test="${!empty linkedDocumentNames }">
 			<logic:iterate id="fpLinkedDocumentInfo" name="KualiForm" property="document.newMaintainableObject.fpLinkedDocumentInfo" indexId="ctr">
 				<tr>
@@ -43,7 +43,7 @@
 		</table>
 		<br/>
 		
-		<table cellpadding="0" cellspacing="0" class="datatable" summary="view/edit pending entries">
+		<table class="datatable" summary="view/edit pending entries">
 		<c:if test="${!empty preqLockingList}">
 			<logic:iterate id="preqLinks" name="KualiForm" property="document.newMaintainableObject.preqLinks" indexId="ctr">
 				<tr>

@@ -325,6 +325,10 @@ select {
     text-decoration: underline;
 }
 
+#view_div table .numbercell {
+    text-align: right;
+}
+
 .datatable-100 td.infocell {
     color: #555555;
 }
