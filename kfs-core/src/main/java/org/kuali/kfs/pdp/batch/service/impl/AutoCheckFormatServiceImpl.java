@@ -1,5 +1,6 @@
 package org.kuali.kfs.pdp.batch.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -124,38 +125,51 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	}
 
 	/**
+	 * Creates AutoCheckFormat object that is 
 	 * @param formatSelection
-	 * @return
+	 * @return AutoCheckFormat
 	 */
 	@SuppressWarnings("unchecked")
 	protected AutoCheckFormat createAutoCheckFormat(FormatSelection formatSelection) {
-
         AutoCheckFormat autoFormat = new AutoCheckFormat();
         
-        if (formatSelection.getStartDate() != null) {
+        if (ObjectUtils.isNotNull(formatSelection.getStartDate())) {
         	LOG.error("ERROR AutoCheckFormatStep: The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
             return null;
         }
-        else {
-            List<CustomerProfile> customers = formatSelection.getCustomerList();
-
-            for (CustomerProfile element : customers) {
-
-                if (formatSelection.getCampus().equals(element.getDefaultPhysicalCampusProcessingCode())) {
-                    element.setSelectedForFormat(Boolean.TRUE);
-                }
-                else {
-                    element.setSelectedForFormat(Boolean.FALSE);
-                }
-            }
-            
-            autoFormat.setCampus(formatSelection.getCampus());
-            autoFormat.setPaymentDate(getDateTimeService().toDateString(getDateTimeService().getCurrentTimestamp()));
-            autoFormat.setPaymentTypes(PdpConstants.PaymentTypes.ALL);
-            autoFormat.setCustomers(customers);
-            autoFormat.setRanges(formatSelection.getRangeList());
-        }
+        
+        autoFormat.setCampus(formatSelection.getCampus());
+        autoFormat.setPaymentDate(getDateTimeService().toDateString(getDateTimeService().getCurrentTimestamp()));
+        autoFormat.setPaymentTypes(PdpConstants.PaymentTypes.ALL);
+        autoFormat.setRanges(formatSelection.getRangeList());
+        
+        List<CustomerProfile> customers = generateListOfCustomerProfilesReadyForFormat(formatSelection);
+        autoFormat.setCustomers(customers);
+    
 		return autoFormat;
+	}
+
+
+	/**
+	 * Return a list of CustomerProfile that are eligible for format
+	 * @param formatSelection
+	 * @return List<CustomerProfile>
+	 */
+	protected List<CustomerProfile> generateListOfCustomerProfilesReadyForFormat(FormatSelection formatSelection) {
+		List<CustomerProfile> customers = formatSelection.getCustomerList();
+
+		if(ObjectUtils.isNull(customers)) return new ArrayList<CustomerProfile>();
+		
+        for (CustomerProfile element : customers) {
+
+            if (formatSelection.getCampus().equals(element.getDefaultPhysicalCampusProcessingCode())) {
+                element.setSelectedForFormat(Boolean.TRUE);
+            }
+            else {
+                element.setSelectedForFormat(Boolean.FALSE);
+            }
+        }
+		return customers;
 	}
 
 
