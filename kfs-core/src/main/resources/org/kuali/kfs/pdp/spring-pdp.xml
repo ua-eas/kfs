@@ -196,6 +196,11 @@
 				<ref bean="pdpExtractAchPaymentsStep" />
 			</list>
 		</property>
+		<property name="dependencies">
+			<map>
+				<entry key="pdpFormatCheckACHJob" value="hardDependency"/>
+			</map>
+		</property>
 	</bean>
 
 	<bean id="pdpExtractAchPaymentsJobTrigger" parent="cronTrigger">
@@ -221,6 +226,11 @@
 			<list>
 				<ref bean="pdpExtractChecksStep" />
 			</list>
+		</property>
+		<property name="dependencies">
+			<map>
+				<entry key="pdpFormatCheckACHJob" value="hardDependency"/>
+			</map>
 		</property>
 	</bean>
 
@@ -777,18 +787,25 @@
 		<property name="dateTimeService" ref="dateTimeService"/>
     	<property name="campusService" ref="campusService" />
 	</bean>
+	
 	<bean id="pdpFormatCheckACHJob" parent="scheduledJobDescriptor">
 		<property name="steps">
 			<list>
 				<ref bean="autoCheckACHFormatStep" />
 			</list>
 		</property>
+		<property name="dependencies">
+			<map>
+				<entry key="purchasingPreDisbursementExtractJob" value="hardDependency"/>
+				<entry key="disbursementVoucherPreDisbursementProcessorExtractJob" value="hardDependency"/>
+				<entry key="purchasingPreDisbursementImmediatesExtractJob" value="hardDependency"/>
+				<entry key="pdpNightlyLoadPaymentsJob" value="hardDependency"/>
+			</map>
+		</property>
 	</bean>
 	
 	<bean id="autoCheckACHFormatStep" class="org.kuali.kfs.pdp.batch.AutoCheckACHFormatStep" parent="step">
 		<property name="autoCheckFormatService" ref="autoCheckFormatService" />
 	</bean>	
-	
-	
+		
 </beans>
-
