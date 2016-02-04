@@ -240,7 +240,7 @@
                                        fieldLabel="${field.fieldLabel}"
                                        cellClass="top"/>
 
-                <td class="grid" style="width:${dataCellWidth}%; line-height: 20px;">
+                <td class="grid top" style="width:${dataCellWidth}%; line-height: 20px;">
                     <kul:fieldShowReadOnly field="${field}" addHighlighting="${addHighlighting}" isLookup="${isLookup}" />
                 </td>
             </c:when>
