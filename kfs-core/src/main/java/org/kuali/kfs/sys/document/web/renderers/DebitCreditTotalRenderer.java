@@ -76,7 +76,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
         try {
             out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBefore = this.getCellCount() - 4;
+            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 1;
             if (emptyCellSpanBefore > 0) {
                 out.write("<td colspan=\"");
                 out.write(Integer.toString(emptyCellSpanBefore));
@@ -104,8 +104,13 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
             creditWriteTag.doEndTag();
 
             out.write("</td>");
-            
-            out.write("<td colspan=\"2\">&nbsp;</td>");
+
+            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell() - 1;
+            if (emptyCellSpanAfter > 0) {
+                out.write("<td colspan=\"");
+                out.write(Integer.toString(emptyCellSpanAfter));
+                out.write("\">&nbsp;</td>");
+            }
 
             out.write("</tr>");
         }
