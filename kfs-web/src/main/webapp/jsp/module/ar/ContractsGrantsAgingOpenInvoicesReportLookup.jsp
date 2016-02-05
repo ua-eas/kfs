@@ -47,15 +47,14 @@
 
 	<kul:errors errorTitle="Errors found in Search Criteria:" />
 
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table width="100%">
 		<tr>
 			<td>
 				<c:if test="${empty reqSearchResultsSize}">
 					There were no results found.
 				</c:if>
 				<c:if test="${!empty reqSearchResultsSize}">
-						<table width="25%" cellspacing="0" cellpadding="0">
-							
+						<table width="25%">
 								<c:if test="${param.accountNumber != null}" >
 									<tr><td>Account Number:</td><td><c:out value="${param.accountNumber}" /></td>
 								</c:if>

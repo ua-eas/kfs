@@ -26,7 +26,7 @@
 	<table width="100%">
 		<tr>
 			<td>
-				<table width="100%" class="datatable-100">
+				<table class="datatable-100">
 					<tr>
 						<th class="grid"><kul:htmlAttributeLabel attributeEntry="${laborLedgerEntryAttributes.universityFiscalYear}" noColon="true" useShortLabel="true"/></th>
 						<th class="grid"><kul:htmlAttributeLabel attributeEntry="${laborLedgerEntryAttributes.universityFiscalPeriodCode}" noColon="true"/></th>
@@ -52,8 +52,7 @@
 			<td>
 			<c:if test="${!empty KualiForm.entries}">
 	        
-	        <display:table class="datatable-100" cellspacing="0"
-				cellpadding="0" name="${KualiForm.entries}" id="row"
+	        <display:table class="datatable-100" name="${KualiForm.entries}" id="row"
 				export="true" pagesize="100" defaultsort="2"
 				requestURI="laborGLLaborEntrySummarizationInquiry.do?methodToCall=start&universityFiscalYear=${KualiForm.universityFiscalYear}&universityFiscalPeriodCode=${KualiForm.universityFiscalPeriodCode}&chartOfAccountsCode=${KualiForm.chartOfAccountsCode}&accountNumber=${KualiForm.accountNumber}&subAccountNumber=${KualiForm.subAccountNumber}&financialObjectCode=${KualiForm.financialObjectCode}&financialSubObjectCode=${KualiForm.financialSubObjectCode}&financialBalanceTypeCode=${KualiForm.financialBalanceTypeCode}&financialObjectTypeCode=${KualiForm.financialObjectTypeCode}&financialDocumentTypeCode=${KualiForm.financialDocumentTypeCode}&financialSystemOriginationCode=${KualiForm.financialSystemOriginationCode}&documentNumber=${KualiForm.documentNumber}">
 				

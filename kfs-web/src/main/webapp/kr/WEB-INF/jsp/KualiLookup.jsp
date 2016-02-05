@@ -124,7 +124,7 @@
                     <c:if test="${numberOfColumns > 1}">
                         <c:set var="tableClass" value="multi-column-table"/>
                     </c:if>
-                    <table align="center" cellpadding="0" cellspacing="0" class="datatable-100 ${tableClass}">
+                    <table align="center" class="${tableClass}">
                         <c:set var="FormName" value="KualiForm" scope="request" />
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
                         <c:set var="ActionName" value="Lookup.do" scope="request" />
@@ -208,8 +208,8 @@
 
 		<a id="search-results"></a>
 		<div class="main-panel search-results">
-		<display:table class="datatable-100" cellspacing="0"
-		requestURIcontext="false" cellpadding="0" name="${reqSearchResults}"
+		<display:table class="datatable-100"
+		requestURIcontext="false"  name="${reqSearchResults}"
 		id="row" export="true" pagesize="100" varTotals="totals"
 		excludedParams="methodToCall reqSearchResultsActualSize searchResultKey searchUsingOnlyPrimaryKeyValues actionUrlsExist"
 		requestURI="lookup.do?methodToCall=viewResults&reqSearchResultsActualSize=${reqSearchResultsActualSize}&searchResultKey=${searchResultKey}&searchUsingOnlyPrimaryKeyValues=${KualiForm.searchUsingOnlyPrimaryKeyValues}&actionUrlsExist=${KualiForm.actionUrlsExist}">

@@ -193,8 +193,8 @@
 			<kul:multipleValueLookupExportBanner/>
 		</c:when>
 		<c:otherwise>
-			<display:table class="datatable-100" cellspacing="0"
-				requestURIcontext="false" cellpadding="0" name="${reqSearchResults}"
+			<display:table class="datatable-100"
+				requestURIcontext="false" name="${reqSearchResults}"
 				id="row" export="true" pagesize="100">
 				<c:forEach items="${row.columns}" var="column" varStatus="loopStatus">
 					<display:column class="${colClass}" sortable="${column.sortable}"

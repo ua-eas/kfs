@@ -21,8 +21,6 @@
 <%@ attribute name="reportLookupActionName" required="true" description="The controller that the report lookup should post against to rebuild search results." %>
 
 <display:table class="datatable-100"
-	      		cellspacing="0"
-			    cellpadding="0"
 			    name="${reqSearchResults}"
 			    id="row"
 			    export="true"

@@ -29,7 +29,7 @@
 	</div>
 	
 	<h3>
-		<table width="100%" cellspacing="0" cellpadding="0">
+		<table width="100%">
 			<tr>
 				<td>Customer Number: &nbsp; <c:out value="${param.customerNumber}" />&nbsp;&nbsp;<c:out value="${param.customerName}" /></td>
 			</tr>
@@ -47,7 +47,7 @@
 
 	<kul:errors errorTitle="Errors found in Search Criteria:" />
 
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table width="100%">
 		<tr>
 			<td>
 				<c:if test="${empty reqSearchResultsSize}">
@@ -55,7 +55,7 @@
 				</c:if>
 				<c:if test="${!empty reqSearchResultsSize}">
 					<c:if test="${param.reportName == KFSConstants.CustomerOpenItemReport.OPEN_ITEM_REPORT_NAME}">
-						<table width="25%" cellspacing="0" cellpadding="0">
+						<table width="25%">
 							<tr><td>Report Option:</td><td><c:out value="${param.reportOption}" /></td>
 							 <c:choose>
 								<c:when test="${param.reportOption == KFSConstants.CustomerOpenItemReport.REPORT_OPTION_ACCT}" >
