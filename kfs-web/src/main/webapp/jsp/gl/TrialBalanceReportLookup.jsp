@@ -48,7 +48,7 @@
                     <c:if test="${numberOfColumns > 1}">
                         <c:set var="tableClass" value="multi-column-table"/>
                     </c:if>
-                    <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
+                    <table class="${tableClass}" align="center">
                         <c:set var="FormName" value="KualiForm" scope="request" />
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}"	scope="request" />
                         <c:set var="ActionName" value="glTrialBalance.do" scope="request" />
@@ -101,9 +101,7 @@
 
 				<c:set var="exporting" value="${!empty param['d-16544-e']}"
 					scope="request" />
-				<display:table class="datatable-100" cellspacing="0" cellpadding="0"
-					name="${reqSearchResults}" id="row" export="true" pagesize="100"
-					defaultsort="1"
+				<display:table class="datatable-100"name="${reqSearchResults}" id="row" export="true" pagesize="100" defaultsort="1"
 					requestURI="glTrialBalance.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
 
 					<c:forEach items="${row.columns}" var="column">

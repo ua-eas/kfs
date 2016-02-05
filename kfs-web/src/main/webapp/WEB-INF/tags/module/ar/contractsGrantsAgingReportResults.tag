@@ -20,7 +20,7 @@
 
 <c:if test="${!empty reqSearchResultsSize}">
     <c:set var="offset" value="0"/>
-    <display:table class="datatable-100" cellspacing="0" cellpadding="0" name="${reqSearchResults}"
+    <display:table class="datatable-100" name="${reqSearchResults}"
    id="row" export="true" pagesize="100" offset="${offset}"
    requestURI="contractsGrantsAgingReportLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
        <c:forEach items="${row.columns}" var="column">

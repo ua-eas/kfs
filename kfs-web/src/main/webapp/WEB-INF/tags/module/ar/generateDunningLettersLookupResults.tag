@@ -57,7 +57,7 @@
 
 	<c:set var="numOfColumns" value="${fn:length(resultsList[0].columns)}" />
 
-	<table cellpadding="0" class="datatable-100" cellspacing="1" id="row">
+	<table class="datatable-100" cellspacing="1" id="row">
 		<thead>
 			<tr>
 				<c:forEach items="${resultsList[0].columns}" var="column" begin="0" end="${numOfColumns}" varStatus="columnLoopStatus">

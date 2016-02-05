@@ -45,8 +45,7 @@
 			<td><c:if test="${param.inquiryFlag != 'true'}">
 				<div id="lookup" align="center"><br />
 				<br />
-				<table class="datatable-100" align="center" cellpadding="0"
-					cellspacing="0">
+				<table align="center">
 					<c:set var="FormName" value="KualiForm" scope="request" />
 					<c:set var="FieldRows" value="${KualiForm.lookupable.rows}"
 						scope="request" />

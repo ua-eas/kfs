@@ -59,7 +59,7 @@
                     <c:if test="${numberOfColumns > 1}">
                         <c:set var="tableClass" value="multi-column-table"/>
                     </c:if>
-                    <table align="center" cellpadding=0 cellspacing=0 class="datatable-100 ${tableClass}">
+                    <table align="center" class="${tableClass}">
                         <c:set var="FormName" value="KualiForm" scope="request" />
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
                         <c:set var="ActionName" value="Lookup.do" scope="request" />
