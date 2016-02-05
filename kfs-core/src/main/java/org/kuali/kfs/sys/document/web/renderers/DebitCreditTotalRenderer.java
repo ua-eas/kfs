@@ -19,8 +19,6 @@
 package org.kuali.kfs.sys.document.web.renderers;
 
 import org.apache.struts.taglib.bean.WriteTag;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -78,20 +76,18 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
         try {
             out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBeforeAfter = (this.getCellCount() / 2) - 3;
-            if (emptyCellSpanBeforeAfter > 0) {
+            final int emptyCellSpanBefore = this.getCellCount() - 4;
+            if (emptyCellSpanBefore > 0) {
                 out.write("<td colspan=\"");
-                out.write(Integer.toString(emptyCellSpanBeforeAfter));
-                out.write("\">&nbsp;</td>");
+                out.write(Integer.toString(emptyCellSpanBefore));
+                out.write("\" class=\"right\">");
+                out.write("<span class=\"total-label\">");
+                out.write("Totals");
+                out.write("</span>");
+                out.write("</td>");
             }
 
-            out.write("<td colspan=\"3\">");
-            out.write("<span class=\"total-label\">");
-            
-            out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(debitTotalLabelProperty));
-            out.write("</span>");
-            out.write("&nbsp;");
-
+            out.write("<td colspan=\"1\" class=\"right\">");
             debitWriteTag.setPageContext(pageContext);
             debitWriteTag.setParent(parentTag);
             debitWriteTag.setProperty(debitTotalProperty);
@@ -100,13 +96,7 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
             out.write("</td>");
             
-            out.write("<td colspan=\"3\" class=\"right\">");
-            out.write("<span class=\"total-label\">");
-            
-            out.write(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(creditTotalLabelProperty));
-            out.write("</span>");
-            out.write("&nbsp;");
-
+            out.write("<td colspan=\"1\" class=\"right\">");
             creditWriteTag.setPageContext(pageContext);
             creditWriteTag.setParent(parentTag);
             creditWriteTag.setProperty(creditTotalProperty);
@@ -115,12 +105,8 @@ public class DebitCreditTotalRenderer extends TotalRendererBase {
 
             out.write("</td>");
             
-            if(emptyCellSpanBeforeAfter > 0) {
-                out.write("<td colspan=\"");
-                out.write(Integer.toString(emptyCellSpanBeforeAfter));
-                out.write("\">&nbsp;</td>");
-            }
-            
+            out.write("<td colspan=\"2\">&nbsp;</td>");
+
             out.write("</tr>");
         }
         catch (IOException ioe) {
