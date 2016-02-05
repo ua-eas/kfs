@@ -360,9 +360,4 @@
         <exception-type>org.kuali.kfs.krad.exception.AuthenticationException</exception-type>
         <location>/autherror.html</location>
     </error-page>
-
-    <error-page>
-        <location>/error.html</location>
-    </error-page>
-
 </web-app>
