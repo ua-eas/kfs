@@ -727,13 +727,17 @@ div.inquiry table.datatable th {
     min-width: 1000px;
 }
 
+.main-panel .tab-container table.acct-lines span.amount {
+    display: block;
+}
+
+.main-panel .tab-container table.acct-lines span.amount,
 .main-panel .tab-container table.acct-lines input.amount,
 .main-panel .tab-container table.acct-lines td.amount {
     text-align: right;
 }
 
-.main-panel .tab-container table.acct-lines td.amount,
-.main-panel .tab-container table.acct-lines tr.total-line td.right {
+.main-panel .tab-container table.acct-lines td.amount {
     padding-right: 15px;
 }
 

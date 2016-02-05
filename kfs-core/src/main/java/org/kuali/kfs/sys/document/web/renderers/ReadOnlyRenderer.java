@@ -87,7 +87,13 @@ public class ReadOnlyRenderer extends FieldRendererBase {
         StringBuilder beginSpan = new StringBuilder();
         beginSpan.append("<span id=\"");
         beginSpan.append(getFieldName());
-        beginSpan.append(".div\">");
+        beginSpan.append(".div");
+        String fieldStyle = this.getField().getStyleClass();
+        if (StringUtils.isNotBlank(fieldStyle)) {
+            beginSpan.append("\" class=\"");
+            beginSpan.append(fieldStyle);
+        }
+        beginSpan.append("\">");
         return beginSpan.toString();
     }
 
