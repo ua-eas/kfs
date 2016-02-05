@@ -358,8 +358,7 @@
 								<input type="hidden"
 									name="agencyEntrySearchResultTableMetadata.viewedPageNumber"
 									value="${KualiForm.agencyEntrySearchResultTableMetadata.viewedPageNumber}" />
-								<table class="datatable-100" id="agencyEntry" cellpadding="0"
-									cellspacing="0">
+								<table class="datatable-100" id="agencyEntry">
 									<thead>
 										<tr>
 											<c:if test="${KualiForm.editableFlag == true}">

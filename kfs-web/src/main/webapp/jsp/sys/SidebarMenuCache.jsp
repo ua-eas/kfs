@@ -38,7 +38,7 @@
                                 height="20"></td>
             <td>
                 <div id="lookup" align="center">
-                    <table align="center" cellpadding="0" cellspacing="0" class="datatable-100 multi-column-table">
+                    <table align="center" cellpadding="0" class="multi-column-table">
                         <tr>
                             <td>
                                 <table>

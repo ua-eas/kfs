@@ -43,14 +43,14 @@
     
     <kul:errors errorTitle="Errors found in Search Criteria:"/>
 
-    <table width="100%" cellspacing="0" cellpadding="0">
+    <table width="100%">
         <tr>
             <td>
                 <div id="lookup" align="center">
                     <c:if test="${numberOfColumns > 1}">
                         <c:set var="tableClass" value="multi-column-table"/>
                     </c:if>
-                    <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
+                    <table class="${tableClass}" align="center">
                         <c:set var="FormName" value="KualiForm" scope="request"/>
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}"
                                scope="request"/>

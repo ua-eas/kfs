@@ -40,12 +40,12 @@
         <c:set var="tableClass" value="multi-column-table"/>
     </c:if>
 
-    <table cellspacing="0" cellpadding="0" align="center">
+    <table align="center">
 		<tr>
 			<td>
                 <c:if test="${param.inquiryFlag != 'true'}">
                     <div id="lookup" align="center">
-                        <table class="datatable-100 ${tableClass}" align="center" cellpadding="0" cellspacing="0">
+                        <table class="${tableClass}" align="center">
                             <c:set var="FormName" value="KualiForm" scope="request" />
                             <c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
                             <c:set var="ActionName" value="glModifiedInquiry.do" scope="request" />
@@ -87,7 +87,7 @@
             </td>
 		</tr>
 	</table>
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table width="100%">
 		<tr>
 			<td><c:if test="${!empty reqSearchResultsSize}">
 				<%-- If results size isn't the same as the actual size, it
@@ -101,9 +101,7 @@
 
 				<c:set var="exporting" value="${!empty param['d-16544-e']}"
 					scope="request" />
-				<display:table class="datatable-100" cellspacing="0" cellpadding="0"
-					name="${reqSearchResults}" id="row" export="true" pagesize="100"
-					defaultsort="1"
+				<display:table class="datatable-100" name="${reqSearchResults}" id="row" export="true" pagesize="100" defaultsort="1"
 					requestURI="glModifiedInquiry.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
 
 					<c:forEach items="${row.columns}" var="column">
