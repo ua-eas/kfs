@@ -111,7 +111,7 @@
                         <c:catch var="exception">${KualiForm.lastActionTaken}</c:catch>
                     </c:set>
                     <c:set var="mainClass" value="fullwidth"/>
-                    <c:if test="${lastAction eq 'Submit' and !errorKey and (empty auditCount or auditCount < 1) and (empty ErrorContainer or ErrorContainer.errorCount < 1)}">
+                    <c:if test="${lastAction eq 'route' and !errorKey and (empty auditCount or auditCount < 1) and (empty ErrorContainer or ErrorContainer.errorCount < 1)}">
                         <c:set var="mainClass" value=""/>
                         <c:set var="openNav" value="${true}"/>
                     </c:if>
