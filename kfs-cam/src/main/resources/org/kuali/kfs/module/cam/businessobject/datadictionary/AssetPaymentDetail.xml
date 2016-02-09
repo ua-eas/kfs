@@ -119,7 +119,7 @@
       <ref bean="AnyCharacterValidation" />
     </property>
     <property name="control">
-      <ref bean="FourCharacterTextControl" />
+      <bean parent="TextControlDefinition" p:size="8"/>
     </property>    
     <property name="forceUppercase" value="true"/>
   </bean>
@@ -131,6 +131,9 @@
     <property name="label" value="Origin"/>
     <property name="shortLabel" value="Origin"/>
     <property name="required" value="false"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="4"/>
+    </property>
   </bean>
 
   <bean id="AssetPaymentDetail-overrideCode" parent="AssetPaymentDetail-overrideCode-parentBean"/>
@@ -224,6 +227,9 @@
   
   <bean id="AssetPaymentDetail-financialObjectCode" parent="AssetPaymentDetail-financialObjectCode-parentBean"/>
   <bean id="AssetPaymentDetail-financialObjectCode-parentBean" abstract="true" parent="ObjectCode-financialObjectCode">
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="8"/>
+    </property>
   </bean>
   
   <bean id="AssetPaymentDetail-accountNumber" parent="AssetPaymentDetail-accountNumber-parentBean"/>
@@ -249,6 +255,9 @@
   <bean id="AssetPaymentDetail-subAccountNumber-parentBean" abstract="true" parent="SubAccount-subAccountNumber">
     <property name="label" value="Sub-Account"/>
     <property name="required" value="false"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="8"/>
+    </property>
   </bean>
   
   <bean id="AssetPaymentDetail-referenceTypeCode" parent="AssetPaymentDetail-referenceTypeCode-parentBean"/>
@@ -263,12 +272,15 @@
   <bean id="AssetPaymentDetail-projectCode-parentBean" abstract="true" parent="ProjectCode-code">
     <property name="name" value="projectCode"/>
     <property name="required" value="false"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="15"/>
+    </property>
   </bean>
   
   <bean id="AssetPaymentDetail-financialSubObjectCode" parent="AssetPaymentDetail-financialSubObjectCode-parentBean"/>
   <bean id="AssetPaymentDetail-financialSubObjectCode-parentBean" abstract="true" parent="SubObjectCode-financialSubObjectCode">
     <property name="required" value="false"/>
-    <property name="label" value="Sub-Object"/>    
+    <property name="label" value="Sub-Object"/>
   </bean>
   
   <bean id="AssetPaymentDetail-documentNumber" parent="AssetPaymentDetail-documentNumber-parentBean"/>
