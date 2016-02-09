@@ -52,9 +52,9 @@
 <html:hidden property="${fundingLineName}.universityFiscalYear" />
 <html:hidden property="${fundingLineName}.emplid" />
 
-<table border="0" cellpadding="0" cellspacing="0" style="width: ${tableWidth}; text-align: left; margin-left: auto; margin-right: auto;">    
-	<tr>
-	    <kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentFundingDeleteIndicator}"/>
+<table style="width: ${tableWidth}; text-align: left; margin-left: auto; margin-right: auto;" class="standard">
+	<tr class="header">
+	    <kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentFundingDeleteIndicator}" addClass="center"/>
 	   	<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.chartOfAccountsCode}"/>
 	   	<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.accountNumber}"/>
 	   	<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.subAccountNumber}"/>
@@ -68,7 +68,7 @@
 	</tr>
 	
 	<tr> 
-	  	<bc:pbglLineDataCell dataCellCssClass="datacell" dataFieldCssClass="nobord"
+	  	<bc:pbglLineDataCell dataCellCssClass="datacell center" dataFieldCssClass="nobord"
 	    	accountingLine="${fundingLineName}"
 	    	cellProperty="${fundingLineName}.appointmentFundingDeleteIndicator"
 	    	attributes="${pbcafAttributes}"
@@ -209,13 +209,15 @@
 	                                
 	<tr id="${fundingLineName}">
 		<td colspan="${colspan}" class="infoline" style="border-bottom: none;">
-			<center><br/>
-			<c:set var="detailReadOnly" 
-				   value="${readOnly || fundingLine.displayOnlyMode || fundingLine.appointmentFundingDeleteIndicator || fundingLine.purged}" />
-			<bc:appointmentFundingDetail fundingLine="${fundingLine}" fundingLineName="${fundingLineName}" 
-				lineIndex="${lineIndex}" hasBeenAdded="${hasBeenAdded}" readOnly="${detailReadOnly}" 
-				isSetteingByIncumbent="true"/>
-			<br/></center>
+			<center>
+				<br/>
+				<c:set var="detailReadOnly"
+					   value="${readOnly || fundingLine.displayOnlyMode || fundingLine.appointmentFundingDeleteIndicator || fundingLine.purged}" />
+				<bc:appointmentFundingDetail fundingLine="${fundingLine}" fundingLineName="${fundingLineName}"
+					lineIndex="${lineIndex}" hasBeenAdded="${hasBeenAdded}" readOnly="${detailReadOnly}"
+					isSetteingByIncumbent="true"/>
+				<br/>
+			</center>
 		</td>            
 	</tr>
 	
