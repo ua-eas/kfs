@@ -192,8 +192,8 @@
 	</form>
 	</div>
 
-	<c:if test="${empty reqSearchResultsActualSize or reqSearchResultsActualSize < 1}">
-		<div style="padding:30px;"><bean-el:message key="error.no.matching.invoice" /></div>
+	<c:if test="${!empty reqSearchResultsActualSize and reqSearchResultsActualSize < 1}">
+		<div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
 	</c:if>
 
 	<c:if test="${!empty reqSearchResultsActualSize && empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
