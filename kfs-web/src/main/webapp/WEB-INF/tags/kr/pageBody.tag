@@ -52,6 +52,7 @@
     </c:when>
 </c:choose>
 
+<c:set var="openNav" value="${false}"/>
 
 <%-- Is the screen an inquiry? --%>
 <c:set var="_isInquiry" value="${requestScope[Constants.PARAM_MAINTENANCE_VIEW_MODE] eq Constants.PARAM_MAINTENANCE_VIEW_MODE_INQUIRY}" />
@@ -106,7 +107,15 @@
                         </c:choose>
                 </c:when>
                 <c:otherwise>
-                    <main class="content doc fullwidth">
+                    <c:set var="lastAction">
+                        <c:catch var="exception">${KualiForm.lastActionTaken}</c:catch>
+                    </c:set>
+                    <c:set var="mainClass" value="fullwidth"/>
+                    <c:if test="${lastAction eq 'route' and !errorKey and (empty auditCount or auditCount < 1) and (empty ErrorContainer or ErrorContainer.errorCount < 1)}">
+                        <c:set var="mainClass" value=""/>
+                        <c:set var="openNav" value="${true}"/>
+                    </c:if>
+                    <main class="content doc ${mainClass}">
                         <div id="content-overlay"></div>
                         <div id="view_div">
                             ${headerMenuBar}
@@ -352,7 +361,7 @@
     </c:if>
 </main>
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
-    <c:if test="${not empty htmlFormAction or renderInnerDiv}">
+    <c:if test="${(not empty htmlFormAction or renderInnerDiv) and !openNav}">
         <c:set var="sidebarClass" value="collapsed"/>
     </c:if>
     <div id="sidebar" class="${sidebarClass}">
