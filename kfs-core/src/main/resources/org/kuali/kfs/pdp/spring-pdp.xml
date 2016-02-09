@@ -804,7 +804,7 @@
 		</property>
 	</bean>
 	
-	<bean id="pdpFormatCheckACHStep" class="org.kuali.kfs.pdp.batch.AutoCheckACHFormatStep" parent="step">
+	<bean id="pdpFormatCheckACHStep" class="org.kuali.kfs.pdp.batch.FormatCheckACHStep" parent="step">
 		<property name="autoCheckFormatService" ref="autoCheckFormatService" />
 	</bean>	
 		

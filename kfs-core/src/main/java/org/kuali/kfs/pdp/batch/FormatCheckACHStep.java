@@ -5,7 +5,7 @@ import java.util.Date;
 import org.kuali.kfs.pdp.batch.service.AutoCheckFormatService;
 import org.kuali.kfs.sys.batch.AbstractStep;
 
-public class AutoCheckACHFormatStep extends AbstractStep {
+public class FormatCheckACHStep extends AbstractStep {
 	private AutoCheckFormatService autoCheckFormatService;
 
 	@Override

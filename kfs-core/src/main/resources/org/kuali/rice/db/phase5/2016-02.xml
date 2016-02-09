@@ -3,13 +3,13 @@
   <changeSet author="kfs" id="ricedata00009" context="bootstrap,demo">
 	<insert tableName="krcr_parm_t">
 	    <column name="NMSPC_CD"><![CDATA[KFS-PDP]]></column>
-	    <column name="CMPNT_CD"><![CDATA[PdpFormatCheckACHStep]]></column>
+	    <column name="CMPNT_CD"><![CDATA[FormatCheckACHStep]]></column>
 	    <column name="PARM_NM"><![CDATA[RUN_IND]]></column>
 	    <column name="OBJ_ID"><![CDATA[KFSCD51]]></column>
 	    <column name="VER_NBR"><![CDATA[1]]></column>
 	    <column name="VAL"><![CDATA[N]]></column>
 	    <column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
-	    <column name="PARM_DESC_TXT"><![CDATA[Indicates if the PdpFormatCheckACHStep should be ran.]]></column>
+	    <column name="PARM_DESC_TXT"><![CDATA[Indicates if the pdpFormatCheckACHStep should be ran.]]></column>
 	    <column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
 	    <column name="APPL_ID"><![CDATA[KFS]]></column>
 	</insert>
