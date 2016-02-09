@@ -117,14 +117,14 @@
                 </table>
                 <table class="standard">
                     <tr>
-                        <td class="right" width="50%"> Total Debits:</td>
+                        <th class="right" width="50%"> Total Debits:</th>
                         <td width="50%">
                             <fmt:formatNumber value="${KualiForm.document.correctionDebitTotalAmount}"
                                               groupingUsed="true" minFractionDigits="2"/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="right"> Total Credits:</td>
+                        <th class="right"> Total Credits:</th>
                         <td>
                             <fmt:formatNumber
                                 value="${KualiForm.document.correctionCreditTotalAmount}" groupingUsed="true"
@@ -132,7 +132,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="right"> Total No DB/CR:</td>
+                        <th class="right"> Total No DB/CR:</th>
                         <td>
                             <fmt:formatNumber
                                 value="${KualiForm.document.correctionBudgetTotalAmount}" groupingUsed="true"
@@ -140,7 +140,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="right"> Rows output:</td>
+                        <th class="right"> Rows output:</th>
                         <td>
                             <fmt:formatNumber
                                 value="${KualiForm.document.correctionRowCount}" groupingUsed="true"/>
@@ -1096,187 +1096,184 @@
 
             </c:forEach>
         </c:forEach>
-        <div class="tab-container">
-            <table class="standard" summary="">
-                <tr>
-                    <td class="subhead"><h3>System and Edit Method</h3></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th width="50%" class="right">System:</th>
-                    <td><c:out value="${KualiForm.document.system}"/></td>
-                </tr>
-                <tr>
-                    <th width="50%" class="right">Edit Method:</th>
-                    <td><c:out value="${KualiForm.document.method}"/></td>
-                </tr>
-            </table>
-        </div>
-        <div class="tab-container">
-            <table class="standard" summary="">
-                <tr>
-                    <td class="subhead">Input and Output File</td>
-                </tr>
-            </table>
-            <table class="standard">
-                <c:if test="${KualiForm.document.correctionInputFileName != null}">
-                    <tr>
-                        <th width="50%" class="right">Input File Name:</th>
-                        <td><c:out value="${KualiForm.document.correctionInputFileName}"/></td>
-                    </tr>
-                </c:if>
-                <tr>
-                    <th width="50%" class="right">Output File Name:</td>
-                    <c:if test="${KualiForm.document.correctionOutputFileName != null}">
-                        <td ><c:out value="${KualiForm.document.correctionOutputFileName}"/></td>
-                    </c:if>
-                    <c:if test="${KualiForm.document.correctionOutputFileName == null}">
-                        <c:if test="${KualiForm.document.correctionTypeCode eq 'R'}">
-                            <td><c:out value="${Constants.NOT_AVAILABLE_STRING}"/></td>
-                        </c:if>
-                        <c:if test="${KualiForm.document.correctionTypeCode ne 'R'}">
-                            <td> The output file name is unavailable until the document has a status of PROCESSED or FINAL.</td>
-                        </c:if>
-                    </c:if>
-                </tr>
-            </table>
-        </div>
-        <div class="tab-container" align="left" style="overflow: scroll; max-width: 100%;">
-            <c:if test="${KualiForm.restrictedFunctionalityMode}">
-                <div class="tab-container" align="center">
-                    <table class="standard" summary="">
-                        <tr>
-                            <td class="subhead"><h3>Search Results</h3></td>
-                        </tr>
-                        <tr>
-                            <td><bean:message key="gl.correction.restricted.functionality.search.results.label"/></td>
-                        </tr>
-                    </table>
-                </div>
-            </c:if>
-            <c:if test="${!KualiForm.restrictedFunctionalityMode}">
-                <table class="standard" summary="">
-                    <tr>
-                        <td class="subhead"><h3>Search Results - Output Group</h3></td>
-                    </tr>
-                    <tr>
-                        <c:choose>
-                            <c:when test="${KualiForm.documentType == 'LLCP'}">
-                                <td>
-                                    <ld:displayLaborOriginEntrySearchResults
-                                            laborOriginEntries="${KualiForm.displayEntries}"/>
-                                </td>
-                            </c:when>
-                            <c:otherwise>
-                                <td>
-                                    <glcp:displayOriginEntrySearchResults originEntries="${KualiForm.displayEntries}"/>
-                                </td>
-                            </c:otherwise>
-                        </c:choose>
-                    </tr>
-                </table>
-            </c:if>
-        </div>
-        <div class="tab-container">
-            <table class="standard" summary="">
-                <tr>
-                    <td class="center">
-                        <html:checkbox styleId="processInBatch" property="processInBatch" disabled="true"/> <STRONG>
-                        <label for="processInBatch">Process In Batch</label> </STRONG> &nbsp; &nbsp; &nbsp; &nbsp;
-                        <c:if test="${KualiForm.document.correctionTypeCode == 'C'}">
-                            <html:checkbox styleId="matchCriteriaOnly" property="matchCriteriaOnly"
-                                           disabled="true"/> <STRONG> <label for="matchCriteriaOnly">Output only
-                            records which match criteria?</label> </STRONG>
-                        </c:if>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <c:if test="${KualiForm.document.correctionTypeCode == 'C'}">
+
+        <kul:tab tabTitle="System and Edit Method" defaultOpen="true">
             <div class="tab-container">
-                <table class="standard" summary="">
-                    <tr class="header">
-                        <th class="subhead">Search Criteria</th>
-                        <th class="subhead">Modification Criteria</th>
+                <table class="standard side-margins">
+                    <tr>
+                        <th width="50%" class="right">System:</th>
+                        <td><c:out value="${KualiForm.document.system}"/></td>
                     </tr>
-                    <c:forEach var="group" items="${KualiForm.document.correctionChangeGroup}">
-                        <tr>
-                            <td colspan="2" align="left" class="bord-l-b" style="padding: 4px; vertical-align: top;">
-                                <strong>Group:</strong>
-                            </td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #b6b6b6;">
-                            <td class="bord-l-b" style="padding: 4px; vertical-align: top;">
-                                <c:forEach items="${group.correctionCriteria}" var="criteria" varStatus="cc">
-                                    <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldName">Field</label>:
-                                    <html:select disabled="true"
-                                                 property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldName"
-                                                 styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldName"
-                                                 title="Field">
-                                        <c:choose>
-                                            <c:when test="${KualiForm.documentType == 'LLCP'}">
-                                                <html:optionsCollection
-                                                        property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|module|ld|businessobject|options|LaborOriginEntryFieldFinder"
-                                                        label="value" value="key"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <html:optionsCollection
-                                                        property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|OriginEntryFieldFinder"
-                                                        label="value" value="key"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </html:select>
-                                    <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionOperatorCode">Operator</label>:
-                                    <html:select disabled="true"
-                                                 property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionOperatorCode"
-                                                 styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionOperatorCode"
-                                                 title="Operator">
-                                        <html:optionsCollection
-                                                property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|SearchOperatorsFinder"
-                                                label="value" value="key"/>
-                                    </html:select>
-                                    <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldValue">Value</label>:
-                                    <html:text disabled="true"
-                                               property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldValue"
-                                               styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldValue"
-                                               title="Value"/>
-                                    <br>
-                                </c:forEach>
-                            </td>
-                            <td class="bord-l-b" style="padding: 4px; vertical-align: top;">
-                                <c:forEach items="${group.correctionChange}" var="change">
-                                    <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldName">Field</label>:
-                                    <html:select disabled="true"
-                                                 property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldName"
-                                                 styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldName"
-                                                 title="Field">
-                                        <c:choose>
-                                            <c:when test="${KualiForm.documentType == 'LLCP'}">
-                                                <html:optionsCollection
-                                                        property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|module|ld|businessobject|options|LaborOriginEntryFieldFinder"
-                                                        label="value" value="key"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <html:optionsCollection
-                                                        property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|OriginEntryFieldFinder"
-                                                        label="value" value="key"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </html:select>
-                                    <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldValue">Replacement
-                                        Value</label>:
-                                    <html:text disabled="true"
-                                               property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldValue"
-                                               styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldValue"
-                                               title="Replacement Value"/>
-                                    <br>
-                                </c:forEach>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <tr>
+                        <th width="50%" class="right">Edit Method:</th>
+                        <td><c:out value="${KualiForm.document.method}"/></td>
+                    </tr>
                 </table>
             </div>
+        </kul:tab>
+
+        <kul:tab tabTitle="Input and Output File" defaultOpen="true">
+            <div class="tab-container">
+                <table class="standard side-margins">
+                    <c:if test="${KualiForm.document.correctionInputFileName != null}">
+                        <tr>
+                            <th width="50%" class="right">Input File Name:</th>
+                            <td><c:out value="${KualiForm.document.correctionInputFileName}"/></td>
+                        </tr>
+                    </c:if>
+                    <tr>
+                        <th width="50%" class="right">Output File Name:</td>
+                        <c:if test="${KualiForm.document.correctionOutputFileName != null}">
+                            <td ><c:out value="${KualiForm.document.correctionOutputFileName}"/></td>
+                        </c:if>
+                        <c:if test="${KualiForm.document.correctionOutputFileName == null}">
+                            <c:if test="${KualiForm.document.correctionTypeCode eq 'R'}">
+                                <td><c:out value="${Constants.NOT_AVAILABLE_STRING}"/></td>
+                            </c:if>
+                            <c:if test="${KualiForm.document.correctionTypeCode ne 'R'}">
+                                <td> The output file name is unavailable until the document has a status of PROCESSED or FINAL.</td>
+                            </c:if>
+                        </c:if>
+                    </tr>
+                </table>
+            </div>
+        </kul:tab>
+
+        <kul:tab tabTitle="Search Results" defaultOpen="true">
+            <div class="tab-container">
+                <c:if test="${KualiForm.restrictedFunctionalityMode}">
+                    <div class="tab-container">
+                        <table class="standard side-margins" summary="Search Results">
+                            <tr>
+                                <td><bean:message key="gl.correction.restricted.functionality.search.results.label"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </c:if>
+                <c:if test="${!KualiForm.restrictedFunctionalityMode}">
+                    <table class="standard side-margins" summary="Search Results">
+                        <tr>
+                            <c:choose>
+                                <c:when test="${KualiForm.documentType == 'LLCP'}">
+                                    <td>
+                                        <ld:displayLaborOriginEntrySearchResults
+                                                laborOriginEntries="${KualiForm.displayEntries}"/>
+                                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>
+                                        <glcp:displayOriginEntrySearchResults originEntries="${KualiForm.displayEntries}"/>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
+                        </tr>
+                    </table>
+                </c:if>
+            </div>
+        </kul:tab>
+
+        <kul:tab tabTitle="Edit Options and Action" defaultOpen="true">
+            <div class="tab-container">
+                <table class="standard side-margins" summary="Edit Options and Action">
+                    <tr>
+                        <td class="center">
+                            <html:checkbox styleId="processInBatch" property="processInBatch" disabled="true"/> <STRONG>
+                            <label for="processInBatch">Process In Batch</label> </STRONG> &nbsp; &nbsp; &nbsp; &nbsp;
+                            <c:if test="${KualiForm.document.correctionTypeCode == 'C'}">
+                                <html:checkbox styleId="matchCriteriaOnly" property="matchCriteriaOnly"
+                                               disabled="true"/> <STRONG> <label for="matchCriteriaOnly">Output only
+                                records which match criteria?</label> </STRONG>
+                            </c:if>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </kul:tab>
+
+        <c:if test="${KualiForm.document.correctionTypeCode == 'C'}">
+            <kul:tab tabTitle="Search Criteria" defaultOpen="true">
+                <div class="tab-container">
+                    <table class="standard side-margins" summary="Search Criteria">
+                        <tr class="header">
+                            <th class="subhead" width="50%">Search Criteria</th>
+                            <th class="subhead" width="50%">Modification Criteria</th>
+                        </tr>
+                        <c:forEach var="group" items="${KualiForm.document.correctionChangeGroup}">
+                            <tr>
+                                <td colspan="2" style="padding: 4px; vertical-align: top;">Group:</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #b6b6b6;">
+                                <td class="bord-l-b" style="padding: 4px; vertical-align: top;">
+                                    <c:forEach items="${group.correctionCriteria}" var="criteria" varStatus="cc">
+                                        <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldName">Field</label>:
+                                        <html:select disabled="true"
+                                                     property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldName"
+                                                     styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldName"
+                                                     title="Field">
+                                            <c:choose>
+                                                <c:when test="${KualiForm.documentType == 'LLCP'}">
+                                                    <html:optionsCollection
+                                                            property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|module|ld|businessobject|options|LaborOriginEntryFieldFinder"
+                                                            label="value" value="key"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <html:optionsCollection
+                                                            property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|OriginEntryFieldFinder"
+                                                            label="value" value="key"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </html:select>
+                                        <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionOperatorCode">Operator</label>:
+                                        <html:select disabled="true"
+                                                     property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionOperatorCode"
+                                                     styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionOperatorCode"
+                                                     title="Operator">
+                                            <html:optionsCollection
+                                                    property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|SearchOperatorsFinder"
+                                                    label="value" value="key"/>
+                                        </html:select>
+                                        <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldValue">Value</label>:
+                                        <html:text disabled="true"
+                                                   property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldValue"
+                                                   styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionCriteriaItem[${criteria.correctionCriteriaLineNumber}].correctionFieldValue"
+                                                   title="Value"/>
+                                        <br>
+                                    </c:forEach>
+                                </td>
+                                <td class="bord-l-b" style="padding: 4px; vertical-align: top;">
+                                    <c:forEach items="${group.correctionChange}" var="change">
+                                        <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldName">Field</label>:
+                                        <html:select disabled="true"
+                                                     property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldName"
+                                                     styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldName"
+                                                     title="Field">
+                                            <c:choose>
+                                                <c:when test="${KualiForm.documentType == 'LLCP'}">
+                                                    <html:optionsCollection
+                                                            property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|module|ld|businessobject|options|LaborOriginEntryFieldFinder"
+                                                            label="value" value="key"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <html:optionsCollection
+                                                            property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|gl|businessobject|options|OriginEntryFieldFinder"
+                                                            label="value" value="key"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </html:select>
+                                        <label for="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldValue">Replacement
+                                            Value</label>:
+                                        <html:text disabled="true"
+                                                   property="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldValue"
+                                                   styleId="correctionDocument.correctionChangeGroupItem[${group.correctionChangeGroupLineNumber}].correctionChangeItem[${change.correctionChangeLineNumber}].correctionFieldValue"
+                                                   title="Replacement Value"/>
+                                        <br>
+                                    </c:forEach>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </kul:tab>
         </c:if>
     </c:if>
     <kul:notes/>
