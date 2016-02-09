@@ -64,9 +64,9 @@
                                 attributeEntry="${postingYearAttributes.postingYear}"
                                 horizontal="true"
                                 addClass="right"
-                                />
+                                width="50%"/>
 
-                        <td class="datacell-nowrap">
+                        <td class="datacell-nowrap" width="50%">
                             <kul:htmlControlAttribute
                                     attributeEntry="${postingYearAttributes.postingYear}"
                                     property="document.postingYear"
@@ -92,9 +92,10 @@
                                 labelFor="document.documentHeader.financialDocumentTotalAmount"
                                 attributeEntry="${financialDocHeaderAttributes.financialDocumentTotalAmount}"
                                 horizontal="true"
-                                addClass="right"/>
+                                addClass="right"
+                                width="50%"/>
 
-                        <td align="left" valign="middle">
+                        <td align="left" valign="middle" width="50%">
                             <kul:htmlControlAttribute
                                     attributeEntry="${financialDocHeaderAttributes.financialDocumentTotalAmount}"
                                     property="document.documentHeader.financialDocumentTotalAmount"
@@ -120,9 +121,9 @@
                     <kul:htmlAttributeHeaderCell
                             labelFor="document.accountingPeriodCompositeString"
                             attributeEntry="${accountingPeriodAttribute}"
-                            horizontal="true" useShortLabel="false"/>
+                            horizontal="true" useShortLabel="false" width="50%"/>
 
-                    <td class="datacell-nowrap">
+                    <td class="datacell-nowrap" width="50%">
                         <kul:htmlControlAttribute
                                 attributeEntry="${accountingPeriodAttribute}"
                                 property="document.accountingPeriodCompositeString"
