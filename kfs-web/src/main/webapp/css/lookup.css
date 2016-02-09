@@ -741,7 +741,10 @@ div.inquiry table.datatable th {
     padding-right: 15px;
 }
 
-.main-panel .tab-container table.acct-lines th,
+.main-panel .tab-container table.acct-lines th {
+    padding: 10px 5px;
+}
+
 .main-panel .tab-container table.acct-lines td {
     padding: 10px 0;
 }
