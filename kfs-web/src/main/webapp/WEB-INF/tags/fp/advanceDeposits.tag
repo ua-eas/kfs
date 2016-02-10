@@ -24,8 +24,8 @@
 <kul:tab tabTitle="Advance Deposits" defaultOpen="true" tabErrorKey="${KFSConstants.ADVANCE_DEPOSITS_LINE_ERRORS}">
 <c:set var="adAttributes" value="${DataDictionary.AdvanceDepositDetail.attributes}" />
  <div class="tab-container" align=center>
-	<table cellpadding=0 class="datatable standard" summary="Advance Deposits">
-		<tr class="header">
+	<table class="datatable standard acct-lines" summary="Advance Deposits" style="margin:15px; width:calc(100% - 30px);">
+		<tr class="header first">
             <kul:htmlAttributeHeaderCell literalLabel="&nbsp;"/>
             <sys:bankLabel align="left" addClass="left" horizontal="${false}"/>
             <kul:htmlAttributeHeaderCell attributeEntry="${adAttributes.financialDocumentAdvanceDepositDate}"/>
@@ -37,7 +37,7 @@
             </c:if>
 		</tr>
         <c:if test="${not readOnly}">
-            <tr class="highlight">
+            <tr class="new">
                 <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="row"/>
                 <sys:bankControl property="newAdvanceDeposit.financialDocumentBankCode" objectProperty="newAdvanceDeposit.bank" depositOnly="true" readOnly="${readOnly}" style="infoline left"/>
                 <td class="infoline">    
@@ -49,31 +49,31 @@
                 <td class="infoline">
                 	<kul:htmlControlAttribute attributeEntry="${adAttributes.financialDocumentAdvanceDepositDescription}" property="newAdvanceDeposit.financialDocumentAdvanceDepositDescription" />
                 </td>
-                <td class="infoline">
+                <td class="infoline right">
                 	<kul:htmlControlAttribute attributeEntry="${adAttributes.financialDocumentAdvanceDepositAmount}" property="newAdvanceDeposit.financialDocumentAdvanceDepositAmount" styleClass="amount"/>
                 </td>
                 <td class="infoline">
-                    <html:submit
-                            property="methodToCall.addAdvanceDeposit"
-                            alt="Add an Advance Deposit"
-                            title="Add an Advance Deposit"
-                            styleClass="btn btn-green"
-                            value="Add"/>
+                    <div class="actions">
+                        <html:html-button
+                                property="methodToCall.addAdvanceDeposit"
+                                alt="Add an Advance Deposit"
+                                title="Add an Advance Deposit"
+                                styleClass="btn btn-green skinny"
+                                value="Add"
+                                innerHTML="<span class=\"fa fa-plus\"></span>"/>
+                    </div>
                 </td>
             </tr>
         </c:if>
+        <c:set var="numAdvanceDeposits" value="${document.advanceDeposits.size}"/>
         <logic:iterate id="advanceDepositDetail" name="KualiForm" property="document.advanceDeposits" indexId="ctr">
-            <c:set var="rowClass" value=""/>
+            <c:set var="rowClass" value="line"/>
             <c:choose>
-                <c:when test="${not readOnly}">
-                    <c:if test="${(ctr + 1) % 2 == 0}">
-                        <c:set var="rowClass" value="highlight"/>
-                    </c:if>
+                <c:when test="${ctr == 0}">
+                    <c:set var="rowClass" value="line first"/>
                 </c:when>
                 <c:otherwise>
-                    <c:if test="${ctr % 2 == 0}">
-                        <c:set var="rowClass" value="highlight"/>
-                    </c:if>
+                    <c:set var="rowClass" value="line last"/>
                 </c:otherwise>
             </c:choose>
 
@@ -96,27 +96,32 @@
                 <td class="datacell">
                 	<kul:htmlControlAttribute attributeEntry="${adAttributes.financialDocumentAdvanceDepositDescription}" property="document.advanceDepositDetail[${ctr}].financialDocumentAdvanceDepositDescription" readOnly="${readOnly}"/>
                 </td>
-                <td class="datacell">
-                	<kul:htmlControlAttribute attributeEntry="${adAttributes.financialDocumentAdvanceDepositAmount}" property="document.advanceDepositDetail[${ctr}].financialDocumentAdvanceDepositAmount" readOnly="${readOnly}"/>
+                <td class="datacell right">
+                	<kul:htmlControlAttribute attributeEntry="${adAttributes.financialDocumentAdvanceDepositAmount}" property="document.advanceDepositDetail[${ctr}].financialDocumentAdvanceDepositAmount" readOnly="${readOnly}" styleClass="right"/>
                 </td>
                 <c:if test="${not readOnly}">
                     <td class="datacell">
-                        <html:submit
-                                property="methodToCall.deleteAdvanceDeposit.line${ctr}"
-                                alt="Delete an Advance Deposit"
-                                title="Delete an Advance Deposit"
-                                styleClass="btn btn-red"
-                                value="Delete"/>
+                        <div class="actions">
+                            <html:html-button
+                                    property="methodToCall.deleteAdvanceDeposit.line${ctr}"
+                                    alt="Delete an Advance Deposit"
+                                    title="Delete an Advance Deposit"
+                                    styleClass="btn clean"
+                                    value="Delete"
+                                    innerHTML="<span class=\"fa fa-trash\"></span>"/>
+                        </div>
+
                     </td>
                 </c:if>
             </tr>
         </logic:iterate>
-		<tr>
-			<c:set var="leadingColSpan" value="${KualiForm.editingMode[Constants.BANK_ENTRY_VIEWABLE_EDITING_MODE] ? 6 : 5}" />
-	 		<td class="total-line" colspan="${leadingColSpan}">&nbsp;</td>
-	  		<td class="total-line" ><strong>Total: ${KualiForm.document.currencyFormattedTotalAdvanceDepositAmount}</strong></td>
+		<tr class="total-line">
+			<c:set var="leadingColSpan" value="${KualiForm.editingMode[Constants.BANK_ENTRY_VIEWABLE_EDITING_MODE] ? 5 : 4}" />
+	 		<td colspan="${leadingColSpan}">&nbsp;</td>
+	  		<td class="right total-label" >Total:</td>
+            <td class="right" >${KualiForm.document.currencyFormattedTotalAdvanceDepositAmount}</td>
             <c:if test="${not readOnly}">
-                <td class="total-line">&nbsp;</td>
+                <td>&nbsp;</td>
             </c:if>
 		</tr>
 	</table>
