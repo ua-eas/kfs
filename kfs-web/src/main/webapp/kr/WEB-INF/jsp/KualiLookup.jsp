@@ -74,10 +74,10 @@
 		</c:choose></h1>
 	</div>
 	</c:if>
-	
+
 	<c:if test="${KualiForm.renderSearchButtons}">
 	  <kul:enterKey methodToCall="search" />
-	</c:if>  
+	</c:if>
 
 	<html-el:hidden name="KualiForm" property="backLocation" />
 	<html-el:hidden name="KualiForm" property="formKey" />
@@ -191,6 +191,10 @@
     </table>
 	</form>
 	</div>
+
+	<c:if test="${!empty reqSearchResultsActualSize and reqSearchResultsActualSize < 1}">
+		<div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+	</c:if>
 
 	<c:if test="${!empty reqSearchResultsActualSize && empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
 		<div class="search-message"><bean-el:message key="lookup.no.returnable.rows" /></div>
@@ -320,9 +324,9 @@
 
 		<c:if test="${!empty reqSearchResultsActualSize }">
 			<script type="text/javascript">
-				var headerSelector = '.search-results .headerarea-small'
-				var tableSelector = '.search-results table'
-				var tableHeaderSelector = '.search-results table>thead'
+				var headerSelector = '.search-results .headerarea-small';
+				var tableSelector = '.search-results table';
+				var tableHeaderSelector = '.search-results table>thead';
 
 				$(document).ready(function() {
 					// smooth scroll window to the search results after clicking search
@@ -333,28 +337,28 @@
 					}
 
 					// make search results header sticky
-					var headerLocation = $(headerSelector).offset().top - $(headerSelector).outerHeight()
-					makeHeaderSticky()
+					var headerLocation = $(headerSelector).offset().top - $(headerSelector).outerHeight();
+					makeHeaderSticky();
 
 					// Modify header stickiness as we scroll
 					$(window).scroll(function() {
-						makeHeaderSticky()
-					})
+						makeHeaderSticky();
+					});
 
 					$(window).resize(function() {
-						makeHeaderSticky()
-					})
+						makeHeaderSticky();
+					});
 
 					function makeHeaderSticky() {
-						var headerIsSticky = $(headerSelector).hasClass('fixed')
-						var windowLocation = $(window).scrollTop()
-						$(headerSelector).css('width', $(tableSelector).outerWidth())
+						var headerIsSticky = $(headerSelector).hasClass('fixed');
+						var windowLocation = $(window).scrollTop();
+						$(headerSelector).css('width', $(tableSelector).outerWidth());
 						if (windowLocation > headerLocation && !headerIsSticky) {
-							$(headerSelector).addClass('fixed')
-							$(tableSelector).addClass('fixedHeader')
+							$(headerSelector).addClass('fixed');
+							$(tableSelector).addClass('fixedHeader');
 						} else if (windowLocation <= headerLocation && headerIsSticky) {
-							$(headerSelector).removeClass('fixed')
-							$(tableSelector).removeClass('fixedHeader')
+							$(headerSelector).removeClass('fixed');
+							$(tableSelector).removeClass('fixedHeader');
 						}
 					}
 				})
