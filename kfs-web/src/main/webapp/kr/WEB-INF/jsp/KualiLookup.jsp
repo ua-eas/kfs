@@ -74,10 +74,10 @@
 		</c:choose></h1>
 	</div>
 	</c:if>
-	
+
 	<c:if test="${KualiForm.renderSearchButtons}">
 	  <kul:enterKey methodToCall="search" />
-	</c:if>  
+	</c:if>
 
 	<html-el:hidden name="KualiForm" property="backLocation" />
 	<html-el:hidden name="KualiForm" property="formKey" />
@@ -191,6 +191,10 @@
     </table>
 	</form>
 	</div>
+
+	<c:if test="${!empty reqSearchResultsActualSize and reqSearchResultsActualSize < 1}">
+		<div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+	</c:if>
 
 	<c:if test="${!empty reqSearchResultsActualSize && empty reqSearchResults && !KualiForm.hasReturnableRow && KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues}">
 		<div class="search-message"><bean-el:message key="lookup.no.returnable.rows" /></div>

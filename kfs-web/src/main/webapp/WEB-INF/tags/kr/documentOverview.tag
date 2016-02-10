@@ -43,8 +43,8 @@
                         attributeEntry="${docHeaderAttributes.documentDescription}"
                         horizontal="true"
                         addClass="right top"
-                        />
-                <td class="top">
+                        width="25%"/>
+                <td class="top" width="25%">
                     <kul:htmlControlAttribute property="document.documentHeader.documentDescription"
                                               attributeEntry="${docHeaderAttributes.documentDescription}"
                                               readOnly="${readOnly}"/>
@@ -55,8 +55,8 @@
                         horizontal="true"
                         rowspan="2"
                         addClass="right top"
-                        />
-                <td rowspan="2" class="top">
+                        width="25%"/>
+                <td rowspan="2" class="top" width="25%">
                     <kul:htmlControlAttribute
                             property="document.documentHeader.explanation"
                             attributeEntry="${docHeaderAttributes.explanation}"

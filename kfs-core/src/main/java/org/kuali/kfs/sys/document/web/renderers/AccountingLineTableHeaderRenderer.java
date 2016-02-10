@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -56,14 +56,25 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
-        
+
         try {
             out.write(buildDivStart());
             out.write(buildTableStart(decideTableClass(parentTag)));
+            out.write(buildHelp());
         }
         catch (IOException ioe) {
             throw new JspException("Difficulty rendering AccountingLineTableHeader", ioe);
         }
+    }
+
+    protected String buildHelp() {
+        StringBuilder help = new StringBuilder();
+        help.append("<tr><td colspan=\"3\"><a href=\"");
+        help.append(accountingLineImportInstructionsUrl);
+        help.append("\" target=\"helpWindow\">");
+        help.append("<span class=\"fa fa-question-circle\"> Accounting Lines");
+        help.append("</a></td></tr>");
+        return help.toString();
     }
 
     protected String decideTableClass(Tag parentTag) {
@@ -77,7 +88,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         }
         return tableClass;
     }
-    
+
     /**
      * Builds the beginning of the tab-container div
      * @return the beginning of the tab-container div in HTML
@@ -101,9 +112,9 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         }
         return "<table class=\"" + tableClass + "\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
     }
-    
+
     /**
-     * Gets the accountingLineImportInstructionsUrl attribute. 
+     * Gets the accountingLineImportInstructionsUrl attribute.
      * @return Returns the accountingLineImportInstructionsUrl.
      */
     public String getAccountingLineImportInstructionsUrl() {
@@ -119,7 +130,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
     }
 
     /**
-     * Gets the cellCount attribute. 
+     * Gets the cellCount attribute.
      * @return Returns the cellCount.
      */
     public int getCellCount() {
