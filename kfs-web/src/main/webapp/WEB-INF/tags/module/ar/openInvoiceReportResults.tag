@@ -33,10 +33,10 @@
 		<c:choose>
 			<c:when test="${column.formatter.implementationClass == 'org.kuali.rice.core.web.format.CurrencyFormatter'}">
 				<display:column class="numbercell"
-			sortable="true"
-			decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
-			title="${column.columnTitle}"
-			comparator="${column.comparator}">
+						sortable="true"
+						decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
+						title="${column.columnTitle}"
+						comparator="${column.comparator}">
 					<c:choose>
 						<c:when test="${column.propertyURL != \"\"}">
 							<a href="<c:out value="${column.propertyURL}"/>"

@@ -16,63 +16,85 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page lookup="true" showDocumentInfo="false"
-	htmlFormAction="arCustomerOpenItemReportLookup"
-	headerMenuBar="${KualiForm.lookupable.htmlMenuBar}"
-	headerTitle="Lookup" docTitle="" transactionalDocument="false">
+          htmlFormAction="arCustomerOpenItemReportLookup"
+          headerMenuBar="${KualiForm.lookupable.htmlMenuBar}"
+          headerTitle="Lookup" docTitle="" transactionalDocument="false">
 
-	<div class="headerarea-small" id="headerarea-small">
-	<h1><c:out value="${param.reportName}" />
-	<kul:help resourceKey="lookupHelpText" altText="lookup help" /></h1>
-	</div>
-	
-	<h3>
-		<table width="100%">
-			<tr>
-				<td>Customer Number: &nbsp; <c:out value="${param.customerNumber}" />&nbsp;&nbsp;<c:out value="${param.customerName}" /></td>
-			</tr>
-		</table>
-	</h3>
+    <div class="headerarea-small" id="headerarea-small">
+        <h1>
+            <c:out value="${param.reportName}"/>
+            <kul:help resourceKey="lookupHelpText" altText="lookup help"/>
+        </h1>
+    </div>
 
-	<kul:enterKey methodToCall="search" />
+    <h3>
+        <table class="standard side-margins">
+            <tr>
+                <td>Customer Number: &nbsp; <c:out value="${param.customerNumber}"/>&nbsp;&nbsp;<c:out
+                        value="${param.customerName}"/></td>
+            </tr>
+        </table>
+    </h3>
 
-	<html-el:hidden name="KualiForm" property="backLocation" />
-	<html-el:hidden name="KualiForm" property="formKey" />
-	<html-el:hidden name="KualiForm" property="lookupableImplServiceName" />
-	<html-el:hidden name="KualiForm" property="businessObjectClassName" />
-	<html-el:hidden name="KualiForm" property="conversionFields" />
-	<html-el:hidden name="KualiForm" property="hideReturnLink" />
+    <kul:enterKey methodToCall="search"/>
 
-	<kul:errors errorTitle="Errors found in Search Criteria:" />
+    <html-el:hidden name="KualiForm" property="backLocation"/>
+    <html-el:hidden name="KualiForm" property="formKey"/>
+    <html-el:hidden name="KualiForm" property="lookupableImplServiceName"/>
+    <html-el:hidden name="KualiForm" property="businessObjectClassName"/>
+    <html-el:hidden name="KualiForm" property="conversionFields"/>
+    <html-el:hidden name="KualiForm" property="hideReturnLink"/>
 
-	<table width="100%">
-		<tr>
-			<td>
-				<c:if test="${empty reqSearchResultsSize}">
-					There were no results found.
-				</c:if>
-				<c:if test="${!empty reqSearchResultsSize}">
-					<c:if test="${param.reportName == KFSConstants.CustomerOpenItemReport.OPEN_ITEM_REPORT_NAME}">
-						<table width="25%">
-							<tr><td>Report Option:</td><td><c:out value="${param.reportOption}" /></td>
-							 <c:choose>
-								<c:when test="${param.reportOption == KFSConstants.CustomerOpenItemReport.REPORT_OPTION_ACCT}" >
-									<tr><td>Account Number:</td><td><c:out value="${param.accountNumber}" /></td>
-								</c:when>
-								<c:otherwise>
-									<tr><td>Chart Code:</td><td><c:out value="${param.chartCode}" /></td>
-									<tr><td>Organization Code:</td><td><c:out value="${param.orgCode}" /></td>
-								</c:otherwise>
-							 </c:choose>
-							<tr><td>Report Run Date:</td><td><c:out value="${param.reportRunDate}" /></td>
-							<tr><td>Report Age:</td><td><c:out value="${param.columnTitle}" /></td>
-						</table> <br><br>
-					</c:if>
-					<ar:openInvoiceReportResults reportLookupActionName="arCustomerOpenItemReportLookup.do"/>
-			    </c:if>
-			</td>
-		</tr>
-	</table>
+    <kul:errors errorTitle="Errors found in Search Criteria:"/>
+
+    <table class="standard side-margins">
+        <tr>
+            <td>
+                <c:if test="${empty reqSearchResultsSize}">
+                    There were no results found.
+                </c:if>
+                <c:if test="${!empty reqSearchResultsSize}">
+                    <c:if test="${param.reportName == KFSConstants.CustomerOpenItemReport.OPEN_ITEM_REPORT_NAME}">
+                        <table width="25%">
+                            <tr>
+                                <td>Report Option:</td>
+                                <td><c:out value="${param.reportOption}"/></td>
+                            </tr>
+                            <c:choose>
+                                <c:when test="${param.reportOption == KFSConstants.CustomerOpenItemReport.REPORT_OPTION_ACCT}">
+                                    <tr>
+                                        <td>Account Number:</td>
+                                        <td><c:out value="${param.accountNumber}"/></td>
+                                    </tr>
+                                </c:when>
+                                <c:otherwise>
+                                    <tr>
+                                        <td>Chart Code:</td>
+                                        <td><c:out value="${param.chartCode}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Organization Code:</td>
+                                        <td><c:out value="${param.orgCode}"/></td>
+                                    </tr>
+                                </c:otherwise>
+                            </c:choose>
+                            <tr>
+                                <td>Report Run Date:</td>
+                                <td><c:out value="${param.reportRunDate}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Report Age:</td>
+                                <td><c:out value="${param.columnTitle}"/></td>
+                            </tr>
+                        </table>
+                        <br><br>
+                    </c:if>
+                    <ar:openInvoiceReportResults reportLookupActionName="arCustomerOpenItemReportLookup.do"/>
+                </c:if>
+            </td>
+        </tr>
+    </table>
 </kul:page>
