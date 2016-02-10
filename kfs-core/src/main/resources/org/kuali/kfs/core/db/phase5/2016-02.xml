@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="kfs" id="kfscd51" context="bootstrap,demo,unit">
+		<insert tableName="krcr_parm_t">
+			<column name="NMSPC_CD"><![CDATA[KFS-PDP]]></column>
+			<column name="CMPNT_CD"><![CDATA[FormatCheckACHStep]]></column>
+			<column name="PARM_NM"><![CDATA[RUN_IND]]></column>
+			<column name="OBJ_ID"><![CDATA[KFSCD51]]></column>
+			<column name="VER_NBR"><![CDATA[1]]></column>
+			<column name="VAL"><![CDATA[N]]></column>
+			<column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+			<column name="PARM_DESC_TXT"><![CDATA[Indicates if the pdpFormatCheckACHStep should be ran.]]></column>
+			<column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+			<column name="APPL_ID"><![CDATA[KFS]]></column>
+		</insert>
+	</changeSet>
+</databaseChangeLog>
