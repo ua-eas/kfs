@@ -94,102 +94,106 @@
 		    </td>
 		</tr>
 	</table>
-	
+
+	<c:if test="${reqSearchResults != null and empty reqSearchResults}">
+		<div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+	</c:if>
+
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td><c:if test="${!empty reqSearchResultsSize}">
+			<td>
+				<c:if test="${!empty reqSearchResultsSize}">
+					<c:set var="exporting" value="${!empty param['d-16544-e']}" scope="request" />
+					<display:table class="datatable-100" name="${reqSearchResults}" id="row" export="true" pagesize="100" defaultsort="1"
+						requestURI="glTrialBalance.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
 
-				<c:set var="exporting" value="${!empty param['d-16544-e']}"
-					scope="request" />
-				<display:table class="datatable-100"name="${reqSearchResults}" id="row" export="true" pagesize="100" defaultsort="1"
-					requestURI="glTrialBalance.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
+						<c:forEach items="${row.columns}" var="column">
 
-					<c:forEach items="${row.columns}" var="column">
+							<c:if test="${!empty column.columnAnchor.title}">
+								<c:set var="title" value="${column.columnAnchor.title}" />
+							</c:if>
+							<c:if test="${empty column.columnAnchor.title}">
+								<c:set var="title" value="${column.propertyValue}" />
+							</c:if>
+							<c:choose>
 
-						<c:if test="${!empty column.columnAnchor.title}">
-							<c:set var="title" value="${column.columnAnchor.title}" />
-						</c:if>
-						<c:if test="${empty column.columnAnchor.title}">
-							<c:set var="title" value="${column.propertyValue}" />
-						</c:if>
-						<c:choose>
+								<c:when
+									test="${column.formatter.implementationClass == 'org.kuali.kfs.kns.web.format.CurrencyFormatter'}">
 
-							<c:when
-								test="${column.formatter.implementationClass == 'org.kuali.kfs.kns.web.format.CurrencyFormatter'}">
+									<display:column class="numbercell" sortable="true"
+										decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
+										title="${column.columnTitle}" comparator="${column.comparator}">
 
-								<display:column class="numbercell" sortable="true"
-									decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
-									title="${column.columnTitle}" comparator="${column.comparator}">
+										<c:choose>
+
+											<c:when test="${column.propertyURL != \"\"}">
+												<a href="<c:out value="${column.propertyURL}"/>"
+													title="<c:out value="${title}" />" target="blank"><c:out
+													value="${column.propertyValue}" /></a>
+											</c:when>
+
+											<c:otherwise>
+												<c:out value="${column.propertyValue}" />
+											</c:otherwise>
+										</c:choose>
+									</display:column>
+
+								</c:when>
+
+								<c:otherwise>
 
 									<c:choose>
 
 										<c:when test="${column.propertyURL != \"\"}">
-											<a href="<c:out value="${column.propertyURL}"/>"
-												title="<c:out value="${title}" />" target="blank"><c:out
-												value="${column.propertyValue}" /></a>
+
+											<display:column class="infocell" sortable="${column.sortable}"
+												decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
+												title="${column.columnTitle}"
+												comparator="${column.comparator}">
+
+												<a href="<c:out value="${column.columnAnchor.href}"/>"
+													title="${column.columnAnchor.title}" target="blank"><c:out
+													value="${column.propertyValue}" /></a>
+
+											</display:column>
+
 										</c:when>
 
 										<c:otherwise>
-											<c:out value="${column.propertyValue}" />
+
+											<display:column class="infocell" sortable="${column.sortable}"
+												decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
+												title="${column.columnTitle}"
+												comparator="${column.comparator}">
+													<c:out value="${column.propertyValue}" />
+											</display:column>
+
 										</c:otherwise>
+
 									</c:choose>
-								</display:column>
 
-							</c:when>
+								</c:otherwise>
 
-							<c:otherwise>
+							</c:choose>
 
-								<c:choose>
-
-									<c:when test="${column.propertyURL != \"\"}">
-
-										<display:column class="infocell" sortable="${column.sortable}"
-											decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
-											title="${column.columnTitle}"
-											comparator="${column.comparator}">
-
-											<a href="<c:out value="${column.columnAnchor.href}"/>"
-												title="${column.columnAnchor.title}" target="blank"><c:out
-												value="${column.propertyValue}" /></a>
-
-										</display:column>
-
-									</c:when>
-
-									<c:otherwise>
-
-										<display:column class="infocell" sortable="${column.sortable}"
-											decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
-											title="${column.columnTitle}"
-											comparator="${column.comparator}">
-												<c:out value="${column.propertyValue}" />
-										</display:column>
-
-									</c:otherwise>
-
-								</c:choose>
-
-							</c:otherwise>
-
-						</c:choose>
-
-					</c:forEach>
-					<c:if test="${param['d-16544-e'] == null}">
-						<logic:present name="KualiForm" property="formKey">
-							<c:if
-								test="${KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues && param.inquiryFlag != 'true'}">
-								<display:column class="infocell" property="returnUrl"
-									media="html" />
-							</c:if>
-							<c:if
-								test="${row.actionUrls!='' && KualiForm.suppressActions!=true && !KualiForm.multipleValues && KualiForm.showMaintenanceLinks}">
-								<display:column class="infocell" property="actionUrls"
-									title="Actions" media="html" />
-							</c:if>
-						</logic:present>
-					</c:if>
-				</display:table></td>
-			</c:if>
+						</c:forEach>
+						<c:if test="${param['d-16544-e'] == null}">
+							<logic:present name="KualiForm" property="formKey">
+								<c:if
+									test="${KualiForm.formKey!='' && KualiForm.hideReturnLink!=true && !KualiForm.multipleValues && param.inquiryFlag != 'true'}">
+									<display:column class="infocell" property="returnUrl"
+										media="html" />
+								</c:if>
+								<c:if
+									test="${row.actionUrls!='' && KualiForm.suppressActions!=true && !KualiForm.multipleValues && KualiForm.showMaintenanceLinks}">
+									<display:column class="infocell" property="actionUrls"
+										title="Actions" media="html" />
+								</c:if>
+							</logic:present>
+						</c:if>
+					</display:table>
+				</c:if>
+			</td>
 		</tr>
 	</table>
 	<c:if test="${!empty KualiForm.message }">

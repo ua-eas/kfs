@@ -33,57 +33,55 @@
              tabErrorKey="document.userInitiatedCloseDate,document.closeOnOrBeforeDate">
         <c:set var="closeAttributes" value="${DataDictionary.ProposalAwardCloseDocument.attributes}" />
 
-         <div class="tab-container" align="center">
+         <div class="tab-container">
+            <h3>Perform Close</h3>
+             <table class="standard">
+                 <tr>
+                     <th class="right" width="50%">
+                         <kul:htmlAttributeLabel attributeEntry="${closeAttributes.userInitiatedCloseDate}" labelFor="document.userInitiatedCloseDate" useShortLabel="true" />
+                     </th>
+                     <c:if test="${readOnly}">
+                         <td width="50%">
+                                 ${KualiForm.document.userInitiatedCloseDate}&nbsp;
+                         </td>
+                     </c:if>
+                     <c:if test="${!readOnly}">
+                         <td width="50%">
+                             <kul:dateInputNoAttributeEntry property="document.userInitiatedCloseDate" maxLength="10" size="10" />
+                         </td>
+                     </c:if>
+                 </tr>
+                 <tr>
+                     <th style="text-align: right;"><kul:htmlAttributeLabel attributeEntry="${closeAttributes.closeOnOrBeforeDate}" labelFor="document.closeOnOrBeforeDate" useShortLabel="true" /></th>
+                     <c:if test="${readOnly}">
+                         <td style="width:50%">
+                                 ${KualiForm.document.closeOnOrBeforeDate}&nbsp;
+                         </td>
+                     </c:if>
+                     <c:if test="${!readOnly}">
+                         <td style="width:50%">
+                             <kul:dateInputNoAttributeEntry property="document.closeOnOrBeforeDate"  maxLength="10" size="10" />
+                         </td>
+                     </c:if>
 
-            <fieldset>
-                <legend><b>Perform Close</b></legend>
-                <table>
-                    <tr>
-                        <th style="text-align: right;"><kul:htmlAttributeLabel attributeEntry="${closeAttributes.userInitiatedCloseDate}" labelFor="document.userInitiatedCloseDate" useShortLabel="true" /></th>
-                       	 <c:if test="${readOnly}">
-                        <td style="width:50%">
-                            	${KualiForm.document.userInitiatedCloseDate}&nbsp;
-                        	</td>
-						</c:if>
-						<c:if test="${!readOnly}">
-							<td style="width:50%">
-                            <kul:dateInputNoAttributeEntry property="document.userInitiatedCloseDate" maxLength="10" size="10" />
-                        </td>
-                       	</c:if>
-                    </tr>
-                    <tr>
-                        <th style="text-align: right;"><kul:htmlAttributeLabel attributeEntry="${closeAttributes.closeOnOrBeforeDate}" labelFor="document.closeOnOrBeforeDate" useShortLabel="true" /></th>
-                       		<c:if test="${readOnly}">
-                       	 		<td style="width:50%">
-                            		${KualiForm.document.closeOnOrBeforeDate}&nbsp;
-                        		</td>
-							</c:if>
-							<c:if test="${!readOnly}">
-                        <td style="width:50%">
-                            <kul:dateInputNoAttributeEntry property="document.closeOnOrBeforeDate"  maxLength="10" size="10" />
-                        </td>
-                     	  	</c:if>
-                     
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset>
-                <legend><b>Close Information</b></legend>
-                <table>
-                    <tr>
-                        <th style="text-align: right;">Date of Last Close:</th>
-                        <td style="width:50%">${KualiForm.mostRecentClose.userInitiatedCloseDate}&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <th style="text-align: right;">Award Records Closed:</th>
-                        <td style="width:50%">${KualiForm.mostRecentClose.awardClosedCount}&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <th style="text-align: right;">Proposal Records Closed:</th>
-                        <td style="width:50%">${KualiForm.mostRecentClose.proposalClosedCount}&nbsp;</td>
-                    </tr>
-                </table>
-            </fieldset>
+                 </tr>
+             </table>
+
+            <h3>Close Information</h3>
+            <table>
+                <tr>
+                    <th class="right" width="50%">Date of Last Close:</th>
+                    <td width="50%">${KualiForm.mostRecentClose.userInitiatedCloseDate}&nbsp;</td>
+                </tr>
+                <tr>
+                    <th class="right">Award Records Closed:</th>
+                    <td>${KualiForm.mostRecentClose.awardClosedCount}&nbsp;</td>
+                </tr>
+                <tr>
+                    <th class="right">Proposal Records Closed:</th>
+                    <td>${KualiForm.mostRecentClose.proposalClosedCount}&nbsp;</td>
+                </tr>
+            </table>
         </div>
     </kul:tab>
     <kul:notes />
