@@ -42,7 +42,7 @@
 	<c:set var="systemSelectionReadOnly" value="${not empty KualiForm.document.capitalAssetSystemTypeCode && not empty KualiForm.document.capitalAssetSystemStateCode}" />
 	<div class="tab-container" align=center>
         <h3>System Selection</h3>
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="System Selection">
+        <table class="standard" summary="System Selection">
             <tr>
                 <th width="20%" class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.capitalAssetSystemTypeCode}" />
@@ -83,14 +83,10 @@
 
 	    <c:if test="${!empty KualiForm.document.purchasingCapitalAssetItems and ( (KualiForm.purchasingItemCapitalAssetAvailability eq availabilityOnce) or (KualiForm.purchasingCapitalAssetSystemCommentsAvailability eq availabilityOnce) or (KualiForm.purchasingCapitalAssetSystemDescriptionAvailability eq availabilityOnce) or (KualiForm.purchasingCapitalAssetSystemAvailability eq availabilityOnce) )}">
 	        <h3>System Detail</h3>
-            <table cellpadding="0" cellspacing="0" class="datatable" summary="Capital Asset Systems" style="width:100%">
-                <tr>
-                    <td colspan="12" class="datacell" style="padding:0;">
-                        <logic:iterate indexId="ctr" name="KualiForm" property="document.purchasingCapitalAssetSystems" id="systemLine">
-                            <purap:camsDetail ctr="${ctr}" camsItemIndex="0" camsSystemAttributes="${camsSystemAttributes}" camsAssetAttributes="${camsAssetAttributes}" camsLocationAttributes="${camsLocationAttributes}" camsAssetSystemProperty="document.purchasingCapitalAssetSystems[${ctr}]" availability="${PurapConstants.CapitalAssetAvailability.ONCE}" isRequisition="${isRequisition}" isPurchaseOrder="${isPurchaseOrder}" fullEntryMode="${fullEntryMode}"/>
-                        </logic:iterate>
-                    </td>
-                </tr>
+            <table class="standard" summary="Capital Asset Systems">
+                <logic:iterate indexId="ctr" name="KualiForm" property="document.purchasingCapitalAssetSystems" id="systemLine">
+                    <purap:camsDetail ctr="${ctr}" camsItemIndex="0" camsSystemAttributes="${camsSystemAttributes}" camsAssetAttributes="${camsAssetAttributes}" camsLocationAttributes="${camsLocationAttributes}" camsAssetSystemProperty="document.purchasingCapitalAssetSystems[${ctr}]" availability="${PurapConstants.CapitalAssetAvailability.ONCE}" isRequisition="${isRequisition}" isPurchaseOrder="${isPurchaseOrder}" fullEntryMode="${fullEntryMode}"/>
+                </logic:iterate>
             </table>
 	    </c:if>
 
