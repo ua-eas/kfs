@@ -69,7 +69,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
 
     protected String buildHelp() {
         StringBuilder help = new StringBuilder();
-        help.append("<tr><td colspan=\"3\"><a href=\"");
+        help.append("<tr><th></th><td colspan=\"3\"><a href=\"");
         help.append(accountingLineImportInstructionsUrl);
         help.append("\" target=\"helpWindow\">");
         help.append("<span class=\"fa fa-question-circle\"> Accounting Lines");
