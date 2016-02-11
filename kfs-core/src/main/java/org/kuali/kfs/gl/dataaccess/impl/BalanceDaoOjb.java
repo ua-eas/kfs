@@ -767,14 +767,10 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
 
         Criteria forCGCrit = new Criteria();
         if (fundGroupDenotesCGInd) {
-            for (String value : contractsAndGrantsDenotingValues) {
-                forCGCrit.addEqualTo(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, value);
-            }
+        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
         }
         else {
-            for (String value : contractsAndGrantsDenotingValues) {
-                forCGCrit.addEqualTo(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, value);
-            }
+        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
         }
 
         Criteria subFundGroupCrit = new Criteria();
@@ -810,13 +806,10 @@ public class BalanceDaoOjb extends PlatformAwareDaoBaseOjb implements BalanceDao
 
         Criteria forCGCrit = new Criteria();
         if (fundGroupDenotesCGInd) {
-           for (String value : contractsAndGrantsDenotingValues) {
-               forCGCrit.addEqualTo(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, value);
-           }
-        } else {
-            for (String value : contractsAndGrantsDenotingValues) {
-                forCGCrit.addEqualTo(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, value);
-            }
+        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP + "." + KFSPropertyConstants.FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
+        }
+        else {
+        	forCGCrit.addIn(KFSPropertyConstants.PRIOR_YEAR_ACCOUNT + "." + KFSPropertyConstants.SUB_FUND_GROUP_CODE, contractsAndGrantsDenotingValues);
         }
 
         Criteria subFundGroupCrit = new Criteria();
