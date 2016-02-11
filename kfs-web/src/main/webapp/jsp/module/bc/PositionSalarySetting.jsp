@@ -35,15 +35,28 @@
     <div id="globalbuttons" class="globalbuttons">
         <c:if test="${not readOnly}">
             <c:if test="${KualiForm.pendingPositionSalaryChange}">
-                <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_calculate.gif" styleClass="tinybutton" property="methodToCall.recalculateAllSalarySettingLines" title="Recalc" alt="Recalc"/>
+                <html:submit
+                        styleClass="btn btn-default"
+                        property="methodToCall.recalculateAllSalarySettingLines"
+                        title="Recalc"
+                        alt="Recalc"
+                        value="Calculate"/>
             </c:if>	
         
-	        <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_save.gif" styleClass="globalbuttons" 
-	        	property="methodToCall.save" title="save" alt="save"/>
+	        <html:submit
+                    styleClass="btn btn-default"
+	        	    property="methodToCall.save"
+                    title="save"
+                    alt="save"
+                    value="Save"/>
         </c:if>	
         
-	    <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" 
-       		styleClass="globalbuttons" property="methodToCall.close" title="close" alt="close"/>	
+	    <html:submit
+       		    styleClass="btn btn-default"
+                property="methodToCall.close"
+                title="close"
+                alt="close"
+                value="Close"/>
     </div>
 
 	<%-- Need these here to override and initialize vars used by objectinfo.js to BC specific --%>

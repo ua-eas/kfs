@@ -541,6 +541,7 @@ div.inquiry table.datatable th {
 
 .main-panel .tab-container {
     color: #555;
+    padding-top: 10px;
 }
 
 .main-panel .tab-container h2 {
@@ -741,10 +742,12 @@ div.inquiry table.datatable th {
     padding-right: 15px;
 }
 
-.main-panel .tab-container table.acct-lines th,
-.main-panel .tab-container table.acct-lines td {
-    min-width: 50px;
+.main-panel .tab-container table.acct-lines th {
     padding: 10px 5px;
+}
+
+.main-panel .tab-container table.acct-lines td {
+    padding: 10px 0;
 }
 
 .main-panel .tab-container table.acct-lines tr.header {
@@ -805,6 +808,10 @@ div.inquiry table.datatable th {
     vertical-align: middle;
     text-align: center;
     padding: 0;
+}
+
+.main-panel .tab-container table.acct-lines tr.line td:nth-child(2) {
+    padding-left: 5px;
 }
 
 .main-panel .tab-container table.acct-lines tr.line {
