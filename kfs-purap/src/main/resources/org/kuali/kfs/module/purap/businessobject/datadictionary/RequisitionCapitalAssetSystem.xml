@@ -80,7 +80,7 @@
       <ref bean="AnyCharacterWithWhitespaceValidation" />
     </property>
     <property name="control">
-      <bean parent="TextareaControlDefinition" p:rows="4" p:cols="60"/>
+      <bean parent="TextareaControlDefinition" p:rows="4" p:cols="40"/>
     </property>
   </bean>  
   <bean id="RequisitionCapitalAssetSystem-capitalAssetSystemDescription" parent="RequisitionCapitalAssetSystem-capitalAssetSystemDescription-parentBean"/>
@@ -94,7 +94,7 @@
       <ref bean="AnyCharacterWithWhitespaceValidation" />
     </property>
     <property name="control">
-      <bean parent="TextareaControlDefinition" p:rows="4" p:cols="60"/>
+      <bean parent="TextareaControlDefinition" p:rows="4" p:cols="40"/>
     </property>
   </bean>  
   <bean id="RequisitionCapitalAssetSystem-capitalAssetSystemIdentifier" parent="RequisitionCapitalAssetSystem-capitalAssetSystemIdentifier-parentBean"/>
