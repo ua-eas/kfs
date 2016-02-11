@@ -87,6 +87,10 @@
                     </table>
                 </div>
 
+                <c:if test="${reqSearchResults != null and empty reqSearchResults}">
+                    <div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+                </c:if>
+
                 <c:if test="${!empty reqSearchResultsSize }">
                     <c:set var="offset" value="0"/>
                     <display:table class="datatable-100" name="${reqSearchResults}"

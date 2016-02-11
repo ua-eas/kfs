@@ -87,6 +87,11 @@
             </td>
 		</tr>
 	</table>
+
+	<c:if test="${reqSearchResults != null and empty reqSearchResults}">
+		<div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+	</c:if>
+
 	<table width="100%">
 		<tr>
 			<td><c:if test="${!empty reqSearchResultsSize}">

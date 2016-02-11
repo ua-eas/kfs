@@ -128,18 +128,17 @@ public class ContractsGrantsSuspendedInvoiceDetailReportLookupableHelperServiceI
                                 }
                             }
                             ContractsAndGrantsBillingAward award = cgInvoiceDoc.getInvoiceGeneralDetail().getAward();
-                            Person fundManager = award.getAwardPrimaryFundManager().getFundManager();
-                            String fundManagerPrincipalName = fundManager.getPrincipalName();
-
-                            Person projectDirector = award.getAwardPrimaryProjectDirector().getProjectDirector();
-                            String projectDirectorPrincipalName = projectDirector.getPrincipalName();
-
-                            cgSuspendedInvoiceDetailReport.setAwardFundManager(fundManager);
-                            cgSuspendedInvoiceDetailReport.setAwardProjectDirector(projectDirector);
-                            cgSuspendedInvoiceDetailReport.setFundManagerPrincipalName(fundManagerPrincipalName);
-                            cgSuspendedInvoiceDetailReport.setProjectDirectorPrincipalName(projectDirectorPrincipalName);
-
-                            cgSuspendedInvoiceDetailReport.setAwardTotal(award.getAwardTotalAmount());
+                            if (award != null) {
+                                Person fundManager = award.getAwardPrimaryFundManager().getFundManager();
+                                String fundManagerPrincipalName = fundManager.getPrincipalName();
+                                Person projectDirector = award.getAwardPrimaryProjectDirector().getProjectDirector();
+                                String projectDirectorPrincipalName = projectDirector.getPrincipalName();
+                                cgSuspendedInvoiceDetailReport.setAwardFundManager(fundManager);
+                                cgSuspendedInvoiceDetailReport.setAwardProjectDirector(projectDirector);
+                                cgSuspendedInvoiceDetailReport.setProjectDirectorPrincipalName(projectDirectorPrincipalName);
+                                cgSuspendedInvoiceDetailReport.setFundManagerPrincipalName(fundManagerPrincipalName);
+                                cgSuspendedInvoiceDetailReport.setAwardTotal(award.getAwardTotalAmount());
+                            }
 
                             if (!displayList.contains(cgSuspendedInvoiceDetailReport)) {
                                 displayList.add(cgSuspendedInvoiceDetailReport);

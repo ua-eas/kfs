@@ -116,6 +116,10 @@
                     </a>
                 </c:if>
 
+                <c:if test="${reqSearchResults != null and empty reqSearchResults}">
+                    <div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+                </c:if>
+
                 <c:if test="${!empty reqSearchResultsSize }">
 
                     <display:table class="datatable-100" name="${reqSearchResults}" id="row"
