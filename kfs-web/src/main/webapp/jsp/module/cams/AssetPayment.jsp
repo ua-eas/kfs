@@ -30,8 +30,8 @@
 	<cams:assetPaymentAllocation />
 	<cams:assetPayments />
 
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true"
-		tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}">
+	<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.ACCOUNTING_LINE_ERRORS}"
+			 helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
 		<c:choose>
 			<c:when
 				test="${KualiForm.document.capitalAssetBuilderOriginIndicator }">

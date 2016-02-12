@@ -142,9 +142,6 @@ public class AccountingLinesTag extends BodyTagSupport {
         AccountingLineTableHeaderRenderer renderer = new AccountingLineTableHeaderRenderer();
         renderer.setCellCount(cellCount);
 
-        KualiAccountingDocumentFormBase form = (KualiAccountingDocumentFormBase)getForm();
-        renderer.setAccountingLineImportInstructionsUrl(form.getAccountingLineImportInstructionsUrl());
-
         renderer.render(pageContext, this);
     }
 

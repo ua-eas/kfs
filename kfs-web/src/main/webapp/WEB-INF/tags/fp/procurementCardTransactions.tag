@@ -28,7 +28,8 @@
 <c:set var="columnCount" value="${columnCountUntilAmount + 1 + (KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] ? 1 : 0)}" />
 <c:set var="accountingLineAttributes" value="${DataDictionary['TargetAccountingLine'].attributes}" />
 
-<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.TARGET_ACCOUNTING_LINE_ERROR_PATTERN},document.transactionEntries*">
+<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="${KFSConstants.TARGET_ACCOUNTING_LINE_ERROR_PATTERN},document.transactionEntries*"
+         helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
   <c:set var="transactionAttributes" value="${DataDictionary.ProcurementCardTransactionDetail.attributes}" />
   <c:set var="vendorAttributes" value="${DataDictionary.ProcurementCardVendor.attributes}" />
   <c:set var="cardAttributes" value="${DataDictionary.ProcurementCardHolder.attributes}" />
