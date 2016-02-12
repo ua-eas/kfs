@@ -32,7 +32,6 @@ import java.io.IOException;
  */
 public class AccountingLineTableHeaderRenderer implements Renderer {
     private int cellCount;
-    private String accountingLineImportInstructionsUrl;
 
 
     /**
@@ -47,7 +46,6 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
      */
     public void clear() {
         cellCount = 0;
-        accountingLineImportInstructionsUrl = null;
     }
 
     /**
@@ -60,21 +58,10 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         try {
             out.write(buildDivStart());
             out.write(buildTableStart(decideTableClass(parentTag)));
-            out.write(buildHelp());
         }
         catch (IOException ioe) {
             throw new JspException("Difficulty rendering AccountingLineTableHeader", ioe);
         }
-    }
-
-    protected String buildHelp() {
-        StringBuilder help = new StringBuilder();
-        help.append("<tr><th></th><td colspan=\"3\"><a href=\"");
-        help.append(accountingLineImportInstructionsUrl);
-        help.append("\" target=\"helpWindow\">");
-        help.append("<span class=\"fa fa-question-circle\"> Accounting Lines");
-        help.append("</a></td></tr>");
-        return help.toString();
     }
 
     protected String decideTableClass(Tag parentTag) {
@@ -111,22 +98,6 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
             tableClass += " " + styleClass;
         }
         return "<table class=\"" + tableClass + "\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
-    }
-
-    /**
-     * Gets the accountingLineImportInstructionsUrl attribute.
-     * @return Returns the accountingLineImportInstructionsUrl.
-     */
-    public String getAccountingLineImportInstructionsUrl() {
-        return accountingLineImportInstructionsUrl;
-    }
-
-    /**
-     * Sets the accountingLineImportInstructionsUrl attribute value.
-     * @param accountingLineImportInstructionsUrl The accountingLineImportInstructionsUrl to set.
-     */
-    public void setAccountingLineImportInstructionsUrl(String accountingLineImportInstructionsUrl) {
-        this.accountingLineImportInstructionsUrl = accountingLineImportInstructionsUrl;
     }
 
     /**

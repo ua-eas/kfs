@@ -26,6 +26,7 @@
 <%@ attribute name="searchDocumentTypeName" required="false" description="The document type name of a document being looked up to display help for." %>
 <%@ attribute name="lookupBusinessObjectClassName" required="false" description="The business object looked up on the lookup page, which needs to have specific help displayed for it." %>
 <%@ attribute name="alternativeHelp" required="false"%>
+<%@ attribute name="alternativeHelpLabel" required="false" description="Text that will appear next to the ?" %>
 <%@ attribute name="onClick" required="false" description="an optional onclick attribute to add" %>
 
 <%--
@@ -35,31 +36,37 @@
 --%>
 <c:choose><
   c:when test="${(!empty alternativeHelp)}"
-    ><a href="${alternativeHelp}"  target="_blank" title="[Help]${altText}" onclick="${onClick}"></c:when
+    ><a href="${alternativeHelp}"  target="_blank" title="[Help]${altText}" class="help-link" onclick="${onClick}"></c:when
 ><
   c:when test="${! empty resourceKey }"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=${resourceKey}" tabindex="-1" target="helpWindow" title="[Help]${altText}"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getResourceHelpText&amp;resourceKey=${resourceKey}" tabindex="-1" target="helpWindow" title="[Help]${altText}" class="help-link"></c:when
   ><
   c:when test="${(! empty businessObjectClassName) && (! empty attributeName) }"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=${businessObjectClassName}&amp;attributeName=${attributeName}" tabindex="-1" target="helpWindow"  title="[Help]${altText}"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=${businessObjectClassName}&amp;attributeName=${attributeName}" tabindex="-1" target="helpWindow"  title="[Help]${altText}" class="help-link"></c:when
   ><
   c:when test="${(! empty businessObjectClassName) && ( empty attributeName) }"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getBusinessObjectHelpText&amp;businessObjectClassName=${businessObjectClassName}" tabindex="-1" target="helpWindow" title="[Help]${altText}"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getBusinessObjectHelpText&amp;businessObjectClassName=${businessObjectClassName}" tabindex="-1" target="helpWindow" title="[Help]${altText}" class="help-link"></c:when
   ><
   c:when test="${(! empty documentTypeName) && (! empty pageName) }"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getPageHelpText&amp;documentTypeName=${documentTypeName}&amp;pageName=${pageName}" tabindex="-1" target="helpWindow"  title="[Help]${altText}"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getPageHelpText&amp;documentTypeName=${documentTypeName}&amp;pageName=${pageName}" tabindex="-1" target="helpWindow"  title="[Help]${altText}" class="help-link"></c:when
   ><
   c:when test="${! empty documentTypeName }"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getDocumentHelpText&amp;documentTypeName=${documentTypeName}" tabindex="-1" target="helpWindow"  title="[Help]${altText}"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getDocumentHelpText&amp;documentTypeName=${documentTypeName}" tabindex="-1" target="helpWindow"  title="[Help]${altText}" class="help-link"></c:when
   ><
   c:when test="${(! empty parameterNamespace) && (! empty parameterDetailType) && (! empty parameterName)}"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getHelpUrlByNamespace&amp;helpParameterNamespace=${parameterNamespace}&amp;helpParameterDetailType=${parameterDetailType}&amp;helpParameterName=${parameterName}" tabindex="-1" target="helpWindow"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getHelpUrlByNamespace&amp;helpParameterNamespace=${parameterNamespace}&amp;helpParameterDetailType=${parameterDetailType}&amp;helpParameterName=${parameterName}" tabindex="-1" target="helpWindow" class="help-link"></c:when
 ><
   c:when test="${(!empty searchDocumentTypeName)}"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getLookupHelpText&amp;searchDocumentTypeName=${searchDocumentTypeName}" tabindex="-1" target="helpWindow" title="[Help]${altText}"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getLookupHelpText&amp;searchDocumentTypeName=${searchDocumentTypeName}" tabindex="-1" target="helpWindow" title="[Help]${altText}" class="help-link"></c:when
 ><
   c:when test="${(!empty lookupBusinessObjectClassName)}"
-    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getLookupHelpText&amp;lookupBusinessObjectClassName=${lookupBusinessObjectClassName}" tabindex="-1" target="helpWindow" title="[Help]${altText}"></c:when
+    ><a href="${ConfigProperties.application.url}/kr/help.do?methodToCall=getLookupHelpText&amp;lookupBusinessObjectClassName=${lookupBusinessObjectClassName}" tabindex="-1" target="helpWindow" title="[Help]${altText}" class="help-link"></c:when
 >
 </c:choose
-><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" alt="[Help]${altText}" hspace=5 border=0  align="middle" class="help"></a>
+><img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" alt="[Help]${altText}" hspace=5 border=0  align="middle" class="help"/>
+<c:if test="${not empty alternativeHelpLabel}">
+    <span class="help-label">
+        ${alternativeHelpLabel}
+    </span>
+</c:if>
+</a>

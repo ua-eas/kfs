@@ -18,7 +18,8 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 <a name="${TEMConstants.SOURCE_ANCHOR }" id="${TEMConstants.SOURCE_ANCHOR }"></a>
-<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="sourceAccountingLines,newSourceLine*">
+<kul:tab tabTitle="Accounting Lines" defaultOpen="true" tabErrorKey="sourceAccountingLines,newSourceLine*"
+         helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
 	<c:if test="${fullEntryMode }">
 		<div class="tab-container" align="left">
 	    	<c:if test="${fn:length(KualiForm.document.sourceAccountingLines) > 0}" >

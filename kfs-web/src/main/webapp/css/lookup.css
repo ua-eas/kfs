@@ -72,8 +72,14 @@ input[type=radio] {
     box-shadow: 0px 2px 0px 0px #F3F3F3;
 }
 
-#view_div .main-panel .headerarea-small a[title="[Help]"] {
+#view_div a.help-link {
     line-height: 45px;
+}
+
+#view_div span.help-label {
+    font-size: 12px;
+    text-transform: none;
+    line-height: 50px;
 }
 
 #view_div a img {
