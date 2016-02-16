@@ -23,6 +23,9 @@ input[type=radio] {
     float: right;
     padding-top: 9px;
     height: 50px;
+    position: absolute;
+    top: 5px;
+    right: 41px;
 }
 
 #view_div .main-panel .lookupcreatenew {
