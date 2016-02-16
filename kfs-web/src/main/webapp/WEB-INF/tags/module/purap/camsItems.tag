@@ -154,7 +154,7 @@
 				<tr style="display: none;"  id="tab-${tabKey}-div">
 			</c:if>
 				<th colspan="${colSpan}">
-					<table class="standard acct-lines" style="margin:15px; width:calc(100% - 30px);">
+					<table class="standard acct-lines">
 						<tr>
 							<th class="right">
 							   <kul:htmlAttributeLabel attributeEntry="${camsItemAttributes.capitalAssetTransactionTypeCode}" />

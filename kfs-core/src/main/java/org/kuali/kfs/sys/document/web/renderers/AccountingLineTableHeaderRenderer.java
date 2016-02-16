@@ -97,7 +97,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         if (StringUtils.isNotBlank(styleClass)) {
             tableClass += " " + styleClass;
         }
-        return "<table class=\"" + tableClass + "\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
+        return "<table class=\"" + tableClass + "\">\n";
     }
 
     /**
