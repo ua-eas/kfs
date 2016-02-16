@@ -38,7 +38,6 @@
 <%@ attribute name="documentWebScope" required="false" description="The scope this page - which is hard coded to session, making this attribute somewhat useless." %>
 <%@ attribute name="maintenanceDocument" required="false" description="Boolean value of whether this page is rendering a maintenance document." %>
 <%@ attribute name="sessionDocument" required="false" description="Unused." %>
-<%@ attribute name="renderRequiredFieldsLabel" required = "false" description="Boolean value of whether to include a helpful note that the asterisk represents a required field - good for accessibility." %>
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
 <%@ attribute name="includeModal" required="false" description="Boolean value of whether the modal should be included" %>
@@ -135,7 +134,7 @@
 					  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
 					  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
 					  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
-					  renderRequiredFieldsLabel="${renderRequiredFieldsLabel}" renderInnerDiv="${renderInnerDiv}">
+					  renderInnerDiv="${renderInnerDiv}">
 
 			<div id="page-content">
                 <jsp:doBody/>
