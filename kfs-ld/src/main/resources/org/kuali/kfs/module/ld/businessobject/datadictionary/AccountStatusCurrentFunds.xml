@@ -57,8 +57,24 @@
 					bean="AccountStatusCurrentFunds-dummyBusinessObject.pendingEntryOption" />
 				<ref bean="AccountStatusCurrentFunds-emplid" />
 				<ref bean="AccountStatusCurrentFunds-name" />
+				<ref bean="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode"/>
+        		<ref bean="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
+        		<ref bean="AccountStatusCurrentFunds-account.organizationCode"/>
 			</list>
 		</property>
+		<property name="accessRestrictedAttributes">
+       		<list>
+           		<bean parent="ChartRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-chartOfAccountsCode"/></bean>
+           		<bean parent="ChartHierarchyRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-chartOfAccountsCode"/></bean>
+           		<bean parent="AccountRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-accountNumber"/></bean>
+           		<bean parent="PrincipalInvestigatorRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-accountNumber"/></bean>
+           		<bean parent="SubAccountRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-subAccountNumber"/></bean>
+           		<bean parent="OrganizationRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-account.organizationCode"/></bean>
+           		<bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-account.organizationCode"/></bean>
+           		<bean parent="ObjectLevelRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode"/></bean>
+           		<bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean> 
+       		</list>
+    	</property>
 	</bean>
 
 	<!-- Attribute Definitions -->
@@ -88,6 +104,7 @@
 	<bean id="AccountStatusCurrentFunds-accountNumber-parentBean"
 		abstract="true" parent="Account-accountNumber">
 	</bean>
+    
 	<bean id="AccountStatusCurrentFunds-chartOfAccountsCode"
 		parent="AccountStatusCurrentFunds-chartOfAccountsCode-parentBean" />
 
@@ -228,6 +245,21 @@
 			<ref bean="HiddenControl" />
 		</property>
 	</bean>
+	
+	<bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode" parent="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode-parentBean"/>
+    <bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
+         <property name="name" value="financialObject.financialObjectLevelCode"/>
+    </bean>
+        
+    <bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
+    <bean id="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
+         <property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
+    </bean>    
+    	
+	<bean id="AccountStatusCurrentFunds-account.organizationCode" parent="AccountStatusCurrentFunds-account.organizationCode-parentBean"/>
+    <bean id="AccountStatusCurrentFunds-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
+         <property name="name" value="account.organizationCode"/>
+    </bean>  
 
 	<!-- Business Object Inquiry Definition -->
 
