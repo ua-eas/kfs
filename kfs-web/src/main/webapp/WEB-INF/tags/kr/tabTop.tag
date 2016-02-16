@@ -65,18 +65,18 @@
         </c:if>
         <div style="display: ${tabDisplay};" id="tab-${tabKey}-div">
             <c:if test="${! (empty tabAuditKey) or ! (empty tabErrorKey)}">
-                <div class="tab-container-error">
-                    <div class="left-errmsg-tab">
-                        <c:if test="${! (empty tabErrorKey)}">
-                            <kul:errors keyMatch="${tabErrorKey}" errorTitle="Errors found in this Section:" />
-                        </c:if>
-                        <c:if test="${! (empty tabAuditKey)}">
+                <c:if test="${! (empty tabErrorKey)}">
+                    <kul:errors keyMatch="${tabErrorKey}" errorTitle="Errors found in this Section:" displayInDiv="true"/>
+                </c:if>
+                <c:if test="${! (empty tabAuditKey)}">
+                    <div class="tab-container-error">
+                        <div class="left-errmsg-tab">
                             <c:forEach items="${fn:split(auditCluster,',')}" var="cluster">
                                 <kul:auditErrors cluster="${cluster}" keyMatch="${tabAuditKey}" isLink="false" includesTitle="true"/>
                             </c:forEach>
-                        </c:if>
+                        </div>
                     </div>
-                </div>
+                </c:if>
             </c:if>
             <div class="tab-container">
                 <jsp:doBody/>

@@ -732,6 +732,8 @@ div.inquiry table.datatable th {
 .main-panel .tab-container table.acct-lines {
     table-layout: fixed;
     min-width: 1000px;
+    width: calc(100% - 30px);
+    margin: 0 15px 15px 15px;
 }
 
 .main-panel .tab-container table.acct-lines span.amount {

@@ -50,7 +50,7 @@
 			<ec:detailLineImport readOnly="${readOnly}" attributes="${documentAttributes}" />				
 		</div>
 		
-		<div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="${EffortConstants.EFFORT_CERTIFICATION_TAB_ERRORS}"/></div></div>
+		<kul:errors keyMatch="${EffortConstants.EFFORT_CERTIFICATION_TAB_ERRORS}" displayInDiv="true"/>
 					
 		<div class="tab-container" align=center>			
 			<h3>Effort Detail Lines</h3>
