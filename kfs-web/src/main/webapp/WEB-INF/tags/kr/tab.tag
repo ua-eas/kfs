@@ -210,7 +210,7 @@
     </c:if>
 
         <c:if test="${! (empty tabErrorKey)}">
-            <div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="${tabErrorKey}"/></div></div>
+            <kul:errors keyMatch="${tabErrorKey}" displayInDiv="true"/>
         </c:if>
 
         <c:if test="${! (empty tabAuditKey) && (useRiceAuditMode == 'true')}">

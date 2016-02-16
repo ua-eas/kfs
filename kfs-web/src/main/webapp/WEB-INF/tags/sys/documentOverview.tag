@@ -51,9 +51,7 @@
         <h3><c:out value="Financial Document Detail"/></h3>
 
         <c:if test="${includeBankCode}">
-            <div class="tab-container-error">
-                <div class="left-errmsg-tab"><kul:errors keyMatch="${bankProperty}"/></div>
-            </div>
+            <kul:errors keyMatch="${bankProperty}" displayInDiv="true"/>
         </c:if>
         <table class="standard side-margins" summary="KFS Detail Section">
             <tr>

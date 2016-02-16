@@ -37,13 +37,7 @@
 
     <kul:tabTop tabTitle="Manage Batch Files" defaultOpen="true" tabErrorKey="">
         <div class="tab-container">
-            <div class="tab-container-error">
-                <div class="left-errmsg-tab">
-                    <div>
-                        <kul:errors keyMatch="*" errorTitle="Errors Found In File:" warningTitle="Warnings Found In File:"/>
-                    </div>
-                </div>
-            </div>
+            <kul:errors keyMatch="*" errorTitle="Errors Found In File:" warningTitle="Warnings Found In File:" displayInDiv="true"/>
 
             <table class="standard" summary="" cellpadding="0" cellspacing="0">
                 <tr class="header">

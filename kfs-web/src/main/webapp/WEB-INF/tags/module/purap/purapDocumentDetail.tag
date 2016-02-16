@@ -56,7 +56,7 @@
 <c:set var="poOutForQuote" value="${KualiForm.document.applicationDocumentStatus eq 'Out for Quote'}" />
 
 <h3><c:out value="${detailSectionLabel}"/> </h3>
-<div class="tab-container-error"><div class="left-errmsg-tab"><kul:errors keyMatch="document.assignedUserPrincipalName,document.purchaseOrderPreviousIdentifier"/></div></div>		        
+<kul:errors keyMatch="document.assignedUserPrincipalName,document.purchaseOrderPreviousIdentifier" displayInDiv="true"/>
 
 <table class="datatable" summary="Detail Section">
     <c:if test="${not paymentRequest}">
