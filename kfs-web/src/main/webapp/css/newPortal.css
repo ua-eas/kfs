@@ -785,11 +785,18 @@ nav ul.nav li {
 
 .remodal #breadcrumbs {
     float: left;
-    color: #aaa;
+    color: #767676;
+    font-size: 16px;
+    margin-left: 20px;
+    text-transform: uppercase;
+    width: calc(100% - 315px);
+    text-align: left;
 }
 
 .modal-header {
     background-color: #E5E5E5;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    overflow: auto;
+    padding: 15px 15px 5px 15px;
 }
