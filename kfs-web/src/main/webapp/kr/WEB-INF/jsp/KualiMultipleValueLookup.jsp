@@ -60,11 +60,7 @@
 
 	<kul:errors errorTitle="Errors found in Search Criteria:" />
 	<kul:messages/>
-	<div class="right">
-		<div class="excol">
-		* required field
-		</div>
-	</div>
+
 	<table class="multi-column-table" align="center">
 		<tr>
 			<td>
