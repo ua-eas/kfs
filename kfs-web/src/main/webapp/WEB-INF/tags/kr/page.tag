@@ -104,8 +104,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
-		<link href='${pageContext.request.contextPath}/css/newPortal.css' rel='stylesheet' type='text/css'>
-		<link href='${pageContext.request.contextPath}/css/lookup.css' rel='stylesheet' type='text/css'>
+		<link href='${pageContext.request.contextPath}/css/newPortal.css?${cachingTimestamp}' rel='stylesheet' type='text/css'>
+		<link href='${pageContext.request.contextPath}/css/lookup.css?${cachingTimestamp}' rel='stylesheet' type='text/css'>
 		<c:if test="${param.mode ne 'modal'}">
 			<script src="${pageContext.request.contextPath}/scripts/jquery.min.js"></script>
 			<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
