@@ -295,11 +295,12 @@ nav ul.nav li {
 
 #sidebar #home-item {
     height: 30px;
-    padding: 10px 0 0 20px;
+    padding-left: 20px;
 }
 
 #sidebar #home {
     float: left;
+    padding-top: 10px;
 }
 
 #sidebar #home .home-icon {
@@ -387,6 +388,7 @@ nav ul.nav li {
     float: right;
     cursor: pointer;
     font-weight: 700;
+    padding: 9px;
 }
 
 #menu-toggle.glyphicon.rotated {
