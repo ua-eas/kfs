@@ -18,6 +18,9 @@
     <frontend-maven-plugin.node.version>v0.12.7</frontend-maven-plugin.node.version>
     <frontend-maven-plugin.npm.version>2.7.6</frontend-maven-plugin.npm.version>
     <jsfrontend.sources>src/main/webapp</jsfrontend.sources>
+
+    <cachingTimestamp>${maven.build.timestamp}</cachingTimestamp>
+    <maven.build.timestamp.format>yyyyMMddHHmmS</maven.build.timestamp.format>
   </properties>
 
   <pluginRepositories>
@@ -97,6 +100,15 @@
             </resource>
             <resource>
               <directory>${help.web.sources}</directory>
+            </resource>
+            <resource>
+              <directory>src/main/webapp/WEB-INF/</directory>
+              <targetPath>WEB-INF</targetPath>
+              <filtering>true</filtering>
+              <includes>
+                <include>**/*.jsp</include>
+                <include>**/*.tag</include>
+              </includes>
             </resource>
           </webResources>
         </configuration>
