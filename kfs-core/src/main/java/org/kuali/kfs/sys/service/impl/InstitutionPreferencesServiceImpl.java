@@ -260,7 +260,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             linkInfo = determineLookupLinkInfo(businessObjectClassName, person);
         } else if (StringUtils.isNotBlank((String)link.get(KFSPropertyConstants.LINK))) {
             String finalLink;
-            if (link.get(KFSPropertyConstants.LINK_TYPE) != null && link.get(KFSPropertyConstants.LINK_TYPE).equals(KFSConstants.NavigationLinkTypes.RICE)) {
+            if (link.get(KFSPropertyConstants.LINK_TYPE) != null && StringUtils.equals((String)link.get(KFSPropertyConstants.LINK_TYPE), KFSConstants.NavigationLinkTypes.RICE)) {
                 finalLink = determineRiceLink((String)link.get(KFSPropertyConstants.LINK));
             } else {
                 finalLink = fixRelativeLink((String)link.get(KFSPropertyConstants.LINK));
@@ -285,21 +285,27 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     protected String determineRiceLink(String link) {
         String riceHost = configurationService.getPropertyValueAsString(KFSConstants.RICE_SERVER_URL_KEY);
         if (!link.startsWith("/")) {
-            link = "/" + link;
+            link = "/" + addReturnLocationToLookupLink(link);
         }
         return riceHost + link;
     }
 
     protected String fixRelativeLink(String link) {
+        String fixedLink = link;
         if (!link.startsWith("http")) {
-            final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
-            if (link.startsWith(KFSConstants.LOOKUP_ACTION)) {
-                String connector = link.contains("?") ? "&" : "?";
-                link += connector + KFSConstants.RETURN_LOCATION_PARAMETER + "=" + applicationUrl + "/portal.do";
-            }
-            link = applicationUrl + "/" + link;
+            String updatedLink = addReturnLocationToLookupLink(link);
+            fixedLink = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/" + updatedLink;
         }
-        return link;
+        return fixedLink;
+    }
+
+    protected String addReturnLocationToLookupLink(String link) {
+        String updatedLink = link;
+        if (link.startsWith(KFSConstants.LOOKUP_ACTION)) {
+            String connector = link.contains("?") ? "&" : "?";
+            updatedLink = link + connector + KFSConstants.RETURN_LOCATION_PARAMETER + "=" + configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/portal.do";
+        }
+        return updatedLink;
     }
 
     protected Map<String, Object> determineDocumentLinkInfo(String documentTypeName, Person person) {
