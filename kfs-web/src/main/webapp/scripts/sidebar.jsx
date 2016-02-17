@@ -306,7 +306,10 @@ var Sidebar = React.createClass({
                 <div className="cover"></div>
                 <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
                 <ul id="filters" className="nav list-group">
-                    <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
+                    <li id="home-item">
+                        <span id="home"><span className="fa fa-home home-icon"></span><a href={rootPath}>Home</a></span>
+                        <span id="menu-toggle" className={menuToggleClassName} onClick={this.toggleSidebar}></span>
+                    </li>
                     <li className={navSearchClass}>
                         <input type="search" placeholder="Search" onChange={this.autocompleteSearch} value={this.state.search} ref="searchBox" onFocus={this.autocompleteSearch} />
                         <span className="glyphicon glyphicon-remove" onClick={this.clearSearch}></span>
@@ -318,7 +321,6 @@ var Sidebar = React.createClass({
                 </ul>
                 <div id="sidebar-scroll">
                     <ul id="linkgroups" className="nav list-group">
-                        <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                         {linkGroups}
                     </ul>
                     <div className="refresh">

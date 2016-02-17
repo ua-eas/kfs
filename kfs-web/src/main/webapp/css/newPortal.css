@@ -281,7 +281,7 @@ nav ul.nav li {
 
 #sidebar #sidebar-scroll {
     position: absolute;
-    top: 170px;
+    top: 155px;
     bottom: 0;
     overflow-y: auto;
     overflow-x: hidden;
@@ -291,6 +291,21 @@ nav ul.nav li {
 
 #sidebar.collapsed ul {
     margin-left: -295px;
+}
+
+#sidebar #home-item {
+    height: 30px;
+    padding: 10px 0 0 20px;
+}
+
+#sidebar #home {
+    float: left;
+}
+
+#sidebar #home .home-icon {
+    padding-right: 5px;
+    color: #D6D6D6;
+    font-size: 20px;
 }
 
 #sidebar ul>li.list-item {
@@ -309,11 +324,11 @@ nav ul.nav li {
 }
 
 #sidebar ul>li.search input {
-    margin: 15px 19px;
+    margin: 15px 12px;
     padding: 7px;
     border-radius: 2px;
     height: 36px;
-    width: 280px;
+    width: 294px;
     border: 1px solid #CCCCCC;
     font-size: 16px;
     color: #767676;
@@ -323,16 +338,6 @@ nav ul.nav li {
 #sidebar.collapsed ul>li.list-item,
 #sidebar.collapsed .refresh {
     opacity: 0;
-}
-
-#sidebar ul#filters>li:first-child {
-    text-align: right;
-    padding: 13px 2px 13px 4px;
-    transition: 500ms all;
-}
-
-#sidebar.collapsed ul>li:first-child {
-    padding: 13px 3px 13px 4px;
 }
 
 .sidebar-waiting {
@@ -376,6 +381,7 @@ nav ul.nav li {
 
 #menu-toggle {
     transition: 500ms all;
+    float: right;
 }
 
 #menu-toggle.glyphicon.rotated {
