@@ -22,11 +22,6 @@
           headerTitle="Sidebar Menu Cache" docTitle="Sidebar Menu Cache Configuration" renderMultipart="true"
           transactionalDocument="false" htmlFormAction="sidebarMenuCache" errorKey="foo">
 
-    <div class="right">
-        <div class="excol">
-            * Required Field
-        </div>
-    </div>
     <div class="msg-excol">
         <div class="left-errmsg">
             <kul:errors errorTitle="Errors found:" />

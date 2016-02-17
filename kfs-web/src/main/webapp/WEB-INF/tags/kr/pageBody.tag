@@ -38,7 +38,6 @@
 <%@ attribute name="auditCount" required="false" description="The number of audit errors displayed on this page." %>
 <%@ attribute name="documentWebScope" required="false" description="The scope this page - which is hard coded to session, making this attribute somewhat useless." %>
 <%@ attribute name="maintenanceDocument" required="false" description="Boolean value of whether this page is rendering a maintenance document." %>
-<%@ attribute name="renderRequiredFieldsLabel" required = "false" description="Boolean value of whether to include a helpful note that the asterisk represents a required field - good for accessibility." %>
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
 
@@ -300,9 +299,6 @@
                                         <html:button styleId="collapseAll" property="methodToCall.hideAllTabs" title="hide all panel content" alt="hide all panel content" styleClass="btn btn-primary" onclick="return collapseAllTab('${formId}');" tabindex="-1" value="collapse all" />
                                     </c:if>
                                 </div>
-                                <c:if test="${renderRequiredFieldsLabel}" >
-                                    <span>* Required Field</span>
-                                </c:if>
                             </div>
                         </div>
                     </c:otherwise>
