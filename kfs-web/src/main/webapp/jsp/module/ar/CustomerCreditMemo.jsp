@@ -33,6 +33,7 @@
 	<!--  Display 1st screen -->
 	<c:if test="${displayInitTab}" >
 		<ar:customerCreditMemoInit />
+		<c:set var="globalButtonTabIndex" value="15"/>
 	</c:if>
 
 	<!--  Display 2nd screen -->
@@ -49,6 +50,10 @@
 	</c:if>
 
 	<c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
-  	<kul:documentControls transactionalDocument="true" extraButtons="${extraButtons}" suppressRoutingControls="${displayInitTab}" />
+  	<kul:documentControls
+			transactionalDocument="true"
+			extraButtons="${extraButtons}"
+			suppressRoutingControls="${displayInitTab}"
+			tabindex="${globalButtonTabIndex}"/>
 
 </kul:documentPage>

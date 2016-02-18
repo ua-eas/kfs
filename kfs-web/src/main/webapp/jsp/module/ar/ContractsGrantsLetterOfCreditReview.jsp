@@ -34,6 +34,7 @@
 	<!--  Display 1st screen -->
 	<c:if test="${displayInitTab}">
 		<ar:contractsGrantsLetterOfCreditReviewInit />
+		<c:set var="globalButtonTabIndex" value="15"/>
 	</c:if>
 
 	<!--  Display 2nd screen -->
@@ -55,6 +56,7 @@
 		scope="request" />
 	<kul:documentControls transactionalDocument="true"
 		extraButtons="${extraButtons}"
-		suppressRoutingControls="${displayInitTab}" />
+		suppressRoutingControls="${displayInitTab}"
+			tabindex="${globalButtonTabIndex}"/>
 
 </kul:documentPage>

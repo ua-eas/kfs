@@ -55,6 +55,7 @@
     	<purap:paymentRequestInit 
     		documentAttributes="${DataDictionary.PaymentRequestDocument.attributes}"
 	 		displayPaymentRequestInitFields="true" />
+		<c:set var="globalButtonTabIndex" value="15"/>
 	</c:if>
 	
 	<c:if test="${not KualiForm.editingMode['displayInitTab']}" >
@@ -100,7 +101,7 @@
         transactionalDocument="true"  
         extraButtons="${extraButtons}"  
         suppressRoutingControls="${KualiForm.editingMode['displayInitTab']}"
-       	
+       	tabindex="${globalButtonTabIndex}"
     />
    
 </kul:documentPage>
