@@ -104,6 +104,8 @@
 			<td>
 				<c:if test="${!empty reqSearchResultsSize}">
 					<c:set var="exporting" value="${!empty param['d-16544-e']}" scope="request" />
+					<a id="search-results"></a>
+					<div class="main-panel search-results">
 					<display:table class="datatable-100" name="${reqSearchResults}" id="row" export="true" pagesize="100" defaultsort="1"
 						requestURI="glTrialBalance.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
 
@@ -191,7 +193,7 @@
 								</c:if>
 							</logic:present>
 						</c:if>
-					</display:table>
+					</display:table></div>
 				</c:if>
 			</td>
 		</tr>

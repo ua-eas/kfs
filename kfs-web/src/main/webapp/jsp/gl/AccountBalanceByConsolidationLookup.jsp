@@ -94,6 +94,8 @@
 
                 <c:if test="${!empty reqSearchResultsSize }">
                     <c:set var="offset" value="0"/>
+                    <a id="search-results"></a>
+                    <div class="main-panel search-results">
                     <display:table class="datatable-100" name="${reqSearchResults}" id="row"
                                    export="true" pagesize="100" offset="${offset}"
                                    requestURI="glAccountBalanceByConsolidationLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
@@ -121,7 +123,7 @@
                                 </c:choose>
                             </display:column>
                         </c:forEach>
-                    </display:table>
+                    </display:table></div>
 
                     <c:if test="${not empty totalsTable}">
                         <table class="datatable-80" id="row" align="center">
