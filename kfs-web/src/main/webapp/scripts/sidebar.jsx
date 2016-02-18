@@ -347,7 +347,10 @@ var convertLinks = function(links, type, backdoorId) {
     }
     let backdoorIdAppender = KfsUtils.buildBackdoorIdAppender(backdoorId);
     return links.map((link, i) => {
-        let target = link.linkType === 'kfs' ? null : '_blank';
+        let target = null;
+        if (link.linkType !== 'kfs' || link.newTarget) {
+            target = '_blank';
+        }
         let url = link.linkType === 'rice' ? backdoorIdAppender(link.link) : link.link;
         return <Link key={type + "_" + i} url={url} label={link.label} className="list-group-item" target={target}/>
     })
