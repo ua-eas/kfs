@@ -310,7 +310,7 @@ var Sidebar = React.createClass({
                 <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
                 <ul id="filters" className="nav list-group">
                     <li id="home-item">
-                        <span id="home"><span className="fa fa-home home-icon"></span><a href={rootPath}>Home</a></span>
+                        <span id="home"><a href={rootPath}><span className="fa fa-home home-icon"></span>Home</a></span>
                         <span id="menu-toggle" className={menuToggleClassName} onClick={this.toggleSidebar}></span>
                     </li>
                     <li className={navSearchClass}>
