@@ -794,10 +794,12 @@ public class AccountRule extends IndirectCostRecoveryAccountsRule {
         if (ObjectUtils.isNotNull(newAccount.getSubFundGroup())) {
             if (getSubFundGroupService().isForContractsAndGrants(newAccount.getSubFundGroup())) {
                 result &= checkEmptyBOField("acctIndirectCostRcvyTypeCd", newAccount.getAcctIndirectCostRcvyTypeCd(), getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel());
-                result &= checkEmptyBOField("financialIcrSeriesIdentifier", newAccount.getFinancialIcrSeriesIdentifier(), getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel());
+                result &= checkEmptyBOField("financialIcrSeriesIdentifier", newAccount.getFinancialIcrSeriesIdentifier(),
+                        SpringContext.getBean(DataDictionaryService.class).getAttributeLabel(Account.class, KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER));
 
                 // Validation for financialIcrSeriesIdentifier
-                if (checkEmptyBOField(KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER, newAccount.getFinancialIcrSeriesIdentifier(), getSubFundGroupService().getContractsAndGrantsDenotingAttributeLabel())) {
+                if (checkEmptyBOField(KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER, newAccount.getFinancialIcrSeriesIdentifier(),
+                        SpringContext.getBean(DataDictionaryService.class).getAttributeLabel(Account.class, KFSPropertyConstants.FINANCIAL_ICR_SERIES_IDENTIFIER))) {
                     String fiscalYear = StringUtils.EMPTY + SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear();
                     String icrSeriesId = newAccount.getFinancialIcrSeriesIdentifier();
 

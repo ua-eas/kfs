@@ -61,8 +61,6 @@
 <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 
 <div class="tab-container">
-
-
     <table class="standard side-margins acct-lines" summary="Items Section">
         <tr class="title">
             <th></th>
@@ -103,15 +101,15 @@
             <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTypeCode}" colspan="2"/>
 
             <c:if test="${showInvoiced}">
-                <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.originalAmountfromPO}" />
-                <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.poOutstandingAmount}" />
+                <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.originalAmountfromPO}" addClass="right" />
+                <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.poOutstandingAmount}" addClass="right" />
                 <c:set var="accountingLineWidth" value="${accountingLineWidth + 2}"/>
             </c:if>
 
             <c:choose>
                 <c:when test="${descriptionFirst}">
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" />
-                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" />
+                    <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" addClass="right" />
                     <c:set var="accountingLineWidth" value="${accountingLineWidth + 2}"/>
                     <c:if test="${purapTaxEnabled}">
                         <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemTaxAmount}" addClass="right" />
@@ -153,13 +151,13 @@
                     </td>
 
                     <c:if test="${showInvoiced}">
-                        <td class="infoline">
+                        <td class="infoline right">
                             <kul:htmlControlAttribute
                                 attributeEntry="${itemAttributes.purchaseOrderItemUnitPrice}"
                                 property="document.item[${ctr}].purchaseOrderItemUnitPrice"
                                 readOnly="true" />
                         </td>
-                        <td class="infoline">
+                        <td class="infoline right">
                             <kul:htmlControlAttribute
                                 attributeEntry="${itemAttributes.poOutstandingAmount}"
                                 property="document.item[${ctr}].poOutstandingAmount"
@@ -172,7 +170,7 @@
                             <td class="infoline">
                                 <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemDescription}" property="document.item[${ctr}].itemDescription" readOnly="${not (fullEntryMode or amendmentEntry)}" tabindexOverride="${tabindexOverrideBase + 0}" styleClass="fullwidth"/>
                             </td>
-                            <td class="infoline">
+                            <td class="infoline right">
                                 <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemUnitPrice}" property="document.item[${ctr}].itemUnitPrice" readOnly="${not (fullEntryMode or amendmentEntry)}" styleClass="amount" tabindexOverride="${tabindexOverrideBase + 0}"/>
                             </td>
 

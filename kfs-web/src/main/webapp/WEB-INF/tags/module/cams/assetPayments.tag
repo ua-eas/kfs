@@ -23,17 +23,13 @@
 <c:set var="tabKey" value="${kfunc:generateTabKey(subTabTitle)}"/>
 
 <kul:tab tabTitle="Assets" defaultOpen="true" tabErrorKey="capitalAssetNumber*,commonErrorSection">
-	<div class="tab-container" id="assets" align="center">		
-		<table class="datatable" width="100%" border="0" cellpadding="0" cellspacing="0" border="1">
-			<tr>
-				<td colspan="3" class="subhead">
-			    	<span class="subhead-left">Assets</span>
-			  	</td>
-			</tr>			
-			<c:if test="${!readOnly}">
+	<div class="tab-container" id="assets">
+
+		<c:if test="${!readOnly}">
+			<table class="standard side-margins">
 			    <tr>
-				    <th width="10%">${requiredCapitalAssetNumber }</th>
-					<td class="infoline" valign="top" width="84%">															   
+				    <th class="right" width="50%">${requiredCapitalAssetNumber}:</th>
+					<td class="infoline" valign="top" width="50%">
 						<kul:htmlControlAttribute attributeEntry="${assetAttributes.capitalAssetNumber}" property="capitalAssetNumber"/>				
 						<kul:multipleValueLookup boClassName="org.kuali.kfs.module.cam.businessobject.Asset" lookedUpCollectionName="assetPaymentAssetDetail"/>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -45,12 +41,9 @@
 								value="Add"/>
 					</td>
 			    </tr>
-			</c:if>
-			<tr>
-				<td colspan="7" style="padding: 0px;border-bottom-style:none;border-left-style:none;border-right-style:none;border-top-style:none;">
-					<cams:assetPaymentsAssetInformation/>
-				</td>
-			</tr>
-		</table>
+			</table>
+		</c:if>
+
+		<cams:assetPaymentsAssetInformation/>
     </div>    
 </kul:tab>

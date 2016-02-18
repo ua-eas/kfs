@@ -1471,7 +1471,12 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
 
         boolean createAsset = (StringUtils.equalsIgnoreCase(capitalAssetInformation.getCapitalAssetActionIndicator(), KFSConstants.CapitalAssets.CAPITAL_ASSET_CREATE_ACTION_INDICATOR) ? true : false);
 
-        if (createAsset && (ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetTypeCode()) || ObjectUtils.isNotNull(capitalAssetInformation.getVendorName()) || ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetQuantity()) || ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerName()) || ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerModelNumber()) || ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetDescription()))) {
+        if (createAsset && (ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetTypeCode()) 
+        		|| ObjectUtils.isNotNull(capitalAssetInformation.getVendorName()) 
+        		|| (ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetQuantity()) && capitalAssetInformation.getCapitalAssetQuantity() > 0)
+        		|| ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerName()) 
+        		|| ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerModelNumber()) 
+        		|| ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetDescription()))) {
             isBlank = false;
         }
         return isBlank;

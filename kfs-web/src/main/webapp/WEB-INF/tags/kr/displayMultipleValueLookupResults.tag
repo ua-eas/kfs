@@ -38,15 +38,38 @@
 			<input type="hidden" name="${Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM}" value="${KualiForm.columnToSortIndex}"/>
 			<c:if test="${KualiForm.hasReturnableRow}" >
 				<p>
-					<input type="image" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectallfromallpages.png" alt="Select all rows from all pages" title="Select all rows from all pages" class="tinybutton" name="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All Rows"/>
-					<input type="image" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_deselectallfromallpages.png" alt="Deselect all rows from all pages" title="Unselect all rows from all pages" class="tinybutton" name="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All Rows"/>					
-					<script>
-						document.write('\n');
-						document.write('<a href="javascript:void(0)" onclick="setAllMultipleValueLookuResults(true);"><img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectallfromthispage.png" alt="Select all rows from this page" title="Select all rows from this page" class="tinybutton"/></a>');
-						document.write('\n');
-						document.write('<a href="javascript:void(0)" onclick="setAllMultipleValueLookuResults(false);"><img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_deselectallfromthispage.png" alt="Deselect all rows from this page" title="Deselect all rows from this page" class="tinybutton" onclick="setAllMultipleValueLookuResults(false)"/></a>');
-					</script>
-					<input type="submit" alt="Return selected results" title="Return selected results" class="btn btn-default" name="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" value="Return Selected"/>
+					<html:submit
+							alt="Select all rows from all pages"
+							title="Select all rows from all pages"
+							styleClass="btn btn-default"
+							property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+							value="Select All From All Pages"/>
+					<html:submit
+							alt="Deselect all rows from all pages"
+							title="Unselect all rows from all pages"
+							styleClass="btn btn-default"
+							property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+							value="Deselect All From All Pages"/>
+					<button
+							class="btn btn-default"
+							onclick="setAllMultipleValueLookuResults(true); return false;"
+							alt="Select all rows from this page"
+							title="Select all rows from this page">
+						Select All From This Page
+					</button>
+					<button
+							class="btn btn-default"
+							onclick="setAllMultipleValueLookuResults(false); return false;"
+							alt="Deselect all rows from this page"
+							title="Deselect all rows from this page">
+						Deselect All From This Page
+					</button>
+					<html:submit
+							alt="Return selected results"
+							title="Return selected results"
+							styleClass="btn btn-default"
+							property="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}"
+							value="Return Selected"/>
 				</p>
 			</c:if>
 			<table class="datatable-100" id="row">
@@ -56,21 +79,14 @@
 							Select?
 						</th>
 						<c:forEach items="${resultsList[0].columns}" var="column" varStatus="columnLoopStatus">
-							<th class="sortable">
+							<th class="sortable nowrap">
 								${column.columnTitle}
+								&nbsp;
+								<input name="methodToCall.sort.<c:out value="${columnLoopStatus.index}"/>.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" type="image" src="${ConfigProperties.krad.externalizable.images.url}sort_both_kns.png" alt="Sort column ${column.columnTitle}" valign="bottom" title="Sort column ${column.columnTitle}">
 							</th>
 						</c:forEach>
 					</tr>
-					<tr>
-											<th>
-							&nbsp;
-						</th>
-						<c:forEach items="${resultsList[0].columns}" var="column" varStatus="columnLoopStatus">
-							<th class="sortable" align="center">
-								<input name="methodToCall.sort.<c:out value="${columnLoopStatus.index}"/>.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" type="image" src="${ConfigProperties.kr.externalizable.images.url}sort.gif" alt="Sort column ${column.columnTitle}" valign="bottom" title="Sort column ${column.columnTitle}">
-							</th>
-						</c:forEach>
-					</tr>
+
 				</thead>
 				<c:forEach items="${resultsList}" var="row" varStatus="rowLoopStatus" begin="${KualiForm.firstRowIndex}" end="${KualiForm.lastRowIndex}">
 					<c:set var="rowclass" value="odd"/>
@@ -100,15 +116,38 @@
 			</table>
 			<c:if test="${ KualiForm.hasReturnableRow }" >
 				<p>
-					<input type="image" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectallfromallpages.png" alt="Select all rows from all pages" title="Select all rows from all pages" class="tinybutton" name="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All Rows"/>
-					<input type="image" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_deselectallfromallpages.png" alt="Deselect all rows from all pages" title="Unselect all rows from all pages" class="tinybutton" name="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All Rows"/>
-					<script>
-						document.write('\n');
-						document.write('<a href="javascript:void(0)" onclick="setAllMultipleValueLookuResults(true);"><img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_selectallfromthispage.png" alt="Select all rows from this page" title="Select all rows from this page" class="tinybutton"/></a>');
-						document.write('\n');
-						document.write('<a href="javascript:void(0)" onclick="setAllMultipleValueLookuResults(false);"><img src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_deselectallfromthispage.png" alt="Deselect all rows from this page" title="Deselect all rows from this page" class="tinybutton" onclick="setAllMultipleValueLookuResults(false)"/></a>');
-					</script>
-					<input type="submit" alt="Return selected results" title="Return selected results" class="btn btn-default" name="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}" value="Return Selected"/>
+					<html:submit
+							alt="Select all rows from all pages"
+							title="Select all rows from all pages"
+							styleClass="btn btn-default"
+							property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+							value="Select All From All Pages"/>
+					<html:submit
+							alt="Deselect all rows from all pages"
+							title="Unselect all rows from all pages"
+							styleClass="btn btn-default"
+							property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x"
+							value="Deselect All From All Pages"/>
+					<button
+							class="btn btn-default"
+							onclick="setAllMultipleValueLookuResults(true); return false;"
+							alt="Select all rows from this page"
+							title="Select all rows from this page">
+						Select All From This Page
+					</button>
+					<button
+							class="btn btn-default"
+							onclick="setAllMultipleValueLookuResults(false); return false;"
+							alt="Deselect all rows from this page"
+							title="Deselect all rows from this page">
+						Deselect All From This Page
+					</button>
+					<html:submit
+							alt="Return selected results"
+							title="Return selected results"
+							styleClass="btn btn-default"
+							property="methodToCall.prepareToReturnSelectedResults.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}"
+							value="Return Selected"/>
 				</p>
 			</c:if>
 			<kul:multipleValueLookupExportBanner/>

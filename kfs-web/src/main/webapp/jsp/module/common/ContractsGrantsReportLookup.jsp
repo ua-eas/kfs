@@ -175,8 +175,14 @@
         </table>
     </c:if>
 
+    <c:if test="${reqSearchResults != null and empty reqSearchResults}">
+        <div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+    </c:if>
+
     <c:if test="${reqSearchResultsActualSize>0}">
-        <c:out value="${reqSearchResultsActualSize}" /> items found.  Please refine your search criteria to narrow down your search.
+        <div class="search-message">
+            <c:out value="${reqSearchResultsActualSize}" /> items found.  Please refine your search criteria to narrow down your search.
+        </div>
     </c:if>
 
     <c:if test="${!empty reqSearchResultsActualSize }">

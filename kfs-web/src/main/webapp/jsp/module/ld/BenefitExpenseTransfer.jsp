@@ -170,7 +170,8 @@ read only then the javascript can not write value to the field. -->
 		</div>
 	</kul:tab>
 
-	<kul:tab tabTitle="Accounting Lines" defaultOpen="true">
+	<kul:tab tabTitle="Accounting Lines" defaultOpen="true"
+             helpUrl="${KualiForm.accountingLineImportInstructionsUrl}" helpLabel="Import Templates">
 		<sys-java:accountingLines>
 			<sys-java:accountingLineGroup collectionPropertyName="document.sourceAccountingLines" collectionItemPropertyName="document.sourceAccountingLine" attributeGroupName="source" />
 			<sys-java:accountingLineGroup collectionPropertyName="document.targetAccountingLines" collectionItemPropertyName="document.targetAccountingLine" attributeGroupName="target"/> 

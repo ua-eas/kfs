@@ -356,22 +356,25 @@
 			key="meaningless" />
 	</global-exceptions>
 
-
 	<global-forwards>
 		<forward name="save" path="/index.jsp" redirect="true" />
 		<forward name="cancel" path="/index.jsp" redirect="true" />
 		<forward name="close" path="/index.jsp" redirect="true" />
 		<forward name="portal" path="/index.jsp" redirect="true" />
 		<forward name="route_report" path="/kr/WEB-INF/jsp/RoutingReportForward.jsp" />
-		<forward name="exceptionIncidentHandler" path="/kr/kualiExceptionIncidentReport.do" />
+		<forward name="exceptionIncidentHandler" path="/kfsError.do" />
 		<forward name="updateTextArea" path="/kr/WEB-INF/jsp/TextArea.jsp" />
-		<forward name="authorizationExceptionHandler" path="/kr/authorizationExceptionReport.do"
-			contextRelative="true" />
-		<forward name="moduleLocked" path="/krad/WEB-INF/jsp/moduleLocked.jsp"/>
+		<forward name="authorizationExceptionHandler" path="/kr/authorizationExceptionReport.do" contextRelative="true" />
+		<forward name="moduleLocked" path="/krad/WEB-INF/jsp/moduleLocked.jsp" />
 	</global-forwards>
 
 	<action-mappings>
 		<!-- Core Action Mappings -->
+		<action path="/kfsError" type="org.kuali.kfs.sys.web.struts.ErrorHandlerAction">
+			<forward name="tst" path="/kr/kualiExceptionIncidentReport.do" />
+			<forward name="prd" path="/error.html" />
+		</action>
+
 		<action path="/portal" name="KualiForm"
 			type="org.kuali.kfs.kns.web.struts.action.KualiPortalAction">
 			<forward name="basic" path="/index.jsp" />

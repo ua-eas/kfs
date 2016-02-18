@@ -23,11 +23,24 @@ input[type=radio] {
     float: right;
     padding-top: 9px;
     height: 50px;
+    position: absolute;
+    top: 19px;
+    right: 19px;
 }
 
 #view_div .main-panel .lookupcreatenew {
     float: right;
     margin-right: 35px;
+}
+
+#view_div .inquiry .lookupcreatenew {
+    top: 38px;
+    right: 74px;
+}
+
+#remodal #view_div .inquiry .lookupcreatenew {
+    top: 5px;
+    right: 37px;
 }
 
 #view_div .main-panel .toggle-show-tab {
@@ -72,8 +85,14 @@ input[type=radio] {
     box-shadow: 0px 2px 0px 0px #F3F3F3;
 }
 
-#view_div .main-panel .headerarea-small a[title="[Help]"] {
+#view_div a.help-link {
     line-height: 45px;
+}
+
+#view_div span.help-label {
+    font-size: 12px;
+    text-transform: none;
+    line-height: 50px;
 }
 
 #view_div a img {
@@ -541,6 +560,7 @@ div.inquiry table.datatable th {
 
 .main-panel .tab-container {
     color: #555;
+    padding-top: 10px;
 }
 
 .main-panel .tab-container h2 {
@@ -725,6 +745,8 @@ div.inquiry table.datatable th {
 .main-panel .tab-container table.acct-lines {
     table-layout: fixed;
     min-width: 1000px;
+    width: calc(100% - 30px);
+    margin: 0 15px 15px 15px;
 }
 
 .main-panel .tab-container table.acct-lines span.amount {
@@ -741,10 +763,12 @@ div.inquiry table.datatable th {
     padding-right: 15px;
 }
 
-.main-panel .tab-container table.acct-lines th,
-.main-panel .tab-container table.acct-lines td {
-    min-width: 50px;
+.main-panel .tab-container table.acct-lines th {
     padding: 10px 5px;
+}
+
+.main-panel .tab-container table.acct-lines td {
+    padding: 10px 0;
 }
 
 .main-panel .tab-container table.acct-lines tr.header {
@@ -805,6 +829,10 @@ div.inquiry table.datatable th {
     vertical-align: middle;
     text-align: center;
     padding: 0;
+}
+
+.main-panel .tab-container table.acct-lines tr.line td:nth-child(2) {
+    padding-left: 5px;
 }
 
 .main-panel .tab-container table.acct-lines tr.line {

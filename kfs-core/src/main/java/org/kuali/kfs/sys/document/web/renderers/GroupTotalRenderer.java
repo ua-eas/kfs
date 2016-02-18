@@ -100,7 +100,7 @@ public class GroupTotalRenderer extends TotalRendererBase {
         try {
             out.write("<tr class=\"total-line\">");
             
-            final int emptyCellSpanBefore = this.getCellCount() - 3;
+            final int emptyCellSpanBefore = this.getColumnNumberOfRepresentedCell() - 2;
             out.write("<td colspan=\"");
             out.write(Integer.toString(emptyCellSpanBefore));
             out.write("\">&nbsp;</td>");
@@ -118,8 +118,8 @@ public class GroupTotalRenderer extends TotalRendererBase {
             writeTag.doEndTag();
             
             out.write("</td>");
-            
-            final int emptyCellSpanAfter = 1;
+
+            final int emptyCellSpanAfter = this.getCellCount() - this.getColumnNumberOfRepresentedCell();
             if(emptyCellSpanAfter > 0) {
                 out.write("<td colspan=\"");
                 out.write(Integer.toString(emptyCellSpanAfter));

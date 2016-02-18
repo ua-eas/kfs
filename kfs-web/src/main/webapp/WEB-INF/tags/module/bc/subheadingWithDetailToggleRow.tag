@@ -48,7 +48,7 @@
 
             <html:hidden name="KualiForm" property="hideDetails"/>
             <c:if test="${!empty KualiForm.hideDetails}">
-                <c:set var="toggle" value="${KualiForm.hideDetails ? 'show' : 'hide'}"/>
+                <c:set var="toggle" value="${KualiForm.hideDetails ? 'Show' : 'Hide'}"/>
 
                 <html:submit
                         property="methodToCall.${toggle}Details"

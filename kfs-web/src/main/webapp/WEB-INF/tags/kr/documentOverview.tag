@@ -42,9 +42,9 @@
                         labelFor="document.documentHeader.documentDescription"
                         attributeEntry="${docHeaderAttributes.documentDescription}"
                         horizontal="true"
-                        addClass="right"
+                        addClass="right top"
                         width="25%"/>
-                <td width="25%">
+                <td class="top" width="25%">
                     <kul:htmlControlAttribute property="document.documentHeader.documentDescription"
                                               attributeEntry="${docHeaderAttributes.documentDescription}"
                                               readOnly="${readOnly}"/>
@@ -56,7 +56,7 @@
                         rowspan="2"
                         addClass="right top"
                         width="25%"/>
-                <td rowspan="2" width="25%">
+                <td rowspan="2" class="top" width="25%">
                     <kul:htmlControlAttribute
                             property="document.documentHeader.explanation"
                             attributeEntry="${docHeaderAttributes.explanation}"

@@ -18,13 +18,15 @@
 -->
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
-<div>
-    <%-- settting FieldSections to KualiForm.sections --%>
-    <c:set var="FieldSections" value="${KualiForm.sections}" />
-    <div class="headerarea-small" id="headerarea-small">
-        <h1>${kualiInquirable.title}</h1>
+<%-- settting FieldSections to KualiForm.sections --%>
+<c:set var="FieldSections" value="${KualiForm.sections}" />
+<c:if test="${!empty kualiInquirable.title}">
+    <div>
+        <div class="headerarea-small" id="headerarea-small">
+            <h1>${kualiInquirable.title}</h1>
+        </div>
     </div>
-</div>
+</c:if>
 
 <html:hidden property="businessObjectClassName"/>
 

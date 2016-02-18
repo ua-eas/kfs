@@ -65,15 +65,15 @@
 		* required field
 		</div>
 	</div>
-	<table width="100%">
+	<table class="multi-column-table" align="center">
 		<tr>
 			<td>
                 <c:set var="numberOfColumns" value="${KualiForm.numColumns}" />
                 <c:if test="${numberOfColumns > 1}">
                     <c:set var="tableClass" value="multi-column-table"/>
                 </c:if>
-                <div id="lookup" align="center">
-                    <table align="center" class="${tableClass}">
+                <div id="lookup">
+                    <table class="${tableClass}">
                         <c:set var="FormName" value="KualiForm" scope="request" />
                         <c:set var="FieldRows" value="${KualiForm.lookupable.rows}" scope="request" />
                         <c:set var="ActionName" value="Lookup.do" scope="request" />
@@ -112,10 +112,18 @@
                         </tr>
                     </table>
                 </div>
-                <kul:displayMultipleValueLookupResults resultsList="${requestScope.reqSearchResults}"/>
 			</td>
 		</tr>
 	</table>
+
+    <a id="search-results"></a>
+    <div class="search-results">
+        <kul:displayMultipleValueLookupResults resultsList="${requestScope.reqSearchResults}"/>
+    </div>
+
+    <c:if test="${!empty reqSearchResultsActualSize }">
+        <kul:scrollToSearchResults/>
+    </c:if>
 
     <kul:stickyLookupButtons/>
 

@@ -20,8 +20,8 @@
 
 <%@ attribute name="resultsList" required="true" type="java.util.List" description="The rows of fields that we'll iterate to display."%>
 
-<c:if test="${empty resultsList && KualiForm.methodToCall != 'start' && KualiForm.methodToCall != 'refresh'}">
-	<bean-el:message key="error.cginvoice.no.eligible.awards.retrieved" />
+<c:if test="${empty resultsList && KualiForm.methodToCall != 'start' && KualiForm.methodToCall != 'refresh' && KualiForm.methodToCall != 'clearValues'}">
+	<div class="search-message"><bean-el:message key="error.cginvoice.no.eligible.awards.retrieved" /></div>
 </c:if>
 
 <c:if test="${!empty resultsList}">

@@ -48,7 +48,7 @@
 
 <c:set var="mainColumnCount" value="15"/>
 <c:if test="${not purapTaxEnabled}">
-    <c:set var="mainColumnCount" value="14"/>
+    <c:set var="mainColumnCount" value="13"/>
 </c:if>
 <c:set var="colSpanItemType" value="6"/>
 <c:set var="colSpanDescription" value="2"/>
@@ -90,9 +90,7 @@
                     <td colspan="3">
                         <h2>
                             Add Item
-                            <a href="${KualiForm.lineItemImportInstructionsUrl}" target="helpWindow">
-                                <img src="${ConfigProperties.kr.externalizable.images.url}my_cp_inf.png" title="Line Item Import Help" src="Line Item Import Help" hspace="5" border="0" align="middle" class="help" />
-                            </a>
+                            <kul:help alternativeHelp="${KualiForm.lineItemImportInstructionsUrl}" alternativeHelpLabel="Import Templates"/>
                         </h2>
                     </td>
                     <td colspan="${mainColumnCount - 4}" class="right nowrap">

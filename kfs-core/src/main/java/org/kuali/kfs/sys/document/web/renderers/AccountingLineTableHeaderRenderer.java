@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,6 @@ import java.io.IOException;
  */
 public class AccountingLineTableHeaderRenderer implements Renderer {
     private int cellCount;
-    private String accountingLineImportInstructionsUrl;
 
 
     /**
@@ -47,7 +46,6 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
      */
     public void clear() {
         cellCount = 0;
-        accountingLineImportInstructionsUrl = null;
     }
 
     /**
@@ -56,7 +54,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
-        
+
         try {
             out.write(buildDivStart());
             out.write(buildTableStart(decideTableClass(parentTag)));
@@ -77,7 +75,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         }
         return tableClass;
     }
-    
+
     /**
      * Builds the beginning of the tab-container div
      * @return the beginning of the tab-container div in HTML
@@ -99,27 +97,11 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         if (StringUtils.isNotBlank(styleClass)) {
             tableClass += " " + styleClass;
         }
-        return "<table class=\"" + tableClass + "\" style=\"margin:15px; width:calc(100% - 30px);\">\n";
-    }
-    
-    /**
-     * Gets the accountingLineImportInstructionsUrl attribute. 
-     * @return Returns the accountingLineImportInstructionsUrl.
-     */
-    public String getAccountingLineImportInstructionsUrl() {
-        return accountingLineImportInstructionsUrl;
+        return "<table class=\"" + tableClass + "\">\n";
     }
 
     /**
-     * Sets the accountingLineImportInstructionsUrl attribute value.
-     * @param accountingLineImportInstructionsUrl The accountingLineImportInstructionsUrl to set.
-     */
-    public void setAccountingLineImportInstructionsUrl(String accountingLineImportInstructionsUrl) {
-        this.accountingLineImportInstructionsUrl = accountingLineImportInstructionsUrl;
-    }
-
-    /**
-     * Gets the cellCount attribute. 
+     * Gets the cellCount attribute.
      * @return Returns the cellCount.
      */
     public int getCellCount() {

@@ -192,7 +192,7 @@
 	</form>
 	</div>
 
-	<c:if test="${!empty reqSearchResultsActualSize and reqSearchResultsActualSize < 1}">
+	<c:if test="${!empty reqSearchResultsActualSize and reqSearchResultsActualSize < 1 and empty reqSearchResults}">
 		<div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
 	</c:if>
 
@@ -320,49 +320,8 @@
 
 	</display:table>
 
-
-
 		<c:if test="${!empty reqSearchResultsActualSize }">
-			<script type="text/javascript">
-				var headerSelector = '.search-results .headerarea-small';
-				var tableSelector = '.search-results table';
-				var tableHeaderSelector = '.search-results table>thead';
-
-				$(document).ready(function() {
-					// smooth scroll window to the search results after clicking search
-					if (window.location.hash != '#search-results') {
-						$('html,body').animate({
-							scrollTop: $('#search-results').offset().top
-						}, 1000);
-					}
-
-					// make search results header sticky
-					var headerLocation = $(headerSelector).offset().top - $(headerSelector).outerHeight();
-					makeHeaderSticky();
-
-					// Modify header stickiness as we scroll
-					$(window).scroll(function() {
-						makeHeaderSticky();
-					});
-
-					$(window).resize(function() {
-						makeHeaderSticky();
-					});
-
-					function makeHeaderSticky() {
-						var headerIsSticky = $(headerSelector).hasClass('fixed');
-						var windowLocation = $(window).scrollTop();
-						$(headerSelector).css('width', $(tableSelector).outerWidth());
-						if (windowLocation > headerLocation && !headerIsSticky) {
-							$(headerSelector).addClass('fixed');
-							$(tableSelector).addClass('fixedHeader');
-						} else if (windowLocation <= headerLocation && headerIsSticky) {
-							$(headerSelector).removeClass('fixed');
-							$(tableSelector).removeClass('fixedHeader');
-						}
-					}
-				})
-			</script>
+			<kul:scrollToSearchResults/>
 		</c:if>
 	</div>
  </c:if>

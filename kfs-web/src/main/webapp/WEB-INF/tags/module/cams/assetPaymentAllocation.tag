@@ -23,24 +23,24 @@
 <%-- Tab to allow selection of the method to distribute asset payments. --%>
 <kul:tab tabTitle="Asset Allocation" defaultOpen="true">
 	<div class="tab-container" id="allocation" align="left">	
-		<table class="datatable" width="100%" border="0" cellpadding="0" cellspacing="0" border="1">
-			<tr>
-				<td colspan="3" class="subhead">
-			    	<span class="subhead-left">Asset Allocation</span>
-			  	</td>
-			</tr>
+		<table class="standard side-margins">
 		    <tr>
-			    <th width="10%">Asset Allocation</th>
+			    <th class="right" width="50%">Asset Allocation:</th>
 			    
 			    <c:if test="${KualiForm.document.allocationFromFPDocuments == true}" >
 			    	<c:set var="viewOnly" value="true"/>	
 			    </c:if>
 			     
-				<td class="infoline" valign="top" width="84%">														
+				<td class="infoline" valign="top" width="50%">
 					<kul:htmlControlAttribute attributeEntry="${assetAllocationAttributes.allocationCode}" property="allocationCode" readOnly="${viewOnly}"/>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<c:if test="${!viewOnly}">
-				    	<html:image property="methodToCall.selectAllocationType" src="${ConfigProperties.externalizable.images.url}tinybutton-select.gif" styleClass="tinybutton" alt="Select Allocation" title="Select Allocation"/>
+				    	<html:submit
+								property="methodToCall.selectAllocationType"
+								styleClass="btn btn-default"
+								alt="Select Allocation"
+								title="Select Allocation"
+								value="Select"/>
 				    </c:if>
 				</td>
 		    </tr>

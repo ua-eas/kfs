@@ -24,6 +24,7 @@
 <%@ attribute name="errorTitle" required="false" description="The text to display above the rendered errors." %>
 <%@ attribute name="warningTitle" required="false" description="The text to display above the rendered warnings." %>
 <%@ attribute name="infoTitle" required="false" description="The text to display above the rendered information messages." %>
+<%@ attribute name="displayInDiv" required="false" description="Boolean whether to render the tab-container-error div." %>
 
 <%-- set generic error title if one was not given --%>
 <c:if test="${empty errorTitle}">
@@ -34,6 +35,10 @@
 </c:if>
 <c:if test="${empty infoTitle}">
   <c:set var="infoTitle" value="Informational messages in this Section:"/>
+</c:if>
+
+<c:if test="${displayInDiv && (!empty ErrorPropertyList || !empty WarningPropertyList || !empty InfoPropertyList)}">
+    <div class="tab-container-error"><div class="left-errmsg-tab">
 </c:if>
 
 <c:if test="${!empty ErrorPropertyList}">
@@ -239,4 +244,8 @@
           </c:otherwise>
       </c:choose>
     </div>
+</c:if>
+
+<c:if test="${displayInDiv && (!empty ErrorPropertyList || !empty WarningPropertyList || !empty InfoPropertyList)}">
+    </div></div>
 </c:if>

@@ -56,9 +56,9 @@
 <%-- remove when a fix is in place --%>
 <html:hidden property="${fundingLineName}.financialObjectCode" />
 
-<table border="0" cellpadding="0" cellspacing="0" style="width: ${tableWidth}; text-align: left; margin-left: auto; margin-right: auto;">    
+<table class="standard" style="width: ${tableWidth}; text-align: left; margin-left: auto; margin-right: auto;">
 	<tr>
-	    <kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentFundingDeleteIndicator}"/>
+	    <kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentFundingDeleteIndicator}" addClass="center"/>
 	   	<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.chartOfAccountsCode}"/>
 	   	<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.accountNumber}"/>
 	   	<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.subAccountNumber}"/>
@@ -70,7 +70,7 @@
 	</tr>
 	
 	<tr> 
-	  	<bc:pbglLineDataCell dataCellCssClass="datacell"
+	  	<bc:pbglLineDataCell dataCellCssClass="datacell center"
 	    	accountingLine="${fundingLineName}"
 	      	cellProperty="${fundingLineName}.appointmentFundingDeleteIndicator"
 		    attributes="${pbcafAttributes}"
@@ -215,14 +215,14 @@
 	                                
 	<tr id="${fundingLineName}">
 		<td colspan="${colspan}" class="infoline" style="border-bottom: none;">
-			<center><br/>
-			
-			<c:set var="detailReadOnly"
-				   value="${readOnly || fundingLine.displayOnlyMode || fundingLine.appointmentFundingDeleteIndicator || fundingLine.purged}" />
-				   
-			<bc:appointmentFundingDetail fundingLine="${fundingLine}" fundingLineName="${fundingLineName}" 
-				lineIndex="${lineIndex}" hasBeenAdded="${hasBeenAdded}" readOnly="${detailReadOnly}"/>
-			<br/></center>
+			<center>
+				<br/>
+				<c:set var="detailReadOnly" value="${readOnly || fundingLine.displayOnlyMode || fundingLine.appointmentFundingDeleteIndicator || fundingLine.purged}" />
+
+				<bc:appointmentFundingDetail fundingLine="${fundingLine}" fundingLineName="${fundingLineName}"
+					lineIndex="${lineIndex}" hasBeenAdded="${hasBeenAdded}" readOnly="${detailReadOnly}"/>
+				<br/>
+			</center>
 		</td>            
 	</tr>
 	

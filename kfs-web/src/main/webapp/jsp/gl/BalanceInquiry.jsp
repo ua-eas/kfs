@@ -116,6 +116,10 @@
                     </a>
                 </c:if>
 
+                <c:if test="${reqSearchResults != null and empty reqSearchResults}">
+                    <div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+                </c:if>
+
                 <c:if test="${!empty reqSearchResultsSize }">
 
                     <display:table class="datatable-100" name="${reqSearchResults}" id="row"
@@ -137,20 +141,7 @@
 
                                     <display:column class="numbercell" sortable="true" media="${(status.index < columnLength) ? 'all' : 'csv excel xml'}"
                                         decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
-                                        title="${column.columnTitle}" comparator="${column.comparator}">
-
-                                        <c:choose>
-
-                                            <c:when test="${column.propertyURL != \"\"}">
-                                                    <a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${column.columnAnchor.title}" />"
-                                                        target="blank"><c:out value="${column.propertyValue}" /></a>
-                                            </c:when>
-
-                                            <c:otherwise><c:out value="${column.propertyValue}" /></c:otherwise>
-
-                                        </c:choose>
-
-                                    </display:column>
+                                        title="${column.columnTitle}" comparator="${column.comparator}"><c:choose><c:when test="${column.propertyURL != \"\"}"><a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${column.columnAnchor.title}" />" target="blank"><c:out value="${column.propertyValue}" /></a></c:when><c:otherwise><c:out value="${column.propertyValue}" /></c:otherwise></c:choose></display:column>
 
                                 </c:when>
 
@@ -163,12 +154,7 @@
                                             <display:column class="infocell" sortable="${column.sortable}"
                                                 decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
                                                 title="${column.columnTitle}" media="${(status.index < columnLength) ? 'all' : 'csv excel xml'}"
-                                                comparator="${column.comparator}">
-
-                                                <a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${column.columnAnchor.title}" />"
-                                                    target="blank"><c:out value="${column.propertyValue}" /></a>
-
-                                            </display:column>
+                                                comparator="${column.comparator}"><a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${column.columnAnchor.title}" />" target="blank"><c:out value="${column.propertyValue}" /></a></display:column>
 
                                         </c:when>
 
@@ -177,18 +163,7 @@
                                             <display:column class="infocell" sortable="${column.sortable}"
                                                 decorator="org.kuali.kfs.kns.web.ui.FormatAwareDecorator"
                                                 title="${column.columnTitle}" media="${(status.index < columnLength) ? 'all' : 'csv excel xml'}"
-                                                comparator="${column.comparator}">
-
-                                                <c:if test="${column.columnTitle == 'Project Code'}">
-                                                    <div style="white-space: nowrap"><c:out
-                                                        value="${column.propertyValue}" /></div>
-                                                </c:if>
-
-                                                <c:if test="${column.columnTitle != 'Project Code'}">
-                                                    <c:out value="${column.propertyValue}" />
-                                                </c:if>
-
-                                            </display:column>
+                                                comparator="${column.comparator}"><c:if test="${column.columnTitle == 'Project Code'}"><div style="white-space: nowrap"><c:out value="${column.propertyValue}" /></div></c:if><c:if test="${column.columnTitle != 'Project Code'}"><c:out value="${column.propertyValue}" /></c:if></display:column>
 
                                         </c:otherwise>
 
