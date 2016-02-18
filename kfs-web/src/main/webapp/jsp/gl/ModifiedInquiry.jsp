@@ -106,6 +106,8 @@
 
 				<c:set var="exporting" value="${!empty param['d-16544-e']}"
 					scope="request" />
+				<a id="search-results"></a>
+				<div class="main-panel search-results">
 				<display:table class="datatable-100" name="${reqSearchResults}" id="row" export="true" pagesize="100" defaultsort="1"
 					requestURI="glModifiedInquiry.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
 
@@ -204,7 +206,7 @@
 							</c:if>
 						</logic:present>
 					</c:if>
-				</display:table></td>
+				</display:table></div></td>
 			</c:if>
 		</tr>
 	</table>
