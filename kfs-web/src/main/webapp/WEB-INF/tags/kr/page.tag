@@ -41,7 +41,6 @@
 <%@ attribute name="renderRequiredFieldsLabel" required = "false" description="Boolean value of whether to include a helpful note that the asterisk represents a required field - good for accessibility." %>
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
-<%@ attribute name="includeModal" required="false" description="Boolean value of whether the modal should be included" %>
 
 <%-- Is the screen an inquiry? --%>
 <c:set var="_isInquiry" value="${requestScope[Constants.PARAM_MAINTENANCE_VIEW_MODE] eq Constants.PARAM_MAINTENANCE_VIEW_MODE_INQUIRY}" />
@@ -142,9 +141,7 @@
             </div>
 		</kul:pageBody>
 
-		<c:if test="${lookup || includeModal}" >
-			<kul:modal/>
-		</c:if>
+		<kul:modal/>
 	</body>
 
 </html:html>

@@ -55,6 +55,7 @@
         </c:if>
         <table class="standard side-margins" summary="KFS Detail Section">
             <tr>
+                <c:set var="documentCellWidth" value="${includeTotalAmount ? 25 : 50}"/>
                 <c:choose>
                     <c:when test="${includePostingYear}">
                         <kul:htmlAttributeHeaderCell
@@ -62,9 +63,9 @@
                                 attributeEntry="${postingYearAttributes.postingYear}"
                                 horizontal="true"
                                 addClass="right"
-                                width="50%"/>
+                                width="${documentCellWidth}%"/>
 
-                        <td class="datacell-nowrap" width="50%">
+                        <td class="datacell-nowrap" width="${documentCellWidth}%">
                             <kul:htmlControlAttribute
                                     attributeEntry="${postingYearAttributes.postingYear}"
                                     property="document.postingYear"
@@ -91,9 +92,9 @@
                                 attributeEntry="${financialDocHeaderAttributes.financialDocumentTotalAmount}"
                                 horizontal="true"
                                 addClass="right"
-                                width="50%"/>
+                                width="${documentCellWidth}%"/>
 
-                        <td align="left" valign="middle" width="50%">
+                        <td align="left" valign="middle" width="${documentCellWidth}%">
                             <kul:htmlControlAttribute
                                     attributeEntry="${financialDocHeaderAttributes.financialDocumentTotalAmount}"
                                     property="document.documentHeader.financialDocumentTotalAmount"

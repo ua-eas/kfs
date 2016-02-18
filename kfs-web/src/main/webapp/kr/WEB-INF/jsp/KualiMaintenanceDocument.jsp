@@ -41,7 +41,7 @@
 	renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}"
 	defaultMethodToCall="${defaultMethodToCall}" additionalScriptFiles="${additionalScriptFiles}"
 	lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}" auditCount="0"
-          renderRequiredFieldsLabel="${renderRequiredFieldsLabel}" includeModal="true">
+          renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
 
     <table width="100%" cellpadding="0" cellspacing="0" class="tab">
         <tr>
