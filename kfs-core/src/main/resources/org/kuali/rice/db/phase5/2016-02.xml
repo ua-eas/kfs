@@ -36,4 +36,10 @@
             <where>doc_typ_nm = 'ParameterNamespaceMaintenanceDocument'</where>
         </update>
     </changeSet>
+    <changeSet context="bootstrap,demo,unit" author="KFS61" id="FINI-1196">
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="lbl" value="Financials Parameter"/>
+            <where>doc_typ_nm = 'PARM'</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
