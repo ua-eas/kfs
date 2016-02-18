@@ -1,8 +1,8 @@
 {
   "changeLog": [
     {
-      "jira": "FINI-1133",
-      "id": "Improvements to configurability of left hand nav",
+      "jira": "FINI-1147",
+      "id": "Add Rice core service business objects - parameter, component, parameter type, and namespace.  Adding to the System > Admin grouping.",
       "changes": [
         {
           "changeType": "updateDocuments",
@@ -2125,8 +2125,7 @@
                     },
                     {
                       "businessObjectClass": "org.kuali.kfs.coreservice.impl.namespace.NamespaceBo",
-                      "linkType": "kfs",
-                      "newTarget": true
+                      "linkType": "rice"
                     },
                     {
                       "documentTypeCode": "ORIG",
@@ -2138,13 +2137,11 @@
                     },
                     {
                       "businessObjectClass": "org.kuali.kfs.coreservice.impl.component.ComponentBo",
-                      "linkType": "kfs",
-                      "newTarget": true
+                      "linkType": "rice"
                     },
                     {
                       "businessObjectClass": "org.kuali.kfs.coreservice.impl.parameter.ParameterTypeBo",
-                      "linkType": "kfs",
-                      "newTarget": true
+                      "linkType": "rice"
                     },
                     {
                       "documentTypeCode": "DVDL",

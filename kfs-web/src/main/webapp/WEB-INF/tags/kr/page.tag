@@ -38,7 +38,6 @@
 <%@ attribute name="documentWebScope" required="false" description="The scope this page - which is hard coded to session, making this attribute somewhat useless." %>
 <%@ attribute name="maintenanceDocument" required="false" description="Boolean value of whether this page is rendering a maintenance document." %>
 <%@ attribute name="sessionDocument" required="false" description="Unused." %>
-<%@ attribute name="renderRequiredFieldsLabel" required = "false" description="Boolean value of whether to include a helpful note that the asterisk represents a required field - good for accessibility." %>
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
 <%@ attribute name="includeModal" required="false" description="Boolean value of whether the modal should be included" %>
@@ -104,8 +103,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
-		<link href='${pageContext.request.contextPath}/css/newPortal.css' rel='stylesheet' type='text/css'>
-		<link href='${pageContext.request.contextPath}/css/lookup.css' rel='stylesheet' type='text/css'>
+		<link href='${pageContext.request.contextPath}/css/newPortal.css?${cachingTimestamp}' rel='stylesheet' type='text/css'>
+		<link href='${pageContext.request.contextPath}/css/lookup.css?${cachingTimestamp}' rel='stylesheet' type='text/css'>
 		<c:if test="${param.mode ne 'modal'}">
 			<script src="${pageContext.request.contextPath}/scripts/jquery.min.js"></script>
 			<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
@@ -135,7 +134,7 @@
 					  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
 					  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
 					  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
-					  renderRequiredFieldsLabel="${renderRequiredFieldsLabel}" renderInnerDiv="${renderInnerDiv}">
+					  renderInnerDiv="${renderInnerDiv}">
 
 			<div id="page-content">
                 <jsp:doBody/>

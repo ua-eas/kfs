@@ -23,9 +23,9 @@
 
 <c:choose>
     <c:when test="${icwf:hasPermission()}">
-        <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js"></script>
+        <script src="${pageContext.request.contextPath}/build/institutionconfig.bundle.js?${cachingTimestamp}"></script>
     </c:when>
     <c:otherwise>
-        <script src="${pageContext.request.contextPath}/build/accessdenied.bundle.js"></script>
+        <script src="${pageContext.request.contextPath}/build/accessdenied.bundle.js?${cachingTimestamp}"></script>
     </c:otherwise>
 </c:choose>

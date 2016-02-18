@@ -252,7 +252,7 @@ var Sidebar = React.createClass({
                         handleClick={this.toggleLinkGroup}
                         checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}
                         expandedLinkGroup={this.state.expandedLinkGroup}/>
-                )
+                );
 
                 linkGroupSublinks.push(
                     <LinkGroupSublinks key={i}
@@ -261,7 +261,7 @@ var Sidebar = React.createClass({
                                checkedLinkFilters={this.state.userPreferences.checkedLinkFilters}
                                backdoorId={this.state.backdoorId}
                                expandedLinkGroup={this.state.expandedLinkGroup}/>
-                )
+                );
             }
         }
 
@@ -292,33 +292,40 @@ var Sidebar = React.createClass({
                 groupCount--;
             }
 
-            searchResults.push(<button type="button" className="close" onClick={this.closeSearch}><span aria-hidden="true">&times;</span></button>);
-
             searchResultsClass = determineSublinkClass(finalLinks, groupCount, this.state.expandedSearch);
         } else if (this.state.expandedSearch) {
-            searchResults = <div className="sublinks collapse active center">No results found</div>;
+            searchResults = [];
+            searchResults.push(<div key="no-search-results" className="center">No results found</div>);
+
+            searchResultsClass = "sublinks collapse active";
         }
 
-        var curYear = new Date().getFullYear();
+        if (searchResults) {
+            searchResults.push(<button key="close-search-button" type="button" className="close" onClick={this.closeSearch}><span aria-hidden="true">&times;</span></button>);
+        }
 
         return (
             <div>
                 <div className="cover"></div>
                 <div className="sidebar-waiting"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
                 <ul id="filters" className="nav list-group">
-                    <li onClick={this.toggleSidebar}><span id="menu-toggle" className={menuToggleClassName}></span></li>
+                    <li id="home-item">
+                        <span id="home"><a href={rootPath}><span className="fa fa-home home-icon"></span>Home</a></span>
+                        <span id="menu-toggle" className={menuToggleClassName} onClick={this.toggleSidebar}></span>
+                    </li>
                     <li className={navSearchClass}>
                         <input type="search" placeholder="Search" onChange={this.autocompleteSearch} value={this.state.search} ref="searchBox" onFocus={this.autocompleteSearch} />
                         <span className="glyphicon glyphicon-remove" onClick={this.clearSearch}></span>
                         <div className={searchResultsClass}>
-                            {searchResults}
+                            <div className="links-container">
+                                {searchResults}
+                            </div>
                         </div>
                     </li>
                     <li className="list-item"><LinkFilter checkedLinkFilters={this.state.userPreferences.checkedLinkFilters} modifyLinkFilter={this.modifyLinkFilter} /></li>
                 </ul>
                 <div id="sidebar-scroll">
                     <ul id="linkgroups" className="nav list-group">
-                        <li className="panel list-item"><a href={rootPath}>Dashboard</a></li>
                         {linkGroups}
                     </ul>
                     <div className="refresh">
@@ -360,7 +367,7 @@ var buildDisplayLinks = function(links, type, checkedLinkFilters, backdoorId) {
 var addHeading = function(links, type) {
     let newLinks = [];
     if (links.length > 0) {
-        newLinks = newLinks.concat([<h4 key={type + "Label"}>{type}</h4>]).concat(links);
+        newLinks = newLinks.concat([<h4 key={type + "_label"}>{type}</h4>]).concat(links);
     }
     return newLinks;
 };

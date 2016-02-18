@@ -23,11 +23,24 @@ input[type=radio] {
     float: right;
     padding-top: 9px;
     height: 50px;
+    position: absolute;
+    top: 19px;
+    right: 19px;
 }
 
 #view_div .main-panel .lookupcreatenew {
     float: right;
     margin-right: 35px;
+}
+
+#view_div .inquiry .lookupcreatenew {
+    top: 38px;
+    right: 74px;
+}
+
+#remodal #view_div .inquiry .lookupcreatenew {
+    top: 5px;
+    right: 37px;
 }
 
 #view_div .main-panel .toggle-show-tab {
@@ -547,7 +560,6 @@ div.inquiry table.datatable th {
 
 .main-panel .tab-container {
     color: #555;
-    padding-top: 10px;
 }
 
 .main-panel .tab-container h2 {
@@ -732,6 +744,8 @@ div.inquiry table.datatable th {
 .main-panel .tab-container table.acct-lines {
     table-layout: fixed;
     min-width: 1000px;
+    width: calc(100% - 30px);
+    margin: 0 15px 15px 15px;
 }
 
 .main-panel .tab-container table.acct-lines span.amount {

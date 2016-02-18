@@ -281,7 +281,7 @@ nav ul.nav li {
 
 #sidebar #sidebar-scroll {
     position: absolute;
-    top: 170px;
+    top: 124px;
     bottom: 0;
     overflow-y: auto;
     overflow-x: hidden;
@@ -293,6 +293,22 @@ nav ul.nav li {
     margin-left: -295px;
 }
 
+#sidebar #home-item {
+    height: 30px;
+    padding-left: 20px;
+}
+
+#sidebar #home {
+    float: left;
+    padding-top: 10px;
+}
+
+#sidebar #home .home-icon {
+    padding-right: 5px;
+    color: #D6D6D6;
+    font-size: 20px;
+}
+
 #sidebar ul>li.list-item {
     padding: 0;
     border-bottom: 1px solid #6a6a6a;
@@ -302,6 +318,10 @@ nav ul.nav li {
     opacity: 1;
 }
 
+#sidebar ul>li.search.list-item {
+    border-bottom: none;
+}
+
 #sidebar ul>li.search>span {
     margin-left: -45px;
     color: #BCBCBC;
@@ -309,11 +329,11 @@ nav ul.nav li {
 }
 
 #sidebar ul>li.search input {
-    margin: 15px 19px;
+    margin: 10px 12px;
     padding: 7px;
     border-radius: 2px;
     height: 36px;
-    width: 280px;
+    width: 294px;
     border: 1px solid #CCCCCC;
     font-size: 16px;
     color: #767676;
@@ -323,16 +343,6 @@ nav ul.nav li {
 #sidebar.collapsed ul>li.list-item,
 #sidebar.collapsed .refresh {
     opacity: 0;
-}
-
-#sidebar ul#filters>li:first-child {
-    text-align: right;
-    padding: 13px 2px 13px 4px;
-    transition: 500ms all;
-}
-
-#sidebar.collapsed ul>li:first-child {
-    padding: 13px 3px 13px 4px;
 }
 
 .sidebar-waiting {
@@ -359,7 +369,6 @@ nav ul.nav li {
 #sidebar .refresh {
     color: #aaaaaa;
     text-align: center;
-    margin-top: 25px;
     margin-bottom: 25px;
     transition: opacity 500ms;
     opacity: 1;
@@ -376,14 +385,14 @@ nav ul.nav li {
 
 #menu-toggle {
     transition: 500ms all;
+    float: right;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 9px;
 }
 
 #menu-toggle.glyphicon.rotated {
     transform: rotate(-180deg);
-}
-
-#menu-toggle {
-    cursor: pointer;
 }
 
 #menu-toggle .glyphicon {
@@ -410,11 +419,11 @@ nav ul.nav li {
 }
 
 #sidebar .nav li>a {
-    padding: 13px 0 13px 25px;
+    padding: 8px 0 8px 25px;
 }
 
 #linkFilter {
-    padding: 15px;
+    padding: 0px 15px 10px 15px;
     text-transform: none;
     white-space: nowrap;
 }
@@ -785,11 +794,18 @@ nav ul.nav li {
 
 .remodal #breadcrumbs {
     float: left;
-    color: #aaa;
+    color: #767676;
+    font-size: 16px;
+    margin-left: 20px;
+    text-transform: uppercase;
+    width: calc(100% - 315px);
+    text-align: left;
 }
 
 .modal-header {
     background-color: #E5E5E5;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    overflow: auto;
+    padding: 15px 15px 5px 15px;
 }

@@ -48,7 +48,7 @@
 
 <c:set var="mainColumnCount" value="15"/>
 <c:if test="${not purapTaxEnabled}">
-    <c:set var="mainColumnCount" value="14"/>
+    <c:set var="mainColumnCount" value="13"/>
 </c:if>
 <c:set var="colSpanItemType" value="6"/>
 <c:set var="colSpanDescription" value="2"/>
