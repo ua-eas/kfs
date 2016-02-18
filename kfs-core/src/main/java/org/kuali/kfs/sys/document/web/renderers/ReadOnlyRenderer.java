@@ -57,6 +57,7 @@ public class ReadOnlyRenderer extends FieldRendererBase {
                 out.write(value);
                 if (shouldRenderInquiryLink()) {
                     out.write(buildEndInquiryLink());
+                    out.write(buildNewWindowInquiryLink());
                 }
             } else {
                 out.write(buildNonBreakingSpace());
@@ -117,17 +118,16 @@ public class ReadOnlyRenderer extends FieldRendererBase {
 
             if(htmlData.getHref().startsWith("http")) {
                 beginInquiryLink.append("<a href=\"");
-            }
-            else {
+            } else {
                 beginInquiryLink.append("<a href=\"");
                 beginInquiryLink.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY));
                 beginInquiryLink.append("/kr/");
             }
 
             beginInquiryLink.append(htmlData.getHref());
-            beginInquiryLink.append("\" title=\"");
+            beginInquiryLink.append("&mode=modal\" title=\"");
             beginInquiryLink.append(htmlData.getTitle());
-            beginInquiryLink.append("\" target=\"blank\">");
+            beginInquiryLink.append(" in modal\" data-remodal-target=\"modal\">");
 
         }
 
@@ -143,6 +143,30 @@ public class ReadOnlyRenderer extends FieldRendererBase {
             return "</a>";
         }
         return "";
+    }
+
+    protected String buildNewWindowInquiryLink() {
+        StringBuilder inquiryLink = new StringBuilder();
+        if (getField().getInquiryURL() instanceof AnchorHtmlData) {
+            AnchorHtmlData htmlData = (AnchorHtmlData) getField().getInquiryURL();
+            if(htmlData.getHref().startsWith("http")) {
+                inquiryLink.append("<a href=\"");
+            } else {
+                inquiryLink.append("<a href=\"");
+                inquiryLink.append(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY));
+                inquiryLink.append("/kr/");
+            }
+
+            inquiryLink.append(htmlData.getHref());
+            inquiryLink.append("&mode=standalone\" title=\"");
+            inquiryLink.append(htmlData.getTitle());
+            inquiryLink.append(" in new window\" target=\"blank\" class=\"new-window\">");
+            inquiryLink.append("<span class=\"glyphicon glyphicon-new-window\"></span>");
+            inquiryLink.append("</a>");
+
+
+        }
+        return inquiryLink.toString();
     }
 
     /**

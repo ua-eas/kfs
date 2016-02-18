@@ -16,14 +16,20 @@
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 <%@ attribute name="boClassName" required="true" description="The class name of the business object this inquiry is being rendered for." %>
 <%@ attribute name="keyValues" required="true" description="The set of keys and values which are the primary key of the business object." %>
-<%@ attribute name="render" required="true"
-              description="boolean indicating whether the inquiry link should be rendered.
-              The body is rendered unconditionally." %>
+<%@ attribute name="render" required="true" description="boolean indicating whether the inquiry link should be rendered. The body is rendered unconditionally." %>
 
-<c:if test="${render}">
-    <a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}"  target="_blank">
+<jsp:doBody var="bodyValue"/>
+<c:set var="trimmedBodyValue" value="${fn:trim(bodyValue)}"/>
+
+<c:if test="${render && !empty trimmedBodyValue}">
+    <a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}&mode=modal"  data-remodal-target="modal" title="Open in modal">
 </c:if>
-        <jsp:doBody/>
-<c:if test="${render}">
+
+    ${bodyValue}
+
+<c:if test="${render && !empty trimmedBodyValue}">
+    </a>
+    <a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}&mode=standalone" target="_blank" title="Open in new tab" class="new-window" onclick="event.stopPropagation();">
+        <span class="glyphicon glyphicon-new-window"></span>
     </a>
 </c:if>

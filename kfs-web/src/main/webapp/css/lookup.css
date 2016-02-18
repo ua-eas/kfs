@@ -456,24 +456,36 @@ td.infocell div.link-wrapper {
     white-space: nowrap;
 }
 
+h2 a.new-window,
 td.grid a.new-window,
-td.infocell a.new-window {
+td.infocell a.new-window,
+td.infoline a.new-window,
+td.datacell a.new-window {
     text-decoration: none;
 }
 
+h2 a.new-window span.glyphicon,
 td.grid a.new-window span.glyphicon,
-td.infocell a.new-window span.glyphicon {
+td.infocell a.new-window span.glyphicon,
+td.infoline a.new-window span.glyphicon,
+td.datacell a.new-window span.glyphicon {
     visibility: hidden;
 }
 
+h2:hover a.new-window span.glyphicon,
 td.grid:hover a.new-window span.glyphicon,
-td.infocell:hover a.new-window span.glyphicon {
+td.infocell:hover a.new-window span.glyphicon,
+td.infoline:hover a.new-window span.glyphicon,
+td.datacell:hover a.new-window span.glyphicon {
     visibility: inherit;
     opacity: .4;
 }
 
+h2 a.new-window:hover span.glyphicon,
 td.grid a.new-window:hover span.glyphicon,
-td.infocell a.new-window:hover span.glyphicon {
+td.infocell a.new-window:hover span.glyphicon,
+td.infoline a.new-window:hover span.glyphicon,
+td.datacell a.new-window:hover span.glyphicon{
     display: inherit;
     opacity: .8;
 }
