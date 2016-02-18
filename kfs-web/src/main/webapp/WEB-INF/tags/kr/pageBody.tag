@@ -369,5 +369,5 @@
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
     <script src="${pageContext.request.contextPath}/scripts/polyfill.min.js"></script>
     <script src="${pageContext.request.contextPath}/scripts/notify.min.js"></script>
-    <script src="${pageContext.request.contextPath}/build/app.bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/build/app.bundle.js?${cachingTimestamp}"></script>
 </c:if>
