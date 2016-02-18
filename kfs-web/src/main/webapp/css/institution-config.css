@@ -415,7 +415,8 @@ div.form select {
     width: 345px !important;
 }
 
-div.form input[type=radio] {
+div.form input[type=radio],
+div.form input[type=checkbox]{
     margin-right: 7px;
 }
 

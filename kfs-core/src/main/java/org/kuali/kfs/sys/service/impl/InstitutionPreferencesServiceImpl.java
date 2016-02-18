@@ -225,11 +225,11 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
      * @return true if the group contains links, false if it is empty
      */
     protected boolean transformLinksInLinkGroup(Map<String, Object> linkGroup,Person person) {
-        Map<String, List<Map<String,String>>> links = getLinks(linkGroup);
-        links.replaceAll((String linkType, List<Map<String, String>> linksByType) -> transformLinksByLinkType(linksByType, person));
-        Iterator<Map.Entry<String, List<Map<String, String>>>> linksIter = links.entrySet().iterator();
+        Map<String, List<Map<String,Object>>> links = getLinks(linkGroup);
+        links.replaceAll((String linkType, List<Map<String, Object>> linksByType) -> transformLinksByLinkType(linksByType, person));
+        Iterator<Map.Entry<String, List<Map<String, Object>>>> linksIter = links.entrySet().iterator();
         while (linksIter.hasNext()) {
-            Map.Entry<String, List<Map<String, String>>> nextLinks = linksIter.next();
+            Map.Entry<String, List<Map<String, Object>>> nextLinks = linksIter.next();
             if (CollectionUtils.isEmpty(nextLinks.getValue())) {
                 linksIter.remove();
             }
@@ -238,32 +238,32 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return links.size() > 0;
     }
 
-    protected List<Map<String, String>> transformLinksByLinkType(List<Map<String, String>> links, Person person) {
+    protected List<Map<String, Object>> transformLinksByLinkType(List<Map<String, Object>> links, Person person) {
         return links.stream()
-                .map((Map<String, String> link) -> transformLink(link, person))
-                .filter((Map<String, String> link) -> link.containsKey(KFSPropertyConstants.LABEL) && !StringUtils.isBlank(link.get(KFSPropertyConstants.LABEL)) && link.containsKey(KFSPropertyConstants.LINK) && !StringUtils.isBlank(link.get(KFSPropertyConstants.LINK)))
+                .map((Map<String, Object> link) -> transformLink(link, person))
+                .filter((Map<String, Object> link) -> link.containsKey(KFSPropertyConstants.LABEL) && !StringUtils.isBlank((String) link.get(KFSPropertyConstants.LABEL)) && link.containsKey(KFSPropertyConstants.LINK) && !StringUtils.isBlank((String) link.get(KFSPropertyConstants.LINK)))
                 .collect(Collectors.toList());
     }
 
-    protected Map<String, List<Map<String, String>>> getLinks(Map<String, Object> linkGroup) {
-        return (Map<String, List<Map<String, String>>>)linkGroup.get(KFSPropertyConstants.LINKS);
+    protected Map<String, List<Map<String, Object>>> getLinks(Map<String, Object> linkGroup) {
+        return (Map<String, List<Map<String, Object>>>)linkGroup.get(KFSPropertyConstants.LINKS);
     }
 
-    protected Map<String, String> transformLink(Map<String, String> link, Person person) {
-        Map<String, String> linkInfo = new ConcurrentHashMap<>();
+    protected Map<String, Object> transformLink(Map<String, Object> link, Person person) {
+        Map<String, Object> linkInfo = new ConcurrentHashMap<>();
 
-        if (StringUtils.isNotBlank(link.get(KFSPropertyConstants.DOCUMENT_TYPE_CODE))) {
-            final String documentTypeName = link.remove(KFSPropertyConstants.DOCUMENT_TYPE_CODE);
+        if (StringUtils.isNotBlank((String)link.get(KFSPropertyConstants.DOCUMENT_TYPE_CODE))) {
+            final String documentTypeName = (String)link.remove(KFSPropertyConstants.DOCUMENT_TYPE_CODE);
             linkInfo = determineDocumentLinkInfo(documentTypeName, person);
-        } else if (StringUtils.isNotBlank(link.get(KFSPropertyConstants.BUSINESS_OBJECT_CLASS))) {
-            final String businessObjectClassName = link.remove(KFSPropertyConstants.BUSINESS_OBJECT_CLASS);
+        } else if (StringUtils.isNotBlank((String)link.get(KFSPropertyConstants.BUSINESS_OBJECT_CLASS))) {
+            final String businessObjectClassName = (String)link.remove(KFSPropertyConstants.BUSINESS_OBJECT_CLASS);
             linkInfo = determineLookupLinkInfo(businessObjectClassName, person);
-        } else if (StringUtils.isNotBlank(link.get(KFSPropertyConstants.LINK))) {
+        } else if (StringUtils.isNotBlank((String)link.get(KFSPropertyConstants.LINK))) {
             String finalLink;
-            if (link.get(KFSPropertyConstants.LINK_TYPE) != null && link.get(KFSPropertyConstants.LINK_TYPE).equals(KFSConstants.NavigationLinkTypes.RICE)) {
-                finalLink = determineRiceLink(link.get(KFSPropertyConstants.LINK));
+            if (link.get(KFSPropertyConstants.LINK_TYPE) != null && StringUtils.equals((String)link.get(KFSPropertyConstants.LINK_TYPE), KFSConstants.NavigationLinkTypes.RICE)) {
+                finalLink = determineRiceLink((String)link.get(KFSPropertyConstants.LINK));
             } else {
-                finalLink = fixRelativeLink(link.get(KFSPropertyConstants.LINK));
+                finalLink = fixRelativeLink((String)link.get(KFSPropertyConstants.LINK));
             }
             linkInfo.put(KFSPropertyConstants.LINK, finalLink);
             linkInfo.put(KFSPropertyConstants.LABEL, link.get(KFSPropertyConstants.LABEL));
@@ -273,30 +273,42 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             linkInfo.put(KFSPropertyConstants.LINK_TYPE, link.get(KFSPropertyConstants.LINK_TYPE));
         }
 
+        if (link.containsKey(KFSPropertyConstants.NEW_TARGET)) {
+            linkInfo.put(KFSPropertyConstants.NEW_TARGET, link.get(KFSPropertyConstants.NEW_TARGET));
+        } else {
+            linkInfo.put(KFSPropertyConstants.NEW_TARGET, false);
+        }
+
         return linkInfo;
     }
 
     protected String determineRiceLink(String link) {
         String riceHost = configurationService.getPropertyValueAsString(KFSConstants.RICE_SERVER_URL_KEY);
         if (!link.startsWith("/")) {
-            link = "/" + link;
+            link = "/" + addReturnLocationToLookupLink(link);
         }
         return riceHost + link;
     }
 
     protected String fixRelativeLink(String link) {
+        String fixedLink = link;
         if (!link.startsWith("http")) {
-            final String applicationUrl = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
-            if (link.startsWith(KFSConstants.LOOKUP_ACTION)) {
-                String connector = link.contains("?") ? "&" : "?";
-                link += connector + KFSConstants.RETURN_LOCATION_PARAMETER + "=" + applicationUrl + "/portal.do";
-            }
-            link = applicationUrl + "/" + link;
+            String updatedLink = addReturnLocationToLookupLink(link);
+            fixedLink = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/" + updatedLink;
         }
-        return link;
+        return fixedLink;
     }
 
-    protected Map<String, String> determineDocumentLinkInfo(String documentTypeName, Person person) {
+    protected String addReturnLocationToLookupLink(String link) {
+        String updatedLink = link;
+        if (link.startsWith(KFSConstants.LOOKUP_ACTION)) {
+            String connector = link.contains("?") ? "&" : "?";
+            updatedLink = link + connector + KFSConstants.RETURN_LOCATION_PARAMETER + "=" + configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/portal.do";
+        }
+        return updatedLink;
+    }
+
+    protected Map<String, Object> determineDocumentLinkInfo(String documentTypeName, Person person) {
         final String label = documentDictionaryService.getLabel(documentTypeName);
         final Class<? extends Document> documentClass = (Class<? extends Document>)documentDictionaryService.getDocumentClassByName(documentTypeName);
         String link = StringUtils.EMPTY;
@@ -388,8 +400,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return namespaceCodeToUrlName.get(namespaceCode);
     }
 
-    protected Map<String, String> constructLinkInfo(String label, String link) {
-        Map<String, String> linkInfo = new ConcurrentHashMap<>();
+    protected Map<String, Object> constructLinkInfo(String label, String link) {
+        Map<String, Object> linkInfo = new ConcurrentHashMap<>();
         if (!StringUtils.isBlank(label)) {
             linkInfo.put(KFSPropertyConstants.LABEL, label);
         }
@@ -401,9 +413,9 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     protected List<Map<String, Object>> removeGeneratedLabels(List<Map<String, Object>> linkGroups) {
         for (Map<String, Object> linkGroup : linkGroups) {
-            Map<String, List<Map<String,String>>> updatedLinks = getLinks(linkGroup);
-            updatedLinks.replaceAll((String linkType, List<Map<String, String>> links) ->
-                    links.stream().map((Map<String, String> link) -> {
+            Map<String, List<Map<String,Object>>> updatedLinks = getLinks(linkGroup);
+            updatedLinks.replaceAll((String linkType, List<Map<String, Object>> links) ->
+                    links.stream().map((Map<String, Object> link) -> {
                         if (link.containsKey(KFSPropertyConstants.DOCUMENT_TYPE_CODE) || link.containsKey(KFSPropertyConstants.BUSINESS_OBJECT_CLASS)) {
                             link.remove(KFSPropertyConstants.LABEL);
                         }
@@ -414,7 +426,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         return linkGroups;
     }
 
-    protected Map<String, String> determineLookupLinkInfo(String businessObjectClassName, Person person) {
+    protected Map<String, Object> determineLookupLinkInfo(String businessObjectClassName, Person person) {
         String link = null;
         String label = null;
 
@@ -440,12 +452,12 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         List<Map<String, Object>> linkGroups = getLinkGroups(institutionPreferences);
 
         for (Map<String, Object> linkGroup: linkGroups) {
-            Map<String, List<Map<String,String>>> updatedLinks = getLinks(linkGroup);
-            updatedLinks.replaceAll((String linkType, List<Map<String, String>> links) -> links.stream().map((Map<String, String> link) -> {
+            Map<String, List<Map<String,Object>>> updatedLinks = getLinks(linkGroup);
+            updatedLinks.replaceAll((String linkType, List<Map<String, Object>> links) -> links.stream().map((Map<String, Object> link) -> {
                 if (link.containsKey(KFSPropertyConstants.DOCUMENT_TYPE_CODE)) {
-                    link.put(KFSPropertyConstants.LABEL, documentDictionaryService.getLabel(link.get(KFSPropertyConstants.DOCUMENT_TYPE_CODE)));
+                    link.put(KFSPropertyConstants.LABEL, documentDictionaryService.getLabel((String)link.get(KFSPropertyConstants.DOCUMENT_TYPE_CODE)));
                 } else if (link.containsKey(KFSPropertyConstants.BUSINESS_OBJECT_CLASS)) {
-                    link.put(KFSPropertyConstants.LABEL, getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(link.get(KFSPropertyConstants.BUSINESS_OBJECT_CLASS)).getObjectLabel());
+                    link.put(KFSPropertyConstants.LABEL, getDataDictionaryService().getDataDictionary().getBusinessObjectEntry((String) link.get(KFSPropertyConstants.BUSINESS_OBJECT_CLASS)).getObjectLabel());
                 }
                 return link;
             }).collect(Collectors.toList()));

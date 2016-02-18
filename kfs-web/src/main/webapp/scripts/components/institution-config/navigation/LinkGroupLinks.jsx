@@ -10,7 +10,7 @@ let LinkGroupLinks = React.createClass({
             return linkGroup.get('label');
         });
         let linkGroupLinkElements = this.props.linkGroups.map((linkGroup, index) => {
-            let id = buildKeyFromLabel(linkGroup.get('label'))
+            let id = buildKeyFromLabel(linkGroup.get('label'));
             return <SubLinkGroup key={'subLinkGroup-' + id}
                                  id={id} links={linkGroup.get('links')}
                                  groupIndex = {index}
@@ -118,7 +118,7 @@ let SubLinkGroup = React.createClass({
             customLinkFormOpen: false,
             errors: [],
             errorMessages: [],
-            newLink: Immutable.Map({label: '', link: '', linkType: 'custom'}),
+            newLink: Immutable.Map({label: '', link: '', linkType: 'custom', newTarget: false}),
             newLinkType: 'activities'
         });
     },
@@ -130,6 +130,11 @@ let SubLinkGroup = React.createClass({
     updateNewLinkType(event) {
         let type = $(event.target).val();
         this.setState({'newLinkType': type});
+    },
+    updateNewLinkNewTarget(event) {
+        let newTarget = $(event.target).val();
+        let updatedNewLink = this.state.newLink.set('newTarget', newTarget);
+        this.setState({newLink: updatedNewLink});
     },
     updateLinkGroup(event) {
         let group = $(event.target).val();
@@ -161,6 +166,7 @@ let SubLinkGroup = React.createClass({
         let editLinkName;
         let editLinkURL;
         let deleteButton;
+        let newTargetToggle;
         let formActionFunction = this.updateCustomLink;
         let formActionText = 'Update';
         if (this.state.newLink.get('linkType') === 'custom') {
@@ -183,6 +189,16 @@ let SubLinkGroup = React.createClass({
             } else {
                 deleteButton = <button className="btn btn-default" onClick={this.deleteCustomLink}>Delete</button>
             }
+        } else if (this.state.newLink.get('linkType') === 'kfs') {
+
+            newTargetToggle = (
+                <div>
+                    <div>
+                        <input checked={this.state.newLink.get('newTarget')} type="checkbox" value="newTarget" onChange={this.updateNewLinkNewTarget}/>
+                        <label>Open In New Window</label>
+                    </div>
+                </div>
+            );
         }
 
         return (
@@ -201,6 +217,7 @@ let SubLinkGroup = React.createClass({
                             <input checked={this.state.newLinkType === 'administration'} type="radio" value="administration" id={this.props.id + "-administration-radio"} onChange={this.updateNewLinkType}/>
                             <label htmlFor={this.props.id + "-administration-radio"}>Administration</label>
                         </div>
+                        {newTargetToggle}
                         <div><label>GROUP:</label></div>
                         <div>
                             <select value={this.state.moveToGroupIndex} onChange={this.updateLinkGroup}>{groupSelectItems}</select>
