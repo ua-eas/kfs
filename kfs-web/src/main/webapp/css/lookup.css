@@ -779,7 +779,7 @@ div.inquiry table.datatable th {
 }
 
 .main-panel .tab-container table.acct-lines td {
-    padding: 10px 0;
+    padding: 10px 5px;
 }
 
 .main-panel .tab-container table.acct-lines tr.header {
