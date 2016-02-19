@@ -110,14 +110,31 @@
 <table style="width: 100%; border: none" cellpadding="0" cellspacing="0" class="datatable">
 	<tr>
 		<td class="tab-subhead" style="border-right: none;">Accounts <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-				<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" alt="hide"
-					title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+				<html:submit
+						property="methodToCall.toggleTab.tab${tabKey}"
+						alt="hide"
+						title="toggle"
+						styleClass="btn btn-default small"
+						styleId="tab-${tabKey}-imageToggle"
+						onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); "
+						value="Hide"/>
 			</c:if> <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-				<html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" alt="show"
-					title="toggle" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " />
-			</c:if><c:if test="${hideRecalculateButton != 'true' && hideRecalculateButton != 'TRUE'}"> <%-- display the recalculate button--%> <html:image property="methodToCall.recalculateAmountToDraw.line${lineNumber}"
-				src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif" title="Recalculate Amount to Draw" alt="Recalculate Amount to Draw"
-				styleClass="tinybutton" /></c:if>
+				<html:submit
+						property="methodToCall.toggleTab.tab${tabKey}"
+						alt="show"
+						title="toggle"
+						styleClass="btn btn-default small"
+						styleId="tab-${tabKey}-imageToggle"
+						onclick="javascript: return toggleTab(document, 'kualiFormModal', '${tabKey}'); "
+						value="Show"/>
+			</c:if><c:if test="${hideRecalculateButton != 'true' && hideRecalculateButton != 'TRUE'}">
+				<html:submit
+						property="methodToCall.recalculateAmountToDraw.line${lineNumber}"
+						title="Recalculate"
+						alt="Recalculate"
+						styleClass="btn btn-default small"
+						value="Recalculate"/>
+		</c:if>
 		</td>
 	</tr>
 </table>
