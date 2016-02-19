@@ -38,7 +38,7 @@
 	htmlFormAction="${htmlFormAction}" transactionalDocument="false" maintenanceDocument="true"
 	renderMultipart="${renderMultipart}" showTabButtons="${showTabButtons}"
 	defaultMethodToCall="${defaultMethodToCall}" additionalScriptFiles="${additionalScriptFiles}"
-	lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}" auditCount="0" includeModal="true">
+	lookup="${lookup}" headerMenuBar="${headerMenuBar}" headerTitle="${headerTitle}" auditCount="0">
 
     <table width="100%" cellpadding="0" cellspacing="0" class="tab">
         <tr>

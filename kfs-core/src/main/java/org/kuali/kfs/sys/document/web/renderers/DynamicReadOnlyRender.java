@@ -55,7 +55,8 @@ public class DynamicReadOnlyRender extends ReadOnlyRenderer {
                 out.write(value);                
                 if (shouldRenderInquiryLink()) {
                     out.write(buildEndInquiryLink());
-                }                                
+                    out.write(buildNewWindowInquiryLink());
+                }
             } else {
                 out.write(buildNonBreakingSpace());
             }

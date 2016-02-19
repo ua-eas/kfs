@@ -61,11 +61,11 @@
             		    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.projectCode}" hideRequiredAsterisk="true" scope="col"/>
                 		<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.organizationReferenceId}" hideRequiredAsterisk="true" scope="col"/>
  	    				<kul:htmlAttributeHeaderCell attributeEntry="${DataDictionary.DocumentHeader.attributes.organizationDocumentNumber}" hideRequiredAsterisk="true" scope="col"/>           		
-                		<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.amount}" hideRequiredAsterisk="true" scope="col"/>
+                		<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.amount}" hideRequiredAsterisk="true" scope="col" addClass="right"/>
 			    	</tr>
 								    		    
 					<tr>
-						<td class="datacell
+						<td class="datacell">
 							<kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.Chart" keyValues="chartOfAccountsCode=${summaryAccount.account.chartOfAccountsCode}" render="true">
 								<bean:write name="KualiForm" property="summaryAccounts[${ctr}].account.chartOfAccountsCode"/>
 							</kul:inquiry>
@@ -138,7 +138,7 @@
 									<tr class="header">
 										<kul:htmlAttributeHeaderCell width="25%" >Item</kul:htmlAttributeHeaderCell>
 										<kul:htmlAttributeHeaderCell width="50%" attributeEntry="${summaryItemAttributes.itemDescription}" />
-										<kul:htmlAttributeHeaderCell width="25%" attributeEntry="${summaryItemAttributes.estimatedEncumberanceAmount}" />
+										<kul:htmlAttributeHeaderCell width="25%" attributeEntry="${summaryItemAttributes.estimatedEncumberanceAmount}" addClass="right" />
 									</tr>
 									<logic:iterate id="itemValue" name="KualiForm" property="summaryAccounts[${ctr}].items" indexId="ctrItem">
 										<tr class="${ctr % 2 == 0 ? 'highlight' : ''}">
@@ -148,7 +148,7 @@
 											<td width="50%" class="datacell">
 												<kul:htmlControlAttribute attributeEntry="${summaryItemAttributes.itemDescription}" property="summaryAccounts[${ctr}].items[${ctrItem}].itemDescription" readOnly="true" />&nbsp;
 											</td>
-											<td width="25%" class="datacell">
+											<td width="25%" class="datacell right">
 												<kul:htmlControlAttribute attributeEntry="${summaryItemAttributes.estimatedEncumberanceAmount}" property="summaryAccounts[${ctr}].items[${ctrItem}].estimatedEncumberanceAmount" readOnly="true" />&nbsp;
 											</td>
 										</tr>
