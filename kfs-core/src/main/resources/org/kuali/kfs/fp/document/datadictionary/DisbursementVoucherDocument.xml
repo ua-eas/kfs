@@ -320,7 +320,7 @@
     <property name="maxLength" value="1400"/>
     <property name="required" value="true"/>
     <property name="control">
-      <bean parent="TextareaControlDefinition" p:rows="5" p:cols="100"/>
+      <bean parent="TextareaControlDefinition" p:rows="3" p:cols="60" p:expandedTextArea="true"/>
     </property>
     
     
