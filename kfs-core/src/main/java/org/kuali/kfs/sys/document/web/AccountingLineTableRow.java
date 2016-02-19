@@ -106,8 +106,10 @@ public class AccountingLineTableRow implements RenderableElement {
         this.renderingContext = renderingContext;
 
         List<AccountingLineTableRow> rows = renderingContext.getRows();
-        if (rows.size() > 2) {
-            renderer.setIsMultiline(true);
+        if (rows.size() > 0) {
+            if ((rows.get(0).isHeader() && rows.size() > 2) || rows.size() > 1) {
+                renderer.setIsMultiline(true);
+            }
         }
 
         if (rows.get(0).equals(this)) {
