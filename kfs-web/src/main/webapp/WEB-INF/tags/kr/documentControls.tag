@@ -24,8 +24,11 @@
 <%@ attribute name="extraButtonAlt" required="false" description="The alt description of a single extra button." %>
 <%@ attribute name="extraButtons" required="false" type="java.util.List" description="A List of org.kuali.kfs.kns.web.ui.ExtraButton objects to render before the standard button." %>
 <%@ attribute name="viewOnly" required="false" description="Boolean value of whether this document is view only, which means in effect the save button would be suppressed." %>
+<%@ attribute name="tabindex" required="false" %>
 
-<c:set var="tabindex" value="0" />
+<c:if test="${empty tabindex}">
+    <c:set var="tabindex" value="0" />
+</c:if>
 
 <c:set var="documentTypeName" value="${KualiForm.docTypeName}" />
 <c:set var="documentEntry" value="${DataDictionary[documentTypeName]}" />

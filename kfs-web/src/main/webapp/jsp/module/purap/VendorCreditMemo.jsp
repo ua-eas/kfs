@@ -25,7 +25,8 @@
     <c:set var="displayInitTab" value="${KualiForm.editingMode['displayInitTab']}" scope="request" />
                      
     <c:if test="${displayInitTab}" > 
-    	<purap:creditMemoInit documentAttributes="${DataDictionary.VendorCreditMemoDocument.attributes}" /> 
+    	<purap:creditMemoInit documentAttributes="${DataDictionary.VendorCreditMemoDocument.attributes}" />
+		<c:set var="globalButtonTabIndex" value="50"/>
     	
 
 	    <div align="right"><br><bean:message key="message.creditMemo.initMessage" /></div><br>
@@ -70,6 +71,10 @@
 	
 	<c:set var="extraButtons" value="${KualiForm.extraButtons}" scope="request"/>
 	
-  	<sys:documentControls transactionalDocument="true" extraButtons="${extraButtons}" suppressRoutingControls="${displayInitTab}" />
+  	<sys:documentControls
+			transactionalDocument="true"
+			extraButtons="${extraButtons}"
+			suppressRoutingControls="${displayInitTab}"
+			tabindex="${globalButtonTabIndex}"/>
    
 </kul:documentPage>

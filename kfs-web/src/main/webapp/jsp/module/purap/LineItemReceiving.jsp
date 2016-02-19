@@ -27,6 +27,7 @@
     
 	<c:if test="${KualiForm.editingMode['displayInitTab']}" > 
     	<purap:receivingLineInit documentAttributes="${DataDictionary.LineItemReceivingDocument.attributes}"/>
+        <c:set var="globalButtonTabIndex" value="15"/>
 	</c:if>
     
     <c:if test="${not KualiForm.editingMode['displayInitTab']}" >
@@ -57,6 +58,7 @@
     <sys:documentControls 
         transactionalDocument="true" 
         extraButtons="${extraButtons}"
-        suppressRoutingControls="${KualiForm.editingMode['displayInitTab']}" />
+        suppressRoutingControls="${KualiForm.editingMode['displayInitTab']}"
+        tabindex="${globalButtonTabIndex}"/>
       
 </kul:documentPage>
