@@ -165,7 +165,7 @@
                                                 <c:set var="attachmentTypeCode" value ="${note.attachment.attachmentTypeCode}" />
                                                 <c:set var="mimeTypeCode" value="${note.attachment.attachmentMimeTypeCode}" />
                                             </c:if>
-                                            <span style="white-space: nowrap">
+                                            <span>
                                                 <c:if test="${kfunc:canViewNoteAttachment(KualiForm.document, attachmentTypeCode)}" >
                                                     <html:image property="methodToCall.downloadBOAttachment.attachment[${status.index}]" src="${ConfigProperties.kr.externalizable.images.url}${kfunc:getAttachmentImageForUrl(mimeTypeCode)}" title="download attachment" alt="download attachment" style="padding:5px;margin-bottom:-10px;" onclick="excludeSubmitRestriction=true"/>
                                                 </c:if>
