@@ -40,11 +40,6 @@
   <description>Kuali Financials</description>
   <inceptionYear>2004</inceptionYear>
   <packaging>pom</packaging>
-  <url>http://${kuali.site.hostname}/kfs/${project.version}</url>
-  <issueManagement>
-    <system>JIRA</system>
-    <url>http://jira.kuali.org/</url>
-  </issueManagement>
   <scm>
     <developerConnection>scm:git:git@github.com:kualico/financials.git</developerConnection>
     <connection>scm:git:git@github.com:kualico/financials.git</connection>
