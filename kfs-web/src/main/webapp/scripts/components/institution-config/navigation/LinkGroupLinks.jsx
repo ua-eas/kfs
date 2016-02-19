@@ -132,7 +132,7 @@ let SubLinkGroup = React.createClass({
         this.setState({'newLinkType': type});
     },
     updateNewLinkNewTarget(event) {
-        let newTarget = $(event.target).val();
+        let newTarget = event.target.checked;
         let updatedNewLink = this.state.newLink.set('newTarget', newTarget);
         this.setState({newLink: updatedNewLink});
     },
