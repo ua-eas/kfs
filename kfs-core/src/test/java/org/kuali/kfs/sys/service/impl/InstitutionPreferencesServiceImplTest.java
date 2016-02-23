@@ -893,6 +893,80 @@ public class InstitutionPreferencesServiceImplTest {
         preferencesServiceImpl.saveLogo(newLogo);
     }
 
+    @Test
+    public void testFindInstitutionPreferencesLinks_RiceLookupLinkHasReturnLocation() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("link", "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.rice.location.impl.state.StateBo&docFormKey=88888888&hideReturnLink=true");
+        link.put("label", "State");
+        link.put("linkType", "rice");
+        link.put("type","reference");
+
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
+        Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
+        Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
+        Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("reference")));
+
+        Map<String, String> testLink = getLinkAt(preferences, 0, "reference", 0);
+
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(testLink.get("label")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(testLink.get("linkType")));
+
+        String groupLink = testLink.get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
+
+        Assert.assertEquals("Link should be generated correctly", "http://tst.rice.kuali.org/kr-tst/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.rice.location.impl.state.StateBo&docFormKey=88888888&hideReturnLink=true&returnLocation=http://tst.kfs.kuali.org/kfs-tst/portal.do", groupLink);
+    }
+
+    @Test
+    public void testFindInstitutionPreferencesLinks_RiceNonLookupLinkLacksReturnLocation() {
+        InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new InstitutionPreferencesServiceImpl();
+
+        Map<String, String> link = new ConcurrentHashMap<>();
+        link.put("link", "ksb/ThreadPool.do");
+        link.put("label", "Thread Pool");
+        link.put("linkType", "rice");
+        link.put("type","reference");
+
+        List<Map<String, Object>> linkGroups = buildLinkGroup(link);
+
+        institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithLinkGroups(linkGroups));
+        institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
+        institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
+        institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
+
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+
+        Assert.assertNotNull("Preferences should really really exist", preferences);
+        Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
+        Assert.assertTrue("Link Groups should be a List", (preferences.get("linkGroups") instanceof List));
+        Assert.assertTrue("Link Groups should not be empty", !CollectionUtils.isEmpty((List) preferences.get("linkGroups")));
+        Assert.assertTrue("Link Groups should have a label", !StringUtils.isBlank((String) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("label")));
+        Assert.assertTrue("Link groups should have links", !CollectionUtils.isEmpty(((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(0).get("links")).get("reference")));
+
+        Map<String, String> testLink = getLinkAt(preferences, 0, "reference", 0);
+
+        Assert.assertTrue("Link should have a label", !StringUtils.isBlank(testLink.get("label")));
+        Assert.assertTrue("Link should have a link type", !StringUtils.isBlank(testLink.get("linkType")));
+
+        String groupLink = testLink.get("link");
+        Assert.assertTrue("Link should have a link", !StringUtils.isBlank(groupLink));
+
+        Assert.assertEquals("Link should be generated correctly", "http://tst.rice.kuali.org/kr-tst/ksb/ThreadPool.do", groupLink);
+    }
+
     protected class StubDocumentDictionaryService implements DocumentDictionaryService {
         @Override
         public String getLabel(String documentTypeName) {
@@ -1251,6 +1325,8 @@ public class InstitutionPreferencesServiceImplTest {
                 return "http://tst.kfs.kuali.org/kfs-tst";
             } else if (StringUtils.equals(s, KRADConstants.WORKFLOW_URL_KEY)) {
                 return "http://tst.kfs.kuali.org/kfs-tst/kew";
+            } else if (StringUtils.equals(s, KFSConstants.RICE_SERVER_URL_KEY)) {
+                return "http://tst.rice.kuali.org/kr-tst";
             }
             return null;
         }

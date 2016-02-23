@@ -122,6 +122,8 @@
 
                 <c:if test="${!empty reqSearchResultsSize }">
 
+                    <a id="search-results"></a>
+                    <div class="main-panel search-results">
                     <display:table class="datatable-100" name="${reqSearchResults}" id="row"
                         export="true" pagesize="100" defaultsort="1" decorator="org.kuali.kfs.gl.businessobject.inquiry.BalanceInquiryTableDecorator"
                         requestURI="glBalanceInquiry.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
@@ -173,7 +175,7 @@
 
                             </c:choose>
                         </c:forEach>
-                    </display:table>
+                    </display:table></div>
                 </c:if>
 			</td>
 		</tr>

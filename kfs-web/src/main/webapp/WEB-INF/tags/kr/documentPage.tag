@@ -47,10 +47,9 @@
 <!--  pass documentTypeName into htmlControlAttribute -->
 <!-- Do not remove session check here. Since it used by other pages (not MD or TD) -->
 <c:if test="${KualiForm.document.sessionDocument || sessionDocument}">
-<% request.setAttribute("sessionDoc", Boolean.TRUE); %>
+    <% request.setAttribute("sessionDoc", Boolean.TRUE); %>
 </c:if>
-<c:set var="renderRequiredFieldsLabel" value="${(KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]
-||KualiForm.documentActions[Constants.KUALI_ACTION_CAN_SEND_ADHOC_REQUESTS]) && (not KualiForm.suppressAllButtons)}" />
+
 <kul:page
         docTitle="${documentTitle}"
         transactionalDocument="${documentEntry.transactionalDocument}"
@@ -66,8 +65,7 @@
         headerTabActive="${headerTabActive}"
         feedbackKey="${feedbackKey}"
         auditCount="${auditCount}"
-        additionalScriptFiles="${additionalScriptFiles}"
-        renderRequiredFieldsLabel="${renderRequiredFieldsLabel}">
+        additionalScriptFiles="${additionalScriptFiles}">
 
     <jsp:doBody/>
 </kul:page>

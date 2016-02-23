@@ -26,6 +26,7 @@
 <%@ attribute name="extraButtonAlt" required="false" %>
 <%@ attribute name="extraButtons" required="false" type="java.util.List" %>
 <%@ attribute name="viewOnly" required="false" %>
+<%@ attribute name="tabindex" required="false" %>
 <c:set var="documentTypeName" value="${KualiForm.docTypeName}" />
 <c:set var="documentEntry" value="${DataDictionary[documentTypeName]}" />
 
@@ -38,4 +39,5 @@ extraButtonProperty="${extraButtonProperty}"
 extraButtonAlt="${extraButtonAlt}"
 extraButtons="${extraButtons}"
 viewOnly="${viewOnly}"
+tabindex="${tabindex}"
 />

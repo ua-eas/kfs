@@ -21,7 +21,7 @@
 		<documentType>
 			<name>ECD</name>
 			<parent>EC</parent>
-			<label>Effort Certification Recreate</label>
+			<label>Effort Certification</label>
 			<docHandler>${kfs.url}/effortEffortCertification.do?methodToCall=docHandler
 			</docHandler>
 			<docSearchHelpURL>${kfs.externalizable.help.url}/default.htm?turl=WordDocuments%2Feffortcertificationsearch.htm</docSearchHelpURL>

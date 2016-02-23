@@ -102,12 +102,14 @@
               <directory>${help.web.sources}</directory>
             </resource>
             <resource>
-              <directory>src/main/webapp/WEB-INF/</directory>
-              <targetPath>WEB-INF</targetPath>
+              <directory>src/main/webapp/</directory>
               <filtering>true</filtering>
               <includes>
-                <include>**/*.jsp</include>
-                <include>**/*.tag</include>
+                <include>app/sys/institutionconfiguration.jsp</include>
+                <include>kr/WEB-INF/jsp/TextArea.jsp</include>
+                <include>WEB-INF/tags/kr/institutionConfigPage.tag</include>
+                <include>WEB-INF/tags/kr/page.tag</include>
+                <include>WEB-INF/tags/kr/PageBody.tag</include>
               </includes>
             </resource>
           </webResources>

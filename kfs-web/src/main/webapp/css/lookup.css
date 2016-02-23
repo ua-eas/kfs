@@ -456,24 +456,36 @@ td.infocell div.link-wrapper {
     white-space: nowrap;
 }
 
+h2 a.new-window,
 td.grid a.new-window,
-td.infocell a.new-window {
+td.infocell a.new-window,
+td.infoline a.new-window,
+td.datacell a.new-window {
     text-decoration: none;
 }
 
+h2 a.new-window span.glyphicon,
 td.grid a.new-window span.glyphicon,
-td.infocell a.new-window span.glyphicon {
+td.infocell a.new-window span.glyphicon,
+td.infoline a.new-window span.glyphicon,
+td.datacell a.new-window span.glyphicon {
     visibility: hidden;
 }
 
+h2:hover a.new-window span.glyphicon,
 td.grid:hover a.new-window span.glyphicon,
-td.infocell:hover a.new-window span.glyphicon {
+td.infocell:hover a.new-window span.glyphicon,
+td.infoline:hover a.new-window span.glyphicon,
+td.datacell:hover a.new-window span.glyphicon {
     visibility: inherit;
     opacity: .4;
 }
 
+h2 a.new-window:hover span.glyphicon,
 td.grid a.new-window:hover span.glyphicon,
-td.infocell a.new-window:hover span.glyphicon {
+td.infocell a.new-window:hover span.glyphicon,
+td.infoline a.new-window:hover span.glyphicon,
+td.datacell a.new-window:hover span.glyphicon{
     display: inherit;
     opacity: .8;
 }
@@ -560,7 +572,6 @@ div.inquiry table.datatable th {
 
 .main-panel .tab-container {
     color: #555;
-    padding-top: 10px;
 }
 
 .main-panel .tab-container h2 {
@@ -768,7 +779,7 @@ div.inquiry table.datatable th {
 }
 
 .main-panel .tab-container table.acct-lines td {
-    padding: 10px 0;
+    padding: 10px 5px;
 }
 
 .main-panel .tab-container table.acct-lines tr.header {
@@ -886,6 +897,10 @@ div.inquiry table.datatable th {
 .main-panel .tab-container table.acct-lines tr.multiline td.total-line table {
     margin-top: -10px;
     color: #767676;
+}
+
+.main-panel .tab-container table.acct-lines tr.multiline td.total-line table tr.line {
+    border: none;
 }
 
 .main-panel .tab-container table.acct-lines tr.multiline td.total-line table table th:first-child {
