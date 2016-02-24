@@ -465,15 +465,15 @@ public enum DocumentRouteHeaderValueFixture {
 
     public static void setUpData() {
 
-        BusinessObjectService businessObjectService = KRADServiceLocator.getBusinessObjectService();
-        businessObjectService.save(getAll());
+        /*BusinessObjectService businessObjectService = KRADServiceLocator.getBusinessObjectService();
+        businessObjectService.save(getAll());*/
 
     }
 
     private static List<PersistableBusinessObjectBase> getAll() {
         List<PersistableBusinessObjectBase> recs = new ArrayList<PersistableBusinessObjectBase>();
         //TODO Spaghetti fix
-        recs.add(REC1.newRecord());
+        /*recs.add(REC1.newRecord());
         recs.add(REC2.newRecord());
         recs.add(REC3.newRecord());
         recs.add(REC4.newRecord());
@@ -487,7 +487,7 @@ public enum DocumentRouteHeaderValueFixture {
         recs.add(REC12.newRecord());
         recs.add(REC13.newRecord());
         recs.add(REC14.newRecord());
-        recs.add(REC15.newRecord());
+        recs.add(REC15.newRecord());*/
         return recs;
     }
 
