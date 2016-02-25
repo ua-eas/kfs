@@ -816,7 +816,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
     <dependency>
       <groupId>org.kuali.rice</groupId>
       <artifactId>rice-impl</artifactId>
