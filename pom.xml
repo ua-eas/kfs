@@ -1108,6 +1108,14 @@
           <groupId>cglib</groupId>
           <artifactId>cglib</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>commons-beanutils</groupId>
+          <artifactId>commons-beanutils</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>objenesis</groupId>
+          <artifactId>objenesis</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
