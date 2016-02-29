@@ -132,6 +132,7 @@
     <mysql.groupId>mysql</mysql.groupId>
     <mysql.artifactId>mysql-connector-java</mysql.artifactId>
     <mysql.version>5.1.25</mysql.version>
+    <ojb.version>1.0.4-patch9</ojb.version>
     <opencsv.version>2.3</opencsv.version>
     <oracle.groupId>com.oracle</oracle.groupId>
     <oracle.artifactId>ojdbc6</oracle.artifactId>
@@ -1087,6 +1088,17 @@
       <groupId>org.apache.ws.security</groupId>
       <artifactId>wss4j</artifactId>
       <version>${wss4j.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.db.ojb</groupId>
+      <artifactId>db-ojb</artifactId>
+      <version>${ojb.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
