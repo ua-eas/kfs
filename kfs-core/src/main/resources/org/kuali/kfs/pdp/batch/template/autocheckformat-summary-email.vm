@@ -1,0 +1,71 @@
+<HTML>
+<HEAD><TITLE>Processed Pcard for the batch run on $docCreateDate</TITLE></HEAD>
+<BODY style="background-color:#FF0000;color:#FFFFFF;font-family:Tahoma;font-size:10px;">
+<CENTER>
+      <h3>Format Check/ACH summary at $docCreateDate</h3>
+		<BR/>
+		<TABLE border="1" style="color:#000000;background-color:#C0C0C0;border-collapse:collapse;font-family:Tahoma;font-size:12px;">
+			<th style="padding: 2;text-align:center">Location</th>
+			<th style="padding: 2;text-align:center">Unit</th>
+			<th style="padding: 2;text-align:center">Sub-Unit</th>
+			<th style="padding: 2;text-align:center">Disbursement</th>
+			<th style="padding: 2;text-align:center"><b>Total Count</b></th>
+			<th style="padding: 2;text-align:center"><b>Total Amount</b></th>
+			
+			// ACH
+			#foreach( $achSummary in $achSummaryList )
+			<tr style="background-color:#CCCC99;text-align:center">
+				<td style="padding: 2;text-align:center">$achSummary.charCode</td>
+				<td style="padding: 2;text-align:center">$achSummary.unitCode</td>
+				<td style="padding: 2;text-align:center">$achSummary.subUnitCode</td>
+				<td style="padding: 2;text-align:center">ACH</td>
+			</tr>
+			
+			#end
+			
+		</TABLE>      
+</CENTER>
+</BODY>
+</HTML>
+
+		DateFormatter dateFormatter = new DateFormatter();
+		body.append("<tr><td colspan=\"6\" height=\"25\" valign=\"top\">Format Check/ACH summary at "+dateFormatter.formatForPresentation(new Date())+"</td></tr>");
+		body.append("<tr align=\"left\">");
+		body.append("<td><b>Location</b></td>");
+		body.append("<td><b>Unit</b></td>");
+		body.append("<td><b>Sub-Unit</b></td>");
+		body.append("<td><b>Disbursement Type</b></td>");	
+		body.append("<td align=\"center\"><b>Total Count</b></td>");
+		body.append("<td align=\"center\"><b>Total Amount</b></td>");
+		body.append("</tr>");
+
+			// ACH
+			body.append(buildSummaryByDisbType(achSummaryByCustomerProfile, "ACH"));
+			
+			body.append("<tr><td colspan=\"6\" height=\"25\"></td></tr>");
+			
+			// CHECK
+			body.append(buildSummaryByDisbType(checkSummaryByCustomerProfile, "CHECK"));
+
+			body.append("<tr><td colspan=\"6\" height=\"25\"></td></tr>");
+			
+			KualiInteger totalCount = KualiInteger.ZERO;
+			KualiDecimal totalAmount = KualiDecimal.ZERO;
+	        for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()){
+	                totalCount = totalCount.add(procSum.getProcessTotalCount());
+	                totalAmount = totalAmount.add(procSum.getProcessTotalAmount());
+	        }
+	        
+			body.append("<tr><td colspan=\"3\" ></td>");
+			body.append("<td>TOTAL CHECK/ACH</td>");
+			body.append("<td align=\"right\">"+totalCount+"</td>");
+			body.append("<td align=\"right\">"+totalAmount+"</td>");
+			body.append("</tr>");
+			
+		body.append("</table>");
+		body.append("</body>");
+		body.append("</html>");
+		
+		LOG.info(body.toString());
+
+		sendHTMLEmail(body);
