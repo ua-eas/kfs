@@ -931,6 +931,19 @@ div.inquiry table.datatable th {
     display: none;
 }
 
+.main-panel .tab-container table.acct-lines table.acct-lines tr.title.distribution {
+    display: table-row;
+}
+
+.main-panel .tab-container table.acct-lines table.acct-lines tr.title.distribution td.tab-subhead {
+    visibility: hidden;
+    padding-top: 0;
+}
+
+.main-panel .tab-container table.acct-lines table.acct-lines tr.title.distribution td.tab-subhead-import {
+    padding-top: 0;
+}
+
 .main-panel .tab-container table.acct-lines table.acct-lines tr th:first-child {
     width: inherit;
 }

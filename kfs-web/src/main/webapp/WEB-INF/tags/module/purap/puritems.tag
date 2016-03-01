@@ -258,7 +258,7 @@
             </c:if>
             <c:if test="${(fullEntryMode or amendmentEntry)}">
                 <tr>
-                    <th height=30 colspan="${mainColumnCount}" style="border-bottom: 1px solid #BBBBBB; padding-bottom: 20px;">
+                    <th height=30 colspan="${mainColumnCount}" style="padding-bottom: 20px;">
                         <purap:accountdistribution
                                 accountingLineAttributes="${accountingLineAttributes}"
                                 itemAttributes="${itemAttributes}"
