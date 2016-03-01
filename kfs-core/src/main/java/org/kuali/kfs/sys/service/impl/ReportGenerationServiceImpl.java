@@ -33,6 +33,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
+import org.kuali.kfs.sys.service.FileStorageService;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.core.io.ClassPathResource;
@@ -45,6 +46,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ReportGenerationServiceImpl.class);
 
     protected DateTimeService dateTimeService;
+    protected FileStorageService fileStorageService;
 
     /**
      * @see org.kuali.kfs.sys.batch.service.ReportGenerationService#generateReportToPdfFile(java.util.Map, java.lang.String, java.lang.String)
@@ -63,35 +65,13 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
      *      java.lang.String)
      */
     public void generateReportToPdfFile(Map<String, Object> reportData, Object dataSource, String template, String reportFileName) {
-        ClassPathResource resource = getReportTemplateClassPathResource(template.concat(ReportGeneration.DESIGN_FILE_EXTENSION));
-        if (resource == null || !resource.exists()) {
-            throw new IllegalArgumentException("Cannot find the template file: " + template.concat(ReportGeneration.DESIGN_FILE_EXTENSION));
-        }
+    	reportFileName = reportFileName + ReportGeneration.PDF_FILE_EXTENSION;
+    	String directoryName = StringUtils.substringBeforeLast(reportFileName, fileStorageService.separator());
+    	if (!fileStorageService.directoryExists(directoryName)) {
+    		fileStorageService.mkdir(directoryName);
+    	}
 
-        try {
-            if (reportData != null && reportData.containsKey(ReportGeneration.PARAMETER_NAME_SUBREPORT_TEMPLATE_NAME)) {
-                Map<String, String> subReports = (Map<String, String>) reportData.get(ReportGeneration.PARAMETER_NAME_SUBREPORT_TEMPLATE_NAME);
-                String subReportDirectory = (String) reportData.get(ReportGeneration.PARAMETER_NAME_SUBREPORT_DIR);
-                compileSubReports(subReports, subReportDirectory);
-            }
-
-            String designTemplateName = template.concat(ReportGeneration.DESIGN_FILE_EXTENSION);
-            InputStream jasperReport = new FileInputStream(compileReportTemplate(designTemplateName));
-
-            JRDataSource jrDataSource = JasperReportsUtils.convertReportData(dataSource);
-
-            reportFileName = reportFileName + ReportGeneration.PDF_FILE_EXTENSION;
-            File reportDirectory = new File(StringUtils.substringBeforeLast(reportFileName, File.separator));
-            if(!reportDirectory.exists()) {
-                reportDirectory.mkdir();
-            }
-
-            JasperRunManager.runReportToPdfStream(jasperReport, new FileOutputStream(reportFileName), decorateReportData(reportData), jrDataSource);
-        }
-        catch (Exception e) {
-            LOG.error(e);
-            throw new RuntimeException("Fail to generate report.", e);
-        }
+    	fileStorageService.open(reportFileName, file -> generateReportToOutputStream(reportData, dataSource, template, file.getOutputStream()));
     }
 
     /**
@@ -110,9 +90,9 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
 
     /**
      * @see org.kuali.kfs.sys.batch.service.ReportGenerationService#generateReportToOutputStream(java.util.Map, java.lang.Object,
-     *      java.lang.String, java.io.ByteArrayOutputStream)
+     *      java.lang.String, java.io.OutputStream)
      */
-    public void generateReportToOutputStream(Map<String, Object> reportData, Object dataSource, String template, ByteArrayOutputStream baos) {
+    public void generateReportToOutputStream(Map<String, Object> reportData, Object dataSource, String template, OutputStream baos) {
         ClassPathResource resource = getReportTemplateClassPathResource(template.concat(ReportGeneration.DESIGN_FILE_EXTENSION));
         if (resource == null || !resource.exists()) {
             throw new IllegalArgumentException("Cannot find the template file: " + template.concat(ReportGeneration.DESIGN_FILE_EXTENSION));
@@ -144,7 +124,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     @Override
     public String buildFullFileName(Date runDate, String directory, String fileName, String extension) {
         String runtimeStamp = dateTimeService.toDateTimeStringForFilename(runDate);
-        String fileNamePattern = "{0}" + File.separator + "{1}_{2}{3}";
+        String fileNamePattern = "{0}" + fileStorageService.separator() + "{1}_{2}{3}";
 
         return MessageFormat.format(fileNamePattern, directory, fileName, runtimeStamp, extension);
     }
@@ -219,4 +199,13 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }
+
+	/**
+	 * Sets the FileStorageService
+	 * 
+	 * @param fileStorageService the fileStorageService to set
+	 */
+	public void setFileStorageService(FileStorageService fileStorageService) {
+		this.fileStorageService = fileStorageService;
+	}
 }
