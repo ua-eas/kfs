@@ -83,56 +83,56 @@
 			</table>
 		</div>
 	
-		<div class="tab-container" style="text-align: center;">
+		<div class="tab-container">
 			<c:choose>
 				<c:when test="${!accountsCanCrossCharts}">
-			<ec:detailLinesWithGrouping id="editableDetailLineTable" detailLines="${detailLines}" 
-				detailLineFormName="document.effortCertificationDetailLines"
-				attributes="${detailAttributes}"
-				detailFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,positionNumber,sourceChartOfAccountsCode,sourceAccountNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"
-				detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"				
-				hiddenFieldNames="documentNumber,universityFiscalYear,newLineIndicator,federalOrFederalPassThroughIndicator,persistedPayrollAmount,persistedEffortPercent,versionNumber"
-				inquirableUrl="${KualiForm.detailLineFieldInquiryUrl}"
-				fieldInfo="${KualiForm.fieldInfo}"
-				sortableFieldNames="chartOfAccountsCode,accountNumber,effortCertificationPayrollAmount"
-				editableFieldNames="effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
-				extraEditableFieldNames="accountNumber,subAccountNumber,financialObjectCode,positionNumber"
-				onchangeForExtraEditableFieldNames="effortAmountUpdator.loadAccountInfo,loadSubAccountInfo,loadObjectCodeInfo"
-				onchangeableInfoFieldNames=""	
-				onchangeableExtraInfoFieldNames="account.accountName,subAccount.subAccountName,financialObject.financialObjectCodeName,"			
-				relationshipMetadata="${KualiForm.relationshipMetadata}"
-				ferderalTotalFieldNames="federalTotalOriginalEffortPercent,federalTotalEffortPercent,federalTotalOriginalPayrollAmount,federalTotalPayrollAmount,federalTotalOriginalFringeBenefit,federalTotalFringeBenefit" 
-				nonFerderalTotalFieldNames="otherTotalOriginalEffortPercent,otherTotalEffortPercent,otherTotalOriginalPayrollAmount,otherTotalPayrollAmount,otherTotalOriginalFringeBenefit,otherTotalFringeBenefit"
-				grandTotalFieldNames="totalOriginalEffortPercent,totalEffortPercent,totalOriginalPayrollAmount,totalPayrollAmount,totalOriginalFringeBenefit,totalFringeBenefit"
-				hasActions="true"/>
+					<ec:detailLinesWithGrouping id="editableDetailLineTable" detailLines="${detailLines}"
+						detailLineFormName="document.effortCertificationDetailLines"
+						attributes="${detailAttributes}"
+						detailFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,positionNumber,sourceChartOfAccountsCode,sourceAccountNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"
+						detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"
+						hiddenFieldNames="documentNumber,universityFiscalYear,newLineIndicator,federalOrFederalPassThroughIndicator,persistedPayrollAmount,persistedEffortPercent,versionNumber"
+						inquirableUrl="${KualiForm.detailLineFieldInquiryUrl}"
+						fieldInfo="${KualiForm.fieldInfo}"
+						sortableFieldNames="chartOfAccountsCode,accountNumber,effortCertificationPayrollAmount"
+						editableFieldNames="effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
+						extraEditableFieldNames="accountNumber,subAccountNumber,financialObjectCode,positionNumber"
+						onchangeForExtraEditableFieldNames="effortAmountUpdator.loadAccountInfo,loadSubAccountInfo,loadObjectCodeInfo"
+						onchangeableInfoFieldNames=""
+						onchangeableExtraInfoFieldNames="account.accountName,subAccount.subAccountName,financialObject.financialObjectCodeName,"
+						relationshipMetadata="${KualiForm.relationshipMetadata}"
+						ferderalTotalFieldNames="federalTotalOriginalEffortPercent,federalTotalEffortPercent,federalTotalOriginalPayrollAmount,federalTotalPayrollAmount,federalTotalOriginalFringeBenefit,federalTotalFringeBenefit"
+						nonFerderalTotalFieldNames="otherTotalOriginalEffortPercent,otherTotalEffortPercent,otherTotalOriginalPayrollAmount,otherTotalPayrollAmount,otherTotalOriginalFringeBenefit,otherTotalFringeBenefit"
+						grandTotalFieldNames="totalOriginalEffortPercent,totalEffortPercent,totalOriginalPayrollAmount,totalPayrollAmount,totalOriginalFringeBenefit,totalFringeBenefit"
+						hasActions="true"/>
 				</c:when>
 				<c:otherwise>
 					<ec:detailLinesWithGrouping id="editableDetailLineTable" detailLines="${detailLines}" 
-				detailLineFormName="document.effortCertificationDetailLines"
-				attributes="${detailAttributes}"
-				detailFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,positionNumber,sourceChartOfAccountsCode,sourceAccountNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"
-				detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"				
-				hiddenFieldNames="documentNumber,universityFiscalYear,newLineIndicator,federalOrFederalPassThroughIndicator,persistedPayrollAmount,persistedEffortPercent,versionNumber"
-				inquirableUrl="${KualiForm.detailLineFieldInquiryUrl}"
-				fieldInfo="${KualiForm.fieldInfo}"
-				sortableFieldNames="chartOfAccountsCode,accountNumber,effortCertificationPayrollAmount"
-				editableFieldNames="effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
-				extraEditableFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,positionNumber"
-				onchangeForExtraEditableFieldNames="loadChartInfo,effortAmountUpdator.loadAccountInfo,loadSubAccountInfo,loadObjectCodeInfo"
-				onchangeableInfoFieldNames=""	
-				onchangeableExtraInfoFieldNames="chartOfAccounts.finChartOfAccountDescription,account.accountName,subAccount.subAccountName,financialObject.financialObjectCodeName,"			
-				relationshipMetadata="${KualiForm.relationshipMetadata}"
-				ferderalTotalFieldNames="federalTotalOriginalEffortPercent,federalTotalEffortPercent,federalTotalOriginalPayrollAmount,federalTotalPayrollAmount,federalTotalOriginalFringeBenefit,federalTotalFringeBenefit" 
-				nonFerderalTotalFieldNames="otherTotalOriginalEffortPercent,otherTotalEffortPercent,otherTotalOriginalPayrollAmount,otherTotalPayrollAmount,otherTotalOriginalFringeBenefit,otherTotalFringeBenefit"
-				grandTotalFieldNames="totalOriginalEffortPercent,totalEffortPercent,totalOriginalPayrollAmount,totalPayrollAmount,totalOriginalFringeBenefit,totalFringeBenefit"
-				hasActions="true"/>
+						detailLineFormName="document.effortCertificationDetailLines"
+						attributes="${detailAttributes}"
+						detailFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,positionNumber,sourceChartOfAccountsCode,sourceAccountNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"
+						detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationCalculatedOverallPercent,effortCertificationUpdatedOverallPercent,effortCertificationOriginalPayrollAmount,effortCertificationPayrollAmount,originalFringeBenefitAmount,fringeBenefitAmount"
+						hiddenFieldNames="documentNumber,universityFiscalYear,newLineIndicator,federalOrFederalPassThroughIndicator,persistedPayrollAmount,persistedEffortPercent,versionNumber"
+						inquirableUrl="${KualiForm.detailLineFieldInquiryUrl}"
+						fieldInfo="${KualiForm.fieldInfo}"
+						sortableFieldNames="chartOfAccountsCode,accountNumber,effortCertificationPayrollAmount"
+						editableFieldNames="effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
+						extraEditableFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,positionNumber"
+						onchangeForExtraEditableFieldNames="loadChartInfo,effortAmountUpdator.loadAccountInfo,loadSubAccountInfo,loadObjectCodeInfo"
+						onchangeableInfoFieldNames=""
+						onchangeableExtraInfoFieldNames="chartOfAccounts.finChartOfAccountDescription,account.accountName,subAccount.subAccountName,financialObject.financialObjectCodeName,"
+						relationshipMetadata="${KualiForm.relationshipMetadata}"
+						ferderalTotalFieldNames="federalTotalOriginalEffortPercent,federalTotalEffortPercent,federalTotalOriginalPayrollAmount,federalTotalPayrollAmount,federalTotalOriginalFringeBenefit,federalTotalFringeBenefit"
+						nonFerderalTotalFieldNames="otherTotalOriginalEffortPercent,otherTotalEffortPercent,otherTotalOriginalPayrollAmount,otherTotalPayrollAmount,otherTotalOriginalFringeBenefit,otherTotalFringeBenefit"
+						grandTotalFieldNames="totalOriginalEffortPercent,totalEffortPercent,totalOriginalPayrollAmount,totalPayrollAmount,totalOriginalFringeBenefit,totalFringeBenefit"
+						hasActions="true"/>
 				</c:otherwise>
 			</c:choose>			
 		</div>	
 	</c:when>
 	
 	<c:otherwise>
-		<div class="tab-container" style="text-align: center;">
+		<div class="tab-container">
 			<ec:detailLinesWithGrouping id="readonlyDetailLineTable" detailLines="${detailLines}" 
 				detailLineFormName="document.effortCertificationDetailLines"
 				attributes="${detailAttributes}"

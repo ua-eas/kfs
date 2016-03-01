@@ -74,7 +74,7 @@
         </table>
     </div>
 
-    <div class="tab-container" align=center>
+    <div class="tab-container">
         <c:choose>
             <c:when test="${accountsCanCrossCharts}">
                 <ec:detailLinesWithGrouping id="editableDetailLineTable"
