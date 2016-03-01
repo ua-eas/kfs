@@ -1379,7 +1379,7 @@
       <column name="UNIV_FISCAL_PRD_NM"><![CDATA[FEB. 2016]]></column>
       <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
       <column name="BDGT_ROLLOVER_CD"><![CDATA[N]]></column>
-      <column name="UNIV_FSCPD_END_DT" valueDate="2016-02-28 00:00:00.0"/>
+      <column name="UNIV_FSCPD_END_DT" valueDate="2016-02-29 00:00:00.0"/>
     </insert>
     <insert tableName="sh_acct_period_t">
       <column name="UNIV_FISCAL_YR"><![CDATA[2016]]></column>
