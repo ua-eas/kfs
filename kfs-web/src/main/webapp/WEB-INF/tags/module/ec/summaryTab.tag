@@ -53,7 +53,7 @@
                                    relationshipMetadata="${KualiForm.relationshipMetadata}"
                                    hasActions="true" actions="addSummarizedDetailLine"
                                    actionButtonValues="Add"
-                                   actionButtonClasses="green"/>
+                                   actionButtonClasses="btn-green"/>
 				        </span>
                     </c:when>
                     <c:otherwise>
@@ -67,7 +67,7 @@
                                        hasActions="true"
                                        actions="addSummarizedDetailLine"
                                        actionButtonValues="Add"
-                                       actionButtonClasses="green"/>
+                                       actionButtonClasses="btn-green"/>
                     </c:otherwise>
                 </c:choose>
             </tr>
