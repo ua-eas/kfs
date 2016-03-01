@@ -45,22 +45,24 @@
 	<kul:tab tabTitle="Effort Detail" defaultOpen="true"
 		tabErrorKey="${EffortConstants.EFFORT_DETAIL_IMPORT_ERRORS}">
 		
-		<div class="tab-container" align=center>
+		<div class="tab-container">
 			<h3>Retrieve Data</h3>
 			<ec:detailLineImport readOnly="${readOnly}" attributes="${documentAttributes}" />				
 		</div>
 		
 		<kul:errors keyMatch="${EffortConstants.EFFORT_CERTIFICATION_TAB_ERRORS}" displayInDiv="true"/>
 					
-		<div class="tab-container" align=center>			
+		<div class="tab-container">
 			<h3>Effort Detail Lines</h3>
-			
-			<ec:detailLines detailLines="${detailLines}" attributes="${detailAttributes}"
-				detailFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationCalculatedOverallPercent,effortCertificationOriginalPayrollAmount"
-				detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationOriginalPayrollAmount,effortCertificationCalculatedOverallPercent"				
-				hiddenFieldNames="universityFiscalYear,effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount,costShareSourceSubAccountNumber,versionNumber"
-				inquirableUrl="${KualiForm.detailLineFieldInquiryUrl}"
-				fieldInfo="${KualiForm.fieldInfo}"/>
+
+            <ec:detailLines
+                    detailLines="${detailLines}"
+                    attributes="${detailAttributes}"
+                    detailFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationCalculatedOverallPercent,effortCertificationOriginalPayrollAmount"
+                    detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode,accountNumber,subAccountNumber,financialObjectCode,sourceChartOfAccountsCode,sourceAccountNumber,positionNumber,effortCertificationOriginalPayrollAmount,effortCertificationCalculatedOverallPercent"
+                    hiddenFieldNames="universityFiscalYear,effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount,costShareSourceSubAccountNumber,versionNumber"
+                    inquirableUrl="${KualiForm.detailLineFieldInquiryUrl}"
+                    fieldInfo="${KualiForm.fieldInfo}"/>
 		</div>		
 	</kul:tab>
 	

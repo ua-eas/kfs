@@ -98,23 +98,23 @@
 	</tr>
 	
 	<c:if test="${!readOnly}" >
-	<tr>
-		<td height="30" class="infoline">&nbsp;</td>
-        <td height="30" class="infoline">
-		<c:set var="loadDetailLineButtonName" value="methodToCall.loadDetailLine" />
-		  	   ${kfunc:registerEditableProperty(KualiForm, loadDetailLineButtonName)}
-			<input
-                    type="submit"
-                    tabindex="${tabindex}"
-                    name="${loadDetailLineButtonName}"
-			   	    alt="Import Detail Lines"
-                    title="Import Detail Lines"
-                    border="0"
-                    class="btn btn-default"
-                    valign="middle"
-                    value="Import Detail Lines"/>
-        </td>
-	</tr>
+		<tr>
+			<td height="30" class="infoline">&nbsp;</td>
+			<td height="30" class="infoline">
+			<c:set var="loadDetailLineButtonName" value="methodToCall.loadDetailLine" />
+				   ${kfunc:registerEditableProperty(KualiForm, loadDetailLineButtonName)}
+				<input
+						type="submit"
+						tabindex="${tabindex}"
+						name="${loadDetailLineButtonName}"
+						alt="Import Detail Lines"
+						title="Import Detail Lines"
+						border="0"
+						class="btn btn-default"
+						valign="middle"
+						value="Import Detail Lines"/>
+			</td>
+		</tr>
 	</c:if>	
 </table>
 
