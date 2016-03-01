@@ -27,13 +27,13 @@
       <column name="SEQUENCE_NUMBER" type="DECIMAL(4)"/>
     </addColumn>
   </changeSet>
-<!--
+
   <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALa" context="bootstrap,demo,unit">
     <dropForeignKeyConstraint baseTableName="AR_BILL_T" constraintName="AR_BILL_TR1"/>
     <dropForeignKeyConstraint baseTableName="AR_MLSTN_T" constraintName="AR_MLSTN_TR1"/>
     <dropForeignKeyConstraint baseTableName="AR_LTRCR_RVW_DTL_T" constraintName="AR_LTRCR_RVW_DTL_TR1"/>
   </changeSet>
--->
+
   <changeSet author="KFS601" id="FINI-319_CHANGE_PRPSL_NBR_TYPE_TO_VARCHAR_FROM_DECIMALb" context="bootstrap,demo,unit">
     <addColumn tableName="AR_CSH_CTRL_T">
       <column name="PRPSL_NBR_NEW" type="VARCHAR(12)"/>
