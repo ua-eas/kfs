@@ -89,7 +89,9 @@
 
 	<bean id="fileStorageService" parent="fileStorageService-parentBean"/>
 	<bean id="fileStorageService-parentBean" class="org.kuali.kfs.sys.service.impl.FileSystemFileStorageServiceImpl" abstract="true">
-		<property name="pathPrefix" value="${work.directory}"/>
+		<!-- <property name="pathPrefix" value="${work.directory}" /> -->
+		<!-- Temporary value of pathPrefix to support absolute filepaths -->
+		<property name="pathPrefix" value="" />
 	</bean>
 
     <bean id="financialSystemModuleService" parent="financialSystemModuleService-parentBean"/>
@@ -755,6 +757,9 @@
     <bean id="reportGenerationService-parentBean" class="org.kuali.kfs.sys.service.impl.ReportGenerationServiceImpl" abstract="true">
         <property name="dateTimeService">
             <ref bean="dateTimeService"/>
+        </property>
+        <property name="fileStorageService">
+            <ref bean="fileStorageService"/>
         </property>
     </bean>
 	<bean id="reportAggregatorService" parent="reportAggregatorService-parentBean"/>
