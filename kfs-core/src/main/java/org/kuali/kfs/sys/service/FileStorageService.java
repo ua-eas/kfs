@@ -67,6 +67,14 @@ public interface FileStorageService {
      * @return a String array containing each line in the file
      */
     List<String> getFileContents(String filename);
+    
+    /**
+     * Gets the length of the file.
+     * 
+     * @param filename the file whose length we want to check
+     * @return The length, in bytes, of the file, or 0L if the file does not exist.
+     */
+    long getFileLength(String filename);
 
     /**
      * Delete a file.
