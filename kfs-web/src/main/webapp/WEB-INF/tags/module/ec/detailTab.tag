@@ -47,24 +47,36 @@
 					<kul:htmlAttributeHeaderCell literalLabel="${KFSConstants.ADD_PREFIX}: "/>
 					<c:choose>
 						<c:when test="${!accountsCanCrossCharts}">
-						<ec:detailLine detailLine="${newDetailLine}" detailLineFormName="newDetailLine" attributes="${detailAttributes}"
-							detailFieldNames="${newLineDetailFieldNames}"
-							editableFieldNames="accountNumber,subAccountNumber,effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
-							detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode"
-							fieldInfo="${KualiForm.detailLineFieldInfo}"
-							onchangeForEditableFieldNames="effortAmountUpdator.loadChartAccountInfo,loadSubAccountInfo"
-							onchangeableInfoFieldNames="account.accountName,subAccount.subAccountName"
-							relationshipMetadata ="${KualiForm.relationshipMetadata}"
-							hasActions="true" actions="add" actionImageFileNames="tinybutton-add1.gif" />
+							<ec:detailLine
+									detailLine="${newDetailLine}"
+									detailLineFormName="newDetailLine"
+									attributes="${detailAttributes}"
+									detailFieldNames="${newLineDetailFieldNames}"
+									editableFieldNames="accountNumber,subAccountNumber,effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
+									detailFieldNamesWithHiddenFormWhenReadonly="chartOfAccountsCode"
+									fieldInfo="${KualiForm.detailLineFieldInfo}"
+									onchangeForEditableFieldNames="effortAmountUpdator.loadChartAccountInfo,loadSubAccountInfo"
+									onchangeableInfoFieldNames="account.accountName,subAccount.subAccountName"
+									relationshipMetadata ="${KualiForm.relationshipMetadata}"
+									hasActions="true"
+									actions="add"
+									actionButtonValues="Add"
+									actionButtonClasses="green"/>
 						</c:when>
 						<c:otherwise>
-							<ec:detailLine detailLine="${newDetailLine}" detailLineFormName="newDetailLine" attributes="${detailAttributes}"
-							detailFieldNames="${newLineDetailFieldNames}"
-							editableFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
-							onchangeForEditableFieldNames="loadChartInfo,effortAmountUpdator.loadAccountInfo,loadSubAccountInfo"
-							onchangeableInfoFieldNames="chartOfAccounts.finChartOfAccountDescription,account.accountName,subAccount.subAccountName"
-							relationshipMetadata ="${KualiForm.relationshipMetadata}"
-							hasActions="true" actions="add" actionImageFileNames="tinybutton-add1.gif" />
+							<ec:detailLine
+									detailLine="${newDetailLine}"
+									detailLineFormName="newDetailLine"
+									attributes="${detailAttributes}"
+									detailFieldNames="${newLineDetailFieldNames}"
+									editableFieldNames="chartOfAccountsCode,accountNumber,subAccountNumber,effortCertificationUpdatedOverallPercent,effortCertificationPayrollAmount"
+									onchangeForEditableFieldNames="loadChartInfo,effortAmountUpdator.loadAccountInfo,loadSubAccountInfo"
+									onchangeableInfoFieldNames="chartOfAccounts.finChartOfAccountDescription,account.accountName,subAccount.subAccountName"
+									relationshipMetadata ="${KualiForm.relationshipMetadata}"
+									hasActions="true"
+									actions="add"
+									actionButtonValues="Add"
+									actionButtonClasses="green"/>
 						</c:otherwise>
 					</c:choose>
 				</tr>
