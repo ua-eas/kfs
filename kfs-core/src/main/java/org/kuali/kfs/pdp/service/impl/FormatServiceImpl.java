@@ -31,6 +31,14 @@ import java.util.Map;
 import javax.mail.MessagingException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.velocity.tools.generic.MathTool;
+import org.apache.velocity.tools.generic.NumberTool;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.MailService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
@@ -51,6 +59,7 @@ import org.kuali.kfs.pdp.businessobject.PaymentGroup;
 import org.kuali.kfs.pdp.businessobject.PaymentGroupHistory;
 import org.kuali.kfs.pdp.businessobject.PaymentProcess;
 import org.kuali.kfs.pdp.businessobject.PaymentStatus;
+import org.kuali.kfs.pdp.businessobject.ProcessSummary;
 import org.kuali.kfs.pdp.dataaccess.FormatPaymentDao;
 import org.kuali.kfs.pdp.dataaccess.PaymentDetailDao;
 import org.kuali.kfs.pdp.dataaccess.PaymentGroupDao;
@@ -66,19 +75,16 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.VelocityEmailService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.util.GlobalVariablesUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mail.MailMessage;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.MailService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -98,6 +104,7 @@ public class FormatServiceImpl implements FormatService {
     protected DateTimeService dateTimeService;
     protected ExtractPaymentService extractPaymentService;
     protected PersonService personService;
+    private VelocityEmailService formatCheckACHEmailService;
 
     /**
      * Constructs a FormatServiceImpl.java.
@@ -331,10 +338,79 @@ public class FormatServiceImpl implements FormatService {
 
         LOG.info("Sending email to " + user.getEmailAddress());
         sendEmail(user.getEmailAddress(), processId);
+        
+        // send email with summarizing info
+        sendSummaryEmail(postFormatProcessSummary);
 
     }
 
-    /**
+    protected void sendSummaryEmail(FormatProcessSummary postFormatProcessSummary) {
+		HashMap<CustomerProfile, List<KualiDecimal>> achSummaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
+		HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
+
+		for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
+			CustomerProfile customerProfile = procSum.getCustomer();
+
+			List<KualiDecimal> achSummary = new ArrayList<KualiDecimal>();
+			List<KualiDecimal> checkSummary = new ArrayList<KualiDecimal>();;
+			
+			if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
+				achSummary = calculateTotalsByType(achSummaryByCustomerProfile, procSum);
+				achSummaryByCustomerProfile.put(customerProfile, achSummary);
+			}
+			else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
+				checkSummary = calculateTotalsByType(checkSummaryByCustomerProfile, procSum);
+				checkSummaryByCustomerProfile.put(customerProfile, checkSummary);
+			}
+		}
+		
+//		Map<String, String> map = ...
+//		for (Map.Entry<String, String> entry : map.entrySet())
+//		{
+//		    System.out.println(entry.getKey() + "/" + entry.getValue());
+//		}
+		
+//		for(Map.Entry<CustomerProfile, List<KualiDecimal>> entry: achSummaryByCustomerProfile.entrySet()){
+//			
+//		}
+	
+		final Map<String, Object> templateVariables = new HashMap<String, Object>();
+		
+		DateFormatter dateFormatter = new DateFormatter();
+        templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
+        templateVariables.put("achSummaryMap", achSummaryByCustomerProfile);
+        templateVariables.put("checkSummaryMap", checkSummaryByCustomerProfile);
+        templateVariables.put("numberTool", new NumberTool());
+        templateVariables.put("mathTool", new MathTool());
+        
+        // Handle for email sending exception
+        getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
+		
+	}
+    
+	protected List<KualiDecimal> calculateTotalsByType(HashMap<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
+		CustomerProfile customerProfile = procSum.getCustomer();
+		
+		List<KualiDecimal> summary = new ArrayList<KualiDecimal>();
+		
+		if (summaryByCustomerProfile.containsKey(customerProfile)){
+			summary = summaryByCustomerProfile.get(customerProfile);
+			
+			KualiDecimal totCount = summary.get(0).add(procSum.getProcessTotalCount().kualiDecimalValue());
+			KualiDecimal totAmount = summary.get(1).add(procSum.getProcessTotalAmount());
+			
+			summary.set(0, totCount);
+			summary.set(1, totAmount);
+			
+		// if no key exists, add it
+		} else {
+			summary.add(procSum.getProcessTotalCount().kualiDecimalValue());
+			summary.add(procSum.getProcessTotalAmount());
+		}
+		return summary;
+	}
+
+	/**
      * This method processes the payment group data.
      *
      * @param paymentGroup
@@ -927,5 +1003,19 @@ public class FormatServiceImpl implements FormatService {
             throw new RuntimeException("Could not send mail", me);
         }
     }
+
+	/**
+	 * @return the formatCheckACHEmailService
+	 */
+	public VelocityEmailService getFormatCheckACHEmailService() {
+		return formatCheckACHEmailService;
+	}
+
+	/**
+	 * @param formatCheckACHEmailService the formatCheckACHEmailService to set
+	 */
+	public void setFormatCheckACHEmailService(VelocityEmailService formatCheckACHEmailService) {
+		this.formatCheckACHEmailService = formatCheckACHEmailService;
+	}
 
 }

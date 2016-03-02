@@ -1543,5 +1543,10 @@ public class KFSConstants {
         public static final String REFERENCE = "reference";
         public static final String ADMINISTRATION = "administration";
     }
+    
+    public static class FormatCheckACHParameters {
+    	public static final String PDP_FORMAT_CHECK_ACH_STEP = "FormatCheckACHStep";
+    	public static final String FORMAT_SUMMARY_TO_EMAIL_ADDRESSES = "FORMAT_SUMMARY_TO_EMAIL_ADDRESSES";
+    }
 
 }
