@@ -490,6 +490,10 @@ td.datacell a.new-window:hover span.glyphicon{
     opacity: .8;
 }
 
+td.infocell.right a.new-window span.glyphicon {
+    float: left;
+}
+
 div.inquiry table.datatable {
     margin: 20px 0;
 }
