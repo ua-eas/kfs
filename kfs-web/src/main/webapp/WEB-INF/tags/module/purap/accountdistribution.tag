@@ -97,18 +97,13 @@
         </c:otherwise>
     </c:choose>
     
-    <table class="datatable standard">
+    <table class="datatable standard" style="margin-top: 15px;">
         <c:if test="${displayCommodityCodeFields}">	
             <tr>
-                <td colspan="2" class="subhead">
-                    <span class="subhead-left">Commodity Code</span>
-                </td>
-            </tr>
-            <tr>
-                <th class="right">
+                <th class="right" width="50%">
                     <kul:htmlAttributeLabel attributeEntry="${itemAttributes.purchasingCommodityCode}" />
                 </th>
-                <td class="left nowrap">
+                <td class="left nowrap" width="50%">
                     <c:set var="commodityCodeField"  value="distributePurchasingCommodityCode" />
                     <c:set var="commodityDescriptionField"  value="distributePurchasingCommodityDescription" />
                     <kul:htmlControlAttribute
@@ -129,9 +124,6 @@
                 </td>
             </tr>
 	    </c:if>
-        <tr>
-            <th colspan="2">&nbsp;</td>
-        </tr>
     </table>
 
     <sys-java:accountingLines>
