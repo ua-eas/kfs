@@ -53,7 +53,7 @@
                                    relationshipMetadata="${KualiForm.relationshipMetadata}"
                                    hasActions="true" actions="addSummarizedDetailLine"
                                    actionButtonValues="Add"
-                                   actionButtonClasses="green"/>
+                                   actionButtonClasses="btn-green"/>
 				        </span>
                     </c:when>
                     <c:otherwise>
@@ -67,14 +67,14 @@
                                        hasActions="true"
                                        actions="addSummarizedDetailLine"
                                        actionButtonValues="Add"
-                                       actionButtonClasses="green"/>
+                                       actionButtonClasses="btn-green"/>
                     </c:otherwise>
                 </c:choose>
             </tr>
         </table>
     </div>
 
-    <div class="tab-container" align=center>
+    <div class="tab-container">
         <c:choose>
             <c:when test="${accountsCanCrossCharts}">
                 <ec:detailLinesWithGrouping id="editableDetailLineTable"

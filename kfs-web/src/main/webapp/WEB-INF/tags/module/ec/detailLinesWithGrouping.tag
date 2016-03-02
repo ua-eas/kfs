@@ -158,7 +158,7 @@
 						<c:set var="actualOnchangeForEditableFieldNames" value="${existing ? onchangeForEditableFieldNames : completeOnchangeForEditableFieldNames}" />
 						<c:set var="actualOnchangeableInfoFieldNames" value="${existing ? onchangeableInfoFieldNames : completeOnchangeableInfoFieldNames}" />
 						<c:set var="actions" value="${existing ? actionForExistingLine : actionForNewLine}" />
-						<c:set var="actionImageFileNames" value="${existing ? actionForExistingLineButtonValues : actionForNewLineButtonValues}" />
+						<c:set var="actionButtonValues" value="${existing ? actionForExistingLineButtonValues : actionForNewLineButtonValues}" />
 					</c:if>
 
 					<c:if test="${!editable}">
@@ -166,7 +166,7 @@
 						<c:set var="actualOnchangeForEditableFieldNames" value="" />
 						<c:set var="actualOnchangebleInfoFieldNames" value="" />
 						<c:set var="actions" value=""/>
-						<c:set var="actionImageFileNames" value=""/>
+						<c:set var="actionButtonValues" value=""/>
 					</c:if>
 
 					<ec:detailLine

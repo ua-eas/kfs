@@ -83,7 +83,7 @@
 	<c:set var="isInteger" value="${not empty entryFormatter && fn:contains(integerFormatter, entryFormatter)}" />
 	<c:set var="styleClass" value="${(isCurrency || isInteger) ? 'right' : '' }" />
 
-	<td class="datacell-nowrap ${styleClass}">
+	<td class="infocell ${styleClass}">
 		<ec:detailLineDataCell
 				fieldValue="${detailLine[fieldName]}"
 				fieldFormName="${detailLineFormName}.${fieldName}"
