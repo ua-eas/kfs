@@ -58,6 +58,22 @@
 				<ref bean="EmployeeFunding-csfFullTimeEmploymentQuantity" />
 				<ref bean="EmployeeFunding-dummyBusinessObject.pendingEntryOption" />
 				<ref bean="EmployeeFunding-dummyBusinessObject.blankLineOption" />
+				<ref bean="EmployeeFunding-objectCode.financialObjectLevelCode"/>
+				<ref bean="EmployeeFunding-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
+				<ref bean="EmployeeFunding-account.organizationCode"/>
+			</list>
+		</property>
+		<property name="accessRestrictedAttributes">
+			<list>
+				<bean parent="ChartRestriction"><property name="attribute" ref="EmployeeFunding-chartOfAccountsCode"/></bean>
+				<bean parent="ChartHierarchyRestriction"><property name="attribute" ref="EmployeeFunding-chartOfAccountsCode"/></bean>
+				<bean parent="AccountRestriction"><property name="attribute" ref="EmployeeFunding-accountNumber"/></bean>
+				<bean parent="PrincipalInvestigatorRestriction"><property name="attribute" ref="EmployeeFunding-accountNumber"/></bean>
+				<bean parent="SubAccountRestriction"><property name="attribute" ref="EmployeeFunding-subAccountNumber"/></bean>
+				<bean parent="OrganizationRestriction"><property name="attribute" ref="EmployeeFunding-account.organizationCode"/></bean>
+				<bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="EmployeeFunding-account.organizationCode"/></bean>
+				<bean parent="ObjectLevelRestriction"><property name="attribute" ref="EmployeeFunding-objectCode.financialObjectLevelCode"/></bean>
+				<bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="EmployeeFunding-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean>
 			</list>
 		</property>
 		<property name="relationships">
@@ -247,6 +263,21 @@
 				<bean parent="FieldDefinition" p:attributeName="month1Amount" />
 			</list>
 		</property>
+	</bean>
+
+	<bean id="EmployeeFunding-objectCode.financialObjectLevelCode" parent="EmployeeFunding-objectCode.financialObjectLevelCode-parentBean"/>
+	<bean id="EmployeeFunding-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
+		<property name="name" value="financialObject.financialObjectLevelCode"/>
+	</bean>
+
+	<bean id="EmployeeFunding-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="EmployeeFunding-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
+	<bean id="EmployeeFunding-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
+		<property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
+	</bean>
+
+	<bean id="EmployeeFunding-account.organizationCode" parent="EmployeeFunding-account.organizationCode-parentBean"/>
+	<bean id="EmployeeFunding-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
+		<property name="name" value="account.organizationCode"/>
 	</bean>
 
 	<!-- Business Object Lookup Definition -->
