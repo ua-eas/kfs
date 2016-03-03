@@ -343,6 +343,10 @@ public class FormatServiceImpl implements FormatService {
 
     }
 
+    /**
+     * Send format summary in email
+     * @param postFormatProcessSummary
+     */
     protected void sendSummaryEmail(FormatProcessSummary postFormatProcessSummary) {
 		HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
 		HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
@@ -350,18 +354,11 @@ public class FormatServiceImpl implements FormatService {
     	KualiInteger formatTotalCount = KualiInteger.ZERO;
 		KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
 		for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
-			CustomerProfile customerProfile = procSum.getCustomer();
-			
-			List<KualiDecimal> achSummary = new ArrayList<KualiDecimal>();
-			List<KualiDecimal> checkSummary = new ArrayList<KualiDecimal>();;
-			
 			if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
-				achSummary = calculateTotalsByType(achSummaryMap, procSum);
-				achSummaryMap.put(customerProfile, achSummary);
+				addSummaryToCustomerProfileMap(achSummaryMap, procSum);
 			}
 			else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
-				checkSummary = calculateTotalsByType(checkSummaryMap, procSum);
-				checkSummaryMap.put(customerProfile, checkSummary);
+				addSummaryToCustomerProfileMap(checkSummaryMap, procSum);
 			}
 			
 			formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
@@ -369,28 +366,8 @@ public class FormatServiceImpl implements FormatService {
 		}
 		
 		
-		final Map<String, Object> templateVariables = buildSummaryEmailTemplateVaribles(
-				achSummaryMap, checkSummaryMap, formatTotalCount,
-				formatTotalAmount);
-        
-        // Handle for email sending exception
-        getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
-		
-	}
-
-	/**
-	 * @param achSummaryMap
-	 * @param checkSummaryMap
-	 * @param formatTotalCount
-	 * @param formatTotalAmount
-	 * @return
-	 */
-	protected Map<String, Object> buildSummaryEmailTemplateVaribles(
-			HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap,
-			HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap,
-			KualiInteger formatTotalCount, KualiDecimal formatTotalAmount) {
 		final Map<String, Object> templateVariables = new HashMap<String, Object>();
-		
+
 		DateFormatter dateFormatter = new DateFormatter();
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
         templateVariables.put("achSummaryMap", achSummaryMap);
@@ -398,44 +375,24 @@ public class FormatServiceImpl implements FormatService {
         templateVariables.put("formatTotalCount", formatTotalCount);
         templateVariables.put("formatTotalAmount", formatTotalAmount);
         templateVariables.put("numberTool", new NumberTool());
-		return templateVariables;
+        
+        // Handle for email sending exception
+        getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
+		
 	}
-    
-    protected Map<String, Object> processFormatSummaryMapAndGetTotals(FormatProcessSummary postFormatProcessSummary, HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap, HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap){
-		
-    	KualiInteger formatTotalCount = KualiInteger.ZERO;
-		KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
-		for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
-			CustomerProfile customerProfile = procSum.getCustomer();
-			
-			List<KualiDecimal> achSummary = new ArrayList<KualiDecimal>();
-			List<KualiDecimal> checkSummary = new ArrayList<KualiDecimal>();;
-			
-			if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
-				achSummary = calculateTotalsByType(achSummaryMap, procSum);
-				achSummaryMap.put(customerProfile, achSummary);
-			}
-			else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
-				checkSummary = calculateTotalsByType(checkSummaryMap, procSum);
-				checkSummaryMap.put(customerProfile, checkSummary);
-			}
-			
-			formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
-			formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
-		}
-		
-		Map<String, Object> formatSummaryTotalsMap = new HashMap<String, Object>();
-		formatSummaryTotalsMap.put("formatTotalCount", formatTotalCount);
-		formatSummaryTotalsMap.put("formatTotalAmount", formatTotalAmount);
-		
-		return formatSummaryTotalsMap;
-    }
-    
-	protected List<KualiDecimal> calculateTotalsByType(HashMap<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
+
+	/**
+	 * Calculate totals for each
+	 * @param summaryByCustomerProfile
+	 * @param procSum
+	 * @return
+	 */
+	protected void addSummaryToCustomerProfileMap(HashMap<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
 		CustomerProfile customerProfile = procSum.getCustomer();
 		
 		List<KualiDecimal> summary = new ArrayList<KualiDecimal>();
 		
+		// check if customer profile already exists in the map
 		if (summaryByCustomerProfile.containsKey(customerProfile)){
 			summary = summaryByCustomerProfile.get(customerProfile);
 			
@@ -445,12 +402,14 @@ public class FormatServiceImpl implements FormatService {
 			summary.set(0, totCount);
 			summary.set(1, totAmount);
 			
-		// if no key exists, add it
+		// if no key exists 
 		} else {
 			summary.add(procSum.getProcessTotalCount().kualiDecimalValue());
 			summary.add(procSum.getProcessTotalAmount());
 		}
-		return summary;
+		
+		// add summary to customer profile
+		summaryByCustomerProfile.put(customerProfile, summary);
 	}
 
 	/**
