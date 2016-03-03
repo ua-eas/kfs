@@ -36,13 +36,19 @@
 		
 <!-- render the header of the detail line table -->
 <c:forTokens var="fieldName" items="${detailFieldNames}" delims=",">
-	<kul:htmlAttributeHeaderCell attributeEntry="${attributes[fieldName]}">		
+    <c:set var="currencyFormatter" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    <c:set var="integerFormatter" value="org.kuali.rice.core.web.format.IntegerFormatter"/>
+    <c:set var="entryFormatter" value="${attributes[fieldName].formatterClass}" />
+    <c:set var="isCurrency" value="${not empty entryFormatter && fn:contains(currencyFormatter, entryFormatter)}" />
+    <c:set var="isInteger" value="${not empty entryFormatter && fn:contains(integerFormatter, entryFormatter)}" />
+    <c:set var="styleClass" value="${(isCurrency || isInteger) ? 'right' : '' }" />
+
+	<kul:htmlAttributeHeaderCell attributeEntry="${attributes[fieldName]}" addClass="${styleClass}">
 		<c:if test="${fn:contains(sortableFieldNames,fieldName)}">
 			&nbsp;<html:image property="methodToCall.sortDetailLineByColumn.${fieldName}" 
-				src="${ConfigProperties.kr.externalizable.images.url}sort.gif" 
+				src="${ConfigProperties.krad.externalizable.images.url}sort_both_kns.png"
 				title="Sort by ${attributes[fieldName].label}" 
-				alt="Sort by ${attributes[fieldName].label}" 
-				styleClass="tinybutton" />
+				alt="Sort by ${attributes[fieldName].label}"/>
 		</c:if>
 	</kul:htmlAttributeHeaderCell>		            
 </c:forTokens>

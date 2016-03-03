@@ -103,6 +103,13 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
             throw new FileStorageException("Unable to get file",e);
         }
     }
+    
+	@Override
+	public long getFileLength(String filename) {
+		LOG.debug("getFileLength() started");
+		
+		return new File(getFullPathname(filename)).length();
+	}
 
     @Override
     public void delete(String filename) {
@@ -242,4 +249,5 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
     public void setPathPrefix(String pathPrefix) {
         this.pathPrefix = pathPrefix;
     }
+
 }

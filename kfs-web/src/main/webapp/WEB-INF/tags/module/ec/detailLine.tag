@@ -21,42 +21,26 @@
 
 <%@ tag description="render the given field in the given detail line"%>
 
-<%@ attribute name="detailLine" required="true" type="java.lang.Object"
-	description="The detail line object containing the data being displayed"%>
-<%@ attribute name="detailLineFormName" required="true"
-	description="The name  of the detail line"%>
-<%@ attribute name="attributes" required="true" type="java.util.Map"
-	description="The DataDictionary entry containing attributes for all detail line fields."%>
-<%@ attribute name="detailFieldNames" required="true"
-	description="The names of the fields that will be displayed . The attribute can hold multiple filed names, which are separated by commas."%>
-<%@ attribute name="detailFieldNamesWithHiddenFormWhenReadonly" required="false"
-	description="The names of the fields that will have hidden forms when the fields are readonly. The attribute can hold multiple filed names, which are separated by commas."%>	
-<%@ attribute name="hiddenFieldNames" required="false"
-	description="The names of the fields that will be rendered as hidden inputs. The attribute can hold multiple filed names, which are separated by commas."%>
-<%@ attribute name="editableFieldNames" required="false"
-	description="The names of the fields that can be editable. The attribute can hold multiple filed names, which are separated by commas. If the value of the attribute is empty, all fields specified in the detailFieldNames attribute will be readonly."%>
-<%@ attribute name="onchangeForEditableFieldNames" required="false"
-	description="The JavaScript function names associated with the editable fields. The functions will be executed to retrieve the information of the given editable fields when  onChange events happen. The order of the functions must match the names in the attribute editableFieldNames."%>
-<%@ attribute name="onchangeableInfoFieldNames" required="false"
-	description="The names of the fields will display the descriptive information retrieved by onChange events."%>
+<%@ attribute name="detailLine" required="true" type="java.lang.Object" description="The detail line object containing the data being displayed"%>
+<%@ attribute name="detailLineFormName" required="true" description="The name  of the detail line"%>
+<%@ attribute name="attributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for all detail line fields."%>
+<%@ attribute name="detailFieldNames" required="true" description="The names of the fields that will be displayed . The attribute can hold multiple filed names, which are separated by commas."%>
+<%@ attribute name="detailFieldNamesWithHiddenFormWhenReadonly" required="false" description="The names of the fields that will have hidden forms when the fields are readonly. The attribute can hold multiple filed names, which are separated by commas."%>
+<%@ attribute name="hiddenFieldNames" required="false" description="The names of the fields that will be rendered as hidden inputs. The attribute can hold multiple filed names, which are separated by commas."%>
+<%@ attribute name="editableFieldNames" required="false" description="The names of the fields that can be editable. The attribute can hold multiple filed names, which are separated by commas. If the value of the attribute is empty, all fields specified in the detailFieldNames attribute will be readonly."%>
+<%@ attribute name="onchangeForEditableFieldNames" required="false" description="The JavaScript function names associated with the editable fields. The functions will be executed to retrieve the information of the given editable fields when  onChange events happen. The order of the functions must match the names in the attribute editableFieldNames."%>
+<%@ attribute name="onchangeableInfoFieldNames" required="false" description="The names of the fields will display the descriptive information retrieved by onChange events."%>
 
-<%@ attribute name="fieldInfo" required="false" type="java.util.Map"
-	description="The descriptive information of the readonly fields. The information is stored in a Map and prepared in Action Form class."%>
-<%@ attribute name="inquirableUrl" required="false" type="java.util.Map"
-	description="The URL Map for the inquirable fields. The inquirable fields can be defined in Action Form class. If a readonly field is inquirable, a corresponding URL will be rendered with the field."%>
-<%@ attribute name="relationshipMetadata" required="false" type="java.util.Map"
-	description="This is a Map that holds a property name list of the primary key of the referenced class for each eligible field. The value of the attribute is used to build quick finder for the eligible fields."%>	
+<%@ attribute name="fieldInfo" required="false" type="java.util.Map" description="The descriptive information of the readonly fields. The information is stored in a Map and prepared in Action Form class."%>
+<%@ attribute name="inquirableUrl" required="false" type="java.util.Map" description="The URL Map for the inquirable fields. The inquirable fields can be defined in Action Form class. If a readonly field is inquirable, a corresponding URL will be rendered with the field."%>
+<%@ attribute name="relationshipMetadata" required="false" type="java.util.Map" description="This is a Map that holds a property name list of the primary key of the referenced class for each eligible field. The value of the attribute is used to build quick finder for the eligible fields."%>
 
-<%@ attribute name="hasActions" required="false"
-	description="To determine if a user can take an action on the given detail line. If true, the given actions can be rendered with the detail line."%>
-<%@ attribute name="actions" required="false"
-	description="The actions that can be taken on the given detail line."%>
-<%@ attribute name="actionImageFileNames" required="false"
-	description="The graphic representations of the given actions."%>	
-<%@ attribute name="index" required="false"
-	description="The index of the detail line object containing the data being displayed"%>
-<%@ attribute name="readOnlySection" required="false"
-    description="determine if the container of current detail line is read-only or not" %>			
+<%@ attribute name="hasActions" required="false" description="To determine if a user can take an action on the given detail line. If true, the given actions can be rendered with the detail line."%>
+<%@ attribute name="actions" required="false" description="The actions that can be taken on the given detail line."%>
+<%@ attribute name="actionButtonValues" required="false" description="The text values for the action buttons."%>
+<%@ attribute name="actionButtonClasses" required="false" description="The classes added to the action buttons."%>
+<%@ attribute name="index" required="false" description="The index of the detail line object containing the data being displayed"%>
+<%@ attribute name="readOnlySection" required="false" description="determine if the container of current detail line is read-only or not" %>
 
 <c:set var="commaDeliminator" value=","/>
 	
@@ -90,18 +74,29 @@
 		<c:set var="onchangeableInfoFieldName" value="${fn:length(tempInfoFieldName) > 0 ? onchangeableInfoFieldName : ''}" />
 		<c:set var="onchange" value="${onchangeForEditableFieldNamesArray[onchangeIndex]}(this.name, '${onchangeableInfoFieldName}');" />
 	</c:if>
-	
-	<td class="datacell-nowrap">	
-		<ec:detailLineDataCell fieldValue="${detailLine[fieldName]}"
-			fieldFormName="${detailLineFormName}.${fieldName}"
-			withHiddenForm="${withHiddenFormWhenReadonly}"
-			fieldFormNamePrefix="${detailLineFormName}"
-			infoFieldFormName="${onchangeableInfoFieldName}"
-			attributeEntry="${attributes[fieldName]}"
-			inquirableUrl="${inquirableUrl[fieldName]}"
-			fieldInfo="${fieldInfo[fieldName]}"
-			relationshipMetadata = "${relationshipMetadata[fieldName]}"
-			onchange="${onchange}" readOnly="${not editable}" readOnlySection="${readOnlySection}"/>			
+
+
+	<c:set var="currencyFormatter" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+	<c:set var="integerFormatter" value="org.kuali.rice.core.web.format.IntegerFormatter"/>
+	<c:set var="entryFormatter" value="${attributes[fieldName].formatterClass}" />
+	<c:set var="isCurrency" value="${not empty entryFormatter && fn:contains(currencyFormatter, entryFormatter)}" />
+	<c:set var="isInteger" value="${not empty entryFormatter && fn:contains(integerFormatter, entryFormatter)}" />
+	<c:set var="styleClass" value="${(isCurrency || isInteger) ? 'right' : '' }" />
+
+	<td class="infocell ${styleClass}">
+		<ec:detailLineDataCell
+				fieldValue="${detailLine[fieldName]}"
+				fieldFormName="${detailLineFormName}.${fieldName}"
+				withHiddenForm="${withHiddenFormWhenReadonly}"
+				fieldFormNamePrefix="${detailLineFormName}"
+				infoFieldFormName="${onchangeableInfoFieldName}"
+				attributeEntry="${attributes[fieldName]}"
+				inquirableUrl="${inquirableUrl[fieldName]}"
+				fieldInfo="${fieldInfo[fieldName]}"
+				relationshipMetadata = "${relationshipMetadata[fieldName]}"
+				onchange="${onchange}"
+				readOnly="${not editable}"
+				readOnlySection="${readOnlySection}"/>
 		
 		<c:if test="${fn:contains(fieldName, 'accountNumber') && detailLine.accountExpiredOverrideNeeded && detailLine.newLineIndicator}">
 			<ec:expiredAccountOverride detailLineFormName="${detailLineFormName}" attributes="${attributes}" readOnly="${not editable}" />
@@ -110,19 +105,27 @@
 </c:forTokens>
 
 <c:if test="${hasActions}">
-	<td class="datacell-nowrap">
-		<div align="center">
-			<c:forTokens var="action" items="${actions}" delims="," varStatus="actionStatus">
-				<c:set var="actionImageFileName" value=""/>
-				
-				<c:forTokens var="imageFileName" items="${actionImageFileNames}" delims="," varStatus="imageStatus">
-					<c:if test="${actionStatus.index == imageStatus.index}">
-						<c:set var="actionImageFileName" value="${imageFileName}"/>
-					</c:if>
-				</c:forTokens>
-				
-				<ec:detailLineActionDataCell action="${action}.line${index}" imageFileName="${actionImageFileName}"/>
-			</c:forTokens>		
-		</div>
+	<td class="datacell nowrap">
+		<c:forTokens var="action" items="${actions}" delims="," varStatus="actionStatus">
+
+			<c:set var="actionButtonValue" value=""/>
+			<c:forTokens var="buttonValue" items="${actionButtonValues}" delims="," varStatus="valueStatus">
+				<c:if test="${actionStatus.index == valueStatus.index}">
+					<c:set var="actionButtonValue" value="${buttonValue}"/>
+				</c:if>
+			</c:forTokens>
+
+			<c:set var="actionButtonClass" value=""/>
+			<c:forTokens var="buttonClass" items="${actionButtonClasses}" delims="," varStatus="classStatus">
+				<c:if test="${actionStatus.index == classStatus.index}">
+					<c:set var="actionButtonClass" value="${buttonClass}"/>
+				</c:if>
+			</c:forTokens>
+
+			<ec:detailLineActionDataCell
+					action="${action}.line${index}"
+					buttonValue="${actionButtonValue}"
+					buttonClass="${actionButtonClass}"/>
+		</c:forTokens>
 	</td>
 </c:if>

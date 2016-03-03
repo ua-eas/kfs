@@ -19,13 +19,13 @@
 
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<%@ attribute name="action" required="true"
-    description="the name of action that could be rendered" %>
-<%@ attribute name="imageFileName" required="true"
-    description="the graphic representation of the given action" %>              
-              
-<html:image property="methodToCall.${action}" 
-	src="${ConfigProperties.externalizable.images.url}${imageFileName}" 
-	title="${action}" 
-	alt="${action}" 
-	styleClass="tinybutton" />
+<%@ attribute name="action" required="true" description="the name of action that could be rendered" %>
+<%@ attribute name="buttonValue" required="true" description="the button text of the given action" %>
+<%@ attribute name="buttonClass" required="false" description="the class to be added to the action button" %>
+
+<html:submit
+        property="methodToCall.${action}"
+        title="${action}"
+        alt="${action}"
+        styleClass="btn btn-default ${buttonClass}"
+        value="${buttonValue}"/>

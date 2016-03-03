@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -36,6 +37,7 @@ import org.kuali.kfs.sys.batch.BatchFile;
 import org.kuali.kfs.sys.batch.BatchFileUtils;
 import org.kuali.kfs.sys.batch.service.BatchFileAdminAuthorizationService;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.FileStorageService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.kfs.kns.question.ConfirmationQuestion;
@@ -47,17 +49,20 @@ import org.kuali.kfs.krad.util.KRADConstants;
 public class KualiBatchFileAdminAction extends KualiAction {
     public ActionForward download(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiBatchFileAdminForm fileAdminForm = (KualiBatchFileAdminForm) form;
-        String filePath = BatchFileUtils.resolvePathToAbsolutePath(fileAdminForm.getFilePath());
-        File file = new File(filePath).getAbsoluteFile();
+        String filePath = BatchFileUtils.resolvePathToAbsolutePath(fileAdminForm.getFilePath());       
+        FileStorageService fileStorageService = SpringContext.getBean(FileStorageService.class);
+        String directoryName = StringUtils.substringBeforeLast(filePath, fileStorageService.separator());
+        String fileName = StringUtils.substringAfterLast(filePath, fileStorageService.separator());
         
-        if (!file.exists() || !file.isFile()) {
+        if (!fileStorageService.fileExists(filePath)) {
             throw new RuntimeException("Error: non-existent file or directory provided");
         }
-        File containingDirectory = file.getParentFile();
-        if (!BatchFileUtils.isDirectoryAccessible(containingDirectory.getAbsolutePath())) {
+        if (!BatchFileUtils.isDirectoryAccessible(directoryName)) {
             throw new RuntimeException("Error: inaccessible directory provided");
         }
         
+        // TODO: Eliminate use of File class altogether, once BatchFile class is refactored.
+        File file = new File(filePath).getAbsoluteFile();
         BatchFile batchFile = new BatchFile();
         batchFile.setFile(file);
         if (!SpringContext.getBean(BatchFileAdminAuthorizationService.class).canDownload(batchFile, GlobalVariables.getUserSession().getPerson())) {
@@ -65,13 +70,13 @@ public class KualiBatchFileAdminAction extends KualiAction {
         }
         
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-disposition", "attachment; filename=" + file.getName());
+        response.setHeader("Content-disposition", "attachment; filename=" + fileName);
         response.setHeader("Expires", "0");
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
         response.setHeader("Pragma", "public");
-        response.setContentLength((int) file.length());
+        response.setContentLength((int) fileStorageService.getFileLength(filePath));
 
-        InputStream fis = new FileInputStream(file);
+        InputStream fis = fileStorageService.getFileStream(filePath);
         IOUtils.copy(fis, response.getOutputStream());
         response.getOutputStream().flush();
         return null;
@@ -80,25 +85,27 @@ public class KualiBatchFileAdminAction extends KualiAction {
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         KualiBatchFileAdminForm fileAdminForm = (KualiBatchFileAdminForm) form;
         String filePath = BatchFileUtils.resolvePathToAbsolutePath(fileAdminForm.getFilePath());
-        File file = new File(filePath).getAbsoluteFile();
+        FileStorageService fileStorageService = SpringContext.getBean(FileStorageService.class);
+        String directoryName = StringUtils.substringBeforeLast(filePath, fileStorageService.separator());
         
         ConfigurationService kualiConfigurationService = SpringContext.getBean(ConfigurationService.class);
         
-        if (!file.exists() || !file.isFile()) {
+        if (!fileStorageService.fileExists(filePath)) {
             throw new RuntimeException("Error: non-existent file or directory provided");
         }
-        File containingDirectory = file.getParentFile();
-        if (!BatchFileUtils.isDirectoryAccessible(containingDirectory.getAbsolutePath())) {
+        if (!BatchFileUtils.isDirectoryAccessible(directoryName)) {
             throw new RuntimeException("Error: inaccessible directory provided");
         }
         
+        // TODO: Eliminate use of File class altogether, once BatchFile class is refactored.
+        File file = new File(filePath).getAbsoluteFile();
         BatchFile batchFile = new BatchFile();
         batchFile.setFile(file);
         if (!SpringContext.getBean(BatchFileAdminAuthorizationService.class).canDelete(batchFile, GlobalVariables.getUserSession().getPerson())) {
             throw new RuntimeException("Error: not authorized to delete file");
         }
         
-        String displayFileName = BatchFileUtils.pathRelativeToRootDirectory(file.getAbsolutePath());
+        String displayFileName = BatchFileUtils.pathRelativeToRootDirectory(filePath);
         
         Object question = request.getParameter(KFSConstants.QUESTION_INST_ATTRIBUTE_NAME);
         if (question == null) {
@@ -113,11 +120,11 @@ public class KualiBatchFileAdminAction extends KualiAction {
                 String status = null;
                 if (ConfirmationQuestion.YES.equals(buttonClicked)) {
                     try {
-                        file.delete();
+                        fileStorageService.delete(filePath);
                         status = kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.MESSAGE_BATCH_FILE_ADMIN_DELETE_SUCCESSFUL);
                         status = MessageFormat.format(status, displayFileName);
                     }
-                    catch (SecurityException e) {
+                    catch (Exception e) {
                         status = kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.MESSAGE_BATCH_FILE_ADMIN_DELETE_ERROR);
                         status = MessageFormat.format(status, displayFileName);
                     }
