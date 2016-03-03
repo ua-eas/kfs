@@ -393,7 +393,7 @@ public class FormatServiceImpl implements FormatService {
 			summaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
 		
 		// Gate Keeper 2
-		if(ObjectUtils.isNull(procSum)) return;
+		if(ObjectUtils.isNull(procSum) || ObjectUtils.isNull(procSum.getCustomer())) return;
 		
 		CustomerProfile customerProfile = procSum.getCustomer();
 		
