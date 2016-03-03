@@ -20,4 +20,4 @@
 <c:set var="methodToCallParam" value="methodToCall.${methodToCall}" />
 
 ${kfunc:registerEditableProperty(KualiForm, methodToCallParam)}
-<input type="image" style="display: none;" class="tinybutton" name="${methodToCallParam}" src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" width="0" height="0" border="0"/>
+<input type="image" style="float:left;" class="tinybutton" name="${methodToCallParam}" src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" width="0" height="0" border="0"/>

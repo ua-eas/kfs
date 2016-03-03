@@ -71,6 +71,22 @@
 				<ref bean="LedgerBalance-dummyBusinessObject.pendingEntryOption" />
 				<ref bean="LedgerBalance-dummyBusinessObject.amountViewOption" />
 				<ref bean="LedgerBalance-dummyBusinessObject.cgBeginningBalanceExcludeOption" />
+				<ref bean="LedgerBalance-objectCode.financialObjectLevelCode"/>
+				<ref bean="LedgerBalance-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
+				<ref bean="LedgerBalance-account.organizationCode"/>
+			</list>
+		</property>
+		<property name="accessRestrictedAttributes">
+			<list>
+				<bean parent="ChartRestriction"><property name="attribute" ref="LedgerBalance-chartOfAccountsCode"/></bean>
+				<bean parent="ChartHierarchyRestriction"><property name="attribute" ref="LedgerBalance-chartOfAccountsCode"/></bean>
+				<bean parent="AccountRestriction"><property name="attribute" ref="LedgerBalance-accountNumber"/></bean>
+				<bean parent="PrincipalInvestigatorRestriction"><property name="attribute" ref="LedgerBalance-accountNumber"/></bean>
+				<bean parent="SubAccountRestriction"><property name="attribute" ref="LedgerBalance-subAccountNumber"/></bean>
+				<bean parent="OrganizationRestriction"><property name="attribute" ref="LedgerBalance-account.organizationCode"/></bean>
+				<bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="LedgerBalance-account.organizationCode"/></bean>
+				<bean parent="ObjectLevelRestriction"><property name="attribute" ref="LedgerBalance-objectCode.financialObjectLevelCode"/></bean>
+				<bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="LedgerBalance-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean>
 			</list>
 		</property>
 		<property name="relationships">
@@ -395,7 +411,20 @@
 		<property name="name" value="dummyBusinessObject.cgBeginningBalanceExcludeOption" />
 	</bean>
 
-	
+	<bean id="LedgerBalance-objectCode.financialObjectLevelCode" parent="LedgerBalance-objectCode.financialObjectLevelCode-parentBean"/>
+	<bean id="LedgerBalance-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
+		<property name="name" value="financialObject.financialObjectLevelCode"/>
+	</bean>
+
+	<bean id="LedgerBalance-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="LedgerBalance-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
+	<bean id="LedgerBalance-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
+		<property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
+	</bean>
+
+	<bean id="LedgerBalance-account.organizationCode" parent="LedgerBalance-account.organizationCode-parentBean"/>
+	<bean id="LedgerBalance-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
+		<property name="name" value="account.organizationCode"/>
+	</bean>
 
 	<!-- Business Object Inquiry Definition -->
 

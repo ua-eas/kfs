@@ -244,6 +244,10 @@ textarea {
 input[type=text],
 select {
     height: 30px;
+}
+
+#lookup input[type=text],
+#lookup select {
     width: 290px;
 }
 

@@ -103,12 +103,12 @@
 
     <c:choose>
       	<c:when test="${inquirable}">
-      		<a href="${ConfigProperties.application.url}${inquirableUrl.href}&mode=modal"  data-remodal-target="modal" title="Open in modal">
+      		<a href="${ConfigProperties.application.url}/${inquirableUrl.href}&mode=modal"  data-remodal-target="modal" title="Open in modal">
 	    		<span class="${styleClass}" style="text-decoration: underline;" id="${spanName}" name="${spanName}">
 	    			${formatNumber}${percent}
 	    		</span>
     		</a>
-			<a href="${ConfigProperties.application.url}${inquirableUrl.href}&mode=standalone" target="_blank" title="Open in new tab" class="new-window" onclick="event.stopPropagation();">
+			<a href="${ConfigProperties.application.url}/${inquirableUrl.href}&mode=standalone" target="_blank" title="Open in new tab" class="new-window" onclick="event.stopPropagation();">
 				<span class="glyphicon glyphicon-new-window"></span>
 			</a>
 		</c:when>

@@ -194,7 +194,7 @@ function saveScrollPosition() {
 			x = parent.window.pageXOffset; 
 		  	y = parent.window.pageYOffset; 
 		} 
-		document.cookie = "KulScrollPos"+scrollPositionKey+"="+x+","+y+"; path="+document.location.pathname;
+		document.cookie = "KulScrollPos"+scrollPositionKey+"="+x+","+y;
 	}
 }
 
