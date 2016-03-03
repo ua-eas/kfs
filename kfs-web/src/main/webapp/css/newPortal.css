@@ -261,7 +261,8 @@ nav ul.nav li {
     opacity: 0.40;
 }
 
-#sidebar.collapsed {
+#sidebar.collapsed,
+#sidebar.collapsed>div {
     width: 25px;
 }
 
