@@ -31,7 +31,6 @@ import java.util.Map;
 import javax.mail.MessagingException;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.velocity.tools.generic.MathTool;
 import org.apache.velocity.tools.generic.NumberTool;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.exception.InvalidAddressException;
@@ -152,7 +151,7 @@ public class FormatServiceImpl implements FormatService {
     public Date getFormatProcessStartDate(String campus) {
         LOG.debug("getFormatProcessStartDate() started");
 
-        Map primaryKeys = new HashMap();
+        Map<String, String> primaryKeys = new HashMap<String, String>();
         primaryKeys.put(PdpPropertyConstants.PHYS_CAMPUS_PROCESS_CODE, campus);
         FormatProcess formatProcess = this.businessObjectService.findByPrimaryKey(FormatProcess.class, primaryKeys);
 
@@ -217,9 +216,9 @@ public class FormatServiceImpl implements FormatService {
         }
         PaymentStatus format = this.businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.FORMAT);
 
-        List customerIds = new ArrayList();
-        for (Iterator iter = customers.iterator(); iter.hasNext();) {
-            CustomerProfile element = (CustomerProfile) iter.next();
+        List<KualiInteger> customerIds = new ArrayList<KualiInteger>();
+        for (Iterator<CustomerProfile> iter = customers.iterator(); iter.hasNext();) {
+            CustomerProfile element = iter.next();
             customerIds.add(element.getId());
         }
 
@@ -278,7 +277,7 @@ public class FormatServiceImpl implements FormatService {
 
         // get the PaymentProcess for the given id
         @SuppressWarnings("rawtypes")
-        Map primaryKeys = new HashMap();
+        Map<String, Integer> primaryKeys = new HashMap<String, Integer>();
         primaryKeys.put(PdpPropertyConstants.PaymentProcess.PAYMENT_PROCESS_ID, processId);
         PaymentProcess paymentProcess = this.businessObjectService.findByPrimaryKey(PaymentProcess.class, primaryKeys);
         if (paymentProcess == null) {
@@ -345,9 +344,10 @@ public class FormatServiceImpl implements FormatService {
     }
 
     protected void sendSummaryEmail(FormatProcessSummary postFormatProcessSummary) {
-		HashMap<CustomerProfile, List<KualiDecimal>> achSummaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
-		HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
-		KualiInteger formatTotalCount = KualiInteger.ZERO;
+		HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
+		HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap = new HashMap<CustomerProfile, List<KualiDecimal>>();
+
+    	KualiInteger formatTotalCount = KualiInteger.ZERO;
 		KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
 		for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
 			CustomerProfile customerProfile = procSum.getCustomer();
@@ -356,32 +356,80 @@ public class FormatServiceImpl implements FormatService {
 			List<KualiDecimal> checkSummary = new ArrayList<KualiDecimal>();;
 			
 			if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
-				achSummary = calculateTotalsByType(achSummaryByCustomerProfile, procSum);
-				achSummaryByCustomerProfile.put(customerProfile, achSummary);
+				achSummary = calculateTotalsByType(achSummaryMap, procSum);
+				achSummaryMap.put(customerProfile, achSummary);
 			}
 			else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
-				checkSummary = calculateTotalsByType(checkSummaryByCustomerProfile, procSum);
-				checkSummaryByCustomerProfile.put(customerProfile, checkSummary);
+				checkSummary = calculateTotalsByType(checkSummaryMap, procSum);
+				checkSummaryMap.put(customerProfile, checkSummary);
 			}
 			
 			formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
 			formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
 		}
 		
-		final Map<String, Object> templateVariables = new HashMap<String, Object>();
 		
-		DateFormatter dateFormatter = new DateFormatter();
-        templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
-        templateVariables.put("achSummaryMap", achSummaryByCustomerProfile);
-        templateVariables.put("checkSummaryMap", checkSummaryByCustomerProfile);
-        templateVariables.put("formatTotalCount", formatTotalCount);
-        templateVariables.put("formatTotalAmount", formatTotalAmount);
-        templateVariables.put("numberTool", new NumberTool());
+		final Map<String, Object> templateVariables = buildSummaryEmailTemplateVaribles(
+				achSummaryMap, checkSummaryMap, formatTotalCount,
+				formatTotalAmount);
         
         // Handle for email sending exception
         getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
 		
 	}
+
+	/**
+	 * @param achSummaryMap
+	 * @param checkSummaryMap
+	 * @param formatTotalCount
+	 * @param formatTotalAmount
+	 * @return
+	 */
+	protected Map<String, Object> buildSummaryEmailTemplateVaribles(
+			HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap,
+			HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap,
+			KualiInteger formatTotalCount, KualiDecimal formatTotalAmount) {
+		final Map<String, Object> templateVariables = new HashMap<String, Object>();
+		
+		DateFormatter dateFormatter = new DateFormatter();
+        templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
+        templateVariables.put("achSummaryMap", achSummaryMap);
+        templateVariables.put("checkSummaryMap", checkSummaryMap);
+        templateVariables.put("formatTotalCount", formatTotalCount);
+        templateVariables.put("formatTotalAmount", formatTotalAmount);
+        templateVariables.put("numberTool", new NumberTool());
+		return templateVariables;
+	}
+    
+    protected Map<String, Object> processFormatSummaryMapAndGetTotals(FormatProcessSummary postFormatProcessSummary, HashMap<CustomerProfile, List<KualiDecimal>> achSummaryMap, HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryMap){
+		
+    	KualiInteger formatTotalCount = KualiInteger.ZERO;
+		KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
+		for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
+			CustomerProfile customerProfile = procSum.getCustomer();
+			
+			List<KualiDecimal> achSummary = new ArrayList<KualiDecimal>();
+			List<KualiDecimal> checkSummary = new ArrayList<KualiDecimal>();;
+			
+			if (PdpConstants.DisbursementTypeCodes.ACH.equals(procSum.getDisbursementType().getCode())) {
+				achSummary = calculateTotalsByType(achSummaryMap, procSum);
+				achSummaryMap.put(customerProfile, achSummary);
+			}
+			else if (PdpConstants.DisbursementTypeCodes.CHECK.equals(procSum.getDisbursementType().getCode())) {
+				checkSummary = calculateTotalsByType(checkSummaryMap, procSum);
+				checkSummaryMap.put(customerProfile, checkSummary);
+			}
+			
+			formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
+			formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
+		}
+		
+		Map<String, Object> formatSummaryTotalsMap = new HashMap<String, Object>();
+		formatSummaryTotalsMap.put("formatTotalCount", formatTotalCount);
+		formatSummaryTotalsMap.put("formatTotalAmount", formatTotalAmount);
+		
+		return formatSummaryTotalsMap;
+    }
     
 	protected List<KualiDecimal> calculateTotalsByType(HashMap<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
 		CustomerProfile customerProfile = procSum.getCustomer();
@@ -691,7 +739,7 @@ public class FormatServiceImpl implements FormatService {
     public void clearUnfinishedFormat(Integer processId) {
         LOG.debug("clearUnfinishedFormat() started");
 
-        Map primaryKeys = new HashMap();
+        Map<String, Integer> primaryKeys = new HashMap<String, Integer>();
         primaryKeys.put(PdpPropertyConstants.PaymentProcess.PAYMENT_PROCESS_ID, processId);
         PaymentProcess paymentProcess = this.businessObjectService.findByPrimaryKey(PaymentProcess.class, primaryKeys);
         if (LOG.isDebugEnabled()) {
@@ -731,7 +779,7 @@ public class FormatServiceImpl implements FormatService {
     public void endFormatProcess(String campus) {
         LOG.debug("endFormatProcess() starting");
 
-        Map primaryKeys = new HashMap();
+        Map<String, String> primaryKeys = new HashMap<String, String>();
         primaryKeys.put(PdpPropertyConstants.PHYS_CAMPUS_PROCESS_CODE, campus);
 
         this.businessObjectService.deleteMatching(FormatProcess.class, primaryKeys);
