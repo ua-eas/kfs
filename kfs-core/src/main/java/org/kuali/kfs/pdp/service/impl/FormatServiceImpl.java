@@ -382,7 +382,7 @@ public class FormatServiceImpl implements FormatService {
 	}
 
 	/**
-	 * Calculate totals for each
+	 * Add summary totals to customer profiles map
 	 * @param summaryByCustomerProfile
 	 * @param procSum
 	 * @return
