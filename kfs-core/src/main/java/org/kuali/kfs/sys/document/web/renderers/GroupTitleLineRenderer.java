@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.taglib.html.HiddenTag;
 import org.kuali.kfs.kns.web.taglib.html.KNSFileTag;
 import org.kuali.kfs.kns.web.taglib.html.KNSSubmitTag;
+import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
@@ -129,7 +130,11 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         try {
-            pageContext.getOut().write(buildRowBeginning());
+            String rowClass = null;
+            if (lineCollectionProperty.equals(KFSConstants.ACCOUNT_DISTRIBUTION_SRC_LINES)) {
+                rowClass = "distribution";
+            }
+            pageContext.getOut().write(buildRowBeginning(rowClass));
 
             pageContext.getOut().write(buildBlankCell());
             pageContext.getOut().write(buildTitleCell());
@@ -147,8 +152,15 @@ public class GroupTitleLineRenderer implements Renderer, CellCountCurious {
      *
      * @returns the String with the HTML for the row opening
      */
-    protected String buildRowBeginning() {
-        return "<tr class=\"title\">";
+    protected String buildRowBeginning(String additionalClass) {
+        StringBuilder rowBeginning = new StringBuilder();
+        rowBeginning.append("<tr class=\"title");
+        if (StringUtils.isNotBlank(additionalClass)) {
+            rowBeginning.append(" ");
+            rowBeginning.append(additionalClass);
+        }
+        rowBeginning.append("\">");
+        return rowBeginning.toString();
     }
 
     /**

@@ -277,11 +277,12 @@ nav ul.nav li {
     background-color: #5b5b5b;
     color: #fff;
     transition: 500ms all;
+    width: 320px;
 }
 
 #sidebar #sidebar-scroll {
     position: absolute;
-    top: 124px;
+    top: 125px;
     bottom: 0;
     overflow-y: auto;
     overflow-x: hidden;
@@ -808,4 +809,11 @@ nav ul.nav li {
     border-top-right-radius: 6px;
     overflow: auto;
     padding: 15px 15px 5px 15px;
+}
+
+/* IE10+ specific styles go here */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #sidebar .nav .search span.remove {
+        display: none;
+    }
 }

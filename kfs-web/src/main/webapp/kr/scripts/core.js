@@ -13,6 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+// keep form fields in view as you tab down through form when form buttons are sticky
+$(document).ready(function() {
+	$('input').focus(function (event) {
+		if ($('div.fixedButtons').length > 0 || $('div#globalbuttons').length > 0) {
+			var distanceFromTop = $(event.target).offset().top - $(window).scrollTop();
+			if (distanceFromTop + 30 > $(window).height() - 65) {
+				$('html,body').scrollTop($('html,body').scrollTop() + 75);
+			}
+		}
+	});
+});
+
 // Toggles a tab to show / hide and changes the source image to properly reflect this
 // change. Returns false to avoid post. Example usage:
 // onclick="javascript: return toggleTab(document, 'KualiForm', ${currentTabIndex}) }

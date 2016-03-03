@@ -93,10 +93,10 @@
 <c:set var="completeOnchangeableInfoFieldNames" value="${onchangeableExtraInfoFieldNames}${commaDeliminator}${onchangeableInfoFieldNames}" />
 
 <c:set var="actionForExistingLine" value="recalculate${actionSuffix},revert${actionSuffix}" />
-<c:set var="actionForExistingLineImageFileName" value="tinybutton-recalculate.gif,tinybutton-revert1.gif" />
+<c:set var="actionForExistingLineButtonValues" value="Recalculate,Revert" />
 
 <c:set var="actionForNewLine" value="recalculate${actionSuffix},delete${actionSuffix}" />
-<c:set var="actionForNewLineImageFileName" value="tinybutton-recalculate.gif,tinybutton-delete1.gif" />
+<c:set var="actionForNewLineButtonValues" value="Recalculate,Delete" />
 
 <c:set var="countOfFerderalFunding" value="0"/>
 <c:set var="countOfOtherFunding" value="0"/> 
@@ -114,7 +114,7 @@
 <c:set var="federalFundingType" value="${federalFund}${commaDeliminator}${otherFund}" /> 
 <c:set var="federalFundingIndicators" value="${fn:split(federalFundingType, commaDeliminator)}"/>
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="datatable" id="${id}">
+<table class="standard items" id="${id}">
 	<c:forEach var="federalFunding" items="${federalFundingIndicators}" varStatus="indicatorStatus">
 				
 		<c:set var="subtotalGroup" value=""/>
@@ -131,11 +131,11 @@
 	
 		<tr>
 			<td colspan="${countOfColumns}" class="subhead">	
-				<span class="subhead-left">${groupDescription}</span>
+				<h3>${groupDescription}</h3>
 			</td>		
 		</tr>
 	
-		<tr>
+		<tr class="header">
 			<c:set var="actualSortableFieldNames" value="${indicatorStatus.index == 0 ? sortableFieldNames : '' }"/>
 			<ec:detailLineHeader attributes="${attributes}"	
 				detailFieldNames="${detailFieldNames}" 
@@ -143,47 +143,51 @@
 				hasActions="${hasActions}"/>
 		</tr> 
 	
-		<!-- populate the table with the given deatil lines -->
-		<c:set var="lineIndex" value="0"/>		
+		<c:set var="lineIndex" value="0"/>
 		<c:forEach var="detailLine" items="${detailLines}" varStatus="status">
 			<c:if test="${detailLine.federalOrFederalPassThroughIndicator == federalFunding}">
-			<tr>
-				<c:set var="lineIndex" value="${lineIndex + 1}"/>
-				<kul:htmlAttributeHeaderCell literalLabel="${lineIndex}"/>
-				
-				<c:set var="editable" value="${detailLine.editable || detailLine.newLineIndicator}" />
-				
-				<c:if test="${editable}">		
-					<c:set var="existing" value="${!detailLine.newLineIndicator}" />
-					<c:set var="actualEditableFieldNames" value="${existing ? editableFieldNames : completeEditableFieldNames}" />
-					<c:set var="actualOnchangeForEditableFieldNames" value="${existing ? onchangeForEditableFieldNames : completeOnchangeForEditableFieldNames}" />
-					<c:set var="actualOnchangeableInfoFieldNames" value="${existing ? onchangeableInfoFieldNames : completeOnchangeableInfoFieldNames}" />
-					<c:set var="actions" value="${existing ? actionForExistingLine : actionForNewLine}" />
-					<c:set var="actionImageFileNames" value="${existing ? actionForExistingLineImageFileName : actionForNewLineImageFileName}" />
-				</c:if>
-				
-				<c:if test="${!editable}">		
-					<c:set var="actualEditableFieldNames" value="" />
-					<c:set var="actualOnchangeForEditableFieldNames" value="" />
-					<c:set var="actualOnchangebleInfoFieldNames" value="" />
-					<c:set var="actions" value=""/>
-					<c:set var="actionImageFileNames" value=""/>
-				</c:if>			
-				
-				<ec:detailLine detailLine="${detailLine}" 
-					detailLineFormName="${detailLineFormName}[${status.index}]"
-					attributes="${attributes}"
-					detailFieldNames="${detailFieldNames}"
-					detailFieldNamesWithHiddenFormWhenReadonly="${detailFieldNamesWithHiddenFormWhenReadonly}"
-					editableFieldNames="${actualEditableFieldNames}"
-					hiddenFieldNames="${hiddenFieldNames}"
-					onchangeForEditableFieldNames="${actualOnchangeForEditableFieldNames}"
-					onchangeableInfoFieldNames="${actualOnchangeableInfoFieldNames}"
-					inquirableUrl="${inquirableUrl[status.index]}"
-					fieldInfo="${fieldInfo[status.index]}"
-					relationshipMetadata ="${relationshipMetadata}" readOnlySection="${readOnlySection}"
-					hasActions="${hasActions}" index="${status.index}" actions="${actions}" actionImageFileNames="${actionImageFileNames}"/>			
-			</tr>
+				<tr class="${lineIndex % 2 == 0 ? 'highlight' : ''}">
+					<c:set var="lineIndex" value="${lineIndex + 1}"/>
+					<kul:htmlAttributeHeaderCell literalLabel="${lineIndex}"/>
+
+					<c:set var="editable" value="${detailLine.editable || detailLine.newLineIndicator}" />
+
+					<c:if test="${editable}">
+						<c:set var="existing" value="${!detailLine.newLineIndicator}" />
+						<c:set var="actualEditableFieldNames" value="${existing ? editableFieldNames : completeEditableFieldNames}" />
+						<c:set var="actualOnchangeForEditableFieldNames" value="${existing ? onchangeForEditableFieldNames : completeOnchangeForEditableFieldNames}" />
+						<c:set var="actualOnchangeableInfoFieldNames" value="${existing ? onchangeableInfoFieldNames : completeOnchangeableInfoFieldNames}" />
+						<c:set var="actions" value="${existing ? actionForExistingLine : actionForNewLine}" />
+						<c:set var="actionButtonValues" value="${existing ? actionForExistingLineButtonValues : actionForNewLineButtonValues}" />
+					</c:if>
+
+					<c:if test="${!editable}">
+						<c:set var="actualEditableFieldNames" value="" />
+						<c:set var="actualOnchangeForEditableFieldNames" value="" />
+						<c:set var="actualOnchangebleInfoFieldNames" value="" />
+						<c:set var="actions" value=""/>
+						<c:set var="actionButtonValues" value=""/>
+					</c:if>
+
+					<ec:detailLine
+							detailLine="${detailLine}"
+							detailLineFormName="${detailLineFormName}[${status.index}]"
+							attributes="${attributes}"
+							detailFieldNames="${detailFieldNames}"
+							detailFieldNamesWithHiddenFormWhenReadonly="${detailFieldNamesWithHiddenFormWhenReadonly}"
+							editableFieldNames="${actualEditableFieldNames}"
+							hiddenFieldNames="${hiddenFieldNames}"
+							onchangeForEditableFieldNames="${actualOnchangeForEditableFieldNames}"
+							onchangeableInfoFieldNames="${actualOnchangeableInfoFieldNames}"
+							inquirableUrl="${inquirableUrl[status.index]}"
+							fieldInfo="${fieldInfo[status.index]}"
+							relationshipMetadata ="${relationshipMetadata}"
+							readOnlySection="${readOnlySection}"
+							hasActions="${hasActions}"
+							index="${status.index}"
+							actions="${actions}"
+							actionButtonValues="${actionButtonValues}"/>
+				</tr>
 			</c:if>		
 		</c:forEach>
 		
@@ -198,8 +202,8 @@
 	<c:if test="${fn:length(grandTotalFieldNames) > 0}" >
 		<tr>
 			<td colspan="${countOfColumns}" class="subhead">	
-				<span class="subhead-left">Grand Totals</span>
-			</td>		
+				<h3>Grand Totals</h3>
+			</td>
 		</tr>
 	
 		<tr>				

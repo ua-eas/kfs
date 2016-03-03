@@ -31,8 +31,12 @@
             var myModal = $('#remodal');
 
             var modalBody = myModal.find('.remodal-content');
-            var href = $(event.target).attr('href');
-            var title = $(event.target).attr('data-label') || $.trim($(event.target).text());
+            var anchor = event.target;
+            if (!$(event.target).is('a')) {
+                anchor = $(anchor).closest('a');
+            }
+            var href = $(anchor).attr('href');
+            var title = $(anchor).attr('data-label') || $.trim($(anchor).text());
             modalBody.load(href, function(response, status, xhr) {
                 if ( status == "error" ) {
                     var msg = "Sorry but there was an error: ";
@@ -49,7 +53,7 @@
                     myModal.remodal();
 
                     // if we just clicked one of the crumbs then pop everything off the stack on top of it
-                    var stackIndex = $(event.target).attr("data-stack-index");
+                    var stackIndex = $(anchor).attr("data-stack-index");
                     if (stackIndex > -1) {
                         breadcrumbs = breadcrumbs.slice(0, stackIndex);
                     }

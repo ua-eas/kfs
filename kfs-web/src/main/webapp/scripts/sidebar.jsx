@@ -315,7 +315,7 @@ var Sidebar = React.createClass({
                     </li>
                     <li className={navSearchClass}>
                         <input type="search" placeholder="Search" onChange={this.autocompleteSearch} value={this.state.search} ref="searchBox" onFocus={this.autocompleteSearch} />
-                        <span className="glyphicon glyphicon-remove" onClick={this.clearSearch}></span>
+                        <span className="glyphicon glyphicon-remove remove" onClick={this.clearSearch}></span>
                         <div className={searchResultsClass}>
                             <div className="links-container">
                                 {searchResults}
