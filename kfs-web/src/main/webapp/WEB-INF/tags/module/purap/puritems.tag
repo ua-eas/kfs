@@ -155,7 +155,16 @@
                     </c:if>
 
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" addClass="center" />
-                    <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}" />
+
+                    <c:choose>
+                        <c:when test="${isATypeOfPODoc}">
+                            <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan + 1}" />
+                        </c:when>
+                        <c:otherwise>
+                            <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}"/>
+                        </c:otherwise>
+                    </c:choose>
+
                 </tr>
                 <tr class="top new">
                     <td class="infoline">
@@ -566,7 +575,7 @@
                                     <c:set target="${KualiForm.accountingLineEditingMode}" property="fullEntry" value="true" />
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
-                                            itemColSpan="${mainColumnCount}"
+                                            itemColSpan="${accountColumnCount}"
                                             rowStyle="${rowStyle}"
                                             currentTabIndex="${toggleTabIndex}"
                                             showToggle="false"/>
@@ -575,7 +584,7 @@
                                     <c:set target="${KualiForm.editingMode}" property="viewOnly" value="true" />
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
-                                            itemColSpan="${mainColumnCount}"
+                                            itemColSpan="${accountColumnCount}"
                                             rowStyle="${rowStyle}"
                                             currentTabIndex="${toggleTabIndex}"
                                             showToggle="false"/>
