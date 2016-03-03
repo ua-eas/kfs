@@ -387,7 +387,14 @@ public class FormatServiceImpl implements FormatService {
 	 * @param procSum
 	 * @return
 	 */
-	protected void addSummaryToCustomerProfileMap(HashMap<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
+	protected void addSummaryToCustomerProfileMap(Map<CustomerProfile, List<KualiDecimal>> summaryByCustomerProfile, ProcessSummary procSum) {
+		// Gate Keeper 1
+		if (ObjectUtils.isNull(summaryByCustomerProfile))
+			summaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
+		
+		// Gate Keeper 2
+		if(ObjectUtils.isNull(procSum)) return;
+		
 		CustomerProfile customerProfile = procSum.getCustomer();
 		
 		List<KualiDecimal> summary = new ArrayList<KualiDecimal>();
