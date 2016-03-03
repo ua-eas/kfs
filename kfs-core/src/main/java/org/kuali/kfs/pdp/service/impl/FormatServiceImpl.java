@@ -347,10 +347,11 @@ public class FormatServiceImpl implements FormatService {
     protected void sendSummaryEmail(FormatProcessSummary postFormatProcessSummary) {
 		HashMap<CustomerProfile, List<KualiDecimal>> achSummaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
 		HashMap<CustomerProfile, List<KualiDecimal>> checkSummaryByCustomerProfile = new HashMap<CustomerProfile, List<KualiDecimal>>();
-
+		KualiInteger formatTotalCount = KualiInteger.ZERO;
+		KualiDecimal formatTotalAmount = KualiDecimal.ZERO;
 		for (ProcessSummary procSum : postFormatProcessSummary.getProcessSummaryList()) {
 			CustomerProfile customerProfile = procSum.getCustomer();
-
+			
 			List<KualiDecimal> achSummary = new ArrayList<KualiDecimal>();
 			List<KualiDecimal> checkSummary = new ArrayList<KualiDecimal>();;
 			
@@ -362,6 +363,9 @@ public class FormatServiceImpl implements FormatService {
 				checkSummary = calculateTotalsByType(checkSummaryByCustomerProfile, procSum);
 				checkSummaryByCustomerProfile.put(customerProfile, checkSummary);
 			}
+			
+			formatTotalCount = formatTotalCount.add(procSum.getProcessTotalCount());
+			formatTotalAmount = formatTotalAmount.add(procSum.getProcessTotalAmount());
 		}
 		
 		final Map<String, Object> templateVariables = new HashMap<String, Object>();
@@ -371,7 +375,8 @@ public class FormatServiceImpl implements FormatService {
         templateVariables.put("achSummaryMap", achSummaryByCustomerProfile);
         templateVariables.put("checkSummaryMap", checkSummaryByCustomerProfile);
         templateVariables.put("numberTool", new NumberTool());
-        templateVariables.put("mathTool", new MathTool());
+        templateVariables.put("formatTotalCount", formatTotalCount);
+        templateVariables.put("formatTotalAmount", formatTotalAmount);
         
         // Handle for email sending exception
         getFormatCheckACHEmailService().sendEmailNotification(templateVariables);

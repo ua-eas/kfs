@@ -12,9 +12,6 @@
 			<th style="padding: 2;text-align:center"><b>Total Count</b></th>
 			<th style="padding: 2;text-align:center"><b>Total Amount</b></th>
 			
-			#set ($formatTotalCount = 0)
-			#set ($formatTotalAmount = 0)
-			
 			// ACH
 			#foreach( $achSummary in $achSummaryMap.keySet() )
 			<tr style="background-color:#CCCC99;text-align:center">
@@ -28,10 +25,6 @@
 				#set ($amount = $achTotals.get(1))
 				<td style="padding: 2;text-align:center">$numberTool.format("integer", $count)</td>
 				<td style="padding: 2;text-align:center">$numberTool.format("currency", $amount)</td>
-				
-				#set ($formatTotalCount = $mathTools.add($formatTotalCount, $count))
-				#set ($formatTotalAmount = $mathTools.add($formatTotalAmount, $amount))
-				
 			</tr>
 			#end
 			
@@ -50,10 +43,6 @@
 				#set ($amount = $checkTotals.get(1))
 				<td style="padding: 2;text-align:center">$numberTool.format("integer", $count)</td>
 				<td style="padding: 2;text-align:center">$numberTool.format("currency", $amount)</td>
-				
-				#set ($formatTotalCount = $mathTools.add($formatTotalCount, $count))
-				#set ($formatTotalAmount = $mathTools.add($formatTotalAmount, $amount))
-				
 			</tr>
 			#end
 
@@ -62,7 +51,7 @@
 			<tr>
 				<td colspan="3"></td>
 				<td>TOTAL CHECK/ACH</td>
-				<td align="right">$numberTool.format("integer", $formatTotalCount)</td>
+				<td align="right">$formatTotalCount</td>
 				<td align="right">$numberTool.format("currency", $formatTotalAmount)</td>
 			</tr>
 
