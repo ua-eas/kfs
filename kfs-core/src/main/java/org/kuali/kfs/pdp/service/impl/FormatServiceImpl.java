@@ -364,16 +364,6 @@ public class FormatServiceImpl implements FormatService {
 			}
 		}
 		
-//		Map<String, String> map = ...
-//		for (Map.Entry<String, String> entry : map.entrySet())
-//		{
-//		    System.out.println(entry.getKey() + "/" + entry.getValue());
-//		}
-		
-//		for(Map.Entry<CustomerProfile, List<KualiDecimal>> entry: achSummaryByCustomerProfile.entrySet()){
-//			
-//		}
-	
 		final Map<String, Object> templateVariables = new HashMap<String, Object>();
 		
 		DateFormatter dateFormatter = new DateFormatter();
