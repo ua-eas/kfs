@@ -374,9 +374,9 @@ public class FormatServiceImpl implements FormatService {
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
         templateVariables.put("achSummaryMap", achSummaryByCustomerProfile);
         templateVariables.put("checkSummaryMap", checkSummaryByCustomerProfile);
-        templateVariables.put("numberTool", new NumberTool());
         templateVariables.put("formatTotalCount", formatTotalCount);
         templateVariables.put("formatTotalAmount", formatTotalAmount);
+        templateVariables.put("numberTool", new NumberTool());
         
         // Handle for email sending exception
         getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
