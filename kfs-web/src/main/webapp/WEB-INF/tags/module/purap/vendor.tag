@@ -259,10 +259,10 @@
             </c:if>
 
             <tr>
-                <th class="right">
+                <th class="right" width="25%">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorCustomerNumber}" />
                 </th>
-                <td class="datacell nowrap">
+                <td class="datacell nowrap" width="25%">
                     <kul:htmlControlAttribute 
                     	    attributeEntry="${documentAttributes.vendorCustomerNumber}"
                             property="document.vendorCustomerNumber"
@@ -277,8 +277,8 @@
                         	    fieldConversions="vendorCustomerNumber:document.vendorCustomerNumber"/>
                     </c:if>
                 </td>
-            	<th class="right">&nbsp;</th>
-            	<td class="datacell">&nbsp;</td>
+            	<th class="right" width="25%">&nbsp;</th>
+            	<td class="datacell" width="25%">&nbsp;</td>
             </tr>
             <tr>
                 <c:if test="${displayRequisitionFields or displayPurchaseOrderFields}">
