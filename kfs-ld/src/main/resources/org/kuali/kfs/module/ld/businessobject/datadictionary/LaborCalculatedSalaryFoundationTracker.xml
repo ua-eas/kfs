@@ -59,6 +59,22 @@
 				<ref bean="LaborCalculatedSalaryFoundationTracker-july1BudgetAmount" />
 				<ref bean="LaborCalculatedSalaryFoundationTracker-july1BudgetFteQuantity" />
 				<ref bean="LaborCalculatedSalaryFoundationTracker-july1BudgetTimePercent" />
+				<ref bean="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevelCode"/>
+				<ref bean="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
+				<ref bean="LaborCalculatedSalaryFoundationTracker-account.organizationCode"/>
+			</list>
+		</property>
+		<property name="accessRestrictedAttributes">
+			<list>
+				<bean parent="ChartRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-chartOfAccountsCode"/></bean>
+				<bean parent="ChartHierarchyRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-chartOfAccountsCode"/></bean>
+				<bean parent="AccountRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-accountNumber"/></bean>
+				<bean parent="PrincipalInvestigatorRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-accountNumber"/></bean>
+				<bean parent="SubAccountRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-subAccountNumber"/></bean>
+				<bean parent="OrganizationRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-account.organizationCode"/></bean>
+				<bean parent="OrganizationHierarchyRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-account.organizationCode"/></bean>
+				<bean parent="ObjectLevelRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevelCode"/></bean>
+				<bean parent="ObjectConsolidationRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevel.financialConsolidationObjectCode"/></bean>
 			</list>
 		</property>
 	</bean>
@@ -372,7 +388,20 @@
 		id="LaborCalculatedSalaryFoundationTracker-july1BudgetTimePercent-parentBean"
 		abstract="true" parent="July1PositionFunding-july1BudgetTimePercent" />
 
+	<bean id="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevelCode" parent="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevelCode-parentBean"/>
+	<bean id="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevelCode-parentBean" abstract="true" parent="ObjectLevel-financialObjectLevelCode">
+		<property name="name" value="financialObject.financialObjectLevelCode"/>
+	</bean>
 
+	<bean id="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevel.financialConsolidationObjectCode" parent="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean"/>
+	<bean id="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevel.financialConsolidationObjectCode-parentBean" abstract="true" parent="ObjectConsolidation-finConsolidationObjectCode">
+		<property name="name" value="financialObject.financialObjectLevel.financialConsolidationObjectCode"/>
+	</bean>
+
+	<bean id="LaborCalculatedSalaryFoundationTracker-account.organizationCode" parent="LaborCalculatedSalaryFoundationTracker-account.organizationCode-parentBean"/>
+	<bean id="LaborCalculatedSalaryFoundationTracker-account.organizationCode-parentBean" abstract="true" parent="Organization-organizationCode">
+		<property name="name" value="account.organizationCode"/>
+	</bean>
 	<!-- Business Object Inquiry Definition -->
 
 
