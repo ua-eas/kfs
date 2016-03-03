@@ -156,14 +156,10 @@
 
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" addClass="center" />
 
-                    <c:choose>
-                        <c:when test="${isATypeOfPODoc}">
-                            <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan + 1}" />
-                        </c:when>
-                        <c:otherwise>
-                            <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}"/>
-                        </c:otherwise>
-                    </c:choose>
+                    <c:if test="${isATypeOfPODoc}">
+                        <kul:htmlAttributeHeaderCell literalLabel="" />
+                    </c:if>
+                    <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}"/>
 
                 </tr>
                 <tr class="top new">
@@ -251,6 +247,9 @@
                     <td class="infoline center">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" property="newPurchasingItemLine.itemAssignedToTradeInIndicator" tabindexOverride="${tabindexOverrideBase + 0}"/>
                     </td>
+                    <c:if test="${isATypeOfPODoc}">
+                        <td></td>
+                    </c:if>
                     <td class="infoline" colspan="${actionColSpan}">
                         <div class="actions">
                             <html:html-button
