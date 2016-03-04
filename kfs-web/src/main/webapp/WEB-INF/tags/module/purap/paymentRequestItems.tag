@@ -200,7 +200,7 @@
 								title="Recalculate Item's accounts amounts distributions"
 								styleClass="btn clean"
 								value="Calculate"
-								innerHTML="<img src='${ConfigProperties.kr.externalizable.images.url}calculator.png' width='18px'/>"/>
+								innerHTML="<img src='${ConfigProperties.kr.externalizable.images.url}calculator.png' height='18px'/>"/>
 						<html:html-button
 								property="methodToCall.restoreItemAccountsAmounts.line${ctr}.Anchor"
 								alt="Restore Item's accounts percents/amounts from Purchase Order"
