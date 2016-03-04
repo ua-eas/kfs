@@ -47,10 +47,30 @@
 
 		<c:if test="${empty isCreditMemo or !isCreditMemo}" >
 			<c:set var="colSpanItemType" value="4"/>
-			<table class="datatable standard side-margins" summary="Items Totals Section">
+			<table class="standard side-margins" summary="Items Totals Section">
 				<purap:purPOLineItemTotals documentAttributes="${documentAttributes}" mainColumnCount="${mainColumnCount}" />
 			</table>
-			<table class="datatable standard side-margins" summary="Request Items Section">
+
+			<h3>
+				Items
+				<c:if test="${fullEntryMode && KualiForm.ableToShowClearAndLoadQtyButtons}">
+					<div style="float: right; margin-top: -10px;">
+						<html:submit
+								property="methodToCall.loadQty"
+								alt="load qty invoiced"
+								title="load qty invoiced"
+								styleClass="btn btn-default"
+								value="Load Qty Invoiced"/>
+						<html:submit
+								property="methodToCall.clearQty"
+								alt="clear qty invoiced"
+								title="clear qty invoiced"
+								styleClass="btn btn-default"
+								value="Clear Qty Invoiced"/>
+					</div>
+				</c:if>
+			</h3>
+			<table class="standard side-margins acct-lines" summary="Request Items Section">
 				<purap:paymentRequestItems
 					itemAttributes="${itemAttributes}"
 					accountingLineAttributes="${accountingLineAttributes}"
@@ -59,7 +79,7 @@
 			</table>
 		</c:if>
 
-		<table class="datatable standard side-margins" summary="Credit Memo Items Section">
+		<table class="standard side-margins" summary="Credit Memo Items Section">
 			<c:if test="${isCreditMemo && !(KualiForm.document.creditMemoType eq 'Vendor')}" >
 				<purap:creditMemoItems
 						itemAttributes="${itemAttributes}"
@@ -147,7 +167,7 @@
 			</purap:taxitems>
 		</c:if>
 
-		<table class="datatable standard sid-margins" summary="Item Totals Section">
+		<table class="standard sid-margins" summary="Item Totals Section">
 			<c:if test="${purapTaxEnabled}">
 				<tr>
 					<td align=right width='75%' scope="row" class="datacell" colspan="${colSpanTotalLabel}">
