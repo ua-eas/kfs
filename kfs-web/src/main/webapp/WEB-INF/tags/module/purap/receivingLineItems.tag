@@ -176,60 +176,6 @@
 			</logic:iterate>
 
 			<logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
-				<c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-				<c:set var="topLevelTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
-
-				<c:choose>
-					<c:when test="${itemLine.objectId == null}">
-						<c:set var="newObjectId" value="<%= (new Guid()).toString()%>" />
-						<c:set var="tabKey" value="Item-${newObjectId}" />
-					</c:when>
-					<c:when test="${itemLine.objectId != null}">
-						<c:set var="tabKey" value="Item-${itemLine.objectId}" />
-					</c:when>
-				</c:choose>
-
-				<!--  hit form method to increment tab index -->
-				<c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
-
-				<c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
-
-				<%-- default to closed --%>
-				<c:choose>
-					<c:when test="${empty currentTab}">
-						<c:set var="isOpen" value="true" />
-					</c:when>
-					<c:when test="${!empty currentTab}">
-						<c:set var="isOpen" value="${currentTab == 'OPEN'}" />
-					</c:when>
-				</c:choose>
-
-				<tr class="top line">
-					<td></td>
-					<td colspan="${colCount - 1}" class="tab-subhead" style="border-right: none;">
-					<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-						<html:submit
-								property="methodToCall.toggleTab.tab${tabKey}"
-								alt="hide" title="toggle" styleClass="btn btn-default small"
-								styleId="tab-${tabKey}-imageToggle"
-								onclick="javascript: return toggleTab(document, '${tabKey}'); "
-								value="Hide"/>
-					</c:if>
-					<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-						<html:submit
-								property="methodToCall.toggleTab.tab${tabKey}"
-								alt="show" title="toggle" styleClass="btn btn-default small"
-								styleId="tab-${tabKey}-imageToggle"
-								onclick="javascript: return toggleTab(document, '${tabKey}'); "
-								value="Show"/>
-					</c:if>
-					</td>
-				</tr>
-
-				<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-					<tbody style="display: none;" id="tab-${tabKey}-div">
-				</c:if>
-
 				<tr class="top line" style="${ctr == itemCount - 1 ? 'border-bottom:1px solid #BBBBBB;' : ''}">
 					<th class="infoline" nowrap="nowrap">
 						<bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/>
@@ -315,11 +261,6 @@
 						<div class="actions">&nbsp;</div>
 					</td>
 				</tr>
-
-				<c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-					</tbody>
-				</c:if>
-
 			</logic:iterate>
 		</table>
 	</div>
