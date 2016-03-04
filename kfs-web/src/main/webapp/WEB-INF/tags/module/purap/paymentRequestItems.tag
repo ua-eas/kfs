@@ -21,9 +21,7 @@
 
 <%@ attribute name="itemAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields."%>
 <%@ attribute name="accountingLineAttributes" required="true" type="java.util.Map" description="The DataDictionary entry containing attributes for this row's fields."%>
-<%@ attribute name="showAmount" required="false"
-    type="java.lang.Boolean"
-    description="show the amount if true else percent" %>
+<%@ attribute name="showAmount" required="false" type="java.lang.Boolean" description="show the amount if true else percent" %>
 <%@ attribute name="mainColumnCount" required="true" %>
 
 <c:set var="fullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] && (empty KualiForm.editingMode['restrictFiscalEntry'])}" />
@@ -40,11 +38,11 @@
 
 <%-- temporary workaround due to removing discount item --%>
 <c:if test="${KualiForm.countOfAboveTheLine>=1}">
-	<tr class="header top">
+	<tr class="header">
 		<th></th>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.poOutstandingQuantity}"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitOfMeasureCode}"/>
-		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.purchaseOrderItemUnitPrice}"/>
+		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.purchaseOrderItemUnitPrice}" addClass="right"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemQuantity}" addClass="right"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemUnitPrice}" addClass="right"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.extendedPrice}" addClass="right"/>
@@ -55,12 +53,9 @@
 		</c:if>
 
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemCatalogNumber}"/>
-		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}"/>
+		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" addClass="center"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemDescription}" colspan="${colSpanDescription}"/>
-		<c:if test="${fullEntryMode}">
-			<kul:htmlAttributeHeaderCell literalLabel="Actions"/>
-		</c:if>
-		
+		<kul:htmlAttributeHeaderCell literalLabel="Actions"/>
 	</tr>
 </c:if>
 
@@ -178,11 +173,11 @@
 				    property="document.item[${ctr}].itemCatalogNumber"
 				    readOnly="true" />
 		    </td>
-			<td class="infoline">
+			<td class="infoline center">
 			    <kul:htmlControlAttribute
 				    attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}"
 				    property="document.item[${ctr}].itemAssignedToTradeInIndicator"
-				    readOnly="true" />
+				    readOnly="true"/>
 			</td>			    
 			<td  class="infoline" colspan="${colSpanDescription}">
 			    <kul:htmlControlAttribute
@@ -193,7 +188,7 @@
 			
 			<td class="infoline">
 				<div class="actions">
-					<%--<c:if test="${fullEntryMode}">--%>
+					<c:if test="${fullEntryMode}">
 						<html:html-button
 								property="methodToCall.recalculateItemAccountsAmounts.line${ctr}.Anchor"
 								alt="Recalculate Item's accounts amounts distributions"
@@ -208,7 +203,7 @@
 								styleClass="btn clean"
 								value="Restore"
 								innerHTML="<span class=\"fa fa-undo\"></span>"/>
-					<%--</c:if>--%>
+					</c:if>
 					<c:set var="toggleTabIndex" value="${KualiForm.currentTabIndex}"/>
 					<purap:accountingLinesToggle currentTabIndex="${toggleTabIndex}" accountPrefix="document.item[${ctr}]."/>
 				</div>
@@ -236,7 +231,8 @@
 
 <c:if test="${(fullEntryMode) and (clearAllTaxes) and (purapTaxEnabled)}">
 	<tr>
-		<th height=30 colspan="${mainColumnCount}">
+		<th></th>
+		<th height=30 colspan="${mainColumnCount - 1}">
             <html:submit
                     property="methodToCall.clearAllTaxes"
                     alt="Clear all tax"
@@ -245,8 +241,4 @@
                     value="Clear All Tax"/>
 	 	</th>
 	 </tr>
-</c:if>	
-		
-<tr>
-	<th height=30 colspan="${mainColumnCount}">&nbsp;</th>
-</tr>
+</c:if>

@@ -28,96 +28,94 @@
 <kul:tab tabTitle="Credit Memo Info" defaultOpen="true">
    
     <div class="tab-container" align=center>
-            <h3>Credit Memo Info</h3>
-
-        <table cellpadding="0" cellspacing="0" class="datatable" summary="Credit Memo Info Section">
+        <table class="standard" summary="Credit Memo Info Section">
 
             <tr>
-                <th align=right valign=middle class="bord-l-b" width="25%">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoNumber}" /></div>
+                <th class="right" width="25%">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoNumber}" />
                 </th>
-                <td align=left valign=middle class="datacell" width="25%">
+                <td class="datacell" width="25%">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.creditMemoNumber}" property="document.creditMemoNumber" readOnly="true" /> 
                 </td>
-                <th align=right valign=middle class="bord-l-b" width="25%">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoType}" /></div>
+                <th class="right" width="25%">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoType}" />
                 </th>
-                <td align=left valign=middle class="datacell" width="25%">
+                <td class="datacell" width="25%">
                    <bean:write name="KualiForm" property="document.creditMemoType" />
                 </td>
             </tr>
             
             <tr>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoDate}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoDate}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.creditMemoDate}" property="document.creditMemoDate" readOnly="true" />
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorNumber}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.vendorNumber}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.vendorNumber}" property="document.vendorNumber" readOnly="true" />
                 </td>
              </tr>
              
              <c:if test="${not fullDocumentEntryCompleted}">
                   <tr>
-                     <th align=right valign=middle class="bord-l-b">                   
-        	    		<div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoAmount}" useShortLabel="true" /></div>
+                     <th class="right">
+        	    		<kul:htmlAttributeLabel attributeEntry="${documentAttributes.creditMemoAmount}" useShortLabel="true" />
                      </th>
-                     <td align=left valign=middle class="datacell">                   
+                     <td class="datacell">
                      	<kul:htmlControlAttribute attributeEntry="${documentAttributes.creditMemoAmount}" property="document.creditMemoAmount" readOnly="true" />
                      </td>
-                     <th align=right valign=middle class="bord-l-b">&nbsp;</th>               
-                     <td align=left valign=middle class="datacell">&nbsp;</td>                
+                     <th class="right">&nbsp;</th>
+                     <td class="datacell">&nbsp;</td>
                   <tr>   
              </c:if>
 
              <tr>   
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderEndDate}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderEndDate}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute  attributeEntry="${documentAttributes.purchaseOrderEndDate}" property="document.purchaseOrder.purchaseOrderEndDate" readOnly="true" />
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderIdentifier}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderIdentifier}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderIdentifier}" property="document.purchaseOrderIdentifier" readOnly="true" />
                 </td>
              </tr>
              
              <tr>   
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel  attributeEntry="${documentAttributes.purchaseOrderNotes}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel  attributeEntry="${documentAttributes.purchaseOrderNotes}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <bean:write name="KualiForm" property="document.purchaseOrderNotes" />
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                   <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentRequestIdentifier}" /></div>
+                <th class="right">
+                   <kul:htmlAttributeLabel attributeEntry="${documentAttributes.paymentRequestIdentifier}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.paymentRequestIdentifier}" property="document.paymentRequestIdentifier" readOnly="true" />
                 </td>
             </tr>
 			<tr>
-                <th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.extractedTimestamp}" /></div>
+                <th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.extractedTimestamp}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.extractedTimestamp}" property="document.extractedTimestamp" readOnly="${true}" />
                     <c:if test="${not empty KualiForm.document.extractedTimestamp}">
                         <purap:disbursementInfo sourceDocumentNumber="${KualiForm.document.documentNumber}" sourceDocumentType="${KualiForm.document.documentType}" />          
 					</c:if>
                 </td>
-                <th align=right valign=middle class="bord-l-b">
-                    <div align="right"><kul:htmlAttributeLabel attributeEntry="${documentAttributes.accountsPayableApprovalTimestamp}" /></div>
+                <th class="right">
+                    <kul:htmlAttributeLabel attributeEntry="${documentAttributes.accountsPayableApprovalTimestamp}" />
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.accountsPayableApprovalTimestamp}" property="document.accountsPayableApprovalTimestamp" readOnly="${not displayInitTab}" />
                 </td>          
             </tr>
@@ -125,10 +123,10 @@
 			<tr>
 	            <sys:bankLabel align="right"/>
                 <sys:bankControl property="document.bankCode" objectProperty="document.bank" readOnly="${not fullEntryMode}"/>
-                <th align=right valign=middle class="bord-l-b">
-                    <div align="right">&nbsp;</div>
+                <th class="right">
+                    &nbsp;
                 </th>
-                <td align=left valign=middle class="datacell">
+                <td class="datacell">
                     &nbsp;
                 </td>
                 

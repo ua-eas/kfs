@@ -79,7 +79,10 @@
 			</table>
 		</c:if>
 
-		<table class="standard side-margins" summary="Credit Memo Items Section">
+		<c:if test="${isCreditMemo && !(KualiForm.document.creditMemoType eq 'Vendor')}" >
+			<h3>Items</h3>
+		</c:if>
+		<table class="standard side-margins acct-lines" summary="Credit Memo Items Section">
 			<c:if test="${isCreditMemo && !(KualiForm.document.creditMemoType eq 'Vendor')}" >
 				<purap:creditMemoItems
 						itemAttributes="${itemAttributes}"
@@ -96,7 +99,8 @@
 			</c:if>
 
 			<tr>
-				<td width='75%' scope="row" class="datacell right" colspan="${colSpanTotalLabel}">
+				<th></th>
+				<td width='75%' scope="row" class="datacell right" colspan="${colSpanTotalLabel - 1}">
 					<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.lineItemTotal}" skipHelpUrl="true"/></b>
 				</td>
 				<td class="datacell right" colspan="${colSpanTotalAmount}">
@@ -123,28 +127,26 @@
 
 			<jsp:attribute name="specialItemTotalOverride">
 				<tr>
-					<td align=right width='75%' scope="row" class="datacell" colspan="${colSpanTotalLabel}">
-						<div align="right">
-							<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTotalExcludingDiscount}" skipHelpUrl="true" /></b>&nbsp;
-						</div>
+					<td width='75%' scope="row" class="datacell right" colspan="${colSpanTotalLabel}">
+						<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTotalExcludingDiscount}" skipHelpUrl="true" /></b>&nbsp;
 					</td>
-					<td valign=middle class="datacell" colspan="${colSpanTotalAmount}">
-						<div align="right"><b>
+					<td class="datacell right" colspan="${colSpanTotalAmount}">
+						<b>
 							<c:choose>
 								<c:when test="${isCreditMemo && !(KualiForm.document.creditMemoType eq 'Vendor')}" >
 									<kul:htmlControlAttribute
 										attributeEntry="${DataDictionary.PaymentRequestDocument.attributes.grandTotalExcludingDiscount}"
 										property="document.grandTotal"
-										readOnly="true" />&nbsp; </b>
+										readOnly="true" />&nbsp;
 								</c:when>
 								<c:otherwise>
 									<kul:htmlControlAttribute
 										attributeEntry="${DataDictionary.PaymentRequestDocument.attributes.grandTotalExcludingDiscount}"
 										property="document.grandPreTaxTotalExcludingDiscount"
-										readOnly="true" />&nbsp; </b>
+										readOnly="true" />&nbsp;
 								</c:otherwise>
 							</c:choose>
-						</div>
+						</b>
 					</td>
 					<td class="datacell" colspan="${colSpanTotalBlank}">
 						&nbsp;
@@ -170,65 +172,59 @@
 		<table class="standard sid-margins" summary="Item Totals Section">
 			<c:if test="${purapTaxEnabled}">
 				<tr>
-					<td align=right width='75%' scope="row" class="datacell" colspan="${colSpanTotalLabel}">
-						<div align="right">
-							<c:if test="${(empty isCreditMemo or !isCreditMemo) and purapTaxEnabled and KualiForm.document.useTaxIndicator}" >
+					<td width='75%' scope="row" class="datacell right" colspan="${colSpanTotalLabel}">
+						<c:if test="${(empty isCreditMemo or !isCreditMemo) and purapTaxEnabled and KualiForm.document.useTaxIndicator}" >
 							<b>[Vendor Remit Amount]</b>
-							</c:if>
+						</c:if>
 
-							<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandPreTaxTotal}" skipHelpUrl="true" /></b>&nbsp;
-						</div>
+						<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandPreTaxTotal}" skipHelpUrl="true" /></b>&nbsp;
 					</td>
-					<td valign=middle class="datacell" colspan="${colSpanTotalAmount}">
-						<div align="right"><b>
+					<td class="datacell right" colspan="${colSpanTotalAmount}">
+						<b>
 							<kul:htmlControlAttribute
 								attributeEntry="${documentAttributes.grandPreTaxTotal}"
 								property="document.grandPreTaxTotal"
-								readOnly="true" />&nbsp; </b>
-						</div>
+								readOnly="true" />&nbsp;
+						</b>
 					</td>
-					<td valign="middle" class="datacell" colspan="${colSpanTotalBlank}">
+					<td class="datacell" colspan="${colSpanTotalBlank}">
 						&nbsp;
 					</td>
 				</tr>
 
 				<tr>
-					<td align=right width='75%' scope="row" class="datacell" colspan="${colSpanTotalLabel}">
-						<div align="right">
-							<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTaxAmount}" skipHelpUrl="true" /></b>&nbsp;
-						</div>
+					<td width='75%' scope="row" class="datacell right" colspan="${colSpanTotalLabel}">
+						<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTaxAmount}" skipHelpUrl="true" /></b>&nbsp;
 					</td>
-					<td valign=middle class="datacell" colspan="${colSpanTotalAmount}">
-						<div align="right"><b>
+					<td class="datacell right" colspan="${colSpanTotalAmount}">
+						<b>
 							<kul:htmlControlAttribute
 								attributeEntry="${documentAttributes.grandTaxAmount}"
 								property="document.grandTaxAmount"
-								readOnly="true" />&nbsp; </b>
-						</div>
+								readOnly="true" />&nbsp;
+						</b>
 					</td>
-					<td valign="middle" class="datacell" colspan="${colSpanTotalBlank}">
+					<td class="datacell" colspan="${colSpanTotalBlank}">
 						&nbsp;
 					</td>
 				</tr>
 			</c:if>
 
 			<tr>
-				<td align=right width='75%' scope="row" class="datacell" colspan="${colSpanTotalLabel}">
-					<div align="right">
-						<c:if test="${(empty isCreditMemo or !isCreditMemo) and purapTaxEnabled and !KualiForm.document.useTaxIndicator}" >
-							<b>[Vendor Remit Amount]</b>
-						</c:if>
+				<td width='75%' scope="row" class="datacell right" colspan="${colSpanTotalLabel}">
+					<c:if test="${(empty isCreditMemo or !isCreditMemo) and purapTaxEnabled and !KualiForm.document.useTaxIndicator}" >
+						<b>[Vendor Remit Amount]</b>
+					</c:if>
 
-						<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTotal}" skipHelpUrl="true" /></b>&nbsp;
-					</div>
+					<b><kul:htmlAttributeLabel attributeEntry="${documentAttributes.grandTotal}" skipHelpUrl="true" /></b>&nbsp;
 				</td>
-				<td valign=middle class="datacell" colspan="${colSpanTotalAmount}">
-					<div align="right"><b>
+				<td class="datacell right" colspan="${colSpanTotalAmount}">
+					<b>
 						<kul:htmlControlAttribute
 							attributeEntry="${documentAttributes.grandTotal}"
 							property="document.grandTotal"
-							readOnly="true" />&nbsp; </b>
-					</div>
+							readOnly="true" />&nbsp;
+					</b>
 				</td>
 				<td class="datacell" colspan="${colSpanTotalBlank}">
 				  <c:if test="${empty isCreditMemo or !isCreditMemo}" >
@@ -249,7 +245,7 @@
 							attributeEntry="${documentAttributes.reopenPurchaseOrderIndicator}"
 							property="document.reopenPurchaseOrderIndicator"
 							readOnly="false" tabindexOverride="${tabindexOverrideBase + 0}"/>
-							<kul:htmlAttributeLabel attributeEntry="${documentAttributes.reopenPurchaseOrderIndicator}" skipHelpUrl="true" noColon="true" />
+						<kul:htmlAttributeLabel attributeEntry="${documentAttributes.reopenPurchaseOrderIndicator}" skipHelpUrl="true" noColon="true" />
 					  </c:if>
 					  <c:if test="${not empty KualiForm.document.paymentRequestDocument.recurringPaymentTypeCode and not fullDocumentEntryCompleted}">
 						Recurring PO
