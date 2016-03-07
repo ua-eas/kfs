@@ -18,17 +18,31 @@
  */
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import java.sql.Date;
-
+import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund, MutableInactivatable {
 
     private String letterOfCreditFundCode;
     private String letterOfCreditFundDescription;
+    private java.sql.Date letterOfCreditFundStartDate;
+    private java.sql.Date letterOfCreditFundExpirationDate;
+    private boolean active;
+    private KualiDecimal letterOfCreditFundAmount;
+    private String letterOfCreditFundGroupCode;
+    private LetterOfCreditFundGroup letterOfCreditFundGroup;
+
+
 
     public LetterOfCreditFund() { }
     public LetterOfCreditFund(String letterOfCreditFundCode, String letterOfCreditFundDescription) {
@@ -37,11 +51,13 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
     }
 
     @Override
-    public void setActive(boolean active) { }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public boolean isActive() {
-        return true;
+        return active;
     }
 
     @Override
@@ -65,34 +81,67 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
         this.letterOfCreditFundDescription = letterOfCreditFundDescription;
     }
 
-    @Override
-    public ContractsAndGrantsLetterOfCreditFundGroup getLetterOfCreditFundGroup() {
-        // TODO No straight-forward equivalent in KC
-        return null;
-    }
-
-    @Override
-    public String getLetterOfCreditFundGroupCode() {
-        // TODO No straight-forward equivalent in KC
-        return null;
-    }
-
-    @Override
-    public KualiDecimal getLetterOfCreditFundAmount() {
-        // TODO No equivalent in KC
-        return null;
-    }
-
-    @Override
     public Date getLetterOfCreditFundStartDate() {
-        // TODO No equivalent in KC
-        return null;
+        return letterOfCreditFundStartDate;
+    }
+
+    public void setLetterOfCreditFundStartDate(java.util.Date letterOfCreditFundStartDate) {
+        if (letterOfCreditFundStartDate != null) {
+            this.letterOfCreditFundStartDate = new Date(letterOfCreditFundStartDate.getTime());
+        }
+    }
+
+    public void setLetterOfCreditFundStartDate(Date letterOfCreditStartDate) {
+        this.letterOfCreditFundStartDate = letterOfCreditStartDate;
+    }
+
+    public Date getLetterOfCreditFundExpirationDate() {
+        return letterOfCreditFundExpirationDate;
+    }
+
+    public void setLetterOfCreditFundExpirationDate(java.util.Date letterOfCreditFundExpirationDate) {
+        if (letterOfCreditFundExpirationDate != null) {
+            this.letterOfCreditFundExpirationDate = new Date(letterOfCreditFundExpirationDate.getTime());
+        }
+    }
+
+    public void setLetterOfCreditFundExpirationDate(Date letterOfCreditFundExpirationDate) {
+        this.letterOfCreditFundExpirationDate = letterOfCreditFundExpirationDate;
+    }
+
+    public KualiDecimal getLetterOfCreditFundAmount() {
+        return letterOfCreditFundAmount;
+    }
+
+    public void setLetterOfCreditFundAmount(KualiDecimal letterOfCreditFundAmount) {
+        this.letterOfCreditFundAmount = letterOfCreditFundAmount;
+    }
+
+    public void setLetterOfCreditFundAmount(BigDecimal letterOfCreditAmount) {
+        if (letterOfCreditAmount != null) {
+            this.letterOfCreditFundAmount = new KualiDecimal(letterOfCreditAmount);
+        }
+    }
+
+    public String getLetterOfCreditFundGroupCode() {
+        return letterOfCreditFundGroupCode;
+    }
+
+    public void setLetterOfCreditFundGroupCode(String letterOfCreditFundGroupCode) {
+        this.letterOfCreditFundGroupCode = letterOfCreditFundGroupCode;
     }
 
     @Override
-    public Date getLetterOfCreditFundExpirationDate() {
-        // TODO No equivalent in KC
-        return null;
+    public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
+        if (this.letterOfCreditFundGroup == null) {
+            Map<String, String> keyValues = new HashMap<>();
+            keyValues.put("groupCode", getLetterOfCreditFundGroupCode());
+            Collection<LetterOfCreditFundGroup> fundGroups = SpringContext.getBean(BusinessObjectService.class).findMatching(LetterOfCreditFundGroup.class, keyValues);
+            if (!CollectionUtils.isEmpty(fundGroups)) {
+                this.letterOfCreditFundGroup = fundGroups.iterator().next();
+            }
+        }
+        return letterOfCreditFundGroup;
     }
 
 }

@@ -19,6 +19,7 @@
 package org.kuali.kfs.module.cg.service.impl;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -177,6 +178,18 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
 
         awardAccount.setFinalBilledIndicator(finalBilled);
         getBusinessObjectService().save(awardAccount);
+    }
+
+    @Override
+    public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode) {
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        if (ObjectUtils.isNotNull(fundGroupCode)) {
+            criteria.put("letterOfCreditFund.letterOfCreditFundGroupCode", fundGroupCode);
+        }
+        if (ObjectUtils.isNotNull(fundCode)) {
+            criteria.put("letterOfCreditFund.letterOfCreditFundCode", fundCode);
+        }
+        return criteria;
     }
 
     /**

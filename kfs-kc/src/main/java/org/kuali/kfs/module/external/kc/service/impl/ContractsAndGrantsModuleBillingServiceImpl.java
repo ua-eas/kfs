@@ -150,6 +150,18 @@ public class ContractsAndGrantsModuleBillingServiceImpl implements ContractsAndG
         }
     }
 
+    @Override
+    public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode) {
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        if (ObjectUtils.isNotNull(fundGroupCode)) {
+            criteria.put("locFundGroupCode", fundGroupCode);
+        }
+        if (ObjectUtils.isNotNull(fundCode)) {
+            criteria.put("locFundCode", fundCode);
+        }
+        return criteria;
+    }
+
     protected AwardWebService getWebService() {
         // first attempt to get the service from the KSB - works when KFS & KC share a Rice instance
         AwardWebService awardWebService = (AwardWebService) GlobalResourceLoader.getService(KcConstants.Award.SERVICE);
