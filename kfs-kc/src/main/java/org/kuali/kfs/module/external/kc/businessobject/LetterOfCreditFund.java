@@ -20,8 +20,8 @@ package org.kuali.kfs.module.external.kc.businessobject;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
@@ -134,9 +134,15 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
     @Override
     public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
         if (this.letterOfCreditFundGroup == null) {
-            Map<String, String> keyValues = new HashMap<>();
+            Map<String, Object> keyValues = new HashMap<>();
             keyValues.put("groupCode", getLetterOfCreditFundGroupCode());
-            Collection<LetterOfCreditFundGroup> fundGroups = SpringContext.getBean(BusinessObjectService.class).findMatching(LetterOfCreditFundGroup.class, keyValues);
+
+            Collection<LetterOfCreditFundGroup> fundGroups = null;
+            ModuleService responsibleModuleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(LetterOfCreditFundGroup.class);
+            if (responsibleModuleService != null && responsibleModuleService.isExternalizable(LetterOfCreditFundGroup.class)){
+                fundGroups = responsibleModuleService.getExternalizableBusinessObjectsList(LetterOfCreditFundGroup.class, keyValues);
+            }
+
             if (!CollectionUtils.isEmpty(fundGroups)) {
                 this.letterOfCreditFundGroup = fundGroups.iterator().next();
             }
