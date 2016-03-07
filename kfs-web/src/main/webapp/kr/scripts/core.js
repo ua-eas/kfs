@@ -193,8 +193,18 @@ function saveScrollPosition() {
 		} else if ( typeof window.pageXOffset != "undefined" ) { 
 			x = parent.window.pageXOffset; 
 		  	y = parent.window.pageYOffset; 
-		} 
-		document.cookie = "KulScrollPos"+scrollPositionKey+"="+x+","+y;
+		}
+
+		// IE does not send cookies to document.cookie if the path is set to a filename.
+		// We are using document.location.pathname which will result in /rootcontext/someaction.do
+		// So we set the cookie for IE without the path. This can lead to the scrollPos being read for the wrong page.
+		// We keep the path on the cookie for all other browsers so that it will work completely as desired.
+		var ua = window.navigator.userAgent;
+		if (ua.indexOf('MSIE') !== -1 || ua.indexOf('Trident/') !== -1 || ua.indexOf('Edge/') !== -1) {
+			document.cookie = "KulScrollPos" + scrollPositionKey + "=" + x + "," + y;
+		} else {
+			document.cookie = "KulScrollPos"+scrollPositionKey+"="+x+","+y+"; path="+document.location.pathname;
+		}
 	}
 }
 

@@ -155,7 +155,12 @@
                     </c:if>
 
                     <kul:htmlAttributeHeaderCell attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" addClass="center" />
-                    <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}" />
+
+                    <c:if test="${isATypeOfPODoc}">
+                        <kul:htmlAttributeHeaderCell literalLabel="" />
+                    </c:if>
+                    <kul:htmlAttributeHeaderCell literalLabel="Actions" colspan="${actionColSpan}"/>
+
                 </tr>
                 <tr class="top new">
                     <td class="infoline">
@@ -242,6 +247,9 @@
                     <td class="infoline center">
                         <kul:htmlControlAttribute attributeEntry="${itemAttributes.itemAssignedToTradeInIndicator}" property="newPurchasingItemLine.itemAssignedToTradeInIndicator" tabindexOverride="${tabindexOverrideBase + 0}"/>
                     </td>
+                    <c:if test="${isATypeOfPODoc}">
+                        <td></td>
+                    </c:if>
                     <td class="infoline" colspan="${actionColSpan}">
                         <div class="actions">
                             <html:html-button
@@ -566,7 +574,7 @@
                                     <c:set target="${KualiForm.accountingLineEditingMode}" property="fullEntry" value="true" />
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
-                                            itemColSpan="${mainColumnCount}"
+                                            itemColSpan="${accountColumnCount}"
                                             rowStyle="${rowStyle}"
                                             currentTabIndex="${toggleTabIndex}"
                                             showToggle="false"/>
@@ -575,7 +583,7 @@
                                     <c:set target="${KualiForm.editingMode}" property="viewOnly" value="true" />
                                     <purap:purapGeneralAccounting
                                             accountPrefix="document.item[${ctr}]."
-                                            itemColSpan="${mainColumnCount}"
+                                            itemColSpan="${accountColumnCount}"
                                             rowStyle="${rowStyle}"
                                             currentTabIndex="${toggleTabIndex}"
                                             showToggle="false"/>

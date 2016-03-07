@@ -53,7 +53,7 @@
                 title="Hide Accounting Lines"
                 class="btn clean"
                 id="tab-${tabKey}-imageToggle"
-                onclick="javascript: return toggleTab(document, '${tabKey}'); "
+                onclick="toggleTab(document, 'kualiFormModal', '${tabKey}'); "
                 value="Hide">
             <img src="${ConfigProperties.kr.externalizable.images.url}acct-lines.png" width="18px"/>
         </button>
@@ -66,7 +66,7 @@
                 title="Show Accounting Lines"
                 class="btn clean"
                 id="tab-${tabKey}-imageToggle"
-                onclick="javascript: return toggleTab(document, '${tabKey}'); "
+                onclick="toggleTab(document, 'kualiFormModal', '${tabKey}'); "
                 value="Show">
             <img src="${ConfigProperties.kr.externalizable.images.url}acct-lines.png" width="18px"/>
         </button>

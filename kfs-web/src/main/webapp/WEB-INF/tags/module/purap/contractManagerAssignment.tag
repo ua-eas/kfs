@@ -99,8 +99,7 @@
                                     readOnly="true"/>
                         </td>
                         <td class="datacell top">
-                            <fmt:formatDate value="${acmDetail.requisition.documentHeader.workflowDocument.createDate}" pattern="hh:mm a MM/dd/yyyy" />
-                            <%--<c:out value="${acmDetail.createDate}"/>--%>
+                            <c:out value="${acmDetail.createDate}"/>
                         </td>
                         <td class="datacell top">
                             <kul:htmlControlAttribute

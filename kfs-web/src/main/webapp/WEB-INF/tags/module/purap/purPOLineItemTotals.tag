@@ -26,9 +26,9 @@
     <td colspan="3"><h3>Purchase Order Line Item Totals</h3></td>
 </tr>
 <tr class="header">
-    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmount}" addClass="center"/>
-    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmountRelieved}" addClass="center"/>
-    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoPaidAmount}" addClass="center"/>
+    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmount}" addClass="center" width="33%"/>
+    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoEncumbranceAmountRelieved}" addClass="center" width="33%"/>
+    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.itemTotalPoPaidAmount}" addClass="center" width="33%"/>
 </tr>
 <tr>
     <td class="infoline center">
