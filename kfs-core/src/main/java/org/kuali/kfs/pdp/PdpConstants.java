@@ -204,4 +204,11 @@ public class PdpConstants {
         public static final String PAYEE_EMAIL_ADDRESS = "Email Address";
         public static final String EDIT_PAYEE_ACH_ACCOUNT ="Edit Payee ACH Account";
     }
+
+	public static class FormatCheckACHParameters {
+		public static final String PDP_FORMAT_CHECK_ACH_STEP = "FormatCheckACHStep";
+		public static final String PDP_FORMAT_CHECK_ACH_BY_CUST_PROF_STEP = "FormatCheckACHByCustomerProfileStep";
+		public static final String FORMAT_SUMMARY_TO_EMAIL_ADDRESSES = "FORMAT_SUMMARY_TO_EMAIL_ADDRESSES";
+		public static final String FORMAT_CUSTOMER_PROFILE_ID = "FORMAT_CUSTOMER_PROFILE_ID";
+	}
 }
