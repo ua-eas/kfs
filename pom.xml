@@ -1196,7 +1196,7 @@
 
   <repositories>
     <repository>
-      <id>kualico.nexus.financials</id>
+      <id>kualico.nexus</id>
       <name>KualiCo Nexus Financials</name>
       <url>https://nexus.kuali.co/nexus/content/repositories/financials-repos/</url>
       <snapshots>
