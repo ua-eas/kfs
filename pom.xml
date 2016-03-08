@@ -1196,7 +1196,7 @@
 
   <repositories>
     <repository>
-      <id>kualico.nexus</id>
+      <id>kualico.nexus.financials.releases</id>
       <name>KualiCo Nexus Financials</name>
       <url>https://nexus.kuali.co/nexus/content/repositories/financials-repos/</url>
       <snapshots>
@@ -1232,18 +1232,5 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>${dm.snapshotRepository.id}</id>
-      <name>${dm.snapshotRepository.name}</name>
-      <url>${dm.snapshotRepository.url}</url>
-    </snapshotRepository>
-    <repository>
-      <id>${dm.repository.id}</id>
-      <name>${dm.repository.name}</name>
-      <url>${dm.repository.url}</url>
-    </repository>
-  </distributionManagement>
 
 </project>
