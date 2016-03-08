@@ -62,7 +62,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		CustomerProfile customerProfile = getCustomerProfileByProfileID(profileId);
 		
 		if (ObjectUtils.isNull(customerProfile)) {
-			LOG.error("Warning AutoCheckFormatStep: There is no customer profile matching id: " + profileId);
+			LOG.error("Warning AutoCheckFormatService.processChecksByCustomerProfile: There is no customer profile matching id: " + profileId);
 			return false;
 		}
 		
@@ -134,7 +134,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             return true;
         }
         catch (FormatException e) {
-            LOG.error("ERROR AutoCheckFormatStep: " + e.getMessage(), e);
+            LOG.error("ERROR AutoCheckFormatService.formatChecks: " + e.getMessage(), e);
             return false;
         }
     }
