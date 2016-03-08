@@ -20,6 +20,7 @@ import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.FormatSelection;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.location.api.campus.CampusService;
 
 public class AutoCheckFormatServiceImplTest {
 
@@ -97,6 +98,20 @@ public class AutoCheckFormatServiceImplTest {
     }
     
     @Test
+	public void testProcessChecksByCustomerProfileWhenProfileIDisNull() throws Exception {
+    	CampusService cs = EasyMock.createMock(CampusService.class);
+    	EasyMock.expect(cs.findAllCampuses()).andReturn(new ArrayList<Campus>())
+    	
+        EasyMock.expect(fs.getCampusService()).andReturn(cs);
+        EasyMock.replay(fs);
+    	
+    	boolean results = autoCheckFormatServ.processChecksByCustomerProfile(null);
+		
+		assertTrue(results);
+		
+	}
+    
+    @Test
     public void testCreateAutoCheckFormatHasSetFormatSelectionData() throws Exception {
         // start date is null, so can proceed
         EasyMock.expect(fs.getStartDate()).andReturn(null);
@@ -119,7 +134,6 @@ public class AutoCheckFormatServiceImplTest {
         assertEquals(autoCheckFormat.getPaymentTypes(), "all");
         assertEquals(autoCheckFormat.getRanges().size(), 0);
         assertEquals(autoCheckFormat.getCustomers().size(), 0);
-        
         
         EasyMock.reset(fs);
     }
