@@ -35,7 +35,6 @@
 
 <kul:tab tabTitle="Items" defaultOpen="true" tabErrorKey="${PurapConstants.LINEITEM_TAB_ERRORS}">
 	<div class="tab-container">
-		<h3>Receiving Line Items</h3>
 		<table class="standard acct-lines side-margins" summary="Items Section">
 			<c:if test="${fullEntryMode}">
 				<tr>
