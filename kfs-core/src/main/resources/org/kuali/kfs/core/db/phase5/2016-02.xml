@@ -16,4 +16,18 @@
 			<column name="APPL_ID"><![CDATA[KFS]]></column>
 		</insert>
 	</changeSet>
+	<changeSet author="kfs" id="kfscd52" context="bootstrap,demo,unit">
+		<insert tableName="krcr_parm_t">
+			<column name="NMSPC_CD"><![CDATA[KFS-PDP]]></column>
+			<column name="CMPNT_CD"><![CDATA[FormatCheckACHStep]]></column>
+			<column name="PARM_NM"><![CDATA[FORMAT_SUMMARY_TO_EMAIL_ADDRESSES]]></column>
+			<column name="OBJ_ID"><![CDATA[KFSCD52]]></column>
+			<column name="VER_NBR"><![CDATA[1]]></column>
+			<column name="VAL"><![CDATA[kfs.notification.batch@kuali.org]]></column>
+			<column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+			<column name="PARM_DESC_TXT"><![CDATA[Email addresses that receive notification of summary totals when the Format Check/ACH process is run automatically.]]></column>
+			<column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+			<column name="APPL_ID"><![CDATA[KFS]]></column>
+		</insert>
+	</changeSet>
 </databaseChangeLog>
