@@ -819,7 +819,7 @@
 	<bean id="pdpFormatCheckACHByCustomerProfileJob" parent="scheduledJobDescriptor">
 		<property name="steps">
 			<list>
-				<ref bean="autoCheckACHFormatByCustomerProfileStep" />
+				<ref bean="pdpFormatCheckACHByCustomerProfileStep" />
 			</list>
 		</property>
 		<property name="dependencies">
@@ -832,7 +832,7 @@
 		</property>
 	</bean>
 	
-	<bean id="autoCheckACHFormatByCustomerProfileStep" class="org.kuali.kfs.pdp.batch.AutoCheckACHFormatByCustomerProfileStep" parent="step">
+	<bean id="pdpFormatCheckACHByCustomerProfileStep" class="org.kuali.kfs.pdp.batch.FormatCheckACHByCustomerProfileStep" parent="step">
 		<property name="autoCheckFormatService" ref="autoCheckFormatService" />
 		<property name="parameterService" ref="parameterService"/>
 	</bean>

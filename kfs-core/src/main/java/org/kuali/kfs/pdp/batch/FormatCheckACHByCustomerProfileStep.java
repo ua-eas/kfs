@@ -8,7 +8,7 @@ import org.kuali.kfs.pdp.batch.service.AutoCheckFormatService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.AbstractStep;
 
-public class AutoCheckACHFormatByCustomerProfileStep extends AbstractStep {
+public class FormatCheckACHByCustomerProfileStep extends AbstractStep {
 
 	private AutoCheckFormatService autoCheckFormatService;
 	private ParameterService parameterService;
