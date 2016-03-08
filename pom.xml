@@ -170,6 +170,14 @@
     <jcl-over-slf4j.version>${slf4j.version}</jcl-over-slf4j.version>
     <jul-to-slf4j.version>${slf4j.version}</jul-to-slf4j.version>
 
+   <dm.snapshotRepository.id>kualico.nexus.financials.snapshots</dm.snapshotRepository.id>
+   <dm.snapshotRepository.name>KualiCo Nexus Snapshots Repository</dm.snapshotRepository.name>
+   <dm.snapshotRepository.url>https://nexus.kuali.co/nexus/content/repositories/financials-snapshots</dm.snapshotRepository.url>
+ 
+   <dm.repository.id>kualico.nexus.financials.releases</dm.repository.id>
+   <dm.repository.name>KualiCo Nexus Releases Repository</dm.repository.name>
+   <dm.repository.url>https://nexus.kuali.co/nexus/content/repositories/financials-releases/</dm.repository.url>
+
   </properties>
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -1232,5 +1240,18 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
+
+   <distributionManagement>
+    <snapshotRepository>
+      <id>${dm.snapshotRepository.id}</id>
+      <name>${dm.snapshotRepository.name}</name>
+      <url>${dm.snapshotRepository.url}</url>
+    </snapshotRepository>
+    <repository>
+      <id>${dm.repository.id}</id>
+      <name>${dm.repository.name}</name>
+      <url>${dm.repository.url}</url>
+    </repository>
+  </distributionManagement>
 
 </project>
