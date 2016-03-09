@@ -299,6 +299,7 @@
 		<property name="reportGenerationService">
 			<ref bean="reportGenerationService" />
 		</property>
+		<property name="dataDictionaryService" ref="dataDictionaryService"/>
 		<property name="contractsGrantsAwardBalancesReportInfo">
 			<ref bean="contractsGrantsAwardBalancesReportInfo" />
 		</property>

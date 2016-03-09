@@ -64,7 +64,7 @@
 		<property name="name" value="agencyNumber" />
 		<property name="forceUppercase" value="true" />
 		<property name="label" value="Sponsor Code" />
-		<property name="shortLabel" value="AgencyNbr" />
+		<property name="shortLabel" value="Sponsor Code" />
 		<property name="maxLength" value="5" />
 		<property name="validationPattern">
 			<bean parent="AlphaNumericValidationPattern" p:exactLength="5" />
