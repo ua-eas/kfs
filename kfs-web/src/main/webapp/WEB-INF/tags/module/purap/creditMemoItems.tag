@@ -93,7 +93,7 @@
             </c:when>
         </c:choose>
 
-        <!-- hit form method to increment tab index -->
+        <%-- hit form method to increment tab index --%>
         <c:set var="dummyIncrementer" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}"/>
         <c:set var="currentTab" value="${kfunc:getTabState(KualiForm, tabKey)}"/>
 
@@ -107,9 +107,9 @@
         </c:choose>
 
         <tr class="line top">
-            <td class="infoline" rowspan="2">
+            <th class="infoline" rowspan="2">
                 <bean:write name="KualiForm" property="document.item[${ctr}].itemLineNumber"/>
-            </td>
+            </th>
 
             <c:if test="${usePO}">
                 <td class="infoline right">

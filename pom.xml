@@ -138,7 +138,7 @@
     <oracle.artifactId>ojdbc6</oracle.artifactId>
     <oracle.version>11.2.0.3</oracle.version>
     <p6spy.version>1.3-patched</p6spy.version>
-    <rice.version>2.1.10</rice.version>
+    <rice.version>2.1.13-1602.0019</rice.version>
     <servlet-api.version>2.5</servlet-api.version>
     <spring-data-mongodb.version>1.3.5.RELEASE</spring-data-mongodb.version>
     <tiles.version>2.2.2</tiles.version>
@@ -171,13 +171,13 @@
     <jcl-over-slf4j.version>${slf4j.version}</jcl-over-slf4j.version>
     <jul-to-slf4j.version>${slf4j.version}</jul-to-slf4j.version>
 
-    <dm.snapshotRepository.id>kualico.nexus.financials.snapshots</dm.snapshotRepository.id>
-    <dm.snapshotRepository.name>KualiCo Nexus Snapshots Repository</dm.snapshotRepository.name>
-    <dm.snapshotRepository.url>https://nexus.kuali.co/nexus/content/repositories/financials-snapshots</dm.snapshotRepository.url>
-
-    <dm.repository.id>kualico.nexus.financials.releases</dm.repository.id>
-    <dm.repository.name>KualiCo Nexus Releases Repository</dm.repository.name>
-    <dm.repository.url>https://nexus.kuali.co/nexus/content/repositories/financials-releases/</dm.repository.url>
+   <dm.snapshotRepository.id>kualico.nexus.financials.snapshots</dm.snapshotRepository.id>
+   <dm.snapshotRepository.name>KualiCo Nexus Snapshots Repository</dm.snapshotRepository.name>
+   <dm.snapshotRepository.url>https://nexus.kuali.co/nexus/content/repositories/financials-snapshots</dm.snapshotRepository.url>
+ 
+   <dm.repository.id>kualico.nexus.financials.releases</dm.repository.id>
+   <dm.repository.name>KualiCo Nexus Releases Repository</dm.repository.name>
+   <dm.repository.url>https://nexus.kuali.co/nexus/content/repositories/financials-releases/</dm.repository.url>
 
   </properties>
   <build>
@@ -1198,6 +1198,10 @@
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
+         <exclusion>
+          <groupId>commons-beanutils</groupId>
+          <artifactId>commons-beanutils</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -1215,31 +1219,9 @@
 
   <repositories>
     <repository>
-      <id>kualico.nexus</id>
-      <name>KualiCo Nexus Group</name>
-      <url>https://nexus.kuali.co/nexus/content/groups/public/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-    <repository>
-      <id>${dm.snapshotRepository.id}</id>
-      <name>${dm.snapshotRepository.name}</name>
-      <url>${dm.snapshotRepository.url}</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-    <repository>
-      <id>${dm.repository.id}</id>
-      <name>${dm.repository.name}</name>
-      <url>${dm.repository.url}</url>
+      <id>kualico.nexus.financials.releases</id>
+      <name>KualiCo Nexus Financials</name>
+      <url>https://nexus.kuali.co/nexus/content/repositories/financials-repos/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -1274,7 +1256,7 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <distributionManagement>
+   <distributionManagement>
     <snapshotRepository>
       <id>${dm.snapshotRepository.id}</id>
       <name>${dm.snapshotRepository.name}</name>

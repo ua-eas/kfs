@@ -70,7 +70,6 @@ public class OrgReviewRoleLookupableHelperServiceImpl extends KualiLookupableHel
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
         lookupForm.setShowMaintenanceLinks(true);
-        lookupForm.setSuppressActions(false);
         lookupForm.setHideReturnLink(true);
         return super.performLookup(lookupForm, resultTable, bounded);
     }
