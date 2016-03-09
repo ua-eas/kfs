@@ -34,7 +34,6 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
     private boolean active;
     private KualiDecimal letterOfCreditFundAmount;
     private String letterOfCreditFundGroupCode;
-    private LetterOfCreditFundGroup letterOfCreditFundGroup;
 
 
 
@@ -124,10 +123,4 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
     public void setLetterOfCreditFundGroupCode(String letterOfCreditFundGroupCode) {
         this.letterOfCreditFundGroupCode = letterOfCreditFundGroupCode;
     }
-
-    @Override
-    public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
-        return null;
-    }
-
 }
