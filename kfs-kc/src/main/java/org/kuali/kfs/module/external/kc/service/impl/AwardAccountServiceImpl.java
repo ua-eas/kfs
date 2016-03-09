@@ -18,25 +18,24 @@
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.businessobject.AwardAccount;
+import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
+import org.kuali.kfs.module.external.kc.webService.AwardAccountSoapService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kra.external.award.AwardAccountDTO;
+import org.kuali.kra.external.award.AwardAccountService;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import javax.xml.ws.WebServiceException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.ws.WebServiceException;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.businessobject.AwardAccount;
-import org.kuali.kra.external.award.AwardAccountDTO;
-import org.kuali.kfs.module.external.kc.service.ExternalizableBusinessObjectService;
-import org.kuali.kfs.module.external.kc.webService.AwardAccountSoapService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kra.external.award.AwardAccountService;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 public class AwardAccountServiceImpl implements ExternalizableBusinessObjectService {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AwardAccountServiceImpl.class);
@@ -100,7 +99,7 @@ public class AwardAccountServiceImpl implements ExternalizableBusinessObjectServ
             for(AwardAccountDTO awardAccount : awardAccountDTOs){
                 //create if no error messages
                 if(StringUtils.isEmpty(awardAccount.getErrorMessage())){
-                    awardAccountInfo = new AwardAccount(awardAccount, accountNumber, chartOfAccountsCode, "");
+                    awardAccountInfo = new AwardAccount(awardAccount);
                     awardAccounts.add(awardAccountInfo);
                 }
             }

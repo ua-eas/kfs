@@ -198,7 +198,9 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         }
         award.setAdditionalFormsRequiredIndicator(kcAward.isAdditionalFormsRequired());
         award.setAutoApproveIndicator(kcAward.isAutoApproveInvoice());
-        award.setMinInvoiceAmount(new KualiDecimal(kcAward.getMinInvoiceAmount()));
+        if (kcAward != null && kcAward.getMinInvoiceAmount() != null) {
+            award.setMinInvoiceAmount(new KualiDecimal(kcAward.getMinInvoiceAmount()));
+        }
         award.setAdditionalFormsDescription(kcAward.getAdditionalFormsDescription());
         award.setStopWorkIndicator(kcAward.isStopWork());
         award.setStopWorkReason(kcAward.getStopWorkReason());
@@ -226,7 +228,9 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         }
         BillingFrequency billingFrequency = getBillingFrequencyService().createBillingFrequency(kcAward.getInvoiceBillingFrequency());
         award.setBillingFrequency(billingFrequency);
-        award.setBillingFrequencyCode(billingFrequency.getKcFrequencyCode());
+        if (billingFrequency != null) {
+            award.setBillingFrequencyCode(billingFrequency.getKcFrequencyCode());
+        }
         award.setAwardPrimaryProjectDirector(getProjectDirector(kcAward));
         award.setExcludedFromInvoicing(kcAward.isExcludedFromInvoicing());
         award.setExcludedFromInvoicingReason(kcAward.getExcludedFromInvoicingReason());
