@@ -448,6 +448,7 @@
 		<property name="paymentGroupService" ref="pdpPaymentGroupService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
 		<property name="extractPaymentService" ref="pdpExtractPaymentService" />
+		<property name="formatCheckACHEmailService" ref="formatCheckACHEmailService" />
 	</bean>
     <bean id="pdpGlPendingTransactionService" parent="pdpGlPendingTransactionService-parentBean"/>
 	
@@ -807,5 +808,9 @@
 	<bean id="pdpFormatCheckACHStep" class="org.kuali.kfs.pdp.batch.FormatCheckACHStep" parent="step">
 		<property name="autoCheckFormatService" ref="autoCheckFormatService" />
 	</bean>	
-		
+<!-- PDP_FORMAT_CHECK_ACH_STEP -->
+	<bean id="formatCheckACHEmailService"  parent="formatCheckACHEmailService-parentBean"/>
+	<bean id="formatCheckACHEmailService-parentBean" parent="velocityEmailServiceBase" class="org.kuali.kfs.pdp.batch.service.impl.FormatCheckACHEmailServiceImpl" abstract="true">
+		<property name="templateUrl" value="org/kuali/kfs/pdp/batch/template/paymentformat-summary-email.vm"/>	
+	</bean>
 </beans>
