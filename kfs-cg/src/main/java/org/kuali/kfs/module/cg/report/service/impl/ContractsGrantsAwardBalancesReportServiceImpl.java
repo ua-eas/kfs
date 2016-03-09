@@ -18,24 +18,22 @@
  */
 package org.kuali.kfs.module.cg.report.service.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
+import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.module.cg.report.service.ContractsGrantsAwardBalancesReportService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.util.*;
 
 /**
  * Service implementation class for Contracts & Grants Award Balances Report
@@ -43,6 +41,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsGrantsAwardBalancesReportService {
 
     protected ReportGenerationService reportGenerationService;
+    protected DataDictionaryService dataDictionaryService;
     private ReportInfo contractsGrantsAwardBalancesReportInfo;
 
     @Override
@@ -77,6 +76,8 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
         reportData.put(ReportGeneration.PARAMETER_NAME_SUBREPORT_DIR, subReportTemplateClassPath);
         reportData.put(ReportGeneration.PARAMETER_NAME_SUBREPORT_TEMPLATE_NAME, subReports);
 
+        addParametersToReportData(reportData);
+
         String template = reportTemplateClassPath + reportTemplateName;
         String fullReportFileName = reportGenerationService.buildFullFileName(runDate, reportDirectory, reportFileName, "");
 
@@ -86,6 +87,18 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
         reportGenerationService.generateReportToOutputStream(reportData, dataSource, template, baos);
 
         return reportFileName;
+    }
+
+    /**
+     * In order to generate a report with the appropriate labels when KC CGB integration
+     * is enabled we need to be able to pass some parameters to report generation template
+     * instead of using the generic messages.properties values. The necessary values are
+     * fetched from the data dictionary.
+     */
+    public void addParametersToReportData(Map<String, Object> reportData) {
+        BusinessObjectEntry boe = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(ContractsAndGrantsBillingAward.class.getName());
+        reportData.put("awardProposalId", boe.getAttributeDefinition("proposalNumber").getLabel());
+        reportData.put("agencySponsorCode", boe.getAttributeDefinition("agencyNumber").getLabel());
     }
 
     /**
@@ -118,6 +131,14 @@ public class ContractsGrantsAwardBalancesReportServiceImpl implements ContractsG
      */
     public void setContractsGrantsAwardBalancesReportInfo(ReportInfo contractsGrantsInvoiceReportInfo) {
         this.contractsGrantsAwardBalancesReportInfo = contractsGrantsInvoiceReportInfo;
+    }
+
+    public DataDictionaryService getDataDictionaryService() {
+        return dataDictionaryService;
+    }
+
+    public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
+        this.dataDictionaryService = dataDictionaryService;
     }
 
 }

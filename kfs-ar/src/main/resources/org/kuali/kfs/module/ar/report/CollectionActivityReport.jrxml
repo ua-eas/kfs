@@ -48,6 +48,9 @@
 	</parameter>
 	<parameter name="reportTitle" isForPrompting="false" class="java.lang.String"/>
 
+	<parameter name="agencySponsorCode" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="awardProposalId" isForPrompting="false" class="java.lang.String"/>
+
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
