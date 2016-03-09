@@ -105,7 +105,6 @@
 	<bean id="AccountPersistenceStructureService" parent="AccountPersistenceStructureService-parentBean" />
 	
 	<bean id="AccountPersistenceStructureService-parentBean" abstract="true" class="org.kuali.kfs.coa.service.impl.AccountPersistenceStructureServiceImpl">
-		<property name="persistenceStructureServiceJpa" ref="persistenceStructureServiceJpa" />
     	<property name="persistenceStructureServiceOjb" ref="persistenceStructureServiceOjb" />
     	<property name="maintenanceDocumentDictionaryService" ref="maintenanceDocumentDictionaryService" />
     	<property name="accountReferencePersistenceExemptions">

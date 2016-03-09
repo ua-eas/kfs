@@ -78,7 +78,7 @@
 
     <filter>
         <filter-name>BootstrapFilter</filter-name>
-        <filter-class>org.kuali.rice.kew.web.BootstrapFilter</filter-class>
+        <filter-class>org.kuali.rice.krad.web.filter.BootstrapFilter</filter-class>
     </filter>
 
     <filter>
@@ -154,11 +154,6 @@
     <filter-mapping>
         <filter-name>SessionExpirationFilter</filter-name>
         <servlet-name>action</servlet-name>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>UserLoginFilter</filter-name>
-        <servlet-name>krad</servlet-name>
     </filter-mapping>
 
     <listener>
@@ -256,12 +251,6 @@
         <servlet-class>org.kuali.rice.kew.notes.web.AttachmentServlet</servlet-class>
     </servlet>
 
-    <servlet>
-        <servlet-name>krad</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>3</load-on-startup>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>remoting</servlet-name>
         <url-pattern>/remoting/*</url-pattern>
@@ -291,12 +280,6 @@
         <servlet-name>attachment</servlet-name>
         <url-pattern>/kew/attachment/*</url-pattern>
     </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>krad</servlet-name>
-        <url-pattern>/kr-krad/*</url-pattern>
-    </servlet-mapping>
-
 
     <servlet>
         <servlet-name>heartbeat</servlet-name>
