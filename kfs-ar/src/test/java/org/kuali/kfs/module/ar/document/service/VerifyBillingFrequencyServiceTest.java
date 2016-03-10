@@ -22,34 +22,27 @@ import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 import java.sql.Date;
 
+import org.junit.Assert;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coa.service.impl.AccountingPeriodServiceImpl;
+import org.kuali.kfs.coa.service.impl.MockAccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
-import org.kuali.kfs.module.ar.batch.service.VerifyBillingFrequencyService;
 import org.kuali.kfs.module.ar.batch.service.impl.VerifyBillingFrequencyServiceImpl;
 import org.kuali.kfs.module.ar.businessobject.BillingPeriod;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.ConfigurableDateService;
-import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.ConfigurableDateTimeServiceImpl;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
-@ConfigureContext(session = khuntley)
+@ConfigureContext(session=khuntley)
 public class VerifyBillingFrequencyServiceTest extends KualiTestBase {
-    private VerifyBillingFrequencyService verifyBillingFrequencyService;
-    private AccountingPeriodService accountingPeriodService;
+    private VerifyBillingFrequencyServiceImpl verifyBillingFrequencyService;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         verifyBillingFrequencyService = new VerifyBillingFrequencyServiceImpl();
-        accountingPeriodService = SpringContext.getBean(AccountingPeriodService.class);
-        ((VerifyBillingFrequencyServiceImpl)verifyBillingFrequencyService).setBusinessObjectService(SpringContext.getBean(BusinessObjectService.class));
-        ((VerifyBillingFrequencyServiceImpl)verifyBillingFrequencyService).setAccountingPeriodService(accountingPeriodService);
-        ((VerifyBillingFrequencyServiceImpl)verifyBillingFrequencyService).setUniversityDateService(SpringContext.getBean(UniversityDateService.class));
+        verifyBillingFrequencyService.setAccountingPeriodService(getMockAccountingPeriodService());
     }
 
     public void testMonthlyNullLastBilledDate() {
@@ -109,30 +102,33 @@ public class VerifyBillingFrequencyServiceTest extends KualiTestBase {
     }
 
     protected void runLOCBillingTest(String currentDate, String startDate, ARAwardFixture awardFixture) {
-        AccountingPeriod currPeriod = accountingPeriodService.getByDate(Date.valueOf(currentDate));
+        AccountingPeriod currPeriod = getMockAccountingPeriodService().getByDate(Date.valueOf(currentDate));
         ContractsAndGrantsBillingAward award = awardFixture.createAward();
 
-        DateTimeService dateTimeService = new ConfigurableDateTimeServiceImpl();
-        ((ConfigurableDateTimeServiceImpl)dateTimeService).setCurrentDate(Date.valueOf(currentDate));
-        ((VerifyBillingFrequencyServiceImpl)verifyBillingFrequencyService).setDateTimeService(dateTimeService);
+        ConfigurableDateTimeServiceImpl dateTimeService = new ConfigurableDateTimeServiceImpl();
+        dateTimeService.setCurrentDate(Date.valueOf(currentDate));
+        verifyBillingFrequencyService.setDateTimeService(dateTimeService);
         BillingPeriod billingPeriod = verifyBillingFrequencyService.getStartDateAndEndDateOfPreviousBillingPeriod(award, currPeriod);
-        assertEquals(Date.valueOf(startDate), billingPeriod.getStartDate());
+        Assert.assertEquals(Date.valueOf(startDate), billingPeriod.getStartDate());
     }
 
     protected void runBillingTest(String currentDate, String beginningDate, String endDate, ARAwardFixture awardFixture, boolean expectedWithinGracePeriod) {
         Date date = Date.valueOf(currentDate);
-        AccountingPeriod currPeriod = accountingPeriodService.getByDate(date);
+        AccountingPeriod currPeriod = getMockAccountingPeriodService().getByDate(date);
         ContractsAndGrantsBillingAward award = awardFixture.createAward();
 
-        DateTimeService dateTimeService = new ConfigurableDateTimeServiceImpl();
-        ((ConfigurableDateTimeServiceImpl)dateTimeService).setCurrentDate(Date.valueOf(currentDate));
-        ((VerifyBillingFrequencyServiceImpl)verifyBillingFrequencyService).setDateTimeService(dateTimeService);
+        ConfigurableDateTimeServiceImpl dateTimeService = new ConfigurableDateTimeServiceImpl();
+        dateTimeService.setCurrentDate(Date.valueOf(currentDate));
+        verifyBillingFrequencyService.setDateTimeService(dateTimeService);
         BillingPeriod billingPeriod = verifyBillingFrequencyService.getStartDateAndEndDateOfPreviousBillingPeriod(award, currPeriod);
-        assertEquals(Date.valueOf(beginningDate), billingPeriod.getStartDate());
-        assertEquals(Date.valueOf(endDate), billingPeriod.getEndDate());
+        Assert.assertEquals(Date.valueOf(beginningDate), billingPeriod.getStartDate());
+        Assert.assertEquals(Date.valueOf(endDate), billingPeriod.getEndDate());
 
-        boolean withinGracePeriod = verifyBillingFrequencyService.calculateIfWithinGracePeriod(date, billingPeriod.getEndDate(), billingPeriod.getStartDate(), award.getLastBilledDate(), new Integer(0));
-        assertEquals(expectedWithinGracePeriod, withinGracePeriod);
+        boolean withinGracePeriod = verifyBillingFrequencyService.calculateIfWithinGracePeriod(date, billingPeriod, award.getLastBilledDate(), award.getBillingFrequency());
+        Assert.assertEquals(expectedWithinGracePeriod, withinGracePeriod);
     }
 
+    protected AccountingPeriodServiceImpl getMockAccountingPeriodService() {
+        return new MockAccountingPeriodService();
+    }
 }

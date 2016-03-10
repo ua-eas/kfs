@@ -57,21 +57,4 @@ public interface VerifyBillingFrequencyService {
      */
     public BillingPeriod getStartDateAndEndDateOfPreviousBillingPeriod(ContractsAndGrantsBillingAward award, AccountingPeriod currPeriod);
 
-    /**
-     * This method gets a sorted list of end dates of each period of current fiscal year.
-     *
-     * @param currPeriod accounting period used to obtain period end dates for the current fiscal year (typically the current period)
-     * @return ArrayList of period end dates
-     */
-    public ArrayList<Date> getSortedListOfPeriodEndDatesOfCurrentFiscalYear(AccountingPeriod currPeriod);
-
-    /**
-     * This method checks if a given moment of time is within an accounting period, or its billing frequency grace period.
-     *
-     * @param today a date to check if it is within the period
-     * @param periodToCheck the account period to check against
-     * @return true if a given moment in time is within an accounting period or an billing frequency grace period
-     */
-    public boolean calculateIfWithinGracePeriod(Date today, Date previousAccountingPeriodEndDate, Date previousAccountingPeriodStartDate, Date lastBilledDate, int gracePeriodDays);
-
 }
