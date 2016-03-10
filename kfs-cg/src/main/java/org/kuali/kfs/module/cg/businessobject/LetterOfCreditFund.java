@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Letter Of Credit Fund under Contracts & Grants section.
@@ -65,15 +65,15 @@ public class LetterOfCreditFund extends PersistableBusinessObjectBase implements
      *
      * @return Returns the letterOfCreditFundGroup.
      */
-    @Override
-    public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
-        return letterOfCreditFundGroup;
-    }
+     @Override
+     public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
+     return letterOfCreditFundGroup;
+     }
 
-    /**
-     * Sets the letterOfCreditFundGroup attribute value.
-     *
-     * @param letterOfCreditFundGroup The letterOfCreditFundGroup to set.
+     /*
+      * Sets the letterOfCreditFundGroup attribute value.
+      *
+      * @param letterOfCreditFundGroup The letterOfCreditFundGroup to set.
      */
     public void setLetterOfCreditFundGroup(LetterOfCreditFundGroup letterOfCreditFundGroup) {
         this.letterOfCreditFundGroup = letterOfCreditFundGroup;

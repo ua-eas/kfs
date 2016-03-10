@@ -20,6 +20,7 @@ package org.kuali.kfs.integration.cg;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,5 +81,11 @@ public class ContractsAndGrantsModuleBillingServiceNoOp implements ContractsAndG
     @Override
     public void setFinalBilledAndLastBilledDateToAwardAccount(Map<String, Object> mapKey, boolean finalBilled, boolean invoiceReversal, Date lastBilledDate) {
         LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
+    }
+
+    @Override
+    public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode) {
+        LOG.warn("Using No-Op " + getClass().getSimpleName() + " service.");
+        return new HashMap<>();
     }
 }
