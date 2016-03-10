@@ -18,7 +18,6 @@
  */
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.ModuleService;
@@ -27,7 +26,6 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -137,14 +135,9 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
             Map<String, Object> keyValues = new HashMap<>();
             keyValues.put("groupCode", getLetterOfCreditFundGroupCode());
 
-            Collection<LetterOfCreditFundGroup> fundGroups = null;
             ModuleService responsibleModuleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(LetterOfCreditFundGroup.class);
             if (responsibleModuleService != null && responsibleModuleService.isExternalizable(LetterOfCreditFundGroup.class)){
-                fundGroups = responsibleModuleService.getExternalizableBusinessObjectsList(LetterOfCreditFundGroup.class, keyValues);
-            }
-
-            if (!CollectionUtils.isEmpty(fundGroups)) {
-                this.letterOfCreditFundGroup = fundGroups.iterator().next();
+                this.letterOfCreditFundGroup = responsibleModuleService.getExternalizableBusinessObject(LetterOfCreditFundGroup.class, keyValues);
             }
         }
         return letterOfCreditFundGroup;
