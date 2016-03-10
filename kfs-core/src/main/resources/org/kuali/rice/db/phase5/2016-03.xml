@@ -69,7 +69,7 @@
             <column name="KIM_ATTR_DEFN_ID" type="varchar(40)"/>
             <column name="ATTR_VAL" type="varchar(400)"/>
         </createTable>
-        
+
         <addPrimaryKey columnNames="ATTR_DATA_ID" constraintName="KRIM_HIST_GRP_ATTR_DATA_TP1" tableName="KRIM_HIST_GRP_ATTR_DATA_T"/>
         <addUniqueConstraint columnNames="OBJ_ID" constraintName="KRIM_HIST_GRP_ATTR_DATA_TC0" tableName="KRIM_HIST_GRP_ATTR_DATA_T"/>
 
@@ -124,14 +124,6 @@
         <addForeignKeyConstraint baseColumnNames="KIM_ATTR_DEFN_ID" baseTableName="KRIM_HIST_GRP_ATTR_DATA_T" constraintName="KRIM_HIST_GRP_ATTR_DATA_TR2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="KIM_ATTR_DEFN_ID" referencedTableName="KRIM_ATTR_DEFN_T"/>
 
         <addForeignKeyConstraint baseColumnNames="GRP_HIST_ID" baseTableName="KRIM_HIST_GRP_ATTR_DATA_T" constraintName="KRIM_HIST_GRP_ATTR_DATA_TR3" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="GRP_HIST_ID" referencedTableName="KRIM_HIST_GRP_T"/>
-
-
-        ALTER TABLE KRIM_HIST_GRP_ATTR_DATA_T
-        ADD CONSTRAINT KRIM_HIST_GRP_ATTR_DATA_TR3
-        FOREIGN KEY (GRP_HIST_ID)
-        REFERENCES KRIM_HIST_GRP_T (GRP_HIST_ID)
-        ON DELETE CASCADE
-        ;
 
         <addColumn tableName="KRIM_ENTITY_EMP_INFO_T">
             <column name="TNR_IND" type="VARCHAR(1)"/>
