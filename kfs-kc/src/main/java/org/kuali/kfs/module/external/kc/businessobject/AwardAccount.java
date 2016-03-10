@@ -61,18 +61,8 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
     }
 
     public AwardAccount(AwardAccountDTO awardAccountDTO) {
-        this(awardAccountDTO, awardAccountDTO.getAccountNumber(), awardAccountDTO.getChartOfAcccountsCode(), "");
-    }
-
-    /**
-     * @param awardAccountDTO
-     * @param accountNumber
-     * @param chartOfAccountsCode
-     * @param cfdaNumber
-     */
-    public AwardAccount(AwardAccountDTO awardAccountDTO, String accountNumber, String chartOfAccountsCode, String cfdaNumber) {
-        setAccountNumber(accountNumber);
-        setChartOfAccountsCode(chartOfAccountsCode);
+        setAccountNumber(awardAccountDTO.getAccountNumber());
+        setChartOfAccountsCode(awardAccountDTO.getChartOfAcccountsCode());
         setPrincipalId(awardAccountDTO.getProjectDirector());
         setProposalNumber(awardAccountDTO.getAwardNumber());
         setActive(true);
@@ -91,7 +81,7 @@ public class AwardAccount implements ContractsAndGrantsBillingAwardAccount, Muta
         award.setAgencyNumber(awardAccountDTO.getSponsorCode());
         award.setAwardTitle(awardAccountDTO.getAwardTitle());
         award.setGrantNumber(awardAccountDTO.getGrantNumber());
-        award.setCfdaNumber(cfdaNumber);
+        award.setCfdaNumber("");
 
         Proposal proposal = new Proposal();
         proposal.setFederalPassThroughAgencyNumber(awardAccountDTO.getProposalFederalPassThroughAgencyNumber());
