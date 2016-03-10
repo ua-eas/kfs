@@ -151,7 +151,7 @@ public class FormatServiceImpl implements FormatService {
     public Date getFormatProcessStartDate(String campus) {
         LOG.debug("getFormatProcessStartDate() started");
 
-        Map<String, String> primaryKeys = new HashMap<String, String>();
+        Map primaryKeys = new HashMap();
         primaryKeys.put(PdpPropertyConstants.PHYS_CAMPUS_PROCESS_CODE, campus);
         FormatProcess formatProcess = this.businessObjectService.findByPrimaryKey(FormatProcess.class, primaryKeys);
 
@@ -216,9 +216,9 @@ public class FormatServiceImpl implements FormatService {
         }
         PaymentStatus format = this.businessObjectService.findBySinglePrimaryKey(PaymentStatus.class, PdpConstants.PaymentStatusCodes.FORMAT);
 
-        List<KualiInteger> customerIds = new ArrayList<KualiInteger>();
-        for (Iterator<CustomerProfile> iter = customers.iterator(); iter.hasNext();) {
-            CustomerProfile element = iter.next();
+        List customerIds = new ArrayList();
+        for (Iterator iter = customers.iterator(); iter.hasNext();) {
+        	CustomerProfile element = (CustomerProfile) iter.next();
             customerIds.add(element.getId());
         }
 
@@ -277,7 +277,7 @@ public class FormatServiceImpl implements FormatService {
 
         // get the PaymentProcess for the given id
         @SuppressWarnings("rawtypes")
-        Map<String, Integer> primaryKeys = new HashMap<String, Integer>();
+        Map primaryKeys = new HashMap();
         primaryKeys.put(PdpPropertyConstants.PaymentProcess.PAYMENT_PROCESS_ID, processId);
         PaymentProcess paymentProcess = this.businessObjectService.findByPrimaryKey(PaymentProcess.class, primaryKeys);
         if (paymentProcess == null) {
@@ -705,7 +705,7 @@ public class FormatServiceImpl implements FormatService {
     public void clearUnfinishedFormat(Integer processId) {
         LOG.debug("clearUnfinishedFormat() started");
 
-        Map<String, Integer> primaryKeys = new HashMap<String, Integer>();
+        Map primaryKeys = new HashMap();
         primaryKeys.put(PdpPropertyConstants.PaymentProcess.PAYMENT_PROCESS_ID, processId);
         PaymentProcess paymentProcess = this.businessObjectService.findByPrimaryKey(PaymentProcess.class, primaryKeys);
         if (LOG.isDebugEnabled()) {
@@ -745,7 +745,7 @@ public class FormatServiceImpl implements FormatService {
     public void endFormatProcess(String campus) {
         LOG.debug("endFormatProcess() starting");
 
-        Map<String, String> primaryKeys = new HashMap<String, String>();
+        Map primaryKeys = new HashMap();
         primaryKeys.put(PdpPropertyConstants.PHYS_CAMPUS_PROCESS_CODE, campus);
 
         this.businessObjectService.deleteMatching(FormatProcess.class, primaryKeys);
