@@ -37,6 +37,7 @@ public class LetterOfCreditFund extends PersistableBusinessObjectBase implements
     private KualiDecimal letterOfCreditFundAmount;
     private Date letterOfCreditFundStartDate;
     private Date letterOfCreditFundExpirationDate;
+    private LetterOfCreditFundGroup letterOfCreditFundGroup;
     private boolean active;
 
     /**
@@ -57,6 +58,25 @@ public class LetterOfCreditFund extends PersistableBusinessObjectBase implements
     @Override
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    /**
+     * Gets the letterOfCreditFundGroup attribute.
+     *
+     * @return Returns the letterOfCreditFundGroup.
+     */
+     @Override
+     public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
+     return letterOfCreditFundGroup;
+     }
+
+     /*
+      * Sets the letterOfCreditFundGroup attribute value.
+      *
+      * @param letterOfCreditFundGroup The letterOfCreditFundGroup to set.
+     */
+    public void setLetterOfCreditFundGroup(LetterOfCreditFundGroup letterOfCreditFundGroup) {
+        this.letterOfCreditFundGroup = letterOfCreditFundGroup;
     }
 
     /**

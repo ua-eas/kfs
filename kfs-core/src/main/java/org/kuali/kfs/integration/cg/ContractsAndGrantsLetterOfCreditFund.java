@@ -30,6 +30,12 @@ import java.sql.Date;
 public interface ContractsAndGrantsLetterOfCreditFund extends ExternalizableBusinessObject, Inactivatable {
 
 
+    /**
+     * Gets the letterOfCreditFund attribute.
+     *
+     * @return Returns the letterOfCreditFund.
+     */
+    public ContractsAndGrantsLetterOfCreditFundGroup getLetterOfCreditFundGroup();
 
     /**
      * Gets the fundCode attribute.

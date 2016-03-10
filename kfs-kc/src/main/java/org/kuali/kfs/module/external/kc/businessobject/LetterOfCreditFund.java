@@ -19,11 +19,15 @@
 package org.kuali.kfs.module.external.kc.businessobject;
 
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund, MutableInactivatable {
 
@@ -34,6 +38,7 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
     private boolean active;
     private KualiDecimal letterOfCreditFundAmount;
     private String letterOfCreditFundGroupCode;
+    private LetterOfCreditFundGroup letterOfCreditFundGroup;
 
 
 
@@ -122,5 +127,19 @@ public class LetterOfCreditFund implements ContractsAndGrantsLetterOfCreditFund,
 
     public void setLetterOfCreditFundGroupCode(String letterOfCreditFundGroupCode) {
         this.letterOfCreditFundGroupCode = letterOfCreditFundGroupCode;
+    }
+
+    @Override
+    public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
+        if (this.letterOfCreditFundGroup == null) {
+            Map<String, Object> keyValues = new HashMap<>();
+            keyValues.put("groupCode", getLetterOfCreditFundGroupCode());
+
+            ModuleService responsibleModuleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(LetterOfCreditFundGroup.class);
+            if (responsibleModuleService != null && responsibleModuleService.isExternalizable(LetterOfCreditFundGroup.class)){
+                this.letterOfCreditFundGroup = responsibleModuleService.getExternalizableBusinessObject(LetterOfCreditFundGroup.class, keyValues);
+            }
+        }
+        return letterOfCreditFundGroup;
     }
 }
