@@ -48,6 +48,8 @@
 	</parameter>
 	<parameter name="reportTitle" isForPrompting="false" class="java.lang.String"/>
 
+	<parameter name="awardProposalId" isForPrompting="false" class="java.lang.String"/>
+
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -110,7 +112,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="SansSerif" size="6" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$R{fieldName.proposalNumber}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{awardProposalId}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
