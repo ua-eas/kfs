@@ -30,13 +30,13 @@
             <column name="NMSPC_CD" value="KR-LOC"/>
             <column name="NM" value="Kuali Location"/>
             <column name="ACTV_IND" value="Y"/>
-            <column name="OBJ_ID" value="UUID()"/>
+            <column name="OBJ_ID" valueComputed="UUID()"/>
             <column name="VER_NBR" value="1"/>
         </insert>
 
         <insert tableName="krim_perm_t">
             <column name="PERM_ID"><![CDATA[KR1000]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_TMPL_ID"><![CDATA[8]]></column>
             <column name="NMSPC_CD"><![CDATA[KUALI]]></column>
@@ -47,7 +47,7 @@
 
         <insert tableName="krim_perm_attr_data_t">
             <column name="ATTR_DATA_ID"><![CDATA[KR1000]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_ID"><![CDATA[KR1000]]></column>
             <column name="KIM_TYP_ID"><![CDATA[4]]></column>
@@ -57,7 +57,7 @@
 
         <insert tableName="krim_typ_t">
             <column name="KIM_TYP_ID"><![CDATA[KR1002]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="NMSPC_CD"><![CDATA[KR-NTFCN]]></column>
             <column name="NM"><![CDATA[Channel]]></column>
@@ -67,7 +67,7 @@
 
         <insert tableName="KRIM_ATTR_DEFN_T">
             <column name="KIM_ATTR_DEFN_ID"><![CDATA[KR1002]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="NMSPC_CD"><![CDATA[KR-NTFCN]]></column>
             <column name="NM"><![CDATA[Channel ID]]></column>
@@ -78,7 +78,7 @@
 
         <insert tableName="KRIM_TYP_ATTR_T">
             <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1005]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="SORT_CD"><![CDATA[A]]></column>
             <column name="KIM_TYP_ID"><![CDATA[KR1002]]></column>
@@ -88,7 +88,7 @@
 
         <insert tableName="KRIM_PERM_TMPL_T">
             <column name="PERM_TMPL_ID"><![CDATA[KR1005]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="NMSPC_CD"><![CDATA[KR-NTFCN]]></column>
             <column name="NM"><![CDATA[View Notification]]></column>
@@ -99,7 +99,7 @@
 
         <insert tableName="KRIM_PERM_TMPL_T">
             <column name="PERM_TMPL_ID"><![CDATA[KR1004]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
             <column name="NM"><![CDATA[Export Records]]></column>
@@ -121,7 +121,7 @@
 
         <insert tableName="krim_perm_attr_data_t">
             <column name="ATTR_DATA_ID"><![CDATA[KR1005]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_ID"><![CDATA[KR1003]]></column>
             <column name="KIM_TYP_ID"><![CDATA[10]]></column>
@@ -131,7 +131,7 @@
 
         <insert tableName="KRIM_ROLE_PERM_T">
             <column name="ROLE_PERM_ID"><![CDATA[KR1004]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="ROLE_ID"><![CDATA[1]]></column>
             <column name="PERM_ID"><![CDATA[KR1003]]></column>
