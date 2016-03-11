@@ -712,8 +712,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
     }
 
     public Date getCreateDateForResult() {
-        Formatter formatter = new DateViewDateObjectFormatter();
-        return (Date)formatter.format(this.getFinancialSystemDocumentHeader().getWorkflowDocument().getDateCreated().toDate());
+        return getCreateDate();
     }
 
     /**
