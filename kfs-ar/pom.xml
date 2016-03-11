@@ -67,6 +67,7 @@
       <groupId>org.kuali.kfs</groupId>
       <artifactId>kfs-cg</artifactId>
       <version>${project.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
