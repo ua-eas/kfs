@@ -25,15 +25,6 @@
             <column name="TNR_IND" type="VARCHAR(1)"/>
         </addColumn>
 
-        <insert tableName="KRCR_NMSPC_T">
-            <column name="APPL_ID" value="RICE"/>
-            <column name="NMSPC_CD" value="KR-LOC"/>
-            <column name="NM" value="Kuali Location"/>
-            <column name="ACTV_IND" value="Y"/>
-            <column name="OBJ_ID" valueComputed="UUID()"/>
-            <column name="VER_NBR" value="1"/>
-        </insert>
-
         <insert tableName="krim_perm_t">
             <column name="PERM_ID"><![CDATA[KR1000]]></column>
             <column name="OBJ_ID" valueComputed="uuid()"/>
