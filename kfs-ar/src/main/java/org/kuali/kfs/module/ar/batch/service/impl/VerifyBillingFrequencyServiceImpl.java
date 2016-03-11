@@ -87,9 +87,13 @@ public class VerifyBillingFrequencyServiceImpl implements VerifyBillingFrequency
 
     public boolean calculateIfWithinGracePeriod(Date today, BillingPeriod billingPeriod, Date lastBilledDate, ContractsAndGrantsBillingFrequency billingFrequency) {
         Date gracePeriodEnd = calculateDaysBeyond(billingPeriod.getEndDate(), billingFrequency.getGracePeriodDays());
+        Date gracePeriodAfterLastBilled = null;
+        if (lastBilledDate != null) {
+            gracePeriodAfterLastBilled = calculateDaysBeyond(lastBilledDate, billingFrequency.getGracePeriodDays());
+        }
         boolean beforeGracePeriodEnd = KfsDateUtils.isSameDayOrEarlier(gracePeriodEnd, today);
         boolean afterBillingStart = KfsDateUtils.isSameDayOrLater(today, billingPeriod.getStartDate());
-        boolean haveNotBilledYet = lastBilledDate == null || KfsDateUtils.isEarlierDay(gracePeriodEnd, today);
+        boolean haveNotBilledYet = lastBilledDate == null || KfsDateUtils.isEarlierDay(gracePeriodAfterLastBilled, today);
 
         return afterBillingStart && beforeGracePeriodEnd && haveNotBilledYet;
     }
