@@ -95,11 +95,22 @@ public enum ARAwardFixture {
         this.invoicingOptionCode = invoicingOptionCode;
         this.active = active;
         this.billingFrequency = billingFrequency;
-
     }
 
     public ContractsAndGrantsBillingAward createAward() {
         Award award = new Award();
+        populateAwardFromFixture(award);
+        return award;
+    }
+
+    public ContractsAndGrantsBillingAward createAwardWithLastBillingDate() {
+        AwardWithLastBilledDate award = new AwardWithLastBilledDate();
+        populateAwardFromFixture(award);
+        award.setLastBilledDate(this.lastBilledDate);
+        return award;
+    }
+
+    protected void populateAwardFromFixture(Award award) {
         award.setProposalNumber(this.proposalNumber);
         award.setAwardBeginningDate(Date.valueOf(this.awardBeginningDate));
         award.setAwardEndingDate(Date.valueOf(this.awardEndingDate));
@@ -132,8 +143,6 @@ public enum ARAwardFixture {
 
         // Set auto approve to true
         award.setAutoApproveIndicator(true);
-
-        return award;
     }
 
     public Award setAgencyFromFixture(Award award) {
@@ -153,6 +162,19 @@ public enum ARAwardFixture {
         AwardOrganization awardOrganization = ARAwardOrganizationFixture.AWD_ORG1.createAwardOrganization();
         award.getAwardOrganizations().add(awardOrganization);
         return award;
+    }
+
+    public class AwardWithLastBilledDate extends Award {
+        protected Date lbd;
+
+        @Override
+        public Date getLastBilledDate() {
+            return lbd;
+        }
+
+        public void setLastBilledDate(Date lbd) {
+            this.lbd = lbd;
+        }
     }
 
 }
