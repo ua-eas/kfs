@@ -25,6 +25,7 @@ public class LetterOfCreditFundGroup implements ContractsAndGrantsLetterOfCredit
 
     private String letterOfCreditFundGroupCode;
     private String letterOfCreditFundGroupDescription;
+    private boolean active;
 
     @Override
     public String getLetterOfCreditFundGroupCode() {
@@ -46,11 +47,13 @@ public class LetterOfCreditFundGroup implements ContractsAndGrantsLetterOfCredit
 
     @Override
     public boolean isActive() {
-        return true;
+        return active;
     }
 
     @Override
-    public void setActive(boolean active) { }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public void refresh() { }
