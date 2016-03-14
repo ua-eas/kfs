@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
@@ -25,34 +27,70 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
     private FormatService formatService;
     private DateTimeService dateTimeService;
     private CampusService campusService;
+	private BusinessObjectService  businessObjectService;
     
     /* (non-Javadoc)
      * @see edu.uci.kfs.pdp.batch.service.AutoCheckFormatService#processChecks()
      */
     @Override
-    public boolean processChecks() {
-
-        List<Campus> findAllCampuses = getCampusService().findAllCampuses();
-        
-        // Go through all the campuses and process the checks ready for format
-        for(Campus campus : findAllCampuses){
-            String campusCode = campus.getCode();
-            
-            // Create FormatSelection object for current campus
-            FormatSelection formatSelection = getFormatService().getDataForFormat(campusCode);
-            
-            // Using the formatSelection object, create a
-            AutoCheckFormat autoFormat = createAutoCheckFormat(formatSelection);
-            
-            if(ObjectUtils.isNull(autoFormat))
-                return false;
+	public boolean processChecks() {
+		boolean status = true;
+		
+		List<Campus> findAllCampuses = getCampusService().findAllCampuses();
+		
+		// Go through all the campuses and process the checks ready for format
+		for(Campus campus : findAllCampuses){
+			String campusCode = campus.getCode();
+			
+			status = processChecksForCampus(campusCode);
+		}
+		
+		return status; 
+	}
     
-            formatChecks(autoFormat);
-        }
-        
-        return true; 
-    }
+	/* (non-Javadoc)
+	 * @see org.kuali.kfs.pdp.batch.service.AutoCheckFormatService#processChecksByCustomerProfile(java.lang.String)
+	 */
+	@Override
+	public boolean processChecksByCustomerProfile(String profileId) {
+		//if no profileId is null then we will process checks for all customer profiles
+		if(StringUtils.isBlank(profileId)){
+			return processChecks();
+		}
+		
+		// retrieve a valid customer from
+		CustomerProfile customerProfile = getCustomerProfileByProfileID(profileId);
+		
+		if (ObjectUtils.isNull(customerProfile)) {
+			LOG.error("Warning AutoCheckFormatService.processChecksByCustomerProfile: There is no customer profile matching id: " + profileId);
+			return false;
+		}
+		
+		String campusCode = customerProfile.getDefaultPhysicalCampusProcessingCode();
+		
+		return processChecksForCampus(campusCode);
+	}
 
+	/**
+	 * @param campusCode
+	 * @return
+	 */
+	protected boolean processChecksForCampus(String campusCode) {
+		boolean status = true;
+		
+		// Create FormatSelection object for current campus
+        FormatSelection formatSelection = getFormatService().getDataForFormat(campusCode);
+        
+        // Using the formatSelection object, create a
+		AutoCheckFormat autoFormat = createAutoCheckFormat(formatSelection);
+		
+		if(ObjectUtils.isNull(autoFormat))
+			return false;
+
+		status = formatChecks(autoFormat);
+		
+		return status;
+	}
 
     /**
      * @param campusCode
@@ -96,7 +134,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             return true;
         }
         catch (FormatException e) {
-            LOG.error("ERROR AutoCheckFormatStep: " + e.getMessage(), e);
+            LOG.error("ERROR AutoCheckFormatService.formatChecks: " + e.getMessage(), e);
             return false;
         }
     }
@@ -111,7 +149,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             FormatProcessSummary formatProcessSummary = getFormatService().startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
             
             if (formatProcessSummary.getProcessSummaryList().size() == 0) {
-                LOG.error("Warning AutoCheckFormatStep: There are no payments that match your selection for format process.(Campus Code="+autoFormat.getCampus()+")");
+                LOG.error("Warning AutoCheckFormatService.markPaymentsForFormat: There are no payments that match your selection for format process.(Campus Code="+autoFormat.getCampus()+")");
                 return false;
             }
             
@@ -119,7 +157,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             return true;
             
         } catch (Exception e) {
-            LOG.error("ERROR AutoCheckFormatStep: " + e.getMessage(), e);
+            LOG.error("ERROR AutoCheckFormatService.markPaymentsForFormat: " + e.getMessage(), e);
             return false;
         }
     }
@@ -134,7 +172,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         AutoCheckFormat autoFormat = new AutoCheckFormat();
         
         if (ObjectUtils.isNotNull(formatSelection.getStartDate())) {
-            LOG.error("ERROR AutoCheckFormatStep: The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
+            LOG.error("ERROR AutoCheckFormatService.createAutoCheckFormat: The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
             return null;
         }
         
@@ -217,4 +255,31 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         this.campusService = campusService;
     }
 
+	
+	/**
+	 * @return the businessObjectService
+	 */
+	public BusinessObjectService getBusinessObjectService() {
+		return businessObjectService;
+	}
+
+
+	/**
+	 * @param businessObjectService the businessObjectService to set
+	 */
+	public void setBusinessObjectService(BusinessObjectService businessObjectService) {
+		this.businessObjectService = businessObjectService;
+	}
+
+
+	/**
+	 * Retrieve customer profile by profile id
+	 * @param profileId
+	 * @return CustomerProfile
+	 */
+	protected CustomerProfile getCustomerProfileByProfileID(String profileId) {
+		CustomerProfile customerProfile = getBusinessObjectService().findBySinglePrimaryKey(CustomerProfile.class, profileId);
+		return customerProfile;
+	}
+	
 }

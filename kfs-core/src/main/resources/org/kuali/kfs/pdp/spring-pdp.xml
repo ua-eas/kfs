@@ -70,6 +70,7 @@
 				<value>processPdpCancelsAndPaidJob</value>
 				<value>pdpSendAchAdviceNotificationsJob</value>
 				<value>pdpFormatCheckACHJob</value>
+				<value>pdpFormatCheckACHByCustomerProfileJob</value>
 			</list>
 		</property>
 		<property name="triggerNames">
@@ -787,6 +788,7 @@
 		<property name="formatService" ref="pdpFormatService"/>
 		<property name="dateTimeService" ref="dateTimeService"/>
     	<property name="campusService" ref="campusService" />
+    	<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
 	
 	<bean id="pdpFormatCheckACHJob" parent="scheduledJobDescriptor">
@@ -808,9 +810,31 @@
 	<bean id="pdpFormatCheckACHStep" class="org.kuali.kfs.pdp.batch.FormatCheckACHStep" parent="step">
 		<property name="autoCheckFormatService" ref="autoCheckFormatService" />
 	</bean>	
-<!-- PDP_FORMAT_CHECK_ACH_STEP -->
+	
 	<bean id="formatCheckACHEmailService"  parent="formatCheckACHEmailService-parentBean"/>
 	<bean id="formatCheckACHEmailService-parentBean" parent="velocityEmailServiceBase" class="org.kuali.kfs.pdp.batch.service.impl.FormatCheckACHEmailServiceImpl" abstract="true">
 		<property name="templateUrl" value="org/kuali/kfs/pdp/batch/template/paymentformat-summary-email.vm"/>	
 	</bean>
+	
+	<bean id="pdpFormatCheckACHByCustomerProfileJob" parent="scheduledJobDescriptor">
+		<property name="steps">
+			<list>
+				<ref bean="pdpFormatCheckACHByCustomerProfileStep" />
+			</list>
+		</property>
+		<property name="dependencies">
+			<map>
+				<entry key="purchasingPreDisbursementExtractJob" value="hardDependency"/>
+				<entry key="disbursementVoucherPreDisbursementProcessorExtractJob" value="hardDependency"/>
+				<entry key="purchasingPreDisbursementImmediatesExtractJob" value="hardDependency"/>
+				<entry key="pdpNightlyLoadPaymentsJob" value="hardDependency"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="pdpFormatCheckACHByCustomerProfileStep" class="org.kuali.kfs.pdp.batch.FormatCheckACHByCustomerProfileStep" parent="step">
+		<property name="autoCheckFormatService" ref="autoCheckFormatService" />
+		<property name="parameterService" ref="parameterService"/>
+	</bean>
+	
 </beans>

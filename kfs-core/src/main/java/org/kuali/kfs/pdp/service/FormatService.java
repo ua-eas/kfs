@@ -102,5 +102,6 @@ public interface FormatService {
      * @param processId
      */
     public void clearUnfinishedFormat(Integer processId) ;
+    
 }
 

@@ -14,12 +14,15 @@ import org.easymock.Mock;
 import org.easymock.TestSubject;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.businessobject.AutoCheckFormat;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.DisbursementNumberRange;
 import org.kuali.kfs.pdp.businessobject.FormatSelection;
 import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.location.api.campus.Campus;
+import org.kuali.rice.location.api.campus.CampusService;
 
 public class AutoCheckFormatServiceImplTest {
 
@@ -97,6 +100,34 @@ public class AutoCheckFormatServiceImplTest {
     }
     
     @Test
+	public void testProcessChecksByCustomerProfileWhenProfileIDisNull() throws Exception {
+    	CampusService cs = EasyMock.createMock(CampusService.class);
+    	EasyMock.expect(cs.findAllCampuses()).andReturn(new ArrayList<Campus>());
+    	EasyMock.replay(cs);
+    	
+    	autoCheckFormatServ.setCampusService(cs);
+    	
+    	boolean results = autoCheckFormatServ.processChecksByCustomerProfile(null);
+		
+		assertTrue(results);
+	}
+
+    @Test
+	public void testProcessChecksByCustomerProfileWhenNoCustomerProfileExist() throws Exception {
+    	String profileId = "10001";
+
+    	BusinessObjectService bos = EasyMock.createMock(BusinessObjectService.class);
+		EasyMock.expect(bos.findBySinglePrimaryKey(CustomerProfile.class, profileId)).andReturn(null);
+    	EasyMock.replay(bos);
+    	
+    	autoCheckFormatServ.setBusinessObjectService(bos);
+    	
+    	boolean results = autoCheckFormatServ.processChecksByCustomerProfile(profileId);
+    	
+		assertFalse(results);
+	}
+    
+    @Test
     public void testCreateAutoCheckFormatHasSetFormatSelectionData() throws Exception {
         // start date is null, so can proceed
         EasyMock.expect(fs.getStartDate()).andReturn(null);
@@ -119,7 +150,6 @@ public class AutoCheckFormatServiceImplTest {
         assertEquals(autoCheckFormat.getPaymentTypes(), "all");
         assertEquals(autoCheckFormat.getRanges().size(), 0);
         assertEquals(autoCheckFormat.getCustomers().size(), 0);
-        
         
         EasyMock.reset(fs);
     }

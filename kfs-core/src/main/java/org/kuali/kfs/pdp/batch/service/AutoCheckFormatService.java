@@ -9,4 +9,11 @@ public interface AutoCheckFormatService {
 	 */
 	public boolean processChecks();
 
+	/**
+	 * Process checks for a specific customer profile
+	 * @param profileId
+	 * @return
+	 */
+	public boolean processChecksByCustomerProfile(String profileId);
+	
 }
