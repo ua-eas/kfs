@@ -3,6 +3,7 @@ package org.kuali.kfs.pdp.batch.service.impl;
 import java.util.Collection;
 
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.VelocityEmailService;
 import org.kuali.kfs.sys.service.impl.VelocityEmailServiceBase;
@@ -38,8 +39,8 @@ public class FormatCheckACHEmailServiceImpl extends VelocityEmailServiceBase
 				.getParameterService()
 				.getParameterValuesAsString(
 						KFSConstants.CoreModuleNamespaces.PDP,
-						KFSConstants.FormatCheckACHParameters.PDP_FORMAT_CHECK_ACH_STEP,
-						KFSConstants.FormatCheckACHParameters.FORMAT_SUMMARY_TO_EMAIL_ADDRESSES);
+						PdpConstants.FormatCheckACHParameters.PDP_FORMAT_CHECK_ACH_STEP,
+						PdpConstants.FormatCheckACHParameters.FORMAT_SUMMARY_TO_EMAIL_ADDRESSES);
 		return emailReceivers;
 	}
 

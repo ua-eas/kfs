@@ -85,8 +85,8 @@
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO" value="org.kuali.kra.bo.Unit"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO" value="org.kuali.kra.award.home.CFDA"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.InstrumentType" value="org.kuali.kra.award.home.AwardType"/>
-                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFundGroup" value="org.kuali.kra.award.home.AwardBasisOfPayment"/>
-                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="org.kuali.kra.award.home.AwardMethodOfPayment"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFundGroup" value="org.kuali.kra.award.cgb.LetterOfCreditFundGroup"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="org.kuali.kra.award.cgb.LetterOfCreditFund"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.BillingFrequency" value="org.kuali.kra.award.paymentreports.Frequency"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector" value="org.kuali.kra.award.home.Award" />
              </map>
@@ -101,8 +101,8 @@
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.UnitDTO.unitNumber" value="unitNumber"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.CfdaDTO.cfdaNumber" value="cfdaNumber"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.InstrumentType.instrumentTypeCode" value="awardTypeCode"/>
-                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFundGroup" value="basisOfPaymentCode"/>
-                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="methodOfPaymentCode"/>    
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFundGroup" value="groupCode"/>
+                <entry key="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund" value="fundCode"/>
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.BillingFrequency" value="frequencyCode"/> 
                 <entry key="org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector.proposalNumber" value="awardId" />           
              </map>

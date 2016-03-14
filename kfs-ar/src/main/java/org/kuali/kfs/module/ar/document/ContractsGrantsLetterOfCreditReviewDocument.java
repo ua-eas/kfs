@@ -30,10 +30,7 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup;
+import org.kuali.kfs.integration.cg.*;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -240,17 +237,12 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
     public boolean populateContractsGrantsLOCReviewDetails(Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs) {
         boolean valid = true;
 
-        DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
         ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
         ContractsGrantsInvoiceCreateDocumentService contractsGrantsInvoiceCreateDocumentService = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class);
         ContractsGrantsLetterOfCreditReviewDetail locReviewDtl;
-        Map<String, Object> criteria = new HashMap<String, Object>();
-        if (ObjectUtils.isNotNull(this.getLetterOfCreditFundGroupCode())) {
-            criteria.put("letterOfCreditFund.letterOfCreditFundGroupCode", this.getLetterOfCreditFundGroupCode());
-        }
-        if (ObjectUtils.isNotNull(this.getLetterOfCreditFundCode())) {
-            criteria.put("letterOfCreditFundCode", this.getLetterOfCreditFundCode());
-        }
+        ContractsAndGrantsModuleBillingService contractsAndGrantsModuleBillingService = SpringContext.getBean(ContractsAndGrantsModuleBillingService.class);
+
+        Map<String, Object> criteria = contractsAndGrantsModuleBillingService.getLetterOfCreditAwardCriteria(this.getLetterOfCreditFundGroupCode(), this.getLetterOfCreditFundCode());
         // To exclude awards with milestones and predetermined schedule.
         criteria.put(ArPropertyConstants.BILLING_FREQUENCY_CODE, ArConstants.LOC_BILLING_SCHEDULE_CODE);
 

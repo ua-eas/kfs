@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2015 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="kfs" context="bootstrap,demo,unit"  id="FINP-316a">
+        <addColumn tableName="KRIM_ENTITY_EMP_INFO_T">
+            <column name="TNR_IND" type="VARCHAR(1)"/>
+        </addColumn>
+
+        <insert tableName="krim_typ_t">
+            <column name="KIM_TYP_ID"><![CDATA[KR1002]]></column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NMSPC_CD"><![CDATA[KR-NTFCN]]></column>
+            <column name="NM"><![CDATA[Channel]]></column>
+            <column name="SRVC_NM"><![CDATA[{http://rice.kuali.org/ken/v2_0}channelPermissionTypeService]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+
+        <insert tableName="KRIM_ATTR_DEFN_T">
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[KR1002]]></column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NMSPC_CD"><![CDATA[KR-NTFCN]]></column>
+            <column name="NM"><![CDATA[Channel ID]]></column>
+            <column name="LBL"><![CDATA[Channel ID]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="CMPNT_NM"><![CDATA[]]></column>
+        </insert>
+
+        <insert tableName="KRIM_TYP_ATTR_T">
+            <column name="KIM_TYP_ATTR_ID"><![CDATA[KR1005]]></column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="SORT_CD"><![CDATA[A]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[KR1002]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[KR1002]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+
+        <insert tableName="KRIM_PERM_TMPL_T">
+            <column name="PERM_TMPL_ID"><![CDATA[KR1005]]></column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NMSPC_CD"><![CDATA[KR-NTFCN]]></column>
+            <column name="NM"><![CDATA[View Notification]]></column>
+            <column name="DESC_TXT"><![CDATA[View KEN Notifications]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[KR1002]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+
+        <insert tableName="KRIM_PERM_TMPL_T">
+            <column name="PERM_TMPL_ID"><![CDATA[KR1004]]></column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
+            <column name="NM"><![CDATA[Export Records]]></column>
+            <column name="DESC_TXT"><![CDATA[Ability to export results from the lookup screen.]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[10]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[KR1003]]></column>
+            <column name="OBJ_ID">uuid()</column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[KR1004]]></column>
+            <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
+            <column name="NM"><![CDATA[Export Any Record]]></column>
+            <column name="DESC_TXT"><![CDATA[Ability to export any record.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[KR1005]]></column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[KR1003]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[10]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
+            <column name="ATTR_VAL"><![CDATA[*]]></column>
+        </insert>
+
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID"><![CDATA[KR1004]]></column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[KR1003]]></column>
+            <column name="ACTV_IND"><![CDATA[*]]></column>
+        </insert>
+
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-NS"/>
+            <column name="CMPNT_CD" value="All"/>
+            <column name="PARM_NM" value="DEFAULT_LOCALE_CODE"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" value="1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="en-US"/>
+            <column name="PARM_DESC_TXT" value="The locale code that should be used within the application when otherwise not specified."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KUALI"/>
+        </insert>
+
+        <insert tableName="krcr_cmpnt_t">
+            <column name="NMSPC_CD" value="KR-KRAD"/>
+            <column name="CMPNT_CD" value="Lookup"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" value="1"/>
+            <column name="NM" value="Lookup"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-KRAD"/>
+            <column name="CMPNT_CD" value="Lookup"/>
+            <column name="PARM_NM" value="RESULTS_LIMIT"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="200"/>
+            <column name="PARM_DESC_TXT" value="Maximum number of results returned in a look-up query."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KUALI"/>
+        </insert>
+
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-NS"/>
+            <column name="CMPNT_CD" value="All"/>
+            <column name="PARM_NM" value="OLTP_LOCKOUT_DEFAULT_MESSAGE"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" value="1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="The module you are attempting to access has been locked for maintenance."/>
+            <column name="PARM_DESC_TXT" value="Default message to display when a module is locked."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KUALI"/>
+        </insert>
+
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-KRAD"/>
+            <column name="CMPNT_CD" value="Lookup"/>
+            <column name="PARM_NM" value="DEFAULT_HELP_URL"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" value="1"/>
+            <column name="PARM_TYP_CD" value="HELP"/>
+            <column name="VAL" value="http://site.kuali.org/rice/latest/reference/html/Help.html#lookup"/>
+            <column name="PARM_DESC_TXT" value="Default External Help Url"/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KUALI"/>
+        </insert>
+
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-NS"/>
+            <column name="CMPNT_CD" value="All"/>
+            <column name="PARM_NM" value="DEFAULT_COUNTRY"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" value="1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="US"/>
+            <column name="PARM_DESC_TXT" value="Used as the default country code when relating records that do not have a country code to records that do have a country code, e.g. validating a zip code where the country is not collected."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KUALI"/>
+        </insert>
+
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-KRAD"/>
+            <column name="CMPNT_CD" value="All"/>
+            <column name="PARM_NM" value="AUTO_TRUNCATE_COLUMNS"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" value="1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="N"/>
+            <column name="PARM_DESC_TXT" value="Automatically truncate text that does not fit into table columns.  A tooltip with the non-trucated text on hover over."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KUALI"/>
+        </insert>
+
+        <insert tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-KRAD"/>
+            <column name="CMPNT_CD" value="Lookup"/>
+            <column name="PARM_NM" value="AUTO_TRUNCATE_COLUMNS"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" value="1"/>
+            <column name="PARM_TYP_CD" value="CONFG"/>
+            <column name="VAL" value="N"/>
+            <column name="PARM_DESC_TXT" value="Automatically truncate text that does not fit into table columns.  A tooltip with the non-trucated text on hover over."/>
+            <column name="EVAL_OPRTR_CD" value="A"/>
+            <column name="APPL_ID" value="KUALI"/>
+        </insert>
+
+        <update tableName="KRCR_PARM_T">
+            <column name="val" value="http://site.kuali.org/rice/${rice.version}/reference/html/Help.html#lookup"/>
+            <where>APPL_ID = 'KUALI' AND NMSPC_CD = 'KR-KRAD' AND CMPNT_CD = 'Lookup' AND PARM_NM = 'DEFAULT_HELP_URL'</where>
+        </update>
+
+
+        <update tableName="KRCR_PARM_T">
+            <column name="NMSPC_CD" value="KR-LOC"/>
+            <where>CMPNT_CD = 'All' AND PARM_NM = 'DEFAULT_COUNTRY'</where>
+        </update>
+
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="LBL" value="Identity Management Document"/>
+            <where>DOC_TYP_NM = 'IdentityManagementDocument' AND LBL = 'Undefined'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

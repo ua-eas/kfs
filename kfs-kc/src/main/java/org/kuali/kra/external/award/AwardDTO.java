@@ -70,7 +70,13 @@ import java.util.List;
     "excludedFromInvoicingReason",
     "sequenceNumber",
     "sequenceStatus",
-    "awardAccounts"
+    "awardAccounts",
+	"locFund",
+	"locFundCode",
+	"locFundStartDate",
+	"locFundAmount",
+	"locFundGroup",
+	"locFundGroupCode"
 })
 public class AwardDTO implements Serializable {
 
@@ -115,6 +121,14 @@ public class AwardDTO implements Serializable {
     private Integer sequenceNumber;
     private String sequenceStatus;
     private List<AwardAccountDTO> awardAccounts;
+
+	private String locFund;
+	private String locFundCode;
+	private Date locFundStartDate;
+	private BigDecimal locFundAmount;
+	private String locFundGroup;
+	private String locFundGroupCode;
+
 
 	public Long getAwardId() {
 		return awardId;
@@ -363,4 +377,52 @@ public class AwardDTO implements Serializable {
     public void setAwardAccounts(List<AwardAccountDTO> awardAccounts) {
         this.awardAccounts = awardAccounts;
     }
+
+	public String getLocFund() {
+		return locFund;
+	}
+
+	public void setLocFund(String locFund) {
+		this.locFund = locFund;
+	}
+
+	public String getLocFundCode() {
+		return locFundCode;
+	}
+
+	public void setLocFundCode(String locFundCode) {
+		this.locFundCode = locFundCode;
+	}
+
+	public Date getLocFundStartDate() {
+		return locFundStartDate;
+	}
+
+	public void setLocFundStartDate(Date locFundStartDate) {
+		this.locFundStartDate = locFundStartDate;
+	}
+
+	public BigDecimal getLocFundAmount() {
+		return locFundAmount;
+	}
+
+	public void setLocFundAmount(BigDecimal locFundAmount) {
+		this.locFundAmount = locFundAmount;
+	}
+
+	public String getLocFundGroup() {
+		return locFundGroup;
+	}
+
+	public void setLocFundGroup(String locFundGroup) {
+		this.locFundGroup = locFundGroup;
+	}
+
+	public String getLocFundGroupCode() {
+		return locFundGroupCode;
+	}
+
+	public void setLocFundGroupCode(String locFundGroupCode) {
+		this.locFundGroupCode = locFundGroupCode;
+	}
 }

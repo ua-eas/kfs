@@ -82,4 +82,14 @@ public interface ContractsAndGrantsModuleBillingService {
      */
     public void setFinalBilledAndLastBilledDateToAwardAccount(Map<String, Object> mapKey, boolean finalBilled, boolean invoiceReversal, java.sql.Date lastBilledDate);
 
+
+    /**
+     * Gets letter of credit award criteria.
+     *
+     * @param fundGroupCode the fund group code
+     * @param fundCode the fund code
+     * @return the letter of credit award criteria
+     */
+    public Map<String, Object> getLetterOfCreditAwardCriteria(String fundGroupCode, String fundCode);
+
 }

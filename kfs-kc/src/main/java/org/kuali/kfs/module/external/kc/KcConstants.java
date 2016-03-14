@@ -86,6 +86,11 @@ public class KcConstants {
         public static QName SERVICE = new QName(KC_NAMESPACE_URI, SOAP_SERVICE_NAME);
         public static final String ERROR_KC_FREQUENCY_MAPPING_NOT_FOUND = "error.kc.frequency.mapping.notfound";
     }
+    public static class LetterOfCreditFund {
+        public static final String SOAP_SERVICE_NAME = "letterOfCreditFundWebService";
+        public static final String SERVICE_PORT = "letterOfCreditFundWebServicePort";
+        public static QName SERVICE = new QName(KC_NAMESPACE_URI, SOAP_SERVICE_NAME);
+    }
     public static class AwardType {
         public static final String SOAP_SERVICE_NAME = "awardTypeWebSoapService";
         public static final String SERVICE_PORT = "awardTypeWebServicePort";

@@ -37,6 +37,7 @@ public class PdpConstants {
     public static final String ACH_BANK_INSTITUTION_CODE_DEFAULT = "1";
     public static final String PDP_CUST_ID_SEQUENCE_NAME = "PDP_CUST_ID_SEQ";
     public static final String SECURE_SOCKET_PROTOCOL = "SSL";
+    public static final String FORMAT_CUSTOMER_PROFILE_ID = "FORMAT_CUSTOMER_PROFILE_ID";
 
     public static final int CHECK_NUMBER_PLACEHOLDER_VALUE = -1;
 
@@ -203,4 +204,11 @@ public class PdpConstants {
         public static final String PAYEE_EMAIL_ADDRESS = "Email Address";
         public static final String EDIT_PAYEE_ACH_ACCOUNT ="Edit Payee ACH Account";
     }
+
+	public static class FormatCheckACHParameters {
+		public static final String PDP_FORMAT_CHECK_ACH_STEP = "FormatCheckACHStep";
+		public static final String PDP_FORMAT_CHECK_ACH_BY_CUST_PROF_STEP = "FormatCheckACHByCustomerProfileStep";
+		public static final String FORMAT_SUMMARY_TO_EMAIL_ADDRESSES = "FORMAT_SUMMARY_TO_EMAIL_ADDRESSES";
+		public static final String FORMAT_CUSTOMER_PROFILE_ID = "FORMAT_CUSTOMER_PROFILE_ID";
+	}
 }

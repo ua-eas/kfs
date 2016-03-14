@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.integration.cg;
 
-import java.sql.Date;
-
 import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
+
+import java.sql.Date;
 
 /**
  * Integration interface for LetterOfCreditFund
@@ -36,7 +36,6 @@ public interface ContractsAndGrantsLetterOfCreditFund extends ExternalizableBusi
      * @return Returns the letterOfCreditFund.
      */
     public ContractsAndGrantsLetterOfCreditFundGroup getLetterOfCreditFundGroup();
-
 
     /**
      * Gets the fundCode attribute.
