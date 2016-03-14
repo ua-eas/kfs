@@ -50,7 +50,7 @@ import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.kuali.kfs.krad.datadictionary.DefaultListableBeanFactory;
 
 @AnnotationTestSuite(PreCommitSuite.class)
 @ConfigureContext
