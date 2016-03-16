@@ -946,6 +946,10 @@
           <groupId>objenesis</groupId>
           <artifactId>objenesis</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>asm</groupId>
+          <artifactId>asm</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
