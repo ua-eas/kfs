@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="KFS601" id="FINI-1383" context="bootstrap,demo,unit">
+        <addColumn tableName="KRNS_PESSIMISTIC_LOCK_T">
+            <column name="SESN_ID" type="VARCHAR(40)" defaultValue="undefined">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <update tableName="KRNS_PESSIMISTIC_LOCK_T">
+            <column name="SESN_ID"><![CDATA['undefined']]></column>
+            <where>SESN_ID IS NULL OR SESN_ID = ''</where>
+        </update>
+
+
+    </changeSet>
+</databaseChangeLog>
