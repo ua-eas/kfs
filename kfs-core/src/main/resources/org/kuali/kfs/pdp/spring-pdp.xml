@@ -791,7 +791,7 @@
     	<property name="businessObjectService" ref="businessObjectService" />
 	</bean>
 	
-	<bean id="pdpFormatCheckACHJob" parent="scheduledJobDescriptor">
+	<bean id="pdpFormatCheckACHJob" parent="unscheduledJobDescriptor">
 		<property name="steps">
 			<list>
 				<ref bean="pdpFormatCheckACHStep" />
@@ -816,7 +816,7 @@
 		<property name="templateUrl" value="org/kuali/kfs/pdp/batch/template/paymentformat-summary-email.vm"/>	
 	</bean>
 	
-	<bean id="pdpFormatCheckACHByCustomerProfileJob" parent="scheduledJobDescriptor">
+	<bean id="pdpFormatCheckACHByCustomerProfileJob" parent="unscheduledJobDescriptor">
 		<property name="steps">
 			<list>
 				<ref bean="pdpFormatCheckACHByCustomerProfileStep" />
