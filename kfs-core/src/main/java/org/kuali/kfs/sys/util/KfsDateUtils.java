@@ -296,4 +296,20 @@ public class KfsDateUtils {
         }
         return d1.compareTo(d2) > 0;
     }
+
+    /**
+     * Determines if the given date d1 is on the same day or an earlier day than the given date d2.
+     * @param d1 a date
+     * @param d2 another date, to compare the first date to
+     * @return true if d1 is earlier or the same day as d2, false otherwise or if either value is null
+     */
+    public static boolean isEarlierDay(Date d1, Date d2) {
+        if (ObjectUtils.isNull(d1) || ObjectUtils.isNull(d2)) {
+            return false;
+        }
+        if (isSameDay(d1, d2)) {
+            return false;
+        }
+        return d1.compareTo(d2) < 0;
+    }
 }
