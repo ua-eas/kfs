@@ -103,7 +103,7 @@
 
     <!-- dependency versions -->
     <barcode4j.version>2.1</barcode4j.version>
-    <cf.version>16-SNAPSHOT</cf.version>
+    <cf.version>17-SNAPSHOT</cf.version>
     <core-filter.version>1.1-SNAPSHOT</core-filter.version>
     <commons-cli.version>1.0</commons-cli.version>
     <commons-collections.version>3.2.2</commons-collections.version>
