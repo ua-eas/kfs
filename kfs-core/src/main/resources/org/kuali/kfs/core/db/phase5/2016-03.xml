@@ -3,7 +3,7 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="KFS601" id="FINI-1383_CREATE_KRAD_MSG_T" context="bootstrap,demo,unit">
+    <changeSet author="KFS601" id="FINI-1383_CREATE_KRAD_MSG_T" context="bootstrap,demo">
         <createTable tableName="krad_msg_t">
             <column name="nmspc_cd" type="VARCHAR(20)">
                 <constraints nullable="false"/>
@@ -32,15 +32,15 @@
         </modifySql>
     </changeSet>
 
-    <changeSet author="KFS601" id="FINI-1383_PK_KRAD_MSG_T" context="bootstrap,demo,unit">
+    <changeSet author="KFS601" id="FINI-1383_PK_KRAD_MSG_T" context="bootstrap,demo">
         <addPrimaryKey columnNames="nmspc_cd,cmpnt_cd,msg_key,loc" constraintName="PKkrad_msg_t" tableName="krad_msg_t"/>
     </changeSet>
 
-    <changeSet author="KFS601" id="FINI-1383_CONSTRAINT_KRAD_MSG_T" context="bootstrap,demo,unit">
+    <changeSet author="KFS601" id="FINI-1383_CONSTRAINT_KRAD_MSG_T" context="bootstrap,demo">
         <addUniqueConstraint tableName="krad_msg_t" columnNames="obj_id" constraintName="krad_msg_tc0"/>
     </changeSet>
 
-    <changeSet author="KFS601" id="FINI-1383_CREATE_KRNS_ATT_CNTNT_T" context="bootstrap,demo,unit">
+    <changeSet author="KFS601" id="FINI-1383_CREATE_KRNS_ATT_CNTNT_T" context="bootstrap,demo">
         <createTable tableName="krns_att_cntnt_t">
             <column name="att_id" type="VARCHAR(36)"/>
             <column name="att_cntnt" type="BLOB"/>
