@@ -223,4 +223,265 @@
             <where>DOC_TYP_NM = 'IdentityManagementDocument' AND LBL = 'Undefined'</where>
         </update>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-328_REPLACE_DOCUMENTROUTEHEADERVALUEFIXTURE" context="unit">
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[11]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3377]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[6]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Requisition - CAB Test Data 1]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677678]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[12]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3377]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[6]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Requisition - CAB Test Data 1]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677677]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[13]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3377]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[0]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Contract Manager Assignment - Contract Manager Assigned]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677676]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[21]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3378]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[6]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Purchase Order - CAB Test Data 1]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677675]]></column>
+            <column name="APP_DOC_STAT"><![CDATA[Open]]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[22]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3378]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[6]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Purchase Order - CAB Test Data 1]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677674]]></column>
+            <column name="APP_DOC_STAT"><![CDATA[Open]]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[23]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3378]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[6]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Purchase Order - CAB Test Data 1]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677673]]></column>
+            <column name="APP_DOC_STAT"><![CDATA[Open]]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[31]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3389]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[5]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Payment Request - PO: 1007 Vendor: BESCO WATER TREATMENT I]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677672]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[32]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3389]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[5]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Payment Request - PO: 1007 Vendor: BESCO WATER TREATMENT I]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677671]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[33]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3389]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[5]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Payment Request - PO: 1007 Vendor: BESCO WATER TREATMENT I]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677670]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[34]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3389]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[5]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Payment Request - PO: 1007 Vendor: BESCO WATER TREATMENT I]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677669]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[35]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3389]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[5]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Payment Request - PO: 1007 Vendor: BESCO WATER TREATMENT I]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677668]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[36]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3389]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[5]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Payment Request - PO: 1007 Vendor: BESCO WATER TREATMENT I]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677667]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[41]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3388]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[2]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Credit Memo - PO: 1007 Vendor: BESCO WATER TREATMENT I]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[2133704704]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677666]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[51]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3462]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[0]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Customer Invoice - Customer Invoice]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677665]]></column>
+        </insert>
+        <insert tableName="krew_doc_hdr_t">
+            <column name="DOC_HDR_ID"><![CDATA[52]]></column>
+            <column name="DOC_TYP_ID"><![CDATA[3462]]></column>
+            <column name="DOC_HDR_STAT_CD"><![CDATA[F]]></column>
+            <column name="RTE_LVL"><![CDATA[0]]></column>
+            <column name="APP_DOC_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="CRTE_DT" valueDate="2016-03-17"/>
+            <column name="APRV_DT" valueDate="2016-03-17"/>
+            <column name="FNL_DT" valueDate="2016-03-17"/>
+            <column name="RTE_STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="STAT_MDFN_DT" valueDate="2016-03-17"/>
+            <column name="TTL"><![CDATA[Customer Invoice - Customer Invoice]]></column>
+            <column name="DOC_VER_NBR"><![CDATA[1]]></column>
+            <column name="INITR_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="RTE_PRNCPL_ID"><![CDATA[6162502038]]></column>
+            <column name="OBJ_ID"><![CDATA[JHBGJHGJKHJS5456677664]]></column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

@@ -103,7 +103,7 @@
 
     <!-- dependency versions -->
     <barcode4j.version>2.1</barcode4j.version>
-    <cf.version>16-SNAPSHOT</cf.version>
+    <cf.version>17-SNAPSHOT</cf.version>
     <core-filter.version>1.1-SNAPSHOT</core-filter.version>
     <commons-cli.version>1.0</commons-cli.version>
     <commons-collections.version>3.2.2</commons-collections.version>
@@ -138,7 +138,7 @@
     <oracle.artifactId>ojdbc6</oracle.artifactId>
     <oracle.version>11.2.0.3</oracle.version>
     <p6spy.version>1.3-patched</p6spy.version>
-    <rice.version>2.1.13-1602.0019</rice.version>
+    <rice.version>2.5.6-SNAPSHOT</rice.version>
     <servlet-api.version>2.5</servlet-api.version>
     <spring-data-mongodb.version>1.3.5.RELEASE</spring-data-mongodb.version>
     <tiles.version>2.2.2</tiles.version>
@@ -174,7 +174,7 @@
    <dm.snapshotRepository.id>kualico.nexus.financials.snapshots</dm.snapshotRepository.id>
    <dm.snapshotRepository.name>KualiCo Nexus Snapshots Repository</dm.snapshotRepository.name>
    <dm.snapshotRepository.url>https://nexus.kuali.co/nexus/content/repositories/financials-snapshots</dm.snapshotRepository.url>
- 
+
    <dm.repository.id>kualico.nexus.financials.releases</dm.repository.id>
    <dm.repository.name>KualiCo Nexus Releases Repository</dm.repository.name>
    <dm.repository.url>https://nexus.kuali.co/nexus/content/repositories/financials-releases/</dm.repository.url>
@@ -457,61 +457,6 @@
         <!--</exclusion>-->
       </exclusions>
     </dependency>
-    <!-- rice-edl dependencies. -->
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-edl-framework</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-app-framework</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-web-framework</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-edl-impl</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-kns</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-impl</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-web-framework</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!-- rice-ken dependencies. -->
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-ken-api</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
     <!-- rice-kew dependencies. -->
     <dependency>
       <groupId>org.kuali.rice</groupId>
@@ -609,59 +554,6 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-krms-api</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-krms-framework</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-app-framework</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-core-service-impl</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-krms-impl</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-app-framework</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-core-service-impl</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
       <artifactId>rice-ksb-api</artifactId>
       <version>${rice.version}</version>
       <exclusions>
@@ -692,16 +584,9 @@
           <groupId>log4j</groupId>
           <artifactId>log4j</artifactId>
         </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-ksb-server-impl</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
         <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
+          <groupId>asm</groupId>
+          <artifactId>asm</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -767,76 +652,6 @@
         <exclusion>
           <groupId>org.kuali.rice</groupId>
           <artifactId>rice-krad-app-framework</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-location-impl</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-kns</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-app-framework</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-web-framework</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-location-web</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-kns</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-app-framework</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.kuali.rice</groupId>
-          <artifactId>rice-krad-web-framework</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-impl</artifactId>
-      <version>${rice.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.resource</groupId>
-          <artifactId>connector-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.transaction</groupId>
-          <artifactId>jta</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>xapool</groupId>
-          <artifactId>xapool</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-beanutils</groupId>
-          <artifactId>commons-beanutils</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -1131,6 +946,10 @@
           <groupId>objenesis</groupId>
           <artifactId>objenesis</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>asm</groupId>
+          <artifactId>asm</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -1213,12 +1032,27 @@
         <artifactId>datatools</artifactId>
         <version>${datatools.version}</version>
     </dependency>
-      <dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+    </dependency>
+    <dependency>
       	<groupId>org.kuali.kfs</groupId>
       	<artifactId>kfs</artifactId>
       	<version>6.0.1-SNAPSHOT</version>
       	<type>pom</type>
       </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.9.1</version>
+    </dependency>
+    <!--dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
+    </dependency-->
   </dependencies>
 
   <repositories>

@@ -50,7 +50,7 @@ import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.KualiDefaultListableBeanFactory;
+import org.kuali.kfs.krad.datadictionary.DefaultListableBeanFactory;
 
 @AnnotationTestSuite(PreCommitSuite.class)
 @ConfigureContext
@@ -218,7 +218,7 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
     public void testAllParentBeansAreAbstract() throws Exception {
         Field f = dataDictionary.getClass().getDeclaredField("ddBeans");
         f.setAccessible(true);
-        KualiDefaultListableBeanFactory ddBeans = (KualiDefaultListableBeanFactory)f.get(dataDictionary);
+        DefaultListableBeanFactory ddBeans = (DefaultListableBeanFactory)f.get(dataDictionary);
         List<String> failingBeanNames = new ArrayList<String>();
         for ( String beanName : ddBeans.getBeanDefinitionNames() ) {
             BeanDefinition beanDef = ddBeans.getMergedBeanDefinition(beanName);
@@ -297,7 +297,7 @@ public class DataDictionaryConfigurationTest extends KualiTestBase {
     protected void somethingShouldHaveParentBeans( Class<?> baseClass, List<String> exclusions ) throws Exception {
         Field f = dataDictionary.getClass().getDeclaredField("ddBeans");
         f.setAccessible(true);
-        KualiDefaultListableBeanFactory ddBeans = (KualiDefaultListableBeanFactory)f.get(dataDictionary);
+        DefaultListableBeanFactory ddBeans = (DefaultListableBeanFactory)f.get(dataDictionary);
         List<String> failingBeanNames = new ArrayList<String>();
 
         for ( String beanName : ddBeans.getBeanDefinitionNames() ) {
