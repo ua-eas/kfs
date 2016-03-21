@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.cab.batch.service;
 
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.fixture.CreditMemoAccountFixture;
 import org.kuali.kfs.module.cab.fixture.CreditMemoAccountRevisionFixture;
 import org.kuali.kfs.module.cab.fixture.CreditMemoDocumentFixture;
 import org.kuali.kfs.module.cab.fixture.CreditMemoItemFixture;
-import org.kuali.kfs.module.cab.fixture.DocumentRouteHeaderValueFixture;
 import org.kuali.kfs.module.cab.fixture.EntryFixture;
 import org.kuali.kfs.module.cab.fixture.FinancialSystemDocumentHeaderFixture;
 import org.kuali.kfs.module.cab.fixture.PaymentRequestAccountFixture;
@@ -46,9 +45,9 @@ import org.kuali.kfs.module.cab.fixture.RequisitionItemFixture;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 /**
  * This abstract test class will provide the SQL inserts required to perform the testing CAB batch extract related services
@@ -118,7 +117,6 @@ public abstract class BatchTestBase extends KualiTestBase {
 
     protected void prepareTestDataRecords() throws SQLException {
         // clean first
-        DocumentRouteHeaderValueFixture.setUpData();
         FinancialSystemDocumentHeaderFixture.setUpData();
         RequisitionDocumentFixture.setUpData();
         RequisitionItemFixture.setUpData();

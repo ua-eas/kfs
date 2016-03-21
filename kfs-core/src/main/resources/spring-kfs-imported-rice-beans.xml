@@ -50,7 +50,6 @@
 	<bean id="configurationService" p:serviceName="cf.kualiConfigurationService" parent="grlBeanImporter" />
 	<alias name="configurationService" alias="kualiConfigurationService" />
 	<bean id="persistenceStructureService" p:serviceName="cf.persistenceStructureService" parent="grlBeanImporter" />
-	<bean id="persistenceStructureServiceJpa" p:serviceName="cf.persistenceStructureServiceJpa" parent="grlBeanImporter" />
 	<bean id="persistenceStructureServiceOjb" p:serviceName="cf.persistenceStructureServiceOjb" parent="grlBeanImporter" />
 	<bean id="encryptionService" p:serviceName="cf.encryptionService" parent="grlBeanImporter" />
 	<bean id="sequenceAccessorService" p:serviceName="cf.sequenceAccessorService" parent="grlBeanImporter" />
