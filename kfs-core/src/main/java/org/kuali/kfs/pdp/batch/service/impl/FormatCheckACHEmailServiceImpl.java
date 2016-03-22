@@ -4,17 +4,19 @@ import java.util.Collection;
 
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.kfs.pdp.PdpConstants;
+import org.kuali.kfs.pdp.batch.service.FormatCheckACHEmailService;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.service.VelocityEmailService;
 import org.kuali.kfs.sys.service.impl.VelocityEmailServiceBase;
 
 public class FormatCheckACHEmailServiceImpl extends VelocityEmailServiceBase
-		implements VelocityEmailService {
+		implements FormatCheckACHEmailService {
 
 	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger
 			.getLogger(FormatCheckACHEmailServiceImpl.class);
 
 	private String templateUrl;
+	
+	private String emailSubject;
 
 	/*
 	 * (non-Javadoc)
@@ -23,7 +25,7 @@ public class FormatCheckACHEmailServiceImpl extends VelocityEmailServiceBase
 	 */
 	@Override
 	public String getEmailSubject() {
-		return "Format Check/ACH summary for today.";
+		return emailSubject;
 	}
 
 	/*
@@ -61,5 +63,13 @@ public class FormatCheckACHEmailServiceImpl extends VelocityEmailServiceBase
 	public void setTemplateUrl(String templateUrl) {
 		this.templateUrl = templateUrl;
 	}
+
+	/**
+	 * @param emailSubject the emailSubject to set
+	 */
+	public void setEmailSubject(String emailSubject) {
+		this.emailSubject = emailSubject;
+	}
+	
 
 }
