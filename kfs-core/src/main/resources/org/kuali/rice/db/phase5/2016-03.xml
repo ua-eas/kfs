@@ -80,7 +80,7 @@
 
         <insert tableName="krim_perm_t">
             <column name="PERM_ID"><![CDATA[KR1003]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_TMPL_ID"><![CDATA[KR1004]]></column>
             <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
@@ -222,6 +222,10 @@
             <column name="LBL" value="Identity Management Document"/>
             <where>DOC_TYP_NM = 'IdentityManagementDocument' AND LBL = 'Undefined'</where>
         </update>
+
+        <modifySql dbms="oracle">
+            <replace replace="uuid()" with="sys_guid()"/>
+        </modifySql>
     </changeSet>
 
     <changeSet author="KFS601" id="FINP-328_REPLACE_DOCUMENTROUTEHEADERVALUEFIXTURE" context="unit">
