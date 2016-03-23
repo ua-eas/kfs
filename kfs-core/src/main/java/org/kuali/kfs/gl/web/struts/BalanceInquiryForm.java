@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.krad.lookup.LookupUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -223,7 +224,7 @@ public class BalanceInquiryForm extends LookupForm {
      * @return Returns the backLocation.
      */
     public String getBackLocation() {
-        return backLocation;
+        return WebUtils.sanitizeBackLocation(backLocation);
     }
 
     /**
