@@ -240,8 +240,12 @@ nav ul.nav li {
     position: fixed;
     transition:500ms all;
     width: 320px;
-    top: 100px;
+    top: 60px;
     bottom: 0;
+}
+
+.test-env>#sidebar {
+    top: 100px;
 }
 
 #sidebar>div {
