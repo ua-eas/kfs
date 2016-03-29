@@ -568,7 +568,7 @@
                     <c:set var="accountColumnCount" value="${mainColumnCount - 1}"/>
                     <%-- if it is B2B then we will not display the "Restricted" or "Assigned to Trade In" columns
                          so we need to reduce the width of the accounting lines --%>
-                    <c:if test="${!lockB2BEntry}">
+                    <c:if test="${lockB2BEntry}">
                         <%-- "Assigned to Trade In" always needs to be accounted for --%>
                         <c:set var="accountColumnCount" value="${accountColumnCount - 1}"/>
                         <c:if test="${displayRequisitionFields}">
