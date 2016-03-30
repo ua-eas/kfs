@@ -1,59 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10227" context="bootstrap,demo,unit">
-    <insert tableName="cm_ast_pmt_dst_cd_t">
-      <column name="AST_PMT_DST_CD"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[A7F821439F059F91E040007F0100607D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AST_PMT_DST_NM"><![CDATA[Distribute cost by amount]]></column>
-      <column name="AST_PMT_DST_COL_NM"><![CDATA[Allocate Amount]]></column>
-      <column name="AST_PMT_DST_EDT"><![CDATA[Y]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_ast_pmt_dst_cd_t">
-      <column name="AST_PMT_DST_CD"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[A7F821439F069F91E040007F0100607D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AST_PMT_DST_NM"><![CDATA[Distribute cost evenly]]></column>
-      <column name="AST_PMT_DST_COL_NM"><![CDATA[Allocated]]></column>
-      <column name="AST_PMT_DST_EDT"><![CDATA[N]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_ast_pmt_dst_cd_t">
-      <column name="AST_PMT_DST_CD"><![CDATA[3]]></column>
-      <column name="OBJ_ID"><![CDATA[A7F821439F079F91E040007F0100607D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AST_PMT_DST_NM"><![CDATA[Distribute cost by total cost]]></column>
-      <column name="AST_PMT_DST_COL_NM"><![CDATA[Allocated]]></column>
-      <column name="AST_PMT_DST_EDT"><![CDATA[N]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_ast_pmt_dst_cd_t">
-      <column name="AST_PMT_DST_CD"><![CDATA[4]]></column>
-      <column name="OBJ_ID"><![CDATA[A7F821439F089F91E040007F0100607D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AST_PMT_DST_NM"><![CDATA[Distribute cost by percentage]]></column>
-      <column name="AST_PMT_DST_COL_NM"><![CDATA[Allocate Percentage]]></column>
-      <column name="AST_PMT_DST_EDT"><![CDATA[Y]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_cm_ast_pmt_dst_cd_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="cm_ast_pmt_dst_cd_t" />
+      <param name="file" value="org/kuali/kfs/module/cam/db/phase2/cm_ast_pmt_dst_cd_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

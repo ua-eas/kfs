@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,30 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10266" context="bootstrap,demo,unit">
-    <insert tableName="er_ctrl_attrib_typ_t">
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[A]]></column>
-      <column name="OBJ_ID"><![CDATA[233DE6DA95C0B1A8E043814FD881B1A8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
-      <column name="REQD_IND"><![CDATA[N]]></column>
-      <column name="CTRL_ATTRIB_TYP_DESC" value="null"/>
-    </insert>
-    <insert tableName="er_ctrl_attrib_typ_t">
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[D]]></column>
-      <column name="OBJ_ID"><![CDATA[233DE6DA95BFB1A8E043814FD881B1A8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
-      <column name="REQD_IND"><![CDATA[N]]></column>
-      <column name="CTRL_ATTRIB_TYP_DESC" value="null"/>
-    </insert>
-    <insert tableName="er_ctrl_attrib_typ_t">
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[S]]></column>
-      <column name="OBJ_ID"><![CDATA[233DE6DA95BEB1A8E043814FD881B1A8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
-      <column name="REQD_IND"><![CDATA[N]]></column>
-      <column name="CTRL_ATTRIB_TYP_DESC" value="null"/>
-    </insert>
+  <changeSet id="IMPORT_er_ctrl_attrib_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="er_ctrl_attrib_typ_t" />
+      <param name="file" value="org/kuali/kfs/module/cg/db/phase2/er_ctrl_attrib_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

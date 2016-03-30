@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,56 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00126" context="bootstrap,demo,unit">
-    <insert tableName="krms_attr_defn_t">
-      <column name="ATTR_DEFN_ID"><![CDATA[1000]]></column>
-      <column name="NM"><![CDATA[peopleFlowId]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
-      <column name="LBL"><![CDATA[PeopleFlow]]></column>
-      <column name="ACTV"><![CDATA[Y]]></column>
-      <column name="CMPNT_NM" value="null"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="DESC_TXT"><![CDATA[An identifier for a PeopleFlow]]></column>
-    </insert>
-    <insert tableName="krms_attr_defn_t">
-      <column name="ATTR_DEFN_ID"><![CDATA[1001]]></column>
-      <column name="NM"><![CDATA[ruleTypeCode]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
-      <column name="LBL"><![CDATA[Invalid Rule]]></column>
-      <column name="ACTV"><![CDATA[Y]]></column>
-      <column name="CMPNT_NM" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DESC_TXT"><![CDATA[If true, execute the action]]></column>
-    </insert>
-    <insert tableName="krms_attr_defn_t">
-      <column name="ATTR_DEFN_ID"><![CDATA[1004]]></column>
-      <column name="NM"><![CDATA[actionTypeCode]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
-      <column name="LBL"><![CDATA[Error Action]]></column>
-      <column name="ACTV"><![CDATA[Y]]></column>
-      <column name="CMPNT_NM" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DESC_TXT"><![CDATA[Error]]></column>
-    </insert>
-    <insert tableName="krms_attr_defn_t">
-      <column name="ATTR_DEFN_ID"><![CDATA[1005]]></column>
-      <column name="NM"><![CDATA[actionMessage]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-RULE]]></column>
-      <column name="LBL"><![CDATA[Action Message]]></column>
-      <column name="ACTV"><![CDATA[Y]]></column>
-      <column name="CMPNT_NM" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DESC_TXT"><![CDATA[Message validation action returns]]></column>
-    </insert>
-    <insert tableName="krms_attr_defn_t">
-      <column name="ATTR_DEFN_ID"><![CDATA[1006]]></column>
-      <column name="NM"><![CDATA[peopleFlowName]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR_RULE]]></column>
-      <column name="LBL"><![CDATA[PeopleFlow Name]]></column>
-      <column name="ACTV"><![CDATA[Y]]></column>
-      <column name="CMPNT_NM" value="null"/>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DESC_TXT"><![CDATA[PeopleFlow Name]]></column>
-    </insert>
+  <changeSet id="IMPORT_krms_attr_defn_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krms_attr_defn_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krms_attr_defn_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

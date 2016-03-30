@@ -1,0 +1,5 @@
+HEADER[~&~	~&~CUST_PMT_MEDIUM_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CUST_PMT_MEDM_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'CA'~&~	~&~'48A7ED7FBD54FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Cash'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CK'~&~	~&~'48A7ED7FBD55FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Check'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CR'~&~	~&~'48A7ED7FBD56FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Credit Card'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'WT'~&~	~&~'48A7ED7FBD57FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Wire'~&~	~&~'Y'~&~	~&~]RECORD

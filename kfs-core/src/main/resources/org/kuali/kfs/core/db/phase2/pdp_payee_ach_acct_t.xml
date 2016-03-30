@@ -1,103 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10544" context="demo,unit">
-    <insert tableName="pdp_payee_ach_acct_t">
-      <column name="ACH_ACCT_GNRTD_ID"><![CDATA[10000]]></column>
-      <column name="OBJ_ID"><![CDATA[3DD0823DD81A9036E043814FD8819036]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BNK_RTNG_NBR"><![CDATA[012345678]]></column>
-      <column name="BNK_ACCT_NBR"><![CDATA[XBy8HbA0p2kc3lalnjPKpA==]]></column>
-      <column name="PAYEE_NM"><![CDATA[John Doe]]></column>
-      <column name="PAYEE_EMAIL_ADDR"><![CDATA[xy@xy.com]]></column>
-      <column name="PAYEE_ID_TYP_CD"><![CDATA[E]]></column>
-      <column name="ACH_TRANS_TYP"><![CDATA[PRAP]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="BNK_ACCT_TYP_CD"><![CDATA[22]]></column>
-      <column name="PAYEE_ID_NBR"><![CDATA[1]]></column>
-      <column name="AUTO_INACTV_IND" value="null"/>
-      <column name="LST_UPDT_TS" value="null"/>
-    </insert>
-    <insert tableName="pdp_payee_ach_acct_t">
-      <column name="ACH_ACCT_GNRTD_ID"><![CDATA[10001]]></column>
-      <column name="OBJ_ID"><![CDATA[3DD0823DD81B9036E043814FD8819036]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BNK_RTNG_NBR"><![CDATA[876543210]]></column>
-      <column name="BNK_ACCT_NBR"><![CDATA[UeteX8/H6dO39UFEd4GMnQ==]]></column>
-      <column name="PAYEE_NM"><![CDATA[Jane Smith]]></column>
-      <column name="PAYEE_EMAIL_ADDR"><![CDATA[xy@xy.com]]></column>
-      <column name="PAYEE_ID_TYP_CD"><![CDATA[E]]></column>
-      <column name="ACH_TRANS_TYP"><![CDATA[PRAP]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="BNK_ACCT_TYP_CD"><![CDATA[22]]></column>
-      <column name="PAYEE_ID_NBR"><![CDATA[1]]></column>
-      <column name="AUTO_INACTV_IND" value="null"/>
-      <column name="LST_UPDT_TS" value="null"/>
-    </insert>
-    <insert tableName="pdp_payee_ach_acct_t">
-      <column name="ACH_ACCT_GNRTD_ID"><![CDATA[10002]]></column>
-      <column name="OBJ_ID"><![CDATA[3DD0823DD81A9036E043814FD8819036]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BNK_RTNG_NBR"><![CDATA[012345678]]></column>
-      <column name="BNK_ACCT_NBR"><![CDATA[XBy8HbA0p2kc3lalnjPKpA==]]></column>
-      <column name="PAYEE_NM"><![CDATA[John Doe]]></column>
-      <column name="PAYEE_EMAIL_ADDR"><![CDATA[xy@xy.com]]></column>
-      <column name="PAYEE_ID_TYP_CD"><![CDATA[E]]></column>
-      <column name="ACH_TRANS_TYP"><![CDATA[PRAP]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="BNK_ACCT_TYP_CD"><![CDATA[22]]></column>
-      <column name="PAYEE_ID_NBR"><![CDATA[1]]></column>
-      <column name="AUTO_INACTV_IND" value="null"/>
-      <column name="LST_UPDT_TS" value="null"/>
-    </insert>
-    <insert tableName="pdp_payee_ach_acct_t">
-      <column name="ACH_ACCT_GNRTD_ID"><![CDATA[10003]]></column>
-      <column name="OBJ_ID"><![CDATA[3DD0823DD81B9036E043814FD8819036]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BNK_RTNG_NBR"><![CDATA[876543210]]></column>
-      <column name="BNK_ACCT_NBR"><![CDATA[UeteX8/H6dO39UFEd4GMnQ==]]></column>
-      <column name="PAYEE_NM"><![CDATA[Jane Smith]]></column>
-      <column name="PAYEE_EMAIL_ADDR"><![CDATA[xy@xy.com]]></column>
-      <column name="PAYEE_ID_TYP_CD"><![CDATA[E]]></column>
-      <column name="ACH_TRANS_TYP"><![CDATA[PRAP]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="BNK_ACCT_TYP_CD"><![CDATA[22]]></column>
-      <column name="PAYEE_ID_NBR"><![CDATA[1]]></column>
-      <column name="AUTO_INACTV_IND" value="null"/>
-      <column name="LST_UPDT_TS" value="null"/>
-    </insert>
-    <insert tableName="pdp_payee_ach_acct_t">
-      <column name="ACH_ACCT_GNRTD_ID"><![CDATA[10004]]></column>
-      <column name="OBJ_ID"><![CDATA[3DD0823DD81C9036E043814FD8819036]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BNK_RTNG_NBR"><![CDATA[012345678]]></column>
-      <column name="BNK_ACCT_NBR"><![CDATA[UeteX8/H6dO39UFEd4GMnQ==]]></column>
-      <column name="PAYEE_NM"><![CDATA[Utopia Use Tax Vendor]]></column>
-      <column name="PAYEE_EMAIL_ADDR"><![CDATA[kfs.notification.batch@kuali.org]]></column>
-      <column name="PAYEE_ID_TYP_CD"><![CDATA[V]]></column>
-      <column name="ACH_TRANS_TYP"><![CDATA[PRAP]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="BNK_ACCT_TYP_CD"><![CDATA[22]]></column>
-      <column name="PAYEE_ID_NBR"><![CDATA[4120-0]]></column>
-      <column name="AUTO_INACTV_IND" value="null"/>
-      <column name="LST_UPDT_TS" value="null"/>
-    </insert>
+  <changeSet id="IMPORT_pdp_payee_ach_acct_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pdp_payee_ach_acct_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pdp_payee_ach_acct_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

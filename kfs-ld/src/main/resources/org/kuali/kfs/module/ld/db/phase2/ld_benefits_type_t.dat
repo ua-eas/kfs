@@ -1,0 +1,7 @@
+HEADER[~&~	~&~POS_BENEFIT_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~POS_BENE_TYP_DESC::VARCHAR~&~	~&~POS_BENE_RETIRE_CD::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'B'~&~	~&~'3089E18585EF9132E043814FD8819132'~&~	~&~'1'~&~	~&~'Retirement Non Exempt'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'E'~&~	~&~'3089E18585F09132E043814FD8819132'~&~	~&~'1'~&~	~&~'C&G Retirement Exempt'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'F'~&~	~&~'3089E18585F19132E043814FD8819132'~&~	~&~'1'~&~	~&~'FICA'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'G'~&~	~&~'3089E18585F29132E043814FD8819132'~&~	~&~'1'~&~	~&~'Fringe Benefits'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'3089E18585F39132E043814FD8819132'~&~	~&~'1'~&~	~&~'No Benefits'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'3089E18585F49132E043814FD8819132'~&~	~&~'1'~&~	~&~'Retirement Exempt'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD

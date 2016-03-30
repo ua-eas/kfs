@@ -1,0 +1,4 @@
+HEADER[~&~	~&~CUST_ADDR_TYPE_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CUST_ADDR_TYP_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'A'~&~	~&~'48A7ED7FBD58FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Alternate'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'P'~&~	~&~'48A7ED7FBD59FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Primary'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'T'~&~	~&~'48A7ED7FBD5AFC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Temporary'~&~	~&~'Y'~&~	~&~]RECORD

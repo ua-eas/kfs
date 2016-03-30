@@ -1,0 +1,3 @@
+HEADER[~&~	~&~AST_DEPR_METHOD_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~AST_DEPR_METHOD_NM::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'SL'~&~	~&~'44F39C472EDE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Straight Line'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SV'~&~	~&~'44F39C472EDF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Salvage'~&~	~&~'Y'~&~	~&~]RECORD

@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,46 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00041" context="bootstrap,demo,unit">
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1015]]></column>
-      <column name="NM"><![CDATA[WorkflowDocumentDelegationTemplate]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[WorkflowDocumentDelegationTemplate]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA86644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1016]]></column>
-      <column name="NM"><![CDATA[WorkflowDocumentTemplate]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Workflow Document Template]]></column>
-      <column name="DLGN_RULE_TMPL_ID"><![CDATA[1015]]></column>
-      <column name="VER_NBR"><![CDATA[4]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA87644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1023]]></column>
-      <column name="NM"><![CDATA[ReviewersRouting]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[Routes to channel reviewers]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA8C644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1025]]></column>
-      <column name="NM"><![CDATA[NotificationRouting]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[The standard rule template for sending notification messages.]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA8D644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_t">
-      <column name="RULE_TMPL_ID"><![CDATA[1320]]></column>
-      <column name="NM"><![CDATA[RuleRoutingTemplate]]></column>
-      <column name="RULE_TMPL_DESC"><![CDATA[RuleRoutingTemplate]]></column>
-      <column name="DLGN_RULE_TMPL_ID" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BA96644DE0404F8189D86C09]]></column>
-    </insert>
+  <changeSet id="IMPORT_krew_rule_tmpl_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krew_rule_tmpl_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krew_rule_tmpl_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

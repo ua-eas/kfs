@@ -1,71 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10679" context="bootstrap,demo,unit">
-    <insert tableName="pur_vndr_stpltn_t">
-      <column name="VNDR_STPLTN_ID"><![CDATA[1000]]></column>
-      <column name="OBJ_ID"><![CDATA[DA52BFFA-E002-9B1A-178B-652AD981F88E]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_STPLTN_NM"><![CDATA[Material Acknowledgment]]></column>
-      <column name="VNDR_STPLTN_DESC"><![CDATA[By acceptance of this Purchase Order the Supplier warrants that material will be free from defects and fit for use as intended. Supplier accepts all terms included for the items herein and the stated delivery expectations. Please acknowledge by fax XXX-XXX-XXXX or email to XXXXXXX@XXXXX.XXX. Your compliance with this directive is imperative.]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_stpltn_t">
-      <column name="VNDR_STPLTN_ID"><![CDATA[1001]]></column>
-      <column name="OBJ_ID"><![CDATA[4E70DA62-38AD-36A9-25FC-F4B0CD3D18E7]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_STPLTN_NM"><![CDATA[Recurring Payment PO]]></column>
-      <column name="VNDR_STPLTN_DESC"><![CDATA[This recurring payment purchase order does not guarantee any specific quantity of business or annual dollar volume. The total value of the order shall be determined by the specific releases against the order as determined by individual department requirements.]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_stpltn_t">
-      <column name="VNDR_STPLTN_ID"><![CDATA[1002]]></column>
-      <column name="OBJ_ID"><![CDATA[259DC5A5-3B85-7711-5657-EF22D0D377D5]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="VNDR_STPLTN_NM"><![CDATA[Confirming Order]]></column>
-      <column name="VNDR_STPLTN_DESC"><![CDATA[THE UNIVERSITY HAS NO OBLIGATION FOR PAYMENT OF GOODS OR SERVICES PROVIDED WITHOUT A UNIVERSITY PURCHASE ORDER. THE PROCESSING OF THIS ORDER FOR PAYMENT DOES NOT CONSTITUTE THE DELEGATION OF PURCHASE AUTHORITY TO ANY PERSON. IN THE FUTURE, DO NOT PROVIDE GOODS OR SERVICES WITHOUT HAVING A PURCHASE ORDER ISSUED BY THE UNIVERSITY PURCHASING DEPARTMENT. CONFIRMING ORDER - DO NOT DUPLICATE]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_stpltn_t">
-      <column name="VNDR_STPLTN_ID"><![CDATA[1003]]></column>
-      <column name="OBJ_ID"><![CDATA[3BD3A2B9-1F6B-3EE0-F4CA-D1A56656B76B]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_STPLTN_NM"><![CDATA[Confidentiality]]></column>
-      <column name="VNDR_STPLTN_DESC"><![CDATA[this Agreement. Vendor acknowledges and agrees that University is subject to state laws and that disclosure of some or all of confidential information provided pursuant to this Purchase Order, or the Purchase Order itself, may be compelled pursuant to that law. University agrees that, upon receipt of a request for]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_stpltn_t">
-      <column name="VNDR_STPLTN_ID"><![CDATA[1004]]></column>
-      <column name="OBJ_ID"><![CDATA[862C5DB3-6AFB-980B-54BE-9C2B75D85A01]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_STPLTN_NM"><![CDATA[abc company]]></column>
-      <column name="VNDR_STPLTN_DESC"><![CDATA[west coast supplier]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="pur_vndr_stpltn_t">
-      <column name="VNDR_STPLTN_ID"><![CDATA[1005]]></column>
-      <column name="OBJ_ID"><![CDATA[F22A77F5-4906-A923-AB09-2B383BF585D9]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="VNDR_STPLTN_NM"><![CDATA[xyz company]]></column>
-      <column name="VNDR_STPLTN_DESC"><![CDATA[East coast supplier]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_vndr_stpltn_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_vndr_stpltn_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/pur_vndr_stpltn_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,2 @@
+HEADER[~&~	~&~CHNL_ID::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~DESC_TXT::VARCHAR~&~	~&~SUBSCRB_IND::CHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'500'~&~	~&~'KEW'~&~	~&~'Builtin channel for KEW'~&~	~&~'N'~&~	~&~'1'~&~	~&~NULL~&~	~&~]RECORD

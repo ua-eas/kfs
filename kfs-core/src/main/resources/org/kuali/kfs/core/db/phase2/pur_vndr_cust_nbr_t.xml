@@ -1,111 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10669" context="demo,unit">
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[1000]]></column>
-      <column name="OBJ_ID"><![CDATA[E1016884-B551-A8E4-122D-0E378D1F5124]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1002]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[3377]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="VNDR_ORG_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[2003]]></column>
-      <column name="OBJ_ID"><![CDATA[7E9AEE03-407B-9DD8-C422-6438DD4DD847]]></column>
-      <column name="VER_NBR"><![CDATA[7]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2003]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[9860089]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="VNDR_ORG_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[2005]]></column>
-      <column name="OBJ_ID"><![CDATA[881A34DB-0C14-7EE4-A8A5-6592DFD72B57]]></column>
-      <column name="VER_NBR"><![CDATA[6]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2013]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[9671082]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="VNDR_ORG_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[2006]]></column>
-      <column name="OBJ_ID"><![CDATA[8D26791D-9445-2FCE-E9FC-5D3896E73467]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2005]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[A100]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="VNDR_ORG_CD"><![CDATA[ACCT]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[2007]]></column>
-      <column name="OBJ_ID"><![CDATA[880E5457-3899-BFDA-ED79-C7604033018E]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2005]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[B200]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="VNDR_ORG_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[2008]]></column>
-      <column name="OBJ_ID"><![CDATA[6D469E42-55B6-5681-18A2-2D95DCB8DF56]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2005]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[A200]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="VNDR_ORG_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[2010]]></column>
-      <column name="OBJ_ID"><![CDATA[C3170F4F-0592-328B-63BF-B69B09218251]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2021]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[9671083]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="VNDR_ORG_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_cust_nbr_t">
-      <column name="VNDR_CUST_NBR_GNRTD_ID"><![CDATA[2012]]></column>
-      <column name="OBJ_ID"><![CDATA[D00A7BAB-4B27-A782-26DF-E0276B79DE31]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2023]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_CUST_NBR"><![CDATA[1000241]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="VNDR_ORG_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_vndr_cust_nbr_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_vndr_cust_nbr_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_vndr_cust_nbr_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,44 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10601" context="bootstrap,demo,unit">
-    <insert tableName="pur_dlvy_req_dt_reas_t">
-      <column name="DLVY_REQ_DT_REAS_CD"><![CDATA[BUY]]></column>
-      <column name="OBJ_ID"><![CDATA[8F9E9467-855B-BC96-2BC4-6FFA9C8727CA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DLVY_REQ_DT_REAS_DESC"><![CDATA[ESTIMATED DATE]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_dlvy_req_dt_reas_t">
-      <column name="DLVY_REQ_DT_REAS_CD"><![CDATA[MUST]]></column>
-      <column name="OBJ_ID"><![CDATA[0FFE69F4-1F19-007F-763C-217CEE18DB41]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="DLVY_REQ_DT_REAS_DESC"><![CDATA[MUST RECEIVE]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_dlvy_req_dt_reas_t">
-      <column name="DLVY_REQ_DT_REAS_CD"><![CDATA[QUOT]]></column>
-      <column name="OBJ_ID"><![CDATA[4B9320A7-B43B-67DC-4263-7215F0648E44]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DLVY_REQ_DT_REAS_DESC"><![CDATA[QUOTED DELIVERY]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_dlvy_req_dt_reas_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_dlvy_req_dt_reas_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/pur_dlvy_req_dt_reas_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

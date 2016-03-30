@@ -1,65 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10606" context="bootstrap,demo,unit">
-    <insert tableName="pur_phn_typ_t">
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[FX]]></column>
-      <column name="OBJ_ID"><![CDATA[186D917D-3E28-4A55-ACCA-806A0DF12D76]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_PHN_TYP_DESC"><![CDATA[FAX]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_phn_typ_t">
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[MB]]></column>
-      <column name="OBJ_ID"><![CDATA[89481C07-8666-B6BA-8FD5-A8D24EB78851]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_PHN_TYP_DESC"><![CDATA[MOBILE]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_phn_typ_t">
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PG]]></column>
-      <column name="OBJ_ID"><![CDATA[8115E355-677C-A427-64BD-B70582243606]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_PHN_TYP_DESC"><![CDATA[PAGER]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_phn_typ_t">
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PH]]></column>
-      <column name="OBJ_ID"><![CDATA[F7BF0ABD-608E-BF70-8A40-469DF73BAEA0]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_PHN_TYP_DESC"><![CDATA[PHONE NUMBER]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_phn_typ_t">
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PO]]></column>
-      <column name="OBJ_ID"><![CDATA[ADF65BDC-6630-7576-61BD-34D97AC9BEDB]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_PHN_TYP_DESC"><![CDATA[PURCHASE ORDER]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_phn_typ_t">
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[TF]]></column>
-      <column name="OBJ_ID"><![CDATA[8C48A5BE-0312-01EB-5323-A1417A1555E1]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_PHN_TYP_DESC"><![CDATA[TOLL FREE]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_phn_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_phn_typ_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_phn_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

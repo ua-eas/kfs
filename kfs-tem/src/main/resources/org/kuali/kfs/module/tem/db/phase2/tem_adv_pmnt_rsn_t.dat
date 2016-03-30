@@ -1,0 +1,7 @@
+HEADER[~&~	~&~CODE::VARCHAR~&~	~&~DESCRIPTION::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'01'~&~	~&~'Special handling, group leader'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2416495898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'02'~&~	~&~'Not eligible for corporate card program, students and non-employees'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24164A5898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'03'~&~	~&~'Corporate card not yet issued/rejected'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24164B5898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'04'~&~	~&~'Expenses incurred before trip that need to be paid'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24164C5898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'05'~&~	~&~'Foreign travel - Per Diem'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24164D5898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'06'~&~	~&~'Other (requires free form text)'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24164E5898E040540A5EFD3A74'~&~	~&~]RECORD

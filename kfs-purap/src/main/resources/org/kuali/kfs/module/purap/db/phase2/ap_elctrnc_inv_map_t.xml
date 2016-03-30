@@ -1,83 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10013" context="demo,unit">
-    <insert tableName="ap_elctrnc_inv_map_t">
-      <column name="AP_ELCTRNC_INV_MAP_ID"><![CDATA[100]]></column>
-      <column name="OBJ_ID"><![CDATA[76DB3ECCFD704AC1E0404F8189D87867]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="INV_ITM_TYP_CD"><![CDATA[TAX]]></column>
-      <column name="ITM_TYP_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_elctrnc_inv_map_t">
-      <column name="AP_ELCTRNC_INV_MAP_ID"><![CDATA[101]]></column>
-      <column name="OBJ_ID"><![CDATA[76DB3ECCFD6F4AC1E0404F8189D87867]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="INV_ITM_TYP_CD"><![CDATA[SPHD]]></column>
-      <column name="ITM_TYP_CD"><![CDATA[SPHD]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_elctrnc_inv_map_t">
-      <column name="AP_ELCTRNC_INV_MAP_ID"><![CDATA[102]]></column>
-      <column name="OBJ_ID"><![CDATA[76DB3ECCFD6E4AC1E0404F8189D87867]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="INV_ITM_TYP_CD"><![CDATA[SHIP]]></column>
-      <column name="ITM_TYP_CD"><![CDATA[FRHT]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_elctrnc_inv_map_t">
-      <column name="AP_ELCTRNC_INV_MAP_ID"><![CDATA[103]]></column>
-      <column name="OBJ_ID"><![CDATA[76DB3ECCFD6D4AC1E0404F8189D87867]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="INV_ITM_TYP_CD"><![CDATA[DISC]]></column>
-      <column name="ITM_TYP_CD"><![CDATA[DISC]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_elctrnc_inv_map_t">
-      <column name="AP_ELCTRNC_INV_MAP_ID"><![CDATA[104]]></column>
-      <column name="OBJ_ID"><![CDATA[76DB3ECCFD6C4AC1E0404F8189D87867]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="INV_ITM_TYP_CD"><![CDATA[ITEM]]></column>
-      <column name="ITM_TYP_CD"><![CDATA[ITEM]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_elctrnc_inv_map_t">
-      <column name="AP_ELCTRNC_INV_MAP_ID"><![CDATA[106]]></column>
-      <column name="OBJ_ID"><![CDATA[9A559E1D3D6DD8EAE040007F010047C6]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="INV_ITM_TYP_CD"><![CDATA[EXMT]]></column>
-      <column name="ITM_TYP_CD"><![CDATA[EXMT]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_ap_elctrnc_inv_map_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ap_elctrnc_inv_map_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/ap_elctrnc_inv_map_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

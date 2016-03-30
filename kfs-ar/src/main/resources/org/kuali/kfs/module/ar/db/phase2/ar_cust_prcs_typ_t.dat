@@ -1,0 +1,5 @@
+HEADER[~&~	~&~CUST_SPCL_PRCS_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CUST_SPCLPRCS_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'H'~&~	~&~'48A7ED7FC2DFFC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Hope'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LL'~&~	~&~'48A7ED7FC2E0FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Lifetime Learning'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'48A7ED7FC2E1FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'None'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'O'~&~	~&~'48A7ED7FC2E2FC83E0404F8189D860FE'~&~	~&~'1'~&~	~&~'Other'~&~	~&~'Y'~&~	~&~]RECORD

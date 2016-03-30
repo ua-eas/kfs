@@ -1,95 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10082" context="demo,unit">
-    <insert tableName="ar_inv_tmplt_t">
-      <column name="INV_TMPLT_CD"><![CDATA[1034/1035]]></column>
-      <column name="OBJ_ID"><![CDATA[0D2EC7D0-7D89-5831-0FBD-AD2C80D93221]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INV_TMPLT_DESC"><![CDATA[Federal 1034/1035]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FILE_NM" value="null"/>
-      <column name="RSTRC_USE_BY_COA_ORG_IND" value="null"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-    </insert>
-    <insert tableName="ar_inv_tmplt_t">
-      <column name="INV_TMPLT_CD"><![CDATA[270]]></column>
-      <column name="OBJ_ID"><![CDATA[43CEE067-D884-3048-DBFA-1C2E3B9668F2]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INV_TMPLT_DESC"><![CDATA[Restricted Use BL/SRS]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FILE_NM"><![CDATA[Invoice_Template_270.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[Y]]></column>
-      <column name="BILL_BY_COA_CD"><![CDATA[BL]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[SRS]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-    </insert>
-    <insert tableName="ar_inv_tmplt_t">
-      <column name="INV_TMPLT_CD"><![CDATA[CMS]]></column>
-      <column name="OBJ_ID"><![CDATA[9C7CC060-33F8-160A-C0FE-DE25D7F1F9B5]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INV_TMPLT_DESC"><![CDATA[Combined Milestone]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FILE_NM" value="null"/>
-      <column name="RSTRC_USE_BY_COA_ORG_IND" value="null"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-    </insert>
-    <insert tableName="ar_inv_tmplt_t">
-      <column name="INV_TMPLT_CD"><![CDATA[NEWSTD]]></column>
-      <column name="OBJ_ID"><![CDATA[0d6a5636-0283-4fbd-b50e-cd3e61458e4d]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="INV_TMPLT_DESC"><![CDATA[Kuali Univ Std Invoice Template]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FILE_NM"><![CDATA[Invoice_Template_NEWSTD.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-    </insert>
-    <insert tableName="ar_inv_tmplt_t">
-      <column name="INV_TMPLT_CD"><![CDATA[SCHD]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C25-B7A8-AF03-9196-03852497103A]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INV_TMPLT_DESC"><![CDATA[Scheduled-BL/SRS]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FILE_NM"><![CDATA[Invoice_Template_SCHD.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="BILL_BY_COA_CD"><![CDATA[BL]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[SRS]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-    </insert>
-    <insert tableName="ar_inv_tmplt_t">
-      <column name="INV_TMPLT_CD"><![CDATA[STD]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C24-9C76-703D-41E2-F6B2D48CEA49]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INV_TMPLT_DESC"><![CDATA[Standard]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FILE_NM"><![CDATA[Invoice_Template_STD.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-    </insert>
+  <changeSet id="IMPORT_ar_inv_tmplt_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ar_inv_tmplt_t"/>
+      <param name="file" value="org/kuali/kfs/module/ar/db/phase2/ar_inv_tmplt_t.dat"/>
+    </customChange>
   </changeSet>
 </databaseChangeLog>

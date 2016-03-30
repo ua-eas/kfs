@@ -1,0 +1,6 @@
+HEADER[~&~	~&~VNDR_W8_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~VNDR_W8_TYP_DESC::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'01'~&~	~&~'KFSTP-1359-1'~&~	~&~'1'~&~	~&~'W-8BEN'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'02'~&~	~&~'KFSTP-1359-2'~&~	~&~'1'~&~	~&~'W-8BEN-E'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'03'~&~	~&~'KFSTP-1359-3'~&~	~&~'1'~&~	~&~'W-8ECI'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'04'~&~	~&~'KFSTP-1359-4'~&~	~&~'1'~&~	~&~'W-8EXP'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'05'~&~	~&~'KFSTP-1359-5'~&~	~&~'1'~&~	~&~'W-8IMY'~&~	~&~'Y'~&~	~&~]RECORD

@@ -1,65 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10728" context="demo,unit">
-    <insert tableName="tem_adv_pmnt_rsn_t">
-      <column name="CODE"><![CDATA[01]]></column>
-      <column name="DESCRIPTION"><![CDATA[Special handling, group leader]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416495898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_adv_pmnt_rsn_t">
-      <column name="CODE"><![CDATA[02]]></column>
-      <column name="DESCRIPTION"><![CDATA[Not eligible for corporate card program, students and non-employees]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24164A5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_adv_pmnt_rsn_t">
-      <column name="CODE"><![CDATA[03]]></column>
-      <column name="DESCRIPTION"><![CDATA[Corporate card not yet issued/rejected]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24164B5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_adv_pmnt_rsn_t">
-      <column name="CODE"><![CDATA[04]]></column>
-      <column name="DESCRIPTION"><![CDATA[Expenses incurred before trip that need to be paid]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24164C5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_adv_pmnt_rsn_t">
-      <column name="CODE"><![CDATA[05]]></column>
-      <column name="DESCRIPTION"><![CDATA[Foreign travel - Per Diem]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24164D5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_adv_pmnt_rsn_t">
-      <column name="CODE"><![CDATA[06]]></column>
-      <column name="DESCRIPTION"><![CDATA[Other (requires free form text)]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24164E5898E040540A5EFD3A74]]></column>
-    </insert>
+  <changeSet id="IMPORT_tem_adv_pmnt_rsn_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="tem_adv_pmnt_rsn_t" />
+      <param name="file" value="org/kuali/kfs/module/tem/db/phase2/tem_adv_pmnt_rsn_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

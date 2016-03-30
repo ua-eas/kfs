@@ -1,0 +1,23 @@
+HEADER[~&~	~&~AST_RETIRE_REAS_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~AST_RETIRE_REAS_NM::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~AST_RETIRE_REAS_RSTR_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'0'~&~	~&~'44F39C472EF3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Credit'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'1'~&~	~&~'44F39C472EF4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Sold'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'44F39C472EF5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Trade-in'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'44F39C472EF6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Lost'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'4'~&~	~&~'44F39C472EF7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Discarded'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'5'~&~	~&~'44F39C472EF8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Cannibalized'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'6'~&~	~&~'44F39C472EF9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Gift'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'7'~&~	~&~'44F39C472EFA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Theft'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'8'~&~	~&~'44F39C472EFB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Destroyed'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'9'~&~	~&~'44F39C472EFC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'External Transfer'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'A'~&~	~&~'44F39C472EFD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Auction (public surplus auction)'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'B'~&~	~&~'44F39C472EFE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Batch Retirement Ast Purchased <= 7/1/96'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'C'~&~	~&~'44F39C472EFF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Check Canceled'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'D'~&~	~&~'44F39C472F00409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Batch Retirement Ast Purchased > 7/1/96'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'E'~&~	~&~'44F39C472F01409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Asset Created in Error'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'F'~&~	~&~'44F39C472F05409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Batch Retirement Ast < $5000.00 FY 2003'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'H'~&~	~&~'44F39C472F06409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Retirement of Control Assets'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'J'~&~	~&~'44F39C472F02409CE043814FD881409C'~&~	~&~'1'~&~	~&~'General Error Correction'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'M'~&~	~&~'44F39C472F03409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Merged'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'P'~&~	~&~'44F39C472F07409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Plant Fund Retirement'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'44F39C472F08409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Razed'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'S'~&~	~&~'44F39C472F04409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Asset Separated Retirement'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD

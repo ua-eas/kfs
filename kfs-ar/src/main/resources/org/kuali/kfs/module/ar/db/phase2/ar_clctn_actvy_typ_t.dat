@@ -1,0 +1,28 @@
+HEADER[~&~	~&~CLCTN_ACTVY_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ACTVY_DESC::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'CFPI'~&~	~&~'EDC0BE4713E53031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Call From Project Director'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CFSR'~&~	~&~'EDC0BE4713E63031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Call From Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CMPD'~&~	~&~'08B0BE239376A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Completed'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CMTS'~&~	~&~'EDC0BE4713E73031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Call Made to Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ERFS'~&~	~&~'EDC0BE4713E83031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Email Received From Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ESTS'~&~	~&~'EDC0BE4713E93031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Email Sent To Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FDCL'~&~	~&~'08B0BE239369A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Final Disposition - Invoice Closed'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FDPP'~&~	~&~'08B0BE23936AA12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Final Disposition - Invoice Partially Paid'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FRFS'~&~	~&~'EDC0BE4713EA3031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Fax Received From Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FRSS'~&~	~&~'EDC0BE4713EB3031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Financial Report Sent To Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'JRND'~&~	~&~'08B0BE239373A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Judgement Rendered'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LRFS'~&~	~&~'EDC0BE4713EC3031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Letter Received From Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LSTS'~&~	~&~'EDC0BE4713ED3031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Letter Sent To Sponsor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PMRC'~&~	~&~'08B0BE239374A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Payment Recovered'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RCPP'~&~	~&~'08B0BE239375A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Recovered Payment Pending'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RTAR'~&~	~&~'08B0BE239371A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Refer to AR for Write-off'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RTCA'~&~	~&~'08B0BE23936BA12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Refer to Collection Admin'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RTCC'~&~	~&~'08B0BE23936EA12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Refer to Central Collections'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RTCM'~&~	~&~'08B0BE23936CA12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Refer to Collection Manager'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RTOA'~&~	~&~'08B0BE23936DA12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Refer to Outside Collection Agency'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RTRA'~&~	~&~'08B0BE23936FA12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Refer to Research Administration'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RTSA'~&~	~&~'08B0BE239370A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Refer to State Agency'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SCTR'~&~	~&~'EDC0BE4713F23031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Special Collection Team Review'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SPBK'~&~	~&~'08B0BE239372A12EE050E00ABCD63571'~&~	~&~'1'~&~	~&~'Sponsor in Bankruptcy'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TODO'~&~	~&~'EDC0BE4713EE3031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'My To Do Activity'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TTSC'~&~	~&~'EDC0BE4713F03031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Transfer To Special Collection'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TTST'~&~	~&~'EDC0BE4713F13031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'Transferred To State'~&~	~&~'Y'~&~	~&~]RECORD

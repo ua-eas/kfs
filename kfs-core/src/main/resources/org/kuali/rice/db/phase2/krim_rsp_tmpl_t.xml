@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,26 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00113" context="bootstrap,demo,unit">
-    <insert tableName="krim_rsp_tmpl_t">
-      <column name="RSP_TMPL_ID"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[5ADFE172441D6320E0404F8189D85169]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
-      <column name="NM"><![CDATA[Review]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[7]]></column>
-      <column name="DESC_TXT" value="null"/>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_rsp_tmpl_t">
-      <column name="RSP_TMPL_ID"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[60432A73A6A49F65E0404F8189D86AA4]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NMSPC_CD"><![CDATA[KR-WKFLW]]></column>
-      <column name="NM"><![CDATA[Resolve Exception]]></column>
-      <column name="KIM_TYP_ID"><![CDATA[54]]></column>
-      <column name="DESC_TXT" value="null"/>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_krim_rsp_tmpl_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krim_rsp_tmpl_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krim_rsp_tmpl_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

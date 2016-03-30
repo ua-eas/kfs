@@ -1,87 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10211" context="bootstrap,demo,unit">
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[A]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472ED6409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Non Capital]]></column>
-      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[C]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472ED7409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Fabrication (University Constructed)]]></column>
-      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[F]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472ED8409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Found]]></column>
-      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[4997]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[G]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472ED9409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Gift]]></column>
-      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[1175]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[N]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472EDA409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[New]]></column>
-      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[P]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472EDB409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Pre-Asset Tagging]]></column>
-      <column name="CPTLAST_INC_OBJ_CD" value="null"/>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[S]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472EDC409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Cptl Transfer-in Federally/Other Owned]]></column>
-      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[1185]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cm_acq_type_t">
-      <column name="CPTLAST_ACQ_TYP_CD"><![CDATA[T]]></column>
-      <column name="OBJ_ID"><![CDATA[44F39C472EDD409CE043814FD881409C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTLAST_ACQ_TYP_NM"><![CDATA[Transferred from other Univ. or Federal]]></column>
-      <column name="CPTLAST_INC_OBJ_CD"><![CDATA[1175]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_cm_acq_type_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="cm_acq_type_t" />
+      <param name="file" value="org/kuali/kfs/module/cam/db/phase2/cm_acq_type_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

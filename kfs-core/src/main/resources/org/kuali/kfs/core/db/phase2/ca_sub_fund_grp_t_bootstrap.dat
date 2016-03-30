@@ -1,0 +1,26 @@
+HEADER[~&~	~&~SUB_FUND_GRP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FUND_GRP_CD::VARCHAR~&~	~&~SUB_FUND_GRP_DESC::VARCHAR~&~	~&~SUBFUNDGRP_ACTV_CD::VARCHAR~&~	~&~SUB_FUNDGRP_TYP_CD::VARCHAR~&~	~&~FIN_REPORT_SORT_CD::VARCHAR~&~	~&~SUB_FUND_GRP_WAGE_IND::VARCHAR~&~	~&~FND_GRP_BA_RSTR_LVL_CD::VARCHAR~&~	~&~ACCT_RSTRC_STAT_CD::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'GENFND'~&~	~&~'015D880780C26C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'GF'~&~	~&~'GENERAL FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'01'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'DCEDU'~&~	~&~'015D880780996C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'DS'~&~	~&~'CONTINUING EDUCATION'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'03'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'DOFDS'~&~	~&~'015D8807809B6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'DS'~&~	~&~'DESIGNATED OTHER FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'06'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'DPSA'~&~	~&~'015D8807809C6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'DS'~&~	~&~'PUBLIC SERVICE ACTIVITY'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'04'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'DSCFE'~&~	~&~'015D8807809D6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'DS'~&~	~&~'SCHOLARSHIP & FELLOWSHIPS - UNRESTRICTED'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'07'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'RESFEL'~&~	~&~'015D880781006C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'RF'~&~	~&~'FELLOWSHIPS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'09'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'RESSCH'~&~	~&~'015D880781016C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'RF'~&~	~&~'SCHOLARSHIPS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'08'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'ROFDS'~&~	~&~'015D880781056C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'RF'~&~	~&~'RESTRICTED OTHER FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'HIEDUA'~&~	~&~'015D880780C36C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CG'~&~	~&~'HIGHER EDUCATION'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'13'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'FEDERA'~&~	~&~'015D880780A06C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CG'~&~	~&~'FEDERAL'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'14'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'CLEAR'~&~	~&~'015D880780796C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CL'~&~	~&~'CLEARING AND ROTATING FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'25'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'COMMEA'~&~	~&~'015D8807807A6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CG'~&~	~&~'COMMERCIAL/FOR PROFIT'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'STATEA'~&~	~&~'015D880781086C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CG'~&~	~&~'STATE FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'16'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'FOUNDA'~&~	~&~'015D880780B26C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CG'~&~	~&~'FOUNDATIONS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'17'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'NONPRA'~&~	~&~'015D880780DB6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CG'~&~	~&~'NON-PROFIT'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'18'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'OTGOVA'~&~	~&~'015D880780EB6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'CG'~&~	~&~'OTHER GOVERNMENTAL'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'19'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'AUXENT'~&~	~&~'015D880780766C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'AE'~&~	~&~'AUXILIARY ENTERPRISES'~&~	~&~'Y'~&~	~&~'A'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'LOANFD'~&~	~&~'015D880780D66C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'LF'~&~	~&~'LOAN FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'26'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'ENDOW'~&~	~&~'015D8807809E6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'EN'~&~	~&~'ENDOWMENTS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'27'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'PFCMR'~&~	~&~'015D880780FC6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'PF'~&~	~&~'CONSTRUCTION & MAJOR REMODELING'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'33'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'PFIP'~&~	~&~'015D880780FD6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'PF'~&~	~&~'INVESTMENT IN PLANT'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'36'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'PFRI'~&~	~&~'015D880780FE6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'PF'~&~	~&~'RETIREMENT OF INDEBTEDNESS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'34'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'PFRR'~&~	~&~'015D880780FF6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'PF'~&~	~&~'RENEWAL AND REPLACEMENT'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'35'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'EXTAGY'~&~	~&~'015D8807809F6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'AF'~&~	~&~'EXTERNAL AGENCY FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'38'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'OTHFDS'~&~	~&~'015D880780FB6C10E043814FD8816C10'~&~	~&~'1'~&~	~&~'OF'~&~	~&~'OTHER FUNDS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'40'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD

@@ -1,79 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10184" context="bootstrap,demo,unit">
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[D]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044E3BBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[Foundations]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[F]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044E4BBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[Federal]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[G]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044E5BBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[Other Governmental]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[H]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044E6BBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[Higher Education]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[I]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044E7BBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[Commercial/For Profit]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[P]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044E8BBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[Non-Profit]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[S]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044E9BBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[State of Indiana]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_agency_typ_t">
-      <column name="CG_AGENCY_TYP_CD"><![CDATA[U]]></column>
-      <column name="OBJ_ID"><![CDATA[0292B10044EABBDEE043814FD881BBDE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CG_AGENCY_TYP_DESC"><![CDATA[University Internal]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_cg_agency_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="cg_agency_typ_t" />
+      <param name="file" value="org/kuali/kfs/module/cg/db/phase2/cg_agency_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

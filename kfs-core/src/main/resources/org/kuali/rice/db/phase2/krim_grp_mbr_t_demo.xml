@@ -1,60 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet context="demo,unit" author="kfs" id="ricedata00088">
-    <insert tableName="krim_grp_mbr_t">
-      <column name="GRP_MBR_ID"><![CDATA[1122]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B04CB6110E0404F8189D85213]]></column>
-      <column name="GRP_ID"><![CDATA[2000]]></column>
-      <column name="MBR_ID"><![CDATA[notsysadm]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
-    </insert>
-    <insert tableName="krim_grp_mbr_t">
-      <column name="GRP_MBR_ID"><![CDATA[1123]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B04CC6110E0404F8189D85213]]></column>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="MBR_ID"><![CDATA[admin]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
-    </insert>
-    <insert tableName="krim_grp_mbr_t">
-      <column name="GRP_MBR_ID"><![CDATA[1124]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B04CD6110E0404F8189D85213]]></column>
-      <column name="GRP_ID"><![CDATA[1]]></column>
-      <column name="MBR_ID"><![CDATA[notsys]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" valueDate="2008-12-08 12:49:57.0"/>
-    </insert>
-    <insert tableName="krim_grp_mbr_t">
-      <column name="GRP_MBR_ID"><![CDATA[1207]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[6798B3E6C3C49827AE62E5F7A275A1A3]]></column>
-      <column name="GRP_ID"><![CDATA[2000]]></column>
-      <column name="MBR_ID"><![CDATA[admin]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" valueDate="2009-08-11 08:59:07.0"/>
-    </insert>
-    <insert tableName="krim_grp_mbr_t">
-      <column name="GRP_MBR_ID"><![CDATA[KFS10001]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS1001]]></column>
-      <column name="GRP_ID"><![CDATA[KFS10000]]></column>
-      <column name="MBR_ID"><![CDATA[1959008511]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" value="null"/>
-    </insert>
+  <changeSet id="IMPORT_krim_grp_mbr_t_demo_unit" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krim_grp_mbr_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krim_grp_mbr_t_demo.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

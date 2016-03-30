@@ -1,0 +1,9 @@
+HEADER[~&~	~&~CG_AGENCY_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CG_AGENCY_TYP_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'D'~&~	~&~'0292B10044E3BBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'Foundations'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'F'~&~	~&~'0292B10044E4BBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'Federal'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'G'~&~	~&~'0292B10044E5BBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'Other Governmental'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'H'~&~	~&~'0292B10044E6BBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'Higher Education'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'I'~&~	~&~'0292B10044E7BBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'Commercial/For Profit'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'P'~&~	~&~'0292B10044E8BBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'Non-Profit'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'S'~&~	~&~'0292B10044E9BBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'State of Indiana'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'U'~&~	~&~'0292B10044EABBDEE043814FD881BBDE'~&~	~&~'1'~&~	~&~'University Internal'~&~	~&~'Y'~&~	~&~]RECORD

@@ -1,93 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10682" context="bootstrap,demo,unit">
-    <insert tableName="pur_vndr_typ_t">
-      <column name="VNDR_TYP_CD"><![CDATA[DV]]></column>
-      <column name="OBJ_ID"><![CDATA[28802CB4F25B7160E043814FD8817160]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_TYP_DESC"><![CDATA[Disbursement Voucher]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_TAX_NBR_REQ_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_TYP_CHG_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_ADDR_TYP_REQ_CD"><![CDATA[RM]]></column>
-      <column name="VNDR_CONTR_ALLW_IND" value="null"/>
-      <column name="VNDR_SHOW_RVW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_RVW_TXT"><![CDATA[The new vendor, {0}, is about to be routed.[br] The vendor's document ID is {1}.[br] [br] Please fax your W-9/W-8BEN documentation to 111-111-1111 and reference the Vendor document number on the form. [br] [br] For inquiries regarding vendor additions, changes or other vendor-related requests, please contact the workgroup at 222-222-2222 or email <a href="mailto:knoreceipt-l@indiana.edu">knoreceipt-l@indiana.edu</a>. [br] [br] For general questions, please contact your local purchasing office. [br] [br] [table dataTable] [tr] [th]Campus[th] [th]Hotline[th][tr] [tr][td]Main[td][td]333-333-3333[td][tr] [tr][td]East[td][td]444-444-4444[td][tr] [tr][td]West[td][td]555-555-5555[td][tr] [table] [br] [br] Press "yes" below if you understand these instructions. Press "no" if you wish to return to the document before routing.]]></column>
-      <column name="PUR_COMM_REQ_IND" value="null"/>
-    </insert>
-    <insert tableName="pur_vndr_typ_t">
-      <column name="VNDR_TYP_CD"><![CDATA[PO]]></column>
-      <column name="OBJ_ID"><![CDATA[28802CB4F25C7160E043814FD8817160]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_TYP_DESC"><![CDATA[Purchase Order]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_TAX_NBR_REQ_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_TYP_CHG_ALLW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_ADDR_TYP_REQ_CD"><![CDATA[PO]]></column>
-      <column name="VNDR_CONTR_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_SHOW_RVW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_RVW_TXT"><![CDATA[The new vendor, {0}, is about to be routed.[br] The vendor's document ID is {1}.[br] [br] Please fax your W-9/W-8BEN documentation to 111-111-1111 and reference the Vendor document number on the form. [br] [br] For inquiries regarding vendor additions, changes or other vendor-related requests, please contact the workgroup at 222-222-2222 or email <a href="mailto:knoreceipt-l@indiana.edu">knoreceipt-l@indiana.edu</a>. [br] [br] For general questions, please contact your local purchasing office. [br] [br] [table dataTable] [tr] [th]Campus[th] [th]Hotline[th][tr] [tr][td]Main[td][td]333-333-3333[td][tr] [tr][td]East[td][td]444-444-4444[td][tr] [tr][td]West[td][td]555-555-5555[td][tr] [table] [br] [br] Press "yes" below if you understand these instructions. Press "no" if you wish to return to the document before routing.]]></column>
-      <column name="PUR_COMM_REQ_IND" value="null"/>
-    </insert>
-    <insert tableName="pur_vndr_typ_t">
-      <column name="VNDR_TYP_CD"><![CDATA[RF]]></column>
-      <column name="OBJ_ID"><![CDATA[472546B2AA876AEAE0404F8189D80544]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_TYP_DESC"><![CDATA[Revolving Fund]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_TAX_NBR_REQ_IND"><![CDATA[N]]></column>
-      <column name="VNDR_TYP_CHG_ALLW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_ADDR_TYP_REQ_CD"><![CDATA[RM]]></column>
-      <column name="VNDR_CONTR_ALLW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_SHOW_RVW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_RVW_TXT" value="null"/>
-      <column name="PUR_COMM_REQ_IND" value="null"/>
-    </insert>
-    <insert tableName="pur_vndr_typ_t">
-      <column name="VNDR_TYP_CD"><![CDATA[RV]]></column>
-      <column name="OBJ_ID"><![CDATA[KFSCNTRB-1702]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_TYP_DESC"><![CDATA[Refund Vendor]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_TAX_NBR_REQ_IND"><![CDATA[N]]></column>
-      <column name="VNDR_TYP_CHG_ALLW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_ADDR_TYP_REQ_CD"><![CDATA[RM]]></column>
-      <column name="VNDR_CONTR_ALLW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_SHOW_RVW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_RVW_TXT" value="null"/>
-      <column name="PUR_COMM_REQ_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="pur_vndr_typ_t">
-      <column name="VNDR_TYP_CD"><![CDATA[SP]]></column>
-      <column name="OBJ_ID"><![CDATA[472546B2AA886AEAE0404F8189D80544]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_TYP_DESC"><![CDATA[Participant Payment]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VNDR_TAX_NBR_REQ_IND"><![CDATA[N]]></column>
-      <column name="VNDR_TYP_CHG_ALLW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_ADDR_TYP_REQ_CD"><![CDATA[RM]]></column>
-      <column name="VNDR_CONTR_ALLW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_SHOW_RVW_IND"><![CDATA[N]]></column>
-      <column name="VNDR_RVW_TXT" value="null"/>
-      <column name="PUR_COMM_REQ_IND" value="null"/>
-    </insert>
+  <changeSet id="IMPORT_pur_vndr_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_vndr_typ_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_vndr_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

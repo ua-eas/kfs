@@ -1,86 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10609" context="demo,unit">
-    <insert tableName="pur_po_contr_lang_t">
-      <column name="PO_CONTR_LANG_ID"><![CDATA[1000]]></column>
-      <column name="OBJ_ID"><![CDATA[F517E488-1C72-0C15-C109-15B3F6C1457B]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CMP_CD"><![CDATA[IX]]></column>
-      <column name="PO_CONTR_LANG_DESC"><![CDATA[UCSB Net 30 Test to see if duplicate error message is given]]></column>
-      <column name="CONTR_LANG_CRTE_DT" valueDate="2007-05-08 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_contr_lang_t">
-      <column name="PO_CONTR_LANG_ID"><![CDATA[1001]]></column>
-      <column name="OBJ_ID"><![CDATA[BBF01331-0AD3-DED6-62AA-0E0626B377B5]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CMP_CD"><![CDATA[KO]]></column>
-      <column name="PO_CONTR_LANG_DESC"><![CDATA[2nd test for duplicate error message]]></column>
-      <column name="CONTR_LANG_CRTE_DT" valueDate="2007-05-08 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_contr_lang_t">
-      <column name="PO_CONTR_LANG_ID"><![CDATA[1002]]></column>
-      <column name="OBJ_ID"><![CDATA[43FE30A3-023B-6E11-A076-3CF8B406D498]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="CMP_CD"><![CDATA[IX]]></column>
-      <column name="PO_CONTR_LANG_DESC"><![CDATA[This PO is serious business, no laughing when fillng the order.]]></column>
-      <column name="CONTR_LANG_CRTE_DT" valueDate="2007-05-08 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_contr_lang_t">
-      <column name="PO_CONTR_LANG_ID"><![CDATA[1003]]></column>
-      <column name="OBJ_ID"><![CDATA[1C21FFD7-35F7-EFAB-E2FA-B936E4C68324]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CMP_CD"><![CDATA[BL]]></column>
-      <column name="PO_CONTR_LANG_DESC"><![CDATA[Attention IUPUI Suppliers: Please be advised of the new IUPUI Tobacco Policy. Effective August 14, 2006 Tobacco use or sale, including, but not limited to smoking, is prohibited on university-owned, -operated, -or leased property. This policy applies to anyone on campus. Inclusive are Patients, visitors, faculty, staff, volunteers, physicians, students, contract/other employees, contractors/suppliers/vendors and service representatives. For further information we refer you to: http://www.iupui.edu/~nosmoke/.]]></column>
-      <column name="CONTR_LANG_CRTE_DT" valueDate="2007-05-08 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_contr_lang_t">
-      <column name="PO_CONTR_LANG_ID"><![CDATA[1004]]></column>
-      <column name="OBJ_ID"><![CDATA[35B62310-EAD3-6C39-8F43-DBD5BA02F3BF]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CMP_CD"><![CDATA[BX]]></column>
-      <column name="PO_CONTR_LANG_DESC"><![CDATA[University policy prohibits discriminatory practices in regard to race, color, religion, sex, national origin, age, disability, sexual orientation, marital status or veteran status.]]></column>
-      <column name="CONTR_LANG_CRTE_DT" valueDate="2007-05-08 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="pur_po_contr_lang_t">
-      <column name="PO_CONTR_LANG_ID"><![CDATA[1005]]></column>
-      <column name="OBJ_ID"><![CDATA[9C7FB55A-CAD3-A1EC-0E12-B17E1CC1238E]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CMP_CD"><![CDATA[BL]]></column>
-      <column name="PO_CONTR_LANG_DESC"><![CDATA[Invoices must be sent showing purchase order number to someone who has money to pay for the purchase.]]></column>
-      <column name="CONTR_LANG_CRTE_DT" valueDate="2007-05-08 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_contr_lang_t">
-      <column name="PO_CONTR_LANG_ID"><![CDATA[1006]]></column>
-      <column name="OBJ_ID"><![CDATA[F95E9396-0218-0E35-3EBC-7E57984F4BBB]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CMP_CD"><![CDATA[BL]]></column>
-      <column name="PO_CONTR_LANG_DESC"><![CDATA[All deliveries are to be made to the address and room number as listed above.]]></column>
-      <column name="CONTR_LANG_CRTE_DT" valueDate="2007-05-08 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_po_contr_lang_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_po_contr_lang_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/pur_po_contr_lang_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

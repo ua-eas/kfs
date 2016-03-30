@@ -1,0 +1,448 @@
+HEADER[~&~	~&~CPTLAST_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CPTLAST_TYP_DESC::VARCHAR~&~	~&~CPTLAST_DEPRLF_LMT::DECIMAL~&~	~&~CPTLAST_MOVING_CD::VARCHAR~&~	~&~CPTLAST_RQDBLDG_CD::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'07000'~&~	~&~'44F39C473078409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PHOTO COPIER SMALL (COPIES PER MONTH 1 - 49,999) FY 07 AHA REVIEW'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07001'~&~	~&~'44F39C473079409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PHOTO COPIER LARGE (COPIES PER MONTH 50,000) FY 07 AHA REVIEW'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07002'~&~	~&~'44F39C47307A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FAX (FY 07 AHA REVIEW)'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07003'~&~	~&~'44F39C47307C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MICROSCOPE (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07004'~&~	~&~'44F39C47307D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TELESCOPE (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07005'~&~	~&~'44F39C47307F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PIANO (FY 07 AHA REVIEW)'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07006'~&~	~&~'44F39C47307E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ORGANS (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07007'~&~	~&~'44F39C4730CA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WASHING MACHINE COMMERCIAL SMALL (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07008'~&~	~&~'44F39C4730CB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WASHING MACHINE DOMESTIC (FY 07 AHA REVIEW)'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07009'~&~	~&~'44F39C4730CC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WASHING MACHINE COMMERCIAL LARGE (FY 07 AHA REVIEW)'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07108'~&~	~&~'44F39C4730BD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DESK, METAL OR WOOD, ALL (FY 07 AHA REVIEW)'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07154'~&~	~&~'44F39C4730AF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BED, ELECTRICAL OR MANUAL (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07203'~&~	~&~'44F39C4730B6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CENTRIFUGE, BENCH MODEL (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07207'~&~	~&~'44F39C4730B2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CAMERA, STILL (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07210'~&~	~&~'44F39C4730B4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CASH REGISTER (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07211'~&~	~&~'44F39C473075409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WORKSTATION (FURNITURE) FY 07 AHA REVIEW'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07216'~&~	~&~'44F39C473067409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PRINTER (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07219'~&~	~&~'44F39C4730C0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DISK DRIVES, CONTROLLERS (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07221'~&~	~&~'44F39C4730C4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DUPLICATOR (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07223'~&~	~&~'44F39C4730CD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SHAKING MACHINE (VORTEXER)  AHA REIVEW FY 07'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07232'~&~	~&~'44F39C47306E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCALES, ALL (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07236'~&~	~&~'44F39C4730B1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CAMERA, MOVIE OR TV (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07244'~&~	~&~'44F39C4730BA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CUTTER/SHREDDER, PAPER (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07253'~&~	~&~'44F39C47306B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RECORDER, TV VIDEO, CAMCORDER (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07309'~&~	~&~'44F39C4730AD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTOCLAVE (FY 07 AHA REVIEW )'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07315'~&~	~&~'44F39C4730B0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BLOOD PRESSURE UNIT (FY 07 AHA REVIEW)'~&~	~&~'6'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07316'~&~	~&~'44F39C4730AE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BATH, ALL LABORATORY /CIRCULATOR (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07320'~&~	~&~'44F39C473061409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MONITOR, MEDICAL/SCIENTIFIC (FY 07 AHA REVIEW)'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07321'~&~	~&~'44F39C4730B8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COUNTER, BLOOD CELL (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07322'~&~	~&~'44F39C4730AC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ANALYZER, BLOOD GAS (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07333'~&~	~&~'44F39C4730B5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CENTRIFUGE (FY 07 AHA REVIEW )'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07334'~&~	~&~'44F39C473050409CE043814FD881409C'~&~	~&~'1'~&~	~&~'GAS CHROMATOGRAPH (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07337'~&~	~&~'44F39C4730B7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COLORIMETER (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07338'~&~	~&~'44F39C4730A9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AIR COMPRESSOR (FY 07 AHA REVIEW)'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07339'~&~	~&~'44F39C473071409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TESTER, CONDUCTIVITY (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07343'~&~	~&~'44F39C4730B9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CRYOSTAT (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07350'~&~	~&~'44F39C4730BB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DEFIBRILLATOR (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07351'~&~	~&~'44F39C4730BC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DENSITOMETER (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07357'~&~	~&~'44F39C4730C2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DISTILLING APPARATUS (FY 07 AHA REVIEW)'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07360'~&~	~&~'44F39C4730C5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ELECTROCARDIOGRAPH (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07361'~&~	~&~'44F39C4730C6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ELECTROENCEPHALOGRAPH (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07362'~&~	~&~'44F39C4730C8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ELECTROMYOGRAPHY (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07363'~&~	~&~'44F39C4730C9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ELECTROPHORESIS UNIT (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07364'~&~	~&~'44F39C47304C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ELECTROSURGICAL UNIT (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07374'~&~	~&~'44F39C473054409CE043814FD881409C'~&~	~&~'1'~&~	~&~'HEMOGLBINOMETER (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07375'~&~	~&~'44F39C473053409CE043814FD881409C'~&~	~&~'1'~&~	~&~'HEMODIALYSIS UNIT (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07382'~&~	~&~'44F39C473056409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ILLUMINATOR UNIT, MULTIFILM OR SINGLE (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07388'~&~	~&~'44F39C473057409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INHALATOR (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07390'~&~	~&~'44F39C4730BF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'KIDNEY DIALYZER (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07391'~&~	~&~'44F39C473058409CE043814FD881409C'~&~	~&~'1'~&~	~&~'KILN (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07399'~&~	~&~'44F39C47305A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LIFTER, PATIENT (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07405'~&~	~&~'44F39C47305F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MICROTOME (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07411'~&~	~&~'44F39C473062409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OSMOMETER (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07414'~&~	~&~'44F39C473064409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OVEN, LABORATORY (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07418'~&~	~&~'44F39C47304F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EQUIPMENT PATIENT MONITORING/AIDING (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07426'~&~	~&~'44F39C473065409CE043814FD881409C'~&~	~&~'1'~&~	~&~'POWER SUPPLY (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07428'~&~	~&~'44F39C473073409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TIMER, AUTOMATED  (FY 07 AHA REVIEW)'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07429'~&~	~&~'44F39C47304D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EQUIP., PULMONARY FUNCTION (FY 07 AHA REVIEW)'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07437'~&~	~&~'44F39C47306D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'REFRIGERATOR/FREEZERS, LAB TYPE (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07446'~&~	~&~'44F39C47305E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINE, SHAKING (FY 07 AHA REVIEW)'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07451'~&~	~&~'44F39C47306F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STRAINER, SLIDE LABORATORY (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07467'~&~	~&~'44F39C473072409CE043814FD881409C'~&~	~&~'1'~&~	~&~'THERMOMETER, ELECTRONIC (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07468'~&~	~&~'44F39C473068409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PROCESSOR, TISSUE (FY 07 AHA REVIEW)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07472'~&~	~&~'44F39C473074409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TUBE TESTER (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07477'~&~	~&~'44F39C473069409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PURIFIER OR SOFTENER, WATER (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07478'~&~	~&~'44F39C4730BE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'X RAY DEVELOPER (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07482'~&~	~&~'44F39C473076409CE043814FD881409C'~&~	~&~'1'~&~	~&~'X RAY UNIT, ALL (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07489'~&~	~&~'44F39C473051409CE043814FD881409C'~&~	~&~'1'~&~	~&~'GENERATOR, INDUSTRIAL (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07515'~&~	~&~'44F39C4730C1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DISPENSER, ALL (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07658'~&~	~&~'44F39C4730C3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DRYING OVEN, PAINT SHOP (FY 07 AHA REVIEW)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07660'~&~	~&~'44F39C47305B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINE, FLOOR, ALL INDUS (FY 07 AHA REVIEW)'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07677'~&~	~&~'44F39C4730B3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CLEANER, VACUUM (FY 07 AHA REVIEW)'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07679'~&~	~&~'44F39C4730AB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AIR VENTILATING SYSTEMS (FY 07 AHA REVIEW)'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07681'~&~	~&~'44F39C47305C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MILLING MACHINE (FY 07 AHA REVIEW)'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07686'~&~	~&~'44F39C4730D0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WATER HEATER, COMMERCIAL (FY 07 AHA)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07708'~&~	~&~'44F39C4730CE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STORAGE TRAILERS AND TRAILER-MOUNTED CONTAINERS  IRS FY 07'~&~	~&~'6'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07709'~&~	~&~'44F39C4730CF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SIGNAGE, MOVEABLE (FY 07 AHA)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'07711'~&~	~&~'44F39C4730AA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AIR PLANE (FY 07 AHA REVIEW)'~&~	~&~'6'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'100'~&~	~&~'44F39C472F12409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EQUIPMENT, GENERAL OFFICE'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'1000'~&~	~&~'44F39C472F13409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CONTROL ASSET (GEC)'~&~	~&~'0'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10000'~&~	~&~'44F39C472F14409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LAND'~&~	~&~'0'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10001'~&~	~&~'44F39C473083409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LI YARD/FENCING/BARRIERS'~&~	~&~'10'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10002'~&~	~&~'44F39C473084409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LI LANDSCAPING IMPROVEMENTS'~&~	~&~'20'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10003'~&~	~&~'44F39C473085409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LI SEPTIC SYSTEMS'~&~	~&~'40'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10004'~&~	~&~'44F39C473080409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LI SEAL & STRIPE PARKING LOTS'~&~	~&~'5'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'101'~&~	~&~'44F39C472F15409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BENCH, METAL OR WOOD'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'103'~&~	~&~'44F39C472F16409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BOOKCASE, METAL/WOOD, ALL'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'104'~&~	~&~'44F39C472F17409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CABINET, METAL OR WOOD/FILE'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'105'~&~	~&~'44F39C472F18409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SOFA'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'107'~&~	~&~'44F39C472F19409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CHAIR, METAL OR WOOD, ALL'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'108'~&~	~&~'44F39C472F1A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DESK, METAL OR WOOD, ALL'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'109'~&~	~&~'44F39C472F1B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FURNISHINGS, LIBRARY'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'110'~&~	~&~'44F39C472F1C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. FURNISHINGS'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'111'~&~	~&~'44F39C472F1D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SAFE'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'112'~&~	~&~'44F39C472F1E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SHELVING'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'113'~&~	~&~'44F39C472F1F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STOOL, METAL OR WOOD'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'114'~&~	~&~'44F39C472F20409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TABLE, ALL'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'115'~&~	~&~'44F39C472F21409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. LAWN & GARDEN EQUIP.'~&~	~&~'4'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'116'~&~	~&~'44F39C472F22409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TABLE, DRAFTING/GRAPHIC'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'151'~&~	~&~'44F39C472F23409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FURNITURE AND FIXTURES, HOSPITAL'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'153'~&~	~&~'44F39C472F24409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIENTIFIC EQUIP. (VIBRATING)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'154'~&~	~&~'44F39C472F25409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW BED, ELECTRICAL OR MANUAL'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'155'~&~	~&~'44F39C472F26409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. OPTOMETRY EQUIPMENT'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'156'~&~	~&~'44F39C472F27409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DOZER BLADES, SNOW PLOWS AND AUTO. PARTS AND ACCESSORIES'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'157'~&~	~&~'44F39C472F28409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CHAIR, SPECIALIST, I.E. DENTAL/OPT/BARBER'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'158'~&~	~&~'44F39C472F29409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. DENTAL EQUIPMENT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'160'~&~	~&~'44F39C472F2A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'REFRIGERATED TRAP AND CONCENTRATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'161'~&~	~&~'44F39C472F2B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LOCKERS, ALL'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'162'~&~	~&~'44F39C472F2C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LABOPHOT STAND'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'163'~&~	~&~'44F39C472F2D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PLOTTER, GRAPHICS'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'165'~&~	~&~'44F39C472F2E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LIGHT, GENERAL USAGE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'174'~&~	~&~'44F39C472F2F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STAND, IRRIGATING'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'176'~&~	~&~'44F39C472F30409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TABLE, AUTOPSY/CADAVER'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'177'~&~	~&~'44F39C472F31409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TABLE, EXAMINING'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'179'~&~	~&~'44F39C472F32409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TABLE OPERATING'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'180'~&~	~&~'44F39C472F33409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CANISTERS/CYLINDERS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'181'~&~	~&~'44F39C472F34409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TABLE, THERAPY AND REFRIGERATED'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'182'~&~	~&~'44F39C472F35409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTOMOTIVE, INDUSTRIAL'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'183'~&~	~&~'44F39C472F36409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CHAIR, SPECIALIST, I.E. DENTAL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'44F39C472F37409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIENTIFIC EQUIP. (MIXING)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'200'~&~	~&~'44F39C4730A7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PROJECTORS, ALL/PC VIEWER'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20000'~&~	~&~'44F39C472F38409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING OLD BASE'~&~	~&~'40'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20001'~&~	~&~'44F39C472F39409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING ELECTRICAL'~&~	~&~'20'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20002'~&~	~&~'44F39C472F3A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING MECHANICAL'~&~	~&~'20'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20003'~&~	~&~'44F39C472F3B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING STRUCTURAL'~&~	~&~'40'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20004'~&~	~&~'44F39C472F3C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING TELECOM'~&~	~&~'20'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20005'~&~	~&~'44F39C472F3D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING OTHER COMPONENTS'~&~	~&~'15'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20006'~&~	~&~'44F39C47308A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING BETTERMENTS'~&~	~&~'10'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20007'~&~	~&~'44F39C47308B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BUILDING MODULAR'~&~	~&~'5'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'20008'~&~	~&~'44F39C47308D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BOND ISSUANCE COST'~&~	~&~'20'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'201'~&~	~&~'44F39C472F3E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINES, OFFICE'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'202'~&~	~&~'44F39C472F3F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COPIER ACCOUNTANT/CARD TERMINAL'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'203'~&~	~&~'44F39C472F40409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW CENTRIFUGE, BENCH MODEL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'204'~&~	~&~'44F39C472F41409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AIR CONDITIONER'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'205'~&~	~&~'44F39C472F42409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AMPLIFIER, SOUND SYSTEM'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'206'~&~	~&~'44F39C4730A8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SUPER COMPUTER/SERVER'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'207'~&~	~&~'44F39C472F43409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  CAMERA, STILL'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'208'~&~	~&~'44F39C472F44409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RECORDERS, TAPE, AUDIO'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'209'~&~	~&~'44F39C472F45409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SORTER, COIN/CHANGER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'210'~&~	~&~'44F39C472F46409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  CASH REGISTER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'211'~&~	~&~'44F39C472F47409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW WORKSTATION TABLE'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'212'~&~	~&~'44F39C472F48409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CHECK SIGNER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'213'~&~	~&~'44F39C472F49409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COLLATOR, ELECTRIC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'214'~&~	~&~'44F39C472F4A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COMPUTER (INACTIVE FY 2006) USE ASSET TYPE 223, OR 206'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'215'~&~	~&~'44F39C472F4B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MULTIPLEXER, T MUX, T BOX, S MUX'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'216'~&~	~&~'44F39C473066409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW PRINTER'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'217'~&~	~&~'44F39C472F4C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TERMINAL, MODEM'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'218'~&~	~&~'44F39C472F4D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STORAGE UNIT, MECHANICAL/UNMECHANICAL'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'219'~&~	~&~'44F39C472F4E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DISK DRIVES, CONTROLLERS'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'220'~&~	~&~'44F39C472F4F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. COMPUTER EQUIPMENT'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'221'~&~	~&~'44F39C472F50409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DUPLICATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'222'~&~	~&~'44F39C472F51409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DISCRIMINATORS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'223'~&~	~&~'44F39C4730A5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COMPUTER (PERSONAL)DESKTOP'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'224'~&~	~&~'44F39C473097409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MAILING MACHINE'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'225'~&~	~&~'44F39C472F52409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MAILING MACHINE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'226'~&~	~&~'44F39C472F53409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MARKING MACHINE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'227'~&~	~&~'44F39C473077409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW COPY MACHINE/PHOTOCOPIER'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'228'~&~	~&~'44F39C472F54409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW PIANOS, ORGANS, HARPSICHORDS'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'229'~&~	~&~'44F39C472F55409CE043814FD881409C'~&~	~&~'1'~&~	~&~'(INACTIVE FY 2007) USE ASSET TYPE 200 PROJECTORS, ALL/PC VIEWER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'230'~&~	~&~'44F39C472F56409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. PHOTO EQUIPMENT'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'231'~&~	~&~'44F39C472F57409CE043814FD881409C'~&~	~&~'1'~&~	~&~'READER PRINTERS NON COMPUTER, MICRO FILM/ MICROFICHE'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'232'~&~	~&~'44F39C472F58409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  SCALES, ALL'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'235'~&~	~&~'44F39C472F59409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINE, STENCIL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'236'~&~	~&~'44F39C472F5A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  CAMERA, MOVIE OR TV'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'237'~&~	~&~'44F39C472F5B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EQUIP., TIME RECORDING'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'238'~&~	~&~'44F39C472F5C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TRANSCRIBING EQUIPMENT'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'239'~&~	~&~'44F39C472F5D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TYPEWRITER'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'240'~&~	~&~'44F39C472F5E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LABEL OR LETTERING SYSTEMS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'242'~&~	~&~'44F39C472F5F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PRESS, OFFSET, PRINTING'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'243'~&~	~&~'44F39C472F60409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DRILL, PAPER'~&~	~&~'11'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'244'~&~	~&~'44F39C472F61409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW CUTTER/SHREDDER, PAPER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'245'~&~	~&~'44F39C472F62409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. DARKROOM EQUIP., ENLARGERS, DRYERS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'246'~&~	~&~'44F39C472F63409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SHEET FEEDER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'248'~&~	~&~'44F39C472F64409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FOLDER'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'249'~&~	~&~'44F39C472F65409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WRAPPER/SHRINKER, PACKAGING SYSTEMS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'250'~&~	~&~'44F39C472F66409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. GRAPHICS, FINE ARTS EQUIP.'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'251'~&~	~&~'44F39C472F67409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LENS, CAMERA/TV'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'252'~&~	~&~'44F39C472F68409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RECEIVER OR MONITOR, TV'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'253'~&~	~&~'44F39C47306A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW RECORDER, TV VIDEO, CAMCORDER'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'254'~&~	~&~'44F39C472F69409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TELEVISION'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'260'~&~	~&~'44F39C472F6A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. AUDIO VISUAL'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'261'~&~	~&~'44F39C472F6B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RADIO RECEIVERS, TRANSMITTERS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'262'~&~	~&~'44F39C472F6C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TRANSFORMER'~&~	~&~'14'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'263'~&~	~&~'44F39C4730A1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TELECOM MOVABLE EQUIPMENT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'264'~&~	~&~'44F39C4730A4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TELEPHONE SWITCH(USED)'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'293'~&~	~&~'44F39C472F6D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COUNTERS, ELECTRONIC'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'294'~&~	~&~'44F39C472F6E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FREEZE DRY APPARATUS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'295'~&~	~&~'44F39C472F6F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'VACUUM SYSTEMS, MEDICAL /LAB'~&~	~&~'14'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'296'~&~	~&~'44F39C472F70409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STEROTAXIC INSTRUMENTS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'297'~&~	~&~'44F39C472F71409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ANIMAL CAGES'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'298'~&~	~&~'44F39C472F72409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. INDUSTRIAL/CONSTRUCTION EQUIP'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'299'~&~	~&~'44F39C472F73409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SURVEYING EQUIPMENT'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'44F39C472F74409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BENDING MAGNET'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'300'~&~	~&~'44F39C472F75409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ENVIRONMENTAL CHAMBERS, FLOW HOODS, GLOVE BOX, ECT.'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'30000'~&~	~&~'44F39C472F76409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LIBRARY BOOKS'~&~	~&~'10'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'301'~&~	~&~'44F39C472F77409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. EQUIP., SCIENTIFIC'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'302'~&~	~&~'44F39C472F78409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DETECTORS'~&~	~&~'14'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'303'~&~	~&~'44F39C472F79409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ANALYZER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'304'~&~	~&~'44F39C472F7A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LASER, SCIENTIFIC'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'305'~&~	~&~'44F39C472F7B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ANESTHESIA UNIT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'306'~&~	~&~'44F39C4730A3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DNA ANALYZER'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'308'~&~	~&~'44F39C472F7C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUDIOMETER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'309'~&~	~&~'44F39C472F7D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW AUTOCLAVE'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'311'~&~	~&~'44F39C472F7E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ASPIRATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'312'~&~	~&~'44F39C472F7F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BALANCE'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'314'~&~	~&~'44F39C472F80409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LABORATORY PRESSES'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'315'~&~	~&~'44F39C472F81409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  BLOOD PRESSURE UNIT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'316'~&~	~&~'44F39C472F82409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW BATH, ALL LABORATORY /CIRCULATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'318'~&~	~&~'44F39C472F83409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OSCILLOSCOPE ACCESSORIES'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'319'~&~	~&~'44F39C472F84409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIENTIFIC EQUIP. (AMPLIFYING)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'320'~&~	~&~'44F39C473060409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW MONITOR, MEDICAL/SCIENTIFIC'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'321'~&~	~&~'44F39C472F85409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW COUNTER, BLOOD CELL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'322'~&~	~&~'44F39C472F86409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  ANALYZER, BLOOD GAS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'325'~&~	~&~'44F39C472F87409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIENTIFIC EQUIP. (COLLECTING)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'327'~&~	~&~'44F39C472F88409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WASHER, BOTTLE'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'328'~&~	~&~'44F39C472F89409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BREATHING UNIT'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'330'~&~	~&~'44F39C472F8A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EQUIP., ALL CARDIO'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'332'~&~	~&~'44F39C472F8B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EVAPORATORS, ROTAVAPORS'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'333'~&~	~&~'44F39C472F8C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW CENTRIFUGE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'334'~&~	~&~'44F39C472F8D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW GAS CHROMATOGRAPH'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'336'~&~	~&~'44F39C472F8E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COLD PACK UNIT, FLOOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'337'~&~	~&~'44F39C472F8F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW COLORIMETER'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'338'~&~	~&~'44F39C472F90409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW AIR COMPRESSOR'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'339'~&~	~&~'44F39C473070409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW TESTER, CONDUCTIVITY'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'341'~&~	~&~'44F39C472F91409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PHOTOMULTIPLIER TUBE'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'342'~&~	~&~'44F39C472F92409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CRYOSURGICAL UNIT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'343'~&~	~&~'44F39C472F93409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW CRYOSTAT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'345'~&~	~&~'44F39C472F94409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CUTTER, ELECTRICAL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'350'~&~	~&~'44F39C472F95409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DEFIBRILLATOR'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'351'~&~	~&~'44F39C472F96409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DENSITOMETER'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'352'~&~	~&~'44F39C472F97409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DERMATOME'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'354'~&~	~&~'44F39C472F98409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DIATHERMY UNIT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'355'~&~	~&~'44F39C472F99409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DILUTOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'357'~&~	~&~'44F39C472F9A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DISTILLING APPARATUS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'359'~&~	~&~'44F39C472F9B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DRYER, SCIENTIFIC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'360'~&~	~&~'44F39C472F9C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW ELECTROCARDIOGRAPH'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'361'~&~	~&~'44F39C472F9D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW ELECTROENCEPHALOGRAPH'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'362'~&~	~&~'44F39C4730C7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW ELECTROMYOGRAPHY'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'363'~&~	~&~'44F39C472F9E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW ELECTROPHORESIS UNIT'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'364'~&~	~&~'44F39C473046409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW ELECTROSURGICAL UNIT'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'367'~&~	~&~'44F39C472F9F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. EQUIP., EXERCISE'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'368'~&~	~&~'44F39C472FA0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FLOWMETER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'369'~&~	~&~'44F39C472FA1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FLUORIMETER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'370'~&~	~&~'44F39C472FA2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FLUOROSCOPE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'372'~&~	~&~'44F39C472FA3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FURNACE, LABORATORY'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'373'~&~	~&~'44F39C472FA4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SYSTEMS, HEART LUNG'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'374'~&~	~&~'44F39C472FA5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW HEMOGLBINOMETER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'375'~&~	~&~'44F39C473052409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW HEMODIALYSIS UNIT'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'376'~&~	~&~'44F39C472FA6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'HOMOGENIZER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'378'~&~	~&~'44F39C472FA7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'HUMIDIFIER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'379'~&~	~&~'44F39C472FA8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'HYDROTHERAPY EQUIPMENT'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'381'~&~	~&~'44F39C472FA9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'APPARATUS, HYPOTHERMIA'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'382'~&~	~&~'44F39C473055409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW ILLUMINATOR UNIT, MULTIFILM OR SINGLE'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'383'~&~	~&~'44F39C472FAA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIENTIFIC EQUIP. (CONTROLLING)'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'384'~&~	~&~'44F39C472FAB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INCUBATORS, ALL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'386'~&~	~&~'44F39C472FAC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INDICATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'387'~&~	~&~'44F39C472FAD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PUMP, INFUSION'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'388'~&~	~&~'44F39C472FAE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW INHALATOR'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'390'~&~	~&~'44F39C472FAF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DIALYZER, KIDNEY'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'391'~&~	~&~'44F39C472FB0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW KILN'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'392'~&~	~&~'44F39C472FB1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'KYMOGRAPH'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'396'~&~	~&~'44F39C472FB2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LAMP, MEDICAL/ SCIENTIFIC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'399'~&~	~&~'44F39C473059409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW LIFTER, PATIENT'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'4'~&~	~&~'44F39C472FB3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIENTIFIC EQUIP. (RECORDING)'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'400'~&~	~&~'44F39C472FB4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MANNEQUIN'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'40000'~&~	~&~'44F39C472FB5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MVE CONSTRUCTION IN PROGRESS'~&~	~&~'0'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'40001'~&~	~&~'44F39C473087409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BLDG CONSTRUCTION IN PROGRESS'~&~	~&~'0'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'40002'~&~	~&~'44F39C47308E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INFRASTRUCTURE CONSTRUCTION IN PROGRESS'~&~	~&~'0'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'40003'~&~	~&~'44F39C47308F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LI CONSTRUCTION IN PROGRESS'~&~	~&~'0'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'40004'~&~	~&~'44F39C47309A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MOVEABLE ASSETS NOT YET RECEIVED, OR PLACED IN SERVICE'~&~	~&~'0'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'40005'~&~	~&~'44F39C4730A6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LEASE IMPRV CONSTR INPROGRESS'~&~	~&~'0'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'401'~&~	~&~'44F39C472FB6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'METER'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'403'~&~	~&~'44F39C47307B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW MICROSCOPE/TELESCOPE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'404'~&~	~&~'44F39C472FB7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MICROPROJECTOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'405'~&~	~&~'44F39C472FB8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW MICROTOME'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'406'~&~	~&~'44F39C472FB9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. MEDICAL EQUIPMENT'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'407'~&~	~&~'44F39C472FBA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MONITOR, COMPUTER'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'408'~&~	~&~'44F39C472FBB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'NEBULIZER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'409'~&~	~&~'44F39C472FBC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OPHTHALMOSCOPE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'410'~&~	~&~'44F39C472FBD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OSCILLOSCOPE/VECTORSCOPE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'411'~&~	~&~'44F39C472FBE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW OSMOMETER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'413'~&~	~&~'44F39C472FBF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OSCILLATOR'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'414'~&~	~&~'44F39C473063409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW OVEN, LABORATORY'~&~	~&~'14'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'415'~&~	~&~'44F39C472FC0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. OXYGEN EQUIP.'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'417'~&~	~&~'44F39C472FC1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PACEMAKER, CARDIAC'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'418'~&~	~&~'44F39C47304E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW EQUIPMENT PATIENT MONITORING/AIDING'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'419'~&~	~&~'44F39C472FC2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BOOTH, ALL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'420'~&~	~&~'44F39C472FC3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINE, PAINT SPRAYING'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'422'~&~	~&~'44F39C472FC4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PHOTOCOAGULATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'424'~&~	~&~'44F39C472FC5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PHOTOMETER'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'425'~&~	~&~'44F39C472FC6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PIPETTE, AUTOMATIC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'426'~&~	~&~'44F39C472FC7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW POWER SUPPLY, LOGIC UNIT, GENERATOR'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'428'~&~	~&~'44F39C472FC8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW TIMER, AUTOMATED'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'429'~&~	~&~'44F39C472FC9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  EQUIP., PULMONARY FUNCTION'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'430'~&~	~&~'44F39C472FCA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PUMP, VACUUM OR PRESSURE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'431'~&~	~&~'44F39C472FCB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COUNTER, RADIATION'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'432'~&~	~&~'44F39C472FCC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'METER, RADIATION'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'435'~&~	~&~'44F39C472FCD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RECORDER, LABORATORY'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'436'~&~	~&~'44F39C472FCE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'REFRACTOMETER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'437'~&~	~&~'44F39C47306C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW REFRIGERATOR/FREEZERS, LAB TYPE'~&~	~&~'14'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'438'~&~	~&~'44F39C472FCF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RESUSCITATOR/RESPIRATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'442'~&~	~&~'44F39C472FD0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCANNERS, ALL'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'443'~&~	~&~'44F39C472FD1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCINTILLATION'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'445'~&~	~&~'44F39C472FD2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINE, SEWING'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'446'~&~	~&~'44F39C47305D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW MACHINE, SHAKING'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'447'~&~	~&~'44F39C472FD3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MICROTOME KNIVES AND SHARPENERS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'450'~&~	~&~'44F39C472FD4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SKELETON'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'451'~&~	~&~'44F39C472FD5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW STRAINER, SLIDE LABORATORY'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'452'~&~	~&~'44F39C472FD6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LAMP, SLIT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'453'~&~	~&~'44F39C472FD7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SPECTROSCOPE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'454'~&~	~&~'44F39C472FD8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SPECTROPHOTOMETER'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'456'~&~	~&~'44F39C472FD9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LENS, OBJECTIVES, MICROSCOPE ACCESSORIES'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'457'~&~	~&~'44F39C472FDA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STERILIZER, LABORATORY'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'459'~&~	~&~'44F39C472FDB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STIMULATOR, MUSCLE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'460'~&~	~&~'44F39C472FDC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIEN. EQUIP. COUNTING'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'463'~&~	~&~'44F39C472FDD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PUMP, SUCTION'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'466'~&~	~&~'44F39C472FDE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TENT, OXYGEN'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'467'~&~	~&~'44F39C472FDF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW THERMOMETER, ELECTRONIC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'468'~&~	~&~'44F39C472FE0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW PROCESSOR, TISSUE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'469'~&~	~&~'44F39C472FE1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TITRATOR, AUTOMATIC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'470'~&~	~&~'44F39C472FE2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TRANSDUCERS'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'471'~&~	~&~'44F39C472FE3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TREADMILL, ELECTRIC'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'472'~&~	~&~'44F39C472FE4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW TUBE TESTER'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'474'~&~	~&~'44F39C472FE5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CLEANER/DRILL, ULTRASONIC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'475'~&~	~&~'44F39C472FE6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'VIBRATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'477'~&~	~&~'44F39C472FE7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW PURIFIER OR SOFTENER, WATER'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'478'~&~	~&~'44F39C472FE8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DEVELOPER, X RAY'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'479'~&~	~&~'44F39C472FE9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DRYER, X RAY FILM'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'480'~&~	~&~'44F39C472FEA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PROCESSOR, X RAY FILM'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'481'~&~	~&~'44F39C472FEB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INTENSIFIER, X RAY IMAGE'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'482'~&~	~&~'44F39C472FEC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW X RAY UNIT, ALL'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'485'~&~	~&~'44F39C472FED409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ROTORS, ALL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'486'~&~	~&~'44F39C472FEE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DYNAGRAPH'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'488'~&~	~&~'44F39C472FEF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COLLECTOR, FRACTION'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'489'~&~	~&~'44F39C472FF0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW GENERATOR, INDUSTRIAL'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'490'~&~	~&~'44F39C472FF1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'GAMMA SYSTEMS'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'494'~&~	~&~'44F39C472FF2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MICROMANIPULATOR'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'495'~&~	~&~'44F39C472FF3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'GRINDER/SANDER, DENTAL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'498'~&~	~&~'44F39C472FF4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CHAIR, WHEEL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'499'~&~	~&~'44F39C472FF5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MANIFOLD'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'5'~&~	~&~'44F39C472FF6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'KNIFE, DIAMOND'~&~	~&~'2'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'50000'~&~	~&~'44F39C472FF7409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INFRASTRUCTURE'~&~	~&~'15'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'50001'~&~	~&~'44F39C473081409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INFRASTRUCTURE ROAD/WATERWAY IMPROVEMENTS'~&~	~&~'20'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'50002'~&~	~&~'44F39C473082409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INFRASTRUCTURE UNDERGRND DIST & COLLECTION SYS'~&~	~&~'40'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'50003'~&~	~&~'44F39C473086409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INFRASTRUCTURE STREET IMPROVEMENTS'~&~	~&~'10'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'50004'~&~	~&~'44F39C4730A2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INFRASTRUCTURE TELECOMMUNICATION TOWERS'~&~	~&~'13'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'501'~&~	~&~'44F39C472FF8409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. KITCHEN/CAFETERIA EQUIP.'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'503'~&~	~&~'44F39C472FF9409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BROILER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'504'~&~	~&~'44F39C472FFA409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CART, FOOD/TRAY,ETC'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'507'~&~	~&~'44F39C472FFB409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CONVEYOR, TRAY'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'509'~&~	~&~'44F39C472FFC409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COOLER/WALK IN /FREE STAND'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'510'~&~	~&~'44F39C472FFD409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COUNTER, FOOD SERVICE'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'511'~&~	~&~'44F39C472FFE409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FOOD CUTTER/CHOPPER/GRIND'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'513'~&~	~&~'44F39C472FFF409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DISHWASHER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'515'~&~	~&~'44F39C473000409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DISPENSER, ALL'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'518'~&~	~&~'44F39C473001409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FRYER, DEEP FAT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'519'~&~	~&~'44F39C473002409CE043814FD881409C'~&~	~&~'1'~&~	~&~'GRIDDLE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'521'~&~	~&~'44F39C473003409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIEN. EQUIP. CONVERTING'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'522'~&~	~&~'44F39C473004409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FREEZER/CABINET ICE CREAM'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'523'~&~	~&~'44F39C473005409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EQUIP., ICE CUBE MAKING'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'524'~&~	~&~'44F39C473006409CE043814FD881409C'~&~	~&~'1'~&~	~&~'KETTLE, STEAM JACKETED'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'526'~&~	~&~'44F39C473007409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MIXER, COMMERCIAL TYPE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'527'~&~	~&~'44F39C473008409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OVEN, BAKING'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'528'~&~	~&~'44F39C473009409CE043814FD881409C'~&~	~&~'1'~&~	~&~'OVEN, MICROWAVE'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'529'~&~	~&~'44F39C47300A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIEN. EQUIP., CUTTING'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'530'~&~	~&~'44F39C47300B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FOOD PEELER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'531'~&~	~&~'44F39C47300C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RACK, POT OR PAN'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'532'~&~	~&~'44F39C47300D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'RANGE, HOUSEHOLD'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'533'~&~	~&~'44F39C47300E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'REFRIGERATOR, COMMERCIAL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'535'~&~	~&~'44F39C47300F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'FOOD SLICER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'537'~&~	~&~'44F39C473010409CE043814FD881409C'~&~	~&~'1'~&~	~&~'STEAMER, FOOD'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'538'~&~	~&~'44F39C473011409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TOASTER, COMMERCIAL TYPE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'540'~&~	~&~'44F39C473012409CE043814FD881409C'~&~	~&~'1'~&~	~&~'URN, ALL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'542'~&~	~&~'44F39C473013409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINE, VENDING ALL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'545'~&~	~&~'44F39C473014409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WARMER, FOOD OR DISH'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'547'~&~	~&~'44F39C473015409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC DAIRY & FOOD PROCESS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'60000'~&~	~&~'44F39C473016409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ART & MUSEUM OBJECTS'~&~	~&~'0'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'601'~&~	~&~'44F39C473017409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC LAUNDRY EQUIPMENT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'606'~&~	~&~'44F39C473018409CE043814FD881409C'~&~	~&~'1'~&~	~&~'DRYER CLOTHES'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'619'~&~	~&~'44F39C473019409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW WASHING MACHINE, ALL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'623'~&~	~&~'44F39C47301A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIEN. EQUIP., DETECTING'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'651'~&~	~&~'44F39C47301B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINERY, GEN. HOUSEKEEPING'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'655'~&~	~&~'44F39C47301C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COMPACTOR, WASTE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'657'~&~	~&~'44F39C47301D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PRESS, DRILL'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'658'~&~	~&~'44F39C47301E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW DRYING OVEN, PAINT SHOP'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'659'~&~	~&~'44F39C47301F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EXTINGUISHER, FIRE'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'660'~&~	~&~'44F39C473020409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW MACHINE, FLOOR, ALL INDUS'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'661'~&~	~&~'44F39C473021409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SCIEN. EQUIP. MEASURING'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'664'~&~	~&~'44F39C473022409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LADDER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'665'~&~	~&~'44F39C473023409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LATHE'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'667'~&~	~&~'44F39C473024409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MIXER, INDUSTRIAL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'668'~&~	~&~'44F39C473025409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INDUSTRIAL CARTS/DOLLIES/LIFT TRUCKS/UTILITY MAINTENANCE VEHICLES'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'669'~&~	~&~'44F39C473088409CE043814FD881409C'~&~	~&~'1'~&~	~&~'GOLF CARTS'~&~	~&~'4'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'672'~&~	~&~'44F39C473026409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SAW, ALL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'673'~&~	~&~'44F39C473027409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BENDER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'674'~&~	~&~'44F39C473028409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SHEARS, INDUSTRIAL/CONSTRUCTION'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'675'~&~	~&~'44F39C473029409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BLOWER, SNOW'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'677'~&~	~&~'44F39C47302A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  CLEANER, VACUUM'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'679'~&~	~&~'44F39C47302B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  AIR VENTILATING SYSTEMS'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'681'~&~	~&~'44F39C47302C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW MILLING MACHINE'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'682'~&~	~&~'44F39C47302D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'GRINDERS/SANDERS INDUSTRIAL'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'683'~&~	~&~'44F39C47302E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'COLLECTOR, DUST'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'684'~&~	~&~'44F39C47302F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BRAKE, BOX & PAN'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'685'~&~	~&~'44F39C473030409CE043814FD881409C'~&~	~&~'1'~&~	~&~'WELDERS'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'687'~&~	~&~'44F39C473031409CE043814FD881409C'~&~	~&~'1'~&~	~&~'ENGRAVER'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'688'~&~	~&~'44F39C473032409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PRESS, ARBOR'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'691'~&~	~&~'44F39C473033409CE043814FD881409C'~&~	~&~'1'~&~	~&~'SHAPER'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'692'~&~	~&~'44F39C473034409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BLASTER, SAND'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'693'~&~	~&~'44F39C473035409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MACHINE, MOLDING'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'694'~&~	~&~'44F39C473036409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TESTER, PRESSURE'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'698'~&~	~&~'44F39C473089409CE043814FD881409C'~&~	~&~'1'~&~	~&~'BOATS'~&~	~&~'4'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'699'~&~	~&~'44F39C473037409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTOMOBILES'~&~	~&~'4'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'700'~&~	~&~'44F39C473038409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO PASSENGER SEDANS AND MINI VANS'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'70000'~&~	~&~'44F39C473039409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LEASEHOLD IMPROVEMENTS'~&~	~&~'0'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'70001'~&~	~&~'44F39C47303A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LEASEHOLD IMPROVEMENTS'~&~	~&~'4'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'70002'~&~	~&~'44F39C47303B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LEASEHOLD IMPROVEMENTS'~&~	~&~'10'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'70003'~&~	~&~'44F39C47308C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'LEASEHOLD IMPROVEMENTS'~&~	~&~'19'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'701'~&~	~&~'44F39C47303C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO SUBURBAN, 15 PASSENGER VANS, AND HIGH USER SERVICE UNITS'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'702'~&~	~&~'44F39C47303D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO LIGHT DUTY SERVICE UNITS, MEDIUM DUTY TRUCKS'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'703'~&~	~&~'44F39C47303E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO LIGHT DUTY SERVICE UNITS, MEDIUM DUTY TRUCKS'~&~	~&~'8'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'704'~&~	~&~'44F39C47303F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO MEDIUM DUTY TRUCKS WITH LOW USE'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'705'~&~	~&~'44F39C473040409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO TRAILERS'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'706'~&~	~&~'44F39C473041409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO BUS'~&~	~&~'20'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'707'~&~	~&~'44F39C473042409CE043814FD881409C'~&~	~&~'1'~&~	~&~'AUTO BUS (FED FUND)'~&~	~&~'12'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'710'~&~	~&~'44F39C473043409CE043814FD881409C'~&~	~&~'1'~&~	~&~'EQUIPMENT START-UP (INACTIVE)'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'711'~&~	~&~'44F39C473098409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  AIR PLANE'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'712'~&~	~&~'44F39C473099409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INACTIVE FY 07 AHA REVIEW  AIR PLANE'~&~	~&~'2'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'750'~&~	~&~'44F39C473044409CE043814FD881409C'~&~	~&~'1'~&~	~&~'INSTRUMENT, MUSICAL'~&~	~&~'15'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'800'~&~	~&~'44F39C473045409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC.GYMNASTIC EQUIPMENT'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'801'~&~	~&~'44F39C473047409CE043814FD881409C'~&~	~&~'1'~&~	~&~'TRAMPOLINE'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'802'~&~	~&~'44F39C473048409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MATS, ATHLETIC'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'810'~&~	~&~'44F39C473049409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC. RECREATIONAL, POOL TABLE'~&~	~&~'7'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'815'~&~	~&~'44F39C47304A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'MISC.FARM EQUIPMENT'~&~	~&~'10'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'900'~&~	~&~'44F39C473090409CE043814FD881409C'~&~	~&~'1'~&~	~&~'CAMPUS BUS SHELTER'~&~	~&~'25'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90000'~&~	~&~'44F39C47304B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'PATENTS, COPYRIGHTS & TRADEMARDS'~&~	~&~'17'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90001'~&~	~&~'44F39C473091409CE043814FD881409C'~&~	~&~'1'~&~	~&~'12 MONTH LEASE UNDER CAP THRESHOLD'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90002'~&~	~&~'44F39C473092409CE043814FD881409C'~&~	~&~'1'~&~	~&~'24 MONTH LEASE UNDER CAP THRESHOLD'~&~	~&~'2'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90003'~&~	~&~'44F39C473093409CE043814FD881409C'~&~	~&~'1'~&~	~&~'36 MONTH LEASE UNDER CAP THRESHOLD'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90004'~&~	~&~'44F39C473094409CE043814FD881409C'~&~	~&~'1'~&~	~&~'48 MONTH LEASE UNDER CAP THRESHOLD'~&~	~&~'4'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90005'~&~	~&~'44F39C473095409CE043814FD881409C'~&~	~&~'1'~&~	~&~'60 MONTH LEASE UNDER CAP THRESHOLD'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90006'~&~	~&~'44F39C473096409CE043814FD881409C'~&~	~&~'1'~&~	~&~'72 MONTH LEASE UNDER CAP THRESHOLD'~&~	~&~'6'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90007'~&~	~&~'44F39C47309B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'12 MONTH LEASE >= CAP THRESHOLD'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90008'~&~	~&~'44F39C47309C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'24 MONTH LEASE >= CAP THRESHOLD'~&~	~&~'2'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90009'~&~	~&~'44F39C47309D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'36 MONTH LEASE >= CAP THRESHOLD'~&~	~&~'3'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90010'~&~	~&~'44F39C47309E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'48 MONTH LEASE >= CAP THRESHOLD'~&~	~&~'4'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90011'~&~	~&~'44F39C47309F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'60 MONTH LEASE >= CAP THRESHOLD'~&~	~&~'5'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'90012'~&~	~&~'44F39C4730A0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'72 MONTH LEASE >= CAP THRESHOLD'~&~	~&~'6'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD

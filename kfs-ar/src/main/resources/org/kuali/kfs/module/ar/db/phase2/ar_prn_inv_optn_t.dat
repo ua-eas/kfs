@@ -1,0 +1,5 @@
+HEADER[~&~	~&~AR_PRN_INV_IND::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~AR_PRN_INV_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'B'~&~	~&~'4A86FE8C2F1FF2A5E0404F8189D83E32'~&~	~&~'1'~&~	~&~'Send to BILL Queue'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'4A86FE8C2F20F2A5E0404F8189D83E32'~&~	~&~'1'~&~	~&~'Do Not Print'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'Q'~&~	~&~'4A86FE8C2F1EF2A5E0404F8189D83E32'~&~	~&~'1'~&~	~&~'Send to PROC Queue'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'U'~&~	~&~'5975FDBC9EE15371E0404F8189D86217'~&~	~&~'1'~&~	~&~'Send to USER Queue'~&~	~&~'Y'~&~	~&~]RECORD

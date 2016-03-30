@@ -1,0 +1,2 @@
+HEADER[~&~	~&~DIST_CD::VARCHAR~&~	~&~DIST_DESC::VARCHAR~&~	~&~CHART_CD::VARCHAR~&~	~&~ACCT_NBR::VARCHAR~&~	~&~FIN_OBJECT_CD::VARCHAR~&~	~&~SRVC_FEE::DECIMAL~&~	~&~ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'VC'~&~	~&~'VC Service Fee'~&~	~&~'UA'~&~	~&~'9323001'~&~	~&~'5055'~&~	~&~'25.00'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'KFS_TEM_AGENCY_SRVC_FEE_001'~&~	~&~]RECORD

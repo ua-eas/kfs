@@ -1,0 +1,13 @@
+HEADER[~&~	~&~FIN_BALANCE_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FIN_BALANCE_TYP_NM::VARCHAR~&~	~&~FIN_BALTYP_SHRT_NM::VARCHAR~&~	~&~FIN_OFFST_GNRTN_CD::VARCHAR~&~	~&~FIN_BALTYP_ENC_CD::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'A2'~&~	~&~'014F3DAF83BCA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'A21 BALANCES - LABOR LEDGER ONLY'~&~	~&~'A21 BALANCES'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AC'~&~	~&~'014F3DAF83BDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ACTUALS (BALANCE SHEET)'~&~	~&~'ACTUALS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BB'~&~	~&~'014F3DAF83BFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ADJUSTED BASE BUDGET'~&~	~&~'ADJ BSE BUDG'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CB'~&~	~&~'014F3DAF83C1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CURRENT BUDGET'~&~	~&~'CURRENT BUDG'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CE'~&~	~&~'014F3DAF83C2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COST SHARE ENCUMBRANCES'~&~	~&~'CST SHR ENCS'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'EX'~&~	~&~'014F3DAF83C3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'EXTERNAL ENCUMBRANCE'~&~	~&~'EXTERNAL ENC'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IE'~&~	~&~'014F3DAF83C4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INTERNAL ENCUMBRANCE'~&~	~&~'INTERNAL ENC'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MB'~&~	~&~'014F3DAF83C6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'MONTHLY BUDGET'~&~	~&~'MONTHLY BUDG'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NB'~&~	~&~'014F3DAF83C7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CLOSE NOMINAL BALANCE'~&~	~&~'NOMINAL BAL'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PE'~&~	~&~'014F3DAF83C8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'PRE-ENCUMBRANCE'~&~	~&~'PRE-ENCUM'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RE'~&~	~&~'014F3DAF83C9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'YEAR END BUDGET REVERSION'~&~	~&~'BUDG REVERT'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TR'~&~	~&~'014F3DAF83CAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFERS'~&~	~&~'TRANSFERS'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD

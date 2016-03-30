@@ -1,0 +1,4 @@
+HEADER[~&~	~&~ADDR_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~DISPLAY_SORT_CD::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
+RECORD[~&~	~&~'HM'~&~	~&~'5B97C50B03706110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Home'~&~	~&~'Y'~&~	~&~'b'~&~	~&~'1226603189000'~&~	~&~]RECORD
+RECORD[~&~	~&~'OTH'~&~	~&~'5B97C50B03716110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Other'~&~	~&~'Y'~&~	~&~'c'~&~	~&~'1226603189000'~&~	~&~]RECORD
+RECORD[~&~	~&~'WRK'~&~	~&~'5B97C50B03726110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Work'~&~	~&~'Y'~&~	~&~'a'~&~	~&~'1226603190000'~&~	~&~]RECORD

@@ -1,95 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10049" context="demo,unit">
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[EMPB]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a67]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Employee Benefits]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[EQIP]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a73]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Equipment]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[MSS]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a69]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Materials, Supplies, Services]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[ODC]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a74]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Other Direct Cost]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[PROS]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a68]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Professional Services]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a66]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Salaries and Wages]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[SBCT]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a72]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Subcontract]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[TRVD]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a70]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Travel - Domestic]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_t">
-      <column name="CTGRY_CD"><![CDATA[TRVF]]></column>
-      <column name="OBJ_ID"><![CDATA[c75d07b0-a72b-11e0-8264-0800200c9a71]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CTGRY_NM"><![CDATA[Travel - Foreign]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="IND_CST_IND"><![CDATA[N]]></column>
-    </insert>
+  <changeSet id="IMPORT_ar_cst_ctgry_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ar_cst_ctgry_t"/>
+      <param name="file" value="org/kuali/kfs/module/ar/db/phase2/ar_cst_ctgry_t.dat"/>
+    </customChange>
   </changeSet>
 </databaseChangeLog>

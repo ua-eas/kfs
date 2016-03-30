@@ -1,86 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10781" context="demo,unit">
-    <insert tableName="tem_spcl_crcmsncs_q_t">
-      <column name="ID"><![CDATA[1]]></column>
-      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
-      <column name="TEXT"><![CDATA[Question for TA - is anyone traveling with you?]]></column>
-      <column name="TXT_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-001]]></column>
-    </insert>
-    <insert tableName="tem_spcl_crcmsncs_q_t">
-      <column name="ID"><![CDATA[2]]></column>
-      <column name="DOCUMENT_TYPE"><![CDATA[TR]]></column>
-      <column name="TEXT"><![CDATA[Question for TR documents - did you stay overnight with family or friends?:]]></column>
-      <column name="TXT_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-002]]></column>
-    </insert>
-    <insert tableName="tem_spcl_crcmsncs_q_t">
-      <column name="ID"><![CDATA[3]]></column>
-      <column name="DOCUMENT_TYPE"><![CDATA[ENT]]></column>
-      <column name="TEXT"><![CDATA[Question for Entertainment documents - was alcohol served?:]]></column>
-      <column name="TXT_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-003]]></column>
-    </insert>
-    <insert tableName="tem_spcl_crcmsncs_q_t">
-      <column name="ID"><![CDATA[4]]></column>
-      <column name="DOCUMENT_TYPE"><![CDATA[RELO]]></column>
-      <column name="TEXT"><![CDATA[Question for Relocation documents - do you have pets moving with you?:]]></column>
-      <column name="TXT_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-004]]></column>
-    </insert>
-    <insert tableName="tem_spcl_crcmsncs_q_t">
-      <column name="ID"><![CDATA[5]]></column>
-      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
-      <column name="TEXT"><![CDATA[Question for TA documents - not free form: Carrying Fruit?]]></column>
-      <column name="TXT_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-005]]></column>
-    </insert>
-    <insert tableName="tem_spcl_crcmsncs_q_t">
-      <column name="ID"><![CDATA[6]]></column>
-      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
-      <column name="TEXT"><![CDATA[Inactive Question for search testing]]></column>
-      <column name="TXT_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[N]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-006]]></column>
-    </insert>
-    <insert tableName="tem_spcl_crcmsncs_q_t">
-      <column name="ID"><![CDATA[7]]></column>
-      <column name="DOCUMENT_TYPE"><![CDATA[TA]]></column>
-      <column name="TEXT"><![CDATA[Do you have large pets traveling with you?:]]></column>
-      <column name="TXT_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS-TEM-SPCM-007]]></column>
-    </insert>
+  <changeSet id="IMPORT_tem_spcl_crcmsncs_q_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="tem_spcl_crcmsncs_q_t" />
+      <param name="file" value="org/kuali/kfs/module/tem/db/phase2/tem_spcl_crcmsncs_q_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

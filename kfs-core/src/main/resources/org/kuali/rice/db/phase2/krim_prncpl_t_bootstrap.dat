@@ -1,0 +1,5 @@
+HEADER[~&~	~&~PRNCPL_ID::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PRNCPL_NM::VARCHAR~&~	~&~ENTITY_ID::VARCHAR~&~	~&~PRNCPL_PSWD::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
+RECORD[~&~	~&~'1'~&~	~&~'5B1B6B919CCA6496E0404F8189D822F2'~&~	~&~'1'~&~	~&~'kr'~&~	~&~'1'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'1226069342000'~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'KFS2'~&~	~&~'1'~&~	~&~'kfs'~&~	~&~'KFS2'~&~	~&~NULL~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'admin'~&~	~&~'5B97C50B03C56110E0404F8189D85213'~&~	~&~'1'~&~	~&~'admin'~&~	~&~'1100'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'1226603203000'~&~	~&~]RECORD
+RECORD[~&~	~&~'notsys'~&~	~&~'5B97C50B03BB6110E0404F8189D85213'~&~	~&~'1'~&~	~&~'notsys'~&~	~&~'1131'~&~	~&~NULL~&~	~&~'Y'~&~	~&~'1226603202000'~&~	~&~]RECORD

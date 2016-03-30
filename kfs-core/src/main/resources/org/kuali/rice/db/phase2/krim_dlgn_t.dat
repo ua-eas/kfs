@@ -1,0 +1,5 @@
+HEADER[~&~	~&~DLGN_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~ROLE_ID::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~KIM_TYP_ID::VARCHAR~&~	~&~DLGN_TYP_CD::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS1'~&~	~&~'28'~&~	~&~'Y'~&~	~&~'30'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'1'~&~	~&~'KFS2'~&~	~&~'28'~&~	~&~'Y'~&~	~&~'30'~&~	~&~'S'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'1'~&~	~&~'KFS3'~&~	~&~'41'~&~	~&~'Y'~&~	~&~'KFSMI9562-TYP'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'4'~&~	~&~'1'~&~	~&~'KFS4'~&~	~&~'41'~&~	~&~'Y'~&~	~&~'KFSMI9562-TYP'~&~	~&~'S'~&~	~&~]RECORD

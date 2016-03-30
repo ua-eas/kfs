@@ -1,63 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10529" context="demo,unit">
-    <insert tableName="pdp_ach_bnk_t">
-      <column name="BNK_RTNG_NBR"><![CDATA[012345678]]></column>
-      <column name="OBJ_ID"><![CDATA[7F39FA5C-E463-B231-CB1C-FAFF209AC453]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="BNK_OFFC_CD"><![CDATA[O]]></column>
-      <column name="BNK_SRVC_NBR"><![CDATA[011000015]]></column>
-      <column name="BNK_TYP_CD"><![CDATA[1]]></column>
-      <column name="BNK_NEW_RTNG_NBR"><![CDATA[000000001]]></column>
-      <column name="BNK_NM"><![CDATA[MY FRIENDLY NEIGHBORHOOD BANK]]></column>
-      <column name="BNK_STR_ADDR"><![CDATA[1000 PEACHTREE ST N.E.]]></column>
-      <column name="BNK_CTY_NM"><![CDATA[ATLANTA]]></column>
-      <column name="BNK_ST_CD"><![CDATA[GA]]></column>
-      <column name="BNK_ZIP_CD"><![CDATA[30309]]></column>
-      <column name="BNK_PHN_AREA_CD"><![CDATA[866]]></column>
-      <column name="BNK_PHN_PRFX_NBR"><![CDATA[234]]></column>
-      <column name="BNK_PHN_SFX_NBR"><![CDATA[5681]]></column>
-      <column name="BNK_INST_STAT_CD"><![CDATA[1]]></column>
-      <column name="BNK_DTA_V_CD"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pdp_ach_bnk_t">
-      <column name="BNK_RTNG_NBR"><![CDATA[876543210]]></column>
-      <column name="OBJ_ID"><![CDATA[C0307043-45F0-C065-B20E-49D7AD5FD639]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="BNK_OFFC_CD"><![CDATA[B]]></column>
-      <column name="BNK_SRVC_NBR"><![CDATA[011000017]]></column>
-      <column name="BNK_TYP_CD"><![CDATA[1]]></column>
-      <column name="BNK_NEW_RTNG_NBR"><![CDATA[000000002]]></column>
-      <column name="BNK_NM"><![CDATA[YOUR PERSONAL CREDIT UNION]]></column>
-      <column name="BNK_STR_ADDR"><![CDATA[1776 HERITAGE DR (JAB 3S3)]]></column>
-      <column name="BNK_CTY_NM"><![CDATA[NORTH QUINCY]]></column>
-      <column name="BNK_ST_CD"><![CDATA[MA]]></column>
-      <column name="BNK_ZIP_CD"><![CDATA[02171]]></column>
-      <column name="BNK_PHN_AREA_CD"><![CDATA[617]]></column>
-      <column name="BNK_PHN_PRFX_NBR"><![CDATA[664]]></column>
-      <column name="BNK_PHN_SFX_NBR"><![CDATA[2400]]></column>
-      <column name="BNK_INST_STAT_CD"><![CDATA[1]]></column>
-      <column name="BNK_DTA_V_CD"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pdp_ach_bnk_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pdp_ach_bnk_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pdp_ach_bnk_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

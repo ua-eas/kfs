@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,83 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00039" context="bootstrap,demo,unit">
-    <insert tableName="krew_rule_tmpl_attr_t">
-      <column name="RULE_TMPL_ATTR_ID"><![CDATA[1024]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1023]]></column>
-      <column name="RULE_ATTR_ID"><![CDATA[1010]]></column>
-      <column name="REQ_IND"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="DSPL_ORD"><![CDATA[2]]></column>
-      <column name="DFLT_VAL" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BB16644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_attr_t">
-      <column name="RULE_TMPL_ATTR_ID"><![CDATA[1027]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1026]]></column>
-      <column name="RULE_ATTR_ID"><![CDATA[1011]]></column>
-      <column name="REQ_IND"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="DSPL_ORD"><![CDATA[3]]></column>
-      <column name="DFLT_VAL" value="null"/>
-      <column name="VER_NBR"><![CDATA[8]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BB17644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_attr_t">
-      <column name="RULE_TMPL_ATTR_ID"><![CDATA[1029]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1028]]></column>
-      <column name="RULE_ATTR_ID"><![CDATA[1012]]></column>
-      <column name="REQ_IND"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="DSPL_ORD"><![CDATA[4]]></column>
-      <column name="DFLT_VAL" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BB18644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_attr_t">
-      <column name="RULE_TMPL_ATTR_ID"><![CDATA[1031]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1030]]></column>
-      <column name="RULE_ATTR_ID"><![CDATA[1012]]></column>
-      <column name="REQ_IND"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="DSPL_ORD"><![CDATA[5]]></column>
-      <column name="DFLT_VAL" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BB19644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_attr_t">
-      <column name="RULE_TMPL_ATTR_ID"><![CDATA[1033]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1032]]></column>
-      <column name="RULE_ATTR_ID"><![CDATA[1013]]></column>
-      <column name="REQ_IND"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="DSPL_ORD"><![CDATA[6]]></column>
-      <column name="DFLT_VAL" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BB1A644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_attr_t">
-      <column name="RULE_TMPL_ATTR_ID"><![CDATA[1102]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1101]]></column>
-      <column name="RULE_ATTR_ID"><![CDATA[1100]]></column>
-      <column name="REQ_IND"><![CDATA[0]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="DSPL_ORD"><![CDATA[0]]></column>
-      <column name="DFLT_VAL" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BB1C644DE0404F8189D86C09]]></column>
-    </insert>
-    <insert tableName="krew_rule_tmpl_attr_t">
-      <column name="RULE_TMPL_ATTR_ID"><![CDATA[1321]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1320]]></column>
-      <column name="RULE_ATTR_ID"><![CDATA[1000]]></column>
-      <column name="REQ_IND"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="DSPL_ORD"><![CDATA[3]]></column>
-      <column name="DFLT_VAL" value="null"/>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BB20644DE0404F8189D86C09]]></column>
-    </insert>
+  <changeSet id="IMPORT_krew_rule_tmpl_attr_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krew_rule_tmpl_attr_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krew_rule_tmpl_attr_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

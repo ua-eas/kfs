@@ -1,45 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10775" context="demo,unit">
-    <insert tableName="tem_profile_em_cont_t">
-      <column name="ID"><![CDATA[1]]></column>
-      <column name="CONT_REL_TYP_CD"><![CDATA[PRN]]></column>
-      <column name="CONT_NM"><![CDATA[Mother Susie]]></column>
-      <column name="PHONE_NBR"><![CDATA[812-855-5555]]></column>
-      <column name="EMAIL_ADDR"><![CDATA[mother@test.edu]]></column>
-      <column name="TEM_PROFILE_ID"><![CDATA[1]]></column>
-      <column name="PRIMARY_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[DFB0EFA0AC458131E040E00ABCD62DC1]]></column>
-    </insert>
-    <insert tableName="tem_profile_em_cont_t">
-      <column name="ID"><![CDATA[2]]></column>
-      <column name="CONT_REL_TYP_CD"><![CDATA[REL]]></column>
-      <column name="CONT_NM"><![CDATA[nancy sue]]></column>
-      <column name="PHONE_NBR"><![CDATA[812-855-5555]]></column>
-      <column name="EMAIL_ADDR"><![CDATA[nan@test.edu]]></column>
-      <column name="TEM_PROFILE_ID"><![CDATA[5]]></column>
-      <column name="PRIMARY_IND"><![CDATA[N]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[E074D8007982AD17E040E00ABCD67056]]></column>
-    </insert>
+  <changeSet id="IMPORT_tem_profile_em_cont_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="tem_profile_em_cont_t" />
+      <param name="file" value="org/kuali/kfs/module/tem/db/phase2/tem_profile_em_cont_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

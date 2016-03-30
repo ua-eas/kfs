@@ -1,0 +1,71 @@
+HEADER[~&~	~&~PERM_TMPL_ID::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NMSPC_CD::VARCHAR~&~	~&~NM::VARCHAR~&~	~&~DESC_TXT::VARCHAR~&~	~&~KIM_TYP_ID::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1'~&~	~&~'5ADF18B6D4857954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KUALI'~&~	~&~'Default'~&~	~&~NULL~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10'~&~	~&~'5ADF18B6D4BF7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-SYS'~&~	~&~'Initiate Document'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'14'~&~	~&~'5ADF18B6D4CA7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Cancel Document'~&~	~&~NULL~&~	~&~'8'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'15'~&~	~&~'5ADF18B6D4CB7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Save Document'~&~	~&~NULL~&~	~&~'8'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'16'~&~	~&~'5ADF18B6D4CC7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Edit Document'~&~	~&~NULL~&~	~&~'8'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'5ADF18B6D4AF7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Copy Document'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'23'~&~	~&~'5ADF18B6D4DA7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Look Up Records'~&~	~&~NULL~&~	~&~'10'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'24'~&~	~&~'5ADF18B6D4DB7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Inquire Into Records'~&~	~&~NULL~&~	~&~'10'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'25'~&~	~&~'5ADF18B6D4DF7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'View Inquiry or Maintenance Document Field'~&~	~&~NULL~&~	~&~'11'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'26'~&~	~&~'5ADF18B6D4E07954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Modify Maintenance Document Field'~&~	~&~NULL~&~	~&~'11'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'27'~&~	~&~'5ADF18B6D4E17954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Full Unmask Field'~&~	~&~NULL~&~	~&~'11'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'28'~&~	~&~'5ADF18B6D4E27954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Partial Unmask Field'~&~	~&~NULL~&~	~&~'11'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'29'~&~	~&~'5ADF18B6D4E67954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Use Screen'~&~	~&~NULL~&~	~&~'12'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'5ADF18B6D4B07954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Administer Routing for Document'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'30'~&~	~&~'5ADF18B6D4E97954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Perform Custom Maintenance Document Function'~&~	~&~NULL~&~	~&~'13'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'31'~&~	~&~'5ADF18B6D4EC7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Use Transactional Document'~&~	~&~NULL~&~	~&~'14'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'32'~&~	~&~'5ADF18B6D4F07954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Modify Batch Job'~&~	~&~NULL~&~	~&~'15'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'33'~&~	~&~'5ADF18B6D4F17954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Upload Batch Input File(s)'~&~	~&~NULL~&~	~&~'15'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'34'~&~	~&~'5ADF18B6D4F67954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Maintain System Parameter'~&~	~&~NULL~&~	~&~'16'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'35'~&~	~&~'5ADF18B6D4FC7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-IDM'~&~	~&~'Assign Role'~&~	~&~NULL~&~	~&~'18'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'36'~&~	~&~'5ADF18B6D5007954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-IDM'~&~	~&~'Grant Permission'~&~	~&~NULL~&~	~&~'19'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'37'~&~	~&~'5ADF18B6D5047954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-IDM'~&~	~&~'Grant Responsibility'~&~	~&~NULL~&~	~&~'20'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'38'~&~	~&~'5ADF18B6D5087954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-IDM'~&~	~&~'Populate Group'~&~	~&~NULL~&~	~&~'21'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'4'~&~	~&~'5ADF18B6D4B17954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Blanket Approve Document'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'40'~&~	~&~'5ADF18B6D4AE7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Open Document'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'41'~&~	~&~'41'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Modify Accounting Lines'~&~	~&~NULL~&~	~&~'52'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'42'~&~	~&~'603B735FA6C4FE21E0404F8189D8083B'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Create / Maintain Record(s)'~&~	~&~NULL~&~	~&~'56'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'43'~&~	~&~'603B735FA6C0FE21E0404F8189D8083B'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'View Inquiry or Maintenance Document Section'~&~	~&~NULL~&~	~&~'57'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'44'~&~	~&~'603B735FA6C1FE21E0404F8189D8083B'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Modify Maintenance Document Section'~&~	~&~NULL~&~	~&~'57'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'45'~&~	~&~'606763510FC096D3E0404F8189D857A2'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Add Note / Attachment'~&~	~&~NULL~&~	~&~'9'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'46'~&~	~&~'606763510FC196D3E0404F8189D857A2'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'View Note / Attachment'~&~	~&~NULL~&~	~&~'9'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'47'~&~	~&~'606763510FC296D3E0404F8189D857A2'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Delete Note / Attachment'~&~	~&~NULL~&~	~&~'59'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'48'~&~	~&~'48'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Edit Bank Code'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'49'~&~	~&~'662384B381B867A1E0404F8189D868A6'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Send Ad Hoc Request'~&~	~&~NULL~&~	~&~'5'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'5'~&~	~&~'5ADF18B6D4B27954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Route Document'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'50'~&~	~&~'50'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Administer Batch File'~&~	~&~NULL~&~	~&~'KFSCNTRB199-TYP1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'51'~&~	~&~'430ad531-89e4-11df-98b1-1300c9ee50c1'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Add Message to Route Log'~&~	~&~NULL~&~	~&~'3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'52'~&~	~&~'B7DBFABEFD2A8CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-RULE'~&~	~&~'KRMS Agenda Permission'~&~	~&~'View/Maintain Agenda'~&~	~&~'67'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'53'~&~	~&~'B7DBFABEFD578CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Open View'~&~	~&~NULL~&~	~&~'68'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'54'~&~	~&~'B7DBFABEFD588CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Edit View'~&~	~&~NULL~&~	~&~'68'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'55'~&~	~&~'B7DBFABEFD598CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Use View'~&~	~&~NULL~&~	~&~'69'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'56'~&~	~&~'B7DBFABEFD5A8CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'View Field'~&~	~&~NULL~&~	~&~'70'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'57'~&~	~&~'B7DBFABEFD5B8CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Edit Field'~&~	~&~NULL~&~	~&~'70'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'58'~&~	~&~'B7DBFABEFD5C8CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'View Group'~&~	~&~NULL~&~	~&~'71'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'59'~&~	~&~'B7DBFABEFD5D8CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Edit Group'~&~	~&~NULL~&~	~&~'71'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'6'~&~	~&~'6'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Error Correct Document'~&~	~&~NULL~&~	~&~'51'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'60'~&~	~&~'B7DBFABEFD5E8CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'View Widget'~&~	~&~NULL~&~	~&~'72'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'61'~&~	~&~'B7DBFABEFD5F8CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Edit Widget'~&~	~&~NULL~&~	~&~'72'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'62'~&~	~&~'B7DBFABEFD608CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Perform Action'~&~	~&~NULL~&~	~&~'73'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'63'~&~	~&~'B7DBFABEFD618CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'View Line'~&~	~&~NULL~&~	~&~'71'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'64'~&~	~&~'B7DBFABEFD628CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Edit Line'~&~	~&~NULL~&~	~&~'71'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'65'~&~	~&~'B7DBFABEFD638CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'View Line Field'~&~	~&~NULL~&~	~&~'74'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'66'~&~	~&~'B7DBFABEFD648CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Edit Line Field'~&~	~&~NULL~&~	~&~'74'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'67'~&~	~&~'B7DBFABEFD658CBFE0402E0AA9D757C9'~&~	~&~'1'~&~	~&~'KR-KRAD'~&~	~&~'Perform Line Action'~&~	~&~NULL~&~	~&~'75'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'68'~&~	~&~'BC5444677C24328CE0402E0AA9D77D80'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Recall Document'~&~	~&~NULL~&~	~&~'8'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'7'~&~	~&~'7'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Claim Electronic Payment'~&~	~&~NULL~&~	~&~'51'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'8'~&~	~&~'5ADF18B6D4B77954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-NS'~&~	~&~'Take Requested Action'~&~	~&~NULL~&~	~&~'4'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'9'~&~	~&~'5ADF18B6D4BB7954E0404F8189D85002'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Ad Hoc Review Document'~&~	~&~NULL~&~	~&~'5'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10444'~&~	~&~'KFS-PERM-TMPL-001'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'View Record'~&~	~&~'Template for permissions which restrict the ability to view specific records in a lookup.'~&~	~&~'10'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSSEC1001'~&~	~&~'KFSSEC1001'~&~	~&~'1'~&~	~&~'KFS-SEC'~&~	~&~'View Document with Field Value'~&~	~&~NULL~&~	~&~'KFSSEC1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSSEC1002'~&~	~&~'KFSSEC1002'~&~	~&~'1'~&~	~&~'KFS-SEC'~&~	~&~'View Accounting Line with Field Value'~&~	~&~NULL~&~	~&~'KFSSEC1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSSEC1003'~&~	~&~'KFSSEC1003'~&~	~&~'1'~&~	~&~'KFS-SEC'~&~	~&~'View Notes/Attachments with Field Value'~&~	~&~NULL~&~	~&~'KFSSEC1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSSEC1004'~&~	~&~'KFSSEC1004'~&~	~&~'1'~&~	~&~'KFS-SEC'~&~	~&~'Edit Document with Field Value'~&~	~&~NULL~&~	~&~'KFSSEC1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSSEC1005'~&~	~&~'KFSSEC1005'~&~	~&~'1'~&~	~&~'KFS-SEC'~&~	~&~'Edit Accounting Line with Field Value'~&~	~&~NULL~&~	~&~'KFSSEC1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSSEC1006'~&~	~&~'KFSSEC1006'~&~	~&~'1'~&~	~&~'KFS-SEC'~&~	~&~'Lookup with Field Value'~&~	~&~NULL~&~	~&~'KFSSEC2'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSSEC1007'~&~	~&~'KFSSEC1007'~&~	~&~'1'~&~	~&~'KFS-SEC'~&~	~&~'Balance Inquiry with Field Value'~&~	~&~NULL~&~	~&~'KFSSEC3'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR1000'~&~	~&~'CBA9C0DFF603E80EE040F90A05B97BE4'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Super User Approve Single Action Request'~&~	~&~NULL~&~	~&~'KR1000'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR1001'~&~	~&~'CBA9C0DFF604E80EE040F90A05B97BE4'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Super User Approve Document'~&~	~&~NULL~&~	~&~'KR1000'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR1002'~&~	~&~'CBA9C0DFF605E80EE040F90A05B97BE4'~&~	~&~'1'~&~	~&~'KR-WKFLW'~&~	~&~'Super User Disapprove Document'~&~	~&~NULL~&~	~&~'KR1000'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KR1003'~&~	~&~'CEA27C3715288653E040F90A05B924A3'~&~	~&~'1'~&~	~&~'KR-SYS'~&~	~&~'Backdoor Restriction'~&~	~&~'Backdoor Restriction'~&~	~&~'KR1001'~&~	~&~'Y'~&~	~&~]RECORD

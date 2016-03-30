@@ -1,29 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet context="bootstrap" author="kfs" id="ricedata00064">
-    <insert tableName="krim_entity_email_t">
-      <column name="ENTITY_EMAIL_ID"><![CDATA[1200]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B04066110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ENTITY_ID"><![CDATA[1100]]></column>
-      <column name="ENT_TYP_CD"><![CDATA[PERSON]]></column>
-      <column name="EMAIL_TYP_CD"><![CDATA[WRK]]></column>
-      <column name="EMAIL_ADDR"><![CDATA[test@email.edu]]></column>
-      <column name="DFLT_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:55.0"/>
-    </insert>
-    <insert tableName="krim_entity_email_t">
-      <column name="ENTITY_EMAIL_ID"><![CDATA[1231]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B04256110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ENTITY_ID"><![CDATA[1131]]></column>
-      <column name="ENT_TYP_CD"><![CDATA[PERSON]]></column>
-      <column name="EMAIL_TYP_CD"><![CDATA[WRK]]></column>
-      <column name="EMAIL_ADDR"><![CDATA[test@email.edu]]></column>
-      <column name="DFLT_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:07:00.0"/>
-    </insert>
+  <changeSet id="IMPORT_krim_entity_email_t_bootstrap" author="kfs" context="bootstrap">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krim_entity_email_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krim_entity_email_t_bootstrap.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

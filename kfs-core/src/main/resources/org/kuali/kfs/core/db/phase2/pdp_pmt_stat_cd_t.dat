@@ -1,0 +1,12 @@
+HEADER[~&~	~&~PMT_STAT_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PMT_STAT_CD_DESC::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'CDIS'~&~	~&~'3348445009859196E043814FD8819196'~&~	~&~'1'~&~	~&~'Cancel Disbursement'~&~	~&~]RECORD
+RECORD[~&~	~&~'CPAY'~&~	~&~'3348445009829196E043814FD8819196'~&~	~&~'1'~&~	~&~'Cancel Payment'~&~	~&~]RECORD
+RECORD[~&~	~&~'EXTR'~&~	~&~'3348445009849196E043814FD8819196'~&~	~&~'1'~&~	~&~'Extracted'~&~	~&~]RECORD
+RECORD[~&~	~&~'FORM'~&~	~&~'3348445009869196E043814FD8819196'~&~	~&~'1'~&~	~&~'Selected for Format'~&~	~&~]RECORD
+RECORD[~&~	~&~'HELD'~&~	~&~'3348445009819196E043814FD8819196'~&~	~&~'1'~&~	~&~'Held'~&~	~&~]RECORD
+RECORD[~&~	~&~'HTXB'~&~	~&~'3348445009899196E043814FD8819196'~&~	~&~'1'~&~	~&~'Held for Tax (NRA - Empl)'~&~	~&~]RECORD
+RECORD[~&~	~&~'HTXE'~&~	~&~'3348445009889196E043814FD8819196'~&~	~&~'1'~&~	~&~'Held for Tax (Employee)'~&~	~&~]RECORD
+RECORD[~&~	~&~'HTXN'~&~	~&~'3348445009879196E043814FD8819196'~&~	~&~'1'~&~	~&~'Held for Tax (NRA)'~&~	~&~]RECORD
+RECORD[~&~	~&~'OPEN'~&~	~&~'3348445009809196E043814FD8819196'~&~	~&~'1'~&~	~&~'Open Payment'~&~	~&~]RECORD
+RECORD[~&~	~&~'PACH'~&~	~&~'3348445009839196E043814FD8819196'~&~	~&~'1'~&~	~&~'Pending/ACH'~&~	~&~]RECORD
+RECORD[~&~	~&~'PCHK'~&~	~&~'6E38252C8BF3965DE0404F8189D83B69'~&~	~&~'1'~&~	~&~'Pending/Check'~&~	~&~]RECORD

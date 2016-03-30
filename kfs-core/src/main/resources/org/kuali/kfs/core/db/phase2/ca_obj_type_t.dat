@@ -1,0 +1,12 @@
+HEADER[~&~	~&~FIN_OBJ_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FIN_OBJ_TYP_NM::VARCHAR~&~	~&~FIN_OBJTYP_DBCR_CD::VARCHAR~&~	~&~FIN_OBJ_TYP_ICR_CD::VARCHAR~&~	~&~FUND_BALANCE_CD::VARCHAR~&~	~&~FIN_REPORT_SORT_CD::VARCHAR~&~	~&~ACCTG_CTGRY_CD::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'AS'~&~	~&~'014F3DAF6EDBA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ASSET'~&~	~&~'D'~&~	~&~'N'~&~	~&~'N'~&~	~&~'C1'~&~	~&~'AS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CH'~&~	~&~'014F3DAF6EDCA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'CASH NOT INCOME'~&~	~&~'C'~&~	~&~'N'~&~	~&~'N'~&~	~&~'A3'~&~	~&~'IN'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'EE'~&~	~&~'014F3DAF6EDDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'EXPENDITURE NOT EXPENSE'~&~	~&~'D'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'B2'~&~	~&~'EX'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ES'~&~	~&~'014F3DAF6EDEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'EXPENSE NOT EXPENDITURE'~&~	~&~'D'~&~	~&~'N'~&~	~&~'N'~&~	~&~'B3'~&~	~&~'EX'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'EX'~&~	~&~'014F3DAF6EDFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'EXPENSE EXPENDITURE'~&~	~&~'D'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'B1'~&~	~&~'EX'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FB'~&~	~&~'014F3DAF6EE0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'FUND BALANCE'~&~	~&~'C'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'F1'~&~	~&~'FB'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IC'~&~	~&~'014F3DAF6EE1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INCOME NOT CASH'~&~	~&~'C'~&~	~&~'N'~&~	~&~'N'~&~	~&~'A2'~&~	~&~'IN'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'014F3DAF6EE2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INCOME-CASH'~&~	~&~'C'~&~	~&~'N'~&~	~&~'N'~&~	~&~'A1'~&~	~&~'IN'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LI'~&~	~&~'014F3DAF6EE3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIABILITY'~&~	~&~'C'~&~	~&~'N'~&~	~&~'N'~&~	~&~'D1'~&~	~&~'LI'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TE'~&~	~&~'014F3DAF6EE4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS - EXPENSE'~&~	~&~'D'~&~	~&~'N'~&~	~&~'N'~&~	~&~'B4'~&~	~&~'EX'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TI'~&~	~&~'014F3DAF6EE5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'TRANSFER OF FUNDS - INCOME'~&~	~&~'C'~&~	~&~'N'~&~	~&~'N'~&~	~&~'A4'~&~	~&~'IN'~&~	~&~'Y'~&~	~&~]RECORD

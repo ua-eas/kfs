@@ -1,65 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10002" context="demo,unit">
-    <insert tableName="ap_auto_aprv_excl_t">
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[9019995]]></column>
-      <column name="OBJ_ID"><![CDATA[E78D2BB6-37F9-ADA4-997D-75960D74D176]]></column>
-      <column name="VER_NBR"><![CDATA[6]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_auto_aprv_excl_t">
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[9020174]]></column>
-      <column name="OBJ_ID"><![CDATA[AF12F067-50ED-B0C4-F5AE-5BB3A063C8EB]]></column>
-      <column name="VER_NBR"><![CDATA[12]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_auto_aprv_excl_t">
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[9020175]]></column>
-      <column name="OBJ_ID"><![CDATA[83EB46D6-6CB0-0003-6234-2F1DA8ECD209]]></column>
-      <column name="VER_NBR"><![CDATA[12]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_auto_aprv_excl_t">
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[9020204]]></column>
-      <column name="OBJ_ID"><![CDATA[158DA559-0A9B-2F0B-9C7E-7F21DC2B8757]]></column>
-      <column name="VER_NBR"><![CDATA[8]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_auto_aprv_excl_t">
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[9020857]]></column>
-      <column name="OBJ_ID"><![CDATA[CE862B59-1EEB-A253-D089-AD9449F0880A]]></column>
-      <column name="VER_NBR"><![CDATA[17]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ap_auto_aprv_excl_t">
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[9021004]]></column>
-      <column name="OBJ_ID"><![CDATA[9A0B7814-EA28-3A5B-278A-D909C5DA4F0E]]></column>
-      <column name="VER_NBR"><![CDATA[14]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_ap_auto_aprv_excl_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ap_auto_aprv_excl_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/ap_auto_aprv_excl_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

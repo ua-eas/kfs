@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,27 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00118" context="bootstrap,demo,unit">
-    <insert tableName="krlc_cmp_typ_t">
-      <column name="CAMPUS_TYP_CD"><![CDATA[B]]></column>
-      <column name="CMP_TYP_NM"><![CDATA[BOTH]]></column>
-      <column name="OBJ_ID"><![CDATA[1EFD72846DC90024E043814FD8810024]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krlc_cmp_typ_t">
-      <column name="CAMPUS_TYP_CD"><![CDATA[F]]></column>
-      <column name="CMP_TYP_NM"><![CDATA[FISCAL]]></column>
-      <column name="OBJ_ID"><![CDATA[1EFD72846DCA0024E043814FD8810024]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krlc_cmp_typ_t">
-      <column name="CAMPUS_TYP_CD"><![CDATA[P]]></column>
-      <column name="CMP_TYP_NM"><![CDATA[PHYSICAL]]></column>
-      <column name="OBJ_ID"><![CDATA[1EFD72846DCB0024E043814FD8810024]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_krlc_cmp_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krlc_cmp_typ_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krlc_cmp_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

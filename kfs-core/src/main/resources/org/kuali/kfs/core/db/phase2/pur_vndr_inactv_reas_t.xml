@@ -1,44 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10676" context="bootstrap,demo,unit">
-    <insert tableName="pur_vndr_inactv_reas_t">
-      <column name="VNDR_INACTV_REAS_CD"><![CDATA[ME]]></column>
-      <column name="OBJ_ID"><![CDATA[17D43179-0F73-BD17-1386-CDD214F9134F]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_INACTV_REAS_DESC"><![CDATA[MERGED]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_inactv_reas_t">
-      <column name="VNDR_INACTV_REAS_CD"><![CDATA[OB]]></column>
-      <column name="OBJ_ID"><![CDATA[922043E0-B0C7-21E1-235F-B95391017119]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_INACTV_REAS_DESC"><![CDATA[OUT OF BUSINESS]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_inactv_reas_t">
-      <column name="VNDR_INACTV_REAS_CD"><![CDATA[SO]]></column>
-      <column name="OBJ_ID"><![CDATA[9BFCF4E2-C8B0-77DC-F7B5-02D0FF336B7F]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_INACTV_REAS_DESC"><![CDATA[SOLD]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_vndr_inactv_reas_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_vndr_inactv_reas_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_vndr_inactv_reas_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

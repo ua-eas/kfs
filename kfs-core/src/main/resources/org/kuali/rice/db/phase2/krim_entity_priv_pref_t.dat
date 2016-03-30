@@ -1,0 +1,8 @@
+HEADER[~&~	~&~ENTITY_ID::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~SUPPRESS_NM_IND::VARCHAR~&~	~&~SUPPRESS_EMAIL_IND::VARCHAR~&~	~&~SUPPRESS_ADDR_IND::VARCHAR~&~	~&~SUPPRESS_PHONE_IND::VARCHAR~&~	~&~SUPPRESS_PRSNL_IND::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
+RECORD[~&~	~&~'KFS4016'~&~	~&~'KFS4016'~&~	~&~'1'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS4026'~&~	~&~'KFS4026'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS4034'~&~	~&~'KFS4034'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS4043'~&~	~&~'KFS4043'~&~	~&~'1'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS4044'~&~	~&~'KFS4044'~&~	~&~'1'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'N'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS4045'~&~	~&~'KFS4045'~&~	~&~'1'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS4046'~&~	~&~'KFS4046'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD

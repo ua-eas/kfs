@@ -1,0 +1,5 @@
+HEADER[~&~	~&~AFLTN_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~EMP_AFLTN_TYP_IND::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~DISPLAY_SORT_CD::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
+RECORD[~&~	~&~'AFLT'~&~	~&~'5B97C50B03736110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Affiliate'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'d'~&~	~&~'1226603190000'~&~	~&~]RECORD
+RECORD[~&~	~&~'FCLTY'~&~	~&~'5B97C50B03746110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Faculty'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'b'~&~	~&~'1226603190000'~&~	~&~]RECORD
+RECORD[~&~	~&~'STAFF'~&~	~&~'5B97C50B03756110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Staff'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'c'~&~	~&~'1226603190000'~&~	~&~]RECORD
+RECORD[~&~	~&~'STDNT'~&~	~&~'5B97C50B03766110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Student'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'a'~&~	~&~'1226603190000'~&~	~&~]RECORD

@@ -1,0 +1,7 @@
+HEADER[~&~	~&~PMT_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PMT_TYP_DESC::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'all'~&~	~&~'59DD323FB199B3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'All Payment Types'~&~	~&~]RECORD
+RECORD[~&~	~&~'immediate'~&~	~&~'59DD323FB19EB3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Only Disbursements Flagged as Immediate'~&~	~&~]RECORD
+RECORD[~&~	~&~'pymtAttachment'~&~	~&~'59DD323FB19AB3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Only Disbursements with Attachments'~&~	~&~]RECORD
+RECORD[~&~	~&~'pymtAttachmentFalse'~&~	~&~'59DD323FB19BB3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Only Disbursements with No Attachments'~&~	~&~]RECORD
+RECORD[~&~	~&~'pymtSpecialHandling'~&~	~&~'59DD323FB19CB3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Only Disbursements with Special Handling'~&~	~&~]RECORD
+RECORD[~&~	~&~'pymtSpecialHandlingFalse'~&~	~&~'59DD323FB19DB3EFE0404F8189D83BC1'~&~	~&~'1'~&~	~&~'Only Disbursements with No Special Handling'~&~	~&~]RECORD

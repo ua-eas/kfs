@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,46 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00046" context="bootstrap,demo,unit">
-    <insert tableName="krim_afltn_typ_t">
-      <column name="AFLTN_TYP_CD"><![CDATA[AFLT]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B03736110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Affiliate]]></column>
-      <column name="EMP_AFLTN_TYP_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[d]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:30.0"/>
-    </insert>
-    <insert tableName="krim_afltn_typ_t">
-      <column name="AFLTN_TYP_CD"><![CDATA[FCLTY]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B03746110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Faculty]]></column>
-      <column name="EMP_AFLTN_TYP_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[b]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:30.0"/>
-    </insert>
-    <insert tableName="krim_afltn_typ_t">
-      <column name="AFLTN_TYP_CD"><![CDATA[STAFF]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B03756110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Staff]]></column>
-      <column name="EMP_AFLTN_TYP_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[c]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:30.0"/>
-    </insert>
-    <insert tableName="krim_afltn_typ_t">
-      <column name="AFLTN_TYP_CD"><![CDATA[STDNT]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B03766110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Student]]></column>
-      <column name="EMP_AFLTN_TYP_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[a]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:30.0"/>
-    </insert>
+  <changeSet id="IMPORT_krim_afltn_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krim_afltn_typ_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krim_afltn_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

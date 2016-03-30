@@ -1,0 +1,5 @@
+HEADER[~&~	~&~AST_PMT_DST_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~AST_PMT_DST_NM::VARCHAR~&~	~&~AST_PMT_DST_COL_NM::VARCHAR~&~	~&~AST_PMT_DST_EDT::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1'~&~	~&~'A7F821439F059F91E040007F0100607D'~&~	~&~'1'~&~	~&~'Distribute cost by amount'~&~	~&~'Allocate Amount'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'A7F821439F069F91E040007F0100607D'~&~	~&~'1'~&~	~&~'Distribute cost evenly'~&~	~&~'Allocated'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'A7F821439F079F91E040007F0100607D'~&~	~&~'1'~&~	~&~'Distribute cost by total cost'~&~	~&~'Allocated'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'4'~&~	~&~'A7F821439F089F91E040007F0100607D'~&~	~&~'1'~&~	~&~'Distribute cost by percentage'~&~	~&~'Allocate Percentage'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD

@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,22 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00058" context="bootstrap,demo,unit">
-    <insert tableName="krim_ent_typ_t">
-      <column name="ENT_TYP_CD"><![CDATA[PERSON]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B03886110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Person]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[01]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="krim_ent_typ_t">
-      <column name="ENT_TYP_CD"><![CDATA[SYSTEM]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B03896110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[System]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[02]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_krim_ent_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krim_ent_typ_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krim_ent_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

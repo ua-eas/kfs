@@ -1,58 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10205" context="bootstrap,demo,unit">
-    <insert tableName="cg_prpsl_stat_t">
-      <column name="CGPRPSL_STAT_CD"><![CDATA[A]]></column>
-      <column name="OBJ_ID"><![CDATA[12BF192103039D6CE043814FD8819D6C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CGPRPSL_STAT_DESC"><![CDATA[Award]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_prpsl_stat_t">
-      <column name="CGPRPSL_STAT_CD"><![CDATA[P]]></column>
-      <column name="OBJ_ID"><![CDATA[12BF192103049D6CE043814FD8819D6C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CGPRPSL_STAT_DESC"><![CDATA[Proposal]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_prpsl_stat_t">
-      <column name="CGPRPSL_STAT_CD"><![CDATA[R]]></column>
-      <column name="OBJ_ID"><![CDATA[12BF192103059D6CE043814FD8819D6C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CGPRPSL_STAT_DESC"><![CDATA[Rejected]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_prpsl_stat_t">
-      <column name="CGPRPSL_STAT_CD"><![CDATA[U]]></column>
-      <column name="OBJ_ID"><![CDATA[12BF192103069D6CE043814FD8819D6C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CGPRPSL_STAT_DESC"><![CDATA[Underwrite]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_prpsl_stat_t">
-      <column name="CGPRPSL_STAT_CD"><![CDATA[W]]></column>
-      <column name="OBJ_ID"><![CDATA[12BF192103079D6CE043814FD8819D6C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CGPRPSL_STAT_DESC"><![CDATA[Withdrawn]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_cg_prpsl_stat_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="cg_prpsl_stat_t" />
+      <param name="file" value="org/kuali/kfs/module/cg/db/phase2/cg_prpsl_stat_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

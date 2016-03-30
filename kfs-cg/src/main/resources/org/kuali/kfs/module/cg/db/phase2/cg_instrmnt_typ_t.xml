@@ -1,121 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10195" context="demo,unit">
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[CTCS]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C21-94D8-676E-F8F7-3498524D893A]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Contract - Cost Share]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[CTFP]]></column>
-      <column name="OBJ_ID"><![CDATA[0CA918F7-63CE-D7F0-5957-AAF24158D4FF]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Contract - Fixed Price]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[CTMS]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C20-029D-EF27-B6A7-A5E7BDFC39B4]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Contract - Milestone]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[CTPB]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C1F-E97E-150D-9523-FA74B02E4CFE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Contract - Predetermined Billing Schedule]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[CTPP]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C1E-B158-2193-D609-D73B0E2A5450]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Contract - Prepaid]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[CTRB]]></column>
-      <column name="OBJ_ID"><![CDATA[025872E3-A6D1-C20E-C809-414E2CC4FAE7]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Contract - Reimbursement]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[CTSC]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C1D-9366-60BE-79E4-0CF7ECD7526D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Contract - Subcontract]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[GTCS]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C1C-EDEE-7C3B-856D-85001C5E5BA9]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Grant - Cost Share]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[GTFP]]></column>
-      <column name="OBJ_ID"><![CDATA[9B1D5A52-B759-F9B6-C9F2-E4CDB2416FBF]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Grant - Fixed Price]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[GTMS]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C1B-FC96-6420-3E4D-B3D9164E79B8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Grant - Milestone]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[GTPB]]></column>
-      <column name="OBJ_ID"><![CDATA[D4165C19-B0E5-FCBE-C7F3-CCD476113744]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Grant - Predetermined Billing Schedule]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[GTPP]]></column>
-      <column name="OBJ_ID"><![CDATA[7d25f110-a34e-11e0-8264-0800200c9a66]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Grant - Prepaid]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[GTRI]]></column>
-      <column name="OBJ_ID"><![CDATA[A6F90F88-E380-CDE7-A8AC-F01B58FA5543]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Grant - Reimbursement]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="cg_instrmnt_typ_t">
-      <column name="INSTRMNT_TYP_CD"><![CDATA[GTSC]]></column>
-      <column name="OBJ_ID"><![CDATA[04A2226C-E1A8-A8DE-B7BC-B40F5AF53141]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="INSTRMNT_TYP_DESC"><![CDATA[Grant - Subcontract]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_cg_instrmnt_typ_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="cg_instrmnt_typ_t" />
+      <param name="file" value="org/kuali/kfs/module/cg/db/phase2/cg_instrmnt_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>
