@@ -923,6 +923,7 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
         setDelegationMemberId(delegateMember.getDelegationMemberId());
         setRoleMemberId(roleMember.getId());
 
+        LOG.debug("populating org review role from delegate member: "+delegateMember.getType().code+" "+delegateMember.getMemberId()+" delegate for "+delegateMember.getRoleMemberId());
         extractAttributesFromMap(delegateMember.getAttributes());
     }
 
