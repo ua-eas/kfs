@@ -27,6 +27,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ChartService;
@@ -69,6 +70,7 @@ import org.kuali.kfs.krad.util.KRADConstants;
  * @author Kuali Rice Team (kuali-rice@googlegroups.com)
  */
 public class OrgReviewRole extends PersistableBusinessObjectBase implements MutableInactivatable {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OrgReviewRole.class);
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "OrgReviewRole";
 
@@ -1350,8 +1352,14 @@ public class OrgReviewRole extends PersistableBusinessObjectBase implements Muta
         KimType kimTypeInfo = KimApiServiceLocator.getKimTypeInfoService().getKimType(kimTypeId);
         List<KfsKimDocumentAttributeData> attributesList = new ArrayList<KfsKimDocumentAttributeData>();
         KfsKimDocumentAttributeData attribData;
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("passed qualifiers: " + StringUtils.join(qualifiers.keySet(), ", "));
+        }
         for(String key: qualifiers.keySet()){
             KimTypeAttribute attribInfo = kimTypeInfo.getAttributeDefinitionByName(key);
+            if (attribInfo == null) {
+                LOG.debug("attribute info for qualifier "+key+" is null");
+            }
             attribData = new KfsKimDocumentAttributeData();
             attribData.setKimAttribute(attribInfo.getKimAttribute());
             attribData.setKimTypId(kimTypeInfo.getId());
