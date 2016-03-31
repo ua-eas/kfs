@@ -1,7 +1,7 @@
 <HTML>
 <HEAD><TITLE>$emailSubject on $docCreateDate</TITLE></HEAD>
 <BODY style="font-family:Tahoma;font-size:10px;">
-  	<h3>Format Check/ACH summary at $docCreateDate</h3>
+  	<h3>$emailSubject on $docCreateDate</h3>
 	<BR/>
 	<TABLE border="0" style="color:#000000;border-collapse:collapse;font-family:Tahoma;width:700px;">
 		<th style="padding: 2;text-align:center">Location</th>

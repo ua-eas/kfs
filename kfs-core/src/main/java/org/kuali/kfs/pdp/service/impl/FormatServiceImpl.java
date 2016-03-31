@@ -338,10 +338,10 @@ public class FormatServiceImpl implements FormatService {
         LOG.debug("performFormat() Start extract");
         extractChecks();
 
-        LOG.info("Sending email to " + user.getEmailAddress());
-        sendEmail(user.getEmailAddress(), processId);
+//        LOG.info("Sending email to " + user.getEmailAddress());
+//        sendEmail(user.getEmailAddress(), processId);
         
-        // send email with summarizing info
+        LOG.info("Send summary email for processId: " + processId);
         sendSummaryEmail(postFormatProcessSummary);
 
     }
