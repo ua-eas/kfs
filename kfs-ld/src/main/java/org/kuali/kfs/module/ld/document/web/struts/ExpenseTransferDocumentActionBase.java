@@ -43,6 +43,7 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 
@@ -113,7 +114,7 @@ public class ExpenseTransferDocumentActionBase extends KualiAccountingDocumentAc
 
         TransactionalDocument document = financialDocumentForm.getTransactionalDocument();
 
-        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
 
         // parse out the important strings from our methodToCall parameter
         String fullParameter = (String) request.getAttribute(KFSConstants.METHOD_TO_CALL_ATTRIBUTE);
