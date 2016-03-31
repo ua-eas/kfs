@@ -459,6 +459,7 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
     public void processAfterNew(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterNew(document, parameters);
         // Default the invoice template field on the addresses tab
+        setMaintenanceAction(KRADConstants.MAINTENANCE_NEW_ACTION);
         defaultInvoiceTemplate(getCustomer(), document);
     }
 
