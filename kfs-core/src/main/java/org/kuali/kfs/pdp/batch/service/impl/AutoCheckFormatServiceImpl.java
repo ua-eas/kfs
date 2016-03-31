@@ -53,6 +53,8 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 	 */
 	@Override
 	public boolean processChecksByCustomerProfile(String profileId) {
+		LOG.info("Starting formating process for customer profile id: " + profileId);
+		
 		//if no profileId is null then we will process checks for all customer profiles
 		if(StringUtils.isBlank(profileId)){
 			return processChecks();
@@ -62,7 +64,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		CustomerProfile customerProfile = getCustomerProfileByProfileID(profileId);
 		
 		if (ObjectUtils.isNull(customerProfile)) {
-			LOG.error("Warning AutoCheckFormatService.processChecksByCustomerProfile: There is no customer profile matching id: " + profileId);
+			LOG.error("There is no customer profile matching id: " + profileId);
 			return false;
 		}
 		
@@ -134,7 +136,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             return true;
         }
         catch (FormatException e) {
-            LOG.error("ERROR AutoCheckFormatService.formatChecks: " + e.getMessage(), e);
+            LOG.error("AutoCheckFormatService.formatChecks: " + e.getMessage(), e);
             return false;
         }
     }
@@ -149,7 +151,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             FormatProcessSummary formatProcessSummary = getFormatService().startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
             
             if (formatProcessSummary.getProcessSummaryList().size() == 0) {
-                LOG.error("Warning AutoCheckFormatService.markPaymentsForFormat: There are no payments that match your selection for format process.(Campus Code="+autoFormat.getCampus()+")");
+                LOG.error("There are no payments that match your selection for format process.(Campus Code="+autoFormat.getCampus()+")");
                 return false;
             }
             
@@ -157,7 +159,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
             return true;
             
         } catch (Exception e) {
-            LOG.error("ERROR AutoCheckFormatService.markPaymentsForFormat: " + e.getMessage(), e);
+            LOG.error("AutoCheckFormatService.markPaymentsForFormat: " + e.getMessage(), e);
             return false;
         }
     }
@@ -172,7 +174,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         AutoCheckFormat autoFormat = new AutoCheckFormat();
         
         if (ObjectUtils.isNotNull(formatSelection.getStartDate())) {
-            LOG.error("ERROR AutoCheckFormatService.createAutoCheckFormat: The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
+            LOG.error("The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
             return null;
         }
         
