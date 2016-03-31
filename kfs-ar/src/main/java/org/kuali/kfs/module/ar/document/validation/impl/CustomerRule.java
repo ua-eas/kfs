@@ -171,10 +171,10 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
 
             if (isValid) {
                 Customer customer = (Customer) document.getNewMaintainableObject().getBusinessObject();
-                if (customerAddress.getCustomerAddressTypeCode().equalsIgnoreCase(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY)) {
+                if (ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY.equalsIgnoreCase(customerAddress.getCustomerAddressTypeCode())) {
 
                     for (int i = 0; i < customer.getCustomerAddresses().size(); i++) {
-                        if (customer.getCustomerAddresses().get(i).getCustomerAddressTypeCode().equalsIgnoreCase(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY)) {
+                        if (ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY.equalsIgnoreCase(customer.getCustomerAddresses().get(i).getCustomerAddressTypeCode())) {
                             customer.getCustomerAddresses().get(i).setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
                             // OK
                             // break;
@@ -188,7 +188,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
                     Date endDate;
 
                     for (int i = 0; i < customer.getCustomerAddresses().size(); i++) {
-                        if (customer.getCustomerAddresses().get(i).getCustomerAddressTypeCode().equalsIgnoreCase(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY)) {
+                        if (ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY.equalsIgnoreCase(customer.getCustomerAddresses().get(i).getCustomerAddressTypeCode())) {
                             endDate = customer.getCustomerAddresses().get(i).getCustomerAddressEndDate();
                             // check if endDate qualifies this customer address as inactive (if endDate is a passed date or present
                             // date)
@@ -202,6 +202,10 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
                     }
                     if (!isActivePrimaryAddress) {
                         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY);
+                    } else {
+                    	if (StringUtils.isEmpty(customerAddress.getCustomerAddressTypeCode())) {
+                    		customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
+                    	}
                     }
                 }
             }
