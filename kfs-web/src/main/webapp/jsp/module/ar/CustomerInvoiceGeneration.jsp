@@ -19,13 +19,17 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 	
 	<c:set var="orgAttributes" value="${DataDictionary.Organization.attributes}" />
-	
-<kul:page  showDocumentInfo="false" 
+
+<kul:page lookup="true" showDocumentInfo="false"
 	headerTitle="Customer Invoice Generation" docTitle="Customer Invoice Generation" renderMultipart="true"
 	transactionalDocument="false" htmlFormAction="arCustomerInvoiceGeneration" errorKey="foo">
 
+    <div class="headerarea-small" id="headerarea-small">
+        <h1>Customer Invoice Generation</h1>
+    </div>
+
     <div id="lookup">
-        <table cellpadding="0" cellspacing="0" class="datatable-80" align="center" summary="Invoice Section">
+        <table class="standard" align="center" summary="Invoice Section">
             <tr>
                 <th>
                     <label for="chartCode"><kul:htmlAttributeLabel attributeEntry="${orgAttributes.chartOfAccountsCode}" readOnly="true" /></label>
@@ -89,8 +93,8 @@
 
 	<div>
 	  <c:if test="${!empty KualiForm.message }">
- 			${KualiForm.message }	
+ 			${KualiForm.message }
       </c:if>
    </div>
-	
+
 </kul:page>
