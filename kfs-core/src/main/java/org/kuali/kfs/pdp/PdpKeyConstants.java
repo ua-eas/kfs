@@ -202,9 +202,11 @@ public class PdpKeyConstants {
     public static final String ERROR_ACH_ACCOUNT_NOT_INACTIVABLE = "error.pdp.achAccount.accountNotInactivable";
 
     public static class Format {
+    	public static final String MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT="message.pdp.format.batch.email.subject"; 
+    	
         public static final String ERROR_PDP_FORMAT_PROCESS_ALREADY_RUNNING = "error.pdp.format.alreadyRunning";
         public static final String ERROR_PDP_NO_MATCHING_PAYMENT_FOR_FORMAT = "error.pdp.format.NoMatchingPayments";
-
+        
         public static final class ErrorMessages{
             public static final String ERROR_FORMAT_BANK_MISSING = "format.bank.missing";
             public static final String ERROR_FORMAT_DISBURSEMENT_EXHAUSTED = "format.disb.exhausted";

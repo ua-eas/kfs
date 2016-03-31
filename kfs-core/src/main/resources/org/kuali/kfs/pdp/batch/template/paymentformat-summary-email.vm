@@ -1,7 +1,7 @@
 <HTML>
-<HEAD><TITLE>Format Check/ACH summary at $docCreateDate</TITLE></HEAD>
+<HEAD><TITLE>$emailSubject on $docCreateDate</TITLE></HEAD>
 <BODY style="font-family:Tahoma;font-size:10px;">
-  	<h3>Format Check/ACH summary at $docCreateDate</h3>
+  	<h3>$emailSubject on $docCreateDate</h3>
 	<BR/>
 	<TABLE border="0" style="color:#000000;border-collapse:collapse;font-family:Tahoma;width:700px;">
 		<th style="padding: 2;text-align:center">Location</th>
@@ -54,7 +54,10 @@
 			<td align="right">$formatTotalCount</td>
 			<td align="right">$numberTool.format("currency", $formatTotalAmount)</td>
 		</tr>
-
+		<tr><td colspan="6" height="20"></td></tr>
+		<tr>
+		  <td colspan="6">Access the PDP Format Summary Lookup for additional information</td>
+        </tr>
 	</TABLE>
 </BODY>
 </HTML>

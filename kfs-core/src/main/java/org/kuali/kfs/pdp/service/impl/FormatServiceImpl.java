@@ -19,6 +19,7 @@
 package org.kuali.kfs.pdp.service.impl;
 
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,6 +44,7 @@ import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.batch.service.ExtractPaymentService;
+import org.kuali.kfs.pdp.batch.service.FormatCheckACHEmailService;
 import org.kuali.kfs.pdp.businessobject.AchAccountNumber;
 import org.kuali.kfs.pdp.businessobject.CustomerBank;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
@@ -74,9 +76,9 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.service.SchedulerService;
 import org.kuali.kfs.sys.businessobject.Bank;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.VelocityEmailService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.util.GlobalVariablesUtils;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
@@ -103,7 +105,8 @@ public class FormatServiceImpl implements FormatService {
     protected DateTimeService dateTimeService;
     protected ExtractPaymentService extractPaymentService;
     protected PersonService personService;
-    private VelocityEmailService formatCheckACHEmailService;
+    protected FormatCheckACHEmailService formatCheckACHEmailService;
+    protected ConfigurationService kualiConfigurationService;
 
     /**
      * Constructs a FormatServiceImpl.java.
@@ -335,10 +338,10 @@ public class FormatServiceImpl implements FormatService {
         LOG.debug("performFormat() Start extract");
         extractChecks();
 
-        LOG.info("Sending email to " + user.getEmailAddress());
-        sendEmail(user.getEmailAddress(), processId);
+//        LOG.info("Sending email to " + user.getEmailAddress());
+//        sendEmail(user.getEmailAddress(), processId);
         
-        // send email with summarizing info
+        LOG.info("Send summary email for processId: " + processId);
         sendSummaryEmail(postFormatProcessSummary);
 
     }
@@ -370,11 +373,19 @@ public class FormatServiceImpl implements FormatService {
 
 		DateFormatter dateFormatter = new DateFormatter();
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
+        
+        // set email subject message
+		String emailSubject = MessageFormat.format(getKualiConfigurationService()
+								.getPropertyValueAsString(PdpKeyConstants.Format.MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT), new Object[] { postFormatProcessSummary.getProcessId() });
+        
+        templateVariables.put("emailSubject", emailSubject);
         templateVariables.put("achSummaryMap", achSummaryMap);
         templateVariables.put("checkSummaryMap", checkSummaryMap);
         templateVariables.put("formatTotalCount", formatTotalCount);
         templateVariables.put("formatTotalAmount", formatTotalAmount);
         templateVariables.put("numberTool", new NumberTool());
+        
+        getFormatCheckACHEmailService().setEmailSubject(emailSubject);
         
         // Handle for email sending exception
         getFormatCheckACHEmailService().sendEmailNotification(templateVariables);
@@ -1016,15 +1027,29 @@ public class FormatServiceImpl implements FormatService {
 	/**
 	 * @return the formatCheckACHEmailService
 	 */
-	public VelocityEmailService getFormatCheckACHEmailService() {
+	public FormatCheckACHEmailService getFormatCheckACHEmailService() {
 		return formatCheckACHEmailService;
 	}
 
 	/**
 	 * @param formatCheckACHEmailService the formatCheckACHEmailService to set
 	 */
-	public void setFormatCheckACHEmailService(VelocityEmailService formatCheckACHEmailService) {
+	public void setFormatCheckACHEmailService(FormatCheckACHEmailService formatCheckACHEmailService) {
 		this.formatCheckACHEmailService = formatCheckACHEmailService;
+	}
+
+	/**
+	 * @return the kualiConfigurationService
+	 */
+	public ConfigurationService getKualiConfigurationService() {
+		return kualiConfigurationService;
+	}
+
+	/**
+	 * @param kualiConfigurationService the kualiConfigurationService to set
+	 */
+	public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
+		this.kualiConfigurationService = kualiConfigurationService;
 	}
 
 }
