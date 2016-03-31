@@ -33,7 +33,7 @@
             <tr>
 
             <tr>
-                <th align="right" nowrap="nowrap" width="50%">
+                <th class="right" width="50%">
                     <kul:htmlAttributeLabel attributeEntry="${paymentGroupAttributes.paymentDate}"
                                             labelFor="paymentDate"/>
                     <br><font size="1"> Ex. 11/26/2004</font></th>

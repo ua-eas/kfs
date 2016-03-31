@@ -18,9 +18,14 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<kul:page showDocumentInfo="false"
+<kul:page lookup="true"
+          showDocumentInfo="false"
           headerTitle="Sidebar Menu Cache" docTitle="Sidebar Menu Cache Configuration" renderMultipart="true"
           transactionalDocument="false" htmlFormAction="sidebarMenuCache" errorKey="foo">
+
+    <div class="headerarea-small" id="headerarea-small">
+        <h1>Sidebar Menu Cache</h1>
+    </div>
 
     <div class="msg-excol">
         <div class="left-errmsg">
@@ -43,8 +48,6 @@
                                                 Cache Expiration Time (in seconds)*:
                                             </label>
                                         </th>
-                                    </tr>
-                                    <tr>
                                         <td class="grid" style="width:50.0%;">
                                             <input type="text" name='cacheLength'
                                                    id='cacheLength'
