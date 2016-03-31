@@ -50,6 +50,19 @@
 <c:if test="${not purapTaxEnabled}">
     <c:set var="mainColumnCount" value="13"/>
 </c:if>
+
+<c:set var="accountColumnCount" value="${mainColumnCount - 1}"/>
+<%-- if it is B2B then we will not display the "Restricted" or "Assigned to Trade In" columns
+     so we need to reduce the width of the accounting lines --%>
+<c:if test="${lockB2BEntry}">
+    <%-- "Assigned to Trade In" always needs to be accounted for --%>
+    <c:set var="accountColumnCount" value="${accountColumnCount - 1}"/>
+    <c:if test="${displayRequisitionFields}">
+        <%-- "Restricted" is a REQ specific column so we only need account for it on on REQS not POs --%>
+        <c:set var="accountColumnCount" value="${accountColumnCount - 1}"/>
+    </c:if>
+</c:if>
+
 <c:set var="colSpanItemType" value="6"/>
 <c:set var="colSpanDescription" value="2"/>
 <c:set var="colSpanExtendedPrice" value="1"/>
@@ -266,7 +279,8 @@
             </c:if>
             <c:if test="${(fullEntryMode or amendmentEntry)}">
                 <tr>
-                    <th height=30 colspan="${mainColumnCount}" style="padding-bottom: 20px;">
+                    <th></th>
+                    <th height=30 colspan="${accountColumnCount}" style="padding-bottom: 20px;">
                         <purap:accountdistribution
                                 accountingLineAttributes="${accountingLineAttributes}"
                                 itemAttributes="${itemAttributes}"
@@ -527,7 +541,6 @@
                                         attributeEntry="${itemAttributes.itemInvoicedTotalAmount}"
                                         property="document.item[${ctr}].itemInvoicedTotalAmount" readOnly="${true}"/>
                             </td>
-                            <c:set var="accountColumnCount" value="${accountColumnCount + 1}"/>
                         </c:if>
 
                         <td class="infoline" colspan="${actionColSpan}">
@@ -561,11 +574,8 @@
                                 <purap:accountingLinesToggle currentTabIndex="${toggleTabIndex}" accountPrefix="document.item[${ctr}]."/>
                             </div>
                         </td>
-
-
                     </tr>
 
-                    <c:set var="accountColumnCount" value="${mainColumnCount - 1}"/>
                     <c:set var="rowStyle" value="border-bottom:1px solid #BBBBBB;"/>
                     <c:choose>
                         <c:when test="${amendmentEntry}">

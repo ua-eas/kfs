@@ -18,7 +18,16 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-
+    <changeSet author="kfs" context="bootstrap,demo" id="FINI-1502">
+        <insert tableName="krcr_nmspc_t">
+            <column name="NMSPC_CD"><![CDATA[KR-LOC]]></column>
+            <column name="OBJ_ID"><![CDATA[0738DD6D96C83105E0506E0AC31D4281]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[Kuali Location]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="APPL_ID"><![CDATA[RICE]]></column>
+        </insert>
+    </changeSet>
 
     <changeSet author="kfs" context="bootstrap,demo,unit"  id="FINP-316a">
         <addColumn tableName="KRIM_ENTITY_EMP_INFO_T">
@@ -80,7 +89,7 @@
 
         <insert tableName="krim_perm_t">
             <column name="PERM_ID"><![CDATA[KR1003]]></column>
-            <column name="OBJ_ID">uuid()</column>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_TMPL_ID"><![CDATA[KR1004]]></column>
             <column name="NMSPC_CD"><![CDATA[KR-NS]]></column>
@@ -169,19 +178,6 @@
         </insert>
 
         <insert tableName="KRCR_PARM_T">
-            <column name="NMSPC_CD" value="KR-NS"/>
-            <column name="CMPNT_CD" value="All"/>
-            <column name="PARM_NM" value="DEFAULT_COUNTRY"/>
-            <column name="OBJ_ID" valueComputed="uuid()"/>
-            <column name="VER_NBR" value="1"/>
-            <column name="PARM_TYP_CD" value="CONFG"/>
-            <column name="VAL" value="US"/>
-            <column name="PARM_DESC_TXT" value="Used as the default country code when relating records that do not have a country code to records that do have a country code, e.g. validating a zip code where the country is not collected."/>
-            <column name="EVAL_OPRTR_CD" value="A"/>
-            <column name="APPL_ID" value="KUALI"/>
-        </insert>
-
-        <insert tableName="KRCR_PARM_T">
             <column name="NMSPC_CD" value="KR-KRAD"/>
             <column name="CMPNT_CD" value="All"/>
             <column name="PARM_NM" value="AUTO_TRUNCATE_COLUMNS"/>
@@ -222,6 +218,10 @@
             <column name="LBL" value="Identity Management Document"/>
             <where>DOC_TYP_NM = 'IdentityManagementDocument' AND LBL = 'Undefined'</where>
         </update>
+
+        <modifySql dbms="oracle">
+            <replace replace="uuid()" with="sys_guid()"/>
+        </modifySql>
     </changeSet>
 
     <changeSet author="KFS601" id="FINP-328_REPLACE_DOCUMENTROUTEHEADERVALUEFIXTURE" context="unit">

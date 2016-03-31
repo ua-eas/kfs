@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.web.struts;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
 
 /**
@@ -52,7 +53,7 @@ public class KualiBalanceInquiryReportMenuForm extends KualiForm {
      * @return String
      */
     public String getBackLocation() {
-        return backLocation;
+        return WebUtils.sanitizeBackLocation(backLocation);
     }
 
     /**

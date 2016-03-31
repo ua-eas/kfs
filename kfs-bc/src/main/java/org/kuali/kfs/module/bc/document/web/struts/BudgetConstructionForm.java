@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BCKeyLabelPair;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountOrganizationHierarchy;
@@ -711,7 +712,7 @@ public class BudgetConstructionForm extends FinancialSystemTransactionalDocument
      * @return Returns the backLocation.
      */
     public String getBackLocation() {
-        return backLocation;
+        return WebUtils.sanitizeBackLocation(backLocation);
     }
 
     /**
