@@ -57,7 +57,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		
 		//if no profileId is null then we will process checks for all customer profiles
 		if(StringUtils.isBlank(profileId)){
-			return processChecks();
+			return true;
 		}
 		
 		// retrieve a valid customer from
