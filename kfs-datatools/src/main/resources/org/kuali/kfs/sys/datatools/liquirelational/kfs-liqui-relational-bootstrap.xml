@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="false">
+
+    <bean id="properties" class="org.kuali.kfs.sys.datatools.util.PropertyLoadingFactoryBean" />
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="propertiesArray">
+            <list>
+                <ref bean="properties" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="nonTransactionalDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${kfs.datasource.driver.name}"/>
+        <property name="validationQuery" value="${kfs.datasource.validating.query}"/>
+        <property name="url" value="${kfs.datasource.ddl.url}"/>
+        <property name="username" value="${kfs.datasource.ddl.username}" />
+        <property name="password" value="${kfs.datasource.ddl.password}" />
+        <property name="accessToUnderlyingConnectionAllowed" value="${kfs.datasource.pool.accessToUnderlyingConnectionAllowed}"/>
+        <property name="maxActive" value="${kfs.datasource.pool.maxActive}"/>
+        <property name="minIdle" value="${kfs.datasource.pool.minIdle}" />
+        <property name="initialSize" value="${kfs.datasource.pool.initialSize}" />
+    </bean>
+
+    <bean id="riceNonTransactionalDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${rice.datasource.driver.name}"/>
+        <property name="validationQuery" value="${rice.datasource.validating.query}"/>
+        <property name="url" value="${rice.datasource.ddl.url}"/>
+        <property name="username" value="${rice.datasource.ddl.username}" />
+        <property name="password" value="${rice.datasource.ddl.password}" />
+        <property name="accessToUnderlyingConnectionAllowed" value="${rice.datasource.pool.accessToUnderlyingConnectionAllowed}"/>
+        <property name="maxActive" value="${rice.datasource.pool.maxActive}"/>
+        <property name="minIdle" value="${rice.datasource.pool.minIdle}" />
+        <property name="initialSize" value="${rice.datasource.pool.initialSize}" />
+    </bean>
+
+    <alias name="riceNonTransactionalDataSource" alias="riceDataSource"/>
+    <alias name="nonTransactionalDataSource" alias="dataSource"/>
+
+</beans>
