@@ -18,14 +18,15 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.service.impl;
 
-import org.kuali.kfs.sys.datatools.util.ResourceLoaderUtil;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kuali.kfs.sys.datatools.liquimongo.businessobject.DocumentStoreChange;
 import org.kuali.kfs.sys.datatools.liquimongo.change.DocumentStoreChangeHandler;
 import org.kuali.kfs.sys.datatools.liquimongo.dataaccess.DocumentStoreUpdateProcessDao;
 import org.kuali.kfs.sys.datatools.liquimongo.service.DocumentStoreSchemaUpdateService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.kuali.kfs.sys.datatools.util.ResourceLoaderUtil;
 import org.springframework.core.io.Resource;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +36,13 @@ import java.util.List;
 
 /**
  * Update the schema of the document store database on system start up.
+ *
+ * This must be set transactional because the non-transactional annotation
+ * is in the kfs-core package.  kfs-core depends on kfs-datatools so kfs-datatools
+ * cannot depend on kfs-core (cyclic reference).  The class must have either the transactional or
+ * nonTransactional annotation or unit tests fail.
  */
+@Transactional
 public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchemaUpdateService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentStoreSchemaUpdateServiceImpl.class);
 
