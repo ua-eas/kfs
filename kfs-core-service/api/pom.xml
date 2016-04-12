@@ -1,0 +1,139 @@
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   - 
+   - Copyright 2005-2015 The Kuali Foundation
+   - 
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   - 
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   - 
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <name>Kuali Financial Core Service API</name>
+  <artifactId>kfs-core-service-api</artifactId>
+
+  <parent>
+    <artifactId>kfs-core-service</artifactId>
+    <groupId>org.kuali.kfs</groupId>
+    <version>6.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <rice.java2ws.phase>process-classes</rice.java2ws.phase>
+    <wsdl.dir>${project.build.directory}/wsdl</wsdl.dir>
+    <svc.pr.name>ParameterRepositoryService</svc.pr.name>
+    <svc.pr.wsdl>${wsdl.dir}/${svc.pr.name}.wsdl</svc.pr.wsdl>
+    <svc.ns.name>NamespaceService</svc.ns.name>
+    <svc.ns.wsdl>${wsdl.dir}/${svc.ns.name}.wsdl</svc.ns.wsdl>
+    <svc.cmpnt.name>ComponentService</svc.cmpnt.name>
+    <svc.cmpnt.wsdl>${wsdl.dir}/${svc.cmpnt.name}.wsdl</svc.cmpnt.wsdl>
+    <svc.sr.name>StyleRepositoryService</svc.sr.name>
+    <svc.sr.wsdl>${wsdl.dir}/${svc.sr.name}.wsdl</svc.sr.wsdl>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-java2ws-plugin</artifactId>
+        <version>2.7.12</version>
+        <executions>
+          <execution>
+            <id>parameterRepositoryService-wsdl</id>
+            <phase>${rice.java2ws.phase}</phase>
+            <configuration>
+              <className>org.kuali.kfs.coreservice.api.parameter.ParameterRepositoryService</className>
+              <outputFile>${svc.pr.wsdl}</outputFile>
+              <serviceName>${svc.pr.name}</serviceName>
+            </configuration>
+            <goals>
+              <goal>java2ws</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>namespaceService-wsdl</id>
+            <phase>${rice.java2ws.phase}</phase>
+            <configuration>
+              <className>org.kuali.kfs.coreservice.api.namespace.NamespaceService</className>
+              <outputFile>${svc.ns.wsdl}</outputFile>
+              <serviceName>${svc.ns.name}</serviceName>
+            </configuration>
+            <goals>
+              <goal>java2ws</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>componentService-wsdl</id>
+            <phase>${rice.java2ws.phase}</phase>
+            <configuration>
+              <className>org.kuali.kfs.coreservice.api.component.ComponentService</className>
+              <outputFile>${svc.cmpnt.wsdl}</outputFile>
+              <serviceName>${svc.cmpnt.name}</serviceName>
+            </configuration>
+            <goals>
+              <goal>java2ws</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>styleRepositoryService-wsdl</id>
+            <phase>${rice.java2ws.phase}</phase>
+            <configuration>
+              <className>org.kuali.kfs.coreservice.api.style.StyleRepositoryService</className>
+              <outputFile>${svc.sr.wsdl}</outputFile>
+              <serviceName>${svc.sr.name}</serviceName>
+            </configuration>
+            <goals>
+              <goal>java2ws</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+          <execution>
+            <id>attach-wsdls</id>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>${svc.pr.wsdl}</file>
+                  <classifier>${svc.pr.name}</classifier>
+                  <type>wsdl</type>
+                </artifact>
+                <artifact>
+                  <file>${svc.ns.wsdl}</file>
+                  <classifier>${svc.ns.name}</classifier>
+                  <type>wsdl</type>
+                </artifact>
+                <artifact>
+                  <file>${svc.cmpnt.wsdl}</file>
+                  <classifier>${svc.cmpnt.name}</classifier>
+                  <type>wsdl</type>
+                </artifact>
+                <artifact>
+                  <file>${svc.sr.wsdl}</file>
+                  <classifier>${svc.sr.name}</classifier>
+                  <type>wsdl</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

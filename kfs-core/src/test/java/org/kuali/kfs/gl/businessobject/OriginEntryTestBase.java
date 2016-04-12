@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.cxf.helpers.FileUtils;
 import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
@@ -167,7 +168,7 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
         while (!unbuiltDirectory.equals(pathToUnbuild)) {
             File pathToUnbuildFile = new File(pathToUnbuild);
             clearAllFilesInDirectory(pathToUnbuildFile);
-            pathToUnbuildFile.delete();
+            FileUtils.removeDir(pathToUnbuildFile);
 
             int lastSeperator = pathToUnbuild.lastIndexOf('/');
             pathToUnbuild = pathToUnbuild.substring(0, lastSeperator);
@@ -180,7 +181,11 @@ public abstract class OriginEntryTestBase extends KualiTestBase {
      */
     protected void clearAllFilesInDirectory(File dir) {
         for (File f : dir.listFiles()) {
-            f.delete();
+            if (f.isDirectory()) {
+                FileUtils.removeDir(f);
+            } else {
+                FileUtils.delete(f);
+            }
         }
     }
 

@@ -19,19 +19,22 @@
 package org.kuali.kfs.coa.service;
 
 import org.kuali.kfs.coa.businessobject.OrganizationReversion;
+import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
 
 /**
  * This class...
  */
+@ConfigureContext
 public class OrganizationReversionTestCase extends KualiTestBase {
 
     public void testGetByPrimaryKey() throws Exception {
         OrganizationReversionService organizationReversionService = SpringContext.getBean(OrganizationReversionService.class);
         assertNotNull("Service shouldn't be null", organizationReversionService);
 
-        Integer fiscalYear = new Integer("2004");
+        Integer fiscalYear = TestUtils.getFiscalYearForTesting() - 1;
 
         OrganizationReversion notexist = organizationReversionService.getByPrimaryId(fiscalYear, "BL", "TEST");
         assertNull("BL-TEST org reversion shouldn't exist in table", notexist);

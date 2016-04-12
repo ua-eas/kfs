@@ -54,6 +54,12 @@
   <dependencies>
     <dependency>
       <groupId>org.kuali.kfs</groupId>
+      <artifactId>kfs-kns</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+ 
+    <dependency>
+      <groupId>org.kuali.kfs</groupId>
       <artifactId>kfs-datatools</artifactId>
       <version>${project.version}</version>
     </dependency>

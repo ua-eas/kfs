@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2015 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+    <!-- KEW -->
+    <bean id="DocumentType-name" parent="DocumentType-name-parentBean"/>
+    <bean id="DocumentType-name-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="shortLabel" value="Name"/>
+        <property name="maxLength" value="64"/>
+        <property name="validationPattern">
+            <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="50"/>
+        </property>
+        <property name="name" value="name"/>
+        <property name="label" value="Name"/>
+    </bean>
+
+    <bean id="DocumentType-label" parent="DocumentType-label-parentBean"/>
+    <bean id="DocumentType-label-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="shortLabel" value="Label"/>
+        <property name="maxLength" value="128"/>
+        <property name="validationPattern">
+            <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="50"/>
+        </property>
+        <property name="name" value="label"/>
+        <property name="label" value="Label"/>
+    </bean>
+
+    <!-- KIM -->
+    <bean id="KimBaseBeans-id" parent="KimBaseBeans-id-parentBean" />
+    <bean id="KimBaseBeans-id-parentBean" parent="AttributeDefinition" abstract="true"
+          p:forceUppercase="true"
+          p:label="ID"
+          p:shortLabel="ID"
+          p:maxLength="40"
+          p:required="true" >
+        <property name="validationPattern" >
+            <bean parent="AlphaNumericValidationPattern" />
+        </property>
+        <property name="control" >
+            <bean parent="TextControlDefinition" p:size="15" />
+        </property>
+    </bean>
+
+    <bean id="KimBaseBeans-entityId" parent="KimBaseBeans-entityId-parentBean" />
+    <bean id="KimBaseBeans-entityId-parentBean" parent="KimBaseBeans-id" abstract="true"
+          p:name="entityId"
+          p:label="Entity ID"
+          p:shortLabel="Entity ID" />
+
+    <bean id="KimBaseBeans-principalId" parent="KimBaseBeans-principalId-parentBean" />
+    <bean id="KimBaseBeans-principalId-parentBean" parent="KimBaseBeans-id" abstract="true"
+          p:name="principalId"
+          p:label="Principal ID"
+          p:shortLabel="Principal ID"
+          p:forceUppercase="false"/>
+
+    <bean id="KimBaseBeans-principalName" parent="KimBaseBeans-principalName-parentBean" />
+    <bean id="KimBaseBeans-principalName-parentBean" parent="AttributeDefinition" abstract="true"
+          p:name="principalName"
+          p:forceUppercase="false"
+          p:label="Principal Name"
+          p:shortLabel="Principal Name"
+          p:maxLength="40"
+          p:required="true" >
+        <property name="validationPattern" >
+            <bean parent="AlphaNumericValidationPattern" p:lowerCase="true" />
+        </property>
+        <property name="control" >
+            <bean parent="TextControlDefinition" p:size="10" />
+        </property>
+    </bean>
+
+    <bean id="PersonImpl" parent="PersonImpl-parentBean"/>
+
+    <bean id="PersonImpl-parentBean" abstract="true" parent="BusinessObjectEntry"
+          p:businessObjectClass="org.kuali.rice.kim.impl.identity.PersonImpl" p:titleAttribute="principalId"
+          p:objectLabel="Person" p:inquiryDefinition-ref="PersonImpl-inquiryDefinition"
+          p:lookupDefinition-ref="PersonImpl-lookupDefinition">
+        <property name="attributes">
+            <list>
+                <ref bean="PersonImpl-emailAddress"/>
+                <ref bean="PersonImpl-entityId"/>
+                <ref bean="PersonImpl-firstName"/>
+                <ref bean="PersonImpl-lastName"/>
+                <ref bean="PersonImpl-middleName"/>
+                <ref bean="PersonImpl-name"/>
+                <ref bean="PersonImpl-employeeId"/>
+                <ref bean="PersonImpl-principalId"/>
+                <ref bean="PersonImpl-principalName"/>
+                <ref bean="PersonImpl-primaryDepartmentCode"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-emailAddress" parent="PersonImpl-emailAddress-parentBean"/>
+    <bean id="PersonImpl-emailAddress-parentBean" parent="AttributeDefinition" abstract="true">
+        <property name="forceUppercase" value="false"/>
+        <property name="shortLabel" value="Email"/>
+        <property name="maxLength" value="200"/>
+        <property name="validationPattern">
+            <bean parent="EmailAddressValidationPattern"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="40"/>
+        </property>
+        <property name="summary" value="&amp;nbsp;"/>
+        <property name="name" value="emailAddress"/>
+        <property name="label" value="Email Address"/>
+        <property name="description" value="The email address of the university user."/>
+    </bean>
+
+    <bean id="PersonImpl-entityId" parent="PersonImpl-entityId-parentBean"/>
+    <bean id="PersonImpl-entityId-parentBean" parent="KimBaseBeans-entityId" abstract="true"/>
+
+    <bean id="PersonImpl-firstName" parent="PersonImpl-firstName-parentBean"/>
+    <bean id="PersonImpl-firstName-parentBean" parent="AttributeDefinition" abstract="true" p:name="firstName"
+          p:forceUppercase="false" p:label="First Name" p:shortLabel="First Name" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="20"/>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-lastName" parent="PersonImpl-lastName-parentBean"/>
+    <bean id="PersonImpl-lastName-parentBean" parent="AttributeDefinition" abstract="true" p:name="lastName"
+          p:forceUppercase="false" p:label="Last Name" p:shortLabel="Last Name" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="20"/>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-middleName" parent="PersonImpl-middleName-parentBean"/>
+    <bean id="PersonImpl-middleName-parentBean" parent="AttributeDefinition" abstract="true" p:name="middleName"
+          p:forceUppercase="false" p:label="Middle Name" p:shortLabel="Middle Name" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="20"/>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-name" parent="PersonImpl-name-parentBean"/>
+    <bean id="PersonImpl-name-parentBean" parent="AttributeDefinition" abstract="true" p:name="name"
+          p:forceUppercase="false" p:label="Name" p:shortLabel="Name" p:maxLength="123" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="20"/>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-primaryDepartmentCode" parent="PersonImpl-primaryDepartmentCode-parentBean"/>
+    <bean id="PersonImpl-primaryDepartmentCode-parentBean" parent="AttributeDefinition" abstract="true"
+          p:name="primaryDepartmentCode" p:forceUppercase="true" p:label="Primary Department Code"
+          p:shortLabel="Primary Department Code" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="20"/>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-employeeId" parent="PersonImpl-employeeId-parentBean"/>
+    <bean id="PersonImpl-employeeId-parentBean" parent="AttributeDefinition" abstract="true" p:name="employeeId"
+          p:forceUppercase="true" p:label="Employee ID" p:shortLabel="Emp ID" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="12"/>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-principalId" parent="PersonImpl-principalId-parentBean"/>
+    <bean id="PersonImpl-principalId-parentBean" parent="KimBaseBeans-principalId" abstract="true"/>
+
+    <bean id="PersonImpl-principalName" parent="PersonImpl-principalName-parentBean"/>
+    <bean id="PersonImpl-principalName-parentBean" parent="KimBaseBeans-principalName" abstract="true"/>
+
+    <bean id="PersonImpl-inquiryDefinition" parent="PersonImpl-inquiryDefinition-parentBean"/>
+
+    <bean id="PersonImpl-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition"
+          p:title="Person Impl Inquiry" p:inquirableClass="org.kuali.rice.kim.inquiry.PersonInquirableImpl">
+        <property name="inquirySections">
+            <list>
+                <bean parent="InquirySectionDefinition" p:title="Person Attributes" p:numberOfColumns="1">
+                    <property name="inquiryFields">
+                        <list>
+                            <bean parent="FieldDefinition" p:attributeName="principalName"/>
+                            <bean parent="FieldDefinition" p:attributeName="name"/>
+                            <bean parent="FieldDefinition" p:attributeName="firstName"/>
+                            <bean parent="FieldDefinition" p:attributeName="middleName"/>
+                            <bean parent="FieldDefinition" p:attributeName="lastName"/>
+                            <bean parent="FieldDefinition" p:attributeName="principalId"/>
+                            <bean parent="FieldDefinition" p:attributeName="entityId"/>
+                            <bean parent="FieldDefinition" p:attributeName="campusCode"/>
+                            <bean parent="FieldDefinition" p:attributeName="emailAddress"/>
+                            <bean parent="FieldDefinition" p:attributeName="phoneNumber"/>
+                            <bean parent="FieldDefinition" p:attributeName="primaryDepartmentCode"/>
+                            <bean parent="FieldDefinition" p:attributeName="employeeStatusCode"/>
+                            <bean parent="FieldDefinition" p:attributeName="employeeTypeCode"/>
+                            <bean parent="FieldDefinition" p:attributeName="active"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="PersonImpl-lookupDefinition" parent="PersonImpl-lookupDefinition-parentBean"/>
+
+    <bean id="PersonImpl-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition" p:title="Person Lookup">
+        <property name="lookupableID" value="kimPersonLookupable"/>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+                <property name="attributeNames">
+                    <list>
+                        <value>principalName</value>
+                    </list>
+                </property>
+                <property name="sortAscending" value="true"/>
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="principalName"/>
+                <bean parent="FieldDefinition" p:attributeName="principalId"/>
+                <bean parent="FieldDefinition" p:attributeName="entityId"/>
+                <bean parent="FieldDefinition" p:attributeName="firstName"/>
+                <bean parent="FieldDefinition" p:attributeName="middleName"/>
+                <bean parent="FieldDefinition" p:attributeName="lastName"/>
+                <bean parent="FieldDefinition" p:attributeName="emailAddress"/>
+                <bean parent="FieldDefinition" p:attributeName="phoneNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="employeeId"/>
+                <bean parent="FieldDefinition" p:attributeName="campusCode"/>
+                <bean parent="FieldDefinition" p:attributeName="primaryDepartmentCode"/>
+                <bean parent="FieldDefinition" p:attributeName="employeeStatusCode"/>
+                <bean parent="FieldDefinition" p:attributeName="employeeTypeCode"/>
+                <bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
+                <bean parent="FieldDefinition" p:attributeName="lookupRoleNamespaceCode"/>
+                <bean parent="FieldDefinition" p:attributeName="lookupRoleName"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="principalId"/>
+                <bean parent="FieldDefinition" p:attributeName="principalName" p:noInquiry="true"/>
+                <bean parent="FieldDefinition" p:attributeName="name" p:noInquiry="true"/>
+                <bean parent="FieldDefinition" p:attributeName="entityId" p:noInquiry="true"/>
+                <bean parent="FieldDefinition" p:attributeName="campusCode"/>
+                <bean parent="FieldDefinition" p:attributeName="primaryDepartmentCode"/>
+                <bean parent="FieldDefinition" p:attributeName="employeeId"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="RoleBo-id" parent="RoleBo-id-parentBean"/>
+    <bean id="RoleBo-id-parentBean" parent="AttributeDefinition" abstract="true" p:name="id" p:forceUppercase="false"
+          p:label="Role" p:shortLabel="Role" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="40"/>
+        </property>
+    </bean>
+
+    <bean id="RoleBo-name" parent="RoleBo-name-parentBean"/>
+    <bean id="RoleBo-name-parentBean" parent="AttributeDefinition" abstract="true" p:name="name" p:forceUppercase="false"
+          p:label="Role Name" p:shortLabel="Role Name" p:maxLength="80" p:required="true">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="30"/>
+        </property>
+    </bean>
+
+    <bean id="RoleBo-namespaceCode" parent="RoleBo-namespaceCode-parentBean"/>
+    <bean id="RoleBo-namespaceCode-parentBean" parent="KimType-namespaceCode" abstract="true" p:name="namespaceCode"
+          p:forceUppercase="false" p:label="Namespace" p:shortLabel="Namespace" p:maxLength="40" p:required="true">
+    </bean>
+
+    <bean id="Group-id" parent="Group-id-parentBean"/>
+    <bean id="Group-id-parentBean" parent="AttributeDefinition" abstract="true" p:name="id" p:forceUppercase="true"
+          p:label="Group Id" p:shortLabel="Group Id" p:maxLength="70" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="40"/>
+        </property>
+    </bean>
+
+    <bean id="Group-name" parent="Group-name-parentBean"/>
+    <bean id="Group-name-parentBean" parent="AttributeDefinition" abstract="true" p:name="name" p:forceUppercase="false"
+          p:label="Group Name" p:shortLabel="Group Name" p:maxLength="80" p:required="true">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="50"/>
+        </property>
+    </bean>
+
+    <bean id="Group-namespaceCode" parent="Group-namespaceCode-parentBean"/>
+    <bean id="Group-namespaceCode-parentBean" parent="KimType-namespaceCode" abstract="true" p:name="namespaceCode"
+          p:label="Group Namespace" p:shortLabel="Group Namespace" p:required="true" p:maxLength="40">
+    </bean>
+
+    <bean id="RoleMemberBo-memberId" parent="RoleMemberBo-memberId-parentBean"/>
+    <bean id="RoleMemberBo-memberId-parentBean" parent="AttributeDefinition" abstract="true" p:name="memberId"
+          p:forceUppercase="true" p:label="Member Identifier" p:shortLabel="Member Identifier" p:maxLength="40"
+          p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="10"/>
+        </property>
+    </bean>
+
+    <bean id="RoleMemberBo-activeFromDate" parent="RoleMemberBo-activeFromDate-parentBean"/>
+    <bean id="RoleMemberBo-activeFromDate-parentBean" abstract="true" parent="AttributeReferenceDummy-activeFromDate">
+        <property name="name" value="activeFromDate"/>
+        <property name="label" value="Active From Date"/>
+        <property name="shortLabel" value="Active From Dt"/>
+        <property name="required" value="false"/>
+        <property name="summary" value="Start Date"/>
+        <property name="description" value="Start Date"/>
+    </bean>
+
+    <bean id="RoleMemberBo-activeToDate" parent="RoleMemberBo-activeToDate-parentBean"/>
+    <bean id="RoleMemberBo-activeToDate-parentBean" abstract="true" parent="AttributeReferenceDummy-activeToDate">
+        <property name="name" value="activeToDate"/>
+        <property name="label" value="Active To Date"/>
+        <property name="shortLabel" value="Active To Dt"/>
+        <property name="required" value="false"/>
+        <property name="summary" value="End Date"/>
+        <property name="description" value="End Date"/>
+    </bean>
+
+    <bean id="DocRoleResponsibilityAction-actionTypeCode" parent="DocRoleResponsibilityAction-actionTypeCode-parentBean"/>
+    <bean id="DocRoleResponsibilityAction-actionTypeCode-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="actionTypeCode"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Action Type Code"/>
+        <property name="shortLabel" value="Action Type Code"/>
+        <property name="required" value="true"/>
+        <property name="maxLength" value="40"/>
+        <property name="validationPattern">
+            <bean parent="AlphaNumericValidationPattern"/>
+        </property>
+        <property name="control">
+            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.ActionTypeValuesFinder"/>
+        </property>
+        <property name="summary" value="Action Type Code"/>
+        <property name="description" value="Action Type Code"/>
+    </bean>
+
+    <bean id="DocRoleResponsibilityAction-priorityNumber" parent="DocRoleResponsibilityAction-priorityNumber-parentBean"/>
+    <bean id="DocRoleResponsibilityAction-priorityNumber-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="priorityNumber"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Priority Number"/>
+        <property name="shortLabel" value="Priority Number"/>
+        <property name="required" value="false"/>
+        <property name="maxLength" value="3"/>
+        <property name="validationPattern">
+            <bean parent="NumericValidationPattern"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="3"/>
+        </property>
+        <property name="summary" value="Priority Number"/>
+        <property name="description" value="Priority Number"/>
+    </bean>
+
+    <bean id="DocRoleResponsibilityAction-forceAction" parent="DocRoleResponsibilityAction-forceAction-parentBean"/>
+    <bean id="DocRoleResponsibilityAction-forceAction-parentBean" abstract="true" parent="AttributeReferenceDummy-genericBoolean">
+        <property name="name" value="forceAction"/>
+        <property name="label" value="Force Action"/>
+        <property name="shortLabel" value="Force Action"/>
+        <property name="required" value="false"/>
+        <property name="summary" value="Require Redundant Action"/>
+        <property name="description" value="Require Redundant Action"/>
+    </bean>
+
+
+    <bean id="DocRoleResponsibilityAction-actionPolicyCode" parent="DocRoleResponsibilityAction-actionPolicyCode-parentBean"/>
+    <bean id="DocRoleResponsibilityAction-actionPolicyCode-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="actionPolicyCode"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Action Policy Code"/>
+        <property name="shortLabel" value="Action Policy Code"/>
+        <property name="required" value="true"/>
+        <property name="maxLength" value="40"/>
+        <property name="validationPattern">
+            <bean parent="AnyCharacterValidationPattern"/>
+        </property>
+        <property name="control">
+            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.ActionPolicyValuesFinder"/>
+        </property>
+        <property name="summary" value="Action Policy Code"/>
+        <property name="description" value="Action Policy Code"/>
+    </bean>
+
+    <bean id="KimType-kimTypeId" parent="KimType-kimTypeId-parentBean"/>
+    <bean id="KimType-kimTypeId-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="id"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Type Identifier"/>
+        <property name="shortLabel" value="Type Identifier"/>
+        <property name="maxLength" value="40"/>
+        <property name="validationPattern">
+            <bean parent="NumericValidationPattern"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="5"/>
+        </property>
+        <property name="controlField">
+            <bean parent="Uif-TextControl" p:size="5"/>
+        </property>
+    </bean>
+
+    <bean id="KimType-name" parent="KimType-name-parentBean"/>
+    <bean id="KimType-name-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="name"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Type Name"/>
+        <property name="shortLabel" value="Type Name"/>
+        <property name="maxLength" value="100"/>
+        <property name="validationPattern">
+            <bean parent="AlphaNumericValidationPattern" p:allowWhitespace="true"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="40"/>
+        </property>
+        <property name="controlField">
+            <bean parent="Uif-TextControl" p:size="40"/>
+        </property>
+        <property name="summary" value="Nm"/>
+        <property name="description" value="Nm"/>
+    </bean>
+
+    <bean id="KimType-namespaceCode" parent="KimType-namespaceCode-parentBean"/>
+    <bean id="KimType-namespaceCode-parentBean" abstract="true" parent="Parameter-namespaceCode">
+        <property name="name" value="namespaceCode"/>
+        <property name="forceUppercase" value="false"/>
+        <property name="label" value="Namespace Code"/>
+        <property name="shortLabel" value="Nmspc Cd"/>
+        <property name="summary" value="Nmspc Cd"/>
+        <property name="description" value="Nmspc Cd"/>
+    </bean>
+
+    <bean id="Responsibility-name" parent="Responsibility-name-parentBean"/>
+    <bean id="Responsibility-name-parentBean" abstract="true" parent="KimType-name" p:name="name" p:label="Responsibility Name" p:shortLabel="Responsibility Name">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="40"/>
+        </property>
+    </bean>
+
+    <bean id="PermissionBo-name" parent="PermissionBo-name-parentBean"/>
+    <bean id="PermissionBo-name-parentBean" abstract="true" parent="KimType-name" p:name="name" p:label="Permission Name" p:shortLabel="Permission Name">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="40"/>
+        </property>
+    </bean>
+
+    <bean id="DelegateBo-delegationTypeCode" parent="DelegateBo-delegationTypeCode-parentBean"/>
+    <bean id="DelegateBo-delegationTypeCode-parentBean" parent="AttributeDefinition" abstract="true" p:name="delegationTypeCode" p:forceUppercase="true" p:label="Delegation Type Code" p:shortLabel="Delegation Type" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.kns.bo.lookup.DelegationTypeValuesFinder"/>
+        </property>
+    </bean>
+
+    <!-- Location -->
+    <bean id="Campus-code" parent="Campus-code-parentBean"/>
+    <bean id="Campus-code-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="true"/>
+        <property name="shortLabel" value="Campus Code"/>
+        <property name="maxLength" value="2"/>
+        <property name="validationPattern">
+            <bean parent="AlphaNumericValidationPattern"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="2"/>
+        </property>
+        <property name="summary" value="Campus Code"/>
+        <property name="name" value="code"/>
+        <property name="label" value="Campus Code"/>
+        <property name="description" value="The code uniquely identifying a particular campus."/>
+    </bean>
+
+    <bean id="Campus-name" parent="Campus-name-parentBean"/>
+    <bean id="Campus-name-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="shortLabel" value="Name"/>
+        <property name="maxLength" value="40"/>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="40"/>
+        </property>
+        <property name="summary" value="Campus Name"/>
+        <property name="name" value="name"/>
+        <property name="label" value="Campus Name"/>
+        <property name="description" value="Campus Name..."/>
+    </bean>
+
+    <bean id="Country-code" parent="Country-code-parentBean"/>
+    <bean id="Country-code-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="code"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Country Code"/>
+        <property name="shortLabel" value="Country Code"/>
+        <property name="maxLength" value="2"/>
+        <property name="validationPattern">
+            <bean parent="AlphaNumericValidationPattern"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="2"/>
+        </property>
+        <property name="summary" value="Postal Country Code"/>
+        <property name="description" value="The code uniquely identify a country."/>
+    </bean>
+
+    <bean id="Country-name" parent="Country-name-parentBean"/>
+    <bean id="Country-name-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="name"/>
+        <property name="label" value="Country Name"/>
+        <property name="shortLabel" value="Country Name"/>
+        <property name="maxLength" value="50"/>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="50"/>
+        </property>
+        <property name="summary" value="Postal Country Name"/>
+        <property name="description" value="Postal Country Name..."/>
+    </bean>
+
+    <bean id="State-code" parent="State-code-parentBean"/>
+    <bean id="State-code-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="code"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="State Abbreviation"/>
+        <property name="shortLabel" value="State Abbr."/>
+        <property name="maxLength" value="2"/>
+        <property name="validationPattern">
+            <bean parent="AnyCharacterValidationPattern" p:exactLength="2"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="2"/>
+        </property>
+        <property name="summary" value="State Abbreviation"/>
+        <property name="description" value="The two digit code for a state"/>
+    </bean>
+
+    <bean id="County-code" parent="County-code-parentBean"/>
+    <bean id="County-code-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="code"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="County Code"/>
+        <property name="shortLabel" value="County Code"/>
+        <property name="maxLength" value="10"/>
+        <property name="validationPattern">
+            <bean parent="AnyCharacterValidationPattern"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="10"/>
+        </property>
+        <property name="summary" value="County Abbreviation"/>
+        <property name="description" value="The ten digit code for a County"/>
+    </bean>
+
+    <bean id="PostalCode-code" parent="PostalCode-code-parentBean"/>
+    <bean id="PostalCode-code-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="code"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Postal Code"/>
+        <property name="shortLabel" value="Postal Code"/>
+        <property name="maxLength" value="20"/>
+        <property name="validationPattern">
+            <bean parent="ZipcodeValidationPattern"/>
+        </property>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="15"/>
+        </property>
+        <property name="summary" value="Postal Code"/>
+        <property name="description" value="Postal Code either in 5-4 format or just 5 digits"/>
+    </bean>
+
+    <bean id="DocGroup" parent="DocGroup-parentBean"/>
+
+    <bean id="DocGroup-parentBean" abstract="true" parent="BusinessObjectEntry" p:businessObjectClass="org.kuali.rice.kim.bo.ui.PersonDocumentGroup" p:titleAttribute="groupId" p:objectLabel="Person Group" p:inquiryDefinition-ref="DocGroup-inquiryDefinition" p:lookupDefinition-ref="DocGroup-lookupDefinition">
+        <property name="attributes">
+            <list>
+                <ref bean="DocGroup-groupName"/>
+                <ref bean="DocGroup-namespaceCode"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="DocGroup-groupName" parent="DocGroup-groupName-parentBean"/>
+    <bean id="DocGroup-groupName-parentBean" parent="AttributeDefinition" abstract="true" p:name="groupName" p:forceUppercase="true" p:label="Name" p:shortLabel="Name" p:maxLength="80" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="10"/>
+        </property>
+    </bean>
+
+    <bean id="DocGroup-namespaceCode" parent="DocGroup-namespaceCode-parentBean"/>
+    <bean id="DocGroup-namespaceCode-parentBean" parent="AttributeDefinition" abstract="true" p:name="namespaceCode" p:forceUppercase="true" p:label="Namespace Code" p:shortLabel="Namespace Code" p:maxLength="40" p:required="false">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="10"/>
+        </property>
+    </bean>
+
+    <bean id="DocGroup-inquiryDefinition" parent="DocGroup-inquiryDefinition-parentBean"/>
+
+    <bean id="DocGroup-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition" p:title="Person Group Inquiry">
+        <property name="inquirySections">
+            <list>
+                <bean parent="InquirySectionDefinition" p:title="Person Attributes" p:numberOfColumns="1">
+                    <property name="inquiryFields">
+                        <list>
+                            <bean parent="FieldDefinition" p:attributeName="groupId"/>
+                            <bean parent="FieldDefinition" p:attributeName="groupName"/>
+                            <bean parent="FieldDefinition" p:attributeName="namespaceCode"/>
+                            <bean parent="FieldDefinition" p:attributeName="kimTypeId"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="DocGroup-lookupDefinition" parent="DocGroup-lookupDefinition-parentBean"/>
+
+    <bean id="DocGroup-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition" p:title="Group Lookup">
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+                <property name="attributeNames">
+                    <list>
+                        <value>groupId</value>
+                    </list>
+                </property>
+                <property name="sortAscending" value="true"/>
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="groupId"/>
+                <bean parent="FieldDefinition" p:attributeName="groupName"/>
+                <bean parent="FieldDefinition" p:attributeName="namespaceCode"/>
+                <bean parent="FieldDefinition" p:attributeName="kimTypeId"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="groupId"/>
+                <bean parent="FieldDefinition" p:attributeName="groupName"/>
+                <bean parent="FieldDefinition" p:attributeName="namespaceCode"/>
+                <bean parent="FieldDefinition" p:attributeName="kimTypeId"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
