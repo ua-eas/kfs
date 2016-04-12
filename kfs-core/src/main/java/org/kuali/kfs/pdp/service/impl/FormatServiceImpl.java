@@ -375,8 +375,10 @@ public class FormatServiceImpl implements FormatService {
         templateVariables.put(KFSConstants.ProcurementCardEmailVariableTemplate.DOC_CREATE_DATE, dateFormatter.formatForPresentation(new Date()));
         
         // set email subject message
+		String processId = postFormatProcessSummary.getProcessId().toString();
+		
 		String emailSubject = MessageFormat.format(getKualiConfigurationService()
-								.getPropertyValueAsString(PdpKeyConstants.Format.MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT), new Object[] { postFormatProcessSummary.getProcessId() });
+								.getPropertyValueAsString(PdpKeyConstants.Format.MESSAGE_PDP_FORMAT_BATCH_EMAIL_SUBJECT), new Object[] { processId });
         
         templateVariables.put("emailSubject", emailSubject);
         templateVariables.put("achSummaryMap", achSummaryMap);
