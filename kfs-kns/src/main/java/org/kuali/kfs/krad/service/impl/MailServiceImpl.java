@@ -18,15 +18,24 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.mail.MessagingException;
 
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.rice.core.api.mail.Mailer;
 import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.mail.EmailBcList;
+import org.kuali.rice.core.api.mail.EmailBody;
+import org.kuali.rice.core.api.mail.EmailCcList;
+import org.kuali.rice.core.api.mail.EmailFrom;
+import org.kuali.rice.core.api.mail.EmailSubject;
+import org.kuali.rice.core.api.mail.EmailToList;
+import org.kuali.rice.core.api.mail.MailMessage;
+import org.kuali.rice.core.api.mail.Mailer;
 
 public class MailServiceImpl implements MailService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MailServiceImpl.class);
@@ -75,6 +84,26 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
 		mailer.sendEmail(composeMessage(message));		
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.kuali.kfs.krad.service.MailService#sendHTMLMessage(org.kuali.rice.core.api.mail.MailMessage)
+	 */
+	@Override
+	public void sendHTMLMessage(MailMessage message) throws InvalidAddressException, MessagingException {
+		message = composeMessage(message); 
+		
+		List bccAddresses = new ArrayList<String>();
+		bccAddresses.addAll(message.getBccAddresses());
+		
+		List ccAddresses = new ArrayList<String>();
+		ccAddresses.addAll(message.getCcAddresses());
+		
+		List toAddresses = new ArrayList<String>();
+		toAddresses.addAll(message.getToAddresses());
+		
+		mailer.sendEmail(new EmailFrom(message.getFromAddress()),new EmailToList(toAddresses), new EmailSubject(message.getSubject()), new EmailBody(message.getMessage()), new EmailCcList(ccAddresses), new EmailBcList(bccAddresses), true);
+		
 	}
 	
     protected MailMessage composeMessage(MailMessage message){
