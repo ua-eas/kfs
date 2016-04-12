@@ -56,7 +56,7 @@ public abstract class VelocityEmailServiceBase implements VelocityEmailService {
             List<String> toList = new ArrayList<String>(mailMessage.getToAddresses());
             List<String> ccList = new ArrayList<String>(mailMessage.getCcAddresses());
             List<String> bccList = new ArrayList<String>(mailMessage.getBccAddresses());
-            mailService.sendMessage(mailMessage);
+            mailService.sendHTMLMessage(mailMessage);
         }
         catch (Exception ex) {
             LOG.error("Exception received when send email ", ex);
