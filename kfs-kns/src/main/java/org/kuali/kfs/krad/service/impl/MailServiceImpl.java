@@ -96,8 +96,10 @@ public class MailServiceImpl implements MailService {
 		
 		setHtmlMessage(htmlMessage);
 		
-		if(!htmlMessage)
+		if(!htmlMessage){
 			mailer.sendEmail(composeMessage(message));
+			return;
+		}
 		
 		message = composeMessage(message); 
 		
