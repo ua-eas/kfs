@@ -46,6 +46,8 @@ public class MailServiceImpl implements MailService {
     private String nonProductionNotificationMailingList;
     private boolean realNotificationsEnabled = true;
 
+	private boolean htmlMessage;
+
     /**
      * The injected Mailer.
      */
@@ -83,14 +85,20 @@ public class MailServiceImpl implements MailService {
 	 */
 	@Override
 	public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
-		mailer.sendEmail(composeMessage(message));		
+		sendMessage(message, false);		
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.kuali.kfs.krad.service.MailService#sendHTMLMessage(org.kuali.rice.core.api.mail.MailMessage)
 	 */
 	@Override
-	public void sendHTMLMessage(MailMessage message) throws InvalidAddressException, MessagingException {
+	public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
+		
+		setHtmlMessage(htmlMessage);
+		
+		if(!htmlMessage)
+			mailer.sendEmail(composeMessage(message));
+		
 		message = composeMessage(message); 
 		
 		List bccAddresses = new ArrayList<String>();
@@ -155,18 +163,34 @@ public class MailServiceImpl implements MailService {
 
     protected MailMessage getNonProductionMessage(MailMessage message){
         StringBuilder buf = new StringBuilder();
-        buf.append("Email To: ").append(message.getToAddresses()).append("\n");
-        buf.append("Email CC: ").append(message.getCcAddresses()).append("\n");
-        buf.append("Email BCC: ").append(message.getBccAddresses()).append("\n\n");
+        String newLine = isHtmlMessage() ? "<br/>" : "\n";
+		buf.append("Email To: ").append(message.getToAddresses()).append(newLine);
+        buf.append("Email CC: ").append(message.getCcAddresses()).append(newLine);
+        buf.append("Email BCC: ").append(message.getBccAddresses()).append(newLine+newLine);
         buf.append(message.getMessage());
-
+        message.setMessage(buf.toString());
+        
         message.getToAddresses().clear();
         //Note: If the non production notification mailing list is blank, sending this message will throw an exception
         message.addToAddress(getNonProductionNotificationMailingList());
         message.getBccAddresses().clear();
         message.getCcAddresses().clear();
-        message.setMessage(buf.toString());
 
         return message;
     }
+
+	/**
+	 * @return the htmlMessage
+	 */
+	public boolean isHtmlMessage() {
+		return htmlMessage;
+	}
+
+	/**
+	 * @param htmlMessage the htmlMessage to set
+	 */
+	public void setHtmlMessage(boolean htmlMessage) {
+		this.htmlMessage = htmlMessage;
+	}
+    
 }
