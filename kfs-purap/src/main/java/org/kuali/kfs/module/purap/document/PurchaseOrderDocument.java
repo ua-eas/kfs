@@ -742,18 +742,18 @@ public class PurchaseOrderDocument extends PurchasingDocumentBase implements Mul
             permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, workflowDocument.getDocumentTypeName());
             permissionDetails.put(KimConstants.AttributeConstants.ACTION_REQUEST_CD, KewApiConstants.ACTION_REQUEST_FYI_REQ);
             boolean canReceiveAdHocRequest = KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(routePrincipalId, KewApiConstants.KEW_NAMESPACE, KewApiConstants.AD_HOC_REVIEW_PERMISSION, permissionDetails, new HashMap<String, String>());
-            if(!isActiveUser || !canReceiveAdHocRequest){
+            if (!isActiveUser || !canReceiveAdHocRequest) {
                 String principalName = SpringContext.getBean(PersonService.class).getPerson(routePrincipalId).getName();
                 String errorText = "cannot send FYI to the user: " + principalName + "; Annotation: " + annotation;
                 LOG.info(errorText);
                 Note note = SpringContext.getBean(DocumentService.class).createNoteFromDocument(this, errorText);
                 this.addNote(SpringContext.getBean(NoteService.class).save(note));
+            } else {
+                String annotationNote = (ObjectUtils.isNull(annotation)) ? "" : annotation;
+                String responsibilityNote = (ObjectUtils.isNull(responsibility)) ? "" : responsibility;
+                String currentNodeName = getCurrentRouteNodeName(workflowDocument);
+                workflowDocument.adHocToPrincipal(ActionRequestType.FYI, currentNodeName, annotationNote, routePrincipalId, responsibilityNote, true);
             }
-
-            String annotationNote = (ObjectUtils.isNull(annotation)) ? "" : annotation;
-            String responsibilityNote = (ObjectUtils.isNull(responsibility)) ? "" : responsibility;
-            String currentNodeName = getCurrentRouteNodeName(workflowDocument);
-            workflowDocument.adHocToPrincipal( ActionRequestType.FYI, currentNodeName, annotationNote, routePrincipalId, responsibilityNote, true);
         }
     }
 
