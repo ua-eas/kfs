@@ -814,7 +814,8 @@
 	
 	<bean id="formatCheckACHEmailService"  parent="formatCheckACHEmailService-parentBean"/>
 	<bean id="formatCheckACHEmailService-parentBean" parent="velocityEmailServiceBase" class="org.kuali.kfs.pdp.batch.service.impl.FormatCheckACHEmailServiceImpl" abstract="true">
-		<property name="templateUrl" value="org/kuali/kfs/pdp/batch/template/paymentformat-summary-email.vm"/>	
+		<property name="templateUrl" value="org/kuali/kfs/pdp/batch/template/paymentformat-summary-email.vm"/>
+        <property name="htmlMessage" value="true" />
 	</bean>
 	
 	<bean id="pdpFormatCheckACHByCustomerProfileJob" parent="unscheduledJobDescriptor">
