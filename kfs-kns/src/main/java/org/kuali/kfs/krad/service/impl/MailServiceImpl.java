@@ -46,8 +46,6 @@ public class MailServiceImpl implements MailService {
     private String nonProductionNotificationMailingList;
     private boolean realNotificationsEnabled = true;
 
-	private boolean htmlMessage;
-
     /**
      * The injected Mailer.
      */
@@ -83,7 +81,6 @@ public class MailServiceImpl implements MailService {
 	 * 
 	 * @see MailService#sendMessage(org.kuali.rice.core.api.mail.MailMessage)
 	 */
-	@Override
 	public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
 		sendMessage(message, false);		
 	}
@@ -94,14 +91,12 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
 		
-		setHtmlMessage(htmlMessage);
-		
 		if(!htmlMessage){
-			mailer.sendEmail(composeMessage(message));
+			mailer.sendEmail(composeMessage(message, htmlMessage));
 			return;
 		}
 		
-		message = composeMessage(message); 
+		message = composeMessage(message, htmlMessage); 
 		
 		List bccAddresses = new ArrayList<String>();
 		bccAddresses.addAll(message.getBccAddresses());
@@ -116,12 +111,20 @@ public class MailServiceImpl implements MailService {
 		
 	}
 	
-    protected MailMessage composeMessage(MailMessage message){
+    protected MailMessage composeMessage(MailMessage message, boolean htmlMessage){
 
         MailMessage mm = new MailMessage();
 
         // If realNotificationsEnabled is false, mails will be sent to nonProductionNotificationMailingList
         if(!isRealNotificationsEnabled()){
+        	StringBuilder buf = new StringBuilder();
+            String newLine = htmlMessage ? "<br/>" : "\n";
+    		buf.append("Email To: ").append(message.getToAddresses()).append(newLine);
+            buf.append("Email CC: ").append(message.getCcAddresses()).append(newLine);
+            buf.append("Email BCC: ").append(message.getBccAddresses()).append(newLine+newLine);
+            buf.append(message.getMessage());
+            message.setMessage(buf.toString());
+            
             getNonProductionMessage(message);
         }
 
@@ -164,14 +167,6 @@ public class MailServiceImpl implements MailService {
     }
 
     protected MailMessage getNonProductionMessage(MailMessage message){
-        StringBuilder buf = new StringBuilder();
-        String newLine = isHtmlMessage() ? "<br/>" : "\n";
-		buf.append("Email To: ").append(message.getToAddresses()).append(newLine);
-        buf.append("Email CC: ").append(message.getCcAddresses()).append(newLine);
-        buf.append("Email BCC: ").append(message.getBccAddresses()).append(newLine+newLine);
-        buf.append(message.getMessage());
-        message.setMessage(buf.toString());
-        
         message.getToAddresses().clear();
         //Note: If the non production notification mailing list is blank, sending this message will throw an exception
         message.addToAddress(getNonProductionNotificationMailingList());
@@ -180,19 +175,5 @@ public class MailServiceImpl implements MailService {
 
         return message;
     }
-
-	/**
-	 * @return the htmlMessage
-	 */
-	public boolean isHtmlMessage() {
-		return htmlMessage;
-	}
-
-	/**
-	 * @param htmlMessage the htmlMessage to set
-	 */
-	public void setHtmlMessage(boolean htmlMessage) {
-		this.htmlMessage = htmlMessage;
-	}
     
 }
