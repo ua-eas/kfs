@@ -92,7 +92,7 @@ public class MailServiceImpl implements MailService {
 	public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
 		
 		if(!htmlMessage){
-			mailer.sendEmail(composeMessage(message, htmlMessage));
+			mailer.sendEmail(composeMessage(message));
 			return;
 		}
 		
@@ -111,24 +111,15 @@ public class MailServiceImpl implements MailService {
 		
 	}
 	
-    protected MailMessage composeMessage(MailMessage message, boolean htmlMessage){
-
+	protected MailMessage composeMessage(MailMessage message, boolean htmlMessage){
         MailMessage mm = new MailMessage();
 
         // If realNotificationsEnabled is false, mails will be sent to nonProductionNotificationMailingList
         if(!isRealNotificationsEnabled()){
-        	StringBuilder buf = new StringBuilder();
-            String newLine = htmlMessage ? "<br/>" : "\n";
-    		buf.append("Email To: ").append(message.getToAddresses()).append(newLine);
-            buf.append("Email CC: ").append(message.getCcAddresses()).append(newLine);
-            buf.append("Email BCC: ").append(message.getBccAddresses()).append(newLine+newLine);
-            buf.append(message.getMessage());
-            message.setMessage(buf.toString());
-            
-            getNonProductionMessage(message);
+            getNonProductionMessage(message, htmlMessage);
         }
-
-        String app = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(CoreConstants.Config.APPLICATION_ID);
+        
+		String app = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(CoreConstants.Config.APPLICATION_ID);
         String env = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
         
         mm.setToAddresses(message.getToAddresses());
@@ -138,6 +129,10 @@ public class MailServiceImpl implements MailService {
         mm.setMessage(message.getMessage());
         mm.setFromAddress(message.getFromAddress());
         return mm;
+        
+	}
+    protected MailMessage composeMessage(MailMessage message){
+        return composeMessage(message, false);
     }
 
     public String getNonProductionNotificationMailingList() {
@@ -166,7 +161,15 @@ public class MailServiceImpl implements MailService {
         this.realNotificationsEnabled = realNotificationsEnabled;
     }
 
-    protected MailMessage getNonProductionMessage(MailMessage message){
+    protected MailMessage getNonProductionMessage(MailMessage message, boolean htmlMessage){
+    	StringBuilder buf = new StringBuilder();
+        String newLine = htmlMessage ? "<br/>" : "\n";
+		buf.append("Email To: ").append(message.getToAddresses()).append(newLine);
+        buf.append("Email CC: ").append(message.getCcAddresses()).append(newLine);
+        buf.append("Email BCC: ").append(message.getBccAddresses()).append(newLine+newLine);
+        buf.append(message.getMessage());
+        message.setMessage(buf.toString());
+        
         message.getToAddresses().clear();
         //Note: If the non production notification mailing list is blank, sending this message will throw an exception
         message.addToAddress(getNonProductionNotificationMailingList());
