@@ -81,6 +81,7 @@ public class MailServiceImpl implements MailService {
 	 * 
 	 * @see MailService#sendMessage(org.kuali.rice.core.api.mail.MailMessage)
 	 */
+    @Override
 	public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
 		sendMessage(message, false);		
 	}
