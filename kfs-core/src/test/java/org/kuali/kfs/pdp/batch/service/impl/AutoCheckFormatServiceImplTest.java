@@ -101,14 +101,9 @@ public class AutoCheckFormatServiceImplTest {
     
     @Test
 	public void testProcessChecksByCustomerProfileWhenProfileIDisNull() throws Exception {
-    	CampusService cs = EasyMock.createMock(CampusService.class);
-    	EasyMock.expect(cs.findAllCampuses()).andReturn(new ArrayList<Campus>());
-    	EasyMock.replay(cs);
-    	
-    	autoCheckFormatServ.setCampusService(cs);
-    	
     	boolean results = autoCheckFormatServ.processChecksByCustomerProfile(null);
-		
+
+    	// Job should finish when customer profile ID parameter is blank blank
 		assertTrue(results);
 	}
 

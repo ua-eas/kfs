@@ -53,10 +53,16 @@ public abstract class VelocityEmailServiceBase implements VelocityEmailService {
         // Allow template variables can be retrieved from extending class
         try {
             final MailMessage mailMessage = constructMailMessage(templateVariables);
-            List<String> toList = new ArrayList<String>(mailMessage.getToAddresses());
-            List<String> ccList = new ArrayList<String>(mailMessage.getCcAddresses());
-            List<String> bccList = new ArrayList<String>(mailMessage.getBccAddresses());
-            mailService.sendMessage(mailMessage);
+            
+            // HTML email message
+            if(isHtmlMessage()){
+            	mailService.sendMessage(mailMessage, true);
+            	return;
+            }
+            
+            
+            // simple text email message
+            mailService.sendMessage(mailMessage, false);
         }
         catch (Exception ex) {
             LOG.error("Exception received when send email ", ex);

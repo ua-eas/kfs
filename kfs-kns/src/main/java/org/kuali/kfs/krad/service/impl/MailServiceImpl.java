@@ -18,15 +18,24 @@
  */
 package org.kuali.kfs.krad.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.mail.MessagingException;
 
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.rice.core.api.mail.Mailer;
 import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.MailService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.mail.EmailBcList;
+import org.kuali.rice.core.api.mail.EmailBody;
+import org.kuali.rice.core.api.mail.EmailCcList;
+import org.kuali.rice.core.api.mail.EmailFrom;
+import org.kuali.rice.core.api.mail.EmailSubject;
+import org.kuali.rice.core.api.mail.EmailToList;
+import org.kuali.rice.core.api.mail.MailMessage;
+import org.kuali.rice.core.api.mail.Mailer;
 
 public class MailServiceImpl implements MailService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MailServiceImpl.class);
@@ -72,21 +81,46 @@ public class MailServiceImpl implements MailService {
 	 * 
 	 * @see MailService#sendMessage(org.kuali.rice.core.api.mail.MailMessage)
 	 */
-	@Override
+    @Override
 	public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
-		mailer.sendEmail(composeMessage(message));		
+		sendMessage(message, false);		
 	}
 	
-    protected MailMessage composeMessage(MailMessage message){
-
+	/* (non-Javadoc)
+	 * @see org.kuali.kfs.krad.service.MailService#sendHTMLMessage(org.kuali.rice.core.api.mail.MailMessage)
+	 */
+	@Override
+	public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
+		
+		if(!htmlMessage){
+			mailer.sendEmail(composeMessage(message));
+			return;
+		}
+		
+		message = composeMessage(message, htmlMessage); 
+		
+		List bccAddresses = new ArrayList<String>();
+		bccAddresses.addAll(message.getBccAddresses());
+		
+		List ccAddresses = new ArrayList<String>();
+		ccAddresses.addAll(message.getCcAddresses());
+		
+		List toAddresses = new ArrayList<String>();
+		toAddresses.addAll(message.getToAddresses());
+		
+		mailer.sendEmail(new EmailFrom(message.getFromAddress()),new EmailToList(toAddresses), new EmailSubject(message.getSubject()), new EmailBody(message.getMessage()), new EmailCcList(ccAddresses), new EmailBcList(bccAddresses), true);
+		
+	}
+	
+	protected MailMessage composeMessage(MailMessage message, boolean htmlMessage){
         MailMessage mm = new MailMessage();
 
         // If realNotificationsEnabled is false, mails will be sent to nonProductionNotificationMailingList
         if(!isRealNotificationsEnabled()){
-            getNonProductionMessage(message);
+            getNonProductionMessage(message, htmlMessage);
         }
-
-        String app = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(CoreConstants.Config.APPLICATION_ID);
+        
+		String app = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(CoreConstants.Config.APPLICATION_ID);
         String env = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
         
         mm.setToAddresses(message.getToAddresses());
@@ -96,6 +130,10 @@ public class MailServiceImpl implements MailService {
         mm.setMessage(message.getMessage());
         mm.setFromAddress(message.getFromAddress());
         return mm;
+        
+	}
+    protected MailMessage composeMessage(MailMessage message){
+        return composeMessage(message, false);
     }
 
     public String getNonProductionNotificationMailingList() {
@@ -124,20 +162,22 @@ public class MailServiceImpl implements MailService {
         this.realNotificationsEnabled = realNotificationsEnabled;
     }
 
-    protected MailMessage getNonProductionMessage(MailMessage message){
-        StringBuilder buf = new StringBuilder();
-        buf.append("Email To: ").append(message.getToAddresses()).append("\n");
-        buf.append("Email CC: ").append(message.getCcAddresses()).append("\n");
-        buf.append("Email BCC: ").append(message.getBccAddresses()).append("\n\n");
+    protected MailMessage getNonProductionMessage(MailMessage message, boolean htmlMessage){
+    	StringBuilder buf = new StringBuilder();
+        String newLine = htmlMessage ? "<br/>" : "\n";
+		buf.append("Email To: ").append(message.getToAddresses()).append(newLine);
+        buf.append("Email CC: ").append(message.getCcAddresses()).append(newLine);
+        buf.append("Email BCC: ").append(message.getBccAddresses()).append(newLine+newLine);
         buf.append(message.getMessage());
-
+        message.setMessage(buf.toString());
+        
         message.getToAddresses().clear();
         //Note: If the non production notification mailing list is blank, sending this message will throw an exception
         message.addToAddress(getNonProductionNotificationMailingList());
         message.getBccAddresses().clear();
         message.getCcAddresses().clear();
-        message.setMessage(buf.toString());
 
         return message;
     }
+    
 }

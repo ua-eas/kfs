@@ -25,6 +25,8 @@ import org.kuali.rice.core.api.mail.MailMessage;
 
 public interface MailService {
     public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException;
+    
+    public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException;
 
     public String getBatchMailingList();
 }
