@@ -46,8 +46,6 @@ public class MailServiceImpl implements MailService {
     private String nonProductionNotificationMailingList;
     private boolean realNotificationsEnabled = true;
 
-	private boolean htmlMessage;
-
     /**
      * The injected Mailer.
      */
@@ -83,7 +81,7 @@ public class MailServiceImpl implements MailService {
 	 * 
 	 * @see MailService#sendMessage(org.kuali.rice.core.api.mail.MailMessage)
 	 */
-	@Override
+    @Override
 	public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
 		sendMessage(message, false);		
 	}
@@ -94,12 +92,12 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
 		
-		setHtmlMessage(htmlMessage);
-		
-		if(!htmlMessage)
+		if(!htmlMessage){
 			mailer.sendEmail(composeMessage(message));
+			return;
+		}
 		
-		message = composeMessage(message); 
+		message = composeMessage(message, htmlMessage); 
 		
 		List bccAddresses = new ArrayList<String>();
 		bccAddresses.addAll(message.getBccAddresses());
@@ -114,16 +112,15 @@ public class MailServiceImpl implements MailService {
 		
 	}
 	
-    protected MailMessage composeMessage(MailMessage message){
-
+	protected MailMessage composeMessage(MailMessage message, boolean htmlMessage){
         MailMessage mm = new MailMessage();
 
         // If realNotificationsEnabled is false, mails will be sent to nonProductionNotificationMailingList
         if(!isRealNotificationsEnabled()){
-            getNonProductionMessage(message);
+            getNonProductionMessage(message, htmlMessage);
         }
-
-        String app = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(CoreConstants.Config.APPLICATION_ID);
+        
+		String app = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(CoreConstants.Config.APPLICATION_ID);
         String env = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
         
         mm.setToAddresses(message.getToAddresses());
@@ -133,6 +130,10 @@ public class MailServiceImpl implements MailService {
         mm.setMessage(message.getMessage());
         mm.setFromAddress(message.getFromAddress());
         return mm;
+        
+	}
+    protected MailMessage composeMessage(MailMessage message){
+        return composeMessage(message, false);
     }
 
     public String getNonProductionNotificationMailingList() {
@@ -161,9 +162,9 @@ public class MailServiceImpl implements MailService {
         this.realNotificationsEnabled = realNotificationsEnabled;
     }
 
-    protected MailMessage getNonProductionMessage(MailMessage message){
-        StringBuilder buf = new StringBuilder();
-        String newLine = isHtmlMessage() ? "<br/>" : "\n";
+    protected MailMessage getNonProductionMessage(MailMessage message, boolean htmlMessage){
+    	StringBuilder buf = new StringBuilder();
+        String newLine = htmlMessage ? "<br/>" : "\n";
 		buf.append("Email To: ").append(message.getToAddresses()).append(newLine);
         buf.append("Email CC: ").append(message.getCcAddresses()).append(newLine);
         buf.append("Email BCC: ").append(message.getBccAddresses()).append(newLine+newLine);
@@ -178,19 +179,5 @@ public class MailServiceImpl implements MailService {
 
         return message;
     }
-
-	/**
-	 * @return the htmlMessage
-	 */
-	public boolean isHtmlMessage() {
-		return htmlMessage;
-	}
-
-	/**
-	 * @param htmlMessage the htmlMessage to set
-	 */
-	public void setHtmlMessage(boolean htmlMessage) {
-		this.htmlMessage = htmlMessage;
-	}
     
 }
