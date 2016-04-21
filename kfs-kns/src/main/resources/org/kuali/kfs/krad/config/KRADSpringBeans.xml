@@ -578,11 +578,7 @@
     </property>
   </bean>
 
-  <bean id="cf.pessimisticLockService" class="org.kuali.kfs.krad.service.impl.PessimisticLockServiceImpl">
-    <property name="businessObjectService">
-      <ref bean="cf.businessObjectService"/>
-    </property>
-  </bean>
+  <bean id="cf.pessimisticLockService" class="org.kuali.kfs.krad.service.impl.NoOpPessimisticLockServiceImpl"/>
 
   <bean id="cf.ojbCollectionHelper" class="org.kuali.kfs.krad.util.OjbCollectionHelper"/>
 
