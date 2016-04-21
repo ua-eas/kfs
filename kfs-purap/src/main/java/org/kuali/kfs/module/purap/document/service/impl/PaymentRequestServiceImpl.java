@@ -73,8 +73,10 @@ import org.kuali.kfs.module.purap.util.VendorGroupingHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.Bank;
+import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.kfs.sys.service.FinancialSystemWorkflowHelperService;
 import org.kuali.kfs.sys.service.NonTransactional;
@@ -117,6 +119,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
 
     protected DateTimeService dateTimeService;
     protected DocumentService documentService;
+    protected FinancialSystemDocumentService financialSystemDocumentService;
     protected NoteService noteService;
     protected PurapService purapService;
     protected PaymentRequestDao paymentRequestDao;
@@ -1814,30 +1817,8 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     @Override
     @NonTransactional
     public boolean hasActivePaymentRequestsForPurchaseOrder(Integer purchaseOrderIdentifier) {
-
-        boolean hasActivePreqs = false;
-        List<PaymentRequestDocument> preqs = paymentRequestDao.getActivePaymentRequestDocumentNumbersForPurchaseOrder(purchaseOrderIdentifier);
-        WorkflowDocument workflowDocument = null;
-
-       // docNumbers = paymentRequestDao.getActivePaymentRequestDocumentNumbersForPurchaseOrder(purchaseOrderIdentifier);
-        //docNumbers = filterPaymentRequestByAppDocStatus(docNumbers, PaymentRequestStatuses.STATUSES_POTENTIALLY_ACTIVE);
-
-        for (PaymentRequestDocument preq : preqs) {
-            if (preq.getApplicationDocumentStatus().equals(PaymentRequestStatuses.STATUSES_POTENTIALLY_ACTIVE)) {
-                try {
-                    workflowDocument = workflowDocumentService.loadWorkflowDocument(preq.getDocumentNumber(), GlobalVariables.getUserSession().getPerson());
-                }
-                catch (WorkflowException we) {
-                    throw new RuntimeException(we);
-                }
-                // if the document is not in a non-active status then return true and stop evaluation
-                if (!(workflowDocument.isCanceled() || workflowDocument.isException())) {
-                    hasActivePreqs = true;
-                    break;
-                }
-            }
-        }
-        return hasActivePreqs;
+        int activePaymentRequestCount = paymentRequestDao.getActivePaymentRequestCountForPurchaseOrder(purchaseOrderIdentifier);
+        return (activePaymentRequestCount > 0);
     }
 
 
@@ -1860,29 +1841,26 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
      * @return a list of document numbers matching application document status based on
      */
     protected void filterPaymentRequestByAppDocStatus(Map<String, String> paymentRequestResults, List<String> lookupDocNumbers, String... applicationDocumentStatus) {
-        List<String> paymentRequestDocNumbersInclude = new ArrayList<String>();
-        List<String> paymentRequestDocNumbersExclude = new ArrayList<String>();
+        boolean hasInProcess = false;
+        boolean checkInProcess = false;
 
         for (String docId : lookupDocNumbers) {
-            try {
-                PaymentRequestDocument preq = (PaymentRequestDocument) documentService.getByDocumentHeaderId(docId);
-                if(Arrays.asList(applicationDocumentStatus).contains(preq.getApplicationDocumentStatus())) {
-                    paymentRequestDocNumbersInclude.add(docId);
-                } else {
-                    paymentRequestDocNumbersExclude.add(docId);
-                }
-            }
-            catch (WorkflowException ex) {
-                LOG.warn( "Error retrieving doc for doc #" + docId + ". This shouldn't happen.", ex );
-                throw new RuntimeException(ex.getMessage(),ex);
-            }
+        	FinancialSystemDocumentHeader hdr = financialSystemDocumentService.findByDocumentNumber(docId);
+        	if(Arrays.asList(applicationDocumentStatus).contains(hdr.getApplicationDocumentStatus())) {
+        		hasInProcess = true;
+        	} else {
+        		checkInProcess = true;
+        	}
+        	if (hasInProcess && checkInProcess) {
+        		break;
+        	}
         }
 
-        if (!paymentRequestDocNumbersInclude.isEmpty()) {
+        if (hasInProcess) {
             paymentRequestResults.put("hasInProcess", "Y");
         }
 
-        if (!paymentRequestDocNumbersExclude.isEmpty()) {
+        if (checkInProcess) {
             paymentRequestResults.put("checkInProcess", "Y");
         }
     }
@@ -2062,6 +2040,11 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     @NonTransactional
     public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
+    }
+    
+    @NonTransactional
+    public void setFinancialSystemDocumentService(FinancialSystemDocumentService financialSystemDocumentService) {
+    	this.financialSystemDocumentService = financialSystemDocumentService;
     }
 
     @NonTransactional

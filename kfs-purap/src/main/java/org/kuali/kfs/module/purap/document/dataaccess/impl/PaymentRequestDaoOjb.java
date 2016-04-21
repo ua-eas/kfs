@@ -38,6 +38,7 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -355,17 +356,20 @@ public class PaymentRequestDaoOjb extends PlatformAwareDaoBaseOjb implements Pay
     }
 
     @Override
-    public List<PaymentRequestDocument> getActivePaymentRequestDocumentNumbersForPurchaseOrder(Integer purchaseOrderId) {
+    public int getActivePaymentRequestCountForPurchaseOrder(Integer purchaseOrderId) {
         LOG.debug("getActivePaymentRequestsByVendorNumberInvoiceNumber() started");
 
-        List<String> returnList = new ArrayList<String>();
         Criteria criteria = new Criteria();
 
         criteria.addEqualTo(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, purchaseOrderId);
+        criteria.addIn(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS,
+                Arrays.asList(PurapConstants.PaymentRequestStatuses.STATUSES_POTENTIALLY_ACTIVE));
+        Collection<String> workflowNotActiveStatuses = Arrays.asList(new String[]{ DocumentStatus.CANCELED.getCode(), DocumentStatus.EXCEPTION.getCode() });
+        criteria.addNotIn(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, workflowNotActiveStatuses);
         QueryByCriteria qbc = new QueryByCriteria(PaymentRequestDocument.class, criteria);
-        return this.getPaymentRequestsByQueryByCriteria(qbc);
-
+        return this.getPersistenceBrokerTemplate().getCount(qbc);
     }
+    
     @Override
     public List<PaymentRequestDocument> getPaymentRequestInReceivingStatus() {
         Criteria criteria = new Criteria();
