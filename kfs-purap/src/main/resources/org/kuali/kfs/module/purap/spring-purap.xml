@@ -258,6 +258,7 @@
 		<property name="dateTimeService" ref="dateTimeService" />
 		<property name="paymentRequestDao" ref="paymentRequestDao" />
         <property name="documentService" ref="documentService" />
+        <property name="financialSystemDocumentService" ref="financialSystemDocumentService" />
         <property name="purapService" ref="purapService" />
         <property name="noteService" ref="noteService" />
         <property name="parameterService" ref="parameterService" />
