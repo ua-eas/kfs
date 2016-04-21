@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectLevelService;
@@ -238,6 +239,10 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
 
         ObjectTypeService objectTypeService = (ObjectTypeService) SpringContext.getBean(ObjectTypeService.class);
         List<String> expenseObjectTypes = objectTypeService.getCurrentYearExpenseObjectTypes();
+        if (LOG.isDebugEnabled()) {
+            // let's not even risk joining a null array unless debug is on
+            LOG.debug("hasSufficientFundsOnItem() retrieved expense object types: " + StringUtils.join(expenseObjectTypes, ",") + " size: " + expenseObjectTypes.size());
+        }
 
         if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode()) 
                 && !item.getFinancialObject().getChartOfAccounts().getFinancialCashObjectCode().equals(item.getFinancialObject().getFinancialObjectCode())) {

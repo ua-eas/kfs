@@ -78,7 +78,7 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
      * @see org.kuali.kfs.coa.service.ObjectTypeService#getExpenseObjectTypes(java.lang.Integer)
      */
     @Override
-    @Cacheable(value=SystemOptions.CACHE_NAME,key="'{ExpenseObjectTypes}'+#p0")
+    @Cacheable(value=SystemOptions.CACHE_NAME,key="'{ExpenseObjectTypes}'+#p0",unless="#result.empty")
     public List<String> getExpenseObjectTypes(Integer universityFiscalYear) {
         List<String> expenseObjectTypes = new ArrayList<String>();
         SystemOptions option = businessObjectService.findBySinglePrimaryKey(SystemOptions.class, universityFiscalYear);
@@ -148,7 +148,7 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
      * @see org.kuali.kfs.coa.service.ObjectTypeService#getCurrentYearExpenseObjectTypes()
      */
     @Override
-    @Cacheable(value=SystemOptions.CACHE_NAME,key="'{ExpenseObjectTypes}CurrentFY'")
+    @Cacheable(value=SystemOptions.CACHE_NAME,key="'{ExpenseObjectTypes}CurrentFY'",unless="#result.empty")
     public List<String> getCurrentYearExpenseObjectTypes() {
         return getExpenseObjectTypes(universityDateService.getCurrentFiscalYear());
     }
