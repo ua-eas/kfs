@@ -54,8 +54,8 @@ public class SecAccountingLineAuthorizer implements AccountingLineAuthorizer, Ca
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer#hasEditPermissionOnAccountingLine
      */
     @Override
-    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable) {
-        boolean hasEditPermission = lineAuthorizer.hasEditPermissionOnAccountingLine(accountingDocument, accountingLine, accountingLineCollectionProperty, currentUser, pageIsEditable);
+    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable, Set<String> currentNodes) {
+        boolean hasEditPermission = lineAuthorizer.hasEditPermissionOnAccountingLine(accountingDocument, accountingLine, accountingLineCollectionProperty, currentUser, pageIsEditable, currentNodes);
 
         if (hasEditPermission) {
             hasEditPermission = SpringContext.getBean(AccessSecurityService.class).canEditDocumentAccountingLine(accountingDocument, accountingLine, currentUser);
@@ -70,8 +70,8 @@ public class SecAccountingLineAuthorizer implements AccountingLineAuthorizer, Ca
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer#hasEditPermissionOnField
      */
     @Override
-    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser) {
-        boolean hasEditPermission = lineAuthorizer.hasEditPermissionOnField(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editableLine, editablePage, currentUser);
+    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser, Set<String> currentNodes) {
+        boolean hasEditPermission = lineAuthorizer.hasEditPermissionOnField(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editableLine, editablePage, currentUser, currentNodes);
 
         return hasEditPermission;
     }

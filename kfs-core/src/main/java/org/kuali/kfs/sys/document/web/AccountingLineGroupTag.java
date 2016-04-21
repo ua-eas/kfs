@@ -268,6 +268,7 @@ public class AccountingLineGroupTag extends TagSupport {
         
         final AccountingLineGroupDefinition groupDefinition = getGroupDefinition();
         final AccountingDocument document = getDocument();
+        final Set<String> currentNodes = document.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
         boolean addedTopLine = false;
         
@@ -279,11 +280,11 @@ public class AccountingLineGroupTag extends TagSupport {
         Collections.sort(lines, getGroupDefinition().getAccountingLineComparator());
         // add the new line
         if (StringUtils.isNotBlank(newLinePropertyName) && ((getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT) && groupDefinition.getAccountingLineAuthorizer().renderNewLine(document, collectionPropertyName)) || anyEditableLines)) {
-            containers.add(0, buildContainerForLine(groupDefinition, document, getNewAccountingLine(), currentUser, null, true, pageIsEditable));
+            containers.add(0, buildContainerForLine(groupDefinition, document, getNewAccountingLine(), currentUser, null, true, pageIsEditable, currentNodes));
             addedTopLine = true;
         }
         for (AccountingLine accountingLine : lines) {
-            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), !addedTopLine, pageIsEditable);
+            final RenderableAccountingLineContainer container = buildContainerForLine(groupDefinition, document, accountingLine, currentUser, new Integer(count), !addedTopLine, pageIsEditable, currentNodes);
             containers.add(container);
             anyEditableLines = anyEditableLines || container.isEditableLine() || isMessageMapContainingErrorsOnLine(container.getAccountingLinePropertyPath());
             count += 1;
@@ -313,14 +314,15 @@ public class AccountingLineGroupTag extends TagSupport {
      * @param accountingLine the accounting line to render
      * @param currentUser the currently logged in user
      * @param count the count of this line within the collection represented by the group; null if this is a new line for the group
+     * @param currentNodes the workflow nodes the document is currently at
      * @return the container created
      */
-    protected RenderableAccountingLineContainer buildContainerForLine(AccountingLineGroupDefinition groupDefinition, AccountingDocument accountingDocument, AccountingLine accountingLine, Person currentUser, Integer count, boolean topLine, boolean pageIsEditable) {
+    protected RenderableAccountingLineContainer buildContainerForLine(AccountingLineGroupDefinition groupDefinition, AccountingDocument accountingDocument, AccountingLine accountingLine, Person currentUser, Integer count, boolean topLine, boolean pageIsEditable, Set<String> currentNodes) {
         final String accountingLinePropertyName = count == null ? newLinePropertyName : collectionItemPropertyName+"["+count.toString()+"]";
         final boolean newLine = (count == null);
         final List<AccountingLineTableRow> rows = getRenderableElementsForLine(groupDefinition, accountingLine, newLine, topLine, accountingLinePropertyName);
 
-        return new RenderableAccountingLineContainer(getForm(), accountingLine, accountingLinePropertyName, rows, count, groupDefinition.getGroupLabel(), getErrors(), groupDefinition.getAccountingLineAuthorizer(), groupDefinition.getAccountingLineAuthorizer().hasEditPermissionOnAccountingLine(getDocument(), accountingLine, collectionPropertyName, currentUser, pageIsEditable));
+        return new RenderableAccountingLineContainer(getForm(), accountingLine, accountingLinePropertyName, rows, count, groupDefinition.getGroupLabel(), getErrors(), groupDefinition.getAccountingLineAuthorizer(), groupDefinition.getAccountingLineAuthorizer().hasEditPermissionOnAccountingLine(getDocument(), accountingLine, collectionPropertyName, currentUser, pageIsEditable, currentNodes), currentNodes);
     }
 
     /**

@@ -35,6 +35,8 @@ import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
+import java.util.Set;
+
 public class PaymentRequestNonZeroAccountingLineAmountValidation extends PurchasingAccountsPayableAccountingLineAccessibleValidation {
 
     private PurApItem itemForValidation;
@@ -50,9 +52,10 @@ public class PaymentRequestNonZeroAccountingLineAmountValidation extends Purchas
         
         //Do this for AFOA only
         if (StringUtils.equals(PaymentRequestStatuses.APPDOC_AWAITING_FISCAL_REVIEW, status)) {
+            final Set<String> currentNodes = accountingDocument.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
             for (PurApAccountingLine acct : itemForValidation.getSourceAccountingLines()) {
                 this.setAccountingLineForValidation(acct);
-                final boolean lineIsAccessible =  lookupAccountingLineAuthorizer().hasEditPermissionOnAccountingLine(accountingDocument, acct, getAccountingLineCollectionProperty(), GlobalVariables.getUserSession().getPerson(), true);
+                final boolean lineIsAccessible =  lookupAccountingLineAuthorizer().hasEditPermissionOnAccountingLine(accountingDocument, acct, getAccountingLineCollectionProperty(), GlobalVariables.getUserSession().getPerson(), true, currentNodes);
                 // if the current logged in user has edit permissions on this line then validate the line..
                 if (lineIsAccessible) {
                     //if amount is null, throw an error.  If amount is zero, check system parameter and determine

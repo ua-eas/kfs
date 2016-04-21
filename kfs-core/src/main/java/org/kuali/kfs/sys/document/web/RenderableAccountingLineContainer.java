@@ -21,6 +21,7 @@ package org.kuali.kfs.sys.document.web;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -57,6 +58,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     private List errors;
     private AccountingLineAuthorizer accountingLineAuthorizer;
     private boolean editableLine;
+    private Set<String> currentNodes;
     private boolean deletable = false;
     
     /**
@@ -65,13 +67,14 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
      * @param accountingLine the accounting line this container will render
      * @param accountingLineProperty the property to that accounting line
      * @param rows the rows to render
-     * @param newLine whether this is a new accounting line or not
+     * @param lineCount
      * @param groupLabel the label for the group this accounting line is being rendered part of
      * @param errors the set of errors currently on the document
      * @param accountingLineAuthorizer the accounting line authorizer for the document
      * @param editableLine whether this line, as a whole _line_ is editable
+     * @param currentNodes the workflow nodes the document is currently at
      */
-    public RenderableAccountingLineContainer(KualiAccountingDocumentFormBase form, AccountingLine accountingLine, String accountingLineProperty, List<AccountingLineTableRow> rows, Integer lineCount, String groupLabel, List errors, AccountingLineAuthorizer accountingLineAuthorizer, boolean editableLine) {
+    public RenderableAccountingLineContainer(KualiAccountingDocumentFormBase form, AccountingLine accountingLine, String accountingLineProperty, List<AccountingLineTableRow> rows, Integer lineCount, String groupLabel, List errors, AccountingLineAuthorizer accountingLineAuthorizer, boolean editableLine, Set<String> currentNodes) {
         this.form = form;
         this.accountingLine = accountingLine;
         this.accountingLineProperty = accountingLineProperty;
@@ -81,6 +84,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
         this.errors = errors;
         this.accountingLineAuthorizer = accountingLineAuthorizer;
         this.editableLine = editableLine;
+        this.currentNodes = currentNodes;
     }
     
     /**
@@ -385,7 +389,7 @@ public class RenderableAccountingLineContainer implements AccountingLineRenderin
     public boolean isFieldModifyable(String fieldName) {
         Person currentUser = GlobalVariables.getUserSession().getPerson();
         final boolean pageIsEditable = getForm().getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT);
-        return accountingLineAuthorizer.hasEditPermissionOnField(getAccountingDocument(), accountingLine, this.accountingLineProperty, fieldName, editableLine, pageIsEditable, currentUser);
+        return accountingLineAuthorizer.hasEditPermissionOnField(getAccountingDocument(), accountingLine, this.accountingLineProperty, fieldName, editableLine, pageIsEditable, currentUser, currentNodes);
     }
 
     /**

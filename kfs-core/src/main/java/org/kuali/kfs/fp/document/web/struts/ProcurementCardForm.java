@@ -186,7 +186,7 @@ public class ProcurementCardForm extends CapitalAccountingLinesFormBase implemen
             int count = 0;
             while (!canEditAnyAccountingLine.booleanValue() && count < transactionDetail.getTargetAccountingLines().size()) {
                 final TargetAccountingLine accountingLine = (TargetAccountingLine)transactionDetail.getTargetAccountingLines().get(count);
-                if (accountingLineAuthorizer.hasEditPermissionOnAccountingLine(((ProcurementCardDocument)getDocument()), accountingLine, getAccountingLineCollectionName(), currentUser, getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT))) {
+                if (accountingLineAuthorizer.hasEditPermissionOnAccountingLine(((ProcurementCardDocument)getDocument()), accountingLine, getAccountingLineCollectionName(), currentUser, getDocumentActions().containsKey(KRADConstants.KUALI_ACTION_CAN_EDIT), getDocument().getDocumentHeader().getWorkflowDocument().getCurrentNodeNames())) {
                     canEditAnyAccountingLine = Boolean.TRUE;
                 }
                 count += 1;
