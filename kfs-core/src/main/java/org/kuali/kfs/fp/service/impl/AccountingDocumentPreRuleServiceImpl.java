@@ -176,8 +176,9 @@ public class AccountingDocumentPreRuleServiceImpl implements AccountingDocumentP
                         }
 
                         if (accountingLineAuthorizer != null) {
-                            boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), currentUser, true);
-                            boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), KFSPropertyConstants.ACCOUNT_NUMBER, lineIsAccessible, true, currentUser);
+                            final Set<String> currentNodes = acctDoc.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
+                            boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), currentUser, true, currentNodes);
+                            boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(acctDoc, currentLine, getAccountingLineCollectionProperty(currentLine), KFSPropertyConstants.ACCOUNT_NUMBER, lineIsAccessible, true, currentUser, currentNodes);
 
                             if (!isAccessible) {
                                 questionAccounts.add(currentLine);

@@ -83,14 +83,15 @@ public class AccountingLineAccessibleValidation extends GenericValidation {
             }
         }
 
+        final Set<String> currentNodes = accountingDocumentForValidation.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
         final AccountingLineAuthorizer accountingLineAuthorizer = lookupAccountingLineAuthorizer();
-        final boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(accountingDocumentForValidation, accountingLineForValidation, getAccountingLineCollectionProperty(), currentUser, true);
-        final boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(accountingDocumentForValidation, accountingLineForValidation, getAccountingLineCollectionProperty(), KFSPropertyConstants.ACCOUNT_NUMBER, lineIsAccessible, true, currentUser);
+        final boolean lineIsAccessible = accountingLineAuthorizer.hasEditPermissionOnAccountingLine(accountingDocumentForValidation, accountingLineForValidation, getAccountingLineCollectionProperty(), currentUser, true, currentNodes);
+        final boolean isAccessible = accountingLineAuthorizer.hasEditPermissionOnField(accountingDocumentForValidation, accountingLineForValidation, getAccountingLineCollectionProperty(), KFSPropertyConstants.ACCOUNT_NUMBER, lineIsAccessible, true, currentUser, currentNodes);
 
         if (!isAccessible) {
             // if only object code changed and the user has edit permissions on object code, that's ok
             if (event instanceof UpdateAccountingLineEvent) {
-                final boolean isObjectCodeAccessible = accountingLineAuthorizer.hasEditPermissionOnField(accountingDocumentForValidation, accountingLineForValidation, getAccountingLineCollectionProperty(), KFSPropertyConstants.FINANCIAL_OBJECT_CODE, lineIsAccessible, true, currentUser);
+                final boolean isObjectCodeAccessible = accountingLineAuthorizer.hasEditPermissionOnField(accountingDocumentForValidation, accountingLineForValidation, getAccountingLineCollectionProperty(), KFSPropertyConstants.FINANCIAL_OBJECT_CODE, lineIsAccessible, true, currentUser, currentNodes);
                 final boolean onlyObjectCodeChanged = onlyObjectCodeChanged(((UpdateAccountingLineEvent) event).getAccountingLine(), ((UpdateAccountingLineEvent) event).getUpdatedAccountingLine());
 
                 if (isObjectCodeAccessible && onlyObjectCodeChanged) {

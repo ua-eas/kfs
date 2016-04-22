@@ -172,10 +172,11 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * @param editableLine whether the parent line of this field is editable
      * @param editablePage whether the parent page of this field is editable
      * @param currentUser the current user
+     * @param currentNodes the workflow nodes the document is currently at
      * @return true if the the current user has permission to edit the given field in the given accounting line; otherwsie, false
      */
     @Override
-    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser) {
+    public boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser, Set<String> currentNodes) {
         if (!determineEditPermissionOnField(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editablePage)) {
             return false;
         }
@@ -186,7 +187,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         }
 
         // examine whether the given field can be editable
-        boolean hasEditPermissionOnField = editableLine || this.determineEditPermissionByFieldName(accountingDocument, accountingLine, getKimHappyPropertyNameForField(accountingLineCollectionProperty+"."+fieldName), currentUser);
+        boolean hasEditPermissionOnField = editableLine || this.determineEditPermissionByFieldName(accountingDocument, accountingLine, getKimHappyPropertyNameForField(accountingLineCollectionProperty+"."+fieldName), currentUser, currentNodes);
         if (!hasEditPermissionOnField) {
             // kim check shows field should not be editable based on contents of field - check if line error message occurred on this line
             // if error message shows up, then the value must have changed recently so - we make it editable to allow user to correct it
@@ -233,7 +234,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * @return true if the the current user has permission to edit the given accounting line; otherwsie, false
      */
     @Override
-    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable) {
+    public boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable, Set<String> currentNodes) {
         if (determineEditPermissionOnLine(accountingDocument, accountingLine, accountingLineCollectionProperty, StringUtils.equalsIgnoreCase( accountingDocument.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId(), currentUser.getPrincipalId() ), pageIsEditable)) {
 
             if (approvedForUnqualifiedEditing(accountingDocument, accountingLine, accountingLineCollectionProperty, StringUtils.equalsIgnoreCase( accountingDocument.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId(), currentUser.getPrincipalId() ))) {
@@ -242,7 +243,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
 
             // examine whether the whole line can be editable via KIM check
             final String lineFieldName = getKimHappyPropertyNameForField(accountingLineCollectionProperty);
-            return this.determineEditPermissionByFieldName(accountingDocument, accountingLine, lineFieldName, currentUser);
+            return this.determineEditPermissionByFieldName(accountingDocument, accountingLine, lineFieldName, currentUser, currentNodes);
         }
         return false;
     }
@@ -302,9 +303,9 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * @param currentUser the current user
      * @return true if the the current user has permission to edit the given field in the given accounting line; otherwsie, false
      */
-    protected boolean determineEditPermissionByFieldName(AccountingDocument accountingDocument, AccountingLine accountingLine, String fieldName, Person currentUser) {
+    protected boolean determineEditPermissionByFieldName(AccountingDocument accountingDocument, AccountingLine accountingLine, String fieldName, Person currentUser, Set<String> currentNodes) {
         Map<String,String> roleQualifiers = getRoleQualifiers(accountingDocument, accountingLine);
-        Map<String,String> permissionDetail = getPermissionDetails( accountingDocument, fieldName);
+        Map<String,String> permissionDetail = getPermissionDetails( accountingDocument, fieldName, currentNodes);
 
         return this.hasEditPermission(accountingDocument, currentUser, permissionDetail, roleQualifiers);
     }
@@ -332,7 +333,7 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
      * @param fieldName the given field name
      * @return all the information for a permission detail attribute set
      */
-    protected Map<String,String> getPermissionDetails(Document document, String fieldName) {
+    protected Map<String,String> getPermissionDetails(Document document, String fieldName, Set<String> currentNodes) {
         Map<String,String> permissionDetails = new HashMap<String,String>();
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
 
@@ -341,7 +342,6 @@ public class AccountingLineAuthorizerBase implements AccountingLineAuthorizer {
         }
 
         if ( workflowDocument.isEnroute() && !workflowDocument.isApproved() ) {
-            Set<String> currentNodes = workflowDocument.getCurrentNodeNames();
             if (CollectionUtils.isNotEmpty(currentNodes)) {
                 String routeNode = currentNodes.iterator().next();
                 if (StringUtils.isNotBlank(routeNode)) {

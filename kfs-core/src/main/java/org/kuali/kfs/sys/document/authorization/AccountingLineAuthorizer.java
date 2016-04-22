@@ -84,9 +84,10 @@ public interface AccountingLineAuthorizer {
      * @param editableLine whether the parent line of this field is editable
      * @param editablePage whether the parent page of this field is editable
      * @param currentUser the current user
+     * @param currentNodes the workflow nodes the document is currently at
      * @return true if the the current user has permission to edit the given field in the given accounting line; otherwsie, false
      */
-    public abstract boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser);
+    public abstract boolean hasEditPermissionOnField(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editableLine, boolean editablePage, Person currentUser, Set<String> currentNodes);
     
     /**
      * determine whether the current user has permission to edit the given accounting line as a whole
@@ -96,7 +97,8 @@ public interface AccountingLineAuthorizer {
      * @param accountingLineCollectionProperty the property of the group that holds these accounting lines
      * @param currentUser the current user
      * @param pageIsEditable whether the current page is editable by the current user or not
+     * @param currentNodes the nodes the document is currently at
      * @return true if the the current user has permission to edit the given accounting line; otherwsie, false
      */
-    public abstract boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable);
+    public abstract boolean hasEditPermissionOnAccountingLine(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, Person currentUser, boolean pageIsEditable, Set<String> currentNodes);
 }

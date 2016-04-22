@@ -102,12 +102,11 @@ public class ProcurementCardAccountingLineAuthorizer extends CapitalAccountingLi
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionByFieldName(AccountingDocument,AccountingLine,String,Person)
      */
     @Override
-    protected boolean determineEditPermissionByFieldName(AccountingDocument accountingDocument, AccountingLine accountingLine, String fieldName, Person currentUser) {
+    protected boolean determineEditPermissionByFieldName(AccountingDocument accountingDocument, AccountingLine accountingLine, String fieldName, Person currentUser, Set<String> currentNodes) {
         // 1. If this method is called, we know it's a PCDO document here.
         // 2. Check that the document is at AccountFullEdit route node
         if (accountingDocument.getDocumentHeader() != null &&
                 accountingDocument.getDocumentHeader().getWorkflowDocument() != null) {
-            Set<String> currentNodes = accountingDocument.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames();
             if (currentNodes != null && currentNodes.contains(RouteLevelNames.ACCOUNT_REVIEW_FULL_EDIT)) {
                 // 3. Check that the current user has the permission to edit the document, which means in this case he can edit the accounting line
                 if (getDocumentAuthorizer(accountingDocument).canEdit(accountingDocument, currentUser)) {
@@ -118,7 +117,7 @@ public class ProcurementCardAccountingLineAuthorizer extends CapitalAccountingLi
             }
         }
 
-        return super.determineEditPermissionByFieldName(accountingDocument, accountingLine, fieldName, currentUser);
+        return super.determineEditPermissionByFieldName(accountingDocument, accountingLine, fieldName, currentUser, currentNodes);
     }
 
 }
