@@ -69,7 +69,7 @@ public class JsonAppender extends RollingFileAppender {
         }
         appendField(json,"class",event.getLoggerName(),true);
 
-        json.append("},\n");
+        json.append("}\n");
 
         this.qw.write(json.toString());
 
