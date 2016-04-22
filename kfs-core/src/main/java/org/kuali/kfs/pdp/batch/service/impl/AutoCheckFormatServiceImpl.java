@@ -45,7 +45,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 			// Create FormatSelection object for current campus
 			FormatSelection formatSelection = getFormatService().getDataForFormat(campusCode);
 
-			status = processChecksForCampus(formatSelection);
+			status = processChecksForFormatSelection(formatSelection);
 		}
 
 		return status;
@@ -80,14 +80,14 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		// we will filter down the customer profile list to have only the specified customer profile
 		formatSelection.setCustomerList(custProfileList);
 
-		return processChecksForCampus(formatSelection);
+		return processChecksForFormatSelection(formatSelection);
 	}
 
 	/**
 	 * @param campusCode
 	 * @return
 	 */
-	protected boolean processChecksForCampus(FormatSelection formatSelection) {
+	protected boolean processChecksForFormatSelection(FormatSelection formatSelection) {
 		boolean status = true;
 
         // Using the formatSelection object, create a
