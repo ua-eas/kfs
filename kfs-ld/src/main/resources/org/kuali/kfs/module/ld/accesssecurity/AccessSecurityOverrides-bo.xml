@@ -24,13 +24,7 @@
     
     <bean id="AccountStatusBaseFunds" parent="AccountStatusBaseFunds-SecurityModule-parentBean"/>
     <bean id="AccountStatusBaseFunds-SecurityModule-parentBean" abstract="true" parent="AccountStatusBaseFunds-parentBean"> 
-        <property name="attributes">
-           <list merge="true">
-               <ref bean="AccountStatusBaseFunds-objectCode.financialObjectLevelCode"/>
-               <ref bean="AccountStatusBaseFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
-               <ref bean="AccountStatusBaseFunds-account.organizationCode"/>
-           </list>
-        </property>    
+
         <property name="accessRestrictedAttributes">
            <list>
                <bean parent="ChartRestriction"><property name="attribute" ref="AccountStatusBaseFunds-chartOfAccountsCode"/></bean>
@@ -48,13 +42,7 @@
     
     <bean id="AccountStatusCurrentFunds" parent="AccountStatusCurrentFunds-SecurityModule-parentBean"/>
     <bean id="AccountStatusCurrentFunds-SecurityModule-parentBean" abstract="true" parent="AccountStatusCurrentFunds-parentBean"> 
-        <property name="attributes">
-           <list merge="true">
-               <ref bean="AccountStatusCurrentFunds-objectCode.financialObjectLevelCode"/>
-               <ref bean="AccountStatusCurrentFunds-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
-               <ref bean="AccountStatusCurrentFunds-account.organizationCode"/>
-           </list>
-        </property>    
+
         <property name="accessRestrictedAttributes">
            <list>
                <bean parent="ChartRestriction"><property name="attribute" ref="AccountStatusCurrentFunds-chartOfAccountsCode"/></bean>
@@ -72,13 +60,7 @@
     
     <bean id="LaborCalculatedSalaryFoundationTracker" parent="LaborCalculatedSalaryFoundationTracker-SecurityModule-parentBean"/>
     <bean id="LaborCalculatedSalaryFoundationTracker-SecurityModule-parentBean" abstract="true" parent="LaborCalculatedSalaryFoundationTracker-parentBean"> 
-        <property name="attributes">
-           <list merge="true">
-               <ref bean="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevelCode"/>
-               <ref bean="LaborCalculatedSalaryFoundationTracker-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
-               <ref bean="LaborCalculatedSalaryFoundationTracker-account.organizationCode"/>
-           </list>
-        </property>    
+
         <property name="accessRestrictedAttributes">
            <list>
                <bean parent="ChartRestriction"><property name="attribute" ref="LaborCalculatedSalaryFoundationTracker-chartOfAccountsCode"/></bean>
@@ -96,13 +78,7 @@
     
     <bean id="EmployeeFunding" parent="EmployeeFunding-SecurityModule-parentBean"/>
     <bean id="EmployeeFunding-SecurityModule-parentBean" abstract="true" parent="EmployeeFunding-parentBean"> 
-        <property name="attributes">
-           <list merge="true">
-               <ref bean="EmployeeFunding-objectCode.financialObjectLevelCode"/>
-               <ref bean="EmployeeFunding-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
-               <ref bean="EmployeeFunding-account.organizationCode"/>
-           </list>
-        </property>    
+
         <property name="accessRestrictedAttributes">
            <list>
                <bean parent="ChartRestriction"><property name="attribute" ref="EmployeeFunding-chartOfAccountsCode"/></bean>
@@ -144,13 +120,7 @@
     
     <bean id="LedgerBalance" parent="LedgerBalance-SecurityModule-parentBean"/>
     <bean id="LedgerBalance-SecurityModule-parentBean" abstract="true" parent="LedgerBalance-parentBean"> 
-        <property name="attributes">
-           <list merge="true">
-               <ref bean="LedgerBalance-objectCode.financialObjectLevelCode"/>
-               <ref bean="LedgerBalance-objectCode.financialObjectLevel.financialConsolidationObjectCode"/>
-               <ref bean="LedgerBalance-account.organizationCode"/>
-           </list>
-        </property>    
+
         <property name="accessRestrictedAttributes">
            <list>
                <bean parent="ChartRestriction"><property name="attribute" ref="LedgerBalance-chartOfAccountsCode"/></bean>
