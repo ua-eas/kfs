@@ -23,81 +23,74 @@ import org.kuali.rice.location.api.campus.CampusService;
 
 public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AutoCheckFormatServiceImpl.class);
-
+    
     private FormatService formatService;
     private DateTimeService dateTimeService;
     private CampusService campusService;
-    private BusinessObjectService  businessObjectService;
-
+	private BusinessObjectService  businessObjectService;
+    
     /* (non-Javadoc)
      * @see edu.uci.kfs.pdp.batch.service.AutoCheckFormatService#processChecks()
      */
     @Override
 	public boolean processChecks() {
 		boolean status = true;
-
+		
 		List<Campus> findAllCampuses = getCampusService().findAllCampuses();
-
+		
 		// Go through all the campuses and process the checks ready for format
 		for(Campus campus : findAllCampuses){
 			String campusCode = campus.getCode();
-
-			// Create FormatSelection object for current campus
-			FormatSelection formatSelection = getFormatService().getDataForFormat(campusCode);
-
-			status = processChecksForCampus(formatSelection);
+			
+			status = processChecksForCampus(campusCode);
 		}
-
-		return status;
+		
+		return status; 
 	}
-
+    
 	/* (non-Javadoc)
 	 * @see org.kuali.kfs.pdp.batch.service.AutoCheckFormatService#processChecksByCustomerProfile(java.lang.String)
 	 */
 	@Override
 	public boolean processChecksByCustomerProfile(String profileId) {
 		LOG.info("Starting formating process for customer profile id: " + profileId);
-
+		
 		//if no profileId is null then we will process checks for all customer profiles
 		if(StringUtils.isBlank(profileId)){
 			return true;
 		}
-
+		
 		// retrieve a valid customer from
 		CustomerProfile customerProfile = getCustomerProfileByProfileID(profileId);
-
+		
 		if (ObjectUtils.isNull(customerProfile)) {
 			LOG.error("There is no customer profile matching id: " + profileId);
 			return false;
 		}
-
-		// Create FormatSelection object for current campus
-		FormatSelection formatSelection = getFormatService().getDataForFormat(customerProfile.getDefaultPhysicalCampusProcessingCode());
-
-		ArrayList<CustomerProfile> custProfileList = new ArrayList<CustomerProfile>();
-		custProfileList.add(customerProfile);
-
-		// we will filter down the customer profile list to have only the specified customer profile
-		formatSelection.setCustomerList(custProfileList);
-
-		return processChecksForCampus(formatSelection);
+		
+		String campusCode = customerProfile.getDefaultPhysicalCampusProcessingCode();
+		
+		return processChecksForCampus(campusCode);
 	}
 
 	/**
 	 * @param campusCode
 	 * @return
 	 */
-	protected boolean processChecksForCampus(FormatSelection formatSelection) {
+	protected boolean processChecksForCampus(String campusCode) {
 		boolean status = true;
-
+		
+		// Create FormatSelection object for current campus
+        FormatSelection formatSelection = getFormatService().getDataForFormat(campusCode);
+        
         // Using the formatSelection object, create a
 		AutoCheckFormat autoFormat = createAutoCheckFormat(formatSelection);
-
+		
 		if(ObjectUtils.isNull(autoFormat))
 			return false;
 
 		status = formatChecks(autoFormat);
-
+		
 		return status;
 	}
 
@@ -106,7 +99,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
      * @return
      */
     protected FormatSelection generateFormatSelectionForCampus(String campusCode) {
-
+        
         Date formatStartDate = getFormatService().getFormatProcessStartDate(campusCode);
 
         // create new FormatSelection object an set the campus code and the start date
@@ -122,14 +115,14 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         return formatSelection;
     }
 
-
+    
     /**
-     * Check format process - Common process for any type of implementation we want to use
+     *  Check format process - Common process for any type of implementation we want to use
      * @param autoFormat
      * @return
      */
     protected boolean  formatChecks(AutoCheckFormat autoFormat) {
-
+        
         // Mark payments for format, if there are no payments for format then end the job
         if (!markPaymentsForFormat(autoFormat))
             return true;
@@ -156,15 +149,15 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         try {
             Date paymentDate = getDateTimeService().convertToSqlDate(autoFormat.getPaymentDate());
             FormatProcessSummary formatProcessSummary = getFormatService().startFormatProcess(GlobalVariables.getUserSession().getPerson(), autoFormat.getCampus(), autoFormat.getCustomers(), paymentDate, autoFormat.getPaymentTypes());
-
+            
             if (formatProcessSummary.getProcessSummaryList().size() == 0) {
                 LOG.error("There are no payments that match your selection for format process.(Campus Code="+autoFormat.getCampus()+")");
                 return false;
             }
-
+            
             autoFormat.setFormatProcessSummary(formatProcessSummary);
             return true;
-
+            
         } catch (Exception e) {
             LOG.error("AutoCheckFormatService.markPaymentsForFormat: " + e.getMessage(), e);
             return false;
@@ -172,26 +165,27 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
     }
 
     /**
+     * Creates AutoCheckFormat object that is 
      * @param formatSelection
      * @return AutoCheckFormat
      */
     @SuppressWarnings("unchecked")
     protected AutoCheckFormat createAutoCheckFormat(FormatSelection formatSelection) {
         AutoCheckFormat autoFormat = new AutoCheckFormat();
-
+        
         if (ObjectUtils.isNotNull(formatSelection.getStartDate())) {
             LOG.error("The format process is already running. It began at: " + getDateTimeService().toDateTimeString(formatSelection.getStartDate()));
             return null;
         }
-
+        
         autoFormat.setCampus(formatSelection.getCampus());
         autoFormat.setPaymentDate(getDateTimeService().toDateString(getDateTimeService().getCurrentTimestamp()));
         autoFormat.setPaymentTypes(PdpConstants.PaymentTypes.ALL);
         autoFormat.setRanges(formatSelection.getRangeList());
-
+        
         List<CustomerProfile> customers = generateListOfCustomerProfilesReadyForFormat(formatSelection);
         autoFormat.setCustomers(customers);
-
+    
         return autoFormat;
     }
 
@@ -205,7 +199,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         List<CustomerProfile> customers = formatSelection.getCustomerList();
 
         if(ObjectUtils.isNull(customers)) return new ArrayList<CustomerProfile>();
-
+        
         for (CustomerProfile element : customers) {
 
             if (formatSelection.getCampus().equals(element.getDefaultPhysicalCampusProcessingCode())) {
@@ -263,7 +257,7 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
         this.campusService = campusService;
     }
 
-
+	
 	/**
 	 * @return the businessObjectService
 	 */
@@ -289,5 +283,5 @@ public class AutoCheckFormatServiceImpl implements AutoCheckFormatService {
 		CustomerProfile customerProfile = getBusinessObjectService().findBySinglePrimaryKey(CustomerProfile.class, profileId);
 		return customerProfile;
 	}
-
+	
 }
