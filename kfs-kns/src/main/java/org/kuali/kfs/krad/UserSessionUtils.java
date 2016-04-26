@@ -21,8 +21,9 @@ package org.kuali.kfs.krad;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Utility class for working with the UserSession.
@@ -34,42 +35,46 @@ public final class UserSessionUtils {
     }
 
     /**
-     * Adds the given {@link org.kuali.rice.kew.api.WorkflowDocument} to the {@link UserSession}.
+     * Adds the given {@link org.kuali.rice.kew.api.WorkflowDocument} to the {@link org.kuali.rice.krad.UserSession}.
      * @param userSession the session to add the workflow document to
      * @param workflowDocument the workflow doc to add to the session
      */
     public static void addWorkflowDocument(UserSession userSession, WorkflowDocument workflowDocument) {
-        @SuppressWarnings("unchecked") Map<String, WorkflowDocument> workflowDocMap =
-                (Map<String, WorkflowDocument>) userSession
-                        .retrieveObject(KewApiConstants.WORKFLOW_DOCUMENT_MAP_ATTR_NAME);
-
-        if (workflowDocMap == null) {
-            workflowDocMap = new HashMap<String, WorkflowDocument>();
-        }
+        Map<String, WorkflowDocument> workflowDocMap = getWorkflowDocumentMap(userSession);
 
         workflowDocMap.put(workflowDocument.getDocumentId(), workflowDocument);
-        userSession.addObject(KewApiConstants.WORKFLOW_DOCUMENT_MAP_ATTR_NAME, workflowDocMap);
     }
 
     /**
      * Returns the {@link org.kuali.rice.kew.api.WorkflowDocument} with the given ID from the
-     * {@link UserSession}.  If there is not one cached in the session with
+     * {@link org.kuali.rice.krad.UserSession}.  If there is not one cached in the session with
      * that ID, then null is returned.
      * @param userSession the user session from which to retrieve the workflow document
      * @param workflowDocumentId the ID of the workflow document to get
      * @return the cached workflow document, or null if a document with that ID is not cached in the user session
      */
     public static WorkflowDocument getWorkflowDocument(UserSession userSession, String workflowDocumentId) {
-        @SuppressWarnings("unchecked") Map<String, WorkflowDocument> workflowDocMap =
-                (Map<String, WorkflowDocument>) userSession
-                        .retrieveObject(KewApiConstants.WORKFLOW_DOCUMENT_MAP_ATTR_NAME);
-
-        if (workflowDocMap == null) {
-            workflowDocMap = new HashMap<String, WorkflowDocument>();
-            userSession.addObject(KewApiConstants.WORKFLOW_DOCUMENT_MAP_ATTR_NAME, workflowDocMap);
-            return null;
-        }
+        Map<String, WorkflowDocument> workflowDocMap = getWorkflowDocumentMap(userSession);
 
         return workflowDocMap.get(workflowDocumentId);
+    }
+
+    /**
+     * Returns the map of workflow document IDs to {@link org.kuali.rice.kew.api.WorkflowDocument}, making sure to
+     * initialize in a thread-safe way if the map does not exist.
+     *
+     * <p>
+     * We assume the {@link org.kuali.rice.krad.UserSession} is not null here.
+     * </p>
+     * @param userSession the user session from which to retrieve the workflow document
+     * @return the map of workflow document IDs to workflow documents
+     */
+    @SuppressWarnings("unchecked")
+    private static Map<String, WorkflowDocument> getWorkflowDocumentMap(UserSession userSession) {
+        userSession.addObjectIfAbsent(
+                KewApiConstants.WORKFLOW_DOCUMENT_MAP_ATTR_NAME, new ConcurrentHashMap<String, WorkflowDocument>());
+
+        return (ConcurrentMap<String, WorkflowDocument>) userSession.retrieveObject(
+                KewApiConstants.WORKFLOW_DOCUMENT_MAP_ATTR_NAME);
     }
 }

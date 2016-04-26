@@ -27,9 +27,9 @@ import org.kuali.kfs.krad.util.SessionTicket;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -40,10 +40,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UserSession implements Serializable {
     private static final long serialVersionUID = 4532616762540067557L;
 
+    private static final Object NULL_VALUE = new Object();
+
     private Person person;
     private Person backdoorUser;
     private AtomicInteger nextObjectKey;
-    private Map<String, Object> objectMap;
+    private ConcurrentHashMap<String, Object> objectMap;
     private String kualiSessionId;
 
     /**
@@ -71,7 +73,7 @@ public class UserSession implements Serializable {
     public UserSession(String principalName) {
         initPerson(principalName);
         this.nextObjectKey = new AtomicInteger(0);
-        this.objectMap = Collections.synchronizedMap(new HashMap<String,Object>());
+        this.objectMap = new ConcurrentHashMap<String, Object>();
     }
 
     /**
@@ -122,6 +124,19 @@ public class UserSession implements Serializable {
     }
 
     /**
+     * Returns who is logged in. If the backdoor is in use, this will return the network id of the person that is
+     * standing in as the backdoor user.
+     *
+     * @return String
+     */
+    public String getLoggedInUserPrincipalId() {
+        if (person != null) {
+            return person.getPrincipalId();
+        }
+        return "";
+    }
+
+    /**
      * Returns a Person object for the current user.
      * @return the KualiUser which is the current user in the system, backdoor if backdoor is set
      */
@@ -153,8 +168,23 @@ public class UserSession implements Serializable {
         }
     }
 
-    private boolean isProductionEnvironment() {
+    /**
+     * Helper method to check if we are in a production environment.
+     *
+     * @return boolean indicating if we are in a production environment
+     */
+    public boolean isProductionEnvironment() {
         return ConfigContext.getCurrentContextConfig().isProductionEnvironment();
+    }
+    //KULRICE-12287:Add a banner to Rice screens to show which environment you are in
+    public String getCurrentEnvironment() {
+        return ConfigContext.getCurrentContextConfig().getEnvironment();
+    }
+
+    public boolean isDisplayTestBanner() {
+        boolean isProd = this.isProductionEnvironment();
+        boolean isBannerEnabled = ConfigContext.getCurrentContextConfig().getBooleanProperty("test.banner.enabled", false);
+        return !isProd && isBannerEnabled;
     }
 
     /**
@@ -176,7 +206,7 @@ public class UserSession implements Serializable {
      */
     public String addObjectWithGeneratedKey(Serializable object, String keyPrefix) {
         String objectKey = keyPrefix + nextObjectKey.incrementAndGet();
-        objectMap.put(objectKey, object);
+        addObject(objectKey, object);
         return objectKey;
     }
 
@@ -191,30 +221,61 @@ public class UserSession implements Serializable {
      */
     public String addObjectWithGeneratedKey(Object object) {
         String objectKey = nextObjectKey.incrementAndGet() + "";
-        objectMap.put(objectKey, object);
+        addObject(objectKey, object);
         return objectKey;
     }
 
     /**
-     * allows adding an arbitrary object to the session with static a string key that can be used to later access this
-     * object from
-     * the session using the retrieveObject method in this class
+     * Allows adding an arbitrary object to the session with static a string key that can be used to later access this
+     * object from the session using the retrieveObject method in this class.
      *
-     * @param object
+     * @param key the mapping key
+     * @param object the object to store
      */
     public void addObject(String key, Object object) {
-        objectMap.put(key, object);
+        if (object != null) {
+            objectMap.put(key, object);
+        } else {
+            objectMap.put(key, NULL_VALUE);
+        }
     }
 
     /**
-     * allows for fetching an object that has been put into the userSession based on the key that would have been
-     * returned when
-     * adding the object
+     * Either allows adding an arbitrary object to the session based on a key (if there is not currently an object
+     * associated with that key) or returns the object already associated with that key.
      *
-     * @param objectKey
+     * @see ConcurrentHashMap#putIfAbsent(Object, Object)
+     *
+     * @param key the mapping key
+     * @param object the object to store
+     */
+    public void addObjectIfAbsent(String key, Object object) {
+        if (object != null) {
+            objectMap.putIfAbsent(key, object);
+        } else {
+            objectMap.putIfAbsent(key, NULL_VALUE);
+        }
+    }
+
+    /**
+     * Allows for fetching an object that has been put into the userSession based on the key that would have been
+     * returned when adding the object.
+     *
+     * @param objectKey the mapping key
+     *
+     * @return the stored object
      */
     public Object retrieveObject(String objectKey) {
-        return this.objectMap.get(objectKey);
+        if (objectKey == null) {
+            return null;
+        }
+        Object object = objectMap.get(objectKey);
+
+        if (!NULL_VALUE.equals(object)) {
+            return object;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -225,7 +286,9 @@ public class UserSession implements Serializable {
      * @param objectKey
      */
     public void removeObject(String objectKey) {
-        this.objectMap.remove(objectKey);
+        if (objectKey != null) {
+            this.objectMap.remove(objectKey);
+        }
     }
 
     /**
@@ -348,6 +411,6 @@ public class UserSession implements Serializable {
      * clear the objectMap
      */
     public void clearObjectMap() {
-        this.objectMap = Collections.synchronizedMap(new HashMap<String,Object>());
+        this.objectMap = new ConcurrentHashMap<String, Object>();
     }
 }
