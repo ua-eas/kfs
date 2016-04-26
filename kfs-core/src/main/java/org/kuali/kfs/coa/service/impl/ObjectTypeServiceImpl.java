@@ -21,6 +21,7 @@ package org.kuali.kfs.coa.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.service.ObjectTypeService;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
@@ -35,6 +36,7 @@ import org.springframework.cache.annotation.Cacheable;
 
 @NonTransactional
 public class ObjectTypeServiceImpl implements ObjectTypeService {
+    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ObjectTypeServiceImpl.class);
 
     protected UniversityDateService universityDateService;
     protected BusinessObjectService businessObjectService;
@@ -86,6 +88,10 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
         expenseObjectTypes.add(option.getFinObjTypeExpendNotExpCode());
         expenseObjectTypes.add(option.getFinObjTypeExpNotExpendCode());
         expenseObjectTypes.add(option.getFinancialObjectTypeTransferExpenseCd());
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Expense object types are "+ StringUtils.join(expenseObjectTypes, ", "));
+        }
 
         return expenseObjectTypes;
     }
@@ -150,7 +156,13 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
     @Override
     @Cacheable(value=SystemOptions.CACHE_NAME,key="'{ExpenseObjectTypes}CurrentFY'",unless="#result.empty")
     public List<String> getCurrentYearExpenseObjectTypes() {
-        return getExpenseObjectTypes(universityDateService.getCurrentFiscalYear());
+        final List<String> expenseObjectTypes = getExpenseObjectTypes(universityDateService.getCurrentFiscalYear());
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Expense object types are "+ StringUtils.join(expenseObjectTypes, ", "));
+        }
+
+        return expenseObjectTypes;
     }
 
     /**
