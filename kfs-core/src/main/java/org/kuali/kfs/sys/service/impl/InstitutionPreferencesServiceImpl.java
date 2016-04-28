@@ -24,6 +24,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.service.InstitutionPreferencesService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.kew.api.doctype.DocumentType;
+import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
@@ -57,8 +59,9 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private PermissionService permissionService;
     private IdentityService identityService;
     private DataDictionaryService dataDictionaryService;
+    private DocumentTypeService documentTypeService;
 
-    private Map<String, String> namespaceCodeToUrlName;
+	private Map<String, String> namespaceCodeToUrlName;
 
     private static final int LOGO_HEIGHT = 70;
     private static final int MAX_LOGO_SIZE_KB = 100;
@@ -357,7 +360,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     protected boolean canInitiateDocument(String documentTypeName,Person person) {
         DocumentAuthorizer documentAuthorizer = documentDictionaryService.getDocumentAuthorizer(documentTypeName);
-        return documentAuthorizer.canInitiate(documentTypeName, person);
+        DocumentType documentType = documentTypeService.getDocumentTypeByName(documentTypeName);
+        return documentAuthorizer.canInitiate(documentTypeName, person) && documentType != null && documentType.isActive();
     }
 
     protected boolean canViewBusinessObjectLookup(Class<?> businessObjectClass, Person person) {
@@ -626,4 +630,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     public void setIdentityService(IdentityService identityService) {
         this.identityService = identityService;
     }
+    
+    public void setDocumentTypeService(DocumentTypeService documentTypeService) {
+		this.documentTypeService = documentTypeService;
+	}
 }

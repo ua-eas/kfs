@@ -1290,6 +1290,7 @@
 		<property name="dataDictionaryService" ref="dataDictionaryService"/>
 		<property name="permissionService" ref="permissionService"/>
 		<property name="identityService" ref="identityService"/>
+		<property name="documentTypeService" ref="documentTypeService" />
 	</bean>
 
 	<bean id="userPreferencesService" parent="userPreferencesService-parentBean"/>
