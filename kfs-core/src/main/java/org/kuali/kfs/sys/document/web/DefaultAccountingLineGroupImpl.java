@@ -28,6 +28,7 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.Tag;
 
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition;
 import org.kuali.kfs.sys.document.datadictionary.TotalDefinition;
@@ -38,7 +39,7 @@ import org.kuali.kfs.sys.document.web.renderers.GroupTitleLineRenderer;
 import org.kuali.kfs.sys.document.web.renderers.Renderer;
 import org.kuali.kfs.sys.document.web.renderers.RepresentedCellCurious;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
@@ -375,9 +376,9 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
      * Determines if the current document is enrouted
      */
     private boolean isDocumentEnrouted() {
-        WorkflowDocument workflowDocument = accountingDocument.getDocumentHeader().getWorkflowDocument();
-
-        return !workflowDocument.isInitiated() && !workflowDocument.isSaved();
+        FinancialSystemDocumentHeader header = (FinancialSystemDocumentHeader) accountingDocument.getDocumentHeader();
+        String workflowStatus = header.getWorkflowDocumentStatusCode();
+        return (!DocumentStatus.INITIATED.equals(workflowStatus) && !DocumentStatus.SAVED.equals(workflowStatus));
     }
 
     /**
