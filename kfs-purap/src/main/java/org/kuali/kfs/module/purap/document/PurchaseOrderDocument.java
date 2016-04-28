@@ -656,7 +656,7 @@ public class PurchaseOrderDocument extends PurchasingDocumentBase implements Mul
                 // DOCUMENT DISAPPROVED
                 else if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isDisapproved()) {
                     String nodeName = SpringContext.getBean(WorkflowDocumentService.class).getCurrentRouteLevelName(this.getFinancialSystemDocumentHeader().getWorkflowDocument());
-                    String disapprovalStatus = PurapConstants.PurchaseOrderStatuses.getPurchaseOrderAppDocDisapproveStatuses().get(nodeName);
+                    String disapprovalStatus = findDisapprovalStatus(nodeName);
 
                     if (ObjectUtils.isNotNull(disapprovalStatus)) {
                         //update the appDocStatus and save the workflow data
@@ -689,6 +689,10 @@ public class PurchaseOrderDocument extends PurchasingDocumentBase implements Mul
             SpringContext.getBean(PurchaseOrderService.class).sendAdhocFyi(this);
         }
     }
+
+	protected String findDisapprovalStatus(String nodeName) {
+		return PurapConstants.PurchaseOrderStatuses.getPurchaseOrderAppDocDisapproveStatuses().get(nodeName);
+	}
 
     protected boolean shouldAdhocFyi() {
         Collection<String> excludeList = new ArrayList<String>();

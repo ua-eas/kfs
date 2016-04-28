@@ -360,7 +360,7 @@ public class PurapConstants {
         public static final String NODE_VENDOR_TAX_REVIEW = "Tax";
         public static final String NODE_DOCUMENT_TRANSMISSION = "JoinVendorIsEmployeeOrNonResidentAlien";
 
-        public static final HashMap<String, String> getPurchaseOrderAppDocDisapproveStatuses(){
+        public static HashMap<String, String> getPurchaseOrderAppDocDisapproveStatuses(){
 
             HashMap<String, String> poAppDocStatusMap = new HashMap<String, String>();
 
