@@ -1916,7 +1916,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
      * @see org.kuali.kfs.module.purap.document.service.PaymentRequestService#processPaymentRequestInReceivingStatus()
      */
     @Override
-    @NonTransactional
+    @Transactional
     public void processPaymentRequestInReceivingStatus() {
         List<PaymentRequestDocument> preqs = paymentRequestDao.getPaymentRequestInReceivingStatus();
 
