@@ -61,7 +61,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     private DataDictionaryService dataDictionaryService;
     private DocumentTypeService documentTypeService;
 
-	private Map<String, String> namespaceCodeToUrlName;
+    private Map<String, String> namespaceCodeToUrlName;
 
     private static final int LOGO_HEIGHT = 70;
     private static final int MAX_LOGO_SIZE_KB = 100;
