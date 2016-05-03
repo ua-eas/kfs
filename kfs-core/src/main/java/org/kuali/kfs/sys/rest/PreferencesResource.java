@@ -38,7 +38,7 @@ public class PreferencesResource {
     private HttpServletRequest servletRequest;
 
     @GET
-    @Path("/institution_links/{principalName}")
+    @Path("/institution-links/{principalName}")
     public Response getInstitutionLinks(@HeaderParam("cache-control")String cacheControlHeader,@PathParam("principalName")String principalName) {
         LOG.debug("getInstitutionLinks() started");
 

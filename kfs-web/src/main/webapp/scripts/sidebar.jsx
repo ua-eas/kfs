@@ -39,7 +39,7 @@ var Sidebar = React.createClass({
                 }
 
                 if (!found) {
-                    let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + principalName;
+                    let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/institution-links/" + principalName;
                     $.ajax({
                         url: institutionLinksPath,
                         dataType: 'json',
@@ -153,7 +153,7 @@ var Sidebar = React.createClass({
     },
     refreshLinks() {
         let thisComponent = this;
-        let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution_links/" + thisComponent.state.principalName;
+        let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/institution-links/" + thisComponent.state.principalName;
 
         $('.cover').show();
         $('.sidebar-waiting').css('top',($(window).height() / 2) - 20).show();

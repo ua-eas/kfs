@@ -7,7 +7,7 @@ var Header = React.createClass({
         return {preferences: {}, user: {}, environment: {}, backdoorId: ""};
     },
     componentWillMount() {
-        let userPath = KfsUtils.getUrlPathPrefix() + "sys/authentication/loggedInUser";
+        let userPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/logged-in-user";
         $.ajax({
             url: userPath,
             dataType: 'json',
@@ -21,7 +21,7 @@ var Header = React.createClass({
             }.bind(this)
         });
 
-        let preferencesPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/institution";
+        let preferencesPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/institution";
         $.ajax({
             url: preferencesPath,
             dataType: 'json',
@@ -35,7 +35,7 @@ var Header = React.createClass({
             }.bind(this)
         });
 
-        let environmentPath = KfsUtils.getUrlPathPrefix() + "sys/system/environment";
+        let environmentPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/system/environment";
         $.ajax({
             url: environmentPath,
             dataType: 'json',
@@ -54,7 +54,7 @@ var Header = React.createClass({
             }.bind(this)
         });
 
-        let backdoorPath = KfsUtils.getUrlPathPrefix() + "sys/backdoor/id";
+        let backdoorPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/id";
         $.ajax({
             url: backdoorPath,
             dataType: 'json',
@@ -76,7 +76,7 @@ var Header = React.createClass({
     },
     backdoorLogin(event) {
         event.preventDefault();
-        let path = KfsUtils.getUrlPathPrefix() + "sys/backdoor/login";
+        let path = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/login";
 
         let backdoorId = $("#backdoorId").val();
         if (backdoorId !== '') {
@@ -98,7 +98,7 @@ var Header = React.createClass({
         }
     },
     backdoorLogout() {
-        let path = KfsUtils.getUrlPathPrefix() + "sys/backdoor/logout";
+        let path = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/logout";
         $.ajax({
             url: path,
             dataType: 'json',

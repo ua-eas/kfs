@@ -2,7 +2,7 @@ import KfsUtils from './utils.js';
 
 function getPrincipalName(success,fail) {
     $.ajax({
-        url: KfsUtils.getUrlPathPrefix() + "sys/authentication/id",
+        url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/id",
         dataType: 'json',
         cache: false,
         type: 'GET',
@@ -20,7 +20,7 @@ function getUserPreferences(success,fail) {
 
     p1.then(function(principalName) {
         $.ajax({
-            url: KfsUtils.getUrlPathPrefix() + "sys/preferences/users/" + principalName,
+            url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
             dataType: 'json',
             cache: false,
             type: 'GET',
@@ -41,7 +41,7 @@ function putUserPreferences(userPreferences) {
 
     p1.then(function(principalName) {
         $.ajax({
-            url: KfsUtils.getUrlPathPrefix() + "sys/preferences/users/" + principalName,
+            url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify(userPreferences),
@@ -57,7 +57,7 @@ function putUserPreferences(userPreferences) {
 }
 
 function getBackdoorId(success, fail) {
-    let backdoorIdPath = KfsUtils.getUrlPathPrefix() + "sys/backdoor/id";
+    let backdoorIdPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/id";
     $.ajax({
         url: backdoorIdPath,
         dataType: 'json',
