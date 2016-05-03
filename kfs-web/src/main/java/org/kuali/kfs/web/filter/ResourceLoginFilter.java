@@ -1,0 +1,161 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package org.kuali.kfs.web.filter;
+
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.exception.AuthenticationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.krad.web.filter.LoginFilterBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.ApiKeyService;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.kim.api.identity.AuthenticationService;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.namespace.QName;
+import java.io.IOException;
+import java.util.Optional;
+
+public class ResourceLoginFilter extends LoginFilterBase {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ResourceLoginFilter.class);
+
+    public static final String UNAUTHORIZED_JSON = "[ \"Unauthorized\" ]";
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        this.doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
+    }
+
+    private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        LOG.debug("doFilter() started");
+
+        try {
+            String authorizationHeader = request.getHeader("Authorization");
+            if (authorizationHeader != null) {
+                if ( ! isAuthorizedViaHeader(request, response, authorizationHeader) ) {
+                    return;
+                }
+            } else {
+                if ( ! isAuthorizedViaSession(request, response) ) {
+                    return;
+                }
+            }
+
+            establishUserSession(request, response);
+
+            chain.doFilter(request, response);
+        } catch (AuthenticationException | IllegalArgumentException e) {
+            LOG.error("doFilter() AuthenticationException", e);
+            sendError(response);
+        } finally {
+            removeFromMDC();
+        }
+    }
+
+    protected void establishUserSession(HttpServletRequest request, HttpServletResponse response) {
+        UserSession userSession = KRADUtils.getUserSessionFromRequest(request);
+        if (userSession != null) {
+            GlobalVariables.setUserSession(userSession);
+        }
+
+        establishSessionCookie(request, response);
+        establishBackdoorUser(request);
+
+        addToMDC(request);
+    }
+
+    private boolean isAuthorizedViaSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (! isUserSessionEstablished(request) ) {
+            String principalName = getAuthenticationService().getPrincipalName(request);
+
+            if (principalName == null) {
+                LOG.error("doFilter() null principalName");
+                sendError(response);
+                removeFromMDC();
+                return false;
+            }
+
+            setUserSession(request, principalName);
+            return true;
+        }
+        return true;
+    }
+
+    private boolean isAuthorizedViaHeader(HttpServletRequest request, HttpServletResponse response, String authorizationHeader) throws IOException {
+        Optional<String> oKey = getApiKey(authorizationHeader);
+        if (oKey.isPresent()) {
+            Optional<String> user = getUserFromKey(oKey.get());
+            if (user.isPresent()) {
+                setUserSession(request, user.get());
+                return true;
+            } else {
+                sendError(response);
+                removeFromMDC();
+            }
+        } else {
+            sendError(response);
+            removeFromMDC();
+        }
+        return false;
+    }
+
+    private void sendError(HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().println(UNAUTHORIZED_JSON);
+    }
+
+    protected void setUserSession(HttpServletRequest request, String principalName) {
+        final UserSession userSession = new UserSession(principalName);
+        request.getSession().setAttribute(KRADConstants.USER_SESSION_KEY, userSession);
+    }
+
+    private Optional<String> getApiKey(String authorizationHeader) {
+        if (!authorizationHeader.toLowerCase().startsWith("bearer")) {
+            LOG.error("getApiKey() authorization header missing Bearer prefix");
+            return Optional.empty();
+        }
+
+        String split[] = authorizationHeader.split("\\s+");
+        if (split.length != 2) {
+            LOG.error("doFilter() authorization header should be two parts");
+            return Optional.empty();
+        }
+
+        return Optional.of(split[1]);
+    }
+
+    private Optional<String> getUserFromKey(String key) {
+        return getApiKeyService().getPrincipalIdFromApiKey(key);
+    }
+
+    protected ApiKeyService getApiKeyService() {
+        return SpringContext.getBean(ApiKeyService.class);
+    }
+
+    protected AuthenticationService getAuthenticationService() {
+        return (AuthenticationService) GlobalResourceLoader.getResourceLoader().getService(new QName("kimAuthenticationService"));
+    }
+}

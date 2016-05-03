@@ -1304,9 +1304,26 @@
 	</bean>
 
 	<import resource="spring-sys-bus-exports.xml"/>
-	
+
 	<bean id="payeeACHService" parent="payeeACHService-parentBean"/>
 	<bean id="payeeACHService-parentBean" class="org.kuali.kfs.sys.service.impl.PayeeACHServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService" />
+	</bean>
+
+	<bean id="apiKeyService" parent="apiKeyService-parentBean"/>
+	<bean id="apiKeyService-parentBean" class="org.kuali.kfs.sys.service.impl.ApiKeyServiceImpl">
+		<property name="localApiKeyAuthenticationService" ref="localApiKeyAuthenticationService" />
+		<property name="coreApiKeyAuthenticationService" ref="coreApiKeyAuthenticationService" />
+	</bean>
+
+	<bean id="coreApiKeyAuthenticationService" parent="coreApiKeyAuthenticationService-parentBean"/>
+	<bean id="coreApiKeyAuthenticationService-parentBean" class="org.kuali.kfs.sys.service.impl.CoreApiKeyAuthenticationServiceImpl">
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+
+	<bean id="localApiKeyAuthenticationService" parent="localApiKeyAuthenticationService-parentBean"/>
+	<bean id="localApiKeyAuthenticationService-parentBean" class="org.kuali.kfs.sys.service.impl.LocalApiKeyAuthenticationServiceImpl">
+		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="iterations" value="10" />
 	</bean>
 </beans>
