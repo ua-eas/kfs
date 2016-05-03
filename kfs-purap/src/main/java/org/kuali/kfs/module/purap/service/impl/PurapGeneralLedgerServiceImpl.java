@@ -741,8 +741,8 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
      * @return
      */
     protected boolean shouldGenerateGLPEForPurchaseOrder(PurchaseOrderDocument po) {
-        for (SourceAccountingLine acct : (List<SourceAccountingLine>)po.getSourceAccountingLines()) {
-            if (acct.getAmount().abs().compareTo(new KualiDecimal(0)) > 0) {
+        for (PurchaseOrderAccount acct : (List<PurchaseOrderAccount>)po.getSourceAccountingLines()) {
+            if (acct.getAlternateAmountForGLEntryCreation().abs().compareTo(new KualiDecimal(0)) > 0) {
                 return true;
             }
         }
