@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
         netAmount = KualiDecimal.ZERO;
         
         ObjectTypeService objectTypeService = (ObjectTypeService) SpringContext.getBean(ObjectTypeService.class);
-        List<String> objectTypes = objectTypeService.getCurrentYearExpenseObjectTypes();
+        List<String> objectTypes = new ArrayList<>();
+        objectTypes.addAll(objectTypeService.getCurrentYearExpenseObjectTypes()); // let's copy the array before we make any changes to it
         objectTypes.add(objectTypeService.getCurrentYearAssetObjectType());
 
         assetExpenseObjectTypeCodes = objectTypes.toArray(new String[0]);
