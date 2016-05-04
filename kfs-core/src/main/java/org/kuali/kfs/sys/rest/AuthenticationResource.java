@@ -19,7 +19,6 @@
 package org.kuali.kfs.sys.rest;
 
 import org.kuali.kfs.krad.util.KRADUtils;
-import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.kim.api.identity.Person;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +55,7 @@ public class AuthenticationResource {
     }
 
     @GET
-    @Path("/loggedInUser")
+    @Path("/logged-in-user")
     public Response getLoggedInUser() {
         LOG.debug("getLoggedInUser() started");
 
