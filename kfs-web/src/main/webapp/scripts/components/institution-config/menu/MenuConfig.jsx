@@ -35,7 +35,7 @@ let MenuConfig = React.createClass({
         };
     },
     componentWillMount() {
-        let menuPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/menu";
+        let menuPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/menu";
         $.ajax({
             url: menuPath,
             dataType: 'json',
@@ -83,7 +83,7 @@ let MenuConfig = React.createClass({
         this.updateMenu(updatedMenu);
     },
     saveChanges() {
-        let menuPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/menu";
+        let menuPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/menu";
         $.ajax({
             url: menuPath,
             dataType: 'json',

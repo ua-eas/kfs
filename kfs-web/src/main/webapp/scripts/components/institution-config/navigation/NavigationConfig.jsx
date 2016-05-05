@@ -40,7 +40,7 @@ let NavigationConfig = React.createClass({
         };
     },
     componentWillMount() {
-        let linkGroupPath = getUrlPathPrefix() + "sys/preferences/config/groups";
+        let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/config/groups";
         $.ajax({
             url: linkGroupPath,
             dataType: 'json',
@@ -198,7 +198,7 @@ let NavigationConfig = React.createClass({
     },
     saveChanges() {
         let institutionId = this.state.institutionId;
-        let linkGroupPath = getUrlPathPrefix() + "sys/preferences/institution/" + institutionId;
+        let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/institution/" + institutionId;
         $.ajax({
             url: linkGroupPath,
             dataType: 'json',
