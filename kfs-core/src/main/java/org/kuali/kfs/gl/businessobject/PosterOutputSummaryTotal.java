@@ -40,24 +40,29 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
     private String objectTypeCode;
     
     private final String[] assetExpenseObjectTypeCodes;
+    private static ObjectTypeService objectTypeService;
     
     public PosterOutputSummaryTotal() {
         creditAmount = KualiDecimal.ZERO;
         debitAmount = KualiDecimal.ZERO;
         budgetAmount = KualiDecimal.ZERO;
         netAmount = KualiDecimal.ZERO;
-        
-        ObjectTypeService objectTypeService = (ObjectTypeService) SpringContext.getBean(ObjectTypeService.class);
+
+        assetExpenseObjectTypeCodes = getAssetExpenseObjectTypeCodes();
+    }
+
+    protected String[] getAssetExpenseObjectTypeCodes() {
+        ObjectTypeService objectTypeService = getObjectTypeService();
         List<String> objectTypes = new ArrayList<>();
         objectTypes.addAll(objectTypeService.getCurrentYearExpenseObjectTypes()); // let's copy the array before we make any changes to it
         objectTypes.add(objectTypeService.getCurrentYearAssetObjectType());
 
-        assetExpenseObjectTypeCodes = objectTypes.toArray(new String[0]);
+        return objectTypes.toArray(new String[0]);
     }
-    
+
     /**
      * This method sets the amounts for this poster output summary entry.
-     * 
+     *
      * @param debitCreditCode credit code used to determine whether amounts is debit or credit
      * @param objectTypeCode object type code associated with amount
      * @param amount amount to add
@@ -87,7 +92,7 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
             budgetAmount = budgetAmount.add(amount);
         }
     }
-    
+
     /**
      * Adds the totals from the entry to the totals this total line carries
      * @param entry the entry to add totals from
@@ -98,7 +103,7 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
         budgetAmount = budgetAmount.add(entry.getBudgetAmount());
         netAmount = netAmount.add(entry.getNetAmount());
     }
-    
+
     public KualiDecimal getBudgetAmount() {
         return budgetAmount;
     }
@@ -110,11 +115,11 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
     public KualiDecimal getDebitAmount() {
         return debitAmount;
     }
-    
+
     public KualiDecimal getNetAmount() {
         return netAmount;
     }
-    
+
     public String getObjectTypeCode() {
         return objectTypeCode;
     }
@@ -122,7 +127,7 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
     public void setObjectTypeCode(String objectTypeCode) {
         this.objectTypeCode = objectTypeCode;
     }
-    
+
     /**
      * @return a summary of this total line
      */
@@ -134,7 +139,7 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
      * A map of the "keys" of this transient business object
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap pks = new LinkedHashMap<String, Object>();
         pks.put("objectTypeCode",this.getObjectTypeCode());
@@ -143,6 +148,13 @@ public class PosterOutputSummaryTotal extends TransientBusinessObjectBase implem
         pks.put("budgetAmount",this.getBudgetAmount());
         pks.put("netAmount",this.getNetAmount());
         return pks;
+    }
+
+    protected ObjectTypeService getObjectTypeService() {
+        if (objectTypeService == null) {
+            objectTypeService = SpringContext.getBean(ObjectTypeService.class);
+        }
+        return objectTypeService;
     }
 
 }
