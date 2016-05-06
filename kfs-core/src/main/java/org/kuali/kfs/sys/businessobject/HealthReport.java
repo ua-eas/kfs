@@ -122,16 +122,19 @@ public class HealthReport {
 
         Connection conn = ds.getConnection();
         Boolean closed = conn.isClosed();
+        conn.close();
         Metric metric = new Metric("Database", "kfs-xa-closed", closed.toString());
         metrics.add(metric);
 
         conn = ntds.getConnection();
         closed = conn.isClosed();
+        conn.close();
         metric = new Metric("Database", "kfs-closed", closed.toString());
         metrics.add(metric);
 
         conn = riceDS.getConnection();
         closed = conn.isClosed();
+        conn.close();
         metric = new Metric("Database", "rice-xa-closed", closed.toString());
         metrics.add(metric);
     }
