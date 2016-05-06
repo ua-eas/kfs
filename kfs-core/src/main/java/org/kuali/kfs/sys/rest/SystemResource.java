@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.sys.rest;
 
+import org.kuali.kfs.sys.businessobject.HealthReport;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 
 import javax.ws.rs.Consumes;
