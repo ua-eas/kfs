@@ -133,7 +133,7 @@
 					  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
 					  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
 					  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
-					  renderInnerDiv="${renderInnerDiv}">
+					  renderInnerDiv="${renderInnerDiv}" cachingTimestamp="${cachingTimestamp}">
 
 			<div id="page-content">
                 <jsp:doBody/>
