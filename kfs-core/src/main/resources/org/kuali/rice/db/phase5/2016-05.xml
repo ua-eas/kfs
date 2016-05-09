@@ -57,32 +57,60 @@
             <column name="ACTV_IND"><![CDATA[Y]]></column>
         </insert>
         <insert tableName="krim_perm_t">
-            <column name="PERM_ID"><![CDATA[FINP435]]></column>
-            <column name="OBJ_ID"><![CDATA[FINP-435-PERM-001]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-PERM-001]]></column>
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
             <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
-            <column name="NM"><![CDATA[View Report]]></column>
-            <column name="DESC_TXT"><![CDATA[Allows access to view reports.]]></column>
+            <column name="NM"><![CDATA[View Report ISBS]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows access to view ISBS report.]]></column>
             <column name="ACTV_IND"><![CDATA[Y]]></column>
         </insert>
         <insert tableName="krim_perm_attr_data_t">
-            <column name="ATTR_DATA_ID"><![CDATA[FINP435001]]></column>
-            <column name="OBJ_ID"><![CDATA[FINP-435-PERM-ATTR-DATA-001]]></column>
+            <column name="ATTR_DATA_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-PERM-ATTR-DATA-001]]></column>
             <column name="VER_NBR"><![CDATA[1]]></column>
-            <column name="PERM_ID"><![CDATA[FINP435]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
             <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
             <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
             <column name="ATTR_VAL"><![CDATA[ISBS]]></column>
         </insert>
-        <insert tableName="krim_perm_attr_data_t">
-            <column name="ATTR_DATA_ID"><![CDATA[FINP435002]]></column>
-            <column name="OBJ_ID"><![CDATA[FINP-435-PERM-ATTR-DATA-002]]></column>
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-PERM-001]]></column>
             <column name="VER_NBR"><![CDATA[1]]></column>
-            <column name="PERM_ID"><![CDATA[FINP435]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[View Report TRAN]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows access to view TRAN report.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-PERM-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
             <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
             <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
             <column name="ATTR_VAL"><![CDATA[TRAN]]></column>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" context="demo" id="FINP-435-ADD-PERM-TO-54">
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[54]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[54]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
         </insert>
     </changeSet>
 </databaseChangeLog>
