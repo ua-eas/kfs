@@ -40,6 +40,7 @@
 <%@ attribute name="maintenanceDocument" required="false" description="Boolean value of whether this page is rendering a maintenance document." %>
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
+<%@ attribute name="cachingTimestamp" required="false"%>
 
 <c:set var="bodyClass" value="body"/>
 <c:choose>
