@@ -94,13 +94,13 @@
                                     <c:set var="backLocation" value="portal.do"/>
                                 </c:if>
                                 <c:if test="${KualiForm.formKey!=''}">
-                                    <a href='<c:out value="${backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" />' title="Cancel" >
-                                        <span class="tinybutton btn btn-default">Cancel</span>
+                                    <a href='<c:out value="${backLocation}?methodToCall=refresh&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" />' title="Cancel" class="btn btn-default">
+                                        Cancel
                                     </a>
                                 </c:if>
                                 <c:if test="${! empty KualiForm.extraButtonSource && extraButtonSource != ''}">
-                                    <a href='<c:out value="${backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" /><c:out value="${KualiForm.extraButtonParams}" />' title='<c:out value="${KualiForm.extraAltText}"/>'>
-                                        <span class="tinybutton btn btn-default"><c:out value="${KualiForm.extraAltText}"/></span>
+                                    <a href='<c:out value="${backLocation}?methodToCall=refresh&refreshCaller=kualiLookupable&docFormKey=${KualiForm.formKey}&anchor=${KualiForm.lookupAnchor}" /><c:out value="${KualiForm.extraButtonParams}" />' title='<c:out value="${KualiForm.extraAltText}"/>' class="btn btn-default">
+                                        <c:out value="${KualiForm.extraAltText}"/>
                                     </a>
                                 </c:if>
                                <html:submit
