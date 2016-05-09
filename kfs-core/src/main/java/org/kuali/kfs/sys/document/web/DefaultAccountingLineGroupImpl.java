@@ -378,7 +378,7 @@ public class DefaultAccountingLineGroupImpl implements AccountingLineGroup {
     private boolean isDocumentEnrouted() {
         FinancialSystemDocumentHeader header = (FinancialSystemDocumentHeader) accountingDocument.getDocumentHeader();
         String workflowStatus = header.getWorkflowDocumentStatusCode();
-        return (!DocumentStatus.INITIATED.equals(workflowStatus) && !DocumentStatus.SAVED.equals(workflowStatus));
+        return (workflowStatus != null && !DocumentStatus.INITIATED.equals(workflowStatus) && !DocumentStatus.SAVED.equals(workflowStatus));
     }
 
     /**
