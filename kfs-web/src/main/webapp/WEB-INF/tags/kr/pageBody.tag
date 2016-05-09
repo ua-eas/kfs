@@ -352,9 +352,6 @@
 
     <div id="formComplete"></div>
 
-    <c:if test="${not empty htmlFormAction or renderInnerDiv}">
-        </div>
-    </c:if>
 </main>
 <c:if test="${param.mode ne 'standalone' and param.mode ne 'modal'}">
     <c:if test="${(not empty htmlFormAction or renderInnerDiv) and !openNav}">
