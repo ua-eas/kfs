@@ -62,7 +62,7 @@
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
             <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
-            <column name="NM"><![CDATA[View Report ISBS]]></column>
+            <column name="NM"><![CDATA[View Report Income Statement/Balance Sheet]]></column>
             <column name="DESC_TXT"><![CDATA[Allows access to view ISBS report.]]></column>
             <column name="ACTV_IND"><![CDATA[Y]]></column>
         </insert>
@@ -81,7 +81,7 @@
             <column name="VER_NBR"><![CDATA[1]]></column>
             <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
             <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
-            <column name="NM"><![CDATA[View Report TRAN]]></column>
+            <column name="NM"><![CDATA[View Report Detailed Transactions]]></column>
             <column name="DESC_TXT"><![CDATA[Allows access to view TRAN report.]]></column>
             <column name="ACTV_IND"><![CDATA[Y]]></column>
         </insert>
