@@ -55,13 +55,9 @@ public class ResourceLoginFilter extends LoginFilterBase {
         try {
             String authorizationHeader = request.getHeader("Authorization");
             if (authorizationHeader != null) {
-//                if ( ! isAuthorizedViaHeader(request, response, authorizationHeader) ) {
-//                    return;
-//                }
-                setUserSession(request, "khuntley");
-                establishUserSession(request, response);
-
-                chain.doFilter(request, response);
+                if ( ! isAuthorizedViaHeader(request, response, authorizationHeader) ) {
+                    return;
+                }
             } else {
                 if ( ! isAuthorizedViaSession(request, response) ) {
                     return;
