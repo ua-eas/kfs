@@ -265,6 +265,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             String finalLink;
             if (link.get(KFSPropertyConstants.LINK_TYPE) != null && StringUtils.equals((String)link.get(KFSPropertyConstants.LINK_TYPE), KFSConstants.NavigationLinkTypes.RICE)) {
                 finalLink = determineRiceLink((String)link.get(KFSPropertyConstants.LINK));
+            } else if (link.get(KFSPropertyConstants.LINK_TYPE) != null && StringUtils.equals((String)link.get(KFSPropertyConstants.LINK_TYPE), KFSConstants.NavigationLinkTypes.REPORT)) {
+                finalLink = determineReportLink((String)link.get(KFSPropertyConstants.LINK));
             } else {
                 finalLink = fixRelativeLink((String)link.get(KFSPropertyConstants.LINK));
             }
@@ -291,6 +293,14 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
             link = "/" + addReturnLocationToLookupLink(link);
         }
         return riceHost + link;
+    }
+
+    protected String determineReportLink(String link) {
+        String reportHost = configurationService.getPropertyValueAsString(KFSConstants.REPORTS_URL);
+        if (!link.startsWith("/")) {
+            link = "/" + link;
+        }
+        return reportHost + link;
     }
 
     protected String fixRelativeLink(String link) {
