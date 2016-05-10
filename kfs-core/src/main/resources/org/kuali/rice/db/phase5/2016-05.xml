@@ -1,0 +1,116 @@
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2015 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="kfs" context="bootstrap,demo" id="FINP-435">
+        <insert tableName="krim_typ_t">
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TYP-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[View Reports]]></column>
+            <column name="SRVC_NM" value="{http://kfs.kuali.org/kfs/v5_0}reportPermissionTypeService"/>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+        </insert>
+        <insert tableName="krim_perm_tmpl_t">
+            <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-PERM-TMPL-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[View Report]]></column>
+            <column name="DESC_TXT" value="null"/>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_attr_defn_t">
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ATTR-DEFN-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="NM"><![CDATA[reportCode]]></column>
+            <column name="LBL" value="null"/>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="CMPNT_NM"><![CDATA[org.kuali.kfs.sys.identity.KfsKimAttributes]]></column>
+        </insert>
+        <insert tableName="krim_typ_attr_t">
+            <column name="KIM_TYP_ATTR_ID"><![CDATA[FINP435]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TYP-ATTR-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="SORT_CD"><![CDATA[a]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-PERM-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[View Report Income Statement/Balance Sheet]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows access to view ISBS report.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-PERM-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="ATTR_VAL"><![CDATA[ISBS]]></column>
+        </insert>
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-PERM-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[FINP435]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-SYS]]></column>
+            <column name="NM"><![CDATA[View Report Detailed Transactions]]></column>
+            <column name="DESC_TXT"><![CDATA[Allows access to view TRAN report.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-PERM-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[FINP435]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[FINP435]]></column>
+            <column name="ATTR_VAL"><![CDATA[TRAN]]></column>
+        </insert>
+    </changeSet>
+    <changeSet author="kfs" context="demo" id="FINP-435-ADD-PERM-TO-54">
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-ISBS-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[54]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435ISBS]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-435-TRAN-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[54]]></column>
+            <column name="PERM_ID"><![CDATA[FINP435TRAN]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

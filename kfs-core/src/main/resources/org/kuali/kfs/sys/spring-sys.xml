@@ -168,6 +168,10 @@
 		  p:busSecurity="${kim.callback.service.bus.security.enabled}"
 		  p:serviceInterface="org.kuali.rice.kim.framework.permission.PermissionTypeService" />
 
+	<bean id="reportPermissionTypeServiceCallback" parent="kfsCallbackService" abstract="true"
+		  p:busSecurity="${kim.callback.service.bus.security.enabled}"
+		  p:serviceInterface="org.kuali.rice.kim.framework.permission.PermissionTypeService" />
+
 	<bean id="groupTypeServiceCallback" parent="kfsCallbackService" abstract="true"
 		  p:busSecurity="${kim.callback.service.bus.security.enabled}"
 		  p:serviceInterface="org.kuali.rice.kim.framework.group.GroupTypeService" />
@@ -862,6 +866,10 @@
 	<bean id="financialSystemDocumentTypePermissionTypeService" parent="financialSystemDocumentTypePermissionTypeService-parentBean"/>
 
     <bean id="financialSystemDocumentTypePermissionTypeService-parentBean" class="org.kuali.kfs.sys.identity.FinancialSystemDocumentTypePermissionTypeServiceImpl" abstract="true" />
+
+	<bean id="reportPermissionTypeService" parent="reportPermissionTypeService-parentBean"/>
+
+	<bean id="reportPermissionTypeService-parentBean" class="org.kuali.kfs.sys.identity.ViewReportPermissionTypeServiceImpl" abstract="true" />
 
 	<bean id="financialSystemUserRoleTypeService" parent="financialSystemUserRoleTypeService-parentBean"/>
     <bean id="financialSystemUserRoleTypeService-parentBean" class="org.kuali.kfs.coa.identity.FinancialSystemUserRoleTypeServiceImpl" abstract="true" />
