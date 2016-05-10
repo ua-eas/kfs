@@ -27,7 +27,7 @@ import org.kuali.kfs.module.cg.businessobject.Agency;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.AwardAccount;
 import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
-import org.kuali.kfs.module.cg.businessobject.BillingFrequency;
+import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;

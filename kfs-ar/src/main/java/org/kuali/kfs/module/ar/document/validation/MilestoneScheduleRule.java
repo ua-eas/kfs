@@ -120,7 +120,7 @@ public class MilestoneScheduleRule extends KfsMaintenanceDocumentRuleBase {
         boolean success = false;
 
         if (ObjectUtils.isNotNull(newMilestoneScheduleCopy.getAward().getBillingFrequencyCode())) {
-            if (StringUtils.equals(newMilestoneScheduleCopy.getAward().getBillingFrequencyCode(), ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) {
+            if (ArConstants.BillingFrequencyValues.isMilestone(newMilestoneScheduleCopy.getAward())) {
                 success = true;
             }
         }

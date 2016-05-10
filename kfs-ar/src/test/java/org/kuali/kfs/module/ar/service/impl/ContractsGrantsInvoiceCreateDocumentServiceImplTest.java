@@ -45,6 +45,7 @@ import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentSe
 import org.kuali.kfs.module.ar.fixture.ARAwardAccountFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardOrganizationFixture;
+import org.kuali.kfs.module.ar.fixture.BillingFrequencyFixture;
 import org.kuali.kfs.module.ar.fixture.InvoiceBillFixture;
 import org.kuali.kfs.module.ar.fixture.InvoiceMilestoneFixture;
 import org.kuali.kfs.module.ar.fixture.OrganizationAccountingDefaultFixture;
@@ -255,7 +256,8 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
     public void testPerformAwardValidationInvalidPredeterminedBillingFrequency() {
       List<ContractsAndGrantsBillingAward> awards = setupAwards();
       Award award = ((Award)awards.get(0));
-      award.setBillingFrequencyCode(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+      award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
+      award.setBillingFrequency(BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency());
       AwardAccount awardAccount_2 = ARAwardAccountFixture.AWD_ACCT_WITH_CCA_2.createAwardAccount();
       awardAccount_2.refreshReferenceObject("account");
       award.getAwardAccounts().add(awardAccount_2);
@@ -273,7 +275,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
     public void testPerformAwardValidationInvalidMilestoneBillingFrequency() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         Award award = ((Award)awards.get(0));
-        award.setBillingFrequencyCode(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.MILESTONE.getCode());
         AwardAccount awardAccount_2 = ARAwardAccountFixture.AWD_ACCT_WITH_CCA_2.createAwardAccount();
         awardAccount_2.refreshReferenceObject("account");
         award.getAwardAccounts().add(awardAccount_2);
@@ -415,7 +417,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
 
     public void testPerformAwardValidationNoValidMilestonesToInvoice() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        ((Award)awards.get(0)).setBillingFrequencyCode(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        ((Award)awards.get(0)).setBillingFrequencyCode(ArConstants.BillingFrequencyValues.MILESTONE.getCode());
 
         Map<ContractsAndGrantsBillingAward, List<String>> invalidGroup = new HashMap<ContractsAndGrantsBillingAward, List<String>>();
         List<ContractsAndGrantsBillingAward> qualifiedAwards = new ArrayList<ContractsAndGrantsBillingAward>();
@@ -429,7 +431,8 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
 
     public void testPerformAwardValidationNoValidBillsToInvoice() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        ((Award)awards.get(0)).setBillingFrequencyCode(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        ((Award)awards.get(0)).setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
+        ((Award)awards.get(0)).setBillingFrequency(BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency());
 
         Map<ContractsAndGrantsBillingAward, List<String>> invalidGroup = new HashMap<ContractsAndGrantsBillingAward, List<String>>();
         List<ContractsAndGrantsBillingAward> qualifiedAwards = new ArrayList<ContractsAndGrantsBillingAward>();
@@ -493,7 +496,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
     public void testPerformAwardValidAwardAccountsValidationMilestone() throws WorkflowException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         Award award = ((Award)awards.get(0));
-        award.setBillingFrequencyCode(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.MILESTONE.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class).createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
         documentService.saveDocument(cgInvoice);
@@ -512,7 +515,8 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
     public void testPerformAwardValidAwardAccountsValidationPredeterminedBilling() throws WorkflowException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         Award award = ((Award)awards.get(0));
-        award.setBillingFrequencyCode(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
+        award.setBillingFrequency(BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class).createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
         documentService.saveDocument(cgInvoice);
@@ -650,7 +654,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
     public void testPerformAwardValidationInvoicesInProgressMilestone() throws WorkflowException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         Award award = ((Award)awards.get(0));
-        award.setBillingFrequencyCode(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.MILESTONE.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class).createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
         documentService.saveDocument(cgInvoice);
@@ -671,7 +675,8 @@ public class ContractsGrantsInvoiceCreateDocumentServiceImplTest extends KualiTe
     public void testPerformAwardValidationInvoicesInProgressPredeterminedBilling() throws WorkflowException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         Award award = ((Award)awards.get(0));
-        award.setBillingFrequencyCode(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
+        award.setBillingFrequency(BillingFrequencyFixture.BILL_FREQ_PDBS.createBillingFrequency());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class).createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
         documentService.saveDocument(cgInvoice);

@@ -44,7 +44,6 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.kfs.sys.service.OptionsService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.kfs.krad.service.KualiModuleService;
@@ -244,7 +243,7 @@ public class ContractsGrantsLetterOfCreditReviewDocument extends FinancialSystem
 
         Map<String, Object> criteria = contractsAndGrantsModuleBillingService.getLetterOfCreditAwardCriteria(this.getLetterOfCreditFundGroupCode(), this.getLetterOfCreditFundCode());
         // To exclude awards with milestones and predetermined schedule.
-        criteria.put(ArPropertyConstants.BILLING_FREQUENCY_CODE, ArConstants.LOC_BILLING_SCHEDULE_CODE);
+        criteria.put(ArPropertyConstants.BILLING_FREQUENCY_CODE, ArConstants.BillingFrequencyValues.LETTER_OF_CREDIT.getCode());
 
         List<ContractsAndGrantsBillingAward> awards = getContractsGrantsLetterOfCreditReviewDocumentService().getActiveAwardsByCriteria(criteria);
 

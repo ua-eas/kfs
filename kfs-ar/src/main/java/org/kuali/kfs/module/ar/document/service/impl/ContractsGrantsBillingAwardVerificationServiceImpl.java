@@ -31,7 +31,6 @@ import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.batch.service.VerifyBillingFrequencyService;
@@ -72,7 +71,7 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
     @Override
     public boolean isBillingFrequencySetCorrectly(ContractsAndGrantsBillingAward award) {
 
-        if (StringUtils.isBlank(award.getBillingFrequencyCode()) || ((award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE) || award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) && award.getActiveAwardAccounts().size() != 1)) {
+        if (StringUtils.isBlank(award.getBillingFrequencyCode()) || ((ArConstants.BillingFrequencyValues.isPredeterminedBilling(award) || ArConstants.BillingFrequencyValues.isMilestone(award)) && award.getActiveAwardAccounts().size() != 1)) {
             return false;
         }
         return true;
@@ -91,11 +90,9 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
             Map<String, Object> criteria = new HashMap<String, Object>();
             criteria.put(KFSPropertyConstants.FREQUENCY, award.getBillingFrequencyCode());
             criteria.put(KFSPropertyConstants.ACTIVE, true);
-            Collection<ContractsAndGrantsBillingFrequency> matchingBillingFrequencies = kualiModuleService.getResponsibleModuleService(ContractsAndGrantsBillingFrequency.class).getExternalizableBusinessObjectsList(ContractsAndGrantsBillingFrequency.class, criteria);
+            final int billingFrequencyCount = businessObjectService.countMatching(BillingFrequency.class, criteria);
 
-            if (matchingBillingFrequencies != null && matchingBillingFrequencies.size() > 0) {
-                return true;
-            }
+            return (billingFrequencyCount > 0);
         }
 
         return false;
@@ -137,7 +134,7 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
     @Override
     public boolean hasMilestonesToInvoice(ContractsAndGrantsBillingAward award) {
         boolean hasMilestonesToInvoice = true;
-        if (award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.isMilestone(award)) {
             List<Milestone> milestones = new ArrayList<Milestone>();
             List<Milestone> validMilestones = new ArrayList<Milestone>();
 
@@ -173,7 +170,7 @@ public class ContractsGrantsBillingAwardVerificationServiceImpl implements Contr
     @Override
     public boolean hasBillsToInvoice(ContractsAndGrantsBillingAward award) {
         boolean hasBillsToInvoice = true;
-        if (award.getBillingFrequencyCode().equalsIgnoreCase(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(award)) {
 
             List<Bill> bills = new ArrayList<Bill>();
             List<Bill> validBills = new ArrayList<Bill>();

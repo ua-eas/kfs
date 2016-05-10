@@ -20,11 +20,7 @@ package org.kuali.kfs.module.ar.batch.service.impl;
 
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -33,13 +29,11 @@ import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.batch.service.VerifyBillingFrequencyService;
-import org.kuali.kfs.module.ar.businessobject.Bill;
+import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
 import org.kuali.kfs.module.ar.businessobject.BillingPeriod;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
@@ -82,10 +76,10 @@ public class VerifyBillingFrequencyServiceImpl implements VerifyBillingFrequency
         if (billingPeriod.getStartDate().after(billingPeriod.getEndDate())) {
             return false;
         }
-        return calculateIfWithinGracePeriod(today, billingPeriod, lastBilledDate, award.getBillingFrequency());
+        return calculateIfWithinGracePeriod(today, billingPeriod, lastBilledDate, (BillingFrequency)award.getBillingFrequency());
     }
 
-    public boolean calculateIfWithinGracePeriod(Date today, BillingPeriod billingPeriod, Date lastBilledDate, ContractsAndGrantsBillingFrequency billingFrequency) {
+    public boolean calculateIfWithinGracePeriod(Date today, BillingPeriod billingPeriod, Date lastBilledDate, BillingFrequency billingFrequency) {
         Date gracePeriodEnd = calculateDaysBeyond(billingPeriod.getEndDate(), billingFrequency.getGracePeriodDays());
         Date gracePeriodAfterLastBilled = null;
         if (lastBilledDate != null) {
@@ -100,7 +94,7 @@ public class VerifyBillingFrequencyServiceImpl implements VerifyBillingFrequency
 
     @Override
     public BillingPeriod getStartDateAndEndDateOfPreviousBillingPeriod(ContractsAndGrantsBillingAward award, AccountingPeriod currPeriod) {
-        return BillingPeriod.determineBillingPeriodPriorTo(award.getAwardBeginningDate(), this.dateTimeService.getCurrentSqlDate(), award.getLastBilledDate(), award.getBillingFrequencyCode(), this.accountingPeriodService);
+        return BillingPeriod.determineBillingPeriodPriorTo(award.getAwardBeginningDate(), this.dateTimeService.getCurrentSqlDate(), award.getLastBilledDate(), ArConstants.BillingFrequencyValues.fromCode(award.getBillingFrequencyCode()), this.accountingPeriodService);
     }
 
     protected Date calculateDaysBeyond(Date date, int daysBeyond) {

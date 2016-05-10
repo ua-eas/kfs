@@ -25,6 +25,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.CGKeyConstants;
@@ -35,7 +36,6 @@ import org.kuali.kfs.module.cg.businessobject.AwardFundManager;
 import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
 import org.kuali.kfs.module.cg.businessobject.AwardProjectDirector;
 import org.kuali.kfs.module.cg.businessobject.AwardSubcontractor;
-import org.kuali.kfs.module.cg.businessobject.BillingFrequency;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -486,7 +486,7 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         int numberOfActiveAccounts = 0;
 
         // Determine billing frequency
-        BillingFrequency billingFrequency = newAwardCopy.getBillingFrequency();
+        AccountsReceivableBillingFrequency billingFrequency = newAwardCopy.getBillingFrequency();
         if (ObjectUtils.isNotNull(billingFrequency)) {
             String billingFrequencyCode = billingFrequency.getFrequency();
 

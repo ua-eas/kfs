@@ -229,7 +229,10 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
         BillingFrequency billingFrequency = getBillingFrequencyService().createBillingFrequency(kcAward.getInvoiceBillingFrequency());
         award.setBillingFrequency(billingFrequency);
         if (billingFrequency != null) {
-            award.setBillingFrequencyCode(billingFrequency.getKcFrequencyCode());
+            /*
+             * JAMES - HERE
+             */
+            award.setBillingFrequencyCode(billingFrequency.getFrequency());
         }
         award.setAwardPrimaryProjectDirector(getProjectDirector(kcAward));
         award.setExcludedFromInvoicing(kcAward.isExcludedFromInvoicing());

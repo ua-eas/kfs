@@ -21,8 +21,8 @@ package org.kuali.kfs.module.ar.businessobject.options;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
 import org.kuali.kfs.module.ar.ArConstants;
+import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.KeyValue; import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
@@ -39,12 +39,12 @@ public class RestrictedBillingFrequencyValuesFinder extends KeyValuesBase {
     @SuppressWarnings("unchecked")
     public List<KeyValue> getKeyValues() {
 
-        List<ContractsAndGrantsBillingFrequency> boList = (List) SpringContext.getBean(KeyValuesService.class).findAll(ContractsAndGrantsBillingFrequency.class);
+        List<BillingFrequency> boList = (List) SpringContext.getBean(KeyValuesService.class).findAll(BillingFrequency.class);
         List<KeyValue> keyValues = new ArrayList();
         keyValues.add(new ConcreteKeyValue("", ""));
-        for (ContractsAndGrantsBillingFrequency element : boList) {
+        for (BillingFrequency element : boList) {
             if (element.isActive()) {
-                if (!element.getFrequency().equalsIgnoreCase(ArConstants.LOC_BILLING_SCHEDULE_CODE)) {
+                if (!ArConstants.BillingFrequencyValues.LETTER_OF_CREDIT.equals(ArConstants.BillingFrequencyValues.fromCode(element.getFrequency()))) {
                     String displayValue = element.getFrequencyDescription();
                     keyValues.add(new ConcreteKeyValue(element.getFrequency(), displayValue));
                 }

@@ -122,7 +122,7 @@ public class TransmitContractsAndGrantsInvoicesServiceImpl implements TransmitCo
         fieldValues.put(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_DOCUMENT_STATUS_CODE, DocumentStatus.FINAL.getCode() + SearchOperator.OR.op() + DocumentStatus.PROCESSED.getCode());
 
         // filter out LOC CINV docs, we don't want those included in this process
-        fieldValues.put(ArPropertyConstants.INVOICE_GENERAL_DETAIL + "." + ArPropertyConstants.BILLING_FREQUENCY_CODE, SearchOperator.NOT + ArConstants.LOC_BILLING_SCHEDULE_CODE);
+        fieldValues.put(ArPropertyConstants.INVOICE_GENERAL_DETAIL + "." + ArPropertyConstants.BILLING_FREQUENCY_CODE, SearchOperator.NOT + ArConstants.BillingFrequencyValues.LETTER_OF_CREDIT.getCode());
         Collection<ContractsGrantsInvoiceDocument> list = getContractsGrantsInvoiceDocumentService().retrieveAllCGInvoicesByCriteria(fieldValues);
         Collection<ContractsGrantsInvoiceDocument> finalList = new ArrayList<ContractsGrantsInvoiceDocument>();
         for (ContractsGrantsInvoiceDocument item : list) {

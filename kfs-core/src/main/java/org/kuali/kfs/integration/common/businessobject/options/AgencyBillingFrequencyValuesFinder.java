@@ -21,7 +21,7 @@ package org.kuali.kfs.integration.common.businessobject.options;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.KeyValue; import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
@@ -38,10 +38,10 @@ public class AgencyBillingFrequencyValuesFinder extends KeyValuesBase {
     @SuppressWarnings("unchecked")
     public List<KeyValue> getKeyValues() {
 
-        List<ContractsAndGrantsBillingFrequency> boList = (List) SpringContext.getBean(KeyValuesService.class).findAll(ContractsAndGrantsBillingFrequency.class);
+        List<AccountsReceivableBillingFrequency> boList = (List) SpringContext.getBean(KeyValuesService.class).findAll(AccountsReceivableBillingFrequency.class);
         List<KeyValue> keyValues = new ArrayList();
         keyValues.add(new ConcreteKeyValue("", ""));
-        for (ContractsAndGrantsBillingFrequency element : boList) {
+        for (AccountsReceivableBillingFrequency element : boList) {
             if (element.isActive()) {
                 String displayValue = element.getFrequencyDescription();
 

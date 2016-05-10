@@ -19,6 +19,9 @@
 package org.kuali.kfs.module.ar;
 
 import com.lowagie.text.Font;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.module.ar.businessobject.InvoiceGeneralDetail;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -472,13 +475,67 @@ public class ArConstants{
 
     public static final String CUS = "CUS";
     public static final String INVR = "INVR";
-    public static final String PREDETERMINED_BILLING_SCHEDULE_CODE = "PDBS";
-    public static final String MILESTONE_BILLING_SCHEDULE_CODE = "MILE";
-    public static final String MONTHLY_BILLING_SCHEDULE_CODE = "MNTH";
-    public static final String QUATERLY_BILLING_SCHEDULE_CODE = "QUAR";
-    public static final String SEMI_ANNUALLY_BILLING_SCHEDULE_CODE = "SEMI";
-    public static final String ANNUALLY_BILLING_SCHEDULE_CODE = "ANNU";
-    public static final String LOC_BILLING_SCHEDULE_CODE = "LOCB";
+
+    public enum BillingFrequencyValues {
+        PREDETERMINED_BILLING("PDBS"),
+        MILESTONE("MILE"),
+        MONTHLY("MNTH"),
+        QUARTERLY("QUAR"),
+        SEMI_ANNUALLY("SEMI"),
+        ANNUALLY("ANNU"),
+        LETTER_OF_CREDIT("LOCB");
+
+        private String code;
+        BillingFrequencyValues(String code) {
+            this.code = code;
+        }
+
+        public String getCode() {
+            return this.code;
+        }
+
+        public static BillingFrequencyValues fromCode(String code) {
+            if (code == null || code.isEmpty()) {
+                return null;
+            }
+
+            for (BillingFrequencyValues billingFrequency : BillingFrequencyValues.values()) {
+                if (code.equals(billingFrequency.code)) {
+                    return billingFrequency;
+                }
+            }
+
+            return null;
+        }
+
+        public static boolean isPredeterminedBilling(ContractsAndGrantsBillingAward award) {
+            return StringUtils.equals(award.getBillingFrequencyCode(), PREDETERMINED_BILLING.code);
+        }
+
+        public static boolean isPredeterminedBilling(InvoiceGeneralDetail invoiceGeneralDetail) {
+            return StringUtils.equals(invoiceGeneralDetail.getBillingFrequencyCode(), PREDETERMINED_BILLING.code);
+        }
+
+        public static boolean isMilestone(ContractsAndGrantsBillingAward award) {
+            return StringUtils.equals(award.getBillingFrequencyCode(), MILESTONE.code);
+        }
+
+        public static boolean isMilestone(InvoiceGeneralDetail invoiceGeneralDetail) {
+            return StringUtils.equals(invoiceGeneralDetail.getBillingFrequencyCode(), MILESTONE.code);
+        }
+
+        public static boolean isLetterOfCredit(ContractsAndGrantsBillingAward award) {
+            return StringUtils.equals(award.getBillingFrequencyCode(), LETTER_OF_CREDIT.code);
+        }
+
+        public static boolean isLetterOfCredit(InvoiceGeneralDetail invoiceGeneralDetail) {
+            return StringUtils.equals(invoiceGeneralDetail.getBillingFrequencyCode(), LETTER_OF_CREDIT.code);
+        }
+
+        public static boolean isTimeBased(InvoiceGeneralDetail invoiceGeneralDetail) {
+            return StringUtils.equals(MONTHLY.code, invoiceGeneralDetail.getBillingFrequencyCode()) || StringUtils.equals(QUARTERLY.code, invoiceGeneralDetail.getBillingFrequencyCode()) || StringUtils.equals(SEMI_ANNUALLY.code, invoiceGeneralDetail.getBillingFrequencyCode()) || StringUtils.equals(ANNUALLY.code, invoiceGeneralDetail.getBillingFrequencyCode());
+        }
+    }
 
     public static final String YEAR_MONTH_DAY_HOUR_MINUTE_SECONDS_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String INVOICES_FILE_PREFIX = "Invoices-";

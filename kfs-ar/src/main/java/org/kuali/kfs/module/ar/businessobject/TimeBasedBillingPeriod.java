@@ -8,7 +8,7 @@ import org.kuali.kfs.module.ar.ArConstants;
 import java.sql.Date;
 
 public class TimeBasedBillingPeriod extends BillingPeriod {
-    public TimeBasedBillingPeriod(String billingFrequency, Date awardStartDate, Date currentDate, Date lastBilledDate, AccountingPeriodService accountingPeriodService) {
+    public TimeBasedBillingPeriod(ArConstants.BillingFrequencyValues billingFrequency, Date awardStartDate, Date currentDate, Date lastBilledDate, AccountingPeriodService accountingPeriodService) {
         super(billingFrequency, awardStartDate, currentDate, lastBilledDate, accountingPeriodService);
     }
 
@@ -28,7 +28,7 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
 
     @Override
     protected boolean canThisBeBilledByBillingFrequency() {
-        if (StringUtils.equals(billingFrequency, ArConstants.ANNUALLY_BILLING_SCHEDULE_CODE) && accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear() >= accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear()) {
+        if (ArConstants.BillingFrequencyValues.ANNUALLY.equals(billingFrequency) && accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear() >= accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear()) {
             return false;
         } else if (StringUtils.equals(findPreviousAccountingPeriod(currentDate).getUniversityFiscalPeriodCode(), findPreviousAccountingPeriod(lastBilledDate).getUniversityFiscalPeriodCode()) &&
                 accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear().equals(accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear())) {
@@ -70,13 +70,13 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
 
     protected Integer findPreviousAccountingPeriodCode(Integer currentAccountingPeriodCode) {
         Integer previousAccountingPeriodCode;
-        if (StringUtils.equals(billingFrequency, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE) ||
-                StringUtils.equals(billingFrequency, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE) ||
-                StringUtils.equals(billingFrequency, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.MONTHLY.equals(billingFrequency) ||
+                ArConstants.BillingFrequencyValues.MILESTONE.equals(billingFrequency) ||
+                ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 1);
-        } else if (StringUtils.equals(billingFrequency, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE)) {
+        } else if (ArConstants.BillingFrequencyValues.QUARTERLY.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 3);
-        } else if (StringUtils.equals(billingFrequency, ArConstants.SEMI_ANNUALLY_BILLING_SCHEDULE_CODE)){
+        } else if (ArConstants.BillingFrequencyValues.SEMI_ANNUALLY.equals(billingFrequency)){
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 6);
         } else {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 12);

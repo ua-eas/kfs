@@ -16,11 +16,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.module.cg.businessobject;
+package org.kuali.kfs.module.ar.businessobject;
 
 import java.util.LinkedHashMap;
 
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
@@ -30,7 +30,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
  * BillingFrequency under Contracts & Grants section.
  */
 
-public class BillingFrequency extends PersistableBusinessObjectBase implements ContractsAndGrantsBillingFrequency, MutableInactivatable {
+public class BillingFrequency extends PersistableBusinessObjectBase implements AccountsReceivableBillingFrequency, MutableInactivatable {
 
     private String frequency;
     private String frequencyDescription;

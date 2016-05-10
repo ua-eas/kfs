@@ -70,6 +70,7 @@ public class CGPropertyConstants{
     }
 
     // AR related constants
+    public static final String BILLING_FREQUENCY = "billingFrequency";
     public static final String CUSTOMER = "customer";
     public static final String CUSTOMER_NUMBER = "customerNumber";
     public static final String CUSTOMER_TYPE_CODE = "customerTypeCode";

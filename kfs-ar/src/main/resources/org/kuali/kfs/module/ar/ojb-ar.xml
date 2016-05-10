@@ -1851,5 +1851,14 @@
 		<field-descriptor name="errorLogIdentifier" column="ERROR_LOG_ID" jdbc-type="BIGINT" index="true" />
 		<field-descriptor name="errorMessageText" column="ERROR_MSG_TXT" jdbc-type="VARCHAR"  />
 	</class-descriptor>
+
+	<class-descriptor class="org.kuali.kfs.module.ar.businessobject.BillingFrequency" table="AR_BILL_FREQ_T">
+		<field-descriptor name="frequency" column="BILL_FREQ_CD" jdbc-type="VARCHAR" primarykey="true" index="true" />
+		<field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="frequencyDescription" column="BILL_FREQ_DESC" jdbc-type="VARCHAR" />
+		<field-descriptor name="gracePeriodDays" column="GRACE_PERIOD" jdbc-type="INTEGER" nullable="false" />
+		<field-descriptor name="active" column="ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+	</class-descriptor>
 	
 </descriptor-repository>

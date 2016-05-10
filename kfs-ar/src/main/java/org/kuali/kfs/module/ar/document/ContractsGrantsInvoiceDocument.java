@@ -127,7 +127,7 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
         // To do a recalculate of current expenditures in invoice details section so that the totals get affected properly.
 
         // To be performed whenever the document is saved only for awards without Milestones or Bills
-        if (!StringUtils.equalsIgnoreCase(getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.MILESTONE_BILLING_SCHEDULE_CODE) && !StringUtils.equalsIgnoreCase(getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+        if (!ArConstants.BillingFrequencyValues.isMilestone(getInvoiceGeneralDetail()) && !ArConstants.BillingFrequencyValues.isPredeterminedBilling(getInvoiceGeneralDetail())) {
             ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
             contractsGrantsInvoiceDocumentService.recalculateTotalAmountBilledToDate(this);
         }
@@ -157,10 +157,10 @@ public class ContractsGrantsInvoiceDocument extends CustomerInvoiceDocument {
                         contractsGrantsInvoiceDocumentService.updateUnfinalizationToAwardAccount(invoice.getAccountDetails(),invoice.getInvoiceGeneralDetail().getProposalNumber());
                         getInvoiceGeneralDetail().setLastBilledDate(null);// Set invoice last billed date to null.
 
-                        if (invoice.getInvoiceGeneralDetail().getBillingFrequencyCode().equals(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) {
+                        if (ArConstants.BillingFrequencyValues.isMilestone(invoice.getInvoiceGeneralDetail())) {
                             contractsGrantsInvoiceDocumentService.updateMilestonesBilledIndicator(false,invoice.getInvoiceMilestones());
                         }
-                        else if (invoice.getInvoiceGeneralDetail().getBillingFrequencyCode().equals(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+                        else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(invoice.getInvoiceGeneralDetail())) {
                             contractsGrantsInvoiceDocumentService.updateBillsBilledIndicator(false,invoice.getInvoiceBills());
                         }
                     }

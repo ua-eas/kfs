@@ -1,7 +1,6 @@
 package org.kuali.kfs.module.ar.businessobject;
 
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
@@ -15,12 +14,12 @@ public abstract class BillingPeriod {
     protected Date endDate;
     protected boolean billable;
     protected final AccountingPeriodService accountingPeriodService;
-    protected final String billingFrequency;
+    protected final ArConstants.BillingFrequencyValues billingFrequency;
     protected final Date awardStartDate;
     protected final Date currentDate;
     protected final Date lastBilledDate;
 
-    protected BillingPeriod(String billingFrequency, Date awardStartDate, Date currentDate, Date lastBilledDate, AccountingPeriodService accountingPeriodService) {
+    protected BillingPeriod(ArConstants.BillingFrequencyValues billingFrequency, Date awardStartDate, Date currentDate, Date lastBilledDate, AccountingPeriodService accountingPeriodService) {
         this.awardStartDate = awardStartDate;
         this.lastBilledDate = lastBilledDate;
         this.accountingPeriodService = accountingPeriodService;
@@ -36,9 +35,9 @@ public abstract class BillingPeriod {
         return endDate;
     }
 
-    public static BillingPeriod determineBillingPeriodPriorTo(Date awardStartDate, Date currentDate, Date lastBilledDate, String billingFrequency, AccountingPeriodService accountingPeriodService) {
+    public static BillingPeriod determineBillingPeriodPriorTo(Date awardStartDate, Date currentDate, Date lastBilledDate, ArConstants.BillingFrequencyValues billingFrequency, AccountingPeriodService accountingPeriodService) {
         BillingPeriod billingPeriod;
-        if (StringUtils.equals(billingFrequency, ArConstants.LOC_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.LETTER_OF_CREDIT.equals(billingFrequency)) {
             billingPeriod = new LetterOfCreditBillingPeriod(billingFrequency, awardStartDate, currentDate, lastBilledDate, accountingPeriodService);
         } else {
             billingPeriod = new TimeBasedBillingPeriod(billingFrequency, awardStartDate, currentDate, lastBilledDate, accountingPeriodService);

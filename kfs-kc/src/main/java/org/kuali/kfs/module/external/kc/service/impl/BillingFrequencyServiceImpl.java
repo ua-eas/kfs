@@ -126,28 +126,19 @@ public class BillingFrequencyServiceImpl implements ExternalizableBusinessObject
 
     protected BillingFrequency createBillingFrequency(FrequencyDto kcFrequency, BillingFrequencyMapping mapping) {
         BillingFrequency freq = new BillingFrequency();
-        freq.setKcFrequencyCode(kcFrequency.getFrequencyCode());
         freq.setFrequencyDescription(kcFrequency.getDescription());
         if (mapping != null) {
             freq.setFrequency(mapping.getFrequency());
             freq.setGracePeriodDays(mapping.getGracePeriodDays());
-            freq.setActive(mapping.isActive());
+            freq.setActive(true);
         } else {
             freq.setActive(false);
         }
         return freq;
-
     }
 
     protected BillingFrequencyMapping getFrequencyMapping(String kcFrequencyCode) {
-        Map<String, String> values = new HashMap<String, String>();
-        values.put(KcConstants.BillingFrequencyService.KC_FREQUENCY_CODE, kcFrequencyCode);
-        Collection<BillingFrequencyMapping> mappings = getBusinessObjectService().findMatching(BillingFrequencyMapping.class, values);
-        if (mappings != null && !mappings.isEmpty()) {
-            return mappings.iterator().next();
-        } else {
-            return null;
-        }
+        return getBusinessObjectService().findBySinglePrimaryKey(BillingFrequencyMapping.class, kcFrequencyCode);
     }
 
     protected BusinessObjectService getBusinessObjectService() {

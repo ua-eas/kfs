@@ -121,7 +121,7 @@ public class PredeterminedBillingScheduleRule extends KfsMaintenanceDocumentRule
         boolean success = false;
 
         if (ObjectUtils.isNotNull(newPredeterminedBillingScheduleCopy.getAward().getBillingFrequencyCode())) {
-            if (StringUtils.equals(newPredeterminedBillingScheduleCopy.getAward().getBillingFrequencyCode(), ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+            if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(newPredeterminedBillingScheduleCopy.getAward())) {
                 success = true;
             }
         }

@@ -27,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.ar.AccountsReceivableMilestoneSchedule;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.integration.ar.AccountsReceivablePredeterminedBillingSchedule;
@@ -34,6 +35,8 @@ import org.kuali.kfs.integration.cg.CGIntegrationConstants;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -92,7 +95,6 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
     private String agencyAnalystName;
     private String analystTelephoneNumber;
     private String billingFrequencyCode;
-    private BillingFrequency billingFrequency;
     private String awardProjectTitle;
     private String awardPurposeCode;
     private boolean active;
@@ -131,6 +133,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
 
     private AccountsReceivableMilestoneSchedule milestoneSchedule;
     private AccountsReceivablePredeterminedBillingSchedule predeterminedBillingSchedule;
+    private AccountsReceivableBillingFrequency billingFrequency;
 
     private Date fundingExpirationDate;
     private String dunningCampaign;
@@ -1513,7 +1516,10 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      */
 
     @Override
-    public BillingFrequency getBillingFrequency() {
+    public AccountsReceivableBillingFrequency getBillingFrequency() {
+        if (billingFrequency == null || !StringUtils.equals(billingFrequency.getFrequency(), billingFrequencyCode)) {
+            billingFrequency = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(AccountsReceivableBillingFrequency.class).retrieveExternalizableBusinessObjectIfNecessary(this, billingFrequency, CGPropertyConstants.BILLING_FREQUENCY);
+        }
         return billingFrequency;
     }
 
@@ -1522,7 +1528,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param billingFrequency The billingFrequency to set.
      */
-    public void setBillingFrequency(BillingFrequency billingFrequency) {
+    public void setBillingFrequency(AccountsReceivableBillingFrequency billingFrequency) {
         this.billingFrequency = billingFrequency;
     }
 

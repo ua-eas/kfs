@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.kuali.kfs.integration.cg;
+package org.kuali.kfs.integration.ar;
 
 import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
@@ -25,7 +25,7 @@ import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 /**
  * This interface defines all the necessary methods to define a Contracts & Grants billing frequency object.
  */
-public interface ContractsAndGrantsBillingFrequency extends ExternalizableBusinessObject, Inactivatable {
+public interface AccountsReceivableBillingFrequency extends ExternalizableBusinessObject, Inactivatable {
 
     /**
      * Gets the gracePeriodDays attribute.
