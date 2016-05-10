@@ -39,6 +39,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -296,11 +297,8 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     protected String determineReportLink(String link) {
-        String reportHost = configurationService.getPropertyValueAsString(KFSConstants.REPORTS_URL);
-        if (!link.startsWith("/")) {
-            link = "/" + link;
-        }
-        return reportHost + link;
+        String appHost = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
+        return appHost + "/reports?reportUrl=" + URLEncoder.encode(link);
     }
 
     protected String fixRelativeLink(String link) {

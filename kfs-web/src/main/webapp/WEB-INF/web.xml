@@ -108,6 +108,7 @@
         <servlet-name>action</servlet-name>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-name>batchFileUpload</servlet-name>
+        <servlet-name>reports</servlet-name>
         <url-pattern>/purap/*</url-pattern>
         <url-pattern>/app/*</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
@@ -136,6 +137,7 @@
     <filter-mapping>
         <filter-name>UserLoginFilter</filter-name>
         <servlet-name>action</servlet-name>
+        <servlet-name>reports</servlet-name>
         <url-pattern>/index.jsp</url-pattern>
     </filter-mapping>
 
@@ -249,6 +251,11 @@
         <servlet-class>org.kuali.rice.kew.notes.web.AttachmentServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>reports</servlet-name>
+        <jsp-file>/WEB-INF/jsp/reports.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>remoting</servlet-name>
         <url-pattern>/remoting/*</url-pattern>
@@ -295,6 +302,10 @@
     <servlet-mapping>
         <servlet-name>heartbeat</servlet-name>
         <url-pattern>/heartbeat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reports</servlet-name>
+        <url-pattern>/reports</url-pattern>
     </servlet-mapping>
 
 
