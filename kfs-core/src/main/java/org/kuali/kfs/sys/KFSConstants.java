@@ -473,6 +473,9 @@ public class KFSConstants {
 
     public static final String SEARCH_LIST_REQUEST_KEY = "searchResultKey";
 
+    public static final String REPORT_CODE = "reportCode";
+    public static final String IS_AUTHORIZED = "isAuthorized";
+
     public static final int CORRECTION_RECENT_GROUPS_DAY = 10;
 
     public static final String GLOBAL_ERRORS = "GLOBAL_ERRORS";
@@ -1293,7 +1296,8 @@ public class KFSConstants {
         ADMINISTER_ROUTING_FOR_DOCUMENT(KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE, "Administer Routing for Document"),
         VIEW_BATCH_FILES(KFSConstants.CoreModuleNamespaces.KFS, "Administer Batch File"),
         UPLOAD_BATCH_INPUT_FILES(KFSConstants.CoreModuleNamespaces.KFS, "Upload Batch Input File(s)"),
-        VIEW_RECORD(KFSConstants.CoreModuleNamespaces.KFS, "View Record");
+        VIEW_RECORD(KFSConstants.CoreModuleNamespaces.KFS, "View Record"),
+        VIEW_REPORT(KFSConstants.CoreModuleNamespaces.KFS, "View Report");
 
         public final String name;
         public final String namespace;

@@ -47,7 +47,11 @@
 		  p:callbackService-ref="reportPermissionTypeService"
 		  p:localServiceName="reportPermissionTypeService" />
 
-	<bean parent="roleTypeServiceCallback" 
+	<bean parent="reportPermissionTypeServiceCallback"
+		  p:callbackService-ref="reportPermissionTypeService"
+		  p:localServiceName="reportPermissionTypeService" />
+
+	<bean parent="roleTypeServiceCallback"
 		p:callbackService-ref="financialSystemUserRoleTypeService" 
 		p:localServiceName="financialSystemUserRoleTypeService" /> 
                            	 
