@@ -35,6 +35,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -56,7 +57,9 @@ public class ExportData {
     private List<String> skipTableExpressions;
     private Map<Integer, String> typeNames;
     private ClassPathXmlApplicationContext applicationContext;
+	private SimpleDateFormat dateFormat;
 
+	public static final String DATE_FORMAT = "YYYYMMddHHmmssSSSS";
     public static final String DELIMITER = "~&~\t~&~";
     public static final String QUOTE = "'";
     public static final String HEADER_BEGIN = "HEADER[";
@@ -96,6 +99,8 @@ public class ExportData {
     }
 
     public void go() throws IOException {
+		dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
         initialize();
         DataSource kfsDataSource = applicationContext.getBean("dataSource", DataSource.class);
 
@@ -190,13 +195,11 @@ public class ExportData {
 	        		}
 	                break;
 	        	case Types.DATE:
-	        		value = Long.toString(rs.getDate(i).getTime());
+	        		value = dateFormat.format(rs.getDate(i));
 	        		break;
 	        	case Types.TIMESTAMP:
-	        		value = Long.toString(rs.getTimestamp(i).getTime());
+					value = dateFormat.format(rs.getTimestamp(i));
 	        		break;
-	        	case Types.TIME:
-	        		value = Long.toString(rs.getTime(i).getTime());
         	}
             return QUOTE + value + QUOTE;
         } else {
