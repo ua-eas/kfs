@@ -1,6 +1,6 @@
 HEADER[~&~	~&~ENTITY_EMAIL_ID::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ENTITY_ID::VARCHAR~&~	~&~ENT_TYP_CD::VARCHAR~&~	~&~EMAIL_TYP_CD::VARCHAR~&~	~&~EMAIL_ADDR::VARCHAR~&~	~&~DFLT_IND::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
-RECORD[~&~	~&~'1200'~&~	~&~'5B97C50B04066110E0404F8189D85213'~&~	~&~'1'~&~	~&~'1100'~&~	~&~'PERSON'~&~	~&~'WRK'~&~	~&~'test@email.edu'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1226603215000'~&~	~&~]RECORD
-RECORD[~&~	~&~'1231'~&~	~&~'5B97C50B04256110E0404F8189D85213'~&~	~&~'1'~&~	~&~'1131'~&~	~&~'PERSON'~&~	~&~'WRK'~&~	~&~'test@email.edu'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'1226603220000'~&~	~&~]RECORD
+RECORD[~&~	~&~'1200'~&~	~&~'5B97C50B04066110E0404F8189D85213'~&~	~&~'1'~&~	~&~'1100'~&~	~&~'PERSON'~&~	~&~'WRK'~&~	~&~'test@email.edu'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'200811131406550000'~&~	~&~]RECORD
+RECORD[~&~	~&~'1231'~&~	~&~'5B97C50B04256110E0404F8189D85213'~&~	~&~'1'~&~	~&~'1131'~&~	~&~'PERSON'~&~	~&~'WRK'~&~	~&~'test@email.edu'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'200811131407000000'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS1000'~&~	~&~'KFS1000'~&~	~&~'1'~&~	~&~'KFS1018'~&~	~&~'PERSON'~&~	~&~'WRK'~&~	~&~'test@email.edu'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS1001'~&~	~&~'KFS1001'~&~	~&~'1'~&~	~&~'KFS2943'~&~	~&~'PERSON'~&~	~&~'WRK'~&~	~&~'test@email.edu'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS1002'~&~	~&~'KFS1002'~&~	~&~'1'~&~	~&~'KFS3222'~&~	~&~'PERSON'~&~	~&~'WRK'~&~	~&~'test@email.edu'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD

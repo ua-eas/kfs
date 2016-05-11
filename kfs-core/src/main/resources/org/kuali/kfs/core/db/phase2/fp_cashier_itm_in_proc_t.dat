@@ -1,2 +1,2 @@
 HEADER[~&~	~&~CAMPUS_CD::VARCHAR~&~	~&~ITM_ID::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ITM_AMT::DECIMAL~&~	~&~ITM_RDCD_AMT::DECIMAL~&~	~&~ITM_TOT_AMT::DECIMAL~&~	~&~ITM_OPEN_DT::TIMESTAMP~&~	~&~ITM_CLOSED_DT::TIMESTAMP~&~	~&~ITM_DESC::VARCHAR~&~	~&~]HEADER
-RECORD[~&~	~&~'NS'~&~	~&~'354'~&~	~&~'33816C4EDA64C03EE043814FD881C03E'~&~	~&~'2'~&~	~&~'20.00'~&~	~&~NULL~&~	~&~'20.00'~&~	~&~'1182139200000'~&~	~&~NULL~&~	~&~'test'~&~	~&~]RECORD
+RECORD[~&~	~&~'NS'~&~	~&~'354'~&~	~&~'33816C4EDA64C03EE043814FD881C03E'~&~	~&~'2'~&~	~&~'20.00'~&~	~&~NULL~&~	~&~'20.00'~&~	~&~'200706180000000000'~&~	~&~NULL~&~	~&~'test'~&~	~&~]RECORD

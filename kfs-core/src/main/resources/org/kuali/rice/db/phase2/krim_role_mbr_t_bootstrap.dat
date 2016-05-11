@@ -1,7 +1,7 @@
 HEADER[~&~	~&~ROLE_MBR_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~ROLE_ID::VARCHAR~&~	~&~MBR_ID::VARCHAR~&~	~&~MBR_TYP_CD::CHAR~&~	~&~ACTV_FRM_DT::TIMESTAMP~&~	~&~ACTV_TO_DT::TIMESTAMP~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
-RECORD[~&~	~&~'1282'~&~	~&~'1'~&~	~&~'5B4B421E43857717E0404F8189D821F7'~&~	~&~'90'~&~	~&~'1'~&~	~&~'P'~&~	~&~NULL~&~	~&~NULL~&~	~&~'1250841171000'~&~	~&~]RECORD
-RECORD[~&~	~&~'1283'~&~	~&~'1'~&~	~&~'D0B057F8E7B949EFA94AE8CDA47DE41B'~&~	~&~'63'~&~	~&~'admin'~&~	~&~'P'~&~	~&~NULL~&~	~&~NULL~&~	~&~'1228758581000'~&~	~&~]RECORD
-RECORD[~&~	~&~'1284'~&~	~&~'1'~&~	~&~'B7DBFABEFD2E8CBFE0402E0AA9D757C9'~&~	~&~'98'~&~	~&~'admin'~&~	~&~'P'~&~	~&~NULL~&~	~&~NULL~&~	~&~'1328043844000'~&~	~&~]RECORD
+RECORD[~&~	~&~'1282'~&~	~&~'1'~&~	~&~'5B4B421E43857717E0404F8189D821F7'~&~	~&~'90'~&~	~&~'1'~&~	~&~'P'~&~	~&~NULL~&~	~&~NULL~&~	~&~'200908210352510000'~&~	~&~]RECORD
+RECORD[~&~	~&~'1283'~&~	~&~'1'~&~	~&~'D0B057F8E7B949EFA94AE8CDA47DE41B'~&~	~&~'63'~&~	~&~'admin'~&~	~&~'P'~&~	~&~NULL~&~	~&~NULL~&~	~&~'200812081249410000'~&~	~&~]RECORD
+RECORD[~&~	~&~'1284'~&~	~&~'1'~&~	~&~'B7DBFABEFD2E8CBFE0402E0AA9D757C9'~&~	~&~'98'~&~	~&~'admin'~&~	~&~'P'~&~	~&~NULL~&~	~&~NULL~&~	~&~'201201311604040000'~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS1306'~&~	~&~'1'~&~	~&~'KFS1306'~&~	~&~'6'~&~	~&~'5'~&~	~&~'R'~&~	~&~NULL~&~	~&~NULL~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS1307'~&~	~&~'1'~&~	~&~'KFS1307'~&~	~&~'3'~&~	~&~'31'~&~	~&~'R'~&~	~&~NULL~&~	~&~NULL~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'KFS1308'~&~	~&~'1'~&~	~&~'KFS1308'~&~	~&~'17'~&~	~&~'45'~&~	~&~'R'~&~	~&~NULL~&~	~&~NULL~&~	~&~NULL~&~	~&~]RECORD

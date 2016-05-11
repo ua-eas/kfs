@@ -1,6 +1,6 @@
 HEADER[~&~	~&~ENT_TYP_CD::VARCHAR~&~	~&~ENTITY_ID::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ACTV_IND::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
-RECORD[~&~	~&~'PERSON'~&~	~&~'1100'~&~	~&~'5B97C50B03E06110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'1226603209000'~&~	~&~]RECORD
-RECORD[~&~	~&~'PERSON'~&~	~&~'1131'~&~	~&~'5B97C50B03FF6110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'1226603214000'~&~	~&~]RECORD
+RECORD[~&~	~&~'PERSON'~&~	~&~'1100'~&~	~&~'5B97C50B03E06110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'200811131406490000'~&~	~&~]RECORD
+RECORD[~&~	~&~'PERSON'~&~	~&~'1131'~&~	~&~'5B97C50B03FF6110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'200811131406540000'~&~	~&~]RECORD
 RECORD[~&~	~&~'PERSON'~&~	~&~'KFS1000'~&~	~&~'KFS1000-PERSON'~&~	~&~'1'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'PERSON'~&~	~&~'KFS1001'~&~	~&~'KFS1001-PERSON'~&~	~&~'1'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'PERSON'~&~	~&~'KFS1002'~&~	~&~'KFS1002-PERSON'~&~	~&~'1'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
@@ -1611,5 +1611,5 @@ RECORD[~&~	~&~'PERSON'~&~	~&~'KFS4113'~&~	~&~'KFS4113-PERSON'~&~	~&~'1'~&~	~&~'Y
 RECORD[~&~	~&~'PERSON'~&~	~&~'KFS4114'~&~	~&~'KFS4114-PERSON'~&~	~&~'1'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'PERSON'~&~	~&~'KFS4115'~&~	~&~'KFS4115-PERSON'~&~	~&~'1'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
 RECORD[~&~	~&~'PERSON'~&~	~&~'KFS4116'~&~	~&~'KFS4116-PERSON'~&~	~&~'1'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
-RECORD[~&~	~&~'SYSTEM'~&~	~&~'1'~&~	~&~'5B1B6B919CCB6496E0404F8189D822F2'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'1226069342000'~&~	~&~]RECORD
+RECORD[~&~	~&~'SYSTEM'~&~	~&~'1'~&~	~&~'5B1B6B919CCB6496E0404F8189D822F2'~&~	~&~'1'~&~	~&~'Y'~&~	~&~'200811070949020000'~&~	~&~]RECORD
 RECORD[~&~	~&~'SYSTEM'~&~	~&~'KFS2'~&~	~&~'KFS2-SYSTEM'~&~	~&~'1'~&~	~&~'Y'~&~	~&~NULL~&~	~&~]RECORD
