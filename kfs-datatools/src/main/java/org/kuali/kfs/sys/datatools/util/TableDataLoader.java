@@ -35,12 +35,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Blob;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -52,10 +52,13 @@ import java.util.stream.Collectors;
  *
  */
 public class TableDataLoader implements CustomTaskChange {
+	public static final String DATE_FORMAT = "yyyyMMddHHmmssSSSS";
+
 	private String file;
 	private String table;
 	private ResourceAccessor resourceAccessor;
 	private int count = 0;
+	private SimpleDateFormat dateFormat;
 
 	@Override
 	public String getConfirmationMessage() {
@@ -81,6 +84,8 @@ public class TableDataLoader implements CustomTaskChange {
 		if (table == null || table.length() == 0) {
 			throw new CustomChangeException("Invalid table name " + table);
 		}
+
+		dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
 		JdbcConnection connection = (JdbcConnection)database.getConnection();
 		try(InputStream in = StreamUtil.singleInputStream(file, resourceAccessor)) {
@@ -161,13 +166,20 @@ public class TableDataLoader implements CustomTaskChange {
 
 		switch (type) {
 			case Types.DATE :
-				ps.setDate(pos, new Date(Long.parseLong(unquoted)));
+				try {
+					java.util.Date d = dateFormat.parse(unquoted);
+					ps.setDate(pos, new java.sql.Date(d.getTime()));
+				} catch (ParseException e) {
+					throw new RuntimeException("Unable to convert data to date: " + unquoted,e);
+				}
 				return;
 			case Types.TIMESTAMP :
-				ps.setTimestamp(pos, new Timestamp(Long.parseLong(unquoted)));
-				return;
-			case Types.TIME :
-				ps.setTime(pos, new Time(Long.parseLong(unquoted)));
+				try {
+					java.util.Date d = dateFormat.parse(unquoted);
+					ps.setTimestamp(pos, new Timestamp(d.getTime()));
+				} catch (ParseException e) {
+					throw new RuntimeException("Unable to convert data to date: " + unquoted,e);
+				}
 				return;
 			case Types.BLOB :
 				byte[] bytes = Base64.getDecoder().decode(unquoted);

@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.datatools.exportdata;
 
 import org.kuali.kfs.sys.datatools.util.PropertyLoadingFactoryBean;
+import org.kuali.kfs.sys.datatools.util.TableDataLoader;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
@@ -59,7 +60,6 @@ public class ExportData {
     private ClassPathXmlApplicationContext applicationContext;
 	private SimpleDateFormat dateFormat;
 
-	public static final String DATE_FORMAT = "YYYYMMddHHmmssSSSS";
     public static final String DELIMITER = "~&~\t~&~";
     public static final String QUOTE = "'";
     public static final String HEADER_BEGIN = "HEADER[";
@@ -99,7 +99,7 @@ public class ExportData {
     }
 
     public void go() throws IOException {
-		dateFormat = new SimpleDateFormat(DATE_FORMAT);
+		dateFormat = new SimpleDateFormat(TableDataLoader.DATE_FORMAT);
 
         initialize();
         DataSource kfsDataSource = applicationContext.getBean("dataSource", DataSource.class);
