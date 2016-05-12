@@ -110,7 +110,7 @@ public class KualiModuleServiceImpl implements KualiModuleService, InitializingB
 
     @Override
 	public ModuleService getResponsibleModuleService(final Class boClass) {
-    	if(boClass==null || !BusinessObject.class.isAssignableFrom(boClass)) {
+    	if(boClass==null) {
 			return null;
 		}
     	if (responsibleModuleServices.containsKey(boClass)) {
@@ -150,7 +150,6 @@ public class KualiModuleServiceImpl implements KualiModuleService, InitializingB
     		throw new ModuleServiceNotFoundException(message);
     	} 
     	//Returning null for business objects other than externalizable to keep the framework backward compatible
-    	responsibleModuleServices.put(boClass, null);
     	return null;
     }
 
