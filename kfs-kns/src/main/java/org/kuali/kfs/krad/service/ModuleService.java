@@ -216,6 +216,15 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @return
      */
     public boolean isExternalizableBusinessObjectInquirable(Class boClass);
+    
+    /**
+     * Determines whether an EBO's implementation is external.
+     * @param boClass
+     * @return
+     */
+    public default boolean isExternal(Class boClass) {
+    	return false;
+    }
 
     /**
      * @param <T>

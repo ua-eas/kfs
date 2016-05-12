@@ -22,12 +22,21 @@
 <span id="${field.propertyName}.div">
     <c:choose>
         <c:when test="${not (empty field.inquiryURL.href || empty field.propertyValue)}">
-            <a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>" data-remodal-target="modal">
-                <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
-            </a>
-            <a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="Open in new tab" class="new-window">
-                <span class="glyphicon glyphicon-new-window"></span>
-            </a>
+        	<c:choose>
+	        		<c:when test="${field.inquiryURL.modalAllowed}">
+		            <a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>" data-remodal-target="modal">
+		                <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
+		            </a>
+		            <a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="Open in new tab" class="new-window">
+		                <span class="glyphicon glyphicon-new-window"></span>
+		            </a>
+	            </c:when>
+	            <c:otherwise>
+	            	<a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="<c:out value="${field.inquiryURL.title}"/> (open in new tab)" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>">
+		                <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
+		            </a>
+	            </c:otherwise>
+            </c:choose>
         </c:when>
         <c:otherwise>
             <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />

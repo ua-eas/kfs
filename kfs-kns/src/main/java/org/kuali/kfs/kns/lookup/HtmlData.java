@@ -380,7 +380,11 @@ public abstract class HtmlData implements Serializable {
         public void setObjectLabel(String objectLabel) {
             this.objectLabel = objectLabel;
         }
-
+        
+        public boolean isModalAllowed() {
+        	String boClassName = StringUtils.substringBetween(this.href, "businessObjectClassName=", "&");
+        	return !KRADServiceLocatorWeb.getKualiModuleService().isBusinessObjectExternal(boClassName);
+        }
 	}
 
 	/**

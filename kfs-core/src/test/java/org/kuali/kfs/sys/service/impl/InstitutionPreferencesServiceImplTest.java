@@ -1522,6 +1522,11 @@ public class InstitutionPreferencesServiceImplTest {
         public String getComponentCode(Class<?> documentOrStepClass) {
             return null;
         }
+
+		@Override
+		public boolean isBusinessObjectExternal(String boClassName) {
+			return false;
+		}
     }
 
     class NoPermissionsInstitutionPreferencesServiceImpl extends InstitutionPreferencesServiceImpl {

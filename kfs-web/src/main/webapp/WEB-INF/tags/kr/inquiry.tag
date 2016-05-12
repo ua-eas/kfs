@@ -20,16 +20,26 @@
 
 <jsp:doBody var="bodyValue"/>
 <c:set var="trimmedBodyValue" value="${fn:trim(bodyValue)}"/>
+<c:set var="modalAllowed" value="${!kualiModuleService.isBusinessObjectExternal(boClassName)}"/>
 
 <c:if test="${render && !empty trimmedBodyValue}">
-    <a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}&mode=modal"  data-remodal-target="modal" title="Open in modal">
+	<c:choose>
+		<c:when test="${modalAllowed}">
+    		<a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}&mode=modal"  data-remodal-target="modal" title="Open in modal">
+    	</c:when>
+    	<c:otherwise>
+    		<a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}&mode=standalone"  target="_blank" title="Open in new tab" onclick="event.stopPropagation();">
+    	</c:otherwise>
+    </c:choose>
 </c:if>
 
     ${bodyValue}
 
 <c:if test="${render && !empty trimmedBodyValue}">
     </a>
-    <a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}&mode=standalone" target="_blank" title="Open in new tab" class="new-window" onclick="event.stopPropagation();">
-        <span class="glyphicon glyphicon-new-window"></span>
-    </a>
+    <c:if test="${modalAllowed}">
+	    <a href="${ConfigProperties.application.url}/kr/inquiry.do?methodToCall=start&businessObjectClassName=${boClassName}&${keyValues}&mode=standalone" target="_blank" title="Open in new tab" class="new-window" onclick="event.stopPropagation();">
+	        <span class="glyphicon glyphicon-new-window"></span>
+	    </a>
+    </c:if>
 </c:if>
