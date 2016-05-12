@@ -48,8 +48,10 @@ public class YearEndAccountingPeriodValuesFinder extends KeyValuesBase {
         AccountingPeriod currentAccountingPeriod = SpringContext.getBean(AccountingPeriodService.class).getByDate(date);
 
         if (currentAccountingPeriod.isOpen()) {
-            // add the current period with blank value, so scrubber will set entries when posting
-            accountingPeriodCodes.add(new ConcreteKeyValue("", currentAccountingPeriod.getUniversityFiscalPeriodName()));
+            // KFSCD-79 : Year End Post Back function issue with changing post back fiscal period
+            // The blank value never makes it to the scrubber.  It is always initialized with the current accounting period.
+            // Setting it to blank will not allow the ui to change it from a closing to the current on a re-save since the setAccountingPeriodCompositeString will ignore blanks.
+            accountingPeriodCodes.add(new ConcreteKeyValue(currentAccountingPeriod.getUniversityFiscalPeriodCode() + currentAccountingPeriod.getUniversityFiscalYear(), currentAccountingPeriod.getUniversityFiscalPeriodName()));
         }
 
         String numberOfPostbackPeriodsParmVal = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.KFS, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.DETAIL_PARAMETER_TYPE, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.NUMBER_OF_POSTBACK_PERIODS);
