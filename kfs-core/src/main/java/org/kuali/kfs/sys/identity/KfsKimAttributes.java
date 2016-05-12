@@ -53,6 +53,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
     public static final String FILE_PATH = "filePath";
     public static final String ROUTE_NODE_NAME = "routeNodeName";
     public static final String PROFILE_PRINCIPAL_ID = "profilePrincipalId";
+    public static final String REPORT_CODE = "reportCode";
 
     protected String chartOfAccountsCode;
     protected String accountNumber;
@@ -72,6 +73,7 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
     protected String subAccountNumber;
     protected String filePath;
     protected Integer profilePrincipalId;
+    protected String reportCode;
 
     protected Chart chart;
     protected Organization organization;
@@ -388,5 +390,13 @@ public class KfsKimAttributes extends org.kuali.rice.kim.bo.impl.KimAttributes {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getReportCode() {
+        return reportCode;
+    }
+
+    public void setReportCode(String reportCode) {
+        this.reportCode = reportCode;
     }
 }
