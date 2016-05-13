@@ -49,6 +49,7 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
         <ref bean="KfsKimAttributes-subAccountNumber" />
         <ref bean="KfsKimAttributes-filePath" />
         <ref bean="KfsKimAttributes-profilePrincipalId" />
+        <ref bean="KfsKimAttributes-reportCode" />
       </list>
     </property>
     <property name="relationships">
@@ -182,5 +183,15 @@ http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
 			<bean parent="TextControlDefinition" p:size="20" />
 		</property>
 	</bean>
+
+  <bean id="KfsKimAttributes-reportCode" parent="KfsKimAttributes-reportCode-parentBean" />
+  <bean id="KfsKimAttributes-reportCode-parentBean" abstract="true" parent="AttributeDefinition"
+    p:name="reportCode"
+    p:label="Report Code"
+    p:shortLabel="Report Code">
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="20" />
+    </property>
+  </bean>
 
 </beans>
