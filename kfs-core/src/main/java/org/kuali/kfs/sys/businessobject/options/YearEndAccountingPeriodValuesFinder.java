@@ -48,9 +48,7 @@ public class YearEndAccountingPeriodValuesFinder extends KeyValuesBase {
         AccountingPeriod currentAccountingPeriod = SpringContext.getBean(AccountingPeriodService.class).getByDate(date);
 
         if (currentAccountingPeriod.isOpen()) {
-            // KFSCD-79 : Year End Post Back function issue with changing post back fiscal period
-            // The blank value never makes it to the scrubber.  It is always initialized with the current accounting period.
-            // Setting it to blank will not allow the ui to change it from a closing to the current on a re-save since the setAccountingPeriodCompositeString will ignore blanks.
+            // A key value is required for the drop down.  Otherwise, the setAccountingPeriodCompositeString() will ignore it on a submit or re-save.
             accountingPeriodCodes.add(new ConcreteKeyValue(currentAccountingPeriod.getUniversityFiscalPeriodCode() + currentAccountingPeriod.getUniversityFiscalYear(), currentAccountingPeriod.getUniversityFiscalPeriodName()));
         }
 
