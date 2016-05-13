@@ -1,0 +1,5 @@
+HEADER[~&~	~&~INC_CLS_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~INC_CLS_NM::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'F'~&~	~&~'058AB8145A629D3CE043814FD8819D3C'~&~	~&~'1'~&~	~&~'Fellowship'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'I'~&~	~&~'058AB8145A639D3CE043814FD8819D3C'~&~	~&~'1'~&~	~&~'Independent Contractor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'058AB8145A659D3CE043814FD8819D3C'~&~	~&~'1'~&~	~&~'Non Reportable'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'058AB8145A649D3CE043814FD8819D3C'~&~	~&~'1'~&~	~&~'Royalties'~&~	~&~'Y'~&~	~&~]RECORD

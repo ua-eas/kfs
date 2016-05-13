@@ -1,0 +1,2 @@
+HEADER[~&~	~&~CMPGN_ID::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CMPGN_DESC::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'KUAL'~&~	~&~'e5a8aeb3-eef5-4c57-9e68-00c7f964d38c'~&~	~&~'1'~&~	~&~'New Kuali Letters'~&~	~&~'Y'~&~	~&~]RECORD

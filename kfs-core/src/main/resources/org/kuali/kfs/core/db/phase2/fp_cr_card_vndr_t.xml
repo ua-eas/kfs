@@ -1,77 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10288" context="demo,unit">
-    <insert tableName="fp_cr_card_vndr_t">
-      <column name="FDOC_CCRD_VNDR_NBR"><![CDATA[00123457]]></column>
-      <column name="OBJ_ID"><![CDATA[82A36E63-1B5B-366A-DAF2-18A3F16DB753]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FDOC_CCRD_VNDR_NM"><![CDATA[PARKING]]></column>
-      <column name="FDOC_CCRD_TYP_CD"><![CDATA[AE]]></column>
-      <column name="INC_FIN_COA_CD" value="null"/>
-      <column name="INC_ACCT_NBR" value="null"/>
-      <column name="INC_FIN_OBJ_CD" value="null"/>
-      <column name="INC_FIN_SUB_OBJ_CD" value="null"/>
-      <column name="INC_SUB_ACCT_NBR" value="null"/>
-      <column name="EXP_FIN_COA_CD" value="null"/>
-      <column name="EXP_ACCT_NBR" value="null"/>
-      <column name="EXP_FIN_OBJ_CD" value="null"/>
-      <column name="EXP_FIN_SUB_OBJ_CD" value="null"/>
-      <column name="EXP_SUB_ACCT_NBR" value="null"/>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fp_cr_card_vndr_t">
-      <column name="FDOC_CCRD_VNDR_NBR"><![CDATA[001247454]]></column>
-      <column name="OBJ_ID"><![CDATA[8A6DC343-D622-7ABB-450C-BC6348DCCA55]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FDOC_CCRD_VNDR_NM"><![CDATA[ATHLETICS]]></column>
-      <column name="FDOC_CCRD_TYP_CD"><![CDATA[VM]]></column>
-      <column name="INC_FIN_COA_CD" value="null"/>
-      <column name="INC_ACCT_NBR" value="null"/>
-      <column name="INC_FIN_OBJ_CD" value="null"/>
-      <column name="INC_FIN_SUB_OBJ_CD" value="null"/>
-      <column name="INC_SUB_ACCT_NBR" value="null"/>
-      <column name="EXP_FIN_COA_CD" value="null"/>
-      <column name="EXP_ACCT_NBR" value="null"/>
-      <column name="EXP_FIN_OBJ_CD" value="null"/>
-      <column name="EXP_FIN_SUB_OBJ_CD" value="null"/>
-      <column name="EXP_SUB_ACCT_NBR" value="null"/>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fp_cr_card_vndr_t">
-      <column name="FDOC_CCRD_VNDR_NBR"><![CDATA[00142678]]></column>
-      <column name="OBJ_ID"><![CDATA[B4727410-C3EE-871E-7DFE-00425FD787D4]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FDOC_CCRD_VNDR_NM"><![CDATA[BURSARS OFFICE]]></column>
-      <column name="FDOC_CCRD_TYP_CD"><![CDATA[DI]]></column>
-      <column name="INC_FIN_COA_CD" value="null"/>
-      <column name="INC_ACCT_NBR" value="null"/>
-      <column name="INC_FIN_OBJ_CD" value="null"/>
-      <column name="INC_FIN_SUB_OBJ_CD" value="null"/>
-      <column name="INC_SUB_ACCT_NBR" value="null"/>
-      <column name="EXP_FIN_COA_CD" value="null"/>
-      <column name="EXP_ACCT_NBR" value="null"/>
-      <column name="EXP_FIN_OBJ_CD" value="null"/>
-      <column name="EXP_FIN_SUB_OBJ_CD" value="null"/>
-      <column name="EXP_SUB_ACCT_NBR" value="null"/>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_fp_cr_card_vndr_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="fp_cr_card_vndr_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/fp_cr_card_vndr_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,79 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10313" context="bootstrap,demo,unit">
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[BAACTV]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD659B972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Budget Adjustements Allowed]]></column>
-    </insert>
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[BASEAD]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD65AB972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Base Adjustments Allowed]]></column>
-    </insert>
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[BCACTV]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD65BB972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Budget Construction Active]]></column>
-    </insert>
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[BCGENE]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD65CB972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Budget Construction Genesis Executing]]></column>
-    </insert>
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[BCUPDT]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD65EB972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Budget Construction Updates Allowed]]></column>
-    </insert>
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[BSSYNC]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD65DB972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Batch Sync BC with PeopleSoft]]></column>
-    </insert>
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[CSFUPD]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD65FB972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Calculated Salary Found Updates Allowed]]></column>
-    </insert>
-    <insert tableName="fp_func_ctrl_cd_t">
-      <column name="FS_FUNC_CTRL_CD"><![CDATA[PSSYNC]]></column>
-      <column name="OBJ_ID"><![CDATA[1362A7CFD660B972E043814FD881B972]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FS_FUNC_DFLT_IND"><![CDATA[N]]></column>
-      <column name="FS_FUNC_DESC"><![CDATA[Synchronize BC with PeopleSoft]]></column>
-    </insert>
+  <changeSet id="IMPORT_fp_func_ctrl_cd_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="fp_func_ctrl_cd_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/fp_func_ctrl_cd_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

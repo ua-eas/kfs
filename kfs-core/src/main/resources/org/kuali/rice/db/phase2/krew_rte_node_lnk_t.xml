@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,30 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00031" context="bootstrap,demo,unit">
-    <insert tableName="krew_rte_node_lnk_t">
-      <column name="FROM_RTE_NODE_ID"><![CDATA[2041]]></column>
-      <column name="TO_RTE_NODE_ID"><![CDATA[2042]]></column>
-    </insert>
-    <insert tableName="krew_rte_node_lnk_t">
-      <column name="FROM_RTE_NODE_ID"><![CDATA[2042]]></column>
-      <column name="TO_RTE_NODE_ID"><![CDATA[2043]]></column>
-    </insert>
-    <insert tableName="krew_rte_node_lnk_t">
-      <column name="FROM_RTE_NODE_ID"><![CDATA[2898]]></column>
-      <column name="TO_RTE_NODE_ID"><![CDATA[2899]]></column>
-    </insert>
-    <insert tableName="krew_rte_node_lnk_t">
-      <column name="FROM_RTE_NODE_ID"><![CDATA[2901]]></column>
-      <column name="TO_RTE_NODE_ID"><![CDATA[2902]]></column>
-    </insert>
-    <insert tableName="krew_rte_node_lnk_t">
-      <column name="FROM_RTE_NODE_ID"><![CDATA[2904]]></column>
-      <column name="TO_RTE_NODE_ID"><![CDATA[2905]]></column>
-    </insert>
-    <insert tableName="krew_rte_node_lnk_t">
-      <column name="FROM_RTE_NODE_ID"><![CDATA[2905]]></column>
-      <column name="TO_RTE_NODE_ID"><![CDATA[2906]]></column>
-    </insert>
+  <changeSet id="IMPORT_krew_rte_node_lnk_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krew_rte_node_lnk_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krew_rte_node_lnk_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

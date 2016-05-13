@@ -1,0 +1,11 @@
+HEADER[~&~	~&~ATTR_ID::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ATTR_NM::VARCHAR~&~	~&~ACTV_IND::CHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1'~&~	~&~'9D607BF313ECA2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Account'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'2'~&~	~&~'9D607BF313EDA2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Chart'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'9D607BF313EEA2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Chart-Descend Hierarchy'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'4'~&~	~&~'9D607BF313EFA2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Object'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'5'~&~	~&~'9D607BF313F0A2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Object Level'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'6'~&~	~&~'9D607BF313F1A2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Organization'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'7'~&~	~&~'9D607BF313F2A2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Organization-Descend Hierarchy'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'8'~&~	~&~'9D607BF313F3A2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Principal Investigator'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'9'~&~	~&~'9D607BF313F4A2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Project Code'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10'~&~	~&~'9D607BF313F5A2E0E040007F01005D95'~&~	~&~'1'~&~	~&~'Sub Account'~&~	~&~'Y'~&~	~&~]RECORD

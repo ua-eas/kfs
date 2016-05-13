@@ -1,0 +1,31 @@
+HEADER[~&~	~&~FIN_HGH_ED_FUNC_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FIN_HGH_ED_FUNC_NM::VARCHAR~&~	~&~FIN_UBO_FUNC_CD::VARCHAR~&~	~&~FIN_AICPA_FUNC_CD::VARCHAR~&~	~&~FIN_FED_FUNC_CD::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'AA'~&~	~&~'014F3DAF81ECA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ACADEMIC ADMINISTRATION'~&~	~&~'AA'~&~	~&~'AS'~&~	~&~'IUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AAOI'~&~	~&~'014F3DAF81EDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ACADEMIC ADMIN. OTHER INSTITUTIONAL ACTI'~&~	~&~'AA'~&~	~&~'AS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AC'~&~	~&~'014F3DAF81EEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ACADEMIC COMPUTING'~&~	~&~'AC'~&~	~&~'AS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AD'~&~	~&~'014F3DAF81EFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'ACADEMIC DEVELOPMENT'~&~	~&~'AD'~&~	~&~'AS'~&~	~&~'IUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AUX'~&~	~&~'014F3DAF81F0A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'AUXILIARY & SERVICES'~&~	~&~'AUX'~&~	~&~'AUX'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AVS'~&~	~&~'014F3DAF81F1A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'AUDIO VISUAL SERVICES'~&~	~&~'AVS'~&~	~&~'AS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BS'~&~	~&~'014F3DAF81F2A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'BALANCE SHEET ACCOUNTS'~&~	~&~'IS'~&~	~&~'IS'~&~	~&~'GA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CS'~&~	~&~'014F3DAF81F3A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMMUNITY SERVICES'~&~	~&~'CS'~&~	~&~'PS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CSSR'~&~	~&~'014F3DAF81F4A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'COMMUNITY SERVICES-SPONSORED PROGRAMS'~&~	~&~'CS'~&~	~&~'PS'~&~	~&~'SPS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DR'~&~	~&~'309958D8D0E9011CE043814FD881011C'~&~	~&~'1'~&~	~&~'DEPARTMENTAL RESEARCH'~&~	~&~'IN'~&~	~&~'IN'~&~	~&~'IUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'014F3DAF81F5A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INSTRUCTION'~&~	~&~'IN'~&~	~&~'IN'~&~	~&~'IUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IPR'~&~	~&~'014F3DAF81F6A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INDIVIDUAL OR PROJECT RESEARCH'~&~	~&~'IPR'~&~	~&~'RE'~&~	~&~'SR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IRC'~&~	~&~'014F3DAF81F7A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INSTITUTES AND RESEARCH CENTERS'~&~	~&~'IRC'~&~	~&~'RE'~&~	~&~'IUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IS'~&~	~&~'014F3DAF81F8A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INSTITUTIONAL SUPPORT'~&~	~&~'IS'~&~	~&~'IS'~&~	~&~'GA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ISOI'~&~	~&~'014F3DAF81F9A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INSTITUTIONAL SUPPORT-UNALLOW FED EXPENS'~&~	~&~'IS'~&~	~&~'IS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ISPP'~&~	~&~'014F3DAF81FAA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'INSTITUTIONAL SUPPORT PHYSICAL PLANT'~&~	~&~'IS'~&~	~&~'IS'~&~	~&~'PP'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LIB'~&~	~&~'014F3DAF81FBA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'LIBRARIES'~&~	~&~'LIB'~&~	~&~'AS'~&~	~&~'LIB'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'M&G'~&~	~&~'014F3DAF81FCA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'MUSEUMS AND GALLERIES'~&~	~&~'M&G'~&~	~&~'AS'~&~	~&~'IUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NA'~&~	~&~'014F3DAF81FDA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'NOT APPLICABLE TO ACCOUNT'~&~	~&~'NA'~&~	~&~'NA'~&~	~&~'NA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PBS'~&~	~&~'014F3DAF81FEA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'PUBLIC BROADCASTING SERVICES'~&~	~&~'PBS'~&~	~&~'PS'~&~	~&~'IUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PBSP'~&~	~&~'014F3DAF81FFA448E043814FD28EA448'~&~	~&~'1'~&~	~&~'PUBLIC BROADCASTING-SPONSORED PROGRAMS'~&~	~&~'PBS'~&~	~&~'PS'~&~	~&~'SPS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PP'~&~	~&~'014F3DAF8200A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'PHYSICAL PLANT'~&~	~&~'PP'~&~	~&~'PP'~&~	~&~'PP'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PRD'~&~	~&~'014F3DAF8201A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'PUBLIC RELATIONS AND DEVELOPMENT'~&~	~&~'PRD'~&~	~&~'IS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PS'~&~	~&~'014F3DAF8202A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'PATIENT SERVICES'~&~	~&~'PS'~&~	~&~'PS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PSSR'~&~	~&~'014F3DAF8203A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'PATIENT SERVICES-SPONSORED PROGRAMS'~&~	~&~'PS'~&~	~&~'PS'~&~	~&~'SPS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'S&F'~&~	~&~'014F3DAF8204A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'SCHOLARSHIPS & FELLOWSHIPS'~&~	~&~'S&F'~&~	~&~'S&F'~&~	~&~'SA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SCD'~&~	~&~'014F3DAF8205A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'SOCIAL AND CULTURAL DEVELOPMENT'~&~	~&~'SCD'~&~	~&~'SS'~&~	~&~'OIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SPA'~&~	~&~'014F3DAF8206A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'SPONSORED PROGRAM AD.'~&~	~&~'SPA'~&~	~&~'IS'~&~	~&~'SPA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SRA'~&~	~&~'014F3DAF8207A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT RECRUITMENT ADMISSIONS AND RECOR'~&~	~&~'SRA'~&~	~&~'IS'~&~	~&~'SAS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SS'~&~	~&~'014F3DAF8208A448E043814FD28EA448'~&~	~&~'1'~&~	~&~'STUDENT SERVICES'~&~	~&~'SS'~&~	~&~'SS'~&~	~&~'SAS'~&~	~&~'Y'~&~	~&~]RECORD

@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,38 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00024" context="bootstrap,demo,unit">
-    <insert tableName="krew_doc_typ_plcy_reln_t">
-      <column name="DOC_TYP_ID"><![CDATA[2024]]></column>
-      <column name="DOC_PLCY_NM"><![CDATA[DEFAULT_APPROVE]]></column>
-      <column name="PLCY_NM"><![CDATA[1]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[61BA2DCF3BE658EEE0404F8189D80CAE]]></column>
-      <column name="PLCY_VAL" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_plcy_reln_t">
-      <column name="DOC_TYP_ID"><![CDATA[2024]]></column>
-      <column name="DOC_PLCY_NM"><![CDATA[LOOK_FUTURE]]></column>
-      <column name="PLCY_NM"><![CDATA[1]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[61BA2DCF3BE758EEE0404F8189D80CAE]]></column>
-      <column name="PLCY_VAL" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_plcy_reln_t">
-      <column name="DOC_TYP_ID"><![CDATA[2680]]></column>
-      <column name="DOC_PLCY_NM"><![CDATA[DEFAULT_APPROVE]]></column>
-      <column name="PLCY_NM"><![CDATA[1]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[61BA2DCF3BE858EEE0404F8189D80CAE]]></column>
-      <column name="PLCY_VAL" value="null"/>
-    </insert>
-    <insert tableName="krew_doc_typ_plcy_reln_t">
-      <column name="DOC_TYP_ID"><![CDATA[2680]]></column>
-      <column name="DOC_PLCY_NM"><![CDATA[LOOK_FUTURE]]></column>
-      <column name="PLCY_NM"><![CDATA[1]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[61BA2DCF3BE958EEE0404F8189D80CAE]]></column>
-      <column name="PLCY_VAL" value="null"/>
-    </insert>
+  <changeSet id="IMPORT_krew_doc_typ_plcy_reln_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krew_doc_typ_plcy_reln_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krew_doc_typ_plcy_reln_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

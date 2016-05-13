@@ -1,123 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10171" context="bootstrap,demo,unit">
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[CASA]]></column>
-      <column name="OBJ_ID"><![CDATA[AF8BBD46-3B4A-20ED-4296-7C7A66198981]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[COST OF ASSEMBLING THE ASSET]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[FABR]]></column>
-      <column name="OBJ_ID"><![CDATA[4D7C6085-0715-E83F-F832-157D8FD16F1D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[FABRICATION]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[N]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[UC;UF;UO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT" value="null"/>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[INST]]></column>
-      <column name="OBJ_ID"><![CDATA[B864C072-71D8-925B-72FE-4EFDC4D33CCF]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[COST OF INSTALLATION]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[LEAS]]></column>
-      <column name="OBJ_ID"><![CDATA[909FF5FB-5BEA-DE10-83CC-56804C58E1FB]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[CAPITAL LEASE]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[CL]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT"><![CDATA[CL]]></column>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[MDEX]]></column>
-      <column name="OBJ_ID"><![CDATA[02B62DE3-5360-1DC3-1381-7F5A0AA95D38]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[MODIFY EXISTING]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[N]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT" value="null"/>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[NEW]]></column>
-      <column name="OBJ_ID"><![CDATA[83F3E4DB-E129-6CB7-BF4E-6475437B9361]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[NEW]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[N]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT" value="null"/>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[OTHS]]></column>
-      <column name="OBJ_ID"><![CDATA[A4109E6C-FBAE-F635-D008-6EB7DE73D0E8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[OTHER SERVICE]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[PREP]]></column>
-      <column name="OBJ_ID"><![CDATA[01A69058-BDDC-97CD-5746-5DD1327141CE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[PREPARING THE SITE AND ASSET]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[TINS]]></column>
-      <column name="OBJ_ID"><![CDATA[290492ED-307D-5FDC-D34D-4F1F9A097A7B]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[IN-TRANSIT INSURANCE]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-    </insert>
-    <insert tableName="cb_ast_trn_typ_t">
-      <column name="CPTL_AST_TRN_TYP_CD"><![CDATA[TRAI]]></column>
-      <column name="OBJ_ID"><![CDATA[9C934F22-8116-FE6B-8D43-4B3BE92AF7E2]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CPTL_AST_TRN_TYP_DESC"><![CDATA[TRAINING]]></column>
-      <column name="CPTL_AST_NON_QTY_DRVN_ALLW_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CPTLAST_QTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-      <column name="CPTLAST_NONQTY_SUBTYP_REQ_TXT"><![CDATA[AM;CM;CF;CO;UC;UF;UO]]></column>
-    </insert>
+  <changeSet id="IMPORT_cb_ast_trn_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="cb_ast_trn_typ_t" />
+      <param name="file" value="org/kuali/kfs/module/cam/db/phase2/cb_ast_trn_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

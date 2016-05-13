@@ -1,53 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10526" context="bootstrap,demo,unit">
-    <insert tableName="pdp_acctg_chg_cd_t">
-      <column name="ACCTG_CHG_CD"><![CDATA[ACCT]]></column>
-      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB230FEE043814FD88130FE]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="ACCTG_CHG_CD_DESC"><![CDATA[Invalid Account Number]]></column>
-    </insert>
-    <insert tableName="pdp_acctg_chg_cd_t">
-      <column name="ACCTG_CHG_CD"><![CDATA[OBJ]]></column>
-      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB130FEE043814FD88130FE]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="ACCTG_CHG_CD_DESC"><![CDATA[Invalid Object Code]]></column>
-    </insert>
-    <insert tableName="pdp_acctg_chg_cd_t">
-      <column name="ACCTG_CHG_CD"><![CDATA[PROJ]]></column>
-      <column name="OBJ_ID"><![CDATA[6E38252C8BF2965DE0404F8189D83B69]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="ACCTG_CHG_CD_DESC"><![CDATA[Invalid Project Code]]></column>
-    </insert>
-    <insert tableName="pdp_acctg_chg_cd_t">
-      <column name="ACCTG_CHG_CD"><![CDATA[SA]]></column>
-      <column name="OBJ_ID"><![CDATA[3C4DCACBEAAF30FEE043814FD88130FE]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="ACCTG_CHG_CD_DESC"><![CDATA[Invalid Sub Account]]></column>
-    </insert>
-    <insert tableName="pdp_acctg_chg_cd_t">
-      <column name="ACCTG_CHG_CD"><![CDATA[SO]]></column>
-      <column name="OBJ_ID"><![CDATA[3C4DCACBEAB030FEE043814FD88130FE]]></column>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="ACCTG_CHG_CD_DESC"><![CDATA[Invalid Sub Object Code]]></column>
-    </insert>
+  <changeSet id="IMPORT_pdp_acctg_chg_cd_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pdp_acctg_chg_cd_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pdp_acctg_chg_cd_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

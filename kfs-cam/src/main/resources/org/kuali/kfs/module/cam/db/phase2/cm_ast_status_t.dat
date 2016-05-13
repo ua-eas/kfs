@@ -1,0 +1,10 @@
+HEADER[~&~	~&~AST_INVN_STAT_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~AST_INVN_STAT_NM::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'A'~&~	~&~'44F39C472F09409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Active and identifiable'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C'~&~	~&~'44F39C472F0A409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Active and non-accessible'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'D'~&~	~&~'44F39C472F10409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Act Non-Capital 2003'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'E'~&~	~&~'44F39C472F11409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Ret Non-Capital 2003'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'44F39C472F0B409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Non-Capital Active'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'O'~&~	~&~'44F39C472F0C409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Non-Capital Retired'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'44F39C472F0D409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Retired'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'S'~&~	~&~'44F39C472F0E409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Surplus Equipment'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'U'~&~	~&~'44F39C472F0F409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Under Construction'~&~	~&~'Y'~&~	~&~]RECORD

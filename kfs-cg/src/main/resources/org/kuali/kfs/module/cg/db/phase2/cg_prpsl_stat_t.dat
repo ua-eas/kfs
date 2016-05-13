@@ -1,0 +1,6 @@
+HEADER[~&~	~&~CGPRPSL_STAT_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CGPRPSL_STAT_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'A'~&~	~&~'12BF192103039D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Award'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'P'~&~	~&~'12BF192103049D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Proposal'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'12BF192103059D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Rejected'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'U'~&~	~&~'12BF192103069D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Underwrite'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'W'~&~	~&~'12BF192103079D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Withdrawn'~&~	~&~'Y'~&~	~&~]RECORD

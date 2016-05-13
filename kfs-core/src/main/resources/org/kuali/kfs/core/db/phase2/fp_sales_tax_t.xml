@@ -1,47 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10341" context="demo,unit">
-    <insert tableName="fp_sales_tax_t">
-      <column name="FDOC_NBR"><![CDATA[QU9084604]]></column>
-      <column name="FDOC_LN_TYP_CD"><![CDATA[F]]></column>
-      <column name="FDOC_LINE_NBR"><![CDATA[3]]></column>
-      <column name="OBJ_ID"><![CDATA[13FEFBF14ED141AAE043814FD88141AA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6040000]]></column>
-      <column name="FDOC_GRS_SALES_AMT"><![CDATA[-380.00]]></column>
-      <column name="FDOC_TXBL_SALES_AMT"><![CDATA[-380.00]]></column>
-      <column name="FDOC_SALE_DT" valueDate="2004-04-01 00:00:00.0"/>
-    </insert>
-    <insert tableName="fp_sales_tax_t">
-      <column name="FDOC_NBR"><![CDATA[YF2857804]]></column>
-      <column name="FDOC_LN_TYP_CD"><![CDATA[F]]></column>
-      <column name="FDOC_LINE_NBR"><![CDATA[3]]></column>
-      <column name="OBJ_ID"><![CDATA[13FEFBF14ED241AAE043814FD88141AA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6040000]]></column>
-      <column name="FDOC_GRS_SALES_AMT"><![CDATA[-75.85]]></column>
-      <column name="FDOC_TXBL_SALES_AMT"><![CDATA[-75.85]]></column>
-      <column name="FDOC_SALE_DT" valueDate="2004-05-01 00:00:00.0"/>
-    </insert>
+  <changeSet id="IMPORT_fp_sales_tax_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="fp_sales_tax_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/fp_sales_tax_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

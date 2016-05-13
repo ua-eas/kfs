@@ -1,122 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10677" context="demo,unit">
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[1000]]></column>
-      <column name="OBJ_ID"><![CDATA[581ABAC6-95EA-0644-05AA-286D14FA38CD]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1001]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PH]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[607-255-5555]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[1001]]></column>
-      <column name="OBJ_ID"><![CDATA[6F53EE54-78C2-92BC-8A1D-4B171A7A7A21]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1016]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PH]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[508-555-3456]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[1002]]></column>
-      <column name="OBJ_ID"><![CDATA[4774BD67-2BBD-43CE-C1B8-089AA9EE04BB]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1020]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PO]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[888-888-8888]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[2003]]></column>
-      <column name="OBJ_ID"><![CDATA[58DBEB54-93FC-C90B-F990-3523A9896427]]></column>
-      <column name="VER_NBR"><![CDATA[7]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2003]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PG]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[654-885-2356]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR"><![CDATA[26]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[2005]]></column>
-      <column name="OBJ_ID"><![CDATA[B93F35DC-66E1-3F4F-7518-46D5BF26F497]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2021]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PG]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[514-968-2674]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[2006]]></column>
-      <column name="OBJ_ID"><![CDATA[28FF76AA-E927-6748-0C56-C545EE7C7D78]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2013]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[MB]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[515-515-3232]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR"><![CDATA[101]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[2007]]></column>
-      <column name="OBJ_ID"><![CDATA[BC0AB56A-36B1-D654-BE09-A64909DE590B]]></column>
-      <column name="VER_NBR"><![CDATA[6]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2025]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[TF]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[333-21-6541]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[2009]]></column>
-      <column name="OBJ_ID"><![CDATA[AA86B0E4-B40A-9AB3-13A4-9D74A575F3A6]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2023]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[TF]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[800-255-0256]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_phn_nbr_t">
-      <column name="VNDR_PHN_GNRTD_ID"><![CDATA[3004]]></column>
-      <column name="OBJ_ID"><![CDATA[7C691E1D-E6E0-5661-F68C-E6A48F63ED6F]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[3005]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_PHN_TYP_CD"><![CDATA[PH]]></column>
-      <column name="VNDR_PHN_NBR"><![CDATA[888-898-9090]]></column>
-      <column name="VNDR_PHN_EXTNS_NBR"><![CDATA[B7J8]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_vndr_phn_nbr_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_vndr_phn_nbr_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_vndr_phn_nbr_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

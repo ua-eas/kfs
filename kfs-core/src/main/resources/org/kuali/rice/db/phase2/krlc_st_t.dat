@@ -1,0 +1,116 @@
+HEADER[~&~	~&~POSTAL_STATE_CD::VARCHAR~&~	~&~POSTAL_CNTRY_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~POSTAL_STATE_NM::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'--'~&~	~&~'US'~&~	~&~'56908AA37A06661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'OUT OF COUNTRY'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AA'~&~	~&~'US'~&~	~&~'56908AA37A3B661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ARMED FORCES AMERICAS (EXCEPT CANADA)'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AB'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-009'~&~	~&~'1'~&~	~&~'Alberta'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AC'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-001'~&~	~&~'1'~&~	~&~'Australian Capital Territory'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AE'~&~	~&~'US'~&~	~&~'56908AA37A3C661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ARMED FORCES EURO/CANADA/AFRICA/MID EAST'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AG'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-022'~&~	~&~'1'~&~	~&~'Aguascalientes'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AK'~&~	~&~'US'~&~	~&~'56908AA37A07661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ALASKA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AL'~&~	~&~'US'~&~	~&~'56908AA37A08661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ALABAMA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AP'~&~	~&~'US'~&~	~&~'56908AA37A3D661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ARMED FORCES PACIFIC'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AR'~&~	~&~'US'~&~	~&~'56908AA37A09661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ARKANSAS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AS'~&~	~&~'US'~&~	~&~'56908AA37A3E661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'AMERICAN SAMOA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'56908AA37A0A661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ARIZONA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BC'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-010'~&~	~&~'1'~&~	~&~'British Columbia'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BC'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-023'~&~	~&~'1'~&~	~&~'Baja California Norte'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BS'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-024'~&~	~&~'1'~&~	~&~'Baja California Sur'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CA'~&~	~&~'US'~&~	~&~'56908AA37A0B661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'CALIFORNIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CH'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-025'~&~	~&~'1'~&~	~&~'Chihuahua'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CL'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-026'~&~	~&~'1'~&~	~&~'Colima'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CM'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-027'~&~	~&~'1'~&~	~&~'Campeche'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CO'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-028'~&~	~&~'1'~&~	~&~'Coahuila'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CO'~&~	~&~'US'~&~	~&~'56908AA37A0C661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'COLORADO'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CS'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-029'~&~	~&~'1'~&~	~&~'Chiapas'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CT'~&~	~&~'US'~&~	~&~'56908AA37A0D661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'CONNECTICUT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DC'~&~	~&~'US'~&~	~&~'56908AA37A0E661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'DISTRICT OF COLUMBIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DE'~&~	~&~'US'~&~	~&~'56908AA37A0F661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'DELAWARE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DF'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-030'~&~	~&~'1'~&~	~&~'Distrito Federal'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DG'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-031'~&~	~&~'1'~&~	~&~'Durango'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FL'~&~	~&~'US'~&~	~&~'56908AA37A10661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'FLORIDA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FM'~&~	~&~'US'~&~	~&~'56908AA37A3F661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'FEDERATED STATES OF MICRONESIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GA'~&~	~&~'US'~&~	~&~'56908AA37A11661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'GEORGIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GR'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-032'~&~	~&~'1'~&~	~&~'Guerrero'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GT'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-033'~&~	~&~'1'~&~	~&~'Guanajuato'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GU'~&~	~&~'US'~&~	~&~'56908AA37A40661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'GUAM'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'HG'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-034'~&~	~&~'1'~&~	~&~'Hidalgo'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'HI'~&~	~&~'US'~&~	~&~'56908AA37A12661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'HAWAII'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IA'~&~	~&~'US'~&~	~&~'56908AA37A13661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'IOWA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ID'~&~	~&~'US'~&~	~&~'56908AA37A14661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'IDAHO'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IL'~&~	~&~'US'~&~	~&~'56908AA37A15661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'ILLINOIS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'US'~&~	~&~'56908AA37A16661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'INDIANA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'JA'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-035'~&~	~&~'1'~&~	~&~'Jalisco'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KS'~&~	~&~'US'~&~	~&~'56908AA37A17661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'KANSAS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KY'~&~	~&~'US'~&~	~&~'56908AA37A18661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'KENTUCKY'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LA'~&~	~&~'US'~&~	~&~'56908AA37A19661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'LOUISIANA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MA'~&~	~&~'US'~&~	~&~'56908AA37A1A661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MASSACHUSETTS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MB'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-011'~&~	~&~'1'~&~	~&~'Manitoba'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MD'~&~	~&~'US'~&~	~&~'56908AA37A1B661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MARYLAND'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ME'~&~	~&~'US'~&~	~&~'56908AA37A1C661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MAINE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MH'~&~	~&~'US'~&~	~&~'56908AA37A41661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MARSHALL ISLANDS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MI'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-036'~&~	~&~'1'~&~	~&~'Michoacan'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MI'~&~	~&~'US'~&~	~&~'56908AA37A1D661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MICHIGAN'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MN'~&~	~&~'US'~&~	~&~'56908AA37A1E661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MINNESOTA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MO'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-037'~&~	~&~'1'~&~	~&~'Morelos'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MO'~&~	~&~'US'~&~	~&~'56908AA37A1F661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MISSOURI'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MP'~&~	~&~'US'~&~	~&~'56908AA37A42661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NORTHERN MARIANA ISLANDS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MS'~&~	~&~'US'~&~	~&~'56908AA37A20661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MISSISSIPPI'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MT'~&~	~&~'US'~&~	~&~'56908AA37A21661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'MONTANA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NA'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-038'~&~	~&~'1'~&~	~&~'Nayarit'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NB'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-012'~&~	~&~'1'~&~	~&~'New Brunswick'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NC'~&~	~&~'US'~&~	~&~'56908AA37A22661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NORTH CAROLINA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ND'~&~	~&~'US'~&~	~&~'56908AA37A23661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NORTH DAKOTA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NE'~&~	~&~'US'~&~	~&~'56908AA37A24661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NEBRASKA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NF'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-013'~&~	~&~'1'~&~	~&~'Newfoundland'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NH'~&~	~&~'US'~&~	~&~'56908AA37A25661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NEW HAMPSHIRE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NJ'~&~	~&~'US'~&~	~&~'56908AA37A26661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NEW JERSEY'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NL'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-039'~&~	~&~'1'~&~	~&~'Nuevo Leon'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NM'~&~	~&~'US'~&~	~&~'56908AA37A27661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NEW MEXICO'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NS'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-002'~&~	~&~'1'~&~	~&~'New South Wales'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NS'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-014'~&~	~&~'1'~&~	~&~'Nova Scotia'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NT'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-003'~&~	~&~'1'~&~	~&~'Northern Territory'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NT'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-015'~&~	~&~'1'~&~	~&~'Northwest Territories'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NU'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-016'~&~	~&~'1'~&~	~&~'Nunavut'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NV'~&~	~&~'US'~&~	~&~'56908AA37A28661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NEVADA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NY'~&~	~&~'US'~&~	~&~'56908AA37A29661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'NEW YORK'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'OA'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-040'~&~	~&~'1'~&~	~&~'Oaxaca'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'OH'~&~	~&~'US'~&~	~&~'56908AA37A2A661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'OHIO'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'OK'~&~	~&~'US'~&~	~&~'56908AA37A2B661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'OKLAHOMA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ON'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-017'~&~	~&~'1'~&~	~&~'Ontario'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'OR'~&~	~&~'US'~&~	~&~'56908AA37A2C661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'OREGON'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PA'~&~	~&~'US'~&~	~&~'56908AA37A2D661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'PENNSYLVANIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PE'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-018'~&~	~&~'1'~&~	~&~'Prince Edward Island'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'US'~&~	~&~'56908AA37A2E661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'PUERTO RICO'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PU'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-041'~&~	~&~'1'~&~	~&~'Puebla'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PW'~&~	~&~'US'~&~	~&~'56908AA37A43661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'PALAU'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'QC'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-019'~&~	~&~'1'~&~	~&~'Quebec'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'QL'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-004'~&~	~&~'1'~&~	~&~'Queensland'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'QR'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-042'~&~	~&~'1'~&~	~&~'Quintana Roo'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'QT'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-043'~&~	~&~'1'~&~	~&~'Queretaro'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RI'~&~	~&~'US'~&~	~&~'56908AA37A2F661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'RHODE ISLAND'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SA'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-005'~&~	~&~'1'~&~	~&~'South Australia'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SC'~&~	~&~'US'~&~	~&~'56908AA37A30661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'SOUTH CAROLINA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SD'~&~	~&~'US'~&~	~&~'56908AA37A31661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'SOUTH DAKOTA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SI'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-044'~&~	~&~'1'~&~	~&~'Sinaloa'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SK'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-020'~&~	~&~'1'~&~	~&~'Saskatchewan'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SL'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-045'~&~	~&~'1'~&~	~&~'San Luis Potosi'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SO'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-046'~&~	~&~'1'~&~	~&~'Sonora'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TA'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-006'~&~	~&~'1'~&~	~&~'Tasmania'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TB'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-047'~&~	~&~'1'~&~	~&~'Tabasco'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TL'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-048'~&~	~&~'1'~&~	~&~'Tlaxcala'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TM'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-049'~&~	~&~'1'~&~	~&~'Tamaulipas'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TN'~&~	~&~'US'~&~	~&~'56908AA37A32661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'TENNESSEE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TX'~&~	~&~'US'~&~	~&~'56908AA37A33661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'TEXAS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'UT'~&~	~&~'US'~&~	~&~'56908AA37A34661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'UTAH'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'VA'~&~	~&~'US'~&~	~&~'56908AA37A35661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'VIRGINIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'VE'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-050'~&~	~&~'1'~&~	~&~'Veracruz'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'VI'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-007'~&~	~&~'1'~&~	~&~'Victoria'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'VI'~&~	~&~'US'~&~	~&~'56908AA37A44661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'VIRGIN ISLANDS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'VT'~&~	~&~'US'~&~	~&~'56908AA37A36661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'VERMONT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'WA'~&~	~&~'AU'~&~	~&~'KFS-TEM-STATE-008'~&~	~&~'1'~&~	~&~'Western Australia'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'WA'~&~	~&~'US'~&~	~&~'56908AA37A37661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'WASHINGTON'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'WI'~&~	~&~'US'~&~	~&~'56908AA37A38661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'WISCONSIN'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'WV'~&~	~&~'US'~&~	~&~'56908AA37A39661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'WEST VIRGINIA'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'WY'~&~	~&~'US'~&~	~&~'56908AA37A3A661BE0404F8189D81F46'~&~	~&~'1'~&~	~&~'WYOMING'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'YT'~&~	~&~'CA'~&~	~&~'KFS-TEM-STATE-021'~&~	~&~'1'~&~	~&~'Yukon'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'YU'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-051'~&~	~&~'1'~&~	~&~'Yucatan'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ZA'~&~	~&~'MX'~&~	~&~'KFS-TEM-STATE-052'~&~	~&~'1'~&~	~&~'Zacatecas'~&~	~&~'Y'~&~	~&~]RECORD

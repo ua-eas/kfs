@@ -1,95 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10061" context="demo,unit">
-    <insert tableName="ar_dun_ltr_tmplt_t">
-      <column name="DUN_LTR_TMPLT_CD"><![CDATA[K121+]]></column>
-      <column name="OBJ_ID"><![CDATA[878ecede-b67b-4002-b29c-cb588287c79b]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DUN_LTR_TMPLT_DESC"><![CDATA[Kuali Univ 121+]]></column>
-      <column name="FILE_NM"><![CDATA[Letter_Template_K121+.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_tmplt_t">
-      <column name="DUN_LTR_TMPLT_CD"><![CDATA[K3160]]></column>
-      <column name="OBJ_ID"><![CDATA[33b0e737-691e-41e5-8e96-aa98a5a83c55]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DUN_LTR_TMPLT_DESC"><![CDATA[Kuali Univ 31-60]]></column>
-      <column name="FILE_NM"><![CDATA[Letter_Template_K3160.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_tmplt_t">
-      <column name="DUN_LTR_TMPLT_CD"><![CDATA[K6190]]></column>
-      <column name="OBJ_ID"><![CDATA[3882fc85-ae4c-4ac7-a4b0-a6aca1a1e7d9]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DUN_LTR_TMPLT_DESC"><![CDATA[Kuali Univ 61-90]]></column>
-      <column name="FILE_NM"><![CDATA[Letter_Template_K6190.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_tmplt_t">
-      <column name="DUN_LTR_TMPLT_CD"><![CDATA[K91120]]></column>
-      <column name="OBJ_ID"><![CDATA[56aced4e-0537-4ff1-8cae-54049bdfc9f4]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DUN_LTR_TMPLT_DESC"><![CDATA[Kuali Univ 91-120]]></column>
-      <column name="FILE_NM"><![CDATA[Letter_Template_K91120.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_tmplt_t">
-      <column name="DUN_LTR_TMPLT_CD"><![CDATA[KCURRENT]]></column>
-      <column name="OBJ_ID"><![CDATA[80a91a93-24d7-4239-877a-c8cfdbed7c09]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DUN_LTR_TMPLT_DESC"><![CDATA[Kuali Univ CURRENT]]></column>
-      <column name="FILE_NM"><![CDATA[Letter_Template_KCURRENT.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_tmplt_t">
-      <column name="DUN_LTR_TMPLT_CD"><![CDATA[KFINAL]]></column>
-      <column name="OBJ_ID"><![CDATA[0ed207ce-1265-4c6a-a3af-1a9102cbe0c5]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DUN_LTR_TMPLT_DESC"><![CDATA[Kuali Univ FINAL]]></column>
-      <column name="FILE_NM"><![CDATA[Letter_Template_KFINAL.pdf]]></column>
-      <column name="RSTRC_USE_BY_COA_ORG_IND"><![CDATA[N]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="UPLOAD_DT" valueDate="2014-10-07 17:24:19.0"/>
-      <column name="BILL_BY_COA_CD"><![CDATA[UA]]></column>
-      <column name="BILL_BY_ORG_CD"><![CDATA[VPIT]]></column>
-    </insert>
+  <changeSet id="IMPORT_ar_dun_ltr_tmplt_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ar_dun_ltr_tmplt_t"/>
+      <param name="file" value="org/kuali/kfs/module/ar/db/phase2/ar_dun_ltr_tmplt_t.dat"/>
+    </customChange>
   </changeSet>
 </databaseChangeLog>

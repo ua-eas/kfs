@@ -1,0 +1,81 @@
+HEADER[~&~	~&~RTE_NODE_CFG_PARM_ID::VARCHAR~&~	~&~RTE_NODE_ID::VARCHAR~&~	~&~KEY_CD::VARCHAR~&~	~&~VAL::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'2012'~&~	~&~'2004'~&~	~&~'contentFragment'~&~	~&~'<start name="placeholder"><activationType>S</activationType></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2013'~&~	~&~'2004'~&~	~&~'activationType'~&~	~&~'S'~&~	~&~]RECORD
+RECORD[~&~	~&~'2014'~&~	~&~'2004'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2015'~&~	~&~'2006'~&~	~&~'contentFragment'~&~	~&~'<start name="placeholder"><activationType>S</activationType></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2016'~&~	~&~'2006'~&~	~&~'activationType'~&~	~&~'S'~&~	~&~]RECORD
+RECORD[~&~	~&~'2017'~&~	~&~'2006'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2118'~&~	~&~'2039'~&~	~&~'contentFragment'~&~	~&~'<start name="Adhoc Routing"><activationType>S</activationType><mandatoryRoute>false</mandatoryRoute><finalApproval>true</finalApproval></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2119'~&~	~&~'2039'~&~	~&~'activationType'~&~	~&~'S'~&~	~&~]RECORD
+RECORD[~&~	~&~'2120'~&~	~&~'2039'~&~	~&~'mandatoryRoute'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2121'~&~	~&~'2039'~&~	~&~'finalApproval'~&~	~&~'true'~&~	~&~]RECORD
+RECORD[~&~	~&~'2122'~&~	~&~'2039'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2123'~&~	~&~'2041'~&~	~&~'contentFragment'~&~	~&~'<start name="Initiated"><activationType>S</activationType></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2124'~&~	~&~'2041'~&~	~&~'activationType'~&~	~&~'S'~&~	~&~]RECORD
+RECORD[~&~	~&~'2125'~&~	~&~'2041'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2126'~&~	~&~'2042'~&~	~&~'contentFragment'~&~	~&~'<requests name="ReviewersNode"><ruleTemplate>ReviewersRouting</ruleTemplate></requests>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2127'~&~	~&~'2042'~&~	~&~'ruleTemplate'~&~	~&~'ReviewersRouting'~&~	~&~]RECORD
+RECORD[~&~	~&~'2128'~&~	~&~'2042'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2129'~&~	~&~'2043'~&~	~&~'contentFragment'~&~	~&~'<requests name="RequestsNode"><ruleTemplate>NotificationRouting</ruleTemplate></requests>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2130'~&~	~&~'2043'~&~	~&~'ruleTemplate'~&~	~&~'NotificationRouting'~&~	~&~]RECORD
+RECORD[~&~	~&~'2131'~&~	~&~'2043'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2170'~&~	~&~'2061'~&~	~&~'contentFragment'~&~	~&~'<start name="Initiated"><activationType>P</activationType><mandatoryRoute>false</mandatoryRoute><finalApproval>false</finalApproval></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2171'~&~	~&~'2061'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2172'~&~	~&~'2061'~&~	~&~'mandatoryRoute'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2173'~&~	~&~'2061'~&~	~&~'finalApproval'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2174'~&~	~&~'2061'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2175'~&~	~&~'2063'~&~	~&~'contentFragment'~&~	~&~'<start name="Initiated"><activationType>P</activationType><mandatoryRoute>false</mandatoryRoute><finalApproval>false</finalApproval></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2176'~&~	~&~'2063'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2177'~&~	~&~'2063'~&~	~&~'mandatoryRoute'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2178'~&~	~&~'2063'~&~	~&~'finalApproval'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2179'~&~	~&~'2063'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2180'~&~	~&~'2065'~&~	~&~'contentFragment'~&~	~&~'<start name="Initiated"><activationType>P</activationType><mandatoryRoute>false</mandatoryRoute><finalApproval>false</finalApproval></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2181'~&~	~&~'2065'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2182'~&~	~&~'2065'~&~	~&~'mandatoryRoute'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2183'~&~	~&~'2065'~&~	~&~'finalApproval'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2184'~&~	~&~'2065'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2185'~&~	~&~'2067'~&~	~&~'contentFragment'~&~	~&~'<start name="Initiated"><activationType>P</activationType><mandatoryRoute>false</mandatoryRoute><finalApproval>false</finalApproval></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2186'~&~	~&~'2067'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2187'~&~	~&~'2067'~&~	~&~'mandatoryRoute'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2188'~&~	~&~'2067'~&~	~&~'finalApproval'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2189'~&~	~&~'2067'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2380'~&~	~&~'2840'~&~	~&~'contentFragment'~&~	~&~'<start name="PreRoute"><activationType>S</activationType><mandatoryRoute>false</mandatoryRoute><finalApproval>false</finalApproval></start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2381'~&~	~&~'2840'~&~	~&~'activationType'~&~	~&~'S'~&~	~&~]RECORD
+RECORD[~&~	~&~'2382'~&~	~&~'2840'~&~	~&~'mandatoryRoute'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2383'~&~	~&~'2840'~&~	~&~'finalApproval'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2384'~&~	~&~'2840'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2430'~&~	~&~'2898'~&~	~&~'contentFragment'~&~	~&~'<start name="AdHoc"/>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2431'~&~	~&~'2898'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2432'~&~	~&~'2899'~&~	~&~'contentFragment'~&~	~&~'<role name="RoleType"><qualifierResolverClass>org.kuali.rice.kim.impl.type.KimTypeQualifierResolver</qualifierResolverClass><activationType>P</activationType></role>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2433'~&~	~&~'2899'~&~	~&~'qualifierResolverClass'~&~	~&~'org.kuali.rice.kim.impl.type.KimTypeQualifierResolver'~&~	~&~]RECORD
+RECORD[~&~	~&~'2434'~&~	~&~'2899'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2435'~&~	~&~'2899'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2436'~&~	~&~'2901'~&~	~&~'contentFragment'~&~	~&~'<start name="AdHoc"/>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2437'~&~	~&~'2901'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2438'~&~	~&~'2902'~&~	~&~'contentFragment'~&~	~&~'<role name="GroupType"><qualifierResolverClass>org.kuali.rice.kim.impl.type.KimTypeQualifierResolver</qualifierResolverClass><activationType>P</activationType></role>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2439'~&~	~&~'2902'~&~	~&~'qualifierResolverClass'~&~	~&~'org.kuali.rice.kim.impl.type.KimTypeQualifierResolver'~&~	~&~]RECORD
+RECORD[~&~	~&~'2440'~&~	~&~'2902'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2441'~&~	~&~'2902'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2442'~&~	~&~'2904'~&~	~&~'contentFragment'~&~	~&~'<start name="AdHoc"/>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2443'~&~	~&~'2904'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2444'~&~	~&~'2905'~&~	~&~'contentFragment'~&~	~&~'<role name="GroupType"><qualifierResolverClass>org.kuali.rice.kim.impl.type.KimTypeQualifierResolver</qualifierResolverClass><activationType>P</activationType></role>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2445'~&~	~&~'2905'~&~	~&~'qualifierResolverClass'~&~	~&~'org.kuali.rice.kim.impl.type.KimTypeQualifierResolver'~&~	~&~]RECORD
+RECORD[~&~	~&~'2446'~&~	~&~'2905'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2447'~&~	~&~'2905'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2448'~&~	~&~'2906'~&~	~&~'contentFragment'~&~	~&~'<role name="RoleType"><qualifierResolverClass>org.kuali.rice.kim.impl.type.KimTypeQualifierResolver</qualifierResolverClass><activationType>P</activationType></role>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2449'~&~	~&~'2906'~&~	~&~'qualifierResolverClass'~&~	~&~'org.kuali.rice.kim.impl.type.KimTypeQualifierResolver'~&~	~&~]RECORD
+RECORD[~&~	~&~'2450'~&~	~&~'2906'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2451'~&~	~&~'2906'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2452'~&~	~&~'2908'~&~	~&~'contentFragment'~&~	~&~'<start name="AdHoc"/>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2453'~&~	~&~'2908'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2454'~&~	~&~'2910'~&~	~&~'contentFragment'~&~	~&~'<start name="AdHoc"/>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2455'~&~	~&~'2910'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD
+RECORD[~&~	~&~'2470'~&~	~&~'2917'~&~	~&~'contentFragment'~&~	~&~'<start name="Initiated">
+<activationType>P</activationType>
+<mandatoryRoute>false</mandatoryRoute>
+<finalApproval>false</finalApproval>
+</start>'~&~	~&~]RECORD
+RECORD[~&~	~&~'2471'~&~	~&~'2917'~&~	~&~'activationType'~&~	~&~'P'~&~	~&~]RECORD
+RECORD[~&~	~&~'2472'~&~	~&~'2917'~&~	~&~'mandatoryRoute'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2473'~&~	~&~'2917'~&~	~&~'finalApproval'~&~	~&~'false'~&~	~&~]RECORD
+RECORD[~&~	~&~'2474'~&~	~&~'2917'~&~	~&~'ruleSelector'~&~	~&~'Template'~&~	~&~]RECORD

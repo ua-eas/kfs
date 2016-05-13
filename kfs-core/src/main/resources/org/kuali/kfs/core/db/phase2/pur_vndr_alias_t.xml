@@ -1,135 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10661" context="demo,unit">
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[BBBB]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2013]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[4A3972C7-28CD-9728-0C50-1B49027BE70C]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[BOB]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2003]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[B6A39540-76F3-C4C8-296D-BFEDA507EC7A]]></column>
-      <column name="VER_NBR"><![CDATA[7]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[COFFEE]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2021]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[0542711E-4FC6-91DD-C707-BA178F7BD182]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[DIVISION 2 OF MARILYN SMITH]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1014]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[779A6D71-9A76-E3CF-C653-397334F5C272]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[FIRST SEARCH ALIAS NAME]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2013]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[EB04CF9D-7A8A-2BB0-00A1-12E83CA60D8E]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[KODAK]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1020]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[D5FD7A56-E746-0341-1F78-04219AE72DA0]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[MAZIE CORPORATE ACTIVE]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1002]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[08E3834B-AA55-1000-E9B4-B7C04A552D40]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[PI]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1016]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[55FAEFDA-B2D7-1795-9808-F34564C18695]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[REGULAR DV 1 SK]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1003]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[3373A7C6-629B-113F-1BA2-621D22D718B6]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[REGULAR DV 2 SK]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1006]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[C19FDA87-42E9-00AF-47F6-78F32F3D1BC2]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[REGULAR DV 3 SK]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1008]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[B1F3A6DB-FEE1-D995-A04D-AC5D895BEF3B]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[REGULAR DV 4 SK]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1013]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[B661D6C9-C8B0-43FC-1DBA-BACEE53BE79D]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[REGULAR DV 5 SK]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1012]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[B70493BB-F3CF-46BA-87C3-F71D96E0BE0E]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_alias_t">
-      <column name="VNDR_ALIAS_NM"><![CDATA[REGULAR PO INACTIVE VENDOR 1]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1015]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[8C31C72C-AB5B-C97B-91AB-6423B7B0E219]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_vndr_alias_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_vndr_alias_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_vndr_alias_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

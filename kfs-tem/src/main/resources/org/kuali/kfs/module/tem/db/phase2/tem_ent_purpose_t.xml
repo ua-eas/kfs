@@ -1,59 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10749" context="demo,unit">
-    <insert tableName="tem_ent_purpose_t">
-      <column name="PURPOSE_CODE"><![CDATA[PD]]></column>
-      <column name="PURPOSE_NAME"><![CDATA[Prospective Donor Events]]></column>
-      <column name="PURPOSE_DESCRIPTION"><![CDATA[Prospective Donor Events]]></column>
-      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416595898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_ent_purpose_t">
-      <column name="PURPOSE_CODE"><![CDATA[RC]]></column>
-      <column name="PURPOSE_NAME"><![CDATA[Recruitment]]></column>
-      <column name="PURPOSE_DESCRIPTION"><![CDATA[Recruitment]]></column>
-      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24165A5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_ent_purpose_t">
-      <column name="PURPOSE_CODE"><![CDATA[RR]]></column>
-      <column name="PURPOSE_NAME"><![CDATA[Reception or Retirement]]></column>
-      <column name="PURPOSE_DESCRIPTION"><![CDATA[Reception or retirement]]></column>
-      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416585898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_ent_purpose_t">
-      <column name="PURPOSE_CODE"><![CDATA[SA]]></column>
-      <column name="PURPOSE_NAME"><![CDATA[Student or Administrative Meetings]]></column>
-      <column name="PURPOSE_DESCRIPTION"><![CDATA[Student or Administrative Meetings]]></column>
-      <column name="REVIEW_REQUIRED_IND"><![CDATA[Y]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416575898E040540A5EFD3A74]]></column>
-    </insert>
+  <changeSet id="IMPORT_tem_ent_purpose_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="tem_ent_purpose_t" />
+      <param name="file" value="org/kuali/kfs/module/tem/db/phase2/tem_ent_purpose_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

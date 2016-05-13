@@ -1,0 +1,7 @@
+HEADER[~&~	~&~AP_ELCTRNC_INV_MAP_ID::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~VNDR_HDR_GNRTD_ID::DECIMAL~&~	~&~VNDR_DTL_ASND_ID::DECIMAL~&~	~&~INV_ITM_TYP_CD::VARCHAR~&~	~&~ITM_TYP_CD::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'100'~&~	~&~'76DB3ECCFD704AC1E0404F8189D87867'~&~	~&~'0'~&~	~&~NULL~&~	~&~NULL~&~	~&~'TAX'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'101'~&~	~&~'76DB3ECCFD6F4AC1E0404F8189D87867'~&~	~&~'0'~&~	~&~NULL~&~	~&~NULL~&~	~&~'SPHD'~&~	~&~'SPHD'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'102'~&~	~&~'76DB3ECCFD6E4AC1E0404F8189D87867'~&~	~&~'0'~&~	~&~NULL~&~	~&~NULL~&~	~&~'SHIP'~&~	~&~'FRHT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'103'~&~	~&~'76DB3ECCFD6D4AC1E0404F8189D87867'~&~	~&~'0'~&~	~&~NULL~&~	~&~NULL~&~	~&~'DISC'~&~	~&~'DISC'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'104'~&~	~&~'76DB3ECCFD6C4AC1E0404F8189D87867'~&~	~&~'0'~&~	~&~NULL~&~	~&~NULL~&~	~&~'ITEM'~&~	~&~'ITEM'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'106'~&~	~&~'9A559E1D3D6DD8EAE040007F010047C6'~&~	~&~'1'~&~	~&~NULL~&~	~&~NULL~&~	~&~'EXMT'~&~	~&~'EXMT'~&~	~&~'Y'~&~	~&~]RECORD

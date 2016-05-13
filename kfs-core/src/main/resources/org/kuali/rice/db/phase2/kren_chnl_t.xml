@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,14 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00014" context="bootstrap,demo,unit">
-    <insert tableName="kren_chnl_t">
-      <column name="CHNL_ID"><![CDATA[500]]></column>
-      <column name="NM"><![CDATA[KEW]]></column>
-      <column name="DESC_TXT"><![CDATA[Builtin channel for KEW]]></column>
-      <column name="SUBSCRB_IND"><![CDATA[N]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID" value="null"/>
-    </insert>
+  <changeSet id="IMPORT_kren_chnl_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="kren_chnl_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/kren_chnl_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

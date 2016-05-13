@@ -1,0 +1,12 @@
+HEADER[~&~	~&~ORG_RVRSN_CTGRY_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ORG_RVRSN_CTGRY_NM::VARCHAR~&~	~&~ORG_RVRSN_SORT_CD::VARCHAR~&~	~&~ORG_RVRSN_CTGRY_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'C01'~&~	~&~'14B9E421E893A05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Org Wages'~&~	~&~'01'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C02'~&~	~&~'14B9E421E894A05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Salary/Fringes'~&~	~&~'02'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C03'~&~	~&~'14B9E421E895A05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Financial Aid'~&~	~&~'03'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C04'~&~	~&~'14B9E421E896A05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Capital Equip'~&~	~&~'04'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C05'~&~	~&~'14B9E421E897A05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Reserve'~&~	~&~'05'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C06'~&~	~&~'14B9E421E898A05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Transfer Out'~&~	~&~'06'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C07'~&~	~&~'14B9E421E899A05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Transfer In'~&~	~&~'07'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C08'~&~	~&~'14B9E421E89AA05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Travel'~&~	~&~'08'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C09'~&~	~&~'14B9E421E89BA05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Other Expense'~&~	~&~'09'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C10'~&~	~&~'14B9E421E89CA05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Assess Expend'~&~	~&~'10'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C11'~&~	~&~'14B9E421E89DA05CE043814FD881A05C'~&~	~&~'1'~&~	~&~'Revenue'~&~	~&~'11'~&~	~&~'Y'~&~	~&~]RECORD

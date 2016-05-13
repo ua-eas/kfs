@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.datatools.exportdata;
 
 import org.kuali.kfs.sys.datatools.util.PropertyLoadingFactoryBean;
+import org.kuali.kfs.sys.datatools.util.TableDataLoader;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
@@ -35,6 +36,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -56,6 +58,7 @@ public class ExportData {
     private List<String> skipTableExpressions;
     private Map<Integer, String> typeNames;
     private ClassPathXmlApplicationContext applicationContext;
+	private SimpleDateFormat dateFormat;
 
     public static final String DELIMITER = "~&~\t~&~";
     public static final String QUOTE = "'";
@@ -96,6 +99,8 @@ public class ExportData {
     }
 
     public void go() throws IOException {
+		dateFormat = new SimpleDateFormat(TableDataLoader.DATE_FORMAT);
+
         initialize();
         DataSource kfsDataSource = applicationContext.getBean("dataSource", DataSource.class);
 
@@ -190,13 +195,11 @@ public class ExportData {
 	        		}
 	                break;
 	        	case Types.DATE:
-	        		value = Long.toString(rs.getDate(i).getTime());
+	        		value = dateFormat.format(rs.getDate(i));
 	        		break;
 	        	case Types.TIMESTAMP:
-	        		value = Long.toString(rs.getTimestamp(i).getTime());
+					value = dateFormat.format(rs.getTimestamp(i));
 	        		break;
-	        	case Types.TIME:
-	        		value = Long.toString(rs.getTime(i).getTime());
         	}
             return QUOTE + value + QUOTE;
         } else {

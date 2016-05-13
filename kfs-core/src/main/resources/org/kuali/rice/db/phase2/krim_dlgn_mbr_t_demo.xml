@@ -1,53 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet context="demo,unit" author="kfs" id="ricedata00052">
-    <insert tableName="krim_dlgn_mbr_t">
-      <column name="DLGN_MBR_ID"><![CDATA[KFS1]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS1]]></column>
-      <column name="DLGN_ID"><![CDATA[1]]></column>
-      <column name="MBR_ID"><![CDATA[2100108872]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" value="null"/>
-      <column name="ROLE_MBR_ID"><![CDATA[KFS1292]]></column>
-    </insert>
-    <insert tableName="krim_dlgn_mbr_t">
-      <column name="DLGN_MBR_ID"><![CDATA[KFS2]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS2]]></column>
-      <column name="DLGN_ID"><![CDATA[2]]></column>
-      <column name="MBR_ID"><![CDATA[2477306322]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[P]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" value="null"/>
-      <column name="ROLE_MBR_ID"><![CDATA[KFS1292]]></column>
-    </insert>
-    <insert tableName="krim_dlgn_mbr_t">
-      <column name="DLGN_MBR_ID"><![CDATA[KFS3]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS3]]></column>
-      <column name="DLGN_ID"><![CDATA[3]]></column>
-      <column name="MBR_ID"><![CDATA[42]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[R]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" value="null"/>
-      <column name="ROLE_MBR_ID"><![CDATA[*]]></column>
-    </insert>
-    <insert tableName="krim_dlgn_mbr_t">
-      <column name="DLGN_MBR_ID"><![CDATA[KFS4]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[KFS4]]></column>
-      <column name="DLGN_ID"><![CDATA[4]]></column>
-      <column name="MBR_ID"><![CDATA[43]]></column>
-      <column name="MBR_TYP_CD"><![CDATA[R]]></column>
-      <column name="ACTV_FRM_DT" value="null"/>
-      <column name="ACTV_TO_DT" value="null"/>
-      <column name="LAST_UPDT_DT" value="null"/>
-      <column name="ROLE_MBR_ID"><![CDATA[*]]></column>
-    </insert>
+  <changeSet id="IMPORT_krim_dlgn_mbr_t_demo_unit" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krim_dlgn_mbr_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krim_dlgn_mbr_t_demo.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

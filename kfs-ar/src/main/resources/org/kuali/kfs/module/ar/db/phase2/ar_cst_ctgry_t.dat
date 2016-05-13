@@ -1,0 +1,10 @@
+HEADER[~&~	~&~CTGRY_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CTGRY_NM::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~IND_CST_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'EMPB'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a67'~&~	~&~'1'~&~	~&~'Employee Benefits'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'EQIP'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a73'~&~	~&~'1'~&~	~&~'Equipment'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'MSS'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a69'~&~	~&~'1'~&~	~&~'Materials, Supplies, Services'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'ODC'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a74'~&~	~&~'1'~&~	~&~'Other Direct Cost'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'PROS'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a68'~&~	~&~'1'~&~	~&~'Professional Services'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'SAL'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a66'~&~	~&~'1'~&~	~&~'Salaries and Wages'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'SBCT'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a72'~&~	~&~'1'~&~	~&~'Subcontract'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'TRVD'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a70'~&~	~&~'1'~&~	~&~'Travel - Domestic'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'TRVF'~&~	~&~'c75d07b0-a72b-11e0-8264-0800200c9a71'~&~	~&~'1'~&~	~&~'Travel - Foreign'~&~	~&~'Y'~&~	~&~'N'~&~	~&~]RECORD

@@ -1,0 +1,6 @@
+HEADER[~&~	~&~CG_LTRCR_FND_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CG_LTRCR_FND_DESC::VARCHAR~&~	~&~CG_LTRCR_FNDGRP_CD::VARCHAR~&~	~&~CG_LTRCR_AMT::DECIMAL~&~	~&~CG_LTRCR_START_DT::TIMESTAMP~&~	~&~CG_LTRCR_EXPIRATION_DT::TIMESTAMP~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'DHHS - 80324'~&~	~&~'EDC0BE4714093031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'DHHS - 80324'~&~	~&~'DHHS'~&~	~&~'200000.00'~&~	~&~NULL~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KualiLOCFund1'~&~	~&~'68348b58-6539-4c02-9c4e-43098aa08ec6'~&~	~&~'2'~&~	~&~'Kuali LOC Fund 1 for testing'~&~	~&~'KLFG'~&~	~&~'200000.00'~&~	~&~'201401310000000000'~&~	~&~'201501310000000000'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KualiLOCFund2'~&~	~&~'f5d0ec38-7aac-4eae-b710-6794349e89db'~&~	~&~'3'~&~	~&~'Kuali LOC Fund 2 for testing'~&~	~&~'KFG2'~&~	~&~'300000.00'~&~	~&~'201401310000000000'~&~	~&~'201801310000000000'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KualiLOCFund3'~&~	~&~'3b6764eb-6895-480a-bf23-0dcf345aa601'~&~	~&~'2'~&~	~&~'Kuali LOC Fund 3 for testing'~&~	~&~'KFG2'~&~	~&~'500000.00'~&~	~&~'201401010000000000'~&~	~&~'201801310000000000'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NASA 123'~&~	~&~'EDC0BE47140A3031E040E00ABCD64EE1'~&~	~&~'1'~&~	~&~'NASA 123'~&~	~&~'NASA'~&~	~&~'100000.00'~&~	~&~'201207020000000000'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD

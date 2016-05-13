@@ -1,0 +1,24 @@
+HEADER[~&~	~&~COUNTY_CD::VARCHAR~&~	~&~STATE_CD::VARCHAR~&~	~&~POSTAL_CNTRY_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~COUNTY_NM::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'11'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'11-AZ-US'~&~	~&~'1'~&~	~&~'Greenlee'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'111'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'111-CA-US'~&~	~&~'1'~&~	~&~'Ventura'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'113'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'113-CA-US'~&~	~&~'1'~&~	~&~'Yolo'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'12'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'12-AZ-US'~&~	~&~'1'~&~	~&~'La Paz'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'13'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'13-AZ-US'~&~	~&~'1'~&~	~&~'Maricopa'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'15'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'15-AZ-US'~&~	~&~'1'~&~	~&~'Mohave'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'17'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'17-AZ-US'~&~	~&~'1'~&~	~&~'Navajo'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'19'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'19-AZ-US'~&~	~&~'1'~&~	~&~'Pima'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'21'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'21-AZ-US'~&~	~&~'1'~&~	~&~'Pinal'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'23'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'23-AZ-US'~&~	~&~'1'~&~	~&~'Santa Cruz'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'25'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'25-AZ-US'~&~	~&~'1'~&~	~&~'Yavapi'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'27'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'27-AZ-US'~&~	~&~'1'~&~	~&~'Yuma'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'3-AZ-US'~&~	~&~'1'~&~	~&~'Cochise'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'37'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'37-CA-US'~&~	~&~'1'~&~	~&~'Los Angeles'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'5'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'5-AZ-US'~&~	~&~'1'~&~	~&~'Coconino'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'59'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'59-CA-US'~&~	~&~'1'~&~	~&~'Orange'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'65'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'65-CA-US'~&~	~&~'1'~&~	~&~'Riverside'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'67'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'67-CA-US'~&~	~&~'1'~&~	~&~'Sacramento'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'7'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'7-AZ-US'~&~	~&~'1'~&~	~&~'Gila'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'71'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'71-CA-US'~&~	~&~'1'~&~	~&~'San Bernadino'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'83'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'83-CA-US'~&~	~&~'1'~&~	~&~'Santa Barbara'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'9'~&~	~&~'AZ'~&~	~&~'US'~&~	~&~'9-AZ-US'~&~	~&~'1'~&~	~&~'Graham'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'95'~&~	~&~'CA'~&~	~&~'US'~&~	~&~'95-CA-US'~&~	~&~'1'~&~	~&~'Solano'~&~	~&~'Y'~&~	~&~]RECORD

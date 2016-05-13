@@ -1,0 +1,11 @@
+HEADER[~&~	~&~CODE::VARCHAR~&~	~&~NAME::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'AIR'~&~	~&~'Airplane'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415915898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'BUS'~&~	~&~'Bus'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415925898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'HV'~&~	~&~'Host Vehicle'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415935898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'OTH'~&~	~&~'Other'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA24159A5898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'PV'~&~	~&~'Personal Vehicle'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415945898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'RV'~&~	~&~'Rental Vehicle'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415955898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'RVD'~&~	~&~'Rental Vehicle w/Driver'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415965898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'SHP'~&~	~&~'Ship/Ferry/Boat'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415975898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'TRN'~&~	~&~'Train'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415985898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'WLK'~&~	~&~'Walking/Hiking'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415995898E040540A5EFD3A74'~&~	~&~]RECORD

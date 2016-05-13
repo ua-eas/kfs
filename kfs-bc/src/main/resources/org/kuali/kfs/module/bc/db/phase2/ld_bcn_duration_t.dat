@@ -1,0 +1,14 @@
+HEADER[~&~	~&~APPT_DUR_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~APPT_DUR_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'LWP1'~&~	~&~'1F9EC28CDCBA3086E043814FD8813086'~&~	~&~'1'~&~	~&~'LWOP:  First Semester'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LWP2'~&~	~&~'1F9EC28CDCBB3086E043814FD8813086'~&~	~&~'1'~&~	~&~'LWOP:  Second Semester'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LWPA'~&~	~&~'1F9EC28CDCBC3086E043814FD8813086'~&~	~&~'1'~&~	~&~'LWOP:  10 months'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LWPF'~&~	~&~'1F9EC28CDCBD3086E043814FD8813086'~&~	~&~'1'~&~	~&~'LWOP:  12 months'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LWPH'~&~	~&~'1F9EC28CDCBE3086E043814FD8813086'~&~	~&~'1'~&~	~&~'LWOP:  6 months'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LWPX'~&~	~&~'1F9EC28CDCC53086E043814FD8813086'~&~	~&~'1'~&~	~&~'LWOP:  ACROSS FISCAL YEARS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NONE'~&~	~&~'1F9EC28CDCBF3086E043814FD8813086'~&~	~&~'1'~&~	~&~'No Leave'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SAB1'~&~	~&~'1F9EC28CDCC03086E043814FD8813086'~&~	~&~'1'~&~	~&~'Sabbatical Leave:  1st Semester'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SAB2'~&~	~&~'1F9EC28CDCC13086E043814FD8813086'~&~	~&~'1'~&~	~&~'Sabbatical Leave:  2nd Semester'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SABA'~&~	~&~'1F9EC28CDCC23086E043814FD8813086'~&~	~&~'1'~&~	~&~'Sabbatical Leave:  Academic Year'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SABF'~&~	~&~'1F9EC28CDCC33086E043814FD8813086'~&~	~&~'1'~&~	~&~'Sabbatical Leave:  12 months'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SABH'~&~	~&~'1F9EC28CDCC43086E043814FD8813086'~&~	~&~'1'~&~	~&~'Sabbatical Leave:  6 months'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SABX'~&~	~&~'1F9EC28CDCC63086E043814FD8813086'~&~	~&~'1'~&~	~&~'SABBATICAL LEAVE:  ACROSS FISCAL YEARS'~&~	~&~'Y'~&~	~&~]RECORD

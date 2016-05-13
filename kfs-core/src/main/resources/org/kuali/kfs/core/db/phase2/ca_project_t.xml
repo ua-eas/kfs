@@ -1,111 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10160" context="demo,unit">
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[20074038]]></column>
-      <column name="OBJ_ID"><![CDATA[473B191006920BC7E0404F8189D810E7]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[6162502038]]></column>
-      <column name="PROJECT_NM"><![CDATA[9021123-VARIOUS CAMPUS PARKING LOTS]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ORG_CD"><![CDATA[UART]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[Various Campus Parking Lots]]></column>
-    </insert>
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[26876]]></column>
-      <column name="OBJ_ID"><![CDATA[473B191006930BC7E0404F8189D810E7]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[6162502038]]></column>
-      <column name="PROJECT_NM"><![CDATA[9020391-HENDERSON PARKING GARAGE]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ORG_CD"><![CDATA[UART]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[Henderson parking garage]]></column>
-    </insert>
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[41077]]></column>
-      <column name="OBJ_ID"><![CDATA[473B191006940BC7E0404F8189D810E7]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[6162502038]]></column>
-      <column name="PROJECT_NM"><![CDATA[9020204-CAMPUS PARK LOT IMPROVEMENT 2004]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ORG_CD"><![CDATA[UART]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[Campus Park Lot Improvement 2004]]></column>
-    </insert>
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[ADJUSTMENT]]></column>
-      <column name="OBJ_ID"><![CDATA[473B191006950BC7E0404F8189D810E7]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[6162502038]]></column>
-      <column name="PROJECT_NM"><![CDATA[K1 ADJUSTMENTS TO EXPENSE]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ORG_CD"><![CDATA[FMOP]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[To create a project code for adjustments for projects from a prior fiscal year that were capitalized and now are being moved to expense.]]></column>
-    </insert>
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[BOB]]></column>
-      <column name="OBJ_ID"><![CDATA[21BC6826-9259-2F6C-8F5C-EC3A97A9EF5C]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[3771403079]]></column>
-      <column name="PROJECT_NM"><![CDATA[BOB KNIGHT SCHOOL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="ORG_CD"><![CDATA[PSY]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[test]]></column>
-    </insert>
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[KUL]]></column>
-      <column name="OBJ_ID"><![CDATA[198AF09F-3350-82CF-22C8-2F52EA0F257C]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[5421008748]]></column>
-      <column name="PROJECT_NM"><![CDATA[TEST]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ORG_CD"><![CDATA[FMOP]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[TEST]]></column>
-    </insert>
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[KUL3]]></column>
-      <column name="OBJ_ID"><![CDATA[EE235779-F59D-3BA4-52CB-F49355EB8E8B]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[5421008748]]></column>
-      <column name="PROJECT_NM"><![CDATA[dry]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ORG_CD"><![CDATA[FMOP]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[more testing]]></column>
-    </insert>
-    <insert tableName="ca_project_t">
-      <column name="PROJECT_CD"><![CDATA[KUL9]]></column>
-      <column name="OBJ_ID"><![CDATA[FD1CF2EE-6EB1-B3F9-0A0E-ABBC0FF36299]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="PROJ_MGR_UNVL_ID"><![CDATA[5421008748]]></column>
-      <column name="PROJECT_NM"><![CDATA[wet]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ORG_CD"><![CDATA[FMOP]]></column>
-      <column name="PROJ_ACTIVE_CD"><![CDATA[Y]]></column>
-      <column name="PROJECT_DESC"><![CDATA[and yet more testing again]]></column>
-    </insert>
+  <changeSet id="IMPORT_ca_project_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ca_project_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/ca_project_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

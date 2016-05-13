@@ -1,0 +1,8 @@
+HEADER[~&~	~&~CPTLAST_LOC_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CPTLAST_LOC_TYP_NM::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'B'~&~	~&~'44F39C472EE0409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Borrower'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BS'~&~	~&~'44F39C472EE1409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Borrower Storage'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BU'~&~	~&~'44F39C472EE2409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Buyer'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'O'~&~	~&~'44F39C472EE3409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Off-Campus'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'44F39C472EE4409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Retirement'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RQ'~&~	~&~'44F39C472EE5409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Requester'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ST'~&~	~&~'44F39C472EE6409CE043814FD881409C'~&~	~&~'1'~&~	~&~'Ship To'~&~	~&~'Y'~&~	~&~]RECORD

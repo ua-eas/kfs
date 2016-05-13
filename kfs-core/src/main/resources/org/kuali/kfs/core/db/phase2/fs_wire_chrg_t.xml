@@ -1,111 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10356" context="demo,unit">
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2009]]></column>
-      <column name="OBJ_ID"><![CDATA[62E7BBE0-62FB-E23B-3D9D-383BC24C29D8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2010]]></column>
-      <column name="OBJ_ID"><![CDATA[663E5C8A-770E-D8FC-8B90-58533ACF86B1]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2011]]></column>
-      <column name="OBJ_ID"><![CDATA[2F9DEB0D-470B-1876-70EE-4035A02C6979]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2012]]></column>
-      <column name="OBJ_ID"><![CDATA[842C4016-EEBB-FFA9-F613-8051FA3165C7]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2013]]></column>
-      <column name="OBJ_ID"><![CDATA[fb1aa921-74ba-44e1-b9e1-94ba0f74604c]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2014]]></column>
-      <column name="OBJ_ID"><![CDATA[27ca8dbe-e0ba-4984-ac77-ff695555a6c8]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2015]]></column>
-      <column name="OBJ_ID"><![CDATA[8f0f0ff0-12ba-40fd-ac4e-350558fb9d4a]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
-    <insert tableName="fs_wire_chrg_t">
-      <column name="UNIV_FISCAL_YR"><![CDATA[2016]]></column>
-      <column name="OBJ_ID"><![CDATA[f4a61b45-f288-4726-b10b-357a36375f84]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="ACCOUNT_NBR"><![CDATA[6812735]]></column>
-      <column name="INC_FIN_OBJ_CD"><![CDATA[1800]]></column>
-      <column name="EXP_FIN_OBJ_CD"><![CDATA[5010]]></column>
-      <column name="DOMSTC_CHG_AMT"><![CDATA[11.00]]></column>
-      <column name="FRGN_CHRG_AMT"><![CDATA[20.00]]></column>
-    </insert>
+  <changeSet id="IMPORT_fs_wire_chrg_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="fs_wire_chrg_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/fs_wire_chrg_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,23 @@
+HEADER[~&~	~&~CG_GRANT_DESC_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CG_GRANT_DESC::VARCHAR~&~	~&~CG_GRNT_DESC_ACTV_CD::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'C'~&~	~&~'12D4ED215A27EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Federal Contract'~&~	~&~'A'~&~	~&~]RECORD
+RECORD[~&~	~&~'CFP'~&~	~&~'12D4ED215A28EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed Fixed Price Contract'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'CIP'~&~	~&~'12D4ED215A29EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed IPA Agree Contract'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'CR'~&~	~&~'12D4ED215A2AEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Govt Cost Reimbursable'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'CS'~&~	~&~'12D4ED215A2BEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed Cost Share Contract'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'G'~&~	~&~'12D4ED215A2CEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Federal Grant'~&~	~&~'A'~&~	~&~]RECORD
+RECORD[~&~	~&~'GC'~&~	~&~'12D4ED215A2DEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed Challenge Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'GFP'~&~	~&~'12D4ED215A2EEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed Fixed Price Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'GIP'~&~	~&~'12D4ED215A2FEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed IPA Agree Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'GR'~&~	~&~'12D4ED215A30EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed Cost Reimb Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'GS'~&~	~&~'12D4ED215A31EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Fed Cost Share Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'12D4ED215A32EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Federal Grant'~&~	~&~'A'~&~	~&~]RECORD
+RECORD[~&~	~&~'NFP'~&~	~&~'12D4ED215A33EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Fixed Price Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'NPT'~&~	~&~'12D4ED215A34EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Fed-Pass-T Grant'~&~	~&~'A'~&~	~&~]RECORD
+RECORD[~&~	~&~'NR'~&~	~&~'12D4ED215A35EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Cost Reimb Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'NS'~&~	~&~'12D4ED215A36EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Cost Share Grant'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'O'~&~	~&~'12D4ED215A37EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Federal Contract'~&~	~&~'A'~&~	~&~]RECORD
+RECORD[~&~	~&~'OFP'~&~	~&~'12D4ED215A38EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Fixed Price Contr'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'OPT'~&~	~&~'12D4ED215A39EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Fed-Pass-T Contr'~&~	~&~'A'~&~	~&~]RECORD
+RECORD[~&~	~&~'OR'~&~	~&~'12D4ED215A3AEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Cost Reimb Contr'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'OS'~&~	~&~'12D4ED215A3BEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Non Fed Cost Share Contr'~&~	~&~'I'~&~	~&~]RECORD
+RECORD[~&~	~&~'U'~&~	~&~'12D4ED215A3CEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'University Internal'~&~	~&~'A'~&~	~&~]RECORD

@@ -1,71 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10621" context="demo,unit">
-    <insert tableName="pur_po_qt_lang_t">
-      <column name="PO_QT_LANG_ID"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[F60783E6-CCDD-9438-2477-B4C3E78C46C4]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PO_QT_LANG_DESC"><![CDATA[- Unless otherwise understood, there are no restrictions on the number of items or the quantity that may be ordered.]]></column>
-      <column name="PO_QT_LANG_CRTE_DT" valueDate="2007-05-16 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_qt_lang_t">
-      <column name="PO_QT_LANG_ID"><![CDATA[2]]></column>
-      <column name="OBJ_ID"><![CDATA[0A68FF75-C6BF-88AD-A9A8-7BEBFA239B29]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PO_QT_LANG_DESC"><![CDATA[- No substitutes will be considered unless a complete description is given.]]></column>
-      <column name="PO_QT_LANG_CRTE_DT" valueDate="2007-05-16 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_qt_lang_t">
-      <column name="PO_QT_LANG_ID"><![CDATA[3]]></column>
-      <column name="OBJ_ID"><![CDATA[3F5EFDD4-1FB6-9246-7DDD-A2C901131ED0]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PO_QT_LANG_DESC"><![CDATA[- The right is reserved to reject any offer.]]></column>
-      <column name="PO_QT_LANG_CRTE_DT" valueDate="2007-05-16 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_qt_lang_t">
-      <column name="PO_QT_LANG_ID"><![CDATA[4]]></column>
-      <column name="OBJ_ID"><![CDATA[BF4AB773-7888-D05C-1052-134CC970B950]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PO_QT_LANG_DESC"><![CDATA[- Indiana University is a political subdivision of the State of Indiana and is not subject to any sales or use tax imposed by the State of Indiana nor excise taxes imposed by the Federal Government.]]></column>
-      <column name="PO_QT_LANG_CRTE_DT" valueDate="2007-05-16 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_qt_lang_t">
-      <column name="PO_QT_LANG_ID"><![CDATA[5]]></column>
-      <column name="OBJ_ID"><![CDATA[AFC0EC91-AAA3-09ED-CAE2-77C3BCBA5589]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PO_QT_LANG_DESC"><![CDATA[- Indiana University is an Equal Opportunity Employer.]]></column>
-      <column name="PO_QT_LANG_CRTE_DT" valueDate="2007-05-16 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_po_qt_lang_t">
-      <column name="PO_QT_LANG_ID"><![CDATA[6]]></column>
-      <column name="OBJ_ID"><![CDATA[B00284E5-A637-D99A-38B0-142031D67196]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="PO_QT_LANG_DESC"><![CDATA[- We are a public entity subject to statutory disclosure requirements. All prohibitions against disclosure of a supplier's pricing, proprietary and confidential information submitted under this RFQ, shall be construed as permitting disclosure when required by the Indiana Open Records Act, Indiana Code Section I C 5-14-et seq.]]></column>
-      <column name="PO_QT_LANG_CRTE_DT" valueDate="2007-05-16 00:00:00.0"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_po_qt_lang_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_po_qt_lang_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/pur_po_qt_lang_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

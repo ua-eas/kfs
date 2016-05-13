@@ -1,0 +1,5 @@
+HEADER[~&~	~&~PARM_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~NM::VARCHAR~&~	~&~ACTV_IND::CHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'AUTH'~&~	~&~'53680C68F593AD9BE0404F8189D80A6C'~&~	~&~'1'~&~	~&~'Authorization'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CONFG'~&~	~&~'53680C68F591AD9BE0404F8189D80A6C'~&~	~&~'1'~&~	~&~'Config'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'HELP'~&~	~&~'53680C68F594AD9BE0404F8189D80A6C'~&~	~&~'1'~&~	~&~'Help'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'VALID'~&~	~&~'53680C68F592AD9BE0404F8189D80A6C'~&~	~&~'1'~&~	~&~'Document Validation'~&~	~&~'Y'~&~	~&~]RECORD

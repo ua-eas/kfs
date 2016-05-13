@@ -1,100 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10128" context="bootstrap,demo,unit">
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[GA]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE1765BB5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[GENERAL ADMINISTRATION]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[IUR]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE1765CB5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[INSTRUCTION AND UNSPONSORED RESEARCH]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[LIB]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE1765DB5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[LIBRARY SERVICES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[NA]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE1765EB5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[NOT APPLICABLE TO ACCOUNT]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[OIA]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE1765FB5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[OTHER INSTITUTIONAL ACTIVITIES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[PP]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE17660B5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[PHYSICAL PLANT]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[SA]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE17661B5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[STUDENT AID]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[SAS]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE17662B5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[STUDENT ADMINISTRATION AND SERVICES]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[SPA]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE17663B5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[SPONSORED PROGRAM ADMIN.]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[SPS]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE17664B5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[SPONSORED PUBLIC SERVICE]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ca_federal_func_t">
-      <column name="FIN_FED_FUNC_CD"><![CDATA[SR]]></column>
-      <column name="OBJ_ID"><![CDATA[0DF1CCE17665B5BCE043814FD881B5BC]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_FED_FUNC_NM"><![CDATA[SPONSORED RESEARCH]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_ca_federal_func_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ca_federal_func_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/ca_federal_func_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

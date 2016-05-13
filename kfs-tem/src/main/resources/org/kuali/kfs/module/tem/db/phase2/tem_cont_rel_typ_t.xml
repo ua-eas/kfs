@@ -1,93 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10738" context="bootstrap,demo,unit">
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[CWK]]></column>
-      <column name="NM"><![CDATA[Co-worker]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2415765898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[FRD]]></column>
-      <column name="NM"><![CDATA[Friend]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2415775898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[GRP]]></column>
-      <column name="NM"><![CDATA[Grandparent]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2415785898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[NON]]></column>
-      <column name="NM"><![CDATA[None]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24157F5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[OTH]]></column>
-      <column name="NM"><![CDATA[Other]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2415795898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[PAR]]></column>
-      <column name="NM"><![CDATA[Partner]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24157B5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[PRN]]></column>
-      <column name="NM"><![CDATA[Parent]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24157A5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[REL]]></column>
-      <column name="NM"><![CDATA[Relative]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24157C5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[SBL]]></column>
-      <column name="NM"><![CDATA[Sibling]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24157D5898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_cont_rel_typ_t">
-      <column name="CODE"><![CDATA[SPS]]></column>
-      <column name="NM"><![CDATA[Spouse]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA24157E5898E040540A5EFD3A74]]></column>
-    </insert>
+  <changeSet id="IMPORT_tem_cont_rel_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="tem_cont_rel_typ_t" />
+      <param name="file" value="org/kuali/kfs/module/tem/db/phase2/tem_cont_rel_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,9 @@
+HEADER[~&~	~&~FS_FUNC_CTRL_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FS_FUNC_DFLT_IND::VARCHAR~&~	~&~FS_FUNC_DESC::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'BAACTV'~&~	~&~'1362A7CFD659B972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Budget Adjustements Allowed'~&~	~&~]RECORD
+RECORD[~&~	~&~'BASEAD'~&~	~&~'1362A7CFD65AB972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Base Adjustments Allowed'~&~	~&~]RECORD
+RECORD[~&~	~&~'BCACTV'~&~	~&~'1362A7CFD65BB972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Budget Construction Active'~&~	~&~]RECORD
+RECORD[~&~	~&~'BCGENE'~&~	~&~'1362A7CFD65CB972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Budget Construction Genesis Executing'~&~	~&~]RECORD
+RECORD[~&~	~&~'BCUPDT'~&~	~&~'1362A7CFD65EB972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Budget Construction Updates Allowed'~&~	~&~]RECORD
+RECORD[~&~	~&~'BSSYNC'~&~	~&~'1362A7CFD65DB972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Batch Sync BC with PeopleSoft'~&~	~&~]RECORD
+RECORD[~&~	~&~'CSFUPD'~&~	~&~'1362A7CFD65FB972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Calculated Salary Found Updates Allowed'~&~	~&~]RECORD
+RECORD[~&~	~&~'PSSYNC'~&~	~&~'1362A7CFD660B972E043814FD881B972'~&~	~&~'1'~&~	~&~'N'~&~	~&~'Synchronize BC with PeopleSoft'~&~	~&~]RECORD

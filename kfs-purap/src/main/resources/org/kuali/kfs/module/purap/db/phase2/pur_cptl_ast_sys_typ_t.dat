@@ -1,0 +1,4 @@
+HEADER[~&~	~&~CPTL_AST_SYS_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~CPTL_AST_SYS_TYP_DESC::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'IND'~&~	~&~'D1D060B7-6100-26B1-44C0-42505FA89117'~&~	~&~'1'~&~	~&~'Individual Assets'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MUL'~&~	~&~'35F298D5-202F-8A7C-D32F-3C5E9B692315'~&~	~&~'1'~&~	~&~'Multiple Systems'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ONE'~&~	~&~'0A6314AE-3E3A-47B9-7DAE-088C854C68CA'~&~	~&~'1'~&~	~&~'One System'~&~	~&~'Y'~&~	~&~]RECORD

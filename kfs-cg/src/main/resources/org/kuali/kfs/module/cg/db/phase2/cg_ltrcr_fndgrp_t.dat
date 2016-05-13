@@ -1,0 +1,46 @@
+HEADER[~&~	~&~CG_LTRCR_FNDGRP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~LTRCR_FNDGRP_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'CNCS'~&~	~&~'12D4ED2159FBEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Corp. for Nat'l & Comm. Serv.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DHHS'~&~	~&~'12D4ED2159FCEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of Health & Hum'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DOC'~&~	~&~'12D4ED2159FDEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of Commerce'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DOEC'~&~	~&~'12D4ED2159FEEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of Energy - Chi'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DOEO'~&~	~&~'12D4ED2159FFEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of Energy - Oak'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DOJ'~&~	~&~'12D4ED215A00EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of Justice'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'EPA'~&~	~&~'12D4ED215A01EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Environmental Protection A'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GSFC'~&~	~&~'12D4ED215A02EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Goddard Space Flight Center'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'HRL'~&~	~&~'12D4ED215A24EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Human Rights and Labor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'HUD'~&~	~&~'12D4ED215A03EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Housing and Urban Development'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'JSC'~&~	~&~'12D4ED215A04EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Johnson Space Center'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFG2'~&~	~&~'1ca4356a-91f6-43f4-8f1a-db88d6798573'~&~	~&~'2'~&~	~&~'Kuali LOC Fund Group 2'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KLFG'~&~	~&~'3a020c60-20d4-4662-8969-3d480ee917d4'~&~	~&~'1'~&~	~&~'Kuali LOC Fund Group'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NASA'~&~	~&~'12D4ED215A05EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'National Aeronautics and Space Administr'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NEH'~&~	~&~'12D4ED215A06EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'National Endowment for the Humanities'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NOAA'~&~	~&~'12D4ED215A1DEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'National Oceanic & Atmospheric Admin.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NSF'~&~	~&~'12D4ED215A07EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'National Science Foundation'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'UAID'~&~	~&~'12D4ED215A08EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Agency for Intntl Develop.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'USDA'~&~	~&~'12D4ED215A09EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of Agriculture'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'USDE'~&~	~&~'12D4ED215A0AEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of Education'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'USDL'~&~	~&~'12D4ED215A20EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'U.S. Department of Labor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'USFS'~&~	~&~'12D4ED215A0BEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'USDA Forest Service'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'USGS'~&~	~&~'12D4ED215A1CEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Geological Survey'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'USIA'~&~	~&~'12D4ED215A0CEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'United States Department of State'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XDEC'~&~	~&~'12D4ED215A0DEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Department of Energy-Chicago'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XDEO'~&~	~&~'12D4ED215A0EEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Department of Energy-Oakridge'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XDOC'~&~	~&~'12D4ED215A0FEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp United Stated Department of Commerce'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XDOJ'~&~	~&~'12D4ED215A10EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Department of Justice'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XEPA'~&~	~&~'12D4ED215A11EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Environ. Protection Agency'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XGSF'~&~	~&~'12D4ED215A1BEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp Goddard Space Flight Center'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XHHS'~&~	~&~'12D4ED215A12EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp United States Dept of Health & Human'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XHRL'~&~	~&~'12D4ED215A25EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Expired Human Rights and Labor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XHUD'~&~	~&~'12D4ED215A1FEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp Housing and Urban Development'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XNAS'~&~	~&~'12D4ED215A13EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp Natl. Aeronautics and Space Admin.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XNEH'~&~	~&~'12D4ED215A14EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp Nat'l Endowment for the Humanities'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XNOA'~&~	~&~'12D4ED215A1EEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp National Oceanic & Atmospheric Admin'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XNSF'~&~	~&~'12D4ED215A15EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp National Science Foundation'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUAG'~&~	~&~'12D4ED215A22EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Dept of Agriculture'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUAI'~&~	~&~'12D4ED215A16EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Agency for Intntl Dev'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUSD'~&~	~&~'12D4ED215A17EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Dept of Agriculture'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUSE'~&~	~&~'12D4ED215A18EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp United States Department of Educ'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUSG'~&~	~&~'12D4ED215A1AEF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Geological Survey'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUSI'~&~	~&~'12D4ED215A19EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Department of State'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUSL'~&~	~&~'12D4ED215A21EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Expired U.S. Department of Labor'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'XUSS'~&~	~&~'12D4ED215A23EF34E043814FD881EF34'~&~	~&~'1'~&~	~&~'Exp U.S. Department of State'~&~	~&~'Y'~&~	~&~]RECORD

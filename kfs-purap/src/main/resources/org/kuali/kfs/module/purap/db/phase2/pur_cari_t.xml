@@ -1,93 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10593" context="bootstrap,demo,unit">
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[ABF]]></column>
-      <column name="OBJ_ID"><![CDATA[BD51DF30-34E7-B049-6861-9BEA1610D0FE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[ABF FREIGHT SYSTEMS]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[BEK]]></column>
-      <column name="OBJ_ID"><![CDATA[8999DCBC-B1D8-069E-F9B3-D296A6064F32]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[BEKINS]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[BER]]></column>
-      <column name="OBJ_ID"><![CDATA[C6F75296-49A6-FD64-F961-8E9A036F3CD8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[BERGER]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[BRN]]></column>
-      <column name="OBJ_ID"><![CDATA[28A32558-28C4-BDBB-8113-803C45B3DD7E]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[BRANDT TRUCK LINE]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[BUF]]></column>
-      <column name="OBJ_ID"><![CDATA[2055184F-ECB9-CF63-2966-156C3398F647]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[BUSINESS FURNITURE]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[CCC]]></column>
-      <column name="OBJ_ID"><![CDATA[FEBFC003-BFCF-ABFD-9EE8-082B7EBAEE49]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="CARI_DESC"><![CDATA[CROUSE CARTAGE COMPANY]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[CCX]]></column>
-      <column name="OBJ_ID"><![CDATA[64E705D1-308F-CB1A-C02E-54DA6B0FB2F1]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[CONWAY CENTRAL EXPRESS]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[CFM]]></column>
-      <column name="OBJ_ID"><![CDATA[0545A812-A218-C972-71B6-2662195A42E2]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[CERTIFIED MAIL]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[DAY]]></column>
-      <column name="OBJ_ID"><![CDATA[CB3D8858-A7BD-F4EC-4EE2-A1A08D7C2E9A]]></column>
-      <column name="VER_NBR"><![CDATA[4]]></column>
-      <column name="CARI_DESC"><![CDATA[DAYTON FREIGHT]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_cari_t">
-      <column name="CARI_CD"><![CDATA[UPS]]></column>
-      <column name="OBJ_ID"><![CDATA[5A4A8B66-175C-E2E2-7F2F-2A7A4450FDC3]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="CARI_DESC"><![CDATA[UPS]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_cari_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_cari_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/pur_cari_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

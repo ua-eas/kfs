@@ -1,0 +1,57 @@
+HEADER[~&~	~&~ITM_UOM_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ITM_UOM_DESC::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'BG'~&~	~&~'151DCB09-D3E8-8A6A-494B-CD85CDA4AFB6'~&~	~&~'2'~&~	~&~'BAG'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BT'~&~	~&~'F5438912-4F99-B27E-A157-085C451CAB70'~&~	~&~'2'~&~	~&~'BOTTLE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'BX'~&~	~&~'0519EDF5-D4AB-271D-FBDF-3FE61CEABA71'~&~	~&~'1'~&~	~&~'BOX'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'C'~&~	~&~'4BB3F38EC87A57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'HUNDRED'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CM'~&~	~&~'4BB3F38EC88D57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'CENTIMETER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CN'~&~	~&~'2FD3A6D8-5219-B118-A72B-9E833DF49B71'~&~	~&~'1'~&~	~&~'CAN'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'CS'~&~	~&~'4BB3F38EC87957D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'CASE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'CT'~&~	~&~'75343D2B-16AF-01CE-5394-3D0EEBDF8487'~&~	~&~'3'~&~	~&~'CARTON'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DA'~&~	~&~'4BB3F38EC8A657D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'DAY'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DR'~&~	~&~'4BB3F38EC89357D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'DRUM'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'DZ'~&~	~&~'4BB3F38EC87C57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'DOZEN'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'EA'~&~	~&~'4BB3F38EC87857D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'EACH'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FT'~&~	~&~'4BB3F38EC88757D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'FOOT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'G'~&~	~&~'4BB3F38EC88B57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'GRAM'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GA'~&~	~&~'4BB3F38EC88357D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'GALLON'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GR'~&~	~&~'4BB3F38EC87D57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'GROSS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'HR'~&~	~&~'4BB3F38EC89D57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'HOUR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'IN'~&~	~&~'4BB3F38EC88857D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'INCH'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'JR'~&~	~&~'4BB3F38EC89757D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'JAR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KG'~&~	~&~'4BB3F38EC88957D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'KILOGRAM'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KT'~&~	~&~'4BB3F38EC8A557D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'KIT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'L'~&~	~&~'4BB3F38EC88557D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'LITER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LB'~&~	~&~'4BB3F38EC87F57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'POUND'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LF'~&~	~&~'4BB3F38EC8A457D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'LINEAL FEET'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LG'~&~	~&~'4BB3F38EC8A157D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'LENGTH'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LT'~&~	~&~'4BB3F38EC89A57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'LOT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LY'~&~	~&~'4BB3F38EC8A757D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'LINEAL YARDS'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'M'~&~	~&~'4BB3F38EC87B57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'THOUSAND'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MG'~&~	~&~'4BB3F38EC89157D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'MILLIGRAM'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ML'~&~	~&~'4BB3F38EC88457D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'MILLILITER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MM'~&~	~&~'4BB3F38EC88F57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'MILLIMETER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MO'~&~	~&~'4BB3F38EC89C57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'MONTH'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MT'~&~	~&~'4BB3F38EC88E57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'METER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'OZ'~&~	~&~'4BB3F38EC87E57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'OUNCE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PCS'~&~	~&~'0BE732F2-581C-FE2C-193B-1F1D0BDF06B7'~&~	~&~'1'~&~	~&~'PIECES'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PK'~&~	~&~'4BB3F38EC88C57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'PACKAGE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PL'~&~	~&~'4BB3F38EC8A957D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'PAIL'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PR'~&~	~&~'4BB3F38EC89857D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'PAIR'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PT'~&~	~&~'4BB3F38EC88157D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'PINT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'QT'~&~	~&~'4BB3F38EC88257D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'QUART'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RL'~&~	~&~'4BB3F38EC89457D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'ROLL'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RM'~&~	~&~'4BB3F38EC8A357D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'REAM'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SH'~&~	~&~'4BB3F38EC89E57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'SHEET'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SL'~&~	~&~'4BB3F38EC89257D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'SLEEVE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SP'~&~	~&~'4BB3F38EC89957D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'SPOOL'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SQ'~&~	~&~'4BB3F38EC89F57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'SQ FOOT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ST'~&~	~&~'4BB3F38EC89657D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'SET'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SY'~&~	~&~'4BB3F38EC8A057D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'SQ YARD'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TN'~&~	~&~'4BB3F38EC88057D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'TON'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TU'~&~	~&~'4BB3F38EC89557D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'TUBE'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'UL'~&~	~&~'4BB3F38EC88A57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'MICROLITER'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'UN'~&~	~&~'4BB3F38EC8A257D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'UNIT'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'VL'~&~	~&~'4BB3F38EC89057D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'VIAL'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'WK'~&~	~&~'4BB3F38EC8A857D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'WEEK'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'YD'~&~	~&~'4BB3F38EC88657D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'YARD'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'YR'~&~	~&~'4BB3F38EC89B57D2E0404F8189D83A2C'~&~	~&~'1'~&~	~&~'YEAR'~&~	~&~'Y'~&~	~&~]RECORD

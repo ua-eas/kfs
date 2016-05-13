@@ -1,0 +1,78 @@
+HEADER[~&~	~&~RSP_ID::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~RSP_TMPL_ID::VARCHAR~&~	~&~NMSPC_CD::VARCHAR~&~	~&~NM::VARCHAR~&~	~&~DESC_TXT::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1'~&~	~&~'KFS1'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFS OrganizationHierarchy'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'10'~&~	~&~'KFS10'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review CTRL ElectronicPayment'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'100'~&~	~&~'KFS100'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review ARM Management'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'101'~&~	~&~'KFS101'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review AR Management'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'107'~&~	~&~'KFS107'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review POA Account'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'108'~&~	~&~'KFS108'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review CM Account'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'109'~&~	~&~'KFS109'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review EIRT Management'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'11'~&~	~&~'KFS11'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review CTRL Lockbox'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'111'~&~	~&~'KFS111'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CG'~&~	~&~'Review CLOS Unprocessed'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'112'~&~	~&~'KFS112'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CG'~&~	~&~'Review CLOS Management'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'113'~&~	~&~'KFS113'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review REQS Initiator'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'114'~&~	~&~'KFS114'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review INVR RecurrenceCreator'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'115'~&~	~&~'KFS115'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CAM'~&~	~&~'Review BCIE Initiator'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'116'~&~	~&~'KFS116'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review APP Lockbox'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'117'~&~	~&~'KFS117'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review IdentityManagementDocument GroupType'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'118'~&~	~&~'KFS118'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review INV Initiator'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'119'~&~	~&~'KFS119'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review INVR Recurrence'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'12'~&~	~&~'KFS12'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFS Account'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'120'~&~	~&~'KFS120'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review PCDO Account'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'123'~&~	~&~'KFS123'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review IdentityManagementDocument RoleType'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'124'~&~	~&~'KFS124'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-COA'~&~	~&~'Review GDLG Account'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'126'~&~	~&~'KFSFP7037'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review DV SeparationOfDuties'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'16'~&~	~&~'KFS16'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CAM'~&~	~&~'Review FR Management'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'17'~&~	~&~'KFS17'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CAM'~&~	~&~'Review ARG Purchasing'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'18'~&~	~&~'KFS18'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CAM'~&~	~&~'Review MPAY PlantFund'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'19'~&~	~&~'KFS19'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CAM'~&~	~&~'Review ARG ExternalTransfer'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'22'~&~	~&~'KFS22'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CAM'~&~	~&~'Review ELR Borrower'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'26'~&~	~&~'KFS26'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFS Chart'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'29'~&~	~&~'KFS29'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review ACCT Account'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'3'~&~	~&~'KFS3'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review REQS Organization'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'31'~&~	~&~'KFS31'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFS Award'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'4'~&~	~&~'KFS4'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFST AccountingOrganizationHierarchy'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'41'~&~	~&~'KFS41'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-EC'~&~	~&~'Review ECD ProjectManagement'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'44'~&~	~&~'KFS44'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review CR CashManagement'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'46'~&~	~&~'KFS46'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review DV Campus'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'48'~&~	~&~'KFS48'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review DV Purchasing'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'49'~&~	~&~'KFS49'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFS Tax'~&~	~&~'Responsibility for tax purposes review on any KFS document.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'5'~&~	~&~'KFS5'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-CG'~&~	~&~'Review KFS ResearchRisk'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'50'~&~	~&~'KFS50'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review DV Travel'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'51'~&~	~&~'KFS51'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFS PaymentMethod'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'6'~&~	~&~'KFS6'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review PUR Commodity'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'7'~&~	~&~'KFS7'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFS SubFund'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'71'~&~	~&~'KFS71'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review AP ImageAttachment'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'73'~&~	~&~'KFS73'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review PREQ Receiving'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'75'~&~	~&~'KFS75'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review POA NewUnorderedItems'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'76'~&~	~&~'KFS76'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-SYS'~&~	~&~'Review KFST Budget'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'78'~&~	~&~'KFS78'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review PO ContractManagement'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'81'~&~	~&~'KFS81'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review PORH AccountsPayable'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'83'~&~	~&~'KFS83'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review KFST SubAccount'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'85'~&~	~&~'KFS85'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review REQS SeparationOfDuties'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'87'~&~	~&~'KFS87'~&~	~&~'1'~&~	~&~'2'~&~	~&~'KFS-SYS'~&~	~&~'Resolve Exception'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'91'~&~	~&~'KFS91'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-VND'~&~	~&~'Review PVEN Initiator'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'92'~&~	~&~'KFS92'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-VND'~&~	~&~'Review PVEN Management'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'94'~&~	~&~'KFS94'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review RCVL OutstandingTransactions'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'95'~&~	~&~'KFS95'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-EC'~&~	~&~'Review ECD Management'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'97'~&~	~&~'KFS97'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Review INV Recurrence'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'99'~&~	~&~'KFS99'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review PCDO AccountFullEdit'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10343'~&~	~&~'KFS-RSP-000'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TT SpecialRequest'~&~	~&~'Responsible for reviewing TEM documents on SpecialRequest route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10344'~&~	~&~'KFS-RSP-001'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TRV InternationalTravel'~&~	~&~'Responsible for reviewing travel documents on InternationalTravel route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10345'~&~	~&~'KFS-RSP-002'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TA RiskManagement'~&~	~&~'Responsible for reviewing Travel Authorization Document on RiskManagement route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10346'~&~	~&~'KFS-RSP-003'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TT Travel'~&~	~&~'Responsible for reviewing TEM documents on Travel route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10347'~&~	~&~'KFS-RSP-005'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TRV Division'~&~	~&~'Responsible for reviewing travel documents on Division route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10350'~&~	~&~'KFS-RSP-008'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review ENT EntertainmentManager'~&~	~&~'Responsible for reviewing Entertainment Document on EntertainmentManager route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10353'~&~	~&~'KFS-RSP-011'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review RELO MovingAndRelocationManager'~&~	~&~'Responsible for reviewing Moving and Relocation Document on MovingAndRelocationManager route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10354'~&~	~&~'KFS-RSP-012'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review RELO ExecutiveApproval'~&~	~&~'Responsible for reviewing Moving and Relocation Document on ExecutiveApproval route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10356'~&~	~&~'KFS-RSP-014'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TT SeparationOfDuties'~&~	~&~'Responsible for reviewing TEM documents on SeparationOfDuties route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10363'~&~	~&~'KFS-RSP-021'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TT Traveler'~&~	~&~'Responsible for reviewing travel and entertainment transactional documents on Traveler route node.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10380'~&~	~&~'KFS-RSP-032'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'AccountNotification'~&~	~&~'Responsible for sending FYI to fiscal officer for Taxable Ramification Document if SEND_TAX_NOTIFICATION_FYI_TO_FISCAL_OFFICER_IND is set to ture.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10549'~&~	~&~'KFS-RSP-033'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TTP Traveler'~&~	~&~'Responsible for sending FYI to Traveler for TEM Profile documents.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10687'~&~	~&~'KFS-RSP-034'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TR ReimbursementOverage'~&~	~&~'Review Responsibility for the ReimbursementOverage node on the TR document.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10706'~&~	~&~'KFS-RSP-035'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-TEM'~&~	~&~'Review TTP Profile'~&~	~&~'Responsible for sending FYI to Central Profile Reviewer for TEM Profile documents.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10843'~&~	~&~'KFS-RSP-036'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review CR ChangeRequest'~&~	~&~'The Cash Receipt initiator will receive a workflow action request after Cash Manager approval if change request was used on the Cash Receipt.'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10850'~&~	~&~'KFS-RSP-037'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-PURAP'~&~	~&~'Review PREQ AutoApprove'~&~	~&~'Generate an FYI notification to users on primary approval routing who did not previously approve a PREQ in case it is auto approved'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10861'~&~	~&~'KFS-RSP-038'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-FP'~&~	~&~'Review PCDO AutoApprove'~&~	~&~'Generate an FYI notification to users on primary approval routing who did not previously approve a PCDO in case it is auto approved'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFS10949'~&~	~&~'KFS-RSP-039'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-AR'~&~	~&~'Funds Manager Review'~&~	~&~'Funds Manager Review'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSCNTRB789-RSP1'~&~	~&~'KFSCNTRB789-RSP1'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-LD'~&~	~&~'Review ST Workstudy'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'KFSCNTRB789-RSP2'~&~	~&~'KFSCNTRB789-RSP2'~&~	~&~'1'~&~	~&~'1'~&~	~&~'KFS-EC'~&~	~&~'Review ECD Workstudy'~&~	~&~NULL~&~	~&~'Y'~&~	~&~]RECORD

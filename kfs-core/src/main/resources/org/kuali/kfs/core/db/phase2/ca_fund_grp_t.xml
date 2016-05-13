@@ -1,122 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10129" context="bootstrap,demo,unit">
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[AE]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDC89556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[AUXILIARY ENTERPRISES]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[05]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[AF]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDC99556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[AGENCY FUNDS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[10]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[CG]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDCA9556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[CONTRACT & GRANTS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[04]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[CL]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDCB9556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[CLEARING & ROTATING]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[06]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[DS]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDCC9556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[DESIGNATED FUNDS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[02]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[EN]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDCD9556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[ENDOWMENTS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[08]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[GF]]></column>
-      <column name="OBJ_ID"><![CDATA[196D4AE5469A6008E043814FD8816008]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[GENERAL FUNDS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[01]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[C]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[LF]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDCF9556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[LOAN FUNDS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[07]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[OF]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDD09556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[OTHER FUNDS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[11]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[PF]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDD19556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[PLANT FUNDS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[09]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
-    <insert tableName="ca_fund_grp_t">
-      <column name="FUND_GRP_CD"><![CDATA[RF]]></column>
-      <column name="OBJ_ID"><![CDATA[01AFB744FDD29556E043814FD8819556]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="FUND_GRP_NM"><![CDATA[RESTRICTED FUNDS]]></column>
-      <column name="FIN_REPORT_SORT_CD"><![CDATA[03]]></column>
-      <column name="FND_GRP_BA_RSTR_LVL_CD"><![CDATA[F]]></column>
-    </insert>
+  <changeSet id="IMPORT_ca_fund_grp_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ca_fund_grp_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/ca_fund_grp_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,7 @@
+HEADER[~&~	~&~VNDR_CONTR_GNRTD_ID::DECIMAL~&~	~&~FIN_COA_CD::VARCHAR~&~	~&~ORG_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~VNDR_CTRPO_LMT_AMT::DECIMAL~&~	~&~VNDR_CONTR_EXCL_IND::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1000'~&~	~&~'BL'~&~	~&~'ACTR'~&~	~&~'841C5AF9-D6FD-DF68-9AE1-DB4C45A6B1AA'~&~	~&~'2'~&~	~&~'500.00'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'1004'~&~	~&~'BL'~&~	~&~'BI'~&~	~&~'3AF2EDF5-A06D-BFA7-1A9D-CFD5C04D9816'~&~	~&~'1'~&~	~&~'5000.00'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'1017'~&~	~&~'BA'~&~	~&~'ACAC'~&~	~&~'458FA7F0-39BF-5B5C-3972-B21CA40C6878'~&~	~&~'2'~&~	~&~'1000.00'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'1020'~&~	~&~'BL'~&~	~&~'AAAM'~&~	~&~'F7C050B6-C87C-0F82-2506-1F0730AD89EF'~&~	~&~'2'~&~	~&~'500.00'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'2003'~&~	~&~'BL'~&~	~&~'AAAM'~&~	~&~'69B36135-3D52-98A4-3B96-E5EDE14BB985'~&~	~&~'5'~&~	~&~'1001.00'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'2009'~&~	~&~'BL'~&~	~&~'ACAD'~&~	~&~'3961C8C3-3579-D7FB-F207-57B6A9720E39'~&~	~&~'1'~&~	~&~'1000.00'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD

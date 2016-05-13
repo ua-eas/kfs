@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,28 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00038" context="bootstrap,demo,unit">
-    <insert tableName="krew_rule_t">
-      <column name="RULE_ID"><![CDATA[1044]]></column>
-      <column name="NM"><![CDATA[SendNotificationRequest.Reviewers]]></column>
-      <column name="RULE_TMPL_ID"><![CDATA[1023]]></column>
-      <column name="RULE_EXPR_ID" value="null"/>
-      <column name="ACTV_IND"><![CDATA[1]]></column>
-      <column name="RULE_BASE_VAL_DESC"><![CDATA[Notification Request Reviewers]]></column>
-      <column name="FRC_ACTN"><![CDATA[1]]></column>
-      <column name="DOC_TYP_NM"><![CDATA[SendNotificationRequest]]></column>
-      <column name="DOC_HDR_ID" value="null"/>
-      <column name="TMPL_RULE_IND"><![CDATA[0]]></column>
-      <column name="FRM_DT" valueDate="2008-08-01 15:59:02.0"/>
-      <column name="TO_DT" valueDate="2100-01-01 00:00:00.0"/>
-      <column name="DACTVN_DT" valueDate="2100-01-01 00:00:00.0"/>
-      <column name="CUR_IND"><![CDATA[1]]></column>
-      <column name="RULE_VER_NBR"><![CDATA[0]]></column>
-      <column name="DLGN_IND"><![CDATA[0]]></column>
-      <column name="PREV_VER_RULE_ID" value="null"/>
-      <column name="ACTVN_DT" valueDate="2008-08-01 15:59:02.0"/>
-      <column name="VER_NBR"><![CDATA[0]]></column>
-      <column name="OBJ_ID"><![CDATA[6166CBA1BBE9644DE0404F8189D86C09]]></column>
-    </insert>
+  <changeSet id="IMPORT_krew_rule_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krew_rule_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krew_rule_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

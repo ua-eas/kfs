@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,11 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00029" context="bootstrap,demo,unit">
-    <insert tableName="krew_rte_brch_proto_t">
-      <column name="RTE_BRCH_PROTO_ID"><![CDATA[2422]]></column>
-      <column name="BRCH_NM"><![CDATA[ApprovalBranch]]></column>
-      <column name="VER_NBR"><![CDATA[130]]></column>
-    </insert>
+  <changeSet id="IMPORT_krew_rte_brch_proto_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krew_rte_brch_proto_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krew_rte_brch_proto_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

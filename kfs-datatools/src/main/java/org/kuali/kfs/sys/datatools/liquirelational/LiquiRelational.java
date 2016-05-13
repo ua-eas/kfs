@@ -48,6 +48,8 @@ public class LiquiRelational {
     private static final Logger LOG = Logger.getLogger(LiquiRelational.class);
 
     protected static final String UPDATE_DATABASE_FULL_REBUILD = "updateDatabaseFullRebuild";
+    protected static final String UPDATE_DATABASE_MANUAL_START = "updateDatabaseManualStart";
+    protected static final String UPDATE_DATABASE_MANUAL_END = "updateDatabaseManualEnd";
     protected static final String UPDATE_DATABASE_CONTEXT = "updateDatabaseContext";
     protected static final String UPDATE_DATABASE_PACKAGES = "updateDatabasePackages";
     protected static final String UPDATE_DATABASE_PACKAGES_RICE = "updateDatabasePackagesRice";
@@ -138,15 +140,69 @@ public class LiquiRelational {
         }
     }
 
-    private void runUpdatesPhase(Database database, ResourceAccessor resourceAccessor, String liquibaseContext, List<String> packages) {
+    private List<String> getPhasesToRun(List<String> packages) {
+        List<String> phases = getManualPhasesToRun(packages);
+        if ( phases == null ) {
+            phases = getAutoPhasesToRun(packages);
+        }
+        return phases;
+    }
+
+    private List<String> getManualPhasesToRun(List<String> packages) {
+        String start = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_MANUAL_START);
+        String end = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_MANUAL_END);
+        if ( start == null ) {
+            return null;
+        }
+
+        int startNumber = 0;
+        int endNumber = 0;
+        try {
+            startNumber = Integer.parseInt(start);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Invalid parameter: " + UPDATE_DATABASE_MANUAL_START);
+        }
+
+        try {
+            endNumber = Integer.parseInt(end);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Invalid parameter: " + UPDATE_DATABASE_MANUAL_END);
+        }
+
+        if ( startNumber < 1 || startNumber > 5 ) {
+            throw new RuntimeException("Invalid parameter: " + UPDATE_DATABASE_MANUAL_START);
+        }
+        if ( endNumber < 1 || endNumber > 5 ) {
+            throw new RuntimeException("Invalid parameter: " + UPDATE_DATABASE_MANUAL_END);
+        }
+
+        LOG.info("getManualPhasesToRun() running phase " + startNumber + " to " + endNumber);
         List<String> phaseFilenames = new ArrayList<>();
-        if (Boolean.parseBoolean(PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_FULL_REBUILD))) {
+        for (int i = startNumber; i <= endNumber; i++) {
+            phaseFilenames.addAll(findFilenamesForPhase(i, packages));
+        }
+        return phaseFilenames;
+    }
+
+    private List<String> getAutoPhasesToRun(List<String> packages) {
+        String updateDatabaseFullRebuild = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_FULL_REBUILD);
+
+        List<String> phaseFilenames = new ArrayList<>();
+        if (Boolean.parseBoolean(updateDatabaseFullRebuild)) {
+            LOG.info("getAutoPhasesToRun() Running all phases");
             for (int i=1; i<5;i++) {
                 phaseFilenames.addAll(findFilenamesForPhase(i, packages));
             }
+        } else {
+            LOG.info("getAutoPhasesToRun() Running phase 5 only");
         }
 
         phaseFilenames.addAll(findFilenamesForPhase(5, packages));
+        return phaseFilenames;
+    }
+
+    private void runUpdatesPhase(Database database, ResourceAccessor resourceAccessor, String liquibaseContext, List<String> packages) {
+        List<String> phaseFilenames = getPhasesToRun(packages);
 
         for (String filename : phaseFilenames) {
             try {

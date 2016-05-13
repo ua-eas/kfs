@@ -1,0 +1,5 @@
+HEADER[~&~	~&~CGPRPSL_AWD_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PRPSL_AWD_TYP_DESC::VARCHAR~&~	~&~ROW_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'C'~&~	~&~'12BF192103119D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Non-Competing/Contin'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'E'~&~	~&~'12BF192103129D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Supplement'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'N'~&~	~&~'12BF192103139D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'New'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'R'~&~	~&~'12BF192103149D6CE043814FD8819D6C'~&~	~&~'1'~&~	~&~'Contin/Competing'~&~	~&~'Y'~&~	~&~]RECORD

@@ -1,86 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10350" context="demo,unit">
-    <insert tableName="fs_tax_county_t">
-      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
-      <column name="COUNTY_CD"><![CDATA[13]]></column>
-      <column name="STATE_CD"><![CDATA[AZ]]></column>
-      <column name="TAX_REGION_CD"><![CDATA[12]]></column>
-      <column name="OBJ_ID"><![CDATA[5ACF22CFC6174AB0E0404F8189D87AB9]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fs_tax_county_t">
-      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
-      <column name="COUNTY_CD"><![CDATA[19]]></column>
-      <column name="STATE_CD"><![CDATA[AZ]]></column>
-      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
-      <column name="OBJ_ID"><![CDATA[5ACF22CFC6154AB0E0404F8189D87AB9]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fs_tax_county_t">
-      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
-      <column name="COUNTY_CD"><![CDATA[37]]></column>
-      <column name="STATE_CD"><![CDATA[CA]]></column>
-      <column name="TAX_REGION_CD"><![CDATA[4]]></column>
-      <column name="OBJ_ID"><![CDATA[5ACF22CFC6144AB0E0404F8189D87AB9]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fs_tax_county_t">
-      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
-      <column name="COUNTY_CD"><![CDATA[5]]></column>
-      <column name="STATE_CD"><![CDATA[AZ]]></column>
-      <column name="TAX_REGION_CD"><![CDATA[9]]></column>
-      <column name="OBJ_ID"><![CDATA[5ACF22CFC6164AB0E0404F8189D87AB9]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fs_tax_county_t">
-      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
-      <column name="COUNTY_CD"><![CDATA[65]]></column>
-      <column name="STATE_CD"><![CDATA[CA]]></column>
-      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
-      <column name="OBJ_ID"><![CDATA[6B64AB2CF60B9938E0404F8189D824B6]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fs_tax_county_t">
-      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
-      <column name="COUNTY_CD"><![CDATA[71]]></column>
-      <column name="STATE_CD"><![CDATA[CA]]></column>
-      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
-      <column name="OBJ_ID"><![CDATA[6B64AB2CF60D9938E0404F8189D824B6]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="fs_tax_county_t">
-      <column name="POSTAL_CNTRY_CD"><![CDATA[US]]></column>
-      <column name="COUNTY_CD"><![CDATA[83]]></column>
-      <column name="STATE_CD"><![CDATA[CA]]></column>
-      <column name="TAX_REGION_CD"><![CDATA[05PERCNTY]]></column>
-      <column name="OBJ_ID"><![CDATA[6B64AB2CF60C9938E0404F8189D824B6]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_fs_tax_county_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="fs_tax_county_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/fs_tax_county_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

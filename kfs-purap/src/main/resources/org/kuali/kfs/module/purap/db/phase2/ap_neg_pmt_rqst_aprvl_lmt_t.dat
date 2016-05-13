@@ -1,0 +1,4 @@
+HEADER[~&~	~&~AP_NEG_PMT_RQST_APRVL_LMT_ID::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~FIN_COA_CD::VARCHAR~&~	~&~ORG_CD::VARCHAR~&~	~&~ACCT_NBR::VARCHAR~&~	~&~NEG_PMT_RQST_APRVL_LMT_AMT::DECIMAL~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'1001'~&~	~&~'CC6E3F43485D8716E040540A891E6701'~&~	~&~'1'~&~	~&~'BL'~&~	~&~NULL~&~	~&~NULL~&~	~&~'4000.00'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'1002'~&~	~&~'CC6E3F43485E8716E040540A891E6701'~&~	~&~'1'~&~	~&~'BL'~&~	~&~'PSY'~&~	~&~NULL~&~	~&~'3000.00'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'1003'~&~	~&~'CC6E3F43485F8716E040540A891E6701'~&~	~&~'1'~&~	~&~'BL'~&~	~&~NULL~&~	~&~'1031420'~&~	~&~'2000.00'~&~	~&~'Y'~&~	~&~]RECORD

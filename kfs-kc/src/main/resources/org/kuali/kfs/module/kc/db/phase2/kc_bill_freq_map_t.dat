@@ -1,0 +1,8 @@
+HEADER[~&~	~&~KFS_FREQ_CD::VARCHAR~&~	~&~KC_FREQ_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~GRACE_PERIOD::DECIMAL~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'ANNU'~&~	~&~'7'~&~	~&~'EDE475D2D9CB7689E040E00ABCD61245'~&~	~&~'1'~&~	~&~'5'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'LOCB'~&~	~&~'60'~&~	~&~'EDE475D2D9CC7689E040E00ABCD61245'~&~	~&~'1'~&~	~&~'0'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MILE'~&~	~&~'14'~&~	~&~'EDE475D2D9CE7689E040E00ABCD61245'~&~	~&~'1'~&~	~&~'5'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MNTH'~&~	~&~'2'~&~	~&~'EDE475D2D9CD7689E040E00ABCD61245'~&~	~&~'1'~&~	~&~'6'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PDBS'~&~	~&~'4'~&~	~&~'EDE475D2D9CF7689E040E00ABCD61245'~&~	~&~'1'~&~	~&~'6'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'QUAR'~&~	~&~'3'~&~	~&~'EDE475D2D9D07689E040E00ABCD61245'~&~	~&~'1'~&~	~&~'5'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SEMI'~&~	~&~'6'~&~	~&~'EDE475D2D9D17689E040E00ABCD61245'~&~	~&~'1'~&~	~&~'5'~&~	~&~'Y'~&~	~&~]RECORD

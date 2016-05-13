@@ -1,0 +1,18 @@
+HEADER[~&~	~&~ITM_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ITM_TYP_DESC::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~QTY_BSD_GL_IND::VARCHAR~&~	~&~ITM_TYP_ADDL_CHRG_IND::VARCHAR~&~	~&~TAXABLE_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'DISC'~&~	~&~'2140BCA5-2D8D-F8EE-F29A-5231DE6EFFB7'~&~	~&~'1'~&~	~&~'Payment Terms Discount'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'EXMT'~&~	~&~'9A559E1D3D6ED8EAE040007F010047C6'~&~	~&~'1'~&~	~&~'Exempt'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'FDGR'~&~	~&~'9A040B34-B954-0ABC-DF59-6521DEB0919C'~&~	~&~'1'~&~	~&~'Federal Tax Gross-Up'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FDTX'~&~	~&~'3F1E1EBA-AC7D-72D8-2532-5705C399D8E0'~&~	~&~'3'~&~	~&~'Federal Tax'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'FRHT'~&~	~&~'F9DCA11A-CD24-F961-EE26-12B1C31D0360'~&~	~&~'1'~&~	~&~'Freight'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ITEM'~&~	~&~'F7C44E14-1128-60C6-71BA-151F4E113733'~&~	~&~'2'~&~	~&~'Qty'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MISC'~&~	~&~'4511536F-C4FE-7C47-D3D9-3CD2D755C920'~&~	~&~'1'~&~	~&~'Miscellaneous'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MNOR'~&~	~&~'4145ED99-905A-9CD0-202F-44F79B34BF9B'~&~	~&~'1'~&~	~&~'Minimum Order'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'MSCR'~&~	~&~'26BF335C-A987-6244-0262-84E6C2DCEF03'~&~	~&~'1'~&~	~&~'Miscellaneous Credit'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ORDS'~&~	~&~'BF44B7E5-D9E2-215A-55BE-7619F9614426'~&~	~&~'1'~&~	~&~'Full Order Discount'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'RSTO'~&~	~&~'745F4C4C-08C4-B568-0206-CD6AA34C8D96'~&~	~&~'1'~&~	~&~'Less Restocking Fee'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SPHD'~&~	~&~'15BD285E-34F7-5AF4-5B73-0E99840CE750'~&~	~&~'1'~&~	~&~'Shipping and Handling'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'SRVC'~&~	~&~'247F9EB07E9C6134E043814FD8816134'~&~	~&~'1'~&~	~&~'No Qty'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'N'~&~	~&~'N'~&~	~&~]RECORD
+RECORD[~&~	~&~'STGR'~&~	~&~'4F1A90CC-6FA0-DBD9-4AF7-396FB41A1499'~&~	~&~'1'~&~	~&~'State Tax Gross-Up'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'STTX'~&~	~&~'F026215A-B174-7418-34E3-A742B5EFEB0B'~&~	~&~'1'~&~	~&~'State Tax'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'TRDI'~&~	~&~'6C5EE90A-AAAF-701A-CFBB-B3CADBC62506'~&~	~&~'1'~&~	~&~'Trade In'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'UNOR'~&~	~&~'48163B1F312FA0C5E0404F8189D81E00'~&~	~&~'1'~&~	~&~'Unordered'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD

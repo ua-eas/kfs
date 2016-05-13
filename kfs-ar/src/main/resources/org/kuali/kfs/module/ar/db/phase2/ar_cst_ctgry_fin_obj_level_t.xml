@@ -1,127 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10048" context="demo,unit">
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BA]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_001]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_002]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[EA]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_003]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[FW]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_004]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[HO]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_005]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[IA]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_006]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[IN]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_007]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[IU]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_008]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[KO]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_009]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[NW]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_010]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[SB]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_011]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[SE]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_012]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_cst_ctgry_fin_obj_level_t">
-      <column name="CTGRY_CD"><![CDATA[SAL]]></column>
-      <column name="FIN_COA_CD"><![CDATA[UA]]></column>
-      <column name="FIN_OBJ_LEVEL_CD"><![CDATA[ACSA]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[AR_CST_CTGRY_FIN_OBJ_LEVEL_013]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_ar_cst_ctgry_fin_obj_level_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ar_cst_ctgry_fin_obj_level_t"/>
+      <param name="file" value="org/kuali/kfs/module/ar/db/phase2/ar_cst_ctgry_fin_obj_level_t.dat"/>
+    </customChange>
   </changeSet>
 </databaseChangeLog>

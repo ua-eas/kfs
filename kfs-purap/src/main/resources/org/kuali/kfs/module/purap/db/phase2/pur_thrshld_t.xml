@@ -1,128 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10659" context="demo,unit">
-    <insert tableName="pur_thrshld_t">
-      <column name="PUR_THRSHLD_ID"><![CDATA[1000]]></column>
-      <column name="OBJ_ID"><![CDATA[636024D36C7C8EC6E0404F8189D80405]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[EA]]></column>
-      <column name="ACCT_TYP_CD" value="null"/>
-      <column name="SUB_FUND_GRP_CD" value="null"/>
-      <column name="FIN_OBJECT_CD" value="null"/>
-      <column name="ORG_CD" value="null"/>
-      <column name="PUR_THRSHLD_AMT"><![CDATA[3000.00]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="PUR_COMM_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_thrshld_t">
-      <column name="PUR_THRSHLD_ID"><![CDATA[1001]]></column>
-      <column name="OBJ_ID"><![CDATA[636024D36C7D8EC6E0404F8189D80405]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[IN]]></column>
-      <column name="ACCT_TYP_CD" value="null"/>
-      <column name="SUB_FUND_GRP_CD"><![CDATA[AUXAMB]]></column>
-      <column name="FIN_OBJECT_CD" value="null"/>
-      <column name="ORG_CD" value="null"/>
-      <column name="PUR_THRSHLD_AMT"><![CDATA[1000.00]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="PUR_COMM_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_thrshld_t">
-      <column name="PUR_THRSHLD_ID"><![CDATA[1002]]></column>
-      <column name="OBJ_ID"><![CDATA[636024D36C7E8EC6E0404F8189D80405]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="ACCT_TYP_CD" value="null"/>
-      <column name="SUB_FUND_GRP_CD" value="null"/>
-      <column name="FIN_OBJECT_CD" value="null"/>
-      <column name="ORG_CD" value="null"/>
-      <column name="PUR_THRSHLD_AMT"><![CDATA[1.00]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="PUR_COMM_CD"><![CDATA[113]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_thrshld_t">
-      <column name="PUR_THRSHLD_ID"><![CDATA[1003]]></column>
-      <column name="OBJ_ID"><![CDATA[636024D36C7F8EC6E0404F8189D80405]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="ACCT_TYP_CD" value="null"/>
-      <column name="SUB_FUND_GRP_CD" value="null"/>
-      <column name="FIN_OBJECT_CD"><![CDATA[5300]]></column>
-      <column name="ORG_CD" value="null"/>
-      <column name="PUR_THRSHLD_AMT"><![CDATA[1.00]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="PUR_COMM_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_thrshld_t">
-      <column name="PUR_THRSHLD_ID"><![CDATA[1004]]></column>
-      <column name="OBJ_ID"><![CDATA[636024D36C808EC6E0404F8189D80405]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="ACCT_TYP_CD" value="null"/>
-      <column name="SUB_FUND_GRP_CD" value="null"/>
-      <column name="FIN_OBJECT_CD" value="null"/>
-      <column name="ORG_CD"><![CDATA[PSY]]></column>
-      <column name="PUR_THRSHLD_AMT"><![CDATA[5000.00]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="PUR_COMM_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_thrshld_t">
-      <column name="PUR_THRSHLD_ID"><![CDATA[1005]]></column>
-      <column name="OBJ_ID"><![CDATA[636024D36C818EC6E0404F8189D80405]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[IN]]></column>
-      <column name="ACCT_TYP_CD" value="null"/>
-      <column name="SUB_FUND_GRP_CD" value="null"/>
-      <column name="FIN_OBJECT_CD" value="null"/>
-      <column name="ORG_CD" value="null"/>
-      <column name="PUR_THRSHLD_AMT"><![CDATA[500.00]]></column>
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1000]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="PUR_COMM_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_thrshld_t">
-      <column name="PUR_THRSHLD_ID"><![CDATA[1006]]></column>
-      <column name="OBJ_ID"><![CDATA[636024D36C828EC6E0404F8189D80405]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="FIN_COA_CD"><![CDATA[BL]]></column>
-      <column name="ACCT_TYP_CD"><![CDATA[DT]]></column>
-      <column name="SUB_FUND_GRP_CD" value="null"/>
-      <column name="FIN_OBJECT_CD" value="null"/>
-      <column name="ORG_CD" value="null"/>
-      <column name="PUR_THRSHLD_AMT"><![CDATA[4999.99]]></column>
-      <column name="VNDR_HDR_GNRTD_ID" value="null"/>
-      <column name="VNDR_DTL_ASND_ID" value="null"/>
-      <column name="PUR_COMM_CD" value="null"/>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_thrshld_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_thrshld_t" />
+      <param name="file" value="org/kuali/kfs/module/purap/db/phase2/pur_thrshld_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

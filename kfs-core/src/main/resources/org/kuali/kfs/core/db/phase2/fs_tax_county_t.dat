@@ -1,0 +1,8 @@
+HEADER[~&~	~&~POSTAL_CNTRY_CD::VARCHAR~&~	~&~COUNTY_CD::VARCHAR~&~	~&~STATE_CD::VARCHAR~&~	~&~TAX_REGION_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'US'~&~	~&~'13'~&~	~&~'AZ'~&~	~&~'12'~&~	~&~'5ACF22CFC6174AB0E0404F8189D87AB9'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'US'~&~	~&~'19'~&~	~&~'AZ'~&~	~&~'05PERCNTY'~&~	~&~'5ACF22CFC6154AB0E0404F8189D87AB9'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'US'~&~	~&~'37'~&~	~&~'CA'~&~	~&~'4'~&~	~&~'5ACF22CFC6144AB0E0404F8189D87AB9'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'US'~&~	~&~'5'~&~	~&~'AZ'~&~	~&~'9'~&~	~&~'5ACF22CFC6164AB0E0404F8189D87AB9'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'US'~&~	~&~'65'~&~	~&~'CA'~&~	~&~'05PERCNTY'~&~	~&~'6B64AB2CF60B9938E0404F8189D824B6'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'US'~&~	~&~'71'~&~	~&~'CA'~&~	~&~'05PERCNTY'~&~	~&~'6B64AB2CF60D9938E0404F8189D824B6'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'US'~&~	~&~'83'~&~	~&~'CA'~&~	~&~'05PERCNTY'~&~	~&~'6B64AB2CF60C9938E0404F8189D824B6'~&~	~&~'1'~&~	~&~'Y'~&~	~&~]RECORD

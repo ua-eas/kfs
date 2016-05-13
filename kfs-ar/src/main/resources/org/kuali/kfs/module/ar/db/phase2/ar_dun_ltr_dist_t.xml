@@ -1,93 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10060" context="demo,unit">
-    <insert tableName="ar_dun_ltr_dist_t">
-      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
-      <column name="DUN_LTR_DIST_ID"><![CDATA[7]]></column>
-      <column name="OBJ_ID"><![CDATA[17dacb78-d72f-4fb0-8ed2-41eb03f33e6e]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DAYS_PST_DUE_TXT"><![CDATA[Current]]></column>
-      <column name="SND_DUN_LTR_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LTR_TYP_CD"><![CDATA[KCURRENT]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_dist_t">
-      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
-      <column name="DUN_LTR_DIST_ID"><![CDATA[8]]></column>
-      <column name="OBJ_ID"><![CDATA[8d50fd95-b98b-4348-a8d7-33d62d8c1f48]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DAYS_PST_DUE_TXT"><![CDATA[31-60]]></column>
-      <column name="SND_DUN_LTR_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LTR_TYP_CD"><![CDATA[K3160]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_dist_t">
-      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
-      <column name="DUN_LTR_DIST_ID"><![CDATA[9]]></column>
-      <column name="OBJ_ID"><![CDATA[ead67955-6e9b-49d4-8edb-3c6339f3d886]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DAYS_PST_DUE_TXT"><![CDATA[61-90]]></column>
-      <column name="SND_DUN_LTR_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LTR_TYP_CD"><![CDATA[K6190]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_dist_t">
-      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
-      <column name="DUN_LTR_DIST_ID"><![CDATA[10]]></column>
-      <column name="OBJ_ID"><![CDATA[9b08c9a8-aeff-47cf-aac5-1d856200b580]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DAYS_PST_DUE_TXT"><![CDATA[91-120]]></column>
-      <column name="SND_DUN_LTR_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LTR_TYP_CD"><![CDATA[K91120]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_dist_t">
-      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
-      <column name="DUN_LTR_DIST_ID"><![CDATA[11]]></column>
-      <column name="OBJ_ID"><![CDATA[22baf3f4-e614-4bd8-8f07-84cb6de6649e]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DAYS_PST_DUE_TXT"><![CDATA[121+]]></column>
-      <column name="SND_DUN_LTR_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LTR_TYP_CD"><![CDATA[K121+]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_dist_t">
-      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
-      <column name="DUN_LTR_DIST_ID"><![CDATA[12]]></column>
-      <column name="OBJ_ID"><![CDATA[7b3377b5-0cf4-4414-998c-a5a537aa6678]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DAYS_PST_DUE_TXT"><![CDATA[FINAL]]></column>
-      <column name="SND_DUN_LTR_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LTR_TYP_CD"><![CDATA[KFINAL]]></column>
-    </insert>
-    <insert tableName="ar_dun_ltr_dist_t">
-      <column name="CMPGN_ID"><![CDATA[KUAL]]></column>
-      <column name="DUN_LTR_DIST_ID"><![CDATA[13]]></column>
-      <column name="OBJ_ID"><![CDATA[9aab7c85-1f16-4294-88f0-7b55e3ca6549]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DAYS_PST_DUE_TXT"><![CDATA[State Agency FINAL]]></column>
-      <column name="SND_DUN_LTR_IND"><![CDATA[Y]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="LTR_TYP_CD"><![CDATA[KFINAL]]></column>
-    </insert>
+  <changeSet id="IMPORT_ar_dun_ltr_dist_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ar_dun_ltr_dist_t"/>
+      <param name="file" value="org/kuali/kfs/module/ar/db/phase2/ar_dun_ltr_dist_t.dat"/>
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,58 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10652" context="bootstrap,demo,unit">
-    <insert tableName="pur_shp_ttl_t">
-      <column name="VNDR_SHP_TTL_CD"><![CDATA[CI]]></column>
-      <column name="OBJ_ID"><![CDATA[BD3A73C7-BA3E-A68C-8C3D-B2BAE3304C7B]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_SHP_TTL_DESC"><![CDATA[CUSTOMS-INTERNATIONAL PORT]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_shp_ttl_t">
-      <column name="VNDR_SHP_TTL_CD"><![CDATA[CU]]></column>
-      <column name="OBJ_ID"><![CDATA[2DD981DD-F80F-F5B4-C92C-39483A7394EE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_SHP_TTL_DESC"><![CDATA[CUSTOMS-U.S. PORT]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_shp_ttl_t">
-      <column name="VNDR_SHP_TTL_CD"><![CDATA[DE]]></column>
-      <column name="OBJ_ID"><![CDATA[28767BE3-1708-2708-B113-99914AE68BF8]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_SHP_TTL_DESC"><![CDATA[DESTINATION]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_shp_ttl_t">
-      <column name="VNDR_SHP_TTL_CD"><![CDATA[OR]]></column>
-      <column name="OBJ_ID"><![CDATA[FC3AFA33-7C57-1A98-F3B2-39E67F0C2E01]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_SHP_TTL_DESC"><![CDATA[ORIGIN (VENDOR LOCATION)]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_shp_ttl_t">
-      <column name="VNDR_SHP_TTL_CD"><![CDATA[SP]]></column>
-      <column name="OBJ_ID"><![CDATA[BD314A70-DCE1-61CA-7B3A-6D1A340A95DE]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_SHP_TTL_DESC"><![CDATA[SHIPPING POINT (DISTRIBUTOR)]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_shp_ttl_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_shp_ttl_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_shp_ttl_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,6 @@
+HEADER[~&~	~&~ACCTG_CHG_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~ACCTG_CHG_CD_DESC::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'ACCT'~&~	~&~'3C4DCACBEAB230FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Invalid Account Number'~&~	~&~]RECORD
+RECORD[~&~	~&~'OBJ'~&~	~&~'3C4DCACBEAB130FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Invalid Object Code'~&~	~&~]RECORD
+RECORD[~&~	~&~'PROJ'~&~	~&~'6E38252C8BF2965DE0404F8189D83B69'~&~	~&~'0'~&~	~&~'Invalid Project Code'~&~	~&~]RECORD
+RECORD[~&~	~&~'SA'~&~	~&~'3C4DCACBEAAF30FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Invalid Sub Account'~&~	~&~]RECORD
+RECORD[~&~	~&~'SO'~&~	~&~'3C4DCACBEAB030FEE043814FD88130FE'~&~	~&~'0'~&~	~&~'Invalid Sub Object Code'~&~	~&~]RECORD

@@ -1,79 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10678" context="demo,unit">
-    <insert tableName="pur_vndr_shp_spcl_cond_t">
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1002]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[AR]]></column>
-      <column name="OBJ_ID"><![CDATA[4CE467D6-E918-4141-2A96-E1EAD344441C]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_shp_spcl_cond_t">
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1018]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[EX]]></column>
-      <column name="OBJ_ID"><![CDATA[4C79043E-097E-ABC4-3AEB-962EC997FEDC]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_shp_spcl_cond_t">
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[1018]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[IN]]></column>
-      <column name="OBJ_ID"><![CDATA[35D7E150-AAA9-6E41-7649-871286736E42]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_shp_spcl_cond_t">
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2003]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[OL]]></column>
-      <column name="OBJ_ID"><![CDATA[563C4C57-3686-8E15-0C05-CC05DE17EA21]]></column>
-      <column name="VER_NBR"><![CDATA[7]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_shp_spcl_cond_t">
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2013]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[AR]]></column>
-      <column name="OBJ_ID"><![CDATA[AA547115-3ACC-73E0-D083-F70ACCC82CE4]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_shp_spcl_cond_t">
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2013]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[BP]]></column>
-      <column name="OBJ_ID"><![CDATA[6484FAC0-737E-F887-500F-238978EC14F6]]></column>
-      <column name="VER_NBR"><![CDATA[3]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_vndr_shp_spcl_cond_t">
-      <column name="VNDR_HDR_GNRTD_ID"><![CDATA[2021]]></column>
-      <column name="VNDR_DTL_ASND_ID"><![CDATA[0]]></column>
-      <column name="VNDR_SHP_SPCL_COND_CD"><![CDATA[EX]]></column>
-      <column name="OBJ_ID"><![CDATA[64756873-8E86-2F73-671D-B3B08AEFC468]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_vndr_shp_spcl_cond_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_vndr_shp_spcl_cond_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_vndr_shp_spcl_cond_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

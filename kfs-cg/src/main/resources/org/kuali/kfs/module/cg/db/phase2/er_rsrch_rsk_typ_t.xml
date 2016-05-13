@@ -1,83 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10267" context="bootstrap,demo,unit">
-    <insert tableName="er_rsrch_rsk_typ_t">
-      <column name="RSRCH_RSK_TYP_CD"><![CDATA[B]]></column>
-      <column name="OBJ_ID"><![CDATA[4C20937E-5F85-383D-791A-86106F0AA07A]]></column>
-      <column name="VER_NBR"><![CDATA[10]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[S]]></column>
-      <column name="RSRCH_RSK_TYP_DESC"><![CDATA[Biosafety]]></column>
-      <column name="RSRCH_RSK_TYP_SORT_NBR"><![CDATA[15]]></column>
-      <column name="RSRCH_RSK_TYP_NTFCTN_VAL"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="er_rsrch_rsk_typ_t">
-      <column name="RSRCH_RSK_TYP_CD"><![CDATA[F]]></column>
-      <column name="OBJ_ID"><![CDATA[F4783A46-2CCF-1281-51B7-31BC58917952]]></column>
-      <column name="VER_NBR"><![CDATA[7]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[D]]></column>
-      <column name="RSRCH_RSK_TYP_DESC"><![CDATA[Financial Conflict of Interest]]></column>
-      <column name="RSRCH_RSK_TYP_SORT_NBR"><![CDATA[30]]></column>
-      <column name="RSRCH_RSK_TYP_NTFCTN_VAL"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="er_rsrch_rsk_typ_t">
-      <column name="RSRCH_RSK_TYP_CD"><![CDATA[H]]></column>
-      <column name="OBJ_ID"><![CDATA[7DFD70FD-C680-6D97-3141-0C323208574C]]></column>
-      <column name="VER_NBR"><![CDATA[9]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[A]]></column>
-      <column name="RSRCH_RSK_TYP_DESC"><![CDATA[Human Subjects]]></column>
-      <column name="RSRCH_RSK_TYP_SORT_NBR"><![CDATA[5]]></column>
-      <column name="RSRCH_RSK_TYP_NTFCTN_VAL"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="er_rsrch_rsk_typ_t">
-      <column name="RSRCH_RSK_TYP_CD"><![CDATA[M]]></column>
-      <column name="OBJ_ID"><![CDATA[5584AE55-06CC-5BF0-02DF-15C0418DACA5]]></column>
-      <column name="VER_NBR"><![CDATA[8]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[S]]></column>
-      <column name="RSRCH_RSK_TYP_DESC"><![CDATA[Animals]]></column>
-      <column name="RSRCH_RSK_TYP_SORT_NBR"><![CDATA[10]]></column>
-      <column name="RSRCH_RSK_TYP_NTFCTN_VAL"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="er_rsrch_rsk_typ_t">
-      <column name="RSRCH_RSK_TYP_CD"><![CDATA[P]]></column>
-      <column name="OBJ_ID"><![CDATA[E6071265-CABF-3943-2DBB-9CDB38FC1F07]]></column>
-      <column name="VER_NBR"><![CDATA[9]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[S]]></column>
-      <column name="RSRCH_RSK_TYP_DESC"><![CDATA[Pathogenic Agent]]></column>
-      <column name="RSRCH_RSK_TYP_SORT_NBR"><![CDATA[25]]></column>
-      <column name="RSRCH_RSK_TYP_NTFCTN_VAL"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="er_rsrch_rsk_typ_t">
-      <column name="RSRCH_RSK_TYP_CD"><![CDATA[T]]></column>
-      <column name="OBJ_ID"><![CDATA[63DD4B22-BAED-EC3D-9F9E-094087A6A699]]></column>
-      <column name="VER_NBR"><![CDATA[5]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="CTRL_ATTRIB_TYP_CD"><![CDATA[S]]></column>
-      <column name="RSRCH_RSK_TYP_DESC"><![CDATA[Human Tissue/Fluids]]></column>
-      <column name="RSRCH_RSK_TYP_SORT_NBR"><![CDATA[20]]></column>
-      <column name="RSRCH_RSK_TYP_NTFCTN_VAL"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_er_rsrch_rsk_typ_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="er_rsrch_rsk_typ_t" />
+      <param name="file" value="org/kuali/kfs/module/cg/db/phase2/er_rsrch_rsk_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

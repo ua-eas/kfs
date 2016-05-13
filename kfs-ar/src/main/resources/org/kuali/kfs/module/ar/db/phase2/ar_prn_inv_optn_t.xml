@@ -1,51 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10100" context="demo,unit">
-    <insert tableName="ar_prn_inv_optn_t">
-      <column name="AR_PRN_INV_IND"><![CDATA[B]]></column>
-      <column name="OBJ_ID"><![CDATA[4A86FE8C2F1FF2A5E0404F8189D83E32]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AR_PRN_INV_DESC"><![CDATA[Send to BILL Queue]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_prn_inv_optn_t">
-      <column name="AR_PRN_INV_IND"><![CDATA[N]]></column>
-      <column name="OBJ_ID"><![CDATA[4A86FE8C2F20F2A5E0404F8189D83E32]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AR_PRN_INV_DESC"><![CDATA[Do Not Print]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_prn_inv_optn_t">
-      <column name="AR_PRN_INV_IND"><![CDATA[Q]]></column>
-      <column name="OBJ_ID"><![CDATA[4A86FE8C2F1EF2A5E0404F8189D83E32]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AR_PRN_INV_DESC"><![CDATA[Send to PROC Queue]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ar_prn_inv_optn_t">
-      <column name="AR_PRN_INV_IND"><![CDATA[U]]></column>
-      <column name="OBJ_ID"><![CDATA[5975FDBC9EE15371E0404F8189D86217]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="AR_PRN_INV_DESC"><![CDATA[Send to USER Queue]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_ar_prn_inv_optn_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ar_prn_inv_optn_t"/>
+      <param name="file" value="org/kuali/kfs/module/ar/db/phase2/ar_prn_inv_optn_t.dat"/>
+    </customChange>
   </changeSet>
 </databaseChangeLog>

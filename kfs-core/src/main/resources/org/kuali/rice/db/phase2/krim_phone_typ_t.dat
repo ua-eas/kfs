@@ -1,0 +1,5 @@
+HEADER[~&~	~&~PHONE_TYP_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~PHONE_TYP_NM::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~DISPLAY_SORT_CD::VARCHAR~&~	~&~LAST_UPDT_DT::TIMESTAMP~&~	~&~]HEADER
+RECORD[~&~	~&~'HM'~&~	~&~'5B97C50B03906110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Home'~&~	~&~'Y'~&~	~&~'b'~&~	~&~'200811131406350000'~&~	~&~]RECORD
+RECORD[~&~	~&~'MBL'~&~	~&~'5B97C50B03916110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Mobile'~&~	~&~'Y'~&~	~&~'c'~&~	~&~'200811131406350000'~&~	~&~]RECORD
+RECORD[~&~	~&~'OTH'~&~	~&~'5B97C50B03926110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Other'~&~	~&~'Y'~&~	~&~'d'~&~	~&~'200811131406350000'~&~	~&~]RECORD
+RECORD[~&~	~&~'WRK'~&~	~&~'5B97C50B03936110E0404F8189D85213'~&~	~&~'1'~&~	~&~'Work'~&~	~&~'Y'~&~	~&~'a'~&~	~&~'200811131406350000'~&~	~&~]RECORD

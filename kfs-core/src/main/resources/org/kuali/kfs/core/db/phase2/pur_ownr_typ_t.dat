@@ -1,0 +1,7 @@
+HEADER[~&~	~&~VNDR_OWNR_CD::VARCHAR~&~	~&~OBJ_ID::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~VNDR_OWNR_DESC::VARCHAR~&~	~&~VNDR_OWNR_CTGRY_ALLW_IND::VARCHAR~&~	~&~DOBJ_MAINT_CD_ACTV_IND::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'CP'~&~	~&~'4FF9C3BA-7A5F-41D6-5116-F5D3520F1E01'~&~	~&~'3'~&~	~&~'CORPORATION'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ET'~&~	~&~'F05D0C9F-E081-3A49-0523-7695AC21F95F'~&~	~&~'3'~&~	~&~'ESTATE/TRUST'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'GV'~&~	~&~'42BDF52E-F60A-A2A1-8F72-1D0E416BDBCF'~&~	~&~'2'~&~	~&~'GOVERNMENT'~&~	~&~'N'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'ID'~&~	~&~'E0494681-68EF-C724-F2B6-8895983C411E'~&~	~&~'4'~&~	~&~'INDIVIDUAL/SOLE PROPRIETOR'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'NP'~&~	~&~'FE8C2761-1713-87CA-4401-C9607F2C3021'~&~	~&~'1'~&~	~&~'NON-PROFIT'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD
+RECORD[~&~	~&~'PT'~&~	~&~'645C0A4E-3135-7945-8FE4-9C48961C0196'~&~	~&~'1'~&~	~&~'PARTNERSHIP/LLC/LLP'~&~	~&~'Y'~&~	~&~'Y'~&~	~&~]RECORD

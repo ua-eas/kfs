@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2015 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -18,69 +17,10 @@
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="ricedata00055" context="bootstrap,demo,unit">
-    <insert tableName="krim_emp_stat_t">
-      <column name="EMP_STAT_CD"><![CDATA[A]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B037A6110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Active]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[01]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:31.0"/>
-    </insert>
-    <insert tableName="krim_emp_stat_t">
-      <column name="EMP_STAT_CD"><![CDATA[D]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B037B6110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Deceased]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[99]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:31.0"/>
-    </insert>
-    <insert tableName="krim_emp_stat_t">
-      <column name="EMP_STAT_CD"><![CDATA[L]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B037C6110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[On Non-Pay Leave]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[04]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:32.0"/>
-    </insert>
-    <insert tableName="krim_emp_stat_t">
-      <column name="EMP_STAT_CD"><![CDATA[N]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B037D6110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Status Not Yet Processed]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[03]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:32.0"/>
-    </insert>
-    <insert tableName="krim_emp_stat_t">
-      <column name="EMP_STAT_CD"><![CDATA[P]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B037E6110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Processing]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[02]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:32.0"/>
-    </insert>
-    <insert tableName="krim_emp_stat_t">
-      <column name="EMP_STAT_CD"><![CDATA[R]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B037F6110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Retired]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[10]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:32.0"/>
-    </insert>
-    <insert tableName="krim_emp_stat_t">
-      <column name="EMP_STAT_CD"><![CDATA[T]]></column>
-      <column name="OBJ_ID"><![CDATA[5B97C50B03806110E0404F8189D85213]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="NM"><![CDATA[Terminated]]></column>
-      <column name="ACTV_IND"><![CDATA[Y]]></column>
-      <column name="DISPLAY_SORT_CD"><![CDATA[97]]></column>
-      <column name="LAST_UPDT_DT" valueDate="2008-11-13 14:06:32.0"/>
-    </insert>
+  <changeSet id="IMPORT_krim_emp_stat_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="krim_emp_stat_t" />
+      <param name="file" value="org/kuali/rice/db/phase2/krim_emp_stat_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,4 @@
+HEADER[~&~	~&~CODE::VARCHAR~&~	~&~NAME::VARCHAR~&~	~&~ACTV_IND::VARCHAR~&~	~&~VER_NBR::DECIMAL~&~	~&~OBJ_ID::VARCHAR~&~	~&~]HEADER
+RECORD[~&~	~&~'FROSCH'~&~	~&~'Frosch (Ghost Card)'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415885898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'INTERNET'~&~	~&~'Internet'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415875898E040540A5EFD3A74'~&~	~&~]RECORD
+RECORD[~&~	~&~'NEWHORIZON'~&~	~&~'New Horizons (Ghost Card)'~&~	~&~'Y'~&~	~&~'1'~&~	~&~'BD96AA2415865898E040540A5EFD3A74'~&~	~&~]RECORD

@@ -1,51 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10420" context="demo,unit">
-    <insert tableName="ld_a21_rpt_typ_t">
-      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[10]]></column>
-      <column name="OBJ_ID"><![CDATA[3089F98382DA9088E043814FD8819088]]></column>
-      <column name="VER_NBR"><![CDATA[4]]></column>
-      <column name="A21_LBR_RPT_DESC"><![CDATA[10 PAY REPORTING]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ld_a21_rpt_typ_t">
-      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[12]]></column>
-      <column name="OBJ_ID"><![CDATA[3089F98382DB9088E043814FD8819088]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="A21_LBR_RPT_DESC"><![CDATA[12 PAY REPORTING]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ld_a21_rpt_typ_t">
-      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[BI]]></column>
-      <column name="OBJ_ID"><![CDATA[3089F98382DC9088E043814FD8819088]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="A21_LBR_RPT_DESC"><![CDATA[BIWEEKLY REPORTING]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="ld_a21_rpt_typ_t">
-      <column name="A21_LBR_RPT_TYP_CD"><![CDATA[SU]]></column>
-      <column name="OBJ_ID"><![CDATA[3089F98382DD9088E043814FD8819088]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="A21_LBR_RPT_DESC"><![CDATA[SUMMER REPORTING]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_ld_a21_rpt_typ_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="ld_a21_rpt_typ_t" />
+      <param name="file" value="org/kuali/kfs/module/ec/db/phase2/ld_a21_rpt_typ_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

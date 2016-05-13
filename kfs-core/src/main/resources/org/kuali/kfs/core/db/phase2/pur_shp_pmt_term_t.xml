@@ -1,55 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10650" context="bootstrap,demo,unit">
-    <insert tableName="pur_shp_pmt_term_t">
-      <column name="VNDR_SHP_PMT_TERM_CD"><![CDATA[AL]]></column>
-      <column name="OBJ_ID"><![CDATA[39F17A7F-7D98-AC92-C7FB-C922D20475EF]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_SHP_PMT_TERM_DESC"><![CDATA[VENDOR PAYS ("ALLOWED")]]></column>
-      <column name="VNDR_SHP_PMT_TERM_PAY_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_shp_pmt_term_t">
-      <column name="VNDR_SHP_PMT_TERM_CD"><![CDATA[CL]]></column>
-      <column name="OBJ_ID"><![CDATA[BA763DBD-4E1A-86C5-37AC-55EB72CD3ED2]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_SHP_PMT_TERM_DESC"><![CDATA[INST PAYS, SEPARATE BILL ("COLLECT")]]></column>
-      <column name="VNDR_SHP_PMT_TERM_PAY_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_shp_pmt_term_t">
-      <column name="VNDR_SHP_PMT_TERM_CD"><![CDATA[PA]]></column>
-      <column name="OBJ_ID"><![CDATA[777F543C-C5CD-F29C-91CF-A30F4F41EAEC]]></column>
-      <column name="VER_NBR"><![CDATA[2]]></column>
-      <column name="VNDR_SHP_PMT_TERM_DESC"><![CDATA[INST PAYS, PART OF PO ("PREPAID AND ADD")]]></column>
-      <column name="VNDR_SHP_PMT_TERM_PAY_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
-    <insert tableName="pur_shp_pmt_term_t">
-      <column name="VNDR_SHP_PMT_TERM_CD"><![CDATA[PD]]></column>
-      <column name="OBJ_ID"><![CDATA[4FFB4620-ECB0-FEE0-A489-80F5E4684291]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="VNDR_SHP_PMT_TERM_DESC"><![CDATA[PAID BY 3RD PARTY]]></column>
-      <column name="VNDR_SHP_PMT_TERM_PAY_IND"><![CDATA[Y]]></column>
-      <column name="DOBJ_MAINT_CD_ACTV_IND"><![CDATA[Y]]></column>
-    </insert>
+  <changeSet id="IMPORT_pur_shp_pmt_term_t" author="kfs" context="bootstrap,demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="pur_shp_pmt_term_t" />
+      <param name="file" value="org/kuali/kfs/core/db/phase2/pur_shp_pmt_term_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>

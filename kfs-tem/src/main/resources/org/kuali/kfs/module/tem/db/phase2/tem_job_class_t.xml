@@ -1,51 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-  <changeSet author="kfs" id="10758" context="demo,unit">
-    <insert tableName="tem_job_class_t">
-      <column name="JOB_CLS_CD"><![CDATA[AP]]></column>
-      <column name="JOB_CLS_NM"><![CDATA[Academic Personnel]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416555898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_job_class_t">
-      <column name="JOB_CLS_CD"><![CDATA[MSP]]></column>
-      <column name="JOB_CLS_NM"><![CDATA[Management/Senior Professional]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416535898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_job_class_t">
-      <column name="JOB_CLS_CD"><![CDATA[PSS]]></column>
-      <column name="JOB_CLS_NM"><![CDATA[Professional Support Staff]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416545898E040540A5EFD3A74]]></column>
-    </insert>
-    <insert tableName="tem_job_class_t">
-      <column name="JOB_CLS_CD"><![CDATA[TA]]></column>
-      <column name="JOB_CLS_NM"><![CDATA[Teaching Assistants]]></column>
-      <column name="ROW_ACTV_IND"><![CDATA[Y]]></column>
-      <column name="VER_NBR"><![CDATA[1]]></column>
-      <column name="OBJ_ID"><![CDATA[BD96AA2416565898E040540A5EFD3A74]]></column>
-    </insert>
+  <changeSet id="IMPORT_tem_job_class_t" author="kfs" context="demo,unit">
+    <customChange class="org.kuali.kfs.sys.datatools.util.TableDataLoader">
+      <param name="table" value="tem_job_class_t" />
+      <param name="file" value="org/kuali/kfs/module/tem/db/phase2/tem_job_class_t.dat" />
+    </customChange>
   </changeSet>
 </databaseChangeLog>
