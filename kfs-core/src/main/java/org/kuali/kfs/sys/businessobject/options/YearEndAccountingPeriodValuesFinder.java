@@ -48,8 +48,8 @@ public class YearEndAccountingPeriodValuesFinder extends KeyValuesBase {
         AccountingPeriod currentAccountingPeriod = SpringContext.getBean(AccountingPeriodService.class).getByDate(date);
 
         if (currentAccountingPeriod.isOpen()) {
-            // add the current period with blank value, so scrubber will set entries when posting
-            accountingPeriodCodes.add(new ConcreteKeyValue("", currentAccountingPeriod.getUniversityFiscalPeriodName()));
+            // A key value is required for the drop down.  Otherwise, the setAccountingPeriodCompositeString() will ignore it on a submit or re-save.
+            accountingPeriodCodes.add(new ConcreteKeyValue(currentAccountingPeriod.getUniversityFiscalPeriodCode() + currentAccountingPeriod.getUniversityFiscalYear(), currentAccountingPeriod.getUniversityFiscalPeriodName()));
         }
 
         String numberOfPostbackPeriodsParmVal = SpringContext.getBean(ParameterService.class).getParameterValueAsString(KFSConstants.CoreModuleNamespaces.KFS, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.DETAIL_PARAMETER_TYPE, KfsParameterConstants.YEAR_END_ACCOUNTING_PERIOD_PARAMETER_NAMES.NUMBER_OF_POSTBACK_PERIODS);
