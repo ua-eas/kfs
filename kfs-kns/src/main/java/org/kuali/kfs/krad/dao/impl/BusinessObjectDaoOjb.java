@@ -32,6 +32,7 @@ import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.OjbCollectionAware;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -67,7 +68,7 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
                 || primaryKey.getClass().getName().startsWith("java.util.")) {
 			try {
 				return (T) getPersistenceBrokerTemplate().getObjectById(clazz, primaryKey);
-			} catch ( DataAccessException ex ) {
+			} catch ( ObjectRetrievalFailureException ex ) {
 	    		// it doesn't exist, just return null
 				return null;
 			}
