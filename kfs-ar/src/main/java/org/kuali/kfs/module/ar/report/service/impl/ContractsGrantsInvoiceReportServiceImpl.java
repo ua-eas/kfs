@@ -944,7 +944,7 @@ public class ContractsGrantsInvoiceReportServiceImpl implements ContractsGrantsI
         // use a map to sort awards by agency
         Map<String, List<ContractsAndGrantsBillingAward>> awardsByAgency = new HashMap<>();
         for (ContractsAndGrantsBillingAward award : awards) {// To display awards only if their Billing frequency is not LOC Billing
-            if (!StringUtils.isBlank(award.getBillingFrequencyCode()) && !StringUtils.equalsIgnoreCase(award.getBillingFrequencyCode(), ArConstants.LOC_BILLING_SCHEDULE_CODE)) {
+            if (!StringUtils.isBlank(award.getBillingFrequencyCode()) && !ArConstants.BillingFrequencyValues.isLetterOfCredit(award)) {
                 String agencyNumber = award.getAgencyNumber();
                 if (awardsByAgency.containsKey(agencyNumber)) {
                     awardsByAgency.get(agencyNumber).add(award);

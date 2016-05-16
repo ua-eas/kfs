@@ -53,6 +53,33 @@
     
 	<bean id="purchasingAccountsPayableModuleService"  parent="purchasingAccountsPayableModuleService-parentBean"/>
 	<bean id="purchasingAccountsPayableModuleService-parentBean" class="org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleServiceNoOp"  abstract="true"/>
+
+    <bean id="arModuleConfiguration"  parent="arModuleConfiguration-parentBean"/>
+    <bean id="arModuleConfiguration-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
+        <property name="namespaceCode" value="KFS-AR" />
+        <property name="initializeDataDictionary" value="true" />
+        <property name="packagePrefixes">
+            <list>
+                <value>org.kuali.kfs.integration.ar</value>
+            </list>
+        </property>
+        <property name="dataDictionaryPackages">
+            <list>
+                <value>classpath:org/kuali/kfs/integration/ar/businessobject/datadictionary/*.xml</value>
+            </list>
+        </property>
+        <property name="externalizableBusinessObjectImplementations">
+            <map>
+                <entry key="org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency"
+                       value="org.kuali.kfs.integration.ar.businessobject.BillingFrequency" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="arModuleService"  parent="arModuleService-parentBean"/>
+    <bean id="arModuleService-parentBean" class="org.kuali.kfs.integration.UnimplementedKfsModuleServiceImpl" abstract="true">
+        <property name="moduleConfiguration" ref="arModuleConfiguration" />
+    </bean>
 	
 	<bean id="accountsReceivableModuleService"  parent="accountsReceivableModuleService-parentBean"/>
 	<bean id="accountsReceivableModuleService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleServiceNoOp"  abstract="true"/>

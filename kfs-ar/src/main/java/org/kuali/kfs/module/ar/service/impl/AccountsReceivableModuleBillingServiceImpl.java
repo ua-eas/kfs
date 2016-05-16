@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableMilestoneSchedule;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
 import org.kuali.kfs.integration.ar.AccountsReceivablePredeterminedBillingSchedule;
@@ -58,10 +57,10 @@ public class AccountsReceivableModuleBillingServiceImpl implements AccountsRecei
      */
     @Override
     public KualiDecimal getAwardBilledToDateAmount(ContractsAndGrantsBillingAward award) {
-        if (StringUtils.equalsIgnoreCase(award.getBillingFrequencyCode(), ArConstants.MILESTONE_BILLING_SCHEDULE_CODE)) {
+        if (ArConstants.BillingFrequencyValues.isMilestone(award)) {
             return getContractsGrantsInvoiceDocumentService().getMilestonesBilledToDateAmount(award.getProposalNumber());
         }
-        else if (StringUtils.equalsIgnoreCase(award.getBillingFrequencyCode(),ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+        else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(award)) {
             return getContractsGrantsInvoiceDocumentService().getPredeterminedBillingBilledToDateAmount(award.getProposalNumber());
         }
         else {

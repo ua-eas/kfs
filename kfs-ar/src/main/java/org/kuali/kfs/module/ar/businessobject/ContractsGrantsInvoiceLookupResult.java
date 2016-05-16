@@ -24,15 +24,15 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
 
 /**
  * Defines an entry in the Contracts & Grants Invoice Lookup Result.
@@ -51,7 +51,7 @@ public class ContractsGrantsInvoiceLookupResult extends TransientBusinessObjectB
     private KualiDecimal awardTotal = KualiDecimal.ZERO;
     private Collection<ContractsAndGrantsBillingAward> awards;
     private ContractsAndGrantsBillingAgency agency;
-    private ContractsAndGrantsBillingFrequency billingFrequency;
+    private BillingFrequency billingFrequency;
     private Customer customer;
 
     /**
@@ -198,8 +198,11 @@ public class ContractsGrantsInvoiceLookupResult extends TransientBusinessObjectB
      *
      * @return Returns the billingFrequency.
      */
-    public ContractsAndGrantsBillingFrequency getBillingFrequency() {
-        return billingFrequency = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(ContractsAndGrantsBillingFrequency.class).retrieveExternalizableBusinessObjectIfNecessary(this, billingFrequency, ArPropertyConstants.BILLING_FREQUENCY);
+    public BillingFrequency getBillingFrequency() {
+        if (billingFrequency == null || !StringUtils.equals(billingFrequency.getFrequency(), this.awardBillingFrequency)) {
+            billingFrequency = SpringContext.getBean(BusinessObjectService.class).findBySinglePrimaryKey(BillingFrequency.class, this.awardBillingFrequency);
+        }
+        return billingFrequency;
     }
 
 
@@ -208,7 +211,7 @@ public class ContractsGrantsInvoiceLookupResult extends TransientBusinessObjectB
      *
      * @param billingFrequency The billingFrequency to set.
      */
-    public void setBillingFrequency(ContractsAndGrantsBillingFrequency billingFrequency) {
+    public void setBillingFrequency(BillingFrequency billingFrequency) {
         this.billingFrequency = billingFrequency;
     }
 

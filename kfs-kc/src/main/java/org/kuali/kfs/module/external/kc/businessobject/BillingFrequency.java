@@ -18,15 +18,14 @@
  */
 package org.kuali.kfs.module.external.kc.businessobject;
 
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
-public class BillingFrequency implements ContractsAndGrantsBillingFrequency, MutableInactivatable {
+public class BillingFrequency implements AccountsReceivableBillingFrequency, MutableInactivatable {
 
     private String frequency;
     private String frequencyDescription;
     private Integer gracePeriodDays;
-    private String kcFrequencyCode;
     private boolean active;
 
     @Override
@@ -57,14 +56,6 @@ public class BillingFrequency implements ContractsAndGrantsBillingFrequency, Mut
 
     public void setFrequencyDescription(String frequencyDescription) {
         this.frequencyDescription = frequencyDescription;
-    }
-
-    public String getKcFrequencyCode() {
-        return kcFrequencyCode;
-    }
-
-    public void setKcFrequencyCode(String kcFrequencyCode) {
-        this.kcFrequencyCode = kcFrequencyCode;
     }
 
     @Override

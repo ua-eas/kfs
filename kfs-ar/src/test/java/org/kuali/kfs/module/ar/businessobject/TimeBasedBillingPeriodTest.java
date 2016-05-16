@@ -13,7 +13,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-03-31";
 
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MONTHLY);
     }
 
     @Test
@@ -23,7 +23,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-03-21";
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-02-28";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MONTHLY);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2015-03-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MONTHLY);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2015-02-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MONTHLY);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2014-06-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MONTHLY);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = null;
 
         boolean expectedBillable = false;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.MONTHLY);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-03-31";
 
         boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.MONTHLY);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-03-31";
 
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-03-21";
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-02-28";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2015-03-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2015-02-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2014-06-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING);
     }
 
     @Test
@@ -146,7 +146,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = null;
 
         boolean expectedBillable = false;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING);
     }
 
     @Test
@@ -158,7 +158,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-03-31";
 
         boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING);
     }
 
     @Test
@@ -169,7 +169,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-03-31";
 
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MILESTONE);
     }
 
     @Test
@@ -179,7 +179,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-03-21";
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-02-28";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MILESTONE);
     }
 
     @Test
@@ -190,7 +190,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2015-03-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MILESTONE);
     }
 
     @Test
@@ -201,7 +201,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2015-02-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MILESTONE);
     }
 
     @Test
@@ -212,7 +212,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String currentDate = "2015-04-21";
         String expectedBillingPeriodStart = "2014-06-01";
         String expectedBillingPeriodEnd = "2015-03-31";
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilled, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.MILESTONE);
     }
 
     @Test
@@ -224,7 +224,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = null;
 
         boolean expectedBillable = false;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.MILESTONE);
     }
 
     @Test
@@ -236,7 +236,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-03-31";
 
         boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.MILESTONE);
     }
 
     @Test
@@ -247,7 +247,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-03-31";
 
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -258,7 +258,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodStart = "2014-07-01";
         String expectedBillingPeriodEnd = "2015-06-30";
 
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, null, expectedBillingPeriodStart, expectedBillingPeriodEnd, true, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -271,7 +271,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = null;
 
         final boolean expectedBillable = false;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -284,7 +284,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-06-30";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -297,7 +297,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-03-31";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -309,7 +309,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = null;
 
         final boolean expectedBillable = false;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -322,7 +322,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-03-31";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -335,7 +335,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-03-31";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.QUATERLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.QUARTERLY);
     }
 
     @Test
@@ -348,7 +348,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2014-12-31";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.SEMI_ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.SEMI_ANNUALLY);
     }
 
     @Test
@@ -361,7 +361,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-06-30";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.SEMI_ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.SEMI_ANNUALLY);
     }
 
     @Test
@@ -374,7 +374,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = null;
 
         final boolean expectedBillable = false;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.SEMI_ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.SEMI_ANNUALLY);
     }
 
     @Test
@@ -387,7 +387,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-06-30";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.SEMI_ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.SEMI_ANNUALLY);
     }
 
     @Test
@@ -400,7 +400,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2014-12-31";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.SEMI_ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.SEMI_ANNUALLY);
     }
 
     @Test
@@ -413,7 +413,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-06-30";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.ANNUALLY);
     }
 
     @Test
@@ -426,7 +426,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = null;
 
         final boolean expectedBillable = false;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.ANNUALLY);
     }
 
     @Test
@@ -439,7 +439,7 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-06-30";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.ANNUALLY);
     }
 
     @Test
@@ -452,6 +452,6 @@ public class TimeBasedBillingPeriodTest extends BillingPeriodTest {
         String expectedBillingPeriodEnd = "2015-06-30";
 
         final boolean expectedBillable = true;
-        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.ANNUALLY_BILLING_SCHEDULE_CODE);
+        verifyBillingPeriodPriorTo(awardStartDate, currentDate, lastBilledDate, expectedBillingPeriodStart, expectedBillingPeriodEnd, expectedBillable, ArConstants.BillingFrequencyValues.ANNUALLY);
     }
 }

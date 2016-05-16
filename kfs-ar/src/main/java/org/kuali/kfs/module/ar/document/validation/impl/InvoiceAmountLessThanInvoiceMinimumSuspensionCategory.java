@@ -18,12 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
 import org.kuali.kfs.module.ar.document.validation.SuspensionCategoryBase;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class InvoiceAmountLessThanInvoiceMinimumSuspensionCategory extends SuspensionCategoryBase {
@@ -41,7 +39,7 @@ public class InvoiceAmountLessThanInvoiceMinimumSuspensionCategory extends Suspe
     }
 
     protected void ensureTotalInvoiceAmountIsUpToDate(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument) {
-        if (!StringUtils.equalsIgnoreCase(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.MILESTONE_BILLING_SCHEDULE_CODE) && !StringUtils.equalsIgnoreCase(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+        if (!ArConstants.BillingFrequencyValues.isMilestone(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail()) && !ArConstants.BillingFrequencyValues.isPredeterminedBilling(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail())) {
             contractsGrantsInvoiceDocumentService.recalculateTotalAmountBilledToDate(contractsGrantsInvoiceDocument);
         }
     }

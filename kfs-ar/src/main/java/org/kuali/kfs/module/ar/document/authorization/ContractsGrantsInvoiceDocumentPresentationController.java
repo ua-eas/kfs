@@ -27,12 +27,10 @@ import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocument;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.util.KRADConstants;
@@ -99,7 +97,7 @@ public class ContractsGrantsInvoiceDocumentPresentationController extends Custom
         final boolean canEdit = super.canEdit(document);
         if (canEdit) {
             final ContractsGrantsInvoiceDocument contractsGrantsInvoice = (ContractsGrantsInvoiceDocument)document;
-            if (StringUtils.equalsIgnoreCase(contractsGrantsInvoice.getInvoiceGeneralDetail().getAward().getBillingFrequencyCode(), ArConstants.LOC_BILLING_SCHEDULE_CODE)) {
+            if (ArConstants.BillingFrequencyValues.isLetterOfCredit(contractsGrantsInvoice.getInvoiceGeneralDetail().getAward())) {
                 return false;
             }
         }
@@ -110,8 +108,8 @@ public class ContractsGrantsInvoiceDocumentPresentationController extends Custom
     public boolean canProrate(ContractsGrantsInvoiceDocument document) {
         return canEdit(document) &&
                 getParameterService().getParameterValueAsBoolean(KfsParameterConstants.ACCOUNTS_RECEIVABLE_ALL.class, ArConstants.CG_PRORATE_BILL_IND) &&
-                !StringUtils.equals(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE, document.getInvoiceGeneralDetail().getBillingFrequencyCode()) &&
-                !StringUtils.equals(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE, document.getInvoiceGeneralDetail().getBillingFrequencyCode());
+                !ArConstants.BillingFrequencyValues.isMilestone(document.getInvoiceGeneralDetail()) &&
+                !ArConstants.BillingFrequencyValues.isPredeterminedBilling(document.getInvoiceGeneralDetail());
     }
 
 
@@ -125,7 +123,7 @@ public class ContractsGrantsInvoiceDocumentPresentationController extends Custom
             return false;
         }
 
-        if (StringUtils.equals(ArConstants.LOC_BILLING_SCHEDULE_CODE, document.getInvoiceGeneralDetail().getBillingFrequencyCode())) {
+        if (ArConstants.BillingFrequencyValues.isLetterOfCredit(document.getInvoiceGeneralDetail())) {
             return false;
         }
 

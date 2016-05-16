@@ -64,4 +64,8 @@
             <column name="KEY" />
         </createIndex>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINI-537_MOVE_BILLING_FREQUENCY_TABLE_TO_AR" context="bootstrap,demo,unit">
+        <renameTable oldTableName="CG_BILL_FREQ_T" newTableName="AR_BILL_FREQ_T"/>
+    </changeSet>
 </databaseChangeLog>

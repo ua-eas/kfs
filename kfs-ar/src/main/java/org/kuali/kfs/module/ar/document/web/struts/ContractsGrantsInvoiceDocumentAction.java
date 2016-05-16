@@ -74,7 +74,7 @@ public class ContractsGrantsInvoiceDocumentAction extends CustomerInvoiceAction 
         ContractsGrantsInvoiceDocumentForm cgInvoiceForm = (ContractsGrantsInvoiceDocumentForm)kualiDocumentFormBase;
         final ContractsGrantsInvoiceDocument cgInvoice = cgInvoiceForm.getContractsGrantsInvoiceDocument();
         if (shouldUpdateSuspensionCategoriesAndRecalculateTotalAmountBilledToDate(cgInvoice)) {
-            if (!StringUtils.equalsIgnoreCase(cgInvoice.getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.MILESTONE_BILLING_SCHEDULE_CODE) && !StringUtils.equalsIgnoreCase(cgInvoice.getInvoiceGeneralDetail().getBillingFrequencyCode(), ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE)) {
+            if (!ArConstants.BillingFrequencyValues.isMilestone(cgInvoice.getInvoiceGeneralDetail()) && !ArConstants.BillingFrequencyValues.isPredeterminedBilling(cgInvoice.getInvoiceGeneralDetail())) {
                 ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
                 contractsGrantsInvoiceDocumentService.recalculateTotalAmountBilledToDate(cgInvoice);
             }

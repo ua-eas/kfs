@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.integration.cg;
 
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 
@@ -452,7 +453,7 @@ public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward 
      *
      * @return Returns the billingFrequency.
      */
-    public ContractsAndGrantsBillingFrequency getBillingFrequency();
+    public AccountsReceivableBillingFrequency getBillingFrequency();
 
     /**
      * Gets the awardPrimaryProjectDirector attribute.

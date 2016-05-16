@@ -125,6 +125,7 @@ public class AwardDTO implements Serializable {
 	private String locFund;
 	private String locFundCode;
 	private Date locFundStartDate;
+	private Date locFundExpirationDate;
 	private BigDecimal locFundAmount;
 	private String locFundGroup;
 	private String locFundGroupCode;
@@ -400,6 +401,12 @@ public class AwardDTO implements Serializable {
 
 	public void setLocFundStartDate(Date locFundStartDate) {
 		this.locFundStartDate = locFundStartDate;
+	}
+	public Date getLocFundExpirationDate() {
+		return locFundExpirationDate;
+	}
+	public void setLocFundExpirationDate(Date locFundExpirationDate) {
+		this.locFundExpirationDate = locFundExpirationDate;
 	}
 
 	public BigDecimal getLocFundAmount() {

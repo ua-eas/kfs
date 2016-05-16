@@ -54,7 +54,7 @@
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFundGroup" value="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFundGroup"/>
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund" value="org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund"/>
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsInstrumentType" value="org.kuali.kfs.module.external.kc.businessobject.InstrumentType"/>
-                <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency" value="org.kuali.kfs.module.external.kc.businessobject.BillingFrequency"/>
+                <entry key="org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency" value="org.kuali.kfs.module.external.kc.businessobject.BillingFrequency"/>
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector" value="org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector" />
                 <entry key="org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager" value="org.kuali.kfs.module.external.kc.businessobject.AwardFundManager" />
              </map>

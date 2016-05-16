@@ -201,6 +201,14 @@
 						</list>
 					</property>
 				</bean>
+				<bean parent="RelationshipDefinition">
+					<property name="objectAttributeName" value="billingFrequency"/>
+					<property name="primitiveAttributes">
+						<list>
+							<bean parent="PrimitiveAttributeDefinition" p:sourceName="billingFrequencyCode" p:targetName="frequency" />
+						</list>
+					</property>
+				</bean>
 			</list>
 		</property>
 		<property name="inactivationBlockingDefinitions">

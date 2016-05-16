@@ -21,7 +21,7 @@ package org.kuali.kfs.module.external.kc.businessobject;
 
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsOrganization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector;
@@ -108,7 +108,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     private ContractsAndGrantsLetterOfCreditFund letterOfCreditFund;
     private String userLookupRoleName;
     private AwardFundManager awardPrimaryFundManager;
-    private ContractsAndGrantsBillingFrequency billingFrequency;
+    private AccountsReceivableBillingFrequency billingFrequency;
     private ContractsAndGrantsProjectDirector awardPrimaryProjectDirector;
     private ContractsAndGrantsOrganization primaryAwardOrganization;
     private Date fundingExpirationDate;
@@ -724,11 +724,11 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
     @Override
-    public ContractsAndGrantsBillingFrequency getBillingFrequency() {
+    public AccountsReceivableBillingFrequency getBillingFrequency() {
         return billingFrequency;
     }
 
-    public void setBillingFrequency(ContractsAndGrantsBillingFrequency billingFrequency) {
+    public void setBillingFrequency(AccountsReceivableBillingFrequency billingFrequency) {
         this.billingFrequency = billingFrequency;
     }
 

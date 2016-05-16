@@ -27,7 +27,7 @@
 	<bean id="BillingFrequency-parentBean" abstract="true"
 		parent="BusinessObjectEntry">
 		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.cg.businessobject.BillingFrequency" />
+			value="org.kuali.kfs.module.ar.businessobject.BillingFrequency" />
 		<property name="inquiryDefinition">
 			<ref bean="BillingFrequency-inquiryDefinition" />
 		</property>

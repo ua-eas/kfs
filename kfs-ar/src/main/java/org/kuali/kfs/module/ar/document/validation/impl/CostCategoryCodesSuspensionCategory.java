@@ -18,7 +18,6 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDetail;
 import org.kuali.kfs.module.ar.businessobject.InvoiceAccountDetail;
@@ -38,10 +37,8 @@ public class CostCategoryCodesSuspensionCategory extends SuspensionCategoryBase 
      */
     @Override
     public boolean shouldSuspend(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument) {
-        String billingFrequencyCode = contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getAward().getBillingFrequencyCode();
-
-        if (!StringUtils.equals(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE, billingFrequencyCode) &&
-                !StringUtils.equals(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE, billingFrequencyCode)) {
+        if (!ArConstants.BillingFrequencyValues.isMilestone(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getAward()) &&
+                !ArConstants.BillingFrequencyValues.isPredeterminedBilling(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getAward())) {
             ContractsGrantsInvoiceDetail totalCostInvoiceDetail = contractsGrantsInvoiceDocument.getTotalCostInvoiceDetail();
             KualiDecimal categoryCumulativeExpenditure = totalCostInvoiceDetail.getCumulativeExpenditures();
             KualiDecimal accountDetailsCumulativeExpenditure = KualiDecimal.ZERO;

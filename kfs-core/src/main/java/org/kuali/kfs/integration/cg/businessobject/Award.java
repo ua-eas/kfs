@@ -24,7 +24,7 @@ import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingFrequency;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsOrganization;
@@ -86,7 +86,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String analystTelephoneNumber;
 
     private String billingFrequencyCode;
-    private ContractsAndGrantsBillingFrequency billingFrequency;
+    private AccountsReceivableBillingFrequency billingFrequency;
 
 
 
@@ -1277,7 +1277,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      * @return Returns the billingFrequency.
      */
     @Override
-    public ContractsAndGrantsBillingFrequency getBillingFrequency() {
+    public AccountsReceivableBillingFrequency getBillingFrequency() {
         return billingFrequency;
     }
 
@@ -1286,7 +1286,7 @@ public class Award implements ContractsAndGrantsBillingAward {
      *
      * @param billingFrequency The billingFrequency to set.
      */
-    public void setBillingFrequency(ContractsAndGrantsBillingFrequency billingFrequency) {
+    public void setBillingFrequency(AccountsReceivableBillingFrequency billingFrequency) {
         this.billingFrequency = billingFrequency;
     }
 

@@ -31,6 +31,7 @@ import org.kuali.kfs.coa.service.impl.AccountingPeriodServiceImpl;
 import org.kuali.kfs.coa.service.impl.MockAccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.module.ar.batch.service.impl.VerifyBillingFrequencyServiceImpl;
+import org.kuali.kfs.module.ar.businessobject.BillingFrequency;
 import org.kuali.kfs.module.ar.businessobject.BillingPeriod;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -139,7 +140,7 @@ public class VerifyBillingFrequencyServiceTest {
         Assert.assertEquals(Date.valueOf(beginningDate), billingPeriod.getStartDate());
         Assert.assertEquals(Date.valueOf(endDate), billingPeriod.getEndDate());
 
-        boolean withinGracePeriod = verifyBillingFrequencyService.calculateIfWithinGracePeriod(date, billingPeriod, award.getLastBilledDate(), award.getBillingFrequency());
+        boolean withinGracePeriod = verifyBillingFrequencyService.calculateIfWithinGracePeriod(date, billingPeriod, award.getLastBilledDate(), (BillingFrequency)award.getBillingFrequency());
         Assert.assertEquals(expectedWithinGracePeriod, withinGracePeriod);
     }
 

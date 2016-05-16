@@ -95,7 +95,7 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
     }
 
     public void testCorrectedMilestones() throws WorkflowException {
-        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.MILESTONE_BILLING_SCHEDULE_CODE);
+        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.BillingFrequencyValues.MILESTONE.getCode());
 
         documentService.saveDocument(document);
 
@@ -134,7 +134,7 @@ public class InvoiceCorrectionTest extends CGInvoiceDocumentTestBase {
     }
 
     public void testCorrectedBills() throws WorkflowException {
-        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE);
+        document.getInvoiceGeneralDetail().setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         documentService.saveDocument(document);
 
         String documentNumber = document.getDocumentNumber();
