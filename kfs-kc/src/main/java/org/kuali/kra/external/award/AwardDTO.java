@@ -74,6 +74,7 @@ import java.util.List;
 	"locFund",
 	"locFundCode",
 	"locFundStartDate",
+	"locFundExpirationDate",
 	"locFundAmount",
 	"locFundGroup",
 	"locFundGroupCode"
