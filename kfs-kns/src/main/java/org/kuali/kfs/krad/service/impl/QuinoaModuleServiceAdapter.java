@@ -303,6 +303,6 @@ public class QuinoaModuleServiceAdapter implements ModuleService {
 
 	@Override
 	public boolean isExternal(Class boClass) {
-		return false;
+		return true;
 	}
 }
