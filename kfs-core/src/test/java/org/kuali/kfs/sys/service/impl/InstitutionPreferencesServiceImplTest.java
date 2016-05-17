@@ -1488,6 +1488,11 @@ public class InstitutionPreferencesServiceImplTest {
                     public void afterPropertiesSet() throws Exception {
 
                     }
+
+					@Override
+					public boolean isExternal(Class boClass) {
+						return false;
+					}
                 };
             }
             return null;

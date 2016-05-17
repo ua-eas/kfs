@@ -599,4 +599,9 @@ public abstract class RemoteModuleServiceBase implements ModuleService {
     public boolean goToCentralRiceForInquiry() { 
         return false;
     }
+    
+	@Override
+	public boolean isExternal(Class boClass) {
+		return false;
+	}
 }

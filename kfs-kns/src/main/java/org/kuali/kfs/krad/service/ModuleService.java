@@ -222,9 +222,7 @@ public interface ModuleService extends InitializingBean, ApplicationContextAware
      * @param boClass
      * @return
      */
-    public default boolean isExternal(Class boClass) {
-    	return false;
-    }
+    public boolean isExternal(Class boClass);
 
     /**
      * @param <T>
