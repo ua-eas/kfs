@@ -1488,6 +1488,11 @@ public class InstitutionPreferencesServiceImplTest {
                     public void afterPropertiesSet() throws Exception {
 
                     }
+
+					@Override
+					public boolean isExternal(Class boClass) {
+						return false;
+					}
                 };
             }
             return null;
@@ -1522,6 +1527,11 @@ public class InstitutionPreferencesServiceImplTest {
         public String getComponentCode(Class<?> documentOrStepClass) {
             return null;
         }
+
+		@Override
+		public boolean isBusinessObjectExternal(String boClassName) {
+			return false;
+		}
     }
 
     class NoPermissionsInstitutionPreferencesServiceImpl extends InstitutionPreferencesServiceImpl {

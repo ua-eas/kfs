@@ -41,6 +41,7 @@ import org.springframework.context.ApplicationContextAware;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -49,6 +50,7 @@ public class KualiModuleServiceImpl implements KualiModuleService, InitializingB
     private List<ModuleService> installedModuleServices = new ArrayList<ModuleService>();
     private boolean loadRiceInstalledModuleServices;
     private ApplicationContext applicationContext;
+    private ConcurrentHashMap<Class, ModuleService> responsibleModuleServices = new ConcurrentHashMap<Class, ModuleService>();
     
     /**
 	 * @param applicationContext the applicationContext to set
@@ -111,8 +113,12 @@ public class KualiModuleServiceImpl implements KualiModuleService, InitializingB
     	if(boClass==null) {
 			return null;
 		}
+    	if (responsibleModuleServices.containsKey(boClass)) {
+    		return responsibleModuleServices.get(boClass);
+    	}
     	for (ModuleService moduleService : installedModuleServices) {
     	    if ( moduleService.isResponsibleFor( boClass ) ) {
+    	    	responsibleModuleServices.put(boClass, moduleService);
     	        return moduleService;
     	    }
     	}
@@ -264,5 +270,21 @@ public class KualiModuleServiceImpl implements KualiModuleService, InitializingB
         throw new IllegalArgumentException("Unable to determine the component code for documentClass " + documentClass.getName());
     }
 
+    @Override
+    public boolean isBusinessObjectExternal(String boClassName) {
+    	if (boClassName == null) {
+    		return false;
+    	}
+    	if (boClassName.startsWith("org.kuali.rice")) {
+    		return true;
+    	}
+    	try {
+    		Class boClass = Class.forName(boClassName);
+    		return getResponsibleModuleService(boClass).isExternal(boClass);
+    	} catch (ClassNotFoundException e) {
+    		// It's nothing, let alone an external business object.
+    		return false;
+    	}
+    }
 }
 

@@ -856,6 +856,7 @@
         <entry key="AuthorizationConstants" value-ref="AuthorizationConstants"/>
         <entry key="ConfigProperties" value-ref="ConfigProperties"/>
         <entry key="UifConstants" value-ref="UifConstants"/>
+        <entry key="kualiModuleService" value-ref="cf.kualiModuleService"/>
       </map>
     </property>
   </bean>

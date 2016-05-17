@@ -51,6 +51,11 @@ public class KcKfsModuleServiceImpl  extends KfsModuleServiceImpl  {
         Class<? extends ExternalizableBusinessObject> implementationClass = getExternalizableBusinessObjectImplementation(businessObjectClass);
         return (List<T>) getExternalizableBusinessObjectService(implementationClass).findMatching(fieldValues);
     }
+    
+    @Override
+    public boolean isExternal(Class boClass) {
+    	return isExternalizable(boClass);
+    }
 
     /**
      * Finds the business object service via the class to service mapping provided in the module configuration.

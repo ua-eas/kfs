@@ -78,6 +78,14 @@ public interface KualiModuleService {
      * @return
      */
     public String getNamespaceName(String namespaceCode);
+    
+    /**
+     * Determines whether a business object is an externally implemented EBO.
+     * 
+     * @param boClassName
+     * @return
+     */
+    public boolean isBusinessObjectExternal(String boClassName);
 
     String getNamespaceCode(Class<?> documentOrStepClass);
     String getComponentCode(Class<?> documentOrStepClass);
