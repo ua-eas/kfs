@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.document.web.renderers;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLinesTag;
 
 import javax.servlet.jsp.JspException;
@@ -26,6 +27,9 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Renders the header of an accounting line table
@@ -67,9 +71,28 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
     protected String decideTableClass(Tag parentTag) {
         String tableClass = null;
         if (parentTag instanceof AccountingLinesTag) {
-            int sourceSize = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines().size();
-            int targetSize = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines().size();
-            if (sourceSize > 99 || targetSize > 99) {
+        	// Find greatest source line #
+        	List sourceLines = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines();
+        	int sourceSize = sourceLines.size();
+	        if (sourceSize > 0 && sourceLines.get(0) instanceof AccountingLine) {
+	        	AccountingLine lastSourceLine = Collections.max((List<AccountingLine>)sourceLines, Comparator.comparingInt(l -> l.getSequenceNumber()));
+	        	if (lastSourceLine != null) {
+	        		sourceSize = lastSourceLine.getSequenceNumber();
+	        	}
+        	}
+        	
+        	// Find greatest target line #
+        	List targetLines = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines();
+        	int targetSize = targetLines.size();
+        	if (targetSize >0 && targetLines.get(0) instanceof AccountingLine) {
+	        	AccountingLine lastTargetLine = Collections.max((List<AccountingLine>)targetLines, Comparator.comparingInt(l -> l.getSequenceNumber()));
+	        	if (lastTargetLine != null) {
+	        		targetSize = lastTargetLine.getSequenceNumber();
+	        	}
+        	}
+        	
+        	// If any line # is 3 digits, use wide sequence number column
+        	if (sourceSize > 99 || targetSize > 99) {
                 tableClass = "large-seq";
             }
         }
