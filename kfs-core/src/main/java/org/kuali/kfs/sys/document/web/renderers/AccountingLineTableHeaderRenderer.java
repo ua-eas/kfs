@@ -76,7 +76,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         	int sourceSize = sourceLines.size();
 	        if (sourceSize > 0 && sourceLines.get(0) instanceof AccountingLine) {
 	        	AccountingLine lastSourceLine = Collections.max((List<AccountingLine>)sourceLines, Comparator.comparingInt(l -> l.getSequenceNumber()));
-	        	if (lastSourceLine != null) {
+	        	if (lastSourceLine != null && lastSourceLine.getSequenceNumber() != null) {
 	        		sourceSize = lastSourceLine.getSequenceNumber();
 	        	}
         	}
@@ -86,7 +86,7 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         	int targetSize = targetLines.size();
         	if (targetSize >0 && targetLines.get(0) instanceof AccountingLine) {
 	        	AccountingLine lastTargetLine = Collections.max((List<AccountingLine>)targetLines, Comparator.comparingInt(l -> l.getSequenceNumber()));
-	        	if (lastTargetLine != null) {
+	        	if (lastTargetLine != null && lastTargetLine.getSequenceNumber() != null) {
 	        		targetSize = lastTargetLine.getSequenceNumber();
 	        	}
         	}
