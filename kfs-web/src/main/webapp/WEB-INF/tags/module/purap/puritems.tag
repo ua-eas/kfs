@@ -96,7 +96,13 @@
         </c:if>
 
 
-        <table class="standard side-margins acct-lines" summary="Items Section">
+        <c:set var="itemCount" value="0"/>
+        <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
+            <c:if test="${itemLine.itemType.lineItemIndicator == true}">
+                <c:set var="itemCount" value="${itemCount + 1}"/>
+            </c:if>
+        </logic:iterate>
+        <table class="standard side-margins acct-lines ${itemCount > 99 ? 'large-seq' : ''}" summary="Items Section">
             <c:if test="${(fullEntryMode or amendmentEntry) and !lockB2BEntry}">
                 <tr class="title">
                     <th style="visibility: hidden;"></th>
@@ -349,12 +355,6 @@
                 </tr>
             </c:if>
 
-            <c:set var="itemCount" value="0"/>
-            <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
-                <c:if test="${itemLine.itemType.lineItemIndicator == true}">
-                    <c:set var="itemCount" value="${itemCount + 1}"/>
-                </c:if>
-            </logic:iterate>
             <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
                 <c:if test="${itemLine.itemType.lineItemIndicator == true}">
                     <c:set var="currentTabIndex" value="${KualiForm.currentTabIndex}" scope="request" />
