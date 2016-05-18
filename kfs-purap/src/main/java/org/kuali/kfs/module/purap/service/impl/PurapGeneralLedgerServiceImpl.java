@@ -1,44 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import static org.kuali.kfs.module.purap.PurapConstants.HUNDRED;
-import static org.kuali.kfs.module.purap.PurapConstants.PURAP_ORIGIN_CODE;
-import static org.kuali.kfs.sys.KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE;
-import static org.kuali.kfs.sys.KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD;
-import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
-import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
-import static org.kuali.kfs.sys.KFSConstants.MONTH1;
-import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.SubObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurapDocTypeCodes;
 import org.kuali.kfs.module.purap.businessobject.AccountsPayableSummaryAccount;
@@ -72,11 +59,24 @@ import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.purap.PurapConstants.HUNDRED;
+import static org.kuali.kfs.module.purap.PurapConstants.PURAP_ORIGIN_CODE;
+import static org.kuali.kfs.sys.KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE;
+import static org.kuali.kfs.sys.KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD;
+import static org.kuali.kfs.sys.KFSConstants.GL_CREDIT_CODE;
+import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
+import static org.kuali.kfs.sys.KFSConstants.MONTH1;
+import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
 
 @Transactional
 public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService {
@@ -669,9 +669,8 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
             }
 
             KualiDecimal itemAmount = null;
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("generateEntriesClosePurchaseOrder() " + logItmNbr + " Calculate based on amounts");
-            }
+            LOG.debug("generateEntriesClosePurchaseOrder() " + logItmNbr + " Calculate based on amounts");
+
             itemAmount = item.getItemOutstandingEncumberedAmount() == null ? ZERO : item.getItemOutstandingEncumberedAmount();
 
             KualiDecimal accountTotal = ZERO;
@@ -729,8 +728,6 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
                 account.setItemAccountOutstandingEncumbranceAmount(KualiDecimal.ZERO);
             }
         }
-
-        LOG.debug("generateEntriesClosePurchaseOrder() exit method");
     }
 
     /**
@@ -741,8 +738,8 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
      * @return
      */
     protected boolean shouldGenerateGLPEForPurchaseOrder(PurchaseOrderDocument po) {
-        for (PurchaseOrderAccount acct : (List<PurchaseOrderAccount>)po.getSourceAccountingLines()) {
-            if (acct.getAlternateAmountForGLEntryCreation().abs().compareTo(new KualiDecimal(0)) > 0) {
+        for (SourceAccountingLine acct : po.getGlOnlySourceAccountingLines()) {
+            if (acct.getAmount().compareTo(KualiDecimal.ZERO) != 0) {
                 return true;
             }
         }
