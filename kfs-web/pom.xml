@@ -75,6 +75,7 @@
               <goal>unpack</goal>
             </goals>
             <configuration>
+            	<skip>${help.skip}</skip>
               <artifactItems>
                 <artifactItem>
                   <groupId>org.kuali.kfs</groupId>
@@ -100,6 +101,9 @@
             </resource>
             <resource>
               <directory>${help.web.sources}</directory>
+              <includes>
+              	<include>**/${help.skip}*</include>
+              </includes>
             </resource>
             <resource>
               <directory>src/main/webapp/</directory>

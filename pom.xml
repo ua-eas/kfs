@@ -78,6 +78,8 @@
 
     <rice.web.sources>${project.build.directory}/generated-web-sources/rice-web-sources</rice.web.sources>
     <help.web.sources>${project.build.directory}/generated-web-sources/help-web-sources</help.web.sources>
+	<!-- Setting this to true excludes help file processing, significantly speeding the build -->
+    <help.skip></help.skip>
     <rice.web.excludes>
       kr/,
       krad/,
