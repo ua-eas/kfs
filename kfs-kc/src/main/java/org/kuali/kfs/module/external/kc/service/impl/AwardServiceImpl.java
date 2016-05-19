@@ -30,20 +30,18 @@ import org.kuali.kfs.module.external.kc.businessobject.AwardAccount;
 import org.kuali.kfs.module.external.kc.businessobject.AwardFundManager;
 import org.kuali.kfs.module.external.kc.businessobject.AwardOrganization;
 import org.kuali.kfs.module.external.kc.businessobject.AwardProjectDirector;
-import org.kuali.kfs.module.external.kc.businessobject.BillingFrequency;
 import org.kuali.kfs.module.external.kc.businessobject.LetterOfCreditFund;
 import org.kuali.kfs.module.external.kc.businessobject.Proposal;
-import org.kuali.kra.external.award.AwardAccountDTO;
-import org.kuali.kra.external.award.AwardDTO;
-import org.kuali.kra.external.award.AwardFieldValuesDto;
-import org.kuali.kra.external.award.AwardSearchCriteriaDto;
 import org.kuali.kfs.module.external.kc.service.AccountDefaultsService;
-import org.kuali.kfs.module.external.kc.service.BillingFrequencyService;
 import org.kuali.kfs.module.external.kc.service.ExternalizableLookupableBusinessObjectService;
 import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;
 import org.kuali.kfs.module.external.kc.webService.AwardWebSoapService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kra.external.award.AwardAccountDTO;
+import org.kuali.kra.external.award.AwardDTO;
+import org.kuali.kra.external.award.AwardFieldValuesDto;
+import org.kuali.kra.external.award.AwardSearchCriteriaDto;
 import org.kuali.kra.external.award.AwardWebService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
@@ -71,7 +69,6 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AwardServiceImpl.class);
 
     protected AccountDefaultsService accountDefaultsService;
-    protected BillingFrequencyService billingFrequencyService;
     protected ConfigurationService configurationService;
     protected ParameterService parameterService;
     protected PersonService personService;
@@ -226,14 +223,8 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
             award.setLetterOfCreditFundCode(kcAward.getMethodOfPayment().getMethodOfPaymentCode());
             award.setLetterOfCreditFund(new LetterOfCreditFund(kcAward.getMethodOfPayment().getMethodOfPaymentCode(), kcAward.getMethodOfPayment().getDescription()));
         }
-        BillingFrequency billingFrequency = getBillingFrequencyService().createBillingFrequency(kcAward.getInvoiceBillingFrequency());
-        award.setBillingFrequency(billingFrequency);
-        if (billingFrequency != null) {
-            /*
-             * JAMES - HERE
-             */
-            award.setBillingFrequencyCode(billingFrequency.getFrequency());
-        }
+
+        award.setBillingFrequencyCode(kcAward.getInvoiceBillingFrequency().getFrequencyCode());
         award.setAwardPrimaryProjectDirector(getProjectDirector(kcAward));
         award.setExcludedFromInvoicing(kcAward.isExcludedFromInvoicing());
         award.setExcludedFromInvoicingReason(kcAward.getExcludedFromInvoicingReason());
@@ -280,14 +271,6 @@ public class AwardServiceImpl implements ExternalizableLookupableBusinessObjectS
 
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
-    }
-
-    protected BillingFrequencyService getBillingFrequencyService() {
-        return billingFrequencyService;
-    }
-
-    public void setBillingFrequencyService(BillingFrequencyService billingFrequencyService) {
-        this.billingFrequencyService = billingFrequencyService;
     }
 
     public ConfigurationService getConfigurationService() {

@@ -19,12 +19,15 @@
 
 package org.kuali.kfs.module.external.kc.businessobject;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsOrganization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.module.external.kc.KcConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
@@ -725,6 +728,9 @@ public class Award implements ContractsAndGrantsBillingAward {
 
     @Override
     public AccountsReceivableBillingFrequency getBillingFrequency() {
+        if (billingFrequency == null || !StringUtils.equals(billingFrequency.getFrequency(), billingFrequencyCode)) {
+            billingFrequency = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(AccountsReceivableBillingFrequency.class).retrieveExternalizableBusinessObjectIfNecessary(this, billingFrequency, KcConstants.BILLING_FREQUENCY);
+        }
         return billingFrequency;
     }
 

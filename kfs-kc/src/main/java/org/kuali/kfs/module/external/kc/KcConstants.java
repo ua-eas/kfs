@@ -214,4 +214,6 @@ public class KcConstants {
 
     public static final String DEFAULT_AWARD_FUND_MANAGER_TITLE = "Fund Manager";
 
+    public static final String BILLING_FREQUENCY = "billingFrequency";
+
 }
