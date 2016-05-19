@@ -23,16 +23,24 @@
     <c:choose>
         <c:when test="${not (empty field.inquiryURL.href || empty field.propertyValue)}">
         	<c:choose>
-	        		<c:when test="${field.inquiryURL.modalAllowed}">
-		            <a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>" data-remodal-target="modal">
+        		<c:when test="${fn:startsWith(field.inquiryURL.href, 'http')}">
+        			<c:set var="inquiryPrefix" value="" />
+        		</c:when>
+        		<c:otherwise>
+        			<c:set var="inquiryPrefix" value="${ConfigProperties.application.url}/kr/" />
+        		</c:otherwise>
+        	</c:choose>
+        	<c:choose>
+	        	<c:when test="${field.inquiryURL.modalAllowed}">
+		            <a href="<c:out value="${inquiryPrefix}${field.inquiryURL.href}&mode=modal"/>" title="<c:out value="${field.inquiryURL.title}"/>" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>" data-remodal-target="modal">
 		                <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
 		            </a>
-		            <a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="Open in new tab" class="new-window">
+		            <a href="<c:out value="${inquiryPrefix}${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="Open in new tab" class="new-window">
 		                <span class="glyphicon glyphicon-new-window"></span>
 		            </a>
 	            </c:when>
 	            <c:otherwise>
-	            	<a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="<c:out value="${field.inquiryURL.title}"/> (open in new tab)" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>">
+	            	<a href="<c:out value="${inquiryPrefix}${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="<c:out value="${field.inquiryURL.title}"/> (open in new tab)" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>">
 		                <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
 		            </a>
 	            </c:otherwise>
