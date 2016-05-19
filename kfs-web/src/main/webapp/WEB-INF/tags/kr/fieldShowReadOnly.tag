@@ -40,7 +40,7 @@
 		            </a>
 	            </c:when>
 	            <c:otherwise>
-	            	<a href="<c:out value="${ConfigProperties.application.url}/kr/${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="<c:out value="${field.inquiryURL.title}"/> (open in new tab)" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>">
+	            	<a href="<c:out value="${inquiryPrefix}${field.inquiryURL.href}&mode=standalone"/>" target='_blank' title="<c:out value="${field.inquiryURL.title}"/> (open in new tab)" data-label="<c:out value="${field.inquiryURL.objectLabel}"/>">
 		                <kul:readonlyfield addHighlighting="${addHighlighting}" field="${field}" isLookup="${isLookup}" />
 		            </a>
 	            </c:otherwise>
