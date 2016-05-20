@@ -109,6 +109,7 @@
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-name>batchFileUpload</servlet-name>
         <servlet-name>reports</servlet-name>
+        <url-pattern>/monitoring/*</url-pattern>
         <url-pattern>/purap/*</url-pattern>
         <url-pattern>/app/*</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
