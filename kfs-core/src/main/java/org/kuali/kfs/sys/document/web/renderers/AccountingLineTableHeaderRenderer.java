@@ -52,49 +52,48 @@ public class AccountingLineTableHeaderRenderer implements Renderer {
         cellCount = 0;
     }
 
-    /**
-     * Renders the header for the accounting line table to the screen
-     * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
-     */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
         JspWriter out = pageContext.getOut();
 
         try {
             out.write(buildDivStart());
-            out.write(buildTableStart(decideTableClass(parentTag)));
+
+            String tableClass = null;
+            if ( parentTag instanceof AccountingLinesTag) {
+                List<AccountingLine> sourceLines = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines();
+                List<AccountingLine> targetLines = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines();
+                tableClass = decideTableClass(sourceLines, targetLines);
+            }
+            out.write(buildTableStart(tableClass));
         }
         catch (IOException ioe) {
             throw new JspException("Difficulty rendering AccountingLineTableHeader", ioe);
         }
     }
 
-    protected String decideTableClass(Tag parentTag) {
+    protected String decideTableClass(List<AccountingLine> sourceLines,List<AccountingLine> targetLines) {
         String tableClass = null;
-        if (parentTag instanceof AccountingLinesTag) {
-        	// Find greatest source line #
-        	List sourceLines = ((AccountingLinesTag) parentTag).getDocument().getSourceAccountingLines();
-        	int sourceSize = sourceLines.size();
-	        if (sourceSize > 0 && sourceLines.get(0) instanceof AccountingLine) {
-	        	AccountingLine lastSourceLine = Collections.max((List<AccountingLine>)sourceLines, Comparator.comparingInt(l -> l.getSequenceNumber()));
-	        	if (lastSourceLine != null && lastSourceLine.getSequenceNumber() != null) {
-	        		sourceSize = lastSourceLine.getSequenceNumber();
-	        	}
-        	}
-        	
-        	// Find greatest target line #
-        	List targetLines = ((AccountingLinesTag) parentTag).getDocument().getTargetAccountingLines();
-        	int targetSize = targetLines.size();
-        	if (targetSize >0 && targetLines.get(0) instanceof AccountingLine) {
-	        	AccountingLine lastTargetLine = Collections.max((List<AccountingLine>)targetLines, Comparator.comparingInt(l -> l.getSequenceNumber()));
-	        	if (lastTargetLine != null && lastTargetLine.getSequenceNumber() != null) {
-	        		targetSize = lastTargetLine.getSequenceNumber();
-	        	}
-        	}
-        	
-        	// If any line # is 3 digits, use wide sequence number column
-        	if (sourceSize > 99 || targetSize > 99) {
-                tableClass = "large-seq";
+        // Find greatest source line #
+        int sourceSize = sourceLines.size();
+        if (sourceSize > 0 && sourceLines.get(0) instanceof AccountingLine) {
+            AccountingLine lastSourceLine = Collections.max(sourceLines, Comparator.comparingInt(l -> l.getSequenceNumber() == null ? 0 : l.getSequenceNumber()));
+            if (lastSourceLine != null && lastSourceLine.getSequenceNumber() != null) {
+                sourceSize = lastSourceLine.getSequenceNumber();
             }
+        }
+
+        // Find greatest target line #
+        int targetSize = targetLines.size();
+        if (targetSize >0 && targetLines.get(0) instanceof AccountingLine) {
+            AccountingLine lastTargetLine = Collections.max(targetLines, Comparator.comparingInt(l -> l.getSequenceNumber() == null ? 0 : l.getSequenceNumber()));
+            if (lastTargetLine != null && lastTargetLine.getSequenceNumber() != null) {
+                targetSize = lastTargetLine.getSequenceNumber();
+            }
+        }
+
+        // If any line # is 3 digits, use wide sequence number column
+        if (sourceSize > 99 || targetSize > 99) {
+            tableClass = "large-seq";
         }
         return tableClass;
     }
