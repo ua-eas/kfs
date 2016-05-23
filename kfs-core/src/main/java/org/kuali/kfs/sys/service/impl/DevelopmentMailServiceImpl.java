@@ -30,8 +30,8 @@ public class DevelopmentMailServiceImpl extends MailServiceImpl {
     @Override
     public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
         LOG.info( "*********************** EMAIL SEND *****************************");
-        LOG.info( "FROM : " + message.getToAddresses() );
-        LOG.info( "TO   : " + message.getFromAddress() );
+        LOG.info( "FROM : " + message.getFromAddress() );
+        LOG.info( "TO   : " + message.getToAddresses() );
         LOG.info( "CC   : " + message.getCcAddresses() );
         LOG.info( "BCC  : " + message.getBccAddresses() );
         LOG.info( "SUBJECT : " + message.getSubject() );
