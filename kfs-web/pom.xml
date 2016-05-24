@@ -75,7 +75,7 @@
               <goal>unpack</goal>
             </goals>
             <configuration>
-            	<skip>${help.skip}</skip>
+              <skip>${help.skip}</skip>
               <artifactItems>
                 <artifactItem>
                   <groupId>org.kuali.kfs</groupId>
@@ -92,8 +92,25 @@
         </executions>
       </plugin>
       <plugin>
+        <!-- this creates the empty directory so that maven does not complain when -Dhelp.skip is used -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <phase>process-resources</phase>
+            <configuration>
+              <target>
+                <mkdir dir="${help.web.sources}/static/help"/>
+              </target>
+            </configuration>
+            <goals><goal>run</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.1.1</version>
+        <version>2.6</version>
         <configuration>
           <webResources>
             <resource>
@@ -119,6 +136,7 @@
           </webResources>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>co.kuali</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
