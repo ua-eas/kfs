@@ -63,12 +63,14 @@ public class AgencyAddress implements ContractsAndGrantsAgencyAddress {
         this.agencyLine2StreetAddress = kcAddress.getAddressLine2();
         this.agencyLine3StreetAddress = kcAddress.getAddressLine3();
         this.agencyCityName = kcAddress.getCity();
-        Country country = LocationApiServiceLocator.getCountryService().getCountryByAlternateCode(kcAddress.getCountryCode());
         Country defaultCountry = LocationApiServiceLocator.getCountryService().getDefaultCountry();
-        if (country != null) {
-            this.agencyCountryCode = country.getCode();
-        } else {
-            this.agencyCountryCode = kcAddress.getCountryCode();
+        if (StringUtils.isNotEmpty(kcAddress.getCountryCode())) {
+            Country country = LocationApiServiceLocator.getCountryService().getCountryByAlternateCode(kcAddress.getCountryCode());       
+            if (country != null) {
+                this.agencyCountryCode = country.getCode();
+            } else {
+                this.agencyCountryCode = kcAddress.getCountryCode();
+            }
         }
         if (StringUtils.equals(getAgencyCountryCode(), defaultCountry.getCode())) {
             this.agencyStateCode = kcAddress.getState();
