@@ -18,12 +18,9 @@
  */
 package org.kuali.kfs.sys.context;
 
-import org.kuali.kfs.sys.suite.TestSuiteBuilder;
-
 /**
  * This class shuts down spring after unit testing
  */
-@TestSuiteBuilder.Exclude
 public class ContinuousIntegrationShutdown extends KualiTestBase {
 
     @Override

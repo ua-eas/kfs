@@ -33,8 +33,6 @@ import org.kuali.kfs.sys.batch.TriggerDescriptor;
 import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
 import org.kuali.kfs.sys.batch.dataaccess.impl.FiscalYearMakerImpl;
 import org.kuali.kfs.sys.service.impl.KfsModuleServiceImpl;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.PreCommitSuite;
 import org.kuali.rice.core.framework.persistence.dao.PlatformAwareDao;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
@@ -45,7 +43,6 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
 
 @ConfigureContext
-@AnnotationTestSuite(PreCommitSuite.class)
 public class SpringConfigurationConsistencyCheckTest extends KualiTestBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SpringConfigurationConsistencyCheckTest.class);
 

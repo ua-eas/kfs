@@ -37,8 +37,6 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.CrossSectionSuite;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.ErrorMessage;
@@ -48,7 +46,6 @@ import org.springframework.util.AutoPopulatingList;
 /**
  * Test class for testing <code>{@link ItemParser}</code>
  */
-@AnnotationTestSuite(CrossSectionSuite.class)
 @ConfigureContext(session = UserNameFixture.parke)
 public class ItemParserTest extends KualiTestBase {
     PurchasingDocument purDoc;

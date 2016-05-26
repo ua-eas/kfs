@@ -28,8 +28,6 @@ import org.kuali.kfs.sys.context.ProxyUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.IcrEncumbranceSuite;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
@@ -40,7 +38,6 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
  * files on disk to perform this test.
  */
 @ConfigureContext
-@AnnotationTestSuite(IcrEncumbranceSuite.class)
 public class IcrEncumbranceFileRenameStepTest extends IcrEncumbranceStepTestBase {
     private BatchDirectoryHelper batchDirectoryHelper;
 

@@ -40,8 +40,6 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.CrossSectionSuite;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
@@ -233,7 +231,6 @@ public class InternalBillingDocumentTest extends KualiTestBase {
         assertTrue("document should have failed validation: " + dumpMessageMapErrors(),failedAsExpected);
     }
 
-    @AnnotationTestSuite(CrossSectionSuite.class)
     @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
     public final void testApprove_updateAccessibleAccount() throws Exception {
         // switch user to WESPRICE, build and route document with

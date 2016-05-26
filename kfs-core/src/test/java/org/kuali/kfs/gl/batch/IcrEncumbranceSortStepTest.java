@@ -29,15 +29,12 @@ import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.IcrEncumbranceSuite;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * A class to test functionality of the IcrEncumbranceSortStepTest class.
  */
 @ConfigureContext
-@AnnotationTestSuite(IcrEncumbranceSuite.class)
 public class IcrEncumbranceSortStepTest extends IcrEncumbranceStepTestBase {
 
     private IcrEncumbranceSortStep icrEncumbranceSortStep;

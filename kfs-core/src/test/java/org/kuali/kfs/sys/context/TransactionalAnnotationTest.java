@@ -19,8 +19,6 @@
 package org.kuali.kfs.sys.context;
 
 import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.PreCommitSuite;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.BeanIsAbstractException;
 
@@ -32,7 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-@AnnotationTestSuite(PreCommitSuite.class)
 @ConfigureContext
 /**
  * This test checks that services are properly annotated as either Transactional

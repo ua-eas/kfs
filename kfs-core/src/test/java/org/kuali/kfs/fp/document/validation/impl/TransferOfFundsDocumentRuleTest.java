@@ -67,8 +67,6 @@ import org.kuali.kfs.sys.document.validation.impl.AccountingLineValueAllowedVali
 import org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture;
 import org.kuali.kfs.sys.service.IsDebitTestUtils;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.CrossSectionSuite;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.DocumentService;
@@ -79,8 +77,6 @@ public class TransferOfFundsDocumentRuleTest extends KualiTestBase {
 
     private static final String NON_MANDATORY_TRANSFER_OBJECT_CODE = "1669";
 
-
-    @AnnotationTestSuite(CrossSectionSuite.class)
     public void testProcessGenerateGeneralLedgerPendingEntries_validSourceExpenseFlexibleOffset() throws Exception {
         TestUtils.setSystemParameter(OffsetDefinition.class, KFSConstants.SystemGroupParameterNames.FLEXIBLE_OFFSET_ENABLED_FLAG, "Y");
         testGenerateGeneralLedgerPendingEntriesRule_ProcessGenerateGeneralLedgerPendingEntries(createDocument(), FLEXIBLE_EXPENSE_LINE.createTargetAccountingLine(), EXPECTED_FLEXIBLE_EXPLICIT_SOURCE_PENDING_ENTRY_FOR_EXPENSE2, EXPECTED_FLEXIBLE_OFFSET_SOURCE_PENDING_ENTRY);
