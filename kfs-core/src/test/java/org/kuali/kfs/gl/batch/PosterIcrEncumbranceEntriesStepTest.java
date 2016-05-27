@@ -33,15 +33,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.dataaccess.UnitTestSqlDao;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.IcrEncumbranceSuite;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 
 /**
  * This class tests posting of ICR Encumbrance entries to the general ledger table.
  */
 @ConfigureContext
-@AnnotationTestSuite(IcrEncumbranceSuite.class)
 public class PosterIcrEncumbranceEntriesStepTest extends IcrEncumbranceStepTestBase {
     private BatchDirectoryHelper batchDirectoryHelper;
 

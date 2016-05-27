@@ -34,8 +34,6 @@ import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.kfs.sys.fixture.UniversityDateServiceFixture;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.IcrEncumbranceSuite;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 
@@ -45,7 +43,6 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  * since this step can't succeed without the service and dao succeeding.
  */
 @ConfigureContext
-@AnnotationTestSuite(IcrEncumbranceSuite.class)
 public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
 
     // Based KFS 5.3 contrib branch demo data

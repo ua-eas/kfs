@@ -34,8 +34,6 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.CrossSectionSuite;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
@@ -158,7 +156,6 @@ public class GlobalDocumentTest extends KualiTestBase {
 
     }
 
-    @AnnotationTestSuite(CrossSectionSuite.class)
     @ConfigureContext(session = khuntley, shouldCommitTransactions = true)
     public final void testSaveAndLoadDocument_globalDelegate() throws Exception {
 

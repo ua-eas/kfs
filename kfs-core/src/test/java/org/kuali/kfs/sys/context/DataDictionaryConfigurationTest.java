@@ -36,8 +36,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.document.datadictionary.FinancialSystemMaintenanceDocumentEntry;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.PreCommitSuite;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.datadictionary.InquiryDefinition;
@@ -52,7 +50,6 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.kuali.kfs.krad.datadictionary.DefaultListableBeanFactory;
 
-@AnnotationTestSuite(PreCommitSuite.class)
 @ConfigureContext
 public class DataDictionaryConfigurationTest extends KualiTestBase {
     private static final Logger LOG = Logger.getLogger(DataDictionaryConfigurationTest.class);

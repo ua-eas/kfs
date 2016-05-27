@@ -32,8 +32,6 @@ import java.util.Map;
 
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.sys.suite.AnnotationTestSuite;
-import org.kuali.kfs.sys.suite.PreCommitSuite;
 import org.kuali.kfs.coreservice.api.parameter.Parameter;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
@@ -43,7 +41,6 @@ import org.springframework.aop.framework.ProxyFactory;
 /**
  * This class provides utility methods for use during manual testing.
  */
-@AnnotationTestSuite(PreCommitSuite.class)
 public class TestUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TestUtils.class);
     private static Integer fiscalYearForTesting;
