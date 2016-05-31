@@ -27,7 +27,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sponsorCriteriaDto", propOrder = {
     "sponsorCode",
-    "customerNumber"
+    "customerNumber",
+    "sponsorName",
+    "dunsPlusFourNumber",
+    "active"
 })
 public class SponsorCriteriaDto implements Serializable {
 
@@ -35,8 +38,29 @@ public class SponsorCriteriaDto implements Serializable {
 
 	private String sponsorCode;
 	private String customerNumber;
+	private String sponsorName;
+	private String dunsPlusFourNumber;
+	private String active;
 
-	public String getSponsorCode() {
+	public String getSponsorName() {
+        return sponsorName;
+    }
+    public void setSponsorName(String sponsorName) {
+        this.sponsorName = sponsorName;
+    }
+    public String getDunsPlusFourNumber() {
+        return dunsPlusFourNumber;
+    }
+    public void setDunsPlusFourNumber(String dunsPlusFourNumber) {
+        this.dunsPlusFourNumber = dunsPlusFourNumber;
+    }
+    public String isActive() {
+        return active;
+    }
+    public void setActive(String active) {
+        this.active = active;
+    }
+    public String getSponsorCode() {
 		return sponsorCode;
 	}
 	public void setSponsorCode(String sponsorCode) {
