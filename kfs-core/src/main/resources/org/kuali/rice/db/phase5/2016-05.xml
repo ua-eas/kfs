@@ -178,4 +178,78 @@
             <where>doc_typ_nm = 'BFM'</where>
         </delete>
     </changeSet>
+    <changeSet author="kfs" id="FINP-275_VENDOR_TAX_UNMASK_PERM" context="bootstrap,demo,unit">
+    	<insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-TAXID-PERM-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[27]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-VND]]></column>
+            <column name="NM"><![CDATA[Full Unmask Field VendorTaxDetail.vendorHeader.vendorTaxNumber]]></column>
+            <column name="DESC_TXT"><![CDATA[Authorizes users to view the entire Tax Number on the Vendor Tax Detail Lookup.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275UNMASKCOMP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[11]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
+            <column name="ATTR_VAL"><![CDATA[VendorTaxDetail]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275UNMASKPROP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-ATTR-DATA-002]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[11]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[6]]></column>
+            <column name="ATTR_VAL"><![CDATA[vendorHeader.vendorTaxNumber]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-UNMASK-TAXID-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[45]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275UNMASK]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-VENDOR-TAX]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_TMPL_ID"><![CDATA[23]]></column>
+            <column name="NMSPC_CD"><![CDATA[KFS-VND]]></column>
+            <column name="NM"><![CDATA[Look Up Vendor Tax Detail]]></column>
+            <column name="DESC_TXT"><![CDATA[Authorizes users to perform a lookup on Vendor Tax Detail.]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275LOOKUPNS]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-ATTR-DATA-001]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[10]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[4]]></column>
+            <column name="ATTR_VAL"><![CDATA[KFS-VND]]></column>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID"><![CDATA[FINP275LOOKUPCOMP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-ATTR-DATA-002]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="KIM_TYP_ID"><![CDATA[10]]></column>
+            <column name="KIM_ATTR_DEFN_ID"><![CDATA[5]]></column>
+            <column name="ATTR_VAL"><![CDATA[VendorTaxDetail]]></column>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="OBJ_ID"><![CDATA[FINP-275-LOOKUP-VENDOR-TAX-ROLE-PERM]]></column>
+            <column name="VER_NBR"><![CDATA[1]]></column>
+            <column name="ROLE_ID"><![CDATA[45]]></column>
+            <column name="PERM_ID"><![CDATA[FINP275LOOKUP]]></column>
+            <column name="ACTV_IND"><![CDATA[Y]]></column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
