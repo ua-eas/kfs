@@ -40,6 +40,7 @@
 <%@ attribute name="sessionDocument" required="false" description="Unused." %>
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
+<%@ attribute name="openNav" required="false"%>
 
 <%-- Is the screen an inquiry? --%>
 <c:set var="_isInquiry" value="${requestScope[Constants.PARAM_MAINTENANCE_VIEW_MODE] eq Constants.PARAM_MAINTENANCE_VIEW_MODE_INQUIRY}" />
@@ -133,7 +134,7 @@
 					  headerMenuBar="${headerMenuBar}" headerTabActive="${headerTabActive}" alternativeHelp="${alternativeHelp}"
 					  feedbackKey="${feedbackKey}" errorKey="${errorKey}" auditCount="${auditCount}"
 					  documentWebScope="${documentWebScope}" maintenanceDocument="${maintenanceDocument}"
-					  renderInnerDiv="${renderInnerDiv}" cachingTimestamp="${cachingTimestamp}">
+					  renderInnerDiv="${renderInnerDiv}" cachingTimestamp="${cachingTimestamp}" openNav="${openNav}">
 
 			<div id="page-content">
                 <jsp:doBody/>

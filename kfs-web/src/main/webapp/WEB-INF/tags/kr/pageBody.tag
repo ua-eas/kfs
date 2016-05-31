@@ -41,6 +41,7 @@
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
 <%@ attribute name="cachingTimestamp" required="false"%>
+<%@ attribute name="openNav" required="false" %>
 
 <c:set var="bodyClass" value="body"/>
 <c:choose>
@@ -52,7 +53,9 @@
     </c:when>
 </c:choose>
 
-<c:set var="openNav" value="${false}"/>
+<c:if test="${ empty openNav }">
+	<c:set var="openNav" value="${false}"/>
+</c:if>
 
 <%-- Is the screen an inquiry? --%>
 <c:set var="_isInquiry" value="${requestScope[Constants.PARAM_MAINTENANCE_VIEW_MODE] eq Constants.PARAM_MAINTENANCE_VIEW_MODE_INQUIRY}" />
@@ -111,7 +114,7 @@
                         <c:catch var="exception">${KualiForm.lastActionTaken}</c:catch>
                     </c:set>
                     <c:set var="mainClass" value="fullwidth"/>
-                    <c:if test="${lastAction eq 'route' and !errorKey and (empty auditCount or auditCount < 1) and (empty ErrorContainer or ErrorContainer.errorCount < 1)}">
+                    <c:if test="${(lastAction eq 'route' and !errorKey and (empty auditCount or auditCount < 1) and (empty ErrorContainer or ErrorContainer.errorCount < 1)) or openNav}">
                         <c:set var="mainClass" value=""/>
                         <c:set var="openNav" value="${true}"/>
                     </c:if>
