@@ -51,27 +51,7 @@ public class SponsorServiceImpl implements ExternalizableLookupableBusinessObjec
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SponsorServiceImpl.class);
 
     protected ConfigurationService configurationService;
-
-    protected SponsorWebService getWebService() {
-        // first attempt to get the service from the KSB - works when KFS & KC share a Rice instance
-        SponsorWebService sponsorWebService = (SponsorWebService) GlobalResourceLoader.getService(KcConstants.Sponsor.SERVICE);
-
-        // if we couldn't get the service from the KSB, get as web service - for when KFS & KC have separate Rice instances
-        if (sponsorWebService == null) {
-            LOG.warn("Couldn't get SponsorWebService from KSB, setting it up as SOAP web service - expected behavior for bundled Rice, but not when KFS & KC share a standalone Rice instance.");
-            SponsorWebSoapService ss =  null;
-            try {
-                ss = new SponsorWebSoapService();
-            }
-            catch (MalformedURLException ex) {
-                LOG.error("Could not intialize SponsorWebSoapService: " + ex.getMessage());
-                throw new RuntimeException("Could not intialize SponsorWebSoapService: " + ex.getMessage());
-            }
-            sponsorWebService = ss.getSponsorWebServicePort();
-        }
-
-        return sponsorWebService;
-    }
+    protected SponsorWebService sponsorWebService;
 
     @Override
     public ExternalizableBusinessObject findByPrimaryKey(Map primaryKeys) {
@@ -85,6 +65,9 @@ public class SponsorServiceImpl implements ExternalizableLookupableBusinessObjec
         SponsorCriteriaDto criteria = new SponsorCriteriaDto();
         criteria.setSponsorCode((String) fieldValues.get("agencyNumber"));
         criteria.setCustomerNumber((String) fieldValues.get("customerNumber"));
+        criteria.setSponsorName((String) fieldValues.get("reportingName"));
+        criteria.setDunsPlusFourNumber((String) fieldValues.get("dunsPlusFourNumber"));
+        criteria.setActive((String) fieldValues.get("active"));
 
         try {
           result  = this.getWebService().getMatchingSponsors(criteria);
@@ -114,6 +97,32 @@ public class SponsorServiceImpl implements ExternalizableLookupableBusinessObjec
 
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
+    }
+    
+    protected synchronized SponsorWebService getWebService() {
+        if (sponsorWebService == null) {
+            // first attempt to get the service from the KSB - works when KFS & KC share a Rice instance
+            sponsorWebService = (SponsorWebService) GlobalResourceLoader.getService(KcConstants.Sponsor.SERVICE);
+    
+            // if we couldn't get the service from the KSB, get as web service - for when KFS & KC have separate Rice instances
+            if (sponsorWebService == null) {
+                LOG.warn("Couldn't get SponsorWebService from KSB, setting it up as SOAP web service - expected behavior for bundled Rice, but not when KFS & KC share a standalone Rice instance.");
+                SponsorWebSoapService ss =  null;
+                try {
+                    ss = new SponsorWebSoapService();
+                }
+                catch (MalformedURLException ex) {
+                    LOG.error("Could not intialize SponsorWebSoapService: " + ex.getMessage());
+                    throw new RuntimeException("Could not intialize SponsorWebSoapService: " + ex.getMessage());
+                }
+                sponsorWebService = ss.getSponsorWebServicePort();
+            }
+        }
+        return sponsorWebService;
+    }
+    
+    public void setWebService(SponsorWebService webService) {
+        sponsorWebService = webService;
     }
 
  }

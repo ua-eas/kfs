@@ -232,10 +232,8 @@
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="agencyNumber" />
 				<bean parent="FieldDefinition" p:attributeName="reportingName" />
-				<bean parent="FieldDefinition" p:attributeName="fullName" />
 				<bean parent="FieldDefinition" p:attributeName="dunsPlusFourNumber" />
 				<bean parent="FieldDefinition" p:attributeName="customerNumber" />
-				<bean parent="FieldDefinition" p:attributeName="customerTypeCode" />
 				<bean parent="FieldDefinition" p:defaultValue="Y" p:attributeName="active" />
 			</list>
 		</property>
@@ -243,11 +241,9 @@
 			<list>
 				<bean parent="FieldDefinition" p:attributeName="agencyNumber" />
 				<bean parent="FieldDefinition" p:attributeName="reportingName" />
-				<bean parent="FieldDefinition" p:attributeName="fullName" />
 				<bean parent="FieldDefinition" p:attributeName="inStateIndicator" />
 				<bean parent="FieldDefinition" p:attributeName="dunsPlusFourNumber" />
 				<bean parent="FieldDefinition" p:attributeName="customerNumber" />
-				<bean parent="FieldDefinition" p:attributeName="customerTypeCode" />
 				<bean parent="FieldDefinition" p:attributeName="active" />			
 			</list>
 		</property>
