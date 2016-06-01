@@ -22,10 +22,9 @@
 
 <kul:page showDocumentInfo="false" docTitleClass="center"
 	headerTitle="Financials - Session Timeout" docTitle="Financials - Session Timeout" renderMultipart="true"
-	transactionalDocument="false" htmlFormAction="SessionInvalidateAction" errorKey="foo">
+	transactionalDocument="false" htmlFormAction="SessionInvalidateAction" errorKey="foo" openNav="true">
 
     <div style="margin-top: 10px; text-align: center; font-size: 1.2em;">
 	    <strong>Your session has timed out.</strong><br/>
-	    <a href="${Constants.PORTAL_ACTION}">Return to Main Page</a>
 	</div>
 </kul:page> 
