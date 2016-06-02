@@ -51,6 +51,12 @@
         p:serviceInterface="org.kuali.kfs.module.external.kc.service.DunningCampaignService" 
         p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
         
+    <bean id="billingFrequencyServiceSOAP" parent="kfsCallbackService"
+    	p:callbackService-ref="billingFrequencyService" p:localServiceName="billingFrequencyServiceSOAP" 
+        p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
+        p:serviceInterface="org.kuali.kfs.module.external.kc.service.BillingFrequencyService" 
+        p:busSecurity="${kuali.coeus.integration.bus.security.enabled}"/>
+        
     <bean id="customerCreationServiceSOAP" parent="kfsCallbackService"
     	p:callbackService-ref="customerCreationService" p:localServiceName="customerCreationServiceSOAP"
     	p:serviceNameSpaceURI="${kc-kfs.kfs.service.namespace.uri}"
