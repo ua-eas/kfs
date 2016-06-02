@@ -207,6 +207,7 @@ public class KcConstants {
     }
 
     public static class BillingFrequencyService {
+        public static final String WEB_SERVICE_NAME = "billingFrequencyService";
         public static final String FREQUENCY = "frequency";
         public static final String FREQUENCY_DESCRIPTION = "frequencyDescription";
         public static final String KC_FREQUENCY_CODE = "kcFrequencyCode";

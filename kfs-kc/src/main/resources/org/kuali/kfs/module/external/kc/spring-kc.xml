@@ -167,6 +167,9 @@
       	<property name="contractsAndGrantsModuleService" ref="contractsAndGrantsModuleService" />
     </bean>
     
+    <bean id="billingFrequencyService" parent="billingFrequencyService-parentBean"/>
+    <bean id="billingFrequencyService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.BillingFrequencyServiceImpl" abstract="true"/>
+    
     <bean id="dunningCampaignService" parent="dunningCampaignService-parentBean"/>
     <bean id="dunningCampaignService-parentBean" class="org.kuali.kfs.module.external.kc.service.impl.DunningCampaignServiceImpl" abstract="true"/>
     
