@@ -18,46 +18,33 @@
  */
 package org.kuali.kfs.sys.service.impl;
 
-import javax.mail.MessagingException;
-
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.service.impl.MailServiceImpl;
 import org.kuali.kfs.sys.mail.AttachmentMailMessage;
 import org.kuali.kfs.sys.mail.AttachmentMailer;
 import org.kuali.kfs.sys.service.AttachmentMailService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.impl.MailServiceImpl;
+
+import javax.mail.MessagingException;
 
 /**
  * This class extends the Rice MailServiceImpl class to add support for attachments.
  */
 public class AttachmentMailServiceImpl extends MailServiceImpl implements AttachmentMailService {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AttachmentMailServiceImpl.class);
 
     protected AttachmentMailer attachmentMailer;
 
     @Override
     public void sendMessage(AttachmentMailMessage message) throws InvalidAddressException, MessagingException {
-        attachmentMailer.sendEmail(composeMessage(message));
-    }
+        LOG.debug("sendMessage() started");
 
-    /**
-     * This method composes an AttachmentMailMessage.
-     *
-     * @param message
-     * @return
-     */
-    protected AttachmentMailMessage composeMessage(AttachmentMailMessage message){
-        AttachmentMailMessage mm = new AttachmentMailMessage(super.composeMessage(message));
-        mm.setContent(message.getContent());
-        mm.setType(message.getType());
-        mm.setFileName(message.getFileName());
-        return mm;
-    }
+        AttachmentMailMessage amm = new AttachmentMailMessage(modifyForNonProduction(message,false));
+        amm.setSubject(messageSubject(amm.getSubject()));
 
-    public AttachmentMailer getAttachmentMailer() {
-        return attachmentMailer;
+        attachmentMailer.sendEmail(amm);
     }
 
     public void setAttachmentMailer(AttachmentMailer attachmentMailer) {
         this.attachmentMailer = attachmentMailer;
     }
-
 }

@@ -1,43 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.velocity.app.VelocityEngine;
-import org.kuali.kfs.sys.service.VelocityEmailService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.MailService;
+import org.kuali.kfs.sys.service.VelocityEmailService;
+import org.kuali.rice.core.api.mail.MailMessage;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-/**
- * This is the base class for sending email using velocity email engine.
- *
- * Please note, this class is subject to code refactoring and redesign.
- */
+import java.util.Collection;
+import java.util.Map;
+
 public abstract class VelocityEmailServiceBase implements VelocityEmailService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(VelocityEmailServiceBase.class);
+
     protected MailService mailService;
     protected ParameterService parameterService;
     protected VelocityEngine velocityEngine;
@@ -49,80 +43,29 @@ public abstract class VelocityEmailServiceBase implements VelocityEmailService {
      */
     @Override
     public void sendEmailNotification(final Map<String, Object> templateVariables) {
-        String body = "";
+        LOG.debug("sendEmailNotification() started");
+
         // Allow template variables can be retrieved from extending class
         try {
             final MailMessage mailMessage = constructMailMessage(templateVariables);
-            
-            // HTML email message
-            if(isHtmlMessage()){
-            	mailService.sendMessage(mailMessage, true);
-            	return;
-            }
-            
-            
-            // simple text email message
-            mailService.sendMessage(mailMessage, false);
-        }
-        catch (Exception ex) {
+
+            mailService.sendMessage(mailMessage,htmlMessage);
+        } catch (Exception ex) {
             LOG.error("Exception received when send email ", ex);
-            LOG.error(body);
+            throw new RuntimeException("Unable to send email",ex);
         }
     }
 
-    /**
-     * Gets the htmlMessage attribute.
-     *
-     * @return Returns the htmlMessage
-     */
-
-    public boolean isHtmlMessage() {
-        return htmlMessage;
-    }
-
-    /**
-     * Sets the htmlMessage attribute.
-     *
-     * @param htmlMessage The htmlMessage to set.
-     */
-    public void setHtmlMessage(boolean htmlMessage) {
-        this.htmlMessage = htmlMessage;
-    }
-
-    /**
-     * Set message receiver email address if there are multiple
-     *
-     * @param emailReceiver
-     * @param message
-     */
     protected void setAndSplitEmailAddress(Collection<String> emailReceiver, MailMessage message) {
-        // split email addresses
-        for (String receiver : emailReceiver) {
-            message.addToAddress(receiver);
-        }
+        emailReceiver.stream().forEach(r -> message.addToAddress(r));
     }
 
-    /**
-     * Add BCC email address
-     *
-     * @param message
-     * @param bccEmailReceivers
-     */
     protected void setAndSplitCcEmailReceivers(Collection<String> ccEmailReceivers, MailMessage message) {
-        for (String receiver : ccEmailReceivers) {
-            message.addCcAddress(receiver);
-        }
+        ccEmailReceivers.stream().forEach(r -> message.addCcAddress(r));
     }
-    /**
-     * Add BCC email address
-     *
-     * @param message
-     * @param bccEmailReceivers
-     */
+
     protected void setAndSplitBccEmailReceivers(Collection<String> bccEmailReceivers, MailMessage message) {
-        for (String receiver : bccEmailReceivers) {
-            message.addBccAddress(receiver);
-        }
+        bccEmailReceivers.stream().forEach(r -> message.addBccAddress(r));
     }
 
     /**
@@ -152,7 +95,7 @@ public abstract class VelocityEmailServiceBase implements VelocityEmailService {
             setAndSplitBccEmailReceivers(emailReceivers, message);
         }
 
-        String body = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(), getTemplateUrl(), templateVariables);
+        String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, getTemplateUrl(), templateVariables);
         message.setMessage(body);
         return message;
     }
@@ -172,73 +115,23 @@ public abstract class VelocityEmailServiceBase implements VelocityEmailService {
         return null;
     }
 
-    /**
-     * Gets the mailService attribute.
-     *
-     * @return Returns the mailService
-     */
-
-    public MailService getMailService() {
-        return mailService;
-    }
-
-    /**
-     * Sets the mailService attribute.
-     *
-     * @param mailService The mailService to set.
-     */
     public void setMailService(MailService mailService) {
         this.mailService = mailService;
     }
 
-    /**
-     * Gets the parameterService attribute.
-     *
-     * @return Returns the parameterService
-     */
-
-    public ParameterService getParameterService() {
-        return parameterService;
-    }
-
-    /**
-     * Sets the parameterService attribute.
-     *
-     * @param parameterService The parameterService to set.
-     */
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
 
-    /**
-     * Gets the businessObjectService attribute.
-     *
-     * @return Returns the businessObjectService
-     */
-
-    public BusinessObjectService getBusinessObjectService() {
-        return businessObjectService;
-    }
-
-    /**
-     * Sets the businessObjectService attribute.
-     *
-     * @param businessObjectService The businessObjectService to set.
-     */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
 
-    /**
-     * Sets the velocityEngine attribute value.
-     *
-     * @param velocityEngine The velocityEngine to set.
-     */
     public void setVelocityEngine(VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
     }
 
-    public VelocityEngine getVelocityEngine() {
-        return velocityEngine;
+    public void setHtmlMessage(boolean htmlMessage) {
+        this.htmlMessage = htmlMessage;
     }
 }
