@@ -1280,6 +1280,7 @@
     	<property name="batchMailingList" value="${mailing.list.batch}"/>
     	<property name="nonProductionNotificationMailingList" value="${nonproduction.notification.mailing.list}" />
     	<property name="realNotificationsEnabled" value="${real.notifications.enabled}" />
+		<property name="configurationService" ref="kualiConfigurationService" />
 	</bean>
 
 	<mongo:mongo id="mongo" replica-set="${kfs.datasource.mongo.url}"/>
