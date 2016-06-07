@@ -41,6 +41,7 @@
 				<ref bean="BasicAccountingCategory-shortName" />
 				<ref bean="BasicAccountingCategory-active" />
 				<ref bean="BasicAccountingCategory-sortCode" />
+				<ref bean="BasicAccountingCategory-codeAndDescription"/>
 			</list>
 		</property>
 	</bean>
@@ -116,6 +117,18 @@
 		</property>
 	</bean>
 
+	<bean id="BasicAccountingCategory-codeAndDescription" parent="BasicAccountingCategory-codeAndDescription-parentBean" />
+
+	<bean id="BasicAccountingCategory-codeAndDescription-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="name" value="codeAndDescription" />
+		<property name="label" value="Basic Accounting Category" />
+		<property name="shortLabel" value="BasicAcctngCategory" />
+		<property name="maxLength" value="45" />
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="45" />
+		</property>
+	</bean>
 	<!-- Business Object Inquiry Definition -->
 
 

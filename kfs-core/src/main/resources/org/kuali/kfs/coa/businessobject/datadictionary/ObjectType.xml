@@ -41,6 +41,7 @@
 				<ref bean="ObjectType-finObjectTypeIcrSelectionIndicator" />
 				<ref bean="ObjectType-fundBalanceIndicator" />
 				<ref bean="ObjectType-basicAccountingCategoryCode" />
+				<ref bean="ObjectType-basicAccountingCategory.codeAndDescription"/>
 				<ref bean="ObjectType-active" />
 			</list>
 		</property>
@@ -151,6 +152,12 @@
 				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
+	
+	<bean id="ObjectType-basicAccountingCategory.codeAndDescription" parent="ObjectType-basicAccountingCategory.codeAndDescription-parentBean" />
+
+	<bean id="ObjectType-basicAccountingCategory.codeAndDescription-parentBean"
+		abstract="true" parent="BasicAccountingCategory-codeAndDescription" p:name="basicAccountingCategory.codeAndDescription" />
+		
 	<bean id="ObjectType-active" parent="ObjectType-active-parentBean" />
 
 	<bean id="ObjectType-active-parentBean" abstract="true"
