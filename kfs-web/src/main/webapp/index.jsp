@@ -19,5 +19,7 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <kul:page docTitle="Financials Dashboard" showDocumentInfo="false"
-          headerTitle="Financials Dashboard" transactionalDocument="false">
+          headerTitle="Financials Dashboard" transactionalDocument="false"
+          renderInnerDiv="true" openNav="true">
+	<sys:motd/>
 </kul:page>
