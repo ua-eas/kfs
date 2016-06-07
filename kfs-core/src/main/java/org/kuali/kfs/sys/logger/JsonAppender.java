@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.logger;
 
 import org.apache.log4j.RollingFileAppender;
+import org.apache.log4j.helpers.CountingQuietWriter;
 import org.apache.log4j.spi.LoggingEvent;
 
 import java.text.SimpleDateFormat;
@@ -76,5 +77,14 @@ public class JsonAppender extends RollingFileAppender {
         if(shouldFlush(event)) {
             this.qw.flush();
         }
+
+        // Roll over if necessary
+        if (this.fileName != null && this.qw != null) {
+            long size = ((CountingQuietWriter)this.qw).getCount();
+            if (size >= this.maxFileSize ) {
+                this.rollOver();
+            }
+        }
+
     }
 }
