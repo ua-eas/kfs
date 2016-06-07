@@ -816,6 +816,10 @@ nav ul.nav li {
     padding: 15px 15px 5px 15px;
 }
 
+.motd {
+	padding: 15px 15px 15px 55px;
+}
+
 /* IE10+ specific styles go here */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     #sidebar .nav .search span.remove {
