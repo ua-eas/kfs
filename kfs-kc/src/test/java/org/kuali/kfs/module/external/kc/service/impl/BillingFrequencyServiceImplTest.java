@@ -1,6 +1,7 @@
 package org.kuali.kfs.module.external.kc.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +26,10 @@ public class BillingFrequencyServiceImplTest {
         responsibleModuleService = EasyMock.createMock(ModuleService.class);
     }
     
-    @SuppressWarnings("unchecked")
     @Test
-    public void testDTOMapping() {
-        EasyMock.expect(responsibleModuleService.getExternalizableBusinessObjectsListForLookup(EasyMock.eq(AccountsReceivableBillingFrequency.class), EasyMock.isA(Map.class), EasyMock.eq(false)))
+    public void testGetAll() {
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        EasyMock.expect(responsibleModuleService.getExternalizableBusinessObjectsListForLookup(AccountsReceivableBillingFrequency.class, criteria, true))
             .andReturn(getSampleBillingFrequencyList());
         EasyMock.replay(responsibleModuleService);
         
@@ -49,8 +50,35 @@ public class BillingFrequencyServiceImplTest {
                 expected.getFrequencyDescription().equals(result.getFrequencyDescription()) &&
                 expected.getGracePeriodDays().equals(result.getGracePeriodDays()),
                 "Expected result was " + ToStringBuilder.reflectionToString(expected) + 
-                " but got " + ToStringBuilder.reflectionToString(result));
+                " but got " + ToStringBuilder.reflectionToString(result));        
+    }
+    
+    @Test
+    public void testGetActive() {
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        criteria.put("active", "Y");
+        EasyMock.expect(responsibleModuleService.getExternalizableBusinessObjectsListForLookup(AccountsReceivableBillingFrequency.class, criteria, true))
+            .andReturn(getSampleBillingFrequencyList());
+        EasyMock.replay(responsibleModuleService);
         
+        billingFrequencyService.setResponsibleModuleService(responsibleModuleService);
+        List<BillingFrequencyDTO> results = billingFrequencyService.getActive();
+        
+        EasyMock.verify(responsibleModuleService);
+        if (results.size() != 1) {
+            Assert.fail("billingFrequencyService.getActive() should have returned 1 result; instead it returned " + results.size());
+            return;
+        }
+        
+        BillingFrequencyDTO result = results.get(0);
+        
+        BillingFrequency expected = createSampleBillingFrequency();
+        Assert.isTrue(expected.isActive() == result.isActive() &&
+                expected.getFrequency().equals(result.getFrequency()) &&
+                expected.getFrequencyDescription().equals(result.getFrequencyDescription()) &&
+                expected.getGracePeriodDays().equals(result.getGracePeriodDays()),
+                "Expected result was " + ToStringBuilder.reflectionToString(expected) + 
+                " but got " + ToStringBuilder.reflectionToString(result));       
     }
 
     private List<AccountsReceivableBillingFrequency> getSampleBillingFrequencyList() {

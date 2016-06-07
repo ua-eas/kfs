@@ -3,6 +3,8 @@ package org.kuali.kfs.module.external.kc.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.ModuleService;
@@ -16,8 +18,19 @@ public class BillingFrequencyServiceImpl implements BillingFrequencyService {
 
     @Override
     public List<BillingFrequencyDTO> getAll() {
+        return find(new HashMap<String, Object>());
+    }
+    
+    @Override
+    public List<BillingFrequencyDTO> getActive() {
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        criteria.put("active", "Y");
+        return find(criteria);
+    }
+    
+    private List<BillingFrequencyDTO> find(Map<String,Object> criteria) {
         if (getResponsibleModuleService() != null) {
-            return getBillingFrequencyDTO(getResponsibleModuleService().getExternalizableBusinessObjectsListForLookup(AccountsReceivableBillingFrequency.class, new HashMap<String, Object>(), false));
+            return getBillingFrequencyDTO(getResponsibleModuleService().getExternalizableBusinessObjectsListForLookup(AccountsReceivableBillingFrequency.class, criteria, true));
         } else {
             return new ArrayList<BillingFrequencyDTO>();
         }

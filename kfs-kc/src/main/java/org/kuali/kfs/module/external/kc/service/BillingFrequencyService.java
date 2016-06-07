@@ -33,4 +33,6 @@ targetNamespace = KcConstants.KFS_NAMESPACE_URI)
 public interface BillingFrequencyService {
 
     public List<BillingFrequencyDTO> getAll();
+    
+    public List<BillingFrequencyDTO> getActive();
 }
