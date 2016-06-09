@@ -78,6 +78,18 @@ public class DocumentStoreUpdateProcessDaoMongo implements DocumentStoreUpdatePr
         mongoTemplate.save(change,CHANGE_SCHEMA);
     }
 
+    @Override
+    public void removeSchemaChange(DocumentStoreChange change) {
+        LOG.debug("removeSchemaChange() started");
+
+        Query q = new Query();
+        q.addCriteria(Criteria.where("fileName").is(change.getFileName()));
+        q.addCriteria(Criteria.where("changeId").is(change.getChangeId()));
+        q.addCriteria(Criteria.where("hash").is(change.getHash()));
+        
+        mongoTemplate.remove(q, CHANGE_SCHEMA);
+    }
+
     public void setMongoTemplate(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }

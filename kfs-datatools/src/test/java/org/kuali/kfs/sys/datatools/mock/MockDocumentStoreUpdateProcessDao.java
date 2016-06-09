@@ -24,6 +24,11 @@ import org.kuali.kfs.sys.datatools.liquimongo.dataaccess.DocumentStoreUpdateProc
 
 public class MockDocumentStoreUpdateProcessDao implements DocumentStoreUpdateProcessDao {
     private boolean locked = false;
+    private boolean schemaChangeHappened = false;
+    
+    public void setSchemaChangeHappened(boolean schemaChangeHappenend) {
+        this.schemaChangeHappened = schemaChangeHappenend;
+    }
 
     @Override
     public boolean isSchemaChangeLocked() {
@@ -42,11 +47,16 @@ public class MockDocumentStoreUpdateProcessDao implements DocumentStoreUpdatePro
 
     @Override
     public boolean hasSchemaChangeHappened(DocumentStoreChange change) {
-        return false;
+        return this.schemaChangeHappened;
     }
 
     @Override
     public void saveSchemaChange(DocumentStoreChange change) {
 
+    }
+
+    @Override
+    public void removeSchemaChange(DocumentStoreChange change) {
+        
     }
 }

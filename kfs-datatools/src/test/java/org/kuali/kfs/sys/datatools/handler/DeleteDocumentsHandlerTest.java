@@ -19,19 +19,34 @@
 package org.kuali.kfs.sys.datatools.handler;
 
 import org.kuali.kfs.sys.datatools.liquimongo.change.DeleteDocumentsHandler;
-import org.kuali.kfs.sys.datatools.mock.MockMongoTemplate;
+import org.kuali.kfs.sys.datatools.liquimongo.change.JsonUtils;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import java.util.Map;
+
+import org.easymock.Capture;
+import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class DeleteDocumentsHandlerTest {
     private DeleteDocumentsHandler deleteDocumentsHandler;
+    private MongoOperations mongoTemplate;
 
     @Before
-    public void createHandler() {
+    public void setup() {
         deleteDocumentsHandler = new DeleteDocumentsHandler();
+        mongoTemplate = EasyMock.createMock(MongoOperations.class);
     }
 
     @Test
@@ -56,21 +71,67 @@ public class DeleteDocumentsHandlerTest {
 
     @Test
     public void testMakeChangeDeletesDocuments() throws Exception {
-        MockMongoTemplate mongoTemplate = new MockMongoTemplate();
+        Query q = new Query(Criteria.where("myId").is("10"));
+        Capture<DBObject> capturedObject = EasyMock.newCapture();
+        
+        EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleObject());
+        mongoTemplate.save(EasyMock.and(EasyMock.capture(capturedObject), EasyMock.isA(DBObject.class)), EasyMock.eq("backup_collection"));
+        EasyMock.expectLastCall();
+        mongoTemplate.remove(q, "collection");
+        EasyMock.expectLastCall();
+        EasyMock.replay(mongoTemplate);
+        
+        String testJson = "{ \"changeType\": \"deleteDocument\",\"collectionName\": \"collection\",\"query\": { \"myId\": \"10\"} }";    
+        
         deleteDocumentsHandler.setMongoTemplate(mongoTemplate);
 
-        String testJson = "{ \"changeType\": \"deleteDocument\",\"collectionName\": \"collection\",\"query\": { \"myId\": \"10\"} }";
-
+        
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         deleteDocumentsHandler.makeChange(testNode);
-        Assert.assertEquals("should call mongoTemplate.remove once", 1, mongoTemplate.removeCalled);
+        Map object = capturedObject.getValue().toMap();
+        Assert.assertTrue(DeleteDocumentsHandler.DELETE_CHANGE_KEY + " should be added to object", object.containsKey(DeleteDocumentsHandler.DELETE_CHANGE_KEY));
+        Assert.assertTrue(DeleteDocumentsHandler.CHANGE_DATESTAMP_KEY + " should be added to object", object.containsKey(DeleteDocumentsHandler.CHANGE_DATESTAMP_KEY));
+        EasyMock.verify(mongoTemplate);
+    }
+    
+    @Test
+    public void testRevertChange() throws Exception {
+        String testJson = "{ \"changeType\": \"deleteDocument\",\"collectionName\": \"collection\",\"query\": { \"myId\": \"10\"} }";         
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
+        
+        Query q = new Query(Criteria.where("myId").is("10"))
+                .addCriteria(Criteria.where(DeleteDocumentsHandler.DELETE_CHANGE_KEY).is(JsonUtils.calculateHash(testNode)))
+                .with(new Sort(new Order(Direction.DESC, DeleteDocumentsHandler.CHANGE_DATESTAMP_KEY)));
+        EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "backup_collection")).andReturn(createSampleBackupObject());
+        mongoTemplate.save(createSampleObject(), "collection");
+        EasyMock.expectLastCall();
+        q = new Query(Criteria.where("myId").is("10"))
+                .addCriteria(Criteria.where(DeleteDocumentsHandler.CHANGE_DATESTAMP_KEY).gte(123l));
+        mongoTemplate.remove(q, "backup_collection");
+        EasyMock.expectLastCall();
+        EasyMock.replay(mongoTemplate);
+        
+        deleteDocumentsHandler.setMongoTemplate(mongoTemplate);
+        deleteDocumentsHandler.revertChange(testNode);
+        EasyMock.verify(mongoTemplate);
+    }
+
+    private DBObject createSampleBackupObject() {
+        DBObject result = new BasicDBObject();
+        result.put(DeleteDocumentsHandler.DELETE_CHANGE_KEY, "something");
+        result.put(DeleteDocumentsHandler.CHANGE_DATESTAMP_KEY, 123l);
+        return result;
+    }
+
+    private DBObject createSampleObject() {
+        return new BasicDBObject();
     }
 
     @Test
     public void testMissingFieldGivesGoodError() throws Exception {
-        MockMongoTemplate mongoTemplate = new MockMongoTemplate();
         deleteDocumentsHandler.setMongoTemplate(mongoTemplate);
 
         // Collection is missing

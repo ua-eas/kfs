@@ -1304,6 +1304,8 @@ public class KFSPropertyConstants {
     public static final String UPDATE_DATABASE_ON_STARTUP = "updateDatabaseOnStartup";
     public static final String UPDATE_DOCUMENTSTORE_ON_STARTUP = "updateDocumentstoreOnStartup";
     public static final String UPDATE_DOCUMENTSTORE_FILE_PATH = "updateDocumentstoreFilePath";
+    public static final String REVERT_DOCUMENTSTORE_ON_STARTUP = "revertDocumentstoreOnStartup";
+    public static final String REVERT_DOCUMENTSTORE_FILE_PATH = "revertDocumentstoreFilePath";
     public static final String UPDATE_WORKFLOW_ON_STARTUP ="updateWorkflowOnStartup";
 
     public static final String HAS_DOCUMENTATION = "hasDocumentation";

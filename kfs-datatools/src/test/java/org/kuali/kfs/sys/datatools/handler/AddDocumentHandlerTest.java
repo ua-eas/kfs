@@ -20,24 +20,32 @@ package org.kuali.kfs.sys.datatools.handler;
 
 
 import org.kuali.kfs.sys.datatools.liquimongo.change.AddDocumentHandler;
-import org.kuali.kfs.sys.datatools.mock.MockMongoTemplate;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.util.JSON;
+
+import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class AddDocumentHandlerTest {
     private AddDocumentHandler addDocumentHandler;
+    private MongoOperations mongoTemplate;
 
     @Before
-    public void createHandler() {
+    public void setup() {
         addDocumentHandler = new AddDocumentHandler();
+        mongoTemplate = EasyMock.createMock(MongoOperations.class);
     }
 
     @Test
     public void testHandlesAddDocument() throws Exception {
-        String testJson = "{ \"changeType\": \"addDocument\",\"collectionName\": \"collection\",\"document\": { } }";
+        String testJson = "{ \"changeType\": \"addDocument\",\"collectionName\": \"collection\",\"query\": { },\"document\": { } }";
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
@@ -57,23 +65,23 @@ public class AddDocumentHandlerTest {
 
     @Test
     public void testMakeChangeAddsDocument() throws Exception {
-        MockMongoTemplate mongoTemplate = new MockMongoTemplate();
+        mongoTemplate.save(JSON.parse("{ }"), "collection");
+        EasyMock.expectLastCall();
+        EasyMock.replay(mongoTemplate);
+        
         addDocumentHandler.setMongoTemplate(mongoTemplate);
 
-        String testJson = "{ \"changeType\": \"addDocument\",\"collectionName\": \"collection\",\"document\": { } }";
+        String testJson = "{ \"changeType\": \"addDocument\",\"collectionName\": \"collection\",\"query\": { },\"document\": { } }";
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         addDocumentHandler.makeChange(testNode);
-        Assert.assertEquals("should call mongoTemplate.save once", 1, mongoTemplate.saveCalled);
+        EasyMock.verify(mongoTemplate);
     }
 
     @Test
     public void testMissingFieldGivesGoodError() throws Exception {
-        MockMongoTemplate mongoTemplate = new MockMongoTemplate();
-        addDocumentHandler.setMongoTemplate(mongoTemplate);
-
         // Collection is missing
         String testJson = "{ \"changeType\": \"addDocument\",\"document\": { \"myId\": \"10\"} }";
 
@@ -86,5 +94,24 @@ public class AddDocumentHandlerTest {
         } catch (IllegalArgumentException e) {
             // This is expected
         }
+    }
+    
+    @Test
+    public void testRevertChange() throws Exception {
+        Query q = new Query();
+        q.addCriteria(Criteria.where("myId").is("10"));
+        mongoTemplate.remove(q, "InstitutionPreferences");
+        EasyMock.expectLastCall();
+        EasyMock.replay(mongoTemplate);
+        
+        addDocumentHandler.setMongoTemplate(mongoTemplate);
+        
+        String testJson = "{ \"changeType\": \"addDocument\",\"collectionName\": \"InstitutionPreferences\",\"query\": { \"myId\": \"10\"},\"document\": { \"institutionId\": \"123\" } }";
+        
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
+
+        addDocumentHandler.revertChange(testNode);
+        EasyMock.verify(mongoTemplate);
     }
 }

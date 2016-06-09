@@ -21,7 +21,8 @@ package org.kuali.kfs.sys.datatools.liquimongo.change;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 /**
  * Add requested document to MongoDB
@@ -29,8 +30,6 @@ import org.springframework.data.mongodb.core.MongoOperations;
 public class AddDocumentHandler extends AbstractDocumentStoreChangeHandler implements DocumentStoreChangeHandler {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AddDocumentHandler.class);
     public static final String ADD_DOCUMENT = "addDocument";
-
-    private MongoOperations mongoTemplate;
 
     @Override
     public boolean handlesChange(JsonNode change) {
@@ -43,6 +42,7 @@ public class AddDocumentHandler extends AbstractDocumentStoreChangeHandler imple
 
         verifyKeyExistence(change, COLLECTION_NAME);
         verifyKeyExistence(change, DOCUMENT);
+        verifyKeyExistence(change,QUERY); // Needed for reversion
 
         String collectionName = change.get(COLLECTION_NAME).asText();
         JsonNode document = change.get(DOCUMENT);
@@ -51,7 +51,17 @@ public class AddDocumentHandler extends AbstractDocumentStoreChangeHandler imple
         mongoTemplate.save(dbObject, collectionName);
     }
 
-    public void setMongoTemplate(MongoOperations mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
+    @Override
+    public void revertChange(JsonNode change) {
+        LOG.debug("revertChange() started");
+
+        verifyKeyExistence(change, COLLECTION_NAME);
+        verifyKeyExistence(change,QUERY);
+
+        String collectionName = change.get(COLLECTION_NAME).asText();
+        JsonNode query = change.get(QUERY); 
+        Query q = JsonUtils.getQueryFromJson(query);   
+        
+        mongoTemplate.remove(q, collectionName);
     }
 }

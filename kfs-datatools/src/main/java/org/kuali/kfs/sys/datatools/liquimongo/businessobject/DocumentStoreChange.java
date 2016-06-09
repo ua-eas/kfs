@@ -20,6 +20,7 @@ package org.kuali.kfs.sys.datatools.liquimongo.businessobject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.codec.binary.Hex;
+import org.kuali.kfs.sys.datatools.liquimongo.change.JsonUtils;
 import org.springframework.data.annotation.Transient;
 
 import java.io.UnsupportedEncodingException;
@@ -50,19 +51,7 @@ public class DocumentStoreChange {
         this.fileName = fileName;
         this.changeNode = node;
         this.changeId = node.get("id").asText();
-        this.hash = calculateHash();
-    }
-
-    private String calculateHash() {
-        try {
-            byte[] bytesOfMessage = changeNode.toString().getBytes("UTF-8");
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] md5hash = md.digest(bytesOfMessage);
-            return Hex.encodeHexString(md5hash);
-        } catch (NoSuchAlgorithmException|UnsupportedEncodingException e) {
-            LOG.error("calculateHash() Unable to md5 hash",e);
-            throw new UnsupportedOperationException("Unable to hash change");
-        }
+        this.hash = JsonUtils.calculateHash(node);
     }
 
     public List<JsonNode> getAllChanges() {
