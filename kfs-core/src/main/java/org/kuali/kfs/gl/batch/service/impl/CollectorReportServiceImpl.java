@@ -484,8 +484,14 @@ public class CollectorReportServiceImpl implements CollectorReportService {
 
             for (Iterator<ErrorMessage> iter2 = messageMap.getMessages(errorKey).iterator(); iter2.hasNext();) {
                 ErrorMessage errorMessage = (ErrorMessage) iter2.next();
-                String messageText = configurationService.getPropertyValueAsString(errorMessage.getErrorKey());
-                collectorErrors.add(MessageFormat.format(messageText, (Object[]) errorMessage.getMessageParameters()));
+                String messageText = null;
+                try {
+	                messageText = configurationService.getPropertyValueAsString(errorMessage.getErrorKey());
+	                collectorErrors.add(MessageFormat.format(messageText, (Object[]) errorMessage.getMessageParameters()));
+                } catch (Exception e) {
+                	LOG.error("Unable to create message.  Message key: " + errorMessage.getErrorKey() + ".  Message text: " + messageText);
+                	throw e;
+                }
             }
         }
 
