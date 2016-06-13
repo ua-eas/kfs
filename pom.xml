@@ -193,6 +193,7 @@
     <javax.resource.connector.api.version>1.5</javax.resource.connector.api.version>
     <jersey.version>1.18.1</jersey.version>
     <jrobin.version>1.5.9</jrobin.version>
+    <jsonpath.version>2.2.0</jsonpath.version>
     <jstl-api.version>1.2</jstl-api.version>
     <jta.version>1.1</jta.version>
     <kfs.help.version>5.4.0</kfs.help.version>
@@ -1798,6 +1799,11 @@
       	<version>${project.version}</version>
       	<type>pom</type>
       </dependency>
+    <dependency>
+    	<groupId>com.jayway.jsonpath</groupId>
+    	<artifactId>json-path</artifactId>
+    	<version>${jsonpath.version}</version>
+    </dependency>
   </dependencies>
 
   <repositories>

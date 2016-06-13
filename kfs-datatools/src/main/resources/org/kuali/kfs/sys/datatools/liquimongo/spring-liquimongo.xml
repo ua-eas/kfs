@@ -46,6 +46,27 @@
 			<ref bean="mongoTemplate"/>
 		</property>
 	</bean>
+	
+	<bean id="documentStoreAddNodeHandler" parent="documentStoreAddNodeHandler-parentBean"/>
+	<bean id="documentStoreAddNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddNodeHandler">
+		<property name="mongoTemplate">
+			<ref bean="mongoTemplate"/>
+		</property>
+	</bean>
+	
+	<bean id="documentStoreUpdateNodeHandler" parent="documentStoreUpdateNodeHandler-parentBean"/>
+	<bean id="documentStoreUpdateNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.UpdateNodeHandler">
+		<property name="mongoTemplate">
+			<ref bean="mongoTemplate"/>
+		</property>
+	</bean>
+	
+	<bean id="documentStoreDeleteNodeHandler" parent="documentStoreDeleteNodeHandler-parentBean"/>
+	<bean id="documentStoreDeleteNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.DeleteNodeHandler">
+		<property name="mongoTemplate">
+			<ref bean="mongoTemplate"/>
+		</property>
+	</bean>
 
 	<bean id="documentStoreUpdateProcessDao" parent="documentStoreUpdateProcessDao-parentBean"/>
 	<bean id="documentStoreUpdateProcessDao-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.dataaccess.impl.DocumentStoreUpdateProcessDaoMongo">
@@ -66,6 +87,9 @@
 				<ref bean="documentStoreAddDocumentHandler"/>
 				<ref bean="documentStoreUpdateDocumentHandler"/>
 				<ref bean="documentStoreDeleteDocumentsHandler"/>
+				<ref bean="documentStoreAddNodeHandler"/>
+				<ref bean="documentStoreUpdateNodeHandler"/>
+				<ref bean="documentStoreDeleteNodeHandler"/>
 			</list>
 		</property>
 	</bean>
