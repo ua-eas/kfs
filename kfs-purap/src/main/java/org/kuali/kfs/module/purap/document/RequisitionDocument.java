@@ -456,13 +456,13 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
                     SpringContext.getBean(PurchaseOrderService.class).createAutomaticPurchaseOrderDocument(this);
                 }
                 // for app doc status
-                String reqStatus = PurapConstants.RequisitionStatuses.getRequistionAppDocStatuses().get(newRequisitionStatus);
+                String reqStatus = getRequisitionAppDocStatus(newRequisitionStatus);
                 updateAndSaveAppDocStatus(reqStatus);
             }
             // DOCUMENT DISAPPROVED
             else if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isDisapproved()) {
                 String nodeName = SpringContext.getBean(WorkflowDocumentService.class).getCurrentRouteLevelName(this.getFinancialSystemDocumentHeader().getWorkflowDocument());
-                String disapprovalStatus = RequisitionStatuses.getRequistionAppDocStatuses().get(nodeName);
+                String disapprovalStatus = getRequisitionAppDocStatus(nodeName);
 
                 if (StringUtils.isNotBlank(disapprovalStatus)) {
                     updateAndSaveAppDocStatus(disapprovalStatus);
@@ -472,7 +472,7 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
             }
             // DOCUMENT CANCELED
             else if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isCanceled()) {
-                String reqStatus = RequisitionStatuses.getRequistionAppDocStatuses().get(RequisitionStatuses.APPDOC_CANCELLED);
+                String reqStatus = getRequisitionAppDocStatus(RequisitionStatuses.APPDOC_CANCELLED);
                 updateAndSaveAppDocStatus(reqStatus);
             }
         }
@@ -480,6 +480,10 @@ public class RequisitionDocument extends PurchasingDocumentBase implements Copya
             logAndThrowRuntimeException("Error saving routing data while saving document with id " + getDocumentNumber(), e);
         }
         LOG.debug("doRouteStatusChange() ending");
+    }
+
+    protected String getRequisitionAppDocStatus(String nodeName) {
+        return RequisitionStatuses.getRequistionAppDocStatuses().get(nodeName);
     }
 
     /**
