@@ -1,351 +1,399 @@
-/*
- * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- * 
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.saveDocument;
-import static org.kuali.kfs.sys.document.AccountingDocumentTestUtils.testGetNewDocument_byDocumentClass;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE7;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.hschrein;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.mylarge;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.vputman;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import junit.framework.Assert;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonResidentAlienTax;
+import org.apache.commons.lang.StringUtils;
+import org.easymock.EasyMock;
+import org.easymock.IMockBuilder;
+import org.easymock.Mock;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.kuali.kfs.fp.businessobject.DisbursementPayee;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.DocumentTestUtils;
-import org.kuali.kfs.sys.KualiTestConstants;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.AccountingDocument;
-import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
-import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
-import org.kuali.kfs.sys.fixture.AccountingLineFixture;
-import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.fp.businessobject.PaymentReasonCode;
+import org.kuali.kfs.fp.document.service.DisbursementVoucherPayeeService;
+import org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService;
 import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.MessageList;
+import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.vnd.businessobject.VendorAddress;
+import org.kuali.kfs.vnd.businessobject.VendorContract;
+import org.kuali.kfs.vnd.businessobject.VendorDetail;
+import org.kuali.kfs.vnd.businessobject.VendorHeader;
+import org.kuali.kfs.vnd.businessobject.VendorRoutingComparable;
+import org.kuali.kfs.vnd.document.service.VendorService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.identity.Person;
 
-/**
- * This class is used to test DisbursementVoucherDocument.
- */
-@ConfigureContext(session = hschrein)
-public class DisbursementVoucherDocumentTest extends KualiTestBase {
-    private static Logger LOG = Logger.getLogger(DisbursementVoucherDocumentTest.class);
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
-    public static final Class<DisbursementVoucherDocument> DOCUMENT_CLASS = DisbursementVoucherDocument.class;
-    // The set of Route Nodes that the test document will progress through
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-    private static final String ACCOUNT_REVIEW = "Account";
-    private static final String ORG_REVIEW = "AccountingOrganizationHierarchy";
-    private static final String TAX_REVIEW = "Tax";
-    private static final String CAMPUS_CODE = "Campus";
-    private static final String PAYMENT_METHOD = "PaymentMethod";
+public class DisbursementVoucherDocumentTest {
 
+    @Mock
+    private static DisbursementVoucherDocument disbursementVoucherDocument;
+    private static VendorService vendorService;
+    private static DisbursementVoucherPayeeService disbursementVoucherPayeeService;
+    private static DisbursementVoucherPaymentReasonService disbursementVoucherPaymentReasonService;
 
-    public final void testConvertIntoCopy_clear_additionalCodeInvalidVendor() throws Exception {
-        // Clear both Message lists until rice drops the latter
-        GlobalVariables.getMessageMap().clearErrorMessages();
+    @BeforeClass
+    public static void setUp() throws Exception {
+        ArrayList<String> methodNames = new ArrayList<>();
+        for (Method method : DisbursementVoucherDocument.class.getMethods()) {
+            if (!Modifier.isFinal(method.getModifiers()) && !method.getName().startsWith("set") && !method.getName().startsWith("get")) {
+                methodNames.add(method.getName());
+            }
+        }
+        IMockBuilder<DisbursementVoucherDocument> builder = EasyMock.createMockBuilder(DisbursementVoucherDocument.class).addMockedMethods(methodNames.toArray(new String[0]));
+
+        disbursementVoucherDocument = builder.createNiceMock();
+
+        vendorService = new TestVendorService();
+        disbursementVoucherPayeeService = new TestDisbursementVoucherPayeeService();
+        disbursementVoucherPaymentReasonService = new TestDisbursementVoucherPaymentReasonService();
+
+        disbursementVoucherDocument.setVendorService(vendorService);
+        disbursementVoucherDocument.setDisbursementVoucherPayeeService(disbursementVoucherPayeeService);
+        disbursementVoucherDocument.setDisbursementVoucherPaymentReasonService(disbursementVoucherPaymentReasonService);
+    }
+
+    @Before
+    public void clearMessages() {
         KNSGlobalVariables.getMessageList().clear();
-
-    	DisbursementVoucherDocument dvParameter = (DisbursementVoucherDocument) getDocumentParameterFixture();
-        DisbursementVoucherDocument document = (DisbursementVoucherDocument) getDocumentParameterFixture();
-        document.getDvPayeeDetail().setDisbVchrPayeeIdNumber("1234-0");
-        document.getDvPayeeDetail().setDisbursementVoucherPayeeTypeCode("V");
-        document.toCopy();
-
-        // the dvParameter doc number needs to be resynced
-        dvParameter.setDocumentNumber(document.getDocumentNumber());
-        dvParameter.setDisbVchrContactPhoneNumber("");
-        dvParameter.setDisbVchrContactEmailId("");
-        dvParameter.getDvPayeeDetail().setDisbVchrPayeePersonName(null);
-        dvParameter.getDvPayeeDetail().setDisbVchrAlienPaymentCode(false);
-        dvParameter.getDvPayeeDetail().setDisbVchrPaymentReasonCode(null);
-
-        dvParameter.setDvNonResidentAlienTax(new DisbursementVoucherNonResidentAlienTax());
-        dvParameter.setDisbVchrPayeeTaxControlCode("");
-        dvParameter.getDvPayeeDetail().setDisbVchrPayeeIdNumber("");
-
-        dvParameter.setDisbVchrContactPersonName(GlobalVariables.getUserSession().getPerson().getName());
-        // set to tomorrow
-        Calendar calendar = SpringContext.getBean(DateTimeService.class).getCurrentCalendar();
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        calendar.clear(Calendar.MILLISECOND);
-        calendar.clear(Calendar.SECOND);
-        calendar.clear(Calendar.MINUTE);
-        calendar.clear(Calendar.HOUR);
-        dvParameter.setDisbursementVoucherDueDate(new Date(calendar.getTimeInMillis()));
-
-        // clear document time since just want to compare dates
-        Calendar calendar2 = Calendar.getInstance();
-        calendar2.setTimeInMillis(document.getDisbursementVoucherDueDate().getTime());
-        calendar2.clear(Calendar.MILLISECOND);
-        calendar2.clear(Calendar.SECOND);
-        calendar2.clear(Calendar.MINUTE);
-        calendar2.clear(Calendar.HOUR);
-        document.setDisbursementVoucherDueDate(new Date(calendar2.getTimeInMillis()));
-
-        assertMatch(dvParameter, document);
-
     }
 
-    @ConfigureContext(session = hschrein, shouldCommitTransactions = true)
-    // @RelatesTo(RelatesTo.JiraIssue.KULRNE4834)
-    public final void testWorkflowRouting() throws Exception {
-        // save and route the document
-        Document document = buildDocument();
-        final String docId = document.getDocumentNumber();
-        SpringContext.getBean(DocumentService.class).routeDocument(document, "routing test doc", null);
+    @Test
+    public void testClearInvalidPayeeValidPayeeVendor() throws Exception {
+        setupPayeeDetail("0", "12345");
 
-        WorkflowTestUtils.waitForNodeChange(document.getDocumentHeader().getWorkflowDocument(), ACCOUNT_REVIEW);
-
-        // the document should now be routed to vputman as Fiscal Officer
-        changeCurrentUser(vputman);
-        document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
-        assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(document, ACCOUNT_REVIEW));
-        assertTrue("Document should be enroute.", document.getDocumentHeader().getWorkflowDocument().isEnroute());
-        assertTrue("vputman should have an approve request.", document.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
-        SpringContext.getBean(DocumentService.class).approveDocument(document, "Test approving as vputman", null);
-
-        /*WorkflowTestUtils.waitForNodeChange(document.getDocumentHeader().getWorkflowDocument(), ORG_REVIEW);
-        // now doc should be in Org Review routing to cswinson
-        changeCurrentUser(UserNameFixture.cswinson);
-        document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
-        assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(document, ORG_REVIEW));
-        assertTrue("cswinson should have an approve request.", document.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
-        SpringContext.getBean(DocumentService.class).approveDocument(document, "Test approving as cswinson", null);*/
-
-        WorkflowTestUtils.waitForNodeChange(document.getDocumentHeader().getWorkflowDocument(), TAX_REVIEW);
-        // now doc should be in Org Review routing to cswinson
-        changeCurrentUser(UserNameFixture.dfogle);
-        document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
-        assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(document, TAX_REVIEW));
-        assertTrue("dfogle should have an approve request.", document.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
-        SpringContext.getBean(DocumentService.class).approveDocument(document, "Test approving as dfogle", null);
-
-        // this is going to skip a bunch of other routing and end up at campus code
-        WorkflowTestUtils.waitForNodeChange(document.getDocumentHeader().getWorkflowDocument(), CAMPUS_CODE);
-        // doc should be in "Campus Code" routing to mylarge
-        changeCurrentUser(mylarge);
-        document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
-        assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(document, CAMPUS_CODE));
-        assertTrue("Should have an approve request.", document.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
-        SpringContext.getBean(DocumentService.class).approveDocument(document, "Approve", null);
-
-        /*WorkflowTestUtils.waitForNodeChange(document.getDocumentHeader().getWorkflowDocument(), PAYMENT_METHOD);
-        // doc should be in "Campus Code" routing to mylarge
-        changeCurrentUser(UserNameFixture.appleton);
-        document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
-        assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(document, PAYMENT_METHOD));
-        assertTrue("Should have an approve request.", document.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
-        SpringContext.getBean(DocumentService.class).approveDocument(document, "Approve", null);*/
-
-        WorkflowTestUtils.waitForDocumentApproval(document.getDocumentNumber());
-
-        changeCurrentUser(vputman);
-        document = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(docId);
-        assertTrue("Document should now be final.", document.getDocumentHeader().getWorkflowDocument().isFinal());
+        disbursementVoucherDocument.clearInvalidPayee();
+        assertTrue("Should be valid and have no error messages, but had " + KNSGlobalVariables.getMessageList().size(), KNSGlobalVariables.getMessageList().size() == 0);
+        assertEquals("DV Payee ID Number should not be cleared", "0", disbursementVoucherDocument.getDvPayeeDetail().getDisbVchrPayeeIdNumber());
     }
 
-    private int getExpectedPrePeCount() {
-        return 2;
+    @Test
+    public void testClearInvalidPayeeInvalidPayeeEmployee() throws Exception {
+        setupPayeeDetail("1", "23456");
+
+        disbursementVoucherDocument.clearInvalidPayee();
+        assertTrue("Should be valid and have one error messages, but had " + KNSGlobalVariables.getMessageList().size(), KNSGlobalVariables.getMessageList().size() == 1);
+        assertEquals("The error message isn't what we expected.", KFSKeyConstants.WARNING_DV_PAYEE_NONEXISTANT_CLEARED, KNSGlobalVariables.getMessageList().get(0).getErrorKey());
+        assertEquals("DV Payee ID Number should be cleared", StringUtils.EMPTY, disbursementVoucherDocument.getDvPayeeDetail().getDisbVchrPayeeIdNumber());
     }
 
-    private Document getDocumentParameterFixture() throws Exception {
-        DisbursementVoucherDocument document = DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), DisbursementVoucherDocument.class);
-        DisbursementVoucherPayeeDetail payeeDetail = new DisbursementVoucherPayeeDetail();
-        payeeDetail.setDisbVchrPayeeIdNumber("1013-0");
-       // payeeDetail.setDisbVchrAlienPaymentCode(true);
-        payeeDetail.setDisbursementVoucherPayeeTypeCode("V");
-        payeeDetail.setDisbVchrPayeeLine1Addr("100 Main St");
-        payeeDetail.setDisbVchrPayeeCityName("Bloomington");
-        payeeDetail.setDisbVchrPayeeStateCode("IN");
-        payeeDetail.setDisbVchrPayeeZipCode("47405");
-        payeeDetail.setDisbVchrPayeeCountryCode("US");
+    @Test
+    public void testClearInvalidPayeeInvalidPayeeVendor() throws Exception {
+        setupPayeeDetail("1", "12345");
 
-        payeeDetail.setDisbVchrVendorDetailAssignedIdNumber("0");
-        payeeDetail.setDisbVchrPayeePersonName("Jerry Neal");
-        payeeDetail.setDisbVchrPaymentReasonCode("B");
-        payeeDetail.setDocumentNumber(document.getDocumentNumber());
-        // payee detail
-        document.setDvPayeeDetail(payeeDetail);
-        // payment info
-        document.setDisbVchrPaymentMethodCode("P");
-        document.setDisbursementVoucherDueDate(Date.valueOf("2010-01-24"));
-        document.setDisbursementVoucherDocumentationLocationCode("F");
-        // contact information
-        document.setCampusCode("BL");
-        document.setDisbVchrContactPhoneNumber("808-123-4567");
-        document.setDisbVchrContactPersonName("aynalem");
-        document.setDisbVchrCheckStubText("Test DV Check");
-        document.setDisbVchrBankCode(KualiTestConstants.TestConstants.BankCodeTestData.BANK_CODE);
-
-        KualiDecimal amount = KualiDecimal.ZERO;
-        for (AccountingLineFixture fixture : getSourceAccountingLineParametersFromFixtures()) {
-            amount = amount.add(fixture.amount);
-        }
-        for (AccountingLineFixture fixture : getTargetAccountingLineParametersFromFixtures()) {
-            amount = amount.add(fixture.amount);
-        }
-        document.setDisbVchrCheckTotalAmount(amount);
-        return document;
+        disbursementVoucherDocument.clearInvalidPayee();
+        assertTrue("Should be valid and have one error messages, but had " + KNSGlobalVariables.getMessageList().size(), KNSGlobalVariables.getMessageList().size() == 1);
+        assertEquals("The error message isn't what we expected.", KFSKeyConstants.MESSAGE_DV_PAYEE_INVALID_PAYMENT_TYPE_CLEARED, KNSGlobalVariables.getMessageList().get(0).getErrorKey());
+        assertEquals("DV Payee ID Number should be cleared", StringUtils.EMPTY, disbursementVoucherDocument.getDvPayeeDetail().getDisbVchrPayeeIdNumber());
     }
 
-    private List<AccountingLineFixture> getTargetAccountingLineParametersFromFixtures() {
-        return new ArrayList<AccountingLineFixture>();
+    @Test
+    public void testClearPayee() throws Exception {
+        disbursementVoucherDocument.clearPayee(KFSKeyConstants.WARNING_DV_PAYEE_NONEXISTANT_CLEARED);
+        assertTrue("Should be valid and have one error messages, but had " + KNSGlobalVariables.getMessageList().size(), KNSGlobalVariables.getMessageList().size() == 1);
+        assertEquals("The error message isn't what we expected.", KFSKeyConstants.WARNING_DV_PAYEE_NONEXISTANT_CLEARED, KNSGlobalVariables.getMessageList().get(0).getErrorKey());
+        assertEquals("DV Payee ID Number should be cleared", StringUtils.EMPTY, disbursementVoucherDocument.getDvPayeeDetail().getDisbVchrPayeeIdNumber());
     }
 
-    private List<AccountingLineFixture> getSourceAccountingLineParametersFromFixtures() {
-        List<AccountingLineFixture> list = new ArrayList<AccountingLineFixture>();
-        list.add(LINE7);
-        return list;
+    @Test
+    public void testClearFields() throws Exception {
+        disbursementVoucherDocument.setDisbVchrContactPhoneNumber("123-456-7890");
+        disbursementVoucherDocument.setDisbVchrContactEmailId("joe@msn.com");
+        disbursementVoucherDocument.setDisbVchrPayeeTaxControlCode("123456789");
+
+        disbursementVoucherDocument.clearFieldsThatShouldNotBeCopied();
+
+        assertEquals("DV Contact Phone Number should be empty.", StringUtils.EMPTY, disbursementVoucherDocument.getDisbVchrContactPhoneNumber());
+        assertEquals("DV Contact Email ID should be empty.", StringUtils.EMPTY, disbursementVoucherDocument.getDisbVchrContactEmailId());
+        assertEquals("DV Payee Tax Control Code should be empty.", StringUtils.EMPTY, disbursementVoucherDocument.getDisbVchrPayeeTaxControlCode());
     }
 
-    private <T extends Document> void assertMatch(T document1, T document2) {
-        AccountingDocumentTestUtils.assertMatch(document1, document2);
-        DisbursementVoucherDocument d1 = (DisbursementVoucherDocument) document1;
-        DisbursementVoucherDocument d2 = (DisbursementVoucherDocument) document2;
-
-        assertPayeeDetail(d1.getDvPayeeDetail(), d2.getDvPayeeDetail());
-
-        Assert.assertEquals(d2.getDisbVchrCheckTotalAmount(), d2.getDisbVchrCheckTotalAmount());
-        Assert.assertEquals(d1.getDisbVchrPaymentMethodCode(), d2.getDisbVchrPaymentMethodCode());
-        Assert.assertEquals(d1.getDisbursementVoucherDueDate(), d2.getDisbursementVoucherDueDate());
-        Assert.assertEquals(d1.getDisbursementVoucherDocumentationLocationCode(), d2.getDisbursementVoucherDocumentationLocationCode());
-        Assert.assertEquals(d1.getDisbVchrContactEmailId(), d2.getDisbVchrContactEmailId());
-        Assert.assertEquals(d1.getDisbVchrContactPhoneNumber(), d2.getDisbVchrContactPhoneNumber());
-        Assert.assertEquals(d1.getDisbVchrPayeeTaxControlCode(), d2.getDisbVchrPayeeTaxControlCode());
-        Assert.assertEquals(d1.getDisbVchrContactPersonName(), d2.getDisbVchrContactPersonName());
+    public void setupPayeeDetail(String disbVchrPayeeIdNumber, String disbVchrVendorHeaderIdNumber) {
+        DisbursementVoucherPayeeDetail dvPayeeDetail = new TestDisbursementVoucherPayeeDetail();
+        dvPayeeDetail.setDisbVchrPayeeIdNumber(disbVchrPayeeIdNumber);
+        dvPayeeDetail.setDisbVchrVendorHeaderIdNumber(disbVchrVendorHeaderIdNumber);
+        disbursementVoucherDocument.setDvPayeeDetail(dvPayeeDetail);
     }
 
-    private void assertPayeeDetail(DisbursementVoucherPayeeDetail d1, DisbursementVoucherPayeeDetail d2) {
-        Assert.assertEquals(d1.getDisbVchrPayeeIdNumber(), d2.getDisbVchrPayeeIdNumber());
-        Assert.assertEquals(d1.getDisbVchrPayeePersonName(), d2.getDisbVchrPayeePersonName());
-        Assert.assertEquals(d1.getDisbVchrPaymentReasonCode(), d2.getDisbVchrPaymentReasonCode());
-    }
+    private static class TestVendorService implements VendorService {
 
+        @Override
+        public void saveVendorHeader(VendorDetail vendorDetail) {
 
-    public final void testAddAccountingLine() throws Exception {
-        List<SourceAccountingLine> sourceLines = generateSouceAccountingLines();
-        List<TargetAccountingLine> targetLines = generateTargetAccountingLines();
-        int expectedSourceTotal = sourceLines.size();
-        int expectedTargetTotal = targetLines.size();
-        AccountingDocumentTestUtils.testAddAccountingLine(DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), DOCUMENT_CLASS), sourceLines, targetLines, expectedSourceTotal, expectedTargetTotal);
-    }
-
-    public final void testGetNewDocument() throws Exception {
-        testGetNewDocument_byDocumentClass(DOCUMENT_CLASS, SpringContext.getBean(DocumentService.class));
-    }
-
-    public final void testConvertIntoCopy_copyDisallowed() throws Exception {
-        AccountingDocumentTestUtils.testConvertIntoCopy_copyDisallowed(buildDocument(), SpringContext.getBean(DataDictionaryService.class));
-
-    }
-
-    @ConfigureContext(session = hschrein, shouldCommitTransactions = true)
-    public final void testRouteDocument() throws Exception {
-        DisbursementVoucherDocument document = buildDocument();
-        AccountingDocumentTestUtils.testRouteDocument(document, SpringContext.getBean(DocumentService.class));
-    }
-
-    @ConfigureContext(session = hschrein, shouldCommitTransactions = true)
-    public final void testSaveDocument() throws Exception {
-        // get document parameter
-        AccountingDocument document = buildDocument();
-        document.prepareForSave();
-
-        // save
-        saveDocument(document, SpringContext.getBean(DocumentService.class));
-
-        // retrieve
-        AccountingDocument result = (AccountingDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(document.getDocumentNumber());
-        // verify
-        assertMatch(document, result);
-    }
-
-    @ConfigureContext(session = hschrein, shouldCommitTransactions = true)
-    public final void testConvertIntoCopy() throws Exception {
-        DisbursementVoucherDocument document = buildDocument();
-        String originalDocumentNumber = document.getDocumentNumber();
-
-        AccountingDocumentTestUtils.testConvertIntoCopy(document, SpringContext.getBean(DocumentService.class), getExpectedPrePeCount());
-        String copiedDocumentNumber = document.getDocumentNumber();
-
-        DocumentService documentService = SpringContext.getBean(DocumentService.class);
-
-        // original document is dirty and can't be deleted until copied document is saved
-        document.prepareForSave();
-        saveDocument(document, documentService);
-
-        SpringContext.getBean(BusinessObjectService.class).delete(documentService.getByDocumentHeaderId(originalDocumentNumber));
-        SpringContext.getBean(BusinessObjectService.class).delete(documentService.getByDocumentHeaderId(copiedDocumentNumber));
-    }
-
-    // test util methods
-    private List<SourceAccountingLine> generateSouceAccountingLines() throws Exception {
-        List<SourceAccountingLine> sourceLines = new ArrayList<SourceAccountingLine>();
-        // set accountinglines to document
-        for (AccountingLineFixture sourceFixture : getSourceAccountingLineParametersFromFixtures()) {
-            sourceLines.add(sourceFixture.createSourceAccountingLine());
         }
 
-        return sourceLines;
-    }
-
-    private List<TargetAccountingLine> generateTargetAccountingLines() throws Exception {
-        List<TargetAccountingLine> targetLines = new ArrayList<TargetAccountingLine>();
-        for (AccountingLineFixture targetFixture : getTargetAccountingLineParametersFromFixtures()) {
-            targetLines.add(targetFixture.createTargetAccountingLine());
+        @Override
+        public VendorDetail getByVendorNumber(String s) {
+            return null;
         }
 
-        return targetLines;
-    }
-
-    private DisbursementVoucherDocument buildDocument() throws Exception {
-        // put accounting lines into document parameter for later
-        DisbursementVoucherDocument document = (DisbursementVoucherDocument) getDocumentParameterFixture();
-
-        // set accountinglines to document
-        for (AccountingLineFixture sourceFixture : getSourceAccountingLineParametersFromFixtures()) {
-            sourceFixture.addAsSourceTo(document);
+        @Override
+        public VendorDetail getVendorDetail(String s) {
+            return null;
         }
 
-        for (AccountingLineFixture targetFixture : getTargetAccountingLineParametersFromFixtures()) {
-            targetFixture.addAsTargetTo(document);
+        @Override
+        public VendorDetail getVendorDetail(Integer integer, Integer integer1) {
+            if (integer == 23456) {
+                return null;
+            } else {
+                VendorDetail vendorDetail = new VendorDetail();
+                vendorDetail.setVendorHeaderGeneratedIdentifier(integer);
+                vendorDetail.setVendorDetailAssignedIdentifier(integer1);
+                return vendorDetail;
+            }
         }
 
-        return document;
+        @Override
+        public VendorDetail getParentVendor(Integer integer) {
+            return null;
+        }
+
+        @Override
+        public VendorDetail getVendorByDunsNumber(String s) {
+            return null;
+        }
+
+        @Override
+        public KualiDecimal getApoLimitFromContract(Integer integer, String s, String s1) {
+            return null;
+        }
+
+        @Override
+        public VendorAddress getVendorDefaultAddress(Integer integer, Integer integer1, String s, String s1) {
+            return null;
+        }
+
+        @Override
+        public VendorAddress getVendorDefaultAddress(Collection<VendorAddress> collection, String s, String s1) {
+            return null;
+        }
+
+        @Override
+        public boolean shouldVendorRouteForApproval(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean equalMemberLists(List<? extends VendorRoutingComparable> list, List<? extends VendorRoutingComparable> list1) {
+            return false;
+        }
+
+        @Override
+        public boolean noRouteSignificantChangeOccurred(VendorDetail vendorDetail, VendorHeader vendorHeader, VendorDetail vendorDetail1, VendorHeader vendorHeader1) {
+            return false;
+        }
+
+        @Override
+        public boolean isVendorInstitutionEmployee(Integer integer) {
+            return false;
+        }
+
+        @Override
+        public boolean isVendorForeign(Integer integer) {
+            return false;
+        }
+
+        @Override
+        public boolean isSubjectPaymentVendor(Integer integer) {
+            return false;
+        }
+
+        @Override
+        public boolean isRevolvingFundCodeVendor(Integer integer) {
+            return false;
+        }
+
+        @Override
+        public VendorContract getVendorB2BContract(VendorDetail vendorDetail, String s) {
+            return null;
+        }
+
+        @Override
+        public List<Note> getVendorNotes(VendorDetail vendorDetail) {
+            return null;
+        }
+
+        @Override
+        public boolean isVendorContractExpired(Document document, Integer integer, VendorDetail vendorDetail) {
+            return false;
+        }
+
+        @Override
+        public VendorAddress getVendorDefaultAddress(Integer integer, Integer integer1, String s, String s1, boolean b) {
+            return null;
+        }
     }
 
+    private static class TestDisbursementVoucherPayeeService implements DisbursementVoucherPayeeService {
+
+        @Override
+        public String getPayeeTypeDescription(String s) {
+            return null;
+        }
+
+        @Override
+        public boolean isEmployee(DisbursementVoucherPayeeDetail disbursementVoucherPayeeDetail) {
+            return false;
+        }
+
+        @Override
+        public boolean isEmployee(DisbursementPayee disbursementPayee) {
+            return false;
+        }
+
+        @Override
+        public boolean isVendor(DisbursementVoucherPayeeDetail disbursementVoucherPayeeDetail) {
+            return false;
+        }
+
+        @Override
+        public boolean isVendor(DisbursementPayee disbursementPayee) {
+            return false;
+        }
+
+        @Override
+        public boolean isPayeeIndividualVendor(DisbursementVoucherPayeeDetail disbursementVoucherPayeeDetail) {
+            return false;
+        }
+
+        @Override
+        public boolean isPayeeIndividualVendor(DisbursementPayee disbursementPayee) {
+            return false;
+        }
+
+        @Override
+        public void checkPayeeAddressForChanges(DisbursementVoucherDocument disbursementVoucherDocument) {
+
+        }
+
+        @Override
+        public String getVendorOwnershipTypeCode(DisbursementPayee disbursementPayee) {
+            return null;
+        }
+
+        @Override
+        public Map<String, String> getFieldConversionBetweenPayeeAndVendor() {
+            return null;
+        }
+
+        @Override
+        public Map<String, String> getFieldConversionBetweenPayeeAndPerson() {
+            return null;
+        }
+
+        @Override
+        public DisbursementPayee getPayeeFromVendor(VendorDetail vendorDetail) {
+            DisbursementPayee disbursementPayee = new DisbursementPayee();
+            disbursementPayee.setPayeeIdNumber(vendorDetail.getVendorNumber());
+            return disbursementPayee;
+        }
+
+        @Override
+        public DisbursementPayee getPayeeFromPerson(Person person) {
+            return null;
+        }
+    }
+
+    private static class TestDisbursementVoucherPaymentReasonService implements DisbursementVoucherPaymentReasonService {
+
+        @Override
+        public boolean isPayeeQualifiedForPayment(DisbursementPayee disbursementPayee, String s) {
+            if (disbursementPayee.getPayeeIdNumber().equals("12345-1")) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        @Override
+        public boolean isPayeeQualifiedForPayment(DisbursementPayee disbursementPayee, String s, Collection<String> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean isNonEmployeeTravelPaymentReason(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean isMovingPaymentReason(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean isPrepaidTravelPaymentReason(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean isResearchPaymentReason(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean isRevolvingFundPaymentReason(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean isDecedentCompensationPaymentReason(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean isPaymentReasonOfType(String s, String s1) {
+            return false;
+        }
+
+        @Override
+        public String getReserchNonVendorPayLimit() {
+            return null;
+        }
+
+        @Override
+        public Collection<String> getPayeeTypesByPaymentReason(String s) {
+            return null;
+        }
+
+        @Override
+        public PaymentReasonCode getPaymentReasonByPrimaryId(String s) {
+            return null;
+        }
+
+        @Override
+        public void postPaymentReasonCodeUsage(String s, MessageList messageList) {
+
+        }
+
+        @Override
+        public boolean isTaxReviewRequired(String s) {
+            return false;
+        }
+
+        @Override
+        public Collection<String> getVendorOwnershipTypesByPaymentReason(String s) {
+            return null;
+        }
+    }
+
+    private static class TestDisbursementVoucherPayeeDetail extends DisbursementVoucherPayeeDetail {
+
+        public boolean isVendor() {
+            return true;
+        }
+
+    }
 }
-
