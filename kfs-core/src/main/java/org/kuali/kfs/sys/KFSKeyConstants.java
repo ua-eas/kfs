@@ -425,6 +425,7 @@ public class KFSKeyConstants {
     public static final String ERROR_DV_PREPAID_EXPENSE_AMOUNT = "error.dv.prepaidExpenseAmountIsBlank";
     public static final String ERROR_DV_PREPAID_CHECK_TOTAL = "error.dv.prepaidCheckTotal";
     public static final String WARNING_DV_PAYEE_NONEXISTANT_CLEARED = "message.dv.payee.nonexistant.cleared";
+    public static final String MESSAGE_DV_PAYEE_INVALID_PAYMENT_TYPE_CLEARED = "message.dv.payee.invalid.payment.type.cleared";
     public static final String MESSAGE_PAYMENT_WIRE_CHARGE = "message.payment.wireCharge";
     public static final String ERROR_DV_EMPLOYEE_PAID_OUTSIDE_PAYROLL = "error.dv.emplPaidOutsidePayroll";
     public static final String ERROR_DV_MOVING_PAYMENT_PAYEE = "error.dv.movingPaymentPayee";
