@@ -272,12 +272,6 @@
 	<bean id="indirectCostRecoveryRateDetailDao" parent="platformAwareDao"
 		class="org.kuali.kfs.coa.dataaccess.impl.IndirectCostRecoveryRateDetailDaoOjb" />
 
-	<bean id="indirectCostRecoveryExclusionAccountDao" parent="platformAwareDao"
-		class="org.kuali.kfs.coa.dataaccess.impl.IndirectCostRecoveryExclusionAccountDaoOjb" />
-
-	<bean id="indirectCostRecoveryExclusionTypeDao" parent="platformAwareDao"
-		class="org.kuali.kfs.coa.dataaccess.impl.IndirectCostRecoveryExclusionTypeDaoOjb" />
-
 	<bean id="a21SubAccountDao" parent="platformAwareDao"
 		class="org.kuali.kfs.coa.dataaccess.impl.A21SubAccountDaoOjb" />
 		

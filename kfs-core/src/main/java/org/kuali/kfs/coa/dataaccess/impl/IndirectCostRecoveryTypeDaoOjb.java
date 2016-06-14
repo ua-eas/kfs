@@ -26,9 +26,6 @@ import org.kuali.kfs.coa.dataaccess.IndirectCostRecoveryTypeDao;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
-/**
- * This class implements the {@link IndirectCostRecoveryExclusionTypeDao} data access methods using Ojb
- */
 public class IndirectCostRecoveryTypeDaoOjb extends PlatformAwareDaoBaseOjb implements IndirectCostRecoveryTypeDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(IndirectCostRecoveryTypeDaoOjb.class);
 
