@@ -32,8 +32,8 @@ import org.kuali.rice.kim.api.identity.Person;
  * Accounting line authorizer for Requisition document which allows adding accounting lines at specified nodes
  */
 public class RequisitionAccountingLineAuthorizer extends PurapAccountingLineAuthorizer {
-    private static final String INITIATOR_NODE = "Initiator";
-    private static final String CONTENT_REVIEW_NODE = "Organization";
+    protected static final String INITIATOR_NODE = "Initiator";
+    protected static final String CONTENT_REVIEW_NODE = "Organization";
 
     /**
      * Allow new lines to be rendered at Initiator node
