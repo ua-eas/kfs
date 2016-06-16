@@ -19,12 +19,7 @@
  -->
 <xsd:schema elementFormDefault="qualified" 
     targetNamespace="http://www.kuali.org/kfs/tem/CreditCardData"
-    xmlns:kfs="http://www.kuali.org/kfs/sys/types"
-    xmlns:dd="http://www.kuali.org/kfs/sys/ddTypes"
     xmlns="http://www.kuali.org/kfs/tem/CreditCardData" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
-    <xsd:import namespace="http://www.kuali.org/kfs/sys/types" schemaLocation="../../xsd/sys/types.xsd" />
-    <xsd:import namespace="http://www.kuali.org/kfs/sys/ddTypes" schemaLocation="../../xsd/sys/ddTypes.xsd" />
 
 	<xsd:element name="importBy" type="xsd:normalizedString" />
     <xsd:element name="airNumber" type="xsd:normalizedString" />

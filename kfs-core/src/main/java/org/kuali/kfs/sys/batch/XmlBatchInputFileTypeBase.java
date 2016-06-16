@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.batch;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -34,11 +35,15 @@ import javax.xml.validation.Validator;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rules;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.xerces.dom.DOMInputImpl;
+import org.kuali.kfs.krad.util.ResourceLoaderUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.kfs.sys.exception.XmlErrorHandler;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
 
 
@@ -138,9 +143,9 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
     protected void validateContentsAgainstSchema(String schemaLocation, InputStream fileContents) throws ParseException {
         // create a SchemaFactory capable of understanding WXS schemas
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        factory.setResourceResolver(new ResourceResolver());
         // get schemaFile
         Resource schemaResource = SpringContext.getResource(schemaLocation);
-
         // load a WXS schema, represented by a Schema instance
         Source schemaSource = null;
         try {
@@ -211,5 +216,21 @@ public abstract class XmlBatchInputFileTypeBase extends BatchInputFileTypeBase {
         Digester digester = DigesterLoader.createDigester(rulesUrl);
 
         return digester.getRules();
+    }
+
+    private class ResourceResolver implements LSResourceResolver {
+        @Override
+        public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
+            LSInput is = null;
+            try {
+                Resource r = ResourceLoaderUtil.getFileResource(systemId);
+                is = new DOMInputImpl();
+                is.setByteStream(r.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return is;
+        }
     }
 }

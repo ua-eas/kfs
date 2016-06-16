@@ -20,15 +20,13 @@
 <xsd:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.w3.org/2001/XMLSchema check2.xsd"
  xmlns:kfs="http://www.kuali.org/kfs/sys/types"
- xmlns:dd="http://www.kuali.org/kfs/sys/ddTypes"
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
  xmlns="http://www.kuali.org/kfs/pdp/check"
  elementFormDefault="qualified"
  targetNamespace="http://www.kuali.org/kfs/pdp/check">
 
-  <xsd:import namespace="http://www.kuali.org/kfs/sys/types" schemaLocation="../../xsd/sys/types.xsd" />
-  <xsd:import namespace="http://www.kuali.org/kfs/sys/ddTypes" schemaLocation="../../xsd/sys/ddTypes.xsd" />
-  
+  <xsd:import namespace="http://www.kuali.org/kfs/sys/types" schemaLocation="classpath:org/kuali/kfs/sys/types.xsd" />
+
   <!-- simple data types -->
   <xsd:simpleType name="versionType">
     <xsd:restriction base="xsd:string">
@@ -43,7 +41,7 @@
   <xsd:element name="disbursementDate" type="xsd:normalizedString"/>
   <xsd:element name="netAmount" type="xsd:decimal"/>
   <xsd:element name="campusAddressIndicator" type="xsd:normalizedString" /> 
-  <xsd:element name="attachmentIndicator" type="${xsd:normalizedString,dd:PaymentGroup.pymtAttachment"/>
+  <xsd:element name="attachmentIndicator" type="xsd:normalizedString"/>
   <xsd:element name="specialHandlingIndicator" type="xsd:normalizedString"/>
   <xsd:element name="immediatePaymentIndicator" type="xsd:normalizedString"/>
   <xsd:element name="customerUnivNbr" type="xsd:integer"/>  
