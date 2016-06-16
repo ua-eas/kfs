@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
@@ -38,7 +39,7 @@ public class UpdateNodeHandler extends AbstractNodeChangeHandler implements Docu
         verifyKeyExistence(change,VALUE);
         
         String collectionName = change.get(COLLECTION_NAME).asText();
-        DBObject newValue = (DBObject) JSON.parse(change.get(VALUE).toString());
+        Object newValue = JSON.parse(change.get(VALUE).toString());
         String path = change.get(PATH).asText();
         String revertPath = change.get(REVERT_PATH).asText();
         JsonNode query = change.get(QUERY); 
@@ -49,7 +50,7 @@ public class UpdateNodeHandler extends AbstractNodeChangeHandler implements Docu
         
         // Verify reversion
         DocumentContext dc = JsonPath.parse(documentJson);    
-        DBObject nodeToChange = (DBObject) JSON.parse(JSON.serialize(findNode(dc, path)));       
+        Object nodeToChange = JSON.parse(JSON.serialize(findNode(dc, path)));       
         String revertedJson = JsonPath.parse(newJson).set(revertPath, nodeToChange).jsonString();
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -61,10 +62,12 @@ public class UpdateNodeHandler extends AbstractNodeChangeHandler implements Docu
         } 
         
         // Backup old node
-        nodeToChange.put(UPDATE_NODE_CHANGE_KEY, JsonUtils.calculateHash(change));
-        nodeToChange.put(CHANGE_DATESTAMP_KEY, (new Date()).getTime());
+        DBObject backupNode = new BasicDBObject();
+        backupNode.put(UPDATE_NODE_CHANGE_KEY, JsonUtils.calculateHash(change));
+        backupNode.put(CHANGE_DATESTAMP_KEY, (new Date()).getTime());
+        backupNode.put(VALUE, nodeToChange);
         String backupCollectionName = BACKUP_PREFIX + collectionName; 
-        mongoTemplate.save(nodeToChange, backupCollectionName);        
+        mongoTemplate.save(backupNode, backupCollectionName);        
                
         DBObject result = (DBObject) JSON.parse(newJson);
         mongoTemplate.remove(q, collectionName);
@@ -89,10 +92,9 @@ public class UpdateNodeHandler extends AbstractNodeChangeHandler implements Docu
         // Restore old version
         Query backupQuery = new Query(Criteria.where(UPDATE_NODE_CHANGE_KEY).is(JsonUtils.calculateHash(change)))
                 .with(new Sort(new Order(Direction.DESC, CHANGE_DATESTAMP_KEY)));
-        DBObject oldNode = mongoTemplate.findOne(backupQuery, DBObject.class, backupCollectionName);
-        if (oldNode != null) {
-            oldNode.removeField(UPDATE_NODE_CHANGE_KEY);
-            oldNode.removeField(CHANGE_DATESTAMP_KEY);
+        DBObject backupNode = mongoTemplate.findOne(backupQuery, DBObject.class, backupCollectionName);
+        if (backupNode != null) {
+            Object oldNode = backupNode.get(VALUE);
             String revertedJson = JsonPath.parse(documentJson).set(revertPath, oldNode).jsonString();
             DBObject result = (DBObject) JSON.parse(revertedJson);
             mongoTemplate.remove(q, collectionName);

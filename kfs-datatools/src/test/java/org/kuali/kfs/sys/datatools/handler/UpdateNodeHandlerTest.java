@@ -102,6 +102,37 @@ public class UpdateNodeHandlerTest {
     }
     
     @Test
+    public void testMakeChangeUpdateLabel() throws Exception {
+        Query q = new Query(Criteria.where("myId").is("10"));
+        Capture<DBObject> capturedObject = EasyMock.newCapture();
+        
+        EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentBeforeUpdate());
+        mongoTemplate.save(EasyMock.and(EasyMock.capture(capturedObject), EasyMock.isA(DBObject.class)), EasyMock.eq("backup_collection"));
+        EasyMock.expectLastCall();
+        mongoTemplate.remove(q, "collection");
+        EasyMock.expectLastCall();
+        mongoTemplate.save(createSampleDocumentAfterUpdate(), "collection");
+        EasyMock.replay(mongoTemplate);
+        
+        String testJson = "{ \"changeType\": \"updateNode\",\"collectionName\": \"collection\","
+                + "\"query\": { \"myId\": \"10\"},"
+                + "\"path\": \"$..link[?(@.label=='Label5')].label\","
+                + "\"revertPath\": \"$..link[?(@.label=='Label6')].label\","
+                + "\"value\": \"Label6\" }"; 
+        
+        updateNodeHandler.setMongoTemplate(mongoTemplate);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
+
+        updateNodeHandler.makeChange(testNode);
+        Map object = capturedObject.getValue().toMap();
+        Assert.assertTrue(UpdateNodeHandler.UPDATE_NODE_CHANGE_KEY + " should be added to object", object.containsKey(UpdateNodeHandler.UPDATE_NODE_CHANGE_KEY));
+        Assert.assertTrue(UpdateNodeHandler.CHANGE_DATESTAMP_KEY + " should be added to object", object.containsKey(UpdateNodeHandler.CHANGE_DATESTAMP_KEY));
+        EasyMock.verify(mongoTemplate);
+    }
+    
+    @Test
     public void testFailsIfReversionIncorrect() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
         
@@ -155,9 +186,45 @@ public class UpdateNodeHandlerTest {
         EasyMock.verify(mongoTemplate);
     }
     
+    @Test
+    public void testRevertLabelChange() throws Exception {
+        String testJson = "{ \"changeType\": \"updateNode\",\"collectionName\": \"collection\","
+                + "\"query\": { \"myId\": \"10\"},"
+                + "\"path\": \"$..link[?(@.label=='Label5')].label\","
+                + "\"revertPath\": \"$..link[?(@.label=='Label6')].label\","
+                + "\"value\": \"Label6\" }";        
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
+        
+        Query q1 = new Query(Criteria.where("myId").is("10"));
+        EasyMock.expect(mongoTemplate.findOne(q1, DBObject.class, "collection")).andReturn(createSampleDocumentAfterUpdate());
+        Query q2 = new Query(Criteria.where(UpdateNodeHandler.UPDATE_NODE_CHANGE_KEY).is(JsonUtils.calculateHash(testNode)))
+                .with(new Sort(new Order(Direction.DESC, UpdateNodeHandler.CHANGE_DATESTAMP_KEY)));
+        EasyMock.expect(mongoTemplate.findOne(q2, DBObject.class, "backup_collection")).andReturn(createSampleBackupString());
+        mongoTemplate.remove(q1, "collection");
+        EasyMock.expectLastCall();
+        mongoTemplate.save(createSampleDocumentBeforeUpdate(), "collection");
+        EasyMock.expectLastCall();
+        EasyMock.replay(mongoTemplate);
+        
+        updateNodeHandler.setMongoTemplate(mongoTemplate);
+        updateNodeHandler.revertChange(testNode);
+        EasyMock.verify(mongoTemplate);
+    }
+    
     private DBObject createSampleBackupObject() {
         DBObject result = new BasicDBObject();
-        result.put("label", "Label5");
+        DBObject oldNode = new BasicDBObject();
+        oldNode.put("label", "Label5");
+        result.put("value", oldNode);
+        result.put(UpdateNodeHandler.UPDATE_NODE_CHANGE_KEY, "something");
+        result.put(UpdateNodeHandler.CHANGE_DATESTAMP_KEY, 123l);
+        return result;
+    }
+    
+    private DBObject createSampleBackupString() {
+        DBObject result = new BasicDBObject();
+        result.put("value", "Label5");
         result.put(UpdateNodeHandler.UPDATE_NODE_CHANGE_KEY, "something");
         result.put(UpdateNodeHandler.CHANGE_DATESTAMP_KEY, 123l);
         return result;
