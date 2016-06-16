@@ -1,4 +1,26 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.rest;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -12,9 +34,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import com.google.common.base.CaseFormat;
 
@@ -25,6 +50,7 @@ public class ApiResource {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ApiResource.class);
     
     protected static volatile KualiModuleService kualiModuleService;
+    protected static volatile BusinessObjectService businessObjectService;
     
     @Context
     private HttpServletRequest servletRequest;
@@ -34,17 +60,33 @@ public class ApiResource {
     public Response getSingleObject(@PathParam("moduleName")String moduleName, @PathParam("businessObjectName")String businessObjectName, @PathParam("objectId")String objectId) {
         LOG.debug("processV1Request() started");
         
-        Class boClass = determineClass(moduleName, businessObjectName);
+        Class<BusinessObject> boClass = determineClass(moduleName, businessObjectName);
         if (boClass == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
         
-        // TODO: Check authorization, find object, create response
+        BusinessObject businessObject = findBusinessObject(boClass, objectId);
+        if (businessObject == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        
+        // TODO: Check authorization, create response
         
         return null;        
     }
 
-    private Class determineClass(String moduleName, String businessObjectName) {
+    protected <T extends BusinessObject> T findBusinessObject(Class<T> boClass, String objectId) {
+        Map<String, String> queryCriteria = new HashMap<String, String>();
+        queryCriteria.put(KRADPropertyConstants.OBJECT_ID, objectId);
+        Collection<T> queryResults = getBusinessObjectService().findMatching(boClass, queryCriteria);
+        if (queryResults.size() != 1) {
+            return null;
+        }
+        return queryResults.iterator().next();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected Class<BusinessObject> determineClass(String moduleName, String businessObjectName) {
         ModuleService moduleService = determineModuleService(moduleName);
         if (moduleService == null) {
             return null;
@@ -52,9 +94,10 @@ public class ApiResource {
         String boClassName = convertUrlBoNameToClassName(businessObjectName);
         // Search for class in module.
         for (String prefix : moduleService.getModuleConfiguration().getPackagePrefixes()) {
+            String fullClassName = prefix + ".businessobject." + boClassName;
             try {
-                return Class.forName(prefix + ".businessobject." + boClassName);
-            } catch (ClassNotFoundException e) {
+                return (Class<BusinessObject>) Class.forName(fullClassName).asSubclass(BusinessObject.class);
+            } catch (ClassNotFoundException | ClassCastException e) {
                 // Keep looking
             }
         }
@@ -62,12 +105,17 @@ public class ApiResource {
         return null;
     }
 
-    private ModuleService determineModuleService(String moduleName) {
-        String namespaceCode = "KFS-" + StringUtils.upperCase(moduleName);
-        return getKualiModuleService().getModuleServiceByNamespaceCode(namespaceCode);
+    protected ModuleService determineModuleService(String moduleName) {
+        for (ModuleService moduleService : getKualiModuleService().getInstalledModuleServices()) {
+            String namespaceCode = moduleService.getModuleConfiguration().getNamespaceCode().toUpperCase();
+            if (namespaceCode.contains(StringUtils.upperCase(moduleName))) {
+                return moduleService;
+            }
+        }
+        return null;
     }
 
-    private String convertUrlBoNameToClassName(String businessObjectName) {
+    protected String convertUrlBoNameToClassName(String businessObjectName) {
         // TODO: create option to map BO names that don't pluralize with a single "s".
         String camelCaseName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, businessObjectName);
         // Remove plural "s" from end of name.
@@ -79,5 +127,12 @@ public class ApiResource {
             kualiModuleService = SpringContext.getBean(KualiModuleService.class);
         }
         return kualiModuleService;
+    }
+
+    protected BusinessObjectService getBusinessObjectService() {
+        if (businessObjectService == null) {
+            businessObjectService = SpringContext.getBean(BusinessObjectService.class);
+        }
+        return businessObjectService;
     }
 }
