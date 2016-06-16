@@ -29,8 +29,6 @@ import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionAccount;
 import org.kuali.kfs.coa.businessobject.IndirectCostRecoveryExclusionType;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.coa.dataaccess.IndirectCostRecoveryExclusionAccountDao;
-import org.kuali.kfs.coa.dataaccess.IndirectCostRecoveryExclusionTypeDao;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.PosterIndirectCostRecoveryEntriesStep;
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
@@ -41,7 +39,6 @@ import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.Message;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
@@ -63,26 +60,12 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
     private static final String INDIRECT_COST_FISCAL_PERIODS_PARAMETER = "INDIRECT_COST_FISCAL_PERIODS";
     private static final String ICR_EXCLUSIONS_AT_TRANSACTION_AND_TOP_LEVEL_ONLY_PARAMETER_NAME = "ICR_EXCLUSIONS_AT_TRANSACTION_AND_TOP_LEVEL_ONLY_IND";
 
-    private IndirectCostRecoveryExclusionAccountDao indirectCostRecoveryExclusionAccountDao;
-    private IndirectCostRecoveryExclusionTypeDao indirectCostRecoveryExclusionTypeDao;
-    private AccountingCycleCachingService accountingCycleCachingService;
-    private PersistenceStructureService persistenceStructureService;
-    private ParameterService parameterService;
+    protected AccountingCycleCachingService accountingCycleCachingService;
+    protected PersistenceStructureService persistenceStructureService;
+    protected ParameterService parameterService;
+    protected BusinessObjectService businessObjectService;
+    protected ParameterEvaluatorService parameterEvaluatorService;
 
-    public void setIndirectCostRecoveryExclusionAccountDao(IndirectCostRecoveryExclusionAccountDao icrea) {
-        indirectCostRecoveryExclusionAccountDao = icrea;
-    }
-
-    public void setIndirectCostRecoveryExclusionTypeDao(IndirectCostRecoveryExclusionTypeDao icrea) {
-        indirectCostRecoveryExclusionTypeDao = icrea;
-    }
-
-    /**
-     * Creates a PostExpenditureTransaction instance
-     */
-    public PostExpenditureTransaction() {
-        super();
-    }
 
     /**
      * This will determine if this transaction is an ICR eligible transaction
@@ -101,11 +84,11 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
 
         // Is the ICR indicator set?
         // Is the period code a non-balance period, as specified by KFS-GL / Poster Indirect Cost Recoveries Step / INDIRECT_COST_FISCAL_PERIODS? If so, continue, if not, we aren't posting this transaction
-        if (transaction.getObjectType().isFinObjectTypeIcrSelectionIndicator() && /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(PosterIndirectCostRecoveryEntriesStep.class, PostExpenditureTransaction.INDIRECT_COST_FISCAL_PERIODS_PARAMETER, transaction.getUniversityFiscalPeriodCode()).evaluationSucceeds()) {
+        if (transaction.getObjectType().isFinObjectTypeIcrSelectionIndicator() && getParameterEvaluatorService().getParameterEvaluator(PosterIndirectCostRecoveryEntriesStep.class, PostExpenditureTransaction.INDIRECT_COST_FISCAL_PERIODS_PARAMETER, transaction.getUniversityFiscalPeriodCode()).evaluationSucceeds()) {
             // Continue on the posting process
 
             // Check the sub account type code. A21 sub-accounts with the type of CS don't get posted
-            A21SubAccount a21SubAccount = accountingCycleCachingService.getA21SubAccount(transaction.getAccount().getChartOfAccountsCode(), transaction.getAccount().getAccountNumber(), transaction.getSubAccountNumber());
+            A21SubAccount a21SubAccount = getAccountingCycleCachingService().getA21SubAccount(transaction.getAccount().getChartOfAccountsCode(), transaction.getAccount().getAccountNumber(), transaction.getSubAccountNumber());
             String financialIcrSeriesIdentifier;
             String indirectCostRecoveryTypeCode;
 
@@ -176,7 +159,7 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
      */
     protected boolean excludedByType(String indirectCostRecoveryTypeCode, ObjectCode objectCode, boolean selfAndTopLevelOnly) {
         // If the ICR type code is empty or excluded by the KFS-GL / Batch / INDIRECT_COST_TYPES parameter, don't post
-        if ((!StringUtils.hasText(indirectCostRecoveryTypeCode)) || !/*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.INDIRECT_COST_TYPES_PARAMETER, indirectCostRecoveryTypeCode).evaluationSucceeds()) {
+        if ((!StringUtils.hasText(indirectCostRecoveryTypeCode)) || !getParameterEvaluatorService().getParameterEvaluator(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.INDIRECT_COST_TYPES_PARAMETER, indirectCostRecoveryTypeCode).evaluationSucceeds()) {
             // No need to post this
             if (LOG.isDebugEnabled()) {
                 LOG.debug("isIcrTransaction() ICR type is null or excluded by the KFS-GL / Poster Indirect Cost Recoveries Step / INDIRECT_COST_TYPES parameter - not posted");
@@ -215,7 +198,7 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
         keys.put(KFSPropertyConstants.ACCOUNT_INDIRECT_COST_RECOVERY_TYPE_CODE, indirectCostRecoveryTypeCode);
         keys.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, objectCode.getChartOfAccountsCode());
         keys.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, objectCode.getFinancialObjectCode());
-        final IndirectCostRecoveryExclusionType excType = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(IndirectCostRecoveryExclusionType.class, keys);
+        final IndirectCostRecoveryExclusionType excType = getBusinessObjectService().findByPrimaryKey(IndirectCostRecoveryExclusionType.class, keys);
         return !ObjectUtils.isNull(excType) && excType.isActive();
     }
 
@@ -259,9 +242,16 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
         keys.put(KFSPropertyConstants.ACCOUNT_NUMBER, account.getAccountNumber());
         keys.put(KFSPropertyConstants.FINANCIAL_OBJECT_CHART_OF_ACCOUNT_CODE, objectCode.getChartOfAccountsCode());
         keys.put(KFSPropertyConstants.FINANCIAL_OBJECT_CODE, objectCode.getFinancialObjectCode());
-        final IndirectCostRecoveryExclusionAccount excAccount = SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(IndirectCostRecoveryExclusionAccount.class, keys);
+        keys.put(KFSPropertyConstants.ACTIVE, KFSConstants.ACTIVE_INDICATOR);
+        final IndirectCostRecoveryExclusionAccount excAccount = getBusinessObjectService().findByPrimaryKey(
+        		IndirectCostRecoveryExclusionAccount.class, keys);
+        boolean hasExclusion = !ObjectUtils.isNull(excAccount);
+        if (LOG.isDebugEnabled()) {
+        	LOG.debug("hasExclusionByAccount for account " + account.getAccountNumber() + " and object code " + 
+        		objectCode.getCode() + " is returning " + (hasExclusion));
+        }
 
-        return !ObjectUtils.isNull(excAccount);
+        return hasExclusion;
     }
 
     /**
@@ -298,7 +288,7 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
      * @return the reports to object code, or, if that is impossible, null
      */
     protected ObjectCode getReportsToObjectCode(ObjectCode objectCode) {
-       return accountingCycleCachingService.getObjectCode(objectCode.getUniversityFiscalYear(), objectCode.getReportsToChartOfAccountsCode(), objectCode.getReportsToFinancialObjectCode());
+       return getAccountingCycleCachingService().getObjectCode(objectCode.getUniversityFiscalYear(), objectCode.getReportsToChartOfAccountsCode(), objectCode.getReportsToFinancialObjectCode());
     }
 
     /**
@@ -336,7 +326,7 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
         LOG.debug("postTransaction() started");
 
         String returnCode = GeneralLedgerConstants.UPDATE_CODE;
-        ExpenditureTransaction et = accountingCycleCachingService.getExpenditureTransaction(t);
+        ExpenditureTransaction et = getAccountingCycleCachingService().getExpenditureTransaction(t);
         if (et == null) {
             LOG.debug("Posting expenditure transation");
             et = new ExpenditureTransaction(t);
@@ -357,11 +347,11 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
         if (returnCode.equals(GeneralLedgerConstants.INSERT_CODE)) {
             //TODO: remove this log statement. Added to troubleshoot FSKD-194.
             LOG.info("Inserting a GLEX record. Transaction:"+t);
-            accountingCycleCachingService.insertExpenditureTransaction(et);
+            getAccountingCycleCachingService().insertExpenditureTransaction(et);
         } else {
             //TODO: remove this log statement. Added to troubleshoot FSKD-194.
             LOG.info("Updating a GLEX record. Transaction:"+t);
-            accountingCycleCachingService.updateExpenditureTransaction(et);
+            getAccountingCycleCachingService().updateExpenditureTransaction(et);
         }
 
         return returnCode;
@@ -372,31 +362,47 @@ public class PostExpenditureTransaction implements IndirectCostRecoveryService, 
      */
     @Override
     public String getDestinationName() {
-        return persistenceStructureService.getTableName(ExpenditureTransaction.class);
+        return getPersistenceStructureService().getTableName(ExpenditureTransaction.class);
     }
 
     public void setAccountingCycleCachingService(AccountingCycleCachingService accountingCycleCachingService) {
         this.accountingCycleCachingService = accountingCycleCachingService;
     }
+    
+    public AccountingCycleCachingService getAccountingCycleCachingService() {
+		return accountingCycleCachingService;
+	}
 
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {
         this.persistenceStructureService = persistenceStructureService;
     }
+    
+    public PersistenceStructureService getPersistenceStructureService() {
+		return persistenceStructureService;
+	}
 
-    /**
-     * Gets the parameterService attribute.
-     * @return Returns the parameterService.
-     */
     public ParameterService getParameterService() {
         return parameterService;
     }
 
-    /**
-     * Sets the parameterService attribute value.
-     * @param parameterService The parameterService to set.
-     */
     public void setParameterService(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
+
+	public BusinessObjectService getBusinessObjectService() {
+		return businessObjectService;
+	}
+
+	public void setBusinessObjectService(BusinessObjectService businessObjectService) {
+		this.businessObjectService = businessObjectService;
+	}
+
+	public ParameterEvaluatorService getParameterEvaluatorService() {
+		return parameterEvaluatorService;
+	}
+
+	public void setParameterEvaluatorService(ParameterEvaluatorService parameterEvaluatorService) {
+		this.parameterEvaluatorService = parameterEvaluatorService;
+	}
 
 }

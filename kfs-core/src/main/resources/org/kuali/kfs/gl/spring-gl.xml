@@ -1122,29 +1122,20 @@
 
 	<bean id="glPostExpenditureTransaction" parent="glPostExpenditureTransaction-parentBean" />
 	<bean id="glPostExpenditureTransaction-parentBean" class="org.kuali.kfs.gl.batch.service.impl.PostExpenditureTransaction" abstract="true">
-		<property name="indirectCostRecoveryExclusionAccountDao">
-			<ref bean="indirectCostRecoveryExclusionAccountDao" />
-		</property>
-		<property name="indirectCostRecoveryExclusionTypeDao">
-			<ref bean="indirectCostRecoveryExclusionTypeDao" />
-		</property>
-		<property name="accountingCycleCachingService">
-		  	<ref bean="accountingCycleCachingService" />
-		</property>
-		<property name="persistenceStructureService">
-			<ref bean="persistenceStructureService" />
-		</property>
+		<property name="accountingCycleCachingService" ref="accountingCycleCachingService" />
+		<property name="persistenceStructureService" ref="persistenceStructureService" />
 		<property name="parameterService" ref="parameterService" />
+		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
 	</bean>
 
 	<bean id="glIcrTransaction" parent="glIcrTransaction-parentBean" />
 	<bean id="glIcrTransaction-parentBean" class="org.kuali.kfs.gl.batch.service.impl.PostExpenditureTransaction" abstract="true">
-		<property name="indirectCostRecoveryExclusionAccountDao">
-			<ref bean="indirectCostRecoveryExclusionAccountDao" />
-		</property>
-		<property name="indirectCostRecoveryExclusionTypeDao">
-			<ref bean="indirectCostRecoveryExclusionTypeDao" />
-		</property>
+		<property name="accountingCycleCachingService" ref="accountingCycleCachingService" />
+		<property name="persistenceStructureService" ref="persistenceStructureService" />
+		<property name="parameterService" ref="parameterService" />
+		<property name="businessObjectService" ref="businessObjectService" />
+		<property name="parameterEvaluatorService" ref="parameterEvaluatorService" />
 	</bean>
 
 	<bean id="glVerifyTransaction" parent="glVerifyTransaction-parentBean" />
