@@ -72,20 +72,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class RequisitionServiceImpl implements RequisitionService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RequisitionServiceImpl.class);
 
-    private BusinessObjectService businessObjectService;
-    private CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
-    private DateTimeService dateTimeService;
-    private DocumentService documentService;
-    private KualiRuleService ruleService;
-    private ConfigurationService kualiConfigurationService;
-    private ParameterService parameterService;
-    private PersonService personService;
-    private PostalCodeValidationService postalCodeValidationService;
-    private PurapService purapService;
-    private RequisitionDao requisitionDao;
-    private UniversityDateService universityDateService;
-    private VendorService vendorService;
-    private RoleService roleService;
+    protected BusinessObjectService businessObjectService;
+    protected CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
+    protected DateTimeService dateTimeService;
+    protected DocumentService documentService;
+    protected KualiRuleService ruleService;
+    protected ConfigurationService kualiConfigurationService;
+    protected ParameterService parameterService;
+    protected PersonService personService;
+    protected PostalCodeValidationService postalCodeValidationService;
+    protected PurapService purapService;
+    protected RequisitionDao requisitionDao;
+    protected UniversityDateService universityDateService;
+    protected VendorService vendorService;
+    protected RoleService roleService;
 
     @Override
     public PurchasingCapitalAssetItem createCamsItem(PurchasingDocument purDoc, PurApItem purapItem) {
