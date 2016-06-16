@@ -71,7 +71,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AwardMaintainableImpl.class);
 
-    private static volatile AccountsReceivableModuleBillingService accountsReceivableModuleBillingService;
+    protected static volatile AccountsReceivableModuleBillingService accountsReceivableModuleBillingService;
     /**
      * This method is called for refreshing the Agency before display to show the full name in case the agency number was changed by
      * hand before any submit that causes a redisplay.
@@ -282,7 +282,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
      *
      * @param refreshFromLookup
      */
-    private void refreshAward(boolean refreshFromLookup) {
+    protected void refreshAward(boolean refreshFromLookup) {
         Award award = getAward();
         award.refreshNonUpdateableReferences();
 
@@ -304,7 +304,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
      *
      * @param refreshFromLookup a lookup returns only the primary key, so ignore the secondary key when true
      */
-    private void refreshAwardProjectDirectors(boolean refreshFromLookup) {
+    protected void refreshAwardProjectDirectors(boolean refreshFromLookup) {
         if (refreshFromLookup) {
             getNewCollectionLine(AWARD_PROJECT_DIRECTORS).refreshNonUpdateableReferences();
             refreshNonUpdateableReferences(getAward().getAwardProjectDirectors());
@@ -330,7 +330,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
      *
      * @param refreshFromLookup a lookup returns only the primary key, so ignore the secondary key when true
      */
-    private void refreshAwardFundManagers(boolean refreshFromLookup) {
+    protected void refreshAwardFundManagers(boolean refreshFromLookup) {
         if (refreshFromLookup) {
             getNewCollectionLine(AWARD_FUND_MANAGERS).refreshNonUpdateableReferences();
             refreshNonUpdateableReferences(getAward().getAwardFundManagers());
@@ -349,7 +349,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
     /**
      * @param collection
      */
-    private static void refreshNonUpdateableReferences(Collection<? extends PersistableBusinessObject> collection) {
+    protected static void refreshNonUpdateableReferences(Collection<? extends PersistableBusinessObject> collection) {
         for (PersistableBusinessObject item : collection) {
             item.refreshNonUpdateableReferences();
         }
@@ -364,7 +364,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
      *
      * @param director the ProjectDirector to refresh
      */
-    private static void refreshWithSecondaryKey(CGProjectDirector director) {
+    protected static void refreshWithSecondaryKey(CGProjectDirector director) {
         Person cgdir = director.getProjectDirector();
         if (ObjectUtils.isNotNull(cgdir)) {
             String secondaryKey = cgdir.getPrincipalName();
@@ -390,7 +390,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
      *
      * @param director the FundManager to refresh
      */
-    private static void refreshWithSecondaryKey(AwardFundManager fundManager) {
+    protected static void refreshWithSecondaryKey(AwardFundManager fundManager) {
         Person cdFundMgr = fundManager.getFundManager();
         if (ObjectUtils.isNotNull(cdFundMgr)) {
             String secondaryKey = cdFundMgr.getPrincipalName();
