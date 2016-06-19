@@ -37,8 +37,6 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
@@ -47,6 +45,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 import com.google.common.base.CaseFormat;
+
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 @Path("/api")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -115,7 +116,7 @@ public class ApiResource {
                     // TODO: Level 1 serialization
                 }
                 else {
-                    newList.put(item);
+                    newList.add(item);
                 }
                 return newList;
             }
