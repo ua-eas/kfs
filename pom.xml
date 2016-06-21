@@ -161,6 +161,7 @@
     <log4j.version>1.2.17</log4j.version>
     <mockito.version>1.9.5</mockito.version>
     <easymock.version>3.4</easymock.version>
+    <powermock.version>1.6.5</powermock.version>
     <persistence.version>2.1.0</persistence.version>
 
     <quartz.version>1.8.6</quartz.version>
@@ -1598,6 +1599,18 @@
       <version>${easymock.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-easymock</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+    </dependency>  
     <dependency>
       <groupId>${db.groupId}</groupId>
       <artifactId>${db.artifactId}</artifactId>

@@ -18,8 +18,13 @@
  */
 package org.kuali.kfs.sys.rest;
 
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +38,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KualiModuleService;
@@ -50,6 +56,7 @@ public class ApiResource {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ApiResource.class);
     
     protected static volatile KualiModuleService kualiModuleService;
+
     protected static volatile BusinessObjectService businessObjectService;
     
     @Context
@@ -70,9 +77,51 @@ public class ApiResource {
             return Response.status(Status.NOT_FOUND).build();
         }
         
+        Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
+        try {           
+            for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(businessObject)) {
+                Object jsonValue = getJsonValue(businessObject, propertyDescriptor);
+                if (jsonValue != null) {                    
+                    jsonObject.put(propertyDescriptor.getName(), jsonValue);
+                }
+            }
+        } catch (ReflectiveOperationException e) {
+            LOG.error("Could not serialize BO", e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
         // TODO: Check authorization, create response
         
-        return null;        
+        return Response.ok(jsonObject).build();        
+    }
+
+    private Object getJsonValue(BusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
+        Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
+        if (value == null) {
+            return null;
+        }
+        Class<?> propertyClass = propertyDescriptor.getPropertyType();
+        
+        if (BusinessObject.class.isAssignableFrom(propertyClass)) {
+            // TODO: Level 1 serialization
+            return null;
+        }
+        
+        if (Collection.class.isAssignableFrom(propertyClass)) {
+            Collection<?> collection = (Collection<?>) value;
+            Iterator<?> it = collection.iterator();
+            List<Object> newList = new ArrayList<Object>();
+            while (it.hasNext()) {
+                Object item = it.next();
+                if (item instanceof BusinessObject) {
+                    // TODO: Level 1 serialization
+                }
+                else {
+                    newList.add(item);
+                }
+                return newList;
+            }
+        }
+        return value;
     }
 
     protected <T extends BusinessObject> T findBusinessObject(Class<T> boClass, String objectId) {
@@ -135,4 +184,12 @@ public class ApiResource {
         }
         return businessObjectService;
     }
+    
+    public static void setKualiModuleService(KualiModuleService kualiModuleService) {
+        ApiResource.kualiModuleService = kualiModuleService;
+    }
+
+    public static void setBusinessObjectService(BusinessObjectService businessObjectService) {
+        ApiResource.businessObjectService = businessObjectService;
+    }   
 }
