@@ -464,11 +464,6 @@ public class SpringContext {
     }
 
     static void updateDocumentstore() {
-        if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(KFSPropertyConstants.REVERT_DOCUMENTSTORE_ON_STARTUP)) {
-            DocumentStoreSchemaUpdateService documentStoreSchemaUpdateService = getBean(DocumentStoreSchemaUpdateService.class);
-            String updateFilePath = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.REVERT_DOCUMENTSTORE_FILE_PATH);
-            documentStoreSchemaUpdateService.revertDocumentStoreSchemaForLocation(updateFilePath);
-        }
         if (KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(KFSPropertyConstants.UPDATE_DOCUMENTSTORE_ON_STARTUP)) {
             DocumentStoreSchemaUpdateService documentStoreSchemaUpdateService = getBean(DocumentStoreSchemaUpdateService.class);
             String updateFilePath = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KFSPropertyConstants.UPDATE_DOCUMENTSTORE_FILE_PATH);

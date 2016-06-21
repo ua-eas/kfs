@@ -32,7 +32,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,8 +52,6 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
 
     private String updatesPath;
     private String updatesList;
-    private String revertPath;
-    private String revertList;
 
     @Override
     public void updateDocumentStoreSchema() {
@@ -80,32 +77,6 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
             documentStoreUpdateProcessDao.unlockSchemaChange();
         }
     }
-    
-    @Override
-    public void revertDocumentStoreSchema() {
-        LOG.debug("revertDocumentStoreSchema() started");
-
-        if ( documentStoreUpdateProcessDao.isSchemaChangeLocked() ) {
-            LOG.debug("revertDocumentStoreSchema() not running because schema is locked");
-            return;
-        }
-
-        try {
-            documentStoreUpdateProcessDao.lockSchemaChange();
-
-            List<String> revertFiles = getUpdateFiles(revertPath + revertList);
-            Collections.reverse(revertFiles);
-            for (String revertFile : revertFiles) {
-                LOG.debug("revertDocumentStoreSchema() " + revertFile);
-                revert(revertFile);
-            }
-        } catch (IOException ex) {
-            LOG.error("revertDocumentStoreSchema() Unable to read and process reversions", ex);
-            throw new IllegalArgumentException("Unable to open revert file " + revertPath + revertList, ex);
-        } finally {
-            documentStoreUpdateProcessDao.unlockSchemaChange();
-        }
-    }
 
     @Override
     public void updateDocumentStoreSchemaForLocation(String location) {
@@ -116,17 +87,6 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
         setUpdatesPath(fileInfo.filePath);
         setUpdatesList(fileInfo.fileName);
         updateDocumentStoreSchema();
-    }
-    
-    @Override
-    public void revertDocumentStoreSchemaForLocation(String location) {
-        if (location.startsWith("/")) {
-            location = "file:" + location;
-        }
-        FileInfo fileInfo = parseFilePath(location);
-        setRevertPath(fileInfo.filePath);
-        setRevertList(fileInfo.fileName);
-        revertDocumentStoreSchema();
     }
 
     /**
@@ -160,44 +120,6 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
             applyChangeSetIfNecessary(change);
         }
     }
-    
-    /**
-     * Read and reverts all the changes in an update file.
-     *
-     * @param revertFile The file name to revert
-     * @throws IOException
-     */
-    public void revert(String revertFile) throws IOException {
-        LOG.debug("revert() started");
-
-        Resource resource = ResourceLoaderUtil.getFileResource(revertPath + revertFile);
-        if (resource == null) {
-            throw new FileNotFoundException("Invalid resource specified: " + revertPath + revertFile);
-        }
-        InputStream is = resource.getInputStream();
-
-        if (is == null) {
-            throw new IOException("revert() Unable to read file: " + revertPath + revertFile);
-        }
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootNode = mapper.readValue(is, JsonNode.class);
-
-        JsonNode arrayOfChanges = rootNode.get("changeLog");
-
-        Iterator<JsonNode> items = arrayOfChanges.elements();
-        
-        // Reverse the iterator, so we revert in the reverse order of the original processing
-        List<JsonNode> itemsReversed = new ArrayList<JsonNode>();
-        while (items.hasNext()) {
-            itemsReversed.add(0, items.next());
-        }
-        
-        for (JsonNode item : itemsReversed) {
-            DocumentStoreChange change = new DocumentStoreChange(revertFile, item);
-            revertChangeSetIfNecessary(change);
-        }
-    }
 
     /**
      * Apply the change set requested if it hasn't been made previously.
@@ -214,24 +136,6 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
             documentStoreUpdateProcessDao.saveSchemaChange(changeSet);
         }
     }
-    
-    /**
-     * Revert the change set requested if it has been made.
-     *
-     * @param changeSet The change to be made
-     */
-    private void revertChangeSetIfNecessary(DocumentStoreChange changeSet) {
-        LOG.debug("revertChangeSetIfNecessary() started");
-
-        if ( documentStoreUpdateProcessDao.hasSchemaChangeHappened(changeSet) ) {
-            LOG.debug("revertChangeSetIfNecessary() Reverting change: " + changeSet);
-
-            List<JsonNode> changes = changeSet.getAllChanges();
-            Collections.reverse(changes);
-            changes.forEach((change) -> revertChange(change));
-            documentStoreUpdateProcessDao.removeSchemaChange(changeSet);
-        }
-    }
 
     /**
      * Apply one change from the set
@@ -243,27 +147,6 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
         for (DocumentStoreChangeHandler handler : handlers) {
             if (handler.handlesChange(change)) {
                 handler.makeChange(change);
-                changeMade = true;
-                break;
-            }
-        }
-
-        if ( ! changeMade ) {
-            LOG.error("applyChange() No document handler found for this change: " + change);
-            throw new IllegalArgumentException("No handler registered to handle this change");
-        }
-    }
-    
-    /**
-     * Revert one change from the set
-     * @param change change to apply
-     */
-    private void revertChange(JsonNode change) {
-        boolean changeMade = false;
-
-        for (DocumentStoreChangeHandler handler : handlers) {
-            if (handler.handlesChange(change)) {
-                handler.revertChange(change);
                 changeMade = true;
                 break;
             }
@@ -331,14 +214,6 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
 
     public void setUpdatesList(String updatesList) {
         this.updatesList = updatesList;
-    }
-    
-    public void setRevertPath(String revertPath) {
-        this.revertPath = revertPath;
-    }
-
-    public void setRevertList(String revertList) {
-        this.revertList = revertList;
     }
 
     public void setDocumentStoreUpdateProcessDao(DocumentStoreUpdateProcessDao documentStoreUpdateProcessDao) {

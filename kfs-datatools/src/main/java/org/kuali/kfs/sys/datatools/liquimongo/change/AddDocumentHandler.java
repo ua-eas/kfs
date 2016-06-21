@@ -21,8 +21,6 @@ package org.kuali.kfs.sys.datatools.liquimongo.change;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 
 /**
  * Add requested document to MongoDB
@@ -49,19 +47,5 @@ public class AddDocumentHandler extends AbstractDocumentStoreChangeHandler imple
 
         DBObject dbObject = (DBObject)JSON.parse(document.toString());
         mongoTemplate.save(dbObject, collectionName);
-    }
-
-    @Override
-    public void revertChange(JsonNode change) {
-        LOG.debug("revertChange() started");
-
-        verifyKeyExistence(change, COLLECTION_NAME);
-        verifyKeyExistence(change,QUERY);
-
-        String collectionName = change.get(COLLECTION_NAME).asText();
-        JsonNode query = change.get(QUERY); 
-        Query q = JsonUtils.getQueryFromJson(query);   
-        
-        mongoTemplate.remove(q, collectionName);
     }
 }

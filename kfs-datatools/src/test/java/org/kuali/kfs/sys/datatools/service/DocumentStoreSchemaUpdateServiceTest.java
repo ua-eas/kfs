@@ -43,7 +43,6 @@ public class DocumentStoreSchemaUpdateServiceTest {
         mockMongoUpdateProcessDao = new MockDocumentStoreUpdateProcessDao();
         documentStoreSchemaUpdateService = new DocumentStoreSchemaUpdateServiceImpl();
         documentStoreSchemaUpdateService.setUpdatesPath("classpath:org/kuali/kfs/sys/datatools/liquimongo/batch/fixture/documentstoreschemaupdate/");
-        documentStoreSchemaUpdateService.setRevertPath("classpath:org/kuali/kfs/sys/datatools/liquimongo/batch/fixture/documentstoreschemaupdate/");
         documentStoreSchemaUpdateService.setDocumentStoreUpdateProcessDao(mockMongoUpdateProcessDao);
         documentStoreSchemaUpdateService.setHandlers(handlers);
     }
@@ -98,15 +97,5 @@ public class DocumentStoreSchemaUpdateServiceTest {
         Assert.assertEquals("3 changes made",3,mongoChangeHandler.changesMade);
         Assert.assertEquals("Lock should be unset after run",false,mockMongoUpdateProcessDao.isSchemaChangeLocked());
     }
-    
-    @Test
-    public void testReversion() throws Exception {
-        documentStoreSchemaUpdateService.setRevertList("updates1.json");
-        mockMongoUpdateProcessDao.unlockSchemaChange();
-        mockMongoUpdateProcessDao.setSchemaChangeHappened(true);
 
-        documentStoreSchemaUpdateService.revertDocumentStoreSchema();
-        Assert.assertEquals("-3 changes made",-3,mongoChangeHandler.changesMade);
-        Assert.assertEquals("Lock should be unset after run",false,mockMongoUpdateProcessDao.isSchemaChangeLocked());
-    }
 }

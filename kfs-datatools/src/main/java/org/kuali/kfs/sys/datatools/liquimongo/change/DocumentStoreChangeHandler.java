@@ -27,7 +27,6 @@ public interface DocumentStoreChangeHandler {
     String COLLECTION_NAME = "collectionName";
     String QUERY = "query";
     String DOCUMENT = "document";
-    String BACKUP_PREFIX = "backup_";
 
     /**
      * Determine if this change handler can handle the change being requested.
@@ -43,11 +42,5 @@ public interface DocumentStoreChangeHandler {
      * @param change The change requested
      */
     void makeChange(JsonNode change);
-    
-    /**
-     * Revert the requested change.
-     * 
-     * @param change The change to be reverted
-     */
-    void revertChange(JsonNode change);
+
 }

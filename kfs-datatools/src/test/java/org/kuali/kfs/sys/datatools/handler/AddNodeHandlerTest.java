@@ -75,7 +75,6 @@ public class AddNodeHandlerTest {
         
         String testJson = "{ \"changeType\": \"addNode\",\"collectionName\": \"collection\","
                 + "\"query\": { \"myId\": \"10\"},\"path\": \"$..link\","
-                + "\"revertPath\": \"$..link[?(@.label=='Label5')]\","
                 + "\"addBeforeNode\": { \"label\" : \"Label2\"},"
                 + "\"value\": { \"label\" : \"Label5\"}  }";  
         
@@ -85,57 +84,6 @@ public class AddNodeHandlerTest {
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         addNodeHandler.makeChange(testNode);
-        EasyMock.verify(mongoTemplate);
-    }
-    
-    @Test
-    public void testFailsIfReversionIncorrect() throws Exception {
-        Query q = new Query(Criteria.where("myId").is("10"));
-        
-        EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentBeforeAddition());
-        EasyMock.replay(mongoTemplate);
-        
-        String testJson = "{ \"changeType\": \"addNode\",\"collectionName\": \"collection\","
-                + "\"query\": { \"myId\": \"10\"},\"path\": \"$..link\","
-                + "\"revertPath\": \"$..link[?(@.label=='Label5')]\","
-                + "\"addBeforeNode\": { \"label\" : \"Label2\"},"
-                + "\"value\": { \"label\" : \"Label6\"}  }"; 
-        
-        addNodeHandler.setMongoTemplate(mongoTemplate);
-        
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
-
-        try {
-            addNodeHandler.makeChange(testNode);;
-            Assert.fail("Method should have thrown exception");
-        } catch (RuntimeException e) {
-            // This is expected
-        }
-        
-        EasyMock.verify(mongoTemplate);
-    }
-    
-    @Test
-    public void testRevertChange() throws Exception {
-        String testJson = "{ \"changeType\": \"addNode\",\"collectionName\": \"collection\","
-                + "\"query\": { \"myId\": \"10\"},\"path\": \"$..link\","
-                + "\"revertPath\": \"$..link[?(@.label=='Label5')]\","
-                + "\"addBeforeNode\": { \"label\" : \"Label2\"},"
-                + "\"value\": { \"label\" : \"Label5\"} }";          
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
-        
-        Query q = new Query(Criteria.where("myId").is("10"));
-        EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentAfterAddition());
-        mongoTemplate.remove(q, "collection");
-        EasyMock.expectLastCall();
-        mongoTemplate.save(createSampleDocumentBeforeAddition(), "collection");
-        EasyMock.expectLastCall();
-        EasyMock.replay(mongoTemplate);
-        
-        addNodeHandler.setMongoTemplate(mongoTemplate);
-        addNodeHandler.revertChange(testNode);
         EasyMock.verify(mongoTemplate);
     }
     

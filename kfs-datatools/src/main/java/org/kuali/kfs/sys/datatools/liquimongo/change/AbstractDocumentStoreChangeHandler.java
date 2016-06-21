@@ -36,7 +36,6 @@ public abstract class AbstractDocumentStoreChangeHandler implements DocumentStor
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AbstractDocumentStoreChangeHandler.class);
 
     public static final String CHANGE_TYPE = "changeType";
-    public static final String CHANGE_DATESTAMP_KEY = "deleteDateStampKey";
 
     protected boolean isKeyValueCorrect(JsonNode node,String key,String value) {
         return node.get(key).asText().equals(value);
@@ -46,19 +45,6 @@ public abstract class AbstractDocumentStoreChangeHandler implements DocumentStor
         if ( node.get(key) == null ) {
             LOG.error("verifyKeyExistence() " + key + " is required in node: " + node);
             throw new IllegalArgumentException(key + " is missing from change json");
-        }
-    }
-    
-    protected void backupDocument(Query q, JsonNode change, String collectionName, String changeKey) {
-        String backupCollectionName = BACKUP_PREFIX + collectionName;      
-
-        DBObject object = mongoTemplate.findOne(q, DBObject.class, collectionName);
-        if (object != null) {
-            // Backups are keyed by the change hash.  In case there are multiple identical changes, a datestamp is
-            // added, and the changes are treated as a stack.
-            object.put(changeKey, JsonUtils.calculateHash(change));
-            object.put(CHANGE_DATESTAMP_KEY, (new Date()).getTime());
-            mongoTemplate.save(object, backupCollectionName);
         }
     }
     
