@@ -19,9 +19,12 @@
 package org.kuali.kfs.sys.rest;
 
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,9 +48,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 import com.google.common.base.CaseFormat;
-
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
 
 @Path("/api")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -77,24 +77,24 @@ public class ApiResource {
             return Response.status(Status.NOT_FOUND).build();
         }
         
-        try {
-            JSONObject json = new JSONObject();
+        Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
+        try {           
             for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(businessObject)) {
                 Object jsonValue = getJsonValue(businessObject, propertyDescriptor);
                 if (jsonValue != null) {                    
-                    json.put(propertyDescriptor.getName(), jsonValue);
+                    jsonObject.put(propertyDescriptor.getName(), jsonValue);
                 }
             }
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             LOG.error("Could not serialize BO", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
         // TODO: Check authorization, create response
         
-        return null;        
+        return Response.ok(jsonObject).build();        
     }
 
-    private Object getJsonValue(BusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws Exception {
+    private Object getJsonValue(BusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
         Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
         if (value == null) {
             return null;
@@ -109,7 +109,7 @@ public class ApiResource {
         if (Collection.class.isAssignableFrom(propertyClass)) {
             Collection<?> collection = (Collection<?>) value;
             Iterator<?> it = collection.iterator();
-            JSONArray newList = new JSONArray();
+            List<Object> newList = new ArrayList<Object>();
             while (it.hasNext()) {
                 Object item = it.next();
                 if (item instanceof BusinessObject) {
