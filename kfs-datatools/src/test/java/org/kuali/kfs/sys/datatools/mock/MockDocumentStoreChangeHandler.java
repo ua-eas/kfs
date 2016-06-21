@@ -34,9 +34,4 @@ public class MockDocumentStoreChangeHandler implements DocumentStoreChangeHandle
         changesMade++;
     }
 
-    @Override
-    public void revertChange(JsonNode change) {
-        changesMade--;        
-    }
-
 }

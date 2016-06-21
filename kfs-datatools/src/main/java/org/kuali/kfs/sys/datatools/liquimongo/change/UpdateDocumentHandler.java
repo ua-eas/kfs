@@ -22,13 +22,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-import java.util.Date;
-
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 /**
@@ -37,7 +30,6 @@ import org.springframework.data.mongodb.core.query.Query;
 public class UpdateDocumentHandler extends AbstractDocumentStoreChangeHandler implements DocumentStoreChangeHandler {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UpdateDocumentHandler.class);
     public static final String UPDATE_DOCUMENTS = "updateDocuments";
-    public static final String UPDATE_CHANGE_KEY = "updateChangeKey";
 
     @Override
     public boolean handlesChange(JsonNode change) {
@@ -55,7 +47,6 @@ public class UpdateDocumentHandler extends AbstractDocumentStoreChangeHandler im
         String collectionName = change.get(COLLECTION_NAME).asText();
         JsonNode query = change.get(QUERY); 
         Query q = JsonUtils.getQueryFromJson(query);
-        backupDocument(q, change, collectionName, UPDATE_CHANGE_KEY);
         
         // Delete then add the document
         JsonNode document = change.get(DOCUMENT);
@@ -64,34 +55,4 @@ public class UpdateDocumentHandler extends AbstractDocumentStoreChangeHandler im
         mongoTemplate.save(dbObject, collectionName);
     }
 
-    @Override
-    public void revertChange(JsonNode change) {
-        LOG.debug("revertChange() started");
-
-        verifyKeyExistence(change,COLLECTION_NAME);
-        verifyKeyExistence(change,QUERY);
-
-        String collectionName = change.get(COLLECTION_NAME).asText();
-        String backupCollectionName = BACKUP_PREFIX + collectionName;
-        JsonNode query = change.get(QUERY);
-        Query q = JsonUtils.getQueryFromJson(query)
-                .addCriteria(Criteria.where(UPDATE_CHANGE_KEY).is(JsonUtils.calculateHash(change)))
-                .with(new Sort(new Order(Direction.DESC, CHANGE_DATESTAMP_KEY)));
-        
-        // Restore old version
-        DBObject object = mongoTemplate.findOne(q, DBObject.class, backupCollectionName);
-        if (object != null) {
-            Object datestamp = object.get(CHANGE_DATESTAMP_KEY);
-            object.removeField(UPDATE_CHANGE_KEY);
-            object.removeField(CHANGE_DATESTAMP_KEY);
-            
-            mongoTemplate.remove(JsonUtils.getQueryFromJson(query), collectionName);
-            mongoTemplate.save(object, collectionName);
-            
-            // Remove from backup all matching documents that are more recent.
-            q = JsonUtils.getQueryFromJson(query)
-                    .addCriteria(Criteria.where(CHANGE_DATESTAMP_KEY).gte(datestamp));
-            mongoTemplate.remove(q, backupCollectionName);
-        }   
-    }
 }

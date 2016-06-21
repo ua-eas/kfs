@@ -95,23 +95,5 @@ public class AddDocumentHandlerTest {
             // This is expected
         }
     }
-    
-    @Test
-    public void testRevertChange() throws Exception {
-        Query q = new Query();
-        q.addCriteria(Criteria.where("myId").is("10"));
-        mongoTemplate.remove(q, "InstitutionPreferences");
-        EasyMock.expectLastCall();
-        EasyMock.replay(mongoTemplate);
-        
-        addDocumentHandler.setMongoTemplate(mongoTemplate);
-        
-        String testJson = "{ \"changeType\": \"addDocument\",\"collectionName\": \"InstitutionPreferences\",\"query\": { \"myId\": \"10\"},\"document\": { \"institutionId\": \"123\" } }";
-        
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
-        addDocumentHandler.revertChange(testNode);
-        EasyMock.verify(mongoTemplate);
-    }
 }

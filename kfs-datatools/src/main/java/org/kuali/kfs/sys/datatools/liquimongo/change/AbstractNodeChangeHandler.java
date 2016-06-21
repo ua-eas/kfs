@@ -35,7 +35,6 @@ import net.minidev.json.JSONArray;
 public abstract class AbstractNodeChangeHandler extends AbstractDocumentStoreChangeHandler {
 
     protected static final String PATH = "path";
-    protected static final String REVERT_PATH = "revertPath";
     protected static final String VALUE = "value";
     
     /**

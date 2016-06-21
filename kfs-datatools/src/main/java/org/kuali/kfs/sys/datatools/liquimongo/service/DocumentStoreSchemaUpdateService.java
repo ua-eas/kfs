@@ -31,16 +31,5 @@ public interface DocumentStoreSchemaUpdateService {
      * @param location
      */
     void updateDocumentStoreSchemaForLocation(String location);
-    
-    /**
-     * Revert the schema as necessary
-     */
-    void revertDocumentStoreSchema();
 
-    /**
-     * Revert the schema based on a specific file
-     *
-     * @param location
-     */
-    void revertDocumentStoreSchemaForLocation(String location);
 }
