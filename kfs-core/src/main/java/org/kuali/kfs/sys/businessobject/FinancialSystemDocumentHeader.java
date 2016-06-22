@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.sys.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * This class is a custom {@link DocumentHeader} class used by KFS to facilitate custom data fields and a few UI fields
@@ -46,6 +46,7 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
     protected String initiatorPrincipalId;
     protected String workflowDocumentTypeName;
     protected Timestamp workflowCreateDate;
+    protected Timestamp processedDate;
 
     /**
      * Constructor - creates empty instances of dependent objects
@@ -227,5 +228,13 @@ public class FinancialSystemDocumentHeader extends DocumentHeader {
 
     public void setWorkflowCreateDate(Timestamp workflowCreateDate) {
         this.workflowCreateDate = workflowCreateDate;
+    }
+
+    public Timestamp getProcessedDate() {
+        return processedDate;
+    }
+
+    public void setProcessedDate(Timestamp processedDate) {
+        this.processedDate = processedDate;
     }
 }
