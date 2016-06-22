@@ -171,6 +171,7 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
         }
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
+            getFinancialSystemDocumentHeader().setProcessedDate(new java.sql.Timestamp(new java.util.Date().getTime()));
         }
         if ( LOG.isInfoEnabled() ) {
             LOG.info("Document: " + statusChangeEvent.getDocumentId() + " -- Status is: " + getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode());

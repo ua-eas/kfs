@@ -28,6 +28,7 @@
     <field-descriptor name="initiatorPrincipalId" column="INITR_PRNCPL_ID" jdbc-type="VARCHAR" />
     <field-descriptor name="workflowDocumentTypeName" column="FDOC_TYP_NM" jdbc-type="VARCHAR" index="true"/>
     <field-descriptor name="workflowCreateDate" column="FDOC_CRTE_DT" jdbc-type="TIMESTAMP"/>
+    <field-descriptor name="processedDate" column="FDOC_PRCSSD_DT" jdbc-type="TIMESTAMP"/>
 
     <!-- The name="super" attribute below is not used to address an actual attribute of the super-class but as a marker keyword defining the JOIN  to the super-class.
          See OJB documentation: http://db.apache.org/ojb/docu/guides/advanced-technique.html#table-per-subclass -->

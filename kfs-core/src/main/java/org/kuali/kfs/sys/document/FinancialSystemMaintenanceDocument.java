@@ -112,6 +112,7 @@ public class FinancialSystemMaintenanceDocument extends MaintenanceDocumentBase 
         }
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
             getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
+            getFinancialSystemDocumentHeader().setProcessedDate(new java.sql.Timestamp(new java.util.Date().getTime()));
         }
         if ( LOG.isInfoEnabled() ) {
             LOG.info("Status is: " + getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode());
