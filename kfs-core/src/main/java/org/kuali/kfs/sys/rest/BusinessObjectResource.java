@@ -19,8 +19,10 @@
 package org.kuali.kfs.sys.rest;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -40,49 +42,62 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 import com.google.common.base.CaseFormat;
 
-@Path("/api")
+import javassist.Modifier;
+
+@Path("{moduleName}/{businessObjectName}")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ApiResource {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ApiResource.class);
+public class BusinessObjectResource {
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BusinessObjectResource.class);
     
     protected static volatile KualiModuleService kualiModuleService;
-
     protected static volatile BusinessObjectService businessObjectService;
+    protected static volatile ConfigurationService configurationService;
     
     @Context
     private HttpServletRequest servletRequest;
     
     @GET
-    @Path("/v1/{moduleName}/business-object/{businessObjectName}/{objectId}")
+    @Path("/{objectId}")
     public Response getSingleObject(@PathParam("moduleName")String moduleName, @PathParam("businessObjectName")String businessObjectName, @PathParam("objectId")String objectId) {
         LOG.debug("processV1Request() started");
         
-        Class<BusinessObject> boClass = determineClass(moduleName, businessObjectName);
+        Class<PersistableBusinessObject> boClass = determineClass(moduleName, businessObjectName);
         if (boClass == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
         
-        BusinessObject businessObject = findBusinessObject(boClass, objectId);
+        PersistableBusinessObject businessObject = findBusinessObject(boClass, objectId);
         if (businessObject == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
         
+        ObjectUtils.materializeSubObjectsToDepth(businessObject, 3);
+        
         Map<String, Object> jsonObject = new LinkedHashMap<String, Object>();
         try {           
             for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(businessObject)) {
-                Object jsonValue = getJsonValue(businessObject, propertyDescriptor);
-                if (jsonValue != null) {                    
-                    jsonObject.put(propertyDescriptor.getName(), jsonValue);
+                Method readMethod = propertyDescriptor.getReadMethod();
+                if (readMethod != null && readMethod.getParameterCount() == 0 && Modifier.isPublic(readMethod.getModifiers())) {
+                    Object jsonValue = getJsonValue(businessObject, propertyDescriptor);
+                   
+                    if (jsonValue != null) {                    
+                        jsonObject.put(propertyDescriptor.getName(), jsonValue);
+                    }
                 }
             }
         } catch (ReflectiveOperationException e) {
@@ -94,7 +109,7 @@ public class ApiResource {
         return Response.ok(jsonObject).build();        
     }
 
-    private Object getJsonValue(BusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
+    private Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
         Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
         if (value == null) {
             return null;
@@ -102,8 +117,7 @@ public class ApiResource {
         Class<?> propertyClass = propertyDescriptor.getPropertyType();
         
         if (BusinessObject.class.isAssignableFrom(propertyClass)) {
-            // TODO: Level 1 serialization
-            return null;
+            return convertBoToUrl((BusinessObject)value);
         }
         
         if (Collection.class.isAssignableFrom(propertyClass)) {
@@ -113,18 +127,26 @@ public class ApiResource {
             while (it.hasNext()) {
                 Object item = it.next();
                 if (item instanceof BusinessObject) {
-                    // TODO: Level 1 serialization
+                    Map<String, Object> url = convertBoToUrl((BusinessObject)item);
+                    if (url != null) {
+                        newList.add(url);
+                    }
                 }
                 else {
                     newList.add(item);
-                }
-                return newList;
+                }                
             }
+            return newList;
         }
+        
+        if (Date.class.isAssignableFrom(propertyClass)) {
+            return ((Date)value).getTime();
+        }
+        
         return value;
     }
 
-    protected <T extends BusinessObject> T findBusinessObject(Class<T> boClass, String objectId) {
+    protected <T extends PersistableBusinessObject> T findBusinessObject(Class<T> boClass, String objectId) {
         Map<String, String> queryCriteria = new HashMap<String, String>();
         queryCriteria.put(KRADPropertyConstants.OBJECT_ID, objectId);
         Collection<T> queryResults = getBusinessObjectService().findMatching(boClass, queryCriteria);
@@ -135,7 +157,7 @@ public class ApiResource {
     }
 
     @SuppressWarnings("unchecked")
-    protected Class<BusinessObject> determineClass(String moduleName, String businessObjectName) {
+    protected Class<PersistableBusinessObject> determineClass(String moduleName, String businessObjectName) {
         ModuleService moduleService = determineModuleService(moduleName);
         if (moduleService == null) {
             return null;
@@ -145,7 +167,7 @@ public class ApiResource {
         for (String prefix : moduleService.getModuleConfiguration().getPackagePrefixes()) {
             String fullClassName = prefix + ".businessobject." + boClassName;
             try {
-                return (Class<BusinessObject>) Class.forName(fullClassName).asSubclass(BusinessObject.class);
+                return (Class<PersistableBusinessObject>) Class.forName(fullClassName).asSubclass(PersistableBusinessObject.class);
             } catch (ClassNotFoundException | ClassCastException e) {
                 // Keep looking
             }
@@ -165,10 +187,59 @@ public class ApiResource {
     }
 
     protected String convertUrlBoNameToClassName(String businessObjectName) {
-        // TODO: create option to map BO names that don't pluralize with a single "s".
         String camelCaseName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, businessObjectName);
         // Remove plural "s" from end of name.
         return StringUtils.chop(camelCaseName);
+    }
+    
+    protected String convertClassNameToUrlBoName(String className) {
+        return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, className) + "s";
+    }
+    
+    protected Map<String, Object> convertBoToUrl(BusinessObject businessObject) {
+        if (!(businessObject instanceof PersistableBusinessObject)) {
+            return null;
+        }
+        
+        PersistableBusinessObject persistableBo = (PersistableBusinessObject) businessObject;
+        String objectID = persistableBo.getObjectId();
+        if (objectID == null) {
+            return null;
+        }
+        String moduleName = getModuleName(persistableBo);
+        if (moduleName == null) {
+            return null;
+        }
+        
+        Map<String, Object> result = new LinkedHashMap<>();        
+        
+        String url = getBaseUrl() 
+                + "/api/v1/" 
+                + "business-object/"
+                + moduleName 
+                + "/"
+                + convertClassNameToUrlBoName(persistableBo.getClass().getSimpleName())
+                + "/"
+                + persistableBo.getObjectId();
+        result.put(KFSPropertyConstants.LINK, url);
+        
+        return result;
+    } 
+
+    private String getBaseUrl() {
+        return getConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
+    }
+    
+    private String getModuleName(PersistableBusinessObject businessObject) {
+        ModuleService moduleService = kualiModuleService.getResponsibleModuleService(businessObject.getClass());
+        if (moduleService == null) {
+            return null;
+        }
+        String moduleServiceName = moduleService.getModuleConfiguration().getNamespaceCode().toLowerCase();
+        if (moduleServiceName.contains("-")) {
+            moduleServiceName = StringUtils.substringAfter(moduleServiceName, "-");
+        }
+        return moduleServiceName;
     }
     
     protected KualiModuleService getKualiModuleService() {
@@ -185,11 +256,22 @@ public class ApiResource {
         return businessObjectService;
     }
     
+    protected ConfigurationService getConfigurationService() {
+        if (configurationService == null) {
+            configurationService = SpringContext.getBean(ConfigurationService.class);
+        }
+        return configurationService;
+    }
+    
     public static void setKualiModuleService(KualiModuleService kualiModuleService) {
-        ApiResource.kualiModuleService = kualiModuleService;
+        BusinessObjectResource.kualiModuleService = kualiModuleService;
     }
 
     public static void setBusinessObjectService(BusinessObjectService businessObjectService) {
-        ApiResource.businessObjectService = businessObjectService;
+        BusinessObjectResource.businessObjectService = businessObjectService;
+    }
+    
+    public static void setConfigurationService(ConfigurationService configurationService) {
+        BusinessObjectResource.configurationService = configurationService;
     }   
 }
