@@ -22,6 +22,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,10 +52,15 @@ import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 import com.google.common.base.CaseFormat;
@@ -70,9 +76,11 @@ public class BusinessObjectResource {
     protected static volatile KualiModuleService kualiModuleService;
     protected static volatile BusinessObjectService businessObjectService;
     protected static volatile ConfigurationService configurationService;
+    protected static volatile PermissionService permissionService;
+    protected static volatile AccessSecurityService accessSecurityService;
     
     @Context
-    private HttpServletRequest servletRequest;
+    protected HttpServletRequest servletRequest;
     
     @GET
     @Path("/{objectId}")
@@ -84,9 +92,17 @@ public class BusinessObjectResource {
             return Response.status(Status.NOT_FOUND).build();
         }
         
+        if (!isAuthorized(KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS, boClass)) {
+            return Response.status(Status.FORBIDDEN).build();
+        }
+        
         PersistableBusinessObject businessObject = findBusinessObject(boClass, objectId);
         if (businessObject == null) {
             return Response.status(Status.NOT_FOUND).build();
+        }
+        
+        if (!isAuthorizedByAccessSecurity(businessObject)) {
+            return Response.status(Status.FORBIDDEN).build();
         }
         
         ObjectUtils.materializeSubObjectsToDepth(businessObject, 3);
@@ -112,7 +128,7 @@ public class BusinessObjectResource {
         return Response.ok(jsonObject).build();        
     }
 
-    private Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
+    protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
         Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
         if (ObjectUtils.isNull(value)) {
             return null;
@@ -250,16 +266,45 @@ public class BusinessObjectResource {
         return result;
     } 
 
-    private String getBaseUrl() {
+    protected String getBaseUrl() {
         return getConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
     }
     
-    private String getModuleName(ModuleService moduleService) {      
+    protected String getModuleName(ModuleService moduleService) {      
         String moduleServiceName = moduleService.getModuleConfiguration().getNamespaceCode().toLowerCase();
         if (moduleServiceName.contains("-")) {
             moduleServiceName = StringUtils.substringAfter(moduleServiceName, "-");
         }
         return moduleServiceName;
+    }
+    
+    protected boolean isAuthorized(String inquireIntoRecords, Class<PersistableBusinessObject> boClass) {
+        return getPermissionService().isAuthorizedByTemplate(getPrincipalId(),KRADConstants.KNS_NAMESPACE,
+                KimConstants.PermissionTemplateNames.INQUIRE_INTO_RECORDS,
+                KRADUtils.getNamespaceAndComponentSimpleName(boClass),
+                Collections.<String, String>emptyMap());
+    }
+    
+    protected boolean isAuthorizedByAccessSecurity(PersistableBusinessObject businessObject) {
+        List<PersistableBusinessObject> list = new ArrayList<>();
+        list.add(businessObject);
+        applySecurityRestrictionsForInquiry(businessObject.getClass(), list);
+        return (!list.isEmpty());
+    }
+    
+    protected void applySecurityRestrictionsForInquiry(Class<? extends PersistableBusinessObject> boClass, List<PersistableBusinessObject> results) {
+        getAccessSecurityService().applySecurityRestrictions(results, 
+                getPerson(), 
+                getAccessSecurityService().getInquiryWithFieldValueTemplate(), 
+                Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, KRADUtils.getNamespaceCode(boClass)));
+    }
+    
+    protected String getPrincipalId() {
+        return getPerson().getPrincipalId();
+    }
+
+    protected Person getPerson() {
+        return KRADUtils.getUserSessionFromRequest(servletRequest).getPerson();
     }
     
     protected KualiModuleService getKualiModuleService() {
@@ -283,6 +328,20 @@ public class BusinessObjectResource {
         return configurationService;
     }
     
+    protected PermissionService getPermissionService() {
+        if (permissionService == null) {
+            permissionService = SpringContext.getBean(PermissionService.class);
+        }
+        return permissionService;
+    }
+    
+    protected AccessSecurityService getAccessSecurityService() {
+        if (accessSecurityService == null) {
+            accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
+        }
+        return accessSecurityService;
+    }
+    
     public static void setKualiModuleService(KualiModuleService kualiModuleService) {
         BusinessObjectResource.kualiModuleService = kualiModuleService;
     }
@@ -294,4 +353,13 @@ public class BusinessObjectResource {
     public static void setConfigurationService(ConfigurationService configurationService) {
         BusinessObjectResource.configurationService = configurationService;
     }   
+    
+    public static void setPermissionService(PermissionService permissionService) {
+        BusinessObjectResource.permissionService = permissionService;
+    }  
+    
+    public static void setAccessSecurityService(AccessSecurityService accessSecurityService) {
+        BusinessObjectResource.accessSecurityService = accessSecurityService;
+    }
+    
 }
