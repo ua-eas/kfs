@@ -20,7 +20,10 @@ import org.junit.runner.RunWith;
 import org.kuali.kfs.fp.businessobject.Deposit;
 import org.kuali.kfs.fp.businessobject.DepositCashReceiptControl;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
@@ -44,6 +47,8 @@ public class BusinessObjectResourceTest {
     private BusinessObjectService businessObjectService;
     private PersistenceStructureService persistenceStructureService;
     private ConfigurationService configurationService;
+    private DataDictionaryService dataDictionaryService;
+    private DataDictionary dataDictionary;
     private Date now = new Date(System.currentTimeMillis());
     private Deposit deposit = getDeposit();
     private UnitOfMeasure uom = getUom();
@@ -56,8 +61,10 @@ public class BusinessObjectResourceTest {
         businessObjectService = EasyMock.createMock(BusinessObjectService.class);
         persistenceStructureService = EasyMock.createMock(PersistenceStructureService.class);
         configurationService = EasyMock.createMock(ConfigurationService.class);
+        dataDictionaryService = EasyMock.createMock(DataDictionaryService.class);
+        dataDictionary = EasyMock.createMock(DataDictionary.class);
         PowerMock.mockStatic(KRADServiceLocator.class);
-        PowerMock.mockStatic(org.kuali.kfs.krad.util.ObjectUtils.class);
+        PowerMock.mockStaticPartial(org.kuali.kfs.krad.util.ObjectUtils.class, "materializeSubObjectsToDepth");
     }
     
     @Test
@@ -66,13 +73,14 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(getModuleConfiguration());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(getModuleConfiguration());
+        EasyMock.expect(dataDictionaryService.containsDictionaryObject("Sillyclasse")).andReturn(false);
         
-        EasyMock.replay(kualiModuleService, moduleService, businessObjectService);
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, dataDictionaryService);
         BusinessObjectResource.setKualiModuleService(kualiModuleService);
         BusinessObjectResource.setBusinessObjectService(businessObjectService);
         
         Response response = apiResource.getSingleObject("sys", "sillyclasses", "12345");
-        EasyMock.verify(kualiModuleService, moduleService, businessObjectService);
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, dataDictionaryService);
         Assert.assertTrue("Should have returned 404", response.getStatus() == Status.NOT_FOUND.getStatusCode());
     }
     
@@ -82,6 +90,8 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(getModuleConfiguration());
         EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(getModuleConfiguration());
+        EasyMock.expect(dataDictionaryService.containsDictionaryObject("UnitOfMeasure")).andReturn(true);
+        EasyMock.expect(dataDictionaryService.getDictionaryObject("UnitOfMeasure")).andReturn(getDDEntry(UnitOfMeasure.class));
         Map<String, String> queryCriteria = new HashMap<String, String>();
         queryCriteria.put(KRADPropertyConstants.OBJECT_ID, "12345");
         EasyMock.expect(businessObjectService.findMatching(UnitOfMeasure.class, queryCriteria)).andReturn(getUomCollection());
@@ -91,14 +101,14 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(persistenceStructureService.isPersistable(UnitOfMeasure.class)).andReturn(true);
         EasyMock.expect(persistenceStructureService.getBusinessObjectAttributeClass(UnitOfMeasure.class, "extension")).andReturn(null);
         
-        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService);
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
         BusinessObjectResource.setKualiModuleService(kualiModuleService);
         BusinessObjectResource.setBusinessObjectService(businessObjectService);
         
         Response response = apiResource.getSingleObject("sys", "unit-of-measures", "12345");
-        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService);
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(uom);
@@ -111,7 +121,14 @@ public class BusinessObjectResourceTest {
     @PrepareForTest({KRADServiceLocator.class, org.kuali.kfs.krad.util.ObjectUtils.class})
     public void testComplexBoReturned() throws Exception {
         EasyMock.expect(kualiModuleService.getInstalledModuleServices()).andReturn(getInstalledModuleServices());
-        EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(getFpModuleConfiguration()).times(5);
+        EasyMock.expect(moduleService.getModuleConfiguration()).andReturn(getFpModuleConfiguration()).anyTimes();
+        EasyMock.expect(dataDictionaryService.containsDictionaryObject("Deposit")).andReturn(true);
+        EasyMock.expect(dataDictionaryService.getDictionaryObject("Deposit")).andReturn(getDDEntry(Deposit.class));
+        EasyMock.expect(dataDictionaryService.getDataDictionary()).andReturn(dataDictionary).anyTimes();
+        EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(Bank.class.getName())).andReturn(getDDEntry(Bank.class));
+        EasyMock.expect(dataDictionary.getBusinessObjectEntryForConcreteClass(DepositCashReceiptControl.class.getName()))
+            .andReturn(getDDEntry(DepositCashReceiptControl.class))
+            .times(2);
         Map<String, String> queryCriteria = new HashMap<String, String>();
         queryCriteria.put(KRADPropertyConstants.OBJECT_ID, "12345");
         EasyMock.expect(businessObjectService.findMatching(Deposit.class, queryCriteria)).andReturn(getDepositCollection());
@@ -125,7 +142,7 @@ public class BusinessObjectResourceTest {
         EasyMock.expect(kualiModuleService.getResponsibleModuleService(DepositCashReceiptControl.class)).andReturn(moduleService);
         EasyMock.expect(configurationService.getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY)).andReturn("http://myapp").times(3);
         
-        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, configurationService);
+        EasyMock.replay(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, configurationService, dataDictionaryService, dataDictionary);
         PowerMock.replay(KRADServiceLocator.class);
         PowerMock.replay(org.kuali.kfs.krad.util.ObjectUtils.class);
         BusinessObjectResource.setKualiModuleService(kualiModuleService);
@@ -133,7 +150,7 @@ public class BusinessObjectResourceTest {
         BusinessObjectResource.setConfigurationService(configurationService);
         
         Response response = apiResource.getSingleObject("fp", "deposits", "12345");
-        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService);
+        EasyMock.verify(kualiModuleService, moduleService, businessObjectService, persistenceStructureService, dataDictionaryService, dataDictionary);
         Assert.assertTrue("Should have returned OK", response.getStatus() == Status.OK.getStatusCode());
         Map<String, Object> entity = (Map<String, Object>) response.getEntity();
         BeanMap beanMap = new BeanMap(deposit);
@@ -202,6 +219,7 @@ public class BusinessObjectResourceTest {
         result.setNamespaceCode("KFS-SYS");
         result.setPackagePrefixes(new ArrayList<String>());
         result.getPackagePrefixes().add("org.kuali.kfs.sys");
+        result.setDataDictionaryService(dataDictionaryService);
         return result;
     }
     
@@ -210,6 +228,7 @@ public class BusinessObjectResourceTest {
         result.setNamespaceCode("KFS-FP");
         result.setPackagePrefixes(new ArrayList<String>());
         result.getPackagePrefixes().add("org.kuali.kfs.fp");
+        result.setDataDictionaryService(dataDictionaryService);
         return result;
     }
 
@@ -218,4 +237,11 @@ public class BusinessObjectResourceTest {
         result.add(moduleService);
         return result;
     }
+    
+    private BusinessObjectEntry getDDEntry(Class clazz) {
+        BusinessObjectEntry result = new BusinessObjectEntry();
+        result.setBusinessObjectClass(clazz);
+        return result;
+    }
+    
 }
