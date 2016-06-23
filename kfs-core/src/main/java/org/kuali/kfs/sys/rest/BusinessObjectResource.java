@@ -43,7 +43,10 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
@@ -104,14 +107,14 @@ public class BusinessObjectResource {
             LOG.error("Could not serialize BO", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
-        // TODO: Check authorization, create response
+        // TODO: Check authorization
         
         return Response.ok(jsonObject).build();        
     }
 
     private Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
         Object value = PropertyUtils.getSimpleProperty(businessObject, propertyDescriptor.getName());
-        if (value == null) {
+        if (ObjectUtils.isNull(value)) {
             return null;
         }
         Class<?> propertyClass = propertyDescriptor.getPropertyType();
@@ -164,16 +167,21 @@ public class BusinessObjectResource {
         }
         String boClassName = convertUrlBoNameToClassName(businessObjectName);
         // Search for class in module.
-        for (String prefix : moduleService.getModuleConfiguration().getPackagePrefixes()) {
-            String fullClassName = prefix + ".businessobject." + boClassName;
-            try {
-                return (Class<PersistableBusinessObject>) Class.forName(fullClassName).asSubclass(PersistableBusinessObject.class);
-            } catch (ClassNotFoundException | ClassCastException e) {
-                // Keep looking
-            }
+        DataDictionaryService dataDictionaryService = moduleService.getModuleConfiguration().getDataDictionaryService();
+        if (!dataDictionaryService.containsDictionaryObject(boClassName)) {
+            return null;
+        }        
+        Object ddObject = dataDictionaryService.getDictionaryObject(boClassName);
+        if (!(ddObject instanceof BusinessObjectEntry)) {
+            return null;
         }
-        // Couldn't find it.
-        return null;
+        
+        BusinessObjectEntry boEntry = (BusinessObjectEntry) ddObject;
+        Class<? extends BusinessObject> boClass = boEntry.getBusinessObjectClass();
+        if (!(PersistableBusinessObject.class.isAssignableFrom(boClass))) {
+            return null;
+        }
+        return (Class<PersistableBusinessObject>) boClass;
     }
 
     protected ModuleService determineModuleService(String moduleName) {
@@ -192,8 +200,14 @@ public class BusinessObjectResource {
         return StringUtils.chop(camelCaseName);
     }
     
-    protected String convertClassNameToUrlBoName(String className) {
-        return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, className) + "s";
+    protected String convertClassToUrlBoName(Class clazz, ModuleService moduleService) {
+        DataDictionary dd = moduleService.getModuleConfiguration().getDataDictionaryService().getDataDictionary();
+        BusinessObjectEntry boEntry = dd.getBusinessObjectEntryForConcreteClass(clazz.getName());
+        if (boEntry == null) {
+            return null;
+        }
+        String beanName = boEntry.getJstlKey();
+        return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, beanName) + "s";
     }
     
     protected Map<String, Object> convertBoToUrl(BusinessObject businessObject) {
@@ -206,19 +220,29 @@ public class BusinessObjectResource {
         if (objectID == null) {
             return null;
         }
-        String moduleName = getModuleName(persistableBo);
+        
+        ModuleService moduleService = kualiModuleService.getResponsibleModuleService(businessObject.getClass());
+        if (moduleService == null) {
+            return null;
+        }
+        
+        String moduleName = getModuleName(moduleService);
         if (moduleName == null) {
             return null;
         }
         
-        Map<String, Object> result = new LinkedHashMap<>();        
+        String urlBoName = convertClassToUrlBoName(persistableBo.getClass(), moduleService);
+        if (urlBoName == null) {
+            return null;
+        }
         
+        Map<String, Object> result = new LinkedHashMap<>();        
         String url = getBaseUrl() 
                 + "/api/v1/" 
                 + "business-object/"
                 + moduleName 
                 + "/"
-                + convertClassNameToUrlBoName(persistableBo.getClass().getSimpleName())
+                + urlBoName
                 + "/"
                 + persistableBo.getObjectId();
         result.put(KFSPropertyConstants.LINK, url);
@@ -230,11 +254,7 @@ public class BusinessObjectResource {
         return getConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY);
     }
     
-    private String getModuleName(PersistableBusinessObject businessObject) {
-        ModuleService moduleService = kualiModuleService.getResponsibleModuleService(businessObject.getClass());
-        if (moduleService == null) {
-            return null;
-        }
+    private String getModuleName(ModuleService moduleService) {      
         String moduleServiceName = moduleService.getModuleConfiguration().getNamespaceCode().toLowerCase();
         if (moduleServiceName.contains("-")) {
             moduleServiceName = StringUtils.substringAfter(moduleServiceName, "-");
