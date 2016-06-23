@@ -39,10 +39,10 @@
 	<ar:invoiceGeneral readOnly="${readOnly}" />
 		
 	<c:choose>
-		<c:when test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == ArConstants.MILESTONE_BILLING_SCHEDULE_CODE}">
+		<c:when test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == CGConstants.MILESTONE_BILLING_SCHEDULE_CODE}">
 			<ar:invoiceMilestones />
 		</c:when>
-		<c:when	test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == ArConstants.PREDETERMINED_BILLING_SCHEDULE_CODE}">
+		<c:when	test="${KualiForm.document.invoiceGeneralDetail.billingFrequencyCode == CGConstants.PREDETERMINED_BILLING_SCHEDULE_CODE}">
 			<ar:invoiceBills />
 		</c:when>
 		<c:otherwise>
@@ -55,7 +55,7 @@
 		<ar:invoiceSuspensionCategories />
 	</c:if>
 
-	<c:if test="${!KualiForm.document.correctionDocument && KualiForm.document.invoiceGeneralDetail.billingFrequencyCode != ArConstants.LOC_BILLING_SCHEDULE_CODE}">
+	<c:if test="${!KualiForm.document.correctionDocument && KualiForm.document.invoiceGeneralDetail.billingFrequencyCode != CGConstants.LOC_BILLING_SCHEDULE_CODE}">
 		<ar:invoiceTransmissionDetails readOnly="${readOnly}"/>
 	</c:if>
 
