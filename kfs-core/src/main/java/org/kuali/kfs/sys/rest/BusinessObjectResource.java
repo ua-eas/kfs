@@ -18,6 +18,43 @@
  */
 package org.kuali.kfs.sys.rest;
 
+import com.google.common.base.CaseFormat;
+import javassist.Modifier;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.datadictionary.mask.MaskFormatter;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sec.SecConstants;
+import org.kuali.kfs.sec.service.AccessSecurityService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.permission.PermissionService;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -30,43 +67,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.krad.datadictionary.DataDictionary;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.krad.util.KRADUtils;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.sec.service.AccessSecurityService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.permission.PermissionService;
-import org.kuali.rice.krad.bo.BusinessObject;
-
-import com.google.common.base.CaseFormat;
-
-import javassist.Modifier;
-
 @Path("{moduleName}/{businessObjectName}")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -78,6 +78,7 @@ public class BusinessObjectResource {
     protected static volatile ConfigurationService configurationService;
     protected static volatile PermissionService permissionService;
     protected static volatile AccessSecurityService accessSecurityService;
+    protected static volatile DataDictionaryService dataDictionaryService;
     
     @Context
     protected HttpServletRequest servletRequest;
@@ -114,8 +115,9 @@ public class BusinessObjectResource {
                 if (readMethod != null && readMethod.getParameterCount() == 0 && Modifier.isPublic(readMethod.getModifiers())) {
                     Object jsonValue = getJsonValue(businessObject, propertyDescriptor);
                    
-                    if (jsonValue != null) {                    
-                        jsonObject.put(propertyDescriptor.getName(), jsonValue);
+                    if (jsonValue != null) {
+                        final Object possiblyMaskedJsonValue = maskJsonValueIfNecessary(boClass.getSimpleName(), propertyDescriptor.getName(), jsonValue);
+                        jsonObject.put(propertyDescriptor.getName(), possiblyMaskedJsonValue);
                     }
                 }
             }
@@ -126,6 +128,24 @@ public class BusinessObjectResource {
         // TODO: Check authorization
         
         return Response.ok(jsonObject).build();        
+    }
+
+    /**
+     * Masks the
+     * @param businessObjectName
+     * @param attributeName
+     * @param jsonValue
+     * @return
+     */
+    protected Object maskJsonValueIfNecessary(String businessObjectName, String attributeName, Object jsonValue) {
+        final AttributeDefinition attributeDefinition = getDataDictionaryService().getAttributeDefinition(businessObjectName, attributeName);
+        if (attributeDefinition == null || attributeDefinition.getAttributeSecurity() == null || (!attributeDefinition.getAttributeSecurity().isMask() && !attributeDefinition.getAttributeSecurity().isPartialMask())) {
+            return jsonValue;
+        }
+        final MaskFormatter maskFormatter = (attributeDefinition.getAttributeSecurity().isMask())
+                ? attributeDefinition.getAttributeSecurity().getMaskFormatter()
+                : attributeDefinition.getAttributeSecurity().getPartialMaskFormatter();
+        return maskFormatter.maskValue(jsonValue);
     }
 
     protected Object getJsonValue(PersistableBusinessObject businessObject, PropertyDescriptor propertyDescriptor) throws ReflectiveOperationException  {
@@ -183,11 +203,10 @@ public class BusinessObjectResource {
         }
         String boClassName = convertUrlBoNameToClassName(businessObjectName);
         // Search for class in module.
-        DataDictionaryService dataDictionaryService = moduleService.getModuleConfiguration().getDataDictionaryService();
-        if (!dataDictionaryService.containsDictionaryObject(boClassName)) {
+        if (!getDataDictionaryService().containsDictionaryObject(boClassName)) {
             return null;
         }        
-        Object ddObject = dataDictionaryService.getDictionaryObject(boClassName);
+        Object ddObject = getDataDictionaryService().getDictionaryObject(boClassName);
         if (!(ddObject instanceof BusinessObjectEntry)) {
             return null;
         }
@@ -217,7 +236,7 @@ public class BusinessObjectResource {
     }
     
     protected String convertClassToUrlBoName(Class clazz, ModuleService moduleService) {
-        DataDictionary dd = moduleService.getModuleConfiguration().getDataDictionaryService().getDataDictionary();
+        DataDictionary dd = getDataDictionaryService().getDataDictionary();
         BusinessObjectEntry boEntry = dd.getBusinessObjectEntryForConcreteClass(clazz.getName());
         if (boEntry == null) {
             return null;
@@ -293,10 +312,13 @@ public class BusinessObjectResource {
     }
     
     protected void applySecurityRestrictionsForInquiry(Class<? extends PersistableBusinessObject> boClass, List<PersistableBusinessObject> results) {
-        getAccessSecurityService().applySecurityRestrictions(results, 
-                getPerson(), 
-                getAccessSecurityService().getInquiryWithFieldValueTemplate(), 
-                Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, KRADUtils.getNamespaceCode(boClass)));
+        final AccessSecurityService accessSecurityService = getAccessSecurityService();
+        if (accessSecurityService != null) {
+            accessSecurityService.applySecurityRestrictions(results,
+                    getPerson(),
+                    accessSecurityService.getInquiryWithFieldValueTemplate(),
+                    Collections.singletonMap(KimConstants.AttributeConstants.NAMESPACE_CODE, KRADUtils.getNamespaceCode(boClass)));
+        }
     }
     
     protected String getPrincipalId() {
@@ -334,14 +356,24 @@ public class BusinessObjectResource {
         }
         return permissionService;
     }
-    
+
     protected AccessSecurityService getAccessSecurityService() {
+        if (!getConfigurationService().getPropertyValueAsBoolean(SecConstants.ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME)) {
+            return null;
+        }
         if (accessSecurityService == null) {
             accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
         }
         return accessSecurityService;
     }
-    
+
+    public static DataDictionaryService getDataDictionaryService() {
+        if (dataDictionaryService == null) {
+            dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
+        }
+        return dataDictionaryService;
+    }
+
     public static void setKualiModuleService(KualiModuleService kualiModuleService) {
         BusinessObjectResource.kualiModuleService = kualiModuleService;
     }
@@ -349,17 +381,20 @@ public class BusinessObjectResource {
     public static void setBusinessObjectService(BusinessObjectService businessObjectService) {
         BusinessObjectResource.businessObjectService = businessObjectService;
     }
-    
+
     public static void setConfigurationService(ConfigurationService configurationService) {
         BusinessObjectResource.configurationService = configurationService;
-    }   
-    
+    }
+
     public static void setPermissionService(PermissionService permissionService) {
         BusinessObjectResource.permissionService = permissionService;
-    }  
-    
+    }
+
     public static void setAccessSecurityService(AccessSecurityService accessSecurityService) {
         BusinessObjectResource.accessSecurityService = accessSecurityService;
     }
-    
+
+    public static void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
+        BusinessObjectResource.dataDictionaryService = dataDictionaryService;
+    }
 }
