@@ -29,4 +29,18 @@
             <replace replace="date" with="datetime"/>
         </modifySql>
     </changeSet>
+    <changeSet author="KFS601" id="FINP-466" context="bootstrap,demo,unit">
+		<insert tableName="krcr_parm_t">
+			<column name="NMSPC_CD"><![CDATA[KFS-CAM]]></column>
+			<column name="CMPNT_CD"><![CDATA[Batch]]></column>
+			<column name="PARM_NM"><![CDATA[DEPRECIATION_PERIOD]]></column>
+			<column name="OBJ_ID"><![CDATA[FINP-466]]></column>
+			<column name="VER_NBR"><![CDATA[1]]></column>
+			<column name="VAL"><![CDATA[1]]></column>
+			<column name="PARM_TYP_CD"><![CDATA[CONFG]]></column>
+			<column name="PARM_DESC_TXT"><![CDATA[The number of months between runs of depreciation. 1=monthly, 3=quarterly, and 12=annually]]></column>
+			<column name="EVAL_OPRTR_CD"><![CDATA[A]]></column>
+			<column name="APPL_ID"><![CDATA[KFS]]></column>
+		</insert>
+	</changeSet>
 </databaseChangeLog>

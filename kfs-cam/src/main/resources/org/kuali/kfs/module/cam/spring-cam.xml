@@ -151,6 +151,15 @@
 		<property name="schedulerService">
 			<ref bean="schedulerService" />
 		</property>
+		<property name="assetService">
+			<ref bean="assetService" />
+		</property>
+		<property name="objectCodeService">
+			<ref bean="objectCodeService" />
+		</property>
+		<property name="workflowDocumentService">
+			<ref bean="workflowDocumentService"/>
+		</property>
     </bean>
 
 	<bean id="depreciableAssetsDao" parent="platformAwareDao" class="org.kuali.kfs.module.cam.document.dataaccess.impl.DepreciableAssetsDaoOjb">
