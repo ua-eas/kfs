@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -513,7 +514,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         Collection<String> campusPlantFundObjectSubType = new ArrayList<String>();
         int depreciationPeriod = 1;
         SortedMap<String, AssetDepreciationTransaction> depreciationTransactionSummary = new TreeMap<String, AssetDepreciationTransaction>();
-        double monthsElapsed = 0d;
+        double ageAtPeriodStart = 0d;
+        double ageAtPeriodEnd = 0d;
         double assetLifeInMonths = 0d;        
         Calendar assetDepreciationDate = Calendar.getInstance();
 
@@ -539,9 +541,16 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             // per asset.
             LOG.debug(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Calculating the base amount for each asset.");
             Map<Long, KualiDecimal> salvageValueAssetDeprAmounts = depreciationBatchDao.getPrimaryDepreciationBaseAmountForSV();
+            // Get assets with no depreciation
+            Set<Long> assetsWithNoDepreciation = depreciationBatchDao.getAssetsWithNoDepreciation();
             // Retrieving the object asset codes.
             Map<String, AssetObjectCode> assetObjectCodeMap = buildChartObjectToCapitalizationObjectMap(assetObjectCodes);
             Map<String, ObjectCode> capitalizationObjectCodes = new HashMap<String, ObjectCode>();
+            // Assuming that depreciationDate represents the end of the depreciation period, we need to find the beginning of the period to
+            // calculate the assets' age as of that time.
+            int depreciationStartMonth = depreciationDate.get(Calendar.MONTH) - depreciationPeriod + 1;
+            // For first-time depreciations, we catch up based on the age at the end of the depreciation period.
+            int depreciationEndMonth = depreciationStartMonth + depreciationPeriod;
 
             // Reading asset payments
             LOG.debug(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Reading collection with eligible asset payment details.");
@@ -572,10 +581,17 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 assetDepreciationDate.setTime(assetPaymentInfo.getDepreciationDate());
                 KualiDecimal transactionAmount = KualiDecimal.ZERO;
                 KualiDecimal deprAmountSum = salvageValueAssetDeprAmounts.get(assetNumber);
+                boolean needToCatchUp = assetsWithNoDepreciation.contains(assetNumber);
+                
                 // Calculating the life of the asset in months.
                 assetLifeInMonths = assetPaymentInfo.getDepreciableLifeLimit() * 12;
-                // Calculating the months elapsed for the asset using the depreciation date and the asset service date.
-                monthsElapsed = (depreciationDate.get(Calendar.MONTH) - assetDepreciationDate.get(Calendar.MONTH) + (depreciationDate.get(Calendar.YEAR) - assetDepreciationDate.get(Calendar.YEAR)) * 12);
+                // Calculating the asset age in months using the depreciation date and the asset service date.
+                ageAtPeriodStart = depreciationStartMonth - assetDepreciationDate.get(Calendar.MONTH) + (depreciationDate.get(Calendar.YEAR) - assetDepreciationDate.get(Calendar.YEAR)) * 12;
+                ageAtPeriodEnd = depreciationEndMonth - assetDepreciationDate.get(Calendar.MONTH) + (depreciationDate.get(Calendar.YEAR) - assetDepreciationDate.get(Calendar.YEAR)) * 12;              
+                // If the asset was purchased during the depreciation period, then we may have overcorrected.
+                if (ageAtPeriodStart < 0) {
+                    ageAtPeriodStart = 0;
+                }
 
                 // **************************************************************************************************************
                 // CALCULATING ACCUMULATED DEPRECIATION BASED ON FORMULA FOR SINGLE LINE AND SALVAGE VALUE DEPRECIATION METHODS.
@@ -596,11 +612,16 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 }
 
                 // If this is the last depreciation run in the asset's life then depreciate the remaining amount:
-                if (depreciationPeriod >= assetLifeInMonths - monthsElapsed) {
+                if (depreciationPeriod >= assetLifeInMonths - ageAtPeriodStart) {
                     transactionAmount = remainingAmount;
-                } // Otherwise prorate the depreciation over the remaining life:
+                }
+                // For first-time calculation, perform catch up as necssary.
+                else if (needToCatchUp) {
+                    transactionAmount = remainingAmount.multiply(new KualiDecimal(ageAtPeriodEnd)).divide(new KualiDecimal(assetLifeInMonths));
+                }
+                // Otherwise prorate the depreciation over the remaining life:
                 else {
-                    transactionAmount = remainingAmount.multiply(new KualiDecimal(depreciationPeriod)).divide(new KualiDecimal((assetLifeInMonths - monthsElapsed)));
+                    transactionAmount = remainingAmount.multiply(new KualiDecimal(depreciationPeriod)).divide(new KualiDecimal((assetLifeInMonths - ageAtPeriodStart)));
                 }
                 // Calculating new accumulated depreciation amount
                 KualiDecimal accumulatedDepreciationAmount = priorAccumulatedAmount.add(transactionAmount);
@@ -626,7 +647,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     LOG.error(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Plant COA is " + plantCOA + " and plant account is " + plantAccount + " for Financial Object SubType Code = " + assetPaymentInfo.getFinancialObjectSubTypeCode() + " so Asset payment is not included in depreciation " + assetPaymentInfo.getCapitalAssetNumber() + " - " + assetPaymentInfo.getPaymentSequenceNumber());
                     continue;
                 }
-                LOG.debug("Asset#: " + assetNumber + " - Payment sequence#:" + assetPaymentInfo.getPaymentSequenceNumber() + " - Asset Depreciation date:" + assetDepreciationDate + " - Life:" + assetLifeInMonths + " - Depreciation base amt:" + primaryDepreciationBaseAmount + " - Accumulated depreciation:" + priorAccumulatedAmount + " - Month Elapsed:" + monthsElapsed + " - Calculated accum depreciation:" + accumulatedDepreciationAmount + " - Depreciation amount:" + transactionAmount.toString() + " - Depreciation Method:" + assetPaymentInfo.getPrimaryDepreciationMethodCode());
+                LOG.debug("Asset#: " + assetNumber + " - Payment sequence#:" + assetPaymentInfo.getPaymentSequenceNumber() + " - Asset Depreciation date:" + assetDepreciationDate + " - Life:" + assetLifeInMonths + " - Depreciation base amt:" + primaryDepreciationBaseAmount + " - Accumulated depreciation:" + priorAccumulatedAmount + " - Month Elapsed:" + ageAtPeriodStart + " - Calculated accum depreciation:" + accumulatedDepreciationAmount + " - Depreciation amount:" + transactionAmount.toString() + " - Depreciation Method:" + assetPaymentInfo.getPrimaryDepreciationMethodCode());
                 assetPaymentInfo.setAccumulatedPrimaryDepreciationAmount(accumulatedDepreciationAmount);
                 assetPaymentInfo.setTransactionAmount(transactionAmount);
                 counter++;

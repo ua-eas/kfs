@@ -184,6 +184,7 @@ public class AssetDepreciationServiceTest {
         depreciationBatchDao.resetPeriodValuesWhenFirstFiscalPeriod(1);
         EasyMock.expectLastCall();
         EasyMock.expect(depreciationBatchDao.getPrimaryDepreciationBaseAmountForSV()).andReturn(AssetDepreciationServiceFixture.DATA.getPrimaryDepreciationBaseAmountForSV());
+        EasyMock.expect(depreciationBatchDao.getAssetsWithNoDepreciation()).andReturn(AssetDepreciationServiceFixture.DATA.getAssetsWithNoDepreciation());
         EasyMock.expect(objectCodeService.getByPrimaryId(2009, "BL", "8910"))
             .andReturn(getObjectCode(2009, "BL", "8910")).anyTimes();
         EasyMock.expect(objectCodeService.getByPrimaryId(2009, "BL", "5115"))

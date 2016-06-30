@@ -89,6 +89,13 @@ public interface DepreciationBatchDao {
      * @return Map
      */
     public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV();
+    
+    /**
+     * Retrieves list of asset IDs that have no depreciation.
+     * 
+     * @return
+     */
+    public Set<Long> getAssetsWithNoDepreciation();
 
     /**
      * Retrieves asset and asset payment count eligible for depreciation
