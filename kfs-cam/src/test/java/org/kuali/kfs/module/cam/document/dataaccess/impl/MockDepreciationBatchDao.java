@@ -155,4 +155,10 @@ public class MockDepreciationBatchDao implements DepreciationBatchDao {
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public Set<Long> getAssetsWithNoDepreciation() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

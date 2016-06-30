@@ -25,9 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
@@ -236,6 +238,22 @@ public enum AssetDepreciationServiceFixture {
         assetObjectCode.getObjectCode().add(objectCode);
         result.add(assetObjectCode);
         
+        return result;
+    }
+
+    public Set<Long> getAssetsWithNoDepreciation() {
+        Set<Long> result = new HashSet<>();
+        List<Asset> assets = getAssets();
+        List<AssetPayment> assetPayments = getAssetPaymentsFromPropertiesFile();
+        for (Asset asset : assets) {
+            result.add(asset.getCapitalAssetNumber());         
+        }
+        for (AssetPayment payment : assetPayments) {
+            KualiDecimal depreciatedAmount = payment.getAccumulatedPrimaryDepreciationAmount();
+            if (depreciatedAmount != null && !depreciatedAmount.equals(KualiDecimal.ZERO)) {
+                result.remove(payment.getCapitalAssetNumber());
+            }
+        }
         return result;
     }
 
