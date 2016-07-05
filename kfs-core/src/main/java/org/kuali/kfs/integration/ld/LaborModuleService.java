@@ -27,6 +27,7 @@ import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
+import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
@@ -209,4 +210,5 @@ public interface LaborModuleService {
     @Deprecated
     public AccountingLineOverride determineNeededOverrides(AccountingLine line);
 
+    public List<DocumentHeaderData> discoverLaborLedgerDocumentsWithoutPendingEntries(java.util.Date earliestProcessingDate);
 }

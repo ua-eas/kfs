@@ -71,6 +71,7 @@
                 <value>modulesLockJob</value>
 				<value>modulesUnlockJob</value>
 				<value>populateFinancialSystemDocumentHeadersFromKewJob</value>
+				<value>detectDocumentsMissingPLEsJob</value>
             </list>
         </property>
         <property name="fiscalYearMakers">
@@ -1312,8 +1313,6 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 	</bean>
 
-	<import resource="spring-sys-bus-exports.xml"/>
-
 	<bean id="payeeACHService" parent="payeeACHService-parentBean"/>
 	<bean id="payeeACHService-parentBean" class="org.kuali.kfs.sys.service.impl.PayeeACHServiceImpl" abstract="true">
 		<property name="businessObjectService" ref="businessObjectService" />
@@ -1335,4 +1334,39 @@
 		<property name="businessObjectService" ref="businessObjectService" />
 		<property name="iterations" value="10" />
 	</bean>
+
+	<bean id="detectDocumentsMissingPendingEntriesDao" parent="detectDocumentsMissingPendingEntriesDao-parentBean"/>
+	<bean id="detectDocumentsMissingPendingEntriesDao-parentBean" abstract="true" parent="platformAwareDaoJdbc" class="org.kuali.kfs.sys.batch.dataaccess.impl.DetectDocumentsMissingGeneralLedgerPendingEntriesDaoJdbc" />
+
+	<bean id="detectDocumentsMissingPendingEntriesService" parent="detectDocumentsMissingPendingEntriesService-parentBean"/>
+	<bean id="detectDocumentsMissingPendingEntriesService-parentBean" abstract="true" class="org.kuali.kfs.sys.batch.service.impl.DetectDocumentsMissingPendingEntriesServiceImpl">
+		<property name="parameterService" ref="parameterService"/>
+		<property name="detectDocumentsMissingPendingEntriesDao" ref="detectDocumentsMissingPendingEntriesDao"/>
+		<property name="mailService" ref="mailService"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="detectDocumentsMissingPLEsStep" parent="detectDocumentsMissingPLEsStep-parentBean"/>
+	<bean id="detectDocumentsMissingPLEsStep-parentBean" abstract="true" parent="step" class="org.kuali.kfs.sys.batch.DetectDocumentsMissingPendingEntriesStep">
+		<property name="detectDocumentsMissingPendingEntriesService" ref="detectDocumentsMissingPendingEntriesService"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="lookbackHours" value="23"/>
+	</bean>
+
+	<bean id="detectDocumentsMissingPLEsJob" parent="detectDocumentsMissingPLEsJob-parentBean"/>
+	<bean id="detectDocumentsMissingPLEsJob-parentBean" abstract="true" parent="scheduledJobDescriptor">
+		<property name="steps">
+			<list>
+				<ref bean="detectDocumentsMissingPLEsStep" />
+			</list>
+		</property>
+		<property name="dependencies">
+			<map>
+				<entry key="nightlyOutJob" value="hardDependency" />
+			</map>
+		</property>
+	</bean>
+
+	<import resource="spring-sys-bus-exports.xml"/>
+
 </beans>

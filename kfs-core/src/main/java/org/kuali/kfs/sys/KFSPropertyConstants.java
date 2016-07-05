@@ -1033,6 +1033,7 @@ public class KFSPropertyConstants {
     public static final String PROCESS_TOTAL_AMOUNT = "processTotalAmount";
     public static final String PROCESS_TOTAL_RECORD_COUNT = "processTotalRecordCount";
     public static final String PROCESS_TRANSMISSION_DATE = "processTransmissionDate";
+    public static final String PROCESSED_DATE = "processedDate";
     public static final String PROCESSING_FIN_CHART_OF_ACCT = "processingFinChartOfAcct";
     public static final String PROCESSING_CHART_OF_ACCT_CD ="processingChartOfAccountCode";
     public static final String PROCESSING_FIN_CHART_OF_ACCT_CD = "processingFinChartOfAcctCd";

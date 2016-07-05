@@ -95,4 +95,9 @@ public class KFSParameterKeyConstants {
     public static class CoaParameterConstants {
         public final static String DISPLAY_SOURCE_OF_FUNDS_IND = "DISPLAY_SOURCE_OF_FUNDS_IND";
     }
+
+    public static class DetectDocumentsMissingPendingEntriesConstants {
+        public final static String LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES = "LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES";
+        public final static String MISSING_PLES_NOTIFICATION_EMAIL_ADDRESSES = "MISSING_PLES_NOTIFICATION_EMAIL_ADDRESSES";
+    }
 }
