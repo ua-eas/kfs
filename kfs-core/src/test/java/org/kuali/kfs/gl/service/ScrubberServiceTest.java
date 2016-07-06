@@ -1,22 +1,48 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.service;
+
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coa.businessobject.BalanceType;
+import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coa.businessobject.ObjectType;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.Parameter.Builder;
+import org.kuali.kfs.coreservice.api.parameter.ParameterType;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.batch.BatchSortUtil;
+import org.kuali.kfs.gl.batch.DemergerSortComparator;
+import org.kuali.kfs.gl.batch.ScrubberStep;
+import org.kuali.kfs.gl.batch.service.RunDateService;
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.gl.businessobject.OriginEntryTestBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.Message;
+import org.kuali.kfs.sys.businessobject.OriginationCode;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -25,32 +51,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.coa.businessobject.BalanceType;
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.coa.businessobject.ObjectType;
-import org.kuali.kfs.coa.service.AccountingPeriodService;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.batch.BatchSortUtil;
-import org.kuali.kfs.gl.batch.DemergerSortComparator;
-import org.kuali.kfs.gl.batch.ScrubberStep;
-import org.kuali.kfs.gl.batch.service.RunDateService;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.gl.businessobject.OriginEntryTestBase;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.Message;
-import org.kuali.kfs.sys.businessobject.OriginationCode;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.api.parameter.Parameter.Builder;
-import org.kuali.kfs.coreservice.api.parameter.ParameterType;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * Tests the ScrubberService
@@ -1781,8 +1781,8 @@ public class ScrubberServiceTest extends OriginEntryTestBase {
      * @throws Exception thrown if any exception is encountered for any reason
      */
     public void testInvalidFiscalYear() throws Exception {
-        String[] inputTransactions = { "2020BA6044913-----1470---ACIN07CR  01INVALFISC     00000Poplars Garage Fees                                     20.00C" + testingYear + "-01-05          ----------                                                                               ",
-                "2020BA6044913-----8000---ACAS07CR  01INVALFISC     00000TP Generated Offset                                     20.00D" + testingYear + "-01-05          ----------                                                                               " };
+        String[] inputTransactions = { "3020BA6044913-----1470---ACIN07CR  01INVALFISC     00000Poplars Garage Fees                                     20.00C" + testingYear + "-01-05          ----------                                                                               ",
+                "3020BA6044913-----8000---ACAS07CR  01INVALFISC     00000TP Generated Offset                                     20.00D" + testingYear + "-01-05          ----------                                                                               " };
 
         EntryHolder[] outputTransactions = { new EntryHolder(GeneralLedgerConstants.BatchFileSystem.SCRUBBER_INPUT_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.SCRUBBER_INPUT_FILE, inputTransactions[1]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.SCRUBBER_ERROR_OUTPUT_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.SCRUBBER_ERROR_OUTPUT_FILE, inputTransactions[1]),
                 new EntryHolder(GeneralLedgerConstants.BatchFileSystem.DEMERGER_ERROR_OUTPUT_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.DEMERGER_ERROR_OUTPUT_FILE, inputTransactions[1]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.SCRUBBER_ERROR_SORTED_FILE, inputTransactions[0]), new EntryHolder(GeneralLedgerConstants.BatchFileSystem.SCRUBBER_ERROR_SORTED_FILE, inputTransactions[1]) };
