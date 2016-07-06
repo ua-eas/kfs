@@ -1207,8 +1207,28 @@ public class AssetPayment extends PersistableBusinessObjectBase {
      * @return Returns the yearToDate
      */
     public KualiDecimal getYearToDate() {
-        SpringContext.getBean(PaymentSummaryService.class).calculateAndSetPaymentSummary(asset);
+        KualiDecimal yearToDate = KualiDecimal.ZERO;
+        yearToDate = addAmount(yearToDate, getPeriod1Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod2Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod3Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod4Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod5Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod6Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod7Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod8Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod9Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod10Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod11Depreciation1Amount());
+        yearToDate = addAmount(yearToDate, getPeriod12Depreciation1Amount());
+        this.yearToDate = yearToDate;
         return yearToDate;
+    }
+    
+    protected KualiDecimal addAmount(KualiDecimal amount, KualiDecimal addend) {
+        if (addend != null) {
+            return amount.add(addend);
+        }
+        return amount;
     }
 
     /**
