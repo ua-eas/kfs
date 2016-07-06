@@ -405,7 +405,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         getJdbcTemplate().query("SELECT PMT.CPTLAST_NBR FROM CM_CPTLAST_T AST, CM_AST_PAYMENT_T PMT WHERE AST.CPTLAST_NBR = PMT.CPTLAST_NBR  GROUP BY PMT.CPTLAST_NBR HAVING SUM(ABS(COALESCE(PMT.AST_ACUM_DEPR1_AMT,0))) = 0", new ResultSetExtractor() {
             @Override
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-                assets.add(rs.getLong(1));
+                while (rs != null && rs.next()) {
+                    assets.add(rs.getLong(1));
+                }
                 return assets;
             }
         });
