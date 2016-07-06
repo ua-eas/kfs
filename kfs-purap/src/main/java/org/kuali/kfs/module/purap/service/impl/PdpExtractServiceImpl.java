@@ -87,23 +87,23 @@ import org.springframework.transaction.annotation.Transactional;
 public class PdpExtractServiceImpl implements PdpExtractService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PdpExtractServiceImpl.class);
 
-    private PaymentRequestService paymentRequestService;
-    private BusinessObjectService businessObjectService;
-    private PaymentFileService paymentFileService;
-    private ParameterService parameterService;
-    private CustomerProfileService customerProfileService;
-    private DateTimeService dateTimeService;
-    private PersonService personService;
-    private PaymentGroupService paymentGroupService;
-    private PaymentDetailService paymentDetailService;
-    private CreditMemoService creditMemoService;
-    private DocumentService documentService;
-    private PurapRunDateService purapRunDateService;
-    private PdpEmailService paymentFileEmailService;
-    private BankService bankService;
-    private DataDictionaryService dataDictionaryService;
-    private PurapAccountingServiceImpl purapAccountingService;
-    private List<String> lockedDocuments;
+    protected PaymentRequestService paymentRequestService;
+    protected BusinessObjectService businessObjectService;
+    protected PaymentFileService paymentFileService;
+    protected ParameterService parameterService;
+    protected CustomerProfileService customerProfileService;
+    protected DateTimeService dateTimeService;
+    protected PersonService personService;
+    protected PaymentGroupService paymentGroupService;
+    protected PaymentDetailService paymentDetailService;
+    protected CreditMemoService creditMemoService;
+    protected DocumentService documentService;
+    protected PurapRunDateService purapRunDateService;
+    protected PdpEmailService paymentFileEmailService;
+    protected BankService bankService;
+    protected DataDictionaryService dataDictionaryService;
+    protected PurapAccountingServiceImpl purapAccountingService;
+    protected List<String> lockedDocuments;
 
     /**
      * @see org.kuali.kfs.module.purap.service.PdpExtractService#extractImmediatePaymentsOnly()
@@ -410,7 +410,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
     /**
      * Mark a payment request as extracted
      *
-     * @param prd
+     * @param paymentRequestDocument
      * @param puser
      * @param processRunDate
      */
@@ -815,13 +815,8 @@ public class PdpExtractServiceImpl implements PdpExtractService {
 
 
         if (paymentRequestDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode() != null) {
-                  paymentGroup.setPayeeOwnerCd(paymentRequestDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode());
-
+            paymentGroup.setPayeeOwnerCd(paymentRequestDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode());
         }
-
-//        if (paymentRequestDocument.getVendorCustomerNumber() != null) {
-//            paymentGroup.setCustomerInstitutionNumber(paymentRequestDocument.getVendorCustomerNumber());
-//        }
 
         paymentGroup.setLine1Address(paymentRequestDocument.getVendorLine1Address());
         paymentGroup.setLine2Address(paymentRequestDocument.getVendorLine2Address());
@@ -880,10 +875,6 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         if (creditMemoDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode() != null) {
              paymentGroup.setPayeeOwnerCd(creditMemoDocument.getVendorDetail().getVendorHeader().getVendorOwnershipCode());
         }
-
-//        if (creditMemoDocument.getVendorCustomerNumber() != null) {
-//            paymentGroup.setCustomerInstitutionNumber(creditMemoDocument.getVendorCustomerNumber());
-//        }
 
         paymentGroup.setLine1Address(creditMemoDocument.getVendorLine1Address());
         paymentGroup.setLine2Address(creditMemoDocument.getVendorLine2Address());
@@ -985,13 +976,13 @@ public class PdpExtractServiceImpl implements PdpExtractService {
      * Holds temporary accounting information for combining into payment accounting details
      */
     protected class AccountingInfo {
-        private String chart;
-        private String account;
-        private String subAccount;
-        private String objectCode;
-        private String subObjectCode;
-        private String orgReferenceId;
-        private String projectCode;
+        protected String chart;
+        protected String account;
+        protected String subAccount;
+        protected String objectCode;
+        protected String subObjectCode;
+        protected String orgReferenceId;
+        protected String projectCode;
 
         public AccountingInfo(String c, String a, String s, String o, String so, String or, String pc) {
             setChart(c);
@@ -1065,7 +1056,7 @@ public class PdpExtractServiceImpl implements PdpExtractService {
         }
     }
 
-    private void lockUnlockDocuments(boolean locked) {
+    protected void lockUnlockDocuments(boolean locked) {
         for(String documentType : lockedDocuments) {
             Class<? extends Document> documentClass = dataDictionaryService.getDocumentClassByTypeName(documentType);
             if(parameterService.parameterExists(documentClass , KFSConstants.DOCUMENT_LOCKOUT_PARM_NM)) {
