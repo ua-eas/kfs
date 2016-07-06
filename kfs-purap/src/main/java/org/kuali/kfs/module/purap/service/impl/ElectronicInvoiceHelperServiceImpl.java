@@ -407,47 +407,45 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
 
         boolean result = true;
 
-        if (LOG.isInfoEnabled()){
-            LOG.info("Adding namespace definition");
-        }
-
+        LOG.info("addNamespaceDefinition: Adding namespace definition, DocumentBuilderFactory.newInstance()");
+        
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setValidating(false); // It's not needed to validate here
         builderFactory.setIgnoringElementContentWhitespace(true);
 
         DocumentBuilder builder = null;
         try {
+          LOG.info("addNamespaceDefinition: builderFactory.newDocumentBuilder()");
           builder = builderFactory.newDocumentBuilder();  // Create the parser
         } catch(ParserConfigurationException e) {
-            LOG.error("Error getting document builder - " + e.getMessage());
+            LOG.error("addNamespaceDefinition: Error getting document builder - " + e.getMessage());
             throw new RuntimeException(e);
         }
 
         Document xmlDoc = null;
 
         try {
+            LOG.info("addNamespaceDefinition: builder.parse");
             xmlDoc = builder.parse(invoiceFile);
         } catch(Exception e) {
-            if (LOG.isInfoEnabled()){
-                LOG.info("Error parsing the file - " + e.getMessage());
-            }
+            LOG.info("addNamespaceDefinition: Error parsing the file - " + e.getMessage());
             rejectElectronicInvoiceFile(eInvoiceLoad, UNKNOWN_DUNS_IDENTIFIER, invoiceFile, e.getMessage(),PurapConstants.ElectronicInvoice.FILE_FORMAT_INVALID);
             return null;
         }
+        LOG.info("addNamespaceDefinition: xmlDoc.getDocumentElement()");
 
         Node node = xmlDoc.getDocumentElement();
         Element element = (Element)node;
 
         String xmlnsValue = element.getAttribute("xmlns");
         String xmlnsXsiValue = element.getAttribute("xmlns:xsi");
-
+        
+        LOG.info("addNamespaceDefinition: getInvoiceFile");
         File namespaceAddedFile = getInvoiceFile(invoiceFile.getName());
 
         if (StringUtils.equals(xmlnsValue, "http://www.kuali.org/kfs/purap/electronicInvoice") &&
             StringUtils.equals(xmlnsXsiValue, "http://www.w3.org/2001/XMLSchema-instance")){
-            if (LOG.isInfoEnabled()){
-                LOG.info("xmlns and xmlns:xsi attributes already exists in the invoice xml");
-            }
+            LOG.info("addNamespaceDefinition: xmlns and xmlns:xsi attributes already exists in the invoice xml");
         }else{
             element.setAttribute("xmlns", "http://www.kuali.org/kfs/purap/electronicInvoice");
             element.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -460,15 +458,14 @@ public class ElectronicInvoiceHelperServiceImpl extends InitiateDirectoryBase im
         XMLSerializer serializer = new XMLSerializer( out,outputFormat );
         try {
             serializer.asDOMSerializer();
+            LOG.info("addNamespaceDefinition: serializer.serialize");
             serializer.serialize( xmlDoc.getDocumentElement());
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        if (LOG.isInfoEnabled()){
-            LOG.info("Namespace validation completed");
-        }
+        LOG.info("addNamespaceDefinition: Namespace validation completed");
 
         return out.toByteArray();
 
