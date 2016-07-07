@@ -63,16 +63,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class PaymentMaintenanceServiceImpl implements PaymentMaintenanceService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PaymentMaintenanceServiceImpl.class);
 
-    private PaymentGroupDao paymentGroupDao;
-    private PaymentDetailDao paymentDetailDao;
-    private PendingTransactionService glPendingTransactionService;
-    private MailService mailService;
-    private ParameterService parameterService;
-    private BankService bankService;
-    private BusinessObjectService businessObjectService;
-    private PaymentGroupService paymentGroupService;
-    private PdpEmailService emailService;
-    private PdpAuthorizationService pdpAuthorizationService;
+    protected PaymentGroupDao paymentGroupDao;
+    protected PaymentDetailDao paymentDetailDao;
+    protected PendingTransactionService glPendingTransactionService;
+    protected MailService mailService;
+    protected ParameterService parameterService;
+    protected BankService bankService;
+    protected BusinessObjectService businessObjectService;
+    protected PaymentGroupService paymentGroupService;
+    protected PdpEmailService emailService;
+    protected PdpAuthorizationService pdpAuthorizationService;
 
     /**
      * This method changes status for a payment group.
