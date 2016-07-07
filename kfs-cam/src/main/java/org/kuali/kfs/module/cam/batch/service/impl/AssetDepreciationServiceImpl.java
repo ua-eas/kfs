@@ -168,9 +168,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                         throw new IllegalArgumentException(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.INVALID_DEPRECIATION_DATE_FORMAT));
                     }
                 }
-                if ( LOG.isInfoEnabled() ) {
-                    LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Depreciation run date: " + depreciationDateParameter);
-                }
+                LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Depreciation run date: " + depreciationDateParameter);
 
                 UniversityDate universityDate = businessObjectService.findBySinglePrimaryKey(UniversityDate.class, new java.sql.Date(depreciationDate.getTimeInMillis()));
                 if (universityDate == null) {
@@ -181,9 +179,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 fiscalMonth = new Integer(universityDate.getUniversityFiscalAccountingPeriod());
                   assetObjectCodes = getAssetObjectCodes(fiscalYear);
                 // If the depreciation date is not = to the system date then, the depreciation process cannot run.
-                if ( LOG.isInfoEnabled() ) {
-                    LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Fiscal Year = " + fiscalYear + " & Fiscal Period=" + fiscalMonth);
-                }
+                LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Fiscal Year = " + fiscalYear + " & Fiscal Period=" + fiscalMonth);
+
                 int fiscalStartMonth = Integer.parseInt(optionsService.getCurrentYearOptions().getUniversityFiscalYearStartMo());
                 reportLog.addAll(depreciableAssetsDao.generateStatistics(true, null, fiscalYear, fiscalMonth, depreciationDate,dateTimeService.toDateString(depreciationDate.getTime()), assetObjectCodes,fiscalStartMonth, errorMessage));
                 // update if fiscal period is 12
@@ -219,9 +216,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 reportService.generateDepreciationReport(reportLog, errorMsg, depreciationDateParameter);
             }
 
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("*******" + CamsConstants.Depreciation.DEPRECIATION_BATCH + " HAS ENDED *******");
-            }
+            LOG.debug("*******" + CamsConstants.Depreciation.DEPRECIATION_BATCH + " HAS ENDED *******");
         }
     }
 
@@ -305,9 +300,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             Collection<AssetObjectCode> assetObjectCodes = getAssetObjectCodes(fiscalYear);
 
             // If the depreciation date is not = to the system date then, the depreciation process cannot run.
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info("YEAR END DEPRECIATION - " + "Fiscal Year = " + fiscalYear + " & Fiscal Period=" + fiscalMonth);
-            }
+            LOG.info("YEAR END DEPRECIATION - " + "Fiscal Year = " + fiscalYear + " & Fiscal Period=" + fiscalMonth);
 
             // mjmc this caused arrayIndexOutOfBounds: 16
 // TODO            reportLog.addAll(depreciableAssetsDao.generateStatistics(true, null, fiscalYear, fiscalMonth, depreciationDate, true));
@@ -354,9 +347,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         // reset param so that retired assets are not depreciated during the rest of the year
         if (statusContainsR){
             notAcceptedAssetStatusString = notAcceptedAssetStatusString+";R";
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info("notAcceptedAssetStatusString after reset= " + notAcceptedAssetStatusString);
-            }
+            LOG.info("notAcceptedAssetStatusString after reset= " + notAcceptedAssetStatusString);
+
             Parameter.Builder param = Parameter.Builder.create( parameterService.getParameter(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES) );
             param.setValue(notAcceptedAssetStatusString);
             parameterService.updateParameter(param.build());
@@ -961,9 +953,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             Map<String, ObjectCode> capitalizationObjectCodes = new HashMap<String, ObjectCode>();
             // Retirement object code
             String retire_code = parameterService.getParameterValueAsString(org.kuali.kfs.module.cam.businessobject.AssetRetirementGlobal.class, CamsConstants.Parameters.DEFAULT_GAIN_LOSS_DISPOSITION_OBJECT_CODE);
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info("retire_code from system parameter "+ CamsConstants.Parameters.DEFAULT_GAIN_LOSS_DISPOSITION_OBJECT_CODE+" = " + retire_code);
-            }
+            LOG.info("retire_code from system parameter "+ CamsConstants.Parameters.DEFAULT_GAIN_LOSS_DISPOSITION_OBJECT_CODE+" = " + retire_code);
 
             // Reading asset payments
             LOG.info("YEAR END DEPRECIATION - Reading collection with eligible asset payment details.");
@@ -980,9 +970,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 Asset asset = businessObjectService.findByPrimaryKey(Asset.class, pKeys);
                 if (asset != null) {
                     asset_is_retired = assetService.isAssetRetired(asset);
-                    if ( LOG.isInfoEnabled() ) {
-                        LOG.info("asset#" + assetNumber + "   asset_is_retired = " + asset_is_retired);
-                    }
+                    LOG.info("asset#" + assetNumber + "   asset_is_retired = " + asset_is_retired);
                 }
                 
                 // What depreciation activity has happened so far this year?
@@ -1004,9 +992,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     continue;
                 }
                 else {
-                    if ( LOG.isInfoEnabled() ) {
-                        LOG.info("YEAR END DEPRECIATION - " + "fiscal year " + fiscalYear + " chartOfAccountsCode:" + assetPaymentInfo.getChartOfAccountsCode() + " FinancialObjectCode:" + assetPaymentInfo.getFinancialObjectCode());
-                    }
+                    LOG.info("YEAR END DEPRECIATION - " + "fiscal year " + fiscalYear + " chartOfAccountsCode:" + assetPaymentInfo.getChartOfAccountsCode() + " FinancialObjectCode:" + assetPaymentInfo.getFinancialObjectCode());
                 }
                 ObjectCode accumulatedDepreciationFinancialObject = getDepreciationObjectCode(fiscalYear, capitalizationObjectCodes, assetPaymentInfo, assetObjectCode.getAccumulatedDepreciationFinancialObjectCode());
                 ObjectCode depreciationExpenseFinancialObject = getDepreciationObjectCode(fiscalYear, capitalizationObjectCodes, assetPaymentInfo, assetObjectCode.getDepreciationExpenseFinancialObjectCode());
@@ -1018,9 +1004,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     LOG.error("YEAR END DEPRECIATION - " + "Asset payment is not included in depreciation " + assetPaymentInfo.getCapitalAssetNumber() + " - " + assetPaymentInfo.getPaymentSequenceNumber());
                     continue;
                 } else {
-                    if ( LOG.isInfoEnabled() ) {
-                        LOG.info("YEAR END DEPRECIATION - " + "accumulatedDepreciationFinancialObject:" + accumulatedDepreciationFinancialObject.getFinancialObjectCode());
-                    }
+                    LOG.info("YEAR END DEPRECIATION - " + "accumulatedDepreciationFinancialObject:" + accumulatedDepreciationFinancialObject.getFinancialObjectCode());
                 }
 
                 if (ObjectUtils.isNull(depreciationExpenseFinancialObject)) {
@@ -1028,9 +1012,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     LOG.error("YEAR END DEPRECIATION - " + "Asset payment is not included in depreciation " + assetPaymentInfo.getCapitalAssetNumber() + " - " + assetPaymentInfo.getPaymentSequenceNumber());
                     continue;
                 } else {
-                    if ( LOG.isInfoEnabled() ) {
-                        LOG.info("YEAR END DEPRECIATION - " + "depreciationExpenseFinancialObject:" + depreciationExpenseFinancialObject.getFinancialObjectCode());
-                    }
+                    LOG.info("YEAR END DEPRECIATION - " + "depreciationExpenseFinancialObject:" + depreciationExpenseFinancialObject.getFinancialObjectCode());
                 }
                 assetDepreciationDate.setTime(assetPaymentInfo.getDepreciationDate());
                 KualiDecimal deprAmountSum = salvageValueAssetDeprAmounts.get(assetNumber);
@@ -1112,10 +1094,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     continue;
                 }
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                if ( LOG.isInfoEnabled() ) {
-                    LOG.info("Asset#: " + assetNumber + " - Payment sequence#:" + assetPaymentInfo.getPaymentSequenceNumber() + " - Asset Depreciation date:" + sdf.format(assetDepreciationDate.getTime()) + " - Life:" + assetLifeInMonths + " - Depreciation base amt:" + primaryDepreciationBaseAmount);
-                    LOG.info("Accumulated depreciation:" + assetPaymentInfo.getAccumulatedPrimaryDepreciationAmount() + " - Asset age:" + ageAtPeriodStart + " - Calculated accum depreciation:" + accumulatedDepreciationAmount + " - Depreciation amount:" + transactionAmount.toString() + " - Depreciation Method:" + assetPaymentInfo.getPrimaryDepreciationMethodCode());
-                }
+                LOG.info("Asset#: " + assetNumber + " - Payment sequence#:" + assetPaymentInfo.getPaymentSequenceNumber() + " - Asset Depreciation date:" + sdf.format(assetDepreciationDate.getTime()) + " - Life:" + assetLifeInMonths + " - Depreciation base amt:" + primaryDepreciationBaseAmount);
+                LOG.info("Accumulated depreciation:" + assetPaymentInfo.getAccumulatedPrimaryDepreciationAmount() + " - Asset age:" + ageAtPeriodStart + " - Calculated accum depreciation:" + accumulatedDepreciationAmount + " - Depreciation amount:" + transactionAmount.toString() + " - Depreciation Method:" + assetPaymentInfo.getPrimaryDepreciationMethodCode());
                 
                 assetPaymentInfo.setAccumulatedPrimaryDepreciationAmount(accumulatedDepreciationAmount);
                 assetPaymentInfo.setTransactionAmount(transactionAmount);
