@@ -49,7 +49,7 @@ import org.kuali.kfs.gl.batch.ScrubberStep;
 import org.kuali.kfs.gl.businessobject.DemergerReportData;
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 import org.kuali.kfs.gl.businessobject.OriginEntryStatistics;
-import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.gl.businessobject.ScrubberProcessUnitOfWork;
 import org.kuali.kfs.gl.report.LedgerSummaryReport;
 import org.kuali.kfs.gl.report.PreScrubberReport;
 import org.kuali.kfs.gl.report.PreScrubberReportData;
@@ -148,7 +148,7 @@ public class LaborScrubberProcess {
     protected OriginEntryGroup expiredGroup;
 
     /* Unit Of Work info */
-    protected UnitOfWorkInfo unitOfWork;
+    protected ScrubberProcessUnitOfWork scrubberProcessUnitOfWork;
     protected KualiDecimal scrubCostShareAmount;
     protected ScrubberReportData scrubberReport;
 
@@ -221,7 +221,8 @@ public class LaborScrubberProcess {
     /**
      * Scrub this single group read only. This will only output the scrubber report. It won't output any other groups.
      *
-     * @param group
+     * @param fileName
+     * @param documentNumber
      */
     public void scrubGroupReportOnly(String fileName, String documentNumber) {
         String unsortedFile = fileName;
@@ -376,13 +377,11 @@ public class LaborScrubberProcess {
     /**
      * This will process a group of origin entries. The COBOL code was refactored a lot to get this so there isn't a 1 to 1 section
      * of Cobol relating to this.
-     *
-     * @param originEntryGroup Group to process
      */
     protected void processGroup() {
         LaborOriginEntry lastEntry = null;
         scrubCostShareAmount = KualiDecimal.ZERO;
-        unitOfWork = new UnitOfWorkInfo();
+        scrubberProcessUnitOfWork = new ScrubberProcessUnitOfWork();
         FileReader INPUT_GLE_FILE = null;
         String GLEN_RECORD;
         BufferedReader INPUT_GLE_FILE_br;
@@ -473,19 +472,19 @@ public class LaborScrubberProcess {
                             saveValidTransaction = true;
 
                             // See if unit of work has changed
-                            if (!unitOfWork.isSameUnitOfWork(scrubbedEntry)) {
+                            if (!scrubberProcessUnitOfWork.isSameUnitOfWork(scrubbedEntry)) {
                                 // Generate offset for last unit of work
-                                unitOfWork = new UnitOfWorkInfo(scrubbedEntry);
+                                scrubberProcessUnitOfWork = new ScrubberProcessUnitOfWork(scrubbedEntry);
                             }
                             KualiDecimal transactionAmount = scrubbedEntry.getTransactionLedgerEntryAmount();
                             ParameterEvaluator offsetFiscalPeriods = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupRules.OFFSET_FISCAL_PERIOD_CODES, scrubbedEntry.getUniversityFiscalPeriodCode());
                             BalanceType scrubbedEntryBalanceType = laborAccountingCycleCachingService.getBalanceType(scrubbedEntry.getFinancialBalanceTypeCode());
                             if (scrubbedEntryBalanceType.isFinancialOffsetGenerationIndicator() && offsetFiscalPeriods.evaluationSucceeds()) {
                                 if (scrubbedEntry.isDebit()) {
-                                    unitOfWork.offsetAmount = unitOfWork.offsetAmount.add(transactionAmount);
+                                    scrubberProcessUnitOfWork.setOffsetAmount(scrubberProcessUnitOfWork.getOffsetAmount().add(transactionAmount));
                                 }
                                 else {
-                                    unitOfWork.offsetAmount = unitOfWork.offsetAmount.subtract(transactionAmount);
+                                    scrubberProcessUnitOfWork.setOffsetAmount(scrubberProcessUnitOfWork.getOffsetAmount().subtract(transactionAmount));
                                 }
                             }
 
@@ -600,77 +599,6 @@ public class LaborScrubberProcess {
         String msg = offsetDescription + SPACES;
 
         return msg.substring(0, 33) + offsetString;
-    }
-
-    class UnitOfWorkInfo {
-        // Unit of work key
-        public Integer univFiscalYr = 0;
-        public String finCoaCd = "";
-        public String accountNbr = "";
-        public String subAcctNbr = "";
-        public String finBalanceTypCd = "";
-        public String fdocTypCd = "";
-        public String fsOriginCd = "";
-        public String fdocNbr = "";
-        public Date fdocReversalDt = new Date(dateTimeService.getCurrentDate().getTime());
-        public String univFiscalPrdCd = "";
-
-        // Data about unit of work
-        public boolean entryMode = true;
-        public KualiDecimal offsetAmount = KualiDecimal.ZERO;
-        public String scrbFinCoaCd;
-        public String scrbAccountNbr;
-
-        public UnitOfWorkInfo() {
-        }
-
-        public UnitOfWorkInfo(LaborOriginEntry e) {
-            univFiscalYr = e.getUniversityFiscalYear();
-            finCoaCd = e.getChartOfAccountsCode();
-            accountNbr = e.getAccountNumber();
-            subAcctNbr = e.getSubAccountNumber();
-            finBalanceTypCd = e.getFinancialBalanceTypeCode();
-            fdocTypCd = e.getFinancialDocumentTypeCode();
-            fsOriginCd = e.getFinancialSystemOriginationCode();
-            fdocNbr = e.getDocumentNumber();
-            fdocReversalDt = e.getFinancialDocumentReversalDate();
-            univFiscalPrdCd = e.getUniversityFiscalPeriodCode();
-        }
-
-        public boolean isSameUnitOfWork(LaborOriginEntry e) {
-            // Compare the key fields
-            return univFiscalYr.equals(e.getUniversityFiscalYear()) && finCoaCd.equals(e.getChartOfAccountsCode()) && accountNbr.equals(e.getAccountNumber()) && subAcctNbr.equals(e.getSubAccountNumber()) && finBalanceTypCd.equals(e.getFinancialBalanceTypeCode()) && fdocTypCd.equals(e.getFinancialDocumentTypeCode()) && fsOriginCd.equals(e.getFinancialSystemOriginationCode()) && fdocNbr.equals(e.getDocumentNumber()) && ObjectHelper.isEqual(fdocReversalDt, e.getFinancialDocumentReversalDate()) && univFiscalPrdCd.equals(e.getUniversityFiscalPeriodCode());
-        }
-
-        @Override
-        public String toString() {
-            return univFiscalYr + finCoaCd + accountNbr + subAcctNbr + finBalanceTypCd + fdocTypCd + fsOriginCd + fdocNbr + fdocReversalDt + univFiscalPrdCd;
-        }
-
-        public LaborOriginEntry getOffsetTemplate() {
-            LaborOriginEntry e = new LaborOriginEntry();
-            e.setUniversityFiscalYear(univFiscalYr);
-            e.setChartOfAccountsCode(finCoaCd);
-            e.setAccountNumber(accountNbr);
-            e.setSubAccountNumber(subAcctNbr);
-            e.setFinancialBalanceTypeCode(finBalanceTypCd);
-            e.setFinancialDocumentTypeCode(fdocTypCd);
-            e.setFinancialSystemOriginationCode(fsOriginCd);
-            e.setDocumentNumber(fdocNbr);
-            e.setFinancialDocumentReversalDate(fdocReversalDt);
-            e.setUniversityFiscalPeriodCode(univFiscalPrdCd);
-            return e;
-        }
-    }
-
-    class TransactionError {
-        public Transaction transaction;
-        public Message message;
-
-        public TransactionError(Transaction t, Message m) {
-            transaction = t;
-            message = m;
-        }
     }
 
     protected void setCutoffTimeForPreviousDay(int hourOfDay, int minuteOfDay, int secondOfDay) {
@@ -823,9 +751,6 @@ public class LaborScrubberProcess {
      * The demerger process reads all of the documents in the error group, then moves all of the original entries for that document
      * from the valid group to the error group. It does not move generated entries to the error group. Those are deleted. It also
      * modifies the doc number and origin code of cost share transfers.
-     *
-     * @param errorGroup
-     * @param validGroup
      */
     public void performDemerger() {
         LOG.debug("performDemerger() started");
