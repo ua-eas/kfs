@@ -36,15 +36,15 @@ import org.kuali.kfs.kns.web.struts.form.KualiForm;
  */
 public class FormatForm extends KualiForm {
 
-    private String campus;
-    private String paymentDate;
-    private String paymentTypes;
-    private String initiatorEmail;
+    protected String campus;
+    protected String paymentDate;
+    protected String paymentTypes;
+    protected String initiatorEmail;
 
-    private FormatProcessSummary formatProcessSummary;
+    protected FormatProcessSummary formatProcessSummary;
 
-    private List<CustomerProfile> customers;
-    private List<DisbursementNumberRange> ranges;
+    protected List<CustomerProfile> customers;
+    protected List<DisbursementNumberRange> ranges;
 
     /**
      * Constructs a FormatForm.
