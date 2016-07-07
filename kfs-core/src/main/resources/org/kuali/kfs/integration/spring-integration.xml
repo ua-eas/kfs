@@ -87,6 +87,10 @@
 	<bean id="accountsReceivableModuleBillingService"  parent="accountsReceivableModuleBillingService-parentBean"/>
 	<bean id="accountsReceivableModuleBillingService-parentBean" class="org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingServiceNoOp"  abstract="true"/>
 	
+	<bean id="ArIntegrationConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+		<property name="constantClass" value="org.kuali.kfs.integration.ar.ArIntegrationConstants" />
+	</bean>
+	
 	<bean id="effortCertificationModuleService"  parent="effortCertificationModuleService-parentBean"/>
 	<bean id="effortCertificationModuleService-parentBean" class="org.kuali.kfs.integration.ec.EffortCertificationModuleServiceNoOp"  abstract="true"/>
 

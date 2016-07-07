@@ -20,6 +20,7 @@ package org.kuali.kfs.module.ar;
 
 import com.lowagie.text.Font;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.ar.ArIntegrationConstants;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.module.ar.businessobject.InvoiceGeneralDetail;
 
@@ -477,13 +478,13 @@ public class ArConstants{
     public static final String INVR = "INVR";
 
     public enum BillingFrequencyValues {
-        PREDETERMINED_BILLING("PDBS"),
-        MILESTONE("MILE"),
-        MONTHLY("MNTH"),
-        QUARTERLY("QUAR"),
-        SEMI_ANNUALLY("SEMI"),
-        ANNUALLY("ANNU"),
-        LETTER_OF_CREDIT("LOCB");
+        PREDETERMINED_BILLING(ArIntegrationConstants.BillingFrequencyValues.PREDETERMINED_BILLING),
+        MILESTONE(ArIntegrationConstants.BillingFrequencyValues.MILESTONE),
+        MONTHLY(ArIntegrationConstants.BillingFrequencyValues.MONTHLY),
+        QUARTERLY(ArIntegrationConstants.BillingFrequencyValues.QUARTERLY),
+        SEMI_ANNUALLY(ArIntegrationConstants.BillingFrequencyValues.SEMI_ANNUALLY),
+        ANNUALLY(ArIntegrationConstants.BillingFrequencyValues.ANNUALLY),
+        LETTER_OF_CREDIT(ArIntegrationConstants.BillingFrequencyValues.LETTER_OF_CREDIT);
 
         private String code;
         BillingFrequencyValues(String code) {
