@@ -1551,5 +1551,21 @@ public class KFSConstants {
         public static final String REFERENCE = "reference";
         public static final String ADMINISTRATION = "administration";
     }
+    
+    public static class DevelopmentMailServerConstants {
+    	public static final String EMAIL_INFO_START_LINE = "*********************** EMAIL SEND *****************************";
+    	public static final String FROM = "FROM : ";
+    	public static final String TO = "TO   : ";
+    	public static final String CC = "CC : ";
+    	public static final String BCC = "BCC : ";
+    	public static final String SUBJECT = "SUBJECT : ";
+    	public static final String MESSAGE = "MESSAGE : \n";
+    	public static final String EMAIL_INFO_END_LINE = "*********************** END EMAIL  *****************************";
+    	public static final String HTML_MESSAGE = "HTML Message: ";
+    	public static final String ATTACHMENT_INFO_LINE = "ATTACHMENT: \n";
+    	public static final String ATTACHMENT_FILE_NAME = "\t FILE NAME : ";
+    	public static final String ATTACHMENT_FILE_SIZE = "\t SIZE      : ";
+    	public static final String ATTACHMENT_FILE_MIME_TYPE = "\t MIME TYPE : ";
+    }
 
 }

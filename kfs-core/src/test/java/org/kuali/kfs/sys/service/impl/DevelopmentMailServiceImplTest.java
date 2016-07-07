@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.mail.MessagingException;
 
 import org.apache.log4j.spi.LoggingEvent;
-import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -37,7 +36,7 @@ public class DevelopmentMailServiceImplTest {
 
 	@Test
 	public void test() throws InvalidAddressException, MessagingException {
-		final TestAppender appender = new TestAppender();
+        final TestLogAppender appender = new TestLogAppender();
         final Logger logger = Logger.getRootLogger();
         logger.addAppender(appender);
         try {
@@ -59,28 +58,5 @@ public class DevelopmentMailServiceImplTest {
         String fromAddressOutput = "FROM : " + FROM_ADDRESS;
         assertEquals(fromAddressOutput, log.get(1).getMessage());
 
-	}
-	
-	private class TestAppender extends AppenderSkeleton {
-	    private final List<LoggingEvent> log = new ArrayList<LoggingEvent>();
-
-		@Override
-		public void close() {
-		}
-
-		@Override
-		public boolean requiresLayout() {
-			return false;
-		}
-
-		@Override
-		protected void append(LoggingEvent event) {
-			log.add(event);
-			
-		}
-		
-		public List<LoggingEvent> getLog() {
-			return new ArrayList<LoggingEvent>(log);
-	    }
 	}
 }
