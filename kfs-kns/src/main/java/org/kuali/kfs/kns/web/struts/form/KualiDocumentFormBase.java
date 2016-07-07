@@ -121,7 +121,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     
     // private fields for superuser checks
  	private DocumentType documentType;
- 	private Boolean superuserForDocumentType;
+ 	private boolean superuserForDocumentType;
  	private String documentStatus;
  	private List<RouteNodeInstance> routeNodeInstances;
  	private boolean superUserFieldsInitialized;
@@ -991,37 +991,21 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     		String docId = this.getDocId();
     		
     		documentType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(docTypeName);
-
-            String docTypeId = null;
-            if (documentType != null) {
-                docTypeId = null;
-                docTypeId = documentType.getId();
-            }
+    		String docTypeId = null;
+    		if (documentType != null) {
+    			docTypeId = null;
+    			docTypeId = documentType.getId();
+    		}
 
    			routeNodeInstances = KewApiServiceLocator.getWorkflowDocumentService().getRouteNodeInstances(docId);
     		
     		documentStatus = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus().getCode();
-    		//superuserForDocumentType = isSuperUserForDocumentTypeId(principalId, docTypeId);
+    		superuserForDocumentType = KewApiServiceLocator.getDocumentTypeService().isSuperUserForDocumentTypeId(principalId, docTypeId);
     		
     		superUserFieldsInitialized = true;
     	}
     }
-
-    private boolean isSuperUserForDocumentTypeId() {
-        if (superuserForDocumentType == null) {
-           DocumentType documentType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(docTypeName);
-
-            String docTypeId = null;
-            if (documentType != null) {
-                docTypeId = null;
-                docTypeId = documentType.getId();
-            }
-
-            superuserForDocumentType = KewApiServiceLocator.getDocumentTypeService().isSuperUserForDocumentTypeId(GlobalVariables.getUserSession().getPrincipalId(), docTypeId);
-        }
-        return superuserForDocumentType.booleanValue();
-    }
-
+    
     private void clearFieldsForSuperUserChecks() {
     	documentType = null;
     	routeNodeInstances = null;
@@ -1064,8 +1048,18 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
    	}
 
     public boolean isSuperUserAuthorized() {
-        return isSuperUserForDocumentTypeId();
-
+    	initializeFieldsForSuperUserChecks();
+        if ( superuserForDocumentType ) {
+            return true;
+        }
+        
+        String principalId =  GlobalVariables.getUserSession().getPrincipalId();
+        return ((KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveSingleActionRequest(
+                    principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)) ||
+                (KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveDocument(
+                    principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)) ||
+                (KewApiServiceLocator.getDocumentTypeService().canSuperUserDisapproveDocument (
+                    principalId, this.getDocTypeName(), routeNodeInstances, documentStatus))) ;
     }
 	
     public boolean isStateAllowsApproveOrDisapprove() {
