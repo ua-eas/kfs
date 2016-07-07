@@ -1,48 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.batch.service.impl;
 
-import static org.kuali.kfs.sys.KFSConstants.BALANCE_TYPE_ACTUAL;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import javax.mail.MessagingException;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.service.impl.StringHelper;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.MailService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -74,18 +63,28 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.MailService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.mail.MessagingException;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import static org.kuali.kfs.sys.KFSConstants.BALANCE_TYPE_ACTUAL;
 
 /**
  * This class is a service that calculates the depreciation amount for each asset that has a eligible asset payment.
@@ -238,6 +237,19 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Finished getting asset object codes - which are:" + assetObjectCodesCollection.toString());
         LOG.debug("DepreciableAssetsDAoOjb.getAssetObjectCodes() -  ended");
         return assetObjectCodesCollection;
+    }
+
+    @Override
+    public boolean resetPeriodValuesWhenFirstFiscalPeriod() {
+        LOG.debug("resetPeriodValuesWhenFirstFiscalPeriod() started");
+
+        try {
+            depreciationBatchDao.resetPeriodValuesWhenFirstFiscalPeriod(1);
+            return true;
+        } catch (Exception e) {
+            LOG.error("resetPeriodValuesWhenFirstFiscalPeriod() Exception",e);
+            return false;
+        }
     }
 
     // CSU 6702 BEGIN
@@ -516,7 +528,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         SortedMap<String, AssetDepreciationTransaction> depreciationTransactionSummary = new TreeMap<String, AssetDepreciationTransaction>();
         double ageAtPeriodStart = 0d;
         double ageAtPeriodEnd = 0d;
-        double assetLifeInMonths = 0d;        
+        double assetLifeInMonths = 0d;
         Calendar assetDepreciationDate = Calendar.getInstance();
 
         try {
@@ -582,12 +594,12 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 KualiDecimal transactionAmount = KualiDecimal.ZERO;
                 KualiDecimal deprAmountSum = salvageValueAssetDeprAmounts.get(assetNumber);
                 boolean needToCatchUp = assetsWithNoDepreciation.contains(assetNumber);
-                
+
                 // Calculating the life of the asset in months.
                 assetLifeInMonths = assetPaymentInfo.getDepreciableLifeLimit() * 12;
                 // Calculating the asset age in months using the depreciation date and the asset service date.
                 ageAtPeriodStart = depreciationStartMonth - assetDepreciationDate.get(Calendar.MONTH) + (depreciationDate.get(Calendar.YEAR) - assetDepreciationDate.get(Calendar.YEAR)) * 12;
-                ageAtPeriodEnd = depreciationEndMonth - assetDepreciationDate.get(Calendar.MONTH) + (depreciationDate.get(Calendar.YEAR) - assetDepreciationDate.get(Calendar.YEAR)) * 12;              
+                ageAtPeriodEnd = depreciationEndMonth - assetDepreciationDate.get(Calendar.MONTH) + (depreciationDate.get(Calendar.YEAR) - assetDepreciationDate.get(Calendar.YEAR)) * 12;
                 // If the asset was purchased during the depreciation period, then we may have overcorrected.
                 if (ageAtPeriodStart < 0) {
                     ageAtPeriodStart = 0;
@@ -605,7 +617,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 if (priorAccumulatedAmount == null) {
                     assetPaymentInfo.setAccumulatedPrimaryDepreciationAmount(KualiDecimal.ZERO);
                 }
-                
+
                 KualiDecimal remainingAmount = primaryDepreciationBaseAmount.subtract(priorAccumulatedAmount);
                 if (CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE.equals(assetPaymentInfo.getPrimaryDepreciationMethodCode()) && deprAmountSum != null && deprAmountSum.isNonZero()) {
                     remainingAmount = remainingAmount.subtract((primaryDepreciationBaseAmount.divide(deprAmountSum)).multiply(assetPaymentInfo.getSalvageAmount()));
@@ -1292,15 +1304,15 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
     public void setSchedulerService(SchedulerService schedulerService) {
         this.schedulerService = schedulerService;
     }
-    
+
     public void setAssetService(AssetService assetService) {
         this.assetService = assetService;
     }
-    
+
     public void setObjectCodeService(ObjectCodeService objectCodeService) {
         this.objectCodeService = objectCodeService;
     }
-    
+
     public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
         this.workflowDocumentService = workflowDocumentService;
     }
