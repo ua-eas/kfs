@@ -79,6 +79,7 @@ import org.springframework.util.AutoPopulatingList;
 /**
  * Business rules applicable to VendorDetail document.
  */
+@SuppressWarnings("deprecation")
 public class VendorRule extends MaintenanceDocumentRuleBase {
 
     private VendorDetail oldVendor;
@@ -120,7 +121,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      *
      * @param vendor VendorDetail document
      */
-    void refreshSubObjects(VendorDetail vendor) {
+    protected void refreshSubObjects(VendorDetail vendor) {
         if (vendor == null) {
             return;
         }
@@ -245,7 +246,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param document MaintenanceDocument instance
      * @return boolean false or true
      */
-    boolean processVendorValidation(MaintenanceDocument document) {
+    protected boolean processVendorValidation(MaintenanceDocument document) {
         boolean valid = true;
         VendorDetail vendorDetail = (VendorDetail) document.getNewMaintainableObject().getBusinessObject();
 
@@ -345,7 +346,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail the VendorDetail object to be validated
      * @return boolean false if the vendor is inactive and the inactive reason is empty or if the vendor is active and the inactive reason is not empty
      */
-    boolean validateInactiveReasonRequiredness(VendorDetail vendorDetail) {
+    protected boolean validateInactiveReasonRequiredness(VendorDetail vendorDetail) {
         boolean activeIndicator = vendorDetail.isActiveIndicator();
         boolean emptyInactiveReason = StringUtils.isEmpty(vendorDetail.getVendorInactiveReasonCode());
 
@@ -370,7 +371,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail the VendorDetail object to be validated
      * @return boolean false if there is no tax number and the indicator is true.
      */
-    boolean validateTaxNumberRequiredness(VendorDetail vendorDetail) {
+    protected boolean validateTaxNumberRequiredness(VendorDetail vendorDetail) {
         if (!vendorDetail.getVendorHeader().getVendorForeignIndicator() && vendorDetail.getVendorHeader().getVendorType().isVendorTaxNumberRequiredIndicator() && StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber())) {
             if (vendorDetail.isVendorParentIndicator()) {
                 putFieldError(VendorPropertyConstants.VENDOR_TAX_NUMBER, VendorKeyConstants.ERROR_VENDOR_TYPE_REQUIRES_TAX_NUMBER, vendorDetail.getVendorHeader().getVendorType().getVendorTypeDescription());
@@ -389,7 +390,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail The VendorDetail object to be validated
      * @return boolean false if the vendor is restricted and the restricted reason is empty
      */
-    boolean validateRestrictedReasonRequiredness(VendorDetail vendorDetail) {
+    protected boolean validateRestrictedReasonRequiredness(VendorDetail vendorDetail) {
         if (ObjectUtils.isNotNull(vendorDetail.getVendorRestrictedIndicator()) && vendorDetail.getVendorRestrictedIndicator() && StringUtils.isEmpty(vendorDetail.getVendorRestrictedReasonText())) {
             putFieldError(VendorPropertyConstants.VENDOR_RESTRICTED_REASON_TEXT, VendorKeyConstants.ERROR_RESTRICTED_REASON_REQUIRED);
             return false;
@@ -411,7 +412,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail the VendorDetail object to be validated
      * @return boolean true if the vendorDetail passes the unique tax # and tax type validation.
      */
-   boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
+   protected boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
         boolean valid = true;
         boolean isParent = vendorDetail.isVendorParentIndicator();
 
@@ -459,7 +460,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail the VendorDetail object to be validated
      * @return boolean true if the vendor Detail passes the validation and false otherwise.
      */
-    boolean validateTaxTypeAndTaxNumberBlankness(VendorDetail vendorDetail) {
+    protected boolean validateTaxTypeAndTaxNumberBlankness(VendorDetail vendorDetail) {
         boolean valid = true;
         boolean isParent = vendorDetail.isVendorParentIndicator();
         if (!StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber()) && (StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxTypeCode()))) {
@@ -765,7 +766,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param document MaintenanceDocument
      * @return boolean false or true
      */
-    boolean processAddressValidation(MaintenanceDocument document) {
+    protected boolean processAddressValidation(MaintenanceDocument document) {
         boolean valid = true;
         boolean validAddressType = false;
 
@@ -859,11 +860,8 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param addresses VendorAddress which is being validated
      * @return boolean false if the country is United States and there is no state or zip code
      */
-    boolean checkAddressCountryEmptyStateZip(VendorAddress address) {
-        //GlobalVariables.getMessageMap().clearErrorPath();
-        //GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT + "." + KFSPropertyConstants.NEW_MAINTAINABLE_OBJECT + "." + VendorPropertyConstants.VENDOR_ADDRESS);
+    protected boolean checkAddressCountryEmptyStateZip(VendorAddress address) {
         boolean valid = SpringContext.getBean(PostalCodeValidationService.class).validateAddress(address.getVendorCountryCode(), address.getVendorStateCode(), address.getVendorZipCode(), VendorPropertyConstants.VENDOR_ADDRESS_STATE, VendorPropertyConstants.VENDOR_ADDRESS_ZIP);
-        //GlobalVariables.getMessageMap().clearErrorPath();
 		return valid;
     }
 
@@ -873,8 +871,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param addresses VendorAddress which is being validated
      * @return boolean false or true
      */
-
-    boolean findAllowDefaultAddressIndicatorHelper(VendorAddress vendorAddress) {
+    protected boolean findAllowDefaultAddressIndicatorHelper(VendorAddress vendorAddress) {
 
         AddressType addressType = new AddressType();
 
@@ -897,7 +894,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param parent The VendorAddress which we are adding a default address to it
      * @return boolean false or true
      */
-    boolean checkDefaultAddressCampus(VendorDetail vendorDetail, VendorDefaultAddress addedDefaultAddress, VendorAddress parent) {
+    protected boolean checkDefaultAddressCampus(VendorDetail vendorDetail, VendorDefaultAddress addedDefaultAddress, VendorAddress parent) {
         VendorAddress vendorAddress = parent;
         if (ObjectUtils.isNull(vendorAddress)) {
             return false;
@@ -943,8 +940,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail VendorDetail document
      * @return boolean false or true
      */
-
-    boolean validateDefaultAddressCampus(VendorDetail vendorDetail) {
+    protected boolean validateDefaultAddressCampus(VendorDetail vendorDetail) {
         List<VendorAddress> vendorAddresses = vendorDetail.getVendorAddresses();
         String addressTypeCode;
         String addressTypeDesc;
@@ -1091,7 +1087,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param customerNumber VendorCustomerNumber
      * @return boolean false or true
      */
-    boolean validateVendorCustomerNumber(VendorCustomerNumber customerNumber) {
+    protected boolean validateVendorCustomerNumber(VendorCustomerNumber customerNumber) {
         boolean valid = true;
 
         // The chart and org must exist in the database.
@@ -1166,7 +1162,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param attributeDefinition
      * @return
      */
-    boolean validateAPOAmount(KualiDecimal apoAmount, AttributeDefinition attributeDefinition) {
+    protected boolean validateAPOAmount(KualiDecimal apoAmount, AttributeDefinition attributeDefinition) {
         boolean valid = true;
 
         if (ObjectUtils.isNotNull(attributeDefinition)) {
@@ -1197,7 +1193,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param contract VendorContract
      * @return boolean true if the proper combination of Exclude Indicator and APO Amount is present, otherwise flase.
      */
-    boolean validateVendorContractPOLimitAndExcludeFlagCombination(VendorContract contract) {
+    protected boolean validateVendorContractPOLimitAndExcludeFlagCombination(VendorContract contract) {
         boolean valid = true;
         boolean NoOrgHasApoLimit = true;
 
@@ -1229,7 +1225,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @return boolean true if the beginning date is before the end date, false if only one date is entered or the beginning date is
      *         after the end date.
      */
-    boolean validateVendorContractBeginEndDates(VendorContract contract) {
+    protected boolean validateVendorContractBeginEndDates(VendorContract contract) {
         boolean valid = true;
 
         if (ObjectUtils.isNotNull(contract.getVendorContractBeginningDate()) && ObjectUtils.isNull(contract.getVendorContractEndDate())) {
@@ -1260,7 +1256,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param organization VendorContractOrganization
      * @return boolean true if these three rules are passed, otherwise false.
      */
-    boolean validateVendorContractOrganization(VendorContractOrganization organization, int counter) {
+    protected boolean validateVendorContractOrganization(VendorContractOrganization organization, int counter) {
         boolean valid = true;
         List<String> previousErrorPaths = GlobalVariables.getMessageMap().getErrorPath();
         String errorPath = VendorPropertyConstants.VENDOR_CONTRACT_ORGANIZATION + "[" + counter + "]";
