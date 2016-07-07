@@ -20,6 +20,7 @@ package org.kuali.kfs.module.external.kc.service;
 
 import java.util.List;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
@@ -35,4 +36,6 @@ public interface BillingFrequencyService {
     public List<BillingFrequencyDTO> getAll();
     
     public List<BillingFrequencyDTO> getActive();
+    
+    public BillingFrequencyDTO getBillingFrequency(@WebParam(name=KcConstants.BillingFrequencyService.FREQUENCY) String frequency);
 }

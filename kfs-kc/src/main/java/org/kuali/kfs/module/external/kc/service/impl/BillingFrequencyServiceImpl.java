@@ -10,6 +10,7 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.module.external.kc.dto.BillingFrequencyDTO;
 import org.kuali.kfs.module.external.kc.service.BillingFrequencyService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 
 public class BillingFrequencyServiceImpl implements BillingFrequencyService {
 
@@ -24,8 +25,16 @@ public class BillingFrequencyServiceImpl implements BillingFrequencyService {
     @Override
     public List<BillingFrequencyDTO> getActive() {
         Map<String, Object> criteria = new HashMap<String, Object>();
-        criteria.put("active", "Y");
+        criteria.put(KFSPropertyConstants.ACTIVE, "Y");
         return find(criteria);
+    }
+    
+    @Override
+    public BillingFrequencyDTO getBillingFrequency(String frequency) {
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        criteria.put(KFSPropertyConstants.FREQUENCY, frequency);
+        AccountsReceivableBillingFrequency billingFrequency = getResponsibleModuleService().getExternalizableBusinessObject(AccountsReceivableBillingFrequency.class, criteria);
+        return getBillingFrequencyDTO(billingFrequency);
     }
     
     private List<BillingFrequencyDTO> find(Map<String,Object> criteria) {
@@ -71,4 +80,5 @@ public class BillingFrequencyServiceImpl implements BillingFrequencyService {
     public void setResponsibleModuleService(ModuleService responsibleModuleService) {
         this.responsibleModuleService = responsibleModuleService;
     }
+
 }
