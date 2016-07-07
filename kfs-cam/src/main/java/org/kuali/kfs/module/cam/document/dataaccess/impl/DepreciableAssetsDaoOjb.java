@@ -168,17 +168,6 @@ public class DepreciableAssetsDaoOjb extends PlatformAwareDaoBaseOjb implements 
         columns[1] = (usdFormat.format((KualiDecimal) data[3]));
         reportLine.add(columns.clone());
 
-        /*
-         * Here I'm getting the column of total depreciation for the current fiscal month. The idea here is to prevent the process
-         * from running a second time for the same fiscal month. 3 + fiscalMonth (variable) => current fiscal month depreciation
-         * column in the array. So if the current fiscal month depreciation column > 0 then depreciation was already ran. Therefore,
-         * it should be stop but, not until part of the pdf report List is populated so it can be written.
-         */
-        processAlreadyRan = false;
-        if (fiscalMonth > 1) {
-            if (((KualiDecimal) data[3 + fiscalMonth]).compareTo(new KualiDecimal(0)) != 0)
-                processAlreadyRan = true;
-        }
         // *******************************************************************************************************************************
 
         // Adding monthly depreciation amounts
@@ -359,9 +348,6 @@ public class DepreciableAssetsDaoOjb extends PlatformAwareDaoBaseOjb implements 
         }
         LOG.debug("generateStatistics() -  ended");
 
-        if (processAlreadyRan && beforeDepreciationReport) {
-            throw new IllegalStateException(errorMessage);
-        }
         LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Finished generating statistics for report - " + (beforeDepreciationReport ? "Before part." : "After part"));
         return reportLine;
     }
