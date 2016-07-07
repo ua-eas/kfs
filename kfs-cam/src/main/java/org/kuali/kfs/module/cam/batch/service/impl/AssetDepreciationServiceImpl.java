@@ -988,7 +988,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 // What depreciation activity has happened so far this year?
                 pKeys.put(CamsPropertyConstants.AssetPayment.PAYMENT_SEQ_NUMBER, assetPaymentInfo.getPaymentSequenceNumber());
                 AssetPayment assetPayment = businessObjectService.findByPrimaryKey(AssetPayment.class, pKeys);
-                int lastDepreciationPeriod = findLastDepreciationPeriod(assetPayment);
+                int lastDepreciationPeriod = assetPayment.getLastDepreciationPeriod();
                 KualiDecimal ytdDepreciation = assetPayment.getYearToDate();
                 
                 // Get depreciation convention code
@@ -1147,53 +1147,6 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             LOG.error("Error occurred", e);
             throw new IllegalStateException(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.ERROR_WHEN_CALCULATING_DEPRECIATION) + " :" + e.getMessage(), e);
         }
-    }
-
-    private int findLastDepreciationPeriod(AssetPayment assetPayment) {
-        if (assetPayment == null) {
-            return 0;
-        }
-        if (nonZero(assetPayment.getPeriod12Depreciation1Amount())) {
-            return 12;
-        }
-        if (nonZero(assetPayment.getPeriod11Depreciation1Amount())) {
-            return 11;
-        }
-        if (nonZero(assetPayment.getPeriod10Depreciation1Amount())) {
-            return 10;
-        }
-        if (nonZero(assetPayment.getPeriod9Depreciation1Amount())) {
-            return 9;
-        }
-        if (nonZero(assetPayment.getPeriod8Depreciation1Amount())) {
-            return 8;
-        }
-        if (nonZero(assetPayment.getPeriod7Depreciation1Amount())) {
-            return 7;
-        }
-        if (nonZero(assetPayment.getPeriod6Depreciation1Amount())) {
-            return 6;
-        }
-        if (nonZero(assetPayment.getPeriod5Depreciation1Amount())) {
-            return 5;
-        }
-        if (nonZero(assetPayment.getPeriod4Depreciation1Amount())) {
-            return 4;
-        }
-        if (nonZero(assetPayment.getPeriod3Depreciation1Amount())) {
-            return 3;
-        }
-        if (nonZero(assetPayment.getPeriod2Depreciation1Amount())) {
-            return 2;
-        }
-        if (nonZero(assetPayment.getPeriod1Depreciation1Amount())) {
-            return 1;
-        }
-        return 0;
-    }
-
-    private boolean nonZero(KualiDecimal testAmount) {
-        return (testAmount != null && !KualiDecimal.ZERO.equals(testAmount)); 
     }
 
     protected void processYearEndGeneralLedgerPendingEntry(Integer fiscalYear, List<String> documentNos, SortedMap<String, AssetDepreciationTransaction> trans) {

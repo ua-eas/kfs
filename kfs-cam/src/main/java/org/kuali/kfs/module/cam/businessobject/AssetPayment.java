@@ -1239,6 +1239,54 @@ public class AssetPayment extends PersistableBusinessObjectBase {
     public void setYearToDate(KualiDecimal yearToDate) {
         this.yearToDate = yearToDate;
     }
+    
+    /**
+     * Gets the most recent fiscal period with depreciation.
+     * @return
+     */
+    public int getLastDepreciationPeriod() {
+        if (nonZero(getPeriod12Depreciation1Amount())) {
+            return 12;
+        }
+        if (nonZero(getPeriod11Depreciation1Amount())) {
+            return 11;
+        }
+        if (nonZero(getPeriod10Depreciation1Amount())) {
+            return 10;
+        }
+        if (nonZero(getPeriod9Depreciation1Amount())) {
+            return 9;
+        }
+        if (nonZero(getPeriod8Depreciation1Amount())) {
+            return 8;
+        }
+        if (nonZero(getPeriod7Depreciation1Amount())) {
+            return 7;
+        }
+        if (nonZero(getPeriod6Depreciation1Amount())) {
+            return 6;
+        }
+        if (nonZero(getPeriod5Depreciation1Amount())) {
+            return 5;
+        }
+        if (nonZero(getPeriod4Depreciation1Amount())) {
+            return 4;
+        }
+        if (nonZero(getPeriod3Depreciation1Amount())) {
+            return 3;
+        }
+        if (nonZero(getPeriod2Depreciation1Amount())) {
+            return 2;
+        }
+        if (nonZero(getPeriod1Depreciation1Amount())) {
+            return 1;
+        }
+        return 0;
+    }
+    
+    private boolean nonZero(KualiDecimal testAmount) {
+        return (testAmount != null && !KualiDecimal.ZERO.equals(testAmount)); 
+    }
 
     /**
      *
