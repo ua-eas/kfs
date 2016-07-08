@@ -62,28 +62,56 @@ public enum AssetDepreciationServiceFixture {
     static String ASSET = "asset";
     static String ASSET_PAYMENT = "assetPayment";
     static String DEPRECIATION_DATE = "depreciationDate";
+    static String YEAR_END_DEPRECIATION_DATE = "yearEndDepreciationDate";
     static String FIELD_NAMES = "fieldNames";
     static String NUM_OF_REC = "numOfRecords";
     static String DELIMINATOR = "deliminator";
     static String RESULT = "result";
+    static String YTD_RESULT = "ytdResult";
+    static String YTD_ASSET = "ytdAsset";
+    static String YTD_ASSET_PAYMENT = "ytdAssetPayment";
 
     private AssetDepreciationServiceFixture() {
     }
-
-    public List<Asset> getAssets() {
-        Integer numOfRecords = new Integer(properties.getProperty(ASSET + "." + NUM_OF_REC));
-        List<Asset> assets = new ArrayList<Asset>();
+    
+    private <T> List<T> getObjects(Class<T> clazz, String prefix) {
+        Integer numOfRecords = new Integer(properties.getProperty(prefix + "." + NUM_OF_REC));
+        List<T> results = new ArrayList<>();
 
         String deliminator = properties.getProperty(DELIMINATOR);
-        String fieldNames = properties.getProperty(ASSET + "." + FIELD_NAMES);
+        String fieldNames = properties.getProperty(prefix + "." + FIELD_NAMES);
 
         for (int i = 1; i <= numOfRecords.intValue(); i++) {
-            String propertyKey = ASSET + "." + TEST_RECORD + i;
+            String propertyKey = prefix + "." + TEST_RECORD + i;
 
-            Asset asset = CamsFixture.DATA_POPULATOR.buildTestDataObject(Asset.class, properties, propertyKey, fieldNames, deliminator);
-            assets.add(asset);
+            T item = CamsFixture.DATA_POPULATOR.buildTestDataObject(clazz, properties, propertyKey, fieldNames, deliminator);
+            results.add(item);
         }
-        return assets;
+        return results;
+    }
+
+    public List<Asset> getAssets() {
+        return (getObjects(Asset.class, ASSET));
+    }
+    
+    public List<Asset> getYtdAssets() {
+        return (getObjects(Asset.class, YTD_ASSET));
+    }
+    
+    public List<AssetPayment> getAssetPaymentsFromPropertiesFile() {
+        return getObjects(AssetPayment.class, ASSET_PAYMENT);
+    }
+    
+    public List<AssetPayment> getYtdAssetPaymentsFromPropertiesFile() {
+        return getObjects(AssetPayment.class, YTD_ASSET_PAYMENT);
+    }
+
+    public List<AssetPaymentInfo> getResultsFromPropertiesFile() {
+        return getObjects(AssetPaymentInfo.class, RESULT);
+    }
+    
+    public List<AssetPaymentInfo> getYtdResultsFromPropertiesFile() {
+        return getObjects(AssetPaymentInfo.class, YTD_RESULT);
     }
 
     public String getDepreciationDateString() {
@@ -94,37 +122,14 @@ public enum AssetDepreciationServiceFixture {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.parse(getDepreciationDateString());
     }
-
-    public List<AssetPayment> getAssetPaymentsFromPropertiesFile() {
-        Integer numOfRecords = new Integer(properties.getProperty(ASSET_PAYMENT + "." + NUM_OF_REC));
-        List<AssetPayment> assetPayments = new ArrayList<AssetPayment>();
-
-        String deliminator = properties.getProperty(DELIMINATOR);
-        String fieldNames = properties.getProperty(ASSET_PAYMENT + "." + FIELD_NAMES);
-
-        for (int i = 1; i <= numOfRecords.intValue(); i++) {
-            String propertyKey = ASSET_PAYMENT + "." + TEST_RECORD + i;
-
-            AssetPayment assetPayment = CamsFixture.DATA_POPULATOR.buildTestDataObject(AssetPayment.class, properties, propertyKey, fieldNames, deliminator);
-            assetPayments.add(assetPayment);
-        }
-        return assetPayments;
+    
+    public String getYearEndDepreciationDateString() {
+        return properties.getProperty(YEAR_END_DEPRECIATION_DATE);
     }
-
-    public List<AssetPaymentInfo> getResultsFromPropertiesFile() {
-        Integer numOfRecords = new Integer(properties.getProperty(RESULT + "." + NUM_OF_REC));
-        List<AssetPaymentInfo> assetPaymentInfos = new ArrayList<>();
-
-        String deliminator = properties.getProperty(DELIMINATOR);
-        String fieldNames = properties.getProperty(RESULT + "." + FIELD_NAMES);
-
-        for (int i = 1; i <= numOfRecords.intValue(); i++) {
-            String propertyKey = RESULT + "." + TEST_RECORD + i;
-
-            AssetPaymentInfo assetPaymentInfo = CamsFixture.DATA_POPULATOR.buildTestDataObject(AssetPaymentInfo.class, properties, propertyKey, fieldNames, deliminator);
-            assetPaymentInfos.add(assetPaymentInfo);
-        }
-        return assetPaymentInfos;
+    
+    public Date getYearEndDepreciationDate() throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.parse(getYearEndDepreciationDateString());
     }
 
     public SystemOptions getSystemOptions() {
@@ -135,14 +140,31 @@ public enum AssetDepreciationServiceFixture {
 
     public UniversityDate getUniversityDate() {
         UniversityDate result = new UniversityDate();
-        result.setUniversityFiscalYear(2009);
+        result.setUniversityFiscalYear(2010);
         result.setUniversityFiscalAccountingPeriod("1");
+        return result;
+    }
+    
+    public UniversityDate getYearEndUniversityDate() {
+        UniversityDate result = new UniversityDate();
+        result.setUniversityFiscalYear(2010);
+        result.setUniversityFiscalAccountingPeriod("12");
         return result;
     }
 
     public List<AssetPaymentInfo> getAssetPaymentInfo() {
         List<Asset> assets = getAssets();
         List<AssetPayment> assetPayments = getAssetPaymentsFromPropertiesFile();
+        return getAssetPaymentInfo(assets, assetPayments);
+    }
+    
+    public List<AssetPaymentInfo> getYtdAssetPaymentInfo() {
+        List<Asset> assets = getYtdAssets();
+        List<AssetPayment> assetPayments = getYtdAssetPaymentsFromPropertiesFile();
+        return getAssetPaymentInfo(assets, assetPayments);
+    }
+
+    private List<AssetPaymentInfo> getAssetPaymentInfo(List<Asset> assets, List<AssetPayment> assetPayments) {
         List<AssetPaymentInfo> result = new ArrayList<>();
         for (AssetPayment payment : assetPayments) {
             AssetPaymentInfo info = new AssetPaymentInfo();
@@ -188,10 +210,21 @@ public enum AssetDepreciationServiceFixture {
         return result;
     }
 
-    public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV() {
-        Map<Long, KualiDecimal> result = new HashMap<>();
+    public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV() {        
         List<Asset> assets = getAssets();
         List<AssetPayment> assetPayments = getAssetPaymentsFromPropertiesFile();
+        return getPrimaryDepreciationBaseAmountForSV(assets, assetPayments);
+    }
+    
+    public Map<Long, KualiDecimal> getYtdPrimaryDepreciationBaseAmountForSV() {        
+        List<Asset> assets = getYtdAssets();
+        List<AssetPayment> assetPayments = getYtdAssetPaymentsFromPropertiesFile();
+        return getPrimaryDepreciationBaseAmountForSV(assets, assetPayments);
+    }
+
+    private Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV(List<Asset> assets,
+            List<AssetPayment> assetPayments) {
+        Map<Long, KualiDecimal> result = new HashMap<>();
         for (Asset asset : assets) {
             if (asset.getPrimaryDepreciationMethodCode().equals("SV")) {
                 result.put(asset.getCapitalAssetNumber(), KualiDecimal.ZERO);
@@ -210,7 +243,7 @@ public enum AssetDepreciationServiceFixture {
         List<AssetObjectCode> result = new ArrayList<>();
         AssetObjectCode assetObjectCode = new AssetObjectCode();
         assetObjectCode.setChartOfAccountsCode("BL");
-        assetObjectCode.setUniversityFiscalYear(2009);
+        assetObjectCode.setUniversityFiscalYear(2010);
         assetObjectCode.setFinancialObjectSubTypeCode("CM");
         assetObjectCode.setCapitalizationFinancialObjectCode("8610");
         assetObjectCode.setAccumulatedDepreciationFinancialObjectCode("8910");
@@ -225,7 +258,7 @@ public enum AssetDepreciationServiceFixture {
         
         assetObjectCode = new AssetObjectCode();
         assetObjectCode.setChartOfAccountsCode("BL");
-        assetObjectCode.setUniversityFiscalYear(2009);
+        assetObjectCode.setUniversityFiscalYear(2010);
         assetObjectCode.setFinancialObjectSubTypeCode("CF");
         assetObjectCode.setCapitalizationFinancialObjectCode("8611");
         assetObjectCode.setAccumulatedDepreciationFinancialObjectCode("8910");

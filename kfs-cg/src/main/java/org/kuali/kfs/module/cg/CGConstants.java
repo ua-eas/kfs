@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.kuali.kfs.integration.ar.ArIntegrationConstants;
+
 /**
  * Constants specific to the Contracts & Grants module.
  */
@@ -119,13 +121,13 @@ public class CGConstants{
 
     public static final String GLPE_RECEIVABLE_OFFSET_GENERATION_METHOD_FAU = "3";
 
-    public static final String PREDETERMINED_BILLING_SCHEDULE_CODE = "PDBS";
-    public static final String MILESTONE_BILLING_SCHEDULE_CODE = "MILE";
-    public static final String MONTHLY_BILLING_SCHEDULE_CODE = "MNTH";
-    public static final String QUATERLY_BILLING_SCHEDULE_CODE = "QUAR";
-    public static final String SEMI_ANNUALLY_BILLING_SCHEDULE_CODE = "SEMI";
-    public static final String ANNUALLY_BILLING_SCHEDULE_CODE = "ANNU";
-    public static final String LOC_BILLING_SCHEDULE_CODE = "LOCB";
+    public static final String PREDETERMINED_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.PREDETERMINED_BILLING;
+    public static final String MILESTONE_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.MILESTONE;
+    public static final String MONTHLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.MONTHLY;
+    public static final String QUATERLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.QUARTERLY;
+    public static final String SEMI_ANNUALLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.SEMI_ANNUALLY;
+    public static final String ANNUALLY_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.ANNUALLY;
+    public static final String LOC_BILLING_SCHEDULE_CODE = ArIntegrationConstants.BillingFrequencyValues.LETTER_OF_CREDIT;
 
     public static class TemplateUploadSystem {
         static final public String EXTENSION = ".pdf";
