@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +40,7 @@ import org.kuali.kfs.integration.ld.LaborLedgerPositionObjectBenefit;
 import org.kuali.kfs.integration.ld.LaborLedgerPositionObjectGroup;
 import org.kuali.kfs.integration.ld.LaborModuleService;
 import org.kuali.kfs.module.ld.LaborPropertyConstants;
+import org.kuali.kfs.module.ld.batch.service.DetectDocumentsMissingLaborPendingEntriesService;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
@@ -54,6 +56,7 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride;
 import org.kuali.kfs.sys.businessobject.AccountingLineOverride.COMPONENT;
+import org.kuali.kfs.sys.businessobject.DocumentHeaderData;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.service.UniversityDateService;
@@ -456,6 +459,13 @@ public class LaborModuleServiceImpl implements LaborModuleService {
     }
 
     /**
+     * @return the default implmentation of the DetectDocumentsMissingLaborPendingEntriesService
+     */
+    public DetectDocumentsMissingLaborPendingEntriesService getDetectDocumentsMissingLaborPendingEntriesService() {
+        return SpringContext.getBean(DetectDocumentsMissingLaborPendingEntriesService.class);
+    }
+
+    /**
      * Gets the KualiModuleService attribute value.
      *
      * @return an implementation of the KualiModuleService.
@@ -522,5 +532,10 @@ public class LaborModuleServiceImpl implements LaborModuleService {
         Integer[] inputComponentArray = neededOverrideComponents.toArray(new Integer[neededOverrideComponents.size()]);
 
         return AccountingLineOverride.valueOf(inputComponentArray);
-    }  
+    }
+
+    @Override
+    public List<DocumentHeaderData> discoverLaborLedgerDocumentsWithoutPendingEntries(Date earliestProcessingDate) {
+        return getDetectDocumentsMissingLaborPendingEntriesService().discoverLaborLedgerDocumentsWithoutPendingEntries(earliestProcessingDate);
+    }
 }
