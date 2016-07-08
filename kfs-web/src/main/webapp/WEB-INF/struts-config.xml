@@ -371,6 +371,7 @@
 	<action-mappings>
 		<!-- Core Action Mappings -->
 		<action path="/kfsError" type="org.kuali.kfs.sys.web.struts.ErrorHandlerAction">
+			<forward name="display" path="/displayError.jsp" />
 			<forward name="tst" path="/kr/kualiExceptionIncidentReport.do" />
 			<forward name="prd" path="/error.html" />
 		</action>
