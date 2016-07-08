@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.service.impl;
 
 import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.sys.KFSConstants.DevelopmentMailServerConstants;
 import org.kuali.kfs.sys.mail.AttachmentMailMessage;
 import org.kuali.rice.core.api.mail.MailMessage;
 
@@ -33,36 +34,39 @@ public class AttachmentDevelopmentMailServiceImpl extends AttachmentMailServiceI
 
     @Override
     public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
-        LOG.info( "*********************** EMAIL SEND *****************************");
-        LOG.info( "FROM : " + message.getToAddresses() );
-        LOG.info( "TO   : " + message.getFromAddress() );
-        LOG.info( "CC   : " + message.getCcAddresses() );
-        LOG.info( "BCC  : " + message.getBccAddresses() );
-        LOG.info( "SUBJECT : " + message.getSubject() );
-        LOG.info( "MESSAGE : \n" + message.getMessage() );
-
-        LOG.info( "*********************** END EMAIL  *****************************");
+        LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_START_LINE);
+        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress() );
+        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses() );
+        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses() );
+        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses() );
+        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject() );
+        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage() );
+        LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_END_LINE);
     }
 
     @Override
     public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
+        LOG.info(DevelopmentMailServerConstants.HTML_MESSAGE + htmlMessage);
         this.sendMessage(message);
     }
 
     @Override
     public void sendMessage(AttachmentMailMessage message) throws InvalidAddressException, MessagingException {
-        LOG.info( "*********************** EMAIL SEND *****************************");
-        LOG.info( "FROM : " + message.getToAddresses() );
-        LOG.info( "TO   : " + message.getFromAddress() );
-        LOG.info( "CC   : " + message.getCcAddresses() );
-        LOG.info( "BCC  : " + message.getBccAddresses() );
-        LOG.info( "SUBJECT : " + message.getSubject() );
-        LOG.info( "MESSAGE : \n" + message.getMessage() );
-        LOG.info( "ATTACHMENT: \n");
-        LOG.info( "\t FILE NAME : " + message.getFileName());
-        LOG.info( "\t SIZE      : " + message.getContent().length);
-        LOG.info( "\t MIME TYPE : " + message.getType());
-
-        LOG.info( "*********************** END EMAIL  *****************************");
+        LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_START_LINE);
+        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress() );
+        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses() );
+        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses() );
+        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses() );
+        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject() );
+        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage() );
+        LOG.info(DevelopmentMailServerConstants.ATTACHMENT_INFO_LINE);
+        LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_NAME + message.getFileName());
+        if (message.getContent() != null) {
+        	LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_SIZE + message.getContent().length);
+        } else {
+        	LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_SIZE + "No content found");
+        }
+        LOG.info(DevelopmentMailServerConstants.ATTACHMENT_FILE_MIME_TYPE + message.getType());
+        LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_END_LINE);
     }
 }

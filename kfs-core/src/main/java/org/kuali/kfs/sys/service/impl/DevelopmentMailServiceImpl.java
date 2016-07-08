@@ -21,6 +21,7 @@ package org.kuali.kfs.sys.service.impl;
 import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.krad.service.MailService;
 import org.kuali.rice.core.api.mail.MailMessage;
+import org.kuali.kfs.sys.KFSConstants.DevelopmentMailServerConstants;
 
 import javax.mail.MessagingException;
 
@@ -29,19 +30,19 @@ public class DevelopmentMailServiceImpl implements MailService {
 
     @Override
     public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
-        LOG.info( "*********************** EMAIL SEND *****************************");
-        LOG.info( "FROM : " + message.getFromAddress() );
-        LOG.info( "TO   : " + message.getToAddresses() );
-        LOG.info( "CC   : " + message.getCcAddresses() );
-        LOG.info( "BCC  : " + message.getBccAddresses() );
-        LOG.info( "SUBJECT : " + message.getSubject() );
-        LOG.info( "MESSAGE : \n" + message.getMessage() );
-        LOG.info( "*********************** END EMAIL  *****************************");
+        LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_START_LINE);
+        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress() );
+        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses() );
+        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses() );
+        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses() );
+        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject() );
+        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage() );
+        LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_END_LINE);
     }
 
     @Override
     public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
-        LOG.info("HTML Message: " + htmlMessage);
+        LOG.info(DevelopmentMailServerConstants.HTML_MESSAGE + htmlMessage);
         sendMessage(message);
     }
 
