@@ -18,12 +18,14 @@
  */
 package org.kuali.kfs.sys.web.struts;
 
+import org.apache.struts.Globals;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.exception.DisplayMessageException;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,13 @@ public class ErrorHandlerAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("execute() started");
+
+        Exception exception = (Exception)request.getAttribute(Globals.EXCEPTION_KEY);
+
+        if ( exception instanceof DisplayMessageException) {
+            request.setAttribute("message",exception.getMessage());
+            return mapping.findForward("display");
+        }
 
         ConfigurationService configurationService = SpringContext.getBean(ConfigurationService.class);
         String productionEnvironmentCode = configurationService.getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
