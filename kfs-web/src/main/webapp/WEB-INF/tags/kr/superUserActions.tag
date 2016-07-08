@@ -1,6 +1,6 @@
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 <%@ attribute name="showTab" required="false" description="used to decide if the tab should be open by default"%>
-<c:if test="${KualiForm.superUserAuthorized && KualiForm.superUserActionAvaliable}">
+<c:if test="${KualiForm.superUserAuthorized}">
     <c:set var="tabTitle"><bean:message key="superuser.tab.label" /></c:set>
     <c:set var="actionLabel"><bean:message key="superuser.action.column.label" /></c:set>
     <c:set var="requestedLabel"><bean:message key="superuser.requested.column.label" /></c:set>
@@ -13,7 +13,7 @@
                  tabErrorKey="superuser.errors"
                  transparentBackground="${transparentBackground}">
             <div class="tab-container" align=center id="G4">
-            <c:if test="${KualiForm.superUserApproveSingleActionRequestAuthorized && KualiForm.stateAllowsApproveSingleActionRequest && not empty KualiForm.actionRequestsRequiringApproval}">
+            <c:if test="${(KualiForm.superUserApproveSingleActionRequestAuthorized && KualiForm.stateAllowsApproveSingleActionRequest && not empty KualiForm.actionRequestsRequiringApproval) && KualiForm.superUserActionAvaliable}">
                 <table cellpadding="0" cellspacing="0" class="datatable standard" summary="view/add notes">
                     <tbody>
                         <tr class="header">
