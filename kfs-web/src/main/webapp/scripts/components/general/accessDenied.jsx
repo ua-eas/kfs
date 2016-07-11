@@ -1,5 +1,4 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from 'react/addons';
 
 let AccessDenied = React.createClass({
     render() {
@@ -7,7 +6,7 @@ let AccessDenied = React.createClass({
     }
 });
 
-render(
+React.render(
     <AccessDenied/>,
     document.getElementById('page-content')
 );
