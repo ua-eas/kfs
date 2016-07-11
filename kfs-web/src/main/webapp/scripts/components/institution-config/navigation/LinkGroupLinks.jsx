@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import {buildLinkSortableDropHandler, isScrolledIntoView, validateForm} from '../institutionConfigUtils.js';
 import {buildKeyFromLabel} from '../../../sys/utils.js';
 import Immutable from 'immutable';

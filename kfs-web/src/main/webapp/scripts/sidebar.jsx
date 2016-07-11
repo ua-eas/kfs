@@ -1,8 +1,7 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from 'react/addons';
 import Link from './link.jsx';
-import UserPrefs from '../../sys/user_preferences.js';
-import KfsUtils from '../../sys/utils.js';
+import UserPrefs from './sys/user_preferences.js';
+import KfsUtils from './sys/utils.js';
 
 var Sidebar = React.createClass({
     getInitialState() {
@@ -473,7 +472,7 @@ var LinkFilter = React.createClass({
     }
 });
 
-render(
+React.render(
     <Sidebar/>,
     document.getElementById('sidebar')
 );

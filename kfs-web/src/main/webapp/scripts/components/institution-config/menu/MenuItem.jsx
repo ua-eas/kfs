@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import {validateForm} from '../institutionConfigUtils.js';
 
 let MenuItem = React.createClass({

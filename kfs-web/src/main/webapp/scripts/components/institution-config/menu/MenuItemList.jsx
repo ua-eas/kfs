@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import Immutable from 'immutable';
 import MenuItem from  './MenuItem.jsx';
 import {buildGroupSortableDropHandler, validateForm} from '../institutionConfigUtils.js';
