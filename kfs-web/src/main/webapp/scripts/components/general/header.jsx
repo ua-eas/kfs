@@ -1,6 +1,7 @@
-import React from 'react/addons';
+import React from 'react';
+import { render } from 'react-dom';
 import Link from './link.jsx';
-import KfsUtils from './sys/utils.js';
+import KfsUtils from '../../sys/utils.js';
 
 var Header = React.createClass({
     getInitialState() {
@@ -196,7 +197,7 @@ var Header = React.createClass({
     }
 });
 
-React.render(
+render(
     <Header/>,
     document.getElementById('header')
 );

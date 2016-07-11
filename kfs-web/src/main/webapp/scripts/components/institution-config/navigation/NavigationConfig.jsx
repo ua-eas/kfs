@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import LinkGroups from './LinkGroups.jsx';
 import LinkGroupLinks from './LinkGroupLinks.jsx';
 import {getUrlPathPrefix} from '../../../sys/utils.js';
