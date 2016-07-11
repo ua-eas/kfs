@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import Immutable from 'immutable';
 import KfsUtils from '../../../sys/utils.js';
 import Dropzone from 'react-dropzone';
@@ -13,7 +13,7 @@ let LogoUpload = React.createClass({
         };
     },
     componentWillMount() {
-        let logoPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/logo";
+        let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
         $.ajax({
             url: logoPath,
             dataType: 'json',
@@ -33,7 +33,7 @@ let LogoUpload = React.createClass({
         let data = new FormData();
         data.append('logo', files[0]);
 
-        let logoPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/logo";
+        let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
         $.ajax({
             url: logoPath,
             dataType: 'json',
@@ -55,7 +55,7 @@ let LogoUpload = React.createClass({
     },
     saveChanges() {
         let data = {'logoUrl': this.state.logo};
-        let logoPath = KfsUtils.getUrlPathPrefix() + "sys/preferences/config/logo";
+        let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
         $.ajax({
             url: logoPath,
             dataType: 'json',
