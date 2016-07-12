@@ -43,6 +43,7 @@ import org.kuali.kfs.module.cam.document.dataaccess.DepreciableAssetsDao;
 import org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao;
 import org.kuali.kfs.module.cam.document.dataaccess.impl.DepreciationBatchDaoJdbc;
 import org.kuali.kfs.module.cam.document.dataaccess.impl.MockDepreciationBatchDao;
+import org.kuali.kfs.module.cam.document.service.AssetDateService;
 import org.kuali.kfs.module.cam.document.service.AssetService;
 import org.kuali.kfs.module.cam.document.service.impl.AssetServiceImpl;
 import org.kuali.kfs.module.cam.fixture.AssetDepreciationServiceFixture;
@@ -52,6 +53,7 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.dataaccess.UniversityDateDao;
 import org.kuali.kfs.sys.identity.TestPerson;
 import org.kuali.kfs.sys.service.OptionsService;
+import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
@@ -90,6 +92,8 @@ public class AssetDepreciationServiceTest {
     private ObjectCodeService objectCodeService;
     private WorkflowDocumentService workflowDocumentService;
     private AssetService assetService;
+    private AssetDateService assetDateService;
+    private UniversityDateService universityDateService;
     private UserSession userSession;
     private WorkflowDocument workflowDocument;
     private List<AssetPaymentInfo> savedPaymentInfo;
@@ -103,8 +107,6 @@ public class AssetDepreciationServiceTest {
         businessObjectService = EasyMock.createMock(BusinessObjectService.class);
         kualiConfigurationService = EasyMock.createMock(ConfigurationService.class);
         parameterService = EasyMock.createMock(ParameterService.class);
-        EasyMock.createMock(AssetDepreciationUtilDao.class);
-        EasyMock.createMock(UniversityDateDao.class);
         dateTimeService = EasyMock.createMock(DateTimeService.class);
         schedulerService = EasyMock.createMock(SchedulerService.class);
         optionsService = EasyMock.createMock(OptionsService.class);
@@ -115,6 +117,8 @@ public class AssetDepreciationServiceTest {
         assetService = EasyMock.createMock(AssetService.class);
         userSession = EasyMock.createMock(UserSession.class);
         workflowDocument = EasyMock.createMock(WorkflowDocument.class);
+        assetDateService = EasyMock.createMock(AssetDateService.class);
+        universityDateService = EasyMock.createMock(UniversityDateService.class);
         PowerMock.mockStatic(GlobalVariables.class);
         
         savedPaymentInfo = new ArrayList<>();
@@ -130,6 +134,8 @@ public class AssetDepreciationServiceTest {
         camsAssetDepreciationService.setObjectCodeService(objectCodeService);
         camsAssetDepreciationService.setWorkflowDocumentService(workflowDocumentService);
         camsAssetDepreciationService.setAssetService(assetService);
+        camsAssetDepreciationService.setAssetDateService(assetDateService);
+        camsAssetDepreciationService.setUniversityDateService(universityDateService);
     }
 
     @Test
@@ -246,6 +252,7 @@ public class AssetDepreciationServiceTest {
         List<AssetPaymentInfo> assetPaymentInfos = AssetDepreciationServiceFixture.DATA.getYtdAssetPaymentInfo();
         List<AssetPayment> assetPayments = AssetDepreciationServiceFixture.DATA.getYtdAssetPaymentsFromPropertiesFile();
         List<Asset> assets = AssetDepreciationServiceFixture.DATA.getYtdAssets();
+        List<String> movableEquipmentSubtypes = Arrays.asList(new String[]{"CF","CM","CO","FE","IF","MT","NT","OA","PL","RO","SI","UF"});
         
         EasyMock.expect(dateTimeService.getCurrentDate()).andReturn(date).anyTimes();
         EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_ALL.class, CamsConstants.Parameters.FISCAL_YEAR_END_MONTH_AND_DAY))
@@ -262,6 +269,19 @@ public class AssetDepreciationServiceTest {
         fields.put(CamsPropertyConstants.AssetObject.UNIVERSITY_FISCAL_YEAR, 2010);
         fields.put(CamsPropertyConstants.AssetObject.ACTIVE, Boolean.TRUE);
         EasyMock.expect(businessObjectService.findMatching(AssetObjectCode.class, fields)).andReturn(assetObjectCodes);
+        
+        // updateAssetsDatesForLastFiscalPeriod has nothing to do, since all our test assets have create dates before the EOY.
+        EasyMock.expect(universityDateService.getLastDateOfFiscalYear(2010)).andReturn(depreciationDate);
+        EasyMock.expect(parameterService.parameterExists(Asset.class, CamsConstants.Parameters.MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES)).andReturn(true);
+        EasyMock.expect(parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES))
+            .andReturn(movableEquipmentSubtypes);
+        EasyMock.expect(depreciationBatchDao.getAssetsByDepreciationConvention(new java.sql.Date(depreciationDate.getTime()), movableEquipmentSubtypes, "CD"))
+            .andReturn(new ArrayList<>());
+        EasyMock.expect(depreciationBatchDao.getAssetsByDepreciationConvention(new java.sql.Date(depreciationDate.getTime()), movableEquipmentSubtypes, "FY"))
+        .andReturn(new ArrayList<>());
+        EasyMock.expect(depreciationBatchDao.getAssetsByDepreciationConvention(new java.sql.Date(depreciationDate.getTime()), movableEquipmentSubtypes, "HY"))
+        .andReturn(new ArrayList<>());
+              
         EasyMock.expect(depreciationBatchDao.getListOfDepreciableAssetPaymentInfoYearEnd(2010, 12, depreciationCalendar, true))
             .andReturn(assetPaymentInfos);
         EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))
@@ -324,7 +344,7 @@ public class AssetDepreciationServiceTest {
         
         EasyMock.replay(dateTimeService, kualiConfigurationService, parameterService, schedulerService, optionsService, businessObjectService);
         EasyMock.replay(depreciableAssetsDao, depreciationBatchDao, objectCodeService, workflowDocumentService, workflowDocument);
-        EasyMock.replay(assetService);
+        EasyMock.replay(assetService, assetDateService, universityDateService);
         PowerMock.replay(GlobalVariables.class);
     }
 
