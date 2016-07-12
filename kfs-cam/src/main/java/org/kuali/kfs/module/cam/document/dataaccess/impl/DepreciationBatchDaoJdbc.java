@@ -296,10 +296,10 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         sql = sql + "AND (A1.CPTL_AST_DEPR_DT IS NOT NULL AND A1.CPTL_AST_DEPR_DT <= ? AND A1.CPTL_AST_DEPR_DT <> ?) AND  ";
         sql = sql + "(A1.AST_RETIR_FSCL_YR IS NULL OR A1.AST_RETIR_PRD_CD IS NULL OR A1.AST_RETIR_FSCL_YR > " + fiscalYear + " OR (A1.AST_RETIR_FSCL_YR = " + fiscalYear + " AND A1.AST_RETIR_PRD_CD > " + fiscalMonth + ")) ";
         if (fiscalMonth >= 1 && fiscalMonth <= 9) {
-            sql = sql + "AND A0.AST_PRD" + fiscalMonth + "_DEPR1_AMT = 0 ";
+            sql = sql + "(AND A0.AST_PRD" + fiscalMonth + "_DEPR1_AMT = 0 OR A0.AST_PRD" + fiscalMonth + "_DEPR1_AMT IS NULL) ";
         }
         else if (fiscalMonth >= 10 && fiscalMonth <= 12) {
-            sql = sql + "AND A0.AST_PRD" + fiscalMonth + "DEPR1_AMT = 0 ";
+            sql = sql + "(AND A0.AST_PRD" + fiscalMonth + "DEPR1_AMT = 0 OR A0.AST_PRD" + fiscalMonth + "DEPR1_AMT IS NULL) ";
         }
         else {
             throw new IllegalArgumentException("Fiscal month " + fiscalMonth + " must be between 1 and 12.");
