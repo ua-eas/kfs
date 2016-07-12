@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import Immutable from 'immutable';
 import KfsUtils from '../../../sys/utils.js';
 import MenuItemList from './MenuItemList.jsx';
