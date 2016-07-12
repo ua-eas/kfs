@@ -262,8 +262,6 @@ public class AssetDepreciationServiceTest {
         fields.put(CamsPropertyConstants.AssetObject.UNIVERSITY_FISCAL_YEAR, 2010);
         fields.put(CamsPropertyConstants.AssetObject.ACTIVE, Boolean.TRUE);
         EasyMock.expect(businessObjectService.findMatching(AssetObjectCode.class, fields)).andReturn(assetObjectCodes);
-        depreciationBatchDao.updateAssetsCreatedInLastFiscalPeriod(12, 2010);
-        EasyMock.expectLastCall();
         EasyMock.expect(depreciationBatchDao.getListOfDepreciableAssetPaymentInfoYearEnd(2010, 12, depreciationCalendar, true))
             .andReturn(assetPaymentInfos);
         EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))

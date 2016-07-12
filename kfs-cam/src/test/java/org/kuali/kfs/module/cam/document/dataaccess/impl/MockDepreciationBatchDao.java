@@ -68,12 +68,6 @@ public class MockDepreciationBatchDao implements DepreciationBatchDao {
     }
 
     @Override
-    public void updateAssetsCreatedInLastFiscalPeriod(Integer fiscalMonth, Integer fiscalYear) {
-        impl.updateAssetsCreatedInLastFiscalPeriod(fiscalMonth, fiscalYear);
-
-    }
-
-    @Override
     public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV() {
         return impl.getPrimaryDepreciationBaseAmountForSV();
     }

@@ -51,13 +51,6 @@ public interface DepreciationBatchDao {
      */
     public void resetPeriodValuesWhenFirstFiscalPeriod(Integer fiscalPeriod) throws Exception;
 
-    /**
-     * Updates depreciation and service date for all the assets created after last fiscal period date
-     *
-     * @param fiscalMonth fiscal month
-     * @param fiscalYear fiscal year
-     */
-    public void updateAssetsCreatedInLastFiscalPeriod(Integer fiscalMonth, Integer fiscalYear);
 
     /**
      * Saves a batch of GL Pending entries

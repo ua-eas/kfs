@@ -314,11 +314,6 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             // If the depreciation date is not = to the system date then, the depreciation process cannot run.
             LOG.info("YEAR END DEPRECIATION - " + "Fiscal Year = " + fiscalYear + " & Fiscal Period=" + fiscalMonth);
 
-            // mjmc this caused arrayIndexOutOfBounds: 16
-// TODO            reportLog.addAll(depreciableAssetsDao.generateStatistics(true, null, fiscalYear, fiscalMonth, depreciationDate, true));
-
-            // update if fiscal period is 12
-            depreciationBatchDao.updateAssetsCreatedInLastFiscalPeriod(fiscalMonth, fiscalYear);
             // Retrieving eligible asset payment details
             LOG.info("YEAR END DEPRECIATION - Getting list of YEAR END DEPRECIATION asset payments eligible for depreciation.");
             Collection<AssetPaymentInfo> depreciableAssetsCollection = depreciationBatchDao.getListOfDepreciableAssetPaymentInfoYearEnd(fiscalYear, fiscalMonth, depreciationDate, includeRetired);
@@ -338,9 +333,6 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             errorMsg = "YEAR END DEPRECIATION -  process ran unsucessfuly.\nReason:" + e.getMessage();
         } finally {
             if (!hasErrors) {
-
-                // mjmc java.lang.ArrayIndexOutOfBoundsException: 16
-// TODO                reportLog.addAll(depreciableAssetsDao.generateStatistics(false, documentNos, fiscalYear, fiscalMonth, depreciationDate, true));
 
                 if (assetYearEndDepreciation != null) {
                     assetYearEndDepreciation.setRunDate(new java.sql.Date(new java.util.Date().getTime()));
@@ -989,7 +981,6 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 pKeys.put(CamsPropertyConstants.AssetPayment.PAYMENT_SEQ_NUMBER, assetPaymentInfo.getPaymentSequenceNumber());
                 AssetPayment assetPayment = businessObjectService.findByPrimaryKey(AssetPayment.class, pKeys);
                 int lastDepreciationPeriod = assetPayment.getLastDepreciationPeriod();
-                KualiDecimal ytdDepreciation = assetPayment.getYearToDate();
                 
                 // Get depreciation convention code
                 Map<String, String> primaryKeys = new HashMap<String, String>();
