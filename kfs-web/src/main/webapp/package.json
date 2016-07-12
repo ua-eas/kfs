@@ -24,6 +24,7 @@
     "lodash": "3.10.1",
     "moment": "2.10.6",
     "react": "0.14.8",
+    "react-dom": "0.14.8",
     "react-router": "2.0.1",
     "react-dropzone": "2.2.4",
     "url": "0.10.3",
