@@ -18,16 +18,15 @@
  */
 package org.kuali.kfs.module.ar.service;
 
-import java.io.File;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.easymock.EasyMock;
 import org.joda.time.DateTime;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.ar.batch.service.VerifyBillingFrequencyService;
 import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.BillingPeriod;
@@ -47,13 +46,15 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.sys.fixture.UniversityDateServiceFixture;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.bo.ModuleConfiguration;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
+
+import java.io.File;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Shared methods for Contracts & Grants Invoice creation services testing
@@ -175,8 +176,18 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
     }
 
     protected ContractsGrantsInvoiceCreateDocumentServiceImpl getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService() throws Exception {
+        UniversityDateService universityDateService = EasyMock.createMock(UniversityDateService.class);
+        EasyMock.expect(universityDateService.getCurrentFiscalYear()).andReturn(calculateLastFiscalYear()).anyTimes();
+        EasyMock.replay(universityDateService);
+
         ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService =  (ContractsGrantsInvoiceCreateDocumentServiceImpl) TestUtils.getUnproxiedService("contractsGrantsInvoiceCreateDocumentService");
-        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(UniversityDateServiceFixture.DATE_2015_01_01.createUniversityDateService());
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(universityDateService);
         return contractsGrantsInvoiceCreateDocumentService;
+    }
+
+    protected Integer calculateLastFiscalYear() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -6);
+        return cal.get(Calendar.YEAR);
     }
 }
