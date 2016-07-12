@@ -1,16 +1,26 @@
-import React from 'react/addons';
+import React from 'react';
+import { render } from 'react-dom';
 import KfsUtils from '../../sys/utils.js';
 
-var InstitutionConfigSidebar = React.createClass({
-    componentDidMount() {
+export default class InstitutionConfigSidebar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.initialize();
+
+        this.updateIndicator = this.updateIndicator.bind(this);
+    }
+
+    initialize() {
         if (window.location.hash === '#/' || window.location.hash === '') {
             $('#sidebar a[href="#/navigation"]').siblings(' div.indicator').addClass('active');
         }
-    },
+    }
+
     updateIndicator(event) {
         $('#sidebar div.active').removeClass('active');
         $(event.target).siblings('div.indicator').addClass('active');
-    },
+    }
+
     render() {
         let home = KfsUtils.getUrlPathPrefix();
         let hash = window.location.hash;
@@ -33,11 +43,6 @@ var InstitutionConfigSidebar = React.createClass({
             </div>
         )
     }
-});
+}
 
-React.render(
-    <InstitutionConfigSidebar/>,
-    document.getElementById('sidebar')
-);
-
-export default InstitutionConfigSidebar;
+render(<InstitutionConfigSidebar/>, document.getElementById('sidebar'));
