@@ -295,7 +295,15 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         sql = sql + "IN ('N','') OR  A0.AST_TRNFR_PMT_CD IS NULL ) AND ( A1.AST_DEPR_MTHD1_CD IS NULL OR A1.AST_DEPR_MTHD1_CD IN (" + buildINValues(depreciationMethodList) + ") ) ";
         sql = sql + "AND (A1.CPTL_AST_DEPR_DT IS NOT NULL AND A1.CPTL_AST_DEPR_DT <= ? AND A1.CPTL_AST_DEPR_DT <> ?) AND  ";
         sql = sql + "(A1.AST_RETIR_FSCL_YR IS NULL OR A1.AST_RETIR_PRD_CD IS NULL OR A1.AST_RETIR_FSCL_YR > " + fiscalYear + " OR (A1.AST_RETIR_FSCL_YR = " + fiscalYear + " AND A1.AST_RETIR_PRD_CD > " + fiscalMonth + ")) ";
-        sql = sql + "AND A0.AST_PRD" + fiscalMonth + "_DEPR1_AMT <> 0 ";
+        if (fiscalMonth >= 1 && fiscalMonth <= 9) {
+            sql = sql + "AND A0.AST_PRD" + fiscalMonth + "_DEPR1_AMT = 0 ";
+        }
+        else if (fiscalMonth >= 10 && fiscalMonth <= 12) {
+            sql = sql + "AND A0.AST_PRD" + fiscalMonth + "DEPR1_AMT = 0 ";
+        }
+        else {
+            throw new IllegalArgumentException("Fiscal month " + fiscalMonth + " must be between 1 and 12.");
+        }
         sql = sql + "AND A1.AST_INVN_STAT_CD NOT IN (" + buildINValues(notAcceptedAssetStatus) + ")AND A2.CPTLAST_DEPRLF_LMT > 0 ";
         if (includeFederal) {
             sql = sql + "AND A3.FIN_OBJ_SUB_TYP_CD IN (" + buildINValues(federallyOwnedObjectSubTypes) + ")";
