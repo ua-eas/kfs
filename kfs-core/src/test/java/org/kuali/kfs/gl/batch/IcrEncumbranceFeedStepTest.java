@@ -18,6 +18,15 @@
  */
 package org.kuali.kfs.gl.batch;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
+import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,16 +34,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.batch.BatchDirectoryHelper;
-import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.sys.fixture.UniversityDateServiceFixture;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 /**
@@ -128,15 +127,9 @@ public class IcrEncumbranceFeedStepTest extends IcrEncumbranceStepTestBase {
      * posting date, whereas the test data is 2009-03-14.
      */
     private List<String> replaceGeneratedDates(List<String> lines){
-
-        // Grab data from fixture
-        Integer year = UniversityDateServiceFixture.DATE_2009_03_14.getFiscalYear();
-        int month = UniversityDateServiceFixture.DATE_2009_03_14.getMonth();
-        int day = UniversityDateServiceFixture.DATE_2009_03_14.getDay();
-
         // Format the data to the format of "YYYY-MM-dd"
         String dateStringFormat = "%04d-%02d-%02d";
-        String dateString = String.format(dateStringFormat, year, month, day);
+        String dateString = String.format(dateStringFormat, FIXTURE_CALENDAR_YEAR, FIXTURE_MONTH+1, FIXTURE_DAY);
 
         /*
          * The format of a line are fixed positions, and the date position
