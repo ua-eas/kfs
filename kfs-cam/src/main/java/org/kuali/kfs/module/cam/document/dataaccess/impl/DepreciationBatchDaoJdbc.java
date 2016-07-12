@@ -112,46 +112,6 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         });
     }
 
-
-    /**
-     * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#updateAssetsCreatedInLastFiscalPeriod(java.lang.Integer,
-     *      java.lang.Integer)
-     */
-    @Override
-    public void updateAssetsCreatedInLastFiscalPeriod(final Integer fiscalMonth, final Integer fiscalYear) {
-        // If we are in the last month of the fiscal year
-        if (fiscalMonth == 12) {
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Starting updateAssetsCreatedInLastFiscalPeriod()");
-            }
-            // Getting last date of fiscal year
-            final UniversityDate lastFiscalYearDate = universityDateDao.getLastFiscalYearDate(fiscalYear);
-            if (lastFiscalYearDate == null) {
-                throw new IllegalStateException(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.ERROR_UNIV_DATE_NOT_FOUND));
-            }
-
-            Collection<String> movableEquipmentObjectSubTypes = parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES);
-
-            // Only update assets with a object sub type code equals to any MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES.
-            if (!movableEquipmentObjectSubTypes.isEmpty()) {
-                getJdbcTemplate().update("UPDATE CM_CPTLAST_T SET CPTL_AST_IN_SRVC_DT=?, CPTL_AST_DEPR_DT=?, FDOC_POST_PRD_CD=? , FDOC_POST_YR=? WHERE CPTLAST_CRT_DT > ? AND FIN_OBJ_SUB_TYP_CD IN (" + buildINValues(movableEquipmentObjectSubTypes) + ")", new PreparedStatementSetter() {
-                    @Override
-                    public void setValues(PreparedStatement ps) throws SQLException {
-                        ps.setDate(1, lastFiscalYearDate.getUniversityDate());
-                        ps.setDate(2, lastFiscalYearDate.getUniversityDate());
-                        ps.setString(3, fiscalMonth.toString());
-                        ps.setInt(4, fiscalYear);
-                        ps.setDate(5, lastFiscalYearDate.getUniversityDate());
-                    }
-                });
-            }
-            if ( LOG.isInfoEnabled() ) {
-                LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Finished updateAssetsCreatedInLastFiscalPeriod()");
-            }
-        }
-    }
-
-
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#savePendingGLEntries(java.util.List)
      */
