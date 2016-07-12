@@ -314,6 +314,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             // If the depreciation date is not = to the system date then, the depreciation process cannot run.
             LOG.info("YEAR END DEPRECIATION - " + "Fiscal Year = " + fiscalYear + " & Fiscal Period=" + fiscalMonth);
 
+            updateAssetsDatesForLastFiscalPeriod(fiscalMonth, fiscalYear);
+            
             // Retrieving eligible asset payment details
             LOG.info("YEAR END DEPRECIATION - Getting list of YEAR END DEPRECIATION asset payments eligible for depreciation.");
             Collection<AssetPaymentInfo> depreciableAssetsCollection = depreciationBatchDao.getListOfDepreciableAssetPaymentInfoYearEnd(fiscalYear, fiscalMonth, depreciationDate, includeRetired);
