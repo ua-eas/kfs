@@ -24,4 +24,6 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://displaytag.sf.net/el" prefix="display-el"%>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib uri="http://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API" prefix="esapi" %>
+<%@ taglib uri="http://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project/Owasp.CsrfGuard.tld" prefix="csrf" %>
 <%@ taglib tagdir="/WEB-INF/tags/krad" prefix="krad"%>

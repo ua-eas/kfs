@@ -26,6 +26,11 @@
         <param-value>classpath:kfs-startup.xml</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>Owasp.CsrfGuard.Config</param-name>
+        <param-value>WEB-INF/Owasp.CsrfGuard.properties</param-value>
+    </context-param>
+
     <!--  FILTER DEFINITIONS -->
     <filter>
         <filter-name>monitoring</filter-name>
@@ -101,6 +106,11 @@
         <filter-class>org.kuali.kfs.sys.web.filter.SessionExpirationFilter</filter-class>
     </filter>
 
+    <filter>
+        <filter-name>CSRFGuard</filter-name>
+        <filter-class>org.owasp.csrfguard.CsrfGuardFilter</filter-class>
+    </filter>
+
     <!--  FILTER MAPPINGS  -->
 
     <filter-mapping>
@@ -157,6 +167,13 @@
         <servlet-name>action</servlet-name>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>CSRFGuard</filter-name>
+        <servlet-name>action</servlet-name>
+    </filter-mapping>
+
+    <!-- Listeners -->
+
     <listener>
         <listener-class>org.kuali.kfs.krad.web.session.NonSerializableSessionListener</listener-class>
     </listener>
@@ -187,6 +204,14 @@
 
     <listener>
         <listener-class>org.apache.commons.fileupload.servlet.FileCleanerCleanup</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.owasp.csrfguard.CsrfGuardServletContextListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.owasp.csrfguard.CsrfGuardHttpSessionListener</listener-class>
     </listener>
 
     <!-- SERVLET DEFINITIONS -->

@@ -20,6 +20,8 @@
 
 <form action="batchFileUpload" method="POST"
       enctype="multipart/form-data">
+
+	<input type="hidden" name="<csrf:tokenname/>" value="<csrf:tokenvalue/>"/>
     
     ${message}<br />
     <br />

@@ -129,6 +129,7 @@
     <commons-lang.version>2.6</commons-lang.version>
     <commons-pool.version>1.6</commons-pool.version>
     <commons-validator.version>1.4.0</commons-validator.version>
+    <csrfguard.version>3.1.0</csrfguard.version>
     <cxf.version>2.7.12</cxf.version>
     <jaxb.version>2.2.6</jaxb.version>
     <cxf-java2ws-plugin.jaxb-impl.version>2.1.13</cxf-java2ws-plugin.jaxb-impl.version>
@@ -1849,6 +1850,11 @@
             <groupId>batik-css</groupId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.owasp</groupId>
+        <artifactId>csrfguard</artifactId>
+        <version>${csrfguard.version}</version>
       </dependency>
   </dependencies>
 
