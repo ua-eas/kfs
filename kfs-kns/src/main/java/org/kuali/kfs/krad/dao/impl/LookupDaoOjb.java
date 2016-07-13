@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,6 +32,7 @@ import org.kuali.rice.core.api.util.type.TypeUtils;
 import org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
+import org.kuali.rice.core.framework.persistence.platform.DatabasePlatform;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.InactivatableFromTo;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
@@ -55,51 +56,152 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * OJB implementation of the LookupDao interface
- */
 public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LookupDaoOjb.class);
+
     private DateTimeService dateTimeService;
     private PersistenceStructureService persistenceStructureService;
     private DataDictionaryService dataDictionaryService;
 
+    @Override
     public Collection findCollectionBySearchHelper(Class businessObjectClass, Map formProps, boolean unbounded, boolean usePrimaryKeyValuesOnly) {
+        LOG.debug("findCollectionBySearchHelper() started");
+
         BusinessObject businessObject = checkBusinessObjectClass(businessObjectClass);
         if (usePrimaryKeyValuesOnly) {
         	return executeSearch(businessObjectClass, getCollectionCriteriaFromMapUsingPrimaryKeysOnly(businessObjectClass, formProps), unbounded);
         }
-        
+
 		Criteria crit = getCollectionCriteriaFromMap(businessObject, formProps);
 		return executeSearch(businessObjectClass, crit, unbounded);
 	}
 
     /**
+     * @see LookupDao#findObjectByMap(java.lang.Object, java.util.Map)
+     */
+    @Override
+    public <T extends Object> T findObjectByMap(T example, Map<String, String> formProps) {
+        LOG.debug("findObjectByMap() started");
+
+        if ( persistenceStructureService.isPersistable(example.getClass())) {
+            Criteria criteria = new Criteria();
+
+            // iterate through the parameter map for search criteria
+            for (Map.Entry<String, String> formProp : formProps.entrySet()) {
+
+                String propertyName = formProp.getKey();
+                String searchValue = "";
+                if (formProp.getValue() != null) {
+                    searchValue = formProp.getValue();
+                }
+
+                if (StringUtils.isNotBlank(searchValue) & PropertyUtils.isWriteable(example, propertyName)) {
+                    Class propertyType = ObjectUtils.getPropertyType(example, propertyName, persistenceStructureService);
+                    if (TypeUtils.isIntegralClass(propertyType) || TypeUtils.isDecimalClass(propertyType) ) {
+                        criteria.addEqualTo(propertyName, cleanNumeric(searchValue));
+                    } else if (TypeUtils.isTemporalClass(propertyType)) {
+                        criteria.addEqualTo(propertyName, parseDate( ObjectUtils.clean(searchValue) ) );
+                    } else {
+                        criteria.addEqualTo(propertyName, searchValue);
+                    }
+                }
+            }
+
+            // execute query and return result list
+            Query query = QueryFactory.newQuery(example.getClass(), criteria);
+            return (T)getPersistenceBrokerTemplate().getObjectByQuery(query);
+        }
+        return null;
+    }
+
+    /**
+     * Find count of records meeting criteria based on the object and map.
+     */
+    @Override
+    public Long findCountByMap(Object example, Map formProps) {
+        LOG.debug("findCountByMap() started");
+
+        Criteria criteria = new Criteria();
+        // iterate through the parameter map for key values search criteria
+        Iterator propsIter = formProps.keySet().iterator();
+        while (propsIter.hasNext()) {
+            String propertyName = (String) propsIter.next();
+            String searchValue = (String) formProps.get(propertyName);
+
+            // if searchValue is empty and the key is not a valid property ignore
+            if (StringUtils.isBlank(searchValue) || !(PropertyUtils.isWriteable(example, propertyName))) {
+                continue;
+            }
+
+            // get property type which is used to determine type of criteria
+            Class propertyType = ObjectUtils.getPropertyType(example, propertyName, persistenceStructureService);
+            if (propertyType == null) {
+                continue;
+            }
+            Boolean caseInsensitive = Boolean.TRUE;
+            if ( KRADServiceLocatorWeb.getDataDictionaryService().isAttributeDefined( example.getClass(), propertyName )) {
+                caseInsensitive = !KRADServiceLocatorWeb.getDataDictionaryService().getAttributeForceUppercase( example.getClass(), propertyName );
+            }
+            if ( caseInsensitive == null ) { caseInsensitive = Boolean.TRUE; }
+
+            boolean treatWildcardsAndOperatorsAsLiteral = KNSServiceLocator
+                    .getBusinessObjectDictionaryService().isLookupFieldTreatWildcardsAndOperatorsAsLiteral(example.getClass(), propertyName);
+
+            if (!caseInsensitive) {
+                // Verify that the searchValue is uppercased if caseInsensitive is false
+                searchValue = searchValue.toUpperCase();
+            }
+
+            // build criteria
+            addCriteria(propertyName, searchValue, propertyType, caseInsensitive, treatWildcardsAndOperatorsAsLiteral, criteria);
+        }
+
+        // execute query and return result list
+        Query query = QueryFactory.newQuery(example.getClass(), criteria);
+
+        return new Long(getPersistenceBrokerTemplate().getCount(query));
+    }
+
+    @Override
+    public boolean createCriteria(Object example, String searchValue, String propertyName, Object criteria) {
+        LOG.debug("createCriteria() started");
+
+        return createCriteria( example, searchValue, propertyName, false, false, criteria );
+    }
+
+    @Override
+    public boolean createCriteria(Object example, String searchValue, String propertyName, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Object criteria) {
+        LOG.debug("createCriteria() started");
+
+        return createCriteria( example, searchValue, propertyName, caseInsensitive, treatWildcardsAndOperatorsAsLiteral, criteria, null );
+    }
+
+    /**
      * Builds up criteria object based on the object and map.
      */
-    public Criteria getCollectionCriteriaFromMap(BusinessObject example, Map formProps) {
+    protected Criteria getCollectionCriteriaFromMap(BusinessObject example, Map formProps) {
         Criteria criteria = new Criteria();
         Iterator propsIter = formProps.keySet().iterator();
         while (propsIter.hasNext()) {
             String propertyName = (String) propsIter.next();
             Boolean caseInsensitive = Boolean.TRUE;
         	if ( KRADServiceLocatorWeb.getDataDictionaryService().isAttributeDefined( example.getClass(), propertyName )) {
-        		// If forceUppercase is true, both the database value and the user entry should be converted to Uppercase -- so change the caseInsensitive to false since we don't need to 
-        		// worry about the values not matching.  However, if forceUppercase is false, make sure to do a caseInsensitive search because the database value and user entry 
-        		// could be mixed case.  Thus, caseInsensitive will be the opposite of forceUppercase. 
+        		// If forceUppercase is true, both the database value and the user entry should be converted to Uppercase -- so change the caseInsensitive to false since we don't need to
+        		// worry about the values not matching.  However, if forceUppercase is false, make sure to do a caseInsensitive search because the database value and user entry
+        		// could be mixed case.  Thus, caseInsensitive will be the opposite of forceUppercase.
         		caseInsensitive = !KRADServiceLocatorWeb.getDataDictionaryService().getAttributeForceUppercase( example.getClass(), propertyName );
         	}
         	if ( caseInsensitive == null ) { caseInsensitive = Boolean.TRUE; }
         	boolean treatWildcardsAndOperatorsAsLiteral = KNSServiceLocator
         			.getBusinessObjectDictionaryService().isLookupFieldTreatWildcardsAndOperatorsAsLiteral(example.getClass(), propertyName);
-        	
+
             if (formProps.get(propertyName) instanceof Collection) {
                 Iterator iter = ((Collection) formProps.get(propertyName)).iterator();
                 while (iter.hasNext()) {
                     String searchValue = (String) iter.next();
-            		if (!caseInsensitive) { 
-            			// Verify that the searchValue is uppercased if caseInsensitive is false 
-            			searchValue = searchValue.toUpperCase(); 
+            		if (!caseInsensitive) {
+            			// Verify that the searchValue is uppercased if caseInsensitive is false
+            			searchValue = searchValue.toUpperCase();
             		}
                     if (!createCriteria(example, searchValue, propertyName, caseInsensitive, treatWildcardsAndOperatorsAsLiteral, criteria, formProps )) {
                         throw new RuntimeException("Invalid value in Collection");
@@ -108,9 +210,9 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
             }
             else {
                 String searchValue = (String) formProps.get(propertyName);
-        		if (!caseInsensitive) { 
-        			// Verify that the searchValue is uppercased if caseInsensitive is false 
-        			searchValue = searchValue.toUpperCase(); 
+        		if (!caseInsensitive) {
+        			// Verify that the searchValue is uppercased if caseInsensitive is false
+        			searchValue = searchValue.toUpperCase();
         		}
                 if (!createCriteria(example, searchValue, propertyName, caseInsensitive, treatWildcardsAndOperatorsAsLiteral, criteria, formProps)) {
                     continue;
@@ -119,8 +221,8 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
         }
         return criteria;
     }
-    
-    public Criteria getCollectionCriteriaFromMapUsingPrimaryKeysOnly(Class businessObjectClass, Map formProps) {
+
+    protected Criteria getCollectionCriteriaFromMapUsingPrimaryKeysOnly(Class businessObjectClass, Map formProps) {
         BusinessObject businessObject = checkBusinessObjectClass(businessObjectClass);
         Criteria criteria = new Criteria();
         List pkFields = KRADServiceLocatorWeb.getDataObjectMetaDataService().listPrimaryKeyFieldNames(businessObjectClass);
@@ -145,8 +247,8 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
         }
         return criteria;
     }
-    
-    private BusinessObject checkBusinessObjectClass(Class businessObjectClass) {
+
+    protected BusinessObject checkBusinessObjectClass(Class businessObjectClass) {
         if (businessObjectClass == null) {
             throw new IllegalArgumentException("BusinessObject class passed to LookupDaoOjb findCollectionBySearchHelper... method was null");
         }
@@ -163,45 +265,49 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
         return businessObject;
     }
 
-    private Collection executeSearch(Class businessObjectClass, Criteria criteria, boolean unbounded) {
-    	Collection searchResults = new ArrayList();
-    	Long matchingResultsCount = null;
-    	try {
-    		Integer searchResultsLimit = org.kuali.kfs.kns.lookup.LookupUtils
-                    .getSearchResultsLimit(businessObjectClass);
-    		// A negative number in searchResultsLimit means the search results should be unlimited.
+    protected Integer getSearchResultsLimit(Class businessObjectClass) {
+        return org.kuali.kfs.kns.lookup.LookupUtils.getSearchResultsLimit(businessObjectClass);
+    }
+
+    protected int getCount(Class businessObjectClass,Criteria criteria) {
+        return getPersistenceBrokerTemplate().getCount(QueryFactory.newQuery(businessObjectClass, criteria));
+    }
+
+    protected void applySearchResultsLimit(Class businessObjectClass, Criteria criteria, DatabasePlatform databasePlatform) {
+        org.kuali.kfs.kns.lookup.LookupUtils.applySearchResultsLimit(businessObjectClass, criteria, databasePlatform);
+    }
+
+    protected Collection getCollectionByQuery(Class businessObjectClass, Criteria criteria) {
+        return getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(businessObjectClass, criteria));
+    }
+
+    protected Collection executeSearch(Class businessObjectClass, Criteria criteria, boolean unbounded) {
+        try {
+            Long matchingResultsCount = null;
+            Integer searchResultsLimit = getSearchResultsLimit(businessObjectClass);
+
+            // A negative number in searchResultsLimit means the search results should be unlimited.
             if (!unbounded && (searchResultsLimit != null) && searchResultsLimit >= 0) {
-    			matchingResultsCount = new Long(getPersistenceBrokerTemplate().getCount(QueryFactory.newQuery(businessObjectClass, criteria)));
-    			org.kuali.kfs.kns.lookup.LookupUtils
-                        .applySearchResultsLimit(businessObjectClass, criteria, getDbPlatform());
-    		}
-    		if ((matchingResultsCount == null) || (matchingResultsCount.intValue() <= searchResultsLimit.intValue())) {
-    			matchingResultsCount = new Long(0);
-    		}
-    		searchResults = getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(businessObjectClass, criteria));
-    		// populate Person objects in business objects
-    		List bos = new ArrayList();
-    		bos.addAll(searchResults);
-    		searchResults = bos;
-    	}
-    	catch (OjbOperationException e) {
-    		throw new RuntimeException("LookupDaoOjb encountered exception during executeSearch", e);
-    	}
-    	catch (DataIntegrityViolationException e) {
-    		throw new RuntimeException("LookupDaoOjb encountered exception during executeSearch", e);
-    	}
-    	return new CollectionIncomplete(searchResults, matchingResultsCount);
+                matchingResultsCount = new Long(getCount(businessObjectClass, criteria));
+                applySearchResultsLimit(businessObjectClass, criteria, getDbPlatform());
+            }
+            if ((matchingResultsCount == null) || (matchingResultsCount.intValue() <= searchResultsLimit.intValue())) {
+                matchingResultsCount = 0L;
+            }
+
+            Collection searchResults = getCollectionByQuery(businessObjectClass, criteria);
+
+            List bos = new ArrayList();
+            bos.addAll(searchResults);
+
+            return new CollectionIncomplete(bos, matchingResultsCount);
+        } catch (OjbOperationException|DataIntegrityViolationException e) {
+            LOG.error("executeSearch() Error:",e);
+            throw new RuntimeException("LookupDaoOjb encountered exception during executeSearch", e);
+        }
     }
 
-    public boolean createCriteria(Object example, String searchValue, String propertyName, Object criteria) {
-    	return createCriteria( example, searchValue, propertyName, false, false, criteria );
-    }
-    
-    public boolean createCriteria(Object example, String searchValue, String propertyName, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Object criteria) {
-    	return createCriteria( example, searchValue, propertyName, caseInsensitive, treatWildcardsAndOperatorsAsLiteral, criteria, null );
-    }
-
-    public boolean createCriteria(Object example, String searchValue, String propertyName, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Object criteria, Map searchValues) {
+    protected boolean createCriteria(Object example, String searchValue, String propertyName, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Object criteria, Map searchValues) {
         // if searchValue is empty and the key is not a valid property ignore
         if (!(criteria instanceof Criteria) || StringUtils.isBlank(searchValue) || !ObjectUtils.isWriteable(example, propertyName, persistenceStructureService)) {
             return false;
@@ -227,96 +333,14 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
 			addCriteria(propertyName, searchValue, propertyType, caseInsensitive, treatWildcardsAndOperatorsAsLiteral,
 					(Criteria) criteria);
 		}
-        
+
         return true;
     }
 
     /**
-     * Find count of records meeting criteria based on the object and map.
-     */
-    public Long findCountByMap(Object example, Map formProps) {
-        Criteria criteria = new Criteria();
-        // iterate through the parameter map for key values search criteria
-        Iterator propsIter = formProps.keySet().iterator();
-        while (propsIter.hasNext()) {
-            String propertyName = (String) propsIter.next();
-            String searchValue = (String) formProps.get(propertyName);
-
-            // if searchValue is empty and the key is not a valid property ignore
-            if (StringUtils.isBlank(searchValue) || !(PropertyUtils.isWriteable(example, propertyName))) {
-                continue;
-            }
-
-            // get property type which is used to determine type of criteria
-            Class propertyType = ObjectUtils.getPropertyType(example, propertyName, persistenceStructureService);
-            if (propertyType == null) {
-                continue;
-            }
-        	Boolean caseInsensitive = Boolean.TRUE;
-        	if ( KRADServiceLocatorWeb.getDataDictionaryService().isAttributeDefined( example.getClass(), propertyName )) {
-        		caseInsensitive = !KRADServiceLocatorWeb.getDataDictionaryService().getAttributeForceUppercase( example.getClass(), propertyName );
-        	}
-        	if ( caseInsensitive == null ) { caseInsensitive = Boolean.TRUE; }
-
-        	boolean treatWildcardsAndOperatorsAsLiteral = KNSServiceLocator
-					.getBusinessObjectDictionaryService().isLookupFieldTreatWildcardsAndOperatorsAsLiteral(example.getClass(), propertyName);
-        	
-    		if (!caseInsensitive) { 
-    			// Verify that the searchValue is uppercased if caseInsensitive is false 
-    			searchValue = searchValue.toUpperCase(); 
-    		}
-        	
-            // build criteria
-            addCriteria(propertyName, searchValue, propertyType, caseInsensitive, treatWildcardsAndOperatorsAsLiteral, criteria);
-        }
-
-        // execute query and return result list
-        Query query = QueryFactory.newQuery(example.getClass(), criteria);
-
-        return new Long(getPersistenceBrokerTemplate().getCount(query));
-    }
-
-    /**
-     * @see LookupDao#findObjectByMap(java.lang.Object, java.util.Map)
-     */
-    @Override
-    public <T extends Object> T findObjectByMap(T example, Map<String, String> formProps) {
-    	if ( persistenceStructureService.isPersistable(example.getClass())) {
-	    	Criteria criteria = new Criteria();
-	
-	    	// iterate through the parameter map for search criteria
-            for (Map.Entry<String, String> formProp : formProps.entrySet()) {
-
-	    		String propertyName = formProp.getKey();
-	    		String searchValue = "";
-	    		if (formProp.getValue() != null) {
-	    			searchValue = formProp.getValue();
-	    		}
-	
-	    		if (StringUtils.isNotBlank(searchValue) & PropertyUtils.isWriteable(example, propertyName)) {
-	    			Class propertyType = ObjectUtils.getPropertyType(example, propertyName, persistenceStructureService);
-	    			if (TypeUtils.isIntegralClass(propertyType) || TypeUtils.isDecimalClass(propertyType) ) {
-	    				criteria.addEqualTo(propertyName, cleanNumeric(searchValue));
-	    			} else if (TypeUtils.isTemporalClass(propertyType)) {
-	    				criteria.addEqualTo(propertyName, parseDate( ObjectUtils.clean(searchValue) ) );
-	    			} else {
-	    				criteria.addEqualTo(propertyName, searchValue);
-	    			}
-	    		}
-	    	}
-	
-	    	// execute query and return result list
-	    	Query query = QueryFactory.newQuery(example.getClass(), criteria);
-	    	return (T)getPersistenceBrokerTemplate().getObjectByQuery(query);
-    	}
-    	return null;
-    }
-
-
-    /**
      * Adds to the criteria object based on the property type and any query characters given.
      */
-    private void addCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Criteria criteria) {
+    protected void addCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, boolean treatWildcardsAndOperatorsAsLiteral, Criteria criteria) {
         if (!treatWildcardsAndOperatorsAsLiteral && StringUtils.contains(propertyValue, SearchOperator.OR.op())) {
             addOrCriteria(propertyName, propertyValue, propertyType, caseInsensitive, criteria);
             return;
@@ -366,10 +390,10 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
             LOG.error("not adding criterion for: " + propertyName + "," + propertyType + "," + propertyValue);
         }
     }
-    
+
     /**
      * Translates criteria for active status to criteria on the active from and to fields
-     * 
+     *
      * @param example - business object being queried on
      * @param activeSearchValue - value for the active search field, should convert to boolean
      * @param criteria - Criteria object being built
@@ -377,53 +401,53 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
      */
     protected void addInactivateableFromToActiveCriteria(Object example, String activeSearchValue, Criteria criteria, Map searchValues) {
 		Timestamp activeTimestamp = LookupUtils.getActiveDateTimestampForCriteria(searchValues);
-		
+
     	String activeBooleanStr = (String) (new OjbCharBooleanConversion()).javaToSql(activeSearchValue);
     	if (OjbCharBooleanConversion.DATABASE_BOOLEAN_TRUE_STRING_REPRESENTATION.equals(activeBooleanStr)) {
     		// (active from date <= date or active from date is null) and (date < active to date or active to date is null)
     		Criteria criteriaBeginDate = new Criteria();
     		criteriaBeginDate.addLessOrEqualThan(KRADPropertyConstants.ACTIVE_FROM_DATE, activeTimestamp);
-    		
+
     		Criteria criteriaBeginDateNull = new Criteria();
     		criteriaBeginDateNull.addIsNull(KRADPropertyConstants.ACTIVE_FROM_DATE);
     		criteriaBeginDate.addOrCriteria(criteriaBeginDateNull);
-    		
+
     		criteria.addAndCriteria(criteriaBeginDate);
-    		
+
     		Criteria criteriaEndDate = new Criteria();
     		criteriaEndDate.addGreaterThan(KRADPropertyConstants.ACTIVE_TO_DATE, activeTimestamp);
-    	
+
     		Criteria criteriaEndDateNull = new Criteria();
     		criteriaEndDateNull.addIsNull(KRADPropertyConstants.ACTIVE_TO_DATE);
     		criteriaEndDate.addOrCriteria(criteriaEndDateNull);
-    		
+
     		criteria.addAndCriteria(criteriaEndDate);
     	}
     	else if (OjbCharBooleanConversion.DATABASE_BOOLEAN_FALSE_STRING_REPRESENTATION.equals(activeBooleanStr)) {
-    		// (date < active from date) or (active from date is null) or (date >= active to date) 
+    		// (date < active from date) or (active from date is null) or (date >= active to date)
     		Criteria criteriaNonActive = new Criteria();
     		criteriaNonActive.addGreaterThan(KRADPropertyConstants.ACTIVE_FROM_DATE, activeTimestamp);
-    		
+
     		Criteria criteriaEndDate = new Criteria();
     		criteriaEndDate.addLessOrEqualThan(KRADPropertyConstants.ACTIVE_TO_DATE, activeTimestamp);
     		criteriaNonActive.addOrCriteria(criteriaEndDate);
-    		
+
     		criteria.addAndCriteria(criteriaNonActive);
     	}
     }
-    
+
     /**
      * Translates criteria for current status to criteria on the active from field
-     * 
+     *
      * @param example - business object being queried on
      * @param currentSearchValue - value for the current search field, should convert to boolean
      * @param criteria - Criteria object being built
      */
 	protected void addInactivateableFromToCurrentCriteria(Object example, String currentSearchValue, Criteria criteria, Map searchValues) {
 		Criteria maxBeginDateCriteria = new Criteria();
-		
+
 		Timestamp activeTimestamp = LookupUtils.getActiveDateTimestampForCriteria(searchValues);
-		
+
 		maxBeginDateCriteria.addLessOrEqualThan(KRADPropertyConstants.ACTIVE_FROM_DATE, activeTimestamp);
 
 		List<String> groupByFieldList = dataDictionaryService.getGroupByAttributesForEffectiveDating(example
@@ -461,21 +485,21 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
      * @param propertyType
      * @param criteria
      */
-    private void addOrCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria) {
+    protected void addOrCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria) {
         addLogicalOperatorCriteria(propertyName, propertyValue, propertyType, caseInsensitive, criteria, SearchOperator.OR.op());
     }
-       
+
     /**
      * @param propertyName
      * @param propertyValue
      * @param propertyType
      * @param criteria
      */
-    private void addAndCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria) {
+    protected void addAndCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria) {
         addLogicalOperatorCriteria(propertyName, propertyValue, propertyType, caseInsensitive, criteria, SearchOperator.AND.op());
     }
 
-    private void addNotCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria) {
+    protected void addNotCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria) {
 
         String[] splitPropVal = StringUtils.split(propertyValue, SearchOperator.NOT.op());
 
@@ -496,7 +520,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
      * Builds a sub criteria object joined with an 'AND' or 'OR' (depending on splitValue) using the split values of propertyValue. Then joins back the
      * sub criteria to the main criteria using an 'AND'.
      */
-    private void addLogicalOperatorCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria, String splitValue) {
+    protected void addLogicalOperatorCriteria(String propertyName, String propertyValue, Class propertyType, boolean caseInsensitive, Criteria criteria, String splitValue) {
         String[] splitPropVal = StringUtils.split(propertyValue, splitValue);
 
         Criteria subCriteria = new Criteria();
@@ -514,8 +538,8 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
 
         criteria.addAndCriteria(subCriteria);
     }
-    
-    private java.sql.Date parseDate(String dateString) {
+
+    protected java.sql.Date parseDate(String dateString) {
 		dateString = dateString.trim();
 		try {
 			return dateTimeService.convertToSqlDate(dateString);
@@ -527,7 +551,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
     /**
 	 * Adds to the criteria object based on query characters given
 	 */
-    private void addDateRangeCriteria(String propertyName, String propertyValue, boolean treatWildcardsAndOperatorsAsLiteral, Criteria criteria) {
+    protected void addDateRangeCriteria(String propertyName, String propertyValue, boolean treatWildcardsAndOperatorsAsLiteral, Criteria criteria) {
 
         if (StringUtils.contains(propertyValue, SearchOperator.BETWEEN.op())) {
         	if (treatWildcardsAndOperatorsAsLiteral)
@@ -555,7 +579,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
         }
     }
 
-    private BigDecimal cleanNumeric( String value ) {
+    protected BigDecimal cleanNumeric( String value ) {
         String cleanedValue = value.replaceAll( "[^-0-9.]", "" );
         // ensure only one "minus" at the beginning, if any
         if ( cleanedValue.lastIndexOf( '-' ) > 0 ) {
@@ -581,7 +605,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
     /**
      * Adds to the criteria object based on query characters given
      */
-    private void addNumericRangeCriteria(String propertyName, String propertyValue, boolean treatWildcardsAndOperatorsAsLiteral, Criteria criteria) {
+    protected void addNumericRangeCriteria(String propertyName, String propertyValue, boolean treatWildcardsAndOperatorsAsLiteral, Criteria criteria) {
 
         if (StringUtils.contains(propertyValue, SearchOperator.BETWEEN.op())) {
         	if (treatWildcardsAndOperatorsAsLiteral)
@@ -612,7 +636,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
     /**
      * Adds to the criteria object based on query characters given
      */
-    private void addStringRangeCriteria(String propertyName, String propertyValue, Criteria criteria) {
+    protected void addStringRangeCriteria(String propertyName, String propertyValue, Criteria criteria) {
 
         if (StringUtils.contains(propertyValue, SearchOperator.BETWEEN.op())) {
             String[] rangeValues = StringUtils.split(propertyValue, SearchOperator.BETWEEN.op());
