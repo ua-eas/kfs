@@ -100,11 +100,11 @@
                         </c:if>
                         <c:choose>
                             <c:when test="${!empty alternativeHelp}">
-                                <h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help"/></h1>
+                                <h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help"/></h1><h1><c:out value="${docTitle}"/><kul:help documentTypeName="${KualiForm.docTypeName}" alternativeHelp="${alternativeHelp}" altText="document help"/></h1>
                             </c:when>
                             <c:otherwise>
                                 <c:if test="${showDocumentInfo}">
-                                    <h1>${docTitle}<kul:help documentTypeName="${KualiForm.docTypeName}" altText="document help"/></h1>
+                                    <h1><c:out value="${docTitle}"/><kul:help documentTypeName="${KualiForm.docTypeName}" altText="document help"/></h1>
                                 </c:if>
                             </c:otherwise>
                         </c:choose>
@@ -216,7 +216,7 @@
                     <a name="topOfForm"></a>
                     <div class="headerarea-small" id="headerarea-small">
                         <h1 class="${docTitleClass}">
-                            ${docTitle}&nbsp;
+                            <c:out value="${docTitle}"/>&nbsp;
                             <c:choose>
                                 <c:when test="${!empty alternativeHelp}">
                                     <kul:help alternativeHelp="${alternativeHelp}" altText="document help" />
