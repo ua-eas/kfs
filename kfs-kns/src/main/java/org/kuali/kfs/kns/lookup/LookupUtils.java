@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -149,8 +149,8 @@ public class LookupUtils {
 		} else {
 			return false;
 		}
-	} 
-	
+	}
+
     /**
      * This method applies the search results limit to the search criteria for this BO
      *
@@ -158,11 +158,10 @@ public class LookupUtils {
      * @param criteria search criteria
      * @param platform database platform
      */
-    public static void applySearchResultsLimit(Class businessObjectClass, Criteria criteria,
-            DatabasePlatform platform) {
+    public static void applySearchResultsLimit(Class businessObjectClass, Criteria criteria, DatabasePlatform platform) {
         Integer limit = getSearchResultsLimit(businessObjectClass);
         if (limit != null) {
-            platform.applyLimitSql(limit);
+            criteria.addSql(platform.applyLimitSql(limit));
         }
     }
 
@@ -227,14 +226,12 @@ public class LookupUtils {
     }
 
     @Deprecated
-    public static Field setFieldQuickfinder(BusinessObject businessObject,
-            String attributeName, Field field, List displayedFieldNames) {
+    public static Field setFieldQuickfinder(BusinessObject businessObject, String attributeName, Field field, List displayedFieldNames) {
         return setFieldQuickfinder( businessObject, (String)null, false, 0, attributeName, field, displayedFieldNames );
     }
 
     @Deprecated
-    public static Field setFieldQuickfinder(BusinessObject businessObject,
-            String attributeName, Field field, List displayedFieldNames, SelectiveReferenceRefresher srr) {
+    public static Field setFieldQuickfinder(BusinessObject businessObject, String attributeName, Field field, List displayedFieldNames, SelectiveReferenceRefresher srr) {
         return setFieldQuickfinder( businessObject, (String)null, false, 0, attributeName, field, displayedFieldNames, srr );
     }
 
@@ -384,7 +381,7 @@ public class LookupUtils {
     @Deprecated
     public static String getBaseInquiryUrl() {
     	if ( BASE_INQUIRY_ACTION_URL == null ) {
-	    	StringBuffer inquiryUrl = new StringBuffer( 
+	    	StringBuffer inquiryUrl = new StringBuffer(
 	    			KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
                             KRADConstants.APPLICATION_URL_KEY) );
 			if (inquiryUrl.charAt(inquiryUrl.length()-1) != '/' ) {
@@ -657,7 +654,7 @@ public class LookupUtils {
     }
 
     @Deprecated
-    private static String translateToDisplayedField(Class businessObjectClass, String fieldName, List displayedFieldNames) {        
+    private static String translateToDisplayedField(Class businessObjectClass, String fieldName, List displayedFieldNames) {
         if ( getPersistenceStructureService().isPersistable(businessObjectClass) ) {
             Map nestedFkMap = getPersistenceStructureService().getNestedForeignKeyMap(businessObjectClass);
 
