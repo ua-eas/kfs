@@ -137,6 +137,7 @@
     <dom4j.version>1.6.1</dom4j.version>
     <dwr.version>3.0.RC2</dwr.version>
     <ehcache.version>2.6.9</ehcache.version>
+    <esapi.version>2.1.0.1</esapi.version>
     <filemonitor.version>1.0-kuali</filemonitor.version>
     <groovy.version>1.8.9</groovy.version>
     <guava.version>17.0</guava.version>
@@ -1817,6 +1818,38 @@
     	<artifactId>json-path</artifactId>
     	<version>${jsonpath.version}</version>
     </dependency>
+    <dependency>
+        <groupId>org.owasp.esapi</groupId>
+        <artifactId>esapi</artifactId>
+        <version>${esapi.version}</version>
+        <!-- exclude as much as we can from esapi transitive dependencies so we don't get a bunch of junk -->
+        <exclusions>
+          <exclusion>
+            <artifactId>commons-logging</artifactId>
+            <groupId>commons-logging</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>commons-beanutils</artifactId>
+            <groupId>commons-beanutils-core</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>xom</artifactId>
+            <groupId>xom</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>org.beanshell</artifactId>
+            <groupId>bsh-core</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>org.owasp.antisamy</artifactId>
+            <groupId>antisamy</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>org.apache.xmlgraphics</artifactId>
+            <groupId>batik-css</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
   </dependencies>
 
   <repositories>
