@@ -32,9 +32,6 @@ import org.apache.struts.action.RequestProcessor;
 import org.apache.struts.config.FormBeanConfig;
 import org.apache.struts.config.ForwardConfig;
 import org.apache.struts.util.RequestUtils;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.kfs.kns.exception.FileUploadLimitExceededException;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.service.SessionDocumentService;
@@ -53,10 +50,14 @@ import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.util.CsrfValidator;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.util.RiceConstants;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -211,6 +212,12 @@ public class KualiRequestProcessor extends RequestProcessor {
     public void processFormActionAndForward(final HttpServletRequest request, final HttpServletResponse response, final ActionMapping mapping) throws ServletException, IOException {
     	ActionForm form = processActionForm(request, response, mapping);
         processPopulate(request, response, form, mapping);
+
+		// need to make sure that we don't check CSRF until after the form is populated so that Struts will parse the
+		// multipart parameters into the request if it's a multipart request
+		if (!CsrfValidator.validateCsrf(request, response)) {
+			return;
+		}
 
         // Create or acquire the Action instance to process this request
 		Action action = processActionCreate(request, response, mapping);

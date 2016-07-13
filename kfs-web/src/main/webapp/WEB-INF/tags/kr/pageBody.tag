@@ -346,7 +346,7 @@
                 </c:if>
                 <kul:editablePropertiesGuid />
 
-                <input type="hidden" name="<csrf:tokenname/>" value="<csrf:tokenvalue/>"/>
+                <kul:csrf />
 
             </html:form>
             </div>

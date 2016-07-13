@@ -24,6 +24,7 @@ import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.util.UifFormManager;
 import org.kuali.kfs.krad.uif.util.UifWebUtils;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.util.CsrfValidator;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.web.form.UifFormBase;
@@ -59,6 +60,10 @@ public class UifControllerHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
+        if (!CsrfValidator.validateCsrf(request, response)) {
+            return false;
+        }
+
         final UserSession session = KRADUtils.getUserSessionFromRequest(request);
 
         if (session == null) {
