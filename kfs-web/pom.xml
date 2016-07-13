@@ -14,9 +14,9 @@
   <name>Kuali Financial Web Application</name>
 
   <properties>
-    <frontend-maven-plugin.version>0.0.25.1507.3</frontend-maven-plugin.version>
-    <frontend-maven-plugin.node.version>v0.12.7</frontend-maven-plugin.node.version>
-    <frontend-maven-plugin.npm.version>2.7.6</frontend-maven-plugin.npm.version>
+    <frontend-maven-plugin.version>0.0.26</frontend-maven-plugin.version>
+    <frontend-maven-plugin.node.version>v6.3.0</frontend-maven-plugin.node.version>
+    <frontend-maven-plugin.npm.version>3.10.3</frontend-maven-plugin.npm.version>
     <jsfrontend.sources>src/main/webapp</jsfrontend.sources>
 
     <cachingTimestamp>${maven.build.timestamp}</cachingTimestamp>
@@ -138,7 +138,7 @@
       </plugin>
 
       <plugin>
-        <groupId>co.kuali</groupId>
+        <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
         <version>${frontend-maven-plugin.version}</version>
         <configuration>
