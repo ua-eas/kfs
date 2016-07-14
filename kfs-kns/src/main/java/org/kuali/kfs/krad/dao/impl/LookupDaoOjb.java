@@ -24,17 +24,10 @@ import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
-import org.kuali.kfs.krad.dao.LookupDao;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.search.SearchOperator;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.core.api.util.type.TypeUtils;
-import org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
-import org.kuali.rice.core.framework.persistence.platform.DatabasePlatform;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.InactivatableFromTo;
+import org.kuali.kfs.krad.dao.LookupDao;
+import org.kuali.kfs.krad.criteria.OjbUtility;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.lookup.LookupUtils;
 import org.kuali.kfs.krad.service.DataDictionaryService;
@@ -44,6 +37,14 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.search.SearchOperator;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.core.api.util.type.TypeUtils;
+import org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+import org.kuali.rice.core.framework.persistence.platform.DatabasePlatform;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springmodules.orm.ojb.OjbOperationException;
 
@@ -56,7 +57,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
+public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao,OjbUtility {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LookupDaoOjb.class);
 
     private DateTimeService dateTimeService;
@@ -179,7 +180,10 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
     /**
      * Builds up criteria object based on the object and map.
      */
-    protected Criteria getCollectionCriteriaFromMap(BusinessObject example, Map formProps) {
+    @Override
+    public Criteria getCollectionCriteriaFromMap(BusinessObject example, Map formProps) {
+        LOG.debug("getCollectionCriteriaFromMap() started");
+
         Criteria criteria = new Criteria();
         Iterator propsIter = formProps.keySet().iterator();
         while (propsIter.hasNext()) {
@@ -191,7 +195,9 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
         		// could be mixed case.  Thus, caseInsensitive will be the opposite of forceUppercase.
         		caseInsensitive = !KRADServiceLocatorWeb.getDataDictionaryService().getAttributeForceUppercase( example.getClass(), propertyName );
         	}
-        	if ( caseInsensitive == null ) { caseInsensitive = Boolean.TRUE; }
+        	if ( caseInsensitive == null ) {
+                caseInsensitive = Boolean.TRUE;
+            }
         	boolean treatWildcardsAndOperatorsAsLiteral = KNSServiceLocator
         			.getBusinessObjectDictionaryService().isLookupFieldTreatWildcardsAndOperatorsAsLiteral(example.getClass(), propertyName);
 
@@ -207,8 +213,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
                         throw new RuntimeException("Invalid value in Collection");
                     }
                 }
-            }
-            else {
+            } else {
                 String searchValue = (String) formProps.get(propertyName);
         		if (!caseInsensitive) {
         			// Verify that the searchValue is uppercased if caseInsensitive is false
