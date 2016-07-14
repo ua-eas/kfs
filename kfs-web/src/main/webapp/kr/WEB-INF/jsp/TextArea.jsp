@@ -24,12 +24,16 @@
         if (textAreaFieldLabel == null) {
             textAreaFieldLabel = (String) request.getAttribute(KualiAction.TEXT_AREA_FIELD_LABEL);
         }
+
+        pageContext.setAttribute(KualiAction.TEXT_AREA_FIELD_LABEL, textAreaFieldLabel);
     %>
     <c:if test="${empty textAreaFieldName}">
         <c:set var="textAreaFieldName"
                value="<%=request.getParameter(KualiAction.TEXT_AREA_FIELD_NAME)%>"/>
     </c:if>
 
+    <c:set var="textAreaFieldNameJS"><esapi:encodeForJavaScript>${textAreaFieldName}</esapi:encodeForJavaScript></c:set>
+    <c:set var="textAreaFieldNameAttribute"><esapi:encodeForHTMLAttribute>${textAreaFieldName}</esapi:encodeForHTMLAttribute></c:set>
     <head>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>
@@ -37,13 +41,13 @@
         <link href='${pageContext.request.contextPath}/css/lookup.css?${cachingTimestamp}' rel='stylesheet' type='text/css'>
         <script language="javascript" src="${pageContext.request.contextPath}/kr/scripts/core.js"></script>
     </head>
-    <body onload="setTextArea('${textAreaFieldName}')">
+    <body onload="setTextArea('${textAreaFieldNameJS}')">
         <div id="view_div">
             <div class="main-panel">
 
 
                 <div class="headerarea-small" id="headerarea-small">
-                    <h2><%=textAreaFieldLabel%></h2>
+                    <h2><c:out value="${textAreaFieldLabel}"/></h2>
                 </div>
 
                 <c:set var="parameters" value="<%=request.getParameterMap()%>"/>
@@ -104,7 +108,7 @@
                                         <%-- cannot use struts form tags here b/c some id values will not be valid properties --%>
                                     <c:choose>
                                         <c:when test="${textAreaReadOnly == 'true'}">
-                                        <textarea id="${textAreaFieldName}" name="${textAreaFieldName}"
+                                        <textarea id="${textAreaFieldNameAttribute}" name="${textAreaFieldNameAttribute}"
                                                   rows="21"
                                                   cols="60"
                                                   readonly="readonly"
@@ -115,7 +119,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             ${kfunc:registerEditableProperty(KualiForm, field.propertyName)}
-                                        <textarea id="${textAreaFieldName}" name="${textAreaFieldName}"
+                                        <textarea id="${textAreaFieldNameAttribute}" name="${textAreaFieldNameAttribute}"
                                                   rows="21"
                                                   cols="60"
                                                   maxlength="${textAreaMaxLength}"
@@ -146,7 +150,7 @@
                                         <c:otherwise>
                                             <html:submit
                                                     property="methodToCall.postTextAreaToParent.anchor${textAreaFieldAnchor}"
-                                                    onclick="javascript:postValueToParentWindow('${textAreaFieldName}');return false"
+                                                    onclick="javascript:postValueToParentWindow('${textAreaFieldNameJS}');return false"
                                                     styleClass="btn btn-default"
                                                     title="return"
                                                     alt="return"
@@ -162,6 +166,7 @@
                     <html:hidden property="formKey" value="${formKey}"/>
                     <html:hidden property="docFormKey" value="${docFormKey}"/>
                     <html:hidden property="refreshCaller" value="TextAreaRefresh"/>
+                    <kul:csrf />
 
                     <c:if test="${not empty parameters}">
                         <c:forEach items="${parameters}" var="mapEntry">

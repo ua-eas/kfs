@@ -64,7 +64,7 @@
 		</c:if>
 
 		<script type="text/javascript">var jsContextPath = "${pageContext.request.contextPath}";</script>
-		<title><bean:message key="app.title" /> :: ${headerTitle}</title>
+		<title><bean:message key="app.title" /> :: <c:out value="${headerTitle}"/></title>
 		<c:forEach items="${fn:split(ConfigProperties.kns.css.files, ',')}"
 				   var="cssFile">
 			<c:if test="${fn:length(fn:trim(cssFile)) > 0}">

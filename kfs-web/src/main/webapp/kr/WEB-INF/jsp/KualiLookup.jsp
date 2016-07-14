@@ -184,7 +184,6 @@
 	    </tr>
       </c:if>
     </table>
-	</form>
 	</div>
 
 	<c:if test="${!empty reqSearchResultsActualSize and reqSearchResultsActualSize < 1 and empty reqSearchResults}">

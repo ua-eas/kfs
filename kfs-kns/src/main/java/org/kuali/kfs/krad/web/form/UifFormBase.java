@@ -97,6 +97,8 @@ public class UifFormBase implements ViewModel {
     protected boolean renderFullView;
     protected boolean validateDirty;
 
+    protected String csrfToken;
+
     public UifFormBase() {
         formKey = generateFormKey();
         renderFullView = true;
@@ -122,6 +124,8 @@ public class UifFormBase implements ViewModel {
     protected String generateFormKey() {
         return UUID.randomUUID().toString();
     }
+
+
 
     /**
      * Called after Spring binds the request to the form and before the
@@ -642,4 +646,11 @@ public class UifFormBase implements ViewModel {
         this.validateDirty = validateDirty;
     }
 
+    public String getCsrfToken() {
+        return csrfToken;
+    }
+
+    public void setCsrfToken(String csrfToken) {
+        this.csrfToken = csrfToken;
+    }
 }
