@@ -114,7 +114,7 @@
 					<tr>
 						<th style="width: 150px;" class="right top">Document Id
 						</th>
-						<td>${documentId}</td>
+						<td><c:out value="${documentId}"/></td>
 					</tr>
 				</c:if>
 				<tr>
