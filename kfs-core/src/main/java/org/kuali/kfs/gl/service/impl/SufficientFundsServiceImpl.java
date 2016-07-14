@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -150,13 +151,18 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
             e.refreshNonUpdateableReferences();
         }
 
+        final List<String> transactionDocumentNumbers = transactions.stream()
+                .map(Transaction::getDocumentNumber)
+                .distinct()
+                .collect(Collectors.toList());
+
         List<SufficientFundsItem> summaryItems = summarizeTransactions(transactions);
         for (Iterator iter = summaryItems.iterator(); iter.hasNext();) {
             SufficientFundsItem item = (SufficientFundsItem) iter.next();
             if ( LOG.isDebugEnabled() ) {
                 LOG.debug("checkSufficientFunds() " + item.toString());
             }
-            if (hasSufficientFundsOnItem(item)) {
+            if (hasSufficientFundsOnItem(item, transactionDocumentNumbers)) {
                 iter.remove();
             }
         }
@@ -210,7 +216,7 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
      * @param item the item to check
      * @return true if there are sufficient funds available, false otherwise
      */
-    protected boolean hasSufficientFundsOnItem(SufficientFundsItem item) {
+    protected boolean hasSufficientFundsOnItem(SufficientFundsItem item, List<String> transactionDocumentNumbers) {
 
         if (item.getAmount().equals(KualiDecimal.ZERO)) {
             LOG.debug("hasSufficientFundsOnItem() Transactions with zero amounts shold pass");
@@ -305,7 +311,7 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
             priorYearPending = getPriorYearSufficientFundsBalanceAmount(item);
         }
 
-        PendingAmounts pending = getPendingBalanceAmount(item);
+        PendingAmounts pending = getPendingBalanceAmount(item, transactionDocumentNumbers);
 
         KualiDecimal availableBalance = null;
         if (KFSConstants.SF_TYPE_CASH_AT_ACCOUNT.equals(item.getAccount().getAccountSufficientFundsCode())) {
@@ -390,7 +396,7 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
      * @return the totals encapsulated in a PendingAmounts object
      */
     @SuppressWarnings("unchecked")
-    protected PendingAmounts getPendingBalanceAmount(SufficientFundsItem item) {
+    protected PendingAmounts getPendingBalanceAmount(SufficientFundsItem item, List<String> transactionDocumentNumbers) {
         LOG.debug("getPendingBalanceAmount() started");
 
         Integer fiscalYear = item.getYear().getUniversityFiscalYear();
@@ -424,15 +430,15 @@ public class SufficientFundsServiceImpl implements SufficientFundsService, Suffi
             // Non-Cash checking
 
             // Get expenditure (debit - credit)
-            amounts.actual = generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"));
-            amounts.actual = amounts.actual.subtract(generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE")));
+            amounts.actual = generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers);
+            amounts.actual = amounts.actual.subtract(generalLedgerPendingEntryService.getExpenseSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers));
 
             // Get budget
             amounts.budget = generalLedgerPendingEntryService.getBudgetSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), item.getDocumentTypeCode().startsWith("YE"));
 
             // Get encumbrance (debit - credit)
-            amounts.encumbrance = generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"));
-            amounts.encumbrance = amounts.encumbrance.subtract(generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE")));
+            amounts.encumbrance = generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), true, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers);
+            amounts.encumbrance = amounts.encumbrance.subtract(generalLedgerPendingEntryService.getEncumbranceSummary(fiscalYear, chart, account, item.getSufficientFundsObjectCode(), false, item.getDocumentTypeCode().startsWith("YE"), transactionDocumentNumbers));
         }
 
         if ( LOG.isDebugEnabled() ) {

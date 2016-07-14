@@ -106,10 +106,10 @@ public class GeneralLedgerPendingEntryServiceImpl implements GeneralLedgerPendin
 
     /**
      * @see org.kuali.module.gl.service.GeneralLedgerPendingEntryService#getExpenseSummary(java.util.List, java.lang.String,
-     *      java.lang.String, boolean, boolean)
+     *      java.lang.String, boolean, boolean, List<String>)
      */
     @Override
-    public KualiDecimal getExpenseSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd) {
+    public KualiDecimal getExpenseSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd, List<String> transactionDocumentNumbers) {
         LOG.debug("getExpenseSummary() started");
 
         ObjectTypeService objectTypeService = getObjectTypeService();
@@ -121,7 +121,7 @@ public class GeneralLedgerPendingEntryServiceImpl implements GeneralLedgerPendin
         Collection balanceTypeCodes = new ArrayList();
         balanceTypeCodes.add(options.getActualFinancialBalanceTypeCd());
 
-        return generalLedgerPendingEntryDao.getTransactionSummary(universityFiscalYear, chartOfAccountsCode, accountNumber, objectTypes, balanceTypeCodes, sufficientFundsObjectCode, isDebit, isYearEnd);
+        return generalLedgerPendingEntryDao.getTransactionSummary(universityFiscalYear, chartOfAccountsCode, accountNumber, objectTypes, balanceTypeCodes, sufficientFundsObjectCode, isDebit, isYearEnd, transactionDocumentNumbers);
     }
 
     /**
@@ -129,7 +129,7 @@ public class GeneralLedgerPendingEntryServiceImpl implements GeneralLedgerPendin
      *      java.lang.String, java.lang.String, boolean, boolean)
      */
     @Override
-    public KualiDecimal getEncumbranceSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd) {
+    public KualiDecimal getEncumbranceSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd, List<String> transactionDocumentNumbers) {
         LOG.debug("getEncumbranceSummary() started");
 
         // FIXME! - this ObjectTypeService should be injected
@@ -142,7 +142,7 @@ public class GeneralLedgerPendingEntryServiceImpl implements GeneralLedgerPendin
         List<String> balanceTypeCodes = balanceTypeService.getEncumbranceBalanceTypes(universityFiscalYear);
 
 
-        return generalLedgerPendingEntryDao.getTransactionSummary(universityFiscalYear, chartOfAccountsCode, accountNumber, objectTypes, balanceTypeCodes, sufficientFundsObjectCode, isDebit, isYearEnd);
+        return generalLedgerPendingEntryDao.getTransactionSummary(universityFiscalYear, chartOfAccountsCode, accountNumber, objectTypes, balanceTypeCodes, sufficientFundsObjectCode, isDebit, isYearEnd, transactionDocumentNumbers);
     }
 
     /**

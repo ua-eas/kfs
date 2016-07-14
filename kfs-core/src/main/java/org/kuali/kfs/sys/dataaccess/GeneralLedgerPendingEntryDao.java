@@ -58,9 +58,10 @@ public interface GeneralLedgerPendingEntryDao {
      * @param acctSufficientFundsFinObjCd
      * @param isDebit
      * @param isYearEnd
+     * @param transactionDocumentNumbers
      * @return
      */
-    public KualiDecimal getTransactionSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, Collection objectTypeCodes, Collection balanceTypeCodes, String acctSufficientFundsFinObjCd, boolean isDebit, boolean isYearEnd);
+    public KualiDecimal getTransactionSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, Collection objectTypeCodes, Collection balanceTypeCodes, String acctSufficientFundsFinObjCd, boolean isDebit, boolean isYearEnd, List<String> transactionDocumentNumbers);
 
     /**
      * Get summary of amounts in the pending entry table

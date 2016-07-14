@@ -71,9 +71,10 @@ public interface GeneralLedgerPendingEntryService {
      * @param sufficientFundsObjectCode
      * @param isDebit
      * @param isYearEnd
+     * @param transactionDocumentNumbers
      * @return
      */
-    public KualiDecimal getExpenseSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd);
+    public KualiDecimal getExpenseSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd, List<String> transactionDocumentNumbers);
 
     /**
      * This method...
@@ -84,9 +85,10 @@ public interface GeneralLedgerPendingEntryService {
      * @param sufficientFundsObjectCode
      * @param isDebit
      * @param isYearEnd
+     * @param transactionDocumentNumbers
      * @return
      */
-    public KualiDecimal getEncumbranceSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd);
+    public KualiDecimal getEncumbranceSummary(Integer universityFiscalYear, String chartOfAccountsCode, String accountNumber, String sufficientFundsObjectCode, boolean isDebit, boolean isYearEnd, List<String> transactionDocumentNumbers);
 
     /**
      * This method...

@@ -1580,20 +1580,8 @@ public abstract class TravelDocumentBase extends AccountingDocumentBase implemen
             fiscalYear = new Integer(tripEndCal.get(Calendar.YEAR));
         }
         if (universityDateService.getCurrentFiscalYear().compareTo(fiscalYear) >= 0) {
-            // delete and recreate the GL entries for this document so they do not get included in the SF check
-            // This is *NOT* ideal.  The SF service needs to be updated to allow it to provide the current
-            // document number so that it can be exlcuded from pending entry checks.
-            List<GeneralLedgerPendingEntry> pendingEntries = getPendingLedgerEntriesForSufficientFundsChecking();
-            // dumb loop to just force OJB to load the objects.  Otherwise, the proxy object above
-            // only gets resolved *after* the delete below and no SF check happens.
-            for ( GeneralLedgerPendingEntry glpe : pendingEntries ) {
-                glpe.getChartOfAccountsCode();
-            }
-            generalLedgerPendingEntryService.delete(getDocumentNumber());
             // get list of sufficientfundItems
             List<SufficientFundsItem> fundsItems = sufficientFundsService.checkSufficientFunds(getPendingLedgerEntriesForSufficientFundsChecking());
-            generalLedgerPendingEntryService.generateGeneralLedgerPendingEntries(this);
-            businessObjectService.save( getGeneralLedgerPendingEntries() );
 
             //kfsmi-7289
             if (fundsItems != null && fundsItems.size() > 0) {
