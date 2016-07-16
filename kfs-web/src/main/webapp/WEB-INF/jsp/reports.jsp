@@ -21,7 +21,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Financials Reports</title>
+    <title>Financials :: Reports</title>
 </head>
 <body>
   <kul:page docTitle="" showDocumentInfo="false" transactionalDocument="false" renderInnerDiv="true">
