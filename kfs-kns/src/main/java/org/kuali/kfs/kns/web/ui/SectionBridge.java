@@ -772,9 +772,9 @@ public class SectionBridge {
     	String methodName = KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + KRADConstants.TOGGLE_INACTIVE_METHOD + "." + collectionName.replace( '.', '_' );
         methodName += "." + KRADConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL + showInactive + ".anchorshowInactive." + collectionName + KRADConstants.METHOD_TO_CALL_BOPARM_RIGHT_DEL;
            
-        String imageSource = showInactive ? "tinybutton-showinact.gif" : "tinybutton-hideinact.gif";
+        String buttonText = showInactive ? "Show Inactive" : "Hide Inactive";
 
-        String showInactiveButton = "property=" + methodName + ";src=" + imageSource + ";alt=show(hide) inactive" + ";title=show(hide) inactive";
+        String showInactiveButton = "property=" + methodName + ";value=" + buttonText + ";alt=show(hide) inactive" + ";title=show(hide) inactive";
 
         section.setExtraButtonSource(showInactiveButton);
     }

@@ -178,36 +178,44 @@
         <div class="tabtable1-mid1"><img src="${ConfigProperties.kr.externalizable.images.url}pixel_clear.gif" alt="" align="absmiddle" height="29" width="1" /><kul:htmlControlAttribute property="${rightSideHtmlProperty}" attributeEntry="${rightSideHtmlAttribute}" /></div>
     </c:if>
 
-    <c:if test="${not empty extraButtonSource}">
-        <c:forTokens items="${extraButtonSource}" delims=";" var="token">
-            <c:choose>
-                <c:when test="${fn:contains(token, 'property=')}" >
-                    <c:set var="ebProperty" value="${fn:substringAfter(token, 'property=')}"/>
-                </c:when>
-                <c:when test="${fn:contains(token, 'src=')}" >
-                    <c:set var="ebSrc" value="${fn:substringAfter(token, 'src=')}"/>
-                </c:when>
-                <c:when test="${fn:contains(token, 'title=')}" >
-                    <c:set var="ebTitle" value="${fn:substringAfter(token, 'title=')}"/>
-                </c:when>
-                <c:when test="${fn:contains(token, 'alt=')}" >
-                    <c:set var="ebAlt" value="${fn:substringAfter(token, 'alt=')}"/>
-                </c:when>
-            </c:choose>
-        </c:forTokens>
-        <div class="tabtable1-mid1">
-            <html:image property="${ebProperty}" src="${ConfigProperties.kr.externalizable.images.url}${ebSrc}" title="${ebTitle}" alt="${ebAlt}" styleClass="tinybutton" tabindex="-1" />
-        </div>
-    </c:if>
-
-
-
     <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
         <div style="display: block;" id="tab-${tabKey}-div">
     </c:if>
     <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
         <div style="display: none;" id="tab-${tabKey}-div">
     </c:if>
+
+        <c:if test="${not empty extraButtonSource}">
+            <c:forTokens items="${extraButtonSource}" delims=";" var="token">
+                <c:choose>
+                    <c:when test="${fn:contains(token, 'property=')}" >
+                        <c:set var="ebProperty" value="${fn:substringAfter(token, 'property=')}"/>
+                    </c:when>
+                    <c:when test="${fn:contains(token, 'src=')}" >
+                        <c:set var="ebSrc" value="${fn:substringAfter(token, 'src=')}"/>
+                    </c:when>
+                    <c:when test="${fn:contains(token, 'value=')}" >
+                        <c:set var="ebValue" value="${fn:substringAfter(token, 'value=')}"/>
+                    </c:when>
+                    <c:when test="${fn:contains(token, 'title=')}" >
+                        <c:set var="ebTitle" value="${fn:substringAfter(token, 'title=')}"/>
+                    </c:when>
+                    <c:when test="${fn:contains(token, 'alt=')}" >
+                        <c:set var="ebAlt" value="${fn:substringAfter(token, 'alt=')}"/>
+                    </c:when>
+                </c:choose>
+            </c:forTokens>
+            <div class="tabtable1-mid1">
+                <c:choose>
+                    <c:when test="${not empty ebSrc}">
+                        <html:image property="${ebProperty}" src="${ConfigProperties.kr.externalizable.images.url}${ebSrc}" title="${ebTitle}" alt="${ebAlt}" styleClass="tinybutton" tabindex="-1" />
+                    </c:when>
+                    <c:otherwise>
+                        <html:submit property="${ebProperty}" value="${ebValue}" title="${ebTitle}" alt="${ebAlt}" styleClass="btn btn-default" tabindex="-1" />
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </c:if>
 
         <c:if test="${! (empty tabErrorKey)}">
             <kul:errors keyMatch="${tabErrorKey}" displayInDiv="true"/>

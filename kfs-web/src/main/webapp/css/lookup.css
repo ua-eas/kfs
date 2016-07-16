@@ -578,6 +578,10 @@ div.inquiry table.datatable th {
     margin-top: 15px;
 }
 
+.main-panel .tabtable1-mid1 {
+    padding: 10px 20px;
+}
+
 .main-panel .tab-container {
     color: #555;
 }
