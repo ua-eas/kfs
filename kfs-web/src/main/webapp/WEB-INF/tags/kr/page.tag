@@ -41,6 +41,7 @@
 <%@ attribute name="alternativeHelp" required="false"%>
 <%@ attribute name="renderInnerDiv" required="false"%>
 <%@ attribute name="openNav" required="false"%>
+<%@ attribute name="placeFocus" required="false" description="A way to prevent the body onLoad placeFocus() from executing" %>
 
 <%-- Is the screen an inquiry? --%>
 <c:set var="_isInquiry" value="${requestScope[Constants.PARAM_MAINTENANCE_VIEW_MODE] eq Constants.PARAM_MAINTENANCE_VIEW_MODE_INQUIRY}" />
@@ -114,12 +115,16 @@
 	</head>
 	<c:choose>
 		<c:when test="${lookup}" >
-			<body onload="placeFocus();
-			<c:if test='<%= jspContext.findAttribute("KualiForm") != null %>'>
-				<c:if test='<%= jspContext.findAttribute("KualiForm").getClass() == org.kuali.kfs.kns.web.struts.form.LookupForm.class %>'>
-					<c:out value ="${KualiForm.lookupable.extraOnLoad}" />
+			<body onload="
+				<c:if test='${placeFocus or empty placeFocus}'>
+					<c:out value="placeFocus();"/>
 				</c:if>
-			</c:if>
+
+				<c:if test='<%= jspContext.findAttribute("KualiForm") != null %>'>
+					<c:if test='<%= jspContext.findAttribute("KualiForm").getClass() == org.kuali.kfs.kns.web.struts.form.LookupForm.class %>'>
+						<c:out value ="${KualiForm.lookupable.extraOnLoad}" />
+					</c:if>
+				</c:if>
 			">
 		</c:when>
 		<c:otherwise>
