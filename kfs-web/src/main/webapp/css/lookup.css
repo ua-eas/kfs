@@ -281,7 +281,12 @@ select {
 
 .search-results .headerarea-small.fixed {
     position: fixed;
-    top: 62px;
+    top: 60px;
+}
+
+.test-env .search-results .headerarea-small.fixed {
+    position: fixed;
+    top: 100px;
 }
 
 .search-results table {

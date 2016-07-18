@@ -30,7 +30,7 @@
 <kul:page lookup="true" showDocumentInfo="false"
 	headerMenuBar="${headerMenu}"
 	headerTitle="Lookup" docTitle="" transactionalDocument="false"
-	htmlFormAction="lookup" >
+	htmlFormAction="lookup" placeFocus="${empty reqSearchResultsActualSize}">
 
 	<SCRIPT type="text/javascript">
       var kualiForm = document.forms['KualiForm'];
