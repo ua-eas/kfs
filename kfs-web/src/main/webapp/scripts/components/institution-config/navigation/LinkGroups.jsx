@@ -138,7 +138,16 @@ let LinkGroup = React.createClass({
 
         let dialog;
         if (this.props.deleting === label) {
-            if (this.props.linkGroup.get('links') && this.props.linkGroup.get('links').size < 1) {
+        	let canDelete = true;
+        	let linksToCheck = this.props.linkGroup.get('links');
+        	if (linksToCheck) {
+        		if (linksToCheck.get('activities') && linksToCheck.get('activities').size > 0
+        		 || linksToCheck.get('reference') && linksToCheck.get('reference').size > 0
+        		 || linksToCheck.get('administration') && linksToCheck.get('administration').size > 0) {
+        		 	canDelete = false;
+        		}
+        	}
+            if (canDelete) {
                 dialog = (
                     <div className="dialog form delete-form">
                         <div><label>Are you sure you want to delete {label}?</label></div>
