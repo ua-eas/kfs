@@ -57,6 +57,27 @@ let NavigationConfig = React.createClass({
             }.bind(this)
         });
     },
+    componentDidUpdate() {
+        if (this.state.expandedLinkGroup) {
+            let item = $('#item-list .item.active');
+
+            // Figure out how far down the bottom of the group is
+            let itemLocation = item.offset().top;
+            let itemHeight = item.height();
+            let itemBottom = itemLocation + itemHeight;
+
+            // Figure out how far down the bottom of the links list is
+            let subListItem = $('#sub-item-list .admin-sublinks.active');
+            let subListItemLocation =  subListItem.offset().top;
+            let subListItemHeight = subListItem.height();
+            let subListItemBottom = subListItemLocation + subListItemHeight;
+
+            // If the links list is not as far down as the group then move it down so it lines up
+            if (subListItemBottom < itemBottom) {
+                subListItem.css('margin-top', (itemBottom - subListItemBottom) + 'px');
+            }
+        }
+    },
     toggleLinkGroup(index, label) {
         if (this.state.expandedLinkGroup === label) {
             this.setState({expandedLinkGroup: undefined, topGroupSelected: false});
