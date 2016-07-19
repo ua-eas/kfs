@@ -35,6 +35,7 @@
     display: -webkit-flex;
     display: flex;
     flex-direction: row-reverse;
+    padding-bottom: 60px;
 }
 
 ul#item-list,
@@ -327,10 +328,13 @@ div#sub-item-list {
 }
 
 .buttonbar {
+    padding: 15px 0 15px 0;
+    width: calc(100% - 360px);
+    position: fixed;
+    bottom: 0px;
+    height: 80px;
     text-align: center;
-    padding: 30px 0 15px 0;
-    border-top: 1px solid #D7D7D7;
-    margin-top: 40px;
+    background-color: rgba(255, 255, 255, 0.901961);
 }
 
 .buttonbar .btn {
