@@ -54,6 +54,7 @@ public class CamsKeyConstants {
         public static final String DEPRECIATION_ALREADY_RAN_MSG = "error.batch.depreciation.alreadyRan";
         public static final String MSG_REPORT_DEPRECIATION_HEADING1 = "message.batch.report.depreciation.heading.description";
         public static final String MSG_REPORT_DEPRECIATION_HEADING2 = "message.batch.report.depreciation.heading.figures";
+        public static final String FISCAL_MONTH_NOT_VALID = "error.batch.depreciation.fiscalMonthNotValid";
     }
 
     public static class Payment {
