@@ -28,6 +28,14 @@
     padding: 20px;
 }
 
+.menu-config {
+    margin-bottom: 60px;
+}
+
+.menu-config.add-new {
+    margin-bottom: 250px;
+}
+
 .nav-config {
     display: -webkit-box;
     display: -moz-box;
