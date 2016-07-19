@@ -506,6 +506,7 @@ nav ul.nav li {
     margin-top: 0;
     margin-left: 20px;
     color: #969696;
+    text-transform: uppercase;
 }
 
 #sidebar .nav li.panel.active,

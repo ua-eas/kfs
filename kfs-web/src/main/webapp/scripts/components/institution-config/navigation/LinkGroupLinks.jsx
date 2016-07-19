@@ -152,7 +152,7 @@ let SubLinkGroup = React.createClass({
         let linkClass = this.state.errors.indexOf('link') > -1 ? 'error' : '';
 
         let groupSelectItems = this.props.linkGroupLabels.map((linkGroupLabel, index) => {
-            return <option key={index} value={index}>{linkGroupLabel}</option>;
+            return <option key={index} value={index}>{linkGroupLabel.toUpperCase()}</option>;
         });
 
         let errorMessage;
