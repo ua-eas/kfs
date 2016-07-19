@@ -89,6 +89,7 @@ public class AssetDepreciationServiceTest {
     private UniversityDateService universityDateService;
     private UserSession userSession;
     private WorkflowDocument workflowDocument;
+    private ReportService reportService;
     private List<AssetPaymentInfo> savedPaymentInfo;
 
     private MockDepreciationBatchDao mockDepreciationBatchDao;
@@ -112,6 +113,7 @@ public class AssetDepreciationServiceTest {
         workflowDocument = EasyMock.createMock(WorkflowDocument.class);
         assetDateService = EasyMock.createMock(AssetDateService.class);
         universityDateService = EasyMock.createMock(UniversityDateService.class);
+        reportService = EasyMock.createMock(ReportService.class);
         PowerMock.mockStatic(GlobalVariables.class);
 
         savedPaymentInfo = new ArrayList<>();
@@ -129,23 +131,26 @@ public class AssetDepreciationServiceTest {
         camsAssetDepreciationService.setAssetService(assetService);
         camsAssetDepreciationService.setAssetDateService(assetDateService);
         camsAssetDepreciationService.setUniversityDateService(universityDateService);
+        camsAssetDepreciationService.setCamsReportService(reportService);
     }
 
     @Test
     @PrepareForTest(GlobalVariables.class)
     public void testRunDepreciation() throws Exception {
-        try {
-            recordMocks();
-            camsAssetDepreciationService.runDepreciation();
-            verifyMocks();
+        recordMocks();
+        camsAssetDepreciationService.runDepreciation();
+        verifyMocks();
 
-            Collection<AssetPaymentInfo> resultsMustGet = AssetDepreciationServiceFixture.DATA.getResultsFromPropertiesFile();
-            Assert.isTrue(resultsMustGet.size() == savedPaymentInfo.size(), ERROR_RECORD_NUMBER_DOESNT_MATCH);
-            Assert.isTrue(this.isDepreciationOk(savedPaymentInfo, resultsMustGet), ERROR_INVALID_AMOUNTS);
-        }
-        catch (Exception e) {
-            throw e;
-        }
+        Collection<AssetPaymentInfo> resultsMustGet = AssetDepreciationServiceFixture.DATA.getResultsFromPropertiesFile();
+        Assert.isTrue(resultsMustGet.size() == savedPaymentInfo.size(), ERROR_RECORD_NUMBER_DOESNT_MATCH);
+        Assert.isTrue(this.isDepreciationOk(savedPaymentInfo, resultsMustGet), ERROR_INVALID_AMOUNTS);
+    }
+    
+    @Test
+    @PrepareForTest(GlobalVariables.class)
+    public void testInvalidFiscalMonth() throws Exception {
+        recordInvalidFiscalMonthMocks();
+        camsAssetDepreciationService.runDepreciation();
     }
 
     private void recordMocks() throws Exception {
@@ -220,15 +225,76 @@ public class AssetDepreciationServiceTest {
         EasyMock.expectLastCall();
 
         EasyMock.replay(dateTimeService, kualiConfigurationService, parameterService, schedulerService, optionsService, businessObjectService);
-        EasyMock.replay(depreciableAssetsDao, depreciationBatchDao, objectCodeService, workflowDocumentService, workflowDocument);
+        EasyMock.replay(depreciableAssetsDao, depreciationBatchDao, objectCodeService, workflowDocumentService, workflowDocument, reportService);
+        PowerMock.replay(GlobalVariables.class);
+    }
+    
+    private void recordInvalidFiscalMonthMocks() throws Exception {
+        Date date = new Date();
+        Date depreciationDate = AssetDepreciationServiceFixture.DATA.getDepreciationDate();
+        Calendar depreciationCalendar = Calendar.getInstance();
+        depreciationCalendar.setTime(depreciationDate);
+        List<AssetObjectCode> assetObjectCodes = AssetDepreciationServiceFixture.DATA.getAssetObjectCodes();
+        EasyMock.expect(dateTimeService.getCurrentCalendar()).andReturn(Calendar.getInstance()).anyTimes();
+        EasyMock.expect(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.DEPRECIATION_ALREADY_RAN_MSG))
+            .andReturn("Already ran");
+        EasyMock.expect(dateTimeService.getCurrentDate()).andReturn(date).anyTimes();
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_BEGIN_MMDD))
+            .andReturn(null).times(2);
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_END_MMDD))
+            .andReturn(null).times(2);
+        EasyMock.expect(schedulerService.cronConditionMet(null)).andReturn(true);
+         EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_RUN_DATE_PARAMETER))
+            .andReturn(true);
+        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_RUN_DATE_PARAMETER))
+            .andReturn(AssetDepreciationServiceFixture.DATA.getDepreciationDateString());
+        EasyMock.expect(businessObjectService.findBySinglePrimaryKey(UniversityDate.class, new java.sql.Date(depreciationDate.getTime())))
+            .andReturn(AssetDepreciationServiceFixture.DATA.getUniversityDate());
+        HashMap<String, Object> fields = new HashMap<String, Object>();
+        fields.put(CamsPropertyConstants.AssetObject.UNIVERSITY_FISCAL_YEAR, 2010);
+        fields.put(CamsPropertyConstants.AssetObject.ACTIVE, Boolean.TRUE);
+        EasyMock.expect(businessObjectService.findMatching(AssetObjectCode.class, fields)).andReturn(assetObjectCodes);
+        EasyMock.expect(depreciableAssetsDao.generateStatistics(true, null, 2010, 1, depreciationCalendar, "",
+                assetObjectCodes, 1, "Already ran")).andReturn(new ArrayList<String[]>());
+        EasyMock.expect(depreciationBatchDao.getListOfDepreciableAssetPaymentInfo(2010, 1, depreciationCalendar))
+            .andReturn(AssetDepreciationServiceFixture.DATA.getAssetPaymentInfo());
+        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))
+            .andReturn(true);
+        EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))
+            .andReturn(Arrays.asList(new String[]{"C1","C2","CF","CM","ES","NA","UC","UF"}));
+        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
+            .andReturn(true);
+        EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
+            .andReturn(Arrays.asList(new String[]{"BD","BF","BI","BR","BX","IF","LE","LF","LI","LR"}));
+        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
+            .andReturn(true);
+        
+        // This is what makes fiscal period 1 invalid.
+        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
+            .andReturn("3");
+        EasyMock.expect(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.FISCAL_MONTH_NOT_VALID))
+            .andReturn("Fiscal month of depreciation date must be a multiple of the depreciation period.");
+        EasyMock.expect(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.ERROR_WHEN_CALCULATING_DEPRECIATION))
+            .andReturn("An error occurred when calculating assets depreciation.");
+        
+        EasyMock.expect(optionsService.getCurrentYearOptions()).andReturn(AssetDepreciationServiceFixture.DATA.getSystemOptions()).times(2);
+        EasyMock.expect(dateTimeService.toDateString(depreciationDate)).andReturn("").anyTimes();
+        EasyMock.expect(depreciableAssetsDao.generateStatistics(false, new ArrayList<>(), 2010, 1, depreciationCalendar, "",
+                assetObjectCodes, 1, "Already ran")).andReturn(new ArrayList<String[]>());
+        reportService.generateDepreciationReport(EasyMock.eq(new ArrayList<>()), EasyMock.isA(String.class), EasyMock.isA(String.class));
+        EasyMock.expectLastCall();
+
+        
+        EasyMock.replay(dateTimeService, kualiConfigurationService, parameterService, schedulerService, optionsService, businessObjectService);
+        EasyMock.replay(depreciableAssetsDao, depreciationBatchDao, objectCodeService, workflowDocumentService, workflowDocument, reportService);
         PowerMock.replay(GlobalVariables.class);
     }
 
     private void verifyMocks() {
         EasyMock.verify(dateTimeService, kualiConfigurationService, parameterService, schedulerService, optionsService, businessObjectService);
-        EasyMock.verify(depreciableAssetsDao, depreciationBatchDao, workflowDocumentService);
+        EasyMock.verify(depreciableAssetsDao, depreciationBatchDao, workflowDocumentService, reportService);
         EasyMock.reset(dateTimeService, kualiConfigurationService, parameterService, schedulerService, optionsService, businessObjectService);
-        EasyMock.reset(depreciableAssetsDao, depreciationBatchDao, objectCodeService, workflowDocumentService, workflowDocument);
+        EasyMock.reset(depreciableAssetsDao, depreciationBatchDao, objectCodeService, workflowDocumentService, workflowDocument, reportService);
     }
 
     private ObjectCode getObjectCode(int year, String chart, String code) {

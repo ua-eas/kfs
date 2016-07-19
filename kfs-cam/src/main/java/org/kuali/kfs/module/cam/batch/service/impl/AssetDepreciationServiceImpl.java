@@ -401,6 +401,10 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     depreciationPeriod = Integer.parseInt(depreciationPeriodString);
                 }
             }
+            
+            if (fiscalMonth % depreciationPeriod != 0) {
+                throw new IllegalStateException(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.FISCAL_MONTH_NOT_VALID));
+            }
 
             LOG.debug("getBaseAmountOfAssets(Collection<AssetPayment> depreciableAssetsCollection) - Started.");
             // Invoking method that will calculate the base amount for each asset payment transactions, which could be more than 1
