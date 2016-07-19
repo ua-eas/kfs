@@ -202,6 +202,14 @@ header.navbar .navbar-brand .logo-right {
     display: inherit;
 }
 
+#inst-config-loader {
+    position: fixed;
+    top: 50%;
+    left: calc(50% + 160px);
+    color: #fff;
+    z-index: 1000;
+}
+
 #headerarea {
     position: relative;
 }
