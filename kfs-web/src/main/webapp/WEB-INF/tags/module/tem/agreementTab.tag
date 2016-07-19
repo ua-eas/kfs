@@ -28,7 +28,7 @@
 <div class="tab-container" align=center >
 <table cellpadding=2 class="datatable" summary="${title}">
 	<tr>
-    	<td colspan=2 align=left valign=middle class="datacell">${text}</td>
+    	<td colspan=2 align=left valign=middle class="datacell"><div style="padding:15px;">${text}</div></td>
     </tr>
     <tr>
     	<th scope=row class="bord-l-b">
@@ -36,7 +36,7 @@
     			<kul:htmlAttributeLabel attributeEntry="${documentAttribute}"/>
 			</div>
 		</th>
-		<td class="datacell" width="25%">
+		<td class="datacell" width="50%">
         	<kul:htmlControlAttribute attributeEntry="${documentAttribute}" property="document.${property}" readOnly="${!enable}" />
         </td>
     </tr>
