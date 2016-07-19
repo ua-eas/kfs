@@ -55,7 +55,7 @@ let NavigationConfig = React.createClass({
                 });
             }.bind(this),
             error: function(xhr, status, err) {
-                this.setState({ laoding: false });
+                this.setState({ loading: false });
                 console.error(status, err.toString());
             }.bind(this)
         });
