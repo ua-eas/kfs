@@ -1,22 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.dataaccess.impl;
+
+import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coa.service.AccountingPeriodService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
+import org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.dataaccess.UniversityDateDao;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -32,46 +50,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.kuali.kfs.coa.businessobject.AccountingPeriod;
-import org.kuali.kfs.coa.service.AccountingPeriodService;
-import org.kuali.kfs.module.cam.CamsConstants;
-import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
-import org.kuali.kfs.module.cam.businessobject.Asset;
-import org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.dataaccess.UniversityDateDao;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants.CAPITAL_ASSETS_BATCH;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.ResultSetExtractor;
-
-/**
- * JDBC implementation of {@link DepreciationBatchDao}
- */
 public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implements DepreciationBatchDao {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DepreciationBatchDaoJdbc.class);
 
     protected UniversityDateDao universityDateDao;
-    protected ConfigurationService kualiConfigurationService;
-    // CSU 6702 BEGIN
     protected ParameterService parameterService;
-    // CSU 6702 END
 
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#resetPeriodValuesWhenFirstFiscalPeriod(java.lang.Integer)
      */
     @Override
     public void resetPeriodValuesWhenFirstFiscalPeriod(Integer fiscalMonth) throws Exception {
+        LOG.debug("resetPeriodValuesWhenFirstFiscalPeriod() started");
+
         if (fiscalMonth == 1) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Starting resetPeriodValuesWhenFirstFiscalPeriod");
@@ -92,9 +83,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public void updateAssetPayments(final List<AssetPaymentInfo> assetPayments, final Integer fiscalMonth) {
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Batch updating [" + assetPayments.size() + "] payments");
-        }
+        LOG.debug("updateAssetPayments() started");
+        LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Batch updating [" + assetPayments.size() + "] payments");
+
         getJdbcTemplate().batchUpdate("UPDATE CM_AST_PAYMENT_T SET AST_ACUM_DEPR1_AMT=? , AST_PRD" + fiscalMonth + (fiscalMonth < 10 ? "_" : "") + "DEPR1_AMT = ? WHERE CPTLAST_NBR = ? AND AST_PMT_SEQ_NBR = ? ", new BatchPreparedStatementSetter() {
 
             @Override
@@ -117,9 +108,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public void savePendingGLEntries(final List<GeneralLedgerPendingEntry> glPendingEntries) {
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Batch update of [" + glPendingEntries.size() + "] glpes");
-        }
+        LOG.debug("savePendingGLEntries() started");
+        LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Batch update of [" + glPendingEntries.size() + "] glpes");
+
         // we need batch insert for gl pending entry
         getJdbcTemplate().batchUpdate("INSERT INTO GL_PENDING_ENTRY_T " + " (FS_ORIGIN_CD,FDOC_NBR,TRN_ENTR_SEQ_NBR,OBJ_ID,VER_NBR,FIN_COA_CD,ACCOUNT_NBR,SUB_ACCT_NBR,FIN_OBJECT_CD,FIN_SUB_OBJ_CD,FIN_BALANCE_TYP_CD,FIN_OBJ_TYP_CD,UNIV_FISCAL_YR,UNIV_FISCAL_PRD_CD,TRN_LDGR_ENTR_DESC,TRN_LDGR_ENTR_AMT,TRN_DEBIT_CRDT_CD,TRANSACTION_DT,FDOC_TYP_CD,ORG_DOC_NBR,PROJECT_CD,ORG_REFERENCE_ID,FDOC_REF_TYP_CD,FS_REF_ORIGIN_CD,FDOC_REF_NBR,FDOC_REVERSAL_DT,TRN_ENCUM_UPDT_CD,FDOC_APPROVED_CD,ACCT_SF_FINOBJ_CD,TRNENTR_PROCESS_TM) VALUES " + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new BatchPreparedStatementSetter() {
 
@@ -172,11 +163,11 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Collection<AssetPaymentInfo> getListOfDepreciableAssetPaymentInfo(Integer fiscalYear, Integer fiscalMonth, final Calendar depreciationDate) {
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Starting to get the list of depreciable asset payment list.");
-        }
-        final List<AssetPaymentInfo> assetPaymentDetails = new ArrayList<AssetPaymentInfo>();
-        List<String> depreciationMethodList = new ArrayList<String>();
+        LOG.debug("getListOfDepreciableAssetPaymentInfo() started");
+        LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Starting to get the list of depreciable asset payment list.");
+
+        final List<AssetPaymentInfo> assetPaymentDetails = new ArrayList<>();
+        List<String> depreciationMethodList = new ArrayList<>();
         Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_STRAIGHT_LINE_CODE);
@@ -227,9 +218,8 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
             }
 
         });
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Finished getting list of [" + assetPaymentDetails.size() + "] depreciable asset payment list.");
-        }
+        LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Finished getting list of [" + assetPaymentDetails.size() + "] depreciable asset payment list.");
+
         return assetPaymentDetails;
     }
 
@@ -255,24 +245,21 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         sql = sql + "IN ('N','') OR  A0.AST_TRNFR_PMT_CD IS NULL ) AND ( A1.AST_DEPR_MTHD1_CD IS NULL OR A1.AST_DEPR_MTHD1_CD IN (" + buildINValues(depreciationMethodList) + ") ) ";
         sql = sql + "AND (A1.CPTL_AST_DEPR_DT IS NOT NULL AND A1.CPTL_AST_DEPR_DT <= ? AND A1.CPTL_AST_DEPR_DT <> ?) AND  ";
         sql = sql + "(A1.AST_RETIR_FSCL_YR IS NULL OR A1.AST_RETIR_PRD_CD IS NULL OR A1.AST_RETIR_FSCL_YR > " + fiscalYear + " OR (A1.AST_RETIR_FSCL_YR = " + fiscalYear + " AND A1.AST_RETIR_PRD_CD > " + fiscalMonth + ")) ";
-        
+
         String fiscalPeriodColumn = "AST_PRD";
         if (fiscalMonth >= 1 && fiscalMonth <= 9) {
             fiscalPeriodColumn += fiscalMonth + "_DEPR1_AMT";
-        }
-        else if (fiscalMonth >= 10 && fiscalMonth <= 12) {
+        } else if (fiscalMonth >= 10 && fiscalMonth <= 12) {
             fiscalPeriodColumn += fiscalMonth + "DEPR1_AMT";
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Fiscal month " + fiscalMonth + " must be between 1 and 12.");
         }
         sql = sql + "AND (" + fiscalPeriodColumn + " = 0 OR " + fiscalPeriodColumn + " IS NULL) ";
-        
+
         sql = sql + "AND A1.AST_INVN_STAT_CD NOT IN (" + buildINValues(notAcceptedAssetStatus) + ")AND A2.CPTLAST_DEPRLF_LMT > 0 ";
         if (includeFederal) {
             sql = sql + "AND A3.FIN_OBJ_SUB_TYP_CD IN (" + buildINValues(federallyOwnedObjectSubTypes) + ")";
-        }
-        else {
+        } else {
             sql = sql + "AND A3.FIN_OBJ_SUB_TYP_CD NOT IN (" + buildINValues(federallyOwnedObjectSubTypes) + ")";
         }
         if (!includePending) {
@@ -289,8 +276,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Integer getFullyDepreciatedAssetCount() {
-        int count = getJdbcTemplate().queryForInt("SELECT COUNT(1) FROM CM_CPTLAST_T AST, (SELECT CPTLAST_NBR, (SUM(AST_DEPR1_BASE_AMT - AST_ACUM_DEPR1_AMT) - (SELECT 0.0+CPTLAST_SALVAG_AMT FROM CM_CPTLAST_T X WHERE X.CPTLAST_NBR = Y.CPTLAST_NBR)) BAL FROM CM_AST_PAYMENT_T Y WHERE AST_DEPR1_BASE_AMT IS NOT NULL AND AST_DEPR1_BASE_AMT <> 0.0 AND AST_ACUM_DEPR1_AMT IS NOT NULL AND AST_ACUM_DEPR1_AMT <> 0.0 AND (AST_TRNFR_PMT_CD = 'N' OR AST_TRNFR_PMT_CD = '' OR AST_TRNFR_PMT_CD IS NULL) GROUP BY CPTLAST_NBR) PMT WHERE PMT.BAL = 0.0 AND AST.CPTLAST_NBR = PMT.CPTLAST_NBR");
-        return count;
+        LOG.debug("getFullyDepreciatedAssetCount() started");
+
+        return getJdbcTemplate().queryForInt("SELECT COUNT(1) FROM CM_CPTLAST_T AST, (SELECT CPTLAST_NBR, (SUM(AST_DEPR1_BASE_AMT - AST_ACUM_DEPR1_AMT) - (SELECT 0.0+CPTLAST_SALVAG_AMT FROM CM_CPTLAST_T X WHERE X.CPTLAST_NBR = Y.CPTLAST_NBR)) BAL FROM CM_AST_PAYMENT_T Y WHERE AST_DEPR1_BASE_AMT IS NOT NULL AND AST_DEPR1_BASE_AMT <> 0.0 AND AST_ACUM_DEPR1_AMT IS NOT NULL AND AST_ACUM_DEPR1_AMT <> 0.0 AND (AST_TRNFR_PMT_CD = 'N' OR AST_TRNFR_PMT_CD = '' OR AST_TRNFR_PMT_CD IS NULL) GROUP BY CPTLAST_NBR) PMT WHERE PMT.BAL = 0.0 AND AST.CPTLAST_NBR = PMT.CPTLAST_NBR");
     }
 
     /**
@@ -299,6 +287,8 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Object[] getAssetAndPaymentCount(Integer fiscalYear, Integer fiscalMonth, final Calendar depreciationDate, boolean includePending) {
+        LOG.debug("getAssetAndPaymentCount() started");
+
         final Object[] data = new Object[2];
         List<String> depreciationMethodList = new ArrayList<String>();
         Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES);
@@ -327,8 +317,10 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Object[] getFederallyOwnedAssetAndPaymentCount(Integer fiscalYear, Integer fiscalMonth, final Calendar depreciationDate) {
+        LOG.debug("getFederallyOwnedAssetAndPaymentCount() started");
+
         final Object[] data = new Object[2];
-        List<String> depreciationMethodList = new ArrayList<String>();
+        List<String> depreciationMethodList = new ArrayList<>();
         Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_STRAIGHT_LINE_CODE);
@@ -354,7 +346,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV() {
-        final Map<Long, KualiDecimal> amountMap = new HashMap<Long, KualiDecimal>();
+        LOG.debug("getPrimaryDepreciationBaseAmountForSV() started");
+
+        final Map<Long, KualiDecimal> amountMap = new HashMap<>();
         getJdbcTemplate().query("SELECT PMT.CPTLAST_NBR, SUM(PMT.AST_DEPR1_BASE_AMT) FROM CM_CPTLAST_T AST, CM_AST_PAYMENT_T PMT WHERE AST.CPTLAST_NBR = PMT.CPTLAST_NBR AND AST.AST_DEPR_MTHD1_CD = '" + CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE + "' GROUP BY PMT.CPTLAST_NBR", new ResultSetExtractor() {
 
             @Override
@@ -368,13 +362,15 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         });
         return amountMap;
     }
-    
+
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getAssetsWithNoDepreciation()
      */
     @Override
     public Set<Long> getAssetsWithNoDepreciation() {
-        final Set<Long> assets = new HashSet<Long>();
+        LOG.debug("getAssetsWithNoDepreciation() started");
+
+        final Set<Long> assets = new HashSet<>();
         getJdbcTemplate().query("SELECT PMT.CPTLAST_NBR FROM CM_CPTLAST_T AST, CM_AST_PAYMENT_T PMT WHERE AST.CPTLAST_NBR = PMT.CPTLAST_NBR  GROUP BY PMT.CPTLAST_NBR HAVING SUM(ABS(COALESCE(PMT.AST_ACUM_DEPR1_AMT,0))) = 0", new ResultSetExtractor() {
             @Override
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -392,6 +388,8 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Integer getTransferDocLockedAssetCount() {
+        LOG.debug("getTransferDocLockedAssetCount() started");
+
         return getJdbcTemplate().queryForInt("select count(1) from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd ='" + KFSConstants.DocumentStatusCodes.ENROUTE + "'");
     }
 
@@ -400,6 +398,8 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Integer getRetireDocLockedAssetCount() {
+        LOG.debug("getRetireDocLockedAssetCount() started");
+
         return getJdbcTemplate().queryForInt("select count(1) from CM_AST_RETIRE_DTL_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd  ='" + KFSConstants.DocumentStatusCodes.ENROUTE + "'");
     }
 
@@ -408,7 +408,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public Set<Long> getLockedAssets() {
-        final Set<Long> assets = new HashSet<Long>();
+        LOG.debug("getLockedAssets() started");
+
+        final Set<Long> assets = new HashSet<>();
         getJdbcTemplate().query("select t.cptlast_nbr from CM_AST_RETIRE_DTL_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd = '" + KFSConstants.DocumentStatusCodes.ENROUTE + "' union select t.cptlast_nbr from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd = '" + KFSConstants.DocumentStatusCodes.ENROUTE + "'", new ResultSetExtractor() {
             @Override
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -436,82 +438,6 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         return returnValue.substring(0, returnValue.lastIndexOf(','));
     }
 
-    // CSU 6702 BEGIN
-    /**
-     * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getListOfDepreciableAssetPaymentInfoYearEnd(java.lang.Integer, java.lang.Integer, java.util.Calendar, boolean)
-     */
-    @Override
-    public Collection<AssetPaymentInfo> getListOfDepreciableAssetPaymentInfoYearEnd(Integer fiscalYear, Integer fiscalMonth, Calendar depreciationDate, boolean includeRetired) {
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Starting to get the list of depreciable asset payment list.");
-        }
-        final List<AssetPaymentInfo> assetPaymentDetails = new ArrayList<AssetPaymentInfo>();
-        List<String> depreciationMethodList = new ArrayList<String>();
-        depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE);
-        depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_STRAIGHT_LINE_CODE);
-        Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES);
-        Collection<String> federallyOwnedObjectSubTypes = getFederallyOwnedObjectSubTypes();
-        String sql = "SELECT A0.CPTLAST_NBR,A0.AST_PMT_SEQ_NBR,A1.CPTL_AST_DEPR_DT,A1.AST_DEPR_MTHD1_CD,A1.CPTLAST_SALVAG_AMT,";
-        sql = sql + "A2.CPTLAST_DEPRLF_LMT,A5.ORG_PLNT_COA_CD,A5.ORG_PLNT_ACCT_NBR,A5.CMP_PLNT_COA_CD,A5.CMP_PLNT_ACCT_NBR,A3.FIN_OBJ_TYP_CD, ";
-        sql = sql + "A3.FIN_OBJ_SUB_TYP_CD, A0.AST_DEPR1_BASE_AMT,A0.FIN_OBJECT_CD, A0.AST_ACUM_DEPR1_AMT,A0.SUB_ACCT_NBR,A0.FIN_SUB_OBJ_CD,A0.PROJECT_CD, A0.FIN_COA_CD, A0.AST_PRD12DEPR1_AMT";
-        sql = sql + buildCriteriaYearEnd(fiscalYear, fiscalMonth, depreciationMethodList, notAcceptedAssetStatus, federallyOwnedObjectSubTypes, false, false, includeRetired);
-        sql = sql + "ORDER BY A0.CPTLAST_NBR, A0.FS_ORIGIN_CD, A0.ACCOUNT_NBR, A0.SUB_ACCT_NBR, A0.FIN_OBJECT_CD, A0.FIN_SUB_OBJ_CD, A3.FIN_OBJ_TYP_CD, A0.PROJECT_CD";
-        if ( LOG.isDebugEnabled() ) {
-            LOG.debug("\n\nsql = " + sql+"\n\n");
-        }
-        getJdbcTemplate().query(sql, preparedStatementSetter(depreciationDate), new ResultSetExtractor() {
-            @Override
-            public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-                int counter = 0;
-                while (rs != null && rs.next()) {
-                    counter++;
-                    if ( LOG.isInfoEnabled() ) {
-                        if (counter % 10000 == 0) {
-                            LOG.info("Reading result row at " + new java.util.Date() + " -  " + counter);
-                        }
-                    }
-                    AssetPaymentInfo assetPaymentInfo = new AssetPaymentInfo();
-                    assetPaymentInfo.setCapitalAssetNumber(rs.getLong(1));
-                    assetPaymentInfo.setPaymentSequenceNumber(rs.getInt(2));
-                    assetPaymentInfo.setDepreciationDate(rs.getDate(3));
-                    String deprMethod = rs.getString(4);
-                    assetPaymentInfo.setPrimaryDepreciationMethodCode(deprMethod == null ? CamsConstants.Asset.DEPRECIATION_METHOD_STRAIGHT_LINE_CODE : deprMethod);
-                    BigDecimal salvage = rs.getBigDecimal(5);
-                    assetPaymentInfo.setSalvageAmount(salvage == null ? KualiDecimal.ZERO : new KualiDecimal(salvage));
-                    assetPaymentInfo.setDepreciableLifeLimit(rs.getInt(6));
-                    assetPaymentInfo.setOrganizationPlantChartCode(rs.getString(7));
-                    assetPaymentInfo.setOrganizationPlantAccountNumber(rs.getString(8));
-                    assetPaymentInfo.setCampusPlantChartCode(rs.getString(9));
-                    assetPaymentInfo.setCampusPlantAccountNumber(rs.getString(10));
-                    assetPaymentInfo.setFinancialObjectTypeCode(rs.getString(11));
-                    assetPaymentInfo.setFinancialObjectSubTypeCode(rs.getString(12));
-
-                    BigDecimal primaryDeprAmt = rs.getBigDecimal(13);
-                    assetPaymentInfo.setPrimaryDepreciationBaseAmount(primaryDeprAmt == null ? KualiDecimal.ZERO : new KualiDecimal(primaryDeprAmt));
-                    assetPaymentInfo.setFinancialObjectCode(rs.getString(14));
-                    BigDecimal accumDeprAmt = rs.getBigDecimal(15);
-                    assetPaymentInfo.setAccumulatedPrimaryDepreciationAmount(accumDeprAmt == null ? KualiDecimal.ZERO : new KualiDecimal(accumDeprAmt));
-                    assetPaymentInfo.setSubAccountNumber(rs.getString(16));
-                    assetPaymentInfo.setFinancialSubObjectCode(rs.getString(17));
-                    assetPaymentInfo.setProjectCode(rs.getString(18));
-                    assetPaymentInfo.setChartOfAccountsCode(rs.getString(19));
-
-                    assetPaymentDetails.add(assetPaymentInfo);
-                }
-                return assetPaymentDetails;
-            }
-
-        });
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Finished getting list of [" + assetPaymentDetails.size() + "] depreciable asset payment list.");
-        }
-        return assetPaymentDetails;
-    }
-
-    public void setParameterService(ParameterService parameterService) {
-        this.parameterService = parameterService;
-    }
-
     /**
      * This method the value of the system parameter NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES
      *
@@ -527,42 +453,6 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         }
         return federallyOwnedObjectSubTypes;
     }
-
-
-    protected String buildCriteriaYearEnd(Integer fiscalYear, Integer fiscalMonth, Collection<String> depreciationMethodList, Collection<String> notAcceptedAssetStatus, Collection<String> federallyOwnedObjectSubTypes, boolean includeFederal, boolean includePending, boolean includeRetired) {
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info("fiscalYear = " + fiscalYear);
-        }
-
-        String sql = "  FROM CM_AST_PAYMENT_T A0 INNER JOIN CM_CPTLAST_T A1 ON A0.CPTLAST_NBR=A1.CPTLAST_NBR INNER JOIN ";
-        sql = sql + "CM_ASSET_TYPE_T A2 ON A1.CPTLAST_TYP_CD=A2.CPTLAST_TYP_CD INNER JOIN CA_OBJECT_CODE_T A3 ON " + fiscalYear + "=A3.UNIV_FISCAL_YR ";
-        sql = sql + "AND A0.FIN_COA_CD=A3.FIN_COA_CD AND A0.FIN_OBJECT_CD=A3.FIN_OBJECT_CD INNER JOIN CA_ACCOUNT_T A4 ON A0.FIN_COA_CD=A4.FIN_COA_CD ";
-        sql = sql + "AND A0.ACCOUNT_NBR=A4.ACCOUNT_NBR INNER JOIN CA_ORG_T A5 ON A4.FIN_COA_CD=A5.FIN_COA_CD AND A4.ORG_CD=A5.ORG_CD ";
-        sql = sql + "WHERE (A0.AST_DEPR1_BASE_AMT IS NOT NULL  AND  A0.AST_DEPR1_BASE_AMT <> 0) AND  (A0.AST_TRNFR_PMT_CD ";
-        sql = sql + "IN ('N','') OR  A0.AST_TRNFR_PMT_CD IS NULL ) AND ( A1.AST_DEPR_MTHD1_CD IS NULL OR A1.AST_DEPR_MTHD1_CD IN (" + buildINValues(depreciationMethodList) + ") ) ";
-        sql = sql + "AND (A1.CPTL_AST_DEPR_DT IS NOT NULL AND A1.CPTL_AST_DEPR_DT <= ? AND A1.CPTL_AST_DEPR_DT <> ?) ";
-        sql = sql + "AND COALESCE(AST_RETIRE_REAS_CD,'x') <> 'M'";
-        sql = sql + "AND COALESCE(AST_PRD12DEPR1_AMT,0) = 0 ";
-        if (!includeRetired) {
-            sql = sql + "AND  (A1.AST_RETIR_FSCL_YR IS NULL OR A1.AST_RETIR_PRD_CD IS NULL OR A1.AST_RETIR_FSCL_YR > " + fiscalYear + " OR (A1.AST_RETIR_FSCL_YR = " + fiscalYear + " AND A1.AST_RETIR_PRD_CD > " + fiscalMonth + ")) ";
-        }
-        sql = sql + "AND A1.AST_INVN_STAT_CD NOT IN (" + buildINValues(notAcceptedAssetStatus) + ")AND A2.CPTLAST_DEPRLF_LMT > 0 ";
-        if (includeFederal) {
-            sql = sql + "AND A3.FIN_OBJ_SUB_TYP_CD IN (" + buildINValues(federallyOwnedObjectSubTypes) + ")";
-        } else {
-            sql = sql + "AND A3.FIN_OBJ_SUB_TYP_CD NOT IN (" + buildINValues(federallyOwnedObjectSubTypes) + ")";
-        }
-        sql = sql + " AND EXISTS (SELECT 1 FROM CM_FSCL_YR_END_DEPR_DTL_T FYT WHERE A0.CPTLAST_NBR = FYT.CPTLAST_NBR AND ";
-        sql = sql + " FYT.UNIV_FISCAL_YR = " + fiscalYear + " AND FYT.YEAR_END_DEPR_DTL_ACTV_IND IN ('Y')  AND YEAR_END_DEPR_DTL_PROC_IND IN ('N',''))";
-
-        if (!includePending) {
-            sql = sql + " AND NOT EXISTS (SELECT 1 FROM CM_AST_TRNFR_DOC_T TRFR, FS_DOC_HEADER_T HDR WHERE HDR.FDOC_NBR = TRFR.FDOC_NBR AND ";
-            sql = sql + " HDR.FDOC_STATUS_CD = '" + KFSConstants.DocumentStatusCodes.ENROUTE + "' AND TRFR.CPTLAST_NBR = A0.CPTLAST_NBR) ";
-        }
-        return sql;
-    }
-    // CSU 6702 END
-
     /**
      * Depreciation (end of year) Period 13 assets incorrect depreciation start date.
      *
@@ -570,6 +460,8 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public List<Map<String, Object>> getAssetsByDepreciationConvention(Date lastFiscalYearDate, List<String> movableEquipmentObjectSubTypes, String depreciationConventionCd) {
+        LOG.debug("getAssetsByDepreciationConvention() started");
+
         String sql = "SELECT A0.CPTLAST_NBR FROM CM_CPTLAST_T A0, CM_AST_DEPR_CNVNTN_T A1, CM_ASSET_TYPE_T A2 WHERE A0.CPTLAST_CRT_DT > ? AND A0.FIN_OBJ_SUB_TYP_CD IN (" + buildINValues(movableEquipmentObjectSubTypes) + ")" + " AND A0.FIN_OBJ_SUB_TYP_CD = A1.FIN_OBJ_SUB_TYPE_CD AND A1.CPTL_AST_DEPR_CNVNTN_CD = ? AND A2.CPTLAST_TYP_CD=A0.CPTLAST_TYP_CD AND A0.CPTLAST_TYP_CD IS NOT NULL AND A2.CPTLAST_DEPRLF_LMT IS NOT NULL AND A2.CPTLAST_DEPRLF_LMT != 0";
         return getJdbcTemplate().queryForList(sql, new Object[] {lastFiscalYearDate, depreciationConventionCd});
     }
@@ -579,6 +471,8 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      */
     @Override
     public void updateAssetInServiceAndDepreciationDate(List<String>selectedAssets, final Date inServiceDate, final Date depreciationDate) {
+        LOG.debug("updateAssetInServiceAndDepreciationDate() started");
+
         final AccountingPeriod acctPeriod = SpringContext.getBean(AccountingPeriodService.class).getByDate(inServiceDate);
         getJdbcTemplate().update("UPDATE CM_CPTLAST_T SET CPTL_AST_IN_SRVC_DT=?, CPTL_AST_DEPR_DT=?, FDOC_POST_PRD_CD=? , FDOC_POST_YR=? WHERE CPTLAST_NBR IN (" + buildINValues(selectedAssets) + ")", new PreparedStatementSetter() {
             @Override
@@ -595,8 +489,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         this.universityDateDao = universityDateDao;
     }
 
-    public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
-        this.kualiConfigurationService = kualiConfigurationService;
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
     }
-
 }

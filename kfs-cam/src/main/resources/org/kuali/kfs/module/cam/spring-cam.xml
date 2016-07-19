@@ -66,7 +66,6 @@
 		<property name="jobNames">
 			<list>
 				<value>assetDepreciationBatchJob</value>
-				<value>assetYearEndDepreciationBatchJob</value>
 				<value>resetAssetDepreciationForFiscalYearJob</value>
 			</list>
 		</property>
@@ -167,15 +166,14 @@
 			<ref bean="depreciationBatchDao" />
 		</property>
 	</bean>
+
 	<bean id="depreciationBatchDao" parent="platformAwareDaoJdbc" class="org.kuali.kfs.module.cam.document.dataaccess.impl.DepreciationBatchDaoJdbc">
 		<property name="universityDateDao">
 			<ref bean="universityDateDao" />
 		</property>
-		<!-- CSU 6702 BEGIN -->
 		<property name="parameterService">
             <ref bean="parameterService" />
         </property>
-		<!-- CSU 6702 END -->
 	</bean>
 
 	<bean id="resetAssetDepreciationForFiscalYearStep" class="org.kuali.kfs.module.cam.batch.ResetAssetDepreciationForFiscalYearStep" parent="step">
@@ -198,14 +196,6 @@
 		</property>
 	</bean>
 
-	<!-- CSU 6702 BEGIN -->
-    <bean id="assetYearEndDepreciationStep" class="org.kuali.kfs.module.cam.batch.AssetYearEndDepreciationStep" parent="step">
-        <property name="assetDepreciationService">
-            <ref bean="assetDepreciationService"/>
-        </property>
-    </bean>
-    <!-- CSU 6702 END -->
-
 	<bean id="assetDepreciationBatchJob" parent="scheduledJobDescriptor">
 		<property name="steps">
 			<list>
@@ -213,17 +203,6 @@
 			</list>
 		</property>
 	</bean>
-
-	<!-- CSU 6702 BEGIN -->
-	<bean id="assetYearEndDepreciationBatchJob" parent="unscheduledJobDescriptor">
-        <property name="steps">
-            <list>
-                <ref bean="assetYearEndDepreciationStep"/>
-            </list>
-        </property>
-    </bean>
-    <!-- CSU 6702 END -->
-
 
 <!-- *********  End of depreciation batch beans ********** -->
 
@@ -241,7 +220,6 @@
             <ref bean="assetStatusLookupableHelperService" />
         </property>
     </bean>
-
 
 	<bean id="assetLookupableHelperService" scope="prototype" parent="assetLookupableHelperService-parentBean"/>
     <bean id="assetLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService">
@@ -270,7 +248,6 @@
             <ref bean="assetPaymentLookupableHelperService" />
         </property>
     </bean>
-
 
     <bean id="assetRetirementReasonLookupableHelperService" scope="prototype" parent="assetRetirementReasonLookupableHelperService-parentBean" />
     <bean id="assetRetirementReasonLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.cam.businessobject.lookup.AssetRetirementReasonLookupableHelperServiceImpl" scope="prototype" parent="cf.lookupableHelperService" />
