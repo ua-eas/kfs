@@ -66,8 +66,12 @@ let NavigationConfig = React.createClass({
             let itemHeight = item.height();
             let itemBottom = itemLocation + itemHeight;
 
-            // Figure out how far down the bottom of the links list is
             let subListItem = $('#sub-item-list .admin-sublinks.active');
+
+            // Reset margin so that calculations are accurate (in case it has already been offset)
+            subListItem.css('margin-top', '0px');
+
+            // Figure out how far down the bottom of the links list is
             let subListItemLocation =  subListItem.offset().top;
             let subListItemHeight = subListItem.height();
             let subListItemBottom = subListItemLocation + subListItemHeight;
