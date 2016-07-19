@@ -118,13 +118,18 @@ let MenuConfig = React.createClass({
         } else {
             saveButtonText = "SAVE CHANGES";
         }
+
+        let mainClassName = 'menu-config main';
+        if (this.state.addNew) {
+            mainClassName += ' add-new';
+        }
         return (
             <div>
                 <div className="headerarea-small" id="headerarea-small">
                     <h1><span className="glyphicon glyphicon-cog"></span>Menu Configuration</h1>
                 </div>
 
-                <div className="menu-config main">
+                <div className={mainClassName}>
                     <MenuItemList menu={this.state.menu}
                                   editing={this.state.editing}
                                   deleting={this.state.deleting}
