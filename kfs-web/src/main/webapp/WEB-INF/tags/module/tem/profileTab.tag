@@ -23,9 +23,6 @@
 	<div class="tab-container" align="center">
 		<table width="100%" cellpadding="0" cellspacing="0" class="datatable">
 			<tr>
-				<td colspan="2" class="tab-subhead">&nbsp;</td>
-			</tr>
-			<tr>
 				<th class="bord-l-b">
 					<div align="right">
 						<kul:htmlAttributeLabel attributeEntry="${profileAttributes.travelerTypeCode}" />
@@ -99,7 +96,7 @@
 				<td class="datacell" width="50%">${KualiForm.document.temProfile.dateOfBirth }</td>
 			</tr>
 			<tr>
-				<td colspan="2" class="tab-subhead">Default Accounting</td>
+				<td colspan="2" class="tab-subhead"><h3>Default Accounting</h3></td>
 			</tr>
 			<tr>
 				<th class="bord-l-b">
@@ -134,7 +131,7 @@
 				<td class="datacell" width="50%">${KualiForm.document.temProfile.defaultProjectCode }</td>
 			</tr>
 			<tr>
-				<td colspan="2" class="tab-subhead">Billing Info</td>
+				<td colspan="2" class="tab-subhead"><h3>Billing Info</h3></td>
 			</tr>
 			<tr>
 				<th class="bord-l-b">

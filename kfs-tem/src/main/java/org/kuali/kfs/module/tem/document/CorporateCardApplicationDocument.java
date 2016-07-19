@@ -37,8 +37,8 @@ import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
 
-public class TemCorporateCardApplicationDocument extends CardApplicationDocumentBase implements CardApplicationDocument {
-    protected static Logger LOG = Logger.getLogger(TemCorporateCardApplicationDocument.class);
+public class CorporateCardApplicationDocument extends CardApplicationDocumentBase implements CardApplicationDocument {
+    protected static Logger LOG = Logger.getLogger(CorporateCardApplicationDocument.class);
 
     private String pseudoNumber;
     private boolean departmentHeadAgreement;
@@ -66,7 +66,7 @@ public class TemCorporateCardApplicationDocument extends CardApplicationDocument
 
     @Override
     public void applyToBank() {
-        boolean generateNumber = getParameterService().getParameterValueAsBoolean(TemCorporateCardApplicationDocument.class, TemConstants.GENERATE_CREDIT_CARD_NUMBER_IND);
+        boolean generateNumber = getParameterService().getParameterValueAsBoolean(CorporateCardApplicationDocument.class, TemConstants.GENERATE_CREDIT_CARD_NUMBER_IND);
         if (generateNumber){
             Long number = getSequenceAccessorService().getNextAvailableSequenceNumber(TemConstants.TEM_CORP_CARD_PSEUDO_NUM_SEQ_NAME);
             String pseudoNumberStr = zeroBuffer(number);
@@ -90,7 +90,7 @@ public class TemCorporateCardApplicationDocument extends CardApplicationDocument
             profileAccount.setAccountNumber(this.getPseudoNumber());
             Date now = new Date();
             profileAccount.setEffectiveDate(new java.sql.Date(now.getTime()));
-            String code = getParameterService().getParameterValueAsString(TemCorporateCardApplicationDocument.class, TemConstants.CORPORATE_CARD_CODE);
+            String code = getParameterService().getParameterValueAsString(CorporateCardApplicationDocument.class, TemConstants.CORPORATE_CARD_CODE);
             Map<String, String> fieldValues = new HashMap<String, String>();
             fieldValues.put(TemPropertyConstants.CREDIT_CARD_AGENCY_CODE, code);
             List<CreditCardAgency> creditCardAgencyList = (List<CreditCardAgency>) getBusinessObjectService().findMatching(CreditCardAgency.class, fieldValues);

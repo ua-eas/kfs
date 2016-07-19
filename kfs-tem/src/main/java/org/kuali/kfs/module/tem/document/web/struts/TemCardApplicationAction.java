@@ -18,24 +18,23 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemWorkflowConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TemProfileAccount;
 import org.kuali.kfs.module.tem.document.CardApplicationDocument;
-import org.kuali.kfs.module.tem.document.TemCorporateCardApplicationDocument;
+import org.kuali.kfs.module.tem.document.CorporateCardApplicationDocument;
 import org.kuali.kfs.module.tem.document.service.TravelDocumentService;
 import org.kuali.kfs.module.tem.service.TemProfileService;
 import org.kuali.kfs.sys.KFSConstants;
@@ -48,10 +47,10 @@ import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.document.attribute.DocumentAttributeIndexingQueue;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Properties;
 
 public class TemCardApplicationAction extends FinancialSystemTransactionalDocumentActionBase {
 
@@ -93,8 +92,8 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
         TemCardApplicationForm applicationForm = (TemCardApplicationForm)form;
         CardApplicationDocument document = (CardApplicationDocument) applicationForm.getDocument();
         if (document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TemWorkflowConstants.RouteNodeNames.FISCAL_OFFICER_REVIEW)){
-            if (document instanceof TemCorporateCardApplicationDocument){
-                if (!((TemCorporateCardApplicationDocument)document).isDepartmentHeadAgreement()){
+            if (document instanceof CorporateCardApplicationDocument){
+                if (!((CorporateCardApplicationDocument)document).isDepartmentHeadAgreement()){
                     GlobalVariables.getMessageMap().putError("departmentHeadAgreement", TemKeyConstants.ERROR_TEM_CARD_APP_NO_AGREEMENT, "Department Head");
                 }
             }

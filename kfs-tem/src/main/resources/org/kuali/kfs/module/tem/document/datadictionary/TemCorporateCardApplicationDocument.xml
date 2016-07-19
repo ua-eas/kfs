@@ -25,7 +25,7 @@
 	<bean id="TemCorporateCardApplicationDocument" parent="TemCorporateCardApplicationDocument-parentBean" />
 	<bean id="TemCorporateCardApplicationDocument-parentBean" abstract="true" parent="TransactionalDocumentEntry">
 		<property name="documentTypeName" value="CCAP" />
-		<property name="documentClass" value="org.kuali.kfs.module.tem.document.TemCorporateCardApplicationDocument" />
+		<property name="documentClass" value="org.kuali.kfs.module.tem.document.CorporateCardApplicationDocument" />
 		<property name="sessionDocument" value="true" />
 		<property name="documentPresentationControllerClass" value="org.kuali.kfs.module.tem.document.authorization.CardApplicationDocumentPresentationController" />
 		<property name="documentAuthorizerClass" value="org.kuali.kfs.module.tem.document.authorization.CardApplicationDocumentAuthorizer"/>
@@ -87,7 +87,7 @@
     
 	<bean id="TemCorporateCardApplicationDocument-workflowAttributes" parent="TemCorporateCardApplicationDocument-workflowAttributes-parentBean"/>
     <bean id="TemCorporateCardApplicationDocument-workflowAttributes-parentBean" abstract="true" parent="TemCardApplicationDocument-workflowAttributes">
-    	<property name="businessObjectClassName" value="org.kuali.kfs.module.tem.document.TemCorporateCardApplicationDocument" />
+    	<property name="businessObjectClassName" value="org.kuali.kfs.module.tem.document.CorporateCardApplicationDocument" />
     </bean>
 
 </beans>

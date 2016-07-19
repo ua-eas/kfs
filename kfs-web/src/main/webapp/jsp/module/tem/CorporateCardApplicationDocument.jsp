@@ -19,15 +19,14 @@
 
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
-<c:set var="documentAttributes"	value="${DataDictionary.TemCorporateCardApplicationDocument.attributes}" />
+<c:set var="documentAttributes"	value="${DataDictionary.CorporateCardApplicationDocument.attributes}" />
 
-<c:set var="documentTypeName" value="TemCorporateCardApplicationDocument"/>
 <c:set var="canEdit" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT]}" scope="request" />
 
 <c:set var="fullEntryMode" value="${KualiForm.editingMode['fullEntry']}" scope="request" />
 <c:set var="documentTitle" value="" />
 <kul:documentPage showDocumentInfo="true"
-    documentTypeName="TemCorporateCardApplicationDocument"
+    documentTypeName="CorporateCardApplicationDocument"
     htmlFormAction="temCorporateCardApplication" renderMultipart="true"
     showTabButtons="true">
     <sys:documentOverview editingMode="${KualiForm.editingMode}" />
