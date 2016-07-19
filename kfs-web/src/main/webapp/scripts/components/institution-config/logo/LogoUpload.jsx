@@ -110,7 +110,7 @@ let LogoUpload = React.createClass({
                     <div className="instructions">
                         If you would like to brand Kuali Financials for your institution, we recommend that you upload
                         an image that contains your institution's insignia (left) and name (right). We require that the
-                        image you upload be at least 70 pixels tall and have a transparent background.
+                        image you upload be at least 70 pixels tall, be no larger than 100kb, and have a transparent background. 
                     </div>
 
                     <div className="dropzone">
