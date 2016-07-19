@@ -29,12 +29,6 @@ public interface AssetDepreciationService {
      */
     void runDepreciation();
 
-
-    /**
-     * This method runs depreciation process
-     */
-    void runYearEndDepreciation(Integer fiscalYearToDepreciate);
-
     /**
      * Sets depreciation batch dao implementation
      *
