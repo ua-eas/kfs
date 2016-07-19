@@ -36,7 +36,8 @@ let NavigationConfig = React.createClass({
             expandedLinkGroup: undefined,
             topGroupSelected: false,
             hasChanges: false,
-            saveButtonText: 'SAVE CHANGES'
+            saveButtonText: 'SAVE CHANGES',
+            loading: true
         };
     },
     componentWillMount() {
@@ -49,10 +50,12 @@ let NavigationConfig = React.createClass({
             success: function(preferences) {
                 this.setState({
                     linkGroups: Immutable.fromJS(preferences.linkGroups),
-                    institutionId: preferences.institutionId
+                    institutionId: preferences.institutionId,
+                    loading: false
                 });
             }.bind(this),
             error: function(xhr, status, err) {
+                this.setState({ loading: false });
                 console.error(status, err.toString());
             }.bind(this)
         });
@@ -224,6 +227,14 @@ let NavigationConfig = React.createClass({
         });
     },
     render() {
+        let navLoader;
+        if (this.state.loading) {
+            $('#content-overlay').addClass('visible');
+            navLoader = <div id="inst-config-loader"><span className="waiting-icon glyphicon glyphicon-hourglass"></span></div>
+        } else {
+            $('#content-overlay').removeClass('visible');
+        }
+
         let saveDisabled;
         let saveButtonClass = 'btn btn-green';
         let saveButtonText = this.state.saveButtonText;
@@ -235,6 +246,7 @@ let NavigationConfig = React.createClass({
         }
         return (
             <div>
+                {navLoader}
                 <div className="headerarea-small" id="headerarea-small">
                     <h1><span className="glyphicon glyphicon-cog"></span>Navigation Configuration</h1>
                 </div>
