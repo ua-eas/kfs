@@ -120,7 +120,7 @@ let MenuConfig = React.createClass({
         }
 
         let mainClassName = 'menu-config main';
-        if (this.state.addNew) {
+        if (this.state.addNew || this.state.editing) {
             mainClassName += ' add-new';
         }
         return (
