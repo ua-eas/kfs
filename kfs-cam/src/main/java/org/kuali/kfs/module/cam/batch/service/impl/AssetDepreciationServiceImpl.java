@@ -66,6 +66,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -483,18 +485,36 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     remainingAmount = remainingAmount.subtract((primaryDepreciationBaseAmount.divide(deprAmountSum)).multiply(assetPaymentInfo.getSalvageAmount()));
                 }
 
+                BigDecimal remainingAmountPrecise = remainingAmount.bigDecimalValue().setScale(KualiDecimal.SCALE+3);
+                BigDecimal transactionAmountPrecise = BigDecimal.ZERO.setScale(KualiDecimal.SCALE+3);
+
                 // If this is the last depreciation run in the asset's life then depreciate the remaining amount:
                 if (depreciationPeriod >= assetLifeInMonths - ageAtPeriodStart) {
                     transactionAmount = remainingAmount;
+                    transactionAmountPrecise = transactionAmount.bigDecimalValue();
                 }
                 // For first-time calculation, perform catch up as necssary.
                 else if (needToCatchUp) {
                     transactionAmount = remainingAmount.multiply(new KualiDecimal(ageAtPeriodEnd)).divide(new KualiDecimal(assetLifeInMonths));
+                    transactionAmountPrecise = remainingAmountPrecise.multiply(new BigDecimal(ageAtPeriodEnd)).divide(new BigDecimal(assetLifeInMonths), RoundingMode.HALF_UP);
                 }
                 // Otherwise prorate the depreciation over the remaining life:
                 else {
                     transactionAmount = remainingAmount.multiply(new KualiDecimal(depreciationPeriod)).divide(new KualiDecimal((assetLifeInMonths - ageAtPeriodStart)));
+                    transactionAmountPrecise = remainingAmountPrecise.multiply(new BigDecimal(depreciationPeriod)).divide(new BigDecimal((assetLifeInMonths - ageAtPeriodStart)), RoundingMode.HALF_UP);
                 }
+                BigDecimal currentRoundingError = transactionAmount.bigDecimalValue().subtract(transactionAmountPrecise);
+                Integer currentRoundingErrorMillicents = currentRoundingError.multiply(new BigDecimal(Math.pow(10, transactionAmountPrecise.scale()))).intValue();
+
+                Integer accumulatedRoundingErrorMillicents = currentRoundingErrorMillicents + assetPaymentInfo.getAccumulatedRoundingErrorInMillicents();
+                if (accumulatedRoundingErrorMillicents >= 500) {
+                    transactionAmount = transactionAmount.subtract(new KualiDecimal(0.01));
+                    accumulatedRoundingErrorMillicents = accumulatedRoundingErrorMillicents - 1000;
+                } else if (accumulatedRoundingErrorMillicents <= -500) {
+                    transactionAmount = transactionAmount.add(new KualiDecimal(0.01));
+                    accumulatedRoundingErrorMillicents = accumulatedRoundingErrorMillicents + 1000;
+                }
+
                 // Calculating new accumulated depreciation amount
                 KualiDecimal accumulatedDepreciationAmount = priorAccumulatedAmount.add(transactionAmount);
 
@@ -522,6 +542,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                 LOG.debug("Asset#: " + assetNumber + " - Payment sequence#:" + assetPaymentInfo.getPaymentSequenceNumber() + " - Asset Depreciation date:" + assetDepreciationDate + " - Life:" + assetLifeInMonths + " - Depreciation base amt:" + primaryDepreciationBaseAmount + " - Accumulated depreciation:" + priorAccumulatedAmount + " - Month Elapsed:" + ageAtPeriodStart + " - Calculated accum depreciation:" + accumulatedDepreciationAmount + " - Depreciation amount:" + transactionAmount.toString() + " - Depreciation Method:" + assetPaymentInfo.getPrimaryDepreciationMethodCode());
                 assetPaymentInfo.setAccumulatedPrimaryDepreciationAmount(accumulatedDepreciationAmount);
                 assetPaymentInfo.setTransactionAmount(transactionAmount);
+                assetPaymentInfo.setAccumulatedRoundingErrorInMillicents(accumulatedRoundingErrorMillicents);
                 counter++;
                 saveList.add(assetPaymentInfo);
                 // Saving depreciation amount in the asset payment table

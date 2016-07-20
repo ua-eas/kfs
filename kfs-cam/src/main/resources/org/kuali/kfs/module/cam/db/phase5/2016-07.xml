@@ -25,4 +25,15 @@
         <dropTable tableName="CM_FSCL_YR_END_DEPR_DTL_T"/>
         <dropTable tableName="CM_FSCL_YR_END_DEPR_HDR_T"/>
     </changeSet>
+    <changeSet author="KFS601" id="FINP-590_ADD_ROUNDING_ADJUSTMENT_BUCKET" context="bootstrap,demo,unit">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="CM_AST_PAYMENT_T" columnName="ACCUM_RNDNG_ERR_MILLICENTS"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="CM_AST_PAYMENT_T">
+            <column name="ACCUM_RNDNG_ERR_MILLICENTS" type="DECIMAL(3)" defaultValueNumeric="0"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -86,7 +86,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         LOG.debug("updateAssetPayments() started");
         LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Batch updating [" + assetPayments.size() + "] payments");
 
-        getJdbcTemplate().batchUpdate("UPDATE CM_AST_PAYMENT_T SET AST_ACUM_DEPR1_AMT=? , AST_PRD" + fiscalMonth + (fiscalMonth < 10 ? "_" : "") + "DEPR1_AMT = ? WHERE CPTLAST_NBR = ? AND AST_PMT_SEQ_NBR = ? ", new BatchPreparedStatementSetter() {
+        getJdbcTemplate().batchUpdate("UPDATE CM_AST_PAYMENT_T SET AST_ACUM_DEPR1_AMT=? , AST_PRD" + fiscalMonth + (fiscalMonth < 10 ? "_" : "") + "DEPR1_AMT = ?, ACCUM_RNDNG_ERR_MILLICENTS = ? WHERE CPTLAST_NBR = ? AND AST_PMT_SEQ_NBR = ? ", new BatchPreparedStatementSetter() {
 
             @Override
             public int getBatchSize() {
@@ -97,8 +97,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
             public void setValues(PreparedStatement pstmt, int index) throws SQLException {
                 pstmt.setBigDecimal(1, assetPayments.get(index).getAccumulatedPrimaryDepreciationAmount().bigDecimalValue());
                 pstmt.setBigDecimal(2, assetPayments.get(index).getTransactionAmount().bigDecimalValue());
-                pstmt.setLong(3, assetPayments.get(index).getCapitalAssetNumber());
-                pstmt.setInt(4, assetPayments.get(index).getPaymentSequenceNumber());
+                pstmt.setInt(3, assetPayments.get(index).getAccumulatedRoundingErrorInMillicents());
+                pstmt.setLong(4, assetPayments.get(index).getCapitalAssetNumber());
+                pstmt.setInt(5, assetPayments.get(index).getPaymentSequenceNumber());
             }
         });
     }
@@ -174,7 +175,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         Collection<String> federallyOwnedObjectSubTypes = getFederallyOwnedObjectSubTypes();
         String sql = "SELECT A0.CPTLAST_NBR,A0.AST_PMT_SEQ_NBR,A1.CPTL_AST_DEPR_DT,A1.AST_DEPR_MTHD1_CD,A1.CPTLAST_SALVAG_AMT,";
         sql = sql + "A2.CPTLAST_DEPRLF_LMT,A5.ORG_PLNT_COA_CD,A5.ORG_PLNT_ACCT_NBR,A5.CMP_PLNT_COA_CD,A5.CMP_PLNT_ACCT_NBR,A3.FIN_OBJ_TYP_CD, ";
-        sql = sql + "A3.FIN_OBJ_SUB_TYP_CD, A0.AST_DEPR1_BASE_AMT,A0.FIN_OBJECT_CD, A0.AST_ACUM_DEPR1_AMT,A0.SUB_ACCT_NBR,A0.FIN_SUB_OBJ_CD,A0.PROJECT_CD, A0.FIN_COA_CD";
+        sql = sql + "A3.FIN_OBJ_SUB_TYP_CD, A0.AST_DEPR1_BASE_AMT,A0.FIN_OBJECT_CD, A0.AST_ACUM_DEPR1_AMT,A0.SUB_ACCT_NBR,A0.FIN_SUB_OBJ_CD,A0.PROJECT_CD, A0.FIN_COA_CD, A0.ACCUM_RNDNG_ERR_MILLICENTS";
         sql = sql + buildCriteria(fiscalYear, fiscalMonth, depreciationMethodList, notAcceptedAssetStatus, federallyOwnedObjectSubTypes, false, false);
         sql = sql + "ORDER BY A0.CPTLAST_NBR, A0.FS_ORIGIN_CD, A0.ACCOUNT_NBR, A0.SUB_ACCT_NBR, A0.FIN_OBJECT_CD, A0.FIN_SUB_OBJ_CD, A3.FIN_OBJ_TYP_CD, A0.PROJECT_CD";
         getJdbcTemplate().query(sql, preparedStatementSetter(depreciationDate), new ResultSetExtractor() {
@@ -211,6 +212,8 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
                     assetPaymentInfo.setFinancialSubObjectCode(rs.getString(17));
                     assetPaymentInfo.setProjectCode(rs.getString(18));
                     assetPaymentInfo.setChartOfAccountsCode(rs.getString(19));
+
+                    assetPaymentInfo.setAccumulatedRoundingErrorInMillicents(rs.getInt(20));
 
                     assetPaymentDetails.add(assetPaymentInfo);
                 }

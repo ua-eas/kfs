@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.cam.batch;
 
-import java.sql.Date;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.sql.Date;
 
 /**
  * Value Object (not OJB aware) class to bring information required by Depreciation Job this avoid unnecessary calls to DB for
@@ -47,6 +47,7 @@ public class AssetPaymentInfo {
     private String financialSubObjectCode;
     private String projectCode;
     private String chartOfAccountsCode;
+    private Integer accumulatedRoundingErrorInMillicents;
 
     private KualiDecimal transactionAmount;
 
@@ -411,5 +412,11 @@ public class AssetPaymentInfo {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
 
+    public Integer getAccumulatedRoundingErrorInMillicents() {
+        return accumulatedRoundingErrorInMillicents;
+    }
 
+    public void setAccumulatedRoundingErrorInMillicents(Integer accumulatedRoundingErrorInMillicents) {
+        this.accumulatedRoundingErrorInMillicents = accumulatedRoundingErrorInMillicents;
+    }
 }

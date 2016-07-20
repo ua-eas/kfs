@@ -81,6 +81,7 @@ public class AssetPayment extends PersistableBusinessObjectBase {
     private KualiDecimal period10Depreciation1Amount;
     private KualiDecimal period11Depreciation1Amount;
     private KualiDecimal period12Depreciation1Amount;
+    private Integer accumulatedRoundingErrorInMillicents = 0;
     private String transferPaymentCode;
 
     private Asset asset;
@@ -891,6 +892,13 @@ public class AssetPayment extends PersistableBusinessObjectBase {
         this.period12Depreciation1Amount = period12Depreciation1Amount;
     }
 
+    public Integer getAccumulatedRoundingErrorInMillicents() {
+        return accumulatedRoundingErrorInMillicents;
+    }
+
+    public void setAccumulatedRoundingErrorInMillicents(Integer accumulatedRoundingErrorInMillicents) {
+        this.accumulatedRoundingErrorInMillicents = accumulatedRoundingErrorInMillicents;
+    }
 
     /**
      * Gets the transferPaymentCode attribute.

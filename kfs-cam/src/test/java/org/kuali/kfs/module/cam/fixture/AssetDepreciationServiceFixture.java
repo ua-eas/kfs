@@ -18,6 +18,15 @@
  */
 package org.kuali.kfs.module.cam.fixture;
 
+import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
+import org.kuali.kfs.module.cam.businessobject.Asset;
+import org.kuali.kfs.module.cam.businessobject.AssetObjectCode;
+import org.kuali.kfs.module.cam.businessobject.AssetPayment;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.businessobject.UniversityDate;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,15 +39,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
-import org.kuali.kfs.module.cam.businessobject.Asset;
-import org.kuali.kfs.module.cam.businessobject.AssetObjectCode;
-import org.kuali.kfs.module.cam.businessobject.AssetPayment;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 // @Transactional
 
@@ -62,14 +62,10 @@ public enum AssetDepreciationServiceFixture {
     static String ASSET = "asset";
     static String ASSET_PAYMENT = "assetPayment";
     static String DEPRECIATION_DATE = "depreciationDate";
-    static String YEAR_END_DEPRECIATION_DATE = "yearEndDepreciationDate";
     static String FIELD_NAMES = "fieldNames";
     static String NUM_OF_REC = "numOfRecords";
     static String DELIMINATOR = "deliminator";
     static String RESULT = "result";
-    static String YTD_RESULT = "ytdResult";
-    static String YTD_ASSET = "ytdAsset";
-    static String YTD_ASSET_PAYMENT = "ytdAssetPayment";
 
     private AssetDepreciationServiceFixture() {
     }
@@ -93,25 +89,13 @@ public enum AssetDepreciationServiceFixture {
     public List<Asset> getAssets() {
         return (getObjects(Asset.class, ASSET));
     }
-    
-    public List<Asset> getYtdAssets() {
-        return (getObjects(Asset.class, YTD_ASSET));
-    }
-    
+
     public List<AssetPayment> getAssetPaymentsFromPropertiesFile() {
         return getObjects(AssetPayment.class, ASSET_PAYMENT);
-    }
-    
-    public List<AssetPayment> getYtdAssetPaymentsFromPropertiesFile() {
-        return getObjects(AssetPayment.class, YTD_ASSET_PAYMENT);
     }
 
     public List<AssetPaymentInfo> getResultsFromPropertiesFile() {
         return getObjects(AssetPaymentInfo.class, RESULT);
-    }
-    
-    public List<AssetPaymentInfo> getYtdResultsFromPropertiesFile() {
-        return getObjects(AssetPaymentInfo.class, YTD_RESULT);
     }
 
     public String getDepreciationDateString() {
@@ -121,15 +105,6 @@ public enum AssetDepreciationServiceFixture {
     public Date getDepreciationDate() throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.parse(getDepreciationDateString());
-    }
-    
-    public String getYearEndDepreciationDateString() {
-        return properties.getProperty(YEAR_END_DEPRECIATION_DATE);
-    }
-    
-    public Date getYearEndDepreciationDate() throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.parse(getYearEndDepreciationDateString());
     }
 
     public SystemOptions getSystemOptions() {
@@ -144,23 +119,10 @@ public enum AssetDepreciationServiceFixture {
         result.setUniversityFiscalAccountingPeriod("1");
         return result;
     }
-    
-    public UniversityDate getYearEndUniversityDate() {
-        UniversityDate result = new UniversityDate();
-        result.setUniversityFiscalYear(2010);
-        result.setUniversityFiscalAccountingPeriod("12");
-        return result;
-    }
 
     public List<AssetPaymentInfo> getAssetPaymentInfo() {
         List<Asset> assets = getAssets();
         List<AssetPayment> assetPayments = getAssetPaymentsFromPropertiesFile();
-        return getAssetPaymentInfo(assets, assetPayments);
-    }
-    
-    public List<AssetPaymentInfo> getYtdAssetPaymentInfo() {
-        List<Asset> assets = getYtdAssets();
-        List<AssetPayment> assetPayments = getYtdAssetPaymentsFromPropertiesFile();
         return getAssetPaymentInfo(assets, assetPayments);
     }
 
@@ -204,6 +166,7 @@ public enum AssetDepreciationServiceFixture {
             info.setCampusPlantAccountNumber("9520000");
             info.setCampusPlantChartCode("BL");
             info.setFinancialObjectTypeCode("EE");
+            info.setAccumulatedRoundingErrorInMillicents(payment.getAccumulatedRoundingErrorInMillicents());
             
             result.add(info);
         }      
@@ -213,12 +176,6 @@ public enum AssetDepreciationServiceFixture {
     public Map<Long, KualiDecimal> getPrimaryDepreciationBaseAmountForSV() {        
         List<Asset> assets = getAssets();
         List<AssetPayment> assetPayments = getAssetPaymentsFromPropertiesFile();
-        return getPrimaryDepreciationBaseAmountForSV(assets, assetPayments);
-    }
-    
-    public Map<Long, KualiDecimal> getYtdPrimaryDepreciationBaseAmountForSV() {        
-        List<Asset> assets = getYtdAssets();
-        List<AssetPayment> assetPayments = getYtdAssetPaymentsFromPropertiesFile();
         return getPrimaryDepreciationBaseAmountForSV(assets, assetPayments);
     }
 

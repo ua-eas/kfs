@@ -338,6 +338,10 @@ public class AssetDepreciationServiceTest {
                if (!resultMustGet.getTransactionAmount().equals(depreciatedAsset.getTransactionAmount())) {
                    return false;
                }
+
+               if (!resultMustGet.getAccumulatedRoundingErrorInMillicents().equals(depreciatedAsset.getAccumulatedRoundingErrorInMillicents())) {
+                   return false;
+               }
             }
         return true;
     }
