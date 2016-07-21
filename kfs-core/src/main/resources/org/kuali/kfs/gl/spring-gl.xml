@@ -1470,6 +1470,7 @@
 		<property name="dependencies">
 			<map>
 				<entry key="posterJob" value="hardDependency" />
+				<entry key="detectDocumentsMissingPLEsJob" value="hardDependency" />
 			</map>
 		</property>
 	</bean>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Abstract JDBC DAO implementation, to make it easier to get both GL and LL pending entries
@@ -41,6 +42,14 @@ public abstract class DetectDocumentsMissingPendingEntriesDaoJdbc extends Platfo
                     final String documentTypeName = resultSet.getString("fdoc_typ_nm");
                     return new DocumentHeaderData(documentNumber, documentTypeName);
                 });
+    }
+
+    public Optional<String> getCustomerPaymentMediumCodeFromCashControlDocument(String documentNumber) {
+        List<String> results = getJdbcTemplate().query("select CUST_PMT_MEDIUM_CD from AR_CSH_CTRL_T where FDOC_NBR = ?",
+                new Object[] { documentNumber },
+                (resultSet, i) -> resultSet.getString("CUST_PMT_MEDIUM_CD"));
+
+        return results.stream().findFirst();
     }
 
     protected String buildQuery(List<String> documentTypesToSearch) {

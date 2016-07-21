@@ -27,6 +27,8 @@ import java.util.stream.Collectors;
 public class DetectDocumentsMissingPendingEntriesServiceImpl implements DetectDocumentsMissingPendingEntriesService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DetectDocumentsMissingPendingEntriesServiceImpl.class);
 
+    public static final String PAYMENT_MEDIUM_CODE_CHECK = "CK";
+
     protected ParameterService parameterService;
     protected DetectDocumentsMissingPendingEntriesDao detectDocumentsMissingPendingEntriesDao;
     protected MailService mailService;
@@ -35,16 +37,12 @@ public class DetectDocumentsMissingPendingEntriesServiceImpl implements DetectDo
     @Override
     public List<DocumentHeaderData> discoverGeneralLedgerDocumentsWithoutPendingEntries(java.util.Date earliestProcessingDate) {
         LOG.debug("Running discoverLedgerDocumentsWithoutPendingEntries");
-        return detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(earliestProcessingDate, getSearchByDocumentTypes());
-    }
+        List<DocumentHeaderData> docs = detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(earliestProcessingDate, getSearchByDocumentTypes());
 
-    protected List<String> getSearchByDocumentTypes() {
-        List<String> searchByDocumentTypes = new ArrayList<>();
-        final Collection<String> parameterDocumentTypesValues = parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSParameterKeyConstants.DetectDocumentsMissingPendingEntriesConstants.LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES);
-        if (!CollectionUtils.isEmpty(parameterDocumentTypesValues)) {
-            searchByDocumentTypes.addAll(parameterDocumentTypesValues);
-        }
-        return searchByDocumentTypes;
+        // Deal with exceptions before returning
+        return docs.stream()
+                .filter(this::includeCtrlDocument)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -56,6 +54,34 @@ public class DetectDocumentsMissingPendingEntriesServiceImpl implements DetectDo
         } else {
             emailDocumentHeaders(documentHeaders, notificationEmailAddresses);
         }
+    }
+
+    /**
+     * AR Cash Control documents do not create GLPEs unless the payment medium code is check.
+     *
+     * @param doc
+     * @return
+     */
+    protected boolean includeCtrlDocument(DocumentHeaderData doc) {
+        if (! "CTRL".equals(doc.getWorkflowDocumentTypeName())) {
+            return true;
+        }
+
+        return detectDocumentsMissingPendingEntriesDao.getCustomerPaymentMediumCodeFromCashControlDocument(doc.getDocumentNumber())
+                .map(code -> PAYMENT_MEDIUM_CODE_CHECK.equals(code))
+                .orElseThrow(() -> {
+                    LOG.error("includeCtrlDocument() " + doc.getDocumentNumber() + " is not a CTRL document");
+                    return new RuntimeException(doc.getDocumentNumber() + " is not a CTRL document");
+                });
+    }
+
+    protected List<String> getSearchByDocumentTypes() {
+        List<String> searchByDocumentTypes = new ArrayList<>();
+        final Collection<String> parameterDocumentTypesValues = parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSParameterKeyConstants.DetectDocumentsMissingPendingEntriesConstants.LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES);
+        if (!CollectionUtils.isEmpty(parameterDocumentTypesValues)) {
+            searchByDocumentTypes.addAll(parameterDocumentTypesValues);
+        }
+        return searchByDocumentTypes;
     }
 
     protected void logDocumentHeaders(List<DocumentHeaderData> documentHeaders) {
