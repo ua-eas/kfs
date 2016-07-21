@@ -655,10 +655,6 @@ public class DisbursementVoucherAction extends KualiAccountingDocumentActionBase
         Set<String> documentActions =  documentPresentationController.getDocumentActions(document);
         documentActions = documentAuthorizer.getDocumentActions(document, user, documentActions);
 
-        if (getDataDictionaryService().getDataDictionary().getDocumentEntry(document.getClass().getName()).getUsePessimisticLocking()) {
-            documentActions = getPessimisticLockService().getDocumentActions(document, user, documentActions);
-        }
-
         Set<String> editModes = documentPresentationController.getEditModes(document);
         editModes = documentAuthorizer.getEditModes(document, user, editModes);
 

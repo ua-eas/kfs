@@ -57,7 +57,6 @@ public class KRADServiceLocatorWeb {
     public static final String FEEDBACK_REPORT_SERVICE = "kradFeedbackService";
     public static final String DATA_DICTIONARY_SERVICE = "cf.dataDictionaryService";
     public static final String DOCUMENT_HEADER_SERVICE = "cf.documentHeaderService";
-    public static final String PESSIMISTIC_LOCK_SERVICE = "cf.pessimisticLockService";
     public static final String PERSISTENCE_SERVICE_OJB = "cf.persistenceServiceOjb";
     public static final String KUALI_MODULE_SERVICE = "cf.kualiModuleService";
     public static final String KUALI_RULE_SERVICE = "cf.kualiRuleService";
@@ -112,10 +111,6 @@ public class KRADServiceLocatorWeb {
 
     public static DocumentHeaderService getDocumentHeaderService() {
         return getService(DOCUMENT_HEADER_SERVICE);
-    }
-
-    public static PessimisticLockService getPessimisticLockService() {
-        return getService(PESSIMISTIC_LOCK_SERVICE);
     }
 
     public static Lookupable getLookupable(String lookupableName) {

@@ -66,7 +66,6 @@ public class KRADPersistableBusinessObjectClassExposer implements
 		knsBOs.add(PersistableAttachmentBase.class.getName());
 		knsBOs.add(PersistableBusinessObjectBase.class.getName());
 		knsBOs.add(PersistableBusinessObjectExtensionBase.class.getName());
-		knsBOs.add(PessimisticLock.class.getName());
 		knsBOs.add(SelectedObjectIds.class.getName());
 		knsBOs.add(org.kuali.rice.location.impl.country.CountryBo.class.getName());
 		knsBOs.add(org.kuali.rice.kns.bo.CountyImpl.class.getName());

@@ -18,7 +18,6 @@
  */
 package org.kuali.kfs.krad.maintenance;
 
-import org.kuali.kfs.krad.service.PessimisticLockService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.DocumentHeader;
@@ -177,29 +176,6 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
      * @return List<String> list of document ids
      */
     public List<String> getWorkflowEngineDocumentIdsToLock();
-
-    /**
-     * Indicates whether or not this maintainable supports custom lock
-     * descriptors for pessimistic locking.
-     *
-     * @return boolean true if the maintainable can generate custom lock descriptors,
-     *         false otherwise
-     * @see #getCustomLockDescriptor(Map, org.kuali.rice.kim.api.identity.Person)
-     */
-    public boolean useCustomLockDescriptors();
-
-    /**
-     * Generates a custom lock descriptor for pessimistic locking. This method
-     * should not be called unless {@link #useCustomLockDescriptors()} returns
-     * true
-     *
-     * @param user - the user trying to establish the lock
-     * @return String representing the lock descriptor
-     * @see #useCustomLockDescriptors()
-     * @see PessimisticLockService
-     * @see org.kuali.rice.krad.service.impl.PessimisticLockServiceImpl
-     */
-    public String getCustomLockDescriptor(Person user);
 
     /**
      * Indicates whether this maintainable supports notes on the maintenance object

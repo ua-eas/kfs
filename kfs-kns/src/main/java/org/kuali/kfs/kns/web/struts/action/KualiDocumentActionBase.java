@@ -81,7 +81,6 @@ import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.document.authorization.PessimisticLock;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.exception.DocumentAuthorizationException;
 import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
@@ -97,7 +96,6 @@ import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.service.PessimisticLockService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
@@ -145,7 +143,6 @@ public class KualiDocumentActionBase extends KualiAction {
     private DocumentService documentService;
     private ConfigurationService kualiConfigurationService;
     private ParameterService parameterService;
-    private PessimisticLockService pessimisticLockService;
     private KualiRuleService kualiRuleService;
     private GroupService groupService;
     private AttachmentService attachmentService;
@@ -217,129 +214,58 @@ public class KualiDocumentActionBase extends KualiAction {
             formBase.setDocId(document.getDocumentNumber());
             //End of KULRICE-2210 fix
 
-            // check to see if document is a pessimistic lock document
-            if (isFormRepresentingLockObject(formBase)) {
-                // form represents a document using the BO class PessimisticLock so we need to skip the authorizations in the next logic check
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("Form " + formBase + " represents a PessimisticLock BO object");
-                }
-            } else {
-                // populates authorization-related fields in KualiDocumentFormBase instances, which are derived from
-                // information which is contained in the form but which may be unavailable until this point
-                //DocumentAuthorizer documentAuthorizer = KRADServiceLocatorInternal.getDocumentAuthorizationService().getDocumentAuthorizer(document);
-                //formBase.populateAuthorizationFields(documentAuthorizer);
-                populateAuthorizationFields(formBase);
-                populateAdHocActionRequestCodes(formBase);
+            // populates authorization-related fields in KualiDocumentFormBase instances, which are derived from
+            // information which is contained in the form but which may be unavailable until this point
+            //DocumentAuthorizer documentAuthorizer = KRADServiceLocatorInternal.getDocumentAuthorizationService().getDocumentAuthorizer(document);
+            //formBase.populateAuthorizationFields(documentAuthorizer);
+            populateAuthorizationFields(formBase);
+            populateAdHocActionRequestCodes(formBase);
 
-                //set the formBase into userSession if the document is a session document
-                UserSession userSession = (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
+            //set the formBase into userSession if the document is a session document
+            UserSession userSession = (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
 
-                if (WebUtils.isDocumentSession(document, formBase)) {
-                    String formKey = formBase.getFormKey();
-                    if (StringUtils.isBlank(formBase.getFormKey()) || userSession.retrieveObject(formBase.getFormKey()) == null) {
-                        // generate doc form key here if it does not exist
-                        formKey = GlobalVariables.getUserSession().addObjectWithGeneratedKey(form);
-                        formBase.setFormKey(formKey);
-                    }
-                }
-
-
-                // below used by KualiHttpSessionListener to handle lock expiration
-                request.getSession().setAttribute(KRADConstants.DOCUMENT_HTTP_SESSION_KEY, document.getDocumentNumber());
-                // set returnToActionList flag, if needed
-                if ("displayActionListView".equals(formBase.getCommand())) {
-                    formBase.setReturnToActionList(true);
-                }
-
-                String attachmentEnabled =
-                        getKualiConfigurationService().getPropertyValueAsString(KRADConstants.NOTE_ATTACHMENT_ENABLED);
-                // Override the document entry
-                if (attachmentEnabled != null) {
-                    // This is a hack for KULRICE-1602 since the document entry is modified by a
-                    // global configuration that overrides the document templates without some sort
-                    // of rules or control
-                    //DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
-                    DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
-
-                    DocumentEntry entry = (DocumentEntry) dataDictionary.getDocumentEntry(document.getClass().getName());
-                    entry.setAllowsNoteAttachments(Boolean.parseBoolean(attachmentEnabled));
-                }
-                //the request attribute will be used in KualiRequestProcess#processActionPerform
-                if (exitingDocument()) {
-                    request.setAttribute(KRADConstants.EXITING_DOCUMENT, Boolean.TRUE);
-                }
-
-                // pessimistic locking
-                String methodCalledViaDispatch = (String) GlobalVariables.getUserSession().retrieveObject(DocumentAuthorizerBase.USER_SESSION_METHOD_TO_CALL_OBJECT_KEY);
-                if ((StringUtils.isNotBlank(methodCalledViaDispatch)) && (exitingDocument())) {
-                    GlobalVariables.getUserSession().removeObject(DocumentAuthorizerBase.USER_SESSION_METHOD_TO_CALL_COMPLETE_OBJECT_KEY);
-                    attemptLockRelease(document, methodCalledViaDispatch);
-                }
-                setupPessimisticLockMessages(document, request);
-                if (!document.getPessimisticLocks().isEmpty()) {
-                    String warningMinutes = getParameterService().getParameterValueAsString(KRADConstants.KNS_NAMESPACE, KRADConstants.DetailTypes.DOCUMENT_DETAIL_TYPE, KRADConstants.SESSION_TIMEOUT_WARNING_MESSAGE_TIME_PARM_NM);
-                    request.setAttribute(KRADConstants.SESSION_TIMEOUT_WARNING_MINUTES, warningMinutes);
-                    request.setAttribute(KRADConstants.SESSION_TIMEOUT_WARNING_MILLISECONDS, (request.getSession().getMaxInactiveInterval() - (Integer.valueOf(warningMinutes) * 60)) * 1000);
+            if (WebUtils.isDocumentSession(document, formBase)) {
+                String formKey = formBase.getFormKey();
+                if (StringUtils.isBlank(formBase.getFormKey()) || userSession.retrieveObject(formBase.getFormKey()) == null) {
+                    // generate doc form key here if it does not exist
+                    formKey = GlobalVariables.getUserSession().addObjectWithGeneratedKey(form);
+                    formBase.setFormKey(formKey);
                 }
             }
+
+
+            // below used by KualiHttpSessionListener to handle lock expiration
+            request.getSession().setAttribute(KRADConstants.DOCUMENT_HTTP_SESSION_KEY, document.getDocumentNumber());
+            // set returnToActionList flag, if needed
+            if ("displayActionListView".equals(formBase.getCommand())) {
+                formBase.setReturnToActionList(true);
+            }
+
+            String attachmentEnabled =
+                    getKualiConfigurationService().getPropertyValueAsString(KRADConstants.NOTE_ATTACHMENT_ENABLED);
+            // Override the document entry
+            if (attachmentEnabled != null) {
+                // This is a hack for KULRICE-1602 since the document entry is modified by a
+                // global configuration that overrides the document templates without some sort
+                // of rules or control
+                //DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
+                DataDictionary dataDictionary = getDataDictionaryService().getDataDictionary();
+
+                DocumentEntry entry = (DocumentEntry) dataDictionary.getDocumentEntry(document.getClass().getName());
+                entry.setAllowsNoteAttachments(Boolean.parseBoolean(attachmentEnabled));
+            }
+            //the request attribute will be used in KualiRequestProcess#processActionPerform
+            if (exitingDocument()) {
+                request.setAttribute(KRADConstants.EXITING_DOCUMENT, Boolean.TRUE);
+            }
+
             // Pull in the pending action requests for the document and attach them to the form
             List<ActionRequest> actionRequests = KewApiServiceLocator.getWorkflowDocumentService().getPendingActionRequests(formBase.getDocId());
             formBase.setActionRequests(actionRequests);
         }
-
-
-        
+       
         return returnForward;
     }
-
-    protected boolean isFormRepresentingLockObject(KualiDocumentFormBase form) throws Exception {
-        if (form instanceof KualiMaintenanceForm) {
-            KualiMaintenanceForm maintForm = (KualiMaintenanceForm) form;
-            if (ObjectUtils.isNotNull(maintForm.getBusinessObjectClassName())) {
-                return PessimisticLock.class.isAssignableFrom(Class.forName(((KualiMaintenanceForm) form).getBusinessObjectClassName()));
-            }
-        }
-        return false;
-    }
-
-    protected void attemptLockRelease(Document document, String methodToCall) {
-        if ((document != null) && (!document.getPessimisticLocks().isEmpty())) {
-            releaseLocks(document, methodToCall);
-            // refresh pessimistic locks in case custom add/remove changes were made
-            document.refreshPessimisticLocks();
-        }
-    }
-
-    protected void releaseLocks(Document document, String methodToCall) {
-        // first check if the method to call is listed as required lock clearing
-        if (document.getLockClearningMethodNames().contains(methodToCall)) {
-            // find all locks for the current user and remove them
-            getPessimisticLockService().releaseAllLocksForUser(document.getPessimisticLocks(), GlobalVariables.getUserSession().getPerson());
-        }
-    }
-
-    protected void setupPessimisticLockMessages(Document document, HttpServletRequest request) {
-        List<String> lockMessages = new ArrayList<String>();
-        for (PessimisticLock lock : document.getPessimisticLocks()) {
-            // if lock is owned by current user, do not display message for it
-            if (!lock.isOwnedByUser(GlobalVariables.getUserSession().getPerson())) {
-                lockMessages.add(generatePessimisticLockMessage(lock));
-            }
-        }
-        request.setAttribute(KRADConstants.PESSIMISTIC_LOCK_MESSAGES, lockMessages);
-    }
-
-    protected String generatePessimisticLockMessage(PessimisticLock lock) {
-        String descriptor = (lock.getLockDescriptor() != null) ? lock.getLockDescriptor() : "";
-        // TODO: this should be pulled into a properties file
-        return "This document currently has a " + descriptor + " lock owned by " + lock.getOwnedByUser().getName() + " as of " + RiceConstants.getDefaultTimeFormat().format(lock.getGeneratedTimestamp()) + " on " + RiceConstants.getDefaultDateFormat().format(lock.getGeneratedTimestamp());
-    }
-
-//    private void saveMessages(HttpServletRequest request) {
-//        if (!GlobalVariables.getMessageList().isEmpty()) {
-//            request.setAttribute(KRADConstants.GLOBAL_MESSAGES, GlobalVariables.getMessageList());
-//        }
-//    }
 
     /**
      * This method may be used to funnel all document handling through, we could do useful things like log and record various
@@ -708,26 +634,6 @@ public class KualiDocumentActionBase extends KualiAction {
 
         // return null to indicate processing should continue (no redirect)
         return null;
-    }
-
-    /**
-     * This method will verify that the form is representing a {@link PessimisticLock} object and delete it if possible
-     *
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return ActionForward
-     * @throws Exception
-     */
-    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
-        if (isFormRepresentingLockObject(kualiDocumentFormBase)) {
-            String idValue = request.getParameter(KRADPropertyConstants.ID);
-            getPessimisticLockService().delete(idValue);
-            return returnToSender(request, mapping, kualiDocumentFormBase);
-        }
-        throw buildAuthorizationException(KRADConstants.DELETE_METHOD, kualiDocumentFormBase.getDocument());
     }
 
     /**
@@ -1750,14 +1656,7 @@ public class KualiDocumentActionBase extends KualiAction {
             DocumentAuthorizer documentAuthorizer = getDocumentHelperService().getDocumentAuthorizer(document);
             Set<String> documentActions = documentPresentationController.getDocumentActions(document);
             documentActions = documentAuthorizer.getDocumentActions(document, user, documentActions);
-
-            if (getDataDictionaryService().getDataDictionary().getDocumentEntry(document.getClass().getName()).getUsePessimisticLocking()) {
-                documentActions = getPessimisticLockService().getDocumentActions(document, user, documentActions);
-            }
-
-            //DocumentActionFlags flags = new DocumentActionFlags();
             formBase.setDocumentActions(convertSetToMap(documentActions));
-
         }
     }
 
@@ -1833,13 +1732,6 @@ public class KualiDocumentActionBase extends KualiAction {
             parameterService = CoreFrameworkServiceLocator.getParameterService();
         }
         return this.parameterService;
-    }
-
-    protected PessimisticLockService getPessimisticLockService() {
-        if (pessimisticLockService == null) {
-            pessimisticLockService = KRADServiceLocatorWeb.getPessimisticLockService();
-        }
-        return this.pessimisticLockService;
     }
 
     protected KualiRuleService getKualiRuleService() {

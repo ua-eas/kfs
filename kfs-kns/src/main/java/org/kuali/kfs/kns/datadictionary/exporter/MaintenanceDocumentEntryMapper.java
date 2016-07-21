@@ -82,9 +82,6 @@ public class MaintenanceDocumentEntryMapper extends DocumentEntryMapper {
         }
 
         entryMap.set("displayTopicFieldInNotes", Boolean.toString(entry.getDisplayTopicFieldInNotes()));
-
-        entryMap.set("usePessimisticLocking", Boolean.toString(entry.getUsePessimisticLocking()));
-        entryMap.set("useWorkflowPessimisticLocking", Boolean.toString(entry.getUseWorkflowPessimisticLocking()));
         entryMap.set("sessionDocument", Boolean.toString(entry.isSessionDocument()));
 
         entryMap.set(new AttributesMapBuilder().buildAttributesMap(entry));

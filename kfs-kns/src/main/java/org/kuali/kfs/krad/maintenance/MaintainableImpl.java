@@ -27,7 +27,6 @@ import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.exception.PessimisticLockingException;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DataObjectAuthorizationService;
 import org.kuali.kfs.krad.service.DataObjectMetaDataService;
@@ -299,32 +298,6 @@ public class MaintainableImpl extends ViewHelperServiceImpl implements Maintaina
     @Override
     public List<String> getWorkflowEngineDocumentIdsToLock() {
         return null;
-    }
-
-    /**
-     * Default implementation simply returns false to indicate that custom
-     * lock descriptors are not supported by MaintainableImpl. If custom
-     * lock descriptors are needed, the appropriate subclasses should override
-     * this method
-     *
-     * @see Maintainable#useCustomLockDescriptors
-     */
-    @Override
-    public boolean useCustomLockDescriptors() {
-        return false;
-    }
-
-    /**
-     * Default implementation just throws a PessimisticLockingException.
-     * Subclasses of MaintainableImpl that need support for custom lock
-     * descriptors should override this method
-     *
-     * @see Maintainable#getCustomLockDescriptor
-     */
-    @Override
-    public String getCustomLockDescriptor(Person user) {
-        throw new PessimisticLockingException("The Maintainable for document " + documentNumber +
-                " is using pessimistic locking with custom lock descriptors, but the Maintainable has not overridden the getCustomLockDescriptor method");
     }
 
     /**

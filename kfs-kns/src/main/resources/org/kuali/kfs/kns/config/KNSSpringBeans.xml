@@ -246,7 +246,6 @@
         <value>classpath:org/kuali/kfs/coreservice/web/parameter/ParameterType.xml</value>
         <value>classpath:org/kuali/kfs/coreservice/web/component/Component.xml</value>
         <value>classpath:org/kuali/kfs/coreservice/web/parameter/Parameter.xml</value>
-        <value>classpath:org/kuali/kfs/krad/bo/datadictionary/PessimisticLock.xml</value>
         <value>classpath:org/kuali/kfs/krad/bo/datadictionary/Note.xml</value>
         <value>classpath:org/kuali/kfs/krad/bo/datadictionary/NoteType.xml</value>
         <!--value>classpath:org/kuali/rice/core/web/cache/CacheAdmin.xml</value-->
@@ -354,43 +353,6 @@
       </bean>
     </property>
   </bean>
-
-  <bean id="cf.pessimisticLockLookupable" class="org.kuali.kfs.kns.lookup.KualiLookupableImpl" scope="prototype">
-     <property name="lookupableHelperService">
-       <ref bean="pessimisticLockLookupableHelperService"/>
-     </property>
-   </bean>
-
-   <bean id="cf.pessimisticLockLookupableHelperService"
-         class="org.kuali.kfs.kns.lookup.PessimisticLockLookupableHelperServiceImpl" scope="prototype">
-     <property name="persistenceStructureService">
-       <ref bean="cf.persistenceStructureService"/>
-     </property>
-     <property name="businessObjectDictionaryService">
-       <ref bean="cf.businessObjectDictionaryService"/>
-     </property>
-     <property name="dataDictionaryService">
-       <ref bean="cf.dataDictionaryService"/>
-     </property>
-     <property name="encryptionService">
-       <ref bean="cf.encryptionService"/>
-     </property>
-     <property name="lookupService">
-       <ref bean="cf.lookupService"/>
-     </property>
-     <property name="businessObjectMetaDataService">
-       <ref bean="cf.businessObjectMetaDataService"/>
-     </property>
-     <property name="sequenceAccessorService">
-       <ref bean="cf.sequenceAccessorService"/>
-     </property>
-     <property name="businessObjectService">
-       <ref bean="cf.businessObjectService"/>
-     </property>
-     <property name="lookupResultsService">
-       <ref bean="cf.lookupResultsService"/>
-     </property>
-   </bean>
 
    <bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
     <property name="attributes">

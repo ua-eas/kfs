@@ -18,7 +18,6 @@
  */
 package org.kuali.kfs.krad.document;
 
-import org.kuali.kfs.krad.service.PessimisticLockService;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
@@ -29,7 +28,6 @@ import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.document.authorization.PessimisticLock;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.service.DocumentSerializerService;
@@ -288,27 +286,6 @@ public interface Document extends PersistableBusinessObject {
     public boolean removeNote(Note note);
     
     /**
-     * This method gets a list of the {@link PessimisticLock} objects associated with this document
-     * 
-     */
-    public List<PessimisticLock> getPessimisticLocks();
-    
-    /**
-     * This method updates the list of {@link PessimisticLock} objects on the document if changes could
-     * have been made
-     */
-    public void refreshPessimisticLocks();
-    
-    /**
-     * This method adds a new {@link PessimisticLock} to the document
-     * 
-     * NOTE: LOCKS ADDED VIA THIS METHOD WILL NOT BE SAVED WITH THE DOCUMENT
-     * 
-     * @param lock - the lock to add to the document
-     */
-    public void addPessimisticLock(PessimisticLock lock);
-    
-    /**
      * This is a method that is used by Kuali Pessimistic Locking to get the names (method to call values)
      * of the {@link KualiDocumentActionBase} methods that should release locks
      * 
@@ -349,22 +326,4 @@ public interface Document extends PersistableBusinessObject {
      */
     public Object wrapDocumentWithMetadataForXmlSerialization();
     
-    /**
-     * This method returns whether or not this document supports custom lock descriptors for pessimistic locking.
-     * 
-     * @return True if the document can generate custom lock descriptors, false otherwise.
-     * @see #getCustomLockDescriptor(Map, Person)
-     */
-    public boolean useCustomLockDescriptors();
-    
-    /**
-     * Generates a custom lock descriptor for pessimistic locking. This method should not be called unless {@link #useCustomLockDescriptors()} returns true.
-     * 
-     * @param user The user trying to establish the lock.
-     * @return A String representing the lock descriptor.
-     * @see #useCustomLockDescriptors()
-     * @see PessimisticLockService
-     * @see org.kuali.rice.krad.service.impl.PessimisticLockServiceImpl
-     */
-    public String getCustomLockDescriptor(Person user);
 }

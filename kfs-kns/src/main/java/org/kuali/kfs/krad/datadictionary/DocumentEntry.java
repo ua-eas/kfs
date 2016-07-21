@@ -59,8 +59,6 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
     protected boolean allowsNoteFYI = false;
     protected Class<? extends KeyValuesFinder> attachmentTypesValuesFinderClass;
     protected boolean displayTopicFieldInNotes = false;
-    protected boolean usePessimisticLocking = false;
-    protected boolean useWorkflowPessimisticLocking = false;
     protected boolean encryptDocumentDataInPersistentSessionStorage = false;
 
     protected boolean allowsCopy = false;
@@ -198,46 +196,6 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
      */
     public void setDisplayTopicFieldInNotes(boolean displayTopicFieldInNotes) {
         this.displayTopicFieldInNotes = displayTopicFieldInNotes;
-    }
-
-    /**
-     * Accessor method for contained usePessimisticLocking
-     *
-     * @return usePessimisticLocking boolean
-     */
-    public boolean getUsePessimisticLocking() {
-        return this.usePessimisticLocking;
-    }
-
-    /**
-     * @param usePessimisticLocking
-     */
-    public void setUsePessimisticLocking(boolean usePessimisticLocking) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("calling setUsePessimisticLocking '" + usePessimisticLocking + "'");
-        }
-
-        this.usePessimisticLocking = usePessimisticLocking;
-    }
-
-    /**
-     * Accessor method for contained useWorkflowPessimisticLocking
-     *
-     * @return useWorkflowPessimisticLocking boolean
-     */
-    public boolean getUseWorkflowPessimisticLocking() {
-        return this.useWorkflowPessimisticLocking;
-    }
-
-    /**
-     * @param useWorkflowPessimisticLocking
-     */
-    public void setUseWorkflowPessimisticLocking(boolean useWorkflowPessimisticLocking) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("calling setuseWorkflowPessimisticLocking '" + useWorkflowPessimisticLocking + "'");
-        }
-
-        this.useWorkflowPessimisticLocking = useWorkflowPessimisticLocking;
     }
 
     /**

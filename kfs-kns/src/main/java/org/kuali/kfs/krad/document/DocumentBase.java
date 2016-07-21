@@ -38,8 +38,6 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.datadictionary.WorkflowAttributes;
 import org.kuali.kfs.krad.datadictionary.WorkflowProperties;
-import org.kuali.kfs.krad.document.authorization.PessimisticLock;
-import org.kuali.kfs.krad.exception.PessimisticLockingException;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.service.AttachmentService;
@@ -69,7 +67,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import java.util.ArrayList;
@@ -92,10 +89,6 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
 	@JoinColumn(name="DOC_HDR_ID", insertable=false, updatable=false)
     protected DocumentHeader documentHeader;    
 
-    @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="DOC_HDR_ID", insertable=false, updatable=false)
-    private List<PessimisticLock> pessimisticLocks;
-
     @Transient
     private List<AdHocRoutePerson> adHocRoutePersons;
     @Transient
@@ -114,7 +107,6 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
             // create a new document header object
             Class<? extends DocumentHeader> documentHeaderClass = KRADServiceLocatorWeb.getDocumentHeaderService().getDocumentHeaderBaseClass();
             setDocumentHeader(documentHeaderClass.newInstance());
-            pessimisticLocks = new ArrayList<PessimisticLock>();
             adHocRoutePersons = new ArrayList<AdHocRoutePerson>();
             adHocRouteWorkgroups = new ArrayList<AdHocRouteWorkgroup>();
             notes = new ArrayList<Note>();
@@ -218,11 +210,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
      * @see Document#doActionTaken(org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent)
      */
     public void doActionTaken(ActionTakenEvent event) {
-        if ( (KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(this.getClass().getName()).getUseWorkflowPessimisticLocking()) && (!getNonLockingActionTakenCodes().contains(event.getActionTaken().getActionTaken().getCode())) ) {
-            //DocumentAuthorizer documentAuthorizer = KRADServiceLocatorInternal.getDocumentAuthorizationService().getDocumentAuthorizer(this);
-            //documentAuthorizer.establishWorkflowPessimisticLocking(this);
-        	KRADServiceLocatorWeb.getPessimisticLockService().establishWorkflowPessimisticLocking(this);
-        }
+        // do nothing
     }
 
     /**
@@ -250,13 +238,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
      * @see Document#afterWorkflowEngineProcess(boolean)
      */
     public void afterWorkflowEngineProcess(boolean successfullyProcessed) {
-        if (KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(this.getClass().getName()).getUseWorkflowPessimisticLocking()) {
-            if (successfullyProcessed) {
-                //DocumentAuthorizer documentAuthorizer = KRADServiceLocatorInternal.getDocumentAuthorizationService().getDocumentAuthorizer(this);
-                //documentAuthorizer.releaseWorkflowPessimisticLocking(this);
-            	KRADServiceLocatorWeb.getPessimisticLockService().releaseWorkflowPessimisticLocking(this);
-            }
-        }
+        // do nothing
     }
 
     /**
@@ -650,41 +632,8 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     @Override
     protected void postLoad() {
         super.postLoad();
-        refreshPessimisticLocks();
     }
-    
-	/**
-     * @see Document#getPessimisticLocks()
-     */
-    public List<PessimisticLock> getPessimisticLocks() {
-        return this.pessimisticLocks;
-    }
-    
-    /**
-     * @see Document#refreshPessimisticLocks()
-     * @deprecated
-     * This is not needed with the relationship set up with JPA annotations
-     */
-    @Deprecated 
-    public void refreshPessimisticLocks() {
-        this.pessimisticLocks.clear();
-        this.pessimisticLocks = KRADServiceLocatorWeb.getPessimisticLockService().getPessimisticLocksForDocument(this.documentNumber);
-    }
-
-    /**
-     * @param pessimisticLocks the PessimisticLock objects to set
-     */
-    public void setPessimisticLocks(List<PessimisticLock> pessimisticLocks) {
-        this.pessimisticLocks = pessimisticLocks;
-    }
-    
-    /**
-     * @see Document#addPessimisticLock(PessimisticLock)
-     */
-    public void addPessimisticLock(PessimisticLock lock) {
-        this.pessimisticLocks.add(lock);
-    }
-    
+       
     /**
      * @see Document#getLockClearningMethodNames()
      */
@@ -698,27 +647,6 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
         methodToCalls.add(KRADConstants.DISAPPROVE_METHOD);
         methodToCalls.add(KRADConstants.ACKNOWLEDGE_METHOD);
         return methodToCalls;
-    }
-
-    /**
-     * This default implementation simply returns false to indicate that custom lock descriptors are not supported by DocumentBase. If custom lock
-     * descriptors are needed, the appropriate subclasses should override this method.
-     * 
-     * @see Document#useCustomLockDescriptors()
-     */
-    public boolean useCustomLockDescriptors() {
-    	return false;
-    }
-
-    /**
-     * This default implementation just throws a PessimisticLockingException. Subclasses of DocumentBase that need support for custom lock descriptors
-     * should override this method.
-     * 
-     * @see Document#getCustomLockDescriptor(org.kuali.rice.kim.api.identity.Person)
-     */
-    public String getCustomLockDescriptor(Person user) {
-    	throw new PessimisticLockingException("Document " + getDocumentNumber() +
-    			" is using pessimistic locking with custom lock descriptors, but the document class has not overriden the getCustomLockDescriptor method");
     }
     
     protected AttachmentService getAttachmentService() {

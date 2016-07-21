@@ -22,15 +22,13 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.authorization.PessimisticLock;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.GlobalVariables;
 
 import java.util.List;
 
 /**
- * This class is used to handle session timeouts where {@link PessimisticLock} objects should
- * be removed from a document 
+ * This class is used to handle session timeouts 
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  *
@@ -56,18 +54,7 @@ public class KualiHttpSessionListener implements HttpSessionListener {
      * @see javax.servlet.http.HttpSessionListener#sessionDestroyed(javax.servlet.http.HttpSessionEvent)
      */
     public void sessionDestroyed(HttpSessionEvent se) {
-        releaseLocks();
-    }
-
-    /**
-     * Remove any locks that the user has for this session
-     */
-    private void releaseLocks() {
-        String sessionId = GlobalVariables.getUserSession().getKualiSessionId();
-        List<PessimisticLock> locks = KRADServiceLocatorWeb.getPessimisticLockService().getPessimisticLocksForSession(sessionId);
-        Person user = GlobalVariables.getUserSession().getPerson();
-
-        KRADServiceLocatorWeb.getPessimisticLockService().releaseAllLocksForUser(locks, user);
+        // no operation required at this time
     }
 
 }

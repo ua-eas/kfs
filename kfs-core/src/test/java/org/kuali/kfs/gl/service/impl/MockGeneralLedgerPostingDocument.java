@@ -25,7 +25,6 @@ import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectExtension;
-import org.kuali.kfs.krad.document.authorization.PessimisticLock;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.util.NoteType;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluator;
@@ -292,21 +291,6 @@ public class MockGeneralLedgerPostingDocument implements GeneralLedgerPostingDoc
     }
 
     @Override
-    public List<PessimisticLock> getPessimisticLocks() {
-        return null;
-    }
-
-    @Override
-    public void refreshPessimisticLocks() {
-
-    }
-
-    @Override
-    public void addPessimisticLock(PessimisticLock lock) {
-
-    }
-
-    @Override
     public List<String> getLockClearningMethodNames() {
         return null;
     }
@@ -323,16 +307,6 @@ public class MockGeneralLedgerPostingDocument implements GeneralLedgerPostingDoc
 
     @Override
     public Object wrapDocumentWithMetadataForXmlSerialization() {
-        return null;
-    }
-
-    @Override
-    public boolean useCustomLockDescriptors() {
-        return false;
-    }
-
-    @Override
-    public String getCustomLockDescriptor(Person user) {
         return null;
     }
 
