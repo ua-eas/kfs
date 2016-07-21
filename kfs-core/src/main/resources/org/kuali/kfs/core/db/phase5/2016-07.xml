@@ -104,6 +104,13 @@
         <dropTable tableName="KRNS_PESSIMISTIC_LOCK_T"/>
     </changeSet>
     
+    <changeSet author="KFS601" id="FINI-2187_MODIFY_DOCTYPES_FOR_DETECT_MISSING_PLES_JOB" context="bootstrap,demo,unit">
+        <update tableName="krcr_parm_t">
+            <column name="val">CTRL;CINV;LCR;CRM;INV;INVW;APP;MPAY;AT;AD;AV;BA;CR;CCR;DV;DI;YEBA;YEDI;YEGE;YETF;GEC;ICA;IB;IAA;JV;ND;PE;PCDO;SB;TF;CM;PO;POSP;POV;ENT;RELO;TA;TEM;TAA;TAC;TR</column>
+            <where>obj_id = 'FINP-522B'</where>
+        </update>
+    </changeSet>
+    
     <changeSet author="KFS601" id="FINP-516_BLANK_OUT_BEGIN" context = "bootstrap,demo,unit">
     	<update tableName="KRCR_PARM_T">
     		<column name="PARM_NM" value="BLANK_OUT_PERIOD_BEGIN"/>
@@ -116,4 +123,6 @@
     		<where>NMSPC_CD='KFS-CAM' AND CMPNT_CD='AssetDepreciationStep' AND PARM_NM='BLANK_OUT_END_MMDD'</where>
     	</update>
     </changeSet>
+
+    
 </databaseChangeLog>

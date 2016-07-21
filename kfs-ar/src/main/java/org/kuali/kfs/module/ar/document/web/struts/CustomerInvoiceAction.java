@@ -30,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerAddress;
@@ -470,35 +471,10 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
      * @throws Exception
      */
     public ActionForward print(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String basePath = getApplicationBaseUrl();
-        String docId = ((CustomerInvoiceForm) form).getCustomerInvoiceDocument().getDocumentNumber();
-        String printInvoicePDFUrl = getUrlForPrintInvoice(basePath, docId, ArConstants.PRINT_INVOICE_PDF_METHOD);
-        String displayInvoiceTabbedPageUrl = getUrlForPrintInvoice(basePath, docId, KFSConstants.DOC_HANDLER_METHOD);
-
-        request.setAttribute(ArPropertyConstants.PRINT_PDF_URL, printInvoicePDFUrl);
-        request.setAttribute(ArPropertyConstants.DISPLAY_TABBED_PAGE_URL, displayInvoiceTabbedPageUrl);
-        request.setAttribute(KFSConstants.PARAMETER_DOC_ID, docId);
-        String label = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(KFSConstants.FinancialDocumentTypeCodes.CUSTOMER_CREDIT_MEMO);
-        request.setAttribute(ArPropertyConstants.PRINT_LABEL, label);
-        return mapping.findForward(ArConstants.MAPPING_PRINT_PDF);
-    }
-
-    /**
-     *
-     * This method...
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    public ActionForward printInvoicePDF(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String invoiceDocId = request.getParameter(KFSConstants.PARAMETER_DOC_ID);
-        CustomerInvoiceDocument customerInvoiceDocument = (CustomerInvoiceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(invoiceDocId);
+        CustomerInvoiceDocument invoiceDocument = ((CustomerInvoiceForm) form).getCustomerInvoiceDocument();
 
         AccountsReceivableReportService reportService = SpringContext.getBean(AccountsReceivableReportService.class);
-        File report = reportService.generateInvoice(customerInvoiceDocument);
+        File report = reportService.generateInvoice(invoiceDocument);
 
         if (report.length() == 0) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -508,32 +484,14 @@ public class CustomerInvoiceAction extends KualiAccountingDocumentActionBase {
         ByteArrayOutputStream baos = SpringContext.getBean(AccountsReceivablePdfHelperService.class).buildPdfOutputStream(content);
 
         StringBuilder fileName = new StringBuilder();
-        fileName.append(customerInvoiceDocument.getOrganizationInvoiceNumber());
+        fileName.append(invoiceDocument.getOrganizationInvoiceNumber());
         fileName.append(KFSConstants.DASH);
-        fileName.append(customerInvoiceDocument.getDocumentNumber());
+        fileName.append(invoiceDocument.getDocumentNumber());
         fileName.append(KFSConstants.ReportGeneration.PDF_FILE_EXTENSION);
 
-        KfsWebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baos, fileName.toString(), Boolean.parseBoolean(request.getParameter(KFSConstants.ReportGeneration.USE_JAVASCRIPT)));
+        WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baos, fileName.toString());
 
         return null;
-    }
-
-    /**
-     * Creates a URL to be used in printing the customer invoice document.
-     *
-     * @param basePath String: The base path of the current URL
-     * @param docId String: The document ID of the document to be printed
-     * @param methodToCall String: The name of the method that will be invoked to do this particular print
-     * @return The URL
-     */
-    protected String getUrlForPrintInvoice(String basePath, String docId, String methodToCall) {
-        String baseUrl = basePath + "/" + ArConstants.UrlActions.CUSTOMER_INVOICE_DOCUMENT;
-        Properties parameters = new Properties();
-        parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, methodToCall);
-        parameters.put(KFSConstants.PARAMETER_DOC_ID, docId);
-        parameters.put(KFSConstants.PARAMETER_COMMAND, KewApiConstants.DOCSEARCH_COMMAND);
-
-        return UrlFactory.parameterizeUrl(baseUrl, parameters);
     }
 
 }
