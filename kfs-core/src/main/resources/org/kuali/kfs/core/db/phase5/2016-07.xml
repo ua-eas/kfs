@@ -103,4 +103,11 @@
         </preConditions>
         <dropTable tableName="KRNS_PESSIMISTIC_LOCK_T"/>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2187_MODIFY_DOCTYPES_FOR_DETECT_MISSING_PLES_JOB" context="bootstrap,demo,unit">
+        <update tableName="krcr_parm_t">
+            <column name="val">CTRL;CINV;LCR;CRM;INV;INVW;APP;MPAY;AT;AD;AV;BA;CR;CCR;DV;DI;YEBA;YEDI;YEGE;YETF;GEC;ICA;IB;IAA;JV;ND;PE;PCDO;SB;TF;CM;PO;POSP;POV;ENT;RELO;TA;TEM;TAA;TAC;TR</column>
+            <where>obj_id = 'FINP-522B'</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
