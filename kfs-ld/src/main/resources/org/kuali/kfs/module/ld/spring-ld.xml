@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
+   -
    - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -28,12 +28,12 @@
                            http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
-  
+
 
     <bean id="ldModuleConfiguration" parent="ldModuleConfiguration-parentBean" />
 
     <bean id="ldModuleConfiguration-parentBean" parent="ldModuleConfiguration-base-parentBean" abstract="true" />
-    
+
     <bean id="ldModuleConfiguration-base-parentBean" class="org.kuali.kfs.sys.FinancialSystemModuleConfiguration" abstract="true">
         <property name="namespaceCode" value="KFS-LD" />
         <property name="initializeDataDictionary" value="true" />
@@ -87,7 +87,7 @@
         <property name="externalizableBusinessObjectImplementations">
             <map>
                 <entry key="org.kuali.kfs.integration.ld.LaborLedgerBenefitsCalculation" value="org.kuali.kfs.module.ld.businessobject.BenefitsCalculation" />
-                <entry key="org.kuali.kfs.integration.ld.LaborLedgerBalanceForEffortCertification" value="org.kuali.kfs.module.ld.businessobject.LedgerBalanceForEffortCertification" />               
+                <entry key="org.kuali.kfs.integration.ld.LaborLedgerBalanceForEffortCertification" value="org.kuali.kfs.module.ld.businessobject.LedgerBalanceForEffortCertification" />
                 <entry key="org.kuali.kfs.integration.ld.LaborLedgerBenefitsType" value="org.kuali.kfs.module.ld.businessobject.BenefitsType" />
                 <entry key="org.kuali.kfs.integration.ld.LaborLedgerEntry" value="org.kuali.kfs.module.ld.businessobject.LedgerEntry" />
  				<entry key="org.kuali.kfs.integration.ld.LaborLedgerEntryGLSummary" value="org.kuali.kfs.module.ld.businessobject.LedgerEntryGLSummary" />
@@ -133,7 +133,7 @@
         </property>
         <property name="universityDateService">
             <ref bean="universityDateService" />
-        </property>     
+        </property>
         <property name="generalLedgerPendingEntryService">
             <ref bean="generalLedgerPendingEntryService" />
         </property>
@@ -226,7 +226,7 @@
 
     <!-- Section 2: Spring Beans for DAO -->
 
-    <!-- <bean id="laborOriginEntryDao" parent="platformAwareDao" class="org.kuali.kfs.module.ld.dataaccess.impl.LaborOriginEntryDaoOjb"> 
+    <!-- <bean id="laborOriginEntryDao" parent="platformAwareDao" class="org.kuali.kfs.module.ld.dataaccess.impl.LaborOriginEntryDaoOjb">
         <property name="entryClass" value="org.kuali.kfs.module.ld.businessobject.LaborOriginEntry"/> </bean> -->
     <bean id="laborLedgerEntryDao" parent="platformAwareDao" class="org.kuali.kfs.module.ld.dataaccess.impl.LaborLedgerEntryDaoOjb" />
 
@@ -417,10 +417,10 @@
         class="org.kuali.kfs.module.ld.batch.dataaccess.impl.LedgerPreparedStatementCachingDaoJdbc" />
 
 	<bean id="laborAccountingCycleCachingService" parent="laborAccountingCycleCachingService-parentBean"/>
-    <bean id="laborAccountingCycleCachingService-parentBean" abstract="true"  parent="accountingCycleCachingService" class="org.kuali.kfs.module.ld.batch.service.impl.LaborAccountingCycleCachingServiceImpl">        
+    <bean id="laborAccountingCycleCachingService-parentBean" abstract="true"  parent="accountingCycleCachingService" class="org.kuali.kfs.module.ld.batch.service.impl.LaborAccountingCycleCachingServiceImpl">
         <property name="laborLedgerDao" ref="laborLedgerPreparedStatementCachingDao" />
     </bean>
-    
+
     <bean id="laborPosterService" parent="laborPosterService-parentBean" />
 
     <bean id="laborPosterService-parentBean" class="org.kuali.kfs.module.ld.batch.service.impl.LaborPosterServiceImpl" abstract="true">
@@ -530,7 +530,7 @@
         <property name="persistenceStructureService">
 			<ref bean="persistenceStructureService" />
 		</property>
-		
+
         <property name="batchFileDirectoryName" value="${staging.directory}/ld/originEntry" />
     </bean>
     <bean id="laborBalanceSummaryReportService" parent="laborBalanceSummaryReportService-parentBean" />
@@ -593,7 +593,7 @@
             </map>
         </property>
     </bean>
-    
+
     <bean id="laborSummaryReportWriterService" parent="laborSummaryReportWriterService-parentBean" />
     <bean id="laborSummaryReportWriterService-parentBean"  abstract="true" parent="reportWriterService"
         class="org.kuali.kfs.sys.service.impl.BalanceSummaryReportWriterTextServiceImpl"
@@ -633,7 +633,7 @@
 
     <bean id="laborPosterTransactionValidator" parent="laborPosterTransactionValidator-parentBean" />
     <bean id="laborPosterTransactionValidator-parentBean" class="org.kuali.kfs.module.ld.batch.service.impl.LaborPosterTransactionValidator" abstract="true" />
-    
+
     <bean id="laborYearEndBalanceForwardService" parent="laborYearEndBalanceForwardService-parentBean" />
     <bean id="laborYearEndBalanceForwardService-parentBean" class="org.kuali.kfs.module.ld.batch.service.impl.LaborYearEndBalanceForwardServiceImpl" abstract="true">
         <property name="laborLedgerBalanceService">
@@ -1047,6 +1047,7 @@
         <property name="dependencies">
             <map>
                 <entry key="laborFeedJob" value="hardDependency" />
+                <entry key="detectDocumentsMissingPLEsJob" value="hardDependency" />
             </map>
         </property>
     </bean>
@@ -1062,7 +1063,7 @@
                 <entry key="laborPosterJob" value="hardDependency" />
             </map>
         </property>
-        
+
     </bean>
 
     <!-- Section 4: Spring Bean for Balance Inquiry -->
@@ -1071,7 +1072,7 @@
             <ref bean="laborPendingEntryLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="laborPendingEntryLookupableHelperService" scope="prototype" parent="laborPendingEntryLookupableHelperService-parentBean" />
 
     <bean id="laborPendingEntryLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.LaborPendingEntryLookupableHelperServiceImpl"
@@ -1099,7 +1100,7 @@
             <ref bean="laborInquiryOptionsService" />
         </property>
     </bean>
-    
+
     <bean id="laborLedgerBalanceLookupableHelperService"  scope="prototype"  parent="laborLedgerBalanceLookupableHelperService-parentBean" />
 
     <bean id="laborLedgerBalanceLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.LedgerBalanceLookupableHelperServiceImpl"
@@ -1136,10 +1137,10 @@
             <ref bean="laborLedgerBalanceLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="laborLedgerBalanceForBenefitExpenseTransferLookupableHelperService" scope="prototype"  parent="laborLedgerBalanceForBenefitExpenseTransferLookupableHelperService-parentBean" />
 
-    <bean id="laborLedgerBalanceForBenefitExpenseTransferLookupableHelperService-parentBean" abstract="true" 
+    <bean id="laborLedgerBalanceForBenefitExpenseTransferLookupableHelperService-parentBean" abstract="true"
         class="org.kuali.kfs.module.ld.businessobject.lookup.LedgerBalanceForBenefitExpenseTransferLookupableHelperServiceImpl"
         scope="prototype"
     >
@@ -1166,12 +1167,12 @@
         </property>
         <property name="balanceTypService">
             <ref bean="balanceTypService" />
-        </property>        
+        </property>
     </bean>
-    
+
     <bean id="laborLedgerBalanceForSalaryExpenseTransferLookupableHelperService" scope="prototype"  parent="laborLedgerBalanceForSalaryExpenseTransferLookupableHelperService-parentBean" />
 
-    <bean id="laborLedgerBalanceForSalaryExpenseTransferLookupableHelperService-parentBean" abstract="true" 
+    <bean id="laborLedgerBalanceForSalaryExpenseTransferLookupableHelperService-parentBean" abstract="true"
         class="org.kuali.kfs.module.ld.businessobject.lookup.LedgerBalanceForSalaryExpenseTransferLookupableHelperServiceImpl"
         scope="prototype"
     >
@@ -1200,10 +1201,10 @@
             <ref bean="balanceTypService" />
         </property>
     </bean>
-    
+
     <bean id="laborLedgerEntryForExpenseTransferLookupableHelperService" scope="prototype"  parent="laborLedgerEntryForExpenseTransferLookupableHelperService-parentBean" />
 
-    <bean id="laborLedgerEntryForExpenseTransferLookupableHelperService-parentBean" abstract="true" 
+    <bean id="laborLedgerEntryForExpenseTransferLookupableHelperService-parentBean" abstract="true"
         class="org.kuali.kfs.module.ld.businessobject.lookup.LedgerEntryForExpenseTransferLookupableHelperServiceImpl"
         scope="prototype"
     >
@@ -1229,7 +1230,7 @@
             <ref bean="laborLedgerEntryLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="laborLedgerEntryLookupableHelperService" scope="prototype"  parent="laborLedgerEntryLookupableHelperService-parentBean" />
 
     <bean id="laborLedgerEntryLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.LedgerEntryLookupableHelperServiceImpl"
@@ -1286,10 +1287,10 @@
             <ref bean="laborCalculatedSalaryFoundationTrackerLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="laborCalculatedSalaryFoundationTrackerLookupableHelperService" scope="prototype"  parent="laborCalculatedSalaryFoundationTrackerLookupableHelperService-parentBean" />
 
-    <bean id="laborCalculatedSalaryFoundationTrackerLookupableHelperService-parentBean" abstract="true" 
+    <bean id="laborCalculatedSalaryFoundationTrackerLookupableHelperService-parentBean" abstract="true"
         class="org.kuali.kfs.module.ld.businessobject.lookup.LaborCalculatedSalaryFoundationTrackerLookupableHelperServiceImpl"
         scope="prototype"
     >
@@ -1312,7 +1313,7 @@
             <ref bean="laborCalculatedSalaryFoundationTrackerService" />
         </property>
     </bean>
-    
+
     <bean id="laborPositionDataLookupableHelperService" scope="prototype"  parent="laborPositionDataLookupableHelperService-parentBean" />
 
     <bean id="laborPositionDataLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.PositionDataLookupableHelperServiceImpl"
@@ -1356,7 +1357,7 @@
             <ref bean="CurrentFundsLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="CurrentFundsLookupableHelperService" scope="prototype"  parent="CurrentFundsLookupableHelperService-parentBean" />
 
     <bean id="CurrentFundsLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.CurrentFundsLookupableHelperServiceImpl"
@@ -1509,7 +1510,7 @@
             <ref bean="july1PositionFundingLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="july1PositionFundingLookupableHelperService" scope="prototype"  parent="july1PositionFundingLookupableHelperService-parentBean" />
 
     <bean id="july1PositionFundingLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.July1PositionFundingLookupableHelperServiceImpl"
@@ -1551,7 +1552,7 @@
         </property>
     </bean>
     <bean id="salaryExpenseTransferTransactionAgeService" parent="salaryExpenseTransferTransactionAgeService-parentBean" />
-    
+
     <bean id="salaryExpenseTransferTransactionAgeService-parentBean" class="org.kuali.kfs.module.ld.document.service.impl.SalaryExpenseTransferTransactionAgeServiceImpl" abstract="true">
     	<property name="universityDateService">
     		<ref bean="universityDateService" />
@@ -1567,7 +1568,7 @@
             <bean parent="platformAwareDao" class="org.kuali.kfs.module.ld.dataaccess.impl.ExpenseTransferAccountingLineDaoOjb" />
         </property>
     </bean>
-    
+
     <bean id="positionObjectBenefitLookupableHelperService" scope="prototype"  parent="positionObjectBenefitLookupableHelperService-parentBean" />
 
     <bean id="positionObjectBenefitLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.PositionObjectBenefitLookupableHelperServiceImpl"
@@ -1578,7 +1579,7 @@
             <ref bean="positionObjectBenefitLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="laborPositionFundingLookupableHelperService" scope="prototype"  parent="laborPositionFundingLookupableHelperService-parentBean" />
 
     <bean id="laborPositionFundingLookupableHelperService-parentBean" abstract="true"  class="org.kuali.kfs.module.ld.businessobject.lookup.PositionFundingLookupableHelperServiceImpl"
@@ -1612,10 +1613,10 @@
             <ref bean="laborLedgerBalanceForEffortCertificationLookupableHelperService" />
         </property>
     </bean>
-    
+
     <bean id="laborLedgerBalanceForEffortCertificationLookupableHelperService" scope="prototype"  parent="laborLedgerBalanceForEffortCertificationLookupableHelperService-parentBean" />
 
-	<bean id="laborLedgerBalanceForEffortCertificationLookupableHelperService-parentBean" abstract="true" 
+	<bean id="laborLedgerBalanceForEffortCertificationLookupableHelperService-parentBean" abstract="true"
         class="org.kuali.kfs.module.ld.businessobject.lookup.LedgerBalanceForEffortCertificationLookupableHelperServiceImpl"
         scope="prototype" >
         <property name="effortLedgerBalanceLookupableHelperService">
@@ -1848,10 +1849,10 @@
         </property>
         <property name="parameterService">
             <ref bean="parameterService" />
-        </property>            
+        </property>
         <property name="configurationService">
             <ref bean="kualiConfigurationService" />
-        </property>  
+        </property>
         <property name="directoryName" value="${staging.directory}/ld/enterpriseFeed" />
         <property name="laborOriginEntryDirectoryName" value="${staging.directory}/ld/originEntry" />
         <property name="reconciliationTableId" value="ld_ldgr_entr_t" />
@@ -1898,7 +1899,7 @@
             </map>
         </property>
     </bean>
-    
+
     <bean id="laborEnterpriseFeedErrorStatisticsWriterService"  parent="laborEnterpriseFeedErrorStatisticsWriterService-parentBean" />
     <bean id="laborEnterpriseFeedErrorStatisticsWriterService-parentBean"  parent="reportWriterService" abstract="true">
         <property name="filePath" value="${reports.directory}/ld"/>
@@ -1911,7 +1912,7 @@
         </property>
         <property name="aggregationModeOn" value="false"/>
     </bean>
-	
+
     <bean id="laborOriginEntryEnterpriseFeederHelperService" parent="laborOriginEntryEnterpriseFeederHelperService-parentBean" />
 
     <bean id="laborOriginEntryEnterpriseFeederHelperService-parentBean" class="org.kuali.kfs.module.ld.batch.service.impl.FileEnterpriseFeederHelperServiceImpl" abstract="true">
@@ -1929,16 +1930,16 @@
         </property>
         <property name="laborBenefitsCalculationService">
             <ref bean="laborBenefitsCalculationService" />
-        </property>   
+        </property>
         <property name="businessObjectService">
             <ref bean="businessObjectService" />
-        </property>         
+        </property>
         <property name="parameterService">
             <ref bean="parameterService" />
-        </property>   
+        </property>
         <property name="configurationService">
             <ref bean="kualiConfigurationService" />
-        </property>   
+        </property>
         <property name="dateTimeService">
   	        <ref bean="dateTimeService"/>
   	    </property>

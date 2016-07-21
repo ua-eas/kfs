@@ -1363,6 +1363,7 @@
 		<property name="dependencies">
 			<map>
 				<entry key="nightlyOutJob" value="hardDependency" />
+				<entry key="laborFeedJob" value="hardDependency" />
 			</map>
 		</property>
 	</bean>
