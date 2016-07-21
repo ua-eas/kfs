@@ -141,4 +141,15 @@
             <column name="APPL_ID">KFS</column>
         </insert>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2191_UPDATE_PARAMETER_COMPONENT" context="bootstrap,demo,unit">
+        <update tableName="KRCR_PARM_T">
+            <column name="CMPNT_CD">CTSCardApplication</column>
+            <where>cmpnt_cd = 'TemCTSCardApplication'</where>
+        </update>
+        <update tableName="KRCR_PARM_T">
+            <column name="CMPNT_CD">CorporateCardApplication</column>
+            <where>cmpnt_cd = 'TemCorporateCardApplication'</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
