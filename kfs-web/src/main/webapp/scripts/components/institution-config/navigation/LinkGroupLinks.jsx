@@ -32,12 +32,14 @@ let SubLinkGroup = React.createClass({
     },
     childContextTypes: {
         openUpdateCustomLink: React.PropTypes.func,
-        updateCustomLink: React.PropTypes.func
+        updateCustomLink: React.PropTypes.func,
+        deleteCustomLink: React.PropTypes.func
     },
     getChildContext() {
         return {
             openUpdateCustomLink: this.openUpdateCustomLink,
-            updateCustomLink: this.updateCustomLink
+            updateCustomLink: this.updateCustomLink,
+            deleteCustomLink: this.deleteCustomLink
         }
     },
     getInitialState() {
@@ -77,6 +79,7 @@ let SubLinkGroup = React.createClass({
         }
     },
     openUpdateCustomLink(link, type) {
+        console.log("openUpdateCustomLink called ", link, type);
         this.setState({
             customLinkFormOpen: true,
             errors: [],
@@ -112,8 +115,8 @@ let SubLinkGroup = React.createClass({
             this.setState(errorObj);
         }
     },
-    deleteCustomLink() {
-        this.context.deleteExistingCustomLink(this.props.groupIndex, this.state.oldLinkType, this.state.oldLink);
+    deleteCustomLink(groupIndex, link, type) {
+        this.context.deleteExistingCustomLink(groupIndex, type, link);
         this.replaceState({
             customLinkFormOpen: false,
             errors: [],
@@ -165,7 +168,6 @@ let SubLinkGroup = React.createClass({
 
         let editLinkName;
         let editLinkURL;
-        let deleteButton;
         let newTargetToggle;
         let formActionFunction = this.updateCustomLink;
         let formActionText = 'Update';
@@ -186,8 +188,6 @@ let SubLinkGroup = React.createClass({
             if (!this.state.update) {
                 formActionFunction = this.addCustomLink;
                 formActionText = 'Add';
-            } else {
-                deleteButton = <button className="btn btn-default" onClick={this.deleteCustomLink}>Delete</button>
             }
         } else if (this.state.newLink.get('linkType') === 'kfs') {
 
@@ -225,7 +225,6 @@ let SubLinkGroup = React.createClass({
                         <div>
                             <button className="btn btn-green" onClick={formActionFunction}>{formActionText}</button>
                             <button className="btn btn-default" onClick={this.openAddCustomLink}>Cancel</button>
-                            {deleteButton}
                         </div>
                     </div>
                 </div>
@@ -237,7 +236,7 @@ let SubLinkGroup = React.createClass({
     }
 });
 
-let SubLinkType = React.createClass({
+const SubLinkType = React.createClass({
     contextTypes: {
         updateLinkGroups: React.PropTypes.func
     },
@@ -250,66 +249,74 @@ let SubLinkType = React.createClass({
         }
     },
     updateSublinkTypeLinks(links) {
-        let self = this;
-        let index = this.props.linkGroups.findIndex(function(linkGroup) {
-            return linkGroup.get('label') === self.props.groupLabel;
-        });
+        let index = this.props.linkGroups.findIndex((linkGroup) => linkGroup.get('label') === this.props.groupLabel);
         let updatedLinks = this.props.linkGroups.get(index).set('links', links);
         let updatedLinkGroups = this.props.linkGroups.set(index, updatedLinks);
         this.context.updateLinkGroups(updatedLinkGroups);
     },
     render() {
-        let self = this;
-        let linksForType = this.props.links.get(self.props.type);
+        const linksForType = this.props.links.get(this.props.type);
+        const groupIndex = this.props.linkGroups.findIndex((linkGroup) => linkGroup.get('label') === this.props.groupLabel);
         return (
             <div>
                 <h4>{this.props.type}</h4>
                 <SubLinkTypeLinks allLinks={this.props.links}
                                   links={linksForType}
                                   type={this.props.type}
-                                  groupLabel={this.props.groupLabel}/>
+                                  groupLabel={this.props.groupLabel}
+                                  groupIndex={groupIndex}/>
             </div>
         )
     }
 });
 
-let SubLinkTypeLinks = React.createClass({
+class SubLinkTypeLink extends React.Component {
+    render() {
+        const deleteLink = (this.props.link.get("linkType") === "custom")
+            ? <span className="deleteLink" onClick={this.context.deleteCustomLink.bind(null, this.props.groupIndex, this.props.link, this.props.type)}></span>
+            : null;
+        const key = `subLinkTypeLink-${this.props.groupIndex}-${this.props.type}-${this.props.idx}`;
+        return (
+            <li key={key}>
+            <span className="list-group-item">
+                <span className="move"></span>
+                {this.props.link.get('label')}
+                <div className="actions">
+                    <span className="editLink"
+                          onClick={this.context.openUpdateCustomLink.bind(null, this.props.link, this.props.type)}></span>
+                    {deleteLink}
+                </div>
+            </span>
+            </li>
+        );
+    }
+};
+SubLinkTypeLink.contextTypes = {
+    openUpdateCustomLink: React.PropTypes.func,
+    deleteCustomLink: React.PropTypes.func
+};
+
+const SubLinkTypeLinks = React.createClass({
     contextTypes: {
         updateSublinkTypeLinks: React.PropTypes.func,
         openUpdateCustomLink: React.PropTypes.func,
         updateCustomLink: React.PropTypes.func
     },
     componentDidMount() {
-        let self = this;
-        let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
-        let connectWithClass = ".sortable-" + buildKeyFromLabel(this.props.groupLabel);
+        const id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
+        const connectWithClass = ".sortable-" + buildKeyFromLabel(this.props.groupLabel);
         buildLinkSortableDropHandler(id, connectWithClass, self, 'allLinks', 'updateSublinkTypeLinks');
     },
     render() {
-        let linkElements = []
-        if (this.props.links && this.props.links.count() > 0) {
-            linkElements = this.props.links.map((link, idx) => {
-                return (
-                    <li key={idx}>
-                            <span className="list-group-item">
-                                <span className="move"></span>
-                                {link.get('label')}
-                                <div className="actions">
-                                    <span className="editLink" onClick={this.context.openUpdateCustomLink.bind(null, link, this.props.type)}>edit</span>
-                                </div>
-                            </span>
-                    </li>
-                );
-            });
-        } else {
-            linkElements = <li><span className="list-group-item empty"></span></li>;
-        }
+        const linkElements =  (this.props.links && this.props.links.count() > 0)
+            ? this.props.links.map((link, idx) => <SubLinkTypeLink idx={idx} link={link} groupIndex={this.props.groupIndex} type={this.props.type}/>)
+            : (<li key="subLinkTypeLink-undefined"><span className="list-group-item empty"></span></li>);
 
-        let id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
-        let className = "sortable-" + buildKeyFromLabel(this.props.groupLabel);
-        let linkList = <ul id={id} className={className} data-type={this.props.type}>{linkElements}</ul>;
+        const id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
+        const className = "sortable-" + buildKeyFromLabel(this.props.groupLabel);
+        const linkList = <ul id={id} className={className} data-type={this.props.type}>{linkElements}</ul>;
 
-        return linkList
+        return linkList;
     }
 });
 

@@ -248,6 +248,10 @@ div#sub-item-list {
     cursor: pointer;
 }
 
+.nav-config div.admin-sublinks li .list-group-item .deleteLink {
+    cursor: pointer;
+}
+
 .nav-config div.admin-sublinks li span.move {
     margin-right: 10px;
     margin-bottom: -6px;
@@ -269,6 +273,14 @@ div#sub-item-list {
 
 .nav-config div.admin-sublinks li .list-group-item .actions .editLink {
     background-image: url('../static/images/small-edit.png');
+    background-size: 13px 12px;
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    padding-left: 14px;
+}
+
+.nav-config div.admin-sublinks li .list-group-item .actions .deleteLink {
+    background-image: url('../static/images/small-trash.png');
     background-size: 13px 12px;
     background-position: 0 4px;
     background-repeat: no-repeat;
