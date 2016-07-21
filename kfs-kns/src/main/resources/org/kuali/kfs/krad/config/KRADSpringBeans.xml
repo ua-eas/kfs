@@ -114,7 +114,6 @@
         <value>classpath:org/kuali/kfs/krad/bo/datadictionary/DocumentHeader.xml</value>
         <value>classpath:org/kuali/kfs/krad/bo/datadictionary/Note.xml</value>
         <value>classpath:org/kuali/kfs/krad/bo/datadictionary/NoteType.xml</value>
-        <value>classpath:org/kuali/kfs/krad/bo/datadictionary/PessimisticLock.xml</value>
         <value>classpath:org/kuali/kfs/krad/uif/UifViewPageDefinitions.xml</value>
         <value>classpath:org/kuali/kfs/krad/uif/UifHeaderFooterDefinitions.xml</value>
         <value>classpath:org/kuali/kfs/krad/uif/UifGroupDefinitions.xml</value>
@@ -150,7 +149,6 @@
         <value>org.kuali.kfs.krad.bo.DocumentAttachment</value>
         <value>org.kuali.kfs.krad.maintenance.MaintenanceLock</value>
         <value>org.kuali.kfs.krad.bo.DocumentHeader</value>
-        <value>org.kuali.kfs.krad.document.authorization.PessimisticLock</value>
         <value>org.kuali.kfs.krad.bo.Note</value>
         <value>org.kuali.kfs.krad.bo.NoteType</value>
         <value>org.kuali.kfs.krad.bo.Attachment</value>
@@ -578,8 +576,6 @@
       <ref bean="cf.documentService"/>
     </property>
   </bean>
-
-  <bean id="cf.pessimisticLockService" class="org.kuali.kfs.krad.service.impl.NoOpPessimisticLockServiceImpl"/>
 
   <bean id="cf.ojbCollectionHelper" class="org.kuali.kfs.krad.util.OjbCollectionHelper"/>
 

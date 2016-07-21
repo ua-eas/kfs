@@ -60,14 +60,6 @@ public interface KNSDocumentEntry extends DataDictionaryEntry, Serializable, Ini
 
     public void setDisplayTopicFieldInNotes(boolean displayTopicFieldInNotes);
 
-    public boolean getUsePessimisticLocking();
-
-    public void setUsePessimisticLocking(boolean usePessimisticLocking);
-
-    public boolean getUseWorkflowPessimisticLocking();
-
-    public void setUseWorkflowPessimisticLocking(boolean useWorkflowPessimisticLocking);
-
     public Class<? extends KeyValuesFinder> getAttachmentTypesValuesFinderClass();
 
     public void setAttachmentTypesValuesFinderClass(Class<? extends KeyValuesFinder> attachmentTypesValuesFinderClass);

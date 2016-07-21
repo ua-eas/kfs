@@ -468,8 +468,6 @@ public final class KRADConstants {
     public static final String BO_ATTACHMENT_FILE_CONTENT_TYPE = "contentType";
     public static final String BO_ATTACHMENT_FILE_CONTENT_FIELD = "fileContentBOField";
     
-
-    // specialized method 'delete' used only for PessimisticLocks currently
     public static final String DELETE_METHOD = "delete";
     public static final String START_METHOD = "start";
     public static final String USER_SESSION_KEY = "cf.UserSession";
@@ -486,7 +484,6 @@ public final class KRADConstants {
 
     public static final String GLOBAL_ERRORS = "GLOBAL_ERRORS";
     public static final String GLOBAL_MESSAGES = "GlobalMessages";
-    public static final String PESSIMISTIC_LOCK_MESSAGES = "DocumentPessimisticLockMessages";
     public static final String AD_HOC_ROUTE_PERSON_ERRORS = "newAdHocRoutePerson*,adHocRoutePerson*";
     public static final String AD_HOC_ROUTE_WORKGROUP_ERRORS = "newAdHocRouteWorkgroup*,adHocRouteWorkgroup*";
     public static final String AD_HOC_ROUTE_ERRORS = AD_HOC_ROUTE_PERSON_ERRORS + "," + AD_HOC_ROUTE_WORKGROUP_ERRORS;
