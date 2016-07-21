@@ -479,8 +479,6 @@
 			parameter="methodToCall" validate="true" attribute="KualiForm">
 			<set-property property="cancellable" value="true" />
 			<forward name="basic" path="/jsp/module/ar/{1}.jsp" />
-			<forward name="arPrintPDF" path="/jsp/module/ar/ArPrintForward.jsp"
-				redirect="false" />
 		</action>
 
 		<action path="/arAccountsReceivableInvoiceTemplateUpload" name="AccountsReceivableInvoiceTemplateUploadForm"
@@ -504,8 +502,7 @@
 			type="org.kuali.kfs.module.ar.web.struts.FederalFinancialReportAction">
 			<set-property property="cancellable" value="true" />
 			<forward name="basic" path="/jsp/module/ar/FederalFinancialReport.jsp" />
-			<forward name="arPrintPDF" path="/jsp/module/ar/ArPrintForward.jsp"
-				redirect="false" />
+
 		</action>
 
 		<action path="/arTransmitContractsAndGrantsInvoices" name="TransmitContractsAndGrantsInvoicesLookupForm"
@@ -593,7 +590,6 @@
 			type="org.kuali.kfs.module.ar.web.struts.CustomerStatementAction">
 			<set-property property="cancellable" value="true" />
 			<forward name="basic" path="/jsp/module/ar/CustomerStatement.jsp" />
-			<forward name="arPrintPDF" path="/jsp/module/ar/ArPrintForward.jsp" />
 		</action>
 
 		<action path="/arCustomerInvoiceGeneration" name="CustomerInvoiceGenerationForm"
