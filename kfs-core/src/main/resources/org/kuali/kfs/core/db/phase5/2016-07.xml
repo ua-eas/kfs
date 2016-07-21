@@ -96,4 +96,11 @@
             <column name="FDOC_TYP_NM"/>
         </createIndex>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2056_DROP_PESSIMISTIC_LOCK_TABLE" context="bootstrap,demo,unit">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="KRNS_PESSIMISTIC_LOCK_T" />
+        </preConditions>
+        <dropTable tableName="KRNS_PESSIMISTIC_LOCK_T"/>
+    </changeSet>
 </databaseChangeLog>
