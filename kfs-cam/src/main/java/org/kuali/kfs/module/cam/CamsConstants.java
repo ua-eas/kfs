@@ -150,11 +150,11 @@ public class CamsConstants {
         public static final String BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS = "IGNORES_LOCKS_IND";
         public static final String MAX_NUMBER_OF_RECORDS_PER_DOCUMENT = "MAX_NUMBER_OF_RECORDS_PER_DOCUMENT";
         public static final String FISCAL_YEAR_END_MONTH_AND_DAY = "FISCAL_YEAR_END_MONTH_AND_DAY";
-        public static final String BLANK_OUT_BEGIN_MMDD = "BLANK_OUT_BEGIN_MMDD";
+        public static final String BLANK_OUT_PERIOD_BEGIN = "BLANK_OUT_PERIOD_BEGIN";
         public static final String BLANK_OUT_PERIOD_RUN_DATE = "BLANK_OUT_PERIOD_RUN_DATE";
         public static final String RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES = "RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES";
 
-        public static final String BLANK_OUT_END_MMDD = "BLANK_OUT_END_MMDD";
+        public static final String BLANK_OUT_PERIOD_END = "BLANK_OUT_PERIOD_END";
         public static final String MANUFACTURER_REQUIRED_FOR_NON_MOVEABLE_ASSET_IND = "MANUFACTURER_REQUIRED_FOR_NON_MOVEABLE_ASSET_IND";
         // CSU 6702 BEGIN
         public static String INCLUDE_RETIRED_ASSETS_IND = "INCLUDE_RETIRED_ASSETS_IND";

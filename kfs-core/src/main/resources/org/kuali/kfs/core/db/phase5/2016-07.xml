@@ -103,4 +103,17 @@
         </preConditions>
         <dropTable tableName="KRNS_PESSIMISTIC_LOCK_T"/>
     </changeSet>
+    
+    <changeSet author="KFS601" id="FINP-516_BLANK_OUT_BEGIN" context = "bootstrap,demo,unit">
+    	<update tableName="KRCR_PARM_T">
+    		<column name="PARM_NM" value="BLANK_OUT_PERIOD_BEGIN"/>
+    		<where>NMSPC_CD='KFS-CAM' AND CMPNT_CD='AssetDepreciationStep' AND PARM_NM='BLANK_OUT_BEGIN_MMDD'</where>
+    	</update>
+    </changeSet>
+    <changeSet author="KFS601" id="FINP-516_BLANK_OUT_END" context = "bootstrap,demo,unit">
+    	<update tableName="KRCR_PARM_T">
+    		<column name="PARM_NM" value="BLANK_OUT_PERIOD_END"/>
+    		<where>NMSPC_CD='KFS-CAM' AND CMPNT_CD='AssetDepreciationStep' AND PARM_NM='BLANK_OUT_END_MMDD'</where>
+    	</update>
+    </changeSet>
 </databaseChangeLog>

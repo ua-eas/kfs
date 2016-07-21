@@ -248,10 +248,10 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         boolean executeJob = false;
         List<String> errorMessages = new ArrayList<String>();
         Date currentDate = DateUtils.truncate(dateTimeService.getCurrentDate(), Calendar.DATE);
-        Date beginDate = getBlankOutBeginDate(errorMessages);
-        Date endDate = getBlankOutEndDate(errorMessages);
+        Date beginDate = getBlankOutBeginDate();
+        Date endDate = getBlankOutEndDate();
 
-        if (hasBlankOutPeriodStarted(beginDate, endDate, errorMessages)) {
+        if (hasBlankOutPeriodStarted(beginDate, endDate)) {
                 String blankOutPeriodrunDate = parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_RUN_DATE);
                 if(!StringHelper.isNullOrEmpty(blankOutPeriodrunDate)){
                     Date runDate = convertToDate(blankOutPeriodrunDate);
@@ -266,8 +266,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
 
                     }
                     else {
-                        String blankOutBegin =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_BEGIN_MMDD);
-                        String blankOutEnd =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_END_MMDD);
+                        String blankOutBegin =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_BEGIN);
+                        String blankOutEnd =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_END);
                         String message =  "BLANK_OUT_PERIOD_RUN_DATE: " + blankOutPeriodrunDate + " is not in the blank out period range." + "Blank out period range is [ " +
                         blankOutBegin + "-" + blankOutEnd + " ] ." ;
                         errorMessages.add(message);
@@ -296,23 +296,13 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         return executeJob;
     }
 
-    protected boolean hasBlankOutPeriodStarted(Date beginDate, Date endDate, List<String> errorMessages) throws ParseException {
+    protected boolean hasBlankOutPeriodStarted(Date beginDate, Date endDate) {
         Date currentDate = DateUtils.truncate(dateTimeService.getCurrentDate(), Calendar.DATE);
-        String blankOutBegin =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_BEGIN_MMDD);
-        String blankOutEnd =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_END_MMDD);
         if(ObjectUtils.isNotNull(beginDate) && ObjectUtils.isNotNull(endDate)) {
             if(currentDate.compareTo(beginDate)>=0 && currentDate.compareTo(endDate)<=0 ) {
                 return true;
             }
         }
-        else {
-            String message = "Unable to determine blank out period for a given " + blankOutBegin +
-            " - " + blankOutEnd + " range .";
-
-            errorMessages.add(message);
-            LOG.info(message);
-        }
-
         return false;
     }
 
@@ -322,8 +312,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
      * @return blank out period end date in MM/dd/yyyy format.
      * @throws ParseException
      */
-    private Date getBlankOutEndDate(List<String> errorMessages) throws ParseException {
-        String endDate = parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_END_MMDD);
+    private Date getBlankOutEndDate() throws ParseException {
+        String endDate = parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_END);
         if(!StringHelper.isNullOrEmpty(endDate)) {
             int endDay = new Integer(StringUtils.substringAfterLast(endDate, "/")).intValue();
             int endMonth = new Integer(StringUtils.substringBeforeLast(endDate, "/")).intValue()-1  ;
@@ -331,12 +321,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             blankOutEndcalendar.set(blankOutEndcalendar.get(Calendar.YEAR), endMonth , endDay);
             return  convertToDate(dateTimeService.toString(blankOutEndcalendar.getTime(), CamsConstants.DateFormats.MONTH_DAY_YEAR));
         } else {
-            String message  = "Parameter BLANK_OUT_END_MMDD (component:Asset Depreciation Step) is not set." ;
-            errorMessages.add(message);
-            LOG.info(message);
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -345,8 +331,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
      * @return blank out period begin date in MM/dd/yyyy format.
      * @throws ParseException
      */
-    private Date getBlankOutBeginDate(List<String> errorMessages) throws ParseException {
-        String beginDate =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_BEGIN_MMDD);
+    private Date getBlankOutBeginDate() throws ParseException {
+        String beginDate =  parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_BEGIN);
 
         if(!StringHelper.isNullOrEmpty(beginDate)) {
             int beginDay = new Integer(StringUtils.substringAfterLast(beginDate, "/")).intValue();
@@ -355,12 +341,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
             blankOutBegincalendar.set(blankOutBegincalendar.get(Calendar.YEAR),beginMonth , beginDay);
             return convertToDate(dateTimeService.toString(blankOutBegincalendar.getTime(), CamsConstants.DateFormats.MONTH_DAY_YEAR));
         } else {
-            String message  = "Parameter BLANK_OUT_BEGIN_MMDD (component:Asset Depreciation Step) is not set.";
-            errorMessages.add(message);
-            LOG.info(message);
+            return null;
         }
-
-        return null;
     }
 
     private Date convertToDate(String date) throws ParseException {
