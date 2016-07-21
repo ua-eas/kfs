@@ -34,7 +34,7 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
  * configured <code>AttributeSecurity</code> for a field to determine authorization
  * checks that need to be performed
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataObjectAuthorizationServiceImpl implements DataObjectAuthorizationService {
 

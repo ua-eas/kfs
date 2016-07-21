@@ -38,7 +38,7 @@ import java.util.Map;
  * Field that presents an action that can be taken on the UI such as submitting
  * the form or invoking a script
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ActionField extends FieldBase {
     private static final long serialVersionUID = 1025672792657238829L;

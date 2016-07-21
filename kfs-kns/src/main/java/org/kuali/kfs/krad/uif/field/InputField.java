@@ -74,7 +74,7 @@ import java.util.List;
  * configured to restrict who may view the fields value.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class InputField extends DataField implements SimpleConstrainable, CaseConstrainable, PrerequisiteConstrainable,
         MustOccurConstrainable, LengthConstrainable, RangeConstrainable, ValidCharactersConstrainable {

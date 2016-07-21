@@ -36,8 +36,6 @@ import java.util.List;
  * 
  * @see ExportDataSet
  * @see StyleBo
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StyleDataExporter implements Exporter {
 

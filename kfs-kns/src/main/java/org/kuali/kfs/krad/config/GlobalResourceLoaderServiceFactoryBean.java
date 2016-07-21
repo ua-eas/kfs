@@ -30,7 +30,7 @@ import javax.xml.namespace.QName;
 /**
  * Exports services in the {@link org.kuali.rice.core.api.resourceloader.GlobalResourceLoader} as beans available to Spring.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class GlobalResourceLoaderServiceFactoryBean implements FactoryBean<Object>, InitializingBean {

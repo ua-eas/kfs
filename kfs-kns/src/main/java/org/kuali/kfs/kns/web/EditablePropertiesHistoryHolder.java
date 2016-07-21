@@ -34,7 +34,7 @@ import java.util.UUID;
  * A class which will hold a Map of editable properties, dropping editable properties when too many
  * are filled in. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 @Deprecated

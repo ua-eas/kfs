@@ -27,7 +27,7 @@ import java.util.Enumeration;
 /**
  * Utility for that is used along with the tableRenderPagingBanner.tag.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public final class PagingBannerUtils {

@@ -51,7 +51,7 @@ import java.util.Set;
  * the modifier to run with the component's componentModifiers property.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ComponentModifier extends Configurable, Serializable, Ordered {
 

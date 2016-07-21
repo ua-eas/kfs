@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public class DictionaryValidationServiceImpl extends org.kuali.kfs.krad.service.impl.DictionaryValidationServiceImpl implements DictionaryValidationService {

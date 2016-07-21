@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Holds info about the User Session
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UserSession implements Serializable {
     private static final long serialVersionUID = 4532616762540067557L;

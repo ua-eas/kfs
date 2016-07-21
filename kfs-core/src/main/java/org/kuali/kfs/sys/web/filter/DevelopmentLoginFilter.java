@@ -35,8 +35,6 @@ import org.kuali.kfs.krad.util.KRADConstants;
 /**
  * A login filter which forwards to a login page that allows for the desired
  * authentication ID to be entered without the need for a password.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class DevelopmentLoginFilter implements Filter {
 	

@@ -37,7 +37,6 @@ import java.util.Properties;
 
 /**
  * Implements generic StyleService via existing EDL style table
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StyleServiceImpl implements StyleService {
 	

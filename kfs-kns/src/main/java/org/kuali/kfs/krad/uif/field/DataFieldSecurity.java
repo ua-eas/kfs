@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
  * will be picked up and inserted into the field security
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataFieldSecurity extends FieldSecurity {
     private static final long serialVersionUID = 585138507596582667L;

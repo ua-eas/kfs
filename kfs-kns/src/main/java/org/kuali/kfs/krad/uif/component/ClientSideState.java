@@ -50,7 +50,7 @@ import java.lang.annotation.Target;
  * the name of the property for which the annotation applies will be used
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

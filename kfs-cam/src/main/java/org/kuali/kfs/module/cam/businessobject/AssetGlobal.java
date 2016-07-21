@@ -55,7 +55,7 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class AssetGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {
 

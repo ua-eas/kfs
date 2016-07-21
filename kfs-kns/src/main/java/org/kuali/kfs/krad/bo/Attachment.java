@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Entity
 @Table(name="KRNS_ATT_T")

@@ -37,7 +37,7 @@ import java.util.Map;
  * Implementation of {@link ViewAuthorizer} for
  * {@link LookupView} instances
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupViewAuthorizerBase extends ViewAuthorizerBase {
     private static final long serialVersionUID = 3755133641536256283L;

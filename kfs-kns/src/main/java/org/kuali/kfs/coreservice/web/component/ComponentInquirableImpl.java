@@ -31,8 +31,6 @@ import java.util.Map;
 /**
  * Since ParameterDetailType can be either DataDictionary or DB based, we need a custom {@link Inquirable} to
  * check both.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public class ComponentInquirableImpl extends KualiInquirableImpl {

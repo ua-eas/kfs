@@ -71,7 +71,7 @@ import java.util.Map;
 /**
  * Contains all of the business rules that are common to all documents
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class DocumentRuleBase implements SaveDocumentRule, RouteDocumentRule, ApproveDocumentRule, AddNoteRule,
         AddAdHocRoutePersonRule, AddAdHocRouteWorkgroupRule, SendAdHocRequestsRule, CompleteDocumentRule {

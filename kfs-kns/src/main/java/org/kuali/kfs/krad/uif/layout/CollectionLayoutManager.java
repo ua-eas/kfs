@@ -42,7 +42,7 @@ import java.util.List;
  * setup the line as needed.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @see CollectionGroupBuilder
  */
 public interface CollectionLayoutManager extends LayoutManager {

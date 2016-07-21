@@ -21,7 +21,7 @@ package org.kuali.kfs.integration.cam.businessobject;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementAssetType;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class AssetType implements CapitalAssetManagementAssetType {
 

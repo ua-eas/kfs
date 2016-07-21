@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.service.DocumentDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaintenanceDocumentPresentationControllerBase extends DocumentPresentationControllerBase
         implements MaintenanceDocumentPresentationController {

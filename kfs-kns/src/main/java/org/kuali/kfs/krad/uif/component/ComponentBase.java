@@ -44,7 +44,7 @@ import java.util.Map;
  * onDocumentReady are supported.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class ComponentBase extends ConfigurableBase implements Component {
     private static final long serialVersionUID = -4449335748129894350L;

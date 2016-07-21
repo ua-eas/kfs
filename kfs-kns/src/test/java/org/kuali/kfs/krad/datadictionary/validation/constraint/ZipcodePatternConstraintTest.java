@@ -47,7 +47,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 4. value with invalid zipcode. (failure) {@link #testValueInvalidZipcode1()}
  * 5. value with invalid zipcode. (failure) {@link #testValueInvalidZipcode2()}
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ZipcodePatternConstraintTest {
 

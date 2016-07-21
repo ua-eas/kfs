@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.DataTypeConstrain
 /**
  * Validation capability to constrain a value to be of a specific data type. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DataTypeConstrainable extends Constrainable, DataTypeConstraint {
 

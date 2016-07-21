@@ -39,7 +39,7 @@ import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.country.CountryEbo;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class CustomerAddress extends PersistableBusinessObjectBase implements Comparable<CustomerAddress>, AccountsReceivableCustomerAddress {
 

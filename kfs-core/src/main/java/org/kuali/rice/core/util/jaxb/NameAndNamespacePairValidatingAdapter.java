@@ -30,8 +30,6 @@ import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
  * An XML adapter that simply validates the NameAndNamespacePair to ensure that the name and namespace are non-blank
  * and that the namespace code maps to a valid namespace in the system. This adapter will also pass the name to
  * a NormalizedStringAdapter instance for marshalling/unmarshalling.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class NameAndNamespacePairValidatingAdapter extends XmlAdapter<NameAndNamespacePair,NameAndNamespacePair> {
 

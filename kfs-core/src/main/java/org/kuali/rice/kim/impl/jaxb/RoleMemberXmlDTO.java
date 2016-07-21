@@ -47,8 +47,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 /**
  * Base class representing an unmarshalled &lt;roleMember&gt; element.
  * Refer to the static inner classes for more information about the specific contexts.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlTransient
 public abstract class RoleMemberXmlDTO implements Serializable {
@@ -385,8 +383,6 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
     /**
      * This class represents a &lt;roleMember&gt; element that is not a descendant of a &lt;role&gt; element.
-     *
-     * @author Kuali Rice Team (rice.collab@kuali.org)
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name="StandaloneRoleMemberType", propOrder={
@@ -471,8 +467,6 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
     /**
      * This class represents a &lt;roleMember&gt; element that is a descendant of a &lt;role&gt; element.
-     *
-     * @author Kuali Rice Team (rice.collab@kuali.org)
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name="RoleMemberType", propOrder={

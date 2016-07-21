@@ -28,7 +28,7 @@ package org.kuali.kfs.krad.uif.component;
  * contains binding configuration
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DataBinding {
 

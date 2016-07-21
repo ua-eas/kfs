@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ *
  */
 @Deprecated
 public class MaintenanceDocumentEntry extends org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry implements KNSDocumentEntry {

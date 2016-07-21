@@ -38,7 +38,7 @@ import java.util.Map;
  * Group component that is backed by a <code>Tree</code> data structure and typically
  * rendered as a tree in the user interface
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class TreeGroup extends Group implements DataBinding{
     private static final long serialVersionUID = 5841343037089286740L;

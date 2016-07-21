@@ -26,7 +26,7 @@ import org.kuali.kfs.krad.uif.view.ViewAuthorizerBase;
  * Implementation of {@link ViewAuthorizer} for
  * {@link InquiryView} instances
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class InquiryViewAuthorizerBase extends ViewAuthorizerBase {
     private static final long serialVersionUID = 5853518191618440332L;

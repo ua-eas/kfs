@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * A class with some assertion utilities for JAXB-related operations. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public final class JAXBAssert {
 	

@@ -37,8 +37,6 @@ import org.kuali.kfs.krad.util.KRADConstants;
  * <p>TODO: Do we need to restrict XML additions or updates based on which user is performing the ingestion?
  * 
  * <p>TODO: It may be best to make this class into a "service" instead.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class KimImporterAndExporter implements XmlLoader, Exporter {
 

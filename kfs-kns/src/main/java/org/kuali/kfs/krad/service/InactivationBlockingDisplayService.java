@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A service that helps to print out records that block the inactivation of another BO
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public interface InactivationBlockingDisplayService {

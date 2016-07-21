@@ -30,7 +30,7 @@ import java.util.Set;
  * Converts a string configured in the dictionary for a list property type to a List
  * object using the convention of commas to separate list entries
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class StringListConverter implements GenericConverter {
 

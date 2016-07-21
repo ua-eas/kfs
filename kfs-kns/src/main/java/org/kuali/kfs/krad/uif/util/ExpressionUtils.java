@@ -35,7 +35,7 @@ import java.util.Map;
 /**
  * Utility class for UIF expressions
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ExpressionUtils {
 

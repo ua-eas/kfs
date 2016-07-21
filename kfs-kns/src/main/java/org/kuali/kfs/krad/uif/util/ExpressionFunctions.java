@@ -30,7 +30,7 @@ import java.util.Map;
  * Defines functions that can be used in el expressions within
  * the UIF dictionary files
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ExpressionFunctions {
 

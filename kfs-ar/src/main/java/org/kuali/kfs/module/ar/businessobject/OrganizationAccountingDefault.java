@@ -32,7 +32,7 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class OrganizationAccountingDefault extends PersistableBusinessObjectBase implements FiscalYearBasedBusinessObject {
 

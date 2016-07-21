@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  * Included in this is form session management and preparation of the view for rendering
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifControllerHandlerInterceptor implements HandlerInterceptor {
     private static final Logger LOG = Logger.getLogger(UifControllerHandlerInterceptor.class);

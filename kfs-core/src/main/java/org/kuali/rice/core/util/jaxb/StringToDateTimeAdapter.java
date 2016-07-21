@@ -28,8 +28,6 @@ import org.kuali.rice.core.api.CoreApiServiceLocator;
 /**
  * An XML Adapter that relies on the DateTimeService to marshal and unmarshal datetime values in String form.
  * Converts Strings to java.util.Date instances and vice versa.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StringToDateTimeAdapter extends XmlAdapter<String,Date> {
 

@@ -25,8 +25,6 @@ import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * Pattern for matching any UTF-8 character with whitespace option
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public class UTF8AnyCharacterValidationPattern extends CharacterLevelValidationPattern{

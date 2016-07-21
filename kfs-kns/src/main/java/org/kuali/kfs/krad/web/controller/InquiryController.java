@@ -45,7 +45,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Controller for <code>InquiryView</code> screens which handle initial requests for the inquiry and
  * actions coming from the inquiry view such as export
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Controller
 @RequestMapping(value = "/inquiry")

@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * This class is the service implementation for the Note structure.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Transactional
 public class NoteServiceImpl implements NoteService {

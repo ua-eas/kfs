@@ -34,7 +34,7 @@ import java.util.List;
  * Defines methods that a <code>DocumentEntry</code> Service must provide, and the API for the interacting
  * with Document-related entries in the data dictionary
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DocumentDictionaryService {
 

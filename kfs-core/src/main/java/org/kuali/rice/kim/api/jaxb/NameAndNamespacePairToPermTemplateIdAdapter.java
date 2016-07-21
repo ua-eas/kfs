@@ -29,8 +29,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 /**
  * An XML adapter that converts between a NameAndNamespacePair and a permission template ID.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class NameAndNamespacePairToPermTemplateIdAdapter extends XmlAdapter<NameAndNamespacePair,String> {
 

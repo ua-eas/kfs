@@ -27,7 +27,7 @@ import org.kuali.kfs.kns.question.Question;
 /**
  * Service locator for the KRAD Web module
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class KNSServiceLocator {
 

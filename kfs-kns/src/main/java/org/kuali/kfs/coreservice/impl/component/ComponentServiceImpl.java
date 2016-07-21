@@ -41,8 +41,6 @@ import java.util.Map;
 
 /**
  * Reference implementation of the {@code ComponentService}.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @Transactional
 public class ComponentServiceImpl implements ComponentService {

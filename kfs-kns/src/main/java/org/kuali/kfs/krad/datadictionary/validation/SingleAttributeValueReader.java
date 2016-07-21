@@ -34,7 +34,7 @@ import java.util.List;
  * and we want to limit access to (for example) validation that requires only a single attribute value. 
  * This eliminates more complicated validation like 'this field is required when another field is filled in.'
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class SingleAttributeValueReader extends BaseAttributeValueReader {
 

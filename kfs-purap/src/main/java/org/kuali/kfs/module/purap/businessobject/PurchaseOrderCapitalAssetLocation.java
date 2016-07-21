@@ -22,7 +22,7 @@ import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 
 public class PurchaseOrderCapitalAssetLocation extends PurchasingCapitalAssetLocationBase {

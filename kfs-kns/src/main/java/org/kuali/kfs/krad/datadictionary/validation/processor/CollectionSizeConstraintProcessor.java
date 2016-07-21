@@ -34,7 +34,7 @@ import java.util.Collection;
 /**
  * This class validates attributes that are collection size constrained - ones that can only have between x and y number 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class CollectionSizeConstraintProcessor implements CollectionConstraintProcessor<Collection<?>, CollectionSizeConstraint> {
 

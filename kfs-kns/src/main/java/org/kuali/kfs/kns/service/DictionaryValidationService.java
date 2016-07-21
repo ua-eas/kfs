@@ -22,7 +22,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.document.Document;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public interface DictionaryValidationService extends org.kuali.kfs.krad.service.DictionaryValidationService {

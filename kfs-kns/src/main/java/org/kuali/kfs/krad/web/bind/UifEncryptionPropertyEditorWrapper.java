@@ -28,7 +28,7 @@ import java.security.GeneralSecurityException;
  * Property editor which encrypts values for display and decrypts on binding, uses the
  * {@link org.kuali.rice.core.api.encryption.EncryptionService} to perform the encryption
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifEncryptionPropertyEditorWrapper extends PropertyEditorSupport{
 

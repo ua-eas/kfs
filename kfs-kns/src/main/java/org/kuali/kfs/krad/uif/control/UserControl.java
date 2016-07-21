@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.uif.widget.QuickFinder;
  * Represents a user control, which is a special control to handle
  * the input of a Person
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UserControl extends TextControl {
     private static final long serialVersionUID = 7468340793076585869L;

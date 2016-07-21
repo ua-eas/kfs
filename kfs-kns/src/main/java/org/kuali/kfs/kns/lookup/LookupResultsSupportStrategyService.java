@@ -25,8 +25,6 @@ import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * Contract for strategies which can help LokoupResultsService with aspects (mainly id generation and result lookup) of multi value lookup support 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public interface LookupResultsSupportStrategyService {

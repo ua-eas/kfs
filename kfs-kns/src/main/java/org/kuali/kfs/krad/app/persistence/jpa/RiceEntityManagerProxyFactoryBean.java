@@ -25,7 +25,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class RiceEntityManagerProxyFactoryBean implements FactoryBean, InitializingBean {
 

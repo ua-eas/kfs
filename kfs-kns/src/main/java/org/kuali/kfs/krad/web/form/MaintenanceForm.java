@@ -24,7 +24,7 @@ import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 /**
  * Form class for <code>MaintenanceView</code> screens
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaintenanceForm extends DocumentFormBase {
 	private static final long serialVersionUID = -5805825500852498048L;

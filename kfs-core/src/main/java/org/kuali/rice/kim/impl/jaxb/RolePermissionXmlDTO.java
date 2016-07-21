@@ -39,8 +39,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 /**
  * Base class representing an unmarshalled &lt;rolePermission&gt; element.
  * Refer to the static inner classes for more information about the specific contexts.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlTransient
 public abstract class RolePermissionXmlDTO implements Serializable {
@@ -134,8 +132,6 @@ public abstract class RolePermissionXmlDTO implements Serializable {
     
     /**
      * This class represents a &lt;rolePermission&gt; element that is not a descendant of a &lt;role&gt; element.
-     * 
-     * @author Kuali Rice Team (rice.collab@kuali.org)
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name="StandaloneRolePermissionType", propOrder={
@@ -221,8 +217,6 @@ public abstract class RolePermissionXmlDTO implements Serializable {
     
     /**
      * This class represents a &lt;rolePermission&gt; element that is a descendant of a &lt;role&gt; element.
-     * 
-     * @author Kuali Rice Team (rice.collab@kuali.org)
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name="RolePermissionType", propOrder={

@@ -67,7 +67,7 @@ import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
- * @author Kuali Rice Team (kuali-rice@googlegroups.com)
+ * 
  */
 public class OrgReviewRole extends PersistableBusinessObjectBase implements MutableInactivatable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OrgReviewRole.class);

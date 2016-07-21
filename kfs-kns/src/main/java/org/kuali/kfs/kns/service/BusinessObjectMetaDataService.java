@@ -34,7 +34,7 @@ import java.util.Map;
  * of BO it will retrieve the data it needs from either the DataDictionary or through the
  * PersistenceStructureService
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface BusinessObjectMetaDataService extends DataObjectMetaDataService {
 

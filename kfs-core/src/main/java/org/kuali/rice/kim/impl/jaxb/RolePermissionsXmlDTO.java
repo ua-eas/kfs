@@ -44,8 +44,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
  * 
  * TODO: Alter the role/permission service APIs so that finding all the permissions assigned to a role is possible; the
  * current lack of such an API method prevents role permissions from being exported.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlTransient
 public abstract class RolePermissionsXmlDTO<T extends RolePermissionXmlDTO> implements RiceXmlListAdditionListener<T>, Serializable {
@@ -68,8 +66,6 @@ public abstract class RolePermissionsXmlDTO<T extends RolePermissionXmlDTO> impl
     
     /**
      * This class represents a &lt;rolePermissions&gt; element that is not a child of a &lt;role&gt; element.
-     * 
-     * @author Kuali Rice Team (rice.collab@kuali.org)
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name="StandaloneRolePermissionsType", propOrder={"rolePermissions"})
@@ -102,8 +98,6 @@ public abstract class RolePermissionsXmlDTO<T extends RolePermissionXmlDTO> impl
     
     /**
      * This class represents a &lt;rolePermissions&gt; element that is a child of a &lt;role&gt; element.
-     * 
-     * @author Kuali Rice Team (rice.collab@kuali.org)
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name="RolePermissionsType", propOrder={"rolePermissions"})

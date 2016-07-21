@@ -58,7 +58,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 15. value with invalid email address. (failure) {@link #testValueInvalidEmailAddress7()}
  *
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class EmailAddressPatternConstraintTest {
 

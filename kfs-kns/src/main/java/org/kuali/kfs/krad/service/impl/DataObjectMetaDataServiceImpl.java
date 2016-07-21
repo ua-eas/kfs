@@ -50,7 +50,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.beans.BeanWrapper;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataObjectMetaDataServiceImpl implements DataObjectMetaDataService {
 

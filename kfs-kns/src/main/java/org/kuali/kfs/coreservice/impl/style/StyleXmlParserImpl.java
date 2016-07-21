@@ -44,7 +44,6 @@ import java.util.List;
 
 /**
  * Parser for Style content type, managed by StyleService
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StyleXmlParserImpl implements StyleXmlParser {
 	private static final Logger LOG = Logger.getLogger(StyleXmlParserImpl.class);

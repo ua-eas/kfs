@@ -25,7 +25,7 @@ import org.kuali.kfs.krad.datadictionary.FieldOverride;
 /**
  * A Field Override used to insert elements into a Data Dictionary Bean.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class FieldOverrideForListElementInsertImpl extends FieldOverrideForListElementBase  implements FieldOverride{

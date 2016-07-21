@@ -36,7 +36,7 @@ import java.util.List;
  * (from the inherited styleClass and style properties)
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LabelField extends FieldBase {
     private static final long serialVersionUID = -6491546893195180114L;

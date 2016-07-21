@@ -24,7 +24,7 @@ import org.kuali.kfs.krad.datadictionary.mask.MaskFormatter;
 /**
  * Defines a set of restrictions that are possible on an attribute
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AttributeSecurity extends DataDictionaryDefinitionBase {
 	private static final long serialVersionUID = -7923499408946975318L;

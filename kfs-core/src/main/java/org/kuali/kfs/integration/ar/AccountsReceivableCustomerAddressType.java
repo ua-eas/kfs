@@ -21,7 +21,7 @@ package org.kuali.kfs.integration.ar;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public interface AccountsReceivableCustomerAddressType extends ExternalizableBusinessObject {
 

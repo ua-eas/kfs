@@ -35,7 +35,7 @@ import org.springframework.beans.InvalidPropertyException;
  * This class allows a dictionary object to expose information about its fields / attributes, including the values of
  * those fields, with some guidance from the DataDictionaryEntry object. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class DictionaryObjectAttributeValueReader extends BaseAttributeValueReader {
 

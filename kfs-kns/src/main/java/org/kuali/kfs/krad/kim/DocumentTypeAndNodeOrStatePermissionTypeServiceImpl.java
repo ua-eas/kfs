@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class DocumentTypeAndNodeOrStatePermissionTypeServiceImpl extends DocumentTypePermissionTypeServiceImpl {

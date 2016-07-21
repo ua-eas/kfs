@@ -45,7 +45,7 @@ import java.util.Map;
  * A Struts Action which permits a user to execute a backdoor login to masquerade
  * as another user.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BackdoorAction extends org.kuali.kfs.kns.web.struts.action.KualiAction {
 

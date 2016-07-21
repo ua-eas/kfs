@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.uif.component.ComponentBase;
  * implementation of performFinalize
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class WidgetBase extends ComponentBase implements Widget {
     private static final long serialVersionUID = -917582902829056830L;

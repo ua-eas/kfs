@@ -30,8 +30,6 @@ import org.kuali.kfs.krad.kim.DocumentTypePermissionTypeServiceImpl;
 
 /**
  * 
- * @author Kuali Rice Team (kuali-rice@googlegroups.com)
- * 
  */
 public class FinancialSystemDocumentTypePermissionTypeServiceImpl extends DocumentTypePermissionTypeServiceImpl {
 

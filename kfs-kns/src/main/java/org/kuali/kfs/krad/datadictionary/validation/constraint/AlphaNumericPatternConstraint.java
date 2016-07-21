@@ -24,7 +24,7 @@ import org.kuali.kfs.krad.uif.UifConstants;
 /**
  * A ValidCharactersConstraint based on AlphaNumericValidationPattern.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AlphaNumericPatternConstraint extends AllowCharacterConstraint {
     protected boolean lowerCase = false;

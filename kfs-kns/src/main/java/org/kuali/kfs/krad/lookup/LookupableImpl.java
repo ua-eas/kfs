@@ -72,7 +72,7 @@ import java.util.Properties;
 /**
  * Default implementation of <code>Lookupable</code>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupableImpl extends ViewHelperServiceImpl implements Lookupable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LookupableImpl.class);

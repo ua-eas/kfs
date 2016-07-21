@@ -61,7 +61,7 @@ import java.util.UUID;
  * of implementing an internal application, the use of a business object extensions
  * is likely unnecessary.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface PersistableBusinessObject extends BusinessObject, Versioned, GloballyUnique {
 

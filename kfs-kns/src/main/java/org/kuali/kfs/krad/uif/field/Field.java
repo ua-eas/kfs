@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.uif.component.Component;
  * configure that element.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Field extends Component {
 

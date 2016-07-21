@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Type service for the 'View' KIM type which matches on the id for a UIF view
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewPermissionTypeServiceImpl extends PermissionTypeServiceBase {
     private boolean exactMatchPriority = true;

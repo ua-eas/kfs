@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.uif.component.ComponentSecurity;
  * on the field within the collection line
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class FieldSecurity extends ComponentSecurity {
 

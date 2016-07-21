@@ -32,7 +32,7 @@ import java.util.Set;
  * based on any variable (view configuration, system parameters, ...) that does
  * not depend on the current user
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewPresentationController {
 

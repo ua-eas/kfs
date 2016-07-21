@@ -46,7 +46,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class PurchasingAccountsPayableItemAsset extends PersistableBusinessObjectBase implements Comparable<PurchasingAccountsPayableItemAsset> {
     private static final Logger LOG = Logger.getLogger(PurchasingAccountsPayableItemAsset.class);

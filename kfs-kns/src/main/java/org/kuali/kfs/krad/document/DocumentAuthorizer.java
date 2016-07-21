@@ -35,7 +35,7 @@ import org.kuali.kfs.krad.bo.DataObjectAuthorizer;
  * actions and in addition used for view presentation logic
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DocumentAuthorizer extends DataObjectAuthorizer {
 

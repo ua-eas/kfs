@@ -34,7 +34,7 @@ import org.kuali.rice.core.api.config.property.ConfigContext;
  * This can be done by setting the allowed formats to this subset (see BasicDatePatternConstraint
  * bean for example)
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DatePatternConstraint extends ValidDataPatternConstraint {
 

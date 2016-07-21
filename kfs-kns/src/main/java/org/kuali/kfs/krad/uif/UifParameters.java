@@ -23,7 +23,7 @@ package org.kuali.kfs.krad.uif;
  * <code>Map</code> implementations (like the request, action parameters map,
  * component template options, component layout options)
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifParameters {
 

@@ -35,7 +35,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 
 public class AssetLocationGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {

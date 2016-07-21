@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
  * This class handles the logout. After logout it will do an external redirect to an url
  * specified by a Parameter (LOGOUT_REDIRECT_URL) or a config property (rice.portal.logout.redirectUrl).
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class KualiLogoutAction extends Action {

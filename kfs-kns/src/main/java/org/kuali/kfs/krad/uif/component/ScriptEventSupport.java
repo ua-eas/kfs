@@ -28,7 +28,7 @@ package org.kuali.kfs.krad.uif.component;
  * returned
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ScriptEventSupport {
 

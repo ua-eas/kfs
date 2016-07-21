@@ -21,7 +21,7 @@ package org.kuali.kfs.module.cam.businessobject;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementAsset;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class Asset extends AssetBase implements CapitalAssetManagementAsset {
     

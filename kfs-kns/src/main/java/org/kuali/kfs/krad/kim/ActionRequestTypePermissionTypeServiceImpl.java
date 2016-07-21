@@ -21,7 +21,7 @@ package org.kuali.kfs.krad.kim;
 import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ActionRequestTypePermissionTypeServiceImpl extends PermissionTypeServiceBase {
 

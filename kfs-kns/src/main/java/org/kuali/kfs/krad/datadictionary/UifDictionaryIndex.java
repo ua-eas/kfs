@@ -46,7 +46,7 @@ import java.util.Map.Entry;
  * are indexed by their type to support retrieval of views based on parameters.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifDictionaryIndex implements Runnable {
     private static final Log LOG = LogFactory.getLog(UifDictionaryIndex.class);

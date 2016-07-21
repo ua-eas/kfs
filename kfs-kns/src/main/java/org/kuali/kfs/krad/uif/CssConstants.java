@@ -23,7 +23,7 @@ import java.text.MessageFormat;
 /**
  * Constants for CSS style strings
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CssConstants {
 

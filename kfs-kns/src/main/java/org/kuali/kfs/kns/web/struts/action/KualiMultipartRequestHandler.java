@@ -28,7 +28,7 @@ import java.util.List;
  * Subclass of the MultipartRequestHandler used by Struts.  This one allows the maximum upload size to be set
  * by the application rather than by an init parameter. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class KualiMultipartRequestHandler extends CommonsMultipartRequestHandler {

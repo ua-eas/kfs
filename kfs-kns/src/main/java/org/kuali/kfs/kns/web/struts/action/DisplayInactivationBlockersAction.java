@@ -42,7 +42,7 @@ import java.util.TreeMap;
 /**
  * This is a description of what this class does - wliang don't forget to fill this in. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class DisplayInactivationBlockersAction extends org.kuali.kfs.kns.web.struts.action.KualiAction {

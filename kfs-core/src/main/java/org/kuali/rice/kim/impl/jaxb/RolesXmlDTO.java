@@ -38,8 +38,6 @@ import org.kuali.rice.kim.api.role.RoleContract;
 
 /**
  * This class represents a &lt;roles&gt; element. 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="RolesType", propOrder={"roles"})

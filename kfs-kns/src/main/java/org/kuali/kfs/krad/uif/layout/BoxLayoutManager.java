@@ -43,7 +43,7 @@ import java.util.List;
  * be set for the items by using the itemSpanStyle property.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BoxLayoutManager extends LayoutManagerBase {
 	private static final long serialVersionUID = 4467342272983290044L;

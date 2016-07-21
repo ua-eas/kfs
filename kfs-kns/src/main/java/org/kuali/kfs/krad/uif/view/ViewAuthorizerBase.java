@@ -54,7 +54,7 @@ import java.util.Set;
  * the permission check. Subclasses can override these methods to add additional attributes
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewAuthorizerBase extends DataObjectAuthorizerBase implements ViewAuthorizer {
     private static final long serialVersionUID = -2687378084630965412L;

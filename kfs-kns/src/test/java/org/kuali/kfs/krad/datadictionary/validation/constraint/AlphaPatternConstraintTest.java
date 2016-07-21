@@ -45,7 +45,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 4. value with invalid characters Allowing white space. (failure) {@link #testValueNotValidCharsAllowWhitespace()}
  * 5. value with invalid characters(Special Characters) Allowing white space. (failure) {@link #testValueWithSpecialCharsAllowWhitespace()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class AlphaPatternConstraintTest {
 

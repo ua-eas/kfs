@@ -28,7 +28,7 @@ import java.util.Map;
  * Represents an exception that is thrown when a given user is not authorized to take the given action on the given
  * target type
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AuthorizationException extends KualiException {
     private static final long serialVersionUID = -3874239711783179351L;

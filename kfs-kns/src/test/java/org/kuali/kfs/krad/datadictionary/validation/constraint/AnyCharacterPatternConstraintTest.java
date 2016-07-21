@@ -42,7 +42,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 2. value with invalid characters. (failure) {@link #testValueNotValidChars()}
  * 3. value with all valid characters. Allowing white space.(success) {@link #testValueAllValidCharsAllowWhitespace()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class AnyCharacterPatternConstraintTest {
 

@@ -84,7 +84,7 @@ import java.util.Properties;
  * (retrieve from doc search and action list), save, route (and other KEW actions)
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class DocumentControllerBase extends UifControllerBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentControllerBase.class);

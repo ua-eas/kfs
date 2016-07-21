@@ -28,7 +28,7 @@ import java.util.List;
  * An Exporter provides the ability to export a List of BusinessObjects to a
  * supported ExportFormat.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Exporter {
 

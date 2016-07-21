@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * This is a description of what this class does - chang don't forget to fill this in. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class LookupResultsTest {

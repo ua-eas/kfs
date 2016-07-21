@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Overloaded in order to hook in the UIF Binder classes
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifAnnotationMethodHandleAdapter extends AnnotationMethodHandlerAdapter {
 

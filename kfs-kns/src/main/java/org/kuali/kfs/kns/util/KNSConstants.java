@@ -19,7 +19,7 @@
 package org.kuali.kfs.kns.util;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class KNSConstants {
     public static final String AUDIT_ERRORS = "AuditErrors";

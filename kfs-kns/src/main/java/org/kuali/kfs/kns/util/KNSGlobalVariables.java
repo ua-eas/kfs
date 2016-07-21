@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public final class KNSGlobalVariables {

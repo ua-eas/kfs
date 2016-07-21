@@ -33,7 +33,7 @@ import java.util.Set;
  * Encapsulates a set of statically generated (typically during startup)
  * DataDictionary indexes 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataDictionaryIndex implements Runnable {
 	private static final Log LOG = LogFactory.getLog(DataDictionaryIndex.class);

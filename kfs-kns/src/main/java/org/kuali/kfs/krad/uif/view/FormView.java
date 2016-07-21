@@ -22,7 +22,7 @@ package org.kuali.kfs.krad.uif.view;
  * Provides configuration for <code>View</code> instances that render an HTML
  * form
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class FormView extends View {
 	private static final long serialVersionUID = -3291164284675273147L;

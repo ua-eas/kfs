@@ -52,7 +52,7 @@ import java.util.Map;
  * Implementation of <code>SessionDocumentService</code> that persists the document form
  * contents to the underlying database
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 @Transactional

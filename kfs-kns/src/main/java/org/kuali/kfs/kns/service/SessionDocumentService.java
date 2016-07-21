@@ -25,7 +25,7 @@ import org.kuali.kfs.krad.UserSession;
 import java.sql.Timestamp;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public interface SessionDocumentService {

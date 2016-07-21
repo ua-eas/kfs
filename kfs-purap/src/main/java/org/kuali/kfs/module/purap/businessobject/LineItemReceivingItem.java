@@ -29,7 +29,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class LineItemReceivingItem extends ReceivingItemBase {
 

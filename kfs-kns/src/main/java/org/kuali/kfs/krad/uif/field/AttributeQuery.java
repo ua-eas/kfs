@@ -41,7 +41,7 @@ import java.util.Map;
  * the method is on another class or object.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AttributeQuery implements Serializable {
     private static final long serialVersionUID = -4569905665441735255L;

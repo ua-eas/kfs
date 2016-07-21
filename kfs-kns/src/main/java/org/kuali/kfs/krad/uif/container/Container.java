@@ -43,7 +43,7 @@ import java.util.Set;
  * </ul>
  * Container implementations are free to add additional content as needed.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * 
  * @see Component
  */

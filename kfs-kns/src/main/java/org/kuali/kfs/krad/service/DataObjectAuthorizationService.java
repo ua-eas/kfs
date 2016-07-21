@@ -25,7 +25,7 @@ import org.kuali.rice.kim.api.identity.Person;
  * on a given data object class including the security of fields
  * within the class
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DataObjectAuthorizationService {
 

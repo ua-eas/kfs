@@ -40,7 +40,7 @@ import java.util.Map;
 /**
  * Performs checking of inactivation blocking 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Transactional
 public class InactivationBlockingDetectionServiceImpl implements InactivationBlockingDetectionService {

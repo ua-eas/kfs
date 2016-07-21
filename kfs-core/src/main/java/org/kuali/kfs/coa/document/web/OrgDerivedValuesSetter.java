@@ -34,9 +34,6 @@ import org.kuali.rice.location.api.postalcode.PostalCodeService;
 
 /**
  * This is a description of what this class does - wliang don't forget to fill this in. 
- * 
- * @author Kuali Rice Team (kuali-rice@googlegroups.com)
- *
  */
 public class OrgDerivedValuesSetter implements DerivedValuesSetter {
 	public void setDerivedValues(KualiForm form, HttpServletRequest request){

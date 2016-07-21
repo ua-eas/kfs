@@ -48,7 +48,7 @@ import java.util.List;
  * 5. collection size above range (failure) {@link #testSimpleCollectionSizeAboveRangeFailure()}
  * 6. no range constraints defined (success) {@link #testSimpleCollectionSizeUnconstrainedSuccess()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class CollectionSizeConstraintProcessorTest {
 

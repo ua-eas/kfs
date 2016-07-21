@@ -32,7 +32,7 @@ import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
 
 /**
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class DataTypeConstraintProcessor extends MandatoryElementConstraintProcessor<DataTypeConstraint> {
 

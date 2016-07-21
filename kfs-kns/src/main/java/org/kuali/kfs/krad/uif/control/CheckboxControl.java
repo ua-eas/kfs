@@ -22,7 +22,7 @@ package org.kuali.kfs.krad.uif.control;
  * Represents a HTML Checkbox control. Typically used for boolean attributes (where the
  * value is either on/off, true/false)
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CheckboxControl extends ControlBase implements ValueConfiguredControl {
     private static final long serialVersionUID = -1397028958569144230L;

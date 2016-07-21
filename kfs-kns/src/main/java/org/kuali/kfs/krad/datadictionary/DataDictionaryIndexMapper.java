@@ -36,7 +36,7 @@ import java.util.Set;
  * A DataDictionaryMapper that simply consults the statically initialized
  * DataDictionaryIndex mappings
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataDictionaryIndexMapper implements DataDictionaryMapper {
 	private static final Logger LOG = Logger.getLogger(DataDictionaryIndexMapper.class);

@@ -22,7 +22,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.document.DocumentAuthorizer;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface MaintenanceDocumentAuthorizer extends DocumentAuthorizer {
 

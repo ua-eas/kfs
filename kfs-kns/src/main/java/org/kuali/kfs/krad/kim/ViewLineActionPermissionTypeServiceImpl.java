@@ -33,7 +33,7 @@ import java.util.Map;
  * Type service for the 'View Line Action' KIM type which matches on the id for a UIF view, group id or collection
  * property name, field id or action event
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewLineActionPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 

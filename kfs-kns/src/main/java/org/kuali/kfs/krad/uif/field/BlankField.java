@@ -27,7 +27,7 @@ package org.kuali.kfs.krad.uif.field;
  * the total row.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BlankField extends FieldBase {
     private static final long serialVersionUID = -4740343801872334348L;

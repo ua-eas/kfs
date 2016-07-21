@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.uif.view.ViewPresentationControllerBase;
  * Adds flag for export of inquiry record
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupViewPresentationControllerBase extends ViewPresentationControllerBase {
     private static final long serialVersionUID = -1571703041784821056L;

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Base class for controls that accept/display multiple values
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class MultiValueControlBase extends ControlBase implements MultiValueControl {
     private static final long serialVersionUID = -8691367056245775455L;

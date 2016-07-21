@@ -43,7 +43,7 @@ import java.util.Map;
  * class and then use it to get the name property
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewModelUtils {
 

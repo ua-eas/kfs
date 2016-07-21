@@ -46,7 +46,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 5. value with all valid characters. Allowing white space, period, underscore and parenthesis. (success) {@link #testValueAllValidCharsAllowWhitespaceAndPeriodAndUnderscoreAndParenthesis()}
  * 6. value with invalid characters. Allowing white space, period, underscore and parenthesis. (failure) {@link #testValueNotValidCharsAllowWhitespaceAndPeriodAndUnderscoreAndParenthesis()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class AlphaNumericPatternConstraintTest {
 

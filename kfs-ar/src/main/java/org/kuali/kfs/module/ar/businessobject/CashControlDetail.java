@@ -32,7 +32,7 @@ import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class CashControlDetail extends PersistableBusinessObjectBase {
 

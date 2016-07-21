@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  * The order of precedence for this permission type service is as follows:
  *

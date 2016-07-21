@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @MappedSuperclass
 public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.bo.BusinessObjectBase implements PersistableBusinessObject, PersistenceBrokerAware, Versioned, GloballyUnique {

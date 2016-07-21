@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataDictionaryServiceImpl extends org.kuali.kfs.krad.service.impl.DataDictionaryServiceImpl implements DataDictionaryService, ApplicationContextAware {
     private ApplicationContext applicationContext;

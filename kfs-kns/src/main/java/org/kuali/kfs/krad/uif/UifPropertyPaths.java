@@ -21,7 +21,7 @@ package org.kuali.kfs.krad.uif;
 /**
  * Constants for property paths
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifPropertyPaths {
 	

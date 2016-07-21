@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * This is used for sending report of an incident
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public interface KualiExceptionIncidentService extends KualiFeedbackService {

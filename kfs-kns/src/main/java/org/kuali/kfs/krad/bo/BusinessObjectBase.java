@@ -24,7 +24,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 import java.lang.reflect.Field;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class BusinessObjectBase implements BusinessObject {
 

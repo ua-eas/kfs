@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.document.Document;
 /**
  * This implementation of {@link PropertySerializabilityEvaluator} specifies that all properties of a document are serializable.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class AlwaysFalsePropertySerializabilityEvaluator extends PropertySerializabilityEvaluatorBase {

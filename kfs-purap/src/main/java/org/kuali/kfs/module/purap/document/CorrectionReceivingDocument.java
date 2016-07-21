@@ -37,7 +37,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.framework.country.CountryEbo;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class CorrectionReceivingDocument extends ReceivingDocumentBase {
 

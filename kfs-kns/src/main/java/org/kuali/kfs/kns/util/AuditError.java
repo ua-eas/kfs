@@ -21,7 +21,7 @@ package org.kuali.kfs.kns.util;
 /**
  * KRA Audit Error class.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class AuditError {

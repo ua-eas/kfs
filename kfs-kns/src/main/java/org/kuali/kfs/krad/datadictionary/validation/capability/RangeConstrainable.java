@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.RangeConstraint;
 /**
  * Validation capability to constrain a value to be within some numeric or date range. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public interface RangeConstrainable extends Constrainable, RangeConstraint {
 

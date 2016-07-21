@@ -33,7 +33,7 @@ import java.util.Map;
  * Type service for the 'View Group' KIM type which matches on the id for a UIF view, group id or collection
  * property name
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewGroupPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 

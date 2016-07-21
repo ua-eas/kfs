@@ -27,7 +27,7 @@ import org.kuali.kfs.krad.uif.widget.LightBox;
 /**
  * Field that encloses a link element
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LinkField extends FieldBase {
 	private static final long serialVersionUID = -1908504471910271148L;

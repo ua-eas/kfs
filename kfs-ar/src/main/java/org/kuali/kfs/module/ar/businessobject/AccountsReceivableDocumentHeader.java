@@ -32,7 +32,7 @@ import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class AccountsReceivableDocumentHeader extends PersistableBusinessObjectBase implements org.kuali.kfs.integration.ar.AccountsReceivableDocumentHeader{
 

@@ -43,7 +43,7 @@ import org.kuali.kfs.krad.web.form.UifFormBase;
  * during the view lifecycle
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewServiceImpl implements ViewService {
     private static final Logger LOG = Logger.getLogger(ViewServiceImpl.class);

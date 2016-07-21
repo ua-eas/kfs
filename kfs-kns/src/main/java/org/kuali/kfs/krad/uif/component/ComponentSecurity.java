@@ -34,7 +34,7 @@ import java.util.Map;
  * Security subclasses exist adding on flags apporiate for that component
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ComponentSecurity extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = 726347449984853891L;

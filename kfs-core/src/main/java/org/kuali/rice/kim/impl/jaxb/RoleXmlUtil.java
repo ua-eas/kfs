@@ -47,8 +47,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
  * <p>All non-private methods are package-private so that only the KIM-parsing-related code can make use of them. (TODO: Is that necessary?)
  *
  * <p>TODO: Should this be converted into a service instead?
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public final class RoleXmlUtil {
     // Do not allow outside code to instantiate this class.

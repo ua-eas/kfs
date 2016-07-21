@@ -53,7 +53,7 @@ import java.util.List;
  * information relating to the display, validation, and general maintenance of a
  * specific attribute of an entry.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AttributeDefinition extends AttributeDefinitionBase implements CaseConstrainable, PrerequisiteConstrainable, Formatable, HierarchicallyConstrainable, MustOccurConstrainable, LengthConstrainable, RangeConstrainable, ValidCharactersConstrainable {
     private static final long serialVersionUID = -2490613377818442742L;

@@ -44,7 +44,7 @@ import java.util.List;
  * 4. value not matching regular expression (failure)
  * 5. value without constraint (no constraint)
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ValidCharactersConstraintProcessorTest {
 	

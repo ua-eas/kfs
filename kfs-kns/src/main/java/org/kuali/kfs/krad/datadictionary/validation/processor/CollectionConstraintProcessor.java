@@ -27,7 +27,7 @@ import java.util.Collection;
  * rather than their elements. Maybe the best example of a collection-based constraint is a constraint on the number of elements 
  * in that collection -- for example, a constraint that ensures that there are between 1 and 10 elements in a collection. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public interface CollectionConstraintProcessor<T extends Collection<?>, C extends Constraint> extends ConstraintProcessor<T, C> {
 	// Empty

@@ -45,7 +45,7 @@ import java.util.List;
  * The processAndApplyConstraints(InputField field, View view) is the key method of this class used by
  * InputField to setup its client side validation mechanisms.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ClientValidationUtils {
 	// used to give validation methods unique signatures

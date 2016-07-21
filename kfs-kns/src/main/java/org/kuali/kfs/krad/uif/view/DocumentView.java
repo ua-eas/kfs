@@ -35,7 +35,7 @@ import org.kuali.kfs.krad.uif.UifConstants;
  * in the KRAD module.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentView extends FormView {
 	private static final long serialVersionUID = 2251983409572774175L;

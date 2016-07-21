@@ -31,7 +31,7 @@ import java.util.Set;
  * object using the convention of commas to separate map entries and a colon to separate
  * the key value pair
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class StringMapConverter implements GenericConverter {
 

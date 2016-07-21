@@ -22,7 +22,7 @@ package org.kuali.kfs.krad.uif.control;
  * Represents a HTML File control, generally rendered as an input control with
  * type 'file'. Allows user to upload a file to the application
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class FileControl extends ControlBase implements SizedControl {
     private static final long serialVersionUID = -5919326390841646189L;

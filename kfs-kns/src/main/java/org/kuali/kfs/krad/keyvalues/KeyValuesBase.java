@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Abstract base implementation of {@link KeyValuesFinder}
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class KeyValuesBase implements KeyValuesFinder, Serializable {
 

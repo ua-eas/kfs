@@ -35,7 +35,7 @@ import java.text.ParseException;
  * <code>org.kuali.rice.core.api.util.type.KualiDecimal</code> in the local
  * currency
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifCurrencyEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = 6692868638156609014L;

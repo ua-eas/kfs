@@ -42,7 +42,7 @@ import java.util.List;
  * refresh and collection add/delete line.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewCleaner {
 

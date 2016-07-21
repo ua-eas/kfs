@@ -41,7 +41,7 @@ import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class LineItemReceivingDocument extends ReceivingDocumentBase {
 

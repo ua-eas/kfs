@@ -35,7 +35,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ *
  */
 @Deprecated
 public interface KNSDocumentEntry extends DataDictionaryEntry, Serializable, InitializingBean {

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Provides filtering on collection data within a <code>CollectionGroup</code>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface CollectionFilter extends Serializable {
 

@@ -55,7 +55,7 @@ import java.util.regex.Pattern;
 /**
  * Miscellaneous Utility Methods
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public final class KRADUtils {
     private static KualiModuleService kualiModuleService;

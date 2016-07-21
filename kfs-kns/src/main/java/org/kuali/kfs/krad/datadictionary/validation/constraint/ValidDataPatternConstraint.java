@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Class used to 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class ValidDataPatternConstraint extends ValidCharactersConstraint {
 

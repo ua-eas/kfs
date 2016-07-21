@@ -23,7 +23,7 @@ package org.kuali.kfs.krad.uif.control;
  * type 'hidden'. This is used to hold a value that the user will not see but
  * will be posted back with the form
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class HiddenControl extends ControlBase {
 	private static final long serialVersionUID = -8428898303430923425L;

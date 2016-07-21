@@ -48,7 +48,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Controller that handles requests coming from a <code>LookupView</code>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Controller
 @RequestMapping(value = "/lookup")

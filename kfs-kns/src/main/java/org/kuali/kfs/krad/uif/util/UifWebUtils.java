@@ -42,7 +42,7 @@ import java.util.Map;
  * Created to avoid duplication of the methods used by the UifHandlerExceptionResolver
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifWebUtils {
     private static final Logger LOG = Logger.getLogger(UifWebUtils.class);

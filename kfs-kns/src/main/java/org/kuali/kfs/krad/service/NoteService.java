@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * This service provides various operations related to {@link Note} objects.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface NoteService {
 	

@@ -24,7 +24,7 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.CollectionSizeCon
  * Validation capability to constrain a value of type collection to a specific minimum and maximum
  * number of elements. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  * @since 1.1
  */
 public interface CollectionSizeConstrainable extends Constrainable, CollectionSizeConstraint {

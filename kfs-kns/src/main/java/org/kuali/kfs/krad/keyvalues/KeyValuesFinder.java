@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Defines basic methods value finders
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface KeyValuesFinder {
 

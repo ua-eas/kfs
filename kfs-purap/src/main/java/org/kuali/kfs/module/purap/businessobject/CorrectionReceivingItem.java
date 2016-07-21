@@ -21,7 +21,7 @@ package org.kuali.kfs.module.purap.businessobject;
 import org.kuali.kfs.module.purap.document.CorrectionReceivingDocument;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class CorrectionReceivingItem extends ReceivingItemBase {
 

@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
  * Implementation of {@link ViewPresentationController} for
  * {@link MaintenanceView} instances
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaintenanceViewPresentationControllerBase extends DocumentViewPresentationControllerBase {
 

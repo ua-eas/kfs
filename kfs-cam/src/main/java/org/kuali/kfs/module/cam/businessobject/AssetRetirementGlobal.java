@@ -60,7 +60,7 @@ import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 
 public class AssetRetirementGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {

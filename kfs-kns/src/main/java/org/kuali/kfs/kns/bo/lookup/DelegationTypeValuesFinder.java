@@ -29,8 +29,6 @@ import java.util.List;
 
 /**
  * A values finder for returning KEW rule delegation type codes.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class DelegationTypeValuesFinder extends KeyValuesBase {
     private static final List<KeyValue> C_DELEGATION_TYPES;

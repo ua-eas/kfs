@@ -24,7 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Entity
 @Table(name="KRNS_MAINT_DOC_ATT_LST_T")

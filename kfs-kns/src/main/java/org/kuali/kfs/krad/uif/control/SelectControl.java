@@ -23,7 +23,7 @@ package org.kuali.kfs.krad.uif.control;
  * Represents a HTML Select control. Provides preset options for the User to
  * choose from by a drop down
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class SelectControl extends MultiValueControlBase implements SizedControl {
     private static final long serialVersionUID = 6443247954759096815L;

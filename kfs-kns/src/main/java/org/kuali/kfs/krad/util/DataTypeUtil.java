@@ -26,8 +26,6 @@ import java.beans.PropertyDescriptor;
 /**
  * Pulled this logic out of the org.kuali.rice.krad.workflow.service.impl.WorkflowAttributePropertyResolutionServiceImpl
  * since it wasn't really service logic at all, just util logic.
- * 
- * @author James Renfro
  *
  */
 public class DataTypeUtil {

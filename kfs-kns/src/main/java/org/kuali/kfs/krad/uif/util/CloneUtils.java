@@ -38,8 +38,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * Utility class for copying objects using reflection. Modified from the jCommon
  * library: http://www.matthicks.com/2008/05/fastest-deep-cloning.html
  * 
- * @author Matt Hicks
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class CloneUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CloneUtils.class);

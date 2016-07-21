@@ -44,7 +44,7 @@ import java.util.Collections;
  * 5. string length above range (failure) {@link #testNameLengthAboveRangeFailure()}
  * 6. no length constraints defined (success) {@link #testNameLengthUnconstrainedSuccess()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class LengthConstraintProcessorTest {
 	private LengthConstraintProcessor processor;

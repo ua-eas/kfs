@@ -34,8 +34,6 @@ import java.util.List;
  * An abstract KeyValuesBase for defining a values finder which produces a list of Countries.  Sub-classes should
  * extend this class and override {@link #retrieveCountriesForValuesFinder()} in order to produce a list of
  * countries to include.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public abstract class AbstractCountryValuesFinderBase extends KeyValuesBase {
     @Override

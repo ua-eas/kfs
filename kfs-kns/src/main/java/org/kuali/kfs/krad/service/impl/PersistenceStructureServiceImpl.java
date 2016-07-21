@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.util.ForeignKeyFieldsPopulationState;
 /**
  * This class is now a proxy, which uses the @Entity annotation to decide whether to use the JPA or OJB underlying services to perform an action.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class PersistenceStructureServiceImpl extends PersistenceServiceImplBase implements PersistenceStructureService {

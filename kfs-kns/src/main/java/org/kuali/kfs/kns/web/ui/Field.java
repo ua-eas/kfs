@@ -39,7 +39,7 @@ import java.util.Set;
 /**
  * Represents a Field (form field or read only)
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public class Field implements java.io.Serializable, PropertyRenderingConfigElement {

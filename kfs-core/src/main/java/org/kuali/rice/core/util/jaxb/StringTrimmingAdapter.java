@@ -27,8 +27,6 @@ import org.apache.commons.lang.StringUtils;
  * 
  * <p>Only use this adapter when it is necessary for the remaining whitespace-related characters to
  * remain as-is.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StringTrimmingAdapter extends XmlAdapter<String,String> {
 

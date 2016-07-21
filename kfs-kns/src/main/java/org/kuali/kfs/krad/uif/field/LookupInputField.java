@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * Custom <code>InputField</code> for search fields within a lookup view
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupInputField extends InputField {
     private static final long serialVersionUID = -8294275596836322699L;

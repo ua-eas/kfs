@@ -33,7 +33,7 @@ import java.util.List;
  * Defines methods that a MaintenanceDocumentDictionary Service must provide. Defines the API for the interacting
  * with Document-related entries in the data dictionary.
  *
- *@author Kuali Rice Team (rice.collab@kuali.org)
+ *
  */
 @Deprecated
 public interface MaintenanceDocumentDictionaryService {

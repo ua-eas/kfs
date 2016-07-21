@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  * This is an implementation of {@link DocumentHeaderService} that facilitates
  * document header management and customization
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * 
  */
 @Transactional

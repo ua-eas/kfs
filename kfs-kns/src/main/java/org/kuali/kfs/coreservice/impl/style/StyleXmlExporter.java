@@ -38,8 +38,6 @@ import static org.kuali.rice.core.api.impex.xml.XmlConstants.*;
  * @see org.kuali.rice.edl.impl.service.StyleService
  * @see org.kuali.rice.kew.StyleXmlParserImpl.StyleXmlParser
  * @see EDocLiteStyle
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StyleXmlExporter implements XmlExporter {
 	private static final Logger LOG = Logger.getLogger(StyleXmlExporter.class);

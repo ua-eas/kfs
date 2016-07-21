@@ -73,7 +73,7 @@ import java.util.Set;
  * the <code>View</code>
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class View extends ContainerBase {
     private static final long serialVersionUID = -1220009725554576953L;

@@ -47,7 +47,7 @@ import java.util.List;
  * display. See documentation on each get method for more details on the effect
  * of each option.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ErrorsField extends FieldBase {
     private static final long serialVersionUID = 780940788435330077L;
