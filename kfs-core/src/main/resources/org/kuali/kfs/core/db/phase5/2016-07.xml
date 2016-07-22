@@ -152,4 +152,10 @@
             <where>cmpnt_cd = 'TemCorporateCardApplication'</where>
         </update>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-607_REMOVE_YE_DEPRECIATION_PARAMETER" context="bootstrap,demo,unit">
+        <delete tableName="krcr_parm_t">
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'INCLUDE_RETIRED_ASSETS_IND'</where>
+        </delete>
+    </changeSet>
 </databaseChangeLog>
