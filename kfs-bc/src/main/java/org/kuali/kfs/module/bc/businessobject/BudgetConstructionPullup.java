@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,9 +27,7 @@ import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationRe
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     private String chartOfAccountsCode;
@@ -55,7 +53,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -64,7 +62,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -74,7 +72,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -83,7 +81,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -93,7 +91,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the reportsToChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the reportsToChartOfAccountsCode
      */
     public String getReportsToChartOfAccountsCode() {
@@ -102,7 +100,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the reportsToChartOfAccountsCode attribute.
-     * 
+     *
      * @param reportsToChartOfAccountsCode The reportsToChartOfAccountsCode to set.
      */
     public void setReportsToChartOfAccountsCode(String reportsToChartOfAccountsCode) {
@@ -112,7 +110,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the reportsToOrganizationCode attribute.
-     * 
+     *
      * @return Returns the reportsToOrganizationCode
      */
     public String getReportsToOrganizationCode() {
@@ -121,7 +119,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the reportsToOrganizationCode attribute.
-     * 
+     *
      * @param reportsToOrganizationCode The reportsToOrganizationCode to set.
      */
     public void setReportsToOrganizationCode(String reportsToOrganizationCode) {
@@ -131,7 +129,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the pullFlag attribute.
-     * 
+     *
      * @return Returns the pullFlag
      */
     public Integer getPullFlag() {
@@ -140,7 +138,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the pullFlag attribute.
-     * 
+     *
      * @param pullFlag The pullFlag to set.
      */
     public void setPullFlag(Integer pullFlag) {
@@ -150,7 +148,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId.
      */
     public String getPrincipalId() {
@@ -159,7 +157,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the principalId attribute value.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -168,7 +166,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the isLeaf attribute.
-     * 
+     *
      * @return Returns the isLeaf.
      */
     public boolean isLeaf() {
@@ -177,7 +175,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -186,7 +184,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -196,7 +194,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -205,7 +203,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -215,7 +213,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the reportsToOrganization attribute.
-     * 
+     *
      * @return Returns the reportsToOrganization
      */
     public Organization getReportsToOrganization() {
@@ -224,7 +222,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the reportsToOrganization attribute.
-     * 
+     *
      * @param reportsToOrganization The reportsToOrganization to set.
      * @deprecated
      */
@@ -234,7 +232,7 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Gets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the reportsToChartOfAccounts
      */
     public Chart getReportsToChartOfAccounts() {
@@ -243,18 +241,18 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
 
     /**
      * Sets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @param reportsToChartOfAccounts The reportsToChartOfAccounts to set.
      * @deprecated
      */
     public void setReportsToChartOfAccounts(Chart reportsToChartOfAccounts) {
         this.reportsToChartOfAccounts = reportsToChartOfAccounts;
     }
-    
+
     /**
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    
+
     public boolean equals(Object obj) {
         boolean isEqual = true;
         if (obj == null || !(obj instanceof BudgetConstructionPullup)) {
@@ -262,10 +260,10 @@ public class BudgetConstructionPullup extends PersistableBusinessObjectBase {
         }
         else {
             if (!this.toString().equals(obj.toString())) {
-               isEqual = false; 
+               isEqual = false;
             }
         }
-        
+
         return isEqual;
     }
 

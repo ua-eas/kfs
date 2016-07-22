@@ -29,8 +29,6 @@ import org.kuali.kfs.krad.util.KRADConstants;
 
 /**
  * This class allows for plugging in custom CSV export into the Display Tag library. 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public class CustomCsvExportView extends CsvView {

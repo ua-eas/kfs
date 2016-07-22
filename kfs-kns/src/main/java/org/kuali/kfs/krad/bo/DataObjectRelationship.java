@@ -30,7 +30,7 @@ import java.util.Map;
  * properties (fields) of the parent class (parent table) has a relationship to another class (table)
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataObjectRelationship implements Serializable {
     private Class<?> relatedClass;

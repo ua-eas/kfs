@@ -24,8 +24,6 @@ import org.apache.ojb.broker.accesslayer.conversions.FieldConversion;
  * For records in the KEW tables, "0" and "1" are used to represent "false" and "true"
  * respectively which is the standard way to represent these values in OJB.
  * This differs from other pieces of the KNS where "N" and "Y" are used.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class OjbCharBooleanConversion3 implements FieldConversion {
     

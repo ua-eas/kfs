@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * This class is used to handle session timeouts 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class KualiHttpSessionListener implements HttpSessionListener {

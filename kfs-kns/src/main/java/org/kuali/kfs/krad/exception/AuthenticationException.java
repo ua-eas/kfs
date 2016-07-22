@@ -23,7 +23,7 @@ import org.kuali.rice.core.api.exception.KualiException;
 /**
  * Exception thrown on authentication failure.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class AuthenticationException extends KualiException {

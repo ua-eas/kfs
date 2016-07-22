@@ -32,7 +32,7 @@ import java.util.Map;
  * The breadcrumb widget contains various settings for setting up
  * Breadcrumb/History support on the view.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BreadCrumbs extends WidgetBase {
     private static final long serialVersionUID = -2864287914665842251L;

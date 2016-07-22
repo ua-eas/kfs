@@ -27,7 +27,7 @@ import org.kuali.kfs.krad.uif.view.View;
 /**
  * Action field that performs an Ajax request and will result in updating of the page or a component
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AjaxActionField extends ActionField {
     private static final long serialVersionUID = -2831173647391138870L;

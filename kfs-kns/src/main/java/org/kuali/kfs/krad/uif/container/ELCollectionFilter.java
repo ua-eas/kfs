@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Collection filter that evaluates a configured el expression against each line
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ELCollectionFilter implements CollectionFilter {
     private static final long serialVersionUID = 3273495753269940272L;

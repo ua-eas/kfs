@@ -29,7 +29,7 @@ import java.util.List;
  * 
  * {@see AttributeDefinitionConstraintProvider} for a number of examples. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @param <T>
  * @since 1.1
  */

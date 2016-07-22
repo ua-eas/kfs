@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.util.KRADUtils;
 /**
  * Utilities for collection layout managers
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CollectionLayoutUtils {
 

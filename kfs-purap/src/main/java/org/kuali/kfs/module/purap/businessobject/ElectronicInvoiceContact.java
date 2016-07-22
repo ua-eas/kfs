@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,7 +30,7 @@ import java.util.Map;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class ElectronicInvoiceContact {
-  
+
   private String role;
   private String addressID;
   private String name;
@@ -40,43 +40,41 @@ public class ElectronicInvoiceContact {
   private Map<String,String> faxNumbers = new HashMap<String,String>();
   private List<String> webAddresses = new ArrayList<String>();
 
-  /**
-   * 
-   */
+
   public ElectronicInvoiceContact() {
     super();
   }
-  
+
   public void addPostalAddress(ElectronicInvoicePostalAddress cpa) {
     this.postalAddresses.add(cpa);
   }
-  
+
   public void addEmailAddress(String name,String address) {
     this.emailAddresses.put(name, address);
   }
-  
+
   public void addPhoneNumber(String name,
                              String countryCode,
                              String cityOrAreaCode,
                              String number) {
     this.phoneNumbers.put(name, countryCode + cityOrAreaCode + number);
   }
-  
+
   public void addFaxNumber(String name,
                            String countryCode,
                            String cityOrAreaCode,
                            String number) {
      this.faxNumbers.put(name, countryCode + cityOrAreaCode + number);
   }
-  
+
   public void addFaxNumber(String name,String number) {
     this.faxNumbers.put(name, number);
   }
-  
+
   public void addWebAddress(String address) {
     this.webAddresses.add(address);
   }
-  
+
   /**
    * @return Returns the addressID.
    */
@@ -173,9 +171,9 @@ public class ElectronicInvoiceContact {
   public void setWebAddresses(List webAddresses) {
     this.webAddresses = webAddresses;
   }
-  
+
   public String toString(){
-      
+
       ToStringBuilder toString = new ToStringBuilder(this);
       toString.append("Role",getRole());
       toString.append("Name",getName());
@@ -185,8 +183,8 @@ public class ElectronicInvoiceContact {
       toString.append("phoneNumbers",getPhoneNumbers());
       toString.append("FaxNumbers",getFaxNumbers());
       toString.append("URLs",getWebAddresses());
-      
-      
+
+
       return toString.toString();
   }
 }

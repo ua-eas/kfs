@@ -54,7 +54,7 @@ import java.util.Set;
  * settings.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class TableLayoutManager extends GridLayoutManager implements CollectionLayoutManager {
 	private static final long serialVersionUID = 3622267585541524208L;

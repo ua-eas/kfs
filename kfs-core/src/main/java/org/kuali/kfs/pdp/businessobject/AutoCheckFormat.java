@@ -8,26 +8,24 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.pdp.PdpConstants;
 
 public class AutoCheckFormat extends PersistableBusinessObjectBase {
-    
-    /**
-     * 
-     */
+
+
     private static final long serialVersionUID = 6222944228281142059L;
     private String campus;
     private String paymentDate;
     private String paymentTypes;
 
     private FormatProcessSummary formatProcessSummary;
-    
+
     private List<CustomerProfile> customers;
     private List<DisbursementNumberRange> ranges;
-    
+
     public AutoCheckFormat(){
         this.paymentTypes = PdpConstants.PaymentTypes.ALL;
         customers = new ArrayList<CustomerProfile>();
-        ranges = new ArrayList<DisbursementNumberRange>();  
+        ranges = new ArrayList<DisbursementNumberRange>();
     }
-    
+
     public String getCampus() {
         return campus;
     }

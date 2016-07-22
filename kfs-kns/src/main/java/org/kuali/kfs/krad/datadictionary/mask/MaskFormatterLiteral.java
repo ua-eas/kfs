@@ -23,7 +23,7 @@ package org.kuali.kfs.krad.datadictionary.mask;
  * unauthorized users. The specified literal will be shown instead of the field
  * value.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaskFormatterLiteral implements MaskFormatter {
     private static final long serialVersionUID = 3368293409242411693L;

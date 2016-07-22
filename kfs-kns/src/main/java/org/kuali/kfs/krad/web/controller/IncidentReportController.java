@@ -35,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Handler for incident reports
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Controller
 @RequestMapping(value = "/incidentReport")

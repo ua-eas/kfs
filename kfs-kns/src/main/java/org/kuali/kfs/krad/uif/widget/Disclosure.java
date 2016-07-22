@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.uif.component.ClientSideState;
 /**
  * Decorates a group with collapse/expand functionality
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Disclosure extends WidgetBase {
     private static final long serialVersionUID = 1238789480161901850L;

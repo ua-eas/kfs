@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,9 +43,7 @@ import org.kuali.kfs.krad.util.spring.NamedOrderedListBean;
 import org.springframework.core.io.DefaultResourceLoader;
 
 public class KfsDWRServlet extends DwrServlet {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = -3903455224197903186L;
 
     protected static final String CLASSPATH_RESOURCE_PREFIX = "classpath.resource.prefix";
@@ -56,7 +54,7 @@ public class KfsDWRServlet extends DwrServlet {
     /**
      * This method calls the super version then loads the dwr config file
      * specified in the loaded module definitions.
-     * 
+     *
      * @see uk.ltd.getahead.dwr.DWRServlet#configure(javax.servlet.ServletConfig,
      *      uk.ltd.getahead.dwr.Configuration)
      */
@@ -70,7 +68,7 @@ public class KfsDWRServlet extends DwrServlet {
         }
         return dwrListBeans;
     }
-    
+
     protected DwrXmlConfigurator generateConfigurator(DefaultResourceLoader resourceLoader, String scriptConfigurationFilePath ) throws ServletException {
         try {
             InputStream is = resourceLoader.getResource(scriptConfigurationFilePath).getInputStream();
@@ -81,9 +79,9 @@ public class KfsDWRServlet extends DwrServlet {
             throw new ServletException(e);
         }
     }
-    
+
     @Override
-    protected void configureContainer(Container container, ServletConfig servletConfig) throws ServletException, IOException {       
+    protected void configureContainer(Container container, ServletConfig servletConfig) throws ServletException, IOException {
         List<Configurator> configurators = new ArrayList<Configurator>();
         DefaultResourceLoader resourceLoader = new DefaultResourceLoader(ClassLoaderUtils.getDefaultClassLoader());
         String classpathResourcePrefix = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(CLASSPATH_RESOURCE_PREFIX);
@@ -91,32 +89,32 @@ public class KfsDWRServlet extends DwrServlet {
             for (String scriptConfigurationFilePath : namedOrderedListBean.getList()) {
                 if (getSpringBasedConfigPath()) {
                       try {
-                        configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));                       
+                        configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
                        } catch (Exception e) {
                         throw new ServletException(e);
                     }
-                } 
+                }
             }
         }
-        
+
         KualiModuleService kmi = SpringContext.getBean(KualiModuleService.class);
         List<ModuleService> modules = kmi.getInstalledModuleServices();
-        
+
         for (ModuleService moduleService : modules) {
             for (String scriptConfigurationFilePath : moduleService.getModuleConfiguration().getScriptConfigurationFilePaths()) {
                 if (!StringUtils.isBlank(scriptConfigurationFilePath))
                      try {
-                         configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));       
+                         configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
                     } catch (Exception e) {
                         throw new ServletException(e);
                     }
-              }    
+              }
         }
-        
+
         for (String configFile : HACK_ADDITIONAL_FILES) {
              try {
                 String scriptConfigurationFilePath = classpathResourcePrefix + configFile;
-                configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath)); 
+                configurators.add( this.generateConfigurator(resourceLoader, scriptConfigurationFilePath));
             } catch (Exception e) {
                 throw new ServletException(e);
             }

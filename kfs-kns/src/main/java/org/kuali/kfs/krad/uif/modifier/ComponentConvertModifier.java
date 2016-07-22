@@ -38,7 +38,7 @@ import java.util.Set;
  * controls within a group and replacement of a widget with another
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ComponentConvertModifier extends ComponentModifierBase {
 	private static final long serialVersionUID = -7566547737669924605L;

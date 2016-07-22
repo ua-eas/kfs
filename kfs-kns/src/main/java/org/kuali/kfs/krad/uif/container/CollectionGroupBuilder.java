@@ -62,7 +62,7 @@ import java.util.Map;
  * <code>CollectionLayoutManager</code> to assemble the fields as necessary for
  * the layout
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CollectionGroupBuilder implements Serializable {
 	private static final long serialVersionUID = -4762031957079895244L;

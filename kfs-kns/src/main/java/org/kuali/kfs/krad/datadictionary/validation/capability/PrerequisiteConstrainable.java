@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Validation capability to constrain a value by requiring that some other attribute value be non-empty. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  * @since 1.1
  */
 public interface PrerequisiteConstrainable extends Constrainable {

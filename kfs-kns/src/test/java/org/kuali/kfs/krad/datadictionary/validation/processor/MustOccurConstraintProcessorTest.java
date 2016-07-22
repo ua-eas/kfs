@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.ConstraintValidationR
  * 2. city entered, no state or postal code (failure) {@link #testCityNoStateNoPostalFailure()}
  * 3. postal code entered but no city or state (success) {@link #testPostalNoCityStateSuccess()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class MustOccurConstraintProcessorTest extends BaseConstraintProcessorTest<MustOccurConstraintProcessor> {
 

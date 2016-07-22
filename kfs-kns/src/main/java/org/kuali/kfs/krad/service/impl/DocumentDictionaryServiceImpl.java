@@ -45,7 +45,7 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
  * Implementation of <code>DocumentDictionaryService</code> which reads configuration
  * from the data dictionary
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentDictionaryServiceImpl implements DocumentDictionaryService {
     private DataDictionaryService dataDictionaryService;

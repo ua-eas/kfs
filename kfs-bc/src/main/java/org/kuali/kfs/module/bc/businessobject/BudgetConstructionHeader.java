@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,9 +35,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     private String documentNumber;
@@ -72,7 +70,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -81,7 +79,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -91,7 +89,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -100,7 +98,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -110,7 +108,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -119,7 +117,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -129,7 +127,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -138,7 +136,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -148,7 +146,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -157,7 +155,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -167,7 +165,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organizationLevelCode attribute.
-     * 
+     *
      * @return Returns the organizationLevelCode
      */
     public Integer getOrganizationLevelCode() {
@@ -176,7 +174,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organizationLevelCode attribute.
-     * 
+     *
      * @param organizationLevelCode The organizationLevelCode to set.
      */
     public void setOrganizationLevelCode(Integer organizationLevelCode) {
@@ -186,7 +184,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organizationLevelChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationLevelChartOfAccountsCode
      */
     public String getOrganizationLevelChartOfAccountsCode() {
@@ -195,7 +193,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organizationLevelChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationLevelChartOfAccountsCode The organizationLevelChartOfAccountsCode to set.
      */
     public void setOrganizationLevelChartOfAccountsCode(String organizationLevelChartOfAccountsCode) {
@@ -205,7 +203,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organizationLevelOrganizationCode attribute.
-     * 
+     *
      * @return Returns the organizationLevelOrganizationCode
      */
     public String getOrganizationLevelOrganizationCode() {
@@ -214,7 +212,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organizationLevelOrganizationCode attribute.
-     * 
+     *
      * @param organizationLevelOrganizationCode The organizationLevelOrganizationCode to set.
      */
     public void setOrganizationLevelOrganizationCode(String organizationLevelOrganizationCode) {
@@ -224,7 +222,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the budgetLockUserIdentifier attribute.
-     * 
+     *
      * @return Returns the budgetLockUserIdentifier
      */
     public String getBudgetLockUserIdentifier() {
@@ -233,7 +231,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the budgetLockUserIdentifier attribute.
-     * 
+     *
      * @param budgetLockUserIdentifier The budgetLockUserIdentifier to set.
      */
     public void setBudgetLockUserIdentifier(String budgetLockUserIdentifier) {
@@ -243,7 +241,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the budgetTransactionLockUserIdentifier attribute.
-     * 
+     *
      * @return Returns the budgetTransactionLockUserIdentifier
      */
     public String getBudgetTransactionLockUserIdentifier() {
@@ -252,7 +250,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the budgetTransactionLockUserIdentifier attribute.
-     * 
+     *
      * @param budgetTransactionLockUserIdentifier The budgetTransactionLockUserIdentifier to set.
      */
     public void setBudgetTransactionLockUserIdentifier(String budgetTransactionLockUserIdentifier) {
@@ -262,7 +260,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -271,7 +269,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -281,7 +279,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -290,7 +288,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -307,7 +305,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the budgetLockUser attribute.
-     * 
+     *
      * @param budgetLockUser The budgetLockUser to set.
      * @deprecated
      */
@@ -317,7 +315,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the budgetConstructionAccountSelect list.
-     * 
+     *
      * @return Returns the budgetConstructionAccountSelect list
      */
     public List getBudgetConstructionAccountSelect() {
@@ -326,7 +324,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the budgetConstructionAccountSelect list.
-     * 
+     *
      * @param budgetConstructionAccountSelect The budgetConstructionAccountSelect list to set.
      */
     public void setBudgetConstructionAccountSelect(List budgetConstructionAccountSelect) {
@@ -342,7 +340,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the budgetTransactionLockUser attribute value.
-     * 
+     *
      * @param budgetTransactionLockUser The budgetTransactionLockUser to set.
      * @deprecated
      */
@@ -352,7 +350,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organizationLevelOrganization attribute.
-     * 
+     *
      * @return Returns the organizationLevelOrganization.
      */
     public Organization getOrganizationLevelOrganization() {
@@ -361,7 +359,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organizationLevelOrganization attribute value.
-     * 
+     *
      * @param organizationLevelOrganization The organizationLevelOrganization to set.
      * @deprecated
      */
@@ -371,7 +369,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -380,7 +378,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      */
     public void setSubAccount(SubAccount subAccount) {
@@ -389,7 +387,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialDocument attribute.
-     * 
+     *
      * @return Returns the financialDocument.
      */
     public DocumentHeader getFinancialDocument() {
@@ -398,7 +396,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialDocument attribute value.
-     * 
+     *
      * @param financialDocument The financialDocument to set.
      * @deprecated
      */
@@ -408,7 +406,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Gets the budgetConstructionAccountReports attribute.
-     * 
+     *
      * @return Returns the budgetConstructionAccountReports.
      */
     public BudgetConstructionAccountReports getBudgetConstructionAccountReports() {
@@ -417,7 +415,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Sets the budgetConstructionAccountReports attribute value.
-     * 
+     *
      * @param budgetConstructionAccountReports The budgetConstructionAccountReports to set.
      */
     public void setBudgetConstructionAccountReports(BudgetConstructionAccountReports budgetConstructionAccountReports) {
@@ -426,7 +424,7 @@ public class BudgetConstructionHeader extends PersistableBusinessObjectBase {
 
     /**
      * Returns a map with the primitive field names as the key and the primitive values as the map value.
-     * 
+     *
      * @return Map
      */
     public Map getValuesMap() {

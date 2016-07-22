@@ -51,7 +51,7 @@ import java.util.Set;
  * sorting, paging and skinning.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class RichTable extends WidgetBase {
     private static final long serialVersionUID = 4671589690877390070L;

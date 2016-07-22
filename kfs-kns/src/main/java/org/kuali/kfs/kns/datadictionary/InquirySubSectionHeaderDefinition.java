@@ -26,8 +26,6 @@ package org.kuali.kfs.kns.datadictionary;
                   JSTL: inquirySubSectionHeader appears in the inquiryFields map as:
                       * key = "attributeName"
                       * value = name of inquirySubSectionHeader
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 @Deprecated

@@ -24,7 +24,7 @@ import org.kuali.kfs.krad.inquiry.Inquirable;
  * Provides methods to query the dictionary meta-data for view entries and their
  * corresponding component entries
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewDictionaryService {
 

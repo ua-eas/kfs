@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,9 +31,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.impl.PersistenceStructureServiceImpl;
 
-/**
- * 
- */
+
 public class ObjectCode extends PersistableBusinessObjectBase implements KualiCode, FiscalYearBasedBusinessObject {
 
 
@@ -44,7 +42,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ObjectCode.class);
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "ObjectCode";
-    
+
     private static final long serialVersionUID = -965833141452795485L;
     protected Integer universityFiscalYear;
     protected String chartOfAccountsCode;
@@ -62,7 +60,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
     protected String nextYearFinancialObjectCode;
     protected String finObjMandatoryTrnfrelimCd;
     protected String financialFederalFundedCode;
-        
+
     protected transient BudgetAggregationCode financialBudgetAggregation;
     protected transient MandatoryTransferEliminationCode finObjMandatoryTrnfrelim;
     protected transient FederalFundedCode financialFederalFunded;
@@ -73,7 +71,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
     protected transient ObjectCode reportsToFinancialObject;
     protected transient ObjectType financialObjectType;
     protected transient ObjectSubType financialObjectSubType;
-    
+
     /**
      * Default no-arg constructor.
      */
@@ -88,7 +86,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Constructs a ObjectCode.java with the given defaults; this way, it is not necessary to use any deprecated setters.
-     * 
+     *
      * @param fiscalYear
      * @param chart
      * @param financialObjectCode - an active object code
@@ -109,7 +107,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialFederalFunded attribute.
-     * 
+     *
      * @return Returns the financialFederalFunded.
      */
     public FederalFundedCode getFinancialFederalFunded() {
@@ -118,7 +116,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialFederalFunded attribute value.
-     * 
+     *
      * @param financialFederalFunded The financialFederalFunded to set.
      * @deprecated
      */
@@ -128,7 +126,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the finObjMandatoryTrnfrelim attribute.
-     * 
+     *
      * @return Returns the finObjMandatoryTrnfrelimCd.
      */
     public MandatoryTransferEliminationCode getFinObjMandatoryTrnfrelim() {
@@ -138,7 +136,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the finObjMandatoryTrnfrelim attribute value.
-     * 
+     *
      * @param finObjMandatoryTrnfrelim The finObjMandatoryTrnfrelim to set.
      * @deprecated
      */
@@ -148,7 +146,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -157,7 +155,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -166,7 +164,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialObjectCodeName attribute.
-     * 
+     *
      * @return Returns the financialObjectCodeName
      */
     public String getFinancialObjectCodeName() {
@@ -175,7 +173,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialObjectCodeName attribute.
-     * 
+     *
      * @param financialObjectCodeName The financialObjectCodeName to set.
      */
     public void setFinancialObjectCodeName(String financialObjectCodeName) {
@@ -184,7 +182,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialObjectCodeShortName attribute.
-     * 
+     *
      * @return Returns the financialObjectCodeShortName
      */
     public String getFinancialObjectCodeShortName() {
@@ -193,7 +191,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialObjectCodeShortName attribute.
-     * 
+     *
      * @param financialObjectCodeShortName The financialObjectCodeShortName to set.
      */
     public void setFinancialObjectCodeShortName(String financialObjectCodeShortName) {
@@ -202,7 +200,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the historicalFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the historicalFinancialObjectCode
      */
     public String getHistoricalFinancialObjectCode() {
@@ -211,7 +209,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the historicalFinancialObjectCode attribute.
-     * 
+     *
      * @param historicalFinancialObjectCode The historicalFinancialObjectCode to set.
      */
     public void setHistoricalFinancialObjectCode(String historicalFinancialObjectCode) {
@@ -220,7 +218,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialObjectActiveCode attribute.
-     * 
+     *
      * @return Returns the financialObjectActiveCode
      */
     public boolean isFinancialObjectActiveCode() {
@@ -229,7 +227,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialObjectActiveCode attribute.
-     * 
+     *
      * @param financialObjectActiveCode The financialObjectActiveCode to set.
      */
     public void setFinancialObjectActiveCode(boolean active) {
@@ -238,7 +236,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialBudgetAggregationCd attribute.
-     * 
+     *
      * @return Returns the financialBudgetAggregationCd
      */
     /*
@@ -247,7 +245,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialBudgetAggregationCd attribute.
-     * 
+     *
      * @param financialBudgetAggregationCd The financialBudgetAggregationCd to set.
      * @deprecated
      */
@@ -258,7 +256,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal
      */
     public SystemOptions getUniversityFiscal() {
@@ -267,7 +265,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the universityFiscal attribute.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      * @deprecated
      */
@@ -277,7 +275,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialObjectLevel attribute.
-     * 
+     *
      * @return Returns the financialObjectLevel
      */
     public ObjectLevel getFinancialObjectLevel() {
@@ -286,7 +284,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialObjectLevel attribute.
-     * 
+     *
      * @param financialObjectLevel The financialObjectLevel to set.
      * @deprecated
      */
@@ -296,7 +294,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -305,7 +303,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -315,7 +313,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the reportsToChartOfAccounts
      */
     public Chart getReportsToChartOfAccounts() {
@@ -324,7 +322,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @param reportsToChartOfAccounts The reportsToChartOfAccounts to set.
      * @deprecated
      */
@@ -334,7 +332,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the reportsToFinancialObject attribute.
-     * 
+     *
      * @return Returns the reportsToFinancialObject
      */
     public ObjectCode getReportsToFinancialObject() {
@@ -343,7 +341,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the reportsToFinancialObject attribute.
-     * 
+     *
      * @param reportsToFinancialObject The reportsToFinancialObject to set.
      * @deprecated
      */
@@ -353,7 +351,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialObjectType attribute.
-     * 
+     *
      * @return Returns the financialObjectType
      */
     public ObjectType getFinancialObjectType() {
@@ -362,7 +360,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialObjectType attribute.
-     * 
+     *
      * @param financialObjectType The financialObjectType to set.
      * @deprecated
      */
@@ -372,7 +370,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Gets the financialObjectSubType attribute.
-     * 
+     *
      * @return Returns the financialObjectSubType
      */
     public ObjectSubType getFinancialObjectSubType() {
@@ -381,7 +379,7 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
 
     /**
      * Sets the financialObjectSubType attribute.
-     * 
+     *
      * @param financialObjectSubType The financialObjectSubType to set.
      * @deprecated
      */
@@ -395,16 +393,12 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
         this.chartOfAccountsCode = string;
     }
 
-    /**
-     * 
-     */
+
     public String getChartOfAccountsCode() {
         return this.chartOfAccountsCode;
     }
 
-    /**
-     * 
-     */
+
     public Integer getUniversityFiscalYear() {
         return this.universityFiscalYear;
     }
@@ -556,14 +550,14 @@ public class ObjectCode extends PersistableBusinessObjectBase implements KualiCo
     }
 
     protected static BusinessObjectService businessObjectService;
-    
+
     protected BusinessObjectService getBusinessObjectService() {
         if ( businessObjectService == null ) {
             businessObjectService = SpringContext.getBean(BusinessObjectService.class);
         }
         return businessObjectService;
     }
-    
+
     @Override protected void preUpdate() {
         // TODO Auto-generated method stub
         super.preUpdate();

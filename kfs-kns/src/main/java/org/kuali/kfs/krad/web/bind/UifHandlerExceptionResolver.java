@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  * exception.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifHandlerExceptionResolver implements org.springframework.web.servlet.HandlerExceptionResolver {
     private static final Logger LOG = Logger.getLogger(UifHandlerExceptionResolver.class);

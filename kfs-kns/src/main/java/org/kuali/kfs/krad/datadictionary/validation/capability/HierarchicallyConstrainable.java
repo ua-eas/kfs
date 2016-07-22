@@ -21,7 +21,7 @@ package org.kuali.kfs.krad.datadictionary.validation.capability;
 /**
  * Validation capability 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  * @since 1.1
  */
 public interface HierarchicallyConstrainable extends Constrainable {

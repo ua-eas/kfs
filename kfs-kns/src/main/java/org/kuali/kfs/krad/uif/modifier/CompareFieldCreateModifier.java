@@ -51,7 +51,7 @@ import java.util.Set;
  * of comparison fields.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CompareFieldCreateModifier extends ComponentModifierBase {
     private static final Logger LOG = Logger.getLogger(CompareFieldCreateModifier.class);

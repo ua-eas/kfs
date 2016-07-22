@@ -36,7 +36,7 @@ import java.util.Map;
  * Finally since the maintainable extends <code>ViewHelperService</code> it is used to customize <code>View</code>
  * configuration for <code>MaintenanceView</code> instances </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Maintainable extends ViewHelperService, java.io.Serializable {
 

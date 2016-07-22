@@ -43,7 +43,7 @@ import org.springframework.beans.PropertyValues;
  * object class and name, or document id
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaintenanceViewTypeServiceImpl implements ViewTypeService {
 	private DocumentService documentService;

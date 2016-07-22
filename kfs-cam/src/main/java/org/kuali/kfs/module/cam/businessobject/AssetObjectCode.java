@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,13 +30,11 @@ import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+
 public class AssetObjectCode extends PersistableBusinessObjectBase implements MutableInactivatable, FiscalYearBasedBusinessObject {
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "AssetObjectCode";
-    
+
     protected Integer universityFiscalYear;
     protected String chartOfAccountsCode;
     protected String financialObjectSubTypeCode;
@@ -62,7 +60,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -71,7 +69,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -81,7 +79,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -90,7 +88,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -100,7 +98,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the financialObjectSubTypeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectSubTypeCode
      */
     public String getFinancialObjectSubTypeCode() {
@@ -109,7 +107,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the financialObjectSubTypeCode attribute.
-     * 
+     *
      * @param financialObjectSubTypeCode The financialObjectSubTypeCode to set.
      */
     public void setFinancialObjectSubTypeCode(String financialObjectSubTypeCode) {
@@ -119,7 +117,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the capitalizationFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the capitalizationFinancialObjectCode
      */
     public String getCapitalizationFinancialObjectCode() {
@@ -128,7 +126,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the capitalizationFinancialObjectCode attribute.
-     * 
+     *
      * @param capitalizationFinancialObjectCode The capitalizationFinancialObjectCode to set.
      */
     public void setCapitalizationFinancialObjectCode(String capitalizationFinancialObjectCode) {
@@ -138,7 +136,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the accumulatedDepreciationFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the accumulatedDepreciationFinancialObjectCode
      */
     public String getAccumulatedDepreciationFinancialObjectCode() {
@@ -147,7 +145,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the accumulatedDepreciationFinancialObjectCode attribute.
-     * 
+     *
      * @param accumulatedDepreciationFinancialObjectCode The accumulatedDepreciationFinancialObjectCode to set.
      */
     public void setAccumulatedDepreciationFinancialObjectCode(String accumulatedDepreciationFinancialObjectCode) {
@@ -157,7 +155,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the depreciationExpenseFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the depreciationExpenseFinancialObjectCode
      */
     public String getDepreciationExpenseFinancialObjectCode() {
@@ -166,7 +164,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the depreciationExpenseFinancialObjectCode attribute.
-     * 
+     *
      * @param depreciationExpenseFinancialObjectCode The depreciationExpenseFinancialObjectCode to set.
      */
     public void setDepreciationExpenseFinancialObjectCode(String depreciationExpenseFinancialObjectCode) {
@@ -176,7 +174,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the accumulatedDepreciationFinancialObject attribute.
-     * 
+     *
      * @return Returns the accumulatedDepreciationFinancialObject
      */
     public ObjectCode getAccumulatedDepreciationFinancialObject() {
@@ -185,7 +183,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the accumulatedDepreciationFinancialObject attribute.
-     * 
+     *
      * @param accumulatedDepreciationFinancialObject The accumulatedDepreciationFinancialObject to set.
      * @deprecated
      */
@@ -195,7 +193,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the capitalizationFinancialObject attribute.
-     * 
+     *
      * @return Returns the capitalizationFinancialObject
      */
     public ObjectCode getCapitalizationFinancialObject() {
@@ -204,7 +202,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the capitalizationFinancialObject attribute.
-     * 
+     *
      * @param capitalizationFinancialObject The capitalizationFinancialObject to set.
      * @deprecated
      */
@@ -214,7 +212,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the depreciationExpenseFinancialObject attribute.
-     * 
+     *
      * @return Returns the depreciationExpenseFinancialObject
      */
     public ObjectCode getDepreciationExpenseFinancialObject() {
@@ -223,7 +221,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the depreciationExpenseFinancialObject attribute.
-     * 
+     *
      * @param depreciationExpenseFinancialObject The depreciationExpenseFinancialObject to set.
      * @deprecated
      */
@@ -233,7 +231,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -242,7 +240,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -252,7 +250,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the financialObjectSubType attribute.
-     * 
+     *
      * @return Returns the financialObjectSubType.
      */
     public ObjectSubType getFinancialObjectSubType() {
@@ -261,7 +259,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the financialObjectSubType attribute value.
-     * 
+     *
      * @param financialObjectSubType The financialObjectSubType to set.
      * @deprecated
      */
@@ -271,7 +269,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active
      */
     public boolean isActive() {
@@ -280,7 +278,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -289,7 +287,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal.
      */
     public SystemOptions getUniversityFiscal() {
@@ -298,7 +296,7 @@ public class AssetObjectCode extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the universityFiscal attribute value.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      */
     public void setUniversityFiscal(SystemOptions universityFiscal) {

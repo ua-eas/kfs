@@ -42,7 +42,7 @@ import java.util.Map;
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class DocumentEntry extends DataDictionaryEntryBase {
     private static final long serialVersionUID = 8231730871830055356L;

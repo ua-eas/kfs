@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  * This simple controller loads the module locked view when a user accesses a
  * module which has been locked for maintenance.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Controller
 public class ModuleLockedController {

@@ -35,7 +35,7 @@ import java.util.Set;
  * Manages the rendering of <code>Component</code> instances within a
  * <code>Container</code>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface LayoutManager extends Configurable, Serializable {
 

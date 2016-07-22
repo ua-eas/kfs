@@ -27,8 +27,6 @@ import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
 
 /**
  * Rule event interface for implementing business rules against a <code>MaintenanceDocument</code>
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public interface MaintenanceDocumentRule {
 

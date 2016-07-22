@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class Address {
 	private String street1, street2, city, state, postalCode, country;

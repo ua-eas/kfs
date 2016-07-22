@@ -33,7 +33,7 @@ import java.util.Set;
 /**
  * Form to handle multiple value lookups 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class MultipleValueLookupForm extends LookupForm {

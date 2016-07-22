@@ -45,7 +45,7 @@ import java.util.HashMap;
  * Implementation of <code>SessionDocumentService</code> that persists the document form
  * contents to the underlying database
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Transactional
 public class SessionDocumentServiceImpl implements SessionDocumentService {

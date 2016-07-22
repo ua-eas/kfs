@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,14 +46,12 @@ public class Summary implements Comparable {
      */
     private long count;
 
-    /**
-     * 
-     */
+
     public Summary() {
         super();
     }
 
-    
+
     /**
      * Constructs a Summary.java.
      * @param sortOrder
@@ -85,9 +83,9 @@ public class Summary implements Comparable {
 
     /**
      * Compare this Summary object with another summary object
-     * 
+     *
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(Object arg0) {
@@ -104,7 +102,7 @@ public class Summary implements Comparable {
 
     /**
      * Returns true if the description of this summary object and the passed in summary object are the same
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -120,7 +118,7 @@ public class Summary implements Comparable {
 
     /**
      * Build a report summary list for labor general ledger posting
-     * 
+     *
      * @param destination description of summary displayed
      * @param startingOrder order how information is displayed
      * @return a list of summary objects
@@ -135,7 +133,7 @@ public class Summary implements Comparable {
 
     /**
      * Update the report summary with the given information
-     * 
+     *
      * @param reportSummary list of summaries
      * @param destinationName description of summary displayed
      * @param operationType description of what action is related to the summary (i.e. insert, updated, deleted)
@@ -149,7 +147,7 @@ public class Summary implements Comparable {
 
     /**
      * Update the report summary with the given information
-     * 
+     *
      * @param reportSummary list of summaries
      * @param summaryDescription description of summary displayed
      * @param count count of how many "objects" are affected
@@ -170,7 +168,7 @@ public class Summary implements Comparable {
 
     /**
      * Build the description of summary with the given information
-     * 
+     *
      * @param destinationName description of summary displayed
      * @param operationType description of what action is related to the summary (i.e. insert, updated, deleted)
      * @return

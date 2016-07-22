@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.uif.UifConstants;
 /**
  * Validation pattern for matching floating point numbers, optionally matching negative numbers
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class FloatingPointPatternConstraint extends ConfigurationBasedRegexPatternConstraint {
 

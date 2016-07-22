@@ -33,7 +33,7 @@ import java.util.Set;
  * Pulls <code>LabelField</code> instances out of a contained field so they will
  * be placed separately in the <code>LayoutManager</code>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LabelFieldSeparateModifier extends ComponentModifierBase {
 	private static final long serialVersionUID = -4304947796868636298L;

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,9 +26,7 @@ import java.util.List;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class A21SubAccount extends PersistableBusinessObjectBase {
 
     private static final long serialVersionUID = 2983753447370117974L;
@@ -50,12 +48,10 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
     protected IndirectCostRecoveryType indirectCostRecoveryType;
     protected Chart chartOfAccounts;
     protected Account account;
-    
+
     protected List<A21IndirectCostRecoveryAccount> a21IndirectCostRecoveryAccounts;
 
-    /**
-     * 
-     */
+
     public A21SubAccount() {
         super();
         a21IndirectCostRecoveryAccounts = new ArrayList<A21IndirectCostRecoveryAccount>();
@@ -63,7 +59,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the serialVersionUID attribute.
-     * 
+     *
      * @return Returns the serialVersionUID.
      */
     public static long getSerialVersionUID() {
@@ -72,7 +68,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -81,7 +77,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -90,7 +86,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -99,7 +95,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -108,7 +104,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the indirectCostRecoveryType attribute.
-     * 
+     *
      * @return Returns the indirectCostRecoveryType.
      */
     public IndirectCostRecoveryType getIndirectCostRecoveryType() {
@@ -117,7 +113,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the indirectCostRecoveryType attribute value.
-     * 
+     *
      * @param indirectCostRecoveryType The indirectCostRecoveryType to set.
      */
     public void setIndirectCostRecoveryType(IndirectCostRecoveryType icrTypeCode) {
@@ -126,7 +122,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the indirectCostRecoveryTypeCode attribute.
-     * 
+     *
      * @return Returns the indirectCostRecoveryTypeCode.
      */
     public String getIndirectCostRecoveryTypeCode() {
@@ -135,7 +131,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the indirectCostRecoveryTypeCode attribute value.
-     * 
+     *
      * @param indirectCostRecoveryTypeCode The indirectCostRecoveryTypeCode to set.
      */
     public void setIndirectCostRecoveryTypeCode(String indirectCostRecoveryTypeCode) {
@@ -144,7 +140,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialIcrSeriesIdentifier attribute.
-     * 
+     *
      * @return Returns the financialIcrSeriesIdentifier.
      */
     public String getFinancialIcrSeriesIdentifier() {
@@ -153,7 +149,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialIcrSeriesIdentifier attribute value.
-     * 
+     *
      * @param financialIcrSeriesIdentifier The financialIcrSeriesIdentifier to set.
      */
     public void setFinancialIcrSeriesIdentifier(String financialIcrSeriesIdentifier) {
@@ -162,7 +158,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -171,7 +167,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -180,7 +176,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccountTypeCode attribute.
-     * 
+     *
      * @return Returns the subAccountTypeCode.
      */
     public String getSubAccountTypeCode() {
@@ -189,7 +185,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccountTypeCode attribute value.
-     * 
+     *
      * @param subAccountTypeCode The subAccountTypeCode to set.
      */
     public void setSubAccountTypeCode(String subAccountTypeCode) {
@@ -198,7 +194,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the costShareAccount attribute.
-     * 
+     *
      * @return Returns the costShareAccount.
      */
     public Account getCostShareAccount() {
@@ -207,7 +203,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the costShareAccount attribute value.
-     * 
+     *
      * @param costShareAccount The costShareAccount to set.
      */
     public void setCostShareAccount(Account costShareAccount) {
@@ -216,7 +212,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the costShareChartOfAccount attribute.
-     * 
+     *
      * @return Returns the costShareChartOfAccount.
      */
     public Chart getCostShareChartOfAccount() {
@@ -225,7 +221,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the costShareChartOfAccount attribute value.
-     * 
+     *
      * @param costShareChartOfAccount The costShareChartOfAccount to set.
      */
     public void setCostShareChartOfAccount(Chart costShareChartOfAccount) {
@@ -234,7 +230,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the costShareChartOfAccountCode attribute.
-     * 
+     *
      * @return Returns the costShareChartOfAccountCode.
      */
     public String getCostShareChartOfAccountCode() {
@@ -243,7 +239,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the costShareChartOfAccountCode attribute value.
-     * 
+     *
      * @param costShareChartOfAccountCode The costShareChartOfAccountCode to set.
      */
     public void setCostShareChartOfAccountCode(String costShareChartOfAccountCode) {
@@ -252,7 +248,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the costShareSourceAccountNumber attribute.
-     * 
+     *
      * @return Returns the costShareSourceAccountNumber.
      */
     public String getCostShareSourceAccountNumber() {
@@ -261,7 +257,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the costShareSourceAccountNumber attribute value.
-     * 
+     *
      * @param costShareSourceAccountNumber The costShareSourceAccountNumber to set.
      */
     public void setCostShareSourceAccountNumber(String costShareSourceAccountNumber) {
@@ -270,7 +266,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the costShareSourceSubAccount attribute.
-     * 
+     *
      * @return Returns the costShareSourceSubAccount.
      */
     public SubAccount getCostShareSourceSubAccount() {
@@ -279,7 +275,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the costShareSourceSubAccount attribute value.
-     * 
+     *
      * @param costShareSourceSubAccount The costShareSourceSubAccount to set.
      */
     public void setCostShareSourceSubAccount(SubAccount costShareSourceSubAccount) {
@@ -288,7 +284,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the costShareSourceSubAccountNumber attribute.
-     * 
+     *
      * @return Returns the costShareSourceSubAccountNumber.
      */
     public String getCostShareSourceSubAccountNumber() {
@@ -297,7 +293,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the costShareSourceSubAccountNumber attribute value.
-     * 
+     *
      * @param costShareSourceSubAccountNumber The costShareSourceSubAccountNumber to set.
      */
     public void setCostShareSourceSubAccountNumber(String costShareSourceSubAccountNumber) {
@@ -306,7 +302,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the offCampusCode attribute.
-     * 
+     *
      * @return Returns the offCampusCode.
      */
     public boolean getOffCampusCode() {
@@ -315,7 +311,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the offCampusCode attribute value.
-     * 
+     *
      * @param offCampusCode The offCampusCode to set.
      */
     public void setOffCampusCode(boolean offCampusCode) {
@@ -324,7 +320,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account.
      */
     public Account getAccount() {
@@ -333,7 +329,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the account attribute value.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -343,7 +339,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts.
      */
     public Chart getChartOfAccounts() {
@@ -352,7 +348,7 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chartOfAccounts attribute value.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -373,11 +369,11 @@ public class A21SubAccount extends PersistableBusinessObjectBase {
         }
         return activeList;
     }
-    
+
     public void setA21IndirectCostRecoveryAccounts(List<A21IndirectCostRecoveryAccount> a21IndirectCostRecoveryAccounts) {
         this.a21IndirectCostRecoveryAccounts = a21IndirectCostRecoveryAccounts;
     }
-    
+
     /**
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#buildListOfDeletionAwareLists()
      */

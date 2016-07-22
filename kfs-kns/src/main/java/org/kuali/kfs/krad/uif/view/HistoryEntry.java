@@ -28,7 +28,7 @@ import java.io.Serializable;
  * TODO a variety of these settings are not used in the current implementation of breadcrumbs
  * and history, they may be removed later if they prove unuseful in future changes
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class HistoryEntry extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -8310916657379268794L;

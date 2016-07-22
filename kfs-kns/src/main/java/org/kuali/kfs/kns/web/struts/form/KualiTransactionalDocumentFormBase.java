@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,9 +38,7 @@ import java.util.Map;
  */
 public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
 	private static final Logger LOG = Logger.getLogger(KualiTransactionalDocumentFormBase.class);
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6463383454050206811L;
 	@SuppressWarnings("unchecked")
 	protected Map forcedReadOnlyFields;
@@ -68,17 +66,17 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
 
 	/**
      * This method retrieves an instance of the form.
-     * 
+     *
      * @return
      */
     public TransactionalDocument getTransactionalDocument() {
         return (TransactionalDocument) getDocument();
     }
-    
+
 
     /**
      * Locates the <code>DictionaryService</code> to discover the type name of the document.
-     * 
+     *
      * @return
      */
     protected String discoverDocumentTypeName() {
@@ -87,9 +85,9 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
 
     /**
      * This method formats the given java.sql.Date as MMM d, yyyy.
-     * 
+     *
      * @param reversalDate
-     * 
+     *
      * @return String
      */
     protected static String formatReversalDate(java.sql.Date reversalDate) {
@@ -102,7 +100,7 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
 
     /**
      * Gets the forcedReadOnlyFields attribute.
-     * 
+     *
      * @return Returns the forcedReadOnlyFields.
      */
     @SuppressWarnings("unchecked")
@@ -112,18 +110,18 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
 
     /**
      * Sets the forcedReadOnlyFields attribute value.
-     * 
+     *
      * @param forcedReadOnlyFields The forcedReadOnlyFields to set.
      */
     @SuppressWarnings("unchecked")
 	public void setForcedReadOnlyFields(Map forcedReadOnlyFields) {
         this.forcedReadOnlyFields = forcedReadOnlyFields;
     }
-    
+
     /**
      * Uses the "checkboxToReset" parameter to find checkboxes which had not been
      * populated in the request and attempts to populate them
-     * 
+     *
      * @param request the request to populate
      */
     protected void populateFalseCheckboxes(HttpServletRequest request) {
@@ -135,7 +133,7 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
                     String propertyName = (String) checkboxesToReset[i];
                     if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) == null ) {
                     	populateForProperty(propertyName, KimConstants.KIM_ATTRIBUTE_BOOLEAN_FALSE_STR_VALUE_DISPLAY, parameterMap);
-                    }  
+                    }
                     else if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) != null && parameterMap.get(propertyName).length >= 1 && parameterMap.get(propertyName)[0].equalsIgnoreCase("on") ) {
                     	populateForProperty(propertyName, KimConstants.KIM_ATTRIBUTE_BOOLEAN_TRUE_STR_VALUE_DISPLAY, parameterMap);
                     }
@@ -143,11 +141,11 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
             }
     	}
     }
-    
+
     /**
      * Uses the "checkboxToReset" parameter to find checkboxes which had not been
      * populated in the request and attempts to populate them
-     * 
+     *
      * @param request the request to populate
      */
     protected void populateEmptyMultiSelect(HttpServletRequest request) {
@@ -159,15 +157,15 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
                     String propertyName = (String) multiSelectToReset[i];
                     if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) == null ) {
                     	populateForProperty(propertyName, "", parameterMap);
-                    }  
+                    }
                     else if ( !StringUtils.isBlank(propertyName) && parameterMap.get(propertyName) != null && parameterMap.get(propertyName).length >= 1 && parameterMap.get(propertyName)[0].equalsIgnoreCase("on") ) {
-                    	populateForProperty(propertyName, request.getParameter(propertyName), parameterMap); 
+                    	populateForProperty(propertyName, request.getParameter(propertyName), parameterMap);
                     }
                 }
             }
     	}
     }
-    
+
     protected void populationSpecialEmptyFields (HttpServletRequest request) {
     	populateFalseCheckboxes(request);
 		populateEmptyMultiSelect(request);
@@ -190,7 +188,7 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
 
     /**
 	 * This overridden method ...
-	 * 
+	 *
 	 * @see KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -200,6 +198,6 @@ public class KualiTransactionalDocumentFormBase extends KualiDocumentFormBase {
 		if (methodToCallParameterName.startsWith(KRADConstants.DISPATCH_REQUEST_PARAMETER + "." + KRADConstants.POST_TEXT_AREA_TO_PARENT)) {
 			return true;
 		}
-		return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request); 
+		return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName, methodToCallParameterValue, request);
 	}
 }

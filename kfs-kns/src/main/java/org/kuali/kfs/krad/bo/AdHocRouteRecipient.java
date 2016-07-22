@@ -33,7 +33,7 @@ import java.util.Map;
  * TODO we should not be referencing kew constants from this class and wedding ourselves to that workflow application Ad Hoc Route
  * Recipient Business Object
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @MappedSuperclass
 public class AdHocRouteRecipient extends PersistableBusinessObjectBase {

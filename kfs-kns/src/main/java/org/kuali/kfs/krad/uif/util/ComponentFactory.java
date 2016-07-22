@@ -82,7 +82,7 @@ import java.util.Map;
  * Factory class for creating new UIF components from their base definitions
  * in the dictionary
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ComponentFactory {
 

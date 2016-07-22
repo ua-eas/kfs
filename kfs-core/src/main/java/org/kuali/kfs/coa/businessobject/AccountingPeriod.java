@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,13 +31,11 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class AccountingPeriod extends PersistableBusinessObjectBase implements MutableInactivatable, FiscalYearBasedBusinessObject {
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "AccountingPeriod";
-    
+
     private Integer universityFiscalYear;
     private String universityFiscalPeriodCode;
     private String universityFiscalPeriodName;
@@ -56,7 +54,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -65,7 +63,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -75,7 +73,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the universityFiscalPeriodCode attribute.
-     * 
+     *
      * @return Returns the universityFiscalPeriodCode
      */
     public String getUniversityFiscalPeriodCode() {
@@ -84,7 +82,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the universityFiscalPeriodCode attribute.
-     * 
+     *
      * @param universityFiscalPeriodCode The universityFiscalPeriodCode to set.
      */
     public void setUniversityFiscalPeriodCode(String universityFiscalPeriodCode) {
@@ -94,7 +92,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the universityFiscalPeriodName attribute.
-     * 
+     *
      * @return Returns the universityFiscalPeriodName
      */
     public String getUniversityFiscalPeriodName() {
@@ -103,7 +101,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the universityFiscalPeriodName attribute.
-     * 
+     *
      * @param universityFiscalPeriodName The universityFiscalPeriodName to set.
      */
     public void setUniversityFiscalPeriodName(String universityFiscalPeriodName) {
@@ -113,7 +111,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active
      */
     public boolean isActive() {
@@ -122,7 +120,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -132,7 +130,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the budgetRolloverIndicator attribute.
-     * 
+     *
      * @return Returns the budgetRolloverIndicator
      */
     public boolean isBudgetRolloverIndicator() {
@@ -142,7 +140,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the budgetRolloverIndicator attribute.
-     * 
+     *
      * @param budgetRolloverIndicator The budgetRolloverIndicator to set.
      */
     public void setBudgetRolloverIndicator(boolean budgetRolloverIndicator) {
@@ -152,7 +150,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the universityFiscalPeriodEndDate attribute.
-     * 
+     *
      * @return Returns the universityFiscalPeriodEndDate
      */
     public Date getUniversityFiscalPeriodEndDate() {
@@ -161,7 +159,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the universityFiscalPeriodEndDate attribute.
-     * 
+     *
      * @param universityFiscalPeriodEndDate The universityFiscalPeriodEndDate to set.
      */
     public void setUniversityFiscalPeriodEndDate(Date universityFiscalPeriodEndDate) {
@@ -170,7 +168,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * Determine if the current account period is open
-     * 
+     *
      * @return true if the accounting period is open; otherwise, false
      */
     public boolean isOpen() {
@@ -194,7 +192,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
 
     /**
      * This method returns the month that this period represents
-     * 
+     *
      * @return the actual month (1 - 12) that this period represents
      */
     public int getMonth() {
@@ -216,7 +214,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
     /**
      * generates a hash code for this accounting period, based on the primary keys of the AccountingPeriod BusinesObject: university
      * fiscal year and university fiscal period code
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -231,7 +229,7 @@ public class AccountingPeriod extends PersistableBusinessObjectBase implements M
     /**
      * determines if two accounting periods are equal, based on the primary keys of the AccountingPeriod BusinesObject: university
      * fiscal year and university fiscal period code
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

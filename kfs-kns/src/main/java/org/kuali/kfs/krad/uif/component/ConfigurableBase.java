@@ -30,7 +30,7 @@ import java.util.Map;
  * provide property expression support
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class ConfigurableBase implements Configurable {
     private Map<String, String> propertyExpressions;

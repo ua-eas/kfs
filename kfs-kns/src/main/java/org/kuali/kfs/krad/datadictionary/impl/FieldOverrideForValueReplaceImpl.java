@@ -26,7 +26,7 @@ import org.kuali.kfs.krad.datadictionary.FieldOverride;
 /**
  * A Field Override used to replace value elements from a Data Dictionary bean. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * 
  */
 public class FieldOverrideForValueReplaceImpl implements FieldOverride{

@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.uif.view.View;
  * Represents a HTML TextArea control. Generally used for values that are very
  * large (such as a description)
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class TextAreaControl extends ControlBase {
     private static final long serialVersionUID = -4664558047325456844L;

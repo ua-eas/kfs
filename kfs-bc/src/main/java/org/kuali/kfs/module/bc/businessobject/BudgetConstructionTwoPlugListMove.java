@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,9 +28,7 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObjectBase {
 
     private String principalId;
@@ -56,7 +54,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -65,7 +63,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -75,7 +73,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccountsCode
      */
     public String getOrganizationChartOfAccountsCode() {
@@ -84,7 +82,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationChartOfAccountsCode The organizationChartOfAccountsCode to set.
      */
     public void setOrganizationChartOfAccountsCode(String organizationChartOfAccountsCode) {
@@ -94,7 +92,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -103,7 +101,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -113,7 +111,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -122,7 +120,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -132,7 +130,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -141,7 +139,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -151,7 +149,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -160,7 +158,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -170,7 +168,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the accountLineAnnualBalanceAmount attribute.
-     * 
+     *
      * @return Returns the accountLineAnnualBalanceAmount.
      */
     public KualiInteger getAccountLineAnnualBalanceAmount() {
@@ -179,7 +177,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the accountLineAnnualBalanceAmount attribute value.
-     * 
+     *
      * @param accountLineAnnualBalanceAmount The accountLineAnnualBalanceAmount to set.
      */
     public void setAccountLineAnnualBalanceAmount(KualiInteger accountLineAnnualBalanceAmount) {
@@ -188,7 +186,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccounts
      */
     public Chart getOrganizationChartOfAccounts() {
@@ -197,7 +195,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @param organizationChartOfAccounts The organizationChartOfAccounts to set.
      * @deprecated
      */
@@ -207,7 +205,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -216,7 +214,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -226,7 +224,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -235,7 +233,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -245,7 +243,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -254,7 +252,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -264,7 +262,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -273,7 +271,7 @@ public class BudgetConstructionTwoPlugListMove extends PersistableBusinessObject
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */

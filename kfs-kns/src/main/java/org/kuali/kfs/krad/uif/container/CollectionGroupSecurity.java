@@ -30,7 +30,7 @@ import org.kuali.kfs.krad.uif.component.ComponentSecurity;
  * checking the KIM permissions
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CollectionGroupSecurity extends ComponentSecurity {
     private static final long serialVersionUID = 1134455196763917062L;

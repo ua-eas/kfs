@@ -45,7 +45,7 @@ import java.util.List;
  * This class defines a constraint processor to ensure that attribute values are constrained to valid characters, as defined by some regular expression. Of the 
  * constraint processors written for this version, this one is potentially the most difficult to understand because it holds on to a lot of legacy processing.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class ValidCharactersConstraintProcessor extends MandatoryElementConstraintProcessor<ValidCharactersConstraint> {
 

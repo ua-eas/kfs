@@ -29,8 +29,6 @@ import javax.xml.bind.annotation.XmlElement;
  * - To limit to both upper and lower-case letters, value can be set to "[A-Za-z]*"
  * - To limit to any character except carriage returns and line feeds, value can be set to "[^\n\r]*"
  * 
- * 
- * @author Kuali Student Team
  * @since 1.1
  */
 @XmlAccessorType(XmlAccessType.FIELD)

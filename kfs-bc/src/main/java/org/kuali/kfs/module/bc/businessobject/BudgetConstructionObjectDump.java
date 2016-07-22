@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,9 +29,7 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase {
 
     private String organizationChartOfAccountsCode;
@@ -61,7 +59,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccountsCode
      */
     public String getOrganizationChartOfAccountsCode() {
@@ -70,7 +68,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationChartOfAccountsCode The organizationChartOfAccountsCode to set.
      */
     public void setOrganizationChartOfAccountsCode(String organizationChartOfAccountsCode) {
@@ -80,7 +78,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -89,7 +87,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -99,7 +97,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the subFundGroupCode attribute.
-     * 
+     *
      * @return Returns the subFundGroupCode
      */
     public String getSubFundGroupCode() {
@@ -108,7 +106,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the subFundGroupCode attribute.
-     * 
+     *
      * @param subFundGroupCode The subFundGroupCode to set.
      */
     public void setSubFundGroupCode(String subFundGroupCode) {
@@ -118,7 +116,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -127,7 +125,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -137,7 +135,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -146,7 +144,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -156,7 +154,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -165,7 +163,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -175,7 +173,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -184,7 +182,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -194,7 +192,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -203,7 +201,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -213,7 +211,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId.
      */
     public String getPrincipalId() {
@@ -222,7 +220,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the principalId attribute value.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -231,7 +229,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccounts
      */
     public Chart getOrganizationChartOfAccounts() {
@@ -240,7 +238,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @param organizationChartOfAccounts The organizationChartOfAccounts to set.
      * @deprecated
      */
@@ -250,7 +248,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -259,7 +257,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -269,7 +267,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject
      */
     public ObjectCode getFinancialObject() {
@@ -278,7 +276,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the financialObject attribute.
-     * 
+     *
      * @param financialObject The financialObject to set.
      * @deprecated
      */
@@ -288,7 +286,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -297,7 +295,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -307,7 +305,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -316,7 +314,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -326,7 +324,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -335,7 +333,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */
@@ -345,7 +343,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Gets the subFundGroup attribute.
-     * 
+     *
      * @return Returns the subFundGroup.
      */
     public SubFundGroup getSubFundGroup() {
@@ -354,7 +352,7 @@ public class BudgetConstructionObjectDump extends PersistableBusinessObjectBase 
 
     /**
      * Sets the subFundGroup attribute value.
-     * 
+     *
      * @param subFundGroup The subFundGroup to set.
      * @deprecated
      */

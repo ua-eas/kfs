@@ -38,7 +38,7 @@ import java.io.Serializable;
  * All comparison objects must have the same fields and collection rows
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @see CompareFieldCreateModifier
  */
 public class ComparableInfo extends ConfigurableBase implements Serializable, Ordered  {

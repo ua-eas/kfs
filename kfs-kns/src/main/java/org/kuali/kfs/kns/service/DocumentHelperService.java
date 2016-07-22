@@ -26,7 +26,7 @@ import org.kuali.kfs.krad.service.DocumentDictionaryService;
 /**
  * This class is a utility service intended to help retrieve objects related to particular documents.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @deprecated use {@link DocumentDictionaryService#getDocumentAuthorizer(java.lang.String)}
  */
 @Deprecated

@@ -22,7 +22,7 @@ package org.kuali.kfs.krad.util;
 /**
  * Constants for the KNS module that describer object property fields
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public final class KRADPropertyConstants {
 

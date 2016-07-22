@@ -24,7 +24,7 @@ import org.kuali.kfs.krad.uif.component.ComponentBase;
 /**
  * Base class for all <code>Control</code> implementations
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * 
  * @see Control
  */

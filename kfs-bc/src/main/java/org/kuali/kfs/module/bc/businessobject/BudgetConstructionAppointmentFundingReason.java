@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,9 +29,7 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionAppointmentFundingReason extends PersistableBusinessObjectBase {
 
     private Integer universityFiscalYear;
@@ -61,7 +59,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -70,7 +68,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -80,7 +78,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -89,7 +87,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -99,7 +97,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -108,7 +106,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -118,7 +116,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -127,7 +125,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -137,7 +135,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -146,7 +144,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -156,7 +154,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -165,7 +163,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -175,7 +173,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber
      */
     public String getPositionNumber() {
@@ -184,7 +182,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the positionNumber attribute.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -194,7 +192,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the emplid attribute.
-     * 
+     *
      * @return Returns the emplid
      */
     public String getEmplid() {
@@ -203,7 +201,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the emplid attribute.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -213,7 +211,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the appointmentFundingReasonCode attribute.
-     * 
+     *
      * @return Returns the appointmentFundingReasonCode
      */
     public String getAppointmentFundingReasonCode() {
@@ -222,7 +220,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the appointmentFundingReasonCode attribute.
-     * 
+     *
      * @param appointmentFundingReasonCode The appointmentFundingReasonCode to set.
      */
     public void setAppointmentFundingReasonCode(String appointmentFundingReasonCode) {
@@ -232,7 +230,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the appointmentFundingReasonAmount attribute.
-     * 
+     *
      * @return Returns the appointmentFundingReasonAmount.
      */
     public KualiInteger getAppointmentFundingReasonAmount() {
@@ -241,7 +239,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the appointmentFundingReasonAmount attribute value.
-     * 
+     *
      * @param appointmentFundingReasonAmount The appointmentFundingReasonAmount to set.
      */
     public void setAppointmentFundingReasonAmount(KualiInteger appointmentFundingReasonAmount) {
@@ -250,7 +248,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject
      */
     public ObjectCode getFinancialObject() {
@@ -259,7 +257,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the financialObject attribute.
-     * 
+     *
      * @param financialObject The financialObject to set.
      * @deprecated
      */
@@ -269,7 +267,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -278,7 +276,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -288,7 +286,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -297,7 +295,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -307,7 +305,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the financialSubObject attribute.
-     * 
+     *
      * @return Returns the financialSubObject.
      */
     public SubObjectCode getFinancialSubObject() {
@@ -316,7 +314,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the financialSubObject attribute value.
-     * 
+     *
      * @param financialSubObject The financialSubObject to set.
      * @deprecated
      */
@@ -326,7 +324,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -335,7 +333,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */
@@ -345,7 +343,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Gets the appointmentFundingReason attribute.
-     * 
+     *
      * @return Returns the appointmentFundingReason.
      */
     public BudgetConstructionAppointmentFundingReasonCode getAppointmentFundingReason() {
@@ -354,7 +352,7 @@ public class BudgetConstructionAppointmentFundingReason extends PersistableBusin
 
     /**
      * Sets the appointmentFundingReason attribute value.
-     * 
+     *
      * @param appointmentFundingReason The appointmentFundingReason to set.
      * @deprecated
      */

@@ -28,8 +28,6 @@ import java.util.Map;
 
 /**
  * This is the base class for all derived role type services 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  * @deprecated A krad integrated type service base class will be provided in the future.
  */

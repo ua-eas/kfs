@@ -30,8 +30,6 @@ import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
 /**
  * The LookupResultsSupportStrategyService implementation which supports PersistableBusinessObjects, simply enough 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public class PersistableBusinessObjectLookupResultsSupportStrategyImpl

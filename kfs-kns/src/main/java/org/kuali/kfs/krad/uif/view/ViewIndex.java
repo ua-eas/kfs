@@ -37,7 +37,7 @@ import java.util.Set;
 /**
  * Holds field indexes of a <code>View</code> instance for retrieval
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewIndex implements Serializable {
     private static final long serialVersionUID = 4700818801272201371L;

@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.uif.view.InquiryView;
 /**
  * Form class for <code>InquiryView</code> screens
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class InquiryForm extends UifFormBase {
     private static final long serialVersionUID = 4733144086378429410L;

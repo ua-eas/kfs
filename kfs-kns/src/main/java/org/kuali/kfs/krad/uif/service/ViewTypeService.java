@@ -38,7 +38,7 @@ import java.util.Map;
  * useful to index a view based on other properties, like a class name.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewTypeService {
 

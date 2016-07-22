@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -121,7 +121,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the correctionChangeDao attribute value.
-     * 
+     *
      * @param correctionChangeDao The correctionChangeDao to set.
      */
 
@@ -131,7 +131,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the correctionChangeDao attribute value.
-     * 
+     *
      * @param correctionChangeGroupDao The correctionChangeDao to set.
      */
     public void setCorrectionChangeGroupDao(CorrectionChangeGroupDao correctionChangeGroupDao) {
@@ -140,7 +140,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the correctionCriteriaDao attribute value.
-     * 
+     *
      * @param correctionCriteriaDao The correctionCriteriaDao to set.
      */
     public void setCorrectionCriteriaDao(CorrectionCriteriaDao correctionCriteriaDao) {
@@ -149,7 +149,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the documentDao attribute value.
-     * 
+     *
      * @param documentDao The documentDao to set.
      */
     public void setDocumentDao(DocumentDao documentDao) {
@@ -422,7 +422,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Returns true if and only if the file corresponding to this document's input origin entries are on the file system.
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#areInputOriginEntriesPersisted(LedgerCorrectionDocument)
      */
     public boolean areInputOriginEntriesPersisted(LedgerCorrectionDocument document) {
@@ -433,7 +433,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Returns true if and only if the file corresponding to this document's output origin entries are on the file system.
-     * 
+     *
      * @see org.kuali.kfs.module.ld.document.service.LaborCorrectionDocumentService#areOutputOriginEntriesPersisted(LedgerCorrectionDocument)
      */
     public boolean areOutputOriginEntriesPersisted(LedgerCorrectionDocument document) {
@@ -512,11 +512,11 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
             // we haven't saved the origin entry group yet, so let's load the entries from the DB and persist them for the document
             // this could be because we've previously saved the doc, but now we are now using a new input group, so we have to
             // repersist the input group
-            
-            
+
+
             //OriginEntryGroup group = originEntryGroupService.getExactMatchingEntryGroup(document.getCorrectionInputGroupId());
             File file = new File(document.getCorrectionInputFileName());
-            
+
             inputGroupEntries = new LaborOriginEntryFileIterator(file);
             persistInputOriginEntriesForInitiatedOrSavedDocument(document, inputGroupEntries);
 
@@ -593,17 +593,15 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
         CorrectionDocumentUtils.copyStatisticsToDocument(statistics, document);
     }
-    
-    /**
-     * 
-     */
+
+
     public String createOutputFileForProcessing(String docId, java.util.Date today) {
         File outputFile = new File(llcpDirectoryName + File.separator + docId + OUTPUT_ORIGIN_ENTRIES_FILE_SUFFIX);
         String newFileName = batchFileDirectoryName + File.separator + LLCP_OUTPUT_PREFIX  + "." + docId + buildFileExtensionWithDate(today);
         File newFile = new File (newFileName);
         FileReader inputFileReader;
         FileWriter newFileWriter;
-        
+
         try{
             // copy output file and put in OriginEntryInformation directory
             inputFileReader = new FileReader(outputFile);
@@ -612,10 +610,10 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
             while ((c = inputFileReader.read()) != -1){
                 newFileWriter.write(c);
             }
-            
+
             inputFileReader.close();
             newFileWriter.close();
-            
+
             // create done file, after successfully copying output file
             String doneFileName = newFileName.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
             File doneFile = new File(doneFileName);
@@ -626,15 +624,15 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
+
         return newFileName;
     }
-    
-    
-    
+
+
+
     /**
      * Gets the OriginEntryStagingDirectoryPath attribute.
-     * 
+     *
      * @return Returns the getLlcpDirectoryName.
      */
     protected String getOriginEntryStagingDirectoryPath() {
@@ -643,7 +641,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Gets the kualiConfigurationService attribute.
-     * 
+     *
      * @return Returns the kualiConfigurationService.
      */
     public ConfigurationService getConfigurationService() {
@@ -652,7 +650,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the kualiConfigurationService attribute value.
-     * 
+     *
      * @param kualiConfigurationService The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
@@ -661,7 +659,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the originEntryService attribute value.
-     * 
+     *
      * @param originEntryService The originEntryService to set.
      */
     public void setLaborOriginEntryService(LaborOriginEntryService laborOriginEntryService) {
@@ -670,7 +668,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Gets the llcpDirectoryName attribute.
-     * 
+     *
      * @return Returns the llcpDirectoryName.
      */
     public String getLlcpDirectoryName() {
@@ -679,18 +677,18 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the llcpDirectoryName attribute value.
-     * 
+     *
      * @param llcpDirectoryName The llcpDirectoryName to set.
      */
     public void setLlcpDirectoryName(String llcpDirectoryName) {
         this.llcpDirectoryName = llcpDirectoryName;
-        //check directory directly when path is set 
+        //check directory directly when path is set
         FileUtil.createDirectory(llcpDirectoryName);
     }
 
     /**
      * Gets the originEntryGroupService attribute.
-     * 
+     *
      * @return Returns the originEntryGroupService.
      */
     public OriginEntryGroupService getOriginEntryGroupService() {
@@ -699,7 +697,7 @@ public class LaborCorrectionDocumentServiceImpl extends CorrectionDocumentServic
 
     /**
      * Sets the originEntryGroupService attribute value.
-     * 
+     *
      * @param originEntryGroupService The originEntryGroupService to set.
      */
     public void setOriginEntryGroupService(OriginEntryGroupService originEntryGroupService) {

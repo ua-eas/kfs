@@ -31,8 +31,6 @@ import org.kuali.kfs.coreservice.api.style.StyleService;
 /**
  * A URIResolver that knows how to resolve href's based on style names.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
- * 
  */
 class StyleUriResolver implements URIResolver {
 

@@ -24,7 +24,7 @@ import java.util.Set;
  * Contract for classes which plan to expose class names to the RicePersistenceUnitPostProcessor, for
  * dynamic loading 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public interface PersistableBusinessObjectClassExposer {

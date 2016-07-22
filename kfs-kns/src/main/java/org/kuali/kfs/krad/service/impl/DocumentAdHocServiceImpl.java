@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Implementation for {@link DocumentAdHocService}.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class DocumentAdHocServiceImpl implements DocumentAdHocService {

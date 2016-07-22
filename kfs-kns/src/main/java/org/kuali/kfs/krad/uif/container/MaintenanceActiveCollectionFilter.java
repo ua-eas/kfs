@@ -30,7 +30,7 @@ import java.util.List;
  * Collection filter for maintenance groups that removes inactive lines if certain
  * conditions are met
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaintenanceActiveCollectionFilter implements CollectionFilter {
     private static final long serialVersionUID = -6045332235106531456L;

@@ -37,7 +37,7 @@ import java.util.Properties;
 /**
  * Widget for rendering an Direct Inquiry link icon next to a input field
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DirectInquiry extends Inquiry {
     private static final long serialVersionUID = -2490979579285984314L;

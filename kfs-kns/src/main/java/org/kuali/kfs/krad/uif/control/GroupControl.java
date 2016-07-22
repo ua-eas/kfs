@@ -27,7 +27,7 @@ import org.kuali.kfs.krad.uif.view.View;
  * Represents a group control, which is a special control to handle
  * the input of a KIM Group by group name
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class GroupControl extends TextControl {
     private static final long serialVersionUID = 5598459655735440981L;

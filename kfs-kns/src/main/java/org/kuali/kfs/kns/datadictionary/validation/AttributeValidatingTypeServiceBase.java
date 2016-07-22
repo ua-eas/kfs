@@ -63,8 +63,6 @@ import java.util.regex.Pattern;
  * subclasses since the message resources may not be present on the remote server that is invoking this service</b>.
  * There is a {@link #createErrorString(String, String...)} utility method that can be used to resolve
  * errorKeys and format them appropriately.</p>
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public abstract class AttributeValidatingTypeServiceBase {
 

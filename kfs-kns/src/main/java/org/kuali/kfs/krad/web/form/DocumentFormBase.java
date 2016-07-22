@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 /**
  * Base form for all <code>DocumentView</code> screens
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentFormBase extends UifFormBase {
 	private static final long serialVersionUID = 2190268505427404480L;

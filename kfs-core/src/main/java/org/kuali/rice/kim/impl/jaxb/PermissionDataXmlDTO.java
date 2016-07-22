@@ -63,8 +63,6 @@ import javax.xml.bind.annotation.XmlType;
  * </ul>
  * 
  * TODO: Verify that the above behavior is correct.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="PermissionDataType", propOrder={"permissions"})

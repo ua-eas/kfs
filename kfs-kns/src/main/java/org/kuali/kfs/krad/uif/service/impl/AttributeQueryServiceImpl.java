@@ -46,7 +46,7 @@ import java.util.Map;
  * Implementation of <code>AttributeQueryService</code> that prepares the attribute queries and
  * delegates to the <code>LookupService</code>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AttributeQueryServiceImpl implements AttributeQueryService {
 

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,9 +23,7 @@ import java.util.LinkedHashMap;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+
 public class AssetStatus extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String inventoryStatusCode;
@@ -41,7 +39,7 @@ public class AssetStatus extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the inventoryStatusCode attribute.
-     * 
+     *
      * @return Returns the inventoryStatusCode
      */
     public String getInventoryStatusCode() {
@@ -50,7 +48,7 @@ public class AssetStatus extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the inventoryStatusCode attribute.
-     * 
+     *
      * @param inventoryStatusCode The inventoryStatusCode to set.
      */
     public void setInventoryStatusCode(String inventoryStatusCode) {
@@ -60,7 +58,7 @@ public class AssetStatus extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the inventoryStatusName attribute.
-     * 
+     *
      * @return Returns the inventoryStatusName
      */
     public String getInventoryStatusName() {
@@ -69,7 +67,7 @@ public class AssetStatus extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the inventoryStatusName attribute.
-     * 
+     *
      * @param inventoryStatusName The inventoryStatusName to set.
      */
     public void setInventoryStatusName(String inventoryStatusName) {
@@ -79,7 +77,7 @@ public class AssetStatus extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active
      */
     public boolean isActive() {
@@ -88,7 +86,7 @@ public class AssetStatus extends PersistableBusinessObjectBase implements Mutabl
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

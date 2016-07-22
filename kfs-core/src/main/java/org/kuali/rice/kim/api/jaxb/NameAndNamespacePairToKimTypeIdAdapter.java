@@ -30,8 +30,6 @@ import org.kuali.rice.kim.api.type.KimTypeContract;
 
 /**
  * An XML adapter that converts between a NameAndNamespacePair and a KIM type ID.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class NameAndNamespacePairToKimTypeIdAdapter extends XmlAdapter<NameAndNamespacePair,String> {
 

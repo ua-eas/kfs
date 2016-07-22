@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * that field should not be picked up and processed as normal, but left as the property value to be handled
  * by the component itself or some other process
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

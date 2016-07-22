@@ -58,7 +58,7 @@ import java.util.Map;
  * be implemented by extending this base implementation and configuring
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class InquirableImpl extends ViewHelperServiceImpl implements Inquirable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(InquirableImpl.class);

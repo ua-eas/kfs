@@ -31,7 +31,7 @@ import java.beans.PropertyDescriptor;
 /**
  * Defines the API for the validating against the data dictionary.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DictionaryValidationService {
 

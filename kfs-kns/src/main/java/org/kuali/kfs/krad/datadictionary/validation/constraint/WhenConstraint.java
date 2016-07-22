@@ -31,7 +31,7 @@ import java.util.List;
  * when constraints would define a constraint of their own that would only be processed when the country was USA, or when the country 
  * was Canada. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @since 1.1
  */
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,9 +38,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private Integer universityFiscalYear;
@@ -79,7 +77,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -88,7 +86,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -98,7 +96,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -107,7 +105,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -117,7 +115,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -126,7 +124,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -136,7 +134,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -145,7 +143,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -155,7 +153,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -164,7 +162,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -174,7 +172,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -183,7 +181,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -193,7 +191,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber
      */
     public String getPositionNumber() {
@@ -202,7 +200,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the positionNumber attribute.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -212,7 +210,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the emplid attribute.
-     * 
+     *
      * @return Returns the emplid
      */
     public String getEmplid() {
@@ -221,7 +219,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the emplid attribute.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -231,7 +229,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the csfAmount attribute.
-     * 
+     *
      * @return Returns the csfAmount
      */
     public KualiDecimal getCsfAmount() {
@@ -240,7 +238,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the csfAmount attribute.
-     * 
+     *
      * @param csfAmount The csfAmount to set.
      */
     public void setCsfAmount(KualiDecimal csfAmount) {
@@ -250,7 +248,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the csfFullTimeEmploymentQuantity attribute.
-     * 
+     *
      * @return Returns the csfFullTimeEmploymentQuantity
      */
     public BigDecimal getCsfFullTimeEmploymentQuantity() {
@@ -259,7 +257,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the csfFullTimeEmploymentQuantity attribute.
-     * 
+     *
      * @param csfFullTimeEmploymentQuantity The csfFullTimeEmploymentQuantity to set.
      */
     public void setCsfFullTimeEmploymentQuantity(BigDecimal csfFullTimeEmploymentQuantity) {
@@ -269,7 +267,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the csfTimePercent attribute.
-     * 
+     *
      * @return Returns the csfTimePercent
      */
     public BigDecimal getCsfTimePercent() {
@@ -278,7 +276,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the csfTimePercent attribute.
-     * 
+     *
      * @param csfTimePercent The csfTimePercent to set.
      */
     public void setCsfTimePercent(BigDecimal csfTimePercent) {
@@ -288,7 +286,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the csfFundingStatusCode attribute.
-     * 
+     *
      * @return Returns the csfFundingStatusCode
      */
     public String getCsfFundingStatusCode() {
@@ -297,7 +295,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the csfFundingStatusCode attribute.
-     * 
+     *
      * @param csfFundingStatusCode The csfFundingStatusCode to set.
      */
     public void setCsfFundingStatusCode(String csfFundingStatusCode) {
@@ -307,7 +305,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the csfDeleteCode attribute.
-     * 
+     *
      * @return Returns the csfDeleteCode
      */
     public String getCsfDeleteCode() {
@@ -316,7 +314,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the csfDeleteCode attribute.
-     * 
+     *
      * @param csfDeleteCode The csfDeleteCode to set.
      */
     public void setCsfDeleteCode(String csfDeleteCode) {
@@ -326,7 +324,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject
      */
     public ObjectCode getFinancialObject() {
@@ -335,7 +333,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the financialObject attribute.
-     * 
+     *
      * @param financialObject The financialObject to set.
      * @deprecated
      */
@@ -345,7 +343,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -354,7 +352,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -364,7 +362,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -373,7 +371,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -383,7 +381,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the financialSubObject attribute.
-     * 
+     *
      * @return Returns the financialSubObject.
      */
     public SubObjectCode getFinancialSubObject() {
@@ -392,7 +390,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the financialSubObject attribute value.
-     * 
+     *
      * @param financialSubObject The financialSubObject to set.
      * @deprecated
      */
@@ -402,7 +400,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -411,7 +409,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */
@@ -421,7 +419,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the calculatedSalaryFoundationTracker attribute.
-     * 
+     *
      * @return Returns the calculatedSalaryFoundationTracker.
      */
     public List getCalculatedSalaryFoundationTracker() {
@@ -430,7 +428,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the calculatedSalaryFoundationTracker attribute value.
-     * 
+     *
      * @param calculatedSalaryFoundationTracker The calculatedSalaryFoundationTracker to set.
      */
     public void setCalculatedSalaryFoundationTracker(List calculatedSalaryFoundationTracker) {
@@ -439,7 +437,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal.
      */
     public SystemOptions getUniversityFiscal() {
@@ -448,7 +446,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the universityFiscal attribute value.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      */
     public void setUniversityFiscal(SystemOptions universityFiscal) {
@@ -456,14 +454,14 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
     }
 
     /**
-     * Gets the csfTrackerOverridePerson attribute. 
+     * Gets the csfTrackerOverridePerson attribute.
      * @return Returns the csfTrackerOverridePerson.
      */
     public Person getCsfTrackerOverridePerson() {
         if(csfTrackerOverridePerson == null || !StringUtils.equals(csfTrackerOverridePerson.getEmployeeId(), emplid)) {
             csfTrackerOverridePerson = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(emplid);
         }
-        
+
         return csfTrackerOverridePerson;
     }
 
@@ -477,7 +475,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -486,7 +484,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

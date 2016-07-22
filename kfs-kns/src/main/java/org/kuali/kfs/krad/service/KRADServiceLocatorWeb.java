@@ -30,7 +30,7 @@ import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 /**
  * Service locator for the KRAD Web module
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class KRADServiceLocatorWeb {
 

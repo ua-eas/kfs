@@ -34,7 +34,7 @@ import org.springframework.beans.factory.InitializingBean;
 /**
  * Contains common properties and methods for data dictionary entries.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 abstract public class DataDictionaryEntryBase implements DataDictionaryEntry, Serializable, InitializingBean {
     protected List<AttributeDefinition> attributes;

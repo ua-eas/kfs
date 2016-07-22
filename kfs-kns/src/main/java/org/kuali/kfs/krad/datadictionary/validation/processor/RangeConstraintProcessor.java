@@ -38,7 +38,7 @@ import java.util.Date;
  * that is {@link RangeConstrainable} will expose a minimum and maximum value, and these will be validated against the passed
  * value in the code below. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class RangeConstraintProcessor extends MandatoryElementConstraintProcessor<RangeConstraint> {
 

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,9 +35,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @author Kuali Rice Team (rice.collab@kuali.org)
- */
+
 @XmlRootElement(name = ParameterQueryResults.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = ParameterQueryResults.Constants.TYPE_NAME, propOrder = {
@@ -50,17 +48,17 @@ public class ParameterQueryResults extends AbstractDataTransferObject implements
 	@XmlElementWrapper(name = Elements.RESULTS, required = false)
 	@XmlElement(name = Elements.PARAMETER, required = false)
 	private final List<Parameter> results;
-	
+
 	@XmlElement(name = Elements.TOTAL_ROW_COUNT, required = false)
 	private final Integer totalRowCount;
-	
+
 	@XmlElement(name = Elements.MORE_RESULTS_AVAILALBE, required = true)
 	private final boolean moreResultsAvailable;
-		
+
 	@SuppressWarnings("unused")
     @XmlAnyElement
     private final Collection<Element> _futureElements = null;
-	
+
 	private ParameterQueryResults() {
 		this.results = null;
 		this.totalRowCount = null;
@@ -77,7 +75,7 @@ public class ParameterQueryResults extends AbstractDataTransferObject implements
 	public List<Parameter> getResults() {
 		return results;
 	}
-	
+
 	@Override
 	public Integer getTotalRowCount() {
 		return totalRowCount;
@@ -134,9 +132,9 @@ public class ParameterQueryResults extends AbstractDataTransferObject implements
 		public void setMoreResultsAvailable(boolean moreResultsAvailable) {
 			this.moreResultsAvailable = moreResultsAvailable;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Defines some internal constants used on this class.
 	 */
@@ -155,5 +153,5 @@ public class ParameterQueryResults extends AbstractDataTransferObject implements
 		public final static String TOTAL_ROW_COUNT = "totalRowCount";
 		public final static String MORE_RESULTS_AVAILALBE = "moreResultsAvailable";
 	}
-	
+
 }

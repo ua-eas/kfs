@@ -48,7 +48,7 @@ import java.util.Set;
  * By default delegates to the {@link DocumentAuthorizer} configured for the document in the data dictionary
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentViewAuthorizerBase extends ViewAuthorizerBase implements DocumentAuthorizer {
     private static final long serialVersionUID = 3800780934223224565L;

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,9 +26,7 @@ import java.util.LinkedHashMap;
 import org.kuali.kfs.coa.businessobject.ResponsibilityCenter;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionPositionInitializationMove extends PersistableBusinessObjectBase {
 
     private String principalId;
@@ -69,7 +67,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -78,7 +76,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -88,7 +86,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber
      */
     public String getPositionNumber() {
@@ -97,7 +95,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionNumber attribute.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -107,7 +105,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -116,7 +114,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -126,7 +124,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionEffectiveDate attribute.
-     * 
+     *
      * @return Returns the positionEffectiveDate
      */
     public Date getPositionEffectiveDate() {
@@ -135,7 +133,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionEffectiveDate attribute.
-     * 
+     *
      * @param positionEffectiveDate The positionEffectiveDate to set.
      */
     public void setPositionEffectiveDate(Date positionEffectiveDate) {
@@ -145,7 +143,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionEffectiveStatus attribute.
-     * 
+     *
      * @return Returns the positionEffectiveStatus
      */
     public String getPositionEffectiveStatus() {
@@ -154,7 +152,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionEffectiveStatus attribute.
-     * 
+     *
      * @param positionEffectiveStatus The positionEffectiveStatus to set.
      */
     public void setPositionEffectiveStatus(String positionEffectiveStatus) {
@@ -164,7 +162,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionStatus attribute.
-     * 
+     *
      * @return Returns the positionStatus
      */
     public String getPositionStatus() {
@@ -173,7 +171,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionStatus attribute.
-     * 
+     *
      * @param positionStatus The positionStatus to set.
      */
     public void setPositionStatus(String positionStatus) {
@@ -183,7 +181,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the budgetedPosition attribute.
-     * 
+     *
      * @return Returns the budgetedPosition
      */
     public String getBudgetedPosition() {
@@ -192,7 +190,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the budgetedPosition attribute.
-     * 
+     *
      * @param budgetedPosition The budgetedPosition to set.
      */
     public void setBudgetedPosition(String budgetedPosition) {
@@ -202,7 +200,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the confidentialPosition attribute.
-     * 
+     *
      * @return Returns the confidentialPosition
      */
     public String getConfidentialPosition() {
@@ -211,7 +209,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the confidentialPosition attribute.
-     * 
+     *
      * @param confidentialPosition The confidentialPosition to set.
      */
     public void setConfidentialPosition(String confidentialPosition) {
@@ -221,7 +219,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionStandardHoursDefault attribute.
-     * 
+     *
      * @return Returns the positionStandardHoursDefault
      */
     public BigDecimal getPositionStandardHoursDefault() {
@@ -230,7 +228,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionStandardHoursDefault attribute.
-     * 
+     *
      * @param positionStandardHoursDefault The positionStandardHoursDefault to set.
      */
     public void setPositionStandardHoursDefault(BigDecimal positionStandardHoursDefault) {
@@ -240,7 +238,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionRegularTemporary attribute.
-     * 
+     *
      * @return Returns the positionRegularTemporary
      */
     public String getPositionRegularTemporary() {
@@ -249,7 +247,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionRegularTemporary attribute.
-     * 
+     *
      * @param positionRegularTemporary The positionRegularTemporary to set.
      */
     public void setPositionRegularTemporary(String positionRegularTemporary) {
@@ -259,7 +257,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionFullTimeEquivalency attribute.
-     * 
+     *
      * @return Returns the positionFullTimeEquivalency
      */
     public BigDecimal getPositionFullTimeEquivalency() {
@@ -268,7 +266,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionFullTimeEquivalency attribute.
-     * 
+     *
      * @param positionFullTimeEquivalency The positionFullTimeEquivalency to set.
      */
     public void setPositionFullTimeEquivalency(BigDecimal positionFullTimeEquivalency) {
@@ -278,7 +276,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the iuNormalWorkMonths attribute.
-     * 
+     *
      * @return Returns the iuNormalWorkMonths
      */
     public Integer getIuNormalWorkMonths() {
@@ -287,7 +285,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the iuNormalWorkMonths attribute.
-     * 
+     *
      * @param iuNormalWorkMonths The iuNormalWorkMonths to set.
      */
     public void setIuNormalWorkMonths(Integer iuNormalWorkMonths) {
@@ -297,7 +295,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the iuPayMonths attribute.
-     * 
+     *
      * @return Returns the iuPayMonths
      */
     public Integer getIuPayMonths() {
@@ -306,7 +304,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the iuPayMonths attribute.
-     * 
+     *
      * @param iuPayMonths The iuPayMonths to set.
      */
     public void setIuPayMonths(Integer iuPayMonths) {
@@ -316,7 +314,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionDescription attribute.
-     * 
+     *
      * @return Returns the positionDescription
      */
     public String getPositionDescription() {
@@ -325,7 +323,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionDescription attribute.
-     * 
+     *
      * @param positionDescription The positionDescription to set.
      */
     public void setPositionDescription(String positionDescription) {
@@ -335,7 +333,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the setidDepartment attribute.
-     * 
+     *
      * @return Returns the setidDepartment
      */
     public String getSetidDepartment() {
@@ -344,7 +342,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the setidDepartment attribute.
-     * 
+     *
      * @param setidDepartment The setidDepartment to set.
      */
     public void setSetidDepartment(String setidDepartment) {
@@ -354,7 +352,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionDepartmentIdentifier attribute.
-     * 
+     *
      * @return Returns the positionDepartmentIdentifier
      */
     public String getPositionDepartmentIdentifier() {
@@ -363,7 +361,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionDepartmentIdentifier attribute.
-     * 
+     *
      * @param positionDepartmentIdentifier The positionDepartmentIdentifier to set.
      */
     public void setPositionDepartmentIdentifier(String positionDepartmentIdentifier) {
@@ -373,7 +371,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the responsibilityCenterCode attribute.
-     * 
+     *
      * @return Returns the responsibilityCenterCode
      */
     public String getResponsibilityCenterCode() {
@@ -382,7 +380,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the responsibilityCenterCode attribute.
-     * 
+     *
      * @param responsibilityCenterCode The responsibilityCenterCode to set.
      */
     public void setResponsibilityCenterCode(String responsibilityCenterCode) {
@@ -392,7 +390,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionUnionCode attribute.
-     * 
+     *
      * @return Returns the positionUnionCode
      */
     public String getPositionUnionCode() {
@@ -401,7 +399,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionUnionCode attribute.
-     * 
+     *
      * @param positionUnionCode The positionUnionCode to set.
      */
     public void setPositionUnionCode(String positionUnionCode) {
@@ -411,7 +409,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionSalaryPlanDefault attribute.
-     * 
+     *
      * @return Returns the positionSalaryPlanDefault
      */
     public String getPositionSalaryPlanDefault() {
@@ -420,7 +418,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionSalaryPlanDefault attribute.
-     * 
+     *
      * @param positionSalaryPlanDefault The positionSalaryPlanDefault to set.
      */
     public void setPositionSalaryPlanDefault(String positionSalaryPlanDefault) {
@@ -430,7 +428,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the positionGradeDefault attribute.
-     * 
+     *
      * @return Returns the positionGradeDefault
      */
     public String getPositionGradeDefault() {
@@ -439,7 +437,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the positionGradeDefault attribute.
-     * 
+     *
      * @param positionGradeDefault The positionGradeDefault to set.
      */
     public void setPositionGradeDefault(String positionGradeDefault) {
@@ -449,7 +447,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the setidJobCode attribute.
-     * 
+     *
      * @return Returns the setidJobCode
      */
     public String getSetidJobCode() {
@@ -458,7 +456,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the setidJobCode attribute.
-     * 
+     *
      * @param setidJobCode The setidJobCode to set.
      */
     public void setSetidJobCode(String setidJobCode) {
@@ -468,7 +466,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the jobCode attribute.
-     * 
+     *
      * @return Returns the jobCode
      */
     public String getJobCode() {
@@ -477,7 +475,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the jobCode attribute.
-     * 
+     *
      * @param jobCode The jobCode to set.
      */
     public void setJobCode(String jobCode) {
@@ -487,7 +485,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the jobCodeDescription attribute.
-     * 
+     *
      * @return Returns the jobCodeDescription
      */
     public String getJobCodeDescription() {
@@ -496,7 +494,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the jobCodeDescription attribute.
-     * 
+     *
      * @param jobCodeDescription The jobCodeDescription to set.
      */
     public void setJobCodeDescription(String jobCodeDescription) {
@@ -506,7 +504,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the setidSalary attribute.
-     * 
+     *
      * @return Returns the setidSalary
      */
     public String getSetidSalary() {
@@ -515,7 +513,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the setidSalary attribute.
-     * 
+     *
      * @param setidSalary The setidSalary to set.
      */
     public void setSetidSalary(String setidSalary) {
@@ -525,7 +523,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the iuDefaultObjectCode attribute.
-     * 
+     *
      * @return Returns the iuDefaultObjectCode
      */
     public String getIuDefaultObjectCode() {
@@ -534,7 +532,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the iuDefaultObjectCode attribute.
-     * 
+     *
      * @param iuDefaultObjectCode The iuDefaultObjectCode to set.
      */
     public void setIuDefaultObjectCode(String iuDefaultObjectCode) {
@@ -544,7 +542,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the iuPositionType attribute.
-     * 
+     *
      * @return Returns the iuPositionType
      */
     public String getIuPositionType() {
@@ -553,7 +551,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the iuPositionType attribute.
-     * 
+     *
      * @param iuPositionType The iuPositionType to set.
      */
     public void setIuPositionType(String iuPositionType) {
@@ -562,7 +560,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Gets the responsibilityCenter attribute.
-     * 
+     *
      * @return Returns the responsibilityCenter.
      */
     public ResponsibilityCenter getResponsibilityCenter() {
@@ -571,7 +569,7 @@ public class BudgetConstructionPositionInitializationMove extends PersistableBus
 
     /**
      * Sets the responsibilityCenter attribute value.
-     * 
+     *
      * @param responsibilityCenter The responsibilityCenter to set.
      * @deprecated
      */

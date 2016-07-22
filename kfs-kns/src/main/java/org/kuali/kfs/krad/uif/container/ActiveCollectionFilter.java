@@ -29,7 +29,7 @@ import java.util.List;
  * Collection filter that removes inactive lines from a collection whose line types
  * implement the <code>Inactivatable</code> interface
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ActiveCollectionFilter implements CollectionFilter {
     private static final long serialVersionUID = 3273495753269940272L;

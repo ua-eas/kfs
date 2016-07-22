@@ -49,7 +49,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 9. value with invalid phone number. (failure) {@link #testValueInvalidPhoneNumber6()}
  *
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class PhoneNumberPatternConstraintTest {
 

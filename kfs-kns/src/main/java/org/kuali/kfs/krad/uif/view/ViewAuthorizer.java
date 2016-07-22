@@ -38,7 +38,7 @@ import java.util.Set;
  * {@link ViewPresentationController}
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewAuthorizer {
 

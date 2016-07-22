@@ -34,7 +34,7 @@ import java.text.ParseException;
  * PropertyEditor converts between percentage strings and
  * <code>org.kuali.rice.core.api.util.type.KualiPercent</code> objects
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifPercentageEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = -3562156375311932094L;

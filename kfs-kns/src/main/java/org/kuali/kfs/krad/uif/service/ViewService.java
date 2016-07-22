@@ -28,7 +28,7 @@ import java.util.Map;
  * interacts with this service from the client layer to pull information from the View dictionary
  * and manage the View instance through its lifecycle
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewService {
 

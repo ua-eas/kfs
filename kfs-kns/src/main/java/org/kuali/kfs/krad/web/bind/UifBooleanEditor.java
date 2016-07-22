@@ -24,7 +24,7 @@ import java.io.Serializable;
 /**
  * PropertyEditor for booleans supports y/n which the spring version does not
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifBooleanEditor extends PropertyEditorSupport implements Serializable {
 	private static final long serialVersionUID = -6333792216543862346L;

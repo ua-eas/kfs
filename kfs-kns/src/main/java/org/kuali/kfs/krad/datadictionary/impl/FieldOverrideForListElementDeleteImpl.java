@@ -25,7 +25,7 @@ import org.kuali.kfs.krad.datadictionary.FieldOverride;
 /**
  * A Field Override used to delete elements from a Data Dictionary bean. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class FieldOverrideForListElementDeleteImpl extends FieldOverrideForListElementBase  implements FieldOverride{

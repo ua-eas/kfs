@@ -64,7 +64,7 @@ import java.util.Map;
  * Property replacers may be used to substitute primitive properties as well, such as Strings
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class PropertyReplacer extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -8405429643299461398L;

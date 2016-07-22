@@ -27,7 +27,7 @@ import org.kuali.rice.kew.api.KewApiConstants;
  * begin Kuali Foundation modification
  * This class is used to format boolean values.
  * end Kuali Foundation modification
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DelegationTypeFormatter extends Formatter {
     private static final long serialVersionUID = -4109390572922205211L;

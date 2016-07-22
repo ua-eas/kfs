@@ -31,7 +31,7 @@ import org.kuali.rice.core.api.uif.RemotableAttributeField;
  * build the remotable fields for the type attributes
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DataDictionaryRemoteFieldService {
 

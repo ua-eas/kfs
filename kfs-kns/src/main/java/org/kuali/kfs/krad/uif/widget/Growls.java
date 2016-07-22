@@ -26,7 +26,7 @@ package org.kuali.kfs.krad.uif.widget;
  * automatically.
  * See the jquery jGrowl plugin for more details.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Growls extends WidgetBase {
     private static final long serialVersionUID = -8701090110933484411L;

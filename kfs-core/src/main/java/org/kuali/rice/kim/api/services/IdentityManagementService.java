@@ -36,8 +36,6 @@ import org.kuali.rice.kim.api.identity.principal.Principal;
  *
  *  Most of the methods on this interface are straight pass-thrus to methods on the four core services.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
- *
  */
 @Deprecated
 public interface IdentityManagementService {

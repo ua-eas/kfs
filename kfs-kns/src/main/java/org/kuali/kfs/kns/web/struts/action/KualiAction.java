@@ -72,7 +72,7 @@ import java.util.Set;
  * <p>This Action overrides #execute to set methodToCall for image submits.  Also performs other setup
  * required for KNS framework calls.</p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class KualiAction extends DispatchAction {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiAction.class);

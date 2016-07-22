@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.uif.UifConstants.ViewType;
  * the view name can be used to further identify an unique view
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class InquiryView extends FormView {
     private static final long serialVersionUID = 716926008488403616L;

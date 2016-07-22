@@ -35,7 +35,7 @@ import java.util.List;
  * In the second case, implementing classes only need to provide access to the value associated with that specific member, and constraints
  * requiring access to additional members will be skipped. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @since 1.1
  */
 public interface AttributeValueReader {

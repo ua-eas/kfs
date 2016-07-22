@@ -43,8 +43,6 @@ import org.kuali.kfs.krad.exception.ExportNotSupportedException;
  * Display Tag.  Most of the logic for interfacing with the KNS export
  * system is encapsulated in this helper class so it can be shared between
  * the various Display Tag export implementations. 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public class ExportViewHelper {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,9 +30,7 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionCalculatedSalaryFoundationTracker extends PersistableBusinessObjectBase {
 
     private Integer universityFiscalYear;
@@ -64,7 +62,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -73,7 +71,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -83,7 +81,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -92,7 +90,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -102,7 +100,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -111,7 +109,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -121,7 +119,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -130,7 +128,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -140,7 +138,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -149,7 +147,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -159,7 +157,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -168,7 +166,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -178,7 +176,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the positionNumber attribute.
-     * 
+     *
      * @return Returns the positionNumber
      */
     public String getPositionNumber() {
@@ -187,7 +185,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the positionNumber attribute.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -197,7 +195,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the emplid.
-     * 
+     *
      * @return Returns the emplid
      */
     public String getEmplid() {
@@ -206,7 +204,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the emplid attribute.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -216,7 +214,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the csfAmount attribute.
-     * 
+     *
      * @return Returns the csfAmount
      */
     public KualiInteger getCsfAmount() {
@@ -225,7 +223,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the csfAmount attribute.
-     * 
+     *
      * @param csfAmount The csfAmount to set.
      */
     public void setCsfAmount(KualiInteger csfAmount) {
@@ -235,7 +233,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the csfFullTimeEmploymentQuantity attribute.
-     * 
+     *
      * @return Returns the csfFullTimeEmploymentQuantity
      */
     public BigDecimal getCsfFullTimeEmploymentQuantity() {
@@ -244,7 +242,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the csfFullTimeEmploymentQuantity attribute.
-     * 
+     *
      * @param csfFullTimeEmploymentQuantity The csfFullTimeEmploymentQuantity to set.
      */
     public void setCsfFullTimeEmploymentQuantity(BigDecimal csfFullTimeEmploymentQuantity) {
@@ -254,7 +252,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the csfTimePercent attribute.
-     * 
+     *
      * @return Returns the csfTimePercent
      */
     public BigDecimal getCsfTimePercent() {
@@ -263,7 +261,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the csfTimePercent attribute.
-     * 
+     *
      * @param csfTimePercent The csfTimePercent to set.
      */
     public void setCsfTimePercent(BigDecimal csfTimePercent) {
@@ -273,7 +271,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the csfFundingStatusCode attribute.
-     * 
+     *
      * @return Returns the csfFundingStatusCode
      */
     public String getCsfFundingStatusCode() {
@@ -282,7 +280,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the csfFundingStatusCode attribute.
-     * 
+     *
      * @param csfFundingStatusCode The csfFundingStatusCode to set.
      */
     public void setCsfFundingStatusCode(String csfFundingStatusCode) {
@@ -292,7 +290,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject
      */
     public ObjectCode getFinancialObject() {
@@ -301,7 +299,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the financialObject attribute.
-     * 
+     *
      * @param financialObject The financialObject to set.
      * @deprecated
      */
@@ -311,7 +309,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the pendingAppointmentFunding attribute.
-     * 
+     *
      * @return Returns the pendingAppointmentFunding
      */
     public PendingBudgetConstructionAppointmentFunding getPendingAppointmentFunding() {
@@ -320,7 +318,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the pendingAppointmentFunding attribute.
-     * 
+     *
      * @param pendingAppointmentFunding The pendingAppointmentFunding to set.
      * @deprecated
      */
@@ -330,7 +328,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -339,7 +337,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -349,7 +347,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -358,7 +356,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -368,7 +366,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the financialSubObject attribute.
-     * 
+     *
      * @return Returns the financialSubObject.
      */
     public SubObjectCode getFinancialSubObject() {
@@ -377,7 +375,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the financialSubObject attribute value.
-     * 
+     *
      * @param financialSubObject The financialSubObject to set.
      * @deprecated
      */
@@ -387,7 +385,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -396,7 +394,7 @@ public class BudgetConstructionCalculatedSalaryFoundationTracker extends Persist
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */

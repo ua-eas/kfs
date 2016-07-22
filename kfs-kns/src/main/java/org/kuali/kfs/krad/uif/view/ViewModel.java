@@ -36,7 +36,7 @@ import java.util.Set;
  * this interface
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewModel extends Serializable {
 

@@ -30,7 +30,7 @@ import javax.persistence.Transient;
 /**
  * Ad Hoc Route Person Business Object
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @IdClass(AdHocRoutePersonId.class)
 @Entity

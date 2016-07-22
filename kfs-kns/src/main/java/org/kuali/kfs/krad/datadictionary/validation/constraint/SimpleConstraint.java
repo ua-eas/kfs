@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlElement;
  * A simple constraint stores 'basic' constraints for a field.  This constraint is meant to be used as a
  * constraint for WhenConstraints in CaseConstraint, and is also used internally in InputField.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SimpleConstraint extends BaseConstraint implements ExistenceConstraint, RangeConstraint, LengthConstraint{

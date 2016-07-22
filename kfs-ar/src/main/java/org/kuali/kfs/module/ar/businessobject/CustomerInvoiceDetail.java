@@ -47,7 +47,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
  * This class represents a customer invoice detail on the customer invoice document. This class extends SourceAccountingLine since
  * each customer invoice detail has associated accounting line information.
  *
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class CustomerInvoiceDetail extends SourceAccountingLine implements AppliedPayment, AccountsReceivableCustomerInvoiceDetail {
 

@@ -36,8 +36,6 @@ import java.util.List;
  * </p>
  *
  * <p>Client applications should generally only use "remote" run mode (which is the default).</p>
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class CoreServiceConfigurer extends ModuleConfigurer {
 

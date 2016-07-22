@@ -53,7 +53,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 
  * 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class FixedPointPatternConstraintTest {
 

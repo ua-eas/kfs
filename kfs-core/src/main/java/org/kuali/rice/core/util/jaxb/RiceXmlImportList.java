@@ -32,8 +32,6 @@ import java.util.AbstractList;
  * <p>and is presented in the example code available here:
  * 
  * <p>http://jaxb.java.net/2.2.4/
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public final class RiceXmlImportList<E> extends AbstractList<E> implements Serializable {
     

@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Provides methods for working with <code>MaintenanceDocument</code>(s)
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface MaintenanceDocumentService {
 

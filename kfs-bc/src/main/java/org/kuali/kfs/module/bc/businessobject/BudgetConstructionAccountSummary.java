@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,9 +30,7 @@ import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionAccountSummary extends PersistableBusinessObjectBase {
 
     private String principalId;
@@ -60,13 +58,13 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
      * Default constructor.
      */
     public BudgetConstructionAccountSummary() {
-        
+
 
     }
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -75,7 +73,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -85,7 +83,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccountsCode
      */
     public String getOrganizationChartOfAccountsCode() {
@@ -94,7 +92,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationChartOfAccountsCode The organizationChartOfAccountsCode to set.
      */
     public void setOrganizationChartOfAccountsCode(String organizationChartOfAccountsCode) {
@@ -104,7 +102,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -113,7 +111,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -123,7 +121,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -132,7 +130,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -142,7 +140,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the fundGroupCode attribute.
-     * 
+     *
      * @return Returns the fundGroupCode
      */
     public String getFundGroupCode() {
@@ -151,7 +149,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the fundGroupCode attribute.
-     * 
+     *
      * @param fundGroupCode The fundGroupCode to set.
      */
     public void setFundGroupCode(String fundGroupCode) {
@@ -161,7 +159,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the subFundGroupCode attribute.
-     * 
+     *
      * @return Returns the subFundGroupCode
      */
     public String getSubFundGroupCode() {
@@ -170,7 +168,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the subFundGroupCode attribute.
-     * 
+     *
      * @param subFundGroupCode The subFundGroupCode to set.
      */
     public void setSubFundGroupCode(String subFundGroupCode) {
@@ -180,7 +178,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -189,7 +187,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -199,7 +197,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -208,7 +206,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -218,7 +216,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the incomeExpenseCode attribute.
-     * 
+     *
      * @return Returns the incomeExpenseCode
      */
     public String getIncomeExpenseCode() {
@@ -227,7 +225,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the incomeExpenseCode attribute.
-     * 
+     *
      * @param incomeExpenseCode The incomeExpenseCode to set.
      */
     public void setIncomeExpenseCode(String incomeExpenseCode) {
@@ -237,7 +235,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the accountLineAnnualBalanceAmount attribute.
-     * 
+     *
      * @return Returns the accountLineAnnualBalanceAmount.
      */
     public KualiInteger getAccountLineAnnualBalanceAmount() {
@@ -246,7 +244,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the accountLineAnnualBalanceAmount attribute value.
-     * 
+     *
      * @param accountLineAnnualBalanceAmount The accountLineAnnualBalanceAmount to set.
      */
     public void setAccountLineAnnualBalanceAmount(KualiInteger accountLineAnnualBalanceAmount) {
@@ -255,7 +253,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the financialBeginningBalanceLineAmount attribute.
-     * 
+     *
      * @return Returns the financialBeginningBalanceLineAmount.
      */
     public KualiInteger getFinancialBeginningBalanceLineAmount() {
@@ -264,7 +262,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the financialBeginningBalanceLineAmount attribute value.
-     * 
+     *
      * @param financialBeginningBalanceLineAmount The financialBeginningBalanceLineAmount to set.
      */
     public void setFinancialBeginningBalanceLineAmount(KualiInteger financialBeginningBalanceLineAmount) {
@@ -273,7 +271,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the subFundSortCode attribute.
-     * 
+     *
      * @return Returns the subFundSortCode
      */
     public String getSubFundSortCode() {
@@ -282,7 +280,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the subFundSortCode attribute.
-     * 
+     *
      * @param subFundSortCode The subFundSortCode to set.
      */
     public void setSubFundSortCode(String subFundSortCode) {
@@ -292,7 +290,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccounts
      */
     public Chart getOrganizationChartOfAccounts() {
@@ -301,7 +299,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @param organizationChartOfAccounts The organizationChartOfAccounts to set.
      * @deprecated
      */
@@ -311,7 +309,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -320,7 +318,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -330,7 +328,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -339,7 +337,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -349,7 +347,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -358,7 +356,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -368,7 +366,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -377,7 +375,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */
@@ -387,7 +385,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the subFundGroup attribute.
-     * 
+     *
      * @return Returns the subFundGroup.
      */
     public SubFundGroup getSubFundGroup() {
@@ -396,7 +394,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the subFundGroup attribute value.
-     * 
+     *
      * @param subFundGroup The subFundGroup to set.
      * @deprecated
      */
@@ -406,7 +404,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Gets the fundGroup attribute.
-     * 
+     *
      * @return Returns the fundGroup.
      */
     public FundGroup getFundGroup() {
@@ -415,7 +413,7 @@ public class BudgetConstructionAccountSummary extends PersistableBusinessObjectB
 
     /**
      * Sets the fundGroup attribute value.
-     * 
+     *
      * @param fundGroup The fundGroup to set.
      * @deprecated
      */

@@ -22,7 +22,7 @@ package org.kuali.kfs.krad.uif.widget;
  * Used for rendering a lightbox in the UI to display the result of a submit in
  * a light box. This is used for the quickfinder lookup.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LightBoxLookup extends WidgetBase {
     private static final long serialVersionUID = -8571541274489677888L;

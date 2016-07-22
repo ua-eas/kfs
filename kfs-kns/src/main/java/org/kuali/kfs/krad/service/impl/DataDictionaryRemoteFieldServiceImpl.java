@@ -65,7 +65,7 @@ import java.util.Map;
 /**
  * Implementation of the {@link DataDictionaryRemoteFieldService} service
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataDictionaryRemoteFieldServiceImpl implements DataDictionaryRemoteFieldService {
 

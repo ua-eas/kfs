@@ -43,7 +43,7 @@ import org.kuali.rice.core.api.data.DataType;
  * when a value is
  * equal to some constant, or greater than some limit.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CaseConstraintProcessor extends MandatoryElementConstraintProcessor<CaseConstraint> {
 

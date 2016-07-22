@@ -32,8 +32,6 @@ import java.util.Set;
  * 
  * This interface can be used to implement KNS to workflow document type
  * mapping relationships other than one-to-one.
- * 
- * @author mpk35
  *
  */
 public interface DataDictionaryMapper {

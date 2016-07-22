@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Manages Uif form objects for a session
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifFormManager implements Serializable {
     private static final long serialVersionUID = -6323378881342207080L;

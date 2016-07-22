@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,9 +39,7 @@ import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 
-/**
- * 
- */
+
 public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements BatchMaintenanceDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BatchMaintenanceDaoOjb.class);
 
@@ -54,7 +52,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
      * batch do not have an 'OPEN' status. The query in this method searches the payment detail table for payments of the given
      * batchId where the status equals any status other than 'OPEN'. If any rows exist with a status other than 'OPEN', return
      * false.
-     * 
+     *
      * @param batchId Integer value of batch id of payments to search.
      * @return boolean true = all payments are 'OPEN'; false = all payments are not 'OPEN'
      * @see org.kuali.kfs.pdp.dataaccess.BatchMaintenanceDao#doBatchPaymentsHaveOpenStatus(java.lang.Integer, java.util.List,
@@ -100,7 +98,7 @@ public class BatchMaintenanceDaoOjb extends PlatformAwareDaoBaseOjb implements B
      * batch do not have an 'HELD' status. The query in this method searches the payment detail table for payments of the given
      * batchId where the status equals any status other than 'HELD'. If any rows exist with a status other than 'HELD', return
      * false.
-     * 
+     *
      * @param batchId Integer value of batch id of payments to search.
      * @return boolean true = all payments are 'HELD'; false = all payments are not 'HELD'
      * @see org.kuali.kfs.pdp.dataaccess.BatchMaintenanceDao#doBatchPaymentsHaveHeldStatus(java.lang.Integer, java.util.List,

@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Represents a Column in a result table
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public class Column implements java.io.Serializable, PropertyRenderingConfigElement {

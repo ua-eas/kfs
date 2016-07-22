@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.service.DataObjectAuthorizationService;
  * maintenance document entries
  * 
  * TODO: refactor for general objects
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public interface BusinessObjectAuthorizationService extends DataObjectAuthorizationService {

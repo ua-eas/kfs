@@ -27,7 +27,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * The super class which implementations of the FieldOverride interface will extend. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class FieldOverrideForListElementBase {

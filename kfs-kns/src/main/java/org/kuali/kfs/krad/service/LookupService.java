@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Defines business logic methods that support the Lookup framework
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface LookupService {
 

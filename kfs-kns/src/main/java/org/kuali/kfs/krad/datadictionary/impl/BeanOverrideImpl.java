@@ -30,7 +30,7 @@ import org.kuali.kfs.krad.datadictionary.BeanOverride;
 /**
  * The base implementation of the BeanOverride interface. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class BeanOverrideImpl implements BeanOverride {

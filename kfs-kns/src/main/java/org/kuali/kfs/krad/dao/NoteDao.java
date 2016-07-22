@@ -26,7 +26,7 @@ import org.kuali.kfs.krad.bo.Note;
 /**
  * The data access interface for NOte objects.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface NoteDao {
     /**

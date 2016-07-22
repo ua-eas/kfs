@@ -44,7 +44,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  * Evaluates expression language statements using the Spring EL engine TODO:
  * Look into using Rice KRMS for evaluation
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ExpressionEvaluatorServiceImpl implements ExpressionEvaluatorService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(

@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package org.kuali.kfs.fp.document.authorization;
 
 import static org.junit.Assert.assertFalse;

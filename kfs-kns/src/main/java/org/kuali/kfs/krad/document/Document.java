@@ -44,7 +44,7 @@ import java.util.Map;
  * Transaction Processing documents should implement this interface as it defines methods that are necessary to interact with the
  * underlying frameworks and components (i.e. notes, attachments, workflow, etc).
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Document extends PersistableBusinessObject {
 	

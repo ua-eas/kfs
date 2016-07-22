@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Invoked to authorize actions requested on data objects (such as edit or view)
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DataObjectAuthorizer {
 

@@ -32,7 +32,7 @@ import java.util.Properties;
 /**
  * Defines service methods for module services
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ModuleService extends InitializingBean, ApplicationContextAware {
 

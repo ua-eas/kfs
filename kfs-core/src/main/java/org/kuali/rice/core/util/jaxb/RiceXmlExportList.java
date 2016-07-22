@@ -37,8 +37,6 @@ import java.util.List;
  * 
  * @param E The type that the list is expected to return.
  * @param T The type that the list stores internally and passes to the listener for conversion as needed. 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public final class RiceXmlExportList<E,T> extends AbstractList<E> implements Serializable {
 

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Indicates <code>Control</code> types that can hold more than one value for selection
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface MultiValueControl {
 

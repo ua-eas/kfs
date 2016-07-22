@@ -48,7 +48,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 7. value with invalid year. (failure) {@link #testValueInvalidYear2()}
  * 8. value with invalid year. (failure) {@link #testValueInvalidYear3()}
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class YearPatternConstraintTest {
 

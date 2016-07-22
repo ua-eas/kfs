@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,20 +25,18 @@ import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
-/**
- * 
- */
+
 public class AccountingLineCheckValidationHutch implements Validation {
     protected Validation lineAmountValidation;
     protected Validation lineCheckValidation;
     protected Validation lineValuesAllowedValidation;
-    
+
     protected String accountingDocumentParameterPropertyName;
     protected String accountingLineParameterPropertyName;
-    
+
     protected AccountingDocument accountingDocumentForValidation;
     protected AccountingLine accountingLineForValidation;
-    
+
     protected boolean quitOnFail;
 
     /**
@@ -47,7 +45,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
     public boolean shouldQuitOnFail() {
         return quitOnFail;
     }
-    
+
     /**
      * Sets whether the validation hutch should quit on the failure of the entire validation case failing.
      * @param b
@@ -64,7 +62,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
         updateValidationsWithParameters();
         return validate(event);
     }
-    
+
     /**
      * Using the parameter property names set, finds the accounting document and accounting line to be validate
      * from the property.
@@ -78,16 +76,16 @@ public class AccountingLineCheckValidationHutch implements Validation {
             accountingLineForValidation = (AccountingLine)ObjectUtils.getPropertyValue(event, accountingLineParameterPropertyName);
         }
     }
-    
+
     /**
      * Updates the child validations with accounting document and accounting line information.
      */
     protected void updateValidationsWithParameters() {
-        
+
     }
 
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -96,7 +94,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
     }
 
     /**
-     * Gets the lineAmountValidation attribute. 
+     * Gets the lineAmountValidation attribute.
      * @return Returns the lineAmountValidation.
      */
     public Validation getLineAmountValidation() {
@@ -112,7 +110,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
     }
 
     /**
-     * Gets the lineCheckValidation attribute. 
+     * Gets the lineCheckValidation attribute.
      * @return Returns the lineCheckValidation.
      */
     public Validation getLineCheckValidation() {
@@ -128,7 +126,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
     }
 
     /**
-     * Gets the lineValuesAllowedValidation attribute. 
+     * Gets the lineValuesAllowedValidation attribute.
      * @return Returns the lineValuesAllowedValidation.
      */
     public Validation getLineValuesAllowedValidation() {

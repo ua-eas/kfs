@@ -27,8 +27,6 @@ import java.util.List;
 
 /**
  * Complete document event
- * 
- * @author Kuali Rice Team (kuali-rice@googlegroups.com)
  */
 public class CompleteDocumentEvent extends KualiDocumentEventBase {
 

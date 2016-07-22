@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,9 +23,7 @@ import java.util.LinkedHashMap;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
-/**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
- */
+
 
 public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase {
 
@@ -43,7 +41,7 @@ public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -52,7 +50,7 @@ public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -62,7 +60,7 @@ public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Gets the capitalAssetNumber attribute.
-     * 
+     *
      * @return Returns the capitalAssetNumber
      */
     public Long getCapitalAssetNumber() {
@@ -71,7 +69,7 @@ public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Sets the capitalAssetNumber attribute.
-     * 
+     *
      * @param capitalAssetNumber The capitalAssetNumber to set.
      */
     public void setCapitalAssetNumber(Long capitalAssetNumber) {
@@ -80,7 +78,7 @@ public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Gets the asset attribute.
-     * 
+     *
      * @return Returns the asset.
      */
     public Asset getAsset() {
@@ -89,7 +87,7 @@ public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase 
 
     /**
      * Sets the asset attribute value.
-     * 
+     *
      * @param asset The asset to set.
      * @deprecated
      */
@@ -115,7 +113,7 @@ public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase 
         this.documentHeader = documentHeader;
     }
 
-    
+
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */

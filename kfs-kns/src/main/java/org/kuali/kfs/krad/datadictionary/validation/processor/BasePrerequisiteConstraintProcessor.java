@@ -31,7 +31,7 @@ import java.util.Collection;
 
 /**
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public abstract class BasePrerequisiteConstraintProcessor<C extends Constraint> extends MandatoryElementConstraintProcessor<C> {
 	

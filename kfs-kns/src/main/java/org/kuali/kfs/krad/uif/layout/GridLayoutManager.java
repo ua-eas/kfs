@@ -35,7 +35,7 @@ import org.kuali.kfs.krad.uif.view.View;
  * not specified the default is 1.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class GridLayoutManager extends LayoutManagerBase {
     private static final long serialVersionUID = 1890011900375071128L;

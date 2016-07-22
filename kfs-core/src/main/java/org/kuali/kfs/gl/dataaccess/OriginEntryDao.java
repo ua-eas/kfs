@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,9 +27,7 @@ import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
-/**
- * 
- */
+
 public interface OriginEntryDao {
     /**
      * Sort origin entries by document id
@@ -65,21 +63,21 @@ public interface OriginEntryDao {
 
     /**
      * Counts of rows of all the origin entry groups
-     * 
+     *
      * @return iterator of Object[] {[BigDecimal id,BigDecimal count]}
      */
     public Iterator getGroupCounts();
 
     /**
      * Delete an entry
-     * 
+     *
      * @param oe Entry to delete
      */
     public void deleteEntry(OriginEntryInformation oe);
 
     /**
      * Return an iterator to all document keys reference by origin entries in a given group
-     * 
+     *
      * @param oeg Group the origin entry group to find entries in, by origin entry
      * @return Iterator of java.lang.Object[] with report data about all of the distinct document numbers/type code/origination code combinations of origin entries in the group
      */
@@ -87,7 +85,7 @@ public interface OriginEntryDao {
 
     /**
      * Return an iterator to all the entries in a group
-     * 
+     *
      * @param oeg the origin entry group to get entries in
      * @param sort the Sort Order (one of the Sort Orders defined by the SORT_ constants defined in this class)
      * @return Iterator of entries in the specified group
@@ -96,7 +94,7 @@ public interface OriginEntryDao {
 
     /**
      * Get bad balance entries; bad because a) they have invalid balance types, and b) because they revert the balances back to their stone age selves
-     * 
+     *
      * @param groups a Collection of groups to remove bad entries in
      * @return an Iterator of no good, won't use, bad balance entries
      */
@@ -104,7 +102,7 @@ public interface OriginEntryDao {
 
     /**
      * Collection of entries that match criteria
-     * 
+     *
      * @param searchCriteria Map of field, value pairs
      * @return collection of entries
      */
@@ -112,7 +110,7 @@ public interface OriginEntryDao {
 
     /**
      * Iterator of entries that match criteria
-     * 
+     *
      * @param searchCriteria Map of field, value pairs
      * @return collection of entries
      */
@@ -120,21 +118,21 @@ public interface OriginEntryDao {
 
     /**
      * Delete entries that match criteria
-     * 
+     *
      * @param searchCriteria Map of field, value pairs
      */
     public void deleteMatchingEntries(Map searchCriteria);
 
     /**
      * Delete all the groups in the list. This will delete the entries. The OriginEntryGroupDao has a method to delete the groups
-     * 
+     *
      * @param groups a Collection of Origin Entry Groups to delete entries in
      */
     public void deleteGroups(Collection<OriginEntryGroup> groups);
 
     /**
      * Finds an entry for the given entryId, or returns a newly created on
-     * 
+     *
      * @param entryId an entry id to find an entry for
      * @return the entry for the given entry id, or a newly created entry
      */
@@ -142,7 +140,7 @@ public interface OriginEntryDao {
 
     /**
      * get the summarized information of the entries that belong to the entry groups with the given group ids
-     * 
+     *
      * @param groupIdList the ids of origin entry groups
      * @return a set of summarized information of the entries within the specified groups
      */
@@ -151,14 +149,14 @@ public interface OriginEntryDao {
     /**
      * This method should only be used in unit tests. It loads all the gl_origin_entry_t rows in memory into a collection. This
      * won't scale for production.
-     * 
+     *
      * @return a Collection with every single origin entry in the database
      */
     public Collection testingGetAllEntries();
 
     /**
      * get the summarized information of poster input entries that belong to the entry groups with the given group id list
-     * 
+     *
      * @param groups the origin entry groups
      * @return a set of summarized information of poster input entries within the specified groups
      */

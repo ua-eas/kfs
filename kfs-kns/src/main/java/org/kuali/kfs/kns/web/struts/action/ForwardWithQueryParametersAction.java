@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * ForwardAction subclass that interprets path as module-relative 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ForwardWithQueryParametersAction extends Action {
 	

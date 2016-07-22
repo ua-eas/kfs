@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  * Default implementation for {@link DocumentAuthorizer} that perform KIM permission checks to authorize the actions
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentAuthorizerBase extends DataObjectAuthorizerBase implements DocumentAuthorizer {
     private static final long serialVersionUID = -5354518767379472681L;

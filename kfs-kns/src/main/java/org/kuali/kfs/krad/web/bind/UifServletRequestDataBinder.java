@@ -40,7 +40,7 @@ import java.util.Map;
  * Override of ServletRequestDataBinder in order to hook in the UifBeanPropertyBindingResult
  * which instantiates a custom BeanWrapperImpl.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifServletRequestDataBinder extends ServletRequestDataBinder {
     protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(

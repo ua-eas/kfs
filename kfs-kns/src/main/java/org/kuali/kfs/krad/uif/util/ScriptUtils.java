@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * Utility class for generating JavaScript
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ScriptUtils {
 

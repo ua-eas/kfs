@@ -25,7 +25,7 @@ import java.util.Set;
  * Business Object class exposer which adds non-KNS Rice entities to the KNS persistence units, so that these objects
  * can be used with KNS functionality - for instance, PersonImpl objects can be looked up. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class RiceToNervousSystemBusinessObjectClassExposer implements PersistableBusinessObjectClassExposer {

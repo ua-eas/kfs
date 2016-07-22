@@ -46,7 +46,7 @@ import java.util.Map;
  *
  * This implementation derives components from the DataDictionary for all BusinessObjects and Documents.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataDictionaryComponentPublisherServiceImpl implements DataDictionaryComponentPublisherService {
 

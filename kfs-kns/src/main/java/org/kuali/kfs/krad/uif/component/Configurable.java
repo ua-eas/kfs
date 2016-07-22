@@ -28,7 +28,7 @@ import java.util.Map;
  * the UIF dictionary, such as property expressions.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Configurable {
 

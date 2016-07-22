@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * Defines interface for a class that mask data values
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface MaskFormatter extends Serializable {
 

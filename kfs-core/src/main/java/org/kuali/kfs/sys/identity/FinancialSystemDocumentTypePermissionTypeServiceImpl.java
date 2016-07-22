@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,11 +28,7 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.kfs.krad.kim.DocumentTypePermissionTypeServiceImpl;
 
-/**
- * 
- * @author Kuali Rice Team (kuali-rice@googlegroups.com)
- * 
- */
+
 public class FinancialSystemDocumentTypePermissionTypeServiceImpl extends DocumentTypePermissionTypeServiceImpl {
 
     /**
@@ -48,15 +44,15 @@ public class FinancialSystemDocumentTypePermissionTypeServiceImpl extends Docume
             // if it is present and matches, then it takes priority
             if(KFSConstants.PermissionTemplate.CLAIM_ELECTRONIC_PAYMENT.name.equals(kpi.getTemplate().getName())){
                 String qualifierDocumentTypeName = kpi.getAttributes().get(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME);
-                if ( documentTypeName==null && qualifierDocumentTypeName==null || 
-                        (StringUtils.isNotEmpty(documentTypeName) && StringUtils.isNotEmpty(qualifierDocumentTypeName) 
+                if ( documentTypeName==null && qualifierDocumentTypeName==null ||
+                        (StringUtils.isNotEmpty(documentTypeName) && StringUtils.isNotEmpty(qualifierDocumentTypeName)
                                 && documentTypeName.equals(qualifierDocumentTypeName))
-    
+
                         ) {
                     List<Permission> matchingPermissions = new ArrayList<Permission>();
                     matchingPermissions.add( kpi );
                     return matchingPermissions;
-                }           
+                }
             }
         }
         // now, filter the list to just those for the current document
