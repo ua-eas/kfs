@@ -110,4 +110,22 @@
             <where>obj_id = 'FINP-522B'</where>
         </update>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-518_DEPRECIATION_DATE" context="bootstrap,demo,unit">
+        <delete tableName="krcr_parm_t">
+            <where>obj_id = 'KFS97'</where>
+        </delete>
+        <insert tableName="krcr_parm_t">
+            <column name="NMSPC_CD">KFS-CAM</column>
+            <column name="CMPNT_CD">AssetDepreciationStep</column>
+            <column name="PARM_NM">DEPRECIATION_DATE</column>
+            <column name="OBJ_ID">FINP-518</column>
+            <column name="VER_NBR">1</column>
+            <column name="VAL"></column>
+            <column name="PARM_TYP_CD">CONFG</column>
+            <column name="PARM_DESC_TXT"><![CDATA[Date the batch depreciation will use in order to determine which fiscal year and  month depreciation expense the user wants to calculate.  Date should be in the format yyyy-mm-dd.]]></column>
+            <column name="EVAL_OPRTR_CD">A</column>
+            <column name="APPL_ID">KFS</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

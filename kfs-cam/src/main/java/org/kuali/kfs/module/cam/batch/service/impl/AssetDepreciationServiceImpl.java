@@ -66,7 +66,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -99,6 +98,7 @@ import static org.kuali.kfs.sys.KFSConstants.BALANCE_TYPE_ACTUAL;
 @Transactional
 public class AssetDepreciationServiceImpl implements AssetDepreciationService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetDepreciationServiceImpl.class);
+
     protected ParameterService parameterService;
     protected AssetService assetService;
     protected ReportService reportService;
@@ -123,16 +123,16 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
      */
     @Override
     public void runDepreciation() {
+        LOG.debug("runDepreciation() started");
+
         Integer fiscalYear = -1;
         Integer fiscalMonth = -1;
         String errorMsg = "";
-        List<String> documentNos = new ArrayList<String>();
-        List<String[]> reportLog = new ArrayList<String[]>();
-        Collection<AssetObjectCode> assetObjectCodes = new ArrayList<AssetObjectCode>();
+        List<String> documentNos = new ArrayList<>();
+        List<String[]> reportLog = new ArrayList<>();
+        Collection<AssetObjectCode> assetObjectCodes = new ArrayList<>();
         boolean hasErrors = false;
         Calendar depreciationDate = dateTimeService.getCurrentCalendar();
-        java.sql.Date depDate = null;
-        Calendar currentDate = dateTimeService.getCurrentCalendar();
         String depreciationDateParameter = null;
         DateFormat dateFormat = new SimpleDateFormat(CamsConstants.DateFormats.YEAR_MONTH_DAY);
         boolean executeJob = false;
@@ -148,8 +148,8 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                  * Getting the system parameter "DEPRECIATION_DATE" When this parameter is used to determine which fiscal month and year
                  * is going to be depreciated If blank then the system will take the system date to determine the fiscal period
                  */
-                if (parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_RUN_DATE_PARAMETER)) {
-                    depreciationDateParameter = parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_RUN_DATE_PARAMETER);
+                if (parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_DATE_PARAMETER)) {
+                    depreciationDateParameter = parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_DATE_PARAMETER);
                 } else {
                     throw new IllegalStateException(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.DEPRECIATION_DATE_PARAMETER_NOT_FOUND));
                 }
@@ -403,7 +403,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
                     depreciationPeriod = Integer.parseInt(depreciationPeriodString);
                 }
             }
-            
+
             if (fiscalMonth % depreciationPeriod != 0) {
                 throw new IllegalStateException(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.FISCAL_MONTH_NOT_VALID));
             }
