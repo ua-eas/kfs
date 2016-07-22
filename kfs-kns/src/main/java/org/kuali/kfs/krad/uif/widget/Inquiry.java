@@ -47,7 +47,7 @@ import java.util.Properties;
 /**
  * Widget for rendering an Inquiry link on a field's value
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Inquiry extends WidgetBase {
     private static final long serialVersionUID = -2154388007867302901L;

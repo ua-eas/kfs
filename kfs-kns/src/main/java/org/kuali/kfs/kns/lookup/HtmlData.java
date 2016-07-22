@@ -38,8 +38,6 @@ import java.util.Map;
 /**
  * This class holds details of html data for an action url.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
- * 
  */
 @Deprecated
 public abstract class HtmlData implements Serializable {
@@ -235,8 +233,6 @@ public abstract class HtmlData implements Serializable {
 	 * 
 	 * This class is an extension of HtmlData. It represents an anchor tag.
 	 * 
-	 * @author Kuali Rice Team (rice.collab@kuali.org)
-	 * 
 	 */
 	public static class AnchorHtmlData extends HtmlData {
 		public static final String TARGET_BLANK = "_blank";
@@ -390,8 +386,6 @@ public abstract class HtmlData implements Serializable {
 	/**
 	 * 
 	 * This class is an extension of HtmlData. It represents an input tag.
-	 * 
-	 * @author Kuali Rice Team (rice.collab@kuali.org)
 	 * 
 	 */
 	public static class InputHtmlData extends HtmlData {

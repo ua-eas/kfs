@@ -35,8 +35,6 @@ import java.util.List;
 
 /**
  * Implements generic StyleService via existing EDL style table
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StyleRepositoryServiceImpl implements StyleRepositoryService {
     private static final Logger LOG = Logger.getLogger(StyleRepositoryServiceImpl.class);

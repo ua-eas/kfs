@@ -43,7 +43,7 @@ import java.util.Set;
  * By default delegates to the {@link DocumentPresentationController} configured for the document in the data dictionary
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentViewPresentationControllerBase extends ViewPresentationControllerBase implements DocumentPresentationController {
     private static final long serialVersionUID = 1461173145806477758L;

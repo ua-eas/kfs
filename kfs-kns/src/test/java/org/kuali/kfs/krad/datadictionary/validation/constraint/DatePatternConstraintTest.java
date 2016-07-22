@@ -51,7 +51,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 6. value with invalid date. (failure) {@link testValueInvalidDate2()}
  * 7. value with invalid date. (failure) {@link testValueInvalidDate3()}  
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class DatePatternConstraintTest {
 	

@@ -55,7 +55,7 @@ import java.util.Properties;
  * Controller for <code>MaintenanceView</code> screens which operate on
  * <code>MaintenanceDocument</code> instances
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Controller
 @RequestMapping(value = "/maintenance")

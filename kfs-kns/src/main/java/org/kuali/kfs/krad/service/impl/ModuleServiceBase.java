@@ -39,7 +39,7 @@ import java.util.Properties;
 /**
  * This class implements ModuleService interface.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ModuleServiceBase extends RemoteModuleServiceBase implements ModuleService {
 

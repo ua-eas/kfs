@@ -90,7 +90,7 @@ import java.util.Set;
 /**
  * Default Implementation of <code>ViewHelperService</code>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewHelperServiceImpl implements ViewHelperService, Serializable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ViewHelperServiceImpl.class);

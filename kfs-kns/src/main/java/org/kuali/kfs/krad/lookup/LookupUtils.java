@@ -48,7 +48,7 @@ import java.util.Set;
 /**
  * Provides static utility methods for use within the lookup framework
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupUtils {
 

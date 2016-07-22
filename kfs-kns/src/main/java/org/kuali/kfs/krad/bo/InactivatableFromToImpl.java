@@ -27,7 +27,7 @@ import javax.persistence.Transient;
 import java.sql.Timestamp;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @MappedSuperclass
 public abstract class InactivatableFromToImpl extends PersistableBusinessObjectBase implements InactivatableFromTo {

@@ -30,7 +30,7 @@ import java.util.Map;
  * A class that implements a simple in memory storage map of constraint resolvers. This provides a convenient base class
  * from which other constraint providers can be derived. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @since 1.1
  */
 public abstract class BaseConstraintProvider<T extends Constrainable> implements ConstraintProvider<T> {

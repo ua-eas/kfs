@@ -34,7 +34,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.DocumentService;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class InvoicePaidApplied extends PersistableBusinessObjectBase {
 

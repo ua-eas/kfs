@@ -43,7 +43,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 3. value with all valid characters. (success) {@link #test2ValueAllValidChars()}
  * 4. value with invalid characters. (failure) {@link #test2ValueNotValidChars()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class CharsetPatternConstraintTest {
 

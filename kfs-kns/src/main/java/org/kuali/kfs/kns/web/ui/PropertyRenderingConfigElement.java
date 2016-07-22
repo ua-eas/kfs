@@ -24,7 +24,7 @@ import org.kuali.rice.core.web.format.Formatter;
  * Interface to be implemented by user interface elements that hold configuration about rendering a
  * property
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public interface PropertyRenderingConfigElement {

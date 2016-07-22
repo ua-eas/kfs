@@ -33,7 +33,7 @@ import org.kuali.rice.kew.api.WorkflowDocument;
  * This contains a reference to the template associated with the document.
  * This also provides the access to the underlying {@link WorkflowDocument} associated with this document header.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Entity
 @Table(name="KRNS_DOC_HDR_T")

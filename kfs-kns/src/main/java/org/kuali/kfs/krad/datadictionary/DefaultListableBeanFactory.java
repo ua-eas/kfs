@@ -100,12 +100,6 @@ import org.springframework.util.StringUtils;
  * <p>RICE Implementation note: This class, copied from Spring 3.2.3 contains the fix contributed for
  * performance problem related to large Spring configuration sets.
  *
- * @author Rod Johnson
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Costin Leau
- * @author Chris Beams
- * @author Phillip Webb
  * @since 16 April 2001
  * @see org.springframework.beans.factory.support.StaticListableBeanFactory
  * @see org.springframework.beans.factory.support.PropertiesBeanDefinitionReader

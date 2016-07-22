@@ -75,7 +75,7 @@ import java.util.List;
  * 'remoteFieldValuesMap' on the model.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class RemoteFieldsHolder extends ComponentBase implements DataBinding {
     private static final long serialVersionUID = -8493923312021633727L;

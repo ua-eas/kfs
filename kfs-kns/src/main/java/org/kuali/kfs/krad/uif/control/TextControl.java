@@ -31,7 +31,7 @@ import java.util.List;
  * Represents a HTML Text control, generally rendered as a input field of type
  * 'text'. This can display and receive a single value
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class TextControl extends ControlBase implements SizedControl {
 	private static final long serialVersionUID = -8267606288443759880L;

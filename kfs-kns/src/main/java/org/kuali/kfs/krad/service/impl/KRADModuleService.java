@@ -27,7 +27,7 @@ import org.kuali.kfs.krad.util.ExternalizableBusinessObjectUtils;
 /**
  * Module service implementation for the Rice KRAD module
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class KRADModuleService extends ModuleServiceBase {
     protected List<String> businessObjects;

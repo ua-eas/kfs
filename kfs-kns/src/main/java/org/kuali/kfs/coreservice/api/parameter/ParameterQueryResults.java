@@ -36,7 +36,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @XmlRootElement(name = ParameterQueryResults.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)

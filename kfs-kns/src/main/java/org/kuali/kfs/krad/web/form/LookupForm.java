@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * Form class for <code>LookupView</code> screens
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupForm extends UifFormBase {
     private static final long serialVersionUID = -7323484966538685327L;

@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.LengthConstraint;
 /**
  * This interface defines methods that must be implemented by classes that want to be processed as 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public interface LengthConstrainable extends Constrainable, LengthConstraint {
 

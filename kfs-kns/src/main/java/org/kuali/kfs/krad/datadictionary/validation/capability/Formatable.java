@@ -22,7 +22,7 @@ package org.kuali.kfs.krad.datadictionary.validation.capability;
  * Legacy validation capability for definitions that are constrainable to some regex or set of valid characters
  * and that need to impose some secondary formatting validation based on a formatter class defined. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public interface Formatable {
 

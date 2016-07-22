@@ -22,7 +22,7 @@ import org.kuali.kfs.integration.cam.CapitalAssetManagementAsset;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class Asset extends PersistableBusinessObjectBase implements CapitalAssetManagementAsset {
     protected Long capitalAssetNumber;

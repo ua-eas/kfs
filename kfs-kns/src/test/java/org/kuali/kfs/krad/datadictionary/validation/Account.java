@@ -20,7 +20,7 @@ package org.kuali.kfs.krad.datadictionary.validation;
 
 /**
  *  
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Account {
 	

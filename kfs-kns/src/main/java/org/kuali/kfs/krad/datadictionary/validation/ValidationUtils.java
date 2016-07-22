@@ -31,7 +31,7 @@ import java.util.Date;
 /**
  * Inherited from Kuali Student and adapted extensively, this class provides static utility methods for validation processing. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ValidationUtils {
 

@@ -38,8 +38,6 @@ import org.kuali.rice.kim.api.permission.PermissionContract;
 
 /**
  * This class represents a &lt;permission&gt; XML element.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="PermissionType", propOrder={

@@ -25,7 +25,7 @@ import org.kuali.kfs.krad.rules.rule.BusinessRule;
 /**
  * Event class for document audit  
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class DocumentAuditEvent extends KualiDocumentEventBase {

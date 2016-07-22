@@ -36,7 +36,7 @@ import java.util.Map;
  * mechanism against Business Objects. This is the default implementation, that
  * is delivered with Kuali.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Transactional
 public class LookupServiceImpl implements LookupService {

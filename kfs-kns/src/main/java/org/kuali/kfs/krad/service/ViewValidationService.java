@@ -26,7 +26,7 @@ import org.kuali.kfs.krad.uif.view.ViewModel;
 /**
  * Validation service for KRAD views
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewValidationService {
 

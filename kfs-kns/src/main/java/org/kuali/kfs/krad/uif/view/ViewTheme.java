@@ -25,7 +25,7 @@ import java.util.List;
  * Theme for the current view, currently just a list of stylesheets and js files, but has the potential
  * for expansion in the future
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewTheme implements Serializable{
     private static final long serialVersionUID = 7063256242857896580L;

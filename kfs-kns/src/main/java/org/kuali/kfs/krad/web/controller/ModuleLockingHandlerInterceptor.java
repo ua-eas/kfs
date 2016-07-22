@@ -39,7 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * TODO jawbenne don't forget to fill this in. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ModuleLockingHandlerInterceptor implements HandlerInterceptor {
 

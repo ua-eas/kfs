@@ -46,7 +46,7 @@ import java.util.List;
  * with two child prequisite constraints, on city and state, respectively. By setting min=1/max=2 at the top must occur constraint, 
  * and min=2/max=2 at the leaf constraint, this requirement can be enforced.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @since 1.1
  */
 @XmlAccessorType(XmlAccessType.FIELD)

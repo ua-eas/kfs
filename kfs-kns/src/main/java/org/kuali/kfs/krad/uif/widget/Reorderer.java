@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.uif.view.View;
 /**
  * Allows client-side reordering of the group contents
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Reorderer extends WidgetBase {
     private static final long serialVersionUID = 6142957061046219120L;

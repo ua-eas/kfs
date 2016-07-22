@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.uif.component.ComponentBase;
 /**
  * Field that encloses an iframe element
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class IframeField extends FieldBase {
 	private static final long serialVersionUID = 5797473302619055088L;

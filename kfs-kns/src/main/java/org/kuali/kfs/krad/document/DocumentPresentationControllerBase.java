@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.util.KRADConstants;
 import java.io.Serializable;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentPresentationControllerBase implements DocumentPresentationController, Serializable {
     private static final long serialVersionUID = -9181864754090276024L;

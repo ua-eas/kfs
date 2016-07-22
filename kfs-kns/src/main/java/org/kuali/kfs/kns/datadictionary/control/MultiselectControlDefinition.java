@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 
 /**
  * A control definition for Multiselect
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 @Deprecated

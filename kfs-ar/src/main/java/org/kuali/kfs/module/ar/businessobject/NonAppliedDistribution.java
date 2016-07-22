@@ -25,7 +25,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class NonAppliedDistribution extends PersistableBusinessObjectBase {
 

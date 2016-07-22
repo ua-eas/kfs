@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.web.form.DocumentFormBase;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DocumentViewHelperServiceImpl extends ViewHelperServiceImpl {
 

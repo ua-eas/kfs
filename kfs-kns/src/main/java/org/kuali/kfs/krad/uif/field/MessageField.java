@@ -29,7 +29,7 @@ import org.kuali.kfs.krad.uif.component.ComponentBase;
  * interface. The message type can be used to group similar messages for styling
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MessageField extends FieldBase {
 	private static final long serialVersionUID = 4090058533452450395L;

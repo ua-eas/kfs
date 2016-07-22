@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
 /**
  * This class extends the workflow xml rule attribute implementation to use the information in the data dictionary to generate labels.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class KualiXmlRuleAttributeImpl extends StandardGenericXMLRuleAttribute implements KualiXmlAttribute {

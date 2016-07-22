@@ -35,8 +35,6 @@ import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
  * Service for interacting with {@link Style} data. This service primarily
  * consists of pure data-access operations on a repository of styles which are
  * accessible based on their name or id which are both unique.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @WebService(name = "styleRepositoryService", targetNamespace = CoreConstants.Namespaces.CORE_NAMESPACE_2_0)
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL, parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)

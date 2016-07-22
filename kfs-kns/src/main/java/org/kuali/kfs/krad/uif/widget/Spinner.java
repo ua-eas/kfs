@@ -30,7 +30,7 @@ import org.kuali.kfs.krad.uif.view.View;
  * through the {@link Component#getComponentOptions()} property
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Spinner extends WidgetBase {
     private static final long serialVersionUID = -659830874214415990L;

@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Type service for the 'View Edit Mode' KIM type which matches on the id for a UIF view and edit mode
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewEditModePermissionTypeServiceImpl extends PermissionTypeServiceBase {
 

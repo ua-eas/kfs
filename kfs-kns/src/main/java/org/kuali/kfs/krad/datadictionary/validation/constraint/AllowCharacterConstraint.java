@@ -32,7 +32,7 @@ import java.util.List;
  * By setting an allow flag to true you are allowing that character as a valid character in the set.
  * AllowAll set to true will allow all characters which have a flag to be allowed in the set.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class AllowCharacterConstraint extends ValidCharactersPatternConstraint {
     protected boolean allowWhitespace = false;

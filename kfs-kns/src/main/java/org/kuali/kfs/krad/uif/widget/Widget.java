@@ -30,7 +30,7 @@ import org.kuali.kfs.krad.uif.component.Component;
  * generally have associated client side code
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Widget extends Component {
 

@@ -26,7 +26,7 @@ import org.kuali.rice.core.api.CoreConstants;
 /**
  * Defines Global Constants for the KRAD Module
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public final class KRADConstants {
 

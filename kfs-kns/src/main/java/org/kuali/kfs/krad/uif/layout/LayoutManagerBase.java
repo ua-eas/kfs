@@ -43,7 +43,7 @@ import java.util.Set;
  * rendering template, and style settings
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class LayoutManagerBase extends ConfigurableBase implements LayoutManager {
 	private static final long serialVersionUID = -2657663560459456814L;

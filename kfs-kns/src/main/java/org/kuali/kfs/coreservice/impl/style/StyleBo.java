@@ -25,8 +25,6 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 /**
  * A BusinessObject implementation of the StyleContract which is mapped to the
  * database for persistence.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StyleBo extends PersistableBusinessObjectBase implements StyleContract {
 

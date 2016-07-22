@@ -33,8 +33,6 @@ import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
  * Unmarshalled keys and values will automatically be trimmed if non-null.
  * 
  * <p>This adapter will throw an exception during unmarshalling if blank or duplicate keys are encountered.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class QualificationListAdapter extends XmlAdapter<QualificationList,Map<String, String>> {
 

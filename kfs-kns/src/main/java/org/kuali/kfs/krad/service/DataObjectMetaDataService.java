@@ -33,7 +33,7 @@ import java.util.Map;
  * the <code>PersistenceService</code>
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DataObjectMetaDataService {
 

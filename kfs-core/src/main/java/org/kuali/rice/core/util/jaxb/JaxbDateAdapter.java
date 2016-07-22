@@ -24,8 +24,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Marshall/unmarshall java.util.Date
- * 
- * @author Kuali Rice Team (kuali-rice@googlegroups.com)
  *
  */
 public class JaxbDateAdapter extends XmlAdapter<String, Date> {

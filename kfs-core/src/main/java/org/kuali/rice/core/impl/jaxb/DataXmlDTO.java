@@ -39,8 +39,6 @@ import org.w3c.dom.Element;
  * 
  * <p>Please see the Javadocs for PermissionDataXmlDTO and RoleDataXmlDTO for more information
  * on their expected structure.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlRootElement(name="data")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -44,7 +44,7 @@ import java.util.Iterator;
  * 5. presence of a no constraint field value (success) {@link #testPresenceNoConstraintSingleAttributeSuccess}
  * 6. absence of a no constraint field value (success) {@link #testAbsenceNoConstraintSingleAttributeSuccess}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class ExistenceConstraintProcessorTest {
 

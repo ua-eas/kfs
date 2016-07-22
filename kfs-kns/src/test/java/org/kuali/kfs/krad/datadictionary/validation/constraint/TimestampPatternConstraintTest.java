@@ -47,7 +47,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 6. value with invalid timestamp. (failure) {@link #testValueInvalidTimestamp2()}
  * 7. value with invalid timestamp. (failure) {@link #testValueInvalidTimestamp3()}
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class TimestampPatternConstraintTest {
 

@@ -27,7 +27,7 @@ import java.util.Map;
  * Provides methods for executing <code>AttributeQuery</code> instances
  * and preparing the <code>AttributeQueryResult</code> with the result of the query
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface AttributeQueryService {
 

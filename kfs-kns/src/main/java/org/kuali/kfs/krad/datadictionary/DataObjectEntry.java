@@ -30,7 +30,7 @@ import java.util.List;
  * Generic dictionary entry for an object that does not have to implement BusinessObject. It provides support
  * for general objects.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccurConstrainable {
 

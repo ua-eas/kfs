@@ -26,8 +26,6 @@ import org.kuali.rice.core.framework.impex.xml.XmlLoader;
 
 /**
  * Parses an inputstream containing XML into Style objects. 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public interface StyleXmlParser extends XmlLoader {

@@ -21,7 +21,7 @@ package org.kuali.kfs.krad.maintenance;
 import org.kuali.kfs.krad.document.DocumentPresentationController;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface MaintenanceDocumentPresentationController extends DocumentPresentationController {
 

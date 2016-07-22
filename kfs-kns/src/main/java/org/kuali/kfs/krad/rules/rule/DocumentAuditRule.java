@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.document.Document;
 /**
  * audit rule marker
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public interface DocumentAuditRule extends BusinessRule {

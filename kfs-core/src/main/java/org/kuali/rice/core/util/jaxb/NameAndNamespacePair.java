@@ -30,8 +30,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * An XML element that stores a name and namespace pair in its simple content and "namespaceCode" attribute.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="NameAndNamespaceType")

@@ -26,8 +26,6 @@ import org.springmodules.orm.ojb.support.PersistenceBrokerDaoSupport;
 
 /**
  * JDBC-based implementation of the {@code ComponentSetDao}.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class ComponentSetDaoOjbImpl extends PersistenceBrokerDaoSupport implements ComponentSetDao {
 

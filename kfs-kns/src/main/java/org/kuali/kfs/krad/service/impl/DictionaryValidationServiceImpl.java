@@ -80,7 +80,7 @@ import java.util.Set;
  * KULRICE - 3355 Modified to prevent infinite looping (to maxDepth) scenario when a parent references a child which
  * references a parent
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DictionaryValidationServiceImpl implements DictionaryValidationService {
     private static org.apache.log4j.Logger LOG =

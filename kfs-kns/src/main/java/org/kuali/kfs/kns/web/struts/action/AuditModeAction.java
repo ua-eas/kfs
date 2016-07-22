@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * audit mode action marker
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public interface AuditModeAction {

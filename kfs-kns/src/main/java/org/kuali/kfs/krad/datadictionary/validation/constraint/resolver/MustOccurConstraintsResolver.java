@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * An object that returns the list of must occur constraints for a definition implementing the capability {@link MustOccurConstrainable}.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MustOccurConstraintsResolver<T extends MustOccurConstrainable> implements ConstraintResolver<T> {
 

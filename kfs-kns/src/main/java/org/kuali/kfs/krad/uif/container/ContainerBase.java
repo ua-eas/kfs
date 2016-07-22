@@ -44,7 +44,7 @@ import java.util.List;
  * setup of the header, items list, and layout manager
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class ContainerBase extends ComponentBase implements Container {
 	private static final long serialVersionUID = -4182226230601746657L;

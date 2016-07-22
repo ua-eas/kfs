@@ -25,7 +25,7 @@ import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
  *  an attribute for a DataObjectEntry's attribute list which is represented by another
  *  object entry definition. It will 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ComplexAttributeDefinition extends AttributeDefinitionBase{
 	

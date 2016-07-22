@@ -87,7 +87,7 @@ import java.util.Map;
  * processing and calling back into documents for various centralization of functionality. This is the default,
  * Kuali delivered implementation which utilizes Workflow.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @TransactionalNoValidationExceptionRollback
 public class DocumentServiceImpl implements DocumentService {

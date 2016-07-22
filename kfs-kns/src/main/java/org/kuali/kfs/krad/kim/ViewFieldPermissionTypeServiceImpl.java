@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Type service for the 'View Field' KIM type which matches on the id for a UIF view, field id or property name
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewFieldPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 

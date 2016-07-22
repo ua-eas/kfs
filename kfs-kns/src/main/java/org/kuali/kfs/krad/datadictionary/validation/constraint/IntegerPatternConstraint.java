@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * TODO Administrator don't forget to fill this in. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class IntegerPatternConstraint extends ValidDataPatternConstraint{
     protected boolean allowNegative;

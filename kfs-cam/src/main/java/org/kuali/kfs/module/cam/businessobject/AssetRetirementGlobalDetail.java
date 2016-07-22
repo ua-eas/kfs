@@ -24,7 +24,7 @@ import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 
 public class AssetRetirementGlobalDetail extends GlobalBusinessObjectDetailBase {

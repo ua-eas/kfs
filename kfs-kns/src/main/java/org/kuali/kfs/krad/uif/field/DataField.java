@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * Field that renders data from the application, such as the value of a data object property
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataField extends FieldBase implements DataBinding {
     private static final long serialVersionUID = -4129678891948564724L;

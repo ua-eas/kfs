@@ -30,7 +30,7 @@ import java.util.concurrent.Callable;
 /**
  * Holds all of our thread local variables and accessors for those
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public final class GlobalVariables {
 

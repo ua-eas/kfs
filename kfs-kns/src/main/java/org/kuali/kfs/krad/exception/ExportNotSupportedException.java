@@ -23,7 +23,7 @@ import org.kuali.rice.kew.api.WorkflowRuntimeException;
 /**
  * Exception thrown when an invalid export is attempted.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ExportNotSupportedException extends WorkflowRuntimeException {
 

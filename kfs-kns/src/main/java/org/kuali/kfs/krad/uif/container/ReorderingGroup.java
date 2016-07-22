@@ -31,7 +31,7 @@ import java.util.List;
  * Uses a {@link Reorderer} widget to perform the reordering client side
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ReorderingGroup extends Group {
     private static final long serialVersionUID = -9069458348367183223L;

@@ -39,7 +39,7 @@ import java.util.Map;
 /**
  * Widget for navigating to a lookup from a field (called a quickfinder)
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class QuickFinder extends WidgetBase {
     private static final long serialVersionUID = 3302390972815386785L;

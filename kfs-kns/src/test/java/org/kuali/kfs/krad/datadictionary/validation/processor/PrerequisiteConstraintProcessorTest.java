@@ -43,7 +43,7 @@ import java.util.List;
  * 4. value not entered, all prerequisites entered (no constraint) {@link #testAttributeEmptySkipped()}
  * 5. value entered, no prerequisite defined (exception) {@link #testAttributeWithoutConstraintNoConstraint()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class PrerequisiteConstraintProcessorTest {
 	

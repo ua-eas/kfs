@@ -35,7 +35,7 @@ import java.util.Set;
  * tabs, dropdown, ...)
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class NavigationGroup extends Group {
 	private static final long serialVersionUID = -7263923392768546340L;

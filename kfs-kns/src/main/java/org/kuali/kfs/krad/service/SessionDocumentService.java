@@ -33,7 +33,7 @@ import org.kuali.kfs.krad.web.form.DocumentFormBase;
  * can be retrieved from the persistence storage and work resumed
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface SessionDocumentService {
 

@@ -30,7 +30,7 @@ package org.kuali.kfs.krad.uif.control;
  * associated value will be submitted and populated into the Set<String> on the model.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ValueConfiguredControl {
 

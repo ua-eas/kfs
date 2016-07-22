@@ -34,8 +34,6 @@ import org.springframework.cache.annotation.Cacheable;
  * 
  * @see Style
  * @see StyleRepositoryService
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public interface StyleService {

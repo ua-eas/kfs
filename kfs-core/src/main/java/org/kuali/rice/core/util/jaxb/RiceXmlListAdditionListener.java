@@ -28,8 +28,6 @@ import java.io.Serializable;
  * list an implementation of this interface for the list to invoke whenever it receives a 
  * newly-unmarshalled child element. This allows the implementation to process the new element and then
  * discard it.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public interface RiceXmlListAdditionListener<T> extends Serializable {
     /**

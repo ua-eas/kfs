@@ -40,7 +40,7 @@ import java.util.List;
  * History class used to keep track of views visited so they can be displayed in the ui
  * as breadcrumbs - both as homeward path and history path interpretations
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class History implements Serializable {
     private static final long serialVersionUID = -8279297694371557335L;

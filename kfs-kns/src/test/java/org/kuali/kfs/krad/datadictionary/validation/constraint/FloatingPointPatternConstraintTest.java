@@ -50,7 +50,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 6. value with invalid positive number. (failure) {@link #testValueInvalidPositiveNumber()}
  * 7. value with valid negative number as allowNegative set to true. (success) {@link #testValueValidNegativeNumber1)}
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class FloatingPointPatternConstraintTest {
 

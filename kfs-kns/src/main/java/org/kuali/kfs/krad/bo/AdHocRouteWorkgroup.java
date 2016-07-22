@@ -27,7 +27,7 @@ import javax.persistence.Transient;
 /**
  * Ad Hoc Route Workgroup Business Object
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @IdClass(AdHocRouteWorkgroupId.class)
 @Entity

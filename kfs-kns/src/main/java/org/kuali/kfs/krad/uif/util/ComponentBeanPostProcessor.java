@@ -27,7 +27,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * Spring <code>BeanPostProcessor</code> that processes configured <code>Component</code>
  * instances in the dictionary
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ComponentBeanPostProcessor implements BeanPostProcessor {
 

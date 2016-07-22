@@ -25,7 +25,7 @@ import javax.persistence.MappedSuperclass;
 /**
  * Controller that handles requests coming from a <code>TransactionalDocumentView</code>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @MappedSuperclass
 public abstract class TransactionalDocumentBase extends DocumentBase implements TransactionalDocument, SessionDocument {

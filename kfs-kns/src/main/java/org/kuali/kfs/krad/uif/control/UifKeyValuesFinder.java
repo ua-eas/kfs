@@ -32,7 +32,7 @@ import java.util.List;
  * Values finder also allows configuration for a blank option that will be added by the framework
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface UifKeyValuesFinder extends KeyValuesFinder {
 

@@ -73,8 +73,6 @@ import java.util.Properties;
  * NOTE: this class is not thread safe. When using this class or any subclasses
  * in Spring, make sure that this is not a singleton service, or serious errors
  * may occur.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class KualiInquirableImpl extends InquirableImpl implements Inquirable {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiInquirableImpl.class);

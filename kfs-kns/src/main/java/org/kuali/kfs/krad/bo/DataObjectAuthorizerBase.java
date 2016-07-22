@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializable {
     private static final long serialVersionUID = 3987953326458974964L;

@@ -26,7 +26,7 @@ import org.kuali.kfs.krad.uif.UifConstants;
 /**
  * Pattern for matching alpha characters
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class AlphaPatternConstraint extends AllowCharacterConstraint {
     protected boolean lowerCase = false;

@@ -31,7 +31,7 @@ import org.springframework.beans.PropertyValues;
 /**
  * Type service implementation for Lookup views
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupViewTypeServiceImpl implements ViewTypeService {
 

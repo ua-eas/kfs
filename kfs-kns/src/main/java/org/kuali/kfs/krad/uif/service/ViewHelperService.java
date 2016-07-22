@@ -34,7 +34,7 @@ import java.util.Map;
  * necessary state</li>
  * </ul>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ViewHelperService {
 

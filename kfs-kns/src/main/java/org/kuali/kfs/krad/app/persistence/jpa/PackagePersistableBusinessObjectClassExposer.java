@@ -27,7 +27,7 @@ import java.util.Set;
 /**
  * Abstract class which exposes as JPA managed classes all of the business objects in a given package 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public abstract class PackagePersistableBusinessObjectClassExposer implements

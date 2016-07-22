@@ -10,8 +10,6 @@ import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@link CsrfValidator}
- *
- * @author Eric Westfall
  */
 public class CsrfValidatorTest {
 

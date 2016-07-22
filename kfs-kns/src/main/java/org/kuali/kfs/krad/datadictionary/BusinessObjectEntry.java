@@ -27,7 +27,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
  *
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BusinessObjectEntry extends DataObjectEntry {
 

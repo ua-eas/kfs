@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * Implementation of {@link ViewPresentationController} that implements no logic by default
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewPresentationControllerBase implements ViewPresentationController, Serializable {
     private static final long serialVersionUID = -3199587372204398503L;

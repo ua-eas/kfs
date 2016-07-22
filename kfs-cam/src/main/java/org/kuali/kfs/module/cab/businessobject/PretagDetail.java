@@ -35,7 +35,7 @@ import org.kuali.rice.location.api.campus.CampusService;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class PretagDetail extends PersistableBusinessObjectBase {
 

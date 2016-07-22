@@ -21,7 +21,7 @@ package org.kuali.kfs.krad.datadictionary.validation;
 /**
  * Enum inherited from the Kuali Student project to track error levels in validation. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public enum ErrorLevel {
     NOCONSTRAINT(-2), INAPPLICABLE(-1), OK(0), WARN(1), ERROR(2);

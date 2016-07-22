@@ -26,7 +26,7 @@ import java.util.Map;
  * Provides the contract for implementing an inquiry within the
  * inquiry framework
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Inquirable {
 

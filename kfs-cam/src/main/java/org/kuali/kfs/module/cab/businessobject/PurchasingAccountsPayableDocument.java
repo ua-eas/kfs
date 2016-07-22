@@ -39,7 +39,7 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class PurchasingAccountsPayableDocument extends PersistableBusinessObjectBase {
 

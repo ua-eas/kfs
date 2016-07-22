@@ -25,7 +25,7 @@ import org.kuali.rice.core.api.criteria.QueryByCriteria;
 /**
  * Defines basic methods that CriteriaLookup Dao's must provide
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface CriteriaLookupDao {
 

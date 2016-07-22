@@ -36,7 +36,7 @@ import org.kuali.kfs.krad.uif.field.AttributeQuery;
  * the valid option values.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Suggest extends WidgetBase {
     private static final long serialVersionUID = 7373706855319347225L;

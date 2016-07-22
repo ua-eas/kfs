@@ -25,7 +25,7 @@ import org.kuali.kfs.krad.document.Document;
 /**
  * This service populates {@link Document}s with {@link AdHocRoutePerson}s and {@link AdHocRouteWorkgroup}s
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DocumentAdHocService {
 

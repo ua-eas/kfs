@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.document.Document;
 
 /**
  * Complete document rule interface to be implemented
- * 
- * @author Kuali Rice Team (kuali-rice@googlegroups.com)
  */
 public interface CompleteDocumentRule extends BusinessRule {
 

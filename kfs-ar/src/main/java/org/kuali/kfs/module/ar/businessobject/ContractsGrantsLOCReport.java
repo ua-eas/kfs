@@ -26,7 +26,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class ContractsGrantsLOCReport extends TransientBusinessObjectBase {
 

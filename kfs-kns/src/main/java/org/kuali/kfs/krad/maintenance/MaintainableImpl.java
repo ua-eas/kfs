@@ -53,7 +53,7 @@ import java.util.Map;
 /**
  * Default implementation of the <code>Maintainable</code> interface
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaintainableImpl extends ViewHelperServiceImpl implements Maintainable {
     private static final long serialVersionUID = 9125271369161634992L;

@@ -75,7 +75,7 @@ import java.util.Properties;
  * #getUIFModelAndView methods to setup the <code>View</code> and return the
  * <code>ModelAndView</code> instance.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class UifControllerBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UifControllerBase.class);

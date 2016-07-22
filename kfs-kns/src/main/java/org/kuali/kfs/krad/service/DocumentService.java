@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Defines various operations that support the Document framework.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DocumentService {
 

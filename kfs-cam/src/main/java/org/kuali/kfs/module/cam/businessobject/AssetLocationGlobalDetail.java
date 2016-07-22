@@ -36,7 +36,7 @@ import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 
 public class AssetLocationGlobalDetail extends GlobalBusinessObjectDetailBase {

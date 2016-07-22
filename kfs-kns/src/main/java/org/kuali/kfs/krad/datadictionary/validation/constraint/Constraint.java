@@ -33,7 +33,7 @@ import java.io.Serializable;
  * - A {@see ConstraintProvider} that looks up constraints for a specific constrainable definition
  * - A {@see ConstraintProcessor} that processes the constraint against some object value to determine if it is valid
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  * @since 1.1
  */
 public interface Constraint extends Serializable {

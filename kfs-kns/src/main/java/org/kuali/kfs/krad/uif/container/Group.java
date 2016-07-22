@@ -50,7 +50,7 @@ import java.util.Set;
  * <code>DataBinding</code>, unless they have already been set on the field.
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class Group extends ContainerBase {
 	private static final long serialVersionUID = 7953641325356535509L;

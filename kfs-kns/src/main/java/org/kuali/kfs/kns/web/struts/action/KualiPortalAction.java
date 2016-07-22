@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 /**
  * This is the action for the portal.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class KualiPortalAction extends KualiSimpleAction {
 

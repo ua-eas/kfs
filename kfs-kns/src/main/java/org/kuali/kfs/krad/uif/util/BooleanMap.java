@@ -26,7 +26,7 @@ import java.util.Set;
  * where the string is the map key and value is the Boolean true, convenience
  * collection for expression language
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BooleanMap extends HashMap<String, Boolean> {
     private static final long serialVersionUID = 4042557657401395547L;

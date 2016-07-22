@@ -63,7 +63,7 @@ import org.springframework.beans.PropertyAccessorUtils;
  * Service implementation for the MaintenanceDocument structure. This is the
  * default implementation, that is delivered with Kuali
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @TransactionalNoValidationExceptionRollback
 public class MaintenanceDocumentServiceImpl implements MaintenanceDocumentService {

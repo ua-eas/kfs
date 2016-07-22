@@ -33,8 +33,6 @@ import org.kuali.rice.core.impl.jaxb.DataXmlDTO;
  * Helper class for importing and exporting KIM XML.
  * 
  * <p>TODO: Should this be converted into a service instead?
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public final class KimXmlUtil {
     // Do not allow outside code to instantiate this class.

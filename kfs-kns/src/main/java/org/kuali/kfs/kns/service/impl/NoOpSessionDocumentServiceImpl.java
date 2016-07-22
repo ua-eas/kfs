@@ -28,7 +28,7 @@ import java.sql.Timestamp;
 /**
  * A {@link SessionDocumentService} implementation which does nothing.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class NoOpSessionDocumentServiceImpl implements SessionDocumentService{
 

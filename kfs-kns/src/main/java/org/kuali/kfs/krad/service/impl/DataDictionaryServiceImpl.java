@@ -63,7 +63,7 @@ import java.util.regex.Pattern;
  * Service implementation for a DataDictionary. It is a thin wrapper around creating, initializing, and
  * returning a DataDictionary. This is the default, Kuali delivered implementation
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class DataDictionaryServiceImpl implements DataDictionaryService {
     private static final Logger LOG = Logger.getLogger(DataDictionaryServiceImpl.class);

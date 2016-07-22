@@ -34,7 +34,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
  * have forced business logic into what are naturally API classes (classes that implement Constraint). This strategy separates
  * the two functions. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public interface ConstraintProcessor<T, C extends Constraint> {
 

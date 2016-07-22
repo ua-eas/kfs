@@ -47,7 +47,7 @@ import java.util.List;
  * business functionality
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupView extends FormView {
     private static final long serialVersionUID = 716926008488403616L;

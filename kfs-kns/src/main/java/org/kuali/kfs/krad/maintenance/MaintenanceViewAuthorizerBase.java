@@ -34,7 +34,7 @@ import java.util.Map;
  * Implementation of {@link ViewAuthorizer} for
  * {@link MaintenanceView} instances
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MaintenanceViewAuthorizerBase extends DocumentViewAuthorizerBase {
     private static final long serialVersionUID = 8688732738163609576L;

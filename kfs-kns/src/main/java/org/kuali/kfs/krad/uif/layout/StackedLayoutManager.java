@@ -54,7 +54,7 @@ import java.util.List;
  * customization for the line groups
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class StackedLayoutManager extends LayoutManagerBase implements CollectionLayoutManager {
     private static final long serialVersionUID = 4602368505430238846L;

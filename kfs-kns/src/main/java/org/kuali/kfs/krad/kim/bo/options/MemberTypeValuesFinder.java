@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  * This exists to make the data dictionary loading happy!
  */

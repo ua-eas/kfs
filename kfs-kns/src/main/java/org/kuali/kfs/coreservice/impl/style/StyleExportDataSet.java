@@ -33,8 +33,6 @@ import org.kuali.kfs.coreservice.impl.style.StyleBo;
  * 
  * @see ExportDataSet
  * @see StyleBo
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class StyleExportDataSet {
 

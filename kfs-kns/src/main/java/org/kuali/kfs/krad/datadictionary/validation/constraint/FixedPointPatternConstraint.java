@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.uif.UifConstants;
 /**
  * TODO delyea don't forget to fill this in.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class FixedPointPatternConstraint extends ValidDataPatternConstraint {
 

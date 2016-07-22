@@ -39,7 +39,7 @@ import java.util.Set;
  * the {@link UifEncryptionPropertyEditorWrapper}
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifViewBeanWrapper extends BeanWrapperImpl {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UifViewBeanWrapper.class);

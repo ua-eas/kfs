@@ -28,7 +28,7 @@ import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluat
 import java.util.List;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BusinessObjectSerializerServiceImpl extends org.kuali.kfs.krad.service.impl.BusinessObjectSerializerServiceImpl {
 

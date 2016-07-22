@@ -21,7 +21,7 @@ package org.kuali.kfs.kns.service.impl;
 import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ButtonPermissionTypeServiceImpl extends PermissionTypeServiceBase {
 

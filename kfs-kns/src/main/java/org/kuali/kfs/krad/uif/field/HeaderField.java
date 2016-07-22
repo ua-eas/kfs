@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.uif.view.View;
  * such as links for the group or other information
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class HeaderField extends FieldGroup {
     private static final long serialVersionUID = -6950408292923393244L;

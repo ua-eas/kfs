@@ -26,8 +26,6 @@ import java.util.List;
  * Defines data access operations related to {@link StyleBo}.
  * 
  * @see StyleBo
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public interface StyleDao {

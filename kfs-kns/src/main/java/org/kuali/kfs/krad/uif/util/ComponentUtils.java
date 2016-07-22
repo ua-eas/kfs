@@ -44,7 +44,7 @@ import java.util.Set;
  * Utility class providing methods to help create and modify
  * <code>Component</code> instances
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ComponentUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ComponentUtils.class);

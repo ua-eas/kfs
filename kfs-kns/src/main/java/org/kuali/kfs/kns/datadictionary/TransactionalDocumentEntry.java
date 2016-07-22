@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ *
  */
 @Deprecated
 public class TransactionalDocumentEntry extends org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry implements KNSDocumentEntry {

@@ -45,7 +45,7 @@ import org.springframework.beans.PropertyValues;
  * methods
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class ViewDictionaryServiceImpl implements ViewDictionaryService {
 

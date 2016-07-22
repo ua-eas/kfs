@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
  *
  * @deprecated Patches Struts 1 which is end-of-life and will eventually be removed from Rice.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public class ParameterFilter implements Filter {

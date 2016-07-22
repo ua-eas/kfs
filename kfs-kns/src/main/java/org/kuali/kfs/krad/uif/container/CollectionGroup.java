@@ -56,7 +56,7 @@ import org.kuali.kfs.krad.uif.component.ComponentSecurity;
  * the data dictionary.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class CollectionGroup extends Group implements DataBinding {
     private static final long serialVersionUID = -6496712566071542452L;

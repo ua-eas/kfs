@@ -44,7 +44,6 @@ import java.util.Map;
 /**
  * This class provides legacy processing for maintenance documents in the dictionary validation service implementation. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  * @deprecated As of release 2.0
  */
 @Deprecated

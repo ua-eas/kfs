@@ -38,8 +38,6 @@ import java.util.Set;
 
 /**
  * LookupResults support strategy which uses the primary keys and lookupable defined in a business object's data dictionary file to support the multivalue lookup 
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  *
  */
 public class DataDictionaryLookupResultsSupportStrategy implements

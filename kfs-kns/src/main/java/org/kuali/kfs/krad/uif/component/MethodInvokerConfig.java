@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
  * Extends <code>MethodInvoker</code> to add properties for specifying
  * a method for invocation within the UIF
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class MethodInvokerConfig extends MethodInvoker implements Serializable {
 

@@ -26,7 +26,7 @@ import java.util.Collection;
 /**
  * This service detects whether there are any records that block the inactivation of a particular record 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface InactivationBlockingDetectionService {
     /**

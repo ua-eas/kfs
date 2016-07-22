@@ -33,7 +33,7 @@ import java.io.IOException;
  * A filter for processing user logins and creating a {@link UserSession}.
  *
  * @see UserSession
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UserLoginFilter extends LoginFilterBase {
 

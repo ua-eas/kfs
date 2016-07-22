@@ -29,7 +29,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 
 public class CustomerInvoiceRecurrenceDetails extends PersistableBusinessObjectBase implements MutableInactivatable, AccountsReceivableCustomerInvoiceRecurrenceDetails {

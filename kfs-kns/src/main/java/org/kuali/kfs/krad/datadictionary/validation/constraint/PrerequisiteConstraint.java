@@ -32,7 +32,7 @@ import java.util.List;
  * So, a 7-digit US phone number might have a prerequisite of an area code, or an address street2 might have a prerequisite
  * that street1 is non-empty. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @since 1.1
  */
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -46,7 +46,7 @@ import org.kuali.kfs.krad.util.KRADUtils;
  * This filter assumes that a UserSession is already established.
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UserPreferencesFilter implements Filter {
 

@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ *
  */
 public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.MaintenanceDocumentBase implements MaintenanceDocument {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MaintenanceDocumentBase.class);

@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * Class for utility methods that pertain to UIF Lookup processing
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LookupInquiryUtils {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LookupInquiryUtils.class);

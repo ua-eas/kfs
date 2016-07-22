@@ -38,7 +38,7 @@ import java.util.List;
  * The goal here is to provide a mechanism that enables implementing institutions to inject new Constraints and ConstraintProcessor
  * classes into the DictionaryValidationService implementation via dependency injection. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  * @since 1.1
  */
 public interface ConstraintProvider<T extends Constrainable> {

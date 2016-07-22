@@ -37,8 +37,6 @@ import java.util.Map;
 /**
  * This is a description of what this class does - kellerj don't forget to fill
  * this in.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class ParameterRule extends MaintenanceDocumentRuleBase {
 

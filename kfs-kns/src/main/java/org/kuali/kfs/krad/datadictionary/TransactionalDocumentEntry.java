@@ -23,7 +23,7 @@ package org.kuali.kfs.krad.datadictionary;
 /**
  * TransactionalDocumentEntry
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class TransactionalDocumentEntry extends DocumentEntry {
     private static final long serialVersionUID = 5746921563371805425L;

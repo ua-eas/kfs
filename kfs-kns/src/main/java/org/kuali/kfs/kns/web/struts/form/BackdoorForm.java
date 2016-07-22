@@ -25,7 +25,7 @@ import org.kuali.kfs.kns.web.struts.action.BackdoorAction;
  *
  * @see BackdoorAction
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BackdoorForm extends org.kuali.kfs.kns.web.struts.form.KualiForm {
 

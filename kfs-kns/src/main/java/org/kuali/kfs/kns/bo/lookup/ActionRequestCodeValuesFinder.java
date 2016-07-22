@@ -29,8 +29,6 @@ import java.util.List;
 
 /**
  * A values finder for returning KEW Action Request codes.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class ActionRequestCodeValuesFinder extends KeyValuesBase {
     private static final List<KeyValue> ACTION_REQUEST_CODES;

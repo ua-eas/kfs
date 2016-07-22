@@ -29,7 +29,7 @@ import java.util.List;
  * This is a composite class for all the different members that need to be returned when a {@link ConstraintProcessor}
  * processes a {@link Constraint}. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class ConstraintValidationResult {
 	

@@ -28,7 +28,7 @@ package org.kuali.kfs.krad.uif.container;
  * for the grouping
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LinkGroup extends Group {
     private static final long serialVersionUID = -4173031543626881250L;

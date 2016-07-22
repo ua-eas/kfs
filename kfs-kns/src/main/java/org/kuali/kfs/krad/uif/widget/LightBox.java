@@ -26,7 +26,7 @@ import java.util.HashMap;
  * Used for rendering a lightbox in the UI to display action links in dialog
  * popups
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class LightBox extends WidgetBase {
 

@@ -33,8 +33,6 @@ import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
 /**
  * An XML element that can have zero or more StringMapEntry elements. This is similar
  * to the StringMapEntryList, except this element's children are &lt;qualification&gt; elements.
- * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="QualificationListType", propOrder={"qualifications"})

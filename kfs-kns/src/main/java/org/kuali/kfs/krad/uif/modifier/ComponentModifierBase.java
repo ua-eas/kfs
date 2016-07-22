@@ -36,7 +36,7 @@ import java.util.List;
  * invoked
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public abstract class ComponentModifierBase extends ConfigurableBase implements ComponentModifier {
 	private static final long serialVersionUID = -8284332412469942130L;

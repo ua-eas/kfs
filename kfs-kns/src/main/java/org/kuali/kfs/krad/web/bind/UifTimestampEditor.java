@@ -27,7 +27,7 @@ import java.sql.Timestamp;
  * <code>java.sql.Timestamp</code> objects using the
  * <code>org.kuali.rice.core.api.datetime.DateTimeService</code>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifTimestampEditor extends UifDateEditor implements Serializable {
     private static final long serialVersionUID = -2776193044590819394L;

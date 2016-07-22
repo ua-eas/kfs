@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * reference should be made (as opposed to a new object) when doing a component
  * copy
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)

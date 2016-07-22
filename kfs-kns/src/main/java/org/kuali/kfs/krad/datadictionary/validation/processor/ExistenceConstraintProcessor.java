@@ -31,7 +31,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.ProcessorResult;
 
 /**
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class ExistenceConstraintProcessor extends OptionalElementConstraintProcessor<ExistenceConstraint> {
 

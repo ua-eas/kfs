@@ -36,7 +36,7 @@ import java.text.DecimalFormat;
 /**
  * Registers standard PropertyEditors used in binding for all http requests.
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifConfigurableWebBindingInitializer extends ConfigurableWebBindingInitializer {
 

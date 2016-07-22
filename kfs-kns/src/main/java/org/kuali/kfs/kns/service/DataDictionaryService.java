@@ -23,7 +23,7 @@ import org.kuali.kfs.kns.rule.PromptBeforeValidation;
 import java.util.Map;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 @Deprecated
 public interface DataDictionaryService extends org.kuali.kfs.krad.service.DataDictionaryService {

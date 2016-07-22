@@ -32,8 +32,6 @@ import java.util.List;
 
 /**
  * Defines the contract for a service which can be used to interact with the Rice core component store.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @WebService(name = "componentService", targetNamespace = CoreConstants.Namespaces.CORE_NAMESPACE_2_0)
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL, parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)

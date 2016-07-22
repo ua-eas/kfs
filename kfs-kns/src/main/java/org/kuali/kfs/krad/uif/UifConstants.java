@@ -21,7 +21,7 @@ package org.kuali.kfs.krad.uif;
 /**
  * General constants used within the User Interface Framework
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifConstants {
     public static final String CONTROLLER_METHOD_DISPATCH_PARAMETER_NAME = "methodToCall";

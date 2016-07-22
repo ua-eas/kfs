@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Performs overrides on the fields of a Data Dictionary bean. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public interface BeanOverride {

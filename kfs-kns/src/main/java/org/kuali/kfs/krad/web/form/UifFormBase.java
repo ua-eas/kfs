@@ -52,7 +52,7 @@ import java.util.UUID;
  * will be used to render the UI
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifFormBase implements ViewModel {
     private static final long serialVersionUID = 8432543267099454434L;

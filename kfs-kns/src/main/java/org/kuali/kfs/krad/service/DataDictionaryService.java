@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
 /**
  * Defines the API for interacting with the data dictionary
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface DataDictionaryService {
 

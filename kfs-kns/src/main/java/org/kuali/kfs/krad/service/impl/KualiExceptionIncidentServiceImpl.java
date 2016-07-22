@@ -34,7 +34,7 @@ import java.util.Map;
  * of this refactor included moving the mailer and messageTemplate properties
  * and the emailReport and createMailMessage methods to the new parent class.
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class KualiExceptionIncidentServiceImpl extends KualiFeedbackServiceImpl implements KualiExceptionIncidentService {

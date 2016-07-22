@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * An object that returns the list of prerequisite constraints for a definition implementing the capability {@link PrerequisiteConstrainable}. 
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class PrerequisiteConstraintsResolver<T extends PrerequisiteConstrainable> implements ConstraintResolver<T> {
 

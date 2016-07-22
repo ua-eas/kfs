@@ -63,7 +63,7 @@ import java.util.Set;
  * therefore this post processor adds them as top level registered beans
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     private static final Log LOG = LogFactory.getLog(UifBeanFactoryPostProcessor.class);

@@ -42,7 +42,7 @@ import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationR
  * 1. value with all valid characters. (success) {@link #testValueAllValidChars()}
  * 2. value with invalid characters. (failure) {@link #testValueNotValidChars()}
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org) 
+ *  
  */
 public class NumericPatternConstraintTest {
 

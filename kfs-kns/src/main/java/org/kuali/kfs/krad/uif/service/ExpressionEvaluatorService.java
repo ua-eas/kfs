@@ -30,7 +30,7 @@ import java.util.Map;
  * the XML which can alter the values of component properties
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface ExpressionEvaluatorService {
 

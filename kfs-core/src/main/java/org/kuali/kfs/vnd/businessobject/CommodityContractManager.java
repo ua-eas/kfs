@@ -25,7 +25,7 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * @author Kuali Nervous System Team (kualidev@oncourse.iu.edu)
+ * 
  */
 public class CommodityContractManager extends PersistableBusinessObjectBase implements MutableInactivatable {
 

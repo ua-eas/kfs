@@ -33,7 +33,7 @@ import java.util.Calendar;
 /**
  * PropertyEditor converts between date display strings and <code>java.sql.Date</code> objects
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class UifDateEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = 8122469337264797008L;

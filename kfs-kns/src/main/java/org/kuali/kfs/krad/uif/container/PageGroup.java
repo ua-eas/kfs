@@ -23,7 +23,7 @@ import org.kuali.kfs.krad.uif.view.FormView;
 import org.kuali.kfs.krad.uif.view.View;
 
 /**
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class PageGroup extends Group {
     private static final long serialVersionUID = 7571981300587270274L;

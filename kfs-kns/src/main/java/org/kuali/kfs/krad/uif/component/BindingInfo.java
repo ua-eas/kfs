@@ -35,7 +35,7 @@ import java.io.Serializable;
  * model
  * </p>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class BindingInfo extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -7389398061672136091L;

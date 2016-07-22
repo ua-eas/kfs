@@ -25,7 +25,7 @@ import java.util.Set;
  * The class which exposes the names of all KNS business object entities - which are managed
  * by all JPA persistence units
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class KRADPersistableBusinessObjectClassExposer implements

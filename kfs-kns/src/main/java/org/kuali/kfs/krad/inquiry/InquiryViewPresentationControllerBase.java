@@ -38,7 +38,7 @@ import org.kuali.kfs.krad.web.form.UifFormBase;
  * Adds flag for export of inquiry record
  * </p>
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class InquiryViewPresentationControllerBase extends ViewPresentationControllerBase {
     private static final long serialVersionUID = 7504225899471226403L;

@@ -28,7 +28,7 @@ import java.util.List;
  * Text control that as decorated with a spinner widget (allowing the control value to be modified using the
  * spinner)
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class SpinnerControl extends TextControl {
     private static final long serialVersionUID = -8267606288443759880L;

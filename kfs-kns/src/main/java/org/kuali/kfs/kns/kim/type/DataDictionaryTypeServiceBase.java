@@ -77,8 +77,6 @@ import java.util.regex.Pattern;
  * A base class for {@code KimTypeService} implementations which read attribute-related information from the Data
  * Dictionary. This implementation is currently written against the KNS apis for Data Dictionary. Additionally, it
  * supports the ability to read non-Data Dictionary attribute information from the {@link KimTypeInfoService}.
- *
- * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class DataDictionaryTypeServiceBase implements KimTypeService {
 

@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
 /**
  * This class is used to define Kuali searchable attributes
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  *
  */
 public class KualiXmlSearchableAttributeImpl extends StandardGenericXMLSearchableAttribute implements KualiXmlAttribute {

@@ -32,7 +32,7 @@ import java.util.List;
  * nest full groups. The items getter/setter provided is for convenience and
  * will set the items <code>List</code> in the nested <code>Group</code>
  * 
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public class FieldGroup extends FieldBase {
 	private static final long serialVersionUID = -505654043702442196L;

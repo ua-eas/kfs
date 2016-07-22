@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Provides contract for implementing a lookup within the lookup framework
  *
- * @author Kuali Rice Team (rice.collab@kuali.org)
+ * 
  */
 public interface Lookupable extends ViewHelperService, java.io.Serializable {
 
