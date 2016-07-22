@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,9 +25,7 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBusinessObjectBase {
 
     private String principalId;
@@ -48,7 +46,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -57,7 +55,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -67,7 +65,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Gets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccountsCode
      */
     public String getOrganizationChartOfAccountsCode() {
@@ -76,7 +74,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Sets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationChartOfAccountsCode The organizationChartOfAccountsCode to set.
      */
     public void setOrganizationChartOfAccountsCode(String organizationChartOfAccountsCode) {
@@ -86,7 +84,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -95,7 +93,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -105,7 +103,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Gets the name attribute.
-     * 
+     *
      * @return Returns the name
      */
     public String getName() {
@@ -114,7 +112,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Sets the name attribute.
-     * 
+     *
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -124,7 +122,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Gets the emplid attribute.
-     * 
+     *
      * @return Returns the emplid
      */
     public String getEmplid() {
@@ -133,7 +131,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Sets the emplid attribute.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -143,7 +141,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Gets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccounts
      */
     public Chart getOrganizationChartOfAccounts() {
@@ -152,7 +150,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Sets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @param organizationChartOfAccounts The organizationChartOfAccounts to set.
      * @deprecated
      */
@@ -162,7 +160,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -171,7 +169,7 @@ public class BudgetConstructionSalarySocialSecurityNumber extends PersistableBus
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */

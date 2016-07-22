@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,15 +29,13 @@ import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.kfs.krad.bo.KualiCode;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     private static final long serialVersionUID = 4129020803214027609L;
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "Chart";
-    
+
     protected String finChartOfAccountDescription;
     protected boolean active;
     protected String finCoaManagerPrincipalId;
@@ -70,10 +68,10 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
     protected Chart reportsToChartOfAccounts;
 
     private static transient ChartService chartService;
-    
+
     /**
      * Gets the finChartOfAccountDescription attribute.
-     * 
+     *
      * @return Returns the finChartOfAccountDescription
      */
     public String getFinChartOfAccountDescription() {
@@ -82,7 +80,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finChartOfAccountDescription attribute.
-     * 
+     *
      * @param finChartOfAccountDescription The finChartOfAccountDescription to set.
      */
     public void setFinChartOfAccountDescription(String finChartOfAccountDescription) {
@@ -91,7 +89,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active
      */
     public boolean isActive() {
@@ -100,7 +98,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -110,7 +108,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finAccountsPayableObject attribute.
-     * 
+     *
      * @return Returns the finAccountsPayableObject
      */
     public ObjectCode getFinAccountsPayableObject() {
@@ -119,7 +117,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finAccountsPayableObject attribute.
-     * 
+     *
      * @param finAccountsPayableObject The finAccountsPayableObject to set.
      * @deprecated
      */
@@ -130,7 +128,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finExternalEncumbranceObj attribute.
-     * 
+     *
      * @return Returns the finExternalEncumbranceObj.
      */
     public ObjectCode getFinExternalEncumbranceObj() {
@@ -139,7 +137,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finExternalEncumbranceObj attribute value.
-     * 
+     *
      * @param finExternalEncumbranceObj The finExternalEncumbranceObj to set.
      * @deprecated
      */
@@ -149,7 +147,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finPreEncumbranceObject attribute.
-     * 
+     *
      * @return Returns the finPreEncumbranceObject
      */
     public ObjectCode getFinPreEncumbranceObject() {
@@ -158,7 +156,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finPreEncumbranceObject attribute.
-     * 
+     *
      * @param finPreEncumbranceObject The finPreEncumbranceObject to set.
      * @deprecated
      */
@@ -168,7 +166,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the financialCashObject attribute.
-     * 
+     *
      * @return Returns the financialCashObject
      */
     public ObjectCode getFinancialCashObject() {
@@ -177,7 +175,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the financialCashObject attribute.
-     * 
+     *
      * @param financialCashObject The financialCashObject to set.
      * @deprecated
      */
@@ -187,7 +185,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the icrIncomeFinancialObject attribute.
-     * 
+     *
      * @return Returns the icrIncomeFinancialObject
      */
     public ObjectCode getIcrIncomeFinancialObject() {
@@ -196,7 +194,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the icrIncomeFinancialObject attribute.
-     * 
+     *
      * @param icrIncomeFinancialObject The icrIncomeFinancialObject to set.
      * @deprecated
      */
@@ -206,7 +204,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finAccountsReceivableObj attribute.
-     * 
+     *
      * @return Returns the finAccountsReceivableObj
      */
     public ObjectCode getFinAccountsReceivableObj() {
@@ -215,7 +213,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finAccountsReceivableObj attribute.
-     * 
+     *
      * @param finAccountsReceivableObj The finAccountsReceivableObj to set.
      * @deprecated
      */
@@ -230,7 +228,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finCoaManagerUniversal attribute.
-     * 
+     *
      * @param finCoaManagerUniversal The finCoaManagerUniversal to set.
      * @deprecated
      */
@@ -240,7 +238,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the reportsToChartOfAccounts
      */
     public Chart getReportsToChartOfAccounts() {
@@ -249,7 +247,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @param reportsToChartOfAccounts The reportsToChartOfAccounts to set.
      * @deprecated
      */
@@ -259,7 +257,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finInternalEncumbranceObj attribute.
-     * 
+     *
      * @return Returns the finInternalEncumbranceObj.
      */
     public ObjectCode getFinInternalEncumbranceObj() {
@@ -268,7 +266,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finInternalEncumbranceObj attribute value.
-     * 
+     *
      * @param finInternalEncumbranceObj The finInternalEncumbranceObj to set.
      * @deprecated
      */
@@ -278,7 +276,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the icrExpenseFinancialObject attribute.
-     * 
+     *
      * @return Returns the icrExpenseFinancialObject.
      */
     public ObjectCode getIcrExpenseFinancialObject() {
@@ -287,7 +285,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the icrExpenseFinancialObject attribute value.
-     * 
+     *
      * @param icrExpenseFinancialObject The icrExpenseFinancialObject to set.
      * @deprecated
      */
@@ -297,7 +295,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -306,7 +304,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -315,7 +313,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the expBdgtEliminationsFinObj attribute.
-     * 
+     *
      * @return Returns the expBdgtEliminationsFinObj.
      */
     public ObjectCode getExpBdgtEliminationsFinObj() {
@@ -324,7 +322,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the expBdgtEliminationsFinObj attribute value.
-     * 
+     *
      * @param expBdgtEliminationsFinObj The expBdgtEliminationsFinObj to set.
      * @deprecated
      */
@@ -334,7 +332,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the incBdgtEliminationsFinObj attribute.
-     * 
+     *
      * @return Returns the incBdgtEliminationsFinObj.
      */
     public ObjectCode getIncBdgtEliminationsFinObj() {
@@ -343,7 +341,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the incBdgtEliminationsFinObj attribute value.
-     * 
+     *
      * @param incBdgtEliminationsFinObj The incBdgtEliminationsFinObj to set.
      * @deprecated
      */
@@ -365,7 +363,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finAccountsPayableObjectCode attribute.
-     * 
+     *
      * @return Returns the finAccountsPayableObjectCode.
      */
     public String getFinAccountsPayableObjectCode() {
@@ -374,7 +372,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finAccountsPayableObjectCode attribute value.
-     * 
+     *
      * @param finAccountsPayableObjectCode The finAccountsPayableObjectCode to set.
      */
     public void setFinAccountsPayableObjectCode(String finAccountsPayableObjectCode) {
@@ -383,7 +381,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finAccountsReceivableObjCode attribute.
-     * 
+     *
      * @return Returns the finAccountsReceivableObjCode.
      */
     public String getFinAccountsReceivableObjCode() {
@@ -392,7 +390,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finAccountsReceivableObjCode attribute value.
-     * 
+     *
      * @param finAccountsReceivableObjCode The finAccountsReceivableObjCode to set.
      */
     public void setFinAccountsReceivableObjCode(String finAccountsReceivableObjCode) {
@@ -401,7 +399,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the financialCashObjectCode attribute.
-     * 
+     *
      * @return Returns the financialCashObjectCode.
      */
     public String getFinancialCashObjectCode() {
@@ -410,7 +408,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the financialCashObjectCode attribute value.
-     * 
+     *
      * @param financialCashObjectCode The financialCashObjectCode to set.
      */
     public void setFinancialCashObjectCode(String financialCashObjectCode) {
@@ -419,7 +417,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finExternalEncumbranceObjCd attribute.
-     * 
+     *
      * @return Returns the finExternalEncumbranceObjCd.
      */
     public String getFinExternalEncumbranceObjCd() {
@@ -428,7 +426,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finExternalEncumbranceObjCd attribute value.
-     * 
+     *
      * @param finExternalEncumbranceObjCd The finExternalEncumbranceObjCd to set.
      */
     public void setFinExternalEncumbranceObjCd(String finExternalEncumbranceObjCd) {
@@ -437,7 +435,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finInternalEncumbranceObjCd attribute.
-     * 
+     *
      * @return Returns the finInternalEncumbranceObjCd.
      */
     public String getFinInternalEncumbranceObjCd() {
@@ -446,7 +444,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finInternalEncumbranceObjCd attribute value.
-     * 
+     *
      * @param finInternalEncumbranceObjCd The finInternalEncumbranceObjCd to set.
      */
     public void setFinInternalEncumbranceObjCd(String finInternalEncumbranceObjCd) {
@@ -455,7 +453,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finPreEncumbranceObjectCode attribute.
-     * 
+     *
      * @return Returns the finPreEncumbranceObjectCode.
      */
     public String getFinPreEncumbranceObjectCode() {
@@ -464,7 +462,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finPreEncumbranceObjectCode attribute value.
-     * 
+     *
      * @param finPreEncumbranceObjectCode The finPreEncumbranceObjectCode to set.
      */
     public void setFinPreEncumbranceObjectCode(String finPreEncumbranceObjectCode) {
@@ -473,7 +471,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the icrExpenseFinancialObjectCd attribute.
-     * 
+     *
      * @return Returns the icrExpenseFinancialObjectCd.
      */
     public String getIcrExpenseFinancialObjectCd() {
@@ -482,7 +480,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the icrExpenseFinancialObjectCd attribute value.
-     * 
+     *
      * @param icrExpenseFinancialObjectCd The icrExpenseFinancialObjectCd to set.
      */
     public void setIcrExpenseFinancialObjectCd(String icrExpenseFinancialObjectCd) {
@@ -491,7 +489,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the icrIncomeFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the icrIncomeFinancialObjectCode.
      */
     public String getIcrIncomeFinancialObjectCode() {
@@ -500,7 +498,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the icrIncomeFinancialObjectCode attribute value.
-     * 
+     *
      * @param icrIncomeFinancialObjectCode The icrIncomeFinancialObjectCode to set.
      */
     public void setIcrIncomeFinancialObjectCode(String icrIncomeFinancialObjectCode) {
@@ -509,7 +507,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the expBdgtEliminationsFinObjCd attribute.
-     * 
+     *
      * @return Returns the expBdgtEliminationsFinObjCd
      */
     public String getExpBdgtEliminationsFinObjCd() {
@@ -518,7 +516,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the expBdgtEliminationsFinObjCd attribute.
-     * 
+     *
      * @param expBdgtEliminationsFinObjCd The expBdgtEliminationsFinObjCd to set.
      */
     public void setExpBdgtEliminationsFinObjCd(String expBdgtEliminationsFinObjCd) {
@@ -527,7 +525,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the incBdgtEliminationsFinObjCd attribute.
-     * 
+     *
      * @return Returns the incBdgtEliminationsFinObjCd
      */
     public String getIncBdgtEliminationsFinObjCd() {
@@ -536,7 +534,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the incBdgtEliminationsFinObjCd attribute.
-     * 
+     *
      * @param incBdgtEliminationsFinObjCd The incBdgtEliminationsFinObjCd to set.
      */
     public void setIncBdgtEliminationsFinObjCd(String incBdgtEliminationsFinObjCd) {
@@ -545,7 +543,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the finCoaManagerPrincipalId attribute.
-     * 
+     *
      * @return Returns the finCoaManagerPrincipalId.
      */
     public String getFinCoaManagerPrincipalId() {
@@ -564,7 +562,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the finCoaManagerPrincipalId attribute value.
-     * 
+     *
      * @param finCoaManagerPrincipalId The finCoaManagerPrincipalId to set.
      */
     public void setFinCoaManagerPrincipalId(String finCoaManagerPrincipalId) {
@@ -587,7 +585,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the fundBalanceObject attribute.
-     * 
+     *
      * @return Returns the fundBalanceObject.
      */
     public ObjectCode getFundBalanceObject() {
@@ -596,7 +594,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the fundBalanceObject attribute value.
-     * 
+     *
      * @param fundBalanceObject The fundBalanceObject to set.
      * @deprecated
      */
@@ -606,7 +604,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Gets the fundBalanceObjectCode attribute.
-     * 
+     *
      * @return Returns the fundBalanceObjectCode.
      */
     public String getFundBalanceObjectCode() {
@@ -615,7 +613,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
 
     /**
      * Sets the fundBalanceObjectCode attribute value.
-     * 
+     *
      * @param fundBalanceObjectCode The fundBalanceObjectCode to set.
      */
     public void setFundBalanceObjectCode(String fundBalanceObjectCode) {
@@ -628,7 +626,7 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
     public String getCodeAndDescription() {
         if (StringUtils.isNotBlank(getChartOfAccountsCode()) && StringUtils.isNotBlank(getFinChartOfAccountDescription()))
             return getChartOfAccountsCode() + " - " + getFinChartOfAccountDescription();
-        else 
+        else
             return "";
     }
 
@@ -648,13 +646,13 @@ public class Chart extends PersistableBusinessObjectBase implements KualiCode {
     }
 
     public void setCode(String chartOfAccountsCode) {
-        setChartOfAccountsCode(chartOfAccountsCode);        
+        setChartOfAccountsCode(chartOfAccountsCode);
     }
 
     public void setName(String finChartOfAccountDescription) {
         setFinChartOfAccountDescription(finChartOfAccountDescription);
     }
-    
+
     public String getChartCodeForReport() {
         return this.chartOfAccountsCode;
     }

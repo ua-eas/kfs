@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,11 +28,9 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 
- */
+
 public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEntityManagerFactoryBean {
-	
+
 	public RiceLocalContainerEntityManagerFactoryBean() {
 		throw new RuntimeException(getClass().getName() + " can not be constructed without a datasource");
 	}
@@ -40,15 +38,15 @@ public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEn
 	public RiceLocalContainerEntityManagerFactoryBean(DataSource datasource) {
 		this("", datasource);
 	}
-	
+
 	public RiceLocalContainerEntityManagerFactoryBean(String prefix, DataSource datasource) {
-		if (prefix.equals("")) {			
+		if (prefix.equals("")) {
 			prefix = "rice";
 		}
 		prefix += ".jpa.";
-		
+
 		Config config = ConfigContext.getCurrentContextConfig();
-	
+
 		setPersistenceUnitManager(preparePersistentUnitManager(config, prefix, datasource));
 		setPersistenceXmlLocation(determineConfigProperty(config, prefix, "PersistenceXmlLocation", "META-INF/persistence.xml"));
 		setDataSource(datasource);
@@ -56,7 +54,7 @@ public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEn
 		setJpaDialect(new org.springframework.orm.jpa.vendor.HibernateJpaDialect());
 		setJpaPropertyMap(prepareJpaProperties(config, prefix));
 		//setJpaVendorAdapter(prepareJpaVendorAdapter(config, prefix));
-		
+
 		RicePersistenceUnitPostProcessor postProcessor = new RicePersistenceUnitPostProcessor();
 		postProcessor.setJtaDataSource(datasource);
 		setPersistenceUnitPostProcessors(new RicePersistenceUnitPostProcessor[] { postProcessor });
@@ -89,10 +87,10 @@ public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEn
 
 	private Map<String, String> prepareJpaProperties(Config config, String prefix) {
 		Map<String, String> jpaProperties = new HashMap<String, String>();
-		
-		// Load in all user specified "JPAProperties" prefixed properties		
+
+		// Load in all user specified "JPAProperties" prefixed properties
 		jpaProperties.putAll(config.getPropertiesWithPrefix(prefix + "JpaProperties.", true));
-		
+
 		// Load in the defaults for a Hibernate JPA Setup. Since the JPA spec states that these properties will be ignored by
 		// vendors that do not understand them, we can add all of the necessary defaults per supported JPA vendor here.
 		jpaProperties.put("hibernate.show_sql", determineConfigProperty(config, prefix, "JpaProperties.hibernate.show_sql", "false"));
@@ -109,9 +107,9 @@ public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEn
         jpaProperties.put("hibernate.bytecode.use_reflection_optimizer", determineConfigProperty(config, prefix, "JpaProperties.hibernate.bytecode.use_reflection_optimizer", "false"));
         jpaProperties.put("hibernate.transaction.auto_close_session", determineConfigProperty(config, prefix, "JpaProperties.hibernate.transaction.auto_close_session", "false"));
         jpaProperties.put("hibernate.hbm2ddl.auto", determineConfigProperty(config, prefix, "JpaProperties.hibernate.hbm2ddl.auto", ""));
-        
+
         // TODO: Add more vendor specific defaults...
-        
+
         return jpaProperties;
 	}
 
@@ -124,5 +122,5 @@ public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEn
 		// fallback on the default value passed in if still no value found for key
 		return value == null ? defaultValue : value;
 	}
-	
+
 }

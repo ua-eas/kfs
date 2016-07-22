@@ -37,9 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-/**
- *
- */
+
 public class FileSystemFileStorageServiceImpl implements FileStorageService {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FileSystemFileStorageServiceImpl.class);
 
@@ -103,11 +101,11 @@ public class FileSystemFileStorageServiceImpl implements FileStorageService {
             throw new FileStorageException("Unable to get file",e);
         }
     }
-    
+
 	@Override
 	public long getFileLength(String filename) {
 		LOG.debug("getFileLength() started");
-		
+
 		return new File(getFullPathname(filename)).length();
 	}
 

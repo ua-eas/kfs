@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,9 +29,7 @@ import org.kuali.kfs.coa.businessobject.SubObjectCodeCurrent;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class CreditCardVendor extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String financialDocumentCreditCardVendorNumber;
@@ -71,7 +69,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the financialDocumentCreditCardVendorNumber attribute.
-     * 
+     *
      * @return Returns the financialDocumentCreditCardVendorNumber
      */
     public String getFinancialDocumentCreditCardVendorNumber() {
@@ -80,7 +78,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the financialDocumentCreditCardVendorNumber attribute.
-     * 
+     *
      * @param financialDocumentCreditCardVendorNumber The financialDocumentCreditCardVendorNumber to set.
      */
     public void setFinancialDocumentCreditCardVendorNumber(String financialDocumentCreditCardVendorNumber) {
@@ -90,7 +88,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the financialDocumentCreditCardVendorName attribute.
-     * 
+     *
      * @return Returns the financialDocumentCreditCardVendorName
      */
     public String getFinancialDocumentCreditCardVendorName() {
@@ -99,7 +97,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the financialDocumentCreditCardVendorName attribute.
-     * 
+     *
      * @param financialDocumentCreditCardVendorName The financialDocumentCreditCardVendorName to set.
      */
     public void setFinancialDocumentCreditCardVendorName(String financialDocumentCreditCardVendorName) {
@@ -109,7 +107,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the financialDocumentCreditCardTypeCode attribute.
-     * 
+     *
      * @return Returns the financialDocumentCreditCardTypeCode
      */
     public String getFinancialDocumentCreditCardTypeCode() {
@@ -118,7 +116,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the financialDocumentCreditCardTypeCode attribute.
-     * 
+     *
      * @param financialDocumentCreditCardTypeCode The financialDocumentCreditCardTypeCode to set.
      */
     public void setFinancialDocumentCreditCardTypeCode(String financialDocumentCreditCardTypeCode) {
@@ -128,7 +126,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeFinancialChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the incomeFinancialChartOfAccountsCode
      */
     public String getIncomeFinancialChartOfAccountsCode() {
@@ -137,7 +135,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeFinancialChartOfAccountsCode attribute.
-     * 
+     *
      * @param incomeFinancialChartOfAccountsCode The incomeFinancialChartOfAccountsCode to set.
      */
     public void setIncomeFinancialChartOfAccountsCode(String incomeFinancialChartOfAccountsCode) {
@@ -147,7 +145,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeAccountNumber attribute.
-     * 
+     *
      * @return Returns the incomeAccountNumber
      */
     public String getIncomeAccountNumber() {
@@ -156,7 +154,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeAccountNumber attribute.
-     * 
+     *
      * @param incomeAccountNumber The incomeAccountNumber to set.
      */
     public void setIncomeAccountNumber(String incomeAccountNumber) {
@@ -166,7 +164,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the incomeFinancialObjectCode
      */
     public String getIncomeFinancialObjectCode() {
@@ -175,7 +173,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeFinancialObjectCode attribute.
-     * 
+     *
      * @param incomeFinancialObjectCode The incomeFinancialObjectCode to set.
      */
     public void setIncomeFinancialObjectCode(String incomeFinancialObjectCode) {
@@ -185,7 +183,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeFinancialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the incomeFinancialSubObjectCode
      */
     public String getIncomeFinancialSubObjectCode() {
@@ -194,7 +192,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeFinancialSubObjectCode attribute.
-     * 
+     *
      * @param incomeFinancialSubObjectCode The incomeFinancialSubObjectCode to set.
      */
     public void setIncomeFinancialSubObjectCode(String incomeFinancialSubObjectCode) {
@@ -204,7 +202,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeSubAccountNumber attribute.
-     * 
+     *
      * @return Returns the incomeSubAccountNumber
      */
     public String getIncomeSubAccountNumber() {
@@ -213,7 +211,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeSubAccountNumber attribute.
-     * 
+     *
      * @param incomeSubAccountNumber The incomeSubAccountNumber to set.
      */
     public void setIncomeSubAccountNumber(String incomeSubAccountNumber) {
@@ -223,7 +221,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseFinancialChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the expenseFinancialChartOfAccountsCode
      */
     public String getExpenseFinancialChartOfAccountsCode() {
@@ -232,7 +230,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseFinancialChartOfAccountsCode attribute.
-     * 
+     *
      * @param expenseFinancialChartOfAccountsCode The expenseFinancialChartOfAccountsCode to set.
      */
     public void setExpenseFinancialChartOfAccountsCode(String expenseFinancialChartOfAccountsCode) {
@@ -242,7 +240,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseAccountNumber attribute.
-     * 
+     *
      * @return Returns the expenseAccountNumber
      */
     public String getExpenseAccountNumber() {
@@ -251,7 +249,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseAccountNumber attribute.
-     * 
+     *
      * @param expenseAccountNumber The expenseAccountNumber to set.
      */
     public void setExpenseAccountNumber(String expenseAccountNumber) {
@@ -261,7 +259,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseFinancialObjectCode attribute.
-     * 
+     *
      * @return Returns the expenseFinancialObjectCode
      */
     public String getExpenseFinancialObjectCode() {
@@ -270,7 +268,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseFinancialObjectCode attribute.
-     * 
+     *
      * @param expenseFinancialObjectCode The expenseFinancialObjectCode to set.
      */
     public void setExpenseFinancialObjectCode(String expenseFinancialObjectCode) {
@@ -280,7 +278,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseFinancialSubObjectCd attribute.
-     * 
+     *
      * @return Returns the expenseFinancialSubObjectCd
      */
     public String getExpenseFinancialSubObjectCode() {
@@ -289,7 +287,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseFinancialSubObjectCd attribute.
-     * 
+     *
      * @param expenseFinancialSubObjectCd The expenseFinancialSubObjectCd to set.
      */
     public void setExpenseFinancialSubObjectCode(String expenseFinancialSubObjectCode) {
@@ -299,7 +297,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseSubAccountNumber attribute.
-     * 
+     *
      * @return Returns the expenseSubAccountNumber
      */
     public String getExpenseSubAccountNumber() {
@@ -308,7 +306,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseSubAccountNumber attribute.
-     * 
+     *
      * @param expenseSubAccountNumber The expenseSubAccountNumber to set.
      */
     public void setExpenseSubAccountNumber(String expenseSubAccountNumber) {
@@ -318,7 +316,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeFinancialChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the incomeFinancialChartOfAccounts
      */
     public Chart getIncomeFinancialChartOfAccounts() {
@@ -327,7 +325,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeFinancialChartOfAccounts attribute.
-     * 
+     *
      * @param incomeFinancialChartOfAccounts The incomeFinancialChartOfAccounts to set.
      * @deprecated
      */
@@ -337,7 +335,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeFinancialObject attribute.
-     * 
+     *
      * @return Returns the incomeFinancialObject
      */
     public ObjectCodeCurrent getIncomeFinancialObject() {
@@ -346,7 +344,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeFinancialObject attribute.
-     * 
+     *
      * @param incomeFinancialObject The incomeFinancialObject to set.
      * @deprecated
      */
@@ -356,7 +354,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeAccount attribute.
-     * 
+     *
      * @return Returns the incomeAccount
      */
     public Account getIncomeAccount() {
@@ -365,7 +363,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeAccount attribute.
-     * 
+     *
      * @param incomeAccount The incomeAccount to set.
      * @deprecated
      */
@@ -375,7 +373,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseFinancialChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the expenseFinancialChartOfAccounts
      */
     public Chart getExpenseFinancialChartOfAccounts() {
@@ -384,7 +382,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseFinancialChartOfAccounts attribute.
-     * 
+     *
      * @param expenseFinancialChartOfAccounts The expenseFinancialChartOfAccounts to set.
      * @deprecated
      */
@@ -394,7 +392,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseFinancialObject attribute.
-     * 
+     *
      * @return Returns the expenseFinancialObject
      */
     public ObjectCodeCurrent getExpenseFinancialObject() {
@@ -403,7 +401,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseFinancialObject attribute.
-     * 
+     *
      * @param expenseFinancialObject The expenseFinancialObject to set.
      * @deprecated
      */
@@ -413,7 +411,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseAccount attribute.
-     * 
+     *
      * @return Returns the expenseAccount
      */
     public Account getExpenseAccount() {
@@ -422,7 +420,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseAccount attribute.
-     * 
+     *
      * @param expenseAccount The expenseAccount to set.
      * @deprecated
      */
@@ -447,7 +445,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseFinancialSubObject attribute.
-     * 
+     *
      * @return Returns the expenseFinancialSubObject.
      */
     public SubObjectCodeCurrent getExpenseFinancialSubObject() {
@@ -456,7 +454,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseFinancialSubObject attribute value.
-     * 
+     *
      * @param expenseFinancialSubObject The expenseFinancialSubObject to set.
      */
     public void setExpenseFinancialSubObject(SubObjectCodeCurrent expenseFinancialSubObject) {
@@ -465,7 +463,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the expenseSubAccount attribute.
-     * 
+     *
      * @return Returns the expenseSubAccount.
      */
     public SubAccount getExpenseSubAccount() {
@@ -474,7 +472,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the expenseSubAccount attribute value.
-     * 
+     *
      * @param expenseSubAccount The expenseSubAccount to set.
      */
     public void setExpenseSubAccount(SubAccount expenseSubAccount) {
@@ -483,7 +481,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeFinancialSubObject attribute.
-     * 
+     *
      * @return Returns the incomeFinancialSubObject.
      */
     public SubObjectCodeCurrent getIncomeFinancialSubObject() {
@@ -492,7 +490,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeFinancialSubObject attribute value.
-     * 
+     *
      * @param incomeFinancialSubObject The incomeFinancialSubObject to set.
      */
     public void setIncomeFinancialSubObject(SubObjectCodeCurrent incomeFinancialSubObject) {
@@ -501,7 +499,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Gets the incomeSubAccount attribute.
-     * 
+     *
      * @return Returns the incomeSubAccount.
      */
     public SubAccount getIncomeSubAccount() {
@@ -510,7 +508,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
 
     /**
      * Sets the incomeSubAccount attribute value.
-     * 
+     *
      * @param incomeSubAccount The incomeSubAccount to set.
      */
     public void setIncomeSubAccount(SubAccount incomeSubAccount) {
@@ -527,7 +525,7 @@ public class CreditCardVendor extends PersistableBusinessObjectBase implements M
     }
 
     /**
-     * Gets the active attribute. 
+     * Gets the active attribute.
      * @return Returns the active.
      */
     public boolean isActive() {

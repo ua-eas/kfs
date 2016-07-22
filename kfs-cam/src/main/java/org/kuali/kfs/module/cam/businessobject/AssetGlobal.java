@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,9 +54,7 @@ import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
-/**
- * 
- */
+
 public class AssetGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetGlobal.class);
@@ -86,15 +84,15 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     private Asset separateSourceCapitalAsset;
     private Integer separateSourcePaymentSequenceNumber;
     private boolean capitalAssetBuilderOriginIndicator;
-    
+
     protected String financialDocumentPostingPeriodCode;
     protected Integer financialDocumentPostingYear;
 
 // CSU 6702 END
     protected String universityFiscalPeriodName;
-// CSU 6702 END    
+// CSU 6702 END
 
-    // Not Persisted   
+    // Not Persisted
     private AccountingPeriod accountingPeriod;
     private Date lastInventoryDate;
     private ContractsAndGrantsAgency agency;
@@ -131,8 +129,8 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     // CSU 6702 BEGIN
     static protected transient AccountingPeriodService accountingPeriodService;
-    // CSU 6702 END    
-    
+    // CSU 6702 END
+
     /**
      * Default constructor.
      */
@@ -145,7 +143,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -154,7 +152,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -164,7 +162,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the acquisitionTypeCode attribute.
-     * 
+     *
      * @return Returns the acquisitionTypeCode
      */
     public String getAcquisitionTypeCode() {
@@ -173,7 +171,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the acquisitionTypeCode attribute.
-     * 
+     *
      * @param acquisitionTypeCode The acquisitionTypeCode to set.
      */
     public void setAcquisitionTypeCode(String acquisitionTypeCode) {
@@ -183,7 +181,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the capitalAssetDescription attribute.
-     * 
+     *
      * @return Returns the capitalAssetDescription
      */
     public String getCapitalAssetDescription() {
@@ -192,7 +190,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the capitalAssetDescription attribute.
-     * 
+     *
      * @param capitalAssetDescription The capitalAssetDescription to set.
      */
     public void setCapitalAssetDescription(String capitalAssetDescription) {
@@ -202,7 +200,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the inventoryStatusCode attribute.
-     * 
+     *
      * @return Returns the inventoryStatusCode
      */
     public String getInventoryStatusCode() {
@@ -211,7 +209,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the inventoryStatusCode attribute.
-     * 
+     *
      * @param inventoryStatusCode The inventoryStatusCode to set.
      */
     public void setInventoryStatusCode(String inventoryStatusCode) {
@@ -221,7 +219,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the conditionCode attribute.
-     * 
+     *
      * @return Returns the conditionCode
      */
     public String getConditionCode() {
@@ -230,7 +228,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the conditionCode attribute.
-     * 
+     *
      * @param conditionCode The conditionCode to set.
      */
     public void setConditionCode(String conditionCode) {
@@ -240,7 +238,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the capitalAssetTypeCode attribute.
-     * 
+     *
      * @return Returns the capitalAssetTypeCode
      */
     public String getCapitalAssetTypeCode() {
@@ -249,7 +247,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the capitalAssetTypeCode attribute.
-     * 
+     *
      * @param capitalAssetTypeCode The capitalAssetTypeCode to set.
      */
     public void setCapitalAssetTypeCode(String capitalAssetTypeCode) {
@@ -259,7 +257,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the manufacturerName attribute.
-     * 
+     *
      * @return Returns the manufacturerName
      */
     public String getManufacturerName() {
@@ -268,7 +266,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the manufacturerName attribute.
-     * 
+     *
      * @param manufacturerName The manufacturerName to set.
      */
     public void setManufacturerName(String manufacturerName) {
@@ -277,7 +275,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the manufacturerModelNumber attribute.
-     * 
+     *
      * @return Returns the manufacturerModelNumber
      */
     public String getManufacturerModelNumber() {
@@ -286,7 +284,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the manufacturerModelNumber attribute.
-     * 
+     *
      * @param manufacturerModelNumber The manufacturerModelNumber to set.
      */
     public void setManufacturerModelNumber(String manufacturerModelNumber) {
@@ -295,7 +293,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the totalCostAmount attribute.
-     * 
+     *
      * @return Returns the totalCostAmount
      */
     public KualiDecimal getTotalCostAmount() {
@@ -304,7 +302,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the totalCostAmount attribute.
-     * 
+     *
      * @param totalCostAmount The totalCostAmount to set.
      */
     public void setTotalCostAmount(KualiDecimal totalCostAmount) {
@@ -314,7 +312,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the landCountyName attribute.
-     * 
+     *
      * @return Returns the landCountyName
      */
     public String getLandCountyName() {
@@ -323,7 +321,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the landCountyName attribute.
-     * 
+     *
      * @param landCountyName The landCountyName to set.
      */
     public void setLandCountyName(String landCountyName) {
@@ -332,7 +330,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the landAcreageSize attribute.
-     * 
+     *
      * @return Returns the landAcreageSize
      */
     public Integer getLandAcreageSize() {
@@ -341,7 +339,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the landAcreageSize attribute.
-     * 
+     *
      * @param landAcreageSize The landAcreageSize to set.
      */
     public void setLandAcreageSize(Integer landAcreageSize) {
@@ -350,7 +348,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the landParcelNumber attribute.
-     * 
+     *
      * @return Returns the landParcelNumber
      */
     public String getLandParcelNumber() {
@@ -359,7 +357,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the landParcelNumber attribute.
-     * 
+     *
      * @param landParcelNumber The landParcelNumber to set.
      */
     public void setLandParcelNumber(String landParcelNumber) {
@@ -368,7 +366,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the vendorName attribute.
-     * 
+     *
      * @return Returns the vendorName
      */
     public String getVendorName() {
@@ -377,7 +375,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the vendorName attribute.
-     * 
+     *
      * @param vendorName The vendorName to set.
      */
     public void setVendorName(String vendorName) {
@@ -386,7 +384,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the organizationText attribute.
-     * 
+     *
      * @return Returns the organizationText
      */
     public String getOrganizationText() {
@@ -395,7 +393,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the organizationText attribute.
-     * 
+     *
      * @param organizationText The organizationText to set.
      */
     public void setOrganizationText(String organizationText) {
@@ -404,7 +402,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the createDate attribute.
-     * 
+     *
      * @return Returns the createDate
      */
     public Date getCreateDate() {
@@ -418,7 +416,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the createDate attribute.
-     * 
+     *
      * @param createDate The createDate to set.
      */
     public void setCreateDate(Date createDate) {
@@ -427,7 +425,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the capitalAssetInServiceDate attribute.
-     * 
+     *
      * @return Returns the capitalAssetInServiceDate
      */
     public Date getCapitalAssetInServiceDate() {
@@ -436,7 +434,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the capitalAssetInServiceDate attribute.
-     * 
+     *
      * @param capitalAssetInServiceDate The capitalAssetInServiceDate to set.
      */
     public void setCapitalAssetInServiceDate(Date capitalAssetInServiceDate) {
@@ -445,7 +443,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the capitalAssetDepreciationDate attribute.
-     * 
+     *
      * @return Returns the capitalAssetDepreciationDate
      */
     public Date getCapitalAssetDepreciationDate() {
@@ -454,7 +452,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the capitalAssetDepreciationDate attribute.
-     * 
+     *
      * @param capitalAssetDepreciationDate The capitalAssetDepreciationDate to set.
      */
     public void setCapitalAssetDepreciationDate(Date capitalAssetDepreciationDate) {
@@ -463,7 +461,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the agencyNumber attribute.
-     * 
+     *
      * @return Returns the agencyNumber.
      */
     public String getAgencyNumber() {
@@ -472,7 +470,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the agencyNumber attribute value.
-     * 
+     *
      * @param agencyNumber The agencyNumber to set.
      */
     public void setAgencyNumber(String agencyNumber) {
@@ -481,7 +479,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the organizationOwnerAccountNumber attribute.
-     * 
+     *
      * @return Returns the organizationOwnerAccountNumber.
      */
     public String getOrganizationOwnerAccountNumber() {
@@ -490,7 +488,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the organizationOwnerAccountNumber attribute value.
-     * 
+     *
      * @param organizationOwnerAccountNumber The organizationOwnerAccountNumber to set.
      */
     public void setOrganizationOwnerAccountNumber(String organizationOwnerAccountNumber) {
@@ -499,7 +497,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the organizationOwnerChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationOwnerChartOfAccountsCode.
      */
     public String getOrganizationOwnerChartOfAccountsCode() {
@@ -508,7 +506,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the organizationOwnerChartOfAccountsCode attribute value.
-     * 
+     *
      * @param organizationOwnerChartOfAccountsCode The organizationOwnerChartOfAccountsCode to set.
      */
     public void setOrganizationOwnerChartOfAccountsCode(String organizationOwnerChartOfAccountsCode) {
@@ -517,7 +515,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the representativeUniversalIdentifier attribute.
-     * 
+     *
      * @return Returns the representativeUniversalIdentifier.
      */
     public String getRepresentativeUniversalIdentifier() {
@@ -526,7 +524,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the representativeUniversalIdentifier attribute value.
-     * 
+     *
      * @param representativeUniversalIdentifier The representativeUniversalIdentifier to set.
      */
     public void setRepresentativeUniversalIdentifier(String representativeUniversalIdentifier) {
@@ -535,7 +533,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the assetCondition attribute.
-     * 
+     *
      * @return Returns the assetCondition.
      */
     public AssetCondition getAssetCondition() {
@@ -544,7 +542,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the assetCondition attribute value.
-     * 
+     *
      * @param assetCondition The assetCondition to set.
      * @deprecated
      */
@@ -554,7 +552,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the capitalAssetType attribute.
-     * 
+     *
      * @return Returns the capitalAssetType.
      */
     public AssetType getCapitalAssetType() {
@@ -563,7 +561,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the capitalAssetType attribute value.
-     * 
+     *
      * @param capitalAssetType The capitalAssetType to set.
      * @deprecated
      */
@@ -573,7 +571,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the inventoryStatus attribute.
-     * 
+     *
      * @return Returns the inventoryStatus.
      */
     public AssetStatus getInventoryStatus() {
@@ -582,7 +580,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the inventoryStatus attribute value.
-     * 
+     *
      * @param inventoryStatus The inventoryStatus to set.
      * @deprecated
      */
@@ -592,7 +590,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the organizationOwnerAccount attribute.
-     * 
+     *
      * @return Returns the organizationOwnerAccount.
      */
     public Account getOrganizationOwnerAccount() {
@@ -601,7 +599,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the organizationOwnerAccount attribute value.
-     * 
+     *
      * @param organizationOwnerAccount The organizationOwnerAccount to set.
      * @deprecated
      */
@@ -611,7 +609,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the organizationOwnerChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationOwnerChartOfAccounts.
      */
     public Chart getOrganizationOwnerChartOfAccounts() {
@@ -620,7 +618,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the organizationOwnerChartOfAccounts attribute value.
-     * 
+     *
      * @param organizationOwnerChartOfAccounts The organizationOwnerChartOfAccounts to set.
      * @deprecated
      */
@@ -630,7 +628,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the assetGlobalDetails attribute.
-     * 
+     *
      * @return Returns the assetGlobalDetails.
      */
     public List<AssetGlobalDetail> getAssetGlobalDetails() {
@@ -639,7 +637,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the assetGlobalDetails attribute value.
-     * 
+     *
      * @param assetGlobalDetails The assetGlobalDetails to set.
      */
     public void setAssetGlobalDetails(List<AssetGlobalDetail> assetGlobalDetails) {
@@ -648,7 +646,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the assetPaymentDetails attribute.
-     * 
+     *
      * @return Returns the assetPaymentDetails.
      */
     public List<AssetPaymentDetail> getAssetPaymentDetails() {
@@ -657,7 +655,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the assetPaymentDetails attribute value.
-     * 
+     *
      * @param assetPaymentDetails The assetPaymentDetails to set.
      */
     public void setAssetPaymentDetails(List<AssetPaymentDetail> assetPaymentDetails) {
@@ -673,7 +671,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * This returns a list of Assets to Update and/or Add. Applicable to both create new and separate.
-     * 
+     *
      * @see org.kuali.rice.kns.bo.GlobalBusinessObject#generateGlobalChangesToPersist()
      */
     public List<PersistableBusinessObject> generateGlobalChangesToPersist() {
@@ -692,7 +690,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     }
 
     public boolean isPersistable() {
-        // This is needed because otherwise we could get DB Constraint violation error if user tries 
+        // This is needed because otherwise we could get DB Constraint violation error if user tries
         // to save Asset Global document with a non existing, inactive or expired account.
         this.refreshReferenceObject(CamsPropertyConstants.AssetGlobal.ORGANIZATION_OWNER_ACCOUNT);
         AssetGlobalService assetGlobalService = SpringContext.getBean(AssetGlobalService.class);
@@ -713,7 +711,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the lastInventoryDate attribute.
-     * 
+     *
      * @return Returns the lastInventoryDate.
      */
     public Date getLastInventoryDate() {
@@ -722,7 +720,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the lastInventoryDate attribute value.
-     * 
+     *
      * @param lastInventoryDate The lastInventoryDate to set.
      */
     public void setLastInventoryDate(Date lastInventoryDate) {
@@ -765,7 +763,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     public void setFinancialDocumentPostingYear(Integer financialDocumentPostingYear) {
         this.financialDocumentPostingYear = financialDocumentPostingYear;
     }
-    
+
     /**
      * @see org.kuali.rice.kns.bo.BusinessObjectBase#toStringMapper()
      */
@@ -777,7 +775,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the financialDocumentNextLineNumber attribute.
-     * 
+     *
      * @return Returns the financialDocumentNextLineNumber.
      */
     public Integer getFinancialDocumentNextLineNumber() {
@@ -786,7 +784,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the financialDocumentNextLineNumber attribute value.
-     * 
+     *
      * @param financialDocumentNextLineNumber The financialDocumentNextLineNumber to set.
      */
     public void setFinancialDocumentNextLineNumber(Integer financialDocumentNextLineNumber) {
@@ -819,7 +817,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the financialDocumentTypeCode attribute.
-     * 
+     *
      * @return Returns the financialDocumentTypeCode.
      */
     public String getFinancialDocumentTypeCode() {
@@ -828,7 +826,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the financialDocumentTypeCode attribute value.
-     * 
+     *
      * @param financialDocumentTypeCode The financialDocumentTypeCode to set.
      */
     public void setFinancialDocumentTypeCode(String financialDocumentTypeCode) {
@@ -837,7 +835,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the assetRepresentative attribute.
-     * 
+     *
      * @return Returns the assetRepresentative.
      */
     public Person getAssetRepresentative() {
@@ -847,7 +845,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the assetRepresentative attribute value.
-     * 
+     *
      * @param assetRepresentative The assetRepresentative to set.
      */
     public void setAssetRepresentative(Person assetRepresentative) {
@@ -856,7 +854,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the agency attribute.
-     * 
+     *
      * @return Returns the agency.
      */
     public ContractsAndGrantsAgency getAgency() {
@@ -868,7 +866,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
      * the following hack:<br>
      * ObjectUtils.materializeAllSubObjects(oldBo); // hack to resolve XStream not dealing well with Proxies<br>
      * so as long as that is there we need this setter otherwise a NoSuchMethodException occurs.
-     * 
+     *
      * @deprecated
      */
     public void setAgency(ContractsAndGrantsAgency agency) {
@@ -877,7 +875,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the generalLedgerPendingEntries attribute.
-     * 
+     *
      * @return Returns the generalLedgerPendingEntries.
      */
     public List<GeneralLedgerPendingEntry> getGeneralLedgerPendingEntries() {
@@ -886,7 +884,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the generalLedgerPendingEntries attribute value.
-     * 
+     *
      * @param generalLedgerPendingEntries The generalLedgerPendingEntries to set.
      */
     public void setGeneralLedgerPendingEntries(List<GeneralLedgerPendingEntry> generalLedgerPendingEntries) {
@@ -895,7 +893,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the separateSourceCapitalAsset attribute.
-     * 
+     *
      * @return Returns the separateSourceCapitalAsset.
      */
     public Asset getSeparateSourceCapitalAsset() {
@@ -904,7 +902,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the separateSourceCapitalAsset attribute value.
-     * 
+     *
      * @param separateSourceCapitalAsset The separateSourceCapitalAsset to set.
      */
     public void setSeparateSourceCapitalAsset(Asset separateSourceCapitalAsset) {
@@ -913,7 +911,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the separateSourceCapitalAssetNumber attribute.
-     * 
+     *
      * @return Returns the separateSourceCapitalAssetNumber.
      */
     public Long getSeparateSourceCapitalAssetNumber() {
@@ -922,7 +920,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the separateSourceCapitalAssetNumber attribute value.
-     * 
+     *
      * @param separateSourceCapitalAssetNumber The separateSourceCapitalAssetNumber to set.
      */
     public void setSeparateSourceCapitalAssetNumber(Long separateSourceCapitalAssetNumber) {
@@ -948,7 +946,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     /**
      * Small workaround to avoid KualiInquirableImpl.getInquiryUrl having think it needs to construct an inquiry url for this date.
      * This only returns a date if this is a separate.
-     * 
+     *
      * @return
      */
     public Date getSeparateDocumentHeaderFinalDate() {
@@ -959,7 +957,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 //        if (routeHeader != null && routeHeader.getApprovedDate() != null) {
 //            return new Date(routeHeader.getApprovedDate().getTime());
 //        }
-//        
+//
         String userId = GlobalVariables.getUserSession().getPrincipalId();
         WorkflowDocument workflowDocument = WorkflowDocumentFactory.loadDocument(userId, getDocumentNumber());
 
@@ -967,7 +965,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
         if (ObjectUtils.isNotNull(workflowDocument.getDateApproved())) {
             return getSqlDate(workflowDocument.getDateApproved().toCalendar(Locale.getDefault()));
         }
-        
+
         return null;
     }
 
@@ -985,7 +983,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
         return sqlDueDate;
     }
 
-    
+
     public boolean isCapitalAssetBuilderOriginIndicator() {
         return capitalAssetBuilderOriginIndicator;
     }
@@ -996,7 +994,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the calculate equal source amounts button
-     * 
+     *
      * @return
      */
     public String getCalculateEqualSourceAmountsButton() {
@@ -1005,7 +1003,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the calculate equal source amounts button
-     * 
+     *
      * @param calculateEqualSourceAmountsButton
      */
     public void setCalculateEqualSourceAmountsButton(String calculateEqualSourceAmountsButton) {
@@ -1041,7 +1039,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the totalAssetPaymentAmount attribute.
-     * 
+     *
      * @return Returns the totalAssetPaymentAmount.
      */
     public KualiDecimal getTotalAssetPaymentAmount() {
@@ -1057,7 +1055,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the totalAssetPaymentAmount attribute value.
-     * 
+     *
      * @param totalAssetPaymentAmount The totalAssetPaymentAmount to set.
      */
     public void setTotalAssetPaymentAmount(KualiDecimal totalAssetPaymentAmount) {
@@ -1066,7 +1064,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the separateSourceTotalAmount attribute value.
-     * 
+     *
      * @return separateSourceTotalAmount
      */
     public KualiDecimal getSeparateSourceTotalAmount() {
@@ -1084,7 +1082,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the separateSourceTotalAmount attribute value.
-     * 
+     *
      * @param separateSourceTotalAmount
      */
     public void setSeparateSourceTotalAmount(KualiDecimal separateSourceTotalAmount) {
@@ -1093,7 +1091,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the minAssetTotalAmount attribute.
-     * 
+     *
      * @return Returns the minAssetTotalAmount.
      */
     public KualiDecimal getMinAssetTotalAmount() {
@@ -1102,7 +1100,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the minAssetTotalAmount attribute value.
-     * 
+     *
      * @param minAssetTotalAmount The minAssetTotalAmount to set.
      */
     public void setMinAssetTotalAmount(KualiDecimal minAssetTotalAmount) {
@@ -1111,7 +1109,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Gets the maxAssetTotalAmount attribute.
-     * 
+     *
      * @return Returns the maxAssetTotalAmount.
      */
     public KualiDecimal getMaxAssetTotalAmount() {
@@ -1120,7 +1118,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the maxAssetTotalAmount attribute value.
-     * 
+     *
      * @param maxAssetTotalAmount The maxAssetTotalAmount to set.
      */
     public void setMaxAssetTotalAmount(KualiDecimal maxAssetTotalAmount) {
@@ -1135,24 +1133,24 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
         if ( accountingPeriodService == null ) {
             accountingPeriodService = SpringContext.getBean(AccountingPeriodService.class);
         }
-        
+
         return accountingPeriodService;
     }
-    
+
 
     /**
-     * Set postingYear and postingPeriodCode 
+     * Set postingYear and postingPeriodCode
      * @param accountingPeriod
      */
     public void setAccountingPeriod(AccountingPeriod accountingPeriod) {
-        this.accountingPeriod = accountingPeriod; 
-        
+        this.accountingPeriod = accountingPeriod;
+
     //    if(ObjectUtils.isNotNull(accountingPeriod)) {
     //        setFinancialDocumentPostingYear(accountingPeriod.getUniversityFiscalYear());
     //        setFinancialDocumentPostingPeriodCode(accountingPeriod.getUniversityFiscalPeriodCode());
     //    }
     }
-    
+
     /**
      * get the accountingPeriod
      * @return accountingPeriod
@@ -1160,32 +1158,32 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     public AccountingPeriod getAccountingPeriod() {
         return accountingPeriod;
     }
-    // CSU 6702 END    
-    
+    // CSU 6702 END
+
     /**
      * Gets the universityFiscalPeriodName attribute.
-     * 
+     *
      * @return Returns the universityFiscalPeriodName
      */
-    
+
     public String getUniversityFiscalPeriodName() {
-        if (StringUtils.isNotBlank(universityFiscalPeriodName)) {        
+        if (StringUtils.isNotBlank(universityFiscalPeriodName)) {
             this.setFinancialDocumentPostingPeriodCode(StringUtils.left(universityFiscalPeriodName, 2));
             this.setFinancialDocumentPostingYear(new Integer(StringUtils.right(universityFiscalPeriodName, 4)));
         }
-        
+
         if (StringUtils.isBlank(universityFiscalPeriodName)) {
             if (this.financialDocumentPostingPeriodCode != null && this.financialDocumentPostingYear != null) {
                 universityFiscalPeriodName = this.financialDocumentPostingPeriodCode + this.financialDocumentPostingYear;
             }
         }
-        
+
         return universityFiscalPeriodName;
     }
 
-    /** 
+    /**
      * Sets the universityFiscalPeriodName attribute.
-     * 
+     *
      * @param universityFiscalPeriodName The universityFiscalPeriodName to set.
      */
     public void setUniversityFiscalPeriodName(String universityFiscalPeriodName) {
@@ -1194,7 +1192,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
                 universityFiscalPeriodName = this.financialDocumentPostingPeriodCode + this.financialDocumentPostingYear;
             }
         }
-        
+
         String THIRTEEN = "13";
         if (StringUtils.isNotBlank(universityFiscalPeriodName) && StringUtils.left(universityFiscalPeriodName, 2).equals(THIRTEEN)) {
             String period = StringUtils.left(universityFiscalPeriodName, 2);
@@ -1202,20 +1200,20 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
             AccountingPeriod accountingPeriod = getAccountingPeriodService().getByPeriod(period, year);
             setAccountingPeriod(accountingPeriod);
         }
-        
+
         this.universityFiscalPeriodName = universityFiscalPeriodName;
     }
-    
+
     //this was the code from contribution 6702.....
     //needs to be refactored...seriously..
     /**
-     * Creates a composite of postingPeriodCode and postingyear. 
+     * Creates a composite of postingPeriodCode and postingyear.
      * @return composite or an empty string if either postingPeriodCode or postingYear is null
      */
     public String getAccountingPeriodCompositeString() {
         if (financialDocumentPostingPeriodCode== null || financialDocumentPostingYear == null ) {
             return "";
-        }        
+        }
         return financialDocumentPostingPeriodCode + financialDocumentPostingYear;
     }
 

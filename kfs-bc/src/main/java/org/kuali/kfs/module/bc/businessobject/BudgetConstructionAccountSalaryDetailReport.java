@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,9 +21,7 @@ package org.kuali.kfs.module.bc.businessobject;
 
 import java.math.BigDecimal;
 
-/**
- * 
- */
+
 public class BudgetConstructionAccountSalaryDetailReport{
 
     // Header parts
@@ -39,12 +37,12 @@ public class BudgetConstructionAccountSalaryDetailReport{
     private String accountName;
     private String subAccountName;
 
-    
+
     // Body parts
 
     private String financialObjectCode;
     private String financialObjectCodeName;
-    
+
     private String name;
     // from PendingBudgetConstructionAppointmentFunding
     private String deleteBox;
@@ -52,13 +50,13 @@ public class BudgetConstructionAccountSalaryDetailReport{
     private String iuClassificationLevel;
     // from BudgetConstructionAdministrativePost
     private String administrativePost;
-    
+
     // from BudgetConstructionPosition
     private String positionNumber;
     private String positionSalaryPlanDefault;
     private String positionGradeDefault;
     private String normalWorkMonthsAndiuPayMonths;
-    
+
     // from BudgetConstructionCalculatedSalaryFoundationTracker
     private Integer positionCsfAmount;
     private BigDecimal csfTimePercent;
@@ -77,7 +75,7 @@ public class BudgetConstructionAccountSalaryDetailReport{
     private String appointmentFundingDurationCode;
     private Integer appointmentTotalIntendedAmount;
     private BigDecimal appointmentTotalIntendedFteQuantity;
-    
+
     private Integer amountChange;
     private BigDecimal percentChange;
 
@@ -89,10 +87,10 @@ public class BudgetConstructionAccountSalaryDetailReport{
     private BigDecimal totalRequestFte;
     private Integer totalAmountChange;
     private BigDecimal totalPercentChange;
-    
-    
-    
-    
+
+
+
+
     /**
      * Default constructor.
      */
@@ -692,7 +690,7 @@ public class BudgetConstructionAccountSalaryDetailReport{
 
 
     /**
-     * Gets the csfTimePercent attribute. 
+     * Gets the csfTimePercent attribute.
      * @return Returns the csfTimePercent.
      */
     public BigDecimal getCsfTimePercent() {
@@ -714,7 +712,7 @@ public class BudgetConstructionAccountSalaryDetailReport{
 
 
     /**
-     * Gets the appointmentRequestedTimePercent attribute. 
+     * Gets the appointmentRequestedTimePercent attribute.
      * @return Returns the appointmentRequestedTimePercent.
      */
     public BigDecimal getAppointmentRequestedTimePercent() {
@@ -736,7 +734,7 @@ public class BudgetConstructionAccountSalaryDetailReport{
 
 
     /**
-     * Gets the appointmentRequestedCsfTimePercent attribute. 
+     * Gets the appointmentRequestedCsfTimePercent attribute.
      * @return Returns the appointmentRequestedCsfTimePercent.
      */
     public BigDecimal getAppointmentRequestedCsfTimePercent() {
@@ -758,7 +756,7 @@ public class BudgetConstructionAccountSalaryDetailReport{
 
 
     /**
-     * Gets the appointmentRequestedCsfFteQuantity attribute. 
+     * Gets the appointmentRequestedCsfFteQuantity attribute.
      * @return Returns the appointmentRequestedCsfFteQuantity.
      */
     public BigDecimal getAppointmentRequestedCsfFteQuantity() {

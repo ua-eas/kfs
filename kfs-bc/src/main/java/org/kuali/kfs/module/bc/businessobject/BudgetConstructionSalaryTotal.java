@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,9 +27,7 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase {
 
     private String organizationChartOfAccountsCode;
@@ -53,7 +51,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccountsCode
      */
     public String getOrganizationChartOfAccountsCode() {
@@ -62,7 +60,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationChartOfAccountsCode The organizationChartOfAccountsCode to set.
      */
     public void setOrganizationChartOfAccountsCode(String organizationChartOfAccountsCode) {
@@ -72,7 +70,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -81,7 +79,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -91,7 +89,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the csfAmount attribute.
-     * 
+     *
      * @return Returns the csfAmount.
      */
     public KualiInteger getCsfAmount() {
@@ -100,7 +98,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the csfAmount attribute value.
-     * 
+     *
      * @param csfAmount The csfAmount to set.
      */
     public void setCsfAmount(KualiInteger csfAmount) {
@@ -109,7 +107,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the appointmentRequestedAmount attribute.
-     * 
+     *
      * @return Returns the appointmentRequestedAmount.
      */
     public KualiInteger getAppointmentRequestedAmount() {
@@ -118,7 +116,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the appointmentRequestedAmount attribute value.
-     * 
+     *
      * @param appointmentRequestedAmount The appointmentRequestedAmount to set.
      */
     public void setAppointmentRequestedAmount(KualiInteger appointmentRequestedAmount) {
@@ -127,7 +125,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the appointmentRequestedFteQuantity attribute.
-     * 
+     *
      * @return Returns the appointmentRequestedFteQuantity
      */
     public BigDecimal getAppointmentRequestedFteQuantity() {
@@ -136,7 +134,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the appointmentRequestedFteQuantity attribute.
-     * 
+     *
      * @param appointmentRequestedFteQuantity The appointmentRequestedFteQuantity to set.
      */
     public void setAppointmentRequestedFteQuantity(BigDecimal appointmentRequestedFteQuantity) {
@@ -146,7 +144,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the initialRequestedAmount attribute.
-     * 
+     *
      * @return Returns the initialRequestedAmount.
      */
     public KualiInteger getInitialRequestedAmount() {
@@ -155,7 +153,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the initialRequestedAmount attribute value.
-     * 
+     *
      * @param initialRequestedAmount The initialRequestedAmount to set.
      */
     public void setInitialRequestedAmount(KualiInteger initialRequestedAmount) {
@@ -164,7 +162,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the initialRequestedFteQuantity attribute.
-     * 
+     *
      * @return Returns the initialRequestedFteQuantity
      */
     public BigDecimal getInitialRequestedFteQuantity() {
@@ -173,7 +171,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the initialRequestedFteQuantity attribute.
-     * 
+     *
      * @param initialRequestedFteQuantity The initialRequestedFteQuantity to set.
      */
     public void setInitialRequestedFteQuantity(BigDecimal initialRequestedFteQuantity) {
@@ -183,7 +181,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId.
      */
     public String getPrincipalId() {
@@ -192,7 +190,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the principalId attribute value.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -201,7 +199,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccounts
      */
     public Chart getOrganizationChartOfAccounts() {
@@ -210,7 +208,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @param organizationChartOfAccounts The organizationChartOfAccounts to set.
      * @deprecated
      */
@@ -220,7 +218,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -229,7 +227,7 @@ public class BudgetConstructionSalaryTotal extends PersistableBusinessObjectBase
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */

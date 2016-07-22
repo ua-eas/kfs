@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,9 +29,7 @@ import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBase {
 
     private String principalId;
@@ -76,7 +74,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -85,7 +83,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -95,7 +93,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccountsCode
      */
     public String getOrganizationChartOfAccountsCode() {
@@ -104,7 +102,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationChartOfAccountsCode The organizationChartOfAccountsCode to set.
      */
     public void setOrganizationChartOfAccountsCode(String organizationChartOfAccountsCode) {
@@ -114,7 +112,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -123,7 +121,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -133,7 +131,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the subFundGroupCode attribute.
-     * 
+     *
      * @return Returns the subFundGroupCode
      */
     public String getSubFundGroupCode() {
@@ -142,7 +140,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the subFundGroupCode attribute.
-     * 
+     *
      * @param subFundGroupCode The subFundGroupCode to set.
      */
     public void setSubFundGroupCode(String subFundGroupCode) {
@@ -152,7 +150,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -161,7 +159,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -171,7 +169,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the incomeExpenseCode attribute.
-     * 
+     *
      * @return Returns the incomeExpenseCode
      */
     public String getIncomeExpenseCode() {
@@ -180,7 +178,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the incomeExpenseCode attribute.
-     * 
+     *
      * @param incomeExpenseCode The incomeExpenseCode to set.
      */
     public void setIncomeExpenseCode(String incomeExpenseCode) {
@@ -190,7 +188,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialConsolidationSortCode attribute.
-     * 
+     *
      * @return Returns the financialConsolidationSortCode
      */
     public String getFinancialConsolidationSortCode() {
@@ -199,7 +197,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialConsolidationSortCode attribute.
-     * 
+     *
      * @param financialConsolidationSortCode The financialConsolidationSortCode to set.
      */
     public void setFinancialConsolidationSortCode(String financialConsolidationSortCode) {
@@ -209,7 +207,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialLevelSortCode attribute.
-     * 
+     *
      * @return Returns the financialLevelSortCode
      */
     public String getFinancialLevelSortCode() {
@@ -218,7 +216,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialLevelSortCode attribute.
-     * 
+     *
      * @param financialLevelSortCode The financialLevelSortCode to set.
      */
     public void setFinancialLevelSortCode(String financialLevelSortCode) {
@@ -228,7 +226,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -237,7 +235,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -247,7 +245,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -256,7 +254,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -266,7 +264,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the accountLineAnnualBalanceAmount attribute.
-     * 
+     *
      * @return Returns the accountLineAnnualBalanceAmount.
      */
     public KualiInteger getAccountLineAnnualBalanceAmount() {
@@ -275,7 +273,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the accountLineAnnualBalanceAmount attribute value.
-     * 
+     *
      * @param accountLineAnnualBalanceAmount The accountLineAnnualBalanceAmount to set.
      */
     public void setAccountLineAnnualBalanceAmount(KualiInteger accountLineAnnualBalanceAmount) {
@@ -284,7 +282,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth10LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth10LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth10LineAmount() {
@@ -293,7 +291,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth10LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth10LineAmount The financialDocumentMonth10LineAmount to set.
      */
     public void setFinancialDocumentMonth10LineAmount(KualiInteger financialDocumentMonth10LineAmount) {
@@ -302,7 +300,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth11LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth11LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth11LineAmount() {
@@ -311,7 +309,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth11LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth11LineAmount The financialDocumentMonth11LineAmount to set.
      */
     public void setFinancialDocumentMonth11LineAmount(KualiInteger financialDocumentMonth11LineAmount) {
@@ -320,7 +318,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth12LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth12LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth12LineAmount() {
@@ -329,7 +327,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth12LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth12LineAmount The financialDocumentMonth12LineAmount to set.
      */
     public void setFinancialDocumentMonth12LineAmount(KualiInteger financialDocumentMonth12LineAmount) {
@@ -338,7 +336,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth1LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth1LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth1LineAmount() {
@@ -347,7 +345,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth1LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth1LineAmount The financialDocumentMonth1LineAmount to set.
      */
     public void setFinancialDocumentMonth1LineAmount(KualiInteger financialDocumentMonth1LineAmount) {
@@ -356,7 +354,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth2LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth2LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth2LineAmount() {
@@ -365,7 +363,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth2LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth2LineAmount The financialDocumentMonth2LineAmount to set.
      */
     public void setFinancialDocumentMonth2LineAmount(KualiInteger financialDocumentMonth2LineAmount) {
@@ -374,7 +372,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth3LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth3LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth3LineAmount() {
@@ -383,7 +381,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth3LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth3LineAmount The financialDocumentMonth3LineAmount to set.
      */
     public void setFinancialDocumentMonth3LineAmount(KualiInteger financialDocumentMonth3LineAmount) {
@@ -392,7 +390,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth4LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth4LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth4LineAmount() {
@@ -401,7 +399,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth4LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth4LineAmount The financialDocumentMonth4LineAmount to set.
      */
     public void setFinancialDocumentMonth4LineAmount(KualiInteger financialDocumentMonth4LineAmount) {
@@ -410,7 +408,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth5LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth5LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth5LineAmount() {
@@ -419,7 +417,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth5LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth5LineAmount The financialDocumentMonth5LineAmount to set.
      */
     public void setFinancialDocumentMonth5LineAmount(KualiInteger financialDocumentMonth5LineAmount) {
@@ -428,7 +426,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth6LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth6LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth6LineAmount() {
@@ -437,7 +435,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth6LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth6LineAmount The financialDocumentMonth6LineAmount to set.
      */
     public void setFinancialDocumentMonth6LineAmount(KualiInteger financialDocumentMonth6LineAmount) {
@@ -446,7 +444,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth7LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth7LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth7LineAmount() {
@@ -455,7 +453,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth7LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth7LineAmount The financialDocumentMonth7LineAmount to set.
      */
     public void setFinancialDocumentMonth7LineAmount(KualiInteger financialDocumentMonth7LineAmount) {
@@ -464,7 +462,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth8LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth8LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth8LineAmount() {
@@ -473,7 +471,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth8LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth8LineAmount The financialDocumentMonth8LineAmount to set.
      */
     public void setFinancialDocumentMonth8LineAmount(KualiInteger financialDocumentMonth8LineAmount) {
@@ -482,7 +480,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialDocumentMonth9LineAmount attribute.
-     * 
+     *
      * @return Returns the financialDocumentMonth9LineAmount.
      */
     public KualiInteger getFinancialDocumentMonth9LineAmount() {
@@ -491,7 +489,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialDocumentMonth9LineAmount attribute value.
-     * 
+     *
      * @param financialDocumentMonth9LineAmount The financialDocumentMonth9LineAmount to set.
      */
     public void setFinancialDocumentMonth9LineAmount(KualiInteger financialDocumentMonth9LineAmount) {
@@ -500,7 +498,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialConsolidationObjectCode attribute.
-     * 
+     *
      * @return Returns the financialConsolidationObjectCode
      */
     public String getFinancialConsolidationObjectCode() {
@@ -509,7 +507,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialConsolidationObjectCode attribute.
-     * 
+     *
      * @param financialConsolidationObjectCode The financialConsolidationObjectCode to set.
      */
     public void setFinancialConsolidationObjectCode(String financialConsolidationObjectCode) {
@@ -519,7 +517,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialObjectLevelCode attribute.
-     * 
+     *
      * @return Returns the financialObjectLevelCode
      */
     public String getFinancialObjectLevelCode() {
@@ -528,7 +526,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialObjectLevelCode attribute.
-     * 
+     *
      * @param financialObjectLevelCode The financialObjectLevelCode to set.
      */
     public void setFinancialObjectLevelCode(String financialObjectLevelCode) {
@@ -538,7 +536,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccounts
      */
     public Chart getOrganizationChartOfAccounts() {
@@ -547,7 +545,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @param organizationChartOfAccounts The organizationChartOfAccounts to set.
      * @deprecated
      */
@@ -557,7 +555,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -566,7 +564,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -576,7 +574,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -585,7 +583,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -595,7 +593,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialObjectLevel attribute.
-     * 
+     *
      * @return Returns the financialObjectLevel.
      */
     public ObjectLevel getFinancialObjectLevel() {
@@ -604,7 +602,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialObjectLevel attribute value.
-     * 
+     *
      * @param financialObjectLevel The financialObjectLevel to set.
      * @deprecated
      */
@@ -614,7 +612,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the subFundGroup attribute.
-     * 
+     *
      * @return Returns the subFundGroup.
      */
     public SubFundGroup getSubFundGroup() {
@@ -623,7 +621,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the subFundGroup attribute value.
-     * 
+     *
      * @param subFundGroup The subFundGroup to set.
      * @deprecated
      */
@@ -633,7 +631,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Gets the financialConsolidationObject attribute.
-     * 
+     *
      * @return Returns the financialConsolidationObject.
      */
     public ObjectConsolidation getFinancialConsolidationObject() {
@@ -642,7 +640,7 @@ public class BudgetConstructionMonthSummary extends PersistableBusinessObjectBas
 
     /**
      * Sets the financialConsolidationObject attribute value.
-     * 
+     *
      * @param financialConsolidationObject The financialConsolidationObject to set.
      * @deprecated
      */

@@ -113,9 +113,7 @@ public class LookupUtils {
         return limit;
     }
 
-    /**
-     *
-     */
+
     public static Integer getApplicationSearchResultsLimit() {
         String limitString = CoreFrameworkServiceLocator.getParameterService()
                 .getParameterValueAsString(KRADConstants.KNS_NAMESPACE,

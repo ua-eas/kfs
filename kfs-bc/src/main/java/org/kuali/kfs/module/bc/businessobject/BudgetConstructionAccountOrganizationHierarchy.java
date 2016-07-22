@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,9 +26,7 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionAccountOrganizationHierarchy extends PersistableBusinessObjectBase {
 
     private Integer universityFiscalYear;
@@ -51,7 +49,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -60,7 +58,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -70,7 +68,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -79,7 +77,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -89,7 +87,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -98,7 +96,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -108,7 +106,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the organizationLevelCode attribute.
-     * 
+     *
      * @return Returns the organizationLevelCode
      */
     public Integer getOrganizationLevelCode() {
@@ -117,7 +115,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the organizationLevelCode attribute.
-     * 
+     *
      * @param organizationLevelCode The organizationLevelCode to set.
      */
     public void setOrganizationLevelCode(Integer organizationLevelCode) {
@@ -127,7 +125,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccountsCode
      */
     public String getOrganizationChartOfAccountsCode() {
@@ -136,7 +134,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the organizationChartOfAccountsCode attribute.
-     * 
+     *
      * @param organizationChartOfAccountsCode The organizationChartOfAccountsCode to set.
      */
     public void setOrganizationChartOfAccountsCode(String organizationChartOfAccountsCode) {
@@ -146,7 +144,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -155,7 +153,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -165,7 +163,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -174,7 +172,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -184,7 +182,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -193,7 +191,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -203,7 +201,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -212,7 +210,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -222,7 +220,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Gets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the organizationChartOfAccounts
      */
     public Chart getOrganizationChartOfAccounts() {
@@ -231,7 +229,7 @@ public class BudgetConstructionAccountOrganizationHierarchy extends PersistableB
 
     /**
      * Sets the organizationChartOfAccounts attribute.
-     * 
+     *
      * @param organizationChartOfAccounts The organizationChartOfAccounts to set.
      * @deprecated
      */

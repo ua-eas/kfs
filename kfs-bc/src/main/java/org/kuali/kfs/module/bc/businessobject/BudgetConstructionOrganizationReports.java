@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,9 +26,7 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.ResponsibilityCenter;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionOrganizationReports extends PersistableBusinessObjectBase {
 
     private String chartOfAccountsCode;
@@ -54,7 +52,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -63,7 +61,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -73,7 +71,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the organizationCode attribute.
-     * 
+     *
      * @return Returns the organizationCode
      */
     public String getOrganizationCode() {
@@ -82,7 +80,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the organizationCode attribute.
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -92,7 +90,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the reportsToChartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the reportsToChartOfAccountsCode
      */
     public String getReportsToChartOfAccountsCode() {
@@ -101,7 +99,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the reportsToChartOfAccountsCode attribute.
-     * 
+     *
      * @param reportsToChartOfAccountsCode The reportsToChartOfAccountsCode to set.
      */
     public void setReportsToChartOfAccountsCode(String reportsToChartOfAccountsCode) {
@@ -111,7 +109,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the reportsToOrganizationCode attribute.
-     * 
+     *
      * @return Returns the reportsToOrganizationCode
      */
     public String getReportsToOrganizationCode() {
@@ -120,7 +118,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the reportsToOrganizationCode attribute.
-     * 
+     *
      * @param reportsToOrganizationCode The reportsToOrganizationCode to set.
      */
     public void setReportsToOrganizationCode(String reportsToOrganizationCode) {
@@ -130,7 +128,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the responsibilityCenterCode attribute.
-     * 
+     *
      * @return Returns the responsibilityCenterCode
      */
     public String getResponsibilityCenterCode() {
@@ -139,7 +137,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the responsibilityCenterCode attribute.
-     * 
+     *
      * @param responsibilityCenterCode The responsibilityCenterCode to set.
      */
     public void setResponsibilityCenterCode(String responsibilityCenterCode) {
@@ -149,7 +147,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -158,7 +156,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -168,7 +166,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the organization attribute.
-     * 
+     *
      * @return Returns the organization
      */
     public Organization getOrganization() {
@@ -177,7 +175,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the organization attribute.
-     * 
+     *
      * @param organization The organization to set.
      * @deprecated
      */
@@ -187,7 +185,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @return Returns the reportsToChartOfAccounts
      */
     public Chart getReportsToChartOfAccounts() {
@@ -196,7 +194,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the reportsToChartOfAccounts attribute.
-     * 
+     *
      * @param reportsToChartOfAccounts The reportsToChartOfAccounts to set.
      * @deprecated
      */
@@ -206,7 +204,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the reportsToOrganization attribute.
-     * 
+     *
      * @return Returns the reportsToOrganization
      */
     public Organization getReportsToOrganization() {
@@ -215,7 +213,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the reportsToOrganization attribute.
-     * 
+     *
      * @param reportsToOrganization The reportsToOrganization to set.
      * @deprecated
      */
@@ -225,7 +223,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the responsibilityCenter attribute.
-     * 
+     *
      * @return Returns the responsibilityCenter.
      */
     public ResponsibilityCenter getResponsibilityCenter() {
@@ -234,7 +232,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the responsibilityCenter attribute value.
-     * 
+     *
      * @param responsibilityCenter The responsibilityCenter to set.
      * @deprecated
      */
@@ -244,7 +242,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Gets the selectionKeyCode attribute.
-     * 
+     *
      * @return Returns the selectionKeyCode.
      */
     public String getSelectionKeyCode() {
@@ -253,7 +251,7 @@ public class BudgetConstructionOrganizationReports extends PersistableBusinessOb
 
     /**
      * Sets the selectionKeyCode attribute value.
-     * 
+     *
      * @param selectionKeyCode The selectionKeyCode to set.
      */
     public void setSelectionKeyCode(String selectionKeyCode) {

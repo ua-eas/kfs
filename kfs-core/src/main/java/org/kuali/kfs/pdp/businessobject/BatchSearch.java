@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,9 +30,7 @@ import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BatchSearch extends TransientBusinessObjectBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BatchSearch.class);
 
@@ -157,19 +155,19 @@ public class BatchSearch extends TransientBusinessObjectBase {
         this.subUnitCode = subUnitCode;
     }
 
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
-        
-        m.put(PdpPropertyConstants.BATCH_ID, this.batchId);                  
-        m.put(PdpPropertyConstants.PAYMENT_COUNT, this.paymentCount);         
+
+        m.put(PdpPropertyConstants.BATCH_ID, this.batchId);
+        m.put(PdpPropertyConstants.PAYMENT_COUNT, this.paymentCount);
         m.put(PdpPropertyConstants.PAYMENT_TOTAL_AMOUNT, this.paymentTotalAmount);
-        m.put(PdpPropertyConstants.BEGIN_DATE, this.beginDate);               
-        m.put(PdpPropertyConstants.END_DATE, this.endDate);                 
-        m.put(PdpPropertyConstants.CHART_CODE, this.chartCode);             
-        m.put(PdpPropertyConstants.ORG_CODE, this.orgCode);               
-        m.put(PdpPropertyConstants.SUB_UNIT_CODE, this.subUnitCode);    
-        
+        m.put(PdpPropertyConstants.BEGIN_DATE, this.beginDate);
+        m.put(PdpPropertyConstants.END_DATE, this.endDate);
+        m.put(PdpPropertyConstants.CHART_CODE, this.chartCode);
+        m.put(PdpPropertyConstants.ORG_CODE, this.orgCode);
+        m.put(PdpPropertyConstants.SUB_UNIT_CODE, this.subUnitCode);
+
         return m;
     }
 }

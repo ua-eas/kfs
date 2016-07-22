@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,9 +28,7 @@ import org.kuali.kfs.module.purap.exception.PurError;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.util.ObjectUtils;
 
-/**
- * 
- */
+
 public class LineItemReceivingItem extends ReceivingItemBase {
 
     private KualiDecimal itemOrderedQuantity;
@@ -99,7 +97,7 @@ public class LineItemReceivingItem extends ReceivingItemBase {
     /**
      * Retreives a purchase order item by inspecting the item type to see if its above the line or below the line and returns the
      * appropriate type.
-     * 
+     *
      * @return - purchase order item
      */
     public PurchaseOrderItem getPurchaseOrderItem() {
@@ -136,7 +134,7 @@ public class LineItemReceivingItem extends ReceivingItemBase {
 
     /**
      * Gets the itemOrderedQuantity attribute.
-     * 
+     *
      * @return Returns the itemOrderedQuantity
      */
     public KualiDecimal getItemOrderedQuantity() {
@@ -145,7 +143,7 @@ public class LineItemReceivingItem extends ReceivingItemBase {
 
     /**
      * Sets the itemOrderedQuantity attribute.
-     * 
+     *
      * @param itemOrderedQuantity The itemOrderedQuantity to set.
      */
     public void setItemOrderedQuantity(KualiDecimal itemOrderedQuantity) {
@@ -154,7 +152,7 @@ public class LineItemReceivingItem extends ReceivingItemBase {
 
     /**
      * Gets the LineItemReceivingDocument attribute.
-     * 
+     *
      * @return Returns the LineItemReceivingDocument.
      */
     public LineItemReceivingDocument getLineItemReceivingDocument() {
@@ -163,7 +161,7 @@ public class LineItemReceivingItem extends ReceivingItemBase {
 
     /**
      * Sets the LineItemReceivingDocument attribute value.
-     * 
+     *
      * @param LineItemReceivingDocument The LineItemReceivingDocument to set.
      * @deprecated
      */

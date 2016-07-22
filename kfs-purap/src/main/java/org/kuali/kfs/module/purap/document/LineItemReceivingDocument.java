@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,9 +40,7 @@ import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 
-/**
- * 
- */
+
 public class LineItemReceivingDocument extends ReceivingDocumentBase {
 
     //Collections
@@ -56,22 +54,22 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
         items = new ArrayList();
     }
 
-    
+
     public void initiateDocument(){
         super.initiateDocument();
         this.setAppDocStatus(PurapConstants.LineItemReceivingStatuses.APPDOC_IN_PROCESS);
     }
-    
+
     public void populateReceivingLineFromPurchaseOrder(PurchaseOrderDocument po){
-        
+
         //populate receiving line document from purchase order
         this.setPurchaseOrderIdentifier( po.getPurapDocumentIdentifier() );
         this.getDocumentHeader().setOrganizationDocumentNumber( po.getDocumentHeader().getOrganizationDocumentNumber() );
         this.setAccountsPayablePurchasingDocumentLinkIdentifier( po.getAccountsPayablePurchasingDocumentLinkIdentifier() );
-        
+
         //copy vendor
         this.setVendorHeaderGeneratedIdentifier( po.getVendorHeaderGeneratedIdentifier() );
-        this.setVendorDetailAssignedIdentifier( po.getVendorDetailAssignedIdentifier() );        
+        this.setVendorDetailAssignedIdentifier( po.getVendorDetailAssignedIdentifier() );
         this.setVendorName( po.getVendorName() );
         this.setVendorNumber( po.getVendorNumber() );
         this.setVendorAddressGeneratedIdentifier( po.getVendorAddressGeneratedIdentifier() );
@@ -81,18 +79,18 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
         this.setVendorStateCode( po.getVendorStateCode() );
         this.setVendorPostalCode( po.getVendorPostalCode() );
         this.setVendorCountryCode( po.getVendorCountryCode() );
-        
+
         //copy alternate vendor
         this.setAlternateVendorName( po.getAlternateVendorName() );
         this.setAlternateVendorNumber( po.getAlternateVendorNumber() );
         this.setAlternateVendorDetailAssignedIdentifier( po.getAlternateVendorDetailAssignedIdentifier() );
         this.setAlternateVendorHeaderGeneratedIdentifier( po.getAlternateVendorHeaderGeneratedIdentifier() );
-        
+
         //copy delivery
         this.setDeliveryBuildingCode( po.getDeliveryBuildingCode() );
         this.setDeliveryBuildingLine1Address( po.getDeliveryBuildingLine1Address() );
         this.setDeliveryBuildingLine2Address( po.getDeliveryBuildingLine2Address() );
-        this.setDeliveryBuildingName( po.getDeliveryBuildingName() );        
+        this.setDeliveryBuildingName( po.getDeliveryBuildingName() );
         this.setDeliveryBuildingRoomNumber( po.getDeliveryBuildingRoomNumber() );
         this.setDeliveryCampusCode( po.getDeliveryCampusCode() );
         this.setDeliveryCityName( po.getDeliveryCityName() );
@@ -105,20 +103,20 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
         this.setDeliveryToEmailAddress( po.getDeliveryToEmailAddress() );
         this.setDeliveryToName( po.getDeliveryToName() );
         this.setDeliveryToPhoneNumber( po.getDeliveryToPhoneNumber() );
-                
+
         //copy purchase order items
         for (PurchaseOrderItem poi : (List<PurchaseOrderItem>) po.getItems()) {
             //TODO: Refactor this check into a service call. route FYI during submit
-            if(poi.isItemActiveIndicator() && 
-               poi.getItemType().isQuantityBasedGeneralLedgerIndicator() && 
+            if(poi.isItemActiveIndicator() &&
+               poi.getItemType().isQuantityBasedGeneralLedgerIndicator() &&
                poi.getItemType().isLineItemIndicator() ){
                 this.getItems().add(new LineItemReceivingItem(poi, this));
             }
         }
-        
+
         populateDocumentDescription(po);
     }
-        
+
     /**
      * Perform logic needed to clear the initial fields on a Receiving Line Document
      */
@@ -132,14 +130,14 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
         // Clearing document Init fields
         if(fromPurchaseOrder == false){
             this.setPurchaseOrderIdentifier(null);
-        }        
+        }
         this.setShipmentReceivedDate(null);
         this.setShipmentPackingSlipNumber(null);
         this.setShipmentBillOfLadingNumber(null);
-        this.setCarrierCode(null);        
+        this.setCarrierCode(null);
     }
 
-    
+
     @Override
     public void prepareForSave(KualiDocumentEvent event) {
 
@@ -147,7 +145,7 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
         if (event instanceof AttributedContinuePurapEvent) {
             SpringContext.getBean(ReceivingService.class).populateReceivingLineFromPurchaseOrder(this);
         }
-        
+
         super.prepareForSave(event);
     }
 
@@ -155,36 +153,36 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
         // DOCUMENT CANCELED
-        // If the document is canceled then set the line item receiving 
+        // If the document is canceled then set the line item receiving
         // status code to CANC.
-        if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isCanceled()) {                      
+        if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isCanceled()) {
             setAppDocStatus(PurapConstants.LineItemReceivingStatuses.APPDOC_CANCELLED);
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(this);
         }
     }
-    
+
     @Override
     public void doRouteLevelChange(DocumentRouteLevelChange change) {
         //If the new node is Outstanding Transactions then we want to set the line item
         //receiving status code to APOO.
-        if (StringUtils.equals(PurapConstants.LineItemReceivingDocumentStrings.AWAITING_PO_OPEN_STATUS, change.getNewNodeName())){            
+        if (StringUtils.equals(PurapConstants.LineItemReceivingDocumentStrings.AWAITING_PO_OPEN_STATUS, change.getNewNodeName())){
             setAppDocStatus(PurapConstants.LineItemReceivingStatuses.APPDOC_AWAITING_PO_OPEN_STATUS);
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(this);
-        } 
+        }
         //If the new node is Join, this means we're done with the routing, so we'll set
         //the line item receiving status code to CMPT.
-        else if (StringUtils.equals(PurapConstants.LineItemReceivingDocumentStrings.JOIN_NODE, change.getNewNodeName())) {            
+        else if (StringUtils.equals(PurapConstants.LineItemReceivingDocumentStrings.JOIN_NODE, change.getNewNodeName())) {
             setAppDocStatus(PurapConstants.LineItemReceivingStatuses.APPDOC_COMPLETE);
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(this);
         }
         SpringContext.getBean(PurapService.class).saveDocumentNoValidation(this);
     }
-    
+
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap m = new LinkedHashMap();      
+        LinkedHashMap m = new LinkedHashMap();
         m.put("documentNumber", this.documentNumber);
         return m;
     }
@@ -232,14 +230,14 @@ public class LineItemReceivingDocument extends ReceivingDocumentBase {
     /**
      * Provides answers to the following splits:
      * RelatesToOutstandingTransactions
-     * 
+     *
      * @see org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase#answerSplitNodeQuestion(java.lang.String)
      */
     public boolean answerSplitNodeQuestion(String nodeName) throws UnsupportedOperationException {
         if (nodeName.equals(PurapWorkflowConstants.RELATES_TO_OUTSTANDING_TRANSACTIONS)) return isRelatesToOutstandingTransactionsRequired();
         throw new UnsupportedOperationException("Cannot answer split question for this node you call \""+nodeName+"\"");
     }
-    
+
     public List buildListOfDeletionAwareLists() {
         List managedLists = super.buildListOfDeletionAwareLists();
         managedLists.add(this.getItems());

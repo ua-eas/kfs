@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,9 +40,7 @@ import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
 
-/**
- * 
- */
+
 public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     private String documentNumber;
@@ -82,12 +80,12 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
     private String manufacturerName;
     private String organizationText;
     private String manufacturerModelNumber;
-    private KualiDecimal separateSourceAmount; 
+    private KualiDecimal separateSourceAmount;
 
     // Non persistent
     private List<AssetGlobalDetail> assetGlobalUniqueDetails;
     private Person assetRepresentative;
-    
+
     public Person getAssetRepresentative() {
         assetRepresentative = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).updatePersonIfNecessary(representativeUniversalIdentifier, assetRepresentative);
         return assetRepresentative;
@@ -99,7 +97,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the locationQuantity attribute.
-     * 
+     *
      * @return Returns the locationQuantity.
      */
     public Integer getLocationQuantity() {
@@ -108,7 +106,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the locationQuantity attribute value.
-     * 
+     *
      * @param locationQuantity The locationQuantity to set.
      */
     public void setLocationQuantity(Integer locationQuantity) {
@@ -125,7 +123,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -134,7 +132,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -143,7 +141,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the capitalAssetNumber attribute.
-     * 
+     *
      * @return Returns the capitalAssetNumber
      */
     public Long getCapitalAssetNumber() {
@@ -152,7 +150,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the capitalAssetNumber attribute.
-     * 
+     *
      * @param capitalAssetNumber The capitalAssetNumber to set.
      */
     public void setCapitalAssetNumber(Long capitalAssetNumber) {
@@ -161,7 +159,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the campusCode attribute.
-     * 
+     *
      * @return Returns the campusCode
      */
     public String getCampusCode() {
@@ -170,7 +168,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the campusCode attribute.
-     * 
+     *
      * @param campusCode The campusCode to set.
      */
     public void setCampusCode(String campusCode) {
@@ -180,7 +178,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the buildingCode attribute.
-     * 
+     *
      * @return Returns the buildingCode
      */
     public String getBuildingCode() {
@@ -189,7 +187,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the buildingCode attribute.
-     * 
+     *
      * @param buildingCode The buildingCode to set.
      */
     public void setBuildingCode(String buildingCode) {
@@ -199,7 +197,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the serialNumber attribute.
-     * 
+     *
      * @return Returns the serialNumber
      */
     public String getSerialNumber() {
@@ -208,7 +206,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the serialNumber attribute.
-     * 
+     *
      * @param serialNumber The serialNumber to set.
      */
     public void setSerialNumber(String serialNumber) {
@@ -218,7 +216,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the buildingRoomNumber attribute.
-     * 
+     *
      * @return Returns the buildingRoomNumber
      */
     public String getBuildingRoomNumber() {
@@ -227,7 +225,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the buildingRoomNumber attribute.
-     * 
+     *
      * @param buildingRoomNumber The buildingRoomNumber to set.
      */
     public void setBuildingRoomNumber(String buildingRoomNumber) {
@@ -237,7 +235,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the buildingSubRoomNumber attribute.
-     * 
+     *
      * @return Returns the buildingSubRoomNumber
      */
     public String getBuildingSubRoomNumber() {
@@ -246,7 +244,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the buildingSubRoomNumber attribute.
-     * 
+     *
      * @param buildingSubRoomNumber The buildingSubRoomNumber to set.
      */
     public void setBuildingSubRoomNumber(String buildingSubRoomNumber) {
@@ -256,7 +254,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the campusTagNumber attribute.
-     * 
+     *
      * @return Returns the campusTagNumber
      */
     public String getCampusTagNumber() {
@@ -265,7 +263,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the campusTagNumber attribute.
-     * 
+     *
      * @param campusTagNumber The campusTagNumber to set.
      */
     public void setCampusTagNumber(String campusTagNumber) {
@@ -275,7 +273,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the organizationInventoryName attribute.
-     * 
+     *
      * @return Returns the organizationInventoryName
      */
     public String getOrganizationInventoryName() {
@@ -284,7 +282,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the organizationInventoryName attribute.
-     * 
+     *
      * @param organizationInventoryName The organizationInventoryName to set.
      */
     public void setOrganizationInventoryName(String organizationInventoryName) {
@@ -294,7 +292,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the organizationAssetTypeIdentifier attribute.
-     * 
+     *
      * @return Returns the organizationAssetTypeIdentifier
      */
     public String getOrganizationAssetTypeIdentifier() {
@@ -303,7 +301,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the organizationAssetTypeIdentifier attribute.
-     * 
+     *
      * @param organizationAssetTypeIdentifier The organizationAssetTypeIdentifier to set.
      */
     public void setOrganizationAssetTypeIdentifier(String organizationAssetTypeIdentifier) {
@@ -313,7 +311,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the offCampusAddress attribute.
-     * 
+     *
      * @return Returns the offCampusAddress
      */
     public String getOffCampusAddress() {
@@ -322,7 +320,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the offCampusAddress attribute.
-     * 
+     *
      * @param offCampusAddress The offCampusAddress to set.
      */
     public void setOffCampusAddress(String offCampusAddress) {
@@ -332,7 +330,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the offCampusCityName attribute.
-     * 
+     *
      * @return Returns the offCampusCityName
      */
     public String getOffCampusCityName() {
@@ -341,7 +339,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the offCampusCityName attribute.
-     * 
+     *
      * @param offCampusCityName The offCampusCityName to set.
      */
     public void setOffCampusCityName(String offCampusCityName) {
@@ -351,7 +349,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the offCampusStateCode attribute.
-     * 
+     *
      * @return Returns the offCampusStateCode
      */
     public String getOffCampusStateCode() {
@@ -360,7 +358,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the offCampusStateCode attribute.
-     * 
+     *
      * @param offCampusStateCode The offCampusStateCode to set.
      */
     public void setOffCampusStateCode(String offCampusStateCode) {
@@ -370,7 +368,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the offCampusZipCode attribute.
-     * 
+     *
      * @return Returns the offCampusZipCode
      */
     public String getOffCampusZipCode() {
@@ -379,7 +377,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the offCampusZipCode attribute.
-     * 
+     *
      * @param offCampusZipCode The offCampusZipCode to set.
      */
     public void setOffCampusZipCode(String offCampusZipCode) {
@@ -388,7 +386,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the offCampusCountryCode attribute.
-     * 
+     *
      * @return Returns the offCampusCountryCode.
      */
     public String getOffCampusCountryCode() {
@@ -397,7 +395,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the offCampusCountryCode attribute value.
-     * 
+     *
      * @param offCampusCountryCode The offCampusCountryCode to set.
      */
     public void setOffCampusCountryCode(String offCampusCountryCode) {
@@ -406,7 +404,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the offCampusName attribute.
-     * 
+     *
      * @return Returns the offCampusName.
      */
     public String getOffCampusName() {
@@ -415,7 +413,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the offCampusName attribute value.
-     * 
+     *
      * @param offCampusName The offCampusName to set.
      */
     public void setOffCampusName(String offCampusName) {
@@ -424,7 +422,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the governmentTagNumber attribute.
-     * 
+     *
      * @return Returns the governmentTagNumber
      */
     public String getGovernmentTagNumber() {
@@ -433,7 +431,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the governmentTagNumber attribute.
-     * 
+     *
      * @param governmentTagNumber The governmentTagNumber to set.
      */
     public void setGovernmentTagNumber(String governmentTagNumber) {
@@ -443,7 +441,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the nationalStockNumber attribute.
-     * 
+     *
      * @return Returns the nationalStockNumber
      */
     public String getNationalStockNumber() {
@@ -452,7 +450,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the nationalStockNumber attribute.
-     * 
+     *
      * @param nationalStockNumber The nationalStockNumber to set.
      */
     public void setNationalStockNumber(String nationalStockNumber) {
@@ -481,10 +479,10 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
         }
         return campus;
     }
-    
+
     /**
      * Sets the campus attribute.
-     * 
+     *
      * @param campus The campus to set.
      * @deprecated
      */
@@ -494,7 +492,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the building attribute.
-     * 
+     *
      * @return Returns the building.
      */
     public Building getBuilding() {
@@ -503,7 +501,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the building attribute value.
-     * 
+     *
      * @param building The building to set.
      * @deprecated
      */
@@ -513,7 +511,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the buildingRoom attribute.
-     * 
+     *
      * @return Returns the buildingRoom.
      */
     public Room getBuildingRoom() {
@@ -522,7 +520,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the buildingRoom attribute value.
-     * 
+     *
      * @param buildingRoom The buildingRoom to set.
      * @deprecated
      */
@@ -553,10 +551,10 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
         }
         return offCampusState;
     }
-    
+
     /**
      * Sets the offCampusState attribute value.
-     * 
+     *
      * @param offCampusState The offCampusState to set.
      * @deprecated
      */
@@ -566,7 +564,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the postalZipCode attribute.
-     * 
+     *
      * @return Returns the postalZipCode.
      */
     public PostalCodeEbo getPostalZipCode() {
@@ -585,13 +583,13 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
                 }
             }
         }
-        
+
         return postalZipCode;
     }
-    
+
     /**
      * Sets the postalZipCode attribute value.
-     * 
+     *
      * @param postalZipCode The postalZipCode to set.
      * @deprecated
      */
@@ -601,7 +599,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the offCampusCountry attribute.
-     * 
+     *
      * @return Returns the offCampusCountry.
      */
     public CountryEbo getOffCampusCountry() {
@@ -621,10 +619,10 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
         }
         return offCampusCountry;
     }
-    
+
     /**
      * Sets the offCampusCountry attribute value.
-     * 
+     *
      * @param offCampusCountry The offCampusCountry to set.
      * @deprecated
      */
@@ -634,7 +632,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the asset attribute.
-     * 
+     *
      * @return Returns the asset.
      */
     public Asset getAsset() {
@@ -643,7 +641,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the asset attribute value.
-     * 
+     *
      * @param asset The asset to set.
      */
     public void setAsset(Asset asset) {
@@ -653,7 +651,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the assetGlobalUniqueDetails attribute.
-     * 
+     *
      * @return Returns the assetGlobalUniqueDetails.
      */
     public List<AssetGlobalDetail> getAssetGlobalUniqueDetails() {
@@ -662,7 +660,7 @@ public class AssetGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the assetGlobalUniqueDetails attribute value.
-     * 
+     *
      * @param assetGlobalUniqueDetails The assetGlobalUniqueDetails to set.
      */
     public void setAssetGlobalUniqueDetails(List<AssetGlobalDetail> assetGlobalUniqueDetails) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,16 +24,14 @@ import java.util.LinkedHashMap;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class IndirectCostRecoveryExclusionType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String accountIndirectCostRecoveryTypeCode;
     private String chartOfAccountsCode;
     private String financialObjectCode;
-    private boolean active; 
-    
+    private boolean active;
+
     private Chart chart;
     private IndirectCostRecoveryType indirectCostRecoveryType;
     private ObjectCode objectCodeCurrent;
@@ -44,7 +42,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Gets the accountIndirectCostRecoveryTypeCode attribute.
-     * 
+     *
      * @return Returns the accountIndirectCostRecoveryTypeCode
      */
     public String getAccountIndirectCostRecoveryTypeCode() {
@@ -53,7 +51,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Sets the accountIndirectCostRecoveryTypeCode attribute.
-     * 
+     *
      * @param accountIndirectCostRecoveryTypeCode The accountIndirectCostRecoveryTypeCode to set.
      */
     public void setAccountIndirectCostRecoveryTypeCode(String accountIndirectCostRecoveryTypeCode) {
@@ -63,7 +61,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -72,7 +70,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -82,7 +80,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -91,7 +89,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -99,7 +97,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
     }
 
     /**
-     * Gets the active attribute. 
+     * Gets the active attribute.
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -116,7 +114,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart
      */
     public Chart getChart() {
@@ -125,7 +123,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Sets the chart attribute.
-     * 
+     *
      * @param chart The chart to set.
      * @deprecated
      */

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,9 +37,7 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 
-/**
- * 
- */
+
 public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject, MutableInactivatable {
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SubObjectCodeGlobal.class);
@@ -72,7 +70,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -81,7 +79,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -91,7 +89,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -100,7 +98,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -110,7 +108,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -119,7 +117,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -129,7 +127,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -138,7 +136,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -148,7 +146,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the financialSubObjectCodeName attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCodeName
      */
     public String getFinancialSubObjectCodeName() {
@@ -157,7 +155,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the financialSubObjectCodeName attribute.
-     * 
+     *
      * @param financialSubObjectCodeName The financialSubObjectCodeName to set.
      */
     public void setFinancialSubObjectCodeName(String financialSubObjectCodeName) {
@@ -167,7 +165,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the financialSubObjectCodeShortName attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCodeShortName
      */
     public String getFinancialSubObjectCodeShortName() {
@@ -176,7 +174,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the financialSubObjectCodeShortName attribute.
-     * 
+     *
      * @param financialSubObjectCodeShortName The financialSubObjectCodeShortName to set.
      */
     public void setFinancialSubObjectCodeShortName(String financialSubObjectCdshortNm) {
@@ -186,7 +184,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active
      */
     public boolean isActive() {
@@ -196,7 +194,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -206,7 +204,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the financialDocument attribute.
-     * 
+     *
      * @return Returns the financialDocument
      */
     public DocumentHeader getFinancialDocument() {
@@ -215,7 +213,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the financialDocument attribute.
-     * 
+     *
      * @param financialDocument The financialDocument to set.
      * @deprecated
      */
@@ -225,7 +223,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the universityFiscal attribute.
-     * 
+     *
      * @return Returns the universityFiscal
      */
     public SystemOptions getUniversityFiscal() {
@@ -234,7 +232,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the universityFiscal attribute.
-     * 
+     *
      * @param universityFiscal The universityFiscal to set.
      * @deprecated
      */
@@ -244,7 +242,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -253,7 +251,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -295,7 +293,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * This returns a list of Sub Object Codes to Update and/or Add
-     * 
+     *
      * @see org.kuali.rice.krad.document.GlobalBusinessObject#applyGlobalChanges()
      */
     public List<PersistableBusinessObject> generateGlobalChangesToPersist() {
@@ -346,7 +344,7 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
 
     /**
      * This method returns newvalue iff it is not empty
-     * 
+     *
      * @param oldValue
      * @param newValue
      * @return

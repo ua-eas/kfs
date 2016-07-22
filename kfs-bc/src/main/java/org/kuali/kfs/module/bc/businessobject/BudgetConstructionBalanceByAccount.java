@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,9 +32,7 @@ import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
-/**
- * 
- */
+
 public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjectBase {
 
     private String principalId;
@@ -73,7 +71,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -82,7 +80,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -92,7 +90,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -101,7 +99,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -111,7 +109,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -120,7 +118,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -130,7 +128,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -139,7 +137,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -149,7 +147,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -158,7 +156,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -168,7 +166,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -177,7 +175,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -187,7 +185,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -196,7 +194,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -206,7 +204,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialObjectTypeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeCode
      */
     public String getFinancialObjectTypeCode() {
@@ -215,7 +213,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialObjectTypeCode attribute.
-     * 
+     *
      * @param financialObjectTypeCode The financialObjectTypeCode to set.
      */
     public void setFinancialObjectTypeCode(String financialObjectTypeCode) {
@@ -225,7 +223,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialObjectLevelCode attribute.
-     * 
+     *
      * @return Returns the financialObjectLevelCode
      */
     public String getFinancialObjectLevelCode() {
@@ -234,7 +232,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialObjectLevelCode attribute.
-     * 
+     *
      * @param financialObjectLevelCode The financialObjectLevelCode to set.
      */
     public void setFinancialObjectLevelCode(String financialObjectLevelCode) {
@@ -244,7 +242,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the typeFinancialReportSortCode attribute.
-     * 
+     *
      * @return Returns the typeFinancialReportSortCode
      */
     public String getTypeFinancialReportSortCode() {
@@ -253,7 +251,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the typeFinancialReportSortCode attribute.
-     * 
+     *
      * @param typeFinancialReportSortCode The typeFinancialReportSortCode to set.
      */
     public void setTypeFinancialReportSortCode(String typeFinancialReportSortCode) {
@@ -263,7 +261,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialConsolidationSortCode attribute.
-     * 
+     *
      * @return Returns the financialConsolidationSortCode
      */
     public String getFinancialConsolidationSortCode() {
@@ -272,7 +270,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialConsolidationSortCode attribute.
-     * 
+     *
      * @param financialConsolidationSortCode The financialConsolidationSortCode to set.
      */
     public void setFinancialConsolidationSortCode(String financialConsolidationSortCode) {
@@ -282,7 +280,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the levelFinancialReportSortCode attribute.
-     * 
+     *
      * @return Returns the levelFinancialReportSortCode
      */
     public String getLevelFinancialReportSortCode() {
@@ -291,7 +289,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the levelFinancialReportSortCode attribute.
-     * 
+     *
      * @param levelFinancialReportSortCode The levelFinancialReportSortCode to set.
      */
     public void setLevelFinancialReportSortCode(String levelFinancialReportSortCode) {
@@ -301,7 +299,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the appointmentRequestedFteQuantity attribute.
-     * 
+     *
      * @return Returns the appointmentRequestedFteQuantity
      */
     public BigDecimal getAppointmentRequestedFteQuantity() {
@@ -310,7 +308,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the appointmentRequestedFteQuantity attribute.
-     * 
+     *
      * @param appointmentRequestedFteQuantity The appointmentRequestedFteQuantity to set.
      */
     public void setAppointmentRequestedFteQuantity(BigDecimal appointmentRequestedFteQuantity) {
@@ -320,7 +318,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the appointmentRequestedCsfFteQuantity attribute.
-     * 
+     *
      * @return Returns the appointmentRequestedCsfFteQuantity
      */
     public BigDecimal getAppointmentRequestedCsfFteQuantity() {
@@ -329,7 +327,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the appointmentRequestedCsfFteQuantity attribute.
-     * 
+     *
      * @param appointmentRequestedCsfFteQuantity The appointmentRequestedCsfFteQuantity to set.
      */
     public void setAppointmentRequestedCsfFteQuantity(BigDecimal appointmentRequestedCsfFteQuantity) {
@@ -339,7 +337,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the csfFullTimeEmploymentQuantity attribute.
-     * 
+     *
      * @return Returns the csfFullTimeEmploymentQuantity
      */
     public BigDecimal getCsfFullTimeEmploymentQuantity() {
@@ -348,7 +346,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the csfFullTimeEmploymentQuantity attribute.
-     * 
+     *
      * @param csfFullTimeEmploymentQuantity The csfFullTimeEmploymentQuantity to set.
      */
     public void setCsfFullTimeEmploymentQuantity(BigDecimal csfFullTimeEmploymentQuantity) {
@@ -358,7 +356,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the accountLineAnnualBalanceAmount attribute.
-     * 
+     *
      * @return Returns the accountLineAnnualBalanceAmount.
      */
     public KualiInteger getAccountLineAnnualBalanceAmount() {
@@ -367,7 +365,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the accountLineAnnualBalanceAmount attribute value.
-     * 
+     *
      * @param accountLineAnnualBalanceAmount The accountLineAnnualBalanceAmount to set.
      */
     public void setAccountLineAnnualBalanceAmount(KualiInteger accountLineAnnualBalanceAmount) {
@@ -376,7 +374,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialBeginningBalanceLineAmount attribute.
-     * 
+     *
      * @return Returns the financialBeginningBalanceLineAmount.
      */
     public KualiInteger getFinancialBeginningBalanceLineAmount() {
@@ -385,7 +383,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialBeginningBalanceLineAmount attribute value.
-     * 
+     *
      * @param financialBeginningBalanceLineAmount The financialBeginningBalanceLineAmount to set.
      */
     public void setFinancialBeginningBalanceLineAmount(KualiInteger financialBeginningBalanceLineAmount) {
@@ -394,7 +392,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the positionCsfLeaveFteQuantity attribute.
-     * 
+     *
      * @return Returns the positionCsfLeaveFteQuantity
      */
     public BigDecimal getPositionCsfLeaveFteQuantity() {
@@ -403,7 +401,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the positionCsfLeaveFteQuantity attribute.
-     * 
+     *
      * @param positionCsfLeaveFteQuantity The positionCsfLeaveFteQuantity to set.
      */
     public void setPositionCsfLeaveFteQuantity(BigDecimal positionCsfLeaveFteQuantity) {
@@ -413,7 +411,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject
      */
     public ObjectCode getFinancialObject() {
@@ -422,7 +420,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialObject attribute.
-     * 
+     *
      * @param financialObject The financialObject to set.
      * @deprecated
      */
@@ -432,7 +430,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -441,7 +439,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -451,7 +449,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -460,7 +458,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -470,7 +468,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialObjectLevel attribute.
-     * 
+     *
      * @return Returns the financialObjectLevel.
      */
     public ObjectLevel getFinancialObjectLevel() {
@@ -479,7 +477,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialObjectLevel attribute value.
-     * 
+     *
      * @param financialObjectLevel The financialObjectLevel to set.
      * @deprecated
      */
@@ -489,7 +487,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialObjectType attribute.
-     * 
+     *
      * @return Returns the financialObjectType.
      */
     public ObjectType getFinancialObjectType() {
@@ -498,7 +496,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialObjectType attribute value.
-     * 
+     *
      * @param financialObjectType The financialObjectType to set.
      * @deprecated
      */
@@ -508,7 +506,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the financialSubObject attribute.
-     * 
+     *
      * @return Returns the financialSubObject.
      */
     public SubObjectCode getFinancialSubObject() {
@@ -517,7 +515,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the financialSubObject attribute value.
-     * 
+     *
      * @param financialSubObject The financialSubObject to set.
      * @deprecated
      */
@@ -527,7 +525,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -536,7 +534,7 @@ public class BudgetConstructionBalanceByAccount extends PersistableBusinessObjec
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */

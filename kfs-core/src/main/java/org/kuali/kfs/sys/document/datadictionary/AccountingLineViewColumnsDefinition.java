@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
+ *
  * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,28 +30,26 @@ import org.kuali.kfs.sys.document.web.TableJoining;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 
-/**
- * 
- */
+
 public class AccountingLineViewColumnsDefinition extends DataDictionaryDefinitionBase implements AccountingLineViewLineFillingDefinition {
     private int columnCount = 1;
     private List<AccountingLineViewFieldDefinition> fields;
     private String name;
-    
+
     /**
-     * 
+     *
      * @see org.kuali.kfs.sys.document.datadictionary.AccountingLineViewRenderableElementDefinition#createLayoutElement(java.lang.Class)
      */
     public TableJoining createLayoutElement(Class<? extends AccountingLine> accountingLineClass) {
         List<AccountingLineViewField> layoutFields = new ArrayList<AccountingLineViewField>();
-        
+
         for (AccountingLineViewFieldDefinition fieldDefinition : fields) {
             final AccountingLineViewField field = (AccountingLineViewField)fieldDefinition.createLayoutElement(accountingLineClass);
             if (field != null) {
                 layoutFields.add(field);
             }
         }
-        
+
         return new AccountingLineViewColumns(this, layoutFields);
     }
 
@@ -63,7 +61,7 @@ public class AccountingLineViewColumnsDefinition extends DataDictionaryDefinitio
     }
 
     /**
-     * 
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -79,7 +77,7 @@ public class AccountingLineViewColumnsDefinition extends DataDictionaryDefinitio
     }
 
     /**
-     * Gets the columnCount attribute. 
+     * Gets the columnCount attribute.
      * @return Returns the columnCount.
      */
     public int getColumnCount() {
@@ -95,7 +93,7 @@ public class AccountingLineViewColumnsDefinition extends DataDictionaryDefinitio
     }
 
     /**
-     * Gets the fields attribute. 
+     * Gets the fields attribute.
      * @return Returns the fields.
      */
     public List<AccountingLineViewFieldDefinition> getFields() {
@@ -111,7 +109,7 @@ public class AccountingLineViewColumnsDefinition extends DataDictionaryDefinitio
     }
 
     /**
-     * Gets the name attribute. 
+     * Gets the name attribute.
      * @return Returns the name.
      */
     public String getName() {
@@ -125,5 +123,5 @@ public class AccountingLineViewColumnsDefinition extends DataDictionaryDefinitio
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }
