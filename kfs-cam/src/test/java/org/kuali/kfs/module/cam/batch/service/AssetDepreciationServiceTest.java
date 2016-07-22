@@ -159,10 +159,10 @@ public class AssetDepreciationServiceTest {
         EasyMock.expect(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.DEPRECIATION_ALREADY_RAN_MSG))
             .andReturn("Already ran");
         EasyMock.expect(dateTimeService.getCurrentDate()).andReturn(date).anyTimes();
-        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_BEGIN_MMDD))
-            .andReturn(null).times(2);
-        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_END_MMDD))
-            .andReturn(null).times(2);
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_BEGIN))
+            .andReturn(null);
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_END))
+            .andReturn(null);
         EasyMock.expect(schedulerService.cronConditionMet(null)).andReturn(true);
          EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_DATE_PARAMETER))
             .andReturn(true);
@@ -235,9 +235,9 @@ public class AssetDepreciationServiceTest {
         EasyMock.expect(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.DEPRECIATION_ALREADY_RAN_MSG))
             .andReturn("Already ran");
         EasyMock.expect(dateTimeService.getCurrentDate()).andReturn(date).anyTimes();
-        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_BEGIN_MMDD))
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_BEGIN))
             .andReturn(null).times(2);
-        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_END_MMDD))
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_PERIOD_END))
             .andReturn(null).times(2);
         EasyMock.expect(schedulerService.cronConditionMet(null)).andReturn(true);
          EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_DATE_PARAMETER))
