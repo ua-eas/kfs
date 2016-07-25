@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -839,14 +838,9 @@ public class PurchaseOrderAction extends PurchasingActionBase {
             SpringContext.getBean(PurchaseOrderService.class).performPrintPurchaseOrderPDFOnly(poDocId, baosPDF);
 
 
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_");
-            sbFilename.append(poDocId);
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
+            String sbFilename = buildFileName("PURAP_PO_", poDocId);
 
-            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename.toString());
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
 
 
         }
@@ -866,7 +860,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
      * @return The URL
      */
     protected String getUrlForPrintPO(String basePath, String docId, String methodToCall) {
-        StringBuffer result = new StringBuffer(basePath);
+        StringBuilder result = new StringBuilder(basePath);
         result.append("/purapPurchaseOrder.do?methodToCall=");
         result.append(methodToCall);
         result.append("&docId=");
@@ -916,12 +910,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         poVendorQuote.setTransmitPrintDisplayed(false);
         try {
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_QUOTE_");
-            sbFilename.append(po.getPurapDocumentIdentifier());
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
+            String sbFilename = buildFileName("PURAP_PO_QUOTE_", po.getPurapDocumentIdentifier()+"");
 
             boolean success = SpringContext.getBean(PurchaseOrderService.class).printPurchaseOrderQuotePDF(po, poVendorQuote, baosPDF);
 
@@ -935,7 +924,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
                 return mapping.findForward(KFSConstants.MAPPING_BASIC);
             }
 
-            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename.toString());
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
         }
         finally {
             if (baosPDF != null) {
@@ -954,12 +943,8 @@ public class PurchaseOrderAction extends PurchasingActionBase {
 
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         try {
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_QUOTE_LIST_");
-            sbFilename.append(poDocId);
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
+
+            String sbFilename = buildFileName("PURAP_PO_QUOTE_LIST_", poDocId);
 
             boolean success = SpringContext.getBean(PurchaseOrderService.class).printPurchaseOrderQuoteRequestsListPDF(poDocId, baosPDF);
 
@@ -970,7 +955,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
                 return mapping.findForward(KFSConstants.MAPPING_PORTAL);
             }
 
-            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename.toString());
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
         }
         finally {
             if (baosPDF != null) {
@@ -1159,7 +1144,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
         PurchaseOrderDocument po = (PurchaseOrderDocument) kualiDocumentFormBase.getDocument();
 
         String documentNumber = po.getDocumentNumber();
-        StringBuffer itemIndexesBuffer = createSelectedItemIndexes(po.getItems());
+        StringBuilder itemIndexesBuffer = createSelectedItemIndexes(po.getItems());
         if (itemIndexesBuffer.length() > 0) {
             itemIndexesBuffer.deleteCharAt(itemIndexesBuffer.lastIndexOf(","));
         }
@@ -1178,12 +1163,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
         po.setRetransmitHeader(retransmitHeader);
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         try {
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_");
-            sbFilename.append(po.getPurapDocumentIdentifier());
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
+            String sbFilename = buildFileName("PURAP_PO_", po.getPurapDocumentIdentifier()+"");
 
             // Yes, this looks weird. I know and am sorry. We need to retrieve the PORT from the DB again or else we will get an OLE.
             // I am open to suggestions if you have them.
@@ -1191,7 +1171,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
 
             SpringContext.getBean(PurchaseOrderService.class).retransmitPurchaseOrderPDF(poDoc, baosPDF);
 
-            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename.toString());
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
 
         }
         catch (ValidationException e) {
@@ -1207,24 +1187,34 @@ public class PurchaseOrderAction extends PurchasingActionBase {
         return null;
     }
 
+    protected String buildFileName(String filename, String purapDocumentIdentifier) {
+        StringBuilder sbFilename = new StringBuilder();
+        sbFilename.append(filename);
+        sbFilename.append(purapDocumentIdentifier);
+        sbFilename.append("_");
+        sbFilename.append(System.currentTimeMillis());
+        sbFilename.append(".pdf");
+        return sbFilename.toString();
+    }
+
     /**
-     * Helper method to create a StringBuffer of the indexes of items that the user has selected for retransmit to be passed in as
+     * Helper method to create a StringBuilder of the indexes of items that the user has selected for retransmit to be passed in as
      * an attribute to the RetransmitForward page so that we could add these items later on to the pdf page.
      *
      * @param items The List of items on the PurchaseOrderDocument.
      * @return
      */
-    protected StringBuffer createSelectedItemIndexes(List<PurchaseOrderItem> items) {
-        StringBuffer itemIndexesBuffer = new StringBuffer();
+    protected StringBuilder createSelectedItemIndexes(List<PurchaseOrderItem> items) {
+        StringBuilder itemIndexesBuilder = new StringBuilder();
         int i = 0;
         for (PurchaseOrderItem item : items) {
             if (item.isItemSelectedForRetransmitIndicator()) {
-                itemIndexesBuffer.append(i);
-                itemIndexesBuffer.append(',');
+                itemIndexesBuilder.append(i);
+                itemIndexesBuilder.append(',');
             }
             i++;
         }
-        return itemIndexesBuffer;
+        return itemIndexesBuilder;
     }
 
 
