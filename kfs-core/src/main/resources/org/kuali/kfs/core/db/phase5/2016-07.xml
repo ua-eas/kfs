@@ -164,4 +164,31 @@
             <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'AssetDepreciationStep' and PARM_NM = 'RUN_DATE'</where>
         </delete>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-520_MOVE_PARAMETERS" context="bootstrap,demo,unit">
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPE'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'DEPRECIATION_ORGANIZATON_PLANT_FUND_OBJECT_SUB_TYPE'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="cmpnt_cd">AssetDepreciationStep</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'DEPRECIATION_PERIOD'</where>
+        </update>
+        <update tableName="krcr_parm_t">
+            <column name="parm_nm">DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE</column>
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'AssetDepreciationStep' and PARM_NM = 'DEPRECIATION_ORGANIZATON_PLANT_FUND_OBJECT_SUB_TYPE'</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
