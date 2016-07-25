@@ -49,7 +49,6 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.identity.TestPerson;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.WorkflowDocument;
@@ -178,17 +177,17 @@ public class AssetDepreciationServiceTest {
                 assetObjectCodes, 1, "Already ran")).andReturn(new ArrayList<String[]>());
         EasyMock.expect(depreciationBatchDao.getListOfDepreciableAssetPaymentInfo(2010, 1, depreciationCalendar))
             .andReturn(AssetDepreciationServiceFixture.DATA.getAssetPaymentInfo());
-        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))
+        EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE))
             .andReturn(true);
-        EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))
+        EasyMock.expect(parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE))
             .andReturn(Arrays.asList(new String[]{"C1","C2","CF","CM","ES","NA","UC","UF"}));
-        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
+        EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
             .andReturn(true);
-        EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
+        EasyMock.expect(parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
             .andReturn(Arrays.asList(new String[]{"BD","BF","BI","BR","BX","IF","LE","LF","LI","LR"}));
-        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
+        EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
             .andReturn(true);
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
             .andReturn("1");
         EasyMock.expect(depreciationBatchDao.getPrimaryDepreciationBaseAmountForSV()).andReturn(AssetDepreciationServiceFixture.DATA.getPrimaryDepreciationBaseAmountForSV());
         EasyMock.expect(depreciationBatchDao.getAssetsWithNoDepreciation()).andReturn(AssetDepreciationServiceFixture.DATA.getAssetsWithNoDepreciation());
@@ -254,19 +253,19 @@ public class AssetDepreciationServiceTest {
                 assetObjectCodes, 1, "Already ran")).andReturn(new ArrayList<String[]>());
         EasyMock.expect(depreciationBatchDao.getListOfDepreciableAssetPaymentInfo(2010, 1, depreciationCalendar))
             .andReturn(AssetDepreciationServiceFixture.DATA.getAssetPaymentInfo());
-        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))
+        EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE))
             .andReturn(true);
-        EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATON_PLANT_FUND_SUB_OBJECT_TYPES))
+        EasyMock.expect(parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_ORGANIZATION_PLANT_FUND_OBJECT_SUB_TYPE))
             .andReturn(Arrays.asList(new String[]{"C1","C2","CF","CM","ES","NA","UC","UF"}));
-        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
+        EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
             .andReturn(true);
-        EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
+        EasyMock.expect(parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_CAMPUS_PLANT_FUND_OBJECT_SUB_TYPES))
             .andReturn(Arrays.asList(new String[]{"BD","BF","BI","BR","BX","IF","LE","LF","LI","LR"}));
-        EasyMock.expect(parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
+        EasyMock.expect(parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
             .andReturn(true);
 
         // This is what makes fiscal period 1 invalid.
-        EasyMock.expect(parameterService.getParameterValueAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
+        EasyMock.expect(parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_PERIOD))
             .andReturn("3");
         EasyMock.expect(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.FISCAL_MONTH_NOT_VALID))
             .andReturn("Fiscal month of depreciation date must be a multiple of the depreciation period.");

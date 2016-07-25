@@ -373,12 +373,6 @@ public class DepreciableAssetsDaoOjb extends PlatformAwareDaoBaseOjb implements 
     }
 
     /**
-     * This method the value of the system parameter NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES
-     *
-     * @return
-     */
-
-    /**
      * This method gets a list of Expense object codes from the asset object code table for a particular fiscal year
      *
      * @param fiscalYear

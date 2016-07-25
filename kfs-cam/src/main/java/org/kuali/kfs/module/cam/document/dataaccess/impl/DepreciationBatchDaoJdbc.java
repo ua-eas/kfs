@@ -22,13 +22,13 @@ import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.cam.CamsConstants;
+import org.kuali.kfs.module.cam.batch.AssetDepreciationStep;
 import org.kuali.kfs.module.cam.batch.AssetPaymentInfo;
 import org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.dataaccess.UniversityDateDao;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJdbc;
 import org.springframework.dao.DataAccessException;
@@ -169,7 +169,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
         final List<AssetPaymentInfo> assetPaymentDetails = new ArrayList<>();
         List<String> depreciationMethodList = new ArrayList<>();
-        Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES);
+        Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_STRAIGHT_LINE_CODE);
         Collection<String> federallyOwnedObjectSubTypes = getFederallyOwnedObjectSubTypes();
@@ -294,7 +294,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
         final Object[] data = new Object[2];
         List<String> depreciationMethodList = new ArrayList<String>();
-        Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES);
+        Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_STRAIGHT_LINE_CODE);
         Collection<String> federallyOwnedObjectSubTypes = getFederallyOwnedObjectSubTypes();
@@ -324,7 +324,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
         final Object[] data = new Object[2];
         List<String> depreciationMethodList = new ArrayList<>();
-        Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSETS_STATUS_CODES);
+        Collection<String> notAcceptedAssetStatus = parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_NON_CAPITAL_ASSET_STATUS_CODES);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_SALVAGE_VALUE_CODE);
         depreciationMethodList.add(CamsConstants.Asset.DEPRECIATION_METHOD_STRAIGHT_LINE_CODE);
         Collection<String> federallyOwnedObjectSubTypes = getFederallyOwnedObjectSubTypes();
@@ -447,15 +447,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
      * @return
      */
     protected Collection<String> getFederallyOwnedObjectSubTypes() {
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "getting the federally owned object subtype codes.");
-        }
-        Collection<String> federallyOwnedObjectSubTypes = (parameterService.parameterExists(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES)) ? parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSETS_BATCH.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES) : new ArrayList<String>();
-        if ( LOG.isInfoEnabled() ) {
-            LOG.info(CamsConstants.Depreciation.DEPRECIATION_BATCH + "Finished getting the federally owned object subtype codes which are:" + federallyOwnedObjectSubTypes.toString());
-        }
-        return federallyOwnedObjectSubTypes;
+        return parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES) ? parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.NON_DEPRECIABLE_FEDERALLY_OWNED_OBJECT_SUB_TYPES) : new ArrayList<>();
     }
+
     /**
      * Depreciation (end of year) Period 13 assets incorrect depreciation start date.
      *
