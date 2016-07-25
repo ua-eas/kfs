@@ -18,8 +18,6 @@
  */
 package org.kuali.kfs.module.ld.batch.service;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.module.ld.LaborConstants;
@@ -29,6 +27,9 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.Message;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
+
+import java.util.Calendar;
+import java.util.List;
 
 
 @ConfigureContext
@@ -44,7 +45,15 @@ public class LaborScrubberServiceTest extends LaborOriginEntryTestBase {
         laborScrubberService = SpringContext.getBean(LaborScrubberService.class);
         laborScrubberService.setDateTimeService(dateTimeService);
 
-        dateTimeService.setCurrentDate(new java.util.Date());
+        dateTimeService.setCurrentDate(getStaticTestDate());
+    }
+
+    public java.util.Date getStaticTestDate() {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, 2016);
+        date.set(Calendar.DAY_OF_MONTH, 1);
+        date.set(Calendar.MONTH, Calendar.JULY);
+        return date.getTime();
     }
 
     public void testDemerger() throws Exception {
