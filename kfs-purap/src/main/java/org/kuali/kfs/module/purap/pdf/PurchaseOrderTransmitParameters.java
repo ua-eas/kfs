@@ -86,22 +86,7 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
          }
          // We'll get the imageTempLocation and the actual images only if the useImage is true. If useImage is false, we'll leave the
          // images as blank space
-         if (useImage) {
-             if (getImageTempLocation() == null) {
-                 throw new PurapConfigurationException("IMAGE_TEMP_PATH is missing");
-             }
-
-             // Get images
-             if ((this.logoImage = SpringContext.getBean(ImageService.class).getLogo(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("logoImage is null.");
-             }
-             if ((this.directorSignatureImage = SpringContext.getBean(ImageService.class).getPurchasingDirectorImage(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("directorSignatureImage is null.");
-             }
-             if ((this.contractManagerSignatureImage = SpringContext.getBean(ImageService.class).getContractManagerImage(key, po.getContractManagerCode(), imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("contractManagerSignatureImage is null.");
-             }
-         }
+         pickLogoImage(po, campusCode, useImage);
 
          Map<String, Object> criteria = new HashMap<String, Object>();
          criteria.put(KFSPropertyConstants.CAMPUS_CODE, po.getDeliveryCampusCode());
@@ -112,20 +97,9 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
              throw new PurapConfigurationException("Application Setting INVOICE_STATUS_INQUIRY_URL is missing.");
          }
 
-         StringBuffer contractLanguage = new StringBuffer();
          criteria.put(KFSPropertyConstants.ACTIVE, true);
          List<PurchaseOrderContractLanguage> contractLanguageList = (List<PurchaseOrderContractLanguage>) (SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderContractLanguage.class, criteria));
-         if (!contractLanguageList.isEmpty()) {
-             int lineNumber = 1;
-             for (PurchaseOrderContractLanguage row : contractLanguageList) {
-                 if (row.getCampusCode().equals(po.getDeliveryCampusCode())) {
-                     contractLanguage.append(lineNumber + " " + row.getPurchaseOrderContractLanguageDescription() + "\n");
-                     ++lineNumber;
-                 }
-             }
-         }
-
-         this.contractLanguage = contractLanguage.toString();
+         this.contractLanguage = updateContractLanguage(po, contractLanguageList);
 
          if (getPdfFileLocation() == null) {
              LOG.debug("savePurchaseOrderPdf() ended");
@@ -143,8 +117,27 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
 
      }
 
+    protected void pickLogoImage(PurchaseOrderDocument po, String campusCode, boolean useImage) {
+        if (useImage) {
+            if (getImageTempLocation() == null) {
+                throw new PurapConfigurationException("IMAGE_TEMP_PATH is missing");
+            }
 
-     @Override
+            // Get images
+            if ((this.logoImage = SpringContext.getBean(ImageService.class).getLogo(key, campusCode, imageTempLocation)) == null) {
+                throw new PurapConfigurationException("logoImage is null.");
+            }
+            if ((this.directorSignatureImage = SpringContext.getBean(ImageService.class).getPurchasingDirectorImage(key, campusCode, imageTempLocation)) == null) {
+                throw new PurapConfigurationException("directorSignatureImage is null.");
+            }
+            if ((this.contractManagerSignatureImage = SpringContext.getBean(ImageService.class).getContractManagerImage(key, po.getContractManagerCode(), imageTempLocation)) == null) {
+                throw new PurapConfigurationException("contractManagerSignatureImage is null.");
+            }
+        }
+    }
+
+
+    @Override
     public void setPurchaseOrderFaxParameters(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq) {
          // get parameters to send fax
 
@@ -198,22 +191,7 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
          }
          // We'll get the imageTempLocation and the actual images only if the useImage is true. If useImage is false, we'll leave the
          // images as blank space
-         if (useImage) {
-             if (getImageTempLocation() == null) {
-                 throw new PurapConfigurationException("IMAGE_TEMP_PATH is missing");
-             }
-
-             // Get images
-             if ((this.logoImage = SpringContext.getBean(ImageService.class).getLogo(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("logoImage is null.");
-             }
-             if ((this.directorSignatureImage = SpringContext.getBean(ImageService.class).getPurchasingDirectorImage(key, campusCode, imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("directorSignatureImage is null.");
-             }
-             if ((this.contractManagerSignatureImage = SpringContext.getBean(ImageService.class).getContractManagerImage(key, po.getContractManagerCode(), imageTempLocation)) == null) {
-                 throw new PurapConfigurationException("contractManagerSignatureImage is null.");
-             }
-         }
+         pickLogoImage(po, campusCode, useImage);
 
          Map<String, Object> criteria = new HashMap<String, Object>();
          criteria.put(KFSPropertyConstants.CAMPUS_CODE, po.getDeliveryCampusCode());
@@ -224,20 +202,10 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
              throw new PurapConfigurationException("Application Setting INVOICE_STATUS_INQUIRY_URL is missing.");
          }
 
-         StringBuffer contractLanguage = new StringBuffer();
          criteria.put(KFSPropertyConstants.ACTIVE, true);
          List<PurchaseOrderContractLanguage> contractLanguageList = (List<PurchaseOrderContractLanguage>) (SpringContext.getBean(BusinessObjectService.class).findMatching(PurchaseOrderContractLanguage.class, criteria));
-         if (!contractLanguageList.isEmpty()) {
-             int lineNumber = 1;
-             for (PurchaseOrderContractLanguage row : contractLanguageList) {
-                 if (row.getCampusCode().equals(po.getDeliveryCampusCode())) {
-                     contractLanguage.append(lineNumber + " " + row.getPurchaseOrderContractLanguageDescription() + "\n");
-                     ++lineNumber;
-                 }
-             }
-         }
+         this.contractLanguage = updateContractLanguage(po, contractLanguageList);
 
-         this.contractLanguage = contractLanguage.toString();
 
          if (getPdfFileLocation() == null) {
              LOG.debug("savePurchaseOrderPdf() ended");
@@ -268,6 +236,19 @@ public class PurchaseOrderTransmitParameters implements PurchaseOrderParameters 
 
      }
 
+    protected String updateContractLanguage(PurchaseOrderDocument po, List<PurchaseOrderContractLanguage> contractLanguageList) {
+        StringBuilder builder = new StringBuilder();
+        if (!contractLanguageList.isEmpty()) {
+            int lineNumber = 1;
+            for (PurchaseOrderContractLanguage row : contractLanguageList) {
+                if (row.getCampusCode().equals(po.getDeliveryCampusCode())) {
+                    builder.append(lineNumber + " " + row.getPurchaseOrderContractLanguageDescription() + "\n");
+                    ++lineNumber;
+                }
+            }
+        }
+        return builder.toString();
+    }
 
 
     public String getContractManagerCampusCode() {

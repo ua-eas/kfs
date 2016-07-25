@@ -799,14 +799,7 @@
 			scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
 			<set-property property="cancellable" value="true" />
 			<forward name="basic" path="/jsp/module/purap/{1}.jsp" />
-			<forward name="printPurchaseOrderPDF" path="/jsp/module/purap/PrintForward.jsp"
-				redirect="false" />
-			<forward name="retransmitPurchaseOrderPDF" path="/jsp/module/purap/RetransmitForward.jsp"
-				redirect="false" />
-			<forward name="printReceivingTicketPDF" path="/jsp/module/purap/ReceivingTicketForward.jsp"
-				redirect="false" />
-			<forward name="printPOQuoteListPDF" path="/jsp/module/purap/PrintPOQuoteListForward.jsp"
-				redirect="false" />
+
 		</action>
 
 		<action path="/purapPrint"

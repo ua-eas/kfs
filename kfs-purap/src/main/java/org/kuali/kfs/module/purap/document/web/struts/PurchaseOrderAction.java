@@ -19,6 +19,7 @@
 package org.kuali.kfs.module.purap.document.web.struts;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,7 +29,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,6 +38,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PODocumentsStrings;
@@ -821,18 +822,33 @@ public class PurchaseOrderAction extends PurchasingActionBase {
                 baosPDF.reset();
             }
         }
-        String basePath = getApplicationBaseUrl();
-        String docId = ((PurchaseOrderForm) form).getDocId();
-        String methodToCallPrintPurchaseOrderPDF = "printPurchaseOrderPDFOnly";
-        String methodToCallDocHandler = "docHandler";
-        String printPOPDFUrl = getUrlForPrintPO(basePath, docId, methodToCallPrintPurchaseOrderPDF);
-        String displayPOTabbedPageUrl = getUrlForPrintPO(basePath, docId, methodToCallDocHandler);
-        request.setAttribute("printPOPDFUrl", printPOPDFUrl);
-        request.setAttribute("displayPOTabbedPageUrl", displayPOTabbedPageUrl);
-        String label = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER);
-        request.setAttribute("purchaseOrderLabel", label);
+        try {
+            generatePOOutput(request, response, poDocId, baosPDF);
+        } catch (IOException ioe) {
+            LOG.error("Unable to create PO PDF.", ioe);
+            return mapping.findForward(KFSConstants.MAPPING_BASIC);
+        }
 
-        return mapping.findForward("printPurchaseOrderPDF");
+        return null;
+    }
+
+    protected void generatePOOutput(HttpServletRequest request, HttpServletResponse response, String poDocId, ByteArrayOutputStream baosPDF) throws IOException {
+        try {
+            // will throw validation exception if errors occur
+            SpringContext.getBean(PurchaseOrderService.class).performPrintPurchaseOrderPDFOnly(poDocId, baosPDF);
+
+
+            String sbFilename = buildFileName("PURAP_PO_", poDocId);
+
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
+
+
+        }
+        finally {
+            if (baosPDF != null) {
+                baosPDF.reset();
+            }
+        }
     }
 
     /**
@@ -844,7 +860,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
      * @return The URL
      */
     protected String getUrlForPrintPO(String basePath, String docId, String methodToCall) {
-        StringBuffer result = new StringBuffer(basePath);
+        StringBuilder result = new StringBuilder(basePath);
         result.append("/purapPurchaseOrder.do?methodToCall=");
         result.append(methodToCall);
         result.append("&docId=");
@@ -868,47 +884,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
     public ActionForward printPurchaseOrderPDFOnly(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String poDocId = request.getParameter("docId");
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
-        try {
-            // will throw validation exception if errors occur
-            SpringContext.getBean(PurchaseOrderService.class).performPrintPurchaseOrderPDFOnly(poDocId, baosPDF);
-
-            response.setHeader("Cache-Control", "max-age=30");
-            response.setContentType("application/pdf");
-            StringBuffer sbContentDispValue = new StringBuffer();
-            String useJavascript = request.getParameter("useJavascript");
-            if (useJavascript == null || useJavascript.equalsIgnoreCase("false")) {
-                sbContentDispValue.append("attachment");
-            }
-            else {
-                sbContentDispValue.append("inline");
-            }
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_");
-            sbFilename.append(poDocId);
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
-            sbContentDispValue.append("; filename=");
-            sbContentDispValue.append(sbFilename);
-
-            response.setHeader("Content-disposition", sbContentDispValue.toString());
-
-            response.setContentLength(baosPDF.size());
-
-            ServletOutputStream sos;
-
-            sos = response.getOutputStream();
-
-            baosPDF.writeTo(sos);
-
-            sos.flush();
-
-        }
-        finally {
-            if (baosPDF != null) {
-                baosPDF.reset();
-            }
-        }
+        generatePOOutput(request, response, poDocId, baosPDF);
 
         return null;
     }
@@ -934,12 +910,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         poVendorQuote.setTransmitPrintDisplayed(false);
         try {
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_QUOTE_");
-            sbFilename.append(po.getPurapDocumentIdentifier());
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
+            String sbFilename = buildFileName("PURAP_PO_QUOTE_", po.getPurapDocumentIdentifier()+"");
 
             boolean success = SpringContext.getBean(PurchaseOrderService.class).printPurchaseOrderQuotePDF(po, poVendorQuote, baosPDF);
 
@@ -952,26 +923,8 @@ public class PurchaseOrderAction extends PurchasingActionBase {
                 }
                 return mapping.findForward(KFSConstants.MAPPING_BASIC);
             }
-            response.setHeader("Cache-Control", "max-age=30");
-            response.setContentType("application/pdf");
-            StringBuffer sbContentDispValue = new StringBuffer();
-            // sbContentDispValue.append("inline");
-            sbContentDispValue.append("attachment");
-            sbContentDispValue.append("; filename=");
-            sbContentDispValue.append(sbFilename);
 
-            response.setHeader("Content-disposition", sbContentDispValue.toString());
-
-            response.setContentLength(baosPDF.size());
-
-            ServletOutputStream sos;
-
-            sos = response.getOutputStream();
-
-            baosPDF.writeTo(sos);
-
-            sos.flush();
-
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
         }
         finally {
             if (baosPDF != null) {
@@ -987,39 +940,11 @@ public class PurchaseOrderAction extends PurchasingActionBase {
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
         PurchaseOrderDocument po = (PurchaseOrderDocument) kualiDocumentFormBase.getDocument();
         SpringContext.getBean(PurapService.class).saveDocumentNoValidation(po);
-        String basePath = getApplicationBaseUrl();
-        String methodToCallPrintPurchaseOrderPDF = "printPoQuoteListOnly";
-        String methodToCallDocHandler = "docHandler";
-        String printPOQuoteListPDFUrl = getUrlForPrintPO(basePath, poDocId, methodToCallPrintPurchaseOrderPDF);
-        String displayPOTabbedPageUrl = getUrlForPrintPO(basePath, poDocId, methodToCallDocHandler);
-        request.setAttribute("printPOQuoteListPDFUrl", printPOQuoteListPDFUrl);
-        request.setAttribute("displayPOTabbedPageUrl", displayPOTabbedPageUrl);
-        String label = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER);
-        request.setAttribute("purchaseOrderLabel", label);
 
-        return mapping.findForward("printPOQuoteListPDF");
-    }
-
-    /**
-     * Print the list of PO Quote requests.
-     *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
-     * @throws Exception
-     * @return An ActionForward
-     */
-    public ActionForward printPoQuoteListOnly(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String poDocId = request.getParameter("docId");
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         try {
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_QUOTE_LIST_");
-            sbFilename.append(poDocId);
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
+
+            String sbFilename = buildFileName("PURAP_PO_QUOTE_LIST_", poDocId);
 
             boolean success = SpringContext.getBean(PurchaseOrderService.class).printPurchaseOrderQuoteRequestsListPDF(poDocId, baosPDF);
 
@@ -1029,31 +954,8 @@ public class PurchaseOrderAction extends PurchasingActionBase {
                 }
                 return mapping.findForward(KFSConstants.MAPPING_PORTAL);
             }
-            response.setHeader("Cache-Control", "max-age=30");
-            response.setContentType("application/pdf");
-            StringBuffer sbContentDispValue = new StringBuffer();
-            String useJavascript = request.getParameter("useJavascript");
-            if (useJavascript == null || useJavascript.equalsIgnoreCase("false")) {
-                sbContentDispValue.append("attachment");
-            }
-            else {
-                sbContentDispValue.append("inline");
-            }
-            sbContentDispValue.append("; filename=");
-            sbContentDispValue.append(sbFilename);
 
-            response.setHeader("Content-disposition", sbContentDispValue.toString());
-
-            response.setContentLength(baosPDF.size());
-
-            ServletOutputStream sos;
-
-            sos = response.getOutputStream();
-
-            baosPDF.writeTo(sos);
-
-            sos.flush();
-
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
         }
         finally {
             if (baosPDF != null) {
@@ -1219,19 +1121,10 @@ public class PurchaseOrderAction extends PurchasingActionBase {
                 baosPDF.reset();
             }
         }
-        String basePath = getApplicationBaseUrl();
-        String docId = ((PurchaseOrderForm) form).getDocId();
-        String methodToCallPrintPurchaseOrderPDF = "printPurchaseOrderPDFOnly";
-        String methodToCallDocHandler = "docHandler";
-        String printPOPDFUrl = getUrlForPrintPO(basePath, docId, methodToCallPrintPurchaseOrderPDF);
-        String displayPOTabbedPageUrl = getUrlForPrintPO(basePath, docId, methodToCallDocHandler);
-        request.setAttribute("printPOPDFUrl", printPOPDFUrl);
-        request.setAttribute("displayPOTabbedPageUrl", displayPOTabbedPageUrl);
-        String label = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER);
-        request.setAttribute("purchaseOrderLabel", label);
-        GlobalVariables.getUserSession().addObject("isPreview", new Boolean(true));
 
-        return mapping.findForward("printPurchaseOrderPDF");
+        generatePOOutput(request, response, poDocId, baosPDF);
+
+        return null;
     }
 
     /**
@@ -1246,109 +1139,39 @@ public class PurchaseOrderAction extends PurchasingActionBase {
      * @throws Exception
      */
     public ActionForward printingRetransmitPo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String basePath = getApplicationBaseUrl();
-        String docId = ((PurchaseOrderForm) form).getPurchaseOrderDocument().getDocumentNumber();
-        String methodToCallPrintRetransmitPurchaseOrderPDF = "printingRetransmitPoOnly";
-        String methodToCallDocHandler = "docHandler";
-        String printPOPDFUrl = getUrlForPrintPO(basePath, docId, methodToCallPrintRetransmitPurchaseOrderPDF);
-        String displayPOTabbedPageUrl = getUrlForPrintPO(basePath, docId, methodToCallDocHandler);
 
         KualiDocumentFormBase kualiDocumentFormBase = (KualiDocumentFormBase) form;
         PurchaseOrderDocument po = (PurchaseOrderDocument) kualiDocumentFormBase.getDocument();
 
-        StringBuffer itemIndexesBuffer = createSelectedItemIndexes(po.getItems());
+        String documentNumber = po.getDocumentNumber();
+        StringBuilder itemIndexesBuffer = createSelectedItemIndexes(po.getItems());
         if (itemIndexesBuffer.length() > 0) {
             itemIndexesBuffer.deleteCharAt(itemIndexesBuffer.lastIndexOf(","));
-            request.setAttribute("selectedItemIndexes", itemIndexesBuffer.toString());
         }
-
 
         if (itemIndexesBuffer.length() == 0) {
             GlobalVariables.getMessageMap().putError(PurapConstants.PO_RETRANSMIT_SELECT_TAB_ERRORS, PurapKeyConstants.ERROR_PURCHASE_ORDER_RETRANSMIT_SELECT);
             return returnToPreviousPage(mapping, kualiDocumentFormBase);
         }
 
-        request.setAttribute("printPOPDFUrl", printPOPDFUrl);
-        request.setAttribute("displayPOTabbedPageUrl", displayPOTabbedPageUrl);
-        request.setAttribute("docId", docId);
-        String label = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER);
-        request.setAttribute("purchaseOrderLabel", label);
-        return mapping.findForward("retransmitPurchaseOrderPDF");
-    }
-
-    /**
-     * Helper method to create a StringBuffer of the indexes of items that the user has selected for retransmit to be passed in as
-     * an attribute to the RetransmitForward page so that we could add these items later on to the pdf page.
-     *
-     * @param items The List of items on the PurchaseOrderDocument.
-     * @return
-     */
-    protected StringBuffer createSelectedItemIndexes(List<PurchaseOrderItem> items) {
-        StringBuffer itemIndexesBuffer = new StringBuffer();
-        int i = 0;
-        for (PurchaseOrderItem item : items) {
-            if (item.isItemSelectedForRetransmitIndicator()) {
-                itemIndexesBuffer.append(i);
-                itemIndexesBuffer.append(',');
-            }
-            i++;
-        }
-        return itemIndexesBuffer;
-    }
-
-    /**
-     * Creates a PDF document based on the PO information and the items that were selected by the user on the Purchase Order
-     * Retransmit Document page to be retransmitted, then display the PDF to the browser.
-     *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
-     * @throws Exception
-     * @return An ActionForward
-     */
-    public ActionForward printingRetransmitPoOnly(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String selectedItemIndexes = request.getParameter("selectedItemIndexes");
-        String documentNumber = request.getParameter("poDocumentNumberForRetransmit");
-        PurchaseOrderDocument po = SpringContext.getBean(PurchaseOrderService.class).getPurchaseOrderByDocumentNumber(documentNumber);
         String retransmitHeader = request.getParameter("retransmitHeader");
 
         // setting the isItemSelectedForRetransmitIndicator items of the PO obtained from the database based on its value from
         // the po from the form
 
-        setItemSelectedForRetransmitIndicatorFromPOInForm(selectedItemIndexes, po.getItems());
+        setItemSelectedForRetransmitIndicatorFromPOInForm(itemIndexesBuffer.toString(), po.getItems());
         po.setRetransmitHeader(retransmitHeader);
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         try {
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_");
-            sbFilename.append(po.getPurapDocumentIdentifier());
-            sbFilename.append("_");
-            sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
+            String sbFilename = buildFileName("PURAP_PO_", po.getPurapDocumentIdentifier()+"");
 
-            // below method will throw ValidationException if errors are found
-            SpringContext.getBean(PurchaseOrderService.class).retransmitPurchaseOrderPDF(po, baosPDF);
+            // Yes, this looks weird. I know and am sorry. We need to retrieve the PORT from the DB again or else we will get an OLE.
+            // I am open to suggestions if you have them.
+            PurchaseOrderDocument poDoc = SpringContext.getBean(PurchaseOrderService.class).getPurchaseOrderByDocumentNumber(documentNumber);
 
-            response.setHeader("Cache-Control", "max-age=30");
-            response.setContentType("application/pdf");
-            StringBuffer sbContentDispValue = new StringBuffer();
-            sbContentDispValue.append("inline");
-            sbContentDispValue.append("; filename=");
-            sbContentDispValue.append(sbFilename);
+            SpringContext.getBean(PurchaseOrderService.class).retransmitPurchaseOrderPDF(poDoc, baosPDF);
 
-            response.setHeader("Content-disposition", sbContentDispValue.toString());
-
-            response.setContentLength(baosPDF.size());
-
-            ServletOutputStream sos;
-
-            sos = response.getOutputStream();
-
-            baosPDF.writeTo(sos);
-
-            sos.flush();
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename);
 
         }
         catch (ValidationException e) {
@@ -1363,6 +1186,37 @@ public class PurchaseOrderAction extends PurchasingActionBase {
 
         return null;
     }
+
+    protected String buildFileName(String filename, String purapDocumentIdentifier) {
+        StringBuilder sbFilename = new StringBuilder();
+        sbFilename.append(filename);
+        sbFilename.append(purapDocumentIdentifier);
+        sbFilename.append("_");
+        sbFilename.append(System.currentTimeMillis());
+        sbFilename.append(".pdf");
+        return sbFilename.toString();
+    }
+
+    /**
+     * Helper method to create a StringBuilder of the indexes of items that the user has selected for retransmit to be passed in as
+     * an attribute to the RetransmitForward page so that we could add these items later on to the pdf page.
+     *
+     * @param items The List of items on the PurchaseOrderDocument.
+     * @return
+     */
+    protected StringBuilder createSelectedItemIndexes(List<PurchaseOrderItem> items) {
+        StringBuilder itemIndexesBuilder = new StringBuilder();
+        int i = 0;
+        for (PurchaseOrderItem item : items) {
+            if (item.isItemSelectedForRetransmitIndicator()) {
+                itemIndexesBuilder.append(i);
+                itemIndexesBuilder.append(',');
+            }
+            i++;
+        }
+        return itemIndexesBuilder;
+    }
+
 
     /**
      * Sets the itemSelectedForRetransmitIndicator to true to the items that the user has selected for retransmit.
@@ -1606,46 +1460,7 @@ public class PurchaseOrderAction extends PurchasingActionBase {
             }
         }
 
-        // use question framework to make sure they REALLY want to complete the quote...
-        // since the html table tags are not supported for now, the awarded vendor info is displayed without them.
-        // String message =
-        // SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(PurapKeyConstants.PURCHASE_ORDER_QUESTION_CONFIRM_AWARD);
-        // String vendorRow =
-        // SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(PurapKeyConstants.PURCHASE_ORDER_QUESTION_CONFIRM_AWARD_ROW);
-        //
-        // String tempRows = "";
-        // for (PurchaseOrderVendorQuote poQuote : document.getPurchaseOrderVendorQuotes()) {
-        // String tempRow = vendorRow;
-        // tempRow = StringUtils.replace(tempRow, "{0}", poQuote.getVendorName());
-        // if (poQuote.getPurchaseOrderQuoteAwardTimestamp() == null) {
-        // if (awardedQuote.getVendorNumber().equals(poQuote.getVendorNumber())) {
-        // tempRow = StringUtils.replace(tempRow, "{1}",
-        // SpringContext.getBean(DateTimeService.class).getCurrentSqlDate().toString());
-        // }
-        // else {
-        // tempRow = StringUtils.replace(tempRow, "{1}", "");
-        // }
-        // }
-        // else {
-        // tempRow = StringUtils.replace(tempRow, "{1}", poQuote.getPurchaseOrderQuoteAwardTimestamp().toString());
-        // }
-        // if (poQuote.getPurchaseOrderQuoteStatusCode() != null) {
-        // poQuote.refreshReferenceObject(PurapPropertyConstants.PURCHASE_ORDER_QUOTE_STATUS);
-        // tempRow = StringUtils.replace(tempRow, "{2}", poQuote.getPurchaseOrderQuoteStatus().getStatusDescription());
-        // }
-        // else {
-        // tempRow = StringUtils.replace(tempRow, "{2}", "N/A");
-        // }
-        // if (poQuote.getPurchaseOrderQuoteRankNumber() != null) {
-        // tempRow = StringUtils.replace(tempRow, "{3}", poQuote.getPurchaseOrderQuoteRankNumber());
-        // }
-        // else {
-        // tempRow = StringUtils.replace(tempRow, "{3}", "N/A");
-        // }
-        // tempRows += tempRow;
-        // }
-        // message = StringUtils.replace(message, "{0}", tempRows);
-        // without the html table tags
+
         StringBuffer awardedVendorInfo = new StringBuffer(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(PurapKeyConstants.PURCHASE_ORDER_QUESTION_CONFIRM_AWARD));
         int awardNbr = 0;
         for (PurchaseOrderVendorQuote poQuote : document.getPurchaseOrderVendorQuotes()) {
