@@ -158,4 +158,10 @@
             <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'Batch' and PARM_NM = 'INCLUDE_RETIRED_ASSETS_IND'</where>
         </delete>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-519_REMOVE_RUN_DATE" context="bootstrap,demo,unit">
+        <delete tableName="krcr_parm_t">
+            <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'AssetDepreciationStep' and PARM_NM = 'RUN_DATE'</where>
+        </delete>
+    </changeSet>
 </databaseChangeLog>
