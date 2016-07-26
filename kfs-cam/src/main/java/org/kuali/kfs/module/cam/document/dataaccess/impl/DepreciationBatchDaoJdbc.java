@@ -407,7 +407,9 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         getJdbcTemplate().query("select t.cptlast_nbr from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd = '" + KFSConstants.DocumentStatusCodes.ENROUTE + "'", new ResultSetExtractor() {
             @Override
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-                assets.add(rs.getLong(1));
+                while (rs!= null && rs.next()) {
+                    assets.add(rs.getLong(1));
+                }
                 return assets;
             }
         });
