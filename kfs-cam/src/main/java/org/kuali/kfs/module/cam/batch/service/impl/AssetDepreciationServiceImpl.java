@@ -145,13 +145,11 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
 
                 /*
                  * Getting the system parameter "DEPRECIATION_DATE" When this parameter is used to determine which fiscal month and year
-                 * is going to be depreciated If blank then the system will take the system date to determine the fiscal period
+                 * is going to be depreciated. If blank or missing then the system will take the system date to determine the fiscal period
                  */
                 if (parameterService.parameterExists(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_DATE_PARAMETER)) {
                     depreciationDateParameter = parameterService.getParameterValueAsString(AssetDepreciationStep.class, CamsConstants.Parameters.DEPRECIATION_DATE_PARAMETER);
-                } else {
-                    throw new IllegalStateException(kualiConfigurationService.getPropertyValueAsString(CamsKeyConstants.Depreciation.DEPRECIATION_DATE_PARAMETER_NOT_FOUND));
-                }
+                } 
 
                 if(StringUtils.isBlank(depreciationDateParameter)) {
                     depreciationDateParameter = dateFormat.format(dateTimeService.getCurrentDate());
