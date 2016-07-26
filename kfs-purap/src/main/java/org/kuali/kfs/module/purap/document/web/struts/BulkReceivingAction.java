@@ -51,6 +51,7 @@ import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
 import org.kuali.kfs.kns.question.ConfirmationQuestion;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.kfs.krad.document.Document;
@@ -130,41 +131,21 @@ public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
         return forward;
     }
 
-    public ActionForward printReceivingTicket(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String blkDocId = request.getParameter("docId");
+    public ActionForward printReceivingTicketPDF(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        BulkReceivingForm blkRecForm = (BulkReceivingForm) form;
+        String docId = blkRecForm.getDocId();
+        
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
-
         try {
-            // will throw validation exception if errors occur
-            SpringContext.getBean(BulkReceivingService.class).performPrintReceivingTicketPDF(blkDocId, baosPDF);
-
-            response.setHeader("Cache-Control", "max-age=30");
-            response.setContentType("application/pdf");
-            StringBuffer sbContentDispValue = new StringBuffer();
-            String useJavascript = request.getParameter("useJavascript");
-            if (useJavascript == null || useJavascript.equalsIgnoreCase("false")) {
-                sbContentDispValue.append("attachment");
-            }
-            else {
-                sbContentDispValue.append("inline");
-            }
             StringBuffer sbFilename = new StringBuffer();
             sbFilename.append("PURAP_RECEIVING_TICKET_");
-            sbFilename.append(blkDocId);
+            sbFilename.append(docId);
             sbFilename.append("_");
             sbFilename.append(System.currentTimeMillis());
-            sbFilename.append(".pdf");
-            sbContentDispValue.append("; filename=");
-            sbContentDispValue.append(sbFilename);
 
-            response.setHeader("Content-disposition", sbContentDispValue.toString());
+            SpringContext.getBean(BulkReceivingService.class).performPrintReceivingTicketPDF(docId, baosPDF);
 
-            response.setContentLength(baosPDF.size());
-
-            ServletOutputStream sos = response.getOutputStream();
-            baosPDF.writeTo(sos);
-            sos.flush();
-
+            WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename.toString());
         }
         finally {
             if (baosPDF != null) {
@@ -172,37 +153,7 @@ public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
             }
         }
 
-        return null;
-    }
-
-    public ActionForward printReceivingTicketPDF(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        BulkReceivingForm blkRecForm = (BulkReceivingForm) form;
-        BulkReceivingDocument blkRecDoc = (BulkReceivingDocument) blkRecForm.getDocument();
-
-        String basePath = getApplicationBaseUrl();
-        String docId = blkRecDoc.getDocumentNumber();
-        String methodToCallPrintPurchaseOrderPDF = "printReceivingTicket";
-        String methodToCallDocHandler = "docHandler";
-        String printReceivingTicketPDFUrl = getUrlForPrintReceivingTicket(basePath, docId, methodToCallPrintPurchaseOrderPDF);
-        String displayReceivingDocTabbedPageUrl = getUrlForPrintReceivingTicket(basePath, docId, methodToCallDocHandler);
-        request.setAttribute("printReceivingTicketPDFUrl", printReceivingTicketPDFUrl);
-        request.setAttribute("displayReceivingDocTabbedPageUrl", displayReceivingDocTabbedPageUrl);
-        String label = SpringContext.getBean(DataDictionaryService.class).getDocumentLabelByTypeName(KFSConstants.FinancialDocumentTypeCodes.BULK_RECEIVING);
-        request.setAttribute("receivingDocLabel", label);
-
-        return mapping.findForward("printReceivingTicketPDF");
-    }
-
-    protected String getUrlForPrintReceivingTicket(String basePath, String docId, String methodToCall) {
-
-        StringBuffer result = new StringBuffer(basePath);
-        result.append("/purapBulkReceiving.do?methodToCall=");
-        result.append(methodToCall);
-        result.append("&docId=");
-        result.append(docId);
-        result.append("&command=displayDocSearchView");
-
-        return result.toString();
+        return null;          
     }
 
     @Override
