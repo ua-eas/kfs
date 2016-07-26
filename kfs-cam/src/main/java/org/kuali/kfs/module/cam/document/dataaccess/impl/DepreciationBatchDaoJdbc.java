@@ -176,7 +176,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         String sql = "SELECT A0.CPTLAST_NBR,A0.AST_PMT_SEQ_NBR,A1.CPTL_AST_DEPR_DT,A1.AST_DEPR_MTHD1_CD,A1.CPTLAST_SALVAG_AMT,";
         sql = sql + "A2.CPTLAST_DEPRLF_LMT,A5.ORG_PLNT_COA_CD,A5.ORG_PLNT_ACCT_NBR,A5.CMP_PLNT_COA_CD,A5.CMP_PLNT_ACCT_NBR,A3.FIN_OBJ_TYP_CD, ";
         sql = sql + "A3.FIN_OBJ_SUB_TYP_CD, A0.AST_DEPR1_BASE_AMT,A0.FIN_OBJECT_CD, A0.AST_ACUM_DEPR1_AMT,A0.SUB_ACCT_NBR,A0.FIN_SUB_OBJ_CD,A0.PROJECT_CD, A0.FIN_COA_CD, A0.ACCUM_RNDNG_ERR_MILLICENTS";
-        sql = sql + buildCriteria(fiscalYear, fiscalMonth, depreciationMethodList, notAcceptedAssetStatus, federallyOwnedObjectSubTypes, false, false);
+        sql = sql + buildCriteria(fiscalYear, fiscalMonth, depreciationMethodList, notAcceptedAssetStatus, federallyOwnedObjectSubTypes, false, true);
         sql = sql + "ORDER BY A0.CPTLAST_NBR, A0.FS_ORIGIN_CD, A0.ACCOUNT_NBR, A0.SUB_ACCT_NBR, A0.FIN_OBJECT_CD, A0.FIN_SUB_OBJ_CD, A3.FIN_OBJ_TYP_CD, A0.PROJECT_CD";
         getJdbcTemplate().query(sql, preparedStatementSetter(depreciationDate), new ResultSetExtractor() {
             @Override
@@ -394,6 +394,24 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         LOG.debug("getTransferDocLockedAssetCount() started");
 
         return getJdbcTemplate().queryForInt("select count(1) from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd ='" + KFSConstants.DocumentStatusCodes.ENROUTE + "'");
+    }
+    
+    /**
+     * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getTransferDocPendingAssets()
+     */
+    @Override
+    public Set<Long> getTransferDocPendingAssets() {
+        LOG.debug("getTransferDocPendingAssets() started");
+        
+        final Set<Long> assets = new HashSet<>();        
+        getJdbcTemplate().query("select t.cptlast_nbr from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd = '" + KFSConstants.DocumentStatusCodes.ENROUTE + "'", new ResultSetExtractor() {
+            @Override
+            public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+                assets.add(rs.getLong(1));
+                return assets;
+            }
+        });
+        return assets;
     }
 
     /**
