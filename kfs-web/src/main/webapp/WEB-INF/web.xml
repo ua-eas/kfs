@@ -58,6 +58,11 @@
     </filter>
 
     <filter>
+        <filter-name>AuthenticationTokenFilter</filter-name>
+        <filter-class>org.kuali.kfs.sys.web.filter.AuthenticationTokenFilter</filter-class>
+    </filter>
+
+    <filter>
         <filter-name>HideWebInfFilter</filter-name>
         <filter-class>org.kuali.kfs.krad.web.filter.HideWebInfFilter</filter-class>
     </filter>
@@ -105,6 +110,18 @@
 
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
+        <servlet-name>action</servlet-name>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-name>batchFileUpload</servlet-name>
+        <servlet-name>reports</servlet-name>
+        <url-pattern>/monitoring/*</url-pattern>
+        <url-pattern>/purap/*</url-pattern>
+        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AuthenticationTokenFilter</filter-name>
         <servlet-name>action</servlet-name>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-name>batchFileUpload</servlet-name>
