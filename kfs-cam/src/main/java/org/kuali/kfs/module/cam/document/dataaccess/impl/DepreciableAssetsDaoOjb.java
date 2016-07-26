@@ -19,6 +19,7 @@
 
 package org.kuali.kfs.module.cam.document.dataaccess.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
@@ -40,11 +41,13 @@ import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class DepreciableAssetsDaoOjb extends PlatformAwareDaoBaseOjb implements DepreciableAssetsDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DepreciableAssetsDaoOjb.class);
@@ -213,17 +216,10 @@ public class DepreciableAssetsDaoOjb extends PlatformAwareDaoBaseOjb implements 
             columns[1] = retiredAndTransferredAssetCount + "";
             reportLine.add(columns.clone());
 
-            data = depreciationBatchDao.getAssetAndPaymentCount(fiscalYear, fiscalMonth, depreciationDate, false);
-            eligibleAssetPaymentCount = new Integer(data[1].toString());
-            columns[0] = "Asset payments eligible for depreciation - After excluding AR and AT";
-            columns[1] = "" + (eligibleAssetPaymentCount + federallyOwnedAssetPaymentCount);
-            reportLine.add(columns.clone());
-
             columns[0] = "Asset payments ineligible for depreciation (Federally owned assets)";
             columns[1] = federallyOwnedAssetPaymentCount + "";
             reportLine.add(columns.clone());
 
-            // payments eligible after deleting pending AR and AT documents.!!
             columns[0] = "Asset payments eligible for depreciation - After excluding federally owned assets";
             columns[1] = eligibleAssetPaymentCount + "";
             reportLine.add(columns.clone());
@@ -231,6 +227,13 @@ public class DepreciableAssetsDaoOjb extends PlatformAwareDaoBaseOjb implements 
             columns[0] = "Assets eligible for depreciation";
             columns[1] = data[0].toString();
             reportLine.add(columns.clone());
+            
+            Set<Long> transferDocPendingAssets = depreciationBatchDao.getTransferDocPendingAssets();
+            if (transferDocPendingAssets.size() > 0) {
+                columns[0] = "Assets with pending transfer documents";
+                columns[1] = StringUtils.join(transferDocPendingAssets, ",");
+                reportLine.add(columns.clone());
+            }
         }
 
 

@@ -117,6 +117,12 @@ public interface DepreciationBatchDao {
      * @return
      */
     Integer getTransferDocLockedAssetCount();
+    
+    /**
+     * Assets with pending transfer docs 
+     * @return
+     */
+    Set<Long> getTransferDocPendingAssets();
 
     /**
      * Retirement document locked count

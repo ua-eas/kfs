@@ -150,4 +150,10 @@ public class MockDepreciationBatchDao implements DepreciationBatchDao {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public Set<Long> getTransferDocPendingAssets() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
