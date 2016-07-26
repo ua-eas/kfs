@@ -191,4 +191,11 @@
             <where> NMSPC_CD = 'KFS-CAM' and CMPNT_CD = 'AssetDepreciationStep' and PARM_NM = 'DEPRECIATION_ORGANIZATON_PLANT_FUND_OBJECT_SUB_TYPE'</where>
         </update>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-521_RENAME_BLANK_OUT_EMAIL_NOTIFICATION_PARAMETER" context="bootstrap,demo,unit">
+        <update tableName="krcr_parm_t">
+            <column name="parm_nm">BLANK_OUT_NOTIFICATION_EMAIL_ADDRESSES</column>
+            <where> nmspc_cd = 'KFS-CAM' and cmpnt_cd = 'AssetDepreciationStep' and parm_nm = 'RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES' and appl_id = 'KFS'</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>

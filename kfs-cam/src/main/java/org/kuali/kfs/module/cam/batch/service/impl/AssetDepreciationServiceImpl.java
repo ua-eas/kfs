@@ -742,7 +742,7 @@ public class AssetDepreciationServiceImpl implements AssetDepreciationService {
         message.setFromAddress(mailService.getBatchMailingList());
         String subject = "Asset Depreciation Job status";
         message.setSubject(subject);
-        Collection<String> toAddresses =  parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES);
+        Collection<String> toAddresses =  parameterService.getParameterValuesAsString(AssetDepreciationStep.class, CamsConstants.Parameters.BLANK_OUT_NOTIFICATION_EMAIL_ADDRESSES);
         message.getToAddresses().add(toAddresses);
 
 
