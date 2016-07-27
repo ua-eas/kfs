@@ -3,7 +3,9 @@ package org.kuali.kfs.web.filter;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-import org.kuali.kfs.sys.service.ApiKeyService;
+import org.kuali.kfs.sys.businessobject.JwtData;
+import org.kuali.kfs.sys.service.CoreApiKeyAuthenticationService;
+import org.kuali.kfs.sys.service.JwtService;
 import org.kuali.rice.kim.api.identity.AuthenticationService;
 
 import javax.servlet.FilterChain;
@@ -19,17 +21,23 @@ public class ResourceLoginFilterTest {
     private HttpServletResponse response;
     private HttpSession session;
     private PrintWriter writer;
-    private ApiKeyService apiKeyService;
     private FilterChain filterChain;
     private AuthenticationService authenticationService;
+    private CoreApiKeyAuthenticationService coreApiKeyAuthenticationService;
+    private JwtService jwtService;
     private boolean userSessionEstablished;
 
     @Before
     public void setUp() throws Exception {
         filter = new ResourceLoginFilter() {
             @Override
-            protected ApiKeyService getApiKeyService() {
-                return apiKeyService;
+            protected JwtService getJwtService() {
+                return jwtService;
+            }
+
+            @Override
+            protected CoreApiKeyAuthenticationService getCoreApiKeyAuthenticationService() {
+                return coreApiKeyAuthenticationService;
             }
 
             @Override
@@ -55,10 +63,11 @@ public class ResourceLoginFilterTest {
         request = EasyMock.createMock(HttpServletRequest.class);
         response = EasyMock.createMock(HttpServletResponse.class);
         writer = EasyMock.createMock(PrintWriter.class);
-        apiKeyService = EasyMock.createMock(ApiKeyService.class);
         session = EasyMock.createMock(HttpSession.class);
         filterChain = EasyMock.createMock(FilterChain.class);
         authenticationService = EasyMock.createMock(AuthenticationService.class);
+        coreApiKeyAuthenticationService = EasyMock.createMock(CoreApiKeyAuthenticationService.class);
+        jwtService = EasyMock.createMock(JwtService.class);
     }
 
     @Test
@@ -138,9 +147,10 @@ public class ResourceLoginFilterTest {
     }
 
     @Test
-    public void testBadHeader() throws Exception {
+    public void testNonCoreBadHeader() throws Exception {
         EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer BAD");
-        EasyMock.expect(apiKeyService.getPrincipalIdFromApiKey("BAD")).andReturn(Optional.empty());
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
+        EasyMock.expect(jwtService.decodeJwt("BAD")).andThrow(new RuntimeException("Error"));
         expectErrorResponse();
 
         replayAll();
@@ -149,9 +159,36 @@ public class ResourceLoginFilterTest {
     }
 
     @Test
-    public void testGoodHeader() throws Exception {
+    public void testNonCoreGoodHeader() throws Exception {
         EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer GOOD");
-        EasyMock.expect(apiKeyService.getPrincipalIdFromApiKey("GOOD")).andReturn(Optional.of("user"));
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
+        JwtData data = new JwtData("user",1000);
+        EasyMock.expect(jwtService.decodeJwt("GOOD")).andReturn(data);
+        EasyMock.expect(request.getSession()).andReturn(session);
+        filterChain.doFilter(request,response);
+
+        replayAll();
+
+        filter.doFilter(request,response,filterChain);
+    }
+
+    @Test
+    public void testCoreBadHeader() throws Exception {
+        EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer BAD");
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(true);
+        EasyMock.expect(coreApiKeyAuthenticationService.getPrincipalIdFromApiKey("BAD")).andReturn(Optional.empty());
+        expectErrorResponse();
+
+        replayAll();
+
+        filter.doFilter(request,response,filterChain);
+    }
+
+    @Test
+    public void testCoreGoodHeader() throws Exception {
+        EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer GOOD");
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(true);
+        EasyMock.expect(coreApiKeyAuthenticationService.getPrincipalIdFromApiKey("GOOD")).andReturn(Optional.of("user"));
         EasyMock.expect(request.getSession()).andReturn(session);
         filterChain.doFilter(request,response);
 
@@ -164,10 +201,11 @@ public class ResourceLoginFilterTest {
         EasyMock.replay(request);
         EasyMock.replay(response);
         EasyMock.replay(writer);
-        EasyMock.replay(apiKeyService);
         EasyMock.replay(session);
         EasyMock.replay(filterChain);
         EasyMock.replay(authenticationService);
+        EasyMock.replay(jwtService);
+        EasyMock.replay(coreApiKeyAuthenticationService);
     }
 
     private void expectErrorResponse() throws Exception {
