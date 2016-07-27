@@ -772,14 +772,4 @@
 	<class-descriptor class="org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeaderMissingFromWorkflow" table="FS_DOC_HDRS_MSNG_IN_KEW_T">
 		<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true" />
 	</class-descriptor>
-
-    <class-descriptor class="org.kuali.kfs.sys.businessobject.ApiKey" table="SH_API_KEY_T">
-        <field-descriptor name="id" column="ID" jdbc-type="VARCHAR" primarykey="true" />
-        <field-descriptor name="objectId" column="OBJ_ID" jdbc-type="VARCHAR" />
-        <field-descriptor name="versionNumber" column="VER_NBR" jdbc-type="BIGINT" locking="true" />
-        <field-descriptor name="principalId" column="PRNCPL_ID" jdbc-type="VARCHAR" />
-        <field-descriptor name="key" column="KEY" jdbc-type="VARCHAR" />
-        <field-descriptor name="description" column="DESC" jdbc-type="VARCHAR" />
-        <field-descriptor name="active" column="ROW_ACTV_IND" jdbc-type="VARCHAR" conversion="org.kuali.kfs.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion"/>
-    </class-descriptor>
 </descriptor-repository>

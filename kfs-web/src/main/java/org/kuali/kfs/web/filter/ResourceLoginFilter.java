@@ -24,8 +24,10 @@ import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.web.filter.LoginFilterBase;
+import org.kuali.kfs.sys.businessobject.JwtData;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.ApiKeyService;
+import org.kuali.kfs.sys.service.CoreApiKeyAuthenticationService;
+import org.kuali.kfs.sys.service.JwtService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.kim.api.identity.AuthenticationService;
 
@@ -107,18 +109,26 @@ public class ResourceLoginFilter extends LoginFilterBase {
     private boolean isAuthorizedViaHeader(HttpServletRequest request, HttpServletResponse response, String authorizationHeader) throws IOException {
         Optional<String> oKey = getApiKey(authorizationHeader);
         if (oKey.isPresent()) {
-            Optional<String> user = getUserFromKey(oKey.get());
-            if (user.isPresent()) {
-                setUserSession(request, user.get());
-                return true;
+            if ( getCoreApiKeyAuthenticationService().useCore() ) {
+                Optional<String> user = getCoreApiKeyAuthenticationService().getPrincipalIdFromApiKey(oKey.get());
+                if (user.isPresent()) {
+                    setUserSession(request, user.get());
+                    return true;
+                }
             } else {
-                sendError(response);
-                removeFromMDC();
+                try {
+                    JwtData data = getJwtService().decodeJwt(oKey.get());
+                    setUserSession(request, data.getPrincipalName());
+                    return true;
+                } catch (RuntimeException e) {
+                    LOG.debug("isAuthorizedViaHeader() invalid financials token",e);
+                }
             }
-        } else {
-            sendError(response);
-            removeFromMDC();
         }
+
+        sendError(response);
+        removeFromMDC();
+
         return false;
     }
 
@@ -147,12 +157,12 @@ public class ResourceLoginFilter extends LoginFilterBase {
         return Optional.of(split[1]);
     }
 
-    private Optional<String> getUserFromKey(String key) {
-        return getApiKeyService().getPrincipalIdFromApiKey(key);
+    protected CoreApiKeyAuthenticationService getCoreApiKeyAuthenticationService() {
+        return SpringContext.getBean(CoreApiKeyAuthenticationService.class);
     }
 
-    protected ApiKeyService getApiKeyService() {
-        return SpringContext.getBean(ApiKeyService.class);
+    protected JwtService getJwtService() {
+        return SpringContext.getBean(JwtService.class);
     }
 
     protected AuthenticationService getAuthenticationService() {

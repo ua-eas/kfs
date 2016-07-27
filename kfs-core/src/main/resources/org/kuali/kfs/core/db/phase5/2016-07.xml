@@ -198,4 +198,16 @@
             <where> nmspc_cd = 'KFS-CAM' and cmpnt_cd = 'AssetDepreciationStep' and parm_nm = 'RUN_DATE_NOTIFICATION_EMAIL_ADDRESSES' and appl_id = 'KFS'</where>
         </update>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINP-561_REMOVE_API_KEY_TABLE" context="bootstrap,demo,unit">
+        <dropTable tableName="SH_API_KEY_T"/>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-561_REMOVE_API_KEY_SEQUENCE_TABLE" dbms="mysql" context="bootstrap,demo,unit">
+        <dropTable tableName="SH_API_KEY_S"/>
+    </changeSet>
+
+    <changeSet author="KFS601" id="FINP-561_REMOVE_API_KEY_SEQUENCE" dbms="oracle" context="bootstrap,demo,unit">
+        <dropSequence sequenceName="SH_API_KEY_S"/>
+    </changeSet>
 </databaseChangeLog>
