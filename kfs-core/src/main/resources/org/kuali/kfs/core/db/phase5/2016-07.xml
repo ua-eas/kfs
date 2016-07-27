@@ -210,4 +210,11 @@
     <changeSet author="KFS601" id="FINP-561_REMOVE_API_KEY_SEQUENCE" dbms="oracle" context="bootstrap,demo,unit">
         <dropSequence sequenceName="SH_API_KEY_S"/>
     </changeSet>
+
+    <changeSet author="KFS601" id="FINI-2197_BLANKOUT_CUTOFF_TIME_FOR_UNIT_TESTS" context="unit">
+        <update tableName="krcr_parm_t">
+            <column name="val"></column>
+            <where> nmspc_cd = 'KFS-GL' and cmpnt_cd = 'ScrubberStep' and parm_nm = 'CUTOFF_TIME' and appl_id = 'KFS'</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>

@@ -25,32 +25,25 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.batch.ScrubberStep;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.context.TestUtils;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.kuali.kfs.gl.batch.service.impl.RunDateServiceImpl;
 
 /**
  * Tests the cutoff time functionality of RunDateService
  */
-@ConfigureContext
-public class RunDateServiceTest extends KualiTestBase {
+public class RunDateServiceTest {
 
     protected static final String DATE_FORMAT = "MM/dd/yyyy HH:mm:ss";
 
-    protected RunDateService runDateService;
 
     /**
      * Initializes the RunDateService implementation to test
      * @see junit.framework.TestCase#setUp()
      */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        runDateService = SpringContext.getBean(RunDateService.class);
+    @Before
+    public void setUp() throws Exception {
     }
 
     /**
@@ -59,10 +52,15 @@ public class RunDateServiceTest extends KualiTestBase {
      * 
      * @throws Exception thrown if any exception is encountered for any reason
      */
+    @Test
     public void testCalculateCutoff() throws Exception {
-        // cutoff time should be set to 10am in the master data source, see FS_PARM_T, script name GL.SCRUBBER, param name
-        // SCRUBBER_CUTOFF_TIME
-        // KFSP1/Scrubber+cutoff+time+configuration
+        final RunDateService runDateService =  new RunDateServiceImpl() {
+           @Override
+            protected String retrieveCutoffTimeValue() {
+                return "10:00:00";
+            }
+        };
+
 
         Map<String, String> expectedCurrentToRunTimeMappings = new LinkedHashMap<String, String>();
 
@@ -83,7 +81,7 @@ public class RunDateServiceTest extends KualiTestBase {
         DateFormat parser = new SimpleDateFormat(DATE_FORMAT);
         for (Entry<String, String> entry : expectedCurrentToRunTimeMappings.entrySet()) {
             Date calculatedRunTime = runDateService.calculateRunDate(parser.parse(entry.getKey()));
-            assertTrue(entry.getKey() + " " + entry.getValue() + " " + calculatedRunTime, parser.parse(entry.getValue()).equals(calculatedRunTime));
+            Assert.assertTrue(entry.getKey() + " " + entry.getValue() + " " + calculatedRunTime, parser.parse(entry.getValue()).equals(calculatedRunTime));
         }
     }
 
@@ -92,9 +90,14 @@ public class RunDateServiceTest extends KualiTestBase {
      * 
      * @throws Exception thrown if any exception is encountered for any reason
      */
+    @Test
     public void testCalculateCutoffDuringMidnightHour() throws Exception {
-        TestUtils.setSystemParameter(ScrubberStep.class, GeneralLedgerConstants.GlScrubberGroupParameters.SCRUBBER_CUTOFF_TIME, "0:05:00");
-        Map<String, String> expectedCurrentToRunTimeMappings = new LinkedHashMap<String, String>();
+        final RunDateService runDateService =  new RunDateServiceImpl() {
+            @Override
+            protected String retrieveCutoffTimeValue() {
+                return "0:05:00";
+            }
+        };        Map<String, String> expectedCurrentToRunTimeMappings = new LinkedHashMap<String, String>();
 
         expectedCurrentToRunTimeMappings.put("6/1/2006 0:05:00", "6/1/2006 0:05:00");
         expectedCurrentToRunTimeMappings.put("3/1/2006 0:02:33", "2/28/2006 23:59:59");
@@ -102,7 +105,7 @@ public class RunDateServiceTest extends KualiTestBase {
         DateFormat parser = new SimpleDateFormat(DATE_FORMAT);
         for (Entry<String, String> entry : expectedCurrentToRunTimeMappings.entrySet()) {
             Date calculatedRunTime = runDateService.calculateRunDate(parser.parse(entry.getKey()));
-            assertTrue(entry.getKey() + " " + entry.getValue() + " " + calculatedRunTime, parser.parse(entry.getValue()).equals(calculatedRunTime));
+            Assert.assertTrue(entry.getKey() + " " + entry.getValue() + " " + calculatedRunTime, parser.parse(entry.getValue()).equals(calculatedRunTime));
         }
     }
 }
