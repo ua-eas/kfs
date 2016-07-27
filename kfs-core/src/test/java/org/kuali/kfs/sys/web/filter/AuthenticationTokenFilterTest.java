@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.kuali.kfs.sys.businessobject.JwtData;
+import org.kuali.kfs.sys.service.CoreApiKeyAuthenticationService;
 import org.kuali.kfs.sys.service.JwtService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
@@ -19,6 +20,7 @@ public class AuthenticationTokenFilterTest {
     private AuthenticationTokenFilter authenticationTokenFilter;
     private ConfigurationService configurationService;
     private JwtService jwtService;
+    private CoreApiKeyAuthenticationService coreApiKeyAuthenticationService;
     private HttpServletRequest httpServletRequest;
     private HttpServletResponse httpServletResponse;
     private FilterChain filterChain;
@@ -26,6 +28,7 @@ public class AuthenticationTokenFilterTest {
     @Before
     public void setUp() {
         authenticationTokenFilter = new AuthenticationTokenFilter();
+        coreApiKeyAuthenticationService = EasyMock.createMock(CoreApiKeyAuthenticationService.class);
         configurationService = EasyMock.createMock(ConfigurationService.class);
         jwtService = EasyMock.createMock(JwtService.class);
         httpServletRequest = EasyMock.createMock(HttpServletRequest.class);
@@ -34,28 +37,65 @@ public class AuthenticationTokenFilterTest {
 
         authenticationTokenFilter.setJwtService(jwtService);
         authenticationTokenFilter.setConfigurationService(configurationService);
+        authenticationTokenFilter.setCoreApiKeyAuthenticationService(coreApiKeyAuthenticationService);
     }
 
     private void replayAll() {
-        EasyMock.replay(configurationService,jwtService,httpServletRequest,httpServletResponse,filterChain);
+        EasyMock.replay(configurationService,jwtService,httpServletRequest,httpServletResponse,filterChain,coreApiKeyAuthenticationService);
+    }
+
+    private void verifyAll() {
+        EasyMock.verify(configurationService,jwtService,httpServletRequest,httpServletResponse,filterChain,coreApiKeyAuthenticationService);
     }
 
     @Test
-    public void testFinancialsCookieExists() throws IOException,ServletException {
+    public void testCoreNoCoreCooke() throws IOException,ServletException {
+        Cookie[] cookies = new Cookie[0];
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(true);
+        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies).times(2);
+
+        replayAll();
+        try {
+            authenticationTokenFilter.doFilter(httpServletRequest,httpServletResponse,filterChain);
+            Assert.fail();
+        } catch (RuntimeException e) {
+            // Expected
+        }
+        verifyAll();
+    }
+
+    @Test
+    public void testCoreFinancialsCookieExists() throws IOException,ServletException {
         Cookie[] cookies = new Cookie[1];
         cookies[0] = new Cookie(AuthenticationTokenFilter.FIN_AUTH_TOKEN_COOKIE_NAME,"token");
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(true);
+        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies);
+        filterChain.doFilter(httpServletRequest,httpServletResponse);
+
+        replayAll();
+        authenticationTokenFilter.doFilter(httpServletRequest,httpServletResponse,filterChain);
+        verifyAll();
+    }
+
+    @Test
+    public void testNonCoreFinancialsCookieExists() throws IOException,ServletException {
+        Cookie[] cookies = new Cookie[1];
+        cookies[0] = new Cookie(AuthenticationTokenFilter.FIN_AUTH_TOKEN_COOKIE_NAME,"token");
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
         EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies);
         filterChain.doFilter(httpServletRequest,httpServletResponse);
         EasyMock.expect(jwtService.decodeJwt("token")).andReturn(null);
 
         replayAll();
         authenticationTokenFilter.doFilter(httpServletRequest,httpServletResponse,filterChain);
+        verifyAll();
     }
 
     @Test
-    public void testInvalidFinancialsCookieExists() throws IOException,ServletException {
+    public void testNonCoreInvalidFinancialsCookieExists() throws IOException,ServletException {
         Cookie[] cookies = new Cookie[1];
         cookies[0] = new Cookie(AuthenticationTokenFilter.FIN_AUTH_TOKEN_COOKIE_NAME,"token");
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
         EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies);
         filterChain.doFilter(httpServletRequest,httpServletResponse);
         EasyMock.expect(jwtService.decodeJwt("token")).andThrow(new RuntimeException());
@@ -67,12 +107,14 @@ public class AuthenticationTokenFilterTest {
 
         replayAll();
         authenticationTokenFilter.doFilter(httpServletRequest,httpServletResponse,filterChain);
+        verifyAll();
     }
 
     @Test
     public void testNoFinancialsCookieCoreCookieExists() throws IOException,ServletException {
         Cookie[] cookies = new Cookie[1];
         cookies[0] = new Cookie(AuthenticationTokenFilter.AUTH_TOKEN_COOKIE_NAME,"token");
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(true);
         EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies).times(2);
         EasyMock.expect(httpServletRequest.isSecure()).andReturn(true);
         httpServletResponse.addCookie(EasyMock.anyObject(Cookie.class));
@@ -80,12 +122,14 @@ public class AuthenticationTokenFilterTest {
 
         replayAll();
         authenticationTokenFilter.doFilter(httpServletRequest,httpServletResponse,filterChain);
+        verifyAll();
     }
 
     @Test
     public void testNoFinancialsCookieNoCoreCookie() throws IOException,ServletException {
         Cookie[] cookies = new Cookie[0];
-        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies).times(2);
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
+        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies);
         EasyMock.expect(httpServletRequest.getRemoteUser()).andReturn("khuntley");
         EasyMock.expect(configurationService.getPropertyValueAsString(AuthenticationTokenFilter.JWT_EXPIRATION_SECONDS)).andReturn("100");
         EasyMock.expect(jwtService.generateJwt(EasyMock.anyObject(JwtData.class))).andReturn("token");
@@ -95,12 +139,14 @@ public class AuthenticationTokenFilterTest {
 
         replayAll();
         authenticationTokenFilter.doFilter(httpServletRequest,httpServletResponse,filterChain);
+        verifyAll();
     }
 
     @Test
     public void testMissingJwtExpirationSeconds() throws IOException,ServletException {
         Cookie[] cookies = new Cookie[0];
-        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies).times(2);
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
+        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies);
         EasyMock.expect(httpServletRequest.getRemoteUser()).andReturn("khuntley");
         EasyMock.expect(configurationService.getPropertyValueAsString(AuthenticationTokenFilter.JWT_EXPIRATION_SECONDS)).andReturn(null);
 
@@ -111,12 +157,14 @@ public class AuthenticationTokenFilterTest {
         } catch (RuntimeException e) {
             // Expected
         }
+        verifyAll();
     }
 
     @Test
     public void testInvalidJwtExpirationSeconds() throws IOException,ServletException {
         Cookie[] cookies = new Cookie[0];
-        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies).times(2);
+        EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
+        EasyMock.expect(httpServletRequest.getCookies()).andReturn(cookies);
         EasyMock.expect(httpServletRequest.getRemoteUser()).andReturn("khuntley");
         EasyMock.expect(configurationService.getPropertyValueAsString(AuthenticationTokenFilter.JWT_EXPIRATION_SECONDS)).andReturn("Not A Number");
 
@@ -127,5 +175,6 @@ public class AuthenticationTokenFilterTest {
         } catch (RuntimeException e) {
             // Expected
         }
+        verifyAll();
     }
 }

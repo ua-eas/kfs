@@ -20,6 +20,7 @@ package org.kuali.kfs.sys.web.filter;
 
 import org.kuali.kfs.sys.businessobject.JwtData;
 import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.CoreApiKeyAuthenticationService;
 import org.kuali.kfs.sys.service.JwtService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 
@@ -49,6 +50,7 @@ public class AuthenticationTokenFilter implements Filter {
 
     private ConfigurationService configurationService;
     private JwtService jwtService;
+    private CoreApiKeyAuthenticationService coreApiKeyAuthenticationService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -57,41 +59,58 @@ public class AuthenticationTokenFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
-        HttpServletResponse response = (HttpServletResponse)servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        if (getCoreApiKeyAuthenticationService().useCore()) {
+            coreDoFilter(request, response, filterChain);
+        } else {
+            nonCoreDoFilter(request, response, filterChain);
+        }
+    }
+
+    protected void coreDoFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        Optional<String> financialsAuthToken = getFinancialsAuthToken(request);
+        if ( ! financialsAuthToken.isPresent() ) {
+            Optional<String> coreToken = getCoreAuthToken(request);
+            if ( ! coreToken.isPresent() ) {
+                throw new RuntimeException("Unable to access core token");
+            }
+
+            Cookie financialsAuthCookie = new Cookie(FIN_AUTH_TOKEN_COOKIE_NAME, coreToken.get());
+            financialsAuthCookie.setSecure(request.isSecure());
+            response.addCookie(financialsAuthCookie);
+        }
+
+        filterChain.doFilter(request,response);
+    }
+
+    protected void nonCoreDoFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String token = "";
-        boolean generateCookie = false;
 
         Optional<String> financialsAuthToken = getFinancialsAuthToken(request);
         if ( financialsAuthToken.isPresent() ) {
             try {
                 // Decode it to make sure it hasn't expired and is our jwt
                 jwtService.decodeJwt(financialsAuthToken.get());
+
+                // It's valid so nothing needs to be done
+                filterChain.doFilter(request,response);
+                return;
             } catch (RuntimeException e) {
                 JwtData jwtData = new JwtData(request.getRemoteUser(), this.getExpirationSeconds());
                 token = getJwtService().generateJwt(jwtData);
-                generateCookie = true;
             }
         } else {
-            generateCookie = true;
-
-            Optional<String> coreToken = getCoreAuthToken(request);
-            if (coreToken.isPresent()) {
-                token = coreToken.get();
-            } else {
-                JwtData jwtData = new JwtData(request.getRemoteUser(), this.getExpirationSeconds());
-                token = getJwtService().generateJwt(jwtData);
-            }
+            JwtData jwtData = new JwtData(request.getRemoteUser(), this.getExpirationSeconds());
+            token = getJwtService().generateJwt(jwtData);
         }
 
-        if ( generateCookie ) {
-            Cookie financialsAuthCookie = new Cookie(FIN_AUTH_TOKEN_COOKIE_NAME, token);
-            financialsAuthCookie.setSecure(request.isSecure());
-            response.addCookie(financialsAuthCookie);
-        }
+        Cookie financialsAuthCookie = new Cookie(FIN_AUTH_TOKEN_COOKIE_NAME, token);
+        financialsAuthCookie.setSecure(request.isSecure());
+        response.addCookie(financialsAuthCookie);
 
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(request,response);
     }
 
     @Override
@@ -145,11 +164,22 @@ public class AuthenticationTokenFilter implements Filter {
         return jwtService;
     }
 
+    protected CoreApiKeyAuthenticationService getCoreApiKeyAuthenticationService() {
+        if ( coreApiKeyAuthenticationService == null ) {
+            coreApiKeyAuthenticationService = SpringContext.getBean(CoreApiKeyAuthenticationService.class);
+        }
+        return coreApiKeyAuthenticationService;
+    }
+
     public void setConfigurationService(ConfigurationService configurationService) {
         this.configurationService = configurationService;
     }
 
     public void setJwtService(JwtService jwtService) {
         this.jwtService = jwtService;
+    }
+
+    public void setCoreApiKeyAuthenticationService(CoreApiKeyAuthenticationService coreApiKeyAuthenticationService) {
+        this.coreApiKeyAuthenticationService = coreApiKeyAuthenticationService;
     }
 }
