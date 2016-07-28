@@ -24,8 +24,8 @@
 	
 	The PDP format for Process ID "${KualiForm.formatProcessSummary.processId}" has started. An email will be sent to "${KualiForm.initiatorEmail}" when the process is complete. 
 	<div id="globalbuttons" class="globalbuttons">
-		<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" 
-        	styleClass="globalbuttons" property="methodToCall.returnToPortal" title="Close Window" alt="Close"/>
+		<html:submit value="Close"
+			styleClass="btn btn-default small" property="methodToCall.returnToPortal" title="Close Window" alt="Close"/>
 	</div>
 
 </kul:page>

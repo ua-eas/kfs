@@ -59,9 +59,9 @@
                             		property="nonAppliedHoldingAmount"
                             		readOnly="${readOnly}" />
 								<c:if test="${readOnly ne true}">
-	                        		<html:image property="methodToCall.applyAllAmounts"
-	                            		src="${ConfigProperties.externalizable.images.url}tinybutton-apply.gif"
-	                            		alt="Commit Unapplied" title="Commit Unapplied" styleClass="tinybutton" />
+	                        		<html:submit property="methodToCall.applyAllAmounts"
+	                            		value="Apply"
+	                            		alt="Commit Unapplied" title="Commit Unapplied" styleClass="btn btn-default small" />
 	                    		</c:if>
                     		</td>
                 		</tr>

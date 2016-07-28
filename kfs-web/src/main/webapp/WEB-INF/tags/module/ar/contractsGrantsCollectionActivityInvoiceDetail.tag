@@ -45,19 +45,23 @@
         <table style="width: 100%;" cellpadding="0" cellspacing="0" class="datatable" >
             <tr>
                 <td class="tab-subhead" style="border-right: none;">
-                	<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}"> 
-                		<html:image property="methodToCall.toggleTab.tab${tabKey}" 
-                        			src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" 
-                                    alt="hide" title="toggle" styleClass="tinybutton"
-                                    styleId="tab-${tabKey}-imageToggle"
-                                    onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+                	<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
+						<html:submit
+								property="methodToCall.toggleTab.tab${tabKey}"
+								alt="hide" title="toggle"
+								styleClass="btn btn-default small"
+								styleId="tab-${tabKey}-imageToggle"
+								onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+								value="Hide"/>
                     </c:if>
                     <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-                    	<html:image property="methodToCall.toggleTab.tab${tabKey}"
-                    				src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif"
-                    				alt="show" title="toggle" styleClass="tinybutton"
-                    				styleId="tab-${tabKey}-imageToggle"
-                    				onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+						<html:submit
+								property="methodToCall.toggleTab.tab${tabKey}"
+								alt="show" title="toggle"
+								styleClass="btn btn-default small"
+								styleId="tab-${tabKey}-imageToggle"
+								onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+								value="Show"/>
                  	</c:if>
                 </td>
             </tr>
@@ -105,11 +109,11 @@
 				<tr>
 					<th class="datacell" colspan="2">
 						<div align="center">
-							<html:image property="methodToCall.deleteInvoice.line${ctr}"
-								src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" 
+							<html:submit property="methodToCall.deleteInvoice.line${ctr}"
+								value="Delete"
 								alt="Delete Invoice" 
 								title="Delete Invoice"
-								styleClass="tinybutton" />
+								styleClass="btn btn-default small" />
 						</div>
 					</th>
 				</tr>

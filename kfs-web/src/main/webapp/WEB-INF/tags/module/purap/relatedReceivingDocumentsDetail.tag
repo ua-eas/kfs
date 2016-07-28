@@ -146,16 +146,22 @@
 					
 				<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${correctionView.documentLabel} - <a href="<c:out value="${correctionView.url}" />" style="color: #FFF" target="_BLANK"><c:out value="${correctionView.documentIdentifierString}" /></a>
 				<c:if test="${isOpenCor == 'true' || isOpenCor == 'TRUE'}">
-					<html:image property="methodToCall.toggleTab.tab${tabKeyCor}" 
-						src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" 
-						alt="hide" title="toggle" styleClass="tinybutton" styleId="tab-${tabKeyCor}-imageToggle"
-						onclick="javascript: return toggleTab(document, '${tabKeyCor}'); " />
+					<html:submit
+							property="methodToCall.toggleTab.tab${tabKey}"
+							alt="hide" title="toggle"
+							styleClass="btn btn-default small"
+							styleId="tab-${tabKey}-imageToggle"
+							onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+							value="Hide"/>
 				</c:if>
 				<c:if test="${isOpenCor != 'true' && isOpenCor != 'TRUE'}">
-					<html:image property="methodToCall.toggleTab.tab${tabKeyCor}" 
-						src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" 
-						alt="show" title="toggle" styleClass="tinybutton" styleId="tab-${tabKeyCor}-imageToggle"
-						onclick="javascript: return toggleTab(document, '${tabKeyCor}'); " />
+					<html:submit
+							property="methodToCall.toggleTab.tab${tabKey}"
+							alt="show" title="toggle"
+							styleClass="btn btn-default small"
+							styleId="tab-${tabKey}-imageToggle"
+							onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+							value="Show"/>
 				</c:if>				
 				</h3>
 

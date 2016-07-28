@@ -92,9 +92,8 @@
 											<c:when test="${detailLineNumber != null}">
 												<c:if test="${fullEntryMode}">
 													<div align="center">
-														<html:image
-															src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
-															styleClass="tinybutton"
+														<html:submit
+															styleClass="btn btn-default small" value="Delete"
 															property="methodToCall.deleteImportedExpenseDetailLine.line${lineNumber}-${detailLineNumber}"
 															alt="Delete Imported Expense Line"
 															title="Delete Imported Expense Detail Line" /></div>

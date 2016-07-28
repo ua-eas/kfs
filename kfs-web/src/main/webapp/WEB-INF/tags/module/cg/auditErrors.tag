@@ -41,7 +41,7 @@
 							<tr>
 								<td>&nbsp;</td>
 								<td width="94%">${errorText}</td>
-								<td width="5%"><div align="center"><html:image src="${ConfigProperties.externalizable.images.url}tinybutton-fix.gif" property="methodToCall.${audit.link}.x"/></div></td>
+								<td width="5%"><div align="center"><html:submit value="Fix" styleClass="btn btn-default small" property="methodToCall.${audit.link}.x"/></div></td>
 							</tr>
 						</c:when>
 						<c:otherwise><li>${errorText}</li></c:otherwise>

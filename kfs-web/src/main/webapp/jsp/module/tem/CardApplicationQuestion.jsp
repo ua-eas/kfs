@@ -35,11 +35,11 @@
 	</table>
 	<br>
 </div>
-	<div id="globalbuttons" class="globalbuttons"><html:image
-		src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_Yes.gif" styleClass="globalbuttons"
+	<div id="globalbuttons" class="globalbuttons"><html:submit
+		value="Yes" styleClass="btn btn-default"
 		property="methodToCall.openNew" alt="Create new Card Application" title="Create new Card Application" />
-	&nbsp;&nbsp; <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_No.gif"
-		styleClass="globalbuttons" property="methodToCall.returnToIndex"
+	&nbsp;&nbsp; <html:submit value="No"
+		styleClass="btn btn-default" property="methodToCall.returnToIndex"
 		alt="Return to Index" title="Return to Index" /></div>
 
 </kul:page>

@@ -96,14 +96,14 @@
 			<table table cellpadding="0" cellspacing="0" border=0> 		
 				<tr>
 				<th width="50%" class="grid" align="right">
-					<html:image property="methodToCall.validateLines" src="${ConfigProperties.externalizable.images.url}tinybutton-validate.gif"
-					    		alt="Validates selected lines"
-					        	styleClass="tinybutton" align="center"/>&nbsp &nbsp &nbsp
+					<html:submit property="methodToCall.validateLines"
+					    		alt="Validates selected lines" value="Validate"
+								styleClass="btn btn-default small"/>&nbsp &nbsp &nbsp
 				</td>
 				<th width="50%" class="grid" align="left">&nbsp &nbsp &nbsp				
-					<html:image property="methodToCall.deleteLines" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
-					    		alt="Delete selected lines"
-					        	styleClass="tinybutton" align="center"/>
+					<html:submit property="methodToCall.deleteLines"
+					    		alt="Delete selected lines" value="Delete"
+								styleClass="btn btn-default small"/>
 				</td>	
 				</tr>			
 			</table>
@@ -228,9 +228,8 @@
 				<tr>
 					<th colspan=4 width="100%"><div align="center">
 						<html:image property="methodToCall.searchAndReplace"
-				    		src="${ConfigProperties.externalizable.images.url}tinybutton-replace.gif"
-				    		alt="Start replacing values"
-				        	styleClass="tinybutton" align="center"/></div>
+				    		alt="Start replacing values" value="Replace"
+							styleClass="btn btn-default small"/></div>
 					</th>
 				</tr>					
 			</table>

@@ -88,8 +88,7 @@
 						<c:if test="${!readOnly}">
 							<kul:htmlControlAttribute property="document.checkEntryMode"
 									attributeEntry="${cashReceiptAttributes.checkEntryMode}" onchange="submitForm()" />
-							<noscript><html:image src="${ConfigProperties.externalizable.images.url}tinybutton-select.gif"
-								styleClass="tinybutton" alt="change check entry mode" title="change check entry mode" /></noscript>
+							<noscript><html:submit styleClass="btn btn-default small" alt="change check entry mode" title="change check entry mode" value="Select"/></noscript>
 							</td>
 						</c:if>
 						<c:if test="${showConfirm}">
@@ -241,9 +240,8 @@
 		<kul:tab tabTitle="Change Request" defaultOpen="${KualiForm.document.changeRequested}" tabErrorKey="${KFSConstants.EDIT_CASH_RECEIPT_CHANGE_REQUEST_ERRORS}">
 			<c:if test="${confirmMode}"> <%-- we only show copy buttons in CashManager Confirm Mode --%>
 				<div class="tab-container">
-					<html:image align="center" property="methodToCall.copyAllChangeCurrencyAndCoin"
-						src="${ConfigProperties.externalizable.images.url}tinybutton-copyall.gif" styleClass="tinybutton" 
-						title="Copy all change currency and coin from Original to CashManager section" alt="Copy all change currency and coin" />
+					<html:submit property="methodToCall.copyAllChangeCurrencyAndCoin" styleClass="btn btn-default small"
+						title="Copy all change currency and coin from Original to CashManager section" alt="Copy all change currency and coin" value="Copy All"/>
 				</div>
 			</c:if>
 			<div class="tab-container" align="center">

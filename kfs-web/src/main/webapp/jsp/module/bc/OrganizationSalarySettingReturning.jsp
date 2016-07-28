@@ -23,7 +23,7 @@
 
     <kul:errors keyMatch="${BCConstants.ErrorKey.RETURNED_DETAIL_SALARY_SETTING_TAB_ERRORS}" errorTitle=" " />
     <div id="globalbuttons" class="globalbuttons">
-	    <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif" styleClass="globalbuttons" 
+	    <html:submit value="Close" styleClass="btn btn-default"
 	        onclick="window.close();return true;" property="methodToCall.performLost" title="close the window" alt="close the window"/>		
     </div>
 </kul:page>

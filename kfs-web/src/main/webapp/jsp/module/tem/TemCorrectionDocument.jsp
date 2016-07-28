@@ -205,10 +205,10 @@
 										property="actionFormUtilMap.getOptionsMap~org|kuali|kfs|module|tem|businessobject|options|CorrectionEditMethodValuesFinder"
 										label="value" value="key" />
 								</html:select>
-								<html:image
+								<html:submit
 									property="methodToCall.selectSystemEditMethod.anchor${currentTabIndex}"
-									src="${ConfigProperties.externalizable.images.url}tinybutton-select.gif"
-									styleClass="tinybutton" alt="Select System and Edit Method"
+									value="Select"
+									styleClass="btn btn-default small" alt="Select System and Edit Method"
 									title="Select System and Edit Method" />
 							</center>
 						</td>
@@ -252,18 +252,18 @@
 
 								<br /> <br />
 								<c:if test="${KualiForm.editMethod eq 'R'}">
-									<html:image
+									<html:submit
 										property="methodToCall.confirmDeleteDocument.anchor${currentTabIndex}"
-										src="${ConfigProperties.externalizable.images.url}tinybutton-remgrpproc.gif"
-										styleClass="tinybutton" alt="Remove Group From Processing"
+										value="Remove Group from Processing"
+										styleClass="btn btn-default small" alt="Remove Group From Processing"
 										title="Remove Group From Processing" />
 								</c:if>
 								<c:if
 									test="${KualiForm.editMethod eq 'M' or KualiForm.editMethod eq 'C'}">
-									<html:image
+									<html:submit
 										property="methodToCall.loadGroup.anchor${currentTabIndex}"
-										src="${ConfigProperties.externalizable.images.url}tinybutton-loadgroup.gif"
-										styleClass="tinybutton" alt="Show All Entries"
+										value="Load Group"
+										styleClass="btn btn-default small" alt="Show All Entries"
 										title="Show All Entries" />
 								</c:if>
 							</center>
@@ -403,13 +403,13 @@
 											<tr class="${rowclass}">
 												<c:if
 													test="${KualiForm.editableFlag == true and KualiForm.editMethod == 'M'}">
-													<td><html:image
+													<td><html:submit
 															property="methodToCall.editManualEntry.entryId${agencyEntry.entryId}.anchor${currentTabIndex}"
-															src="${ConfigProperties.kr.externalizable.images.url}tinybutton-edit1.gif"
-															styleClass="tinybutton" alt="edit" title="edit" /> <html:image
+															value="Edit"
+															styleClass="btn btn-default small" alt="edit" title="edit" /> <html:submit
 															property="methodToCall.deleteManualEntry.entryId${agencyEntry.entryId}.anchor${currentTabIndex}"
-															src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
-															styleClass="tinybutton" alt="delete" title="delete" /></td>
+															value="Delete"
+															styleClass="btn btn-default small" alt="delete" title="delete" /></td>
 												</c:if>
 												<td class="infocell"><c:out
 														value="${agencyEntry.creditCardOrAgencyCode}" />&nbsp;</td>
@@ -570,10 +570,10 @@
 						</tr>
 					</c:if>
 					<c:if test="${KualiForm.manualEditFlag == true}">
-						<td><STRONG> Do you want to edit this document? </STRONG> <html:image
+						<td><STRONG> Do you want to edit this document? </STRONG> <html:submit
 								property="methodToCall.manualEdit.anchor${currentTabIndex}"
-								src="${ConfigProperties.kr.externalizable.images.url}tinybutton-edit1.gif"
-								styleClass="tinybutton" alt="show edit" title="show edit" />
+								value="Edit"
+								styleClass="btn btn-default small" alt="show edit" title="show edit" />
 						</td>
 					</c:if>
 				</table>

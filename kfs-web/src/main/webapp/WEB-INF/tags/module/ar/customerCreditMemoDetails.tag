@@ -99,17 +99,17 @@
 				<!--  If not readOnly mode -> show Recalculate/Refresh buttons for the total line -->
 				<c:if test="${not readOnly}" >
 					<td><div align="center" valign="middle" >
-						<html:image property="methodToCall.recalculateCustomerCreditMemoDocument"
-   							src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif"
+						<html:submit property="methodToCall.recalculateCustomerCreditMemoDocument"
+   							value="Recalculate"
    							title="Recalculate Credit Memo Line Amounts"
    							alt="Recalculate Credit Memo Line Amounts"
-                           	styleClass="tinybutton" />
+							styleClass="btn btn-default small" />
 	                	&nbsp;
-						<html:image property="methodToCall.refreshCustomerCreditMemoDocument"
-   							src="${ConfigProperties.externalizable.images.url}tinybutton-refresh.gif"
+						<html:submit property="methodToCall.refreshCustomerCreditMemoDocument"
+   							value="Refresh"
    							title="Refresh Credit Memo Lines"
    							alt="Refresh Credit Memo Lines"
-                           	styleClass="tinybutton" />
+							styleClass="btn btn-default small" />
 	            	</div>     
 					</td>
 				</c:if>

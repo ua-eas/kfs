@@ -122,17 +122,17 @@
 	<c:if test="${not readOnly}" >
 		<!--  Actions -->
 		<td rowspan="4"><div align="center" class="middle" >
-			<html:image property="methodToCall.${recalculateMethod}"
-	    		src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif"
+			<html:submit property="methodToCall.${recalculateMethod}"
+	    		value="Recalculate"
 	    		title="Recalculate Credit Memo Line Amounts"
 	    		alt="Recalculate Credit Memo Line Amounts"
-	        	styleClass="tinybutton" />
+				styleClass="btn btn-default small" />
 	    	&nbsp;
-			<html:image property="methodToCall.${refreshMethod}"
-	    		src="${ConfigProperties.externalizable.images.url}tinybutton-refresh.gif"
+			<html:submit property="methodToCall.${refreshMethod}"
+	    		value="Refresh"
 	    		title="Refresh Credit Memo Line"
 	    		alt="Refresh Credit Memo Line"
-	        	styleClass="tinybutton" />
+				styleClass="btn btn-default small" />
 		</div>     
 		</td>
 	</c:if>

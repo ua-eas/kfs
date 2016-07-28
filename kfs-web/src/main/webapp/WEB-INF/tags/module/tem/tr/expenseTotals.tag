@@ -82,10 +82,10 @@
 					<tr>
 						<td colspan="4">
 							<div align="center">
-								<html:image property="methodToCall.recalculate"
-									src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif"
+								<html:submit property="methodToCall.recalculate"
+									value="recalculate" styleClass="btn btn-default small"
 									alt="Recalculate Expense Total"
-									title="Recalculate Expense Total" styleClass="tinybutton" />
+									title="Recalculate Expense Total" />
 							</div>
 						</td>
 					</tr>

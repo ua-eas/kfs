@@ -48,7 +48,7 @@
 				<span class="fineprint"></span> 
 			  </td>
               <td class="infoline"><div align="center">
-				<html:image src="${ConfigProperties.externalizable.images.url}tinybutton-generate.gif" styleClass="globalbuttons" property="methodToCall.generate" title="Generate Test File" alt="Generate Test File" />
+				<html:submit value="Generate" styleClass="btn btn-default small" property="methodToCall.generate" title="Generate Test File" alt="Generate Test File" />
               </td>
             </tr>
          </table>

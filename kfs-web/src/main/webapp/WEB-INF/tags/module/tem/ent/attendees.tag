@@ -121,10 +121,9 @@
 					</td>
 					<td class="infoline">
 						<div align="center">
-							<html:image property="methodToCall.addAttendeeLine.line0"
-								src="${ConfigProperties.kr.externalizable.images.url}tinybutton-add1.gif"
+							<html:submit property="methodToCall.addAttendeeLine.line0" value="Add"
 								alt="Insert an Attendee" title="Add an Item"
-								styleClass="tinybutton" tabindex="${tabindexOverrideBase + 0}" />
+								styleClass="btn btn-default small" tabindex="${tabindexOverrideBase + 0}" />
 						</div>
 					</td>
 				</tr>
@@ -161,11 +160,10 @@
 							<c:choose>
 								<c:when test="${fullEntryMode}">							
 									<div align="center">
-										<html:image
-											property="methodToCall.deleteAttendeeLine.line${ctr}"
-											src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
+										<html:submit
+											property="methodToCall.deleteAttendeeLine.line${ctr}" value="Delete"
 											alt="Delete Attendee ${ctr+1}" title="Delete Attendee ${ctr+1}"
-											styleClass="tinybutton" />
+											styleClass="btn btn-default small" />
 									</div>
 								</c:when>
 								<c:otherwise>&nbsp;</c:otherwise>

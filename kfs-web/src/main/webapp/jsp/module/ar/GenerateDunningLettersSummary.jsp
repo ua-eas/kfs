@@ -26,23 +26,23 @@
 	<div>
 		<c:choose>
 			<c:when test ="${KualiForm.dunningLettersGenerated}">
-				<html:image
-					src="${ConfigProperties.externalizable.images.url}buttonsmall_return.gif"
-					styleClass="globalbuttons" property="methodToCall.cancel"
+				<html:submit
+					value="Return"
+					styleClass="btn btn-default" property="methodToCall.cancel"
 					title="return" alt="return" />
 			</c:when>
 			<c:otherwise>
 				<ar:documentSummaryResults lookupResultsProperty="generateDunningLettersLookupResults" lookupResultTitleProperties="proposalNumber" tabTitleName="Award">
 					<ar:generateDunningLettersSummaryResultContent/>
 				</ar:documentSummaryResults>
-				<html:image
-					src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif"
-					styleClass="globalbuttons"
+				<html:submit
+					value="Create"
+					styleClass="btn btn-default"
 					property="methodToCall.generateDunningLetters.number${KualiForm.lookupResultsSequenceNumber}"
 					title="generate_DunningLetters" alt="generate_DunningLetters" onclick="excludeSubmitRestriction=true"/>
-				<html:image
-					src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif"
-					styleClass="globalbuttons" property="methodToCall.cancel"
+				<html:submit
+					value="Cancel"
+					styleClass="btn btn-default" property="methodToCall.cancel"
 					title="cancel" alt="cancel" />
 			</c:otherwise>
 		</c:choose>

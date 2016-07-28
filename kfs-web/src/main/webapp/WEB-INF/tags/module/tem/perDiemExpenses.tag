@@ -121,12 +121,12 @@
 								<c:if test="${!isCustom && enablePrimaryDestination}">
 									<br />
 									<br />
-									<html:image
+									<html:submit
 										property="methodToCall.customPerDiemExpenses.line${perDiemIndex.count - 1}"
-										src="${ConfigProperties.externalizable.images.url}tinybutton-destinationnotfound.gif"
+										value="Destination Not Found"
 										alt="Manually Enter Per Diem Expense"
 										title="Manually Enter Per Diem Expense"
-										styleClass="tinybutton" />
+										styleClass="btn btn-default small" />
 								</c:if>
 							</c:if>
 						</td>
@@ -323,11 +323,11 @@
 						<tr>
 							<td colspan="${colspan}">
 								<div align="center">
-									<html:image
+									<html:submit
 										property="methodToCall.copyDownPerDiemExpenses.line${perDiemIndex.count - 1}"
-										src="${ConfigProperties.externalizable.images.url}tinybutton-copydown.gif"
+										value="Copy Down"
 										alt="Copy Down Per Diem Expense"
-										title="Copy Down Per Diem Expense" styleClass="tinybutton" />
+										title="Copy Down Per Diem Expense" styleClass="btn btn-default small" />
 								</div>
 							</td>
 						</tr>
@@ -345,9 +345,9 @@
 								<c:when test="${fn:length(KualiForm.document.perDiemExpenses) < 1}">
 									<c:choose>
 										<c:when test="${KualiForm.document.tripType.usePerDiem}">
-											<html:image
-												src="${ConfigProperties.externalizable.images.url}tinybutton-createperdiem.gif"
-												styleClass="tinybutton"
+											<html:submit
+												value="Create Per Diem Table"
+												styleClass="btn btn-default small"
 												property="methodToCall.updatePerDiemExpenses"
 												alt="Create Per Diem Rows" title="Create Per Diem Rows" />
 										</c:when>
@@ -358,14 +358,12 @@
 								</c:when>
 								<c:otherwise>
 									<tem:perDiemExpenseTotals/>
-									<html:image
-										src="${ConfigProperties.externalizable.images.url}tinybutton-updateperdiem.gif"
-										styleClass="tinybutton"
+									<html:submit value="Update Per Diem Table"
+										styleClass="btn btn-default small"
 										property="methodToCall.updatePerDiemExpenses"
 										alt="Create Per Diem Rows" title="Create Per Diem Rows" />
-									<html:image
-										src="${ConfigProperties.externalizable.images.url}tinybutton-removeperdiem.gif"
-										styleClass="tinybutton"
+									<html:submit value="Remove Per Diem Table"
+										styleClass="btn btn-default small"
 										property="methodToCall.clearPerDiemExpenses"
 										alt="Remove Per Diem Rows" title="Remove Per Diem Rows" />
 								</c:otherwise>

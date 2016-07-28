@@ -136,10 +136,10 @@
 				         	
 			    <kul:subtab lookedUpCollectionName="fundingLine" width="${tableWidth}" subTabTitle="${fundingLine.appointmentFundingString}">
 			    	<bc:appointmentFundingLineForIncumbent fundingLine="${fundingLine}" fundingLineName="${fundingLineName}"	countOfMajorColumns="9" lineIndex="${status.index}" readOnly="true" hasBeenAdded = "true">    		
-						<html:image property="methodToCall.restorePurgedSalarySettingLine.line${status.index}.anchorsalaryexistingLineLineAnchor${status.index}" 
-							src="${ConfigProperties.externalizable.images.url}tinybutton-restore.gif" 
+						<html:submit property="methodToCall.restorePurgedSalarySettingLine.line${status.index}.anchorsalaryexistingLineLineAnchor${status.index}"
+							value="Restore"
 							title="Restore the purged Salary Setting Line ${status.index}"
-							alt="Restore the purged Salary Setting Line ${status.index}" styleClass="tinybutton" />
+							alt="Restore the purged Salary Setting Line ${status.index}" styleClass="btn btn-default small" />
 					</bc:appointmentFundingLineForIncumbent>	
 				</kul:subtab>
 			</c:if>
