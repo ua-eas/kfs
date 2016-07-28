@@ -41,7 +41,7 @@ var Sidebar = React.createClass({
 
                 if (!found) {
                     let institutionLinksPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/institution-links/" + principalName;
-                    $.ajax({
+                    KfsUtils.ajaxCall({
                         url: institutionLinksPath,
                         dataType: 'json',
                         cache: false,
@@ -159,7 +159,7 @@ var Sidebar = React.createClass({
         $('.cover').show();
         $('.sidebar-waiting').css('top',($(window).height() / 2) - 20).show();
 
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: institutionLinksPath,
             dataType: 'json',
             cache: false,

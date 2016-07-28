@@ -21,6 +21,7 @@
     "babel-preset-react": "6.5.0",
     "babel-preset-stage-1": "6.5.0",
     "immutable": "3.7.5",
+    "js-cookie": "2.1.2",
     "lodash": "3.10.1",
     "moment": "2.10.6",
     "react": "0.14.8",

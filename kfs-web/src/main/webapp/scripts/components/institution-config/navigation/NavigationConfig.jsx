@@ -1,7 +1,7 @@
 import React from 'react';
 import LinkGroups from './LinkGroups.jsx';
 import LinkGroupLinks from './LinkGroupLinks.jsx';
-import {getUrlPathPrefix} from '../../../sys/utils.js';
+import {getUrlPathPrefix, ajaxCall} from '../../../sys/utils.js';
 import _ from 'lodash';
 import Immutable from 'immutable';
 
@@ -42,7 +42,7 @@ let NavigationConfig = React.createClass({
     },
     componentWillMount() {
         let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/config/groups";
-        $.ajax({
+        ajaxCall({
             url: linkGroupPath,
             dataType: 'json',
             cache: false,
@@ -227,7 +227,7 @@ let NavigationConfig = React.createClass({
     saveChanges() {
         let institutionId = this.state.institutionId;
         let linkGroupPath = getUrlPathPrefix() + "api/v1/sys/preferences/institution/" + institutionId;
-        $.ajax({
+        ajaxCall({
             url: linkGroupPath,
             dataType: 'json',
             contentType: 'application/json',

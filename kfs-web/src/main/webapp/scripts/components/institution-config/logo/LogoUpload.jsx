@@ -14,7 +14,7 @@ let LogoUpload = React.createClass({
     },
     componentWillMount() {
         let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: logoPath,
             dataType: 'json',
             cache: false,
@@ -34,7 +34,7 @@ let LogoUpload = React.createClass({
         data.append('logo', files[0]);
 
         let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: logoPath,
             dataType: 'json',
             contentType: false,
@@ -56,7 +56,7 @@ let LogoUpload = React.createClass({
     saveChanges() {
         let data = {'logoUrl': this.state.logo};
         let logoPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/config/logo";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: logoPath,
             dataType: 'json',
             contentType: 'application/json',

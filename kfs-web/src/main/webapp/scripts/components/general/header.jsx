@@ -9,7 +9,7 @@ var Header = React.createClass({
     },
     componentWillMount() {
         let userPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/logged-in-user";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: userPath,
             dataType: 'json',
             cache: false,
@@ -23,7 +23,7 @@ var Header = React.createClass({
         });
 
         let preferencesPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/institution";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: preferencesPath,
             dataType: 'json',
             cache: false,
@@ -37,7 +37,7 @@ var Header = React.createClass({
         });
 
         let environmentPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/system/environment";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: environmentPath,
             dataType: 'json',
             cache: false,
@@ -56,7 +56,7 @@ var Header = React.createClass({
         });
 
         let backdoorPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/id";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: backdoorPath,
             dataType: 'json',
             contentType: 'application/json',
@@ -81,7 +81,7 @@ var Header = React.createClass({
 
         let backdoorId = $("#backdoorId").val();
         if (backdoorId !== '') {
-            $.ajax({
+            KfsUtils.ajaxCall({
                 url: path,
                 dataType: 'json',
                 contentType: 'application/json',
@@ -100,7 +100,7 @@ var Header = React.createClass({
     },
     backdoorLogout() {
         let path = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/logout";
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: path,
             dataType: 'json',
             contentType: 'application/json',

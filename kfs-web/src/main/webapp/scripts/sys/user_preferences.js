@@ -1,7 +1,7 @@
 import KfsUtils from './utils.js';
 
 function getPrincipalName(success,fail) {
-    $.ajax({
+    KfsUtils.ajaxCall({
         url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/id",
         dataType: 'json',
         cache: false,
@@ -19,7 +19,7 @@ function getUserPreferences(success,fail) {
     let p1 = new Promise ( getPrincipalName );
 
     p1.then(function(principalName) {
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
             dataType: 'json',
             cache: false,
@@ -40,7 +40,7 @@ function putUserPreferences(userPreferences) {
     let p1 = new Promise ( getPrincipalName );
 
     p1.then(function(principalName) {
-        $.ajax({
+        KfsUtils.ajaxCall({
             url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/preferences/users/" + principalName,
             dataType: 'json',
             contentType: 'application/json',
@@ -58,7 +58,7 @@ function putUserPreferences(userPreferences) {
 
 function getBackdoorId(success, fail) {
     let backdoorIdPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/id";
-    $.ajax({
+    KfsUtils.ajaxCall({
         url: backdoorIdPath,
         dataType: 'json',
         cache: false,

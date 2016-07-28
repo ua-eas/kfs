@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 
-let moveLinkElement = function(list, fromIndex, toIndex, fromType, toType) {
+function moveLinkElement(list, fromIndex, toIndex, fromType, toType) {
     let movingType = list.get(fromType);
     let movingElement = movingType.get(fromIndex);
 
@@ -24,7 +24,7 @@ let moveLinkElement = function(list, fromIndex, toIndex, fromType, toType) {
     return updatedList;
 };
 
-let buildLinkSortableDropHandler = function(elementId, connectWithClass, component, sortableElementsPropertyName, updatingFunctionPropertyName) {
+export function buildLinkSortableDropHandler(elementId, connectWithClass, component, sortableElementsPropertyName, updatingFunctionPropertyName) {
     let ele = $("#"+elementId);
     if (ele) {
         ele.sortable({
@@ -50,14 +50,14 @@ let buildLinkSortableDropHandler = function(elementId, connectWithClass, compone
     }
 };
 
-let moveGroupElement = function(list, fromIndex, toIndex) {
+function moveGroupElement(list, fromIndex, toIndex) {
     let movingElement = list.get(fromIndex);
     let updatedList = list.delete(fromIndex).splice(toIndex, 0, movingElement);
 
     return updatedList;
 };
 
-let buildGroupSortableDropHandler = function(elementId, component, sortableElementsPropertyName, updatingFunctionPropertyName) {
+export function buildGroupSortableDropHandler(elementId, component, sortableElementsPropertyName, updatingFunctionPropertyName) {
     let ele = $("#"+elementId);
     if (ele) {
         ele.sortable({
@@ -80,7 +80,7 @@ let buildGroupSortableDropHandler = function(elementId, component, sortableEleme
     }
 };
 
-let isScrolledIntoView = function (elem) {
+export function isScrolledIntoView(elem) {
     var $elem = $(elem);
     var $window = $(window);
 
@@ -93,7 +93,7 @@ let isScrolledIntoView = function (elem) {
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 };
 
-let validateForm = function(label, link) {
+export function validateForm(label, link) {
     let errors = [];
     let errorMessages = [];
     if (!label.trim()) {
@@ -114,8 +114,10 @@ let validateForm = function(label, link) {
     return {errors: errors, errorMessages: errorMessages};
 };
 
-module.exports = {
-    buildLinkSortableDropHandler: buildLinkSortableDropHandler,
-    buildGroupSortableDropHandler: buildGroupSortableDropHandler,
-    isScrolledIntoView: isScrolledIntoView, validateForm: validateForm
+const InstitutionConfigUtils = {
+    buildLinkSortableDropHandler,
+    buildGroupSortableDropHandler,
+    isScrolledIntoView, validateForm
 };
+
+export default InstitutionConfigUtils;
