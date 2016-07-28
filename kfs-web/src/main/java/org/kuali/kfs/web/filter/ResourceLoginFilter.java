@@ -85,6 +85,8 @@ public class ResourceLoginFilter extends LoginFilterBase {
 
     private boolean isAuthorizedViaHeader(HttpServletRequest request, HttpServletResponse response, String authorizationHeader) throws IOException {
         if (authorizationHeader == null) {
+            sendError(response);
+            removeFromMDC();
             return false;
         }
         Optional<String> oKey = getApiKey(authorizationHeader);
