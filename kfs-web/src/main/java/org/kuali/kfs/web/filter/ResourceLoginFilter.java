@@ -56,14 +56,8 @@ public class ResourceLoginFilter extends LoginFilterBase {
 
         try {
             String authorizationHeader = request.getHeader("Authorization");
-            if (authorizationHeader != null) {
-                if ( ! isAuthorizedViaHeader(request, response, authorizationHeader) ) {
-                    return;
-                }
-            } else {
-                if ( ! isAuthorizedViaSession(request, response) ) {
-                    return;
-                }
+            if (! isAuthorizedViaHeader(request, response, authorizationHeader) ) {
+                return;
             }
 
             establishUserSession(request, response);
@@ -89,24 +83,10 @@ public class ResourceLoginFilter extends LoginFilterBase {
         addToMDC(request);
     }
 
-    private boolean isAuthorizedViaSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (! isUserSessionEstablished(request) ) {
-            String principalName = getAuthenticationService().getPrincipalName(request);
-
-            if (principalName == null) {
-                LOG.error("doFilter() null principalName");
-                sendError(response);
-                removeFromMDC();
-                return false;
-            }
-
-            setUserSession(request, principalName);
-            return true;
-        }
-        return true;
-    }
-
     private boolean isAuthorizedViaHeader(HttpServletRequest request, HttpServletResponse response, String authorizationHeader) throws IOException {
+        if (authorizationHeader == null) {
+            return false;
+        }
         Optional<String> oKey = getApiKey(authorizationHeader);
         if (oKey.isPresent()) {
             if ( getCoreApiKeyAuthenticationService().useCore() ) {
