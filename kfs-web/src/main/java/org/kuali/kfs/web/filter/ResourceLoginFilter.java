@@ -18,6 +18,7 @@
  */
 package org.kuali.kfs.web.filter;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.exception.AuthenticationException;
 import org.kuali.kfs.krad.util.GlobalVariables;
@@ -56,10 +57,14 @@ public class ResourceLoginFilter extends LoginFilterBase {
 
         try {
             String authorizationHeader = request.getHeader("Authorization");
-            if (! isAuthorizedViaHeader(request, response, authorizationHeader) ) {
+            Optional<String> user = getPrincipalNameFromHeader(request, response, authorizationHeader);
+            if (! user.isPresent() ) {
+                sendError(response);
+                removeFromMDC();
                 return;
             }
 
+            setUserSession(request, user.get());
             establishUserSession(request, response);
 
             chain.doFilter(request, response);
@@ -83,35 +88,26 @@ public class ResourceLoginFilter extends LoginFilterBase {
         addToMDC(request);
     }
 
-    private boolean isAuthorizedViaHeader(HttpServletRequest request, HttpServletResponse response, String authorizationHeader) throws IOException {
+    private Optional<String> getPrincipalNameFromHeader(HttpServletRequest request, HttpServletResponse response, String authorizationHeader) throws IOException {
         if (authorizationHeader == null) {
-            sendError(response);
-            removeFromMDC();
-            return false;
+            return Optional.empty();
         }
         Optional<String> oKey = getApiKey(authorizationHeader);
         if (oKey.isPresent()) {
             if ( getCoreApiKeyAuthenticationService().useCore() ) {
-                Optional<String> user = getCoreApiKeyAuthenticationService().getPrincipalIdFromApiKey(oKey.get());
-                if (user.isPresent()) {
-                    setUserSession(request, user.get());
-                    return true;
-                }
+                return getCoreApiKeyAuthenticationService().getPrincipalIdFromApiKey(oKey.get());
+
             } else {
                 try {
                     JwtData data = getJwtService().decodeJwt(oKey.get());
-                    setUserSession(request, data.getPrincipalName());
-                    return true;
+                    return Optional.of(data.getPrincipalName());
                 } catch (RuntimeException e) {
-                    LOG.debug("isAuthorizedViaHeader() invalid financials token",e);
+                    LOG.debug("getPrincipalNameFromHeader() invalid financials token",e);
                 }
             }
         }
 
-        sendError(response);
-        removeFromMDC();
-
-        return false;
+        return Optional.empty();
     }
 
     private void sendError(HttpServletResponse response) throws IOException {
@@ -120,8 +116,11 @@ public class ResourceLoginFilter extends LoginFilterBase {
     }
 
     protected void setUserSession(HttpServletRequest request, String principalName) {
-        final UserSession userSession = new UserSession(principalName);
-        request.getSession().setAttribute(KRADConstants.USER_SESSION_KEY, userSession);
+        UserSession userSession = KRADUtils.getUserSessionFromRequest(request);
+        if (userSession == null || userSession.getActualPerson() == null || !StringUtils.equals(userSession.getActualPerson().getPrincipalName(), principalName)) {
+            final UserSession newUserSession = new UserSession(principalName);
+            request.getSession().setAttribute(KRADConstants.USER_SESSION_KEY, newUserSession);
+        }
     }
 
     private Optional<String> getApiKey(String authorizationHeader) {
