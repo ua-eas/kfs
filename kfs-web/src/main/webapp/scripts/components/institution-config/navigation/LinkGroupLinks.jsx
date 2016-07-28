@@ -305,7 +305,7 @@ const SubLinkTypeLinks = React.createClass({
     componentDidMount() {
         const id = "sortable-" + buildKeyFromLabel(this.props.groupLabel) + "-" + this.props.type;
         const connectWithClass = ".sortable-" + buildKeyFromLabel(this.props.groupLabel);
-        buildLinkSortableDropHandler(id, connectWithClass, self, 'allLinks', 'updateSublinkTypeLinks');
+        buildLinkSortableDropHandler(id, connectWithClass, this, 'allLinks', 'updateSublinkTypeLinks');
     },
     render() {
         const linkElements =  (this.props.links && this.props.links.count() > 0)

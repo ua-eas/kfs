@@ -117,7 +117,8 @@ export function validateForm(label, link) {
 const InstitutionConfigUtils = {
     buildLinkSortableDropHandler,
     buildGroupSortableDropHandler,
-    isScrolledIntoView, validateForm
+    isScrolledIntoView,
+    validateForm
 };
 
 export default InstitutionConfigUtils;

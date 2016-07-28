@@ -68,11 +68,11 @@ export function ajaxCall(call) {
 }
 
 const KfsUtils = {
-    getKualiSessionId: getKualiSessionId,
-    getUrlPathPrefix: getUrlPathPrefix,
-    buildBackdoorIdAppender: buildBackdoorIdAppender,
-    buildKeyFromLabel: buildKeyFromLabel,
-    ajaxCall: ajaxCall
+    getKualiSessionId,
+    getUrlPathPrefix,
+    buildBackdoorIdAppender,
+    buildKeyFromLabel,
+    ajaxCall
 };
 
 export default KfsUtils;
