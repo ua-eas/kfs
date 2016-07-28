@@ -1,0 +1,65 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINI-2249",
+      "id": "Bring back KFS config viewer",
+      "changes": [
+        {
+          "changeType": "deleteNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration[?(@.label=='Configuration Viewer')]"
+        },
+        {
+          "changeType": "addNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration",
+          "addBeforeNode": {
+            "label": "Rice Namespace"
+          },
+          "value": {
+            "label": "Rice Configuration Viewer",
+            "link": "ksb/ConfigViewer.do",
+            "linkType": "rice",
+            "permission": {
+              "templateNamespace": "KR-NS",
+              "templateName": "Use Screen",
+              "details": {
+                "actionClass": "org.kuali.rice.ksb.messaging.web.ConfigViewerAction"
+              }
+            }
+          }
+        },
+        {
+          "changeType": "addNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='System')].links.administration",
+          "addBeforeNode": {
+            "businessObjectClass": "org.kuali.kfs.coreservice.impl.namespace.NamespaceBo"
+          },
+          "value": {
+            "label": "Financials Configuration Viewer",
+            "link": "ksb/ConfigViewer.do",
+            "linkType": "kfs",
+            "newTarget": true,
+            "permission": {
+              "templateNamespace": "KR-NS",
+              "templateName": "Use Screen",
+              "details": {
+                "actionClass": "org.kuali.rice.ksb.messaging.web.ConfigViewerAction"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
