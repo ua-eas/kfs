@@ -55,13 +55,6 @@
 <%@ taglib tagdir="/WEB-INF/tags/module/tem/arranger" prefix="tem-arranger" %>
 <%@ taglib uri="/WEB-INF/tlds/tem-html.tld" prefix="tem-html"%>
 
-<%@ taglib tagdir="/WEB-INF/tags/portal" prefix="portal"%>
-<%@ taglib tagdir="/WEB-INF/tags/portal/channel" prefix="channel"%>
-<%@ taglib tagdir="/WEB-INF/tags/portal/channel/administration" prefix="admininstrationChannel"%>
-<%@ taglib tagdir="/WEB-INF/tags/portal/channel/future" prefix="futureChannel"%>
-<%@ taglib tagdir="/WEB-INF/tags/portal/channel/main" prefix="mainChannel"%>
-<%@ taglib tagdir="/WEB-INF/tags/portal/channel/maintenance" prefix="maintenanceChannel"%>
-
 <%-- utility web functions --%>
 <%@ taglib uri="/WEB-INF/tlds/kfsfunc.tld" prefix="kfsfunc" %>
 
