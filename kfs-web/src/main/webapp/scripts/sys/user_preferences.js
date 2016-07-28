@@ -1,6 +1,6 @@
 import KfsUtils from './utils.js';
 
-function getPrincipalName(success,fail) {
+export function getPrincipalName(success,fail) {
     KfsUtils.ajaxCall({
         url: KfsUtils.getUrlPathPrefix() + "api/v1/sys/authentication/id",
         dataType: 'json',
@@ -15,7 +15,7 @@ function getPrincipalName(success,fail) {
     })
 }
 
-function getUserPreferences(success,fail) {
+export function getUserPreferences(success,fail) {
     let p1 = new Promise ( getPrincipalName );
 
     p1.then(function(principalName) {
@@ -36,7 +36,7 @@ function getUserPreferences(success,fail) {
     });
  }
 
-function putUserPreferences(userPreferences) {
+export function putUserPreferences(userPreferences) {
     let p1 = new Promise ( getPrincipalName );
 
     p1.then(function(principalName) {
@@ -56,7 +56,7 @@ function putUserPreferences(userPreferences) {
     });
 }
 
-function getBackdoorId(success, fail) {
+export function getBackdoorId(success, fail) {
     let backdoorIdPath = KfsUtils.getUrlPathPrefix() + "api/v1/sys/backdoor/id";
     KfsUtils.ajaxCall({
         url: backdoorIdPath,
@@ -73,11 +73,10 @@ function getBackdoorId(success, fail) {
 }
 
 const UserPrefs = {
-    getPrincipalName: getPrincipalName,
-    getUserPreferences: getUserPreferences,
-    putUserPreferences: putUserPreferences,
-    getBackdoorId: getBackdoorId
+    getPrincipalName,
+    getUserPreferences,
+    putUserPreferences,
+    getBackdoorId
 }
 
-module.exports = UserPrefs;
 export default UserPrefs;
