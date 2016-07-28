@@ -27,18 +27,13 @@ import org.kuali.kfs.kns.service.CfAuthenticationService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.exception.AuthenticationException;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.rice.core.api.config.property.ConfigContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.identity.AuthenticationService;
-import org.kuali.rice.kim.api.identity.IdentityService;
-import org.kuali.rice.kim.api.permission.PermissionService;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
@@ -46,7 +41,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
 import javax.xml.namespace.QName;
 import java.util.UUID;
 
