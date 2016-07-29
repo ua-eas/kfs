@@ -47,44 +47,48 @@ public class JsonAppender extends RollingFileAppender {
 
     @Override
     protected void subAppend(LoggingEvent event) {
-        StringBuffer json = new StringBuffer();
-        json.append("{\n");
+        try {
+            StringBuffer json = new StringBuffer();
+            json.append("{\n");
 
-        appendField(json,"time","[" + dateFormatter.format(new Date(event.getTimeStamp())) + "]",false);
-        appendField(json,"level",event.getLevel().toString(),false);
-        appendField(json,"message",event.getMessage().toString(),false);
-        appendField(json,"thread",event.getThreadName(),false);
+            appendField(json,"time","[" + dateFormatter.format(new Date(event.getTimeStamp())) + "]",false);
+            appendField(json,"level",event.getLevel().toString(),false);
+            appendField(json,"message",event.getMessage() == null ? "null" : event.getMessage().toString(),false);
+            appendField(json,"thread",event.getThreadName(),false);
 
-        Map<String,String> props = event.getProperties();
-        for (String key : props.keySet()) {
-            appendField(json,key,event.getProperty(key),false);
-        }
-
-        if ( event.getThrowableStrRep() != null ) {
-            json.append("  \"exception\": \"");
-            for (int i = 0; i < event.getThrowableStrRep().length; i++) {
-                json.append(event.getThrowableStrRep()[i]);
-                json.append("\n");
+            Map<String,String> props = event.getProperties();
+            for (String key : props.keySet()) {
+                appendField(json,key,event.getProperty(key),false);
             }
-            json.append("\",\n");
-        }
-        appendField(json,"class",event.getLoggerName(),true);
 
-        json.append("}\n");
-
-        this.qw.write(json.toString());
-
-        if(shouldFlush(event)) {
-            this.qw.flush();
-        }
-
-        // Roll over if necessary
-        if (this.fileName != null && this.qw != null) {
-            long size = ((CountingQuietWriter)this.qw).getCount();
-            if (size >= this.maxFileSize ) {
-                this.rollOver();
+            if ( event.getThrowableStrRep() != null ) {
+                json.append("  \"exception\": \"");
+                for (int i = 0; i < event.getThrowableStrRep().length; i++) {
+                    json.append(event.getThrowableStrRep()[i]);
+                    json.append("\n");
+                }
+                json.append("\",\n");
             }
-        }
+            appendField(json,"class",event.getLoggerName(),true);
 
+            json.append("}\n");
+
+            this.qw.write(json.toString());
+
+            if(shouldFlush(event)) {
+                this.qw.flush();
+            }
+
+            // Roll over if necessary
+            if (this.fileName != null && this.qw != null) {
+                long size = ((CountingQuietWriter)this.qw).getCount();
+                if (size >= this.maxFileSize ) {
+                    this.rollOver();
+                }
+            }
+        } catch (Throwable e) {
+            // The logger should never stop the application from working
+            e.printStackTrace();
+        }
     }
 }
