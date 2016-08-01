@@ -53,7 +53,6 @@ import java.io.File;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -186,8 +185,6 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
     }
 
     protected Integer calculateLastFiscalYear() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, -6);
-        return cal.get(Calendar.YEAR);
+        return 2015;
     }
 }
