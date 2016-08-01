@@ -47,10 +47,13 @@
 				<span class="subhead-left">General Information</span>
 				<c:if test="${fullEntryMode}">
 					<span class="subhead-right">
-						<html:image property="methodToCall.printPoQuoteList"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-prntquolist.gif"
-								alt="print quote list" title="print quote list"
-								styleClass="tinybutton" onclick="excludeSubmitRestriction=true"/>
+						<html:submit
+								styleClass="btn btn-default small"
+								property="methodToCall.printPoQuoteList"
+								alt="print quote list"
+								title="print quote list"
+								value="Print Quote List"
+								onclick="excludeSubmitRestriction=true"/>
 					</span>
 				</c:if>
 			</td>
@@ -104,10 +107,12 @@
 				<!--  if quote tab is editable, then display the quote list lookup -->
 				<c:if test="${quoteEditable}">
 				<span class="subhead-right">
-					<html:image property="methodToCall.performLookup.(!!org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteList!!).(((purchaseOrderQuoteListIdentifier:document.purchaseOrderQuoteListIdentifier)))" 
-								src="${ConfigProperties.externalizable.images.url}tinybutton-selquolist.gif" 
-								alt="Search for a Quote List" border="0"
-								styleClass="tinybutton" align="middle" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.performLookup.(!!org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteList!!).(((purchaseOrderQuoteListIdentifier:document.purchaseOrderQuoteListIdentifier)))"
+							alt="Search for a Quote List"
+							title="search for a quote list"
+							value="Select Quote List"/>
 				</span>
 				</c:if>
 			</td>
@@ -119,10 +124,13 @@
 			<td colspan="4" class="subhead">
 				<span class="subhead-left">New Vendor</span>
 				<span class="subhead-right">
-	            	<html:image property="methodToCall.addVendor"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-addvendor.gif"
-								alt="add vendor" title="add vendor"
-								styleClass="tinybutton" align="middle" />
+	            	<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.addVendor"
+							alt="add vendor"
+							title="add vendor"
+							value="Add Vendor"
+							/>
 			</td>			
         </tr>
         <tr>
@@ -245,15 +253,19 @@
 		<tr>
 			<td colspan="5">
 				<div align="center">
-					<html:image property="methodToCall.completeQuote"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-completequote.gif"
-								alt="complete quote" title="complete quote"
-								styleClass="tinybutton" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.completeQuote"
+							alt="complete quote"
+							title="complete quote"
+							value="Complete Quote"/>
 					<c:if test="${not isAnyQuoteTransmitted}">
-					<html:image property="methodToCall.cancelQuote"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-cancelquote.gif"
-								alt="cancel quote" title="cancel quote"
-								styleClass="tinybutton" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.cancelQuote"
+							alt="cancel quote"
+							title="cancel quote"
+							value="Cancel Quote"/>
 					</c:if>
 				</div>
 			</td>
@@ -267,10 +279,12 @@
 		<tr>
 			<td colspan="5" class="subhead"> 
 				<span class="subhead-right">
-					<html:image property="methodToCall.initiateQuote"
-								src="${ConfigProperties.externalizable.images.url}tinybutton-initiatequote.gif"
-								alt="initiate quote" title="initiate quote"
-								styleClass="tinybutton" />
+					<html:submit
+							styleClass="btn btn-default small"
+							property="methodToCall.initiateQuote"
+							alt="initiate quote"
+							title="initiate quote"
+							value="Initiate Quote" />
 				</span>
 			</td>
 		</tr>

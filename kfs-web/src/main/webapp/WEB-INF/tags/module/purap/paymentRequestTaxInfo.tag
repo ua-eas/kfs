@@ -159,7 +159,7 @@
 			<tr>
 				<td class="infoline" colspan="4">
 					<center>	
-						<html:image src="${ConfigProperties.externalizable.images.url}tinybutton-clearall.gif" styleClass="tinybutton" property="methodToCall.clearTaxInfo" title="Clear All Info From NRA Tax Entries" alt="Clear All Info From NRA Tax Entries"/>
+						<html:submit value="Clear All" styleClass="btn btn-default small" property="methodToCall.clearTaxInfo" title="Clear All Info From NRA Tax Entries" alt="Clear All Info From NRA Tax Entries"/>
 	    			</center>
    				</td>
     		</tr>

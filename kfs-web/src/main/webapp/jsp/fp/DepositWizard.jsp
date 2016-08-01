@@ -132,10 +132,9 @@ function checkCheckAllOrNone() {
 							</td>
 							<td width="18%">
 							<c:if test="${!readOnly}">
-								<html:image
-									src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif"
-									styleClass="tinybutton" alt="recalculate total"
-									title="recalculate total" />
+								<html:submit
+									styleClass="btn btn-default small" alt="recalculate total"
+									title="recalculate total" value="Recalculate" />
 							</c:if> <c:if test="${readOnly}"> &nbsp; </c:if></td>
 							<th></th>
 						</tr>
@@ -385,14 +384,14 @@ function checkCheckAllOrNone() {
     </c:if>
     
     </div>
-			<div id="globalbuttons" class="globalbuttons"><html:image
-				property="methodToCall.createDeposit"
-				src="${ConfigProperties.externalizable.images.url}buttonsmall_create.gif" alt="create" title="create"
-				styleClass="tinybutton" /> <html:image
-				property="methodToCall.refresh" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_refresh.gif"
-				alt="refresh" title="refresh" styleClass="tinybutton" /> <html:image
-				property="methodToCall.cancel" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif"
-				alt="cancel" title="cancel" styleClass="tinybutton" /></div>
+			<div id="globalbuttons" class="globalbuttons"><html:submit
+				property="methodToCall.createDeposit" value="Create"
+				alt="create" title="create"
+				styleClass="btn btn-default" /> <html:submit
+				property="methodToCall.refresh" value="Refresh"
+				alt="refresh" title="refresh" styleClass="btn btn-default" /> <html:submit
+				property="methodToCall.cancel" value="Cancel"
+				alt="cancel" title="cancel" styleClass="btn btn-default" /></div>
 	</c:if>
 
 	<c:if test="${empty KualiForm.depositableCashReceipts && empty KualiForm.depositableCashieringChecks && empty KualiForm.checkFreeCashReceipts}">
@@ -402,10 +401,10 @@ function checkCheckAllOrNone() {
 			</tr>
 		</table>
 
-		<div id="globalbuttons" class="globalbuttons"><html:image
-			property="methodToCall.refresh" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_refresh.gif"
-			alt="refresh" title="refresh" styleClass="tinybutton" /> <html:image
-			property="methodToCall.cancel" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif"
-			alt="cancel" title="cancel" styleClass="tinybutton" /></div>
+		<div id="globalbuttons" class="globalbuttons"><html:submit
+			property="methodToCall.refresh" value="Refresh"
+			alt="refresh" title="refresh" styleClass="btn btn-default" /> <html:submit
+			property="methodToCall.cancel" value="Cancel"
+			alt="cancel" title="cancel" styleClass="btn btn-default" /></div>
 	</c:if>
 </kul:page>

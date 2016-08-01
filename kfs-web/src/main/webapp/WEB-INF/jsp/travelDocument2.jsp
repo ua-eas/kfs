@@ -85,7 +85,7 @@
 					 			<kul:htmlControlAttribute attributeEntry="${accountAttributes.number}" property="document.travelAccount[${ctr}].number" readOnly="true"/>
 					 			&nbsp;&nbsp;-&nbsp;&nbsp;
 					 			<kul:htmlControlAttribute attributeEntry="${accountAttributes.name}" property="document.travelAccount[${ctr}].name" readOnly="true"/>
-				 				<html:image property="methodToCall.deleteAccount.(((${ctr})))" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif" alt="Delete an Item" title="Delete an Item" styleClass="tinybutton"/>
+				 				<html:submit property="methodToCall.deleteAccount.(((${ctr})))" value="Delete" alt="Delete an Item" title="Delete an Item" styleClass="btn btn-default"/>
 					 			</td>
 					 		</tr>
 				 		</logic:iterate>

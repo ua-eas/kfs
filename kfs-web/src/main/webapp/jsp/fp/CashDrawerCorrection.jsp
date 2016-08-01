@@ -30,7 +30,7 @@
     </kul:tabTop>
     
     <div id="globalbuttons" class="globalbuttons">
-      <html:image property="methodToCall.saveCashDrawer" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_save.gif" alt="save cash drawer corrections" title="save corrections" styleClass="tinybutton" />
-      <html:image property="methodToCall.cancelCorrections" src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" alt="cancel" title="cancel" styleClass="tinybutton" />
+      <html:submit styleClass="btn btn-default" property="methodToCall.saveCashDrawer" alt="save cash drawer corrections" title="save corrections" value="Save"/>
+      <html:submit styleClass="btn btn-default" property="methodToCall.cancelCorrections" alt="cancel" title="cancel" value="Cancel" />
     </div>
 </kul:page>

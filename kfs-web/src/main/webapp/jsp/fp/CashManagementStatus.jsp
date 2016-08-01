@@ -37,11 +37,10 @@
 	</table>
 	<br>
 
-	<div id="globalbuttons" class="globalbuttons"><html:image
-		src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_returnToIndex.gif" styleClass="globalbuttons"
-		property="methodToCall.returnToIndex" alt="Return to Index" title="Return to Index" />
-	&nbsp;&nbsp; <html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_openExisting.gif"
-		styleClass="globalbuttons" property="methodToCall.openExisting"
-		alt="Open Existing Cash Management Document" title="Open Existing Cash Management Document" /></div>
+	<div id="globalbuttons" class="globalbuttons"><html:submit styleClass="btn btn-default"
+		property="methodToCall.returnToIndex" alt="Return to Index" title="Return to Index" value="Return to Index" />
+	&nbsp;&nbsp; <html:submit
+		styleClass="btn btn-default" property="methodToCall.openExisting"
+		alt="Open Existing Cash Management Document" title="Open Existing Cash Management Document" value="Open Existing"/></div>
 
 </kul:page>

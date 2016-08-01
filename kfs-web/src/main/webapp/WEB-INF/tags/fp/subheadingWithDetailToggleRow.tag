@@ -30,8 +30,12 @@
       <html:hidden name="KualiForm" property="hideDetails"/>
       <c:if test="${!empty KualiForm.hideDetails}">
         <c:set var="toggle" value="${KualiForm.hideDetails ? 'show' : 'hide'}"/>
-        <html:image property="methodToCall.${toggle}Details" src="${ConfigProperties.kr.externalizable.images.url}det-${toggle}.gif"
-                    alt="${toggle} transaction details" title="${toggle} transaction details" styleClass="tinybutton"/>
+        <html:submit
+                property="methodToCall.${toggle}Details"
+                alt="${toggle} transaction details"
+                title="${toggle} transaction details"
+                styleClass="btn btn-default"
+                value="${toggle} Detail"/>
       </c:if>
     </span>
   </td>

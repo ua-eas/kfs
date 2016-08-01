@@ -88,14 +88,13 @@ request.setAttribute("test", incident);
             <td>&nbsp;</td>
             <td align="left">
                 <div>
-                    <html:image
+                    <html:submit
                         property="methodToCall.submitFeedback"
-                        src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_submit.gif"
-                        title="Submit" alt="Submit" styleClass="tinybutton" />
+                        value="Submit"
+                        title="Submit" alt="Submit" styleClass="btn btn-default" />
                     <input
-                        type="image" name="cancel" value="true" class="tinybutton"
-                        src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_close.gif"
-                        title="close" alt="Close Without Submitting Incident"/>
+                        type="submit" name="cancel" value="Close" styleClass="btn btn-default"
+                        title="close" alt="Close Without Submitting Incident">
                 </div>
             </td>
         </tr>

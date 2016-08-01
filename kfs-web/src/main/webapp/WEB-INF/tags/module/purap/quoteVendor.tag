@@ -40,10 +40,9 @@
 		<span class="subhead-left">Vendor ${ctr + 1}</span>
         <c:if test="${quoteEditable && !isTrasnmitted}">
 		<span class="subhead-right">
-			<html:image property="methodToCall.deleteVendor.line${ctr}"
-					src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
+			<html:submit property="methodToCall.deleteVendor.line${ctr}" value="Delete"
 					alt="delete vendor" title="delete vendor"
-					styleClass="tinybutton" />&nbsp;
+					styleClass="btn btn-default small" />&nbsp;
 		</c:if>				
 	</td>
 </tr>
@@ -158,10 +157,9 @@
 			property="document.purchaseOrderVendorQuote[${ctr}].purchaseOrderQuoteTransmitTypeCode" 
 			readOnly="${!quoteEditable}" tabindexOverride="${tabindexOverrideBase + 9}"/>
 		<c:if test="${quoteEditable}">
-		<html:image property="methodToCall.transmitPurchaseOrderQuote.line${ctr}"
-					src="${ConfigProperties.externalizable.images.url}tinybutton-transmit.gif"
-					alt="transmit quote" title="transmit quote" 
-					styleClass="tinybutton" />
+		<html:submit property="methodToCall.transmitPurchaseOrderQuote.line${ctr}" value="Transmit"
+					alt="transmit quote" title="transmit quote"
+					styleClass="btn btn-default small" />
 		<c:if test="${isTransmitPrintDisplayed}">
 			<c:if test="${isPdfDisplayedToUserOnce eq false}">		
 			<script language ="javascript">

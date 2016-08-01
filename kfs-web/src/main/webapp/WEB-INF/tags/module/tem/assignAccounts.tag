@@ -27,11 +27,10 @@
 		    <div class="tab-container" align="left">
 		    	<c:choose>
 		    		<c:when test="${fn:length(KualiForm.accountDistributionsourceAccountingLines) > 0}" >
-		    			<html:image
-							property="methodToCall.distributeAccountingLines"
-							src="${ConfigProperties.externalizable.images.url}tinybutton-assignaccounts.gif"
+		    			<html:submit
+							property="methodToCall.distributeAccountingLines" value="Assign Accounts"
 							alt="Assign Accounts" title="Assign Accounts"
-							styleClass="tinybutton" />
+							styleClass="btn btn-default small" />
 		    		</c:when>
 		    		<c:otherwise>
 		    			<img src="${ConfigProperties.externalizable.images.url}tinybutton-assignaccounts1.gif" alt="Assign Accounts Disabled" title="Assign Accounts Disabled" />

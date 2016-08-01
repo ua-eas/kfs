@@ -118,11 +118,25 @@
 <div class="main-panel">
     <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
         <c:set var="tabAction" value="close"/>
-            <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" title="close ${tabTitle}" alt="close ${tabTitle}" styleClass="tinybutton"  styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1" />
+        <html:submit
+            property="methodToCall.toggleTab.tab${tabKey}"
+            alt="hide" title="toggle"
+            styleClass="btn btn-default small"
+            styleId="tab-${tabKey}-imageToggle"
+            onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+            value="Hide"
+            tabindex="-1"/>
     </c:if>
     <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
         <c:set var="tabAction" value="open"/>
-            <html:image  property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" title="open ${tabTitle}" alt="open ${tabTitle}" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1"/>
+        <html:submit
+            property="methodToCall.toggleTab.tab${tabKey}"
+            alt="show" title="toggle"
+            styleClass="btn btn-default small"
+            styleId="tab-${tabKey}-imageToggle"
+            onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+            value="Show"
+            tabindex="-1"/>
     </c:if>
 
     <div class="headerarea-small clickable"

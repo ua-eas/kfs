@@ -203,9 +203,8 @@
 						<c:if test="${!exists && fullEntryMode}">
 							<td rowspan="4" valign="middle">
 								<div align=center>
-									<html:image
-										src="${ConfigProperties.kr.externalizable.images.url}tinybutton-delete1.gif"
-										styleClass="tinybutton"
+									<html:submit
+										styleClass="btn btn-default small" value="Delete"
 										property="methodToCall.deleteTravelAdvanceLine.line${ctr}"
 										alt="Delete Travel Advance Line"
 										title="Delete Travel Advance Line" />

@@ -70,13 +70,21 @@
                 </tr>
                 <tr>
                     <th align=left valign=top class="datacell" colspan=8>
-	                    <html:image property="methodToCall.selectAllForRetransmit" 
-	                    			src="${ConfigProperties.externalizable.images.url}tinybutton-selectall.gif" 
-									alt="Select all items." align="absmiddle"/>
+	                    <html:submit
+                                styleClass="btn btn-default small"
+                                property="methodToCall.selectAllForRetransmit"
+                                alt="Select all items"
+                                title="select all items"
+                                value="Select All"
+                                />
 						&nbsp;&nbsp;
-	  	  		        <html:image property="methodToCall.deselectAllForRetransmit" 
-	            			        src="${ConfigProperties.externalizable.images.url}tinybutton-deselectall.gif" 
-									alt="Deselect all items." align="absmiddle"/>   
+	  	  		        <html:submit
+                                styleClass="btn btn-default small"
+                                property="methodToCall.deselectAllForRetransmit"
+								alt="Deselect all items"
+                                title="deselect all items"
+                                value="Deselect All"
+                                />
                     </th>
                 </tr>
                 <tr>

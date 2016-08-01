@@ -86,9 +86,8 @@
 						<c:if test="${readOnly ne true}">
 	                        <tr>
 	                            <td colspan='3' style='text-align: right;'>
-	                                <html:image property="methodToCall.applyAllAmounts"
-	                                    src="${ConfigProperties.externalizable.images.url}tinybutton-apply.gif"
-	                                    alt="Quick Apply" title="Quick Apply" styleClass="tinybutton" />
+	                                <html:submit property="methodToCall.applyAllAmounts" value="Apply"
+	                                    alt="Quick Apply" title="Quick Apply" styleClass="btn btn-default small" />
 	                            </td>
 	                        </tr>
 	                    </c:if>

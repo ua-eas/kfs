@@ -43,10 +43,22 @@
     <tr>
 	    <td class="tab-subhead">
 	      	<c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
-	            <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" title="hide" alt="hide" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+				<html:submit
+						property="methodToCall.toggleTab.tab${tabKey}"
+						alt="hide" title="toggle"
+						styleClass="btn btn-default small"
+						styleId="tab-${tabKey}-imageToggle"
+						onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+						value="Hide"/>
 	        </c:if>
 	        <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}">
-	            <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" title="show" alt="show" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " />
+				<html:submit
+						property="methodToCall.toggleTab.tab${tabKey}"
+						alt="show" title="toggle"
+						styleClass="btn btn-default small"
+						styleId="tab-${tabKey}-imageToggle"
+						onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
+						value="Show"/>
 	        </c:if>
 	    </td>
 	    <td colspan="3" class="tab-subhead" width="99%"><b>${tabTitle} (${totalErrors})</b></td>

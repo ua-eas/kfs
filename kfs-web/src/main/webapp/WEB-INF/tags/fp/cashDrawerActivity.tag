@@ -146,11 +146,11 @@
 			<td colspan="2">
        	 		<div style="padding: 10px; text-align: center;">
             			<c:if test="${allowOpen}">
-                				<html:image src="${ConfigProperties.externalizable.images.url}buttonsmall_openCashDrawer.gif" style="border: none" property="methodToCall.openCashDrawer" title="Open Cash Drawer" alt="Open Cash Drawer" />
+                				<html:submit value="Open Cash Drawer" property="methodToCall.openCashDrawer" title="Open Cash Drawer" alt="Open Cash Drawer" styleClass="btn btn-default"/>
             			</c:if>
             
             			<c:if test="${allowRefresh}">
-                				<html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_refresh.gif" style="border: none" property="methodToCall.refreshSummary" title="Refresh Cash Drawer Summary" alt="Refresh Cash Drawer Summary" />
+                				<html:submit value="Refresh" property="methodToCall.refreshSummary" title="Refresh Cash Drawer Summary" alt="Refresh Cash Drawer Summary" styleClass="btn btn-default"/>
             			</c:if>
         			</div>
 			</td>

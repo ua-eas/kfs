@@ -201,7 +201,7 @@
     <c:if test="${(depositType == KFSConstants.DepositConstants.DEPOSIT_TYPE_FINAL && allowCancelDeposits) || allowAdditionalDeposits}">
         <tr>
             <td colspan="${columnNumbers}" class="subhead" style="text-align: center">
-                <html:image src="${ConfigProperties.kr.externalizable.images.url}buttonsmall_cancel.gif" style="border: none" property="methodToCall.cancelDeposit.line${depositIndex}" alt="close" title="close"/>
+                <html:submit value="Cancel" styleClass="btn btn-default" property="methodToCall.cancelDeposit.line${depositIndex}" alt="close" title="close"/>
             </td>
         </tr>         
     </c:if>
