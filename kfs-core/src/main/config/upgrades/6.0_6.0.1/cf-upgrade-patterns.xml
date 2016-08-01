@@ -40,20 +40,20 @@
             <replacement>org.kuali.kfs.kns.bo.Step</replacement>
         </pattern>
         <pattern>
-            <match>\"kualiLookupable\"</match>
-            <replacement>"cf.kualiLookupable"</replacement>
+            <match>parent=\"kualiLookupable\"</match>
+            <replacement>parent="cf.kualiLookupable"</replacement>
         </pattern>
         <pattern>
-            <match>\"kualiInquirable\"</match>
-            <replacement>"cf.kualiInquirable"</replacement>
+            <match>parent=\"kualiInquirable\"</match>
+            <replacement>parent="cf.kualiInquirable"</replacement>
         </pattern>
         <pattern>
-            <match>\"kualiMaintainable\"</match>
-            <replacement>"cf.kualiMaintainable"</replacement>
+            <match>parent=\"kualiMaintainable\"</match>
+            <replacement>parent="cf.kualiMaintainable"</replacement>
         </pattern>
         <pattern>
-            <match>\"lookupableHelperService\"</match>
-            <replacement>"cf.lookupableHelperService"</replacement>
+            <match>parent=\"lookupableHelperService\"</match>
+            <replacement>parent="cf.lookupableHelperService"</replacement>
         </pattern>
         <pattern>
             <match>org\.kuali\.rice\.kim.\bo\.options\.ActionPolicyValuesFinder</match>
