@@ -83,12 +83,12 @@
 </c:if>
 
 <c:if test="${hidden}">
-	<c:set var="isOpen" value="false"/>
+    <c:set var="isOpen" value="false"/>
 </c:if>
 
 <html:hidden property="tabStates(${tabKey})" value="${(isOpen ? 'OPEN' : 'CLOSE')}" />
 <c:if test="${empty currentTab}">
-	<c:set var="currentTab" value="${(isOpen ? 'OPEN' : 'CLOSE')}"/>
+    <c:set var="currentTab" value="${(isOpen ? 'OPEN' : 'CLOSE')}"/>
 </c:if>
 <!-- TAB -->
 
@@ -98,7 +98,7 @@
 
 <c:set var="tabTitleSpan" value="1" />
 <c:if test="${! empty spanForLongTabTitle && spanForLongTabTitle eq true}">
-	<c:set var="tabTitleSpan" value="${tabTitleSpan + 1}" />
+    <c:set var="tabTitleSpan" value="${tabTitleSpan + 1}" />
 </c:if>
 
 
@@ -118,25 +118,11 @@
 <div class="main-panel">
     <c:if test="${isOpen == 'true' || isOpen == 'TRUE' || alwaysOpen == 'TRUE'}">
         <c:set var="tabAction" value="close"/>
-        <html:submit
-            property="methodToCall.toggleTab.tab${tabKey}"
-            alt="hide" title="toggle"
-            styleClass="btn btn-default small"
-            styleId="tab-${tabKey}-imageToggle"
-            onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
-            value="Hide"
-            tabindex="-1"/>
+            <html:image property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-hide.gif" title="close ${tabTitle}" alt="close ${tabTitle}" styleClass="tinybutton"  styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1" />
     </c:if>
     <c:if test="${isOpen != 'true' && isOpen != 'TRUE' && alwaysOpen != 'TRUE'}">
         <c:set var="tabAction" value="open"/>
-        <html:submit
-            property="methodToCall.toggleTab.tab${tabKey}"
-            alt="show" title="toggle"
-            styleClass="btn btn-default small"
-            styleId="tab-${tabKey}-imageToggle"
-            onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
-            value="Show"
-            tabindex="-1"/>
+            <html:image  property="methodToCall.toggleTab.tab${tabKey}" src="${ConfigProperties.kr.externalizable.images.url}tinybutton-show.gif" title="open ${tabTitle}" alt="open ${tabTitle}" styleClass="tinybutton" styleId="tab-${tabKey}-imageToggle" style="display: none;" tabindex="-1"/>
     </c:if>
 
     <div class="headerarea-small clickable"
