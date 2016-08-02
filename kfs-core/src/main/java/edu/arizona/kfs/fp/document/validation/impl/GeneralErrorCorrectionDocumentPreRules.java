@@ -2,12 +2,12 @@ package edu.arizona.kfs.fp.document.validation.impl;
 
 import java.util.Set;
 
+import org.kuali.kfs.fp.document.validation.impl.ExpiredAccountOverridePreRules;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kns.rules.PromptBeforeValidationBase;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.util.GlobalVariables;
@@ -17,7 +17,7 @@ import edu.arizona.kfs.fp.document.GeneralErrorCorrectionDocument;
 import edu.arizona.kfs.sys.KFSConstants;
 import edu.arizona.kfs.sys.KFSKeyConstants;
 
-public class GeneralErrorCorrectionDocumentPreRules extends PromptBeforeValidationBase {
+public class GeneralErrorCorrectionDocumentPreRules extends ExpiredAccountOverridePreRules {
 
 	protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(GeneralErrorCorrectionDocumentPreRules.class);
 	private GeneralErrorCorrectionErrorCertificationValidation gecErrorCertificationValidationService;
