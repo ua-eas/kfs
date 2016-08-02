@@ -26,7 +26,7 @@
 	<div id="TravelAdvances" class="tab-container">
 		<div align="right">
 			<a target="_blank" class="portal_link"
-				href="portal.do?channelTitle=Customer Report&channelUrl=${ConfigProperties.application.url}/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ar.businessobject.Customer&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&customerNumber=${KualiForm.document.traveler.customer.customerNumber}&customerTypeCode=${KualiForm.document.traveler.customer.customerTypeCode}"
+				href="<c:out value="${ConfigProperties.application.url}"/>/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.module.ar.businessobject.Customer&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&customerNumber=${KualiForm.document.traveler.customer.customerNumber}&customerTypeCode=${KualiForm.document.traveler.customer.customerTypeCode}"
 				title="Customer Report">Customer Report</a>
 		</div>
 		<h3><c:out value="${tabTitleVar}"/></h3>
@@ -34,13 +34,13 @@
 			<c:forEach items="${KualiForm.document.travelAdvances}" var="travelAdvance">
 				<tr>
 					<th><kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.travelAdvanceRequested}" /> </th>
-					<td class="datacell">${travelAdvance.travelAdvanceRequested}</td>
+					<td class="datacell"><c:out value="${travelAdvance.travelAdvanceRequested}"/></td>
 					<th><kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.dueDate}" /> </th>
-					<td class="datacell">${travelAdvance.dueDate==null ? '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' : travelAdvance.dueDate}</td>
+					<td class="datacell"><c:out value="${travelAdvance.dueDate==null ? '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' : travelAdvance.dueDate}"/></td>
 					<th><kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.amountDue}" /> </th>
-					<td class="datacell">${travelAdvance.amountDue}</td>
+					<td class="datacell"><c:out value="${travelAdvance.amountDue}"/></td>
 					<th><kul:htmlAttributeLabel attributeEntry="${travelAdvanceAttributes.arInvoiceDocNumber}" /> </th>
-					<td class="datacell">${travelAdvance.arInvoiceDocNumber}</td>
+					<td class="datacell"><c:out value="${travelAdvance.arInvoiceDocNumber}"/></td>
 				</tr>
 			</c:forEach>
 		</table>
