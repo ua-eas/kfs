@@ -222,6 +222,7 @@
         <property name="purchaseOrderService" ref="purchaseOrderService"/>
         <property name="subObjectCodeService" ref="subObjectCodeService"/>
         <property name="universityDateService" ref="universityDateService"/>
+        <property name="purapAccountRevisionService" ref="purapAccountRevisionService"/>
     </bean>
     <bean id="purapAccountRevisionService" parent="purapAccountRevisionService-parentBean"/>
     

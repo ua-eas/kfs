@@ -54,7 +54,6 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
@@ -93,6 +92,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     private UniversityDateService universityDateService;
     private ObjectCodeService objectCodeService;
     private SubObjectCodeService subObjectCodeService;
+    private PurapAccountRevisionService purapAccountRevisionService;
 
     /**
      * @see org.kuali.kfs.module.purap.service.PurapGeneralLedgerService#customizeGeneralLedgerPendingEntry(org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument,
@@ -421,10 +421,10 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
 
             // manually save cm account change tables (CAMS needs this)
             if (CREATE_PAYMENT_REQUEST.equals(processType) || MODIFY_PAYMENT_REQUEST.equals(processType)) {
-                SpringContext.getBean(PurapAccountRevisionService.class).savePaymentRequestAccountRevisions(preq.getItems(), preq.getPostingYearFromPendingGLEntries(), preq.getPostingPeriodCodeFromPendingGLEntries());
+                purapAccountRevisionService.savePaymentRequestAccountRevisions(preq.getItems(), preq.getPostingYearFromPendingGLEntries(), preq.getPostingPeriodCodeFromPendingGLEntries());
             }
             else if (CANCEL_PAYMENT_REQUEST.equals(processType)) {
-                SpringContext.getBean(PurapAccountRevisionService.class).cancelPaymentRequestAccountRevisions(preq.getItems(), preq.getPostingYearFromPendingGLEntries(), preq.getPostingPeriodCodeFromPendingGLEntries());
+                purapAccountRevisionService.cancelPaymentRequestAccountRevisions(preq.getItems(), preq.getPostingYearFromPendingGLEntries(), preq.getPostingPeriodCodeFromPendingGLEntries());
             }
         }
 
@@ -517,10 +517,10 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
 
             // manually save cm account change tables (CAMS needs this)
             if (!isCancel) {
-                SpringContext.getBean(PurapAccountRevisionService.class).saveCreditMemoAccountRevisions(cm.getItems(), cm.getPostingYearFromPendingGLEntries(), cm.getPostingPeriodCodeFromPendingGLEntries());
+                purapAccountRevisionService.saveCreditMemoAccountRevisions(cm.getItems(), cm.getPostingYearFromPendingGLEntries(), cm.getPostingPeriodCodeFromPendingGLEntries());
             }
             else {
-                SpringContext.getBean(PurapAccountRevisionService.class).cancelCreditMemoAccountRevisions(cm.getItems(), cm.getPostingYearFromPendingGLEntries(), cm.getPostingPeriodCodeFromPendingGLEntries());
+                purapAccountRevisionService.cancelCreditMemoAccountRevisions(cm.getItems(), cm.getPostingYearFromPendingGLEntries(), cm.getPostingPeriodCodeFromPendingGLEntries());
             }
         }
 
@@ -1171,7 +1171,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
             }
         }
 
-        SpringContext.getBean(BusinessObjectService.class).save(po);
+        businessObjectService.save(po);
         return encumbranceAccounts;
     }
 
@@ -1336,7 +1336,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
             }
         }
 
-        SpringContext.getBean(BusinessObjectService.class).save(po);
+        businessObjectService.save(po);
 
         List<SourceAccountingLine> encumbranceAccounts = new ArrayList<SourceAccountingLine>();
         for (Iterator<SourceAccountingLine> iter = encumbranceAccountMap.keySet().iterator(); iter.hasNext();) {
@@ -1540,7 +1540,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
             }
         }
 
-        SpringContext.getBean(BusinessObjectService.class).save(po);
+        businessObjectService.save(po);
 
         return encumbranceAccounts;
     }
@@ -1700,4 +1700,7 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
         this.paymentRequestService = paymentRequestService;
     }
 
+    public void setPurapAccountRevisionService(PurapAccountRevisionService purapAccountRevisionService) {
+        this.purapAccountRevisionService = purapAccountRevisionService;
+    }
 }
