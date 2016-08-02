@@ -202,6 +202,7 @@ public class FinancialSystemTransactionalDocumentBase extends TransactionalDocum
             }
         }
         if (this instanceof AmountTotaling || !StringUtils.isBlank(getFinancialSystemDocumentHeader().getApplicationDocumentStatus())) {
+            LOG.warn("We're going to save the document header because we've moved from level: "+levelChangeEvent.getOldNodeName() + " to "+levelChangeEvent.getNewNodeName());
             getBusinessObjectService().save(getFinancialSystemDocumentHeader());
         }
         super.doRouteLevelChange(levelChangeEvent);
