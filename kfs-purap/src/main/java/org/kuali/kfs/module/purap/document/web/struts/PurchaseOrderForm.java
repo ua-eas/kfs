@@ -713,6 +713,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
         printingPreviewButton.setExtraButtonProperty("methodToCall.printingPreviewPo");
         printingPreviewButton.setExtraButtonSource("${" + KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY + "}buttonsmall_previewpf.gif");
         printingPreviewButton.setExtraButtonAltText("PrintingPreview");
+        printingPreviewButton.setExtraButtonOnclick("excludeSubmitRestriction=true");
 
         // Print button
         ExtraButton printButton = new ExtraButton();
