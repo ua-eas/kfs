@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.easymock.EasyMock;
 import org.easymock.IMockBuilder;
 import org.easymock.Mock;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -63,6 +64,13 @@ public class DisbursementVoucherDocumentTest {
         disbursementVoucherDocument.setVendorService(vendorService);
         disbursementVoucherDocument.setDisbursementVoucherPayeeService(disbursementVoucherPayeeService);
         disbursementVoucherDocument.setDisbursementVoucherPaymentReasonService(disbursementVoucherPaymentReasonService);
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        disbursementVoucherDocument.setVendorService(null);
+        disbursementVoucherDocument.setDisbursementVoucherPayeeService(null);
+        disbursementVoucherDocument.setDisbursementVoucherPaymentReasonService(null);
     }
 
     @Before
