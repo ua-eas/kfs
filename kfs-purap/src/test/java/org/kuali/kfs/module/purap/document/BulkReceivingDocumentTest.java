@@ -18,8 +18,10 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.fixture.BulkReceivingDocumentFixture;
 import org.kuali.kfs.module.purap.fixture.PurchaseOrderDocumentFixture;
 import org.kuali.kfs.sys.ConfigureContext;
@@ -28,10 +30,8 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 public class BulkReceivingDocumentTest extends KualiTestBase {
 
@@ -46,20 +46,19 @@ public class BulkReceivingDocumentTest extends KualiTestBase {
     }
 
     @ConfigureContext(session = parke,shouldCommitTransactions=true)
-    public final void testRouteDocument()
-    throws Exception {
+    public final void testRouteDocument() throws Exception {
         BulkReceivingDocument doc = BulkReceivingDocumentFixture.SIMPLE_DOCUMENT.createBulkReceivingDocument();
         doc.prepareForSave();
         DocumentService documentService = SpringContext.getBean(DocumentService.class);
         routeDocument(doc, "routing bulk receiving document", documentService);
         WorkflowTestUtils.waitForDocumentApproval(doc.getDocumentNumber());
+
         Document document = documentService.getByDocumentHeaderId(doc.getDocumentNumber());
-        assertTrue("Document should now be final.", doc.getDocumentHeader().getWorkflowDocument().isFinal());
+        assertTrue("Document should now be final.", document.getDocumentHeader().getWorkflowDocument().isFinal());
     }
 
     @ConfigureContext(session = parke, shouldCommitTransactions=true)
-    public final void testRouteDocumentWithPO()
-    throws Exception {
+    public final void testRouteDocumentWithPO() throws Exception {
         PurchaseOrderDocument po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS.createPurchaseOrderDocument();
         DocumentService documentService = SpringContext.getBean(DocumentService.class);
         po.prepareForSave();
@@ -67,20 +66,19 @@ public class BulkReceivingDocumentTest extends KualiTestBase {
         WorkflowTestUtils.waitForDocumentApproval(po.getDocumentNumber());
         PurchaseOrderDocument poResult = (PurchaseOrderDocument) documentService.getByDocumentHeaderId(po.getDocumentNumber());
 
-        BulkReceivingDocument doc = BulkReceivingDocumentFixture.SIMPLE_DOCUMENT_FOR_PO.createBulkReceivingDocument(po);
+        BulkReceivingDocument doc = BulkReceivingDocumentFixture.SIMPLE_DOCUMENT_FOR_PO.createBulkReceivingDocument(poResult);
         doc.prepareForSave();
         routeDocument(doc, "routing bulk receiving document", documentService);
         WorkflowTestUtils.waitForDocumentApproval(doc.getDocumentNumber());
-        Document document = documentService.getByDocumentHeaderId(doc.getDocumentNumber());
-        assertTrue("Document should now be final.", doc.getDocumentHeader().getWorkflowDocument().isFinal());
 
+        Document document = documentService.getByDocumentHeaderId(doc.getDocumentNumber());
+        assertTrue("Document should now be final.", document.getDocumentHeader().getWorkflowDocument().isFinal());
     }
 
     private void routeDocument(Document document, String annotation, DocumentService documentService) throws WorkflowException {
         try {
             documentService.routeDocument(document, annotation, null);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             e.printStackTrace();
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());

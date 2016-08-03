@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentFormBase;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class BulkReceivingForm extends FinancialSystemTransactionalDocumentFormBase {
     
@@ -123,6 +122,7 @@ public class BulkReceivingForm extends FinancialSystemTransactionalDocumentFormB
      */
     protected ExtraButton createPrintReceivingTicketButton(){
         ExtraButton printButton = new ExtraButton();
+        printButton.setExtraButtonOnclick("excludeSubmitRestriction=true");
         printButton.setExtraButtonProperty("methodToCall.printReceivingTicketPDF");
         printButton.setExtraButtonSource("${" + KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY + "}buttonsmall_print.gif");
         printButton.setExtraButtonAltText("Print");
