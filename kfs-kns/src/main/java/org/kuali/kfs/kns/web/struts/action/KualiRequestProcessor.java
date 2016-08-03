@@ -215,7 +215,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 
 		// need to make sure that we don't check CSRF until after the form is populated so that Struts will parse the
 		// multipart parameters into the request if it's a multipart request
-		if (!CsrfValidator.validateCsrf(request, response)) {
+		if (!(form.getClass().getSimpleName().equals("B2BForm")) && !CsrfValidator.validateCsrf(request, response)) {
 			return;
 		}
 
