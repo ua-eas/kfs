@@ -248,16 +248,13 @@ public class GeneralLedgerPendingEntryServiceImpl implements GeneralLedgerPendin
         boolean success = true;
 
         // we must clear them first before creating new ones
+        LOG.info("Clearing existing gl pending ledger entires on document " + glpeSource.getDocumentHeader().getDocumentNumber());
         glpeSource.clearAnyGeneralLedgerPendingEntries();
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("deleting existing gl pending ledger entries for document " + glpeSource.getDocumentHeader().getDocumentNumber());
-        }
+        LOG.info("deleting existing gl pending ledger entries for document " + glpeSource.getDocumentHeader().getDocumentNumber());
         delete(glpeSource.getDocumentHeader().getDocumentNumber());
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("generating gl pending ledger entries for document " + glpeSource.getDocumentHeader().getDocumentNumber());
-        }
+        LOG.info("generating gl pending ledger entries for document " + glpeSource.getDocumentHeader().getDocumentNumber());
 
         GeneralLedgerPendingEntrySequenceHelper sequenceHelper = new GeneralLedgerPendingEntrySequenceHelper();
         for (GeneralLedgerPendingEntrySourceDetail glpeSourceDetail : glpeSource.getGeneralLedgerPendingEntrySourceDetails()) {
@@ -265,8 +262,12 @@ public class GeneralLedgerPendingEntryServiceImpl implements GeneralLedgerPendin
             sequenceHelper.increment();
         }
 
+        LOG.info("generated gl pending entry source detail pending entries, now generating document gl pending entries for document "+glpeSource.getDocumentHeader().getDocumentNumber());
+
         // doc specific pending entries generation
         success &= glpeSource.generateDocumentGeneralLedgerPendingEntries(sequenceHelper);
+
+        LOG.info("gl pending entry generation complete "+glpeSource.getDocumentHeader().getDocumentNumber());
 
         return success;
     }
