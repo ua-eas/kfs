@@ -19,6 +19,7 @@
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
 <c:set var="camsFullEntryMode" value="${KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT] && (empty KualiForm.editingMode['restrictFiscalEntry'])}" />
+<c:set var="purchaseOrderPrintRequested" value="${KualiForm.purchaseOrderPrintRequested}" />
 
 <kul:documentPage showDocumentInfo="true"
     documentTypeName="PurchaseOrderDocument"
@@ -188,6 +189,15 @@
         		extraButtons="${KualiForm.extraButtons}" />
 		</c:otherwise>
 	</c:choose>
+	
+	<c:if test="${purchaseOrderPrintRequested}">
+	    <input type="submit" name="methodToCall" value="printPurchaseOrderPDFOnly" onclick="excludeSubmitRestriction=true" style="display: none">
+	    <script type="text/javascript">
+	        $(document).ready(function() {
+	        	$('input[name="methodToCall"]').click();
+	        });
+	    </script>
+	</c:if>
 
 </kul:documentPage>
 

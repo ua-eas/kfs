@@ -75,6 +75,8 @@ public class PurchaseOrderForm extends PurchasingFormBase {
     protected PurchaseOrderVendorStipulation newPurchaseOrderVendorStipulationLine;
     protected PurchaseOrderVendorQuote newPurchaseOrderVendorQuote;
     protected Long awardedVendorNumber;
+    
+    protected boolean purchaseOrderPrintRequested;
 
     // Retransmit.
     protected String[] retransmitItemsSelected = {};
@@ -199,6 +201,14 @@ public class PurchaseOrderForm extends PurchasingFormBase {
 
     public void setSensitiveDatasAssigned(List<SensitiveData> poSensitiveData) {
         this.sensitiveDatasAssigned = poSensitiveData;
+    }
+    
+    public boolean isPurchaseOrderPrintRequested() {
+        return purchaseOrderPrintRequested;
+    }
+
+    public void setPurchaseOrderPrintRequested(boolean purchaseOrderPrintRequested) {
+        this.purchaseOrderPrintRequested = purchaseOrderPrintRequested;
     }
 
     @Override

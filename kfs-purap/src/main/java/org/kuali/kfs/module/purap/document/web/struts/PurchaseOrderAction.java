@@ -798,11 +798,9 @@ public class PurchaseOrderAction extends PurchasingActionBase {
     }
 
     /**
-     * Is executed when the user clicks on the "print" button on a Purchase Order Print Document page. On a non javascript enabled
-     * browser, it will display a page with 2 buttons. One is to display the PDF, the other is to view the PO tabbed page where the
-     * PO document statuses, buttons, etc have already been updated (the updates of those occurred while the
-     * <code>performPurchaseOrderFirstTransmitViaPrinting</code> method is invoked. On a javascript enabled browser, it will display
-     * both the PO tabbed page containing the updated PO document info and the pdf on the next window/tab of the browser.
+     * Is executed when the user clicks on the "print" button on a Purchase Order Print Document page. Marks the PO as having
+     * been transmitted, then refreshes the page.  Immediately after the page is refreshed, Javascript will initiate the print
+     * process.
      *
      * @param mapping An ActionMapping
      * @param form An ActionForm
@@ -812,24 +810,11 @@ public class PurchaseOrderAction extends PurchasingActionBase {
      * @return An ActionForward
      */
     public ActionForward firstTransmitPrintPo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String poDocId = ((PurchaseOrderForm) form).getDocId();
-        ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
-        try {
-            SpringContext.getBean(PurchaseOrderService.class).performPurchaseOrderFirstTransmitViaPrinting(poDocId, baosPDF);
-        }
-        finally {
-            if (baosPDF != null) {
-                baosPDF.reset();
-            }
-        }
-        try {
-            generatePOOutput(request, response, poDocId, baosPDF);
-        } catch (IOException ioe) {
-            LOG.error("Unable to create PO PDF.", ioe);
-            return mapping.findForward(KFSConstants.MAPPING_BASIC);
-        }
+        PurchaseOrderForm poForm = (PurchaseOrderForm) form;
+        SpringContext.getBean(PurchaseOrderService.class).performPurchaseOrderFirstTransmitViaPrinting(poForm.getPurchaseOrderDocument());
+        poForm.setPurchaseOrderPrintRequested(true);
 
-        return null;
+        return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
     protected void generatePOOutput(HttpServletRequest request, HttpServletResponse response, String poDocId, ByteArrayOutputStream baosPDF) throws IOException {
@@ -882,7 +867,9 @@ public class PurchaseOrderAction extends PurchasingActionBase {
      * @return An ActionForward
      */
     public ActionForward printPurchaseOrderPDFOnly(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String poDocId = request.getParameter("docId");
+        PurchaseOrderForm poForm = (PurchaseOrderForm) form;
+        poForm.setPurchaseOrderPrintRequested(false);
+        String poDocId = poForm.getDocId();
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         generatePOOutput(request, response, poDocId, baosPDF);
 

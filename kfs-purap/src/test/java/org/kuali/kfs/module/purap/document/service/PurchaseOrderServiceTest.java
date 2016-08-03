@@ -455,25 +455,13 @@ public class PurchaseOrderServiceTest extends KualiTestBase {
         po.prepareForSave();
         AccountingDocumentTestUtils.saveDocument(po, docService);
 
-        ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         try {
-            DateTimeService dtService = SpringContext.getBean(DateTimeService.class);
-            StringBuffer sbFilename = new StringBuffer();
-            sbFilename.append("PURAP_PO_QUOTE_REQUEST_LIST");
-            sbFilename.append(po.getPurapDocumentIdentifier());
-            sbFilename.append("_");
-            sbFilename.append(dtService.getCurrentDate().getTime());
-            sbFilename.append(".pdf");
-            poService.performPurchaseOrderFirstTransmitViaPrinting(po.getDocumentNumber(), baosPDF);
-            assertTrue(baosPDF.size()>0);
+            poService.performPurchaseOrderFirstTransmitViaPrinting(po);
+            assertTrue(po.getPurchaseOrderFirstTransmissionTimestamp() != null);
+            assertTrue(po.getPurchaseOrderLastTransmitTimestamp() != null);
         }
         catch (ValidationException e) {
             LOG.warn("Caught ValidationException while trying to retransmit PO with doc id " + po.getDocumentNumber());
-        }
-        finally {
-            if (baosPDF != null) {
-                baosPDF.reset();
-            }
         }
     }
 

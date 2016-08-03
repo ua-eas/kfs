@@ -120,16 +120,14 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
     public boolean printPurchaseOrderQuotePDF(PurchaseOrderDocument po, PurchaseOrderVendorQuote povq, ByteArrayOutputStream baosPDF);
 
     /**
-     * Creates and displays the pdf document for the purchase order, sets the transmit dates, calls the
+     * Prepares the purchase order for initial print: Sets the transmit dates, calls the
      * takeAllActionsForGivenCriteria method in PurApWorkflowIntegrationService to perform all the workflow related steps that are
      * necessary as part of the document initial print transmission and then performs the setup of initial of open document of the
      * purchase order.
      *
-     * @param documentNumber The document number of the purchase order document that we want to perform the first transmit.
-     * @param baosPDF The ByteArrayOutputStream object that was passed in from the struts action so that we could display the pdf on
-     *        the browser.
+     * @param po The purchase order document that is being transmitted.
      */
-    public void performPurchaseOrderFirstTransmitViaPrinting(String documentNumber, ByteArrayOutputStream baosPDF);
+    public void performPurchaseOrderFirstTransmitViaPrinting(PurchaseOrderDocument po);
 
     /**
      * Creates and displays the pdf document for the purchase order with a draft watermark
