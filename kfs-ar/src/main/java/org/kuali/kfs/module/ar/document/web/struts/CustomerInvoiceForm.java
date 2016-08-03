@@ -18,12 +18,10 @@
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -42,10 +40,11 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
 
@@ -165,7 +164,15 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
         //  draw the Print File button if appropriate
         if (editModes.contains(ArAuthorizationConstants.CustomerInvoiceDocumentEditMode.DISPLAY_PRINT_BUTTON)) {
             String printButtonURL = getConfigService().getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY);
-            addExtraButton("methodToCall.print", printButtonURL + "buttonsmall_genprintfile.gif", "Print");
+
+            ExtraButton newButton = new ExtraButton();
+
+            newButton.setExtraButtonProperty("methodToCall.print");
+            newButton.setExtraButtonSource(printButtonURL + "buttonsmall_genprintfile.gif");
+            newButton.setExtraButtonAltText("Print");
+            newButton.setExtraButtonOnclick("excludeSubmitRestriction=true");
+
+            extraButtons.add(newButton);
         }
 
         //  draw the Error Correction button if appropriate
