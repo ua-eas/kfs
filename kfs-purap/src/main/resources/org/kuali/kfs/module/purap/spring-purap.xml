@@ -212,12 +212,9 @@
 	
     <bean id="purapGeneralLedgerService-parentBean" class="org.kuali.kfs.module.purap.service.impl.PurapGeneralLedgerServiceImpl" abstract="true">
         <property name="businessObjectService" ref="businessObjectService"/>
-        <property name="dateTimeService" ref="dateTimeService"/>
         <property name="generalLedgerPendingEntryService" ref="generalLedgerPendingEntryService"/>
-        <property name="kualiRuleService" ref="kualiRuleService"/>
         <property name="objectCodeService" ref="objectCodeService"/>
         <property name="paymentRequestService" ref="paymentRequestService" />
-        <property name="parameterService" ref="parameterService"/>
         <property name="purapAccountingService" ref="purapAccountingService"/>
         <property name="purchaseOrderService" ref="purchaseOrderService"/>
         <property name="subObjectCodeService" ref="subObjectCodeService"/>
