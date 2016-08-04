@@ -58,6 +58,7 @@ import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.krad.util.LegacyUtils;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -85,61 +86,73 @@ public class KualiRequestProcessor extends RequestProcessor {
 	private SessionDocumentService sessionDocumentService;
 	private PlatformTransactionManager transactionManager;
 	
-	@Override
-	public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		if ( LOG.isInfoEnabled() ) {
-			LOG.info(new StringBuffer("Started processing request: '").append(request.getRequestURI()).append("' w/ query string: '").append(request.getQueryString()).append("'"));
-		}
+    public void process(final HttpServletRequest request,
+            final HttpServletResponse response) throws IOException, ServletException {
+        // indicates that we are running in legacy KNS context
+        LegacyUtils.beginLegacyContext();
+        try {
+            if (LOG.isInfoEnabled()) {
+                LOG.info(new StringBuffer("Started processing request: '").append(request.getRequestURI()).append(
+                        "' w/ query string: '").append(request.getQueryString()).append("'"));
+            }
 
-		try { 
-			strutsProcess(request, response);
-		} catch (FileUploadLimitExceededException e) {
-			ActionForward actionForward = processException(request, response, e, e.getActionForm(), e.getActionMapping());
-			processForwardConfig(request, response, actionForward);
-		} finally {
-			KNSGlobalVariables.setKualiForm(null);
-		}
-			
-		try {
-			ActionForm form = WebUtils.getKualiForm(request);
-			
-			if (form != null && form instanceof KualiDocumentFormBase) {
-				String docId = ((KualiDocumentFormBase) form).getDocId();
-				if (docId != null) { MDC.put(MDC_DOC_ID, docId); }
-			}
+            try {
+                strutsProcess(request, response);
+            } catch (FileUploadLimitExceededException e) {
+                ActionForward actionForward = processException(request, response, e, e.getActionForm(),
+                        e.getActionMapping());
+                processForwardConfig(request, response, actionForward);
+            } finally {
+                KNSGlobalVariables.setKualiForm(null);
+            }
 
-			String refreshCaller = request.getParameter(KRADConstants.REFRESH_CALLER);
-			if (form!=null && KualiDocumentFormBase.class.isAssignableFrom(form.getClass()) 
-					&& !KRADConstants.QUESTION_REFRESH.equalsIgnoreCase(refreshCaller)) {
-				KualiDocumentFormBase docForm = (KualiDocumentFormBase) form;
-				Document document = docForm.getDocument();
-				String docFormKey = docForm.getFormKey();
+            try {
+                ActionForm form = WebUtils.getKualiForm(request);
 
-				UserSession userSession = (UserSession) request.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
+                if (form != null && form instanceof KualiDocumentFormBase) {
+                    String docId = ((KualiDocumentFormBase) form).getDocId();
+                    if (docId != null) {
+                        MDC.put(MDC_DOC_ID, docId);
+                    }
+                }
 
-				if (WebUtils.isDocumentSession(document, docForm)) {
-					getSessionDocumentService().setDocumentForm(docForm, userSession, request.getRemoteAddr());
-				}
+                String refreshCaller = request.getParameter(KRADConstants.REFRESH_CALLER);
+                if (form != null && KualiDocumentFormBase.class.isAssignableFrom(form.getClass()) && !KRADConstants
+                        .QUESTION_REFRESH.equalsIgnoreCase(refreshCaller)) {
+                    KualiDocumentFormBase docForm = (KualiDocumentFormBase) form;
+                    Document document = docForm.getDocument();
+                    String docFormKey = docForm.getFormKey();
 
-				Boolean exitingDocument = (Boolean) request.getAttribute(KRADConstants.EXITING_DOCUMENT);
+                    UserSession userSession = (UserSession) request.getSession().getAttribute(
+                            KRADConstants.USER_SESSION_KEY);
 
-				if (exitingDocument != null && exitingDocument.booleanValue()) {
-					// remove KualiDocumentFormBase object from session and
-					// table.
-					getSessionDocumentService().purgeDocumentForm(docForm.getDocument().getDocumentNumber(), docFormKey, userSession, request.getRemoteAddr());
-				}
-			}
+                    if (WebUtils.isDocumentSession(document, docForm)) {
+                        getSessionDocumentService().setDocumentForm(docForm, userSession, request.getRemoteAddr());
+                    }
 
-			if ( LOG.isInfoEnabled() ) {
-				LOG.info(new StringBuffer("Finished processing request: '").append(request.getRequestURI()).append("' w/ query string: '").append(request.getQueryString()).append("'"));
-			}
+                    Boolean exitingDocument = (Boolean) request.getAttribute(KRADConstants.EXITING_DOCUMENT);
 
-		} finally {
-			// MDC docId key is set above, and also during super.process() in the call to processActionForm
-			MDC.remove(MDC_DOC_ID);
-		}
+                    if (exitingDocument != null && exitingDocument.booleanValue()) {
+                        // remove KualiDocumentFormBase object from session and
+                        // table.
+                        getSessionDocumentService().purgeDocumentForm(docForm.getDocument().getDocumentNumber(),
+                                docFormKey, userSession, request.getRemoteAddr());
+                    }
+                }
 
-	}
+                if (LOG.isInfoEnabled()) {
+                    LOG.info(new StringBuffer("Finished processing request: '").append(request.getRequestURI()).append(
+                            "' w/ query string: '").append(request.getQueryString()).append("'"));
+                }
+
+            } finally {
+                // MDC docId key is set above, and also during super.process() in the call to processActionForm
+                MDC.remove(MDC_DOC_ID);
+            }
+        } finally {
+            LegacyUtils.endLegacyContext();
+        }
+    }
 	
 	@Override
 	protected boolean processPreprocess(HttpServletRequest request, HttpServletResponse response) {
