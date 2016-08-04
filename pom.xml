@@ -166,7 +166,7 @@
     <persistence.version>2.1.0</persistence.version>
 
     <quartz.version>1.8.6</quartz.version>
-    <rice.version>2.5.12</rice.version>
+    <rice.version>2.5.13-1608.0004-SNAPSHOT</rice.version>
     <selenium-java.version>2.41.0</selenium-java.version>
     <xalan.version>2.7.2</xalan.version>
     <serializer.version>2.7.2</serializer.version>
