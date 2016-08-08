@@ -110,8 +110,7 @@ if (attributeEntry == null) {
     <c:set var="tabindex" value="${tabindexOverride}"/>
   </c:when>
   <c:otherwise>
-    <c:set var="tabindex" value="${KualiForm.currentTabIndex}"/>
-    <c:set var="dummyIncrementVar" value="${kfunc:incrementTabIndex(KualiForm, tabKey)}" />
+    <c:set var="tabindex" value="0"/>
   </c:otherwise>
 </c:choose>
 
