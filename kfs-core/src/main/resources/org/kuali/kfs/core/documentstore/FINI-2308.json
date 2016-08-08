@@ -1,0 +1,31 @@
+{
+  "changeLog": [
+    {
+      "jira": "FINI-2308",
+      "id": "Add newTarget to Shop Catalogs link",
+      "changes": [
+        {
+          "changeType": "updateNode",
+          "collectionName": "InstitutionPreferences",
+          "query": {
+            "institutionId": "1232413535"
+          },
+          "path": "$.linkGroups[?(@.label=='Orders')].links.activities[?(@.label=='Shop Catalogs')]",
+          "value": {
+            "label": "Shop Catalogs",
+            "link": "b2b.do?methodToCall=shopCatalogs",
+            "linkType": "kfs",
+            "newTarget": true,
+            "permission": {
+              "templateNamespace": "KR-NS",
+              "templateName": "Use Screen",
+              "details": {
+                "actionClass": "org.kuali.kfs.module.purap.web.struts.B2BAction"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
