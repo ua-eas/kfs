@@ -101,9 +101,8 @@
     <property name="forceUppercase" value="true" />
     <property name="label" value="Ownership Type Category" />
     <property name="shortLabel" value="Ownership Type Category" />
-    <property name="maxLength" value="2" />
     <property name="validationPattern" >
-      <bean parent="AnyCharacterValidationPattern" p:exactLength="2"/>
+      <bean parent="AnyCharacterValidationPattern" />
     </property>
     <property name="control" >
       <bean parent="SelectControlDefinition" p:valuesFinderClass="org.kuali.kfs.vnd.businessobject.options.VendorOwnershipCategoryValuesFinder" p:includeKeyInLabel="false"/>
