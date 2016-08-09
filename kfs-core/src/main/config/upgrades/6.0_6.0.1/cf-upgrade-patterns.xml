@@ -20,7 +20,7 @@
 <rules>
     <rule name="cf_changes">
         <pattern>
-            <match>org\.kuali\.rice\.krad\.(?!bo\.(Externalizable)*BusinessObject)</match>
+            <match>org\.kuali\.rice\.krad\.(?!(bo\.(Externalizable)*BusinessObject)|web\.filter\.BootstrapFilter)</match>
             <replacement>org.kuali.kfs.krad.</replacement>
         </pattern>
         <pattern>

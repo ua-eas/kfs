@@ -61,7 +61,7 @@
                 <fp:dataCell dataCellCssClass="${dataCellCssClass} left"
                     businessObjectFormName="${capitalAssetInfoDetailsName}[${status.index}]" attributes="${attributes}" readOnly="${readOnly}"
                     field="campusCode" lookup="false" inquiry="true"
-                    boClassSimpleName="Campus" boPackageName="org.kuali.rice.kns.bo"
+                    boClassSimpleName="Campus" boPackageName="org.kuali.rice.location.api.campus"
                     lookupOrInquiryKeys="campusCode"
                     businessObjectValuesMap="${capitalAssetInfoDetail.valuesMap}"/>
 
