@@ -20,6 +20,10 @@
 
 <%@ attribute name="active" required="true" description="The selector used to find the body element." %>
 
+<c:if test="${active && (empty KualiForm.documentActions || !KualiForm.documentActions[Constants.KUALI_ACTION_CAN_EDIT])}">
+    <c:set var="active" value="false"/>
+</c:if>
+
 <script type="text/javascript">
     let active = '${active}' === 'true';
 
@@ -29,24 +33,27 @@
 
     function stayOnPage(event) {
         if (active) {
-            event.preventDefault();
-
-            let href = event.target.href;
-            if (!href) {
-                let closestAnchor = $(event.target).parent();
-                href = closestAnchor.attr('href');
+            let anchor = $(event.target);
+            if (!anchor.attr('href')) {
+                anchor = $(event.target).closest('a');
             }
 
-            let myModal = $('#remodal');
-            let modalBody = myModal.find('.remodal-content');
-            let html = '<div class="confirm-dialog">';
-            html += '<div class="message">You have a document open for editing. If you proceed you will lose any changes you have made.</div>';
-            html += '<button class="btn btn-default" data-remodal-action="close">Stay on this Page</button>';
-            html += '<button class="btn btn-default" onclick="goToPage(\'' + href + '\')">Leave this Page</button>';
-            html += '</div>';
-            modalBody.html(html);
-            myModal.remodal();
-            $('.remodal-wrapper').show();
+            if (!anchor.attr('target')) {
+                event.preventDefault();
+
+                let href = anchor.attr('href');
+
+                let myModal = $('#remodal');
+                let modalBody = myModal.find('.remodal-content');
+                let html = '<div class="confirm-dialog">';
+                html += '<div class="message">You have a document open for editing. If you proceed you will lose any changes you have made.</div>';
+                html += '<button class="btn btn-default" data-remodal-action="close">Stay on this Page</button>';
+                html += '<button class="btn btn-default" onclick="goToPage(\'' + href + '\')">Leave this Page</button>';
+                html += '</div>';
+                modalBody.html(html);
+                myModal.remodal();
+                $('.remodal-wrapper').show();
+            }
         }
     }
 
