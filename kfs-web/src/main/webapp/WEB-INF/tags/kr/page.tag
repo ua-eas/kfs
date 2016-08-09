@@ -147,6 +147,8 @@
 		</kul:pageBody>
 
 		<kul:modal/>
+
+		<kul:stayOnPage active="${transactionalDocument || maintenanceDocument}"/>
 	</body>
 	<!--a3VhbGkK-->
 </html:html>

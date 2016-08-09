@@ -353,7 +353,7 @@ var convertLinks = function(links, type, backdoorId) {
             target = '_blank';
         }
         let url = link.linkType === 'rice' ? backdoorIdAppender(link.link) : link.link;
-        return <Link key={type + "_" + i} url={url} label={link.label} className="list-group-item" target={target}/>
+        return <Link key={type + "_" + i} url={url} label={link.label} className="list-group-item" target={target} click={stayOnPage}/>
     })
 };
 

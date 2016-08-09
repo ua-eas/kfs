@@ -825,6 +825,19 @@ nav ul.nav li {
     padding: 15px 15px 5px 15px;
 }
 
+.remodal .confirm-dialog {
+    background-color: #fff;
+    padding: 30px;
+    margin: 200px calc(50% - 250px);
+    width: 500px;
+    border-radius: 6px;
+}
+
+.remodal .confirm-dialog .message {
+    font-size: 18px;
+    padding-bottom: 30px;
+}
+
 .motd {
 	padding: 15px 15px 15px 55px;
 }
