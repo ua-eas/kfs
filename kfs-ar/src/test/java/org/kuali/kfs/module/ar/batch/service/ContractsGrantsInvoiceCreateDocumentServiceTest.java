@@ -29,27 +29,23 @@ import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDocumentErrorLog;
 import org.kuali.kfs.module.ar.businessobject.InvoiceAccountDetail;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
 import org.kuali.kfs.module.ar.fixture.ARAgencyFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardAccountFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
 import org.kuali.kfs.module.ar.fixture.ContractsGrantsInvoiceDocumentFixture;
 import org.kuali.kfs.module.ar.fixture.InvoiceAccountDetailFixture;
-import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateDocumentService;
 import org.kuali.kfs.module.ar.service.ContractsGrantsInvoiceCreateTestBase;
-import org.kuali.kfs.module.ar.service.impl.ContractsGrantsInvoiceCreateDocumentServiceImpl;
 import org.kuali.kfs.module.cg.businessobject.Award;
 import org.kuali.kfs.module.cg.businessobject.AwardAccount;
 import org.kuali.kfs.module.cg.businessobject.AwardOrganization;
 import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 
 import java.io.File;
+import java.sql.Date;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.sql.Date;
 import java.util.List;
 
 import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
@@ -57,18 +53,6 @@ import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 @ConfigureContext(session = khuntley)
 public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGrantsInvoiceCreateTestBase {
-
-    protected ContractsGrantsInvoiceCreateDocumentService contractsGrantsInvoiceCreateDocumentService;
-    protected ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService;
-
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
-        contractsGrantsInvoiceCreateDocumentService = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class);
-        contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
-    }
-
     public void testValidateManualAwardsOneValidAward() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs = new ArrayList<ContractsGrantsInvoiceDocumentErrorLog>();
@@ -314,7 +298,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     @ConfigureContext(session = wklykins)
     public void testManualCreateCGInvoiceDocumentsByAwardsOneValid() throws Exception {
-        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService = getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService();
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(buildMockUniversityDateService());
 
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
 
@@ -395,7 +379,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         Award award = ((Award)awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
-        ContractsGrantsInvoiceDocument cgInvoice = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class).createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
+        ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
         documentService.saveDocument(cgInvoice);
         setupBills(cgInvoice);
         documentService.saveDocument(cgInvoice);
@@ -422,7 +406,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     @ConfigureContext(session = wklykins)
     public void testManualCreateCGInvoiceDocumentsByAccountOneBillableOneNonBillable() throws Exception {
-        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService = getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService();
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(buildMockUniversityDateService());
 
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
         Award award = ((Award)awards.get(0));
@@ -456,7 +440,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         Award award = ((Award)awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
-        ContractsGrantsInvoiceDocument cgInvoice = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class).createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
+        ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
         documentService.saveDocument(cgInvoice);
         setupBills(cgInvoice);
         documentService.saveDocument(cgInvoice);
@@ -487,7 +471,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         Award award = ((Award)awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
-        ContractsGrantsInvoiceDocument cgInvoice = SpringContext.getBean(ContractsGrantsInvoiceCreateDocumentService.class).createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
+        ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
         documentService.saveDocument(cgInvoice);
         setupBills(cgInvoice);
         documentService.saveDocument(cgInvoice);

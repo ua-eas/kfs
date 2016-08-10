@@ -21,6 +21,7 @@ package org.kuali.kfs.module.ar.service;
 import org.easymock.EasyMock;
 import org.joda.time.DateTime;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
+import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.krad.bo.ModuleConfiguration;
@@ -32,7 +33,12 @@ import org.kuali.kfs.module.ar.businessobject.Bill;
 import org.kuali.kfs.module.ar.businessobject.BillingPeriod;
 import org.kuali.kfs.module.ar.businessobject.InvoiceBill;
 import org.kuali.kfs.module.ar.businessobject.PredeterminedBillingSchedule;
+import org.kuali.kfs.module.ar.dataaccess.AwardAccountObjectCodeTotalBilledDao;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
+import org.kuali.kfs.module.ar.document.service.AccountsReceivableDocumentHeaderService;
+import org.kuali.kfs.module.ar.document.service.ContractsGrantsBillingAwardVerificationService;
+import org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService;
+import org.kuali.kfs.module.ar.document.service.CustomerService;
 import org.kuali.kfs.module.ar.fixture.ARAwardAccountFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardFixture;
 import org.kuali.kfs.module.ar.fixture.ARAwardFundManagerFixture;
@@ -45,9 +51,11 @@ import org.kuali.kfs.sys.FinancialSystemModuleConfiguration;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.context.TestUtils;
+import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
+import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 
 import java.io.File;
 import java.sql.Date;
@@ -64,9 +72,13 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
     protected DocumentService documentService;
     protected KualiModuleService kualiModuleService;
     protected AccountingPeriodService accountingPeriodService;
+    protected ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService;
     protected UniversityDateService originalUniversityDateService;
     protected VerifyBillingFrequencyService verifyBillingFrequencyService;
     protected String errorOutputFile;
+
+    protected ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService;
+    public static final Integer LAST_FISCAL_YEAR = 2015;
 
     @Override
     public void setUp() throws Exception {
@@ -76,13 +88,47 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
         documentService = SpringContext.getBean(DocumentService.class);
         configurationService = SpringContext.getBean(ConfigurationService.class);
         kualiModuleService = SpringContext.getBean(KualiModuleService.class);
-        accountingPeriodService = SpringContext.getBean(AccountingPeriodService.class);
         verifyBillingFrequencyService = SpringContext.getBean(VerifyBillingFrequencyService.class);
         originalUniversityDateService = SpringContext.getBean(UniversityDateService.class);
+        contractsGrantsInvoiceDocumentService = SpringContext.getBean(ContractsGrantsInvoiceDocumentService.class);
+        accountingPeriodService = buildMockAccountingPeriodService();
 
         ModuleConfiguration systemConfiguration = kualiModuleService.getModuleServiceByNamespaceCode(KFSConstants.OptionalModuleNamespaces.ACCOUNTS_RECEIVABLE).getModuleConfiguration();
         String destinationFolderPath = ((FinancialSystemModuleConfiguration) systemConfiguration).getBatchFileDirectories().get(0);
         errorOutputFile = destinationFolderPath + File.separator + "JUNIT TEST.log";
+
+        contractsGrantsInvoiceCreateDocumentService = new ContractsGrantsInvoiceCreateDocumentServiceImpl();
+
+        contractsGrantsInvoiceCreateDocumentService.setAccountService(SpringContext.getBean(AccountService.class));
+        contractsGrantsInvoiceCreateDocumentService.setAccountingPeriodService(accountingPeriodService);
+        contractsGrantsInvoiceCreateDocumentService.setAccountsReceivableDocumentHeaderService(SpringContext.getBean(AccountsReceivableDocumentHeaderService.class));
+        contractsGrantsInvoiceCreateDocumentService.setAwardAccountObjectCodeTotalBilledDao(SpringContext.getBean(AwardAccountObjectCodeTotalBilledDao.class));
+        contractsGrantsInvoiceCreateDocumentService.setBusinessObjectService(businessObjectService);
+        contractsGrantsInvoiceCreateDocumentService.setConfigurationService(configurationService);
+        contractsGrantsInvoiceCreateDocumentService.setContractsGrantsBillingAwardVerificationService(SpringContext.getBean(ContractsGrantsBillingAwardVerificationService.class));
+        contractsGrantsInvoiceCreateDocumentService.setContractsGrantsBillingUtilityService(SpringContext.getBean(ContractsGrantsBillingUtilityService.class));
+        contractsGrantsInvoiceCreateDocumentService.setContractsGrantsInvoiceDocumentService(contractsGrantsInvoiceDocumentService);
+        contractsGrantsInvoiceCreateDocumentService.setCostCategoryService(SpringContext.getBean(CostCategoryService.class));
+        contractsGrantsInvoiceCreateDocumentService.setCustomerService(SpringContext.getBean(CustomerService.class));
+        contractsGrantsInvoiceCreateDocumentService.setDateTimeService(SpringContext.getBean(DateTimeService.class));
+        contractsGrantsInvoiceCreateDocumentService.setDocumentService(documentService);
+        contractsGrantsInvoiceCreateDocumentService.setFinancialSystemDocumentService(SpringContext.getBean(FinancialSystemDocumentService.class));
+        contractsGrantsInvoiceCreateDocumentService.setKualiModuleService(kualiModuleService);
+        contractsGrantsInvoiceCreateDocumentService.setVerifyBillingFrequencyService(verifyBillingFrequencyService);
+        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(originalUniversityDateService);
+        contractsGrantsInvoiceCreateDocumentService.setOptionsService(SpringContext.getBean(OptionsService.class));
+    }
+
+    private AccountingPeriodService buildMockAccountingPeriodService() {
+        AccountingPeriod accountingPeriod = new AccountingPeriod();
+        accountingPeriod.setUniversityFiscalYear(LAST_FISCAL_YEAR);
+        accountingPeriod.setUniversityFiscalPeriodCode("02");
+
+        AccountingPeriodService accountingPeriodService = EasyMock.createMock(AccountingPeriodService.class);
+        EasyMock.expect(accountingPeriodService.getByDate(EasyMock.anyObject())).andReturn(accountingPeriod).anyTimes();
+        EasyMock.replay(accountingPeriodService);
+
+        return accountingPeriodService;
     }
 
     @Override
@@ -174,17 +220,12 @@ public abstract class ContractsGrantsInvoiceCreateTestBase extends KualiTestBase
         businessObjectService.save(bill);
     }
 
-    protected ContractsGrantsInvoiceCreateDocumentServiceImpl getContractsGrantsInvoiceCreateDocumentServiceWithMockDateService() throws Exception {
+    protected UniversityDateService buildMockUniversityDateService() throws Exception {
         UniversityDateService universityDateService = EasyMock.createMock(UniversityDateService.class);
-        EasyMock.expect(universityDateService.getCurrentFiscalYear()).andReturn(calculateLastFiscalYear()).anyTimes();
+        EasyMock.expect(universityDateService.getCurrentFiscalYear()).andReturn(LAST_FISCAL_YEAR).anyTimes();
         EasyMock.replay(universityDateService);
 
-        ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService =  (ContractsGrantsInvoiceCreateDocumentServiceImpl) TestUtils.getUnproxiedService("contractsGrantsInvoiceCreateDocumentService");
-        contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(universityDateService);
-        return contractsGrantsInvoiceCreateDocumentService;
+        return universityDateService;
     }
 
-    protected Integer calculateLastFiscalYear() {
-        return 2015;
-    }
 }
