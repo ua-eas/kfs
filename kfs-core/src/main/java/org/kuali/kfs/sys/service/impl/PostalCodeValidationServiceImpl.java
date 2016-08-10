@@ -70,6 +70,7 @@ public class PostalCodeValidationServiceImpl implements PostalCodeValidationServ
         if (StringUtils.isNotBlank(postalCountryCode) && StringUtils.isNotBlank(stateCode)) {
             State state = SpringContext.getBean(StateService.class).getState(postalCountryCode, stateCode);
             if (state == null) {
+                valid &= false;
                 GlobalVariables.getMessageMap().putError(statePropertyConstant, KFSKeyConstants.ERROR_STATE_CODE_INVALID, stateCode);
             }
         }
