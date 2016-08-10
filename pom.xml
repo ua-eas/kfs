@@ -198,7 +198,7 @@
     <jsonpath.version>2.2.0</jsonpath.version>
     <jstl-api.version>1.2</jstl-api.version>
     <jta.version>1.1</jta.version>
-    <kfs.help.version>5.4.0</kfs.help.version>
+    <kfs.help.version>7.0.1-SNAPSHOT</kfs.help.version>
     <maven.compiler.version>3.3</maven.compiler.version>
     <mongo-java-driver.version>2.13.2</mongo-java-driver.version>
     <mysql.groupId>mysql</mysql.groupId>
