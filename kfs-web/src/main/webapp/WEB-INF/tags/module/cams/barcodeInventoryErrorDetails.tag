@@ -227,7 +227,7 @@
 						
 				<tr>
 					<th colspan=4 width="100%"><div align="center">
-						<html:image property="methodToCall.searchAndReplace"
+						<html:submit property="methodToCall.searchAndReplace"
 				    		alt="Start replacing values" value="Replace"
 							styleClass="btn btn-default small"/></div>
 					</th>

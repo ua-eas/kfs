@@ -76,7 +76,7 @@
 					<tr>
 						<td colspan="3">
 							<div align="center">
-								<html:image property="methodToCall.recalculate" value="Recalculate"
+								<html:submit property="methodToCall.recalculate" value="Recalculate"
 									alt="Recalculate Expense Total"
 									title="Recalculate Expense Total" styleClass="btn btn-default small" />
 							</div>

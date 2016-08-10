@@ -76,10 +76,9 @@
 					<tr>
 						<td colspan="3">
 							<div align="center">
-								<html:image property="methodToCall.recalculate"
-									src="${ConfigProperties.externalizable.images.url}tinybutton-recalculate.gif"
+								<html:submit property="methodToCall.recalculate" value="Recalculate"
 									alt="Recalculate Expense Total"
-									title="Recalculate Expense Total" styleClass="tinybutton" />
+									title="Recalculate Expense Total" styleClass="btn btn-default small" />
 							</div>
 						</td>
 					</tr>
