@@ -1251,6 +1251,7 @@
 	 <documentType>
       <name>IAA</name>
       <label>Intra-Account Adjustment</label>
+       <helpDefinitionURL>default.htm?turl=WordDocuments%2Fintraaccountadjustme.htm</helpDefinitionURL>
       <parent>FP</parent>      
       <docHandler>${kfs.url}/financialIntraAccountAdjustment.do?methodToCall=docHandler</docHandler>      
       <active>
