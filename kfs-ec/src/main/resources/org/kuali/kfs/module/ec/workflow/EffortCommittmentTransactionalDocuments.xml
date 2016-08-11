@@ -22,7 +22,7 @@
 			<name>ECD</name>
 			<parent>EC</parent>
 			<label>Effort Certification</label>
-			<helpDefinitionURL>default.htm?turl=WordDocuments%2Feffortcertificationdocument.htm</helpDefinitionURL>
+			<helpDefinitionURL>default.htm?turl=WordDocuments%2Feffortcertificationr.htm</helpDefinitionURL>
 			<docHandler>${kfs.url}/effortEffortCertification.do?methodToCall=docHandler
 			</docHandler>
 			<docSearchHelpURL>${kfs.externalizable.help.url}/default.htm?turl=WordDocuments%2Feffortcertificationsearch.htm</docSearchHelpURL>
