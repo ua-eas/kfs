@@ -22,4 +22,5 @@ package org.kuali.kfs.kns.util;
 public class KNSConstants {
     public static final String AUDIT_ERRORS = "AuditErrors";
     public static final String EXCEPTION_ON_MISSING_FIELD_CONVERSION_ATTRIBUTE = "rice.kns.exceptionOnMissingFieldConversionAttribute";
+    public static final String CSRF_EXEMPT_PATHS = "csrf.exempt.paths";
 }

@@ -85,6 +85,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 
 	private SessionDocumentService sessionDocumentService;
 	private PlatformTransactionManager transactionManager;
+	private ConfigurationService configurationService;
 	
     public void process(final HttpServletRequest request,
             final HttpServletResponse response) throws IOException, ServletException {
@@ -229,7 +230,7 @@ public class KualiRequestProcessor extends RequestProcessor {
 		// need to make sure that we don't check CSRF until after the form is populated so that Struts will parse the
 		// multipart parameters into the request if it's a multipart request
 		LOG.debug("context path = "+request.getRequestURI());
-		if (!request.getRequestURI().contains("b2b.do") && !CsrfValidator.validateCsrf(request, response)) {
+		if (!isCsrfExemptPath(request.getRequestURI()) && !CsrfValidator.validateCsrf(request, response)) {
 			LOG.error("Did not pass CSRF validation");
 			return;
 		}
@@ -251,6 +252,17 @@ public class KualiRequestProcessor extends RequestProcessor {
             }
         }
     }
+
+	private boolean isCsrfExemptPath(String requestUri) {
+		String exemptPathsString = getConfigurationService().getPropertyValueAsString(KNSConstants.CSRF_EXEMPT_PATHS);
+		for (String path : exemptPathsString.split(",")) {
+			if (requestUri.contains(path)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 
 	/**
@@ -750,6 +762,14 @@ public class KualiRequestProcessor extends RequestProcessor {
 			transactionManager = KRADServiceLocatorInternal.getTransactionManager();
 		}
 		return this.transactionManager;
+	}
+
+	public ConfigurationService getConfigurationService() {
+		if (configurationService == null) {
+			configurationService = KRADServiceLocator.getKualiConfigurationService();
+		}
+
+		return configurationService;
 	}
 	
 	private ActionForm createNewActionForm(ActionMapping mapping, HttpServletRequest request) {
