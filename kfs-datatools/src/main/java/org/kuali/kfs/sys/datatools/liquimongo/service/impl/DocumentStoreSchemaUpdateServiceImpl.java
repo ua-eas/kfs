@@ -58,7 +58,7 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
         LOG.debug("updateDocumentStoreSchema() started");
 
         if ( documentStoreUpdateProcessDao.isSchemaChangeLocked() ) {
-            LOG.debug("updateDocumentStoreSchema() not running because schema is locked");
+            LOG.warn("updateDocumentStoreSchema() not running because schema is locked");
             return;
         }
 
