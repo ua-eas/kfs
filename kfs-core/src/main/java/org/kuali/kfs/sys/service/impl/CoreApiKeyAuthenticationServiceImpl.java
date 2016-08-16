@@ -19,6 +19,7 @@
 package org.kuali.kfs.sys.service.impl;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
@@ -68,19 +69,24 @@ public class CoreApiKeyAuthenticationServiceImpl implements CoreApiKeyAuthentica
     }
 
     protected Optional<CoreAuthUser> getUserFromCore(final String apiKey) {
-        WebResource webResource = getWebResource();
-
-        ClientResponse response = webResource
-                .header(AUTHORIZATION_HEADER_NAME,AUTHORIZATION_PREFIX + apiKey)
-                .header("Content-Type", CONTENT_TYPE)
-                .get(ClientResponse.class);
+        ClientResponse response = invokeWebResource(apiKey);
 
         if (response.getStatus() != 200) {
             LOG.debug("getUserFromCore() non-OK response from core: " + response.getStatus());
             return Optional.empty();
         }
 
-        return Optional.of(response.getEntity(CoreAuthUser.class));
+        try {
+            return Optional.of(response.getEntity(CoreAuthUser.class));
+        } catch (ClientHandlerException e) {
+            // if we receive this exception it means that we got a response back that couldn't be converted into an
+            // AuthUser. This could be an html page or similar response, let's log it so we know what happened, and then
+            // return an empty Optional to redirect user back to login
+            LOG.error("Invalid response from auth API, failed to parse response. "
+                + "Content-Type was: " + response.getHeaders().getFirst("Content-Type") + ". "
+                + "Content was: " + response.getEntity(String.class), e);
+            return Optional.empty();
+        }
     }
 
     protected WebResource getWebResource() {
@@ -93,6 +99,12 @@ public class CoreApiKeyAuthenticationServiceImpl implements CoreApiKeyAuthentica
         Client client = Client.create(config);
 
         return client.resource(currentGetUserUrl);
+    }
+
+    protected ClientResponse invokeWebResource(String authTokenValue) {
+        return getWebResource().header(AUTHORIZATION_HEADER_NAME,AUTHORIZATION_PREFIX + authTokenValue)
+            .header("Content-Type", CONTENT_TYPE)
+            .get(ClientResponse.class);
     }
 
     protected String getCoreAuthBaseUrl() {
