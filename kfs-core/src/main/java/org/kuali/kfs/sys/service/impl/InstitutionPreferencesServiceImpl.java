@@ -306,7 +306,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         String appHost = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
         String baseUrl = configurationService.getPropertyValueAsString(KFSConstants.BASE_URL_KEY);
         String fullUrl = link.startsWith("http") ? link : baseUrl + link;
-        return appHost + "/remote?url=" + URLEncoder.encode(fullUrl);
+        return appHost + "/remote?url=" + URLEncoder.encode(fullUrl) + "&title=Reports";
     }
 
     protected String fixRelativeLink(String link) {
