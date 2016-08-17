@@ -18,10 +18,18 @@
 --%>
 <%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
 
+<c:set var="title">
+    <c:out value="${pageContext.request.getParameter('title')}"/>
+</c:set>
+<c:if test="${empty title}">
+    <c:set var="title" value="Remote View"/>
+</c:if>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Financials :: Remote View</title>
+    <title>Financials :: <c:out value="${title}"/></title>
 </head>
 <body>
   <kul:page docTitle="" showDocumentInfo="false" transactionalDocument="false" renderInnerDiv="true">
