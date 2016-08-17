@@ -243,7 +243,7 @@ public class PendingTransactionServiceImpl implements PendingTransactionService 
      * @param glPendingTransaction PDP entry created for payment detail
      * @param sequenceHelper holds current entry sequence value
      */
-    protected void populateBankOffsetEntry(PaymentGroup paymentGroup, GlPendingTransaction glPendingTransaction, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
+    public void populateBankOffsetEntry(PaymentGroup paymentGroup, GlPendingTransaction glPendingTransaction, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
         GlPendingTransaction bankPendingTransaction = new GlPendingTransaction();
 
         bankPendingTransaction.setSequenceNbr(new KualiInteger(sequenceHelper.getSequenceCounter()));
