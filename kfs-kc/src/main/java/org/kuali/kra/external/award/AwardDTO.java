@@ -19,7 +19,6 @@
 package org.kuali.kra.external.award;
 
 import org.kuali.kra.external.awardpayment.AwardMethodOfPaymentDTO;
-import org.kuali.kra.external.frequency.FrequencyDto;
 import org.kuali.kra.external.sponsor.SponsorDTO;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -118,7 +117,7 @@ public class AwardDTO implements Serializable {
     private String excludedFromInvoicingReason;
     private BigDecimal minInvoiceAmount;
     private AwardMethodOfPaymentDTO methodOfPayment;
-    private FrequencyDto invoiceBillingFrequency;
+    private String invoiceBillingFrequency;
     private Integer sequenceNumber;
     private String sequenceStatus;
     private List<AwardAccountDTO> awardAccounts;
@@ -315,10 +314,10 @@ public class AwardDTO implements Serializable {
 	public void setMethodOfPayment(AwardMethodOfPaymentDTO methodOfPayment) {
 		this.methodOfPayment = methodOfPayment;
 	}
-	public FrequencyDto getInvoiceBillingFrequency() {
+	public String getInvoiceBillingFrequency() {
 		return invoiceBillingFrequency;
 	}
-	public void setInvoiceBillingFrequency(FrequencyDto invoiceBillingFrequency) {
+	public void setInvoiceBillingFrequency(String invoiceBillingFrequency) {
 		this.invoiceBillingFrequency = invoiceBillingFrequency;
 	}
 	public String getInvoicingOptionDescription() {
