@@ -43,31 +43,31 @@ import org.springframework.transaction.annotation.Transactional;
 public class LaborScrubberServiceImpl implements LaborScrubberService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborScrubberServiceImpl.class);
 
-    private FlexibleOffsetAccountService flexibleOffsetAccountService;
-    private LaborOriginEntryService laborOriginEntryService;
-    private OriginEntryGroupService originEntryGroupService;
-    private DateTimeService dateTimeService;
-    private OffsetDefinitionService offsetDefinitionService;
-    private ObjectCodeService objectCodeService;
-    private ConfigurationService kualiConfigurationService;
-    private UniversityDateDao universityDateDao;
-    private PersistenceService persistenceService;
-    private ScrubberValidator scrubberValidator;
-    private LaborAccountingCycleCachingService laborAccountingCycleCachingService;
-    private PreScrubberService laborPreScrubberService;
-    private DocumentNumberAwareReportWriterService llcpPreScrubberReportWriterService;
+    protected FlexibleOffsetAccountService flexibleOffsetAccountService;
+    protected LaborOriginEntryService laborOriginEntryService;
+    protected OriginEntryGroupService originEntryGroupService;
+    protected DateTimeService dateTimeService;
+    protected OffsetDefinitionService offsetDefinitionService;
+    protected ObjectCodeService objectCodeService;
+    protected ConfigurationService kualiConfigurationService;
+    protected UniversityDateDao universityDateDao;
+    protected PersistenceService persistenceService;
+    protected ScrubberValidator scrubberValidator;
+    protected LaborAccountingCycleCachingService laborAccountingCycleCachingService;
+    protected PreScrubberService laborPreScrubberService;
+    protected DocumentNumberAwareReportWriterService llcpPreScrubberReportWriterService;
 
-    private DocumentNumberAwareReportWriterService laborMainReportWriterService;
-    private DocumentNumberAwareReportWriterService llcpMainReportWriterService;
-    private DocumentNumberAwareReportWriterService laborLedgerReportWriterService;
-    private DocumentNumberAwareReportWriterService llcpLedgerReportWriterService;
-    private ReportWriterService laborBadBalanceTypeReportWriterService;
-    private ReportWriterService laborErrorListingReportWriterService;
-    private DocumentNumberAwareReportWriterService laborGeneratedTransactionsReportWriterService;
-    private ReportWriterService laborDemergerReportWriterService;
-    private ParameterService parameterService;
+    protected DocumentNumberAwareReportWriterService laborMainReportWriterService;
+    protected DocumentNumberAwareReportWriterService llcpMainReportWriterService;
+    protected DocumentNumberAwareReportWriterService laborLedgerReportWriterService;
+    protected DocumentNumberAwareReportWriterService llcpLedgerReportWriterService;
+    protected ReportWriterService laborBadBalanceTypeReportWriterService;
+    protected ReportWriterService laborErrorListingReportWriterService;
+    protected DocumentNumberAwareReportWriterService laborGeneratedTransactionsReportWriterService;
+    protected ReportWriterService laborDemergerReportWriterService;
+    protected ParameterService parameterService;
 
-    private String batchFileDirectoryName;
+    protected String batchFileDirectoryName;
 
     /**
      * @see org.kuali.module.labor.service.ScrubberService#scrubGroupReportOnly(org.kuali.kfs.gl.businessobject.OriginEntryGroup)
