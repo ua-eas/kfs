@@ -165,12 +165,12 @@ var Header = React.createClass({
                 <nav className="collapse navbar-collapse">
                     <ul className="nav navbar-nav pull-right">
                         <li>
-                            <a href={prefs.remoteViewUrl + '?url=' + escape(actionListLink + '?targetSpec=KFS:_self,*:_blank') + '&title=Action List'}>
+                            <a href={prefs.remoteViewUrl + '?url=' + escape(actionListLink + '?targetSpec=KFS:_top,*:_blank') + '&title=Action List'}>
                                 <span className="glyphicon glyphicon-ok-sign"></span>Action List
                             </a>
                         </li>
                         <li>
-                            <a href={prefs.remoteViewUrl + '?url=' + escape(docSearchLink + '&targetSpec=KFS:_self,*:_blank') + '&title=Doc Search'}>
+                            <a href={prefs.remoteViewUrl + '?url=' + escape(docSearchLink + '&targetSpec=KFS:_top,*:_blank') + '&title=Doc Search'}>
                                 <span className="glyphicon glyphicon-search"></span>Doc Search
                             </a>
                         </li>
