@@ -182,7 +182,7 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
     }
 
     protected void appendRemoteViewUrl(Map<String, Object> institutionPreferences) {
-        final String remoteViewUrl = configurationService.getPropertyValueAsString(KFSConstants.REMOTE_VIEW_URL);
+        final String remoteViewUrl = configurationService.getPropertyValueAsString(KFSConstants.REMOTE_VIEW_URL_KEY);
         institutionPreferences.put(KFSPropertyConstants.REMOTE_VIEW_URL, remoteViewUrl);
     }
 
