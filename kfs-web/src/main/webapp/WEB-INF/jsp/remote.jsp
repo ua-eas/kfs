@@ -21,11 +21,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Financials :: Reports</title>
+    <title>Financials :: Remote View</title>
 </head>
 <body>
   <kul:page docTitle="" showDocumentInfo="false" transactionalDocument="false" renderInnerDiv="true">
-    <iframe src="${ConfigProperties.reports.url}${pageContext.request.getParameter("reportUrl")}" name="reports-iframe" title="Financials Reports" style="height: calc(100% - 60px);" width="100%" frameborder="0"></iframe>
+    <iframe src="<c:out value="${pageContext.request.getParameter('url')}"/>" name="remote-iframe" title="Financials Remote View" style="height: calc(100% - 60px);" width="100%" frameborder="0"></iframe>
   </kul:page>
 </body>
 </html>
