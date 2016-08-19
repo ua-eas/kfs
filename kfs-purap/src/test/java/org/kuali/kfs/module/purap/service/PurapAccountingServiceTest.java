@@ -18,16 +18,9 @@
  */
 package org.kuali.kfs.module.purap.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurapDocTypeCodes;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLine;
@@ -35,6 +28,7 @@ import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.module.purap.businessobject.PurApSummaryItem;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
+import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.document.PurchasingAccountsPayableDocument;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
@@ -47,8 +41,15 @@ import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.kfs;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 @ConfigureContext(session = kfs)
 public class PurapAccountingServiceTest extends KualiTestBase {
@@ -345,9 +346,15 @@ public class PurapAccountingServiceTest extends KualiTestBase {
     /*
      * Tests of generateSummaryWithNoZeroTotals(List<PurApItem> items)
      */
-    
     public void testGenerateSummaryWithNoZeroTotals_OneItem_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_ONE_ACCOUNT;
+
+        // This logic requires a document to be associated with the items
+        PurchaseOrderDocument podoc = new PurchaseOrderDocument();
+        for (PurApItem item : fixture.getItems()) {
+            item.setPurapDocument(podoc);
+        }
+
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
         List<PurApItem> items = fixture.getItems();
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotals(items);
@@ -376,7 +383,6 @@ public class PurapAccountingServiceTest extends KualiTestBase {
     /*
      * Tests of generateSummaryWithNoZeroTotalsNoUseTax(List<PurApItem> items)
      */
-    
     public void testGenerateSummaryWithNoZeroTotalsNoUseTax_OneItem_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_ONE_ACCOUNT;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
