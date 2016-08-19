@@ -217,7 +217,6 @@
         <property name="paymentRequestService" ref="paymentRequestService" />
         <property name="purapAccountingService" ref="purapAccountingService"/>
         <property name="purchaseOrderService" ref="purchaseOrderService"/>
-        <property name="subObjectCodeService" ref="subObjectCodeService"/>
         <property name="universityDateService" ref="universityDateService"/>
         <property name="purapAccountRevisionService" ref="purapAccountRevisionService"/>
     </bean>
