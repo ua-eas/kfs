@@ -173,11 +173,17 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
         appendActionListUrl(institutionPreferences);
         appendDocSearchUrl(institutionPreferences);
         appendSignoutUrl(institutionPreferences);
+        appendRemoteViewUrl(institutionPreferences);
     }
 
     protected void appendActionListUrl(Map<String, Object> institutionPreferences) {
         final String actionListUrl = configurationService.getPropertyValueAsString(KRADConstants.WORKFLOW_URL_KEY)+"/ActionList.do";
         institutionPreferences.put(KFSPropertyConstants.ACTION_LIST_URL, actionListUrl);
+    }
+
+    protected void appendRemoteViewUrl(Map<String, Object> institutionPreferences) {
+        final String remoteViewUrl = configurationService.getPropertyValueAsString(KFSConstants.REMOTE_VIEW_URL_KEY);
+        institutionPreferences.put(KFSPropertyConstants.REMOTE_VIEW_URL, remoteViewUrl);
     }
 
     protected void appendSignoutUrl(Map<String, Object> institutionPreferences) {
@@ -298,7 +304,9 @@ public class InstitutionPreferencesServiceImpl implements InstitutionPreferences
 
     protected String determineReportLink(String link) {
         String appHost = configurationService.getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
-        return appHost + "/reports?reportUrl=" + URLEncoder.encode(link);
+        String baseUrl = configurationService.getPropertyValueAsString(KFSConstants.BASE_URL_KEY);
+        String fullUrl = link.startsWith("http") ? link : baseUrl + link;
+        return appHost + "/remote?url=" + URLEncoder.encode(fullUrl) + "&title=Reports";
     }
 
     protected String fixRelativeLink(String link) {

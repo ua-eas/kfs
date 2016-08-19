@@ -95,6 +95,7 @@ public class KFSConstants {
     public static final String LOG4J_SETTINGS_FILE_KEY = "log4j.settings.file";
     public static final String LOG4J_RELOAD_MINUTES_KEY = "log4j.reload.minutes";
     public static final String APPLICATION_URL_KEY = "application.url";
+    public static final String BASE_URL_KEY = "base.url";
     public static final String TEMPLATES_DIRECTORY_KEY = "templates.directory";
     public static final String TEMP_DIRECTORY_KEY = "temp.directory";
     public static final String EXTERNALIZABLE_HELP_URL_KEY = KRADConstants.EXTERNALIZABLE_HELP_URL_KEY;
@@ -102,7 +103,7 @@ public class KFSConstants {
     public static final String RICE_EXTERNALIZABLE_IMAGES_URL_KEY = KRADConstants.EXTERNALIZABLE_IMAGES_URL_KEY;
     public static final String RICE_SERVER_URL_KEY = "rice.server.url";
     public static final String KC_APPLICATION_URL_KEY = "kc.application.url";
-    public static final String REPORTS_URL = "reports.url";
+    public static final String REMOTE_VIEW_URL_KEY = "remote.view.url";
     public static final String REPORTS_DIRECTORY_KEY = "reports.directory";
     public static final String WORKFLOW_URL_KEY = Config.KEW_URL;
     public static final String PROD_ENVIRONMENT_CODE_KEY = Config.PROD_ENVIRONMENT_CODE;

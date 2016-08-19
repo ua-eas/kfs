@@ -18,10 +18,10 @@
  */
 package org.kuali.kfs.krad.util;
 
+import org.kuali.rice.core.api.CoreConstants;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.kuali.rice.core.api.CoreConstants;
 
 /**
  * Defines Global Constants for the KRAD Module
@@ -157,6 +157,7 @@ public final class KRADConstants {
     public static final String ATTACHMENT_IMAGE_DEFAULT = "attach.img.default";
 //    public static final String REPORTS_DIRECTORY_KEY = "reports.directory";
     public static final String WORKFLOW_URL_KEY = "workflow.url";
+    public static final String REMOTE_VIEW_URL_KEY = "remote.view.url";
     public static final String KUALI_RICE_URL_KEY = "kr.url";
     public static final String PROD_ENVIRONMENT_CODE_KEY = org.kuali.rice.core.api.config.property.Config.PROD_ENVIRONMENT_CODE;
     public static final String DOC_HANDLER_ACTION = "DocHandler.do";
@@ -633,4 +634,7 @@ public final class KRADConstants {
         public static final String TITLE_RETURN_URL_PREPENDTEXT_PROPERTY = "title.return.url.value.prependtext";
         public static final String TITLE_ACTION_URL_PREPENDTEXT_PROPERTY = "title.action.url.value.prependtext";
     }
+
+
+    public static final String TARGET_SPEC = "targetSpec=KFS:_top,*:_blank";
 }

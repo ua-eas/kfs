@@ -1325,6 +1325,7 @@ public class KFSPropertyConstants {
     public static final String ACTION_LIST_URL = "actionListUrl";
     public static final String SIGNOUT_URL = "signoutUrl";
     public static final String DOC_SEARCH_URL = "docSearchUrl";
+    public static final String REMOTE_VIEW_URL = "remoteViewUrl";
     public static final String LABEL = "label";
     public static final String LINK = "link";
     public static final String LINKS = "links";
