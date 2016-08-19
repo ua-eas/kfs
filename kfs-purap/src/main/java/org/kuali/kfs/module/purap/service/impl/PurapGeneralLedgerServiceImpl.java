@@ -20,7 +20,6 @@ package org.kuali.kfs.module.purap.service.impl;
 
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
-import org.kuali.kfs.coa.service.SubObjectCodeService;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -75,7 +74,6 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     private PurchaseOrderService purchaseOrderService;
     private UniversityDateService universityDateService;
     private ObjectCodeService objectCodeService;
-    private SubObjectCodeService subObjectCodeService;
     private PurapAccountRevisionService purapAccountRevisionService;
 
     /**
@@ -210,14 +208,14 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
     public void generateEntriesModifyPaymentRequest(PaymentRequestDocument preq) {
         LOG.debug("generateEntriesModifyPaymentRequest() started");
 
-        Map<SourceAccountingLine, KualiDecimal> actualsPositive = new HashMap<SourceAccountingLine, KualiDecimal>();
+        Map<SourceAccountingLine, KualiDecimal> actualsPositive = new HashMap<>();
         List<SourceAccountingLine> newAccountingLines = purapAccountingService.generateSummaryWithNoZeroTotalsNoUseTax(preq.getItems());
         for (SourceAccountingLine newAccount : newAccountingLines) {
             actualsPositive.put(newAccount, newAccount.getAmount());
             LOG.debug("generateEntriesModifyPaymentRequest() actualsPositive: " + newAccount.getAccountNumber() + " = " + newAccount.getAmount());
         }
 
-        Map<SourceAccountingLine, KualiDecimal> actualsNegative = new HashMap<SourceAccountingLine, KualiDecimal>();
+        Map<SourceAccountingLine, KualiDecimal> actualsNegative = new HashMap<>();
         List<AccountsPayableSummaryAccount> oldAccountingLines = purapAccountingService.getAccountsPayableSummaryAccounts(preq.getPurapDocumentIdentifier(), PurapDocTypeCodes.PAYMENT_REQUEST_DOCUMENT);
 
         for (AccountsPayableSummaryAccount oldAccount : oldAccountingLines) {
@@ -868,7 +866,10 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
             if (poItem == null) {
                 LOG.debug("relieveEncumbrance() " + logItmNbr + " No encumbrances required because po item is null");
             } else {
-                final KualiDecimal preqItemTotalAmount = (preqItem.getTotalAmount() == null) ? KualiDecimal.ZERO : preqItem.getTotalAmount();
+                KualiDecimal preqItemTotalAmount = preqItem.getTotalAmount();
+                if ( preqItemTotalAmount == null) {
+                    preqItemTotalAmount = KualiDecimal.ZERO;
+                }
                 if (KualiDecimal.ZERO.compareTo(preqItemTotalAmount) == 0) {
                     /*
                      * This is a specialized case where PREQ item being processed must adjust the PO item's outstanding encumbered
@@ -1514,10 +1515,6 @@ public class PurapGeneralLedgerServiceImpl implements PurapGeneralLedgerService 
 
     public void setObjectCodeService(ObjectCodeService objectCodeService) {
         this.objectCodeService = objectCodeService;
-    }
-
-    public void setSubObjectCodeService(SubObjectCodeService subObjectCodeService) {
-        this.subObjectCodeService = subObjectCodeService;
     }
 
     public void setPaymentRequestService(PaymentRequestService paymentRequestService) {

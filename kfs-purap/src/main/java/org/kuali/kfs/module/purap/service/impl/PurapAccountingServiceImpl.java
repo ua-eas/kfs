@@ -495,6 +495,12 @@ public class PurapAccountingServiceImpl implements PurapAccountingService {
     protected List<SourceAccountingLine> generateAccountSummary(List<PurApItem> items, Set<String> itemTypeCodes, Boolean itemTypeCodesAreIncluded, Boolean useZeroTotals, Boolean useAlternateAmount, Boolean useTaxIncluded, Boolean taxableOnly) {
         LOG.debug("generateAccountSummary() started");
 
+        itemTypeCodesAreIncluded = false;
+        useZeroTotals = false;
+        useAlternateAmount = false;
+        useTaxIncluded = false;
+        taxableOnly = false;
+
         List<PurApItem> itemsToProcess = getProcessablePurapItems(items, itemTypeCodes, itemTypeCodesAreIncluded, useZeroTotals);
         Map<PurApAccountingLine, KualiDecimal> accountMap = new HashMap<PurApAccountingLine, KualiDecimal>();
 
