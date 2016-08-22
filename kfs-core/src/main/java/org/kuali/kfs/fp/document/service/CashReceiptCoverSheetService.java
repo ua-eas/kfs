@@ -19,9 +19,9 @@
 
 package org.kuali.kfs.fp.document.service;
 
-import java.io.OutputStream;
-
 import org.kuali.kfs.fp.document.CashReceiptDocument;
+
+import java.io.OutputStream;
 
 
 /**
@@ -44,9 +44,8 @@ public interface CashReceiptCoverSheetService {
      * to for the coversheet.
      * 
      * @param document The <code>{@link CashReceiptDocument}</code> the cover sheet is being generated for.
-     * @param searchPath A directory path used to identify the path to the template that will be used for creating this cover sheet.
-     * @param OutputStream The output stream that the printable cover sheet will be piped to.
+     * @param outputStream The output stream that the printable cover sheet will be piped to.
      * @exception Exception Thrown if there are any problems generating the cover sheet.
      */
-    public void generateCoverSheet(CashReceiptDocument document, String searchPath, OutputStream outputStream) throws Exception;
+    public void generateCoverSheet(CashReceiptDocument document, OutputStream outputStream) throws Exception;
 }

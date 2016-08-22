@@ -201,7 +201,7 @@ public class DisbursementVoucherAction extends KualiAccountingDocumentActionBase
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DisbursementVoucherCoverSheetService coverSheetService = SpringContext.getBean(DisbursementVoucherCoverSheetService.class);
 
-        coverSheetService.generateDisbursementVoucherCoverSheet(directory, DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_NM, document, baos);
+        coverSheetService.generateDisbursementVoucherCoverSheet(document, baos);
         String fileName = document.getDocumentNumber() + "_cover_sheet.pdf";
         WebUtils.saveMimeOutputStreamAsFile(response, "application/pdf", baos, fileName);
 
