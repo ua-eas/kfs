@@ -154,6 +154,8 @@ var Header = React.createClass({
                 </div>
         }
 
+        let actionListConnector = actionListLink && actionListLink.indexOf('?') !== -1 ? '&' : '?';
+
         return (
             <div>
                 <div className="navbar-header">
@@ -165,7 +167,7 @@ var Header = React.createClass({
                 <nav className="collapse navbar-collapse">
                     <ul className="nav navbar-nav pull-right">
                         <li>
-                            <a href={prefs.remoteViewUrl + '?url=' + escape(actionListLink + '?targetSpec=KFS:_top,*:_blank') + '&title=Action List'}>
+                            <a href={prefs.remoteViewUrl + '?url=' + escape(actionListLink + actionListConnector + 'targetSpec=KFS:_top,*:_blank') + '&title=Action List'}>
                                 <span className="glyphicon glyphicon-ok-sign"></span>Action List
                             </a>
                         </li>
