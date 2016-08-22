@@ -18,28 +18,29 @@
  */
 package org.kuali.kfs.fp.document.service.impl;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.AcroFields;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.PaymentReasonCode;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.PaymentDocumentationLocation;
 import org.kuali.kfs.sys.businessobject.options.PaymentMethodValuesFinder;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+import org.springframework.core.io.ClassPathResource;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfStamper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This is the default implementation of the DisbursementVoucherCoverSheetService interface.
@@ -54,14 +55,11 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
     /**
      * This method uses the values provided to build and populate a cover sheet associated with a given DisbursementVoucher.
      * 
-     * @param templateDirectory The directory where the cover sheet template can be found.
-     * @param templateName The name of the cover sheet template to be used to build the cover sheet.
      * @param document The DisbursementVoucher the cover sheet will be populated from.
      * @param outputStream The stream the cover sheet file will be written to.
-     * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#generateDisbursementVoucherCoverSheet(java.lang.String,
-     *      java.lang.String, org.kuali.kfs.fp.document.DisbursementVoucherDocument, java.io.OutputStream)
+     * @see org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService#generateDisbursementVoucherCoverSheet(org.kuali.kfs.fp.document.DisbursementVoucherDocument, java.io.OutputStream)
      */
-    public void generateDisbursementVoucherCoverSheet(String templateDirectory, String templateName, DisbursementVoucherDocument document, OutputStream outputStream) throws DocumentException, IOException {
+    public void generateDisbursementVoucherCoverSheet(DisbursementVoucherDocument document, OutputStream outputStream) throws DocumentException, IOException {
         if (this.isCoverSheetPrintable(document)) {
             String attachment = "";
             String handling = "";
@@ -109,7 +107,10 @@ public class DisbursementVoucherCoverSheetServiceImpl implements DisbursementVou
             }
 
             try {
-                PdfReader reader = new PdfReader(templateDirectory + templateName);
+                String templateName = DisbursementVoucherConstants.DV_COVER_SHEET_TEMPLATE_NM;
+                ClassPathResource classPathResource = new ClassPathResource(templateName);
+                InputStream templateInputStream = classPathResource.getInputStream();
+                PdfReader reader = new PdfReader(templateInputStream);
 
                 // populate form with document values
                 PdfStamper stamper = new PdfStamper(reader, outputStream);

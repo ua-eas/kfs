@@ -18,18 +18,18 @@
  */
 package org.kuali.kfs.fp.document;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Holds constants for disbursement voucher and payee documents.
@@ -250,7 +250,7 @@ public interface DisbursementVoucherConstants {
     public static final String DV_COVER_SHEET_TEMPLATE_ATTACHMENT_PARM_NM = "COVER_SHEET_TEMPLATE_ATTACHMENT";
     public static final String DV_COVER_SHEET_TEMPLATE_HANDLING_PARM_NM = "COVER_SHEET_TEMPLATE_HANDLING";
     public static final String DV_COVER_SHEET_TEMPLATE_BAR_PARM_NM = "COVER_SHEET_TEMPLATE_BAR";
-    public static final String DV_COVER_SHEET_TEMPLATE_NM = "disbursementVoucherCoverSheetTemplate.pdf";
+    public static final String DV_COVER_SHEET_TEMPLATE_NM = "/org/kuali/kfs/fp/document/disbursementVoucherCoverSheetTemplate.pdf";
 
     public static final String PAYMENT_REASON_CODE_ROYALTIES_PARM_NM = "PAYMENT_REASON_CODE_ROYALTIES";
     public static final String PAYMENT_REASON_CODE_RENTAL_PAYMENT_PARM_NM = "PAYMENT_REASON_CODE_RENTAL_PAYMENT";

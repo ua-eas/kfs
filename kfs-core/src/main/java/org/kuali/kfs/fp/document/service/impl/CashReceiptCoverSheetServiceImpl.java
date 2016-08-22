@@ -19,22 +19,6 @@
 
 package org.kuali.kfs.fp.document.service.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.fp.businessobject.Check;
-import org.kuali.kfs.fp.document.CashReceiptDocument;
-import org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Rectangle;
@@ -45,6 +29,21 @@ import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import com.lowagie.text.pdf.PdfWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.fp.businessobject.Check;
+import org.kuali.kfs.fp.document.CashReceiptDocument;
+import org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Implementation of service for handling creation of the cover sheet of the <code>{@link CashReceiptDocument}</code>
@@ -55,7 +54,7 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
     private DataDictionaryService dataDictionaryService;
     private DocumentHelperService documentHelperService;
 
-    public static final String CR_COVERSHEET_TEMPLATE_NM = "CashReceiptCoverSheetTemplate.pdf";
+    public static final String CR_COVERSHEET_TEMPLATE_NM = "/org/kuali/kfs/fp/document/CashReceiptCoverSheetTemplate.pdf";
 
     private static final float LEFT_MARGIN = 45;
     private static final float TOP_MARGIN = 45;
@@ -116,7 +115,6 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
      * @return True if the cover sheet is printable, false otherwise.
      *
      * @see org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService#isCoverSheetPrintingAllowed(org.kuali.kfs.fp.document.CashReceiptDocument)
-     * @see org.kuali.kfs.fp.document.validation.impl.CashReceiptDocumentRule#isCoverSheetPrintable(org.kuali.kfs.fp.document.CashReceiptFamilyBase)
      */
     @Override
     public boolean isCoverSheetPrintingAllowed(CashReceiptDocument crDoc) {
@@ -130,20 +128,19 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
      * to for the cover sheet.
      *
      * @param document The cash receipt document the cover sheet is for.
-     * @param searchPath The directory path to the template to be used to generate the cover sheet.
      * @param returnStream The output stream the cover sheet will be written to.
      * @exception DocumentException Thrown if the document provided is invalid, including null.
      * @exception IOException Thrown if there is a problem writing to the output stream.
-     * @see org.kuali.rice.kns.module.financial.service.CashReceiptCoverSheetServiceImpl#generateCoverSheet(
-     *      org.kuali.module.financial.documentCashReceiptDocument )
+     * @see org.kuali.kfs.fp.document.service.CashReceiptCoverSheetService#generateCoverSheet(
+     *      org.kuali.kfs.fp.document.CashReceiptDocument, OutputStream)
      */
     @Override
-    public void generateCoverSheet(CashReceiptDocument document, String searchPath, OutputStream returnStream) throws Exception {
+    public void generateCoverSheet(CashReceiptDocument document, OutputStream returnStream) throws Exception {
 
         if (isCoverSheetPrintingAllowed(document)) {
             ByteArrayOutputStream stamperStream = new ByteArrayOutputStream();
 
-            stampPdfFormValues(document, searchPath, stamperStream);
+            stampPdfFormValues(document, stamperStream);
 
             PdfReader reader = new PdfReader(stamperStream.toByteArray());
             Document pdfDoc = new Document(reader.getPageSize(FRONT_PAGE));
@@ -161,21 +158,16 @@ public class CashReceiptCoverSheetServiceImpl implements CashReceiptCoverSheetSe
      * values on a PDF Form Template.
      *
      * @param document The cash receipt document the values will be pulled from.
-     * @param searchPath The directory path of the template to be used to generate the cover sheet.
      * @param returnStream The output stream the cover sheet will be written to.
      */
-    protected void stampPdfFormValues(CashReceiptDocument document, String searchPath, OutputStream returnStream) throws Exception {
-        String templateName = CR_COVERSHEET_TEMPLATE_NM;
-
+    protected void stampPdfFormValues(CashReceiptDocument document, OutputStream returnStream) throws Exception {
         try {
-            // populate form with document values
+            String templateName = CR_COVERSHEET_TEMPLATE_NM;
+            ClassPathResource classPathResource = new ClassPathResource(templateName);
+            InputStream templateInputStream = classPathResource.getInputStream();
+            PdfReader reader = new PdfReader(templateInputStream);
 
-            //KFSMI-7303
-            //The PDF template is retrieved through web static URL rather than file path, so the File separator is unnecessary
-            final boolean isWebResourcePath = StringUtils.containsIgnoreCase(searchPath, "HTTP");
-
-            //skip the File.separator if reference by web resource
-            PdfStamper stamper = new PdfStamper(new PdfReader(searchPath + (isWebResourcePath? "" : File.separator) + templateName), returnStream);
+            PdfStamper stamper = new PdfStamper(reader, returnStream);
             AcroFields populatedCoverSheet = stamper.getAcroFields();
 
             populatedCoverSheet.setField(DOCUMENT_NUMBER_FIELD, document.getDocumentNumber());

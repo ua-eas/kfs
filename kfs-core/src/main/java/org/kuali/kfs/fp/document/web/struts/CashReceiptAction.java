@@ -96,8 +96,6 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
     public ActionForward printCoverSheet(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         CashReceiptForm crForm = (CashReceiptForm) form;
 
-        // get directory of tempate
-        String directory = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_HELP_URL_KEY);
 
         // retrieve document
         String documentNumber = request.getParameter(KFSPropertyConstants.DOCUMENT_NUMBER);
@@ -111,7 +109,7 @@ public class CashReceiptAction extends CapitalAccountingLinesActionBase {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         CashReceiptCoverSheetService coverSheetService = SpringContext.getBean(CashReceiptCoverSheetService.class);
-        coverSheetService.generateCoverSheet(document, directory, baos);
+        coverSheetService.generateCoverSheet(document, baos);
         String fileName = documentNumber + "_cover_sheet.pdf";
         WebUtils.saveMimeOutputStreamAsFile(response, "application/pdf", baos, fileName);
 
